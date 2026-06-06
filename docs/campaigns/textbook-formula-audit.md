@@ -75,21 +75,20 @@ the laws.
 not claim that any formula is globally right or wrong.
 
 **Active next work:** `TASK-0586` replayed the exact-reference route but
-blocked `RESULT-*` publication because the scoped Textbook `EXP-*` / `HYP-*`
-identities do not exist and fixture metadata still declares sandbox-only
-boundaries. `TASK-0587` kept Stellar M-L row curation blocked because Gaia
-model-derived mass fields are not admissible benchmark truth. Current work is
-to define scoped exact-reference identities and select an independent Stellar
-M-L mass-source artifact before any empirical metrics run. `TASK-0604` owns
-that source selection and selected DEBCat as the first-choice independent mass
-source; `TASK-0610` is now the candidate-admissibility gate. If DEBCat clears
-that gate, `TASK-0628` packages the source artifact before any row curation.
-`TASK-0611` defines the promotion gate for deciding whether Stellar M-L should
-become a standalone campaign.
+blocked `RESULT-*` publication until scoped Textbook `EXP-*` / `HYP-*`
+identities existed. `TASK-0603` supplied that identity boundary, so
+`TASK-0634` is now the low-risk Gate A publication path for a scoped
+software/convention `AGENT_PUBLISHED RESULT`. `TASK-0587` kept Stellar M-L row
+curation blocked because Gaia model-derived mass fields are not admissible
+benchmark truth. `TASK-0604` selected DEBCat as the first-choice independent
+mass source, and the landed `TASK-0610` source-path review lets `TASK-0628`
+package the DEBCat source artifact before any row curation. `TASK-0611`
+defines the promotion gate for deciding whether Stellar M-L should become a
+standalone campaign.
 
-**Expected next result:** a scoped exact-reference identity gate that enables
-or blocks a later software/convention `RESULT-*`, or an independent
-mass-source selection for the first Stellar M-L empirical row package.
+**Expected next result:** a scoped exact-reference `AGENT_PUBLISHED RESULT`
+that can be replayed through Gate B, or a DEBCat source artifact package that
+unblocks the first Stellar M-L empirical row package.
 
 ## Why It Matters
 

@@ -1,7 +1,7 @@
 id: TASK-0627
 title: "Curate Atomic Pizzocaro VLBI row aggregation and covariance gate"
 type: scientific_dataset
-status: READY
+status: DONE
 difficulty: high
 priority: high
 

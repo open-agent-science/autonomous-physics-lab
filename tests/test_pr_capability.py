@@ -27,9 +27,8 @@ def _write_gh_stub(bin_dir: Path, *, exit_code: int = 0) -> Path:
     stub.write_text(
         dedent(
             f"""\
-            #!{sys.executable}
-            import sys
-            sys.exit({exit_code})
+            #!/bin/sh
+            exit {exit_code}
             """
         ),
         encoding="utf-8",

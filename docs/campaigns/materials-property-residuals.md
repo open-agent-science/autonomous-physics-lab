@@ -56,22 +56,31 @@ claims?
 
 **Shareable result:** APL now has a first reusable-dataset candidate and first
 baseline evidence: `MD-0001`, a CC BY 4.0 Materials Project stable-binary-
-oxides pilot with 169 rows. Independent replay matched the benchmark metrics;
-formation energy shows the clearer composition-aware baseline advantage, while
-the band-gap cation-group signal is weak but survived the first null-control
-audit.
+oxides pilot with 169 computed-DFT rows. Independent replay matched the
+benchmark metrics exactly. Formation energy is the clearer diagnostic axis:
+`cation_group_mean` reaches holdout MAE `0.646030` eV/atom versus global-median
+MAE `0.967090` eV/atom, survives deterministic null controls, and is
+split-robust across seeded holdouts. Band gap is weaker: it survived the first
+null-control audit only at a modest, borderline level and the split-sensitivity
+audit found its baseline ordering split-fragile.
 
 **Not a claim:** `MD-0001` and the first benchmark are not material
-recommendations, material-design results, experimental measurements, or a
-new-law claim. The rows are computed DFT values only and do not support
-synthesis, device, biomedical, or material-design guidance.
+recommendations, material-design results, experimental measurements,
+predictions, or a new-law claim. The rows are computed DFT values only and do
+not support synthesis, device, biomedical, or material-design guidance.
+`TASK-0566` keeps the benchmark review-note-only: there is no promoted
+`RESULT-*`, claim, prediction registry entry, external dataset repository, or
+DOI.
 
-**Active next work:** `TASK-0614` should decide whether `MD-0001` formation
-energy routes to scoped result preflight, reusable-dataset publication package,
-`MD-0002` widening-first, or do-not-promote memory. `TASK-0616` recommended
-Materials as the second executable Research Factory adapter, formation-energy
-only; the next bounded sprint is `TASK-0626`. `TASK-0631` stays blocked until
-`TASK-0614` explicitly authorizes MD-0002 acquisition preflight.
+**Active next work:** `TASK-0626` ran the bounded formation-energy Research
+Factory smoke sprint and found no candidate that clears the frozen baseline
+plus controls. `TASK-0614` should now decide whether `MD-0001` routes to a
+dataset-publication package, `MD-0002` widening-first, scoped result preflight,
+or do-not-promote memory. If the gate authorizes `MD-0002`, the widening step
+should stay source-first and no-live-fetch until a maintainer-approved
+acquisition preflight pins source version, row cap, checksum, citation/reuse
+metadata, and holdout rules. `TASK-0631` stays blocked until that decision
+explicitly authorizes MD-0002 acquisition preflight.
 
 ## Admissible Source Classes
 

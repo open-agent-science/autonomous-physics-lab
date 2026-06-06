@@ -49,12 +49,13 @@ value-bearing Yb/Sr row or whether the campaign should preserve a precise
 blocker instead of running constants-drift or mixed-axis metrics.
 
 **Expected next result:** the Pizzocaro ledger identified Figure 2a VLBI
-time-series as the best row-of-record surface, but benchmark ingestion remains
-blocked until aggregation and covariance semantics are frozen. `TASK-0627` is
-the next gate: add at most a sandbox-flagged row/curation artifact if the VLBI
-surface is admissible, or preserve a precise blocker. `TASK-0606` also selected
-Lange/PTB Yb+ E3/Cs as a fallback candidate, still blocked on exact artifact
-locator and reuse review.
+time-series as the best row-of-record surface, but `TASK-0627` preserved the
+benchmark blocker: the campaign windows share systematics and cannot yet be
+collapsed into a single defensible row. The next Atomic output is a
+machine-readable per-window diagnostic ledger (`TASK-0636`) that keeps the
+VLBI surface useful while preserving `COV_BLOCKED_SHARED_SYSTEMATICS`.
+`TASK-0606` also selected Lange/PTB Yb+ E3/Cs as a fallback candidate, still
+blocked on exact artifact locator and reuse review.
 
 `TASK-0311` adds:
 

@@ -1,0 +1,661 @@
+{
+  "task_id": "TASK-0626",
+  "agent_run_id": "AGENT-RUN-0069",
+  "dataset": {
+    "dataset_id": "MD-0001-materials-project-formation-energy",
+    "path": "data/materials/md-0001-materials-project-formation-energy.yaml",
+    "axis": "formation_energy_per_atom",
+    "row_count": 169,
+    "split_counts": {
+      "train": 119,
+      "validation": 17,
+      "holdout": 33
+    }
+  },
+  "input_references": {
+    "config": "examples/benchmarks/materials_md0001_baseline.yaml",
+    "baseline_review": "docs/reviews/materials-md0001-baseline-residual-benchmark.md",
+    "null_control_review": "docs/reviews/materials-md0001-formation-energy-null-control-audit.md",
+    "split_sensitivity_review": "docs/reviews/materials-md0001-split-sensitivity-audit.md",
+    "adapter_fit_review": "docs/reviews/materials-research-factory-adapter-fit-review.md"
+  },
+  "factory_contract": {
+    "candidate_cap": 12,
+    "executed_candidate_count": 4,
+    "target_axis": "formation_energy_per_atom",
+    "excluded_axis": "band_gap",
+    "baseline_id": "cation_group_mean",
+    "survival_margin_ev_per_atom": 0.05,
+    "complexity_penalty_ev_per_parameter": 0.01,
+    "live_external_fetch": false
+  },
+  "baseline": {
+    "train": {
+      "count": 119,
+      "mae": 0.578137,
+      "rmse": 0.785628,
+      "median_abs_residual": 0.385731,
+      "p90_abs_residual": 1.408865,
+      "max_abs_residual": 2.186765
+    },
+    "validation": {
+      "count": 17,
+      "mae": 0.664637,
+      "rmse": 0.824567,
+      "median_abs_residual": 0.554277,
+      "p90_abs_residual": 1.370847,
+      "max_abs_residual": 1.587566
+    },
+    "holdout": {
+      "count": 33,
+      "mae": 0.64603,
+      "rmse": 0.842409,
+      "median_abs_residual": 0.556363,
+      "p90_abs_residual": 1.432223,
+      "max_abs_residual": 1.910418
+    },
+    "full_md0001_axis": {
+      "count": 169,
+      "mae": 0.600096,
+      "rmse": 0.80098,
+      "median_abs_residual": 0.445538,
+      "p90_abs_residual": 1.44376,
+      "max_abs_residual": 2.186765
+    }
+  },
+  "candidates": {
+    "cation_group_residual_offsets": {
+      "label_counts": {
+        "alkali_or_alkaline_earth": 26,
+        "metalloid_or_p_block": 26,
+        "mixed_or_ambiguous": 13,
+        "post_transition_metal": 15,
+        "rare_earth_or_lanthanoid": 21,
+        "transition_metal": 68
+      },
+      "parameter_count": 6,
+      "complexity_penalty_ev_per_atom": 0.06,
+      "training_offsets_ev_per_atom": {
+        "alkali_or_alkaline_earth": 0.0,
+        "metalloid_or_p_block": 0.0,
+        "mixed_or_ambiguous": -0.0,
+        "post_transition_metal": -0.0,
+        "rare_earth_or_lanthanoid": -0.0,
+        "transition_metal": 0.0
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.578137,
+          "rmse": 0.785628,
+          "median_abs_residual": 0.385731,
+          "p90_abs_residual": 1.408865,
+          "max_abs_residual": 2.186765
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.664637,
+          "rmse": 0.824567,
+          "median_abs_residual": 0.554277,
+          "p90_abs_residual": 1.370847,
+          "max_abs_residual": 1.587566
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.64603,
+          "rmse": 0.842409,
+          "median_abs_residual": 0.556363,
+          "p90_abs_residual": 1.432223,
+          "max_abs_residual": 1.910418
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.600096,
+          "rmse": 0.80098,
+          "median_abs_residual": 0.445538,
+          "p90_abs_residual": 1.44376,
+          "max_abs_residual": 2.186765
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.0,
+        "validation": 0.0,
+        "holdout": 0.0,
+        "full_md0001_axis": 0.0
+      },
+      "penalized_holdout_improvement": -0.06,
+      "verdict": "negative"
+    },
+    "formula_family_residual_offsets": {
+      "label_counts": {
+        "dioxide": 44,
+        "intermediate_oxide": 13,
+        "monoxide": 26,
+        "oxygen_poor": 19,
+        "oxygen_rich": 32,
+        "sesquioxide": 35
+      },
+      "parameter_count": 6,
+      "complexity_penalty_ev_per_atom": 0.06,
+      "training_offsets_ev_per_atom": {
+        "dioxide": -0.152233,
+        "intermediate_oxide": 0.372465,
+        "monoxide": 0.133412,
+        "oxygen_poor": 0.670166,
+        "oxygen_rich": 0.059181,
+        "sesquioxide": -0.438378
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.530065,
+          "rmse": 0.716237,
+          "median_abs_residual": 0.367514,
+          "p90_abs_residual": 1.329085,
+          "max_abs_residual": 1.964378
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.681469,
+          "rmse": 0.831253,
+          "median_abs_residual": 0.480294,
+          "p90_abs_residual": 1.203889,
+          "max_abs_residual": 1.701715
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.713987,
+          "rmse": 0.89977,
+          "median_abs_residual": 0.547007,
+          "p90_abs_residual": 1.752337,
+          "max_abs_residual": 1.883725
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.581209,
+          "rmse": 0.767341,
+          "median_abs_residual": 0.445003,
+          "p90_abs_residual": 1.392177,
+          "max_abs_residual": 1.964378
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.048072,
+        "validation": -0.016832,
+        "holdout": -0.067957,
+        "full_md0001_axis": 0.018887
+      },
+      "penalized_holdout_improvement": -0.127957,
+      "verdict": "negative"
+    },
+    "oxygen_stoichiometry_residual_offsets": {
+      "label_counts": {
+        "oxygen_high": 79,
+        "oxygen_low": 46,
+        "oxygen_mid": 44
+      },
+      "parameter_count": 3,
+      "complexity_penalty_ev_per_atom": 0.03,
+      "training_offsets_ev_per_atom": {
+        "oxygen_high": -0.073591,
+        "oxygen_low": 0.348114,
+        "oxygen_mid": -0.203385
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.5344,
+          "rmse": 0.75733,
+          "median_abs_residual": 0.323446,
+          "p90_abs_residual": 1.353499,
+          "max_abs_residual": 2.146812
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.707842,
+          "rmse": 0.895105,
+          "median_abs_residual": 0.715898,
+          "p90_abs_residual": 1.328828,
+          "max_abs_residual": 1.916416
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.648615,
+          "rmse": 0.844531,
+          "median_abs_residual": 0.625649,
+          "p90_abs_residual": 1.526321,
+          "max_abs_residual": 1.943649
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.574149,
+          "rmse": 0.789763,
+          "median_abs_residual": 0.411242,
+          "p90_abs_residual": 1.356251,
+          "max_abs_residual": 2.146812
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.043737,
+        "validation": -0.043205,
+        "holdout": -0.002585,
+        "full_md0001_axis": 0.025947
+      },
+      "penalized_holdout_improvement": -0.032585,
+      "verdict": "negative"
+    },
+    "formula_family_x_cation_group_offsets": {
+      "label_counts": {
+        "dioxide__alkali_or_alkaline_earth": 7,
+        "dioxide__metalloid_or_p_block": 9,
+        "dioxide__mixed_or_ambiguous": 5,
+        "dioxide__post_transition_metal": 3,
+        "dioxide__rare_earth_or_lanthanoid": 2,
+        "dioxide__transition_metal": 18,
+        "intermediate_oxide__mixed_or_ambiguous": 1,
+        "intermediate_oxide__post_transition_metal": 3,
+        "intermediate_oxide__rare_earth_or_lanthanoid": 2,
+        "intermediate_oxide__transition_metal": 7,
+        "monoxide__alkali_or_alkaline_earth": 10,
+        "monoxide__post_transition_metal": 2,
+        "monoxide__rare_earth_or_lanthanoid": 2,
+        "monoxide__transition_metal": 12,
+        "oxygen_poor__alkali_or_alkaline_earth": 7,
+        "oxygen_poor__metalloid_or_p_block": 2,
+        "oxygen_poor__mixed_or_ambiguous": 1,
+        "oxygen_poor__post_transition_metal": 2,
+        "oxygen_poor__transition_metal": 7,
+        "oxygen_rich__alkali_or_alkaline_earth": 2,
+        "oxygen_rich__metalloid_or_p_block": 11,
+        "oxygen_rich__mixed_or_ambiguous": 4,
+        "oxygen_rich__transition_metal": 15,
+        "sesquioxide__metalloid_or_p_block": 4,
+        "sesquioxide__mixed_or_ambiguous": 2,
+        "sesquioxide__post_transition_metal": 5,
+        "sesquioxide__rare_earth_or_lanthanoid": 15,
+        "sesquioxide__transition_metal": 9
+      },
+      "parameter_count": 28,
+      "complexity_penalty_ev_per_atom": 0.28,
+      "training_offsets_ev_per_atom": {
+        "dioxide__alkali_or_alkaline_earth": -0.088336,
+        "dioxide__metalloid_or_p_block": -0.143715,
+        "dioxide__mixed_or_ambiguous": -0.380258,
+        "dioxide__post_transition_metal": 0.032072,
+        "dioxide__rare_earth_or_lanthanoid": 0.247671,
+        "dioxide__transition_metal": -0.189934,
+        "intermediate_oxide__mixed_or_ambiguous": -0.175642,
+        "intermediate_oxide__post_transition_metal": 0.146278,
+        "intermediate_oxide__rare_earth_or_lanthanoid": -0.146268,
+        "intermediate_oxide__transition_metal": 0.780054,
+        "monoxide__alkali_or_alkaline_earth": -0.474981,
+        "monoxide__post_transition_metal": 0.104533,
+        "monoxide__rare_earth_or_lanthanoid": 0.558857,
+        "monoxide__transition_metal": 0.776191,
+        "oxygen_poor__alkali_or_alkaline_earth": 0.433438,
+        "oxygen_poor__metalloid_or_p_block": 0.773153,
+        "oxygen_poor__mixed_or_ambiguous": 2.186765,
+        "oxygen_poor__post_transition_metal": 0.781046,
+        "oxygen_poor__transition_metal": 0.450932,
+        "oxygen_rich__alkali_or_alkaline_earth": 0.993001,
+        "oxygen_rich__metalloid_or_p_block": 0.207497,
+        "oxygen_rich__mixed_or_ambiguous": 0.053689,
+        "oxygen_rich__transition_metal": -0.261861,
+        "sesquioxide__metalloid_or_p_block": -1.219631,
+        "sesquioxide__mixed_or_ambiguous": -0.2709,
+        "sesquioxide__post_transition_metal": -0.431986,
+        "sesquioxide__rare_earth_or_lanthanoid": -0.084629,
+        "sesquioxide__transition_metal": -0.810083
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.429265,
+          "rmse": 0.60947,
+          "median_abs_residual": 0.270606,
+          "p90_abs_residual": 1.058474,
+          "max_abs_residual": 1.926677
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.65896,
+          "rmse": 0.802818,
+          "median_abs_residual": 0.66389,
+          "p90_abs_residual": 1.110647,
+          "max_abs_residual": 1.780947
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.77222,
+          "rmse": 1.022037,
+          "median_abs_residual": 0.610903,
+          "p90_abs_residual": 1.650241,
+          "max_abs_residual": 2.599361
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.519338,
+          "rmse": 0.728256,
+          "median_abs_residual": 0.346695,
+          "p90_abs_residual": 1.173667,
+          "max_abs_residual": 2.599361
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.148872,
+        "validation": 0.005677,
+        "holdout": -0.12619,
+        "full_md0001_axis": 0.080758
+      },
+      "penalized_holdout_improvement": -0.40619,
+      "verdict": "negative"
+    }
+  },
+  "controls": {
+    "label_shuffle_control": {
+      "label_counts": {
+        "dioxide__alkali_or_alkaline_earth": 7,
+        "dioxide__metalloid_or_p_block": 9,
+        "dioxide__mixed_or_ambiguous": 5,
+        "dioxide__post_transition_metal": 3,
+        "dioxide__rare_earth_or_lanthanoid": 2,
+        "dioxide__transition_metal": 18,
+        "intermediate_oxide__mixed_or_ambiguous": 1,
+        "intermediate_oxide__post_transition_metal": 3,
+        "intermediate_oxide__rare_earth_or_lanthanoid": 2,
+        "intermediate_oxide__transition_metal": 7,
+        "monoxide__alkali_or_alkaline_earth": 10,
+        "monoxide__post_transition_metal": 2,
+        "monoxide__rare_earth_or_lanthanoid": 2,
+        "monoxide__transition_metal": 12,
+        "oxygen_poor__alkali_or_alkaline_earth": 7,
+        "oxygen_poor__metalloid_or_p_block": 2,
+        "oxygen_poor__mixed_or_ambiguous": 1,
+        "oxygen_poor__post_transition_metal": 2,
+        "oxygen_poor__transition_metal": 7,
+        "oxygen_rich__alkali_or_alkaline_earth": 2,
+        "oxygen_rich__metalloid_or_p_block": 11,
+        "oxygen_rich__mixed_or_ambiguous": 4,
+        "oxygen_rich__transition_metal": 15,
+        "sesquioxide__metalloid_or_p_block": 4,
+        "sesquioxide__mixed_or_ambiguous": 2,
+        "sesquioxide__post_transition_metal": 5,
+        "sesquioxide__rare_earth_or_lanthanoid": 15,
+        "sesquioxide__transition_metal": 9
+      },
+      "parameter_count": 26,
+      "complexity_penalty_ev_per_atom": 0.26,
+      "training_offsets_ev_per_atom": {
+        "dioxide__alkali_or_alkaline_earth": 0.451846,
+        "dioxide__metalloid_or_p_block": -0.398018,
+        "dioxide__mixed_or_ambiguous": 0.16298,
+        "dioxide__post_transition_metal": -1.219631,
+        "dioxide__rare_earth_or_lanthanoid": 2.186765,
+        "dioxide__transition_metal": -0.078714,
+        "intermediate_oxide__mixed_or_ambiguous": 0.849441,
+        "intermediate_oxide__post_transition_metal": 0.526502,
+        "intermediate_oxide__transition_metal": 0.139023,
+        "monoxide__alkali_or_alkaline_earth": -0.087266,
+        "monoxide__post_transition_metal": -0.713133,
+        "monoxide__rare_earth_or_lanthanoid": -0.162339,
+        "monoxide__transition_metal": 0.127292,
+        "oxygen_poor__alkali_or_alkaline_earth": -0.051736,
+        "oxygen_poor__metalloid_or_p_block": 0.35704,
+        "oxygen_poor__mixed_or_ambiguous": 0.721813,
+        "oxygen_poor__post_transition_metal": 1.460628,
+        "oxygen_poor__transition_metal": -0.177783,
+        "oxygen_rich__metalloid_or_p_block": 0.293094,
+        "oxygen_rich__mixed_or_ambiguous": -0.373489,
+        "oxygen_rich__transition_metal": -0.159181,
+        "sesquioxide__metalloid_or_p_block": -0.028619,
+        "sesquioxide__mixed_or_ambiguous": 0.467875,
+        "sesquioxide__post_transition_metal": -0.12937,
+        "sesquioxide__rare_earth_or_lanthanoid": -0.220677,
+        "sesquioxide__transition_metal": -0.166273
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.518449,
+          "rmse": 0.693368,
+          "median_abs_residual": 0.394069,
+          "p90_abs_residual": 1.074246,
+          "max_abs_residual": 1.950338
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.652827,
+          "rmse": 0.76765,
+          "median_abs_residual": 0.547751,
+          "p90_abs_residual": 1.199158,
+          "max_abs_residual": 1.405483
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.645368,
+          "rmse": 0.845507,
+          "median_abs_residual": 0.534658,
+          "p90_abs_residual": 1.411247,
+          "max_abs_residual": 2.203512
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.55675,
+          "rmse": 0.73307,
+          "median_abs_residual": 0.428066,
+          "p90_abs_residual": 1.18586,
+          "max_abs_residual": 2.203512
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.059688,
+        "validation": 0.01181,
+        "holdout": 0.000662,
+        "full_md0001_axis": 0.043346
+      },
+      "penalized_holdout_improvement": -0.259338,
+      "verdict": "diagnostic_only"
+    },
+    "cation_group_shuffle_control": {
+      "label_counts": {
+        "alkali_or_alkaline_earth": 26,
+        "metalloid_or_p_block": 26,
+        "mixed_or_ambiguous": 13,
+        "post_transition_metal": 15,
+        "rare_earth_or_lanthanoid": 21,
+        "transition_metal": 68
+      },
+      "parameter_count": 6,
+      "complexity_penalty_ev_per_atom": 0.06,
+      "training_offsets_ev_per_atom": {
+        "alkali_or_alkaline_earth": -0.079863,
+        "metalloid_or_p_block": -0.00487,
+        "mixed_or_ambiguous": 0.200289,
+        "post_transition_metal": -0.297022,
+        "rare_earth_or_lanthanoid": -0.008192,
+        "transition_metal": 0.082864
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.571718,
+          "rmse": 0.775632,
+          "median_abs_residual": 0.427017,
+          "p90_abs_residual": 1.403127,
+          "max_abs_residual": 2.199475
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.669824,
+          "rmse": 0.821229,
+          "median_abs_residual": 0.547424,
+          "p90_abs_residual": 1.365296,
+          "max_abs_residual": 1.651167
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.657392,
+          "rmse": 0.849673,
+          "median_abs_residual": 0.49313,
+          "p90_abs_residual": 1.539481,
+          "max_abs_residual": 1.905548
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.598316,
+          "rmse": 0.795253,
+          "median_abs_residual": 0.467377,
+          "p90_abs_residual": 1.464732,
+          "max_abs_residual": 2.199475
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.006419,
+        "validation": -0.005187,
+        "holdout": -0.011362,
+        "full_md0001_axis": 0.00178
+      },
+      "penalized_holdout_improvement": -0.071362,
+      "verdict": "negative"
+    },
+    "matched_random_formula_family_control": {
+      "label_counts": {
+        "dioxide": 44,
+        "intermediate_oxide": 13,
+        "monoxide": 26,
+        "oxygen_poor": 19,
+        "oxygen_rich": 32,
+        "sesquioxide": 35
+      },
+      "parameter_count": 6,
+      "complexity_penalty_ev_per_atom": 0.06,
+      "training_offsets_ev_per_atom": {
+        "dioxide": -0.103443,
+        "intermediate_oxide": -0.0765,
+        "monoxide": 0.197912,
+        "oxygen_poor": -0.020868,
+        "oxygen_rich": -0.053901,
+        "sesquioxide": 0.127487
+      },
+      "corrected": {
+        "train": {
+          "count": 119,
+          "mae": 0.569161,
+          "rmse": 0.777938,
+          "median_abs_residual": 0.411163,
+          "p90_abs_residual": 1.341204,
+          "max_abs_residual": 2.240666
+        },
+        "validation": {
+          "count": 17,
+          "mae": 0.701016,
+          "rmse": 0.827308,
+          "median_abs_residual": 0.525123,
+          "p90_abs_residual": 1.331728,
+          "max_abs_residual": 1.46486
+        },
+        "holdout": {
+          "count": 33,
+          "mae": 0.658465,
+          "rmse": 0.848369,
+          "median_abs_residual": 0.555929,
+          "p90_abs_residual": 1.384051,
+          "max_abs_residual": 2.10833
+        },
+        "full_md0001_axis": {
+          "count": 169,
+          "mae": 0.599862,
+          "rmse": 0.797199,
+          "median_abs_residual": 0.44515,
+          "p90_abs_residual": 1.355002,
+          "max_abs_residual": 2.240666
+        }
+      },
+      "improvement_vs_baseline_mae": {
+        "train": 0.008976,
+        "validation": -0.036379,
+        "holdout": -0.012435,
+        "full_md0001_axis": 0.000234
+      },
+      "penalized_holdout_improvement": -0.072435,
+      "verdict": "negative"
+    }
+  },
+  "split_sensitivity": {
+    "cation_group_residual_offsets": {
+      "seeded_random_70_30_holdout_improvements": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "positive_seed_count": 0,
+      "stable_positive": false
+    },
+    "formula_family_residual_offsets": {
+      "seeded_random_70_30_holdout_improvements": [
+        0.105903,
+        0.050605,
+        0.017245,
+        -0.008947,
+        -0.006544
+      ],
+      "positive_seed_count": 3,
+      "stable_positive": false
+    },
+    "oxygen_stoichiometry_residual_offsets": {
+      "seeded_random_70_30_holdout_improvements": [
+        0.058122,
+        0.028323,
+        0.022302,
+        0.005221,
+        0.039701
+      ],
+      "positive_seed_count": 5,
+      "stable_positive": true
+    },
+    "formula_family_x_cation_group_offsets": {
+      "seeded_random_70_30_holdout_improvements": [
+        0.094536,
+        0.022756,
+        -0.075517,
+        -0.049483,
+        0.050234
+      ],
+      "positive_seed_count": 3,
+      "stable_positive": false
+    }
+  },
+  "outcome": {
+    "classification": "NEGATIVE",
+    "best_candidate_id": "oxygen_stoichiometry_residual_offsets",
+    "best_control_id": "cation_group_shuffle_control",
+    "candidate_minus_best_control_penalized_holdout_improvement": 0.038777,
+    "best_candidate_holdout_improvement": -0.002585,
+    "best_candidate_penalized_holdout_improvement": -0.032585,
+    "best_candidate_split_stable_positive": true,
+    "interpretation": "No candidate clears the frozen baseline plus controls in this smoke sprint."
+  },
+  "limitations": [
+    "Computed-DFT stable binary oxides only; no experimental formation energies.",
+    "Formation energy only; band-gap rows and residuals are not loaded or pooled.",
+    "Small MD-0001 holdout; smoke-sprint outputs are diagnostic-only.",
+    "No live Materials Project fetch, row addition, prediction, claim, knowledge, or result promotion."
+  ],
+  "output_routing": {
+    "task_verdict": "NEGATIVE",
+    "canonical_destination": [
+      "agent_runs/AGENT-RUN-0069/metrics.json",
+      "agent_runs/AGENT-RUN-0069/report.md",
+      "docs/reviews/materials-md0001-formation-energy-factory-smoke-sprint.md"
+    ],
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "result_impact": "no RESULT artifact created",
+    "publication_blocker": "diagnostic-only factory smoke sprint; no canonical result promotion in task scope"
+  }
+}
