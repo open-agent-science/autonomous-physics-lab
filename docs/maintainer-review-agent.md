@@ -155,6 +155,19 @@ case where the maintainer wants every task validation command re-run locally:
 python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX --validation-mode strict
 ```
 
+### Clean PR Worktree Review
+
+For PR-number reviews, the helper prefers the caller checkout only when it is
+already on the clean PR branch. If the caller is on another branch, detached, or
+dirty, it loads `headRefName` and `headRefOid` from GitHub, fetches the PR head,
+and reviews from a generated detached worktree under `.worktrees/_reviews/`.
+This keeps maintainer review from inheriting stale local branches, generated
+view noise, or unrelated uncommitted files from the session checkout.
+
+If GitHub metadata, fetch, or worktree creation is unavailable, the helper
+returns a blocker with explicit maintainer-run fallback commands instead of
+silently reviewing the wrong local checkout.
+
 ### Advisory Quality Score
 
 The deterministic review output includes a compact `Quality: X/10` line for
