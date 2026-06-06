@@ -1,0 +1,52 @@
+proposal_id: 20260606-roman-fix-occupancy-false-positive
+title: Fix task occupancy false positive from TASK-QUEUE creation PRs
+status: ACCEPTED
+type: maintainer_workflow
+priority: high
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- 'Keep the agent entrypoint honest: genuinely READY science tasks must stay visible after
+  TASK-QUEUE waves.'
+- Reduce duplicate-work risk without hiding genuinely available high-priority work.
+- Match occupancy detection to the canonical branch and title conventions in docs/agent-task-protocol.md.
+summary: Fix the live task-availability classifier so a merged TASK-QUEUE (or TASK-PROPOSAL)
+  PR that seeds tasks no longer marks those newly created READY tasks as occupied or merged-pending-closeout.
+rationale: physics_lab/registry/task_occupancy.py scans every PR title, body, and headRefName
+  for a TASK-id and marks any id found in a merged PR as merged_pending_closeout. TASK-QUEUE
+  PRs list every seeded task id in their body, so on merge they hide the very tasks they created.
+  This systematically conceals the high-priority READY science pool (TASK-0631 through TASK-0661
+  were all hidden) from apl_mission.py onboarding and agent output after each queue wave.
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+  - physics_lab/registry/task_occupancy.py
+  - physics_lab/registry/mission_control.py
+  - tests/test_mission_control.py
+  - scripts/apl_mission.py
+  - docs/agent-task-protocol.md
+  planning_context: 'Confirmed in code: classify_task_pr_occupancy() treats body-only mentions
+    in creation PRs as occupancy. Verified TASK-0635/0640/0641/0657 had no implementation
+    PR and no open claim yet were excluded. The fix should distinguish implementation PRs
+    (branch task-<number>-<slug> or title starting TASK-XXXX:) from task-creation/reference
+    PRs (TASK-QUEUE: / TASK-PROPOSAL:, branches task-queue-... / propose-task-...).'
+requirements:
+- Do not mark a task occupied or merged-pending-closeout based only on a body mention in a
+  TASK-QUEUE or TASK-PROPOSAL PR.
+- Count a PR as occupying TASK-XXXX only when it is that task's implementation PR (branch
+  matches task-<number>- or title starts with TASK-XXXX:).
+- Preserve detection of genuine open and merged implementation PRs and open task-claim issues.
+- 'Add a regression test: a merged queue-PR body listing several task ids must leave all those
+  tasks apparently_free.'
+- 'Keep the classifier advisory and minimal: no new network calls and no schema changes.'
+accepted_outputs:
+- canonical task spec for the occupancy fix
+- code fix in physics_lab/registry/task_occupancy.py (and caller if needed) with a regression
+  test
+promotion:
+  canonical_task_id: TASK-0662
+  decision: accepted
+  notes: Accepted by maintainer; implemented in the TASK-0662 PR (task_occupancy.py classifier
+    fix plus tests/test_task_occupancy.py regression coverage).
