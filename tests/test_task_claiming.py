@@ -75,6 +75,24 @@ def test_task_pr_occupancy_open_pr_takes_precedence_over_merged() -> None:
     )
 
 
+def test_task_pr_occupancy_normalizes_requested_task_ids() -> None:
+    records = [
+        {
+            "number": 30,
+            "state": "OPEN",
+            "title": "TASK-0617 lower-case request check",
+            "body": "",
+            "headRefName": "",
+        },
+    ]
+
+    result = classify_task_pr_occupancy(("task-0617", ""), records)[0]
+
+    assert result.task_id == "TASK-0617"
+    assert result.classification == "occupied"
+    assert result.reasons == ("open PR #30",)
+
+
 def test_task_occupancy_check_is_advisory_on_proxy_blocker(tmp_path: Path) -> None:
     report = check_task_occupancy(
         tmp_path,

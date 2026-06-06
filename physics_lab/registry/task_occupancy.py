@@ -47,7 +47,13 @@ def classify_task_pr_occupancy(
     headRefName for task ids and leaves final routing to the maintainer.
     """
 
-    normalized_task_ids = tuple(dict.fromkeys(str(task_id).strip() for task_id in task_ids))
+    normalized_task_ids = tuple(
+        dict.fromkeys(
+            task_id
+            for task_id in (str(raw_task_id).strip().upper() for raw_task_id in task_ids)
+            if task_id
+        )
+    )
     reasons: dict[str, list[str]] = {task_id: [] for task_id in normalized_task_ids}
     classifications: dict[str, str] = {
         task_id: "apparently_free" for task_id in normalized_task_ids
