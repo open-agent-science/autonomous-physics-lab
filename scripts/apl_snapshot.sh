@@ -110,6 +110,41 @@ print(render_current_state_summary(root))
 PY
   echo '```'
 
+  section "Current Strategy And Mission Sources"
+
+  echo ""
+  echo "These are the authoritative strategy and campaign-routing sources for"
+  echo "strategy agents, Scientific Campaign Director reviews, and architecture"
+  echo "planning. They are included in full because generated summaries can lag"
+  echo "or omit nuance from the source files."
+  echo ""
+
+  for f in \
+    docs/strategy.md \
+    docs/status.md \
+    docs/current-missions.md \
+    missions/current.yaml \
+    campaign_profiles/README.md \
+    campaign_profiles/_catalog.yaml \
+    docs/campaign-registry.md \
+    docs/campaign-maturity-states.md \
+    docs/campaign-curator-protocol.md \
+    docs/scientific-campaign-curator.md \
+    docs/campaign-output-scorecard.md \
+    docs/fresh-data-readiness-matrix.md \
+    docs/research-factory-protocol.md \
+    docs/research-factory-adapter-contract.md \
+    docs/public-release-gates.md \
+    docs/repository-map.md
+  do
+    file_block "$f" 260
+  done
+
+  for f in campaign_profiles/*.yaml
+  do
+    file_block "$f" 220
+  done
+
   section "Git State"
 
   cmd_block "Current branch" git branch --show-current
@@ -235,6 +270,87 @@ if len(agent_run_paths) > 20:
 PY
   echo '```'
 
+  section "Architecture Directory Structure"
+
+  echo ""
+  echo "Compact architecture-oriented tree. This intentionally excludes local,"
+  echo "generated, cache, and archive-heavy directories so strategy agents can"
+  echo "see the current repository shape without treating volatile snapshots as"
+  echo "canonical structure."
+  echo ""
+  echo '```text'
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+
+EXCLUDE_DIRS = {
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    ".worktrees",
+    "_snapshots",
+    "__pycache__",
+    "htmlcov",
+    "node_modules",
+}
+ROOT_FOCUS_DIRS = {
+    ".github",
+    "agents",
+    "agent_runs",
+    "campaign_profiles",
+    "data",
+    "docs",
+    "experiments",
+    "hypotheses",
+    "prediction_registry",
+    "results",
+    "physics_lab",
+    "scripts",
+    "tasks",
+    "tests",
+}
+MAX_DEPTH = 3
+MAX_CHILDREN = 18
+
+
+def visible_children(path: Path) -> list[Path]:
+    children = [
+        child
+        for child in sorted(path.iterdir(), key=lambda item: (item.is_file(), item.name.lower()))
+        if child.name not in EXCLUDE_DIRS and not child.name.startswith(".DS_Store")
+    ]
+    return children
+
+
+def tree(path: Path, *, depth: int = 0) -> None:
+    if depth > MAX_DEPTH:
+        return
+    children = visible_children(path)
+    if path == Path("."):
+        children = [child for child in children if child.name in ROOT_FOCUS_DIRS or child.is_file()]
+    shown = children[:MAX_CHILDREN]
+    for child in shown:
+        prefix = "  " * depth + "- "
+        if child.is_dir():
+            file_count = sum(
+                1
+                for nested in child.rglob("*")
+                if nested.is_file() and not any(part in EXCLUDE_DIRS for part in nested.parts)
+            )
+            print(f"{prefix}{child.as_posix()}/ ({file_count} files)")
+            tree(child, depth=depth + 1)
+        else:
+            print(f"{prefix}{child.as_posix()}")
+    omitted = len(children) - len(shown)
+    if omitted > 0:
+        print("  " * depth + f"- ... {omitted} more entries omitted")
+
+
+tree(Path("."))
+PY
+  echo '```'
+
   section "Top-Level Project Files"
 
   for f in \
@@ -253,8 +369,11 @@ PY
 
   for f in \
     docs/architecture.md \
+    docs/architecture-index.md \
+    docs/architecture-layers.md \
     docs/agent-operating-model.md \
     docs/agent-task-protocol.md \
+    docs/task-proposal-protocol.md \
     docs/maintainer-review-agent.md \
     docs/review-checklists/task-closeout-checklist.md \
     docs/result-promotion-protocol.md \
