@@ -268,16 +268,25 @@ def _make_stub_claude_bin(
         )
     else:
         stub = bin_dir / "claude"
-        stub.write_text(
+        stub_script = bin_dir / "claude_stub.py"
+        stub_script.write_text(
             dedent(
                 f"""\
-                #!{sys.executable}
                 import sys
 
                 sys.stdout.write({stdout_text!r})
                 if not {stdout_text!r}.endswith("\\n"):
                     sys.stdout.write("\\n")
                 sys.exit({exit_code})
+                """
+            ),
+            encoding="utf-8",
+        )
+        stub.write_text(
+            dedent(
+                f"""\
+                #!/bin/sh
+                exec "{sys.executable}" "{stub_script}"
                 """
             ),
             encoding="utf-8",
