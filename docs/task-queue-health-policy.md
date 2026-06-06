@@ -11,9 +11,9 @@ task ids.
 
 The target pool is:
 
-- minimum: 8 independent READY science tasks;
-- preferred during public/open-agent onboarding: 15 READY science tasks;
-- campaign/surface coverage: at least 4 active scientific surfaces when
+- minimum: 12 independent READY science tasks;
+- preferred during public/open-agent onboarding: 24 READY science tasks;
+- campaign/surface coverage: at least 5 active scientific surfaces when
   possible.
 - concentration guard: no single campaign/surface should hold more than about
   40% of READY science tasks.
