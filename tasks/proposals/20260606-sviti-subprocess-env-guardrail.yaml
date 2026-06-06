@@ -1,0 +1,69 @@
+proposal_id: 20260606-sviti-subprocess-env-guardrail
+title: "Add a subprocess environment guardrail for tests and helpers"
+status: PROPOSED
+type: developer_infrastructure
+priority: medium
+
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+
+strategy_alignment:
+  - "Prevent CI-only failures caused by tests accidentally erasing Python dependency environment."
+  - "Keep helper tests portable across local Windows worktrees and Linux CI."
+  - "Turn a repeated agent-time loss into a small deterministic guardrail."
+
+summary: >
+  Add a test/helper convention for subprocess environment overrides so tests
+  and scripts preserve the inherited environment unless they intentionally need
+  a minimal environment.
+
+rationale: >
+  PR #885 failed CI after passing local targeted validation because one test
+  launched scripts/apl_task_occupancy.py with env containing only HTTPS_PROXY.
+  That erased dependency-related environment expected by the CI Python process,
+  causing ModuleNotFoundError for yaml inside the subprocess. The immediate
+  PR fix preserved os.environ, but the broader pattern can recur anywhere a
+  test passes a replacement env dict instead of an override.
+
+input:
+  mode: planning_only
+  related_domain: repository_validation
+  related_objects:
+    - tests/test_task_claiming.py
+    - scripts/apl_task_occupancy.py
+    - docs/cross-platform-compatibility.md
+    - docs/agent-task-protocol.md
+  planning_context: >
+    This proposal is distinct from the older Windows pytest path robustness
+    work. It targets subprocess environment replacement in tests and helpers,
+    especially cases that simulate proxy or PATH conditions but should still
+    preserve dependency discovery, active Python, and repository import state.
+
+requirements:
+  - "Identify tests that pass subprocess.run(..., env={...}) or equivalent minimal env dictionaries."
+  - "Introduce a tiny helper or convention for env overrides, such as env_with_overrides(**values), that starts from os.environ."
+  - "Allow explicit minimal-env tests only when the test name or comment states that dependency loss is intentional."
+  - "Update documentation for subprocess environment overrides in cross-platform agent guidance."
+  - "Add regression coverage for at least one helper CLI launched with a proxy override while preserving dependency imports."
+  - "Do not change production helper behavior except where an env merge is clearly intended."
+  - "Do not relax CI, dependency, or repository validation requirements."
+  - "Do not promote claims, results, or knowledge entries."
+
+accepted_outputs:
+  - "canonical task spec for subprocess environment guardrails"
+  - "audit of subprocess env replacement patterns in tests and scripts"
+  - "helper or documented convention for inherited-env overrides"
+  - "targeted regression test for proxy override subprocess execution"
+  - "maintainer decision on whether to assign a canonical TASK-XXXX id"
+
+validation:
+  commands:
+    - "python3 scripts/apl_proposal_pr_helper.py preflight --branch agent/sviti/codex/propose-task-pr-finish-loop-hardening --title \"TASK-PROPOSAL: Add PR finish loop hardening tasks\" --proposal-path tasks/proposals/20260606-sviti-subprocess-env-guardrail.yaml"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Awaiting maintainer acceptance and canonical task id."
