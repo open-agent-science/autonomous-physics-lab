@@ -1,6 +1,7 @@
 # Textbook Stefan-Boltzmann exact-reference fixture
 
-- Task: `TASK-0527`
+- Result: `RESULT-0019`
+- Fixture provenance task: `TASK-0527`
 - Fixture: `textbook-stefan-boltzmann-exact-reference-001`
 - Verdict: `VALID_IN_RANGE`
 - Boundary: synthetic software/gate fixture only; no empirical audit.
@@ -26,9 +27,9 @@
 
 ## Output Routing
 
-- Canonical destination: scoped software-result packaging route; see the packaged results/<EXP>/<RUN>/result.yaml.
-- Review tier: AGENT_PUBLISHED is decided in the packaged RESULT, not here.
+- Canonical destination: scoped software-result packaging route; see `result.yaml`.
+- Review tier: AGENT_PUBLISHED is recorded in the packaged RESULT.
 - Gate A: evaluated by the result-publication gate on the packaged RESULT.
 - Gate B: not attempted.
-- Claim impact: no claim change.
-- Knowledge impact: no knowledge change.
+- Claim impact: DRAFT software/convention claim only.
+- Knowledge impact: software/convention knowledge entry only.

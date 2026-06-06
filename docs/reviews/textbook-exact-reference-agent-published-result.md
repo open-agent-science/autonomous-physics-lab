@@ -12,6 +12,8 @@ by `TASK-0586` (`BLOCKED_CANONICAL_RESULT_IDENTITY_MISSING`) and `TASK-0603`
 (identities defined, fixture boundaries still sandbox-only).
 
 Published artifact: `results/EXP-0013/RUN-0001/result.yaml` (`RESULT-0019`).
+Replay command recorded in the RESULT:
+`physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml`.
 
 ## What changed to make publication consistent
 
@@ -92,3 +94,8 @@ statement.
 deterministic gates within tolerance, that task may add a `validation_record`
 and propose `AGENT_VALIDATED`; it must not edit the metrics, verdict, command,
 inputs, or the DRAFT claim/knowledge status.
+
+The publication branch includes a workflow adapter for
+`python3 -m physics_lab.cli run examples/textbook_stefan_boltzmann_exact_reference.yaml`,
+so Gate B uses the standard safe replay path rather than an arbitrary script
+entrypoint.

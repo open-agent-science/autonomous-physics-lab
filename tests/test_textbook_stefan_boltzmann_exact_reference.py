@@ -17,6 +17,10 @@ from physics_lab.engines.stefan_boltzmann import (
     sphere_area_m2,
     spherical_luminosity_w,
 )
+from physics_lab.registry.agent_replay_validation import (
+    ReplayIdentity,
+    validate_agent_published_result,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = (
@@ -26,6 +30,7 @@ CONFIG_PATH = (
     / "textbook_stefan_boltzmann_exact_reference.yaml"
 )
 SCRIPT_PATH = ROOT / "scripts" / "run_textbook_stefan_boltzmann_exact_reference.py"
+EXAMPLE_PATH = ROOT / "examples" / "textbook_stefan_boltzmann_exact_reference.yaml"
 
 
 def _load_config() -> dict:
@@ -102,3 +107,43 @@ def test_runner_writes_sandbox_metrics_and_report(tmp_path: Path) -> None:
     assert "no empirical audit" in report
     assert "scoped software-result packaging route" in report
     assert "Gate A: evaluated by the result-publication gate" in report
+
+
+def test_cli_workflow_writes_gate_b_replayable_result(tmp_path: Path) -> None:
+    output_dir = tmp_path / "canonical"
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "physics_lab.cli",
+            "run",
+            str(EXAMPLE_PATH),
+            "--output-dir",
+            str(output_dir),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    result_path = output_dir / "EXP-0013" / "RUN-0001" / "result.yaml"
+    result_payload = yaml.safe_load(result_path.read_text(encoding="utf-8"))
+
+    assert result_payload["command"] == "physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml"
+    assert result_payload["review_tier"] == "AGENT_PUBLISHED"
+    assert result_payload["agent_proposal_evaluation"]["published_by"]["agent_tool"] == "Claude Code"
+
+    replay = validate_agent_published_result(
+        ROOT / "results" / "EXP-0013" / "RUN-0001" / "result.yaml",
+        root=ROOT,
+        replayed_by=ReplayIdentity(
+            contributor_id="codex",
+            github_username="gladunrv",
+            agent_tool="Codex",
+            model_version="gpt-5-codex",
+        ),
+        output_dir=tmp_path / "replay",
+    )
+
+    assert replay.ok, [issue.message for issue in replay.issues]
