@@ -9,7 +9,6 @@
 - `TASK-0631` - Plan Materials MD-0002 acquisition preflight package (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0635` - Run first Gate B replay on an AGENT_PUBLISHED result (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0636` - Create Atomic Pizzocaro per-window diagnostic ledger (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0640` - Scout Nuclear post-AME2020 reveal source candidates (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0642` - Map Nuclear do-not-repeat diagnostic lanes (`negative_result_memory`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0644` - Scaffold Materials MD-0002 holdout and no-peek manifest (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0645` - Plan Materials MD-0002 loader and schema fixture (`scientific_dataset_schema`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
@@ -32,4 +31,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0640` - Scout Nuclear post-AME2020 reveal source candidates (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
