@@ -37,16 +37,26 @@ residual stress is control-sensitive.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0580` and `TASK-0582` closed the second-snapshot
-residual lane: `EXO-0002` has 6298 raw rows and 4308 post-filter included rows,
-but no declared axis/slice clears the frozen reopen coverage gate. Compact and
-sub-Neptune true-mass slices did not grow, the Jovian-radius slice gained only
-one eligible row, and the minimum-mass axis remains too small. Current work
-should therefore preserve the closed-lane negative/control memory, inspect the
-two mass-class drift rows surfaced by `TASK-0581`, and define when a future
-`EXO-0003` snapshot would be worth acquiring. Do not run CK17 replay or
-residual scoring on `EXO-0002` unless a later reviewed gate change explicitly
-allows it.
+**Closed-lane memory (do not rescore):** `TASK-0580` and `TASK-0582` closed the
+second-snapshot residual lane, and that decision is now preserved as
+negative/control memory (see the
+[second-snapshot negative-memory routing](../reviews/exoplanet-second-snapshot-negative-memory-routing.md)).
+`EXO-0002` has 6298 raw rows, 6164 pre-filter and 4308 post-filter included rows
+(1208 true-mass, 2 minimum-mass), versus `EXO-0001`'s 4301 post-filter rows
+(1207 true-mass, 2 minimum-mass): only seven post-filter rows and one true-mass
+transit-radius row were added. No declared axis/slice cleared the frozen reopen
+coverage gate — the compact-radius slice stayed at 92 rows (below the 150-row
+floor, zero growth), the other true-mass slices did not grow materially, and the
+minimum-mass axis remained at two rows — so the gate stayed `BLOCKED` (blockers:
+per-axis-slice floor, material growth, host-context coverage) and zero lanes
+reopened. `EXO-0002` therefore did **not** authorize CK17 replay, residual or
+null-baseline scoring, composition, habitability, atmospheric, target-priority,
+prediction, or claim outputs. The two overlapping mass-class drift rows are
+recorded in the
+[row-class drift review](../reviews/exoplanet-second-snapshot-row-class-drift.md).
+The only forward step is to plan an `EXO-0003` acquisition trigger (`TASK-0599`);
+residual scoring stays closed until a materially changed, reviewed snapshot or an
+explicitly revised coverage gate exists.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -263,8 +273,10 @@ The campaign should mature in this order:
 18. Preserve the second-snapshot closed-lane decision (`TASK-0580` and
     `TASK-0582`, DONE): `EXO-0002` does not materially change any residual
     slice enough to reopen CK17 replay.
-19. Inspect the two overlapping mass-class drift rows and plan an `EXO-0003`
-    acquisition trigger before any future Exoplanet residual work.
+19. The two overlapping mass-class drift rows are inspected and recorded in the
+    [row-class drift review](../reviews/exoplanet-second-snapshot-row-class-drift.md);
+    planning an `EXO-0003` acquisition trigger (`TASK-0599`) is the only forward
+    step before any future Exoplanet residual work.
 
 This campaign remains a visible, scientist-readable benchmark surface, but
 it should pause residual scoring until a materially changed snapshot or a
