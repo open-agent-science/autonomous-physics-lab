@@ -1,7 +1,7 @@
 id: TASK-0599
 title: "Plan EXO-0003 acquisition trigger after closed second-snapshot gate"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
