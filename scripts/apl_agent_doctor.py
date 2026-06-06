@@ -45,10 +45,28 @@ class PytestRuntimeProbeReport:
 
 
 @dataclass(frozen=True)
+class WorktreeRuntimePreflightReport:
+    root: str
+    git_dir: str | None
+    git_common_dir: str | None
+    is_git_worktree: bool
+    repository_venv_python: str | None
+    active_python_matches_repository_venv: bool | None
+    system_temp_dir: str
+    system_temp_accessible: bool
+    recommended_pytest_basetemp: str
+    git_index_lock_path: str | None
+    git_index_parent_writable: bool | None
+    git_index_lock_exists: bool | None
+    recommendations: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class AgentDoctorReport:
     python: PythonRuntimeReport
     pr_capability: dict[str, object]
     pytest_runtime: PytestRuntimeProbeReport | None = None
+    worktree_runtime: WorktreeRuntimePreflightReport | None = None
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -66,6 +84,14 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "Run a disposable xdist/tmp_path probe with unique system-temp and "
             "workspace-local fallback paths."
+        ),
+    )
+    parser.add_argument(
+        "--worktree-runtime-preflight",
+        action="store_true",
+        help=(
+            "Run read-only worktree/runtime diagnostics for repository venv, "
+            "temp path, and git index-lock troubleshooting."
         ),
     )
     return parser
@@ -224,17 +250,171 @@ def pytest_runtime_probe(root: Path) -> PytestRuntimeProbeReport:
         )
 
 
+def _git_output(root: Path, *args: str) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(root), *args],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if result.returncode != 0:
+        return None
+    value = result.stdout.strip()
+    return value or None
+
+
+def _resolve_git_path(root: Path, value: str | None) -> Path | None:
+    if value is None:
+        return None
+    path = Path(value)
+    return path if path.is_absolute() else (root / path).resolve()
+
+
+def _venv_python_candidates(base: Path) -> tuple[Path, ...]:
+    return (
+        base / ".venv" / "Scripts" / "python.exe",
+        base / ".venv" / "bin" / "python",
+    )
+
+
+def _find_repository_venv_python(root: Path, git_common_dir: Path | None) -> Path | None:
+    search_roots: list[Path] = [root]
+    if git_common_dir is not None and git_common_dir.name == ".git":
+        search_roots.append(git_common_dir.parent)
+    for search_root in search_roots:
+        for candidate in _venv_python_candidates(search_root):
+            if candidate.exists():
+                return candidate.resolve()
+    return None
+
+
+def _path_matches(left: Path | None, right: str) -> bool | None:
+    if left is None:
+        return None
+    try:
+        return left.resolve() == Path(right).resolve()
+    except OSError:
+        return str(left) == right
+
+
+def _windows_default_basetemp_root(root: Path) -> Path:
+    if platform.system() == "Windows":
+        return Path("C:/tmp")
+    return root / ".pytest-basetemp"
+
+
+def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
+    """Collect read-only diagnostics for task worktree runtime health."""
+    root = root.resolve()
+    git_dir = _resolve_git_path(root, _git_output(root, "rev-parse", "--git-dir"))
+    git_common_dir = _resolve_git_path(
+        root,
+        _git_output(root, "rev-parse", "--git-common-dir"),
+    )
+    is_git_worktree = (
+        git_dir is not None
+        and git_common_dir is not None
+        and git_dir.resolve() != git_common_dir.resolve()
+    )
+    repository_venv_python = _find_repository_venv_python(root, git_common_dir)
+    active_matches = _path_matches(repository_venv_python, sys.executable)
+
+    system_temp_dir = Path(tempfile.gettempdir())
+    system_temp_accessible = os.access(system_temp_dir, os.R_OK | os.W_OK | os.X_OK)
+    recommended_basetemp_root = (
+        _windows_default_basetemp_root(root)
+        if system_temp_accessible
+        else root / ".pytest-basetemp"
+    )
+    recommended_pytest_basetemp = str(
+        recommended_basetemp_root / "session-<unique-id>"
+        if recommended_basetemp_root.name == ".pytest-basetemp"
+        else recommended_basetemp_root / "apl-pytest-<unique-id>"
+    )
+
+    git_index_lock_path = git_dir / "index.lock" if git_dir is not None else None
+    git_index_parent_writable = (
+        os.access(git_index_lock_path.parent, os.W_OK)
+        if git_index_lock_path is not None
+        else None
+    )
+    git_index_lock_exists = (
+        git_index_lock_path.exists() if git_index_lock_path is not None else None
+    )
+
+    recommendations: list[str] = []
+    if repository_venv_python is None:
+        recommendations.append(
+            "Repository .venv Python was not found from this checkout; use the intended "
+            "Python explicitly or create the project venv before validation."
+        )
+    elif active_matches is False:
+        recommendations.append(
+            f"Run validation with repository Python: {repository_venv_python}"
+        )
+    if not system_temp_accessible:
+        recommendations.append(
+            "System temp is not fully accessible; run pytest with "
+            f"`--basetemp={recommended_pytest_basetemp}` or request permission for "
+            "the targeted pytest command."
+        )
+    if git_index_parent_writable is False:
+        recommendations.append(
+            "Git index metadata is not writable from this sandbox. If `git add` or "
+            "`git commit` fails with index.lock permission errors, rerun the same "
+            "git command with protocol-approved escalation; do not delete locks "
+            "unless a stale lock is separately verified."
+        )
+    if git_index_lock_exists:
+        recommendations.append(
+            "A git index.lock file is present; verify whether a git process is active "
+            "before treating it as stale."
+        )
+    if not recommendations:
+        recommendations.append("No worktree runtime blockers detected by read-only checks.")
+
+    return WorktreeRuntimePreflightReport(
+        root=str(root),
+        git_dir=str(git_dir) if git_dir is not None else None,
+        git_common_dir=str(git_common_dir) if git_common_dir is not None else None,
+        is_git_worktree=is_git_worktree,
+        repository_venv_python=(
+            str(repository_venv_python) if repository_venv_python is not None else None
+        ),
+        active_python_matches_repository_venv=active_matches,
+        system_temp_dir=str(system_temp_dir),
+        system_temp_accessible=system_temp_accessible,
+        recommended_pytest_basetemp=recommended_pytest_basetemp,
+        git_index_lock_path=(
+            str(git_index_lock_path) if git_index_lock_path is not None else None
+        ),
+        git_index_parent_writable=git_index_parent_writable,
+        git_index_lock_exists=git_index_lock_exists,
+        recommendations=tuple(recommendations),
+    )
+
+
 def build_report(
     root: Path,
     *,
     require_gh_auth: bool = True,
     probe_pytest_runtime: bool = False,
+    worktree_runtime_preflight_enabled: bool = False,
 ) -> AgentDoctorReport:
     pr_report = check_pr_capability(root, require_gh_auth=require_gh_auth)
     return AgentDoctorReport(
         python=python_runtime_report(),
         pr_capability=asdict(pr_report),
         pytest_runtime=pytest_runtime_probe(root) if probe_pytest_runtime else None,
+        worktree_runtime=(
+            worktree_runtime_preflight(root)
+            if worktree_runtime_preflight_enabled
+            else None
+        ),
     )
 
 
@@ -285,6 +465,28 @@ def _print_human(report: AgentDoctorReport) -> None:
         print(f"- recommendation: {probe.recommendation}")
         print(f"- details: {probe.details}")
 
+    if report.worktree_runtime is not None:
+        probe = report.worktree_runtime
+        print("Worktree runtime preflight")
+        print(f"- root: {probe.root}")
+        print(f"- git dir: {probe.git_dir or 'not found'}")
+        print(f"- git common dir: {probe.git_common_dir or 'not found'}")
+        print(f"- git worktree: {probe.is_git_worktree}")
+        print(f"- repository venv python: {probe.repository_venv_python or 'not found'}")
+        print(
+            "- active python matches repository venv: "
+            f"{probe.active_python_matches_repository_venv}"
+        )
+        print(f"- system temp dir: {probe.system_temp_dir}")
+        print(f"- system temp accessible: {probe.system_temp_accessible}")
+        print(f"- recommended pytest basetemp: {probe.recommended_pytest_basetemp}")
+        print(f"- git index.lock path: {probe.git_index_lock_path or 'not found'}")
+        print(f"- git index parent writable: {probe.git_index_parent_writable}")
+        print(f"- git index.lock exists: {probe.git_index_lock_exists}")
+        print("Recommendations:")
+        for item in probe.recommendations:
+            print(f"- {item}")
+
 
 def main() -> int:
     args = build_parser().parse_args()
@@ -292,6 +494,7 @@ def main() -> int:
         Path(args.root),
         require_gh_auth=not args.no_gh_auth_check,
         probe_pytest_runtime=args.probe_pytest_runtime,
+        worktree_runtime_preflight_enabled=args.worktree_runtime_preflight,
     )
     if args.json:
         print(json.dumps(asdict(report), indent=2, sort_keys=True))

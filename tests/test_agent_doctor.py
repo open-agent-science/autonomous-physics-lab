@@ -14,6 +14,7 @@ sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
 build_report = MODULE.build_report
 pytest_runtime_probe = MODULE.pytest_runtime_probe
+worktree_runtime_preflight = MODULE.worktree_runtime_preflight
 
 
 def _write_probe_target(root: Path) -> None:
@@ -56,6 +57,7 @@ def test_agent_doctor_cli_json_runs_from_repo_root() -> None:
     assert '"python"' in result.stdout
     assert '"pr_capability"' in result.stdout
     assert '"pytest_runtime": null' in result.stdout
+    assert '"worktree_runtime": null' in result.stdout
 
 
 def test_pytest_runtime_probe_reports_workspace_fallback(
@@ -123,3 +125,79 @@ def test_agent_doctor_build_report_skips_runtime_probe_by_default(
     report = build_report(tmp_path, require_gh_auth=False)
 
     assert report.pytest_runtime is None
+    assert report.worktree_runtime is None
+
+
+def test_worktree_runtime_preflight_detects_repository_venv(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    venv_bin = tmp_path / ".venv" / ("Scripts" if sys.platform == "win32" else "bin")
+    venv_bin.mkdir(parents=True)
+    python_name = "python.exe" if sys.platform == "win32" else "python"
+    repo_python = venv_bin / python_name
+    repo_python.write_text("", encoding="utf-8")
+    monkeypatch.setattr(MODULE.sys, "executable", str(repo_python))
+    monkeypatch.setattr(MODULE, "_git_output", lambda root, *args: None)
+
+    report = worktree_runtime_preflight(tmp_path)
+
+    assert report.repository_venv_python == str(repo_python.resolve())
+    assert report.active_python_matches_repository_venv is True
+    assert report.git_index_lock_path is None
+
+
+def test_worktree_runtime_preflight_finds_common_dir_venv_for_worktree(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    main = tmp_path / "main"
+    worktree = tmp_path / "worktree"
+    git_dir = main / ".git" / "worktrees" / "worktree"
+    common_dir = main / ".git"
+    venv_bin = main / ".venv" / ("Scripts" if sys.platform == "win32" else "bin")
+    git_dir.mkdir(parents=True)
+    common_dir.mkdir(exist_ok=True)
+    worktree.mkdir()
+    venv_bin.mkdir(parents=True)
+    python_name = "python.exe" if sys.platform == "win32" else "python"
+    repo_python = venv_bin / python_name
+    repo_python.write_text("", encoding="utf-8")
+
+    def fake_git_output(root: Path, *args: str) -> str | None:
+        if args == ("rev-parse", "--git-dir"):
+            return str(git_dir)
+        if args == ("rev-parse", "--git-common-dir"):
+            return str(common_dir)
+        return None
+
+    monkeypatch.setattr(MODULE, "_git_output", fake_git_output)
+    monkeypatch.setattr(MODULE.sys, "executable", str(worktree / "python.exe"))
+
+    report = worktree_runtime_preflight(worktree)
+
+    assert report.is_git_worktree is True
+    assert report.repository_venv_python == str(repo_python.resolve())
+    assert report.active_python_matches_repository_venv is False
+    assert any("Run validation with repository Python" in item for item in report.recommendations)
+
+
+def test_agent_doctor_cli_json_includes_worktree_runtime_preflight() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_agent_doctor.py",
+            "--json",
+            "--no-gh-auth-check",
+            "--worktree-runtime-preflight",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, (result.stdout, result.stderr)
+    assert '"worktree_runtime"' in result.stdout
+    assert '"recommended_pytest_basetemp"' in result.stdout

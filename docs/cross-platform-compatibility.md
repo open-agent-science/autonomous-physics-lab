@@ -150,6 +150,25 @@ for the broad cross-platform lane. The advisory
 task-specific local commands and flags changed surfaces that warrant the
 parallel fast lane.
 
+When a task runs from a dedicated worktree or a sandboxed agent shell, run the
+read-only worktree runtime preflight before inventing local fixes:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\apl_agent_doctor.py --worktree-runtime-preflight --no-gh-auth-check
+```
+
+The preflight reports whether the checkout is a git worktree, where the
+worktree git metadata and common git directory live, whether a repository
+`.venv` Python can be found from either the current worktree or the common
+checkout, whether the active Python matches that interpreter, whether the
+system temp directory looks accessible, a recommended unique pytest
+`--basetemp`, and read-only git `index.lock`/parent-writability diagnostics.
+It does not create files or test-write the git index. If it reports that git
+metadata is not writable from the sandbox, follow the normal protocol: rerun
+the same `git add` or `git commit` with approved escalation, and do not delete
+an `index.lock` unless a separate check verifies that it is stale and no git
+process is active.
+
 `scripts/validate_fast.py` also isolates measured `resource_sensitive` tests
 as a final serial layer on Windows while leaving the rest of the suite
 parallel. It automatically falls back to the ignored workspace-local
