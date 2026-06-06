@@ -1,0 +1,54 @@
+id: TASK-0633
+title: "Package Nuclear F2 diagnostic result-publication preflight"
+type: scientific_result_publication
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move the completed Nuclear F2 ablation out of indefinite sandbox memory by deciding whether it can become a scoped negative/diagnostic RESULT artifact."
+  - "Use the new result-promotion protocol for evidence visibility without promoting a nuclear mass law claim."
+  - "Prefer a durable diagnostic or negative result over another F2 hypothesis burst."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-f2-survival-margin-component-ablation.md"
+    - "agent_runs/AGENT-RUN-0068/metrics.json"
+    - "agent_runs/AGENT-RUN-0068/report.md"
+    - "docs/reviews/nuclear-f2-promotion-or-stop-decision.md"
+    - "docs/result-promotion-protocol.md"
+    - "results/RESULT-TEMPLATE.agent-published.yaml"
+  planning_context: >
+    TASK-0625 classified the F2 component ablation as
+    COMPONENT_DIAGNOSTIC_ONLY: the full F2 reference remains replayable, but
+    no ablated component clears the predeclared controls-first survival margin.
+    The next useful Nuclear output is a scoped publication preflight that
+    either packages this as a negative/diagnostic RESULT candidate or records
+    the precise Gate A blocker.
+
+requirements:
+  - "Start from the committed TASK-0625 artifacts; do not rerun a new F2 search or tune feature families."
+  - "Check whether the F2 ablation run has a deterministic replay command, input hashes, limitations, verification checks, git commit pin, and dataset provenance sufficient for Gate A."
+  - "If Gate A can be satisfied, prepare exactly one scoped AGENT_PUBLISHED RESULT artifact for the diagnostic/negative F2 ablation verdict."
+  - "If any Gate A requirement is missing, write a blocker review and do not create a RESULT artifact."
+  - "Do not create PRED entries, reveal scores, CLAIM files, KNOW files, or broad nuclear mass formula wording."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-f2-diagnostic-result-publication-preflight.md"
+  - "optional results/EXP-0012/RUN-0002/result.yaml only if Gate A passes"
+  - "tests for any new result packaging helper or schema fixture"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,50 @@
+id: TASK-0637
+title: "Extend Quantum Size Effects schema for non-spherical size axes"
+type: scientific_dataset_schema
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock the Almeida 2023 InP source path without hiding tetrahedral morphology behind diameter-only fields."
+  - "Make future quantum-dot datasets reusable by preserving original size-axis semantics."
+  - "Keep Quantum source-to-row work ahead of any baseline or formula-search task."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    TASK-0630 classified Almeida 2023 as SCHEMA_EXTENSION_NEEDED because the
+    candidate surface reports tetrahedral edge length and volume rather than a
+    direct diameter/radius. This task adds a reviewed schema route before any
+    digitization or row curation.
+
+requirements:
+  - "Extend or revise the quantum-dot size-effect schema so non-spherical morphology size axes can be represented without losing the original source quantity."
+  - "Support at least a tetrahedral edge-length or volume representation, or a reviewed equivalent-diameter conversion field that stores the original source value and conversion rule."
+  - "Add valid/invalid schema tests covering the Almeida-style size axis and the existing diameter/radius rows."
+  - "Update documentation/source-manifest notes only where needed to state the accepted size-axis route."
+  - "Do not digitize Almeida figure coordinates, transcribe values, add qd-*.yaml rows, run baselines, search formulas, or create claims."
+
+accepted_outputs:
+  - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+  - "tests/test_quantum_dot_dataset_schema.py"
+  - "optional docs/quantum-direct-measurement-digitization-protocol.md update"
+  - "optional data/quantum_dots/source_manifest.yaml metadata-only note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

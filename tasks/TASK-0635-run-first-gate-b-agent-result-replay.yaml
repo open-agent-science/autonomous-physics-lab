@@ -1,0 +1,50 @@
+id: TASK-0635
+title: "Run first Gate B replay on an AGENT_PUBLISHED result"
+type: scientific_replay_validation
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the result-promotion protocol into a real agent-to-agent validation lane."
+  - "Validate the first eligible AGENT_PUBLISHED RESULT without maintainer interpretation endorsement."
+  - "Prefer independent replay of a scoped low-risk result before applying Gate B to higher-risk campaign outputs."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "physics_lab/registry/agent_replay_validation.py"
+    - "tasks/TASK-0634-publish-textbook-exact-reference-agent-result.yaml"
+    - "tasks/TASK-0633-package-nuclear-f2-diagnostic-result-preflight.yaml"
+  planning_context: >
+    Gate B tooling exists, but the repository needs a first real
+    AGENT_PUBLISHED RESULT to replay. This task should start only after a
+    scoped RESULT artifact lands from TASK-0634 or another Gate A-cleared
+    result-publication task.
+
+requirements:
+  - "Start only after at least one committed RESULT artifact sets review_tier: AGENT_PUBLISHED."
+  - "Use scripts/apl_validate_agent_published_result.py with a different validating agent identity from the publishing agent."
+  - "If replay passes, prepare a PR that adds the validation_record and upgrades only review_tier / agent_proposal_evaluation to AGENT_VALIDATED."
+  - "If replay drifts, open a contested-result review note and do not silently edit metrics or verdicts."
+  - "Do not change RESULT metrics, verdict, command, inputs, CLAIM status, KNOW files, or golden-results pinning."
+
+accepted_outputs:
+  - "validation_record update on the selected RESULT only if Gate B passes"
+  - "docs/reviews/<selected-result>-gate-b-replay.md or contested-result review"
+  - "tests only if the replay tooling needs a narrow bug fix"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_replay_validation.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

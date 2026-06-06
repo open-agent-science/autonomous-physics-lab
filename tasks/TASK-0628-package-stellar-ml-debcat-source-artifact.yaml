@@ -20,11 +20,13 @@ input:
     - "docs/campaigns/textbook-formula-audit.md"
   planning_context: >
     TASK-0604 selected DEBCat as the first-choice independent mass-source
-    candidate, and landed TASK-0610 selected DEBCat as admissible for a
-    source-artifact package while preserving the row-acquisition blocker.
+    candidate, and the landed TASK-0610 review selected the DEBCat source
+    artifact path. The next useful step is source-artifact packaging before
+    any row curation, luminosity calculation, exponent fitting, or empirical
+    formula audit while preserving the later row-acquisition blocker.
 
 requirements:
-  - "Start only after TASK-0610 selects DEBCat or another first source as admissible for artifact packaging."
+  - "Start from the landed TASK-0610 source-path decision; if the source artifact is not accessible or reuse terms block committed artifact packaging, preserve a precise blocker review."
   - "Pin the exact source locator, retrieval date, checksum path, license/reuse posture, source timestamp/version if available, and citation metadata."
   - "Do not copy value-bearing rows unless the source license and artifact protocol explicitly allow the committed artifact shape."
   - "Preserve component/system identifiers, mass uncertainty semantics, and no-leakage constraints for binary components."
