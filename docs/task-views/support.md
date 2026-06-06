@@ -21,4 +21,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0662` - Fix task occupancy false positive from TASK-QUEUE creation PRs (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
