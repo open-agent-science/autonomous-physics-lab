@@ -160,6 +160,11 @@ open steps below:
    survives deterministic controls before interpretation (`TASK-0579`).
 4. **Optional widening** — only after the first benchmark, consider a separate
    pre-fetch-amended task for ternary oxides or another Materials Project slice.
+   The
+   [MD-0002 wider replication slice plan](../reviews/materials-md0002-wider-replication-slice-plan.md)
+   selects stable ternary oxides as the `MD-0002` candidate scope and defines its
+   axes, inclusion rules, provenance, and holdout/split candidates (planning only;
+   no data fetched).
 
 ## Why It Matters
 
