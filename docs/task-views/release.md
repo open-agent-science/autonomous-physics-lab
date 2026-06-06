@@ -15,6 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0602` - Plan Materials MD-0002 wider replication slice (`scientific_dataset`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
-- `TASK-0608` - Refresh Open Agent Science strategy and publication path (`documentation`, priority `high`, difficulty `medium`, domain `strategy`)
-- `TASK-0609` - Harden canonical task PR publication helper (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `repository_coordination`)
+None.
