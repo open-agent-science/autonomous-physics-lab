@@ -7,6 +7,8 @@
 ## READY
 
 - `TASK-0628` - Package Stellar M-L DEBCat source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
+- `TASK-0636` - Create Atomic Pizzocaro per-window diagnostic ledger (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
+- `TASK-0637` - Extend Quantum Size Effects schema for non-spherical size axes (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 
 ## IN_PROGRESS
 
