@@ -1,0 +1,48 @@
+id: TASK-0628
+title: "Package Stellar M-L DEBCat source artifact"
+type: scientific_dataset
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Advance Stellar M-L only through independent dynamical mass sources, not Gaia model-derived masses."
+  - "Prepare a reproducible source artifact before any mass-luminosity exponent fitting or formula audit."
+  - "Keep Textbook Formula Audit source-first and range-limited."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0610-evaluate-stellar-ml-source-candidates-after-0604.yaml"
+    - "docs/reviews/textbook-stellar-ml-independent-mass-source-selection.md"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    TASK-0604 selected DEBCat as the first-choice independent mass-source
+    candidate, but TASK-0610 still needs to evaluate candidate admissibility
+    before a source-artifact package should be created.
+
+requirements:
+  - "Start only after TASK-0610 selects DEBCat or another first source as admissible for artifact packaging."
+  - "Pin the exact source locator, retrieval date, checksum path, license/reuse posture, source timestamp/version if available, and citation metadata."
+  - "Do not copy value-bearing rows unless the source license and artifact protocol explicitly allow the committed artifact shape."
+  - "Preserve component/system identifiers, mass uncertainty semantics, and no-leakage constraints for binary components."
+  - "Do not compute luminosities, fit mass-luminosity exponents, run empirical audit metrics, or promote formula verdicts."
+
+accepted_outputs:
+  - "docs/reviews/textbook-stellar-ml-debcat-source-artifact-package.md"
+  - "metadata-only source manifest update or committed source artifact if licensing/checksum policy permits"
+  - "optional follow-up row-curation task recommendation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

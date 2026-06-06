@@ -1,0 +1,53 @@
+id: TASK-0625
+title: "Run Nuclear F2 survival-margin component ablation"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Resolve the single Nuclear follow-up authorized by TASK-0613 without opening a broad F2 search queue."
+  - "Test whether the replayable F2 gain is carried by a stable interpretable component or by a fragile aggregate."
+  - "Keep F2 diagnostic-only unless the predeclared controls-first margin concern is resolved by deterministic evidence."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-f2-promotion-or-stop-decision.md"
+    - "docs/reviews/nuclear-f2-independent-replay-and-control-ledger.md"
+    - "docs/reviews/nuclear-f2-controls-first-scoring.md"
+    - "agent_runs/AGENT-RUN-0067/metrics.json"
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+  planning_context: >
+    TASK-0613 ruled that F2 is not ready for result-promotion preflight because
+    it misses the 0.25 MeV survival-margin gate by 0.050740 MeV, but it also
+    identified exactly one allowed follow-up family:
+    F2_SURVIVAL_MARGIN_COMPONENT_ABLATION.
+
+requirements:
+  - "Use committed NMD-0003 rows, the frozen stratified split, the committed F2 candidate family, and the same controls-first scoring contract as TASK-0553/TASK-0612."
+  - "Define a bounded component-ablation slate before scoring; do not add new F2 feature families or tune components after seeing holdout scores."
+  - "Score each ablated component variant on train_loo, validation_holdout, and full_known surfaces."
+  - "Rerun the required controls or justify reuse only when the control input is mathematically unchanged."
+  - "Classify the outcome as COMPONENT_SURVIVES_MARGIN, COMPONENT_DIAGNOSTIC_ONLY, AGGREGATE_FRAGILE, or DO_NOT_PROMOTE."
+  - "Do not create PRED entries, reveal scores, RESULT artifacts, CLAIM files, KNOW files, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-f2-survival-margin-component-ablation.md"
+  - "tests for any new helper or scoring contract"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_f2_controls_first_scoring.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

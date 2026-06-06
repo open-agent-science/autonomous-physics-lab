@@ -1,0 +1,50 @@
+id: TASK-0627
+title: "Curate Atomic Pizzocaro VLBI row aggregation and covariance gate"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the Pizzocaro source-to-row ledger into an admissible row decision or precise blocker."
+  - "Move Atomic toward BASELINE_READY only through explicit aggregation and covariance semantics."
+  - "Keep atomic-clock work source-first and avoid constants-drift or new-physics claims."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-pizzocaro-source-to-row-extraction-ledger.md"
+    - "docs/reviews/atomic-pizzocaro-yb-sr-row-admissibility-gate.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv"
+    - "physics_lab/engines/atomic_clock_residuals.py"
+  planning_context: >
+    TASK-0615 identified Figure 2a VLBI time-series as the best future
+    row-of-record surface, but row ingestion remains blocked until aggregation
+    and covariance states are frozen.
+
+requirements:
+  - "Use only committed Pizzocaro source artifacts; do not fetch live data."
+  - "Decide whether the VLBI surface supports a single summary row, a per-window diagnostic ledger only, or a precise blocker."
+  - "Freeze the aggregation rule, ratio orientation, campaign-window fields, uncertainty semantics, and covariance state if a row path is admissible."
+  - "If admissible, add at most one sandbox-flagged Atomic row or row-curation artifact according to existing schema and loader constraints; otherwise preserve a blocker review."
+  - "Do not run a cross-source benchmark, fit constants drift, create predictions, promote claims, or mix direct rows with derived constraints."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/atomic-pizzocaro-vlbi-row-aggregation-covariance-gate.md"
+  - "optional sandbox-flagged row or machine-readable row-curation artifact if schema-valid and admissible"
+  - "tests for any loader/schema update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

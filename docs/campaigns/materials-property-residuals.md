@@ -43,7 +43,10 @@ band-gap edge survives deterministic shuffle controls at a modest, borderline
 level (about 9% skill versus global mean; control fractions near 0.04 on a
 33-row holdout). `TASK-0566` still keeps the benchmark as review-note-only:
 there is **no** promoted `RESULT-*`, claim, prediction registry entry,
-external dataset repository, or DOI.
+external dataset repository, or DOI. `TASK-0600` then showed the formation-
+energy signal survives deterministic null controls, and `TASK-0601` found the
+formation-energy conclusion split-robust while the band-gap ordering is
+split-fragile.
 
 ## Public Monitoring Snapshot
 
@@ -63,14 +66,12 @@ recommendations, material-design results, experimental measurements, or a
 new-law claim. The rows are computed DFT values only and do not support
 synthesis, device, biomedical, or material-design guidance.
 
-**Active next work:** stress the stronger formation-energy axis with the same
-null-control discipline, run split-sensitivity checks on the small holdout,
-and plan `MD-0002` only as a source/split task before any wider acquisition.
-After those checks, `TASK-0614` should decide whether the next durable output
-is a scoped result-promotion preflight, a reusable-dataset publication package,
-an `MD-0002` widening-first path, or do-not-promote memory. `TASK-0616`
-separately checks whether Materials is now the best second executable Research
-Factory adapter candidate.
+**Active next work:** `TASK-0614` should decide whether `MD-0001` formation
+energy routes to scoped result preflight, reusable-dataset publication package,
+`MD-0002` widening-first, or do-not-promote memory. `TASK-0616` recommended
+Materials as the second executable Research Factory adapter, formation-energy
+only; the next bounded sprint is `TASK-0626`. `TASK-0631` stays blocked until
+`TASK-0614` explicitly authorizes MD-0002 acquisition preflight.
 
 ## Admissible Source Classes
 

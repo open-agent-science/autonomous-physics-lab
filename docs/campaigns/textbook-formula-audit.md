@@ -81,9 +81,11 @@ boundaries. `TASK-0587` kept Stellar M-L row curation blocked because Gaia
 model-derived mass fields are not admissible benchmark truth. Current work is
 to define scoped exact-reference identities and select an independent Stellar
 M-L mass-source artifact before any empirical metrics run. `TASK-0604` owns
-that source selection; `TASK-0610` evaluates the candidates after `TASK-0604`
-lands, and `TASK-0611` defines the promotion gate for deciding whether Stellar
-M-L should become a standalone campaign.
+that source selection and selected DEBCat as the first-choice independent mass
+source; `TASK-0610` is now the candidate-admissibility gate. If DEBCat clears
+that gate, `TASK-0628` packages the source artifact before any row curation.
+`TASK-0611` defines the promotion gate for deciding whether Stellar M-L should
+become a standalone campaign.
 
 **Expected next result:** a scoped exact-reference identity gate that enables
 or blocks a later software/convention `RESULT-*`, or an independent
