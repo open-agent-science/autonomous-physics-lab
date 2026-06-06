@@ -1,7 +1,7 @@
 id: TASK-0626
 title: "Run Materials MD-0001 formation-energy factory smoke sprint"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -35,8 +35,8 @@ requirements:
   - "Do not create material recommendations, synthesis/device/biomedical guidance, predictions, claims, knowledge, or external dataset publication."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0069/metrics.json"
+  - "agent_runs/AGENT-RUN-0069/report.md"
   - "docs/reviews/materials-md0001-formation-energy-factory-smoke-sprint.md"
   - "tests for any new factory adapter/helper"
 
