@@ -35,8 +35,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0068/metrics.json"
+  - "agent_runs/AGENT-RUN-0068/report.md"
   - "docs/reviews/nuclear-f2-survival-margin-component-ablation.md"
   - "tests for any new helper or scoring contract"
 
