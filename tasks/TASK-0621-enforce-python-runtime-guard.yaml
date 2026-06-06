@@ -1,0 +1,48 @@
+id: TASK-0621
+title: "Enforce and document the Python 3.11+ runtime"
+type: workflow_hardening
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce contributor and agent setup friction by making the existing Python 3.11+ requirement legible."
+  - "Fail fast with actionable setup guidance instead of cryptic runtime errors under old interpreters."
+  - "Keep APL single-runtime at Python 3.11+; do not add backward-compatibility shims."
+
+input:
+  mode: workflow
+  related_domain: developer_workflow
+  related_objects:
+    - tasks/proposals/20260606-roman-python-runtime-guard.yaml
+    - pyproject.toml
+    - scripts/apl_agent_doctor.py
+    - AGENTS.md
+    - docs/cross-platform-compatibility.md
+  planning_context: "Accepted proposal after TASK-0612 exposed that local Python 3.9 can fail with cryptic errors even though pyproject already requires Python 3.11+."
+
+requirements:
+  - "Document the Python 3.11+ requirement and a cross-platform venv setup recipe using a 3.11+ interpreter and `pip install -e \".[dev]\"`."
+  - "Add a fast-fail runtime guard that raises or prints a clear `Autonomous Physics Lab requires Python 3.11+` message before common CLI/helper paths fail cryptically."
+  - "Read the minimum version from a single source or central helper where practical; avoid duplicated hardcoded version checks."
+  - "Extend `scripts/apl_agent_doctor.py` to report when the active interpreter is below the project requirement and print remediation."
+  - "Do not add Python 3.9/3.10 compatibility shims, relax tests, or weaken validation."
+  - "Keep behavior portable across Windows, macOS, Linux, Claude Code, and Codex environments."
+
+accepted_outputs:
+  - "Contributor-facing runtime/setup documentation"
+  - "A central Python-version guard or helper with a clear message"
+  - "`apl_agent_doctor.py` runtime-version diagnostic"
+  - "Tests covering the guard and doctor output"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_doctor.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

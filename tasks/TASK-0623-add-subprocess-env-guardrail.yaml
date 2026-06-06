@@ -1,0 +1,48 @@
+id: TASK-0623
+title: "Add subprocess environment guardrails for tests and helpers"
+type: developer_infrastructure
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prevent CI-only failures caused by tests accidentally erasing dependency and Python-discovery environment."
+  - "Keep helper tests portable across Windows worktrees, macOS local checkouts, and Linux CI."
+  - "Turn a repeated agent-time loss into a deterministic test convention."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - tasks/proposals/20260606-sviti-subprocess-env-guardrail.yaml
+    - tests/test_task_claiming.py
+    - scripts/apl_task_occupancy.py
+    - docs/cross-platform-compatibility.md
+  planning_context: "Accepted follow-up after PR #885 showed that subprocess tests can pass a replacement `env` dict and accidentally drop dependency/Python discovery state."
+
+requirements:
+  - "Audit tests and helpers for `subprocess.run(..., env={...})` or equivalent minimal-environment patterns."
+  - "Introduce a tiny helper or documented convention for inherited-environment overrides, starting from `os.environ` unless a test explicitly needs a minimal environment."
+  - "Allow intentional minimal-env tests only when the test name or comment states why dependency loss is part of the scenario."
+  - "Update cross-platform guidance for subprocess environment overrides."
+  - "Add regression coverage for at least one helper CLI launched with proxy/PATH overrides while preserving dependency imports."
+  - "Do not change production helper behavior except where an env merge is clearly intended."
+  - "Do not relax CI, dependency, or repository validation requirements."
+
+accepted_outputs:
+  - "Subprocess environment override helper or convention"
+  - "Audit/fixes for unsafe env replacement patterns"
+  - "Targeted regression tests"
+  - "Documentation update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_claiming.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

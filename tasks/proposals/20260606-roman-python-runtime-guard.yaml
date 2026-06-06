@@ -1,6 +1,6 @@
 proposal_id: 20260606-roman-python-runtime-guard
 title: "Enforce and document the 3.11+ Python runtime (env docs + fast-fail guard + doctor probe)"
-status: PROPOSED
+status: ACCEPTED
 type: workflow_hardening
 priority: medium
 
@@ -73,9 +73,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0621
+  decision: accepted
   notes: >
-    Surfaces the Python-runtime friction found during TASK-0612 as a reviewable
-    workflow-hardening task. Scope chosen by the maintainer: docs + fast-fail
-    guard + doctor probe.
+    Accepted into TASK-0621 as workflow hardening for runtime docs, a fast-fail
+    guard, and an apl_agent_doctor diagnostic. No Python <3.11 compatibility
+    shims are authorized.
