@@ -1,7 +1,7 @@
 id: TASK-0635
 title: "Run first Gate B replay on an AGENT_PUBLISHED result"
 type: scientific_replay_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
