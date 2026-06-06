@@ -1,0 +1,49 @@
+id: TASK-0660
+title: "Package Anharmonic replay result-promotion preflight"
+type: scientific_result_publication
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Use mature deterministic benchmarks as quality-floor scientific surfaces for the larger agent wave."
+  - "Turn existing Anharmonic evidence into a clear promotion/no-promotion decision rather than rerunning weak sandbox loops."
+  - "Keep public-facing result paths conservative and replayable."
+
+input:
+  mode: planning_only
+  related_domain: anharmonic_oscillator
+  related_objects:
+    - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+    - "results/RESULT-0014-anharmonic-oscillator-period"
+    - "docs/results/anharmonic-oscillator-summary.md"
+    - "campaign_profiles/anharmonic-oscillator.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Anharmonic Oscillator is a mature deterministic benchmark and a useful
+    eighth active campaign surface for the Scientific Director pool. The next
+    useful task is not new formula search; it is a concise result-promotion
+    preflight that states whether the replayed benchmark can become a stronger
+    public evidence card, needs independent replay, or should remain limited.
+
+requirements:
+  - "Review the canonical experiment/result/summary and route the artifact through docs/result-promotion-protocol.md."
+  - "State Gate A/Gate B readiness, replay needs, numerical validation references, and public wording limits."
+  - "Identify at most one follow-up task only if it directly unblocks AGENT_VALIDATED or negative-memory status."
+  - "Do not add new formulas, claims, predictions, or breakthrough wording."
+
+accepted_outputs:
+  - "docs/reviews/anharmonic-replay-result-promotion-preflight.md"
+  - "optional targeted update to docs/results/anharmonic-oscillator-summary.md if it is stale or overclaims"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_anharmonic_oscillator.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

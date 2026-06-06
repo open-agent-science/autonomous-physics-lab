@@ -20,5 +20,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0621` - Enforce and document the Python 3.11+ runtime (`workflow_hardening`, priority `high`, difficulty `medium`, domain `developer_workflow`)
-- `TASK-0624` - Add task-branch upstream tracking preflight (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
+None.

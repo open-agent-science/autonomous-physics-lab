@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0628` - Package Stellar M-L DEBCat source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
+- `TASK-0631` - Plan Materials MD-0002 acquisition preflight package (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0636` - Create Atomic Pizzocaro per-window diagnostic ledger (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0637` - Extend Quantum Size Effects schema for non-spherical size axes (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 
@@ -16,4 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0629` - Run EXO-0003 metadata-only source trigger scout (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.

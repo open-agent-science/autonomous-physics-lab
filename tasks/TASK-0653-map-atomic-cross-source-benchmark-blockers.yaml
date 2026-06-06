@@ -1,0 +1,46 @@
+id: TASK-0653
+title: "Map Atomic cross-source benchmark blockers"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make Atomic's blocker stack explicit before agents try to fit drift or anomalies."
+  - "Prioritize the next source or covariance task that can actually unlock a benchmark."
+  - "Keep public Atomic framing conservative and source-first."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md"
+    - "docs/reviews/atomic-pizzocaro-vlbi-row-aggregation-covariance-gate.md"
+    - "docs/reviews/atomic-second-yb-sr-fallback-source-scout.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  planning_context: >
+    Atomic has Beloy rows, Nemitz/Pizzocaro/Lange source work, covariance
+    policies, and still no safe cross-source benchmark. This task maps the
+    shortest unblock path.
+
+requirements:
+  - "List blocker states for Beloy, Nemitz, Pizzocaro, and Lange/PTB candidates."
+  - "Recommend the next one or two Atomic tasks that can unlock a benchmark, or state that no benchmark task should run yet."
+  - "Do not fit constants drift, add rows, fetch data, create results, or promote claims."
+  - "Update the Atomic campaign page only if it points agents toward an unsafe benchmark."
+
+accepted_outputs:
+  - "docs/reviews/atomic-cross-source-benchmark-blocker-map.md"
+  - "optional docs/campaigns/atomic-clock-residuals.md update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

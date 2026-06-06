@@ -1,0 +1,46 @@
+id: TASK-0645
+title: "Plan Materials MD-0002 loader and schema fixture"
+type: scientific_dataset_schema
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce risk before MD-0002 acquisition by testing row shape without fetching Materials Project values."
+  - "Keep future MD-0002 rows reusable and cross-platform loader-validated."
+  - "Separate schema readiness from benchmark scoring."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "data/materials/schema.md"
+    - "data/materials/source_manifest.yaml"
+    - "docs/reviews/materials-md0002-wider-replication-slice-plan.md"
+  planning_context: >
+    MD-0002 will use stable ternary oxides and the same Materials Project
+    source family as MD-0001. A fixture-level loader preflight can happen
+    before acquisition to avoid source-row churn later.
+
+requirements:
+  - "Define a tiny synthetic fixture or schema example for MD-0002 ternary oxide rows using fake values clearly marked as fixtures."
+  - "Verify the loader/schema path can represent two-cation oxide composition, source version, functional, units, and axis-specific exclusions."
+  - "Do not use live or real Materials Project values in the fixture."
+  - "Do not compute scientific metrics or make material-property claims."
+
+accepted_outputs:
+  - "tests/test_materials_md0002_schema_fixture.py"
+  - "optional data/materials/fixtures/md0002_schema_fixture.yaml"
+  - "docs/reviews/materials-md0002-loader-schema-fixture.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
