@@ -82,9 +82,9 @@ Claim impact: none.
 
 Knowledge impact: none.
 
-Hypothesis evidence routing: `RESULT-0018` is referenced from `HYP-0012` so the
-result is not an orphan registry artifact; hypothesis status and wording are
-unchanged.
+Hypothesis evidence routing: `RESULT-0018` is added to the `HYP-0012` evidence
+list so the result is not an orphan registry artifact; hypothesis status,
+verdict, and wording are unchanged.
 
 Limitations: no post-AME2020 reveal scoring; no prediction; no claim or
 knowledge promotion; no F2 feature search or tuning; not independently
