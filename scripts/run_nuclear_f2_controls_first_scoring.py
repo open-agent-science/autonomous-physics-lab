@@ -17,6 +17,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from physics_lab._runtime import enforce as _enforce_python_runtime  # noqa: E402
+
+# This script uses 3.10+ runtime features (e.g. zip(strict=True)); fail fast with
+# an actionable message rather than a cryptic TypeError on an old interpreter.
+_enforce_python_runtime()
+
 from physics_lab.engines.nuclear_f2_coverage import assign_f2_bin  # noqa: E402
 from physics_lab.engines.nuclear_mass_baselines import (  # noqa: E402
     BaselineResidualRow,

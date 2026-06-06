@@ -38,6 +38,16 @@ def test_agent_doctor_builds_report_without_network_auth_check(tmp_path: Path) -
     assert "git_path" in report.pr_capability
 
 
+def test_agent_doctor_reports_python_minimum_version(tmp_path: Path) -> None:
+    report = build_report(tmp_path, require_gh_auth=False)
+
+    assert report.python.minimum_version == "3.11"
+    # The test suite itself only runs on a supported interpreter (3.11+), so the
+    # active interpreter meets the minimum and no remediation is attached.
+    assert report.python.meets_minimum is True
+    assert report.python.remediation is None
+
+
 def test_agent_doctor_cli_json_runs_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
