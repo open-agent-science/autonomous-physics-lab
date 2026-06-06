@@ -74,12 +74,70 @@
           "diameter_nm": {
             "type": "number",
             "exclusiveMinimum": 0,
-            "description": "Particle diameter in nanometres. Use this or radius_nm, not both."
+            "description": "Particle diameter in nanometres. Use exactly one top-level size axis per entry."
           },
           "radius_nm": {
             "type": "number",
             "exclusiveMinimum": 0,
-            "description": "Particle radius in nanometres. Use this or diameter_nm, not both."
+            "description": "Particle radius in nanometres. Use exactly one top-level size axis per entry."
+          },
+          "edge_length_nm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Source-reported non-spherical edge length in nanometres, for example a tetrahedral edge."
+          },
+          "volume_nm3": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Source-reported non-spherical particle volume in cubic nanometres."
+          },
+          "equivalent_diameter_nm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Reviewed equivalent spherical diameter in nanometres. Must preserve the original source size and conversion rule in size_conversion."
+          },
+          "morphology": {
+            "type": "string",
+            "enum": ["spherical", "tetrahedral", "non_spherical", "unknown_non_spherical"],
+            "description": "Particle morphology when needed to interpret a non-diameter size axis or conversion."
+          },
+          "size_conversion": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_size_axis",
+              "source_value",
+              "source_unit",
+              "equivalent_axis",
+              "conversion_rule"
+            ],
+            "properties": {
+              "source_size_axis": {
+                "type": "string",
+                "enum": ["diameter_nm", "radius_nm", "edge_length_nm", "volume_nm3"],
+                "description": "Original source size axis used to derive the equivalent diameter."
+              },
+              "source_value": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "Original source-reported size value before conversion."
+              },
+              "source_unit": {
+                "type": "string",
+                "enum": ["nm", "nm3"],
+                "description": "Original source size unit."
+              },
+              "equivalent_axis": {
+                "type": "string",
+                "enum": ["equivalent_diameter_nm"],
+                "description": "Converted size axis stored on the entry."
+              },
+              "conversion_rule": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Reviewed conversion rule or citation preserving how the equivalent diameter was derived."
+              }
+            }
           },
           "property_kind": {
             "type": "string",
@@ -133,18 +191,32 @@
             "description": "Any additional provenance, conversion, or interpretation notes. Optional."
           }
         },
-        "anyOf": [
+        "oneOf": [
           { "required": ["diameter_nm"] },
-          { "required": ["radius_nm"] }
+          { "required": ["radius_nm"] },
+          { "required": ["edge_length_nm"] },
+          { "required": ["volume_nm3"] },
+          { "required": ["equivalent_diameter_nm"] }
+        ],
+        "allOf": [
+          {
+            "if": { "required": ["edge_length_nm"] },
+            "then": { "required": ["morphology"] }
+          },
+          {
+            "if": { "required": ["volume_nm3"] },
+            "then": { "required": ["morphology"] }
+          },
+          {
+            "if": { "required": ["equivalent_diameter_nm"] },
+            "then": { "required": ["morphology", "size_conversion"] }
+          }
         ],
         "if": {
           "properties": { "inclusion_status": { "const": "excluded" } }
         },
         "then": {
           "required": ["exclusion_reason"]
-        },
-        "not": {
-          "required": ["diameter_nm", "radius_nm"]
         }
       }
     }

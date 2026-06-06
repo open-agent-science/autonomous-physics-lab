@@ -72,6 +72,42 @@ def test_schema_accepts_radius_nm_instead_of_diameter() -> None:
     validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
 
+def test_schema_accepts_tetrahedral_edge_length_with_morphology() -> None:
+    payload = _minimal_payload()
+    entry = payload["entries"][0]  # type: ignore[index]
+    del entry["diameter_nm"]
+    entry["material"] = "InP"
+    entry["edge_length_nm"] = 4.2
+    entry["morphology"] = "tetrahedral"
+    entry["source_id"] = "almeida-2023-nano-letters-inp-optical"
+    validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
+def test_schema_accepts_volume_axis_with_morphology() -> None:
+    payload = _minimal_payload()
+    entry = payload["entries"][0]  # type: ignore[index]
+    del entry["diameter_nm"]
+    entry["volume_nm3"] = 18.0
+    entry["morphology"] = "tetrahedral"
+    validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
+def test_schema_accepts_equivalent_diameter_with_conversion_metadata() -> None:
+    payload = _minimal_payload()
+    entry = payload["entries"][0]  # type: ignore[index]
+    del entry["diameter_nm"]
+    entry["equivalent_diameter_nm"] = 3.9
+    entry["morphology"] = "tetrahedral"
+    entry["size_conversion"] = {
+        "source_size_axis": "edge_length_nm",
+        "source_value": 4.2,
+        "source_unit": "nm",
+        "equivalent_axis": "equivalent_diameter_nm",
+        "conversion_rule": "Reviewer-approved tetrahedral-volume-equivalent sphere diameter.",
+    }
+    validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
 def test_schema_accepts_all_property_kind_values() -> None:
     for kind in ("absorption_peak_eV", "emission_peak_eV", "bandgap_eV"):
         payload = _minimal_payload()
@@ -126,6 +162,34 @@ def test_schema_rejects_both_diameter_and_radius_on_same_entry() -> None:
     payload = _minimal_payload()
     entry = payload["entries"][0]  # type: ignore[index]
     entry["radius_nm"] = 1.75  # diameter_nm already present → violation
+    with pytest.raises(ValueError, match="schema validation"):
+        validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
+def test_schema_rejects_multiple_size_axes_including_edge_length() -> None:
+    payload = _minimal_payload()
+    entry = payload["entries"][0]  # type: ignore[index]
+    entry["edge_length_nm"] = 4.2
+    entry["morphology"] = "tetrahedral"
+    with pytest.raises(ValueError, match="schema validation"):
+        validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
+def test_schema_rejects_edge_length_without_morphology() -> None:
+    payload = _minimal_payload()
+    entry = payload["entries"][0]  # type: ignore[index]
+    del entry["diameter_nm"]
+    entry["edge_length_nm"] = 4.2
+    with pytest.raises(ValueError, match="schema validation"):
+        validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
+def test_schema_rejects_equivalent_diameter_without_conversion_metadata() -> None:
+    payload = _minimal_payload()
+    entry = payload["entries"][0]  # type: ignore[index]
+    del entry["diameter_nm"]
+    entry["equivalent_diameter_nm"] = 3.9
+    entry["morphology"] = "tetrahedral"
     with pytest.raises(ValueError, match="schema validation"):
         validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
@@ -277,7 +341,13 @@ def test_source_manifest_entries_have_required_review_fields() -> None:
         "electrical_transport",
         "theoretical_calculation",
     }
-    allowed_size_axes = {"diameter_nm", "radius_nm"}
+    allowed_size_axes = {
+        "diameter_nm",
+        "radius_nm",
+        "edge_length_nm",
+        "volume_nm3",
+        "equivalent_diameter_nm",
+    }
     allowed_inclusion_decisions = {"accepted", "excluded"}
     allowed_checksum_policies = {"doi_pinned", "sha256_file", "url_archived"}
 

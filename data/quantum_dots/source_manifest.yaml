@@ -15,7 +15,8 @@
 #   materials       — list of material identifiers covered
 #   measurement_type — one of: optical_absorption, photoluminescence,
 #                      electrical_transport, theoretical_calculation
-#   size_axis       — diameter_nm | radius_nm
+#   size_axis       — diameter_nm | radius_nm | edge_length_nm | volume_nm3 |
+#                     equivalent_diameter_nm
 #   inclusion_decision — accepted | excluded
 #   inclusion_rationale — brief reason for decision
 #   license_note    — redistribution or reuse terms
@@ -48,7 +49,7 @@ sources:
       - CdSe
       - CdS
     measurement_type: optical_absorption
-    size_axis: diameter_nm
+    size_axis: edge_length_nm
     inclusion_decision: accepted
     inclusion_rationale: >
       Source-scoped optical absorption calibration candidate for a first
@@ -328,10 +329,13 @@ sources:
     notes: >
       Candidate for a future InP absorption_peak_eV digitization-required
       source package. Expected row class is digitization_required, not
-      table_derived. Treat reported edge length/volume and E1s values as a
-      coupled morphology + optical surface requiring per-point provenance,
-      axis calibration, uncertainty notes, and direct-versus-derived labels
-      before any qd-*.yaml row curation.
+      table_derived. TASK-0637 accepts edge_length_nm as the metadata route
+      for this tetrahedral source; any future volume_nm3 or equivalent
+      diameter row must preserve the original source value and conversion
+      rule. Treat reported edge length/volume and E1s values as a coupled
+      morphology + optical surface requiring per-point provenance, axis
+      calibration, uncertainty notes, and direct-versus-derived labels before
+      any qd-*.yaml row curation.
 
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25
