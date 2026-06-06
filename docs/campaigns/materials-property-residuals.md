@@ -72,12 +72,15 @@ not support synthesis, device, biomedical, or material-design guidance.
 `RESULT-*`, claim, prediction registry entry, external dataset repository, or
 DOI.
 
-**Active next work:** the public-safe next science direction is `MD-0002`
-widening after the active result-or-dataset gate authorizes it. Formation-energy
-controls and split sensitivity have already run on `MD-0001`; the next widening
-step should stay source-first and no-live-fetch until a maintainer-approved
+**Active next work:** `TASK-0626` ran the bounded formation-energy Research
+Factory smoke sprint and found no candidate that clears the frozen baseline
+plus controls. `TASK-0614` should now decide whether `MD-0001` routes to a
+dataset-publication package, `MD-0002` widening-first, scoped result preflight,
+or do-not-promote memory. If the gate authorizes `MD-0002`, the widening step
+should stay source-first and no-live-fetch until a maintainer-approved
 acquisition preflight pins source version, row cap, checksum, citation/reuse
-metadata, and holdout rules.
+metadata, and holdout rules. `TASK-0631` stays blocked until that decision
+explicitly authorizes MD-0002 acquisition preflight.
 
 ## Admissible Source Classes
 

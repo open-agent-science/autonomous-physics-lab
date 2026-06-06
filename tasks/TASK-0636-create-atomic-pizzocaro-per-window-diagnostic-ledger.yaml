@@ -1,0 +1,50 @@
+id: TASK-0636
+title: "Create Atomic Pizzocaro per-window diagnostic ledger"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Atomic Clock Residuals from source-blocked review prose toward machine-readable source-to-row readiness memory."
+  - "Preserve Pizzocaro VLBI evidence without pretending correlated windows are independent benchmark rows."
+  - "Clarify whether a future covariance reconstruction can unblock an Atomic Yb/Sr benchmark."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-pizzocaro-vlbi-row-aggregation-covariance-gate.md"
+    - "docs/reviews/atomic-pizzocaro-source-to-row-extraction-ledger.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+    - "physics_lab/engines/atomic_clock_residuals.py"
+  planning_context: >
+    TASK-0627 preserved a COV_BLOCKED_SHARED_SYSTEMATICS blocker and
+    recommended a per-window diagnostic ledger. This task creates that ledger
+    without treating the windows as benchmark-ready independent rows.
+
+requirements:
+  - "Use only committed Pizzocaro source artifacts; do not fetch live data."
+  - "Create a machine-readable per-window diagnostic ledger with stable window ids, MJD fields, ratio orientation, component uncertainty fields, and covariance-state labels."
+  - "Mark the ledger diagnostic-only unless a committed covariance reconstruction clears the existing Atomic covariance policy."
+  - "Do not add benchmark rows to data/atomic_clocks/acr-*.yaml in this task."
+  - "Do not run constants-drift fits, cross-source benchmarks, predictions, claims, knowledge, or result artifacts."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_per_window_diagnostic_ledger.yaml"
+  - "docs/reviews/atomic-pizzocaro-per-window-diagnostic-ledger.md"
+  - "tests for ledger schema/loader checks if a new helper is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
