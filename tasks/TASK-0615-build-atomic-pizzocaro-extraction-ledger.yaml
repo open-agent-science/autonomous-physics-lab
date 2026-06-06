@@ -1,7 +1,7 @@
 id: TASK-0615
 title: "Build Atomic Pizzocaro source-to-row extraction ledger"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
