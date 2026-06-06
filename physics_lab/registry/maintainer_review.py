@@ -385,6 +385,8 @@ def ci_aware_validation_command(command_text: str) -> str | None:
     if python_args == "-m pytest":
         return f"{python_launcher or 'python3'} -m pytest -m full_repo"
     if python_args.startswith("-m pytest --basetemp="):
+        if len(python_args.split()) > 3:
+            return command_text
         target = f"{python_launcher or 'python3'} -m pytest"
         return command_text.replace(target, f"{target} -m full_repo", 1)
     if python_args.startswith("-m pytest -m 'not full_repo'"):

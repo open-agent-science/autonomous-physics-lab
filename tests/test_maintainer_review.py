@@ -695,6 +695,12 @@ def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
     assert ci_aware_validation_command("python -m pytest") == "python -m pytest -m full_repo"
     assert (
         ci_aware_validation_command(
+            "python3 -m pytest --basetemp=.pytest-basetemp-0619 tests/test_maintainer_review.py -q"
+        )
+        == "python3 -m pytest --basetemp=.pytest-basetemp-0619 tests/test_maintainer_review.py -q"
+    )
+    assert (
+        ci_aware_validation_command(
             "python3 scripts/run_nuclear_local_curvature_lane.py --help"
         )
         == "python3 scripts/run_nuclear_local_curvature_lane.py --help"
