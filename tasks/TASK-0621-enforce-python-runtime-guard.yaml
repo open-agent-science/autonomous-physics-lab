@@ -1,7 +1,7 @@
 id: TASK-0621
 title: "Enforce and document the Python 3.11+ runtime"
 type: workflow_hardening
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -38,7 +38,7 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_agent_doctor.py -q"
+    - "python3 -m pytest tests/test_runtime_guard.py tests/test_agent_doctor.py -q"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

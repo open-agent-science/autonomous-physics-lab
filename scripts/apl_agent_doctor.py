@@ -20,6 +20,11 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from physics_lab._runtime import (  # noqa: E402
+    MINIMUM_PYTHON_DISPLAY,
+    is_supported as _python_is_supported,
+    unsupported_message as _python_unsupported_message,
+)
 from physics_lab.registry.pr_capability import check_pr_capability  # noqa: E402
 
 
@@ -32,6 +37,9 @@ class PythonRuntimeReport:
     version: str
     platform: str
     modules: dict[str, bool]
+    minimum_version: str
+    meets_minimum: bool
+    remediation: str | None
 
 
 @dataclass(frozen=True)
@@ -102,11 +110,15 @@ def python_runtime_report() -> PythonRuntimeReport:
         name: importlib.util.find_spec(name) is not None
         for name in PYTHON_MODULE_CHECKS
     }
+    meets_minimum = _python_is_supported()
     return PythonRuntimeReport(
         executable=sys.executable,
         version=sys.version.split()[0],
         platform=platform.platform(),
         modules=modules,
+        minimum_version=MINIMUM_PYTHON_DISPLAY,
+        meets_minimum=meets_minimum,
+        remediation=None if meets_minimum else _python_unsupported_message(),
     )
 
 
@@ -417,11 +429,17 @@ def _print_human(report: AgentDoctorReport) -> None:
     print("Python")
     print(f"- executable: {report.python.executable}")
     print(f"- version: {report.python.version}")
+    print(f"- minimum required: {report.python.minimum_version}")
+    print(f"- meets minimum: {report.python.meets_minimum}")
     print(f"- platform: {report.python.platform}")
     print("- modules:")
     for name, present in report.python.modules.items():
         status = "found" if present else "missing"
         print(f"  - {name}: {status}")
+    if not report.python.meets_minimum and report.python.remediation:
+        print("- remediation:")
+        for line in report.python.remediation.splitlines():
+            print(f"    {line}")
 
     pr = report.pr_capability
     print("PR publication")
