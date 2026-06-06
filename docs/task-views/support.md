@@ -11,6 +11,10 @@
 - `TASK-0560` - Define docs reviews and notes retention policy (`documentation_architecture`, priority `medium`, difficulty `low`, domain `documentation_architecture`)
 - `TASK-0591` - Decouple the generated CONTEXT.md bundle from the committed tree (`documentation_architecture`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 - `TASK-0592` - Harden Exoplanet source-acquisition portability checks (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0621` - Enforce and document the Python 3.11+ runtime (`workflow_hardening`, priority `high`, difficulty `medium`, domain `developer_workflow`)
+- `TASK-0622` - Add PR finish gate helper for review, CI, and ready transition (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
+- `TASK-0623` - Add subprocess environment guardrails for tests and helpers (`developer_infrastructure`, priority `medium`, difficulty `medium`, domain `repository_validation`)
+- `TASK-0624` - Add task-branch upstream tracking preflight (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 
 ## IN_PROGRESS
 
