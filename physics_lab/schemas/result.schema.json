@@ -89,6 +89,9 @@
         "config": {
           "$ref": "#/$defs/fileHash"
         },
+        "fixture": {
+          "$ref": "#/$defs/fileHash"
+        },
         "experiment": {
           "$ref": "#/$defs/fileHash"
         },

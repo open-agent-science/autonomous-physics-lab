@@ -1,0 +1,127 @@
+result_id: RESULT-0019
+run_id: RUN-0001
+experiment_id: EXP-0013
+title: Textbook Stefan-Boltzmann Exact-Reference Software Fixture Result
+hypothesis_id: HYP-0013
+task_id: TASK-0634
+generated_at: '2026-06-06T21:48:52+00:00'
+engine_version: 0.1.0
+git_commit: bbf31ba274fc9684a4801892538b356dc24bdd29
+command: physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0013/RUN-0001/inputs/config.yaml
+    sha256: 0820b720868f41b07d399db8dcba468577b398ba87e13e0f48e13003552f798c
+  fixture:
+    path: results/EXP-0013/RUN-0001/inputs/fixture.yaml
+    sha256: 0534972a8684bfbe3475259c20f93b931d7e0dff5ea2bf9bae20c3a7d110db12
+  experiment:
+    path: results/EXP-0013/RUN-0001/inputs/experiment.yaml
+    sha256: e31a87775bf238790a479fbc4fd9f0a3ffa26e028492bf6af29f9a6b3752ad61
+  hypothesis:
+    path: results/EXP-0013/RUN-0001/inputs/hypothesis.yaml
+    sha256: a17a3ea951058b243d1c8f6e712daa1081fcbba5174a7e19b56acfa594569ca5
+  task:
+    path: results/EXP-0013/RUN-0001/inputs/task.yaml
+    sha256: 9f15726c25d65080d9e36cad9da0f1d9b10d1ede4a061af176b13220c49c585c
+code_reference: physics_lab/workflows/textbook_exact_reference.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- Synthetic exact-reference software fixture only; no empirical emitter rows were
+  ingested.
+- Validates deterministic software, units, and the frozen CODATA 2022 constant convention;
+  it does not validate or falsify Stefan-Boltzmann, Wien displacement, blackbody physics,
+  or stellar observations.
+- No claim, knowledge, prediction, or empirical formula promotion is performed by
+  this result-only task.
+best_model_id: model_stefan_boltzmann_exact_reference
+best_verdict: VALID_IN_RANGE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: VALID_IN_RANGE
+  published_by:
+    contributor_id: roman
+    github_username: gladunrv
+    agent_tool: Claude Code
+    model_version: Claude Opus 4.8
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: 'The committed Stefan-Boltzmann exact-reference workflow replayed
+    deterministically against the synthetic fixture: 16 rows, max exact-reference
+    relative error 0.0 under a 1e-12 tolerance, all software gates passing, and both
+    declared convention negative controls rejected. The scoped verdict is VALID_IN_RANGE
+    for the software/convention fixture only; no empirical formula behavior is asserted.'
+  followup_for_maintainer: Keep this RESULT as agent-published software/convention
+    evidence. It is the intended replay target for the first Gate B independent-replay
+    task (TASK-0635). Claim and knowledge promotion remain out of scope.
+verification:
+  passed: true
+  checks:
+  - name: deterministic_exact_reference_replay
+    status: PASS
+    details: The workflow reproduced all synthetic reference rows at max relative
+      error 0.0 under the declared tolerance, and all software gates passed.
+    metrics:
+      row_count: 16
+      reference_row_count: 8
+      holdout_row_count: 8
+      exact_reference_max_relative_error: 0.0
+      tolerance_relative_error: 1.0e-12
+  - name: declared_negative_controls_rejected
+    status: PASS
+    details: Both declared convention negative controls (wrong temperature exponent
+      and wrong area multiplier) were rejected as expected.
+    metrics:
+      wrong_temperature_exponent_control_rejected: true
+      wrong_area_control_rejected: true
+  - name: protected_result_not_rewritten
+    status: PASS
+    details: RESULT-0019 is new and is not pinned in results/golden-results.yaml.
+    metrics:
+      protected_result_rewrite: false
+comparison_summary:
+- target_id: target_exact_reference_relative_error_zero
+  label: Exact-reference fixture relative error
+  reference_value: 0.0
+  observed_value: 0.0
+  unit: relative_error
+  absolute_difference: 0.0
+  relative_difference: 0.0
+  notes: Synthetic exact-reference rows reproduced at zero relative error under the
+    declared 1e-12 tolerance.
+- target_id: target_declared_negative_controls_rejected
+  label: Declared convention negative controls rejected
+  reference_value: 1.0
+  observed_value: 1.0
+  unit: pass_fraction
+  absolute_difference: 0.0
+  relative_difference: 0.0
+  notes: Both declared convention negative controls were rejected, matching the expected
+    pass fraction of 1.0.
+uncertainty_summary:
+  method: deterministic_software_fixture_no_measurement_uncertainty
+  observed_uncertainty: null
+  reference_uncertainty: null
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: This result records deterministic software/convention gate behavior over
+    synthetic fixtures; it has no measurement-uncertainty model.
+artifacts:
+  report: results/EXP-0013/RUN-0001/report.md
+  metrics: results/EXP-0013/RUN-0001/metrics.json
+  claim_update: results/EXP-0013/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0013/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0013/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0013/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0013/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0013/RUN-0001/review_metadata.yaml
