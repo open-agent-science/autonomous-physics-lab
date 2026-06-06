@@ -19,9 +19,12 @@ regressed on the validation holdout. `TASK-0552` then froze a stratified
 NMD-0003 readiness split where the region-stratified diagnostic validation
 MAE is `1.899279` MeV. `TASK-0583` independently replayed that gate and matched
 the frozen metrics exactly after a narrow path-normalization portability fix.
-The next useful work is F2 component ablation, source-gated reveal scouting,
-and negative/control memory packaging, not broad prediction waves or reruns on
-the 11-row bootstrap slice.
+`TASK-0625` then ran the only authorized F2 component-ablation follow-up and
+classified the lane as `COMPONENT_DIAGNOSTIC_ONLY`: the full aggregate remains
+replayable, but no component clears the survival-margin gate. The next useful
+work is result-publication preflight for that diagnostic/negative memory and
+source-gated reveal scouting, not broad prediction waves or reruns on the
+11-row bootstrap slice.
 
 ## Public Monitoring Snapshot
 
@@ -50,13 +53,14 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** the F2 replay/control ledger matched exactly and the
-promotion decision is now `ABLATION_NEEDED`: F2 improved validation/full-known
-metrics, but its best-control gap (`0.199260` MeV) missed the predeclared
-`0.25` MeV survival margin. The next useful Nuclear result is exactly one
-component-ablation family (`TASK-0625`) to decide whether a stable F2 component
-survives or the lane stays diagnostic-only. Reveal scoring remains separate and
-source-gated.
+**Expected next result:** F2 no longer needs another hypothesis burst.
+`TASK-0625` found the best single component (`magic_n_near`) diagnostic but
+insufficient for promotion; the full F2 reference still improves
+validation/full-known MAE but misses the controls-first survival margin. The
+next useful Nuclear result is a scoped result-publication preflight
+(`TASK-0633`) that either packages F2 as a diagnostic/negative
+`AGENT_PUBLISHED RESULT` candidate or records the exact Gate A blocker. Reveal
+scoring remains separate and source-gated.
 
 ## Orientation Note for New Contributors
 

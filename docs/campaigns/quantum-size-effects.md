@@ -41,12 +41,14 @@ digitization package exists. Current safe work is either a maintainer-supplied
 Norris-Bawendi source-copy/digitization path or scouting one genuinely open
 direct-table source beyond the exhausted Norris/Kang pair. `TASK-0605` scouted
 Almeida 2023 InP optical data as a promising but digitization-required open
-candidate; `TASK-0630` should now pin the source artifact and decide whether
-schema/axis semantics permit a future digitization package.
+candidate. `TASK-0630` found the source promising but not row-ready under the
+current schema: Almeida reports tetrahedral edge length / volume rather than
+direct diameter or radius.
 
-**Expected next result:** either a legitimate source-artifact handoff that
-unlocks direct row curation or a blocker review that prevents another weak
-source path from being repeated.
+**Expected next result:** `TASK-0637` should add a reviewed non-spherical
+size-axis route before any Almeida digitization. After that, a separate
+source-artifact/digitization task can decide whether Figure 1b can become
+direct measurement rows.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -138,7 +140,12 @@ Current task posture:
 - `TASK-0589` — Norris-Bawendi source-copy handoff (DONE; maintainer-facing
   checklist only, no values or copyrighted source copies).
 - `TASK-0605` — scout one additional open direct-table source beyond the
-  exhausted Norris/Kang paths (READY; source-admissibility only).
+  exhausted Norris/Kang paths (DONE; Almeida 2023 InP optical data was
+  selected as promising but digitization/schema-gated).
+- `TASK-0630` — Almeida 2023 source-artifact feasibility (DONE;
+  `SCHEMA_EXTENSION_NEEDED` because the source uses tetrahedral edge length
+  and volume rather than the current diameter/radius-only schema route).
+- `TASK-0637` — non-spherical size-axis schema extension (READY).
 
 Safe next contributions are:
 

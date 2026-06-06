@@ -66,12 +66,12 @@ recommendations, material-design results, experimental measurements, or a
 new-law claim. The rows are computed DFT values only and do not support
 synthesis, device, biomedical, or material-design guidance.
 
-**Active next work:** `TASK-0614` should decide whether `MD-0001` formation
-energy routes to scoped result preflight, reusable-dataset publication package,
-`MD-0002` widening-first, or do-not-promote memory. `TASK-0616` recommended
-Materials as the second executable Research Factory adapter, formation-energy
-only; the next bounded sprint is `TASK-0626`. `TASK-0631` stays blocked until
-`TASK-0614` explicitly authorizes MD-0002 acquisition preflight.
+**Active next work:** `TASK-0626` ran the bounded formation-energy Research
+Factory smoke sprint and found no candidate that clears the frozen baseline
+plus controls. `TASK-0614` should now decide whether `MD-0001` routes to a
+dataset-publication package, `MD-0002` widening-first, scoped result preflight,
+or do-not-promote memory. `TASK-0631` stays blocked until that decision
+explicitly authorizes MD-0002 acquisition preflight.
 
 ## Admissible Source Classes
 

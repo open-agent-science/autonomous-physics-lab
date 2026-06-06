@@ -1,7 +1,7 @@
 id: TASK-0628
 title: "Package Stellar M-L DEBCat source artifact"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -20,11 +20,13 @@ input:
     - "docs/campaigns/textbook-formula-audit.md"
   planning_context: >
     TASK-0604 selected DEBCat as the first-choice independent mass-source
-    candidate, but TASK-0610 still needs to evaluate candidate admissibility
-    before a source-artifact package should be created.
+    candidate, and the landed TASK-0610 review selected the DEBCat source
+    artifact path. The next useful step is source-artifact packaging before
+    any row curation, luminosity calculation, exponent fitting, or empirical
+    formula audit.
 
 requirements:
-  - "Start only after TASK-0610 selects DEBCat or another first source as admissible for artifact packaging."
+  - "Start from the landed TASK-0610 source-path decision; if the source artifact is not accessible or reuse terms block committed artifact packaging, preserve a precise blocker review."
   - "Pin the exact source locator, retrieval date, checksum path, license/reuse posture, source timestamp/version if available, and citation metadata."
   - "Do not copy value-bearing rows unless the source license and artifact protocol explicitly allow the committed artifact shape."
   - "Preserve component/system identifiers, mass uncertainty semantics, and no-leakage constraints for binary components."
