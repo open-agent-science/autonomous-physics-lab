@@ -1,0 +1,45 @@
+id: TASK-0654
+title: "Package Quantum Almeida license and figure-surface review"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare the Almeida InP source path while schema work finishes separately."
+  - "Separate source/reuse/figure-surface readiness from digitizing values."
+  - "Keep Quantum moving toward direct rows without violating rights or provenance discipline."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    TASK-0630 selected Almeida 2023 as promising but schema-gated. This task
+    completes the license/reuse and figure-surface checklist without
+    digitizing coordinates.
+
+requirements:
+  - "Record source locator, article/SI surfaces, figure/panel candidates, retrieval date, reuse posture, and checksum/archive feasibility."
+  - "Do not digitize values, transcribe rows, convert tetrahedral axes, run baselines, or create claims."
+  - "State exactly what remains blocked by TASK-0637 or later digitization tooling."
+  - "Update the quantum source manifest only with metadata-only readiness notes if appropriate."
+
+accepted_outputs:
+  - "docs/reviews/quantum-almeida-license-figure-surface-review.md"
+  - "optional data/quantum_dots/source_manifest.yaml metadata-only update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

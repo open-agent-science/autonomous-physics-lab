@@ -1,0 +1,45 @@
+id: TASK-0650
+title: "Specify Exoplanet source-version monitor contract"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Replace repeated manual EXO-0003 metadata scouts with a conservative source-version trigger contract."
+  - "Notify maintainers only when source metadata plausibly changes the scientific gate."
+  - "Keep automation from fetching value-bearing exoplanet rows."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-third-snapshot-trigger-plan.md"
+    - "docs/reviews/exoplanet-exo0003-metadata-trigger-scout.md"
+    - "docs/maintainer-automation-architecture.md"
+  planning_context: >
+    TASK-0629 showed that a metadata scout can return WAIT. This task defines
+    a monitor contract that watches source-version and aggregate-count signals
+    without turning Exoplanets into a live-fetch loop.
+
+requirements:
+  - "Define what the monitor may check: release-note timestamp, source-version marker, aggregate COUNT(*) thresholds, and query availability."
+  - "Define what it must not check: row values, residuals, habitability, composition labels, or target priority."
+  - "Prefer a docs/runbook contract over creating an automation unless the maintainer explicitly asks for automation."
+  - "Include a no-notify-if-unchanged rule."
+
+accepted_outputs:
+  - "docs/runbooks/exoplanet-source-version-monitor-contract.md"
+  - "optional task proposal for automation if maintainers later request it"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

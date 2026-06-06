@@ -1,0 +1,46 @@
+id: TASK-0652
+title: "Package Atomic Lange/PTB Yb+ source-artifact preflight"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Reduce Atomic dependence on Pizzocaro by moving the selected Lange/PTB fallback toward a source package."
+  - "Keep Atomic source work at artifact/provenance level before any constants-drift benchmark."
+  - "Create an alternate high-precision fresh-data path if Pizzocaro stays covariance-blocked."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-second-yb-sr-fallback-source-scout.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "docs/fresh-data-intake-protocol.md"
+  planning_context: >
+    TASK-0606 selected Lange/PTB Yb+ E3/Cs as a fallback candidate but left it
+    blocked on exact artifact locator and reuse review. This task performs the
+    source-artifact preflight only.
+
+requirements:
+  - "Pin exact source locators, citation metadata, retrieval date, reuse posture, and checksum/archive feasibility for the Lange/PTB candidate."
+  - "Do not transcribe clock ratio values, fit constants, compare sources, or create benchmark rows."
+  - "If source packaging is blocked, preserve a precise blocker review."
+  - "Update the atomic source manifest only with metadata-only candidate status if appropriate."
+
+accepted_outputs:
+  - "docs/reviews/atomic-lange-ptb-source-artifact-preflight.md"
+  - "optional data/atomic_clocks/source_manifest.yaml metadata-only update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
