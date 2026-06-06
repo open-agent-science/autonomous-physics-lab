@@ -1,7 +1,7 @@
 id: TASK-0612
 title: "Run Nuclear F2 independent replay and control ledger"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

@@ -1,7 +1,7 @@
 id: TASK-0609
 title: "Harden canonical task PR publication helper"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
