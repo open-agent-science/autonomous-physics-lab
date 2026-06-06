@@ -7,8 +7,6 @@
 ## READY
 
 - `TASK-0610` - Evaluate Stellar M-L source candidates after TASK-0604 (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0625` - Run Nuclear F2 survival-margin component ablation (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0626` - Run Materials MD-0001 formation-energy factory smoke sprint (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
 - `TASK-0627` - Curate Atomic Pizzocaro VLBI row aggregation and covariance gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0629` - Run EXO-0003 metadata-only source trigger scout (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0630` - Package Quantum Almeida 2023 source artifact and digitization feasibility (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
@@ -26,3 +24,5 @@ None.
 - `TASK-0613` - Adjudicate Nuclear F2 promotion, ablation, or stop decision (`research_quality_gate`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0615` - Build Atomic Pizzocaro source-to-row extraction ledger (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0616` - Evaluate Materials as the second executable Research Factory adapter (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0625` - Run Nuclear F2 survival-margin component ablation (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0626` - Run Materials MD-0001 formation-energy factory smoke sprint (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
