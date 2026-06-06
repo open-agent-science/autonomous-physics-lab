@@ -1,0 +1,76 @@
+proposal_id: 20260606-sviti-pr-finish-gate-helper
+title: "Add a PR finish gate helper for review, CI, and ready transition"
+status: PROPOSED
+type: maintainer_workflow
+priority: high
+
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+
+strategy_alignment:
+  - "Reduce agent time spent manually repeating the same post-PR review, CI polling, and ready-for-review steps."
+  - "Use the newly merged live occupancy and clean remote PR review helpers as the deterministic base for safer PR handoff."
+  - "Keep PRs draft until both maintainer review and GitHub CI gates are actually clear."
+
+summary: >
+  Add a small repository helper that finishes the post-publication loop for a
+  task or proposal PR: run the PR-number review helper, poll GitHub checks,
+  mark the PR ready only when the review verdict is MERGE_OK and CI is clean,
+  and print exact blockers when either gate fails.
+
+rationale: >
+  During the TASK-0617 through TASK-0620 execution wave, the slowest remaining
+  manual step after implementation was not science or coding. It was the
+  repeated finish loop: run apl_review_pr.py --pr, inspect GitHub check state,
+  wait, avoid premature gh pr ready, inspect CI logs when a check fails, push a
+  targeted fix, and rerun the same gates. TASK-0617 now provides live PR task
+  occupancy checks, and TASK-0619 now lets PR review evaluate a clean remote PR
+  worktree. The next improvement is to compose those pieces into one bounded
+  helper so agents and maintainers can finish PRs faster without weakening the
+  gate.
+
+input:
+  mode: planning_only
+  related_domain: maintainer_review
+  related_objects:
+    - scripts/apl_review_pr.py
+    - scripts/apl_task_occupancy.py
+    - physics_lab/registry/maintainer_review.py
+    - docs/agent-task-protocol.md
+    - docs/maintainer-review-agent.md
+  planning_context: >
+    This proposal is a follow-up to the accepted and merged TASK-0617,
+    TASK-0619, and TASK-0620 workflow improvements. It should be tested against
+    recent real PR shapes: a green ready transition, a failing CI check that
+    must keep the PR draft, and a review-helper blocker that must not call
+    gh pr ready.
+
+requirements:
+  - "Keep the helper advisory and bounded; it must not merge PRs."
+  - "Run or consume python3 scripts/apl_review_pr.py --pr <number> and require a MERGE_OK verdict before marking ready."
+  - "Poll GitHub check state through gh JSON or an equivalent connector path and require all required GitHub checks to be clean."
+  - "When CI fails, print the failing check name, run URL, and a short log snippet or exact command for inspection."
+  - "When review or CI is blocked, leave the PR in draft and print the next safe command."
+  - "Support canonical task PRs and TASK-PROPOSAL PRs without changing their review policy."
+  - "Use argument-list subprocesses and repository Python discovery; do not add shell-only critical-path logic."
+  - "Do not relax review-helper, CI, or task-status requirements."
+  - "Do not promote claims, results, or knowledge entries."
+
+accepted_outputs:
+  - "canonical task spec for a PR finish gate helper"
+  - "helper or subcommand that composes PR review, CI polling, and gh pr ready"
+  - "tests or fixtures for MERGE_OK plus green CI, MERGE_OK plus failing CI, and review-blocked PRs"
+  - "documentation update for the finish-gate workflow"
+  - "maintainer decision on whether to assign a canonical TASK-XXXX id"
+
+validation:
+  commands:
+    - "python3 scripts/apl_proposal_pr_helper.py preflight --branch agent/sviti/codex/propose-task-pr-finish-loop-hardening --title \"TASK-PROPOSAL: Add PR finish loop hardening tasks\" --proposal-path tasks/proposals/20260606-sviti-pr-finish-gate-helper.yaml"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Awaiting maintainer acceptance and canonical task id."

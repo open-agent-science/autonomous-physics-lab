@@ -1,0 +1,70 @@
+proposal_id: 20260606-sviti-task-branch-upstream-preflight
+title: "Add task-branch upstream tracking preflight"
+status: PROPOSED
+type: workflow_hardening
+priority: medium
+
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+
+strategy_alignment:
+  - "Reduce accidental pushes to the wrong upstream during one-task-per-worktree execution."
+  - "Make branch publication diagnostics explicit before an agent reaches the PR finish step."
+  - "Support fast, safe task execution in parallel agent worktrees."
+
+summary: >
+  Add a preflight check that detects task or proposal branches whose upstream
+  tracking branch is missing, points at origin/main, or points at a branch that
+  does not match the current task/proposal branch.
+
+rationale: >
+  During the TASK-0617 CI fix, the local worktree branch showed tracking
+  origin/main even though the remote PR branch was
+  agent/sviti/codex/task-0617-pr-occupancy-check. The safe workaround was to
+  push explicitly with HEAD:<task-branch>, but this is easy to miss in a long
+  agent run. A lightweight preflight can warn before push/ready steps and can
+  provide the exact safe push command without force-push or checkout churn.
+
+input:
+  mode: planning_only
+  related_domain: repository_coordination
+  related_objects:
+    - scripts/apl_branch_precondition.py
+    - scripts/apl_task_pr_helper.py
+    - physics_lab/registry/task_pr_helper.py
+    - docs/agent-task-protocol.md
+    - docs/notes/agent-worktree-discipline.md
+  planning_context: >
+    This proposal follows the merged task-worktree and PR-helper improvements.
+    It should complement, not replace, the existing branch precondition and
+    task PR helper checks. The intended behavior is an advisory or hard
+    pre-push warning when the branch naming is canonical but upstream tracking
+    would send a plain git push to the wrong remote ref.
+
+requirements:
+  - "Detect the current branch, upstream branch, and remote branch name using git commands with shell=False."
+  - "Flag canonical task, TASK-PROPOSAL, TASK-QUEUE, closeout, and microtask branches whose upstream does not match the branch name."
+  - "Print an exact safe command, such as git push origin HEAD:<current-branch>, when upstream tracking is wrong or missing."
+  - "Optionally integrate the check into apl_task_pr_helper create/ready or apl_branch_precondition.py."
+  - "Do not force-push, rewrite branch history, or mutate upstream tracking unless the maintainer explicitly requests an apply mode."
+  - "Add tests for correctly tracked branches, origin/main tracking, missing upstream, and detached HEAD."
+  - "Keep behavior cross-platform and avoid shell-only parsing."
+  - "Do not promote claims, results, or knowledge entries."
+
+accepted_outputs:
+  - "canonical task spec for task-branch upstream tracking preflight"
+  - "preflight helper or integration point with tests"
+  - "documentation update for safe explicit push commands when upstream tracking is wrong"
+  - "maintainer decision on whether to assign a canonical TASK-XXXX id"
+
+validation:
+  commands:
+    - "python3 scripts/apl_proposal_pr_helper.py preflight --branch agent/sviti/codex/propose-task-pr-finish-loop-hardening --title \"TASK-PROPOSAL: Add PR finish loop hardening tasks\" --proposal-path tasks/proposals/20260606-sviti-task-branch-upstream-preflight.yaml"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Awaiting maintainer acceptance and canonical task id."
