@@ -1,0 +1,44 @@
+id: TASK-0658
+title: "Run Stellar M-L DEBCat row-readiness gate"
+type: scientific_dataset
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the DEBCat source artifact into an admissibility decision before empirical M-L metrics."
+  - "Keep direct dynamical masses separate from model-derived luminosity or Gaia-only substitutes."
+  - "Prevent premature Stellar formula claims."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0628-package-stellar-ml-debcat-source-artifact.yaml"
+    - "tasks/TASK-0657-define-stellar-ml-debcat-holdout-protocol.yaml"
+    - "docs/reviews/textbook-stellar-ml-source-candidate-admissibility.md"
+  planning_context: >
+    This task should start only after the DEBCat source artifact and leakage
+    protocol are available. It decides whether row curation can proceed.
+
+requirements:
+  - "Start only after TASK-0628 source packaging and a holdout/no-leakage protocol are merged."
+  - "Determine whether DEBCat provides enough admissible mass, luminosity, uncertainty, and system identifiers for a first row package."
+  - "Do not fit mass-luminosity exponents or create benchmark metrics in this task."
+  - "If luminosity evidence is missing or model-derived only, preserve a blocker review."
+
+accepted_outputs:
+  - "docs/reviews/stellar-ml-debcat-row-readiness-gate.md"
+  - "optional data/textbook_formula_audit/source_manifest.yaml metadata-only update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,46 @@
+id: TASK-0644
+title: "Scaffold Materials MD-0002 holdout and no-peek manifest"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare MD-0002 so wider Materials acquisition is source-pinned and split-frozen before any metrics."
+  - "Make the formation-energy retest credible by declaring holdouts before rows are scored."
+  - "Keep the band-gap axis visible but not promoted from split-fragile MD-0001 evidence."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0002-wider-replication-slice-plan.md"
+    - "docs/reviews/materials-md0001-result-or-dataset-publication-decision.md"
+    - "data/materials/holdout_manifest.yaml"
+    - "data/materials/schema.md"
+  planning_context: >
+    MD-0002 acquisition preflight is now authorized by TASK-0614. The holdout
+    manifest can be scaffolded before any live Materials Project fetch.
+
+requirements:
+  - "Create a manifest scaffold for MD-0002 stable ternary oxides with no-peek split names, row-class intent, and source-version placeholders."
+  - "Declare formation-energy and band-gap axes separately."
+  - "Include split candidates: material_id modulo, seeded random, cation-pair family, spacegroup/prototype, and property-range bins."
+  - "Do not fetch rows, compute metrics, or fill value-bearing row ids before acquisition."
+
+accepted_outputs:
+  - "data/materials/md0002_holdout_manifest.yaml"
+  - "docs/reviews/materials-md0002-holdout-manifest-scaffold.md"
+  - "tests for manifest structure if a loader/schema check is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

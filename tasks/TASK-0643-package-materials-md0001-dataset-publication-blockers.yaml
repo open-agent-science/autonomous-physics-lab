@@ -1,0 +1,46 @@
+id: TASK-0643
+title: "Package Materials MD-0001 reusable-dataset publication blockers"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Clarify whether MD-0001 can become a reusable seed dataset or should wait for MD-0002."
+  - "Turn Materials dataset-publication blockers into a concrete checklist rather than repeated prose."
+  - "Keep computed DFT rows separate from measured or material-design claims."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0001-result-or-dataset-publication-decision.md"
+    - "data/materials/source_manifest.yaml"
+    - "data/materials/holdout_manifest.yaml"
+    - "data/materials/schema.md"
+  planning_context: >
+    TASK-0614 selected MD0002_WIDENING_FIRST but kept MD-0001 as a reusable
+    dataset candidate. This task packages the exact blockers before any
+    external dataset posture or DOI plan.
+
+requirements:
+  - "Audit MD-0001 citation, reuse, source-version, checksum, row-schema, excluded-row, and public wording readiness."
+  - "Do not fetch rows, change values, run metrics, or publish an external dataset."
+  - "Keep formation energy and band gap axes separate and mark band gap split-fragile."
+  - "Recommend whether MD-0001 waits for MD-0002 pairing, gets a metadata-only dataset package task, or remains internal seed data."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0001-reusable-dataset-publication-blockers.md"
+  - "optional metadata-only source_manifest or README note if a blocker is currently ambiguous"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_materials_dataset.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
