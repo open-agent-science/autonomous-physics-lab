@@ -68,8 +68,8 @@ def _render_report(metrics: dict[str, Any], *, result_id: str) -> str:
             "- Review tier: AGENT_PUBLISHED is recorded in the packaged RESULT.",
             "- Gate A: evaluated by the result-publication gate on the packaged RESULT.",
             "- Gate B: not attempted.",
-            "- Claim impact: DRAFT software/convention claim only.",
-            "- Knowledge impact: software/convention knowledge entry only.",
+            "- Claim impact: no claim change.",
+            "- Knowledge impact: no knowledge change.",
             "",
         ]
     )
@@ -94,27 +94,29 @@ def _render_review_summary(result_id: str, metrics: dict[str, Any]) -> str:
 
 
 def _render_claim_update(claim_id: str, result_id: str) -> str:
+    target = f"`{claim_id}`" if claim_id else "none"
     return "\n".join(
         [
-            "# Proposed Claim Update",
+            "# Claim Update",
             "",
-            f"- Claim: `{claim_id}`",
+            f"- Claim: {target}",
             f"- Evidence basis: `{result_id}`",
-            "- Proposed status: `DRAFT`",
-            "- Scope: software/convention fixture validation only.",
+            "- Proposed status: none.",
+            "- Scope: no claim artifact is created or promoted by this result-only task.",
             "",
         ]
     )
 
 
 def _render_knowledge_update(knowledge_id: str, result_id: str) -> str:
+    target = f"`{knowledge_id}`" if knowledge_id else "none"
     return "\n".join(
         [
-            "# Proposed Knowledge Update",
+            "# Knowledge Update",
             "",
-            f"- Knowledge entry: `{knowledge_id}`",
+            f"- Knowledge entry: {target}",
             f"- Evidence basis: `{result_id}`",
-            "- Scope: reusable software/convention fixture baseline only.",
+            "- Scope: no knowledge artifact is created or promoted by this result-only task.",
             "",
         ]
     )
@@ -135,8 +137,8 @@ def _render_patch_stub(title: str, target_file: str, result_id: str) -> str:
             "",
             "## Patch",
             "",
-            "No automatic text patch is applied by this workflow; the committed",
-            "claim/knowledge files carry the scoped software-convention wording.",
+            "No automatic text patch is applied by this workflow; this task records",
+            "a scoped RESULT only and does not create claim or knowledge artifacts.",
             "",
         ]
     )
@@ -164,8 +166,8 @@ def run_textbook_exact_reference_with_output(
     task_id = str(config["task_id"])
     run_id = str(config["run_id"])
     result_id = str(config["result_id"])
-    claim_id = str(config.get("claim_id", "CLAIM-0011"))
-    knowledge_id = str(config.get("knowledge_id", "KNOW-0010"))
+    claim_id = str(config["claim_id"]) if config.get("claim_id") else ""
+    knowledge_id = str(config["knowledge_id"]) if config.get("knowledge_id") else ""
     default_result_root = resolve_path(config_path, str(config["result_root"]))
     result_root = (
         Path(output_dir).resolve() / str(experiment["id"])
@@ -277,7 +279,7 @@ def run_textbook_exact_reference_with_output(
             "Agent-published, not yet independently validated or maintainer-reviewed.",
             "Synthetic exact-reference software fixture only; no empirical emitter rows were ingested.",
             "Validates deterministic software, units, and the frozen CODATA 2022 constant convention; it does not validate or falsify Stefan-Boltzmann, Wien displacement, blackbody physics, or stellar observations.",
-            "No claim or knowledge promotion beyond the scoped DRAFT software/convention CLAIM-0011 and KNOW-0010; status transitions remain maintainer-only.",
+            "No claim, knowledge, prediction, or empirical formula promotion is performed by this result-only task.",
         ],
         "best_model_id": "model_stefan_boltzmann_exact_reference",
         "best_verdict": "VALID_IN_RANGE",
@@ -313,8 +315,7 @@ def run_textbook_exact_reference_with_output(
             "followup_for_maintainer": (
                 "Keep this RESULT as agent-published software/convention evidence. "
                 "It is the intended replay target for the first Gate B independent-replay "
-                "task (TASK-0635). DRAFT CLAIM-0011 / KNOW-0010 status transitions remain "
-                "maintainer-only."
+                "task (TASK-0635). Claim and knowledge promotion remain out of scope."
             ),
         },
         "verification": verification,
@@ -363,7 +364,7 @@ def run_textbook_exact_reference_with_output(
         claim_update_patch_path,
         _render_patch_stub(
             "Proposed Claim Patch",
-            f"claims/{claim_id}-textbook-exact-reference-software-fixtures.md",
+            "none",
             result_id,
         ),
     )
@@ -372,7 +373,7 @@ def run_textbook_exact_reference_with_output(
         knowledge_update_patch_path,
         _render_patch_stub(
             "Proposed Knowledge Patch",
-            "knowledge/textbook_formula_audit/textbook_exact_reference_software_fixtures.md",
+            "none",
             result_id,
         ),
     )
@@ -385,16 +386,14 @@ def run_textbook_exact_reference_with_output(
             "result_id": result_id,
             "run_id": run_id,
             "experiment_id": str(experiment["id"]),
-            "claim_id": claim_id,
-            "knowledge_id": knowledge_id,
+            "claim_id": claim_id or None,
+            "knowledge_id": knowledge_id or None,
             "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-            "proposed_claim_status": "DRAFT",
+            "proposed_claim_status": None,
             "required_human_review": True,
             "evidence_basis": [result_id],
-            "claim_target_file": f"claims/{claim_id}-textbook-exact-reference-software-fixtures.md",
-            "knowledge_target_file": (
-                "knowledge/textbook_formula_audit/textbook_exact_reference_software_fixtures.md"
-            ),
+            "claim_target_file": None,
+            "knowledge_target_file": None,
             "patch_artifacts": {
                 "claim_patch": artifacts["claim_update_patch"],
                 "knowledge_patch": artifacts["knowledge_update_patch"],

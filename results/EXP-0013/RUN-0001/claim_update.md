@@ -1,6 +1,6 @@
-# Proposed Claim Update
+# Claim Update
 
-- Claim: `CLAIM-0011`
+- Claim: none
 - Evidence basis: `RESULT-0019`
-- Proposed status: `DRAFT`
-- Scope: software/convention fixture validation only.
+- Proposed status: none.
+- Scope: no claim artifact is created or promoted by this result-only task.

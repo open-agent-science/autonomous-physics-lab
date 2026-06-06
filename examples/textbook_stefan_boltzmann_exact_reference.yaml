@@ -6,5 +6,3 @@ run_id: RUN-0001
 result_id: RESULT-0019
 result_root: ../results/EXP-0013
 workflow: textbook_exact_reference
-claim_id: CLAIM-0011
-knowledge_id: KNOW-0010

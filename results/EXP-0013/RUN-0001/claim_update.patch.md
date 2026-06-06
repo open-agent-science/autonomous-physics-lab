@@ -2,7 +2,7 @@
 
 ## Target File
 
-`claims/CLAIM-0011-textbook-exact-reference-software-fixtures.md`
+`none`
 
 ## Evidence Basis
 
@@ -10,5 +10,5 @@
 
 ## Patch
 
-No automatic text patch is applied by this workflow; the committed
-claim/knowledge files carry the scoped software-convention wording.
+No automatic text patch is applied by this workflow; this task records
+a scoped RESULT only and does not create claim or knowledge artifacts.

@@ -31,5 +31,5 @@
 - Review tier: AGENT_PUBLISHED is recorded in the packaged RESULT.
 - Gate A: evaluated by the result-publication gate on the packaged RESULT.
 - Gate B: not attempted.
-- Claim impact: DRAFT software/convention claim only.
-- Knowledge impact: software/convention knowledge entry only.
+- Claim impact: no claim change.
+- Knowledge impact: no knowledge change.

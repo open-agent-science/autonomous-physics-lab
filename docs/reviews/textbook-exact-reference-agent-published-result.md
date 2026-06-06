@@ -30,13 +30,10 @@ Replay command recorded in the RESULT:
    declared boundary (`physics_lab/engines/stefan_boltzmann.py`), with
    `empirical_audit_performed` always `false`. The runner report and the two
    fixture tests were updated to match.
-3. **Scoped DRAFT memory authored** (maintainer-authorized override of the
-   task's default "no CLAIM/KNOW" line, because the result-artifact convention
-   requires a `review_metadata.yaml` claim/knowledge linkage):
-   - `claims/CLAIM-0011-textbook-exact-reference-software-fixtures.md` (`DRAFT`);
-   - `knowledge/textbook_formula_audit/textbook_exact_reference_software_fixtures.md`
-     (`KNOW-0010`).
-   Both are explicitly software/convention scoped, not empirical.
+3. **Result-only metadata kept honest.** `review_metadata.yaml` records
+   `claim_id: null`, `knowledge_id: null`, and `proposed_claim_status: null`.
+   This preserves the task's default "no CLAIM/KNOW" boundary while still
+   keeping the run artifact package complete.
 
 ## Gate A status
 
@@ -74,16 +71,14 @@ statement.
 ## Output routing
 
 - Task verdict: `VALID_IN_RANGE` (software/convention fixture scope).
-- Canonical destination: `results/EXP-0013/RUN-0001/result.yaml` (`RESULT-0019`),
-  plus DRAFT `CLAIM-0011` and `KNOW-0010`.
+- Canonical destination: `results/EXP-0013/RUN-0001/result.yaml` (`RESULT-0019`).
 - Review tier: `AGENT_PUBLISHED` (agent-published, not independently validated or
   maintainer-reviewed).
 - Gate A status: PASS (recorded above).
 - Gate B status: not attempted; this RESULT is the intended replay target for
   the first Gate B independent-replay task (`TASK-0635`).
-- Claim impact: one new DRAFT software/convention claim (`CLAIM-0011`); status
-  transitions remain maintainer-only.
-- Knowledge impact: one new software/convention knowledge entry (`KNOW-0010`).
+- Claim impact: no claim change.
+- Knowledge impact: no knowledge change.
 - Limitations / blockers: synthetic software fixture only; no empirical rows; no
   empirical formula validation or universal-law wording.
 
@@ -93,7 +88,7 @@ statement.
 `scripts/apl_validate_agent_published_result.py`. If replay reproduces the
 deterministic gates within tolerance, that task may add a `validation_record`
 and propose `AGENT_VALIDATED`; it must not edit the metrics, verdict, command,
-inputs, or the DRAFT claim/knowledge status.
+inputs, or claim/knowledge status.
 
 The publication branch includes a workflow adapter for
 `python3 -m physics_lab.cli run examples/textbook_stefan_boltzmann_exact_reference.yaml`,

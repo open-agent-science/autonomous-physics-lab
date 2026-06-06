@@ -4,14 +4,14 @@ experiment_id: EXP-0013
 title: Textbook Stefan-Boltzmann Exact-Reference Software Fixture Result
 hypothesis_id: HYP-0013
 task_id: TASK-0634
-generated_at: '2026-06-06T21:39:11+00:00'
+generated_at: '2026-06-06T21:48:52+00:00'
 engine_version: 0.1.0
-git_commit: 98f71b649e589a5049a6f885dd73c10bf5507943
+git_commit: bbf31ba274fc9684a4801892538b356dc24bdd29
 command: physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml
 input_file_hashes:
   config:
     path: results/EXP-0013/RUN-0001/inputs/config.yaml
-    sha256: cb6859e52ea1855a1c0dfb08edcb05df21ce0696f55a70ff4b7757272b98ada6
+    sha256: 0820b720868f41b07d399db8dcba468577b398ba87e13e0f48e13003552f798c
   fixture:
     path: results/EXP-0013/RUN-0001/inputs/fixture.yaml
     sha256: 0534972a8684bfbe3475259c20f93b931d7e0dff5ea2bf9bae20c3a7d110db12
@@ -32,8 +32,8 @@ limitations:
 - Validates deterministic software, units, and the frozen CODATA 2022 constant convention;
   it does not validate or falsify Stefan-Boltzmann, Wien displacement, blackbody physics,
   or stellar observations.
-- No claim or knowledge promotion beyond the scoped DRAFT software/convention CLAIM-0011
-  and KNOW-0010; status transitions remain maintainer-only.
+- No claim, knowledge, prediction, or empirical formula promotion is performed by
+  this result-only task.
 best_model_id: model_stefan_boltzmann_exact_reference
 best_verdict: VALID_IN_RANGE
 review_tier: AGENT_PUBLISHED
@@ -62,7 +62,7 @@ agent_proposal_evaluation:
     for the software/convention fixture only; no empirical formula behavior is asserted.'
   followup_for_maintainer: Keep this RESULT as agent-published software/convention
     evidence. It is the intended replay target for the first Gate B independent-replay
-    task (TASK-0635). DRAFT CLAIM-0011 / KNOW-0010 status transitions remain maintainer-only.
+    task (TASK-0635). Claim and knowledge promotion remain out of scope.
 verification:
   passed: true
   checks:
