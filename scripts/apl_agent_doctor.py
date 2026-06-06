@@ -301,9 +301,7 @@ def _path_matches(left: Path | None, right: str) -> bool | None:
         return str(left) == right
 
 
-def _windows_default_basetemp_root(root: Path) -> Path:
-    if platform.system() == "Windows":
-        return Path("C:/tmp")
+def _default_pytest_basetemp_root(root: Path) -> Path:
     return root / ".pytest-basetemp"
 
 
@@ -325,11 +323,7 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
 
     system_temp_dir = Path(tempfile.gettempdir())
     system_temp_accessible = os.access(system_temp_dir, os.R_OK | os.W_OK | os.X_OK)
-    recommended_basetemp_root = (
-        _windows_default_basetemp_root(root)
-        if system_temp_accessible
-        else root / ".pytest-basetemp"
-    )
+    recommended_basetemp_root = _default_pytest_basetemp_root(root)
     recommended_pytest_basetemp = str(
         recommended_basetemp_root / "session-<unique-id>"
         if recommended_basetemp_root.name == ".pytest-basetemp"

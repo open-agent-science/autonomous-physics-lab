@@ -182,6 +182,19 @@ def test_worktree_runtime_preflight_finds_common_dir_venv_for_worktree(
     assert any("Run validation with repository Python" in item for item in report.recommendations)
 
 
+def test_worktree_runtime_preflight_recommends_repo_local_pytest_basetemp(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(MODULE, "_git_output", lambda root, *args: None)
+
+    report = worktree_runtime_preflight(tmp_path)
+
+    assert report.recommended_pytest_basetemp.startswith(
+        str((tmp_path / ".pytest-basetemp").resolve())
+    )
+
+
 def test_agent_doctor_cli_json_includes_worktree_runtime_preflight() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
