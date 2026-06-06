@@ -137,6 +137,20 @@ A point that cannot carry all of the above must be excluded with
 `inclusion_status: excluded` and an explicit `exclusion_reason`, not
 silently dropped.
 
+### Non-Spherical Size Axes
+
+If a source reports a non-spherical size quantity, do not coerce it into
+`diameter_nm` without review. Use the schema axis that preserves the source
+quantity (`edge_length_nm` or `volume_nm3`) and record the morphology, such
+as `tetrahedral`, before any row can be included.
+
+A reviewed equivalent-diameter route may be used only when the entry stores
+`equivalent_diameter_nm` together with `size_conversion`, including the
+original source size axis, original source value, source unit, equivalent
+axis, and conversion rule. This preserves the source measurement while
+allowing later model code to decide whether an equivalent spherical axis is
+scientifically appropriate.
+
 ### Step 4 — Cross-check against the calibration formula
 
 If the publication also provides a calibration polynomial or sizing
