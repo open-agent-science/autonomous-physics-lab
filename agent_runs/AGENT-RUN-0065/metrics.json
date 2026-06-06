@@ -1,0 +1,348 @@
+{
+  "task_id": "TASK-0596",
+  "benchmark_id": "nmd0003-uncertainty-weighted-baseline-diagnostic",
+  "input_references": {
+    "dataset": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml",
+    "frozen_gate": "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml",
+    "frozen_split_id": "stratified_interleaved_70_30",
+    "prior_baseline_family_run": "agent_runs/AGENT-RUN-0056/metrics.json"
+  },
+  "dataset_summary": {
+    "dataset_id": "NMD-0003",
+    "row_count": 2309,
+    "train_count": 1617,
+    "validation_holdout_count": 692,
+    "post_ame2020_holdout_excluded": true
+  },
+  "frozen_split": {
+    "split_id": "stratified_interleaved_70_30",
+    "row_order": "sort committed NMD-0003 measured rows by (A, Z, N)",
+    "validation_rule": "sorted_index % 10 >= 7",
+    "purpose": "interpolation_readiness_gate",
+    "mutated": false
+  },
+  "uncertainty_coverage": {
+    "full_nmd0003_training_surface": {
+      "row_count": 2309,
+      "present_positive_sigma_count": 2308,
+      "missing_sigma_count": 0,
+      "missing_sigma_nuclide_ids": [],
+      "nonpositive_sigma_count": 1,
+      "nonpositive_sigma_nuclide_ids": [
+        "C-12"
+      ],
+      "sigma_mev_min": 1.3e-08,
+      "sigma_mev_median": 0.005869344,
+      "sigma_mev_max": 0.838344692
+    },
+    "train": {
+      "row_count": 1617,
+      "present_positive_sigma_count": 1616,
+      "missing_sigma_count": 0,
+      "missing_sigma_nuclide_ids": [],
+      "nonpositive_sigma_count": 1,
+      "nonpositive_sigma_nuclide_ids": [
+        "C-12"
+      ],
+      "sigma_mev_min": 1.3e-08,
+      "sigma_mev_median": 0.005496747,
+      "sigma_mev_max": 0.838344692
+    },
+    "validation_holdout": {
+      "row_count": 692,
+      "present_positive_sigma_count": 692,
+      "missing_sigma_count": 0,
+      "missing_sigma_nuclide_ids": [],
+      "nonpositive_sigma_count": 0,
+      "nonpositive_sigma_nuclide_ids": [],
+      "sigma_mev_min": 2.33e-07,
+      "sigma_mev_median": 0.006890728,
+      "sigma_mev_max": 0.69023713
+    }
+  },
+  "declared_weight_policies": {
+    "inverse_variance": "Raw inverse-variance weighting w = 1/sigma^2 on the propagated binding-energy measurement uncertainty.",
+    "inverse_sigma": "Softer inverse-sigma weighting w = 1/sigma.",
+    "inverse_variance_floored_0p1mev": "Inverse-variance with sigma floored at 0.1 MeV before squaring, an intermediate guard against single-row dominance.",
+    "inverse_variance_floored_1mev": "Inverse-variance with sigma floored at the ~1 MeV liquid-drop model-error scale before squaring; this effectively recovers near-uniform weighting."
+  },
+  "unweighted_baselines": {
+    "nmd0003_train_fitted_ols_audit": {
+      "fit_policy": "fit_train_split_only_ols",
+      "train_row_count": 1617,
+      "uncertainty_weighted": false,
+      "coefficients": {
+        "volume": 15.230642197914818,
+        "surface": 16.28771911429796,
+        "coulomb": 0.6829963405221203,
+        "asymmetry": 22.041540119261427,
+        "pairing": 10.351073973927033
+      },
+      "metrics": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 2.522538,
+          "rmse_mev": 3.660445,
+          "max_abs_residual_mev": 31.170096
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 2.61432,
+          "rmse_mev": 3.804107,
+          "max_abs_residual_mev": 29.9561
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 2.550045,
+          "rmse_mev": 3.704085,
+          "max_abs_residual_mev": 31.170096
+        }
+      }
+    },
+    "nmd0003_train_fitted_ols_weightable_rows": {
+      "fit_policy": "fit_train_split_only_ols_on_positive_sigma_rows",
+      "train_row_count": 1616,
+      "uncertainty_weighted": false,
+      "coefficients": {
+        "volume": 15.23090152752095,
+        "surface": 16.288576427213094,
+        "coulomb": 0.6830128755767261,
+        "asymmetry": 22.042059918589228,
+        "pairing": 10.333019192177215
+      },
+      "metrics": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 2.522508,
+          "rmse_mev": 3.660446,
+          "max_abs_residual_mev": 31.165387
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 2.614166,
+          "rmse_mev": 3.804232,
+          "max_abs_residual_mev": 29.965082
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 2.549978,
+          "rmse_mev": 3.704124,
+          "max_abs_residual_mev": 31.165387
+        }
+      }
+    }
+  },
+  "uncertainty_weighted_baselines": {
+    "inverse_variance": {
+      "fit_policy": "fit_train_split_only_wls:inverse_variance",
+      "train_row_count": 1616,
+      "uncertainty_weighted": true,
+      "weight_concentration": {
+        "row_count": 1616,
+        "effective_sample_size": 2.2022,
+        "effective_sample_fraction": 0.001363,
+        "top1_weight_share": 0.50754,
+        "top10_weight_share": 0.999459
+      },
+      "coefficients": {
+        "volume": 16.684527345887908,
+        "surface": 19.131540661318827,
+        "coulomb": 1.0382827654471363,
+        "asymmetry": -2.3818710757576307,
+        "pairing": 1.1875953190876565
+      },
+      "metrics": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 62.723855,
+          "rmse_mev": 79.535236,
+          "max_abs_residual_mev": 220.353111
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 67.678953,
+          "rmse_mev": 84.619488,
+          "max_abs_residual_mev": 227.748783
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 64.208882,
+          "rmse_mev": 81.092429,
+          "max_abs_residual_mev": 227.748783
+        }
+      }
+    },
+    "inverse_sigma": {
+      "fit_policy": "fit_train_split_only_wls:inverse_sigma",
+      "train_row_count": 1616,
+      "uncertainty_weighted": true,
+      "weight_concentration": {
+        "row_count": 1616,
+        "effective_sample_size": 3.7986,
+        "effective_sample_fraction": 0.002351,
+        "top1_weight_share": 0.365529,
+        "top10_weight_share": 0.941645
+      },
+      "coefficients": {
+        "volume": 14.290504850611933,
+        "surface": 13.83441665478757,
+        "coulomb": 0.7134941703477683,
+        "asymmetry": 2.2455142413439604,
+        "pairing": 6.599657492739429
+      },
+      "metrics": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 35.507715,
+          "rmse_mev": 44.086924,
+          "max_abs_residual_mev": 141.127604
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 39.007964,
+          "rmse_mev": 47.203625,
+          "max_abs_residual_mev": 128.649235
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 36.556729,
+          "rmse_mev": 45.043626,
+          "max_abs_residual_mev": 141.127604
+        }
+      }
+    },
+    "inverse_variance_floored_0p1mev": {
+      "fit_policy": "fit_train_split_only_wls:inverse_variance_floored_0p1mev",
+      "train_row_count": 1616,
+      "uncertainty_weighted": true,
+      "weight_concentration": {
+        "row_count": 1616,
+        "effective_sample_size": 1573.8598,
+        "effective_sample_fraction": 0.973923,
+        "top1_weight_share": 0.00064,
+        "top10_weight_share": 0.0064
+      },
+      "coefficients": {
+        "volume": 15.420466090890075,
+        "surface": 16.89681847581104,
+        "coulomb": 0.6952151129646054,
+        "asymmetry": 22.51325322145014,
+        "pairing": 11.837387440014949
+      },
+      "metrics": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 2.4451,
+          "rmse_mev": 3.716387,
+          "max_abs_residual_mev": 33.907041
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 2.559768,
+          "rmse_mev": 3.871035,
+          "max_abs_residual_mev": 32.124546
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 2.479465,
+          "rmse_mev": 3.763401,
+          "max_abs_residual_mev": 33.907041
+        }
+      }
+    },
+    "inverse_variance_floored_1mev": {
+      "fit_policy": "fit_train_split_only_wls:inverse_variance_floored_1mev",
+      "train_row_count": 1616,
+      "uncertainty_weighted": true,
+      "weight_concentration": {
+        "row_count": 1616,
+        "effective_sample_size": 1616.0,
+        "effective_sample_fraction": 1.0,
+        "top1_weight_share": 0.000619,
+        "top10_weight_share": 0.006188
+      },
+      "coefficients": {
+        "volume": 15.23090152752095,
+        "surface": 16.288576427213094,
+        "coulomb": 0.6830128755767261,
+        "asymmetry": 22.042059918589228,
+        "pairing": 10.333019192177215
+      },
+      "metrics": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 2.522508,
+          "rmse_mev": 3.660446,
+          "max_abs_residual_mev": 31.165387
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 2.614166,
+          "rmse_mev": 3.804232,
+          "max_abs_residual_mev": 29.965082
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 2.549978,
+          "rmse_mev": 3.704124,
+          "max_abs_residual_mev": 31.165387
+        }
+      }
+    }
+  },
+  "readiness_decision": {
+    "audit_baseline_validation_mae_mev": 2.61432,
+    "weightable_row_count": 1616,
+    "readiness_change_rule": {
+      "min_relative_improvement": 0.05,
+      "min_effective_sample_fraction": 0.5
+    },
+    "per_policy": {
+      "inverse_variance": {
+        "validation_mae_mev": 67.678953,
+        "validation_mae_relative_improvement_vs_ols_audit": -24.887785,
+        "effective_sample_fraction": 0.001363,
+        "is_readiness_relevant_improvement": false
+      },
+      "inverse_sigma": {
+        "validation_mae_mev": 39.007964,
+        "validation_mae_relative_improvement_vs_ols_audit": -13.920883,
+        "effective_sample_fraction": 0.002351,
+        "is_readiness_relevant_improvement": false
+      },
+      "inverse_variance_floored_0p1mev": {
+        "validation_mae_mev": 2.559768,
+        "validation_mae_relative_improvement_vs_ols_audit": 0.020867,
+        "effective_sample_fraction": 0.973923,
+        "is_readiness_relevant_improvement": false
+      },
+      "inverse_variance_floored_1mev": {
+        "validation_mae_mev": 2.614166,
+        "validation_mae_relative_improvement_vs_ols_audit": 5.9e-05,
+        "effective_sample_fraction": 1.0,
+        "is_readiness_relevant_improvement": false
+      }
+    },
+    "qualifying_policies": [],
+    "weighting_changes_candidate_readiness_interpretation": false,
+    "interpretation": "No predeclared uncertainty-weighted policy produces a readiness-relevant improvement over the unweighted OLS audit baseline. Raw inverse-variance and inverse-sigma weighting collapse the effective sample onto a few ultra-precise light nuclides and sharply worsen the validation holdout, while floor-guarded variants only recover the unweighted fit. Measurement-uncertainty weighting therefore adds a limitation note rather than changing candidate-readiness interpretation: future bounded residual-feature sprints should keep the unweighted OLS audit baseline and the frozen region-stratified readiness baseline as the contract."
+  },
+  "verdict": "INCONCLUSIVE",
+  "limitations": [
+    "Diagnostic-only comparison on committed AME2020 measured rows under the frozen stratified interpolation split; not a post-AME2020 reveal.",
+    "All baselines are five-coefficient liquid-drop fits; no residual-feature, shell-axis, or local-curvature family is introduced.",
+    "AME2020 measurement uncertainty (~keV) is far below the liquid-drop model error (~MeV), so raw inverse-variance weighting is dominated by a few ultra-precise light nuclides and is not a physically appropriate readiness baseline.",
+    "The amu-defining nuclide C-12 carries an exact (zero) atomic-mass uncertainty and is reported as ambiguous and excluded from the weighted fits rather than assigned infinite weight.",
+    "Sandbox diagnostic evidence only; no PRED, CLAIM, KNOW, RESULT, or discovery wording is promoted, and the frozen gate is unchanged."
+  ],
+  "output_routing": {
+    "task_verdict": "INCONCLUSIVE",
+    "canonical_destination": "docs/reviews/nmd0003-uncertainty-weighted-baseline-diagnostic.md",
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "result_impact": "no RESULT artifact created"
+  }
+}
