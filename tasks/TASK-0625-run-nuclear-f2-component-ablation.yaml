@@ -1,7 +1,7 @@
 id: TASK-0625
 title: "Run Nuclear F2 survival-margin component ablation"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
