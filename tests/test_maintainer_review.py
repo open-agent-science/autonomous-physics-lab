@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 from physics_lab.registry.maintainer_review import (
     ArtifactReviewSignal,
+    CleanPrWorktree,
     ReviewReport,
     PullRequestMetadata,
     ValidationSummary,
@@ -27,6 +28,7 @@ from physics_lab.registry.maintainer_review import (
     parse_added_lines,
     _portable_validation_command,
     output_routing_value,
+    prepare_clean_pr_worktree,
     render_review_report,
     run_task_validation,
     security_pattern_hits,
@@ -829,6 +831,151 @@ promotion:
 """
 
 _EMPTY_DIFF = CommandResult(returncode=0, stdout="", stderr="")
+
+
+def test_prepare_clean_pr_worktree_fetches_remote_head(tmp_path: Path) -> None:
+    branch = "agent/roman/codex/task-0094-fix-helper-stale-diff"
+    metadata = PullRequestMetadata(
+        number=104,
+        title="TASK-0094: Track maintainer review helper stale diff false positives",
+        body="",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0094-helper.yaml",),
+        head_sha="1234567890abcdef",
+    )
+    commands: list[list[str]] = []
+
+    def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
+        assert isinstance(command, list)
+        commands.append(command)
+        return _EMPTY_DIFF
+
+    with (
+        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+    ):
+        prepared = prepare_clean_pr_worktree(tmp_path, metadata)
+
+    assert prepared.ready
+    assert prepared.root == tmp_path / ".worktrees" / "_reviews" / "pr-104-1234567890ab"
+    assert prepared.review_ref == "HEAD"
+    assert commands[0] == [
+        "git",
+        "fetch",
+        "--no-tags",
+        "origin",
+        f"refs/heads/{branch}:refs/remotes/origin/{branch}",
+    ]
+    assert commands[1] == [
+        "git",
+        "worktree",
+        "add",
+        "--detach",
+        str(prepared.root),
+        "1234567890abcdef",
+    ]
+
+
+def test_build_review_report_pr_uses_clean_remote_worktree_from_dirty_caller(
+    tmp_path: Path,
+) -> None:
+    caller_root = tmp_path / "caller"
+    clean_root = tmp_path / "clean-pr"
+    caller_root.mkdir()
+    clean_root.mkdir()
+    _write_review_task(clean_root, "TASK-0094")
+    branch = "agent/roman/codex/task-0094-fix-helper-stale-diff"
+    pr_metadata = PullRequestMetadata(
+        number=104,
+        title="TASK-0094: Track maintainer review helper stale diff false positives",
+        body=_full_pr_body(
+            task_ref="TASK-0094",
+            branch=branch,
+            primary_reference="- Task ID: `TASK-0094`\n- Task File: `tasks/TASK-0094-helper.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0094-helper.yaml",),
+        head_sha="1234567890abcdef",
+    )
+    changed = ("tasks/TASK-0094-helper.yaml",)
+
+    def fake_changed_files(root: Path, ref: str, **_: object) -> tuple[str, ...]:
+        assert root == clean_root
+        assert ref == "HEAD"
+        return changed
+
+    def fake_git_status_clean(root: Path, **_: object) -> bool:
+        if root == caller_root:
+            return False
+        assert root == clean_root
+        return True
+
+    with (
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch(
+            "physics_lab.registry.maintainer_review.prepare_clean_pr_worktree",
+            return_value=CleanPrWorktree(
+                root=clean_root,
+                review_ref="HEAD",
+                ready=True,
+                message="Reviewing from clean fixture worktree.",
+            ),
+        ),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=""),
+        patch(
+            "physics_lab.registry.maintainer_review.local_branch_exists",
+            side_effect=AssertionError("clean PR worktree must not require a local branch"),
+        ),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", side_effect=fake_changed_files),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", side_effect=fake_git_status_clean),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ) as validation_mock,
+    ):
+        report = build_review_report(caller_root, pull_request=104)
+
+    assert report.verdict == "MERGE_OK"
+    assert report.branch == branch
+    assert validation_mock.call_args.args[0] == clean_root
+    assert validation_mock.call_args.kwargs["enabled"] is True
+    assert any("clean fixture worktree" in item for item in report.advisory_warnings)
+    assert any("Review bundle generation was skipped" in item for item in report.advisory_warnings)
+
+
+def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
+    tmp_path: Path,
+) -> None:
+    with (
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=()),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="not_run", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=104)
+
+    assert report.verdict == "BLOCKED"
+    assert any("Could not load PR metadata via gh CLI" in item for item in report.blockers)
+    assert any("Fallback commands" in item for item in report.blockers)
 
 
 def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) -> None:
@@ -1981,6 +2128,10 @@ def test_build_review_report_branch_only_keeps_missing_pr_body_advisory(
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0094-helper.yaml",)),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch(
+            "physics_lab.registry.maintainer_review.prepare_clean_pr_worktree",
+            side_effect=AssertionError("branch-only review should stay local"),
+        ),
         patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
