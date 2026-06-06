@@ -8,7 +8,6 @@
 
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-0614` - Adjudicate Materials MD-0001 result or dataset-publication path (`research_quality_gate`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 
 ## Research Blockers
 
@@ -18,7 +17,6 @@
 - `TASK-0456` - Run first Atomic Yb/Sr cross-source consistency benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
 - `TASK-0610` - Evaluate Stellar M-L source candidates after TASK-0604 (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0613` - Adjudicate Nuclear F2 promotion, ablation, or stop decision (`research_quality_gate`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 
 ## Support Blockers
 
