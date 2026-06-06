@@ -1,7 +1,7 @@
 id: TASK-0621
 title: "Enforce and document the Python 3.11+ runtime"
 type: workflow_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
