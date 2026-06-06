@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0603` - Define Textbook exact-reference EXP/HYP identities for scoped result publication (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
+None.

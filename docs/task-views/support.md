@@ -22,4 +22,3 @@ None.
 
 - `TASK-0621` - Enforce and document the Python 3.11+ runtime (`workflow_hardening`, priority `high`, difficulty `medium`, domain `developer_workflow`)
 - `TASK-0624` - Add task-branch upstream tracking preflight (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
-- `TASK-0632` - Strengthen snapshot strategy and architecture context (`snapshot_tooling`, priority `high`, difficulty `low`, domain `maintainer_snapshot`)
