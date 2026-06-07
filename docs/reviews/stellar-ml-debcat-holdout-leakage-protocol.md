@@ -21,7 +21,7 @@ excluded lane.
 - `docs/reviews/textbook-stellar-ml-source-candidate-admissibility.md`
 - `docs/notes/textbook-formula-audit-candidate-list.md`
 - `docs/notes/stellar-ml-campaign-promotion-gate.md`
-- `tasks/TASK-0628-package-stellar-ml-debcat-source-artifact.yaml`
+- `TASK-0628`
 - `data/textbook_formula_audit/stellar_ml/source_manifest.yaml`
 - `data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/README.md`
 - `data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/license_review.md`
