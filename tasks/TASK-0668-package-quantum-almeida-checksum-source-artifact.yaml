@@ -1,0 +1,50 @@
+id: TASK-0668
+title: "Package Quantum Almeida checksum-pinned source artifact"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Quantum Size Effects from metadata-only Almeida feasibility toward a deterministic digitization source package."
+  - "Keep direct-row curation blocked until the exact source artifact, license posture, checksum, and figure surface are reviewed."
+  - "Avoid running attractive quantum-dot baselines on weak or unpinned provenance."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-almeida-license-figure-surface-review.md"
+    - "docs/reviews/quantum-nonspherical-digitization-fixture-design.md"
+    - "docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    Almeida 2023 InP is promising after license/figure-surface review and
+    non-spherical schema/fixture work, but no checksum-pinned article/SI source
+    artifact exists. This task packages the source artifact or records a precise
+    blocker before any real Figure 1b digitization.
+
+requirements:
+  - "Select the exact article and supporting-information artifact copies to use, recheck license/reuse terms for those copies, and record retrieval date and SHA-256 checksums if files are committed."
+  - "If files cannot be committed, preserve a metadata-only blocker with exact locators and the reason no source artifact was stored."
+  - "Do not digitize figure coordinates, transcribe optical values, create qd-*.yaml rows, run size-effect baselines, or promote claims."
+  - "Keep Almeida inclusion_decision excluded until a later digitization and row-readiness review passes."
+
+accepted_outputs:
+  - "docs/reviews/quantum-almeida-checksum-source-artifact-package.md"
+  - "optional data/quantum_dots/source_artifacts/almeida-2023-nano-letters-inp-optical/provenance.yaml"
+  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml"
+  - "tests for source-manifest/provenance structure if a source artifact is committed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
