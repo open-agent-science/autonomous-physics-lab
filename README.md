@@ -24,7 +24,7 @@ questions without creating chaos.
 ## Start With Your AI Agent
 
 ```bash
-git clone https://github.com/gladunrv/autonomous-physics-lab.git
+git clone https://github.com/open-agent-science/autonomous-physics-lab.git
 cd autonomous-physics-lab
 python3 scripts/apl_mission.py --output onboarding
 ```

@@ -16,10 +16,10 @@ For a practical Level 1/2/3 onboarding ladder, use
 
 ## Clone the Private Repository
 
-After the maintainer grants access, clone the repository with SSH or HTTPS:
+After the maintainer grants access, clone the repository with HTTPS:
 
 ```bash
-git clone git@github.com:gladunrv/autonomous-physics-lab.git
+git clone https://github.com/open-agent-science/autonomous-physics-lab.git
 cd autonomous-physics-lab
 ```
 

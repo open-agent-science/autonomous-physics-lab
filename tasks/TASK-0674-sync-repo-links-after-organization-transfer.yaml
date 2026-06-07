@@ -1,0 +1,49 @@
+id: TASK-0674
+title: "Sync live repository links after organization transfer"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep onboarding, issue routing, and generated context bundles pointed at the canonical Open Agent Science organization."
+  - "Avoid confusing new contributors and agents with stale owner URLs after repository transfer."
+  - "Update live entrypoint links without rewriting historical PR, review, or archive references."
+
+input:
+  mode: workflow
+  related_domain: repository_operations
+  related_objects:
+    - "README.md"
+    - ".github/ISSUE_TEMPLATE/config.yml"
+    - "scripts/generate_context_bundle.py"
+    - "docs/first-contributor-runbook.md"
+    - "docs/private-contributor-pilot.md"
+    - "docs/external-reviewer-replication-guide.md"
+  planning_context: >
+    The repository moved from gladunrv/autonomous-physics-lab to
+    open-agent-science/autonomous-physics-lab. Live onboarding and generated
+    context links should use the organization repository path, while historical
+    review and archive URLs should remain unchanged.
+
+requirements:
+  - "Update current clone, issue-template, context-bundle, and canonical source URLs to open-agent-science/autonomous-physics-lab."
+  - "Do not rewrite historical PR links, review logs, archived task references, or fixture strings whose purpose is to preserve past repository history."
+  - "Prefer HTTPS clone examples for cross-environment onboarding unless a document specifically teaches SSH setup."
+  - "Do not change task states other than this task's own REVIEW_READY transition."
+
+accepted_outputs:
+  - "Updated live repository links in onboarding and contributor-facing docs."
+  - "Updated context bundle repository header."
+  - "Updated canonical NMD-0002 source URL metadata."
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_microtask_runs.py tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

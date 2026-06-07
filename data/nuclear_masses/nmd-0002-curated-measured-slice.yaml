@@ -16,7 +16,7 @@ source_dataset:
     bring-up, using well-known atomic-mass reference values and a coarse
     uncertainty floor of roughly 1e-5 u where per-entry source uncertainty was
     not separately tracked in the pinned slice.
-  url: "https://github.com/gladunrv/autonomous-physics-lab/blob/main/data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  url: "https://github.com/open-agent-science/autonomous-physics-lab/blob/main/data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
   accessed_on: "2026-05-10"
   checksum_sha256: "d97cf3ddde9dfa77abf1361a44051841b8e1e9f2cd6b2051100ab6e228a19fc9"
   checksum_scope: "Committed benchmark slice payload with checksum field excluded"
