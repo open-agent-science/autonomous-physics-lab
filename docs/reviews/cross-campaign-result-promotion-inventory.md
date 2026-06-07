@@ -71,8 +71,7 @@ sits at the maintainer-only Gate C boundary.
   `TASK-0633`.
 - **Negative memory:** local-curvature, pairing-asymmetry, magic-parity, mixed
   shell-axis transfer, and the `NMD-0003` validation-holdout regression — keep as
-  do-not-repeat memory; mapped by
-  `TASK-0642`.
+  do-not-repeat memory; mapped by `TASK-0642`.
 - **Source-blocked:** all 60 `PRED-*` nuclear entries are `awaiting_source`
   (`ready_for_reveal_count: 0` in
   [registry_summary.yaml](../../prediction_registry/nuclear_masses/registry_summary.yaml)).
@@ -89,8 +88,7 @@ sits at the maintainer-only Gate C boundary.
   Do not rerun on the current pinned snapshot.
 - **Source-blocked (reopen-gated):** residual scoring stays closed until a
   materially changed snapshot or revised coverage gate; the metadata-only
-  trigger scout is
-  `TASK-0629`.
+  trigger scout is `TASK-0629`.
 - **Prediction awaiting reveal:** `PRED-0001` is `REGISTERED` / `AGENT_PUBLISHED`
   with no scoring
   ([first-non-nuclear-agent-published-prediction.md](./first-non-nuclear-agent-published-prediction.md)).
@@ -120,8 +118,7 @@ sits at the maintainer-only Gate C boundary.
 ### Atomic-Clock Residuals
 - **Source-blocked (pre-benchmark):** no `RESULT-*` yet. Beloy 2021 rows are
   pinned sandbox-only; Pizzocaro Yb/Sr rows are blocked by shared systematics;
-  the per-window diagnostic ledger is
-  `TASK-0636`.
+  the per-window diagnostic ledger is `TASK-0636`.
   Next is row-admissibility + covariance, then a baseline-readiness gate.
   Reference: [atomic-clock-residuals campaign](../campaigns/atomic-clock-residuals.md).
 
