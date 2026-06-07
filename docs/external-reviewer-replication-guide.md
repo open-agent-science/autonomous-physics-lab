@@ -44,7 +44,7 @@ independent audit and maintainer review.
 From a fresh checkout:
 
 ```bash
-git clone https://github.com/gladunrv/autonomous-physics-lab.git
+git clone https://github.com/open-agent-science/autonomous-physics-lab.git
 cd autonomous-physics-lab
 
 python3 -m venv .venv
