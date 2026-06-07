@@ -15,3 +15,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0649` - Package Exoplanet negative/control result-publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
+- `TASK-0680` - Refresh public-launch docs after Open Agent Science transfer (`documentation`, priority `high`, difficulty `medium`, domain `release_packaging`)
