@@ -57,8 +57,7 @@ These are the only `RESULT-*` artifacts that already carry an explicit
 | `RESULT-0018` — [nuclear baseline](../../results/EXP-0012/RUN-0002/result.yaml) | Nuclear mass surface | `INCONCLUSIVE` | `AGENT_PUBLISHED` | **Gate B replay-needed** | Replay candidate for `TASK-0635`. |
 | `RESULT-0019` — [textbook exact-ref](../../results/EXP-0013/RUN-0001/result.yaml) | Textbook formula audit | `VALID_IN_RANGE` | `AGENT_PUBLISHED` | **Gate B replay-needed** | Exact-reference software fixture (EXP-0013); deterministic, low-risk replay target. |
 
-The live executable task for this frontier is
-[`TASK-0635`](../../tasks/TASK-0635-run-first-gate-b-agent-result-replay.yaml)
+The live executable task for this frontier is `TASK-0635`
 (*Run first Gate B replay on an AGENT_PUBLISHED result*), which applies to
 `RESULT-0017`, `RESULT-0018`, or `RESULT-0019`. `RESULT-0016` is past Gate B and
 sits at the maintainer-only Gate C boundary.
@@ -69,11 +68,10 @@ sits at the maintainer-only Gate C boundary.
 - **Gate B replay-needed:** `RESULT-0018` (see frontier table).
 - **Gate A candidate:** the F2 stratified diagnostic / negative-factory signal —
   adjudicate whether it can become a scoped `AGENT_PUBLISHED` `RESULT-*` via
-  [`TASK-0633`](../../tasks/TASK-0633-package-nuclear-f2-diagnostic-result-preflight.yaml).
+  `TASK-0633`.
 - **Negative memory:** local-curvature, pairing-asymmetry, magic-parity, mixed
   shell-axis transfer, and the `NMD-0003` validation-holdout regression — keep as
-  do-not-repeat memory; mapped by
-  [`TASK-0642`](../../tasks/TASK-0642-map-nuclear-do-not-repeat-diagnostics.yaml).
+  do-not-repeat memory; mapped by `TASK-0642`.
 - **Source-blocked:** all 60 `PRED-*` nuclear entries are `awaiting_source`
   (`ready_for_reveal_count: 0` in
   [registry_summary.yaml](../../prediction_registry/nuclear_masses/registry_summary.yaml)).
@@ -90,8 +88,7 @@ sits at the maintainer-only Gate C boundary.
   Do not rerun on the current pinned snapshot.
 - **Source-blocked (reopen-gated):** residual scoring stays closed until a
   materially changed snapshot or revised coverage gate; the metadata-only
-  trigger scout is
-  [`TASK-0629`](../../tasks/TASK-0629-run-exoplanet-exo0003-metadata-trigger-scout.yaml).
+  trigger scout is `TASK-0629`.
 - **Prediction awaiting reveal:** `PRED-0001` is `REGISTERED` / `AGENT_PUBLISHED`
   with no scoring
   ([first-non-nuclear-agent-published-prediction.md](./first-non-nuclear-agent-published-prediction.md)).
@@ -105,14 +102,14 @@ sits at the maintainer-only Gate C boundary.
   publication decision returned `MD0002_WIDENING_FIRST`
   ([materials-md0001-result-or-dataset-publication-decision.md](./materials-md0001-result-or-dataset-publication-decision.md)).
 - **Negative memory:** band-gap split-fragility null control
-  ([`TASK-0646`](../../tasks/TASK-0646-package-materials-bandgap-negative-memory.yaml),
+  (`TASK-0646`,
   [materials-md0001-band-gap-null-control-audit.md](./materials-md0001-band-gap-null-control-audit.md)).
-- Adjudication task: [`TASK-0614`](../../tasks/TASK-0614-adjudicate-materials-md0001-result-path.yaml).
+- Adjudication task: `TASK-0614`.
 
 ### Textbook Formula Audit
 - **Gate B replay-needed:** `RESULT-0019` exact-reference fixture (frontier table).
 - **Dataset publication candidate:** Stellar M-L DEBCat source artifact, packaged
-  via [`TASK-0628`](../../tasks/TASK-0628-package-stellar-ml-debcat-source-artifact.yaml);
+  via `TASK-0628`;
   holdout/leakage protocol is the parallel READY task `TASK-0657`.
 - **Source-blocked:** no empirical (non-exact-reference) metrics until the
   selected formula has a source/baseline/holdout plan. Reference:
@@ -121,8 +118,7 @@ sits at the maintainer-only Gate C boundary.
 ### Atomic-Clock Residuals
 - **Source-blocked (pre-benchmark):** no `RESULT-*` yet. Beloy 2021 rows are
   pinned sandbox-only; Pizzocaro Yb/Sr rows are blocked by shared systematics;
-  the per-window diagnostic ledger is
-  [`TASK-0636`](../../tasks/TASK-0636-create-atomic-pizzocaro-per-window-diagnostic-ledger.yaml).
+  the per-window diagnostic ledger is `TASK-0636`.
   Next is row-admissibility + covariance, then a baseline-readiness gate.
   Reference: [atomic-clock-residuals campaign](../campaigns/atomic-clock-residuals.md).
 
