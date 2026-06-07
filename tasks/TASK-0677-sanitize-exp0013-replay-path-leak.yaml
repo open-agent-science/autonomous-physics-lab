@@ -1,0 +1,52 @@
+id: TASK-0677
+title: "Sanitize maintainer-local replay path leak in EXP-0013 result"
+type: repository_hardening
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Clear named blocker B1 (no maintainer-local path leaks) from the v0.2 public-readiness review so the public-opening surface is environment-clean."
+  - "Keep result artifacts public-safe without altering any scientific value, verdict, or metric."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - results/EXP-0013/RUN-0001/result.yaml
+    - scripts/check_public_path_leaks.py
+    - docs/reviews/v0.2-public-readiness.md
+  planning_context: >-
+    Named blocker B1 from docs/reviews/v0.2-public-readiness.md. The public
+    path-leak scanner flagged a macOS-specific private temporary path in the
+    EXP-0013 replay validation_record (replay_output_dir:
+    /private/tmp/apl-gateb-result-0019). This task normalizes it to the /tmp
+    convention already used by the EXP-0011 sibling record, which the scanner
+    accepts. Only the runtime replay_output_dir metadata changes; no scientific
+    values are touched. Two related stragglers the scanner does NOT currently
+    catch are noted for follow-up: EXP-0012 inputs/config.yaml carries a Windows
+    local path (D:\\Python\\APLab\\tmp\\...), and the scanner does not flag
+    Windows paths or inputs/ config files.
+
+requirements:
+  - "Change results/EXP-0013/RUN-0001/result.yaml replay_output_dir from the /private/tmp path to the /tmp convention."
+  - "Do not change any metric, verdict, tolerance, drift, timestamp, or other scientific or provenance field in the result."
+  - "Confirm scripts/check_public_path_leaks.py reports no leak for this file after the change."
+  - "Do not modify other result artifacts in this task; record the EXP-0012 Windows-path straggler and the scanner gap as a separate follow-up."
+
+accepted_outputs:
+  - "results/EXP-0013/RUN-0001/result.yaml"
+  - "tasks/TASK-0677-sanitize-exp0013-replay-path-leak.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
