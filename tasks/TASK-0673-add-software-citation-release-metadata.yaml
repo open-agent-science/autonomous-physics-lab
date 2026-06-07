@@ -1,4 +1,4 @@
-id: TASK-0638
+id: TASK-0673
 title: "Add software citation and Zenodo release metadata"
 type: research_infrastructure
 status: REVIEW_READY
@@ -37,7 +37,7 @@ requirements:
 accepted_outputs:
   - "CITATION.cff"
   - ".zenodo.json"
-  - "tasks/TASK-0638-add-software-citation-release-metadata.yaml"
+  - "tasks/TASK-0673-add-software-citation-release-metadata.yaml"
 
 validation:
   commands:

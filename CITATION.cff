@@ -5,9 +5,8 @@ abstract: >-
   Autonomous Physics Lab is a verification-first scientific engine for
   generating, testing, simulating, falsifying, scoring, and reusing physics
   hypotheses through deterministic code and version-controlled scientific
-  memory. It is the first physics proof-of-work for Open Agent Science. It is a
-  hypothesis-testing and benchmarking system, not a source of automatic
-  discoveries.
+  memory. It is a hypothesis-testing and benchmarking system, not a source of
+  automatic discoveries.
 type: software
 authors:
   - family-names: Hladun
