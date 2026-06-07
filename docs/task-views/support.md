@@ -22,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0663` - Harden closeout helper and result-artifact policy contract (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)

@@ -1,7 +1,7 @@
 id: TASK-0655
 title: "Design Quantum non-spherical digitization fixture"
 type: scientific_dataset_schema
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
@@ -32,6 +32,13 @@ accepted_outputs:
   - "tests/test_quantum_nonspherical_digitization_fixture.py"
   - "optional data/quantum_dots/fixtures/nonspherical_digitization_fixture.yaml"
   - "docs/reviews/quantum-nonspherical-digitization-fixture-design.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Synthetic digitization fixture/schema validation only; no measurement rows, benchmark metrics, or RESULT artifact are expected."
+  evidence:
+    - "data/quantum_dots/fixtures/nonspherical_digitization_fixture.yaml"
+    - "docs/reviews/quantum-nonspherical-digitization-fixture-design.md"
 
 validation:
   commands:

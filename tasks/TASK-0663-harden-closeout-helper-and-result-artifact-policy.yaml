@@ -1,0 +1,63 @@
+id: TASK-0663
+title: "Harden closeout helper and result-artifact policy contract"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep closeout sweeps reliable when multiple merged tasks are closed in one PR."
+  - "Make TASK-CLOSEOUT a first-class PR marker instead of a fake task file lookup."
+  - "Replace ad-hoc DONE-task result exceptions with an explicit result-artifact policy contract."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_closeout_pr_helper.py"
+    - "physics_lab/registry/closeout_pr_helper.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/scientific_memory_integrity.py"
+    - "physics_lab/schemas/task.schema.json"
+  planning_context: >
+    A closeout sweep exposed two friction points: the closeout PR helper
+    accepted TASK-CLOSEOUT-looking metadata but still required a real task file
+    for every --task-id argument, and strict scientific-memory validation pushed
+    agents toward expanding a task-type exception list for DONE tasks that
+    intentionally produce review notes, fixtures, or replay validation rather
+    than new RESULT artifacts.
+
+requirements:
+  - "Add a clearer closeout helper interface for batch closeout, using closed task ids rather than treating TASK-CLOSEOUT as a task file."
+  - "Keep backward compatibility for existing helper invocations where safe, but fail with actionable messages instead of Python tracebacks."
+  - "Allow closeout metadata to state explicitly when a new result artifact is not required."
+  - "Do not weaken result-artifact checks for science tasks that should publish or link canonical results."
+  - "Add regression tests for the helper and the result-artifact policy path."
+
+accepted_outputs:
+  - "scripts/apl_closeout_pr_helper.py"
+  - "physics_lab/registry/closeout_pr_helper.py"
+  - "physics_lab/registry/scientific_memory_integrity.py"
+  - "physics_lab/schemas/task.schema.json"
+  - "tests/test_closeout_pr_helper.py"
+  - "tests/test_scientific_memory_integrity.py"
+  - "task closeout status updates for the merged review-ready batch"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-tooling task; no RESULT artifact is expected."
+  evidence:
+    - "scripts/apl_closeout_pr_helper.py"
+    - "physics_lab/registry/scientific_memory_integrity.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/closeout_pr_helper.py physics_lab/registry/maintainer_review.py physics_lab/registry/scientific_memory_integrity.py tests/test_closeout_pr_helper.py tests/test_maintainer_review.py tests/test_scientific_memory_integrity.py"
+    - "python3 -m pytest tests/test_closeout_pr_helper.py tests/test_maintainer_review.py tests/test_scientific_memory_integrity.py tests/test_task_reference_convention.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
