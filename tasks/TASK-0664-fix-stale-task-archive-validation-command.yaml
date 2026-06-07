@@ -1,0 +1,48 @@
+id: TASK-0664
+title: "Fix stale task-archive validation command"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep task validation commands executable for future agents."
+  - "Reduce maintainer and agent friction caused by stale test paths."
+  - "Prefer small deterministic cleanup when validation reports stale references."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "tasks/TASK-0559-preflight-task-archive-migration.yaml"
+    - "tests/test_repository_archive_aware.py"
+  planning_context: >
+    Strict repository validation reported that TASK-0559 referenced a missing
+    test file, `tests/test_task_archive_discovery_preflight.py`. The repository
+    contains the archive-aware discovery coverage under
+    `tests/test_repository_archive_aware.py`, so the stale command should be
+    corrected rather than left for the next agent to discover.
+
+requirements:
+  - "Replace the stale missing test path in TASK-0559 with the current archive-aware test file."
+  - "Keep the fix limited to task metadata and validation-path hygiene."
+  - "Do not reopen or reinterpret TASK-0559 scientific or architectural conclusions."
+
+accepted_outputs:
+  - "tasks/TASK-0559-preflight-task-archive-migration.yaml"
+  - "tasks/TASK-0664-fix-stale-task-archive-validation-command.yaml"
+
+result_artifact_policy:
+  required: false
+  reason: "Validation-command hygiene task; no scientific result artifact is expected."
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_repository_archive_aware.py tests/test_task_views.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
