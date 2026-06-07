@@ -1,7 +1,7 @@
 id: TASK-0560
 title: "Define docs reviews and notes retention policy"
 type: documentation_architecture
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
@@ -36,6 +36,10 @@ accepted_outputs:
   - "docs/reviews/README.md"
   - "docs/notes/README.md"
   - "small pointers from architecture or contributor docs if useful"
+
+result_artifact_policy:
+  required: false
+  reason: "Documentation architecture policy task; no scientific RESULT artifact is expected."
 
 validation:
   commands:

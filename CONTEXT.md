@@ -1,14 +1,14 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-06 08:27 UTC
+Generated: 2026-06-07 14:03 UTC
 Mode: core
-Repo: gladunrv/autonomous-physics-lab
+Repo: open-agent-science/autonomous-physics-lab
 
 This file bundles the core project instructions, strategy, and current
 task board into one document for use with chat-based LLMs or as a
 quick agent orientation file.
 
-For the live repository see: https://github.com/gladunrv/autonomous-physics-lab
+For the live repository see: https://github.com/open-agent-science/autonomous-physics-lab
 
 
 ────────────────────────────────────────────────────────────────────────
@@ -143,6 +143,25 @@ LLMs may propose, explain, and organize hypotheses, but numerical and symbolic
 claims must be verified by deterministic code.
 
 Never trust an LLM-generated formula without validation.
+
+## Python Runtime
+
+APL requires Python 3.11+ (`requires-python = ">=3.11"` in `pyproject.toml`) and
+uses 3.10+ runtime features. If your system Python is older or lacks the project
+dependencies, create a 3.11+ virtual environment and install the project:
+
+```bash
+python3.11 -m venv .venv
+# activate: `source .venv/bin/activate` (macOS/Linux) or `.venv\Scripts\activate` (Windows)
+pip install -e ".[dev]"
+```
+
+Run `ruff`, `pytest`, and `python -m physics_lab.cli ...` with that interpreter.
+The minimum version lives in one place (`physics_lab/_runtime.py`); helper paths
+that use 3.10+ features fail fast with an actionable message, and
+`python3 scripts/apl_agent_doctor.py` reports whether the active interpreter meets
+the requirement. APL is intentionally single-runtime; do not add Python <3.11
+compatibility shims.
 
 ## Cross-Platform Compatibility
 
@@ -287,6 +306,14 @@ canonical `TASK-XXXX` id, agents should create a proposal under
 `tasks/proposals/` instead of guessing the next task number.
 
 Normal agents should not assign canonical task ids during parallel work.
+
+External agents should also preserve actionable signals they discover while
+working. Bugs, validation bottlenecks, cross-platform failures, protocol gaps,
+optimization opportunities, source leads, blockers, and scientific ideas should
+be routed to a durable artifact before handoff: a task proposal, a
+domain-specific research proposal, or a lightweight GitHub issue when the agent
+cannot safely edit the repository. Do not formalize every passing thought, but
+do not leave useful follow-up work only in chat or PR prose.
 
 Maintainers may create canonical ids directly. Maintainer-directed review or
 task-admin agents may do so only on explicit maintainer instruction.
@@ -2288,6 +2315,30 @@ only blocker-valued proxy variables for the child GitHub CLI process.
 
 If no existing `READY` task fits, do not guess the next canonical task number
 during parallel work.
+
+## Preserve External-Agent Signals
+
+External agents should not leave actionable discoveries only in chat output,
+PR prose, or private reasoning. When an agent notices a repository bug,
+validation bottleneck, cross-platform failure, protocol ambiguity, optimization
+opportunity, source lead, blocker, or scientific idea that is worth preserving,
+it must route that signal into a durable coordination surface before handoff:
+
+- create a `tasks/proposals/*.yaml` artifact when the idea may become future
+  repository work but does not yet have a maintainer-assigned canonical task id;
+- create the appropriate research proposal artifact when the signal is a new
+  hypothesis, benchmark idea, source path, dataset lane, or scientific control
+  rather than immediate maintenance work;
+- open or reference a GitHub issue when the agent cannot safely edit the
+  repository, when the signal is primarily operational coordination, or when a
+  lightweight external report is the right first step;
+- create a `TASK-QUEUE` item only when the maintainer explicitly asked for
+  canonical future tasks.
+
+Do not formalize every speculative thought. Formalize signals that are
+actionable, likely to recur, likely to block another agent, or scientifically
+useful enough that losing them would slow the project. If a signal is
+intentionally advisory-only, say that explicitly in the handoff.
 
 Default rule:
 

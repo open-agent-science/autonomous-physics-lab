@@ -1,7 +1,7 @@
 id: TASK-0461
 title: "Add lane collision preflight for parallel agent work"
 type: contributor_experience
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
