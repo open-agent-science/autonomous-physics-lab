@@ -1,0 +1,50 @@
+id: TASK-0670
+title: "Decide Materials MD-0002 acquisition go/no-go after preflight package"
+type: research_quality_gate
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent Materials from widening blindly before source, holdout, and loader contracts agree."
+  - "Turn the MD-0002 planning wave into a clear acquisition decision for the strongest near-term empirical campaign."
+  - "Keep formation energy and band gap separated so the robust axis is not diluted by split-fragile evidence."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0631-plan-materials-md0002-acquisition-preflight.yaml"
+    - "tasks/TASK-0644-scaffold-materials-md0002-holdout-manifest.yaml"
+    - "tasks/TASK-0645-plan-materials-md0002-loader-fixture.yaml"
+    - "docs/reviews/materials-md0001-result-or-dataset-publication-decision.md"
+    - "docs/reviews/materials-md0002-wider-replication-slice-plan.md"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    Materials is the strongest near-term empirical result path, but MD-0002
+    should start only after acquisition preflight, holdout/no-peek, and loader
+    fixture plans are mutually consistent. This task makes the acquisition
+    go/no-go decision without fetching rows.
+
+requirements:
+  - "Start only after TASK-0631, TASK-0644, and TASK-0645 are merged or explicitly closed with reviewed blockers."
+  - "Decide one route: authorize MD-0002 acquisition task, request a narrowed preflight revision, keep MD-0001 dataset-publication-first, or stop the widening lane."
+  - "State the primary retest axis, row cap, source/version/checksum requirements, holdout/no-peek constraints, and whether band gap remains diagnostic-only."
+  - "Do not fetch Materials Project rows, compute benchmarks, create result artifacts, recommend materials, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0002-acquisition-go-no-go.md"
+  - "optional task update if an existing MD-0002 task is stale or unsafe"
+  - "optional docs/campaigns/materials-property-residuals.md update if the campaign maturity state changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

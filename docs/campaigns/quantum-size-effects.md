@@ -43,12 +43,17 @@ direct-table source beyond the exhausted Norris/Kang pair. `TASK-0605` scouted
 Almeida 2023 InP optical data as a promising but digitization-required open
 candidate. `TASK-0630` found the source promising but not row-ready under the
 current schema: Almeida reports tetrahedral edge length / volume rather than
-direct diameter or radius.
+direct diameter or radius. `TASK-0637` added the non-spherical size-axis
+schema route, `TASK-0654` resolved the Almeida license/figure-surface checklist
+at metadata level, and `TASK-0655` validated a synthetic non-spherical
+digitization fixture. The remaining Almeida blockers are checksum-pinned
+source-artifact packaging, real WebPlotDigitizer-class exports, per-point
+provenance, and row-readiness review.
 
-**Expected next result:** `TASK-0637` should add a reviewed non-spherical
-size-axis route before any Almeida digitization. After that, a separate
-source-artifact/digitization task can decide whether Figure 1b can become
-direct measurement rows.
+**Expected next result:** a checksum-pinned Almeida source-artifact package
+(`TASK-0668`) that either authorizes a later Figure 1b digitization task or
+records an exact reuse/source blocker. The baseline benchmark remains blocked
+until real direct measurement rows pass readiness.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -145,7 +150,13 @@ Current task posture:
 - `TASK-0630` — Almeida 2023 source-artifact feasibility (DONE;
   `SCHEMA_EXTENSION_NEEDED` because the source uses tetrahedral edge length
   and volume rather than the current diameter/radius-only schema route).
-- `TASK-0637` — non-spherical size-axis schema extension (READY).
+- `TASK-0637` — non-spherical size-axis schema extension (DONE).
+- `TASK-0654` — Almeida 2023 license and figure-surface review (DONE;
+  metadata-only, no source files or coordinates committed).
+- `TASK-0655` — synthetic non-spherical digitization fixture (DONE; validates
+  schema/ledger mechanics, no real Almeida points).
+- `TASK-0668` — checksum-pinned Almeida source-artifact package (READY; no
+  digitization or rows).
 
 Safe next contributions are:
 

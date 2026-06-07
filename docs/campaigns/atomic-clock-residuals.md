@@ -17,8 +17,11 @@ Pinned-dataset source surface with one committed direct-ratio seed, a
 deterministic real-row loader, a source-derived covariance approximation,
 synthetic cross-source dry-run plumbing, a corrected Nemitz 2016 source
 artifact pinned with rows blocked, a first-benchmark covariance policy,
-manifest-backed Beloy row-role assignments, and a baseline-readiness gate
-rerun that keeps the campaign at `PINNED_DATASET`. No real-row benchmark yet.
+manifest-backed Beloy row-role assignments, a Pizzocaro per-window diagnostic
+ledger, and a baseline-readiness gate rerun that keeps the campaign at
+`PINNED_DATASET`. `TASK-0651` found that the Pizzocaro VLBI windows are
+feasible as a source-derived positive-semidefinite covariance approximation,
+but not as an exact committed covariance matrix. No real-row benchmark yet.
 
 ## Public Monitoring Snapshot
 
@@ -41,21 +44,23 @@ fitting constants drift yet.
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0538` populated the Beloy row-role assignments, and
-`TASK-0542` pinned the Pizzocaro source artifacts with checksum/provenance.
-The main remaining Atomic source gate is row-level admissibility:
-`TASK-0567` can now decide whether Pizzocaro can become a second
-value-bearing Yb/Sr row or whether the campaign should preserve a precise
-blocker instead of running constants-drift or mixed-axis metrics.
+**Active next work:** `TASK-0538` populated the Beloy row-role assignments,
+`TASK-0542` pinned the Pizzocaro source artifacts with checksum/provenance,
+`TASK-0636` created the Pizzocaro per-window diagnostic ledger, and `TASK-0651`
+found the committed component data sufficient for a deterministic
+`COV_SOURCE_DERIVED_PSD_APPROX` recipe. The immediate Atomic path is now
+`TASK-0666`: build and test that Pizzocaro source-derived PSD covariance
+artifact without aggregating windows into benchmark rows. `TASK-0652` also
+pinned Lange/PTB Yb+ metadata, but that source is a separate Yb+ family
+(E3/Cs and E3/E2), not a Yb/Sr benchmark unblocker.
 
-**Expected next result:** the Pizzocaro ledger identified Figure 2a VLBI
-time-series as the best row-of-record surface, but `TASK-0627` preserved the
-benchmark blocker: the campaign windows share systematics and cannot yet be
-collapsed into a single defensible row. The next Atomic output is a
-machine-readable per-window diagnostic ledger (`TASK-0636`) that keeps the
-VLBI surface useful while preserving `COV_BLOCKED_SHARED_SYSTEMATICS`.
-`TASK-0606` also selected Lange/PTB Yb+ E3/Cs as a fallback candidate, still
-blocked on exact artifact locator and reuse review.
+**Expected next result:** a machine-readable Pizzocaro covariance approximation
+with explicit row order, shared-systematic recipe, PSD check, and sensitivity
+ceiling. If that lands, a later baseline-readiness gate can decide whether the
+first narrow Yb/Sr consistency benchmark is still blocked or ready. If it fails,
+Pizzocaro remains diagnostic-only and Atomic should prioritize another Yb/Sr
+source. Lange/PTB remains a useful separate-family fallback after a reuse and
+artifact-retrieval route is decided.
 
 `TASK-0311` adds:
 
@@ -131,6 +136,13 @@ Current next tasks:
   row classification.
 - `TASK-0567` is now the row-admissibility gate that decides whether a
   Pizzocaro row can be committed or whether the source remains blocker memory.
+- `TASK-0636` created a deterministic Pizzocaro per-window diagnostic ledger
+  for 10 VLBI campaign windows while preserving the shared-systematics blocker.
+- `TASK-0651` found Pizzocaro covariance reconstruction feasible as a
+  `COV_SOURCE_DERIVED_PSD_APPROX` approximation, under-specified for an exact
+  committed covariance matrix.
+- `TASK-0652` pinned Lange/PTB Yb+ metadata and reuse blockers; it is a
+  separate Yb+ source-family path, not a Yb/Sr benchmark unblocker.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. After `TASK-0455`, the
@@ -253,6 +265,10 @@ Safe future tasks:
   row is committed or explicitly waived;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
+- build the scoped Pizzocaro PSD covariance approximation before rerunning the
+  Atomic baseline-readiness gate;
+- decide the Lange/PTB artifact retrieval and reuse route before any source
+  copy, checksum, or value extraction task.
 
 Unsafe next tasks:
 

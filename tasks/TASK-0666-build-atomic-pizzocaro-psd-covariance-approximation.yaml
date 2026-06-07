@@ -1,0 +1,51 @@
+id: TASK-0666
+title: "Build Atomic Pizzocaro source-derived PSD covariance approximation"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the Pizzocaro shared-systematics blocker into a deterministic covariance artifact without fitting constants drift."
+  - "Move Atomic from diagnostic-only ledger toward a defensible Yb/Sr benchmark gate."
+  - "Preserve sensitivity-only wording for approximate covariance rather than claiming an exact source-published matrix."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-pizzocaro-covariance-reconstruction-feasibility.md"
+    - "docs/reviews/atomic-pizzocaro-per-window-diagnostic-ledger.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_per_window_diagnostic_ledger.yaml"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr"
+  planning_context: >
+    TASK-0651 found that Pizzocaro VLBI windows are feasible as a
+    source-derived PSD covariance approximation, but not as an exact committed
+    covariance matrix. This task creates the deterministic approximation
+    artifact and tests it without aggregating windows into benchmark rows.
+
+requirements:
+  - "Use only committed Pizzocaro source artifacts and the committed per-window diagnostic ledger."
+  - "Freeze row/window order, unit convention, diagonal source, off-diagonal recipe, shared-component sign convention, clock-correlation assumption, PSD check, sensitivity bounds, and omitted-component list."
+  - "Commit a machine-readable covariance artifact under data/atomic_clocks or the Pizzocaro source-artifact directory using a clear COV_SOURCE_DERIVED_PSD_APPROX state."
+  - "Add tests that rebuild or validate the covariance shape, PSD verdict, row ids, symmetry, units, and stated sensitivity assumptions."
+  - "Do not aggregate windows into benchmark rows, add acr-*.yaml measurement rows, fit constants drift, compare sources, create predictions, or promote claims."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/*covariance*.yaml or equivalent covariance artifact path"
+  - "docs/reviews/atomic-pizzocaro-source-derived-psd-covariance.md"
+  - "tests/test_atomic_pizzocaro_covariance_approximation.py or equivalent targeted test coverage"
+  - "optional docs/campaigns/atomic-clock-residuals.md update if the maturity state changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_pizzocaro_window_ledger.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

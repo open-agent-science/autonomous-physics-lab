@@ -1,0 +1,50 @@
+id: TASK-0667
+title: "Rerun Atomic baseline-readiness gate after Pizzocaro covariance approximation"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Decide whether Atomic can advance from PINNED_DATASET toward BASELINE_READY after the Pizzocaro covariance path is resolved."
+  - "Prevent premature Yb/Sr benchmark execution by requiring an explicit readiness gate."
+  - "Turn source and covariance work into a clear go/no-go decision for TASK-0456."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0666-build-atomic-pizzocaro-psd-covariance-approximation.yaml"
+    - "tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml"
+    - "docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  planning_context: >
+    The first Atomic benchmark remains blocked until a readiness gate decides
+    whether the committed Beloy/Pizzocaro/Nemitz/Lange source surfaces support
+    a narrow Yb/Sr consistency benchmark. This task runs only after TASK-0666
+    lands a covariance artifact or records a decisive blocker.
+
+requirements:
+  - "Start only after TASK-0666 is merged or explicitly closed as blocked with a reviewed reason."
+  - "Classify Atomic as BASELINE_READY, still PINNED_DATASET, SOURCE_BLOCKED, or COVARIANCE_BLOCKED with exact blocker list."
+  - "If BASELINE_READY is recommended, specify the exact benchmark shape, admitted row classes, covariance state, and no-live-fetch boundary for TASK-0456."
+  - "If blocked, preserve the blocker as campaign memory and recommend the single next source/covariance task."
+  - "Do not run cross-source metrics, fit constants drift, add rows, create results, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-baseline-readiness-after-pizzocaro-covariance.md"
+  - "optional update to tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml only if the readiness gate explicitly changes its unblock condition"
+  - "optional docs/campaigns/atomic-clock-residuals.md update if the maturity state changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

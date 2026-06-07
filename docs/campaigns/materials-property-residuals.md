@@ -74,13 +74,13 @@ DOI.
 
 **Active next work:** `TASK-0626` ran the bounded formation-energy Research
 Factory smoke sprint and found no candidate that clears the frozen baseline
-plus controls. `TASK-0614` should now decide whether `MD-0001` routes to a
-dataset-publication package, `MD-0002` widening-first, scoped result preflight,
-or do-not-promote memory. If the gate authorizes `MD-0002`, the widening step
-should stay source-first and no-live-fetch until a maintainer-approved
-acquisition preflight pins source version, row cap, checksum, citation/reuse
-metadata, and holdout rules. `TASK-0631` stays blocked until that decision
-explicitly authorizes MD-0002 acquisition preflight.
+plus controls. `TASK-0614` selected `MD0002_WIDENING_FIRST`: do not promote the
+small `MD-0001` benchmark yet, but retest the robust formation-energy axis on a
+larger source-pinned slice before deciding whether the signal is durable.
+`TASK-0631`, `TASK-0644`, and `TASK-0645` now form the pre-acquisition planning
+wave: acquisition preflight, holdout/no-peek manifest, and loader/schema
+fixture. `TASK-0670` is the later go/no-go decision that should run only after
+those three surfaces agree.
 
 ## Admissible Source Classes
 

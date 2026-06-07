@@ -1,0 +1,49 @@
+id: TASK-0669
+title: "Decide Atomic Lange/PTB artifact retrieval and reuse route"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep the Lange/PTB Yb+ fallback moving without pretending it unblocks the Yb/Sr benchmark."
+  - "Resolve the arXiv/PDF reuse decision before any value extraction or source artifact commit."
+  - "Create a separate-family Atomic source path that can later support Yb+ E3/Cs or E3/E2 benchmarks."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-lange-ptb-source-artifact-preflight.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  planning_context: >
+    TASK-0652 pinned Lange/PTB metadata and identified a license/reuse gate
+    before artifact retrieval. This task decides whether a future task may
+    commit a checksum-pinned arXiv/preprint artifact, should stay metadata-only,
+    or should seek a different archive route. It does not transcribe values.
+
+requirements:
+  - "Review the repository's existing arXiv/preprint artifact posture and apply it explicitly to Lange/PTB."
+  - "Decide one route: commit-permitted with exact conditions, metadata-only until maintainer license approval, or reject artifact commit and retain locator-only provenance."
+  - "If commit-permitted, specify required provenance.yaml fields, checksum policy, retrieval date, and source-artifact directory shape for a later retrieval task."
+  - "Keep Lange/PTB marked as a separate Yb+ source family, not a Yb/Sr benchmark unblocker."
+  - "Do not download files, transcribe clock values, add acr-*.yaml rows, fit constants drift, compare sources, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-lange-ptb-artifact-retrieval-route.md"
+  - "optional metadata-only update to data/atomic_clocks/source_manifest.yaml"
+  - "optional docs/campaigns/atomic-clock-residuals.md update if the fallback route changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
