@@ -160,11 +160,57 @@ source_families:
           - extraction_ledger_required_before_acr_row
           - holdout_or_reveal_freeze_manifest_unset
 
-      - source_family_member_planning_only:
-          notes: |
-            Lange 2021 (PTB Yb+/Cs) provides species breadth but not a direct
-            Yb/Sr cross-check. It remains a candidate only; no entry is
-            created in this manifest until a triage review names it.
+      - source_id: ACLOCK-SRC-CANDIDATE-2021-LANGE-PTB-YBPLUS
+        status: candidate_metadata_only_locator_pinned
+        ratio_set:
+          - Yb+_E3/Cs
+          - Yb+_E3/E2
+        lab: PTB
+        epoch_start: null
+        epoch_end: null
+        source_locator: https://arxiv.org/abs/2010.06620
+        archive_url: https://arxiv.org/pdf/2010.06620
+        retrieval_date: null
+        checksum_sha256: null
+        checksum_scope: pending_before_artifact_commit
+        provenance_path: null
+        license_note: >-
+          PRL (APS) publication of record is not redistributable. arXiv:2010.06620
+          is under the arXiv nonexclusive-distrib/1.0 licence, which grants arXiv
+          (not third parties) a distribution right, so committing the preprint PDF
+          is a license-review decision, not an automatic yes. Metadata and locators
+          are committable as facts.
+        publication_of_record:
+          doi: 10.1103/PhysRevLett.126.011102
+          journal: Physical Review Letters
+          volume: 126
+          page: 011102
+          year: 2021
+          redistributable_here: false
+        value_status: metadata_only_no_values
+        dataset_path: null
+        covariance_artifact_path: null
+        readiness_state: SOURCE_CANDIDATE_METADATA_PINNED_ARTIFACT_RETRIEVAL_DEFERRED
+        readiness_evidence:
+          - docs/reviews/atomic-second-yb-sr-fallback-source-scout.md
+          - docs/reviews/atomic-lange-ptb-source-artifact-preflight.md
+        triage_role: |
+          Different source family from the Yb/Sr direct-ratio members: this is a
+          PTB Yb+ E3/Cs absolute-frequency plus intra-ion E3/E2 optical-ratio
+          source (Lange et al. 2021). It carries no Yb/Sr row, so it does not
+          unblock the TASK-0456 first Yb/Sr cross-source benchmark. It is retained
+          as the named alternate high-precision fresh-data path to reduce
+          single-source dependence if Pizzocaro stays covariance-blocked.
+          TASK-0652 pins the locator, citation, reuse posture, and checksum/archive
+          feasibility at metadata level only; artifact retrieval and extraction are
+          deferred to a follow-up task.
+        ingestion_blockers:
+          - arxiv_pdf_redistribution_license_review_required
+          - direct_yb_sr_rows_not_present_different_source_family
+          - value_bearing_table_extraction_from_pdf_not_started
+          - checksum_not_pinned_artifact_retrieval_deferred
+          - epoch_window_and_systematic_budget_not_locked
+          - holdout_or_reveal_freeze_manifest_unset
 
 manifest_global_stop_conditions:
   - SOURCE_ARTIFACT_VERSION_DRIFT

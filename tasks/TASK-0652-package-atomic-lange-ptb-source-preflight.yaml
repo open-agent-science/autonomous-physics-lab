@@ -1,7 +1,7 @@
 id: TASK-0652
 title: "Package Atomic Lange/PTB Yb+ source-artifact preflight"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
