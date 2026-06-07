@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0631` - Plan Materials MD-0002 acquisition preflight package (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0635` - Run first Gate B replay on an AGENT_PUBLISHED result (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0644` - Scaffold Materials MD-0002 holdout and no-peek manifest (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0645` - Plan Materials MD-0002 loader and schema fixture (`scientific_dataset_schema`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0646` - Package Materials band-gap split-fragility negative memory (`negative_result_memory`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
@@ -24,5 +23,6 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0635` - Run first Gate B replay on an AGENT_PUBLISHED result (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0654` - Package Quantum Almeida license and figure-surface review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0659` - Build cross-campaign result-promotion inventory (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
