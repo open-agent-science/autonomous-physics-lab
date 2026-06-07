@@ -13,7 +13,7 @@ non-spherical figure coordinates are digitized. It does not download article or
 SI files, digitize publication figures, create committed `qd-*.yaml` measurement
 rows, run size-effect baseline metrics, or promote claims.
 
-Prerequisite [TASK-0637](../tasks/TASK-0637-extend-quantum-size-schema-for-non-spherical-axes.yaml)
+Prerequisite `TASK-0637`
 landed `edge_length_nm`, `volume_nm3`, `equivalent_diameter_nm`, `morphology`,
 and `size_conversion` on the `quantum_dot_size_effect` schema.
 
