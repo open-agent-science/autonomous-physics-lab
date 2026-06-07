@@ -18,3 +18,4 @@ None.
 - `TASK-0643` - Package Materials MD-0001 reusable-dataset publication blockers (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0660` - Package Anharmonic replay result-promotion preflight (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `anharmonic_oscillator`)
 - `TASK-0673` - Add software citation and Zenodo release metadata (`research_infrastructure`, priority `high`, difficulty `low`, domain `release_packaging`)
+- `TASK-0675` - Add release-preparation and git-hygiene responsibilities to the Architect role (`repo_architecture`, priority `medium`, difficulty `low`, domain `agent_roles`)
