@@ -1005,13 +1005,16 @@ def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) 
     )
 
     def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
-        if command[:3] == ["gh", "pr", "view"]:
+        if command[1:3] == ["pr", "view"]:
             return CommandResult(returncode=1, stdout="", stderr="network")
-        if command[:3] == ["gh", "pr", "list"]:
+        if command[1:3] == ["pr", "list"]:
             return CommandResult(returncode=0, stdout=payload, stderr="")
         return CommandResult(returncode=1, stdout="", stderr="unexpected")
 
-    with patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command):
+    with (
+        patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+    ):
         metadata = load_pr_metadata(tmp_path, 104)
 
     assert metadata is not None

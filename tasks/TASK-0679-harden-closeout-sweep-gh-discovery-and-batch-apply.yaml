@@ -1,0 +1,56 @@
+id: TASK-0679
+title: "Harden closeout sweep GitHub discovery and batch apply"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep post-merge closeout from accumulating stale REVIEW_READY tasks."
+  - "Make maintainer helpers robust across Codex, Claude Code, macOS, Linux, and Windows."
+  - "Avoid false closeout blockers caused by GitHub CLI path or batch-worktree state."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_closeout_sweep.py"
+    - "physics_lab/registry/closeout_sweep.py"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    During the 2026-06-07 closeout sweep after the organization transfer,
+    the sweep initially missed merged PRs when the GitHub CLI was unavailable
+    on PATH and then single-task closeout blocked subsequent candidates after
+    the first status update dirtied the worktree. The helper should use the
+    repository-wide GitHub CLI discovery path and support narrow batch apply
+    for ready closeout candidates.
+
+requirements:
+  - "Use repository GitHub CLI discovery instead of assuming `gh` is on PATH."
+  - "Keep PR metadata verification and task/PR binding checks intact."
+  - "Add a closeout-sweep batch apply path that only changes `status: REVIEW_READY` to `status: DONE` for ready candidates."
+  - "Require clean `main` before batch apply."
+  - "Do not weaken review-agent, CI, accepted-output, or result-artifact policy checks."
+
+accepted_outputs:
+  - "physics_lab/registry/closeout_sweep.py"
+  - "scripts/apl_closeout_sweep.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_closeout_sweep.py"
+  - "tests/test_maintainer_review.py"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling hardening task; no scientific RESULT artifact is expected."
+
+validation:
+  commands:
+    - "python -m ruff check physics_lab/registry/closeout_sweep.py physics_lab/registry/maintainer_review.py scripts/apl_closeout_sweep.py tests/test_closeout_sweep.py tests/test_maintainer_review.py"
+    - "python -m pytest tests/test_closeout_sweep.py tests/test_maintainer_review.py::test_load_pr_metadata_falls_back_to_pr_list_when_view_fails"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
