@@ -68,7 +68,7 @@ agent_proposal_evaluation:
       model_version: GPT-5 Codex
     replayed_at_utc: '2026-06-07T05:47:22+00:00'
     replay_command: physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml
-    replay_output_dir: /private/tmp/apl-gateb-result-0019
+    replay_output_dir: /tmp/apl-gateb-result-0019
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 13
