@@ -14,7 +14,6 @@
 - `TASK-0651` - Review Atomic Pizzocaro covariance reconstruction feasibility (`scientific_validation`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0652` - Package Atomic Lange/PTB Yb+ source-artifact preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0653` - Map Atomic cross-source benchmark blockers (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0654` - Package Quantum Almeida license and figure-surface review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0655` - Design Quantum non-spherical digitization fixture (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0656` - Scout second Quantum open direct-table source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0657` - Define Stellar M-L DEBCat holdout and leakage protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
@@ -25,4 +24,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0654` - Package Quantum Almeida license and figure-surface review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0659` - Build cross-campaign result-promotion inventory (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
