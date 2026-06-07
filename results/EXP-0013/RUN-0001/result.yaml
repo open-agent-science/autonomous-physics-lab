@@ -36,9 +36,9 @@ limitations:
   this result-only task.
 best_model_id: model_stefan_boltzmann_exact_reference
 best_verdict: VALID_IN_RANGE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: VALID_IN_RANGE
   published_by:
     contributor_id: roman
@@ -46,23 +46,33 @@ agent_proposal_evaluation:
     agent_tool: Claude Code
     model_version: Claude Opus 4.8
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
-    no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
-  evidence_summary: 'The committed Stefan-Boltzmann exact-reference workflow replayed
-    deterministically against the synthetic fixture: 16 rows, max exact-reference
-    relative error 0.0 under a 1e-12 tolerance, all software gates passing, and both
-    declared convention negative controls rejected. The scoped verdict is VALID_IN_RANGE
-    for the software/convention fixture only; no empirical formula behavior is asserted.'
-  followup_for_maintainer: Keep this RESULT as agent-published software/convention
-    evidence. It is the intended replay target for the first Gate B independent-replay
-    task (TASK-0635). Claim and knowledge promotion remain out of scope.
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
+  evidence_summary: Independent Gate B replay reproduced the published result metrics
+    within tolerance and preserved the VALID_IN_RANGE software/convention verdict.
+    The replay compared 13 numeric metrics with maximum absolute drift 0.0 and did
+    not change RESULT metrics, command, inputs, claims, knowledge, or golden-result
+    status.
+  followup_for_maintainer: Treat this as AGENT_VALIDATED software/convention evidence,
+    not maintainer-reviewed or external-replicated evidence. The original publisher
+    used Claude Code and the replay used Codex, but both records use contributor id
+    roman; keep that same-contributor limitation visible during review.
+  validation_record:
+    replayed_by:
+      contributor_id: roman
+      github_username: gladunrv
+      agent_tool: Codex
+      model_version: GPT-5 Codex
+    replayed_at_utc: '2026-06-07T05:47:22+00:00'
+    replay_command: physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml
+    replay_output_dir: /private/tmp/apl-gateb-result-0019
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 13
+    drift_observed: none
 verification:
   passed: true
   checks:

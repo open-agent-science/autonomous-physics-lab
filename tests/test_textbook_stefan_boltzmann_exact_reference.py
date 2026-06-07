@@ -110,7 +110,7 @@ def test_runner_writes_sandbox_metrics_and_report(tmp_path: Path) -> None:
 
 
 def test_cli_workflow_writes_gate_b_replayable_result(tmp_path: Path) -> None:
-    output_dir = tmp_path / "canonical"
+    output_dir = tmp_path / "results"
     subprocess.run(
         [
             sys.executable,
@@ -135,7 +135,7 @@ def test_cli_workflow_writes_gate_b_replayable_result(tmp_path: Path) -> None:
     assert result_payload["agent_proposal_evaluation"]["published_by"]["agent_tool"] == "Claude Code"
 
     replay = validate_agent_published_result(
-        ROOT / "results" / "EXP-0013" / "RUN-0001" / "result.yaml",
+        result_path,
         root=ROOT,
         replayed_by=ReplayIdentity(
             contributor_id="codex",
