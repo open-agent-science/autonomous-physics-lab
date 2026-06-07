@@ -17,5 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0634` - Publish Textbook exact-reference scoped AGENT_PUBLISHED result (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0639` - Package NMD-0003 factory negative-result publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+None.
