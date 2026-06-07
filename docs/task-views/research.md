@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0631` - Plan Materials MD-0002 acquisition preflight package (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0644` - Scaffold Materials MD-0002 holdout and no-peek manifest (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0645` - Plan Materials MD-0002 loader and schema fixture (`scientific_dataset_schema`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0646` - Package Materials band-gap split-fragility negative memory (`negative_result_memory`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0653` - Map Atomic cross-source benchmark blockers (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
@@ -20,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0644` - Scaffold Materials MD-0002 holdout and no-peek manifest (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
