@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0641` - Build Nuclear prediction reveal-readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0649` - Package Exoplanet negative/control result-publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0649` - Package Exoplanet negative/control result-publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
