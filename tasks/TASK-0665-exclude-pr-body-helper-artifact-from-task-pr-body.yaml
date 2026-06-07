@@ -1,7 +1,7 @@
 id: TASK-0665
 title: "Exclude PR body helper artifact from task PR changed-file list"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

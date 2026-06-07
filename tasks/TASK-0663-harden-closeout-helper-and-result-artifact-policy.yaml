@@ -1,7 +1,7 @@
 id: TASK-0663
 title: "Harden closeout helper and result-artifact policy contract"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

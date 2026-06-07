@@ -1,7 +1,7 @@
 id: TASK-0644
 title: "Scaffold Materials MD-0002 holdout and no-peek manifest"
 type: benchmark_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

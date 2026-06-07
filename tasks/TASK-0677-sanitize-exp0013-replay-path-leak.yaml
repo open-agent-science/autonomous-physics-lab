@@ -1,7 +1,7 @@
 id: TASK-0677
 title: "Sanitize maintainer-local replay path leak in EXP-0013 result"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
