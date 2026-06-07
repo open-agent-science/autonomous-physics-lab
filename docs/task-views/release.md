@@ -15,10 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0643` - Package Materials MD-0001 reusable-dataset publication blockers (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0660` - Package Anharmonic replay result-promotion preflight (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `anharmonic_oscillator`)
-- `TASK-0673` - Add software citation and Zenodo release metadata (`research_infrastructure`, priority `high`, difficulty `low`, domain `release_packaging`)
-- `TASK-0675` - Add release-preparation and git-hygiene responsibilities to the Architect role (`repo_architecture`, priority `medium`, difficulty `low`, domain `agent_roles`)
-- `TASK-0676` - Fix CITATION.cff repository URL after organization transfer (`documentation`, priority `medium`, difficulty `low`, domain `release_packaging`)
-- `TASK-0677` - Sanitize maintainer-local replay path leak in EXP-0013 result (`repository_hardening`, priority `medium`, difficulty `low`, domain `release_packaging`)
-- `TASK-0678` - Verify external reviewer replication guide for public-readiness blocker B2 (`documentation`, priority `medium`, difficulty `low`, domain `release_packaging`)
+None.

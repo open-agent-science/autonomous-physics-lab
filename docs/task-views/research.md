@@ -21,5 +21,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0644` - Scaffold Materials MD-0002 holdout and no-peek manifest (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0657` - Define Stellar M-L DEBCat holdout and leakage protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
