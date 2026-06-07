@@ -1,0 +1,203 @@
+fixture_id: QD-DIGITIZATION-FIXTURE-0002
+task_id: TASK-0655
+status: synthetic_fixture_only
+description: >
+  Synthetic non-spherical figure-digitization ledger used to validate tetrahedral
+  edge-length and volume size axes, source-axis conversion metadata, uncertainty,
+  and schema round-trip before any real Almeida or other non-spherical quantum
+  dot figure-derived measurement rows are curated.
+synthetic: true
+contains_real_measurement_rows: false
+baseline_metrics_allowed: false
+claim_promotion_allowed: false
+non_spherical: true
+source_policy: >
+  Fabricated fixture only. No Almeida 2023 figure, PDF page, image crop, or real
+  digitized point is committed by this file.
+digitization_context:
+  source_id: synthetic_quantum_nonspherical_digitization_fixture
+  figure_ref: synthetic_figure_1_panel_b
+  property_kind: absorption_peak_eV
+  material: InP
+  morphology: tetrahedral
+  extraction_tool:
+    name: synthetic_webplotdigitizer_class_fixture
+    version: "0.0"
+    export_format: yaml_fixture
+  future_artifact_layout:
+    - data/quantum_dots/digitization/<source_id>/README.md
+    - data/quantum_dots/digitization/<source_id>/axis_calibration.csv
+    - data/quantum_dots/digitization/<source_id>/extracted_points.csv
+    - data/quantum_dots/digitization/<source_id>/notes.md
+axis_calibration:
+  x_axis:
+    label: edge_length_nm
+    units: nm
+    figure_axis_label: average_tetrahedral_edge_length
+    source_axis_conversion:
+      figure_quantity: tetrahedral_edge_length
+      schema_size_axis: edge_length_nm
+      morphology: tetrahedral
+      conversion_rule: >
+        Synthetic fixture: figure x-axis reports average tetrahedral edge length
+        in nanometres without coercing to spherical diameter.
+    anchors:
+      - anchor_id: x0
+        pixel_x: 120.0
+        pixel_y: 520.0
+        axis_value: 1.5
+      - anchor_id: x1
+        pixel_x: 880.0
+        pixel_y: 520.0
+        axis_value: 4.5
+  y_axis:
+    label: absorption_peak_eV
+    units: eV
+    figure_axis_label: first_absorption_transition_E1s
+    anchors:
+      - anchor_id: y0
+        pixel_x: 120.0
+        pixel_y: 520.0
+        axis_value: 1.95
+      - anchor_id: y1
+        pixel_x: 120.0
+        pixel_y: 120.0
+        axis_value: 1.35
+  alternate_size_axis:
+    label: volume_nm3
+    units: nm3
+    figure_axis_label: geometrical_volume
+    source_axis_conversion:
+      figure_quantity: tetrahedral_volume
+      schema_size_axis: volume_nm3
+      morphology: tetrahedral
+      conversion_rule: >
+        Synthetic fixture: alternate panel reports geometrical volume in cubic
+        nanometres as a separate non-spherical size axis.
+    anchors:
+      - anchor_id: v0
+        pixel_x: 140.0
+        pixel_y: 500.0
+        axis_value: 4.0
+      - anchor_id: v1
+        pixel_x: 860.0
+        pixel_y: 500.0
+        axis_value: 28.0
+calibration_quality:
+  minimum_anchor_count: 4
+  pixel_coordinate_system: synthetic_image_pixels
+  reviewer_replay_required: true
+  raw_figure_asset_committed: false
+extracted_points:
+  - point_id: QD-NS-FIXTURE-PT-001
+    raw_pixel_x: 220.0
+    raw_pixel_y: 430.0
+    edge_length_nm: 2.0
+    value_eV: 1.72
+    material: InP
+    morphology: tetrahedral
+    property_kind: absorption_peak_eV
+    measurement_type: optical_absorption
+    primary_source_id: synthetic_nonspherical_fixture_primary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0002.axis_calibration.x_axis
+    coordinate_uncertainty:
+      edge_length_nm: 0.08
+      value_eV: 0.018
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_tetrahedral_calibration_curve
+      formula_value_eV: 1.70
+      residual_eV: 0.02
+      inside_uncertainty_band: true
+    inclusion_status: included
+    notes: "Synthetic included edge-length point for non-spherical ledger validation."
+  - point_id: QD-NS-FIXTURE-PT-002
+    raw_pixel_x: 520.0
+    raw_pixel_y: 310.0
+    volume_nm3: 14.5
+    value_eV: 1.52
+    material: InP
+    morphology: tetrahedral
+    property_kind: absorption_peak_eV
+    measurement_type: optical_absorption
+    primary_source_id: synthetic_nonspherical_fixture_primary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0002.axis_calibration.alternate_size_axis
+    coordinate_uncertainty:
+      volume_nm3: 0.6
+      value_eV: 0.022
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_volume_calibration_curve
+      formula_value_eV: 1.55
+      residual_eV: -0.03
+      inside_uncertainty_band: true
+    inclusion_status: included
+    notes: "Synthetic volume-axis point exercising alternate non-spherical size route."
+  - point_id: QD-NS-FIXTURE-PT-003
+    raw_pixel_x: 680.0
+    raw_pixel_y: 240.0
+    equivalent_diameter_nm: 3.1
+    size_conversion:
+      source_size_axis: edge_length_nm
+      source_value: 2.7
+      source_unit: nm
+      equivalent_axis: equivalent_diameter_nm
+      conversion_rule: >
+        Synthetic fixture: reviewer-approved tetrahedral-volume-equivalent sphere
+        diameter for schema round-trip only.
+    value_eV: 1.48
+    material: InP
+    morphology: tetrahedral
+    property_kind: absorption_peak_eV
+    measurement_type: optical_absorption
+    primary_source_id: synthetic_nonspherical_fixture_secondary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0002.axis_calibration.x_axis
+    coordinate_uncertainty:
+      equivalent_diameter_nm: 0.10
+      edge_length_nm: 0.09
+      value_eV: 0.020
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_tetrahedral_calibration_curve
+      formula_value_eV: 1.50
+      residual_eV: -0.02
+      inside_uncertainty_band: true
+    inclusion_status: included
+    notes: "Synthetic equivalent-diameter point preserving source edge length in size_conversion."
+  - point_id: QD-NS-FIXTURE-PT-004
+    raw_pixel_x: 780.0
+    raw_pixel_y: 180.0
+    edge_length_nm: 3.8
+    value_eV: 1.40
+    material: InP
+    morphology: tetrahedral
+    property_kind: absorption_peak_eV
+    measurement_type: optical_absorption
+    primary_source_id: synthetic_nonspherical_fixture_secondary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0002.axis_calibration.x_axis
+    coordinate_uncertainty:
+      edge_length_nm: 0.11
+      value_eV: 0.024
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_tetrahedral_calibration_curve
+      formula_value_eV: 1.43
+      residual_eV: -0.03
+      inside_uncertainty_band: false
+    inclusion_status: excluded
+    exclusion_reason: "synthetic primary-source provenance intentionally incomplete"
+    notes: "Synthetic excluded point for non-spherical exclusion-field validation."
+future_row_mapping:
+  qd_yaml_allowed_from_fixture: false
+  required_before_real_rows:
+    - "replace synthetic source_id with registered source_manifest entry"
+    - "commit replayable axis_calibration.csv and extracted_points.csv"
+    - "record real extraction tool version and reviewer attribution"
+    - "preserve non-spherical size axis or reviewed size_conversion metadata"
+    - "run residual-vs-formula cross-check without overwriting digitized values"
+    - "exclude every point lacking primary-source provenance"
+limitations:
+  - "Synthetic fixture only; no real quantum-dot measurement row is produced."
+  - "Does not digitize Almeida 2023 or any other publication figure."
+  - "Does not validate figure quality, copyright status, or real axis readability."
+  - "Does not unblock TASK-0225 or any size-effect baseline metric."
