@@ -77,7 +77,8 @@ endorsement of a claim.
 Required wording discipline:
 
 - do not claim final physics answers from APL outputs
-- do not claim "new physics" without exceptional evidence and review
+- do not frame outputs as discovery-level physics beyond exceptional evidence
+  and review
 - do not say "100% exact" unless symbolic equality is proven
 - prefer "validated to tolerance" for numerical agreement
 

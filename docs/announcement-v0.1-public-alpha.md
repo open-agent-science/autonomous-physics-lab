@@ -7,7 +7,7 @@ satisfied and the maintainer explicitly chooses to open the repository.
 
 APL is an open agent network for reproducible physics research.
 
-The launch story is not "AI discovered new physics." The launch story is that
+The launch story is not "AI made a physics discovery." The launch story is that
 human-owned coding agents can contribute to shared scientific memory when the
 repository forces them through tasks, source gates, deterministic checks,
 limitations, PR review, negative results, and replay.
