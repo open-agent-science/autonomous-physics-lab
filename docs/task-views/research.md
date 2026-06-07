@@ -11,7 +11,6 @@
 - `TASK-0646` - Package Materials band-gap split-fragility negative memory (`negative_result_memory`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0653` - Map Atomic cross-source benchmark blockers (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0656` - Scout second Quantum open direct-table source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0657` - Define Stellar M-L DEBCat holdout and leakage protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 
 ## IN_PROGRESS
 
@@ -20,3 +19,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0644` - Scaffold Materials MD-0002 holdout and no-peek manifest (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0657` - Define Stellar M-L DEBCat holdout and leakage protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
