@@ -154,6 +154,39 @@ def test_prepare_current_task_pr_generates_body_from_task_and_current_branch(
     )
 
 
+def test_prepare_current_task_pr_omits_local_body_file_artifact(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.current_branch",
+        lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        lambda root, branch, base_ref="main": (
+            "scripts/apl_task_pr_helper.py",
+            ".apl-pr-body.md",
+        ),
+    )
+
+    prepared = prepare_current_task_pr(
+        repo_root,
+        task_id="TASK-0247",
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_id="codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+        local_artifact_paths=(".apl-pr-body.md",),
+    )
+
+    assert "scripts/apl_task_pr_helper.py" in prepared.changed_files
+    assert ".apl-pr-body.md" not in prepared.changed_files
+    assert ".apl-pr-body.md" not in prepared.body
+
+
 def test_prepare_current_task_pr_rejects_wrong_current_branch(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
