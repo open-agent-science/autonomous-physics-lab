@@ -129,6 +129,7 @@ def prepare_current_task_pr(
     model_version: str | None = None,
     base_ref: str = "main",
     agent_tool: str | None = None,
+    local_artifact_paths: tuple[str, ...] = (),
 ) -> PreparedTaskPr:
     """Generate and preflight a full task PR body for the current branch.
 
@@ -144,7 +145,14 @@ def prepare_current_task_pr(
     expected_branch = task_branch(contributor_id, agent_id, task_id, task_slug)
     branch = current_branch(root)
     title = task_title(task_id, task_description)
-    auto_changed_files = changed_files_vs_main(root, branch, base_ref=base_ref)
+    ignored_local_artifacts = {
+        Path(item).as_posix().lstrip("./") for item in local_artifact_paths
+    }
+    auto_changed_files = tuple(
+        path
+        for path in changed_files_vs_main(root, branch, base_ref=base_ref)
+        if path.lstrip("./") not in ignored_local_artifacts
+    )
     merged_changed_files = tuple(dict.fromkeys((*auto_changed_files, *changed_files)))
     task_commands = task_validation_commands_from_payload(payload)
     merged_validation_commands = tuple(dict.fromkeys((*task_commands, *validation_commands)))
