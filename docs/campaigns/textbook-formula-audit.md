@@ -51,8 +51,9 @@ Mass-Luminosity (M-L) out-of-distribution audit** on Gaia DR3 main-sequence
 stars; `TASK-0555` has completed the source/baseline planning pass, and
 `TASK-0564` is the pinned-source acquisition package. The current public-
 verifier wave now has exact-reference fixtures for Stefan-Boltzmann and Wien
-displacement plus `TASK-0568` preflighted their scoped result route before any
-empirical rows are ingested.
+displacement, and `RESULT-0019` has advanced from `AGENT_PUBLISHED` to
+`AGENT_VALIDATED` after Gate B replay. This validates the
+software/convention fixture route only; empirical rows are still gated.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -63,32 +64,27 @@ candidate slate.
 assumptions, verification gates, and out-of-distribution failure maps without
 claiming universal truth or falsity?
 
-**Shareable result:** the campaign scaffold, candidate slate, and first
-source/baseline planning artifacts now exist. `TASK-0527` turned
-Stefan-Boltzmann into a deterministic exact-reference fixture; `TASK-0537`
-landed the paired Wien displacement exact-reference fixture; and `TASK-0555`
-planned the first empirical Stellar M-L source/baseline lane. These are
+**Shareable result:** the campaign scaffold, candidate slate, first
+source/baseline planning artifacts, and a Gate-B-validated exact-reference
+software/convention result now exist. `RESULT-0019` replayed with zero numeric
+drift and remains scoped to the Stefan-Boltzmann synthetic fixture. These are
 software, source, and verification-gate results, not empirical validation of
 the laws.
 
 **Not a claim:** no textbook formula audit has run yet. This campaign does
 not claim that any formula is globally right or wrong.
 
-**Active next work:** `TASK-0586` replayed the exact-reference route but
-blocked `RESULT-*` publication until scoped Textbook `EXP-*` / `HYP-*`
-identities existed. `TASK-0603` supplied that identity boundary, so
-`TASK-0634` is now the low-risk Gate A publication path for a scoped
-software/convention `AGENT_PUBLISHED RESULT`. `TASK-0587` kept Stellar M-L row
-curation blocked because Gaia model-derived mass fields are not admissible
-benchmark truth. `TASK-0604` selected DEBCat as the first-choice independent
-mass source, and the landed `TASK-0610` source-path review lets `TASK-0628`
-package the DEBCat source artifact before any row curation. `TASK-0611`
-defines the promotion gate for deciding whether Stellar M-L should become a
-standalone campaign.
+**Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
+software/convention result and `TASK-0635` replayed it through Gate B. The
+empirical lane is now Stellar M-L: `TASK-0587` kept Gaia model-derived mass
+fields out of truth rows, `TASK-0604` selected DEBCat as the first-choice
+independent mass source, and `TASK-0657` is the next protocol gate for
+holdout/leakage. `TASK-0658` remains the existing row-readiness task after that
+protocol lands.
 
-**Expected next result:** a scoped exact-reference `AGENT_PUBLISHED RESULT`
-that can be replayed through Gate B, or a DEBCat source artifact package that
-unblocks the first Stellar M-L empirical row package.
+**Expected next result:** either a DEBCat holdout/leakage protocol that lets
+the row-readiness gate run, or a precise blocker showing that Stellar M-L
+cannot yet move to empirical rows without better mass/luminosity provenance.
 
 ## Why It Matters
 
