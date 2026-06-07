@@ -87,8 +87,9 @@ All of the following must be true:
 
 - `README.md` has a result summary
 - strategy and status docs describe APL as the first physics proof-of-work for
-  Open Agent Science without implying that organizational transfer has already
-  happened
+  Open Agent Science and use the live
+  `open-agent-science/autonomous-physics-lab` repository path for current
+  contributor entrypoints
 - `docs/status.md` and the public science dashboard summarize current campaign
   state without implying discovery-level claims
 - an announcement draft exists
@@ -100,18 +101,18 @@ All of the following must be true:
 - claims remain review-gated
 - guarded stress-test outputs are not presented as flagship public successes
 
-## Gate 5 — Organization Transfer Readiness
+## Gate 5 — Post-Transfer Repository Readiness
 
-If the maintainer transfers the repository to
-`open-agent-science/autonomous-physics-lab`, all of the following must be true
-before public-facing docs are updated as though the transfer is complete:
+The repository has moved to `open-agent-science/autonomous-physics-lab`. Before
+opening it publicly, all of the following must remain true:
 
-- the maintainer has explicitly approved the transfer;
 - branch protection, CI, self-hosted runner labels, and repository secrets have
   been checked after transfer;
-- clone URLs, contributor docs, and citation metadata are updated in one
-  transfer-sync PR;
-- old owner paths are kept only as historical references or redirects;
+- clone URLs, contributor docs, release docs, and citation metadata point at the
+  Open Agent Science repository where they are live-current rather than
+  historical;
+- old owner paths are kept only as historical references, redirects, or
+  historical review/CI evidence;
 - no source artifact, result artifact, or prediction registry entry is rewritten
   merely to match the new organization path.
 
