@@ -4,6 +4,7 @@
 **Helpers:**
 [`scripts/apl_new_worktree.sh`](../../scripts/apl_new_worktree.sh),
 [`scripts/apl_branch_precondition.py`](../../scripts/apl_branch_precondition.py),
+[`scripts/apl_lane_precondition.py`](../../scripts/apl_lane_precondition.py),
 [`scripts/apl_setup_worktree.sh`](../../scripts/apl_setup_worktree.sh)
 
 ---
@@ -111,6 +112,21 @@ python3 scripts/apl_branch_precondition.py \
 The check is opt-in and additive. It does not modify the working tree
 and does not gate any existing tooling.
 
+## 4a. Lane collision preflight
+
+Before claiming or editing a task in a parallel-agent session, run the local
+lane preflight:
+
+```bash
+python3 scripts/apl_lane_precondition.py --task TASK-0461
+```
+
+The helper reports the task's campaign/support lane, current task status,
+likely artifact surface, same-task local branches or worktrees, same-lane
+artifact-surface overlaps, accepted-output path conflicts, and blocked tasks in
+the same lane. It is advisory by default and does not require GitHub network
+access. Use `--strict` when a local automation should fail on warnings.
+
 ### Upstream tracking preflight (`--check-upstream`)
 
 When several agents run one task per worktree, a task branch can end up
@@ -151,6 +167,8 @@ opt-in so agents that do not need it can ignore it.
 
 - [`scripts/apl_new_worktree.sh`](../../scripts/apl_new_worktree.sh)
 - [`scripts/apl_branch_precondition.py`](../../scripts/apl_branch_precondition.py)
+- [`scripts/apl_lane_precondition.py`](../../scripts/apl_lane_precondition.py)
 - [`scripts/apl_setup_worktree.sh`](../../scripts/apl_setup_worktree.sh) (pre-existing,
   copies `.claude/settings.local.json` into a worktree)
 - [`tests/test_apl_branch_precondition.py`](../../tests/test_apl_branch_precondition.py)
+- [`tests/test_apl_lane_precondition.py`](../../tests/test_apl_lane_precondition.py)
