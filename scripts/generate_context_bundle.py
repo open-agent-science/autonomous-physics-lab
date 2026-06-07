@@ -61,11 +61,11 @@ def build_bundle(*, full: bool = False) -> str:
         "# Autonomous Physics Lab — Context Bundle\n\n"
         f"Generated: {now}\n"
         f"Mode: {'full' if full else 'core'}\n"
-        f"Repo: gladunrv/autonomous-physics-lab\n\n"
+        f"Repo: open-agent-science/autonomous-physics-lab\n\n"
         "This file bundles the core project instructions, strategy, and current\n"
         "task board into one document for use with chat-based LLMs or as a\n"
         "quick agent orientation file.\n\n"
-        "For the live repository see: https://github.com/gladunrv/autonomous-physics-lab\n"
+        "For the live repository see: https://github.com/open-agent-science/autonomous-physics-lab\n"
     )
 
     sections: list[str] = [header]
