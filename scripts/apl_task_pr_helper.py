@@ -247,6 +247,7 @@ def command_prepare_current(args: argparse.Namespace) -> int:
         model_version=args.model_version,
         base_ref=args.base,
         agent_tool=args.agent_tool,
+        local_artifact_paths=(args.body_file,) if args.body_file else (),
     )
     if args.body_file:
         Path(args.body_file).write_text(prepared.body, encoding="utf-8")
