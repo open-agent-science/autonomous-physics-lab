@@ -28,6 +28,12 @@ The future acquisition step must be explicitly approved under
 - First snapshot reference:
   `data/exoplanets/exo-0001-pscomppars-snapshot.yaml`
 
+For this campaign, `PSCompPars` remains the legacy artifact/source-family
+label. The executable committed query contract selects from the NASA Exoplanet
+Archive Planetary Systems (`ps`) table with `default_flag = 1`. A future
+acquisition must not silently switch to the literal `pscomppars` table; that
+requires a pre-acquisition query-amendment review.
+
 The query contract must remain byte-identical to the committed query file. Any
 query change requires a pre-acquisition amendment PR before fetching.
 
