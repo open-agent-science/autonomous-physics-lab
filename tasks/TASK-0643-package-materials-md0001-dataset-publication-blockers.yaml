@@ -1,7 +1,7 @@
 id: TASK-0643
 title: "Package Materials MD-0001 reusable-dataset publication blockers"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,9 +35,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py tests/test_materials_dataset.py"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m ruff check ."
+    - "python -m pytest -n 0 --basetemp=.pytest-basetemp-helper tests/test_docs_links.py tests/test_materials_dataset.py"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
