@@ -74,6 +74,30 @@ only blocker-valued proxy variables for the child GitHub CLI process.
 If no existing `READY` task fits, do not guess the next canonical task number
 during parallel work.
 
+## Preserve External-Agent Signals
+
+External agents should not leave actionable discoveries only in chat output,
+PR prose, or private reasoning. When an agent notices a repository bug,
+validation bottleneck, cross-platform failure, protocol ambiguity, optimization
+opportunity, source lead, blocker, or scientific idea that is worth preserving,
+it must route that signal into a durable coordination surface before handoff:
+
+- create a `tasks/proposals/*.yaml` artifact when the idea may become future
+  repository work but does not yet have a maintainer-assigned canonical task id;
+- create the appropriate research proposal artifact when the signal is a new
+  hypothesis, benchmark idea, source path, dataset lane, or scientific control
+  rather than immediate maintenance work;
+- open or reference a GitHub issue when the agent cannot safely edit the
+  repository, when the signal is primarily operational coordination, or when a
+  lightweight external report is the right first step;
+- create a `TASK-QUEUE` item only when the maintainer explicitly asked for
+  canonical future tasks.
+
+Do not formalize every speculative thought. Formalize signals that are
+actionable, likely to recur, likely to block another agent, or scientifically
+useful enough that losing them would slow the project. If a signal is
+intentionally advisory-only, say that explicitly in the handoff.
+
 Default rule:
 
 - create a proposal under `tasks/proposals/`
