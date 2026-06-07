@@ -1,0 +1,52 @@
+id: TASK-0681
+title: "Expand Dimensional Validator boundary cases after preflight"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn TASK-0661's boundary preflight into a concrete improvement for the formula-quality gate."
+  - "Make cross-campaign formula generation safer before public launch without pretending dimensional validity proves physics."
+  - "Add a seventh active science surface that supports Nuclear, Materials, Exoplanet, Quantum, Atomic, and Textbook audits."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "docs/reviews/dimensional-validator-boundary-result-preflight.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml"
+    - "physics_lab/engines/dimensions.py"
+    - "tests/test_dimensions.py"
+    - "tests/test_dimensional_validator_pilot.py"
+  planning_context: >
+    TASK-0661 found that the live 70-item dimensional challenge surface remains
+    useful but is not promotable as a reusable public quality-gate result. The
+    blockers are concentrated around dimensionless constants, all-dimensionless
+    textbook relations, and known-limit cases. This task adds a small targeted
+    expansion or engine-scope decision for those boundary classes.
+
+requirements:
+  - "Add or update only targeted boundary cases or narrowly scoped validator handling justified by TASK-0661."
+  - "Cover dimensionless constants such as pi, all-dimensionless textbook relations, and at least one known-limit boundary if it belongs in the dimensional validator."
+  - "Preserve the frozen 50-item MVP result scope; do not rewrite historical RESULT artifacts."
+  - "Report whether the live challenge surface is closer to Gate A readiness or still blocked."
+  - "Do not claim that dimensional consistency proves physical correctness."
+
+accepted_outputs:
+  - "targeted update to knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml or a blocker review explaining why code/schema changes should precede new cases"
+  - "docs/reviews/dimensional-validator-boundary-expansion.md"
+  - "tests covering the new or changed boundary behavior"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_dimensions.py tests/test_dimensional_validator_pilot.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

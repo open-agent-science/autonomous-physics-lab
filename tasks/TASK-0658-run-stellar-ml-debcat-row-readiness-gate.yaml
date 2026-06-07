@@ -1,7 +1,7 @@
 id: TASK-0658
 title: "Run Stellar M-L DEBCat row-readiness gate"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -18,8 +18,10 @@ input:
     - "tasks/TASK-0657-define-stellar-ml-debcat-holdout-protocol.yaml"
     - "docs/reviews/textbook-stellar-ml-source-candidate-admissibility.md"
   planning_context: >
-    This task should start only after the DEBCat source artifact and leakage
-    protocol are available. It decides whether row curation can proceed.
+    TASK-0628 has packaged the DEBCat metadata-only source artifact, and
+    TASK-0657 has defined the holdout/no-leakage protocol. This readiness gate
+    can now run: it decides whether row curation can proceed or whether the
+    license/luminosity/source blocker should be preserved explicitly.
 
 requirements:
   - "Start only after TASK-0628 source packaging and a holdout/no-leakage protocol are merged."
