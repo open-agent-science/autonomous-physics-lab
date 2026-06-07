@@ -1,7 +1,7 @@
 id: TASK-0461
 title: "Add lane collision preflight for parallel agent work"
 type: contributor_experience
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -25,6 +25,9 @@ input:
     first version should be local and conservative: warn on active conflicting
     branches, duplicated task ids, overlapping artifact surfaces, and blocked
     campaign lanes.
+    Unblocked during the 2026-06-07 closeout sweep: TASK-0460 is DONE and
+    `scripts/apl_task_campaign_index.py` provides the equivalent
+    task-to-campaign lane index required by this task.
 
 requirements:
   - "Do not start until TASK-0460 or an equivalent task-to-campaign lane index exists."
