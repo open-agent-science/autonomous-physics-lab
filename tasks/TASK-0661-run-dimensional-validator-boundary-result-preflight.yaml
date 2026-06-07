@@ -1,7 +1,7 @@
 id: TASK-0661
 title: "Run Dimensional Validator boundary-case result preflight"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
