@@ -1,0 +1,53 @@
+id: TASK-0682
+title: "Run post-transfer public-release validation signoff"
+type: release_review
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close the practical launch gap after transfer to open-agent-science/autonomous-physics-lab."
+  - "Record fresh release-time evidence for technical stability, repository links, citation metadata, public wording, and current campaign state."
+  - "Keep the public-opening decision maintainer-owned while making the evidence bundle reviewable."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "docs/reviews/v0.2-public-alpha-final-signoff-2026-05-31.md"
+    - "docs/reviews/external-reviewer-replication-guide-verification-2026-06-07.md"
+    - "README.md"
+    - "CITATION.cff"
+    - ".zenodo.json"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    The repository transfer is complete and live links/citation metadata have
+    been refreshed, but public opening still needs a fresh post-transfer
+    signoff. This task records the evidence bundle; it does not open the
+    repository, tag a release, or promote scientific claims.
+
+requirements:
+  - "Run the release-gate checks that are practical in the task environment: lint, targeted docs/link tests, strict validation, public path leak check, mission JSON, and core result replay when available."
+  - "Check current live repository links and citation metadata for open-agent-science/autonomous-physics-lab."
+  - "Summarize current campaign public posture and explicitly list non-claims."
+  - "Record CI status only if available; if unavailable, preserve a precise blocker rather than guessing."
+  - "Do not change repository visibility, create a release tag, mint a DOI, promote claims, or score predictions."
+
+accepted_outputs:
+  - "docs/reviews/v0.2-public-alpha-post-transfer-signoff-2026-06.md"
+  - "optional tiny wording fix if a public-facing release blocker is discovered"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_mission_control.py"
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 scripts/reproduce_core_results.py --list"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
