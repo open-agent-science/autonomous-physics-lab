@@ -29,7 +29,21 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     scaffold = subparsers.add_parser("scaffold", help="Print a suggested branch, title, and PR body.")
-    scaffold.add_argument("--task-id", action="append", required=True)
+    scaffold.add_argument(
+        "--closed-task",
+        action="append",
+        dest="closed_tasks",
+        help="Canonical TASK-XXXX id closed by this closeout PR. Repeat for batch closeout.",
+    )
+    scaffold.add_argument(
+        "--task-id",
+        action="append",
+        dest="legacy_task_ids",
+        help=(
+            "Backward-compatible alias for --closed-task. Do not pass TASK-CLOSEOUT "
+            "here; TASK-CLOSEOUT is the PR kind marker rendered by the helper."
+        ),
+    )
     scaffold.add_argument("--contributor-id", required=True)
     scaffold.add_argument("--github-username", required=True)
     scaffold.add_argument("--agent-id", required=True)
@@ -57,21 +71,26 @@ def build_parser() -> argparse.ArgumentParser:
 
 def command_scaffold(args: argparse.Namespace) -> int:
     closeout_branch_fn, closeout_pr_body, closeout_title_fn, _, infer_agent_tool = _load_helper()
+    closed_tasks = tuple((args.closed_tasks or []) + (args.legacy_task_ids or []))
     branch = closeout_branch_fn(args.contributor_id, args.agent_id, args.slug)
     title = closeout_title_fn(args.description)
-    body = closeout_pr_body(
-        task_ids=tuple(args.task_id),
-        branch=branch,
-        title=title,
-        contributor_id=args.contributor_id,
-        github_username=args.github_username,
-        agent_tool=args.agent_tool or infer_agent_tool(args.agent_id),
-        human_reviewer=args.human_reviewer,
-        changed_files=tuple(args.changed_file),
-        include_task_views=args.include_task_views,
-        include_context=args.include_context,
-        model_version=args.model_version,
-    )
+    try:
+        body = closeout_pr_body(
+            task_ids=closed_tasks,
+            branch=branch,
+            title=title,
+            contributor_id=args.contributor_id,
+            github_username=args.github_username,
+            agent_tool=args.agent_tool or infer_agent_tool(args.agent_id),
+            human_reviewer=args.human_reviewer,
+            changed_files=tuple(args.changed_file),
+            include_task_views=args.include_task_views,
+            include_context=args.include_context,
+            model_version=args.model_version,
+        )
+    except (FileNotFoundError, ValueError) as exc:
+        sys.stderr.write(f"error: {exc}\n")
+        return 2
     if args.body_only:
         sys.stdout.write(body)
         return 0

@@ -17,6 +17,10 @@ from physics_lab.engines.stefan_boltzmann import (
     sphere_area_m2,
     spherical_luminosity_w,
 )
+from physics_lab.registry.agent_replay_validation import (
+    ReplayIdentity,
+    validate_agent_published_result,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = (
@@ -26,6 +30,7 @@ CONFIG_PATH = (
     / "textbook_stefan_boltzmann_exact_reference.yaml"
 )
 SCRIPT_PATH = ROOT / "scripts" / "run_textbook_stefan_boltzmann_exact_reference.py"
+EXAMPLE_PATH = ROOT / "examples" / "textbook_stefan_boltzmann_exact_reference.yaml"
 
 
 def _load_config() -> dict:
@@ -68,8 +73,11 @@ def test_exact_reference_fixture_passes_software_gates_and_rejects_controls() ->
     assert metrics["gates"]["dimensional_consistency"]["computed_verdict"] == "VALID"
     assert metrics["gates"]["wrong_temperature_exponent_control"]["control_rejected"] is True
     assert metrics["gates"]["wrong_area_control"]["control_rejected"] is True
-    assert metrics["promotion_boundary"]["sandbox_only"] is True
-    assert metrics["promotion_boundary"]["writes_canonical_result"] is False
+    # TASK-0634 changed the manifest route to scoped software-result packaging
+    # for the EXP-0013 / HYP-0013 identity; the engine now echoes that boundary.
+    assert metrics["promotion_boundary"]["sandbox_only"] is False
+    assert metrics["promotion_boundary"]["writes_canonical_result"] is True
+    assert metrics["promotion_boundary"]["claim_promotion_allowed"] is False
     assert metrics["promotion_boundary"]["empirical_audit_performed"] is False
 
 
@@ -97,4 +105,45 @@ def test_runner_writes_sandbox_metrics_and_report(tmp_path: Path) -> None:
     assert metrics["verdict"] == "VALID_IN_RANGE"
     assert "synthetic software/gate fixture only" in report
     assert "no empirical audit" in report
-    assert "Gate A: not attempted" in report
+    assert "scoped software-result packaging route" in report
+    assert "Gate A: evaluated by the result-publication gate" in report
+
+
+def test_cli_workflow_writes_gate_b_replayable_result(tmp_path: Path) -> None:
+    output_dir = tmp_path / "results"
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "physics_lab.cli",
+            "run",
+            str(EXAMPLE_PATH),
+            "--output-dir",
+            str(output_dir),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    result_path = output_dir / "EXP-0013" / "RUN-0001" / "result.yaml"
+    result_payload = yaml.safe_load(result_path.read_text(encoding="utf-8"))
+
+    assert result_payload["command"] == "physics-lab run examples/textbook_stefan_boltzmann_exact_reference.yaml"
+    assert result_payload["review_tier"] == "AGENT_PUBLISHED"
+    assert result_payload["agent_proposal_evaluation"]["published_by"]["agent_tool"] == "Claude Code"
+
+    replay = validate_agent_published_result(
+        result_path,
+        root=ROOT,
+        replayed_by=ReplayIdentity(
+            contributor_id="codex",
+            github_username="gladunrv",
+            agent_tool="Codex",
+            model_version="gpt-5-codex",
+        ),
+        output_dir=tmp_path / "replay",
+    )
+
+    assert replay.ok, [issue.message for issue in replay.issues]

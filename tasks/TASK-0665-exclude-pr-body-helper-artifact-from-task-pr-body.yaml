@@ -1,0 +1,52 @@
+id: TASK-0665
+title: "Exclude PR body helper artifact from task PR changed-file list"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep repository PR helpers trustworthy for agents across repeated sessions."
+  - "Prevent local helper artifacts from leaking into human-facing PR metadata."
+  - "Reduce maintainer review friction in the canonical task PR flow."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_task_pr_helper.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "tests/test_task_pr_helper.py"
+  planning_context: >
+    While creating TASK-0664, `prepare-current --body-file .apl-pr-body.md`
+    correctly generated a draft PR body, but the local body file appeared in
+    the generated `Changed Files` list when it was present in the worktree.
+    The body file is a local helper artifact and must not be reported as part
+    of the branch diff.
+
+requirements:
+  - "Teach `prepare-current` to ignore its own local PR body output path when computing changed files."
+  - "Keep the behavior cross-platform by using Python path normalization, not shell-specific filtering."
+  - "Add regression coverage so `.apl-pr-body.md` cannot leak into generated task PR bodies."
+
+accepted_outputs:
+  - "physics_lab/registry/task_pr_helper.py"
+  - "scripts/apl_task_pr_helper.py"
+  - "tests/test_task_pr_helper.py"
+  - "tasks/TASK-0665-exclude-pr-body-helper-artifact-from-task-pr-body.yaml"
+
+result_artifact_policy:
+  required: false
+  reason: "Task PR helper metadata hygiene; no scientific result artifact is expected."
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/task_pr_helper.py scripts/apl_task_pr_helper.py tests/test_task_pr_helper.py"
+    - "python3 -m pytest tests/test_task_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

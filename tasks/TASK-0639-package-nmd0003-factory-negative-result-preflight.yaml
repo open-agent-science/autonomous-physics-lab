@@ -1,0 +1,51 @@
+id: TASK-0639
+title: "Package NMD-0003 factory negative-result publication preflight"
+type: scientific_result_publication
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move the NMD-0003 factory null outcome toward durable negative memory instead of another hypothesis sweep."
+  - "Test whether the controls-first factory sprint can become a scoped negative/diagnostic result artifact."
+  - "Keep Nuclear focused on result promotion and stop/go decisions before expanding candidate families."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nmd0003-factory-negative-result-promotion-preflight.md"
+    - "docs/reviews/nmd0003-bounded-residual-feature-sprint.md"
+    - "docs/reviews/nmd0003-pairing-residual-feature-sprint.md"
+    - "docs/reviews/nmd0003-isotope-chain-transfer-sprint.md"
+    - "docs/result-promotion-protocol.md"
+    - "results/RESULT-TEMPLATE.agent-published.yaml"
+  planning_context: >
+    Multiple NMD-0003 sprint lanes preserved useful negative/control evidence.
+    This task decides whether that evidence can become a scoped negative or
+    diagnostic RESULT candidate, or whether a precise Gate A blocker should be
+    recorded instead.
+
+requirements:
+  - "Use only committed NMD-0003 sprint artifacts; do not rerun, tune, or add feature families."
+  - "Check deterministic replay command, input hashes, dataset provenance, limitation notes, and verification coverage against Gate A."
+  - "If Gate A passes, prepare exactly one scoped negative/diagnostic AGENT_PUBLISHED RESULT artifact."
+  - "If Gate A is blocked, write a blocker review and do not create a RESULT artifact."
+  - "Do not create prediction entries, claims, knowledge files, reveal scores, or discovery wording."
+
+accepted_outputs:
+  - "docs/reviews/nmd0003-factory-negative-result-publication-preflight.md"
+  - "optional results/EXP-0012/RUN-0003/result.yaml only if Gate A passes"
+  - "tests only if a result-packaging helper or fixture is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

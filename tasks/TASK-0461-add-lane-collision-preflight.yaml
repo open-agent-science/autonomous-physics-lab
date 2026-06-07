@@ -1,7 +1,7 @@
 id: TASK-0461
 title: "Add lane collision preflight for parallel agent work"
 type: contributor_experience
-status: BLOCKED
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -25,6 +25,9 @@ input:
     first version should be local and conservative: warn on active conflicting
     branches, duplicated task ids, overlapping artifact surfaces, and blocked
     campaign lanes.
+    Unblocked during the 2026-06-07 closeout sweep: TASK-0460 is DONE and
+    `scripts/apl_task_campaign_index.py` provides the equivalent
+    task-to-campaign lane index required by this task.
 
 requirements:
   - "Do not start until TASK-0460 or an equivalent task-to-campaign lane index exists."
@@ -42,9 +45,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 -m ruff check ."
-    - "python3 -m pytest"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m ruff check ."
+    - "python -m pytest -n 0 --basetemp=.pytest-basetemp-helper tests/test_apl_lane_precondition.py tests/test_task_campaign_index.py tests/test_docs_links.py"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human

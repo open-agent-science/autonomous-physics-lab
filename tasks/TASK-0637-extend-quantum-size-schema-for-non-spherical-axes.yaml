@@ -1,7 +1,7 @@
 id: TASK-0637
 title: "Extend Quantum Size Effects schema for non-spherical size axes"
-type: scientific_dataset_schema
-status: READY
+type: schema_extension
+status: DONE
 difficulty: medium
 priority: high
 

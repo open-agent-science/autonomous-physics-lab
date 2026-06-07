@@ -1,7 +1,7 @@
 id: TASK-0560
 title: "Define docs reviews and notes retention policy"
 type: documentation_architecture
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: medium
 
@@ -39,9 +39,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m ruff check ."
+    - "python -m pytest -n 0 --basetemp=.pytest-basetemp-helper tests/test_docs_links.py"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human

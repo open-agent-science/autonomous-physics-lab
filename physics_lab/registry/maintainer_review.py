@@ -463,8 +463,47 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
         timeout=30,
     )
     if result.returncode != 0:
+        return _load_pr_metadata_from_list(root, number)
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return _load_pr_metadata_from_list(root, number)
+    return _pull_request_metadata_from_payload(payload)
+
+
+def _load_pr_metadata_from_list(root: Path, number: int) -> PullRequestMetadata | None:
+    """Fallback PR metadata path for flaky direct gh pr view calls."""
+    result = run_command(
+        [
+            "gh",
+            "pr",
+            "list",
+            "--state",
+            "all",
+            "--limit",
+            "200",
+            "--json",
+            "number,title,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup",
+        ],
+        cwd=root,
+        timeout=60,
+    )
+    if result.returncode != 0:
         return None
-    payload = json.loads(result.stdout)
+    try:
+        rows = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(rows, list):
+        return None
+    for row in rows:
+        if isinstance(row, dict) and int(row.get("number") or -1) == number:
+            return _pull_request_metadata_from_payload(row)
+    return None
+
+
+def _pull_request_metadata_from_payload(payload: dict[str, Any]) -> PullRequestMetadata:
+    """Normalize a GitHub CLI PR payload into internal metadata."""
     changed_files = tuple(
         str(item.get("path") or "").strip()
         for item in (payload.get("files") or [])

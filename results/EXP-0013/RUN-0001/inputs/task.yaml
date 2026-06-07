@@ -1,0 +1,55 @@
+id: TASK-0634
+title: "Publish Textbook exact-reference scoped AGENT_PUBLISHED result"
+type: scientific_result_publication
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Exercise the lowest-risk Gate A publication path before applying AGENT_PUBLISHED RESULT flow to frontier campaigns."
+  - "Turn deterministic exact-reference fixture evidence into scoped canonical memory without empirical physics claims."
+  - "Create a replayable target for the first Gate B validation task."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0586-package-textbook-exact-reference-scoped-result.yaml"
+    - "tasks/TASK-0603-define-textbook-exact-reference-result-identities.yaml"
+    - "experiments/EXP-0013-textbook-exact-reference-fixtures.yaml"
+    - "hypotheses/HYP-0013-textbook-exact-reference-fixtures.yaml"
+    - "docs/reviews/textbook-exact-reference-result-identity-gate.md"
+    - "docs/result-promotion-protocol.md"
+    - "results/RESULT-TEMPLATE.agent-published.yaml"
+  planning_context: >
+    TASK-0586 found the exact-reference fixture path replayable but blocked
+    result packaging until scoped EXP/HYP identities existed. TASK-0603 added
+    that identity boundary. This task packages a narrow software/convention
+    RESULT if Gate A passes; it does not validate empirical blackbody,
+    stellar, or formula-universality claims.
+
+requirements:
+  - "Use only committed exact-reference fixture code and metadata; do not fetch empirical datasets or add observational rows."
+  - "Create only a scoped AGENT_PUBLISHED RESULT artifact if the fixture satisfies Gate A."
+  - "Set review_tier: AGENT_PUBLISHED and populate agent_proposal_evaluation when a RESULT artifact is created."
+  - "Run scripts/apl_check_result_publication.py on any new RESULT artifact and include the gate status in the review note."
+  - "If Gate A is blocked, preserve the blocker review and do not write a RESULT artifact."
+  - "Do not create CLAIM, KNOW, prediction, empirical formula validation, or public-discovery wording."
+
+accepted_outputs:
+  - "optional results/EXP-0013/RUN-0001/result.yaml only if Gate A passes"
+  - "docs/reviews/textbook-exact-reference-agent-published-result.md"
+  - "optional tests for any result fixture or packaging helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_textbook_stefan_boltzmann_exact_reference.py tests/test_textbook_wien.py"
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

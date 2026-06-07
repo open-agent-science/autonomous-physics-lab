@@ -205,6 +205,14 @@ A new task proposal should:
 - include validation commands;
 - avoid hidden benchmark or claim expansion.
 
+External agents should also preserve useful signals they discover while working:
+bugs, validation bottlenecks, cross-platform failures, protocol gaps,
+optimization opportunities, source leads, blockers, and scientific ideas should
+be turned into a task proposal, a domain-specific research proposal, or a
+GitHub issue before handoff when they are actionable. If the observation is not
+worth formalizing, state that it is advisory-only so reviewers do not need to
+reconstruct whether a missing follow-up was accidental.
+
 Create a canonical `tasks/TASK-XXXX-*.yaml` file only when the maintainer
 explicitly assigns or approves the canonical id.
 

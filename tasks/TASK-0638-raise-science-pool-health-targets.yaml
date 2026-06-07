@@ -1,0 +1,55 @@
+id: TASK-0638
+title: "Raise READY science pool health targets"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Support larger parallel-agent waves without treating a small READY pool as healthy."
+  - "Keep the Scientific Campaign Director accountable for enough meaningful, bounded science lanes across multiple campaigns."
+  - "Make queue-health warnings stricter while preserving the rule that task count is not a scientific success metric."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_queue_health
+  related_objects:
+    - "physics_lab/registry/mission_control.py"
+    - "tests/test_mission_control.py"
+    - "docs/task-queue-health-policy.md"
+    - "agents/scientific-curator.yaml"
+  planning_context: >
+    The previous queue-health policy treated 8 READY science tasks, 15
+    preferred tasks, and 4 active surfaces as sufficient. The maintainer asked
+    to raise the minimum to 12, the preferred target to 24, the minimum active
+    campaign/surface target to 6, and the preferred breadth to 8-10 so the
+    Director flags thin pools earlier for larger multi-agent waves without
+    inventing low-value work.
+
+requirements:
+  - "Update mission-control READY science pool constants to minimum 12, preferred 24, at least 6 active surfaces, and a preferred 8-surface breadth."
+  - "Keep the same 40% single-surface concentration guard."
+  - "Update mission-control tests so the warning-only health summary verifies the new thresholds."
+  - "Update the task-queue health policy document and Scientific Campaign Director role profile with the new targets, including 10 surfaces as a stretch goal only when task quality justifies it."
+  - "Do not add filler tasks, scientific artifacts, claims, results, predictions, or generated task-view files in this task."
+
+accepted_outputs:
+  - "physics_lab/registry/mission_control.py"
+  - "tests/test_mission_control.py"
+  - "docs/task-queue-health-policy.md"
+  - "agents/scientific-curator.yaml"
+  - "validation output showing the updated thresholds appear in apl_mission.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/mission_control.py tests/test_mission_control.py"
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 scripts/apl_mission.py --output json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

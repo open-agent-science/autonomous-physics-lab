@@ -1,7 +1,7 @@
 id: TASK-0635
 title: "Run first Gate B replay on an AGENT_PUBLISHED result"
 type: scientific_replay_validation
-status: BLOCKED
+status: DONE
 difficulty: medium
 priority: high
 
@@ -36,6 +36,13 @@ accepted_outputs:
   - "validation_record update on the selected RESULT only if Gate B passes"
   - "docs/reviews/<selected-result>-gate-b-replay.md or contested-result review"
   - "tests only if the replay tooling needs a narrow bug fix"
+
+result_artifact_policy:
+  required: false
+  reason: "Gate B replay validates and updates an existing AGENT_PUBLISHED result; it does not create a new RESULT artifact."
+  evidence:
+    - "results/EXP-0013/RUN-0001/result.yaml"
+    - "docs/reviews/result-0019-gate-b-replay.md"
 
 validation:
   commands:

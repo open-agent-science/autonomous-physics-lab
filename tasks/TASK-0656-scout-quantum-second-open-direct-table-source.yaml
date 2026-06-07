@@ -1,0 +1,46 @@
+id: TASK-0656
+title: "Scout second Quantum open direct-table source"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce Quantum dependence on a single Almeida digitization path."
+  - "Look for source surfaces that could yield direct rows without polynomial-derived values."
+  - "Keep Quantum's dataset path ahead of any formula search."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-open-direct-table-source-scout-02.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    Almeida is promising but digitization/schema-gated. This task searches for
+    one additional open, admissible direct-table or machine-readable source
+    without using sizing polynomials as rows.
+
+requirements:
+  - "Scout exactly one candidate source family and document source locator, row surface, rights/reuse posture, and direct-measurement status."
+  - "Reject sources whose values are generated from published sizing polynomials or unsupported LLM memory."
+  - "Do not transcribe values unless the source clearly provides table rows and the task remains within rights/provenance constraints."
+  - "Recommend source-package follow-up or preserve a blocker."
+
+accepted_outputs:
+  - "docs/reviews/quantum-second-open-direct-table-source-scout.md"
+  - "optional data/quantum_dots/source_manifest.yaml metadata-only candidate entry"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

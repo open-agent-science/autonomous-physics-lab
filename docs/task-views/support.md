@@ -8,11 +8,11 @@
 
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0560` - Define docs reviews and notes retention policy (`documentation_architecture`, priority `medium`, difficulty `low`, domain `documentation_architecture`)
 - `TASK-0591` - Decouple the generated CONTEXT.md bundle from the committed tree (`documentation_architecture`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 - `TASK-0592` - Harden Exoplanet source-acquisition portability checks (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0622` - Add PR finish gate helper for review, CI, and ready transition (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0623` - Add subprocess environment guardrails for tests and helpers (`developer_infrastructure`, priority `medium`, difficulty `medium`, domain `repository_validation`)
+- `TASK-0650` - Specify Exoplanet source-version monitor contract (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
@@ -20,4 +20,10 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0461` - Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_capacity`)
+- `TASK-0560` - Define docs reviews and notes retention policy (`documentation_architecture`, priority `medium`, difficulty `low`, domain `documentation_architecture`)
+- `TASK-0663` - Harden closeout helper and result-artifact policy contract (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
+- `TASK-0664` - Fix stale task-archive validation command (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `maintainer_workflow`)
+- `TASK-0665` - Exclude PR body helper artifact from task PR changed-file list (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
+- `TASK-0671` - Add pytest runtime fail-fast guard (`maintainer_tooling`, priority `high`, difficulty `low`, domain `validation_runtime`)
+- `TASK-0672` - Add external-agent signal routing rule (`maintainer_workflow`, priority `high`, difficulty `low`, domain `agent_protocol`)

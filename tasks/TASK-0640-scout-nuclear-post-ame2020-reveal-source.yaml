@@ -1,0 +1,47 @@
+id: TASK-0640
+title: "Scout Nuclear post-AME2020 reveal source candidates"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Attack the main Nuclear reveal blocker at the source layer rather than scoring existing predictions prematurely."
+  - "Create a no-peek map of candidate post-freeze nuclear mass sources before any reveal comparison."
+  - "Keep prospective Nuclear claims gated by source provenance and maintainer approval."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/fresh-data-readiness-matrix.md"
+    - "docs/prediction-registry-policy.md"
+    - "prediction_registry/nuclear_masses"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    Nuclear prediction/reveal scoring remains blocked until a source-grade,
+    post-freeze, no-peek-compatible data source is approved. This task scouts
+    source candidates only and does not inspect target values.
+
+requirements:
+  - "Identify candidate source classes for post-AME2020 or post-freeze nuclear mass values with source locator, version/date semantics, and citation posture."
+  - "Do not fetch value-bearing rows, inspect prediction targets, score PRED entries, or compare model outputs."
+  - "Classify each source candidate as admissible, needs maintainer access, license-blocked, date/version-ambiguous, or not relevant."
+  - "Record no-peek compatibility and checksum/archive feasibility for every candidate."
+  - "Recommend at most one follow-up source-artifact package task, or preserve a source blocker."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-post-ame2020-reveal-source-scout.md"
+  - "optional tasks/proposals/ follow-up only if no canonical task can be created safely"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

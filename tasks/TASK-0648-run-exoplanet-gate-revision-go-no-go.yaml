@@ -1,0 +1,46 @@
+id: TASK-0648
+title: "Run Exoplanet residual gate-revision go/no-go review"
+type: research_quality_gate
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decide whether Exoplanets should stay closed until material source growth or change its declared target."
+  - "Avoid repeated metadata scouts when the current reopen gate keeps returning WAIT."
+  - "Keep Exoplanet virality grounded in negative/control memory rather than habitability or target-priority claims."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-third-snapshot-trigger-plan.md"
+    - "docs/reviews/exoplanet-exo0003-metadata-trigger-scout.md"
+    - "docs/reviews/exoplanet-second-snapshot-negative-memory-routing.md"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+  planning_context: >
+    EXO-0003 metadata trigger returned WAIT. The campaign needs a deliberate
+    decision: keep the gate unchanged, revise the target, or pause Exoplanet
+    execution until source growth changes.
+
+requirements:
+  - "Review the current reopen gate, latest metadata scout, and negative/control memory."
+  - "Recommend exactly one route: keep gate unchanged, propose a revised gate, or pause Exoplanet execution except source monitoring."
+  - "If a revised gate is recommended, specify the new scientific question and why it avoids p-hacking."
+  - "Do not fetch rows, run residual metrics, make planet-law claims, or mention habitability/target priority."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-gate-revision-go-no-go.md"
+  - "optional follow-up task recommendation if and only if the gate changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

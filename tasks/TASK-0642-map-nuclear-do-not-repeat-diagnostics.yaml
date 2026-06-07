@@ -1,0 +1,46 @@
+id: TASK-0642
+title: "Map Nuclear do-not-repeat diagnostic lanes"
+type: negative_result_memory
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent agents from rerunning exhausted Nuclear slices that already produced negative or diagnostic memory."
+  - "Convert repeated audit outcomes into a compact campaign go/no-go map."
+  - "Preserve useful null results as first-class scientific memory."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nmd0003-factory-negative-result-promotion-preflight.md"
+    - "docs/reviews/nuclear-f2-promotion-or-stop-decision.md"
+    - "docs/reviews/nuclear-f2-survival-margin-component-ablation.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    Nuclear has accumulated several negative, diagnostic, and source-blocked
+    lanes. This task makes the do-not-repeat boundaries explicit for future
+    agents without suppressing genuinely new source-gated work.
+
+requirements:
+  - "Summarize exhausted Nuclear lanes and the evidence that makes them do-not-repeat, diagnostic-only, or source-blocked."
+  - "List allowed next Nuclear lanes separately: result preflight, reveal-source scout, prediction readiness, or a maintainer-approved new source-gated hypothesis family."
+  - "Do not run new metrics, add predictions, create claims, or promote results."
+  - "Update the Nuclear campaign page only if it currently points agents toward an exhausted lane."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-do-not-repeat-diagnostic-lanes.md"
+  - "optional docs/campaigns/nuclear-mass-surface.md update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

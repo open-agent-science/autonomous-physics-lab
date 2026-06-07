@@ -1,0 +1,49 @@
+id: TASK-0661
+title: "Run Dimensional Validator boundary-case result preflight"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep formula-generating agents honest by strengthening the deterministic dimensional sanity-check surface."
+  - "Use boundary cases to prevent cross-campaign hypothesis tests from mistaking dimensional validity for physical truth."
+  - "Keep dimensional validation as a reusable quality-gate surface without turning it into a speculative discovery campaign."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "docs/campaigns/dimensional-analysis-validator.md"
+    - "docs/results/dimensional-analysis-validator-summary.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "tests/test_dimensions.py"
+    - "tests/test_dimensional_validator_pilot.py"
+  planning_context: >
+    Dimensional Analysis Validator already provides a low-risk scientific
+    quality gate. A useful next task is to run a boundary-case preflight that
+    identifies whether the current challenge set is strong enough to support a
+    public-safe AGENT_VALIDATED quality-gate result, or whether it needs a
+    targeted challenge-set expansion before being used by new campaigns.
+
+requirements:
+  - "Replay the current dimensional challenge set with deterministic tests and summarize pass/fail classes."
+  - "Identify missing boundary classes that would matter for Nuclear, Materials, Exoplanet, Quantum, Atomic, or Textbook formula audits."
+  - "Produce a promotion/no-promotion verdict for the validator as a reusable campaign-wide quality gate."
+  - "Do not imply that dimensional consistency proves physical correctness."
+
+accepted_outputs:
+  - "docs/reviews/dimensional-validator-boundary-result-preflight.md"
+  - "optional targeted proposal for one small challenge-set expansion if a real boundary class is missing"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_dimensions.py tests/test_dimensional_validator_pilot.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

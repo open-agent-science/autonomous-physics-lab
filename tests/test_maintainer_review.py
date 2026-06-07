@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 from unittest.mock import patch
@@ -20,6 +21,7 @@ from physics_lab.registry.maintainer_review import (
     changed_task_proposal_files,
     ci_aware_validation_command,
     line_is_rule_catalog_line,
+    load_pr_metadata,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
     decision_regression_advisory_hits,
@@ -982,6 +984,40 @@ def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
     assert report.verdict == "BLOCKED"
     assert any("Could not load PR metadata via gh CLI" in item for item in report.blockers)
     assert any("Fallback commands" in item for item in report.blockers)
+
+
+def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) -> None:
+    payload = json.dumps(
+        [
+            {
+                "number": 104,
+                "title": "TASK-0104: Fixture",
+                "headRefName": "agent/roman/codex/task-0104-fixture",
+                "headRefOid": "abc123",
+                "baseRefName": "main",
+                "state": "MERGED",
+                "mergedAt": "2026-06-07T00:00:00Z",
+                "statusCheckRollup": [
+                    {"conclusion": "SUCCESS", "status": "COMPLETED"},
+                ],
+            }
+        ]
+    )
+
+    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        if command[:3] == ["gh", "pr", "view"]:
+            return CommandResult(returncode=1, stdout="", stderr="network")
+        if command[:3] == ["gh", "pr", "list"]:
+            return CommandResult(returncode=0, stdout=payload, stderr="")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected")
+
+    with patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command):
+        metadata = load_pr_metadata(tmp_path, 104)
+
+    assert metadata is not None
+    assert metadata.number == 104
+    assert metadata.merged is True
+    assert metadata.status_checks_passed is True
 
 
 def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) -> None:

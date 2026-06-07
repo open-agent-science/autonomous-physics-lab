@@ -8,6 +8,14 @@ from typing import Any, Iterable, Mapping
 
 
 TASK_ID_PATTERN = re.compile(r"\bTASK-\d{4}\b", re.IGNORECASE)
+# An implementation PR for TASK-XXXX is identified by the canonical PR title
+# (`TASK-XXXX: ...`) or the canonical implementation branch
+# (`.../task-XXXX-<slug>`). Task-creation/reference PRs (`TASK-QUEUE:`,
+# `TASK-PROPOSAL:`, `TASK-CLOSEOUT:`, branches `task-queue-...`,
+# `propose-task-...`, `closeout-...`) only mention task ids in their title or
+# body; they must not mark those tasks as occupied or merged-pending-closeout.
+IMPLEMENTATION_TITLE_PATTERN = re.compile(r"^\s*TASK-(\d{4})\s*:", re.IGNORECASE)
+IMPLEMENTATION_BRANCH_PATTERN = re.compile(r"(?:^|/)task-(\d{4})-", re.IGNORECASE)
 OCCUPIED_PR_STATES = frozenset({"OPEN"})
 MERGED_PENDING_CLOSEOUT_STATES = frozenset({"MERGED"})
 
@@ -36,6 +44,25 @@ def task_ids_from_text(*values: object) -> tuple[str, ...]:
     return tuple(sorted({task_id.upper() for task_id in TASK_ID_PATTERN.findall(combined)}))
 
 
+def implementation_task_ids(title: object, head_ref_name: object) -> tuple[str, ...]:
+    """Return the task ids a PR plausibly *implements*.
+
+    Only the canonical implementation signals count: a `TASK-XXXX:` PR title or
+    a `.../task-XXXX-<slug>` branch. Body mentions and task-creation PR shapes
+    (`TASK-QUEUE:`, `TASK-PROPOSAL:`, `TASK-CLOSEOUT:`) are intentionally
+    excluded so a merged queue PR that *seeds* new tasks does not mark those
+    newly created tasks as occupied or merged-pending-closeout.
+    """
+
+    found: set[str] = set()
+    title_match = IMPLEMENTATION_TITLE_PATTERN.match(str(title or ""))
+    if title_match:
+        found.add(f"TASK-{title_match.group(1)}")
+    for branch_match in IMPLEMENTATION_BRANCH_PATTERN.finditer(str(head_ref_name or "")):
+        found.add(f"TASK-{branch_match.group(1)}")
+    return tuple(sorted(found))
+
+
 def classify_task_pr_occupancy(
     task_ids: Iterable[str],
     pr_records: Iterable[Mapping[str, Any]],
@@ -43,8 +70,12 @@ def classify_task_pr_occupancy(
     """Classify selected task ids using GitHub PR JSON records.
 
     The helper is intentionally advisory. It only needs enough PR metadata to
-    prevent accidental duplicate task execution, so it scans title, body, and
-    headRefName for task ids and leaves final routing to the maintainer.
+    prevent accidental duplicate task execution, so it matches each PR's
+    canonical implementation signals (the `TASK-XXXX:` title or the
+    `.../task-XXXX-<slug>` branch) and leaves final routing to the maintainer.
+    Body mentions and task-creation PR shapes (`TASK-QUEUE:`, `TASK-PROPOSAL:`,
+    `TASK-CLOSEOUT:`) are deliberately ignored so a merged queue PR that seeds
+    new tasks does not hide the tasks it just created.
     """
 
     normalized_task_ids = tuple(
@@ -64,9 +95,8 @@ def classify_task_pr_occupancy(
         if state not in OCCUPIED_PR_STATES | MERGED_PENDING_CLOSEOUT_STATES:
             continue
         number = record.get("number")
-        pr_task_ids = task_ids_from_text(
+        pr_task_ids = implementation_task_ids(
             record.get("title"),
-            record.get("body"),
             record.get("headRefName"),
         )
         for task_id in pr_task_ids:

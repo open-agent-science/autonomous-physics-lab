@@ -1,0 +1,53 @@
+id: TASK-0655
+title: "Design Quantum non-spherical digitization fixture"
+type: scientific_dataset_schema
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the Almeida schema extension into a deterministic digitization test path."
+  - "Avoid manual eyeballing by requiring a fixture and uncertainty route before real figure rows."
+  - "Keep Quantum direct-row work reusable across future non-spherical nanocrystal sources."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0637-extend-quantum-size-schema-for-non-spherical-axes.yaml"
+    - "docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    This task should start only after TASK-0637 lands a reviewed non-spherical
+    size-axis route. It defines the synthetic/deterministic fixture before any
+    Almeida real-value digitization.
+
+requirements:
+  - "Start only after TASK-0637 is merged and the schema can represent non-spherical size axes."
+  - "Design a synthetic figure/digitization fixture with known coordinates, uncertainty fields, and source-axis conversion metadata."
+  - "Add tests proving the fixture round-trips through the quantum schema."
+  - "Do not digitize Almeida real figure points or add qd-*.yaml measurement rows."
+
+accepted_outputs:
+  - "tests/test_quantum_nonspherical_digitization_fixture.py"
+  - "optional data/quantum_dots/fixtures/nonspherical_digitization_fixture.yaml"
+  - "docs/reviews/quantum-nonspherical-digitization-fixture-design.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Synthetic digitization fixture/schema validation only; no measurement rows, benchmark metrics, or RESULT artifact are expected."
+  evidence:
+    - "data/quantum_dots/fixtures/nonspherical_digitization_fixture.yaml"
+    - "docs/reviews/quantum-nonspherical-digitization-fixture-design.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_nonspherical_digitization_fixture.py tests/test_quantum_dot_dataset_schema.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

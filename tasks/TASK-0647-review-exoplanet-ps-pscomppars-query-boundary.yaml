@@ -1,0 +1,45 @@
+id: TASK-0647
+title: "Review Exoplanet PS versus PSCompPars query boundary"
+type: benchmark_protocol
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the query-family ambiguity surfaced by the EXO-0003 metadata scout before any future acquisition."
+  - "Keep Exoplanet source semantics stable instead of silently switching table families."
+  - "Protect the existing negative/control memory from accidental query drift."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-exo0003-metadata-trigger-scout.md"
+    - "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+    - "docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md"
+  planning_context: >
+    TASK-0629 found that the committed query selects from `ps` while campaign
+    wording often says PSCompPars. This task decides whether to preserve the
+    existing query family or require a future query-amendment review.
+
+requirements:
+  - "Compare the committed ADQL query, runbook wording, source manifest labels, and campaign docs for PS versus PSCompPars ambiguity."
+  - "Do not fetch value-bearing rows, run residual metrics, or change the query in this task."
+  - "Recommend one route: keep current query wording, create a later query-amendment task, or preserve a source-protocol blocker."
+  - "Update docs only if they currently misstate the committed query contract."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-ps-pscomppars-query-boundary-review.md"
+  - "optional docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md or campaign doc wording update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_exoplanet_second_snapshot_dry_run.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

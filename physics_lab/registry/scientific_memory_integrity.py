@@ -53,6 +53,8 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_audit",
     "scientific_benchmark",
     "scientific_falsification",
+    "scientific_result_publication",
+    "negative_result_memory",
     "benchmark_protocol",
     "ci_infrastructure",
     "ci_optimization",
@@ -163,6 +165,7 @@ def collect_scientific_memory_integrity_issues(
             and task_id not in result_task_ids
             and task_type not in STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS
             and not _task_has_committed_prediction_output(task_payload, root_path=root_path)
+            and not _task_declares_result_artifact_not_required(task_payload)
         ):
             issues.append(
                 _issue(
@@ -228,6 +231,17 @@ def _task_has_committed_prediction_output(
         ):
             return True
     return False
+
+
+def _task_declares_result_artifact_not_required(task_payload: dict[str, Any]) -> bool:
+    """Return true when a task explicitly documents why no RESULT is expected."""
+    policy = task_payload.get("result_artifact_policy")
+    if not isinstance(policy, dict):
+        return False
+    if policy.get("required") is not False:
+        return False
+    reason = str(policy.get("reason") or "").strip()
+    return bool(reason)
 
 
 def _required_run_artifact_issues(

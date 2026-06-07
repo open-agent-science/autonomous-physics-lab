@@ -1,0 +1,46 @@
+id: TASK-0657
+title: "Define Stellar M-L DEBCat holdout and leakage protocol"
+type: benchmark_protocol
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare Stellar M-L so binary components do not leak across train and holdout splits."
+  - "Make the Textbook Formula Audit empirical slice credible before row curation."
+  - "Separate source packaging from benchmark metrics."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-stellar-ml-source-candidate-admissibility.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "docs/notes/stellar-ml-campaign-promotion-gate.md"
+    - "tasks/TASK-0628-package-stellar-ml-debcat-source-artifact.yaml"
+  planning_context: >
+    DEBCat is selected as the first independent mass source. Before any
+    stellar mass-luminosity rows or exponents are fit, the benchmark needs a
+    system-level holdout/no-leakage protocol.
+
+requirements:
+  - "Define train/validation/holdout split constraints that keep both components of a binary system in the same split."
+  - "Specify candidate split axes: system id, mass band, evolutionary-stage flag, reference/source family, and uncertainty class."
+  - "Do not fetch DEBCat rows, compute luminosities, fit exponents, or create result/claim artifacts."
+  - "State which luminosity inputs remain inadmissible until a later row-readiness task."
+
+accepted_outputs:
+  - "docs/reviews/stellar-ml-debcat-holdout-leakage-protocol.md"
+  - "optional docs/notes/stellar-ml-campaign-promotion-gate.md update"
+
+validation:
+  commands:
+    - "python -m ruff check ."
+    - "python -m pytest -n 0 --basetemp=.pytest-basetemp-helper tests/test_docs_links.py"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

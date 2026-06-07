@@ -8,7 +8,7 @@
 
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-0635` - Run first Gate B replay on an AGENT_PUBLISHED result (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+- `TASK-0658` - Run Stellar M-L DEBCat row-readiness gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
 
 ## Research Blockers
 
@@ -22,5 +22,4 @@
 
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0461` - Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)

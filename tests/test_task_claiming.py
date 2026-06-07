@@ -10,7 +10,11 @@ from scripts.apl_task_occupancy import check_task_occupancy
 from physics_lab.registry.task_occupancy import classify_task_pr_occupancy
 
 
-def test_task_pr_occupancy_scans_title_body_and_branch() -> None:
+def test_task_pr_occupancy_uses_title_and_branch_not_body() -> None:
+    # Occupancy is derived only from canonical implementation signals: a
+    # `TASK-XXXX:` title or a `.../task-XXXX-<slug>` branch. A body-only mention
+    # (PR #10 implements TASK-0001 via its branch but only names TASK-0617 in
+    # the body) must not occupy the mentioned task.
     records = [
         {
             "number": 10,
@@ -41,9 +45,9 @@ def test_task_pr_occupancy_scans_title_body_and_branch() -> None:
     )
 
     by_id = {item.task_id: item for item in results}
-    assert by_id["TASK-0617"].classification == "occupied"
-    assert by_id["TASK-0617"].reasons == ("open PR #10",)
+    assert by_id["TASK-0617"].classification == "apparently_free"
     assert by_id["TASK-0618"].classification == "occupied"
+    assert by_id["TASK-0618"].reasons == ("open PR #11",)
     assert by_id["TASK-0619"].classification == "merged_pending_closeout"
     assert by_id["TASK-0620"].classification == "apparently_free"
 
@@ -53,16 +57,16 @@ def test_task_pr_occupancy_open_pr_takes_precedence_over_merged() -> None:
         {
             "number": 20,
             "state": "MERGED",
-            "title": "TASK-0617 merged",
+            "title": "TASK-0617: merged",
             "body": "",
-            "headRefName": "",
+            "headRefName": "agent/sviti/codex/task-0617-merged",
         },
         {
             "number": 21,
             "state": "OPEN",
-            "title": "",
-            "body": "TASK-0617",
-            "headRefName": "",
+            "title": "TASK-0617: open",
+            "body": "",
+            "headRefName": "agent/sviti/codex/task-0617-open",
         },
     ]
 
@@ -80,7 +84,7 @@ def test_task_pr_occupancy_normalizes_requested_task_ids() -> None:
         {
             "number": 30,
             "state": "OPEN",
-            "title": "TASK-0617 lower-case request check",
+            "title": "TASK-0617: lower-case request check",
             "body": "",
             "headRefName": "",
         },

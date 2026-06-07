@@ -95,6 +95,56 @@ candidate_sources:
       model_derived_mass: "Excluded from the primary empirical slice unless separately approved."
       excluded: "Required when license, multiplicity, class, uncertainty, or range gates fail."
 
+  - source_id: debcat-detached-eclipsing-binaries
+    title: "DEBCat catalogue of the physical properties of well-studied eclipsing binaries"
+    provider: "John Southworth / Keele University"
+    candidate_role: first_choice_independent_dynamical_mass_source
+    locator_shape: "Catalogue page https://astro.keele.ac.uk/jkt/debcat/ with machine-readable ASCII table https://astro.keele.ac.uk/jkt/debcat/debs.dat."
+    acquisition_lane: source_artifact_metadata_pinned
+    blocker_type: redistribution_and_row_schema_review
+    license_status: public_catalogue_citation_requested_no_explicit_redistribution_license_found
+    redistribution_decision: metadata_only_checksum_pinned_raw_not_committed
+    checksum_policy: "sha256_remote_ascii_table_debs_dat=326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da"
+    value_bearing_artifact_committed: false
+    source_artifact_package: data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/
+    retrieval:
+      retrieval_date_utc: 2026-06-06
+      artifact_last_modified_utc: "Sat, 16 May 2026 11:14:34 GMT"
+      artifact_etag: "\"17441-651ed6f2a15a0\""
+      artifact_content_length_bytes: 95297
+      catalogue_log_system_count: 374
+    selected_field_groups:
+      identity:
+        - binary_system_identifier
+        - component_role
+        - source_reference_notes
+        - source_artifact_checksum
+      stellar_values:
+        - mass_solar
+        - mass_uncertainty
+        - radius_solar
+        - radius_uncertainty
+        - effective_temperature_k
+        - log_luminosity_solar
+        - metallicity
+      provenance:
+        - direct_dynamical_mass_source
+        - uncertainty_semantics
+        - catalogue_update_version
+        - citation
+        - license_note
+    row_class_policy:
+      direct_observation: "Potentially allowed for component dynamical masses only after license/storage and row-schema review."
+      derived_luminosity: "Blocked until luminosity provenance and conversion policy are defined."
+      model_derived_mass: "Forbidden as benchmark truth; Gaia or isochrone masses remain excluded."
+      excluded: "Required when system identity, component pairing, uncertainty, license, multiplicity, or row-schema gates fail."
+    no_leakage_policy:
+      split_axis: physical_binary_system
+      requirement: "Keep all components of the same binary system in the same train/test/holdout lane."
+    notes:
+      - "TASK-0628 pins locator, retrieval metadata, checksum, citation posture, and blockers only."
+      - "No DEBCat value-bearing rows or raw table files are committed by TASK-0628."
+
 planned_normalized_surface:
   path_shape: "data/textbook_formula_audit/stellar_ml/<snapshot-id>.yaml"
   schema_status: deferred_to_row_curation_task

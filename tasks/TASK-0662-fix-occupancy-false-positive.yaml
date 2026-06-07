@@ -1,0 +1,56 @@
+id: TASK-0662
+title: "Fix task occupancy false positive from TASK-QUEUE creation PRs"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep the agent entrypoint honest: genuinely READY science tasks must stay visible after TASK-QUEUE waves."
+  - "Reduce duplicate-work risk without hiding genuinely available high-priority work."
+  - "Match occupancy detection to the canonical branch and title conventions in docs/agent-task-protocol.md."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "physics_lab/registry/task_occupancy.py"
+    - "physics_lab/registry/mission_control.py"
+    - "tests/test_task_occupancy.py"
+    - "scripts/apl_mission.py"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    Promoted from tasks/proposals/20260606-roman-fix-occupancy-false-positive.yaml.
+    The live availability classifier added in TASK-0617
+    (physics_lab/registry/task_occupancy.py::classify_task_pr_occupancy) scanned
+    every PR title, body, and headRefName for a TASK id and marked any id found
+    in a merged PR as merged_pending_closeout. A TASK-QUEUE PR that seeds tasks
+    lists every seeded id in its body, so on merge it hid the very tasks it
+    created. Observed: queue PRs #918 and #928 caused the high-priority READY
+    science pool (TASK-0631 through TASK-0661) to be reported occupied by
+    apl_mission.py onboarding even though TASK-0635/0640/0641/0657 had no
+    implementation PR and no open claim.
+
+requirements:
+  - "Occupancy must be derived only from canonical implementation signals: a `TASK-XXXX:` PR title or a `.../task-XXXX-<slug>` branch."
+  - "A body-only mention in a TASK-QUEUE, TASK-PROPOSAL, or TASK-CLOSEOUT PR must not mark a task occupied or merged-pending-closeout."
+  - "Preserve detection of genuine open and merged implementation PRs and open task-claim issues."
+  - "Add a regression test: a merged queue-PR body listing several task ids leaves all of them apparently_free."
+  - "Keep the classifier advisory and minimal: no new network calls and no schema changes."
+  - "Do not change unrelated task-state transitions or commit generated navigation from routine task PRs. Own-task REVIEW_READY transition is allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - "physics_lab/registry/task_occupancy.py classifier fix"
+  - "tests/test_task_occupancy.py regression coverage"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_occupancy.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

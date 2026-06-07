@@ -289,6 +289,14 @@ canonical `TASK-XXXX` id, agents should create a proposal under
 
 Normal agents should not assign canonical task ids during parallel work.
 
+External agents should also preserve actionable signals they discover while
+working. Bugs, validation bottlenecks, cross-platform failures, protocol gaps,
+optimization opportunities, source leads, blockers, and scientific ideas should
+be routed to a durable artifact before handoff: a task proposal, a
+domain-specific research proposal, or a lightweight GitHub issue when the agent
+cannot safely edit the repository. Do not formalize every passing thought, but
+do not leave useful follow-up work only in chat or PR prose.
+
 Maintainers may create canonical ids directly. Maintainer-directed review or
 task-admin agents may do so only on explicit maintainer instruction.
 

@@ -45,7 +45,7 @@ the row into a different class to satisfy a benchmark count.
 
 | Source family id | Admissible row classes | First-attempt examples |
 | --- | --- | --- |
-| `EXO-SRC-CLASS-001` | composite-catalog snapshots | NASA Exoplanet Archive Planetary Systems Composite Parameters (`PSCompPars`) |
+| `EXO-SRC-CLASS-001` | default-solution-per-planet snapshots | NASA Exoplanet Archive Planetary Systems (`ps`) with `default_flag = 1` (not the composite `PSCompPars` table; `pscomppars_*` filenames are legacy labels) |
 | `EXO-SRC-CLASS-002` | per-planet primary-publication tables | peer-reviewed discovery and characterization papers in AJ, A&A, ApJ, MNRAS, Nature, Science |
 | `EXO-SRC-CLASS-003` | mission-pipeline catalog releases | Kepler DR25, K2 mission catalog, TESS confirmed-planet tables |
 | `EXO-SRC-CLASS-004` | archive copy of any of the above | institutional repository mirrors of EXO-SRC-CLASS-001..003 with stable identifiers |
