@@ -1,0 +1,51 @@
+id: TASK-0671
+title: "Add pytest runtime fail-fast guard"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep agent validation failures fast and actionable across macOS, Linux, and Windows."
+  - "Prevent unsupported local Python interpreters from wasting full-suite runtime before failing."
+  - "Reuse the repository's single Python 3.11+ runtime contract instead of adding compatibility shims."
+
+input:
+  mode: workflow
+  related_domain: validation_runtime
+  related_objects:
+    - "physics_lab/_runtime.py"
+    - "tests/conftest.py"
+    - "tests/test_pytest_runtime_guard.py"
+  planning_context: >
+    During TASK-0665 validation, a local `python3 -m pytest` run on macOS used
+    the system Python 3.9.6. The suite ran most tests before failing during
+    collection of runtime-guarded modules. Pytest should fail before collection
+    with the existing actionable Python 3.11+ runtime message.
+
+requirements:
+  - "Add a pytest session-level runtime guard that reuses `physics_lab._runtime.enforce`."
+  - "Fail before broad test collection on unsupported Python versions."
+  - "Keep the guard cross-platform and independent of shell-specific paths."
+  - "Do not add Python <3.11 compatibility shims."
+
+accepted_outputs:
+  - "tests/conftest.py"
+  - "tests/test_pytest_runtime_guard.py"
+  - "tasks/TASK-0671-add-pytest-runtime-fail-fast-guard.yaml"
+
+result_artifact_policy:
+  required: false
+  reason: "Validation runtime guardrail task; no scientific result artifact is expected."
+
+validation:
+  commands:
+    - "python3 -m ruff check tests/conftest.py tests/test_pytest_runtime_guard.py"
+    - "python3 -m pytest tests/test_pytest_runtime_guard.py tests/test_runtime_guard.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
