@@ -21,9 +21,19 @@ Create a task proposal when:
 - the maintainer has not explicitly assigned a canonical `TASK-XXXX` id;
 - you want to suggest a new benchmark, workflow, documentation change, or
   contributor process improvement;
+- you found an actionable bug, validation bottleneck, cross-platform issue,
+  protocol ambiguity, optimization opportunity, source lead, blocker, or
+  scientific idea that should not be lost after the current session;
 - parallel contributors or agents may be proposing ideas at the same time.
 
 Do not guess the next canonical task number during parallel work.
+
+Use the proposal file when the signal is intended to become repository work.
+Use a lightweight GitHub issue instead when the agent cannot safely edit the
+repository, the signal is an operational report, or the right owner still needs
+to be identified. For scientific ideas that belong in the research memory
+before they become tasks, use the relevant hypothesis, experiment, or source
+proposal path and cross-reference it from any task proposal.
 
 ## When To Create A Canonical Task Directly
 

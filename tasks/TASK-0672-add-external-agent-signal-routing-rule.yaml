@@ -1,0 +1,48 @@
+id: TASK-0672
+title: "Add external-agent signal routing rule"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep external-agent observations from being lost in transient chat, PR bodies, or review notes."
+  - "Route bugs, bottlenecks, optimization opportunities, source leads, and scientific ideas into reviewable repository artifacts."
+
+input:
+  mode: workflow
+  related_domain: agent_protocol
+  related_objects:
+    - docs/agent-task-protocol.md
+    - docs/task-proposal-protocol.md
+    - docs/agent-operating-model.md
+    - AGENTS.md
+  planning_context: "External agents should create issues or proposal artifacts when they discover actionable bugs, bottlenecks, optimizations, or scientific ideas."
+
+requirements:
+  - "Document the rule without changing task numbering, branch naming, or publication gates."
+  - "Keep task proposals as the default repository-native path for new ideas that do not yet have canonical task ids."
+  - "Allow GitHub issues as lightweight coordination signals when the agent cannot safely edit the repository."
+  - "Cover scientific ideas, source leads, blockers, bugs, and workflow/optimization opportunities."
+  - "Do not require agents to formalize every passing thought; require formalization only for actionable signals they recommend preserving."
+
+accepted_outputs:
+  - "Protocol update explaining when an external agent must create an issue or task proposal."
+  - "Contributor operating-model update covering scientific ideas and workflow defects."
+  - "Task proposal protocol update distinguishing science proposals, workflow proposals, and lightweight issue-only signals."
+  - "Validation commands proving the documentation/task update is schema-valid."
+
+validation:
+  commands:
+    - "python3 scripts/apl_task_validation_plan.py --task TASK-0672"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+result_artifact_policy:
+  required: false
+  reason: "Protocol/documentation-only workflow task; no scientific result or claim artifact is produced."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
