@@ -13,6 +13,8 @@ code, committed artifacts, and reviewable provenance.
 For fast navigation, use [Architecture Index](./architecture-index.md). For the
 short layer model, use [Architecture Layers](./architecture-layers.md). For a
 directory-by-directory orientation, use [Repository Map](./repository-map.md).
+For retention guidance on durable review and note files, use
+[Reviews Directory](./reviews/README.md) and [Notes Directory](./notes/README.md).
 This page is the human-facing overview that ties those maps together.
 
 ## Current Posture
