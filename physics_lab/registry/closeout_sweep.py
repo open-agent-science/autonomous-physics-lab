@@ -12,7 +12,8 @@ from physics_lab.registry.maintainer_review import (
     build_closeout_report,
     load_pr_metadata,
 )
-from physics_lab.registry.review_git import current_branch, run_command
+from physics_lab.registry.pr_capability import find_gh_path
+from physics_lab.registry.review_git import current_branch, git_status_clean, run_command
 from physics_lab.registry.tasks import load_task
 
 
@@ -55,6 +56,14 @@ class CloseoutSweepReport:
     ready: tuple[CloseoutSweepCandidate, ...]
     blocked: tuple[CloseoutSweepCandidate, ...]
     skipped: tuple[CloseoutSweepCandidate, ...]
+
+
+@dataclass(frozen=True)
+class CloseoutSweepApplyReport:
+    """Files changed by an applied closeout sweep."""
+
+    applied: tuple[CloseoutSweepCandidate, ...]
+    changed_files: tuple[Path, ...]
 
 
 def closeout_pr_binding_blockers(root: Path, *, task_id: str, pull_request: int) -> tuple[str, ...]:
@@ -100,6 +109,17 @@ def list_review_ready_tasks(root: Path) -> tuple[tuple[str, str], ...]:
     return tuple(items)
 
 
+def _task_file_by_id(root: Path, task_id: str) -> Path | None:
+    """Return the canonical task file for ``task_id`` when present."""
+    for path in sorted((root / "tasks").glob(f"{task_id}-*.yaml")):
+        if path.name == "TASK-TEMPLATE.yaml":
+            continue
+        payload = load_task(path)
+        if str(payload["id"]) == task_id:
+            return path
+    return None
+
+
 def load_merged_task_pull_requests(
     root: Path,
     *,
@@ -128,6 +148,42 @@ def load_merged_task_pull_requests(
         if previous is None or candidate.merged_at > previous.merged_at:
             by_task[task_id] = candidate
     return by_task
+
+
+def apply_closeout_sweep_report(
+    root: Path,
+    report: CloseoutSweepReport,
+) -> CloseoutSweepApplyReport:
+    """Apply all ready closeout candidates from a sweep report.
+
+    This is intentionally narrow: the sweep report has already verified merged
+    PR binding, accepted outputs, and CI via ``build_closeout_report``. The
+    batch applier only updates task status lines from ``REVIEW_READY`` to
+    ``DONE`` so a multi-task sweep does not fail after the first task dirties
+    the worktree.
+    """
+    if report.branch != "main":
+        raise ValueError("Closeout sweep apply must run on main.")
+    if not git_status_clean(root):
+        raise ValueError("Closeout sweep apply requires a clean git status.")
+
+    applied: list[CloseoutSweepCandidate] = []
+    changed_files: list[Path] = []
+    for candidate in report.ready:
+        task_file = _task_file_by_id(root, candidate.task_id)
+        if task_file is None:
+            raise ValueError(f"Task file not found for {candidate.task_id}.")
+        text = task_file.read_text(encoding="utf-8")
+        needle = "status: REVIEW_READY"
+        if needle not in text:
+            raise ValueError(f"{candidate.task_id} is not REVIEW_READY.")
+        task_file.write_text(text.replace(needle, "status: DONE", 1), encoding="utf-8")
+        applied.append(candidate)
+        changed_files.append(task_file)
+    return CloseoutSweepApplyReport(
+        applied=tuple(applied),
+        changed_files=tuple(changed_files),
+    )
 
 
 def _load_merged_task_pull_requests_from_git(
@@ -194,9 +250,12 @@ def _load_merged_task_pull_requests_from_gh(
     remote_url: str | None,
 ) -> dict[str, MergedTaskPullRequest]:
     """Load merged task PR metadata from GitHub CLI when it is available."""
+    gh_path = find_gh_path()
+    if gh_path is None:
+        return {}
     result = run_command(
         [
-            "gh",
+            gh_path,
             "pr",
             "list",
             "--state",
@@ -327,6 +386,17 @@ def build_closeout_sweep_report(
         blocked=tuple(blocked),
         skipped=tuple(skipped),
     )
+
+
+def render_closeout_sweep_apply_report(report: CloseoutSweepApplyReport) -> str:
+    """Render applied closeout sweep changes."""
+    lines = [f"Applied closeout candidates: {len(report.applied)}"]
+    if not report.applied:
+        lines.append("- none")
+        return "\n".join(lines)
+    for candidate, path in zip(report.applied, report.changed_files, strict=True):
+        lines.append(f"- {candidate.task_id} -> DONE ({path.as_posix()})")
+    return "\n".join(lines)
 
 
 def render_closeout_sweep_report(report: CloseoutSweepReport) -> str:
