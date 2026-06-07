@@ -153,6 +153,71 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
     assert "TASK-CLOSEOUT: mark task-0244 done" in result.stdout
 
 
+def test_cli_scaffold_accepts_closed_task_alias() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_closeout_pr_helper.py",
+            "scaffold",
+            "--closed-task",
+            "TASK-0244",
+            "--contributor-id",
+            "roman",
+            "--github-username",
+            "gladunrv",
+            "--agent-id",
+            "codex",
+            "--human-reviewer",
+            "gladunrv",
+            "--slug",
+            "task-0244-snapshot-fix",
+            "--description",
+            "mark task-0244 done",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "Closed Task Files" in result.stdout
+
+
+def test_cli_scaffold_rejects_task_closeout_marker_as_closed_task() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_closeout_pr_helper.py",
+            "scaffold",
+            "--task-id",
+            "TASK-CLOSEOUT",
+            "--contributor-id",
+            "roman",
+            "--github-username",
+            "gladunrv",
+            "--agent-id",
+            "codex",
+            "--human-reviewer",
+            "gladunrv",
+            "--slug",
+            "batch",
+            "--description",
+            "close merged tasks",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 2
+    assert "TASK-CLOSEOUT is the closeout PR marker" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
 def test_cli_scaffold_infers_claude_agent_tool_from_agent_id() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
