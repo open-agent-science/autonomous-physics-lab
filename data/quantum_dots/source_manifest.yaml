@@ -307,35 +307,41 @@ sources:
     journal: "Nano Letters"
     volume: "23"
     pages: "8697-8703"
-    table_reference: "open-access article Figure 1b and Supporting Information figures; no direct size-energy table accepted by TASK-0605"
+    table_reference: "Article Figure 1b sizing curves (E1s vs tetrahedral edge length and volume); SI cross-check figures only; Table S1 is PL transient, not size-energy"
     properties:
       - absorption_peak_eV
       - emission_peak_eV
     materials:
       - InP
     measurement_type: optical_absorption
-    size_axis: diameter_nm
+    size_axis: edge_length_nm
     inclusion_decision: excluded
     inclusion_rationale: >
       TASK-0605 scouts this as a repository-compatible open candidate beyond
       Norris-Bawendi and Kang-Wise. The article is open access and reports a
       systematic core-only InP size series, but the size-energy surface is
       exposed through figures/sizing curves rather than a direct row table.
-      It remains excluded until a future source-artifact or digitization task
-      checksum-pins the article/SI files, confirms reuse metadata, and runs
-      the quantum direct-measurement digitization protocol.
-    license_note: "ACS Nano Letters open-access article; DOI-pinned metadata only in this manifest. Public article copies indicate CC-BY 4.0. Do not commit publisher PDF, SI PDF, figures, or extracted rows in this metadata-only scout PR."
+      TASK-0637 resolved the non-spherical schema blocker. TASK-0654 completed
+      the license and figure-surface checklist. It remains excluded until a
+      future source-artifact or digitization task checksum-pins the article/SI
+      files, runs WebPlotDigitizer-class extraction on Figure 1b, and passes
+      row-readiness review.
+    license_note: "ACS Nano Letters open-access article; DOI-pinned metadata only in this manifest. Public article surfaces indicate CC-BY 4.0; TASK-0654 records reuse as promising but artifact-gated. Do not commit publisher PDF, SI PDF, figures, or extracted rows until a maintainer-reviewed source-artifact task re-verifies reuse terms and checksums the selected file copies."
     checksum_policy: doi_pinned
     notes: >
       Candidate for a future InP absorption_peak_eV digitization-required
       source package. Expected row class is digitization_required, not
-      table_derived. TASK-0637 accepts edge_length_nm as the metadata route
-      for this tetrahedral source; any future volume_nm3 or equivalent
-      diameter row must preserve the original source value and conversion
-      rule. Treat reported edge length/volume and E1s values as a coupled
-      morphology + optical surface requiring per-point provenance, axis
-      calibration, uncertainty notes, and direct-versus-derived labels before
-      any qd-*.yaml row curation.
+      table_derived. Use edge_length_nm or volume_nm3 with morphology
+      tetrahedral; any equivalent_diameter_nm row must preserve the original
+      source value and conversion rule in size_conversion. Figure 1b is the
+      primary row-candidate surface; label Almeida versus Xu et al. comparison
+      points with per-point primary_source_id. See
+      docs/reviews/quantum-almeida-license-figure-surface-review.md,
+      docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md,
+      and docs/reviews/quantum-open-direct-table-source-scout-02.md. Remaining
+      blockers after TASK-0654: checksum-pinned source artifact, real
+      digitization export, uncertainty/cross-check fields, and row-readiness
+      gate — not schema shape.
 
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25
