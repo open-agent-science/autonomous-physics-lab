@@ -20,3 +20,4 @@ None.
 - `TASK-0673` - Add software citation and Zenodo release metadata (`research_infrastructure`, priority `high`, difficulty `low`, domain `release_packaging`)
 - `TASK-0675` - Add release-preparation and git-hygiene responsibilities to the Architect role (`repo_architecture`, priority `medium`, difficulty `low`, domain `agent_roles`)
 - `TASK-0676` - Fix CITATION.cff repository URL after organization transfer (`documentation`, priority `medium`, difficulty `low`, domain `release_packaging`)
+- `TASK-0677` - Sanitize maintainer-local replay path leak in EXP-0013 result (`repository_hardening`, priority `medium`, difficulty `low`, domain `release_packaging`)
