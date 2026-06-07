@@ -1,0 +1,54 @@
+id: TASK-0673
+title: "Add software citation and Zenodo release metadata"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Close the publication-roadmap short-term release layer: a CITATION.cff and release metadata are required before public-alpha."
+  - "Advance Gate 4 (public narrative) by giving the repository a software citation path, even while DOI minting stays deferred until a maintainer-approved release."
+  - "Keep wording verification-first: cite APL as a hypothesis-testing and benchmarking engine, not a source of automatic discoveries."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - docs/publication-roadmap.md
+    - docs/public-release-gates.md
+    - docs/release-checklist.md
+    - pyproject.toml
+  planning_context: >-
+    Maintainer-authorized launch-finishing step. The public-release gates and
+    publication roadmap require a software citation path (CITATION.cff plus
+    Zenodo release metadata) before a public-alpha opening, but neither file
+    existed. This task adds them only. The package version stays 0.1.0 by
+    maintainer decision (the repository is still private), so no version bump or
+    engine_version provenance change is in scope.
+
+requirements:
+  - "Add a CFF 1.2.0 CITATION.cff at the repository root with modest, verification-first wording."
+  - "Add a .zenodo.json release-metadata file consistent with CITATION.cff."
+  - "Use the current gladunrv/autonomous-physics-lab repository URL; do not pre-write the open-agent-science org path (the post-transfer transfer-sync PR updates clone URLs)."
+  - "Keep the declared version at 0.1.0 to match the current package marker; do not bump pyproject or physics_lab.__version__ in this task."
+  - "Do not rewrite committed results/, prediction_registry/, or other engine_version provenance."
+  - "Do not imply that a public release, DOI, or organization transfer has already happened."
+
+accepted_outputs:
+  - "CITATION.cff"
+  - ".zenodo.json"
+  - "tasks/TASK-0673-add-software-citation-release-metadata.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -c \"import yaml; yaml.safe_load(open('CITATION.cff', encoding='utf-8')); assert yaml.safe_load(open('CITATION.cff', encoding='utf-8'))['cff-version'] == '1.2.0'\""
+    - "python3 -c \"import json; json.load(open('.zenodo.json', encoding='utf-8'))\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

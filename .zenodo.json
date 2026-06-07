@@ -1,0 +1,27 @@
+{
+  "title": "Autonomous Physics Lab",
+  "description": "Autonomous Physics Lab is a verification-first scientific engine for generating, testing, simulating, falsifying, scoring, and reusing physics hypotheses through deterministic code and version-controlled scientific memory. It is a hypothesis-testing and benchmarking system rather than a source of automatic discoveries.",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "version": "0.1.0",
+  "creators": [
+    {
+      "name": "Hladun, Roman",
+      "orcid": "0009-0004-4853-5212"
+    },
+    {
+      "name": "Autonomous Physics Lab contributors"
+    }
+  ],
+  "keywords": [
+    "open agent science",
+    "physics",
+    "hypothesis testing",
+    "falsification",
+    "reproducibility",
+    "benchmark",
+    "formula discovery",
+    "scientific memory"
+  ]
+}
