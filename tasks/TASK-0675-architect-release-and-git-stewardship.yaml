@@ -1,0 +1,52 @@
+id: TASK-0675
+title: "Add release-preparation and git-hygiene responsibilities to the Architect role"
+type: repo_architecture
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Formalize the release-readiness and git/branch/tag stewardship the Architect already exercised during the v0.2 public-opening preparation and the organization transfer, so it becomes a standing recurring lens rather than ad-hoc work."
+  - "Keep release-artifact hygiene, transfer-sync, and correct git handling consistent with docs/public-release-gates.md and docs/release-checklist.md while keeping destructive or publication-affecting git operations maintainer-gated."
+
+input:
+  mode: workflow
+  related_domain: agent_roles
+  related_objects:
+    - agents/architect.yaml
+    - docs/public-release-gates.md
+    - docs/release-checklist.md
+    - docs/publication-roadmap.md
+  planning_context: >-
+    Maintainer-requested role update. During the public-opening preparation and
+    the transfer to the open-agent-science organization, the Architect role
+    performed release-gate verification, CITATION/Zenodo/version-marker hygiene,
+    misleading tag and pre-release cleanup, and post-transfer checks (runner,
+    Actions variables/secrets, branch protection, clone-URL transfer-sync). This
+    task encodes those as explicit Architect functions so release preparation
+    and correct git handling are recurring responsibilities. Tags, releases,
+    merges, force-pushes, and branch/tag deletions stay maintainer-gated.
+
+requirements:
+  - "Add release-preparation, organization-transfer (Gate 5) verification, and git/branch/tag hygiene activities to agents/architect.yaml."
+  - "Add the release and publication docs to the Architect required_reading."
+  - "Add the release-hygiene scripts (path-leak and core-reproduction checks) to scripts_to_use."
+  - "Add restrictions keeping tags, releases, merges, force-pushes, and branch/tag deletions maintainer-gated, and keeping the public-opening decision with the maintainer."
+  - "Do not change other agent role files, the repository-wide forbidden-action rules, or any scientific verdict, claim, or result artifact."
+
+accepted_outputs:
+  - "agents/architect.yaml"
+  - "tasks/TASK-0675-architect-release-and-git-stewardship.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -c \"import yaml; yaml.safe_load(open('agents/architect.yaml', encoding='utf-8'))\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
