@@ -14,6 +14,7 @@ MATERIALS = REPO / "data" / "materials"
 SNAPSHOT = MATERIALS / "snapshots" / "materials_project_binary_oxides_2025-09-25.json"
 CITATION = MATERIALS / "md-0001-citation.yaml"
 HOLDOUT_MANIFEST = MATERIALS / "holdout_manifest.yaml"
+MD0002_HOLDOUT_MANIFEST = MATERIALS / "md0002_holdout_manifest.yaml"
 
 DATASETS = {
     "formation_energy_per_atom": (MATERIALS / "md-0001-materials-project-formation-energy.yaml", "eV_per_atom"),
@@ -118,3 +119,30 @@ def test_holdout_manifest_preserves_no_peek_boundaries():
     assert axes["formation_energy_per_atom"]["units"] == "eV_per_atom"
     assert axes["band_gap"]["units"] == "eV"
     assert "property_range" in manifest["pre_score_split_axes"]
+
+
+def test_md0002_holdout_manifest_is_no_peek_scaffold_only():
+    manifest = _load(MD0002_HOLDOUT_MANIFEST)
+    assert manifest["manifest_id"] == "MD-0002-HOLDOUT-NOPEEK-SCAFFOLD-0001"
+    assert manifest["scope"]["dataset_family"] == "MD-0002"
+    assert manifest["scope"]["material_scope"] == "stable_ternary_oxides"
+    assert manifest["scope"]["database_version"] == "TO_BE_PINNED_BY_ACQUISITION"
+    assert manifest["scope"]["snapshot_checksum_sha256"] == "TO_BE_COMPUTED_BY_ACQUISITION"
+    assert manifest["promotion_boundary"]["live_fetch_allowed"] is False
+    assert manifest["promotion_boundary"]["results_allowed"] is False
+    axes = {axis["property_kind"]: axis for axis in manifest["axis_policies"]}
+    assert set(axes) == {"formation_energy_per_atom", "band_gap"}
+    assert axes["formation_energy_per_atom"]["units"] == "eV_per_atom"
+    assert axes["band_gap"]["units"] == "eV"
+    split_axes = set(manifest["pre_score_split_axes"])
+    assert {
+        "material_id_modulo",
+        "seeded_random",
+        "cation_pair_family",
+        "spacegroup_or_prototype",
+        "property_range_bins",
+        "source_version",
+    } <= split_axes
+    blocked = "\n".join(manifest["blocked_actions"])
+    assert "Fetch or ingest" in blocked
+    assert "Commit value-bearing MD-0002 row ids" in blocked

@@ -1,7 +1,7 @@
 id: TASK-0644
 title: "Scaffold Materials MD-0002 holdout and no-peek manifest"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,9 +35,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_materials_dataset.py tests/test_docs_links.py"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m ruff check ."
+    - "python -m pytest -n 0 --basetemp=.pytest-basetemp-helper tests/test_materials_dataset.py tests/test_docs_links.py"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
