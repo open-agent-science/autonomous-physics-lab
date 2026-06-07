@@ -7,9 +7,10 @@
 ## Purpose
 
 This runbook prepares the maintainer-approved acquisition step for a future
-second NASA Exoplanet Archive PSCompPars snapshot. It records the exact source
-surface, query contract, fields, row-class rules, checksum policy, and no-peek
-attestation requirements before any new catalog rows are fetched or inspected.
+second NASA Exoplanet Archive Planetary Systems (`ps`, `default_flag = 1`)
+snapshot. It records the exact source surface, query contract, fields, row-class
+rules, checksum policy, and no-peek attestation requirements before any new
+catalog rows are fetched or inspected.
 
 This runbook does not authorize an ordinary agent to fetch live archive data.
 The future acquisition step must be explicitly approved under
@@ -18,8 +19,11 @@ The future acquisition step must be explicitly approved under
 ## Source Surface
 
 - Source family: `EXO-SRC-CLASS-001`
-- Source: NASA Exoplanet Archive Planetary Systems Composite Parameters
-  (`PSCompPars`)
+- Source: NASA Exoplanet Archive Planetary Systems (`ps`) table, default
+  solution per planet (`default_flag = 1`). This is **not** the composite
+  `PSCompPars` table; the `pscomppars_*` filenames are legacy labels for this
+  `ps default_flag = 1` contract (see
+  `docs/reviews/exoplanet-ps-pscomppars-query-boundary-review.md`).
 - TAP endpoint: `https://exoplanetarchive.ipac.caltech.edu/TAP/sync`
 - Query contract: `data/exoplanets/snapshot_plans/pscomppars_query.adql`
 - Query SHA-256:

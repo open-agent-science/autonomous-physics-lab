@@ -1,7 +1,7 @@
 id: TASK-0647
 title: "Review Exoplanet PS versus PSCompPars query boundary"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
