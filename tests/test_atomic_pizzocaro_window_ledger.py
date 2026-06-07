@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
+
 import yaml
 
 from scripts.build_atomic_pizzocaro_vlbi_window_ledger import (
+    DEFAULT_CSV,
     DEFAULT_LEDGER,
     build_vlbi_window_ledger,
 )
@@ -18,6 +21,13 @@ def test_committed_ledger_matches_fresh_build_from_source_csv() -> None:
     # Regeneration guard: the committed ledger must equal a deterministic rebuild
     # from the committed source CSV, so the ledger cannot drift from its source.
     assert _committed_ledger() == build_vlbi_window_ledger()
+
+
+def test_ledger_records_actual_source_csv_checksum() -> None:
+    ledger = _committed_ledger()
+    expected_sha256 = hashlib.sha256(DEFAULT_CSV.read_bytes()).hexdigest()
+
+    assert ledger["source"]["source_csv_sha256"] == expected_sha256
 
 
 def test_ledger_has_ten_vlbi_windows_with_stable_ids_and_mjd_fields() -> None:

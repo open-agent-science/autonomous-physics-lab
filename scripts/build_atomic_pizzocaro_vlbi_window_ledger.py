@@ -16,6 +16,7 @@ future task commits a covariance reconstruction that clears that policy.
 from __future__ import annotations
 
 import argparse
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -90,6 +91,7 @@ def _vlbi_header_and_rows(csv_text: str) -> tuple[list[str], list[list[str]]]:
 def build_vlbi_window_ledger(csv_path: Path = DEFAULT_CSV) -> dict[str, Any]:
     """Build the per-window diagnostic ledger payload from the committed CSV."""
     csv_text = csv_path.read_text(encoding="utf-8")
+    source_csv_sha256 = hashlib.sha256(csv_path.read_bytes()).hexdigest()
     header, raw_rows = _vlbi_header_and_rows(csv_text)
     index = {name: position for position, name in enumerate(header)}
 
@@ -144,7 +146,7 @@ def build_vlbi_window_ledger(csv_path: Path = DEFAULT_CSV) -> dict[str, Any]:
                 "Yb-Sr-ratio-measuremets.csv"
             ),
             "source_csv_sha256": (
-                "fa81da6f0afadedfc5028352ed2af8c87dc64f1217eb2fb84efd0c6c064c87d2"
+                source_csv_sha256
             ),
             "section_locator": VLBI_SECTION_MARKER,
             "dataset_doi": "10.5281/zenodo.5592085",
