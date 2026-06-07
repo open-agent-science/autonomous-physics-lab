@@ -13,8 +13,8 @@ authors:
     given-names: Roman
     orcid: "https://orcid.org/0009-0004-4853-5212"
   - name: "Autonomous Physics Lab contributors"
-repository-code: "https://github.com/gladunrv/autonomous-physics-lab"
-url: "https://github.com/gladunrv/autonomous-physics-lab"
+repository-code: "https://github.com/open-agent-science/autonomous-physics-lab"
+url: "https://github.com/open-agent-science/autonomous-physics-lab"
 license: MIT
 version: "0.1.0"
 keywords:
