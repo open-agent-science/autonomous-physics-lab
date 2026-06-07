@@ -1,9 +1,12 @@
 # Anharmonic Oscillator Period Benchmark — Result Summary
 
 **Experiment:** EXP-0011
-**Run:** RUN-0001
-**Result:** RESULT-0014
-**Task:** TASK-0159
+**Legacy Run:** RUN-0001
+**Legacy Result:** RESULT-0014
+**Current Tiered Run:** RUN-0002
+**Current Tiered Result:** RESULT-0016
+**Current Tier:** AGENT_VALIDATED
+**Tasks:** TASK-0159, TASK-0660
 
 ## Scope
 
@@ -12,6 +15,14 @@ This benchmark evaluates the conservative quartic anharmonic oscillator with
 holdout slice, and stress slice.
 
 The benchmark is about approximation quality, not any broader discovery claim.
+
+## Promotion Status
+
+`RESULT-0016` is the current tiered promotion target for this benchmark slice.
+It has passed the recorded independent agent replay with unchanged tracked
+metrics and remains limited to the predeclared in-range conservative benchmark
+regime. Claim-level promotion remains a maintainer Gate C decision; this summary
+does not promote `CLAIM-0009`.
 
 ## Candidate Models
 

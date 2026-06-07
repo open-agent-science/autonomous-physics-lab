@@ -1,7 +1,7 @@
 id: TASK-0660
 title: "Package Anharmonic replay result-promotion preflight"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -38,9 +38,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_anharmonic_oscillator.py tests/test_docs_links.py"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m ruff check ."
+    - "python -m pytest -n 0 --basetemp=.pytest-basetemp-helper tests/test_anharmonic_oscillator.py tests/test_docs_links.py"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
