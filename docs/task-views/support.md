@@ -20,4 +20,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0679` - Harden closeout sweep GitHub discovery and batch apply (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
