@@ -53,6 +53,8 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_audit",
     "scientific_benchmark",
     "scientific_falsification",
+    "scientific_result_publication",
+    "negative_result_memory",
     "benchmark_protocol",
     "ci_infrastructure",
     "ci_optimization",

@@ -18,7 +18,6 @@
 - `TASK-0655` - Design Quantum non-spherical digitization fixture (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0656` - Scout second Quantum open direct-table source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0657` - Define Stellar M-L DEBCat holdout and leakage protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0659` - Build cross-campaign result-promotion inventory (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 
 ## IN_PROGRESS
 
@@ -26,9 +25,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0636` - Create Atomic Pizzocaro per-window diagnostic ledger (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0640` - Scout Nuclear post-AME2020 reveal source candidates (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0642` - Map Nuclear do-not-repeat diagnostic lanes (`negative_result_memory`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0647` - Review Exoplanet PS versus PSCompPars query boundary (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0648` - Run Exoplanet residual gate-revision go/no-go review (`research_quality_gate`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0661` - Run Dimensional Validator boundary-case result preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
+- `TASK-0659` - Build cross-campaign result-promotion inventory (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)

@@ -1,7 +1,7 @@
 id: TASK-0648
 title: "Run Exoplanet residual gate-revision go/no-go review"
 type: research_quality_gate
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

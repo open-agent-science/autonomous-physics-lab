@@ -1,7 +1,7 @@
 id: TASK-0662
 title: "Fix task occupancy false positive from TASK-QUEUE creation PRs"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
