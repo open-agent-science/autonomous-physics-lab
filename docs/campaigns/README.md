@@ -15,7 +15,7 @@ The short version:
   baseline evidence.
 - **Public verifier lane:** Textbook Formula Audit.
 - **Candidate new lanes:** future Materials widenings, only after the first
-  `MD-0001` benchmark clarifies value.
+  `MD-0001` benchmark and MD-0002 source gates justify widening.
 - **Quality floor:** Pendulum, Dimensional Analysis, and Particle Mass
   Relations.
 - **Planning/watchlist:** Fresh Physics Data Axes, Anomaly Registry, and
@@ -45,12 +45,12 @@ campaign map or `missions/current.yaml`.
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, uncertainty-weighted diagnostic, replayable F2 signal, and a component-ablation result that keeps F2 diagnostic-only. | `TASK-0633`: decide whether the F2 diagnostic/negative memory can become a scoped AGENT_PUBLISHED RESULT candidate; keep reveal scoring blocked. |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, target-freeze protocol, reviewer capsule, and closed `EXO-0002` reopen gate. | `TASK-0629`: metadata-only `EXO-0003` trigger scout; no residual scoring until material source growth is plausible. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, source-artifact intake path, synthetic digitization fixture, Norris-Bawendi handoff, Kang-Wise inadmissibility blocker, and Almeida 2023 schema-gated source feasibility. | `TASK-0637`: add a non-spherical size-axis schema route before Almeida digitization. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy pinned rows, real-row loader, covariance policy, Nemitz/Pizzocaro source artifacts, Pizzocaro VLBI surface selected but blocked by shared systematics, and Lange/PTB fallback scout. | `TASK-0636`: create the Pizzocaro per-window diagnostic ledger without treating windows as independent benchmark rows. |
-| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001` pinned Materials Project binary-oxide dataset, replayed baseline, formation-energy control survival, split-robust formation-energy signal, split-fragile band gap, and a negative formation-energy factory smoke sprint. | `TASK-0614` then `TASK-0631`: decide result/dataset route and only then plan MD-0002 widening. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Verifier-first scaffold, exact-reference fixtures, scoped Textbook EXP/HYP identity boundary, and DEBCat selected as the first independent Stellar M-L mass-source path. | `TASK-0634` and `TASK-0628`: publish the exact-reference AGENT_PUBLISHED RESULT if Gate A passes, and package the DEBCat source artifact. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, uncertainty-weighted diagnostic, replayable F2 signal, and component-ablation evidence that keeps F2 diagnostic-only. | `TASK-0641`: build the reveal-readiness matrix; keep reveal scoring blocked until a source-grade no-peek release exists. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshots, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, reviewer capsule, and closed `EXO-0002` reopen gate. | `TASK-0649` or `TASK-0650`: preserve negative/control memory and define source-version trigger discipline; no residual scoring on the current snapshot. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, source-artifact intake path, synthetic/non-spherical digitization fixtures, and Almeida 2023 source feasibility. | `TASK-0668` or `TASK-0656`: package Almeida source artifacts or scout a second open direct-table source before row curation. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy pinned rows, real-row loader, covariance policy, Nemitz/Pizzocaro/Lange source surfaces, Pizzocaro diagnostics, and a feasible PSD covariance-approximation path. | `TASK-0666` or `TASK-0669`: build the Pizzocaro covariance approximation or decide the Lange/PTB source-artifact route. |
+| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001` pinned Materials Project binary-oxide dataset, replayed baseline, formation-energy control survival, split-robust formation-energy signal, split-fragile band gap, and negative factory memory. | `TASK-0631`, `TASK-0645`, or `TASK-0646`: plan MD-0002 source gates or package band-gap negative memory before widening. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Verifier-first scaffold, exact-reference fixtures, Gate-B-validated Stefan-Boltzmann software/convention result, and DEBCat selected as the first independent Stellar M-L mass-source path. | `TASK-0658` after its blocker clears: run DEBCat row-readiness before empirical Stellar M-L metrics. |
 
 These are the main public-facing surfaces today. They should be presented as
 disciplined research infrastructure, not as finished discoveries.
@@ -73,7 +73,7 @@ the newer campaigns can be stricter.
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning and source-policy layer. | Source-policy review or manifest-only triage for less-saturated data axes. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed, Stefan-Boltzmann/Wien exact-reference fixtures exist, exact-reference result preflight is done, and Stellar M-L source/baseline planning exists. | `TASK-0586` and `TASK-0587`: scoped exact-reference result packaging or blocker, plus Stellar M-L row-readiness gate. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed, exact-reference fixtures exist, Stefan-Boltzmann has an agent-validated software/convention result, and Stellar M-L source/baseline planning exists. | DEBCat row-readiness after holdout/leakage protocol; no empirical metrics before row provenance passes. |
 | Materials widenings | First seed dataset exists; broader Materials slices are deferred. | Only widen via a pre-fetch-amended source acquisition task after `MD-0001` baseline evidence shows the next slice is worth curating. |
 
 Do not turn planning surfaces into broad formula searches. A planning campaign

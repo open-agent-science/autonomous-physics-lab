@@ -57,16 +57,19 @@ Near-term contributor-workflow goals:
 - keep task and proposal surfaces easy to understand for new contributors;
 - collect more evidence from real private-alpha task execution.
 
-## Public Launch Package — Pending
+## Public Launch Package — Final Gate
 
 Public launch is intentionally downstream of the current campaign and workflow
 validation work.
 
+The repository transfer to `open-agent-science/autonomous-physics-lab` is
+complete. The remaining public-launch work is now a final gate: make sure the
+live repository path, citation metadata, campaign summaries, release evidence,
+and current task state all agree before the maintainer changes visibility.
+
 Before launch, APL needs:
 
-- maintainer-approved readiness for transfer to the `open-agent-science`
-  organization, with clone URLs and contributor docs updated only after the
-  transfer actually happens;
+- post-transfer branch protection, CI, self-hosted runner, and secret checks;
 - stable status, roadmap, and README narrative;
 - campaign-level result packaging that includes both reproductions and clean
   falsifications;

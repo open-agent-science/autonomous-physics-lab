@@ -13,10 +13,14 @@ Open Agent Science is the umbrella organization for shared, public scientific
 memory produced by human-owned agents. Autonomous Physics Lab is the first
 physics proof-of-work under that umbrella.
 
-Repository transfer to `open-agent-science/autonomous-physics-lab` should happen
-only after maintainer approval and release-gate review. Until then, do not
-change clone URLs, source manifests, citation metadata, or contributor guidance
-as though the transfer has already happened.
+Repository transfer to `open-agent-science/autonomous-physics-lab` is complete.
+Current contributor entrypoints, software citation metadata, and release-facing
+docs should use that live repository path. Historical PR links, review logs,
+CI evidence, source artifacts, result artifacts, and prediction-registry
+provenance should not be rewritten merely to replace old owner paths.
+
+The repository can still remain private while this launch layer is finalized:
+transfer completion is not the same thing as a public-opening decision.
 
 ## Short-Term Release Layer
 
