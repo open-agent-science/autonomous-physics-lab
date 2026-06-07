@@ -1,7 +1,7 @@
 # Dimensional Validator Boundary Result Preflight
 
 - Task: `TASK-0661`
-- Campaign: Dimensional Analysis Validator
+- Surface: Dimensional Validator quality gate
 - Verdict: `QUALITY_GATE_PRELIMINARY_NOT_PROMOTABLE`
 - Decision: keep the validator as a useful deterministic preflight gate, but do
   not promote the live 70-item curation surface to an `AGENT_VALIDATED`
@@ -76,7 +76,7 @@ These are acceptable limitations for the frozen MVP result, which is pinned to
 the 50-item benchmark scope. They are blockers for claiming that the expanded
 live curation surface is already a public-safe reusable quality gate.
 
-## Campaign Boundary Coverage
+## Cross-Campaign Boundary Coverage
 
 The replay supports the following low-risk use:
 

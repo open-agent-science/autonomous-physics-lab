@@ -8,7 +8,7 @@ priority: high
 strategy_alignment:
   - "Keep formula-generating agents honest by strengthening the deterministic dimensional sanity-check surface."
   - "Use boundary cases to prevent cross-campaign hypothesis tests from mistaking dimensional validity for physical truth."
-  - "Add an eighth active scientific surface without creating a speculative discovery campaign."
+  - "Keep dimensional validation as a reusable quality-gate surface without turning it into a speculative discovery campaign."
 
 input:
   mode: workflow
