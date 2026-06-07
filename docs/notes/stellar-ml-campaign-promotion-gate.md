@@ -40,7 +40,9 @@ is created:
    alternatives are declared before metrics. No formula search is allowed inside
    the first benchmark task.
 6. Holdout policy: splits prevent leakage across components of the same physical
-   system and across source references where relevant.
+   system and across source references where relevant. The DEBCat no-leakage
+   protocol is recorded in
+   `docs/reviews/stellar-ml-debcat-holdout-leakage-protocol.md`.
 7. Public wording: outputs are framed as benchmark residuals and range limits,
    not discovery claims about stellar evolution or HR-diagram physics.
 8. Result routing: any future result follows `docs/result-promotion-protocol.md`
