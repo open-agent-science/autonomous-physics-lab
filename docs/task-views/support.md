@@ -6,6 +6,7 @@
 
 ## READY
 
+- `TASK-0461` - Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0560` - Define docs reviews and notes retention policy (`documentation_architecture`, priority `medium`, difficulty `low`, domain `documentation_architecture`)
@@ -21,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0662` - Fix task occupancy false positive from TASK-QUEUE creation PRs (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+None.
