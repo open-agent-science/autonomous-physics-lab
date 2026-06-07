@@ -192,6 +192,38 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
     assert not any(issue.code == "done_task_without_result" for issue in issues)
 
 
+def test_scientific_memory_integrity_allows_explicit_no_result_policy(
+    tmp_path: Path,
+) -> None:
+    tasks = [
+        (
+            tmp_path / "tasks" / "TASK-REPLAY.yaml",
+            {
+                "id": "TASK-REPLAY",
+                "status": "DONE",
+                "type": "scientific_replay_validation",
+                "result_artifact_policy": {
+                    "required": False,
+                    "reason": "Gate B replay updates an existing result artifact.",
+                    "evidence": ["results/EXP-0013/RUN-0001/result.yaml"],
+                },
+            },
+        ),
+    ]
+
+    issues = collect_scientific_memory_integrity_issues(
+        hypotheses=[],
+        tasks=tasks,
+        claims=[],
+        knowledge_files=[],
+        example_configs=[],
+        results=[],
+        root_path=tmp_path,
+    )
+
+    assert not any(issue.code == "done_task_without_result" for issue in issues)
+
+
 def test_scientific_memory_integrity_allows_done_prediction_tasks_with_pred_artifact(
     tmp_path: Path,
 ) -> None:

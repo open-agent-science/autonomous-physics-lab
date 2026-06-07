@@ -63,10 +63,14 @@ def closeout_pr_body(
     root: Path = Path("."),
 ) -> str:
     """Render a repository-native closeout PR body."""
-    task_files = tuple(
-        find_task_file(root, task_id).as_posix()
-        for task_id in task_ids
-    )
+    if not task_ids:
+        raise ValueError("At least one --closed-task TASK-XXXX value is required.")
+    if any(task_id == "TASK-CLOSEOUT" for task_id in task_ids):
+        raise ValueError(
+            "TASK-CLOSEOUT is the closeout PR marker, not a task file. "
+            "Pass real closed task ids with --closed-task TASK-XXXX."
+        )
+    task_files = tuple(find_task_file(root, task_id).as_posix() for task_id in task_ids)
     changed = list(task_files)
     if include_task_views:
         changed.append("docs/task-views/")
