@@ -1,0 +1,63 @@
+id: TASK-0680
+title: "Refresh public-launch docs after Open Agent Science transfer"
+type: documentation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare the repository for public launch under open-agent-science/autonomous-physics-lab without changing scientific claims."
+  - "Keep the public science dashboard, campaign map, status, roadmap, and announcement draft aligned with the latest campaign evidence."
+  - "Remove post-transfer drift while preserving historical gladunrv links only where they are review or CI history."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/current-missions.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/campaigns/README.md"
+    - "docs/public-release-gates.md"
+    - "docs/publication-roadmap.md"
+    - "docs/roadmap.md"
+    - "docs/announcement-v0.1-public-alpha.md"
+  planning_context: >
+    The repository has moved to open-agent-science/autonomous-physics-lab and
+    several launch-readiness tasks have landed. Public-facing documentation now
+    needs a bounded refresh: current links and launch gates should reflect the
+    completed transfer, and campaign summaries should reflect the latest
+    evidence without adding duplicate dashboards or discovery wording.
+
+requirements:
+  - "Update live public/contributor-facing docs to the Open Agent Science repository path where appropriate."
+  - "Keep historical PR, CI, review, and archive links unchanged unless they are live-current onboarding links."
+  - "Update public campaign summaries to reflect current evidence, blockers, and next visible artifacts."
+  - "Do not create a new dashboard, duplicate status page, RESULT, PRED, CLAIM, or KNOW artifact."
+  - "Do not promote any scientific claim or imply that public opening has already happened."
+
+accepted_outputs:
+  - "README.md"
+  - "docs/status.md"
+  - "docs/current-missions.md"
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/README.md"
+  - "docs/public-release-gates.md"
+  - "docs/publication-roadmap.md"
+  - "docs/roadmap.md"
+  - "docs/announcement-v0.1-public-alpha.md"
+  - "tasks/TASK-0680-refresh-public-launch-docs-after-transfer.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

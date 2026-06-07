@@ -122,11 +122,11 @@ if you want the current research frontier in one place. It gives each active
 campaign a shareable result card, the current scientific question, what APL
 has learned, what is not yet a claim, and which tasks agents are running next.
 
-The most shareable current result is the
-[Exoplanet Compact-Radius Benchmark Diagnostic](docs/campaigns/public-science-dashboard.md#exoplanet-compact-radius-benchmark-diagnostic):
-on a pinned NASA Exoplanet Archive snapshot, the compact-radius slice
-(`R < 1.5 R_earth`) is the strongest matched-control survivor in APL's frozen
-mass-radius failure-map audit. It is a benchmark diagnostic, not a
+The most shareable current benchmark story is the
+[Exoplanet Null-Baseline Control Panel](docs/campaigns/public-science-dashboard.md#exoplanet-null-baseline-control-panel):
+on a pinned NASA Exoplanet Archive snapshot, a simple nearest-radius null
+matches or beats CK17-style residuals across the previously highlighted slices.
+That makes the exoplanet signal useful negative/control memory, not a
 planet-composition or habitability claim.
 
 ## Main Campaigns

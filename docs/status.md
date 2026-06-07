@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-`v0.2-public-alpha candidate — final maintainer opening decision pending`
+`v0.2-public-alpha candidate — post-transfer launch gate review`
 
 Autonomous Physics Lab is the first physics proof-of-work for Open Agent
 Science: an open agent network for reproducible, reviewable, citable scientific
@@ -27,12 +27,12 @@ APL is concentrating on six public-facing research surfaces:
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature is falsified, residual-free high-error is inconclusive, neutron-rich boundary and pairing-asymmetry controls are negative, magic-distance/magic-parity controls are control-dominated, and isotope-chain transfer is mixed/chain-local, so next useful work is negative/preflight packaging and reveal-readiness reporting |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy 2021 pinned rows exist; Nemitz 2016 source artifact is pinned but rows are blocked; covariance policy is defined; next work is real-row loader, direct-vs-derived separation, fallback sources, and synthetic cross-source dry-run |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | The default near-term science-output sprint: a fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Null-baseline family audit, landed host-context preflight, `TASK-0515` control-aware go/no-go, and second-snapshot target-freeze discipline after `BENCHMARK_SUMMARY_ONLY` scorecard and external-reviewer capsule |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Stellar Mass-Luminosity source/baseline planning before any Gaia DR3 metrics |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | An emerging reusable-dataset and benchmark-readiness lane built around source-pinned `MD-0001` | `MD-0001` is replayed and useful as dataset memory, but benchmark promotion remains blocked; next work is controls, split sensitivity, citation/reuse metadata, and public-safe evidence packaging |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; current residual-feature lanes are mostly negative, inconclusive, diagnostic-only, or validation-regressing, so the live path is reveal-readiness reporting and carefully bounded controls-first follow-up rather than broad new fitting |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Almeida needs checksum-pinned source artifacts and later deterministic digitization; the baseline remains blocked until real direct rows pass readiness |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy rows exist and Pizzocaro windows are diagnostic; next work is the source-derived PSD covariance approximation and a later baseline-readiness gate |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring, `EXO-0003` trigger discipline, and result-publication preflight, not another residual pilot |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Exact-reference result replay has landed; the empirical Stellar M-L lane waits on DEBCat row-readiness after the holdout/leakage protocol |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | An emerging reusable-dataset and benchmark-readiness lane built around source-pinned `MD-0001` | `MD-0001` is replayed and useful as dataset memory; the next path is MD-0002 acquisition preflight/holdout/loader planning plus preserving band-gap fragility as negative memory |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -79,14 +79,14 @@ Highlights:
   control-sensitive. This is the strongest current public-safe benchmark
   surface, not a claim about planet composition.
 - Atomic-Clock Residuals now has Beloy 2021 / BACON pinned as sandbox-only
-  direct frequency-ratio rows, a source-derived PSD covariance approximation,
-  a deterministic real-row loader, a synthetic cross-source dry run, the
-  correct Nemitz 2016 source artifact pinned with rows blocked, and a first-
-  benchmark covariance policy. It is still not a benchmark or constants-drift
-  result.
-- Textbook Formula Audit has a scaffold and ranked candidate slate. Its first
-  useful next step is Stellar Mass-Luminosity source/baseline planning, not an
-  audit run.
+  direct frequency-ratio rows, a deterministic real-row loader, a synthetic
+  cross-source dry run, the correct Nemitz 2016 source artifact pinned with
+  rows blocked, a first-benchmark covariance policy, Pizzocaro per-window
+  diagnostics, and a feasible source-derived PSD covariance-approximation path.
+  It is still not a benchmark or constants-drift result.
+- Textbook Formula Audit has a scaffold, ranked candidate slate, exact-reference
+  fixtures, and a Gate-B-validated Stefan-Boltzmann software/convention result.
+  Empirical Stellar M-L metrics remain blocked until DEBCat rows pass readiness.
 - Materials Property Residuals has `MD-0001`, a source-pinned stable-binary-
   oxides dataset with independent replay, a do-not-promote benchmark preflight,
   and early null-control memory. It is useful as a reusable-dataset lane, not
@@ -123,14 +123,14 @@ Important operating rules:
   measurement rows or a maintainer-approved weaker calibration-consistency
   scope exists.
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
-  Nemitz ingestion, loader, holdout/no-peek, and readiness-gate work before
-  any Yb/Sr consistency benchmark.
-- Exoplanet work is ready for null-baseline and host-context benchmark
-  hardening, but not for habitability, target-priority, or composition-law
-  claims.
-- Materials work is ready for `MD-0001` controls, split sensitivity, and
-  citation/reuse hardening, but not for broad property-law claims or widening
-  before the current seed dataset earns it.
+  the Pizzocaro covariance artifact, readiness-gate review, and admitted row
+  semantics before any Yb/Sr consistency benchmark.
+- Exoplanet residual scoring is closed on the current snapshot; it needs a
+  materially changed pinned snapshot or approved `EXO-0003` trigger before
+  another residual audit.
+- Materials work is ready for MD-0002 planning and band-gap negative-memory
+  packaging, but not for broad property-law claims, material recommendations,
+  or widening without the source-first acquisition gates.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 

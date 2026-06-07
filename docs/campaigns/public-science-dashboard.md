@@ -135,12 +135,12 @@ repository, or DOI.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can a frozen `NMD-0003` stratified gate make new residual-feature tests interpretable after the first large factory sprint produced no shortlist? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `TASK-0517` ran 72 `NMD-0003` candidates with 0 shortlisted; `TASK-0531` showed simple broad-surface refit improves train/full metrics but regresses on validation holdout; `TASK-0552` froze a stratified gate with diagnostic validation MAE `1.899279` MeV, and `TASK-0583` replayed it exactly. | Bounded residual-feature sprints, F2 controls-first scoring, uncertainty-weighted diagnostics, and reveal-source manifest scouting without values. | One controls-first residual-feature verdict, not a reveal score. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot change would justify reopening residual scoring after `EXO-0002` failed the gate? | Current-snapshot residual stress is control-sensitive; `EXO-0002` added seven post-filter rows, but no declared axis/slice cleared the reopen coverage gate, so CK17 replay was not run. The closed-lane decision is now preserved as negative/control memory and the two mass-class drift rows are recorded. | Closed-lane memory preserved; only forward step is planning an `EXO-0003` acquisition trigger (`TASK-0599`); residual scoring stays closed. | An `EXO-0003` acquisition-trigger decision, not a residual score. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture; Norris-Bawendi has a maintainer source-copy handoff; Kang-Wise is currently inadmissible. | Maintainer source-copy/digitization for Norris-Bawendi or one open direct-table source scout. | A legal source-artifact handoff or blocker, not model metrics. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; the real-row loader and synthetic cross-source dry-run have landed; Beloy row roles are assigned; Pizzocaro source artifacts are pinned, but rows remain blocked. | Pizzocaro row-admissibility gate. | A decision on whether Pizzocaro can become a second Yb/Sr row or remains blocker memory. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann and Wien have exact-reference fixtures; scoped result packaging is blocked on exact `EXP/HYP` identities; Stellar M-L is blocked on an independent mass source. | Define exact-reference result identities and select Stellar M-L independent mass-source candidates. | A scoped identity gate or mass-source selection, not empirical metrics. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; independent replay matched exactly; formation energy survives deterministic controls and is split-robust; band gap is weak and split-fragile; promotion remains blocked. | Public-safe evidence routing and source-first MD-0002 widening only after the active gate authorizes it. | A source-first MD-0002 preflight, not a material recommendation. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can bounded residual-feature work produce a robust result after the first large `NMD-0003` factory sprint produced no shortlist? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `TASK-0517` ran 72 `NMD-0003` candidates with 0 shortlisted; `TASK-0531` improved train/full metrics but regressed on validation holdout; F2 is diagnostic/inconclusive rather than promoted. | Reveal-readiness reporting, F2/factory result routing, and only tightly bounded controls-first follow-up. | A reveal-readiness matrix or scoped negative/diagnostic result, not a reveal score. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version change would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate, so CK17 replay was not run. The closed-lane decision is preserved as negative/control memory. | Negative/control publication preflight and source-version / `EXO-0003` trigger discipline. | A source-version or negative-memory artifact, not a residual score. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; synthetic digitization and non-spherical schema fixtures exist; Almeida 2023 is promising but still needs a checksum-pinned source package and real digitization. | Almeida source-artifact package and second open direct-table source scout. | A legal source-artifact package or blocker, not model metrics. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; the real-row loader and synthetic cross-source dry-run have landed; Pizzocaro windows are diagnostic; exact covariance is under-specified, but a source-derived PSD approximation is feasible. | Build the Pizzocaro PSD covariance approximation and decide the Lange/PTB source-artifact route. | A covariance/readiness artifact, not constants-drift metrics. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; empirical Stellar M-L is waiting on DEBCat row readiness. | DEBCat row-readiness after holdout/leakage protocol. | A row-readiness decision, not empirical metrics. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; independent replay matched exactly; formation energy survives deterministic controls and is split-robust; band gap is weak and split-fragile; promotion remains blocked. | MD-0002 acquisition/holdout/loader planning and band-gap negative-memory packaging. | A source-first MD-0002 preflight or negative-memory artifact, not a material recommendation. |
 
 ## What Is Interesting Right Now
 
@@ -210,9 +210,9 @@ Why it matters:
   Pizzocaro source artifacts are now pinned; the open question is row-level
   admissibility, ratio orientation, campaign window, and covariance semantics.
 
-Next visible artifact: a Norris-Bawendi source-copy/digitization package, a new
-open direct-table source blocker/pass for Quantum, and a Pizzocaro
-row-admissibility decision for Atomic.
+Next visible artifact: an Almeida checksum-pinned source-artifact package or
+blocker for Quantum, and a Pizzocaro PSD covariance/readiness artifact for
+Atomic.
 
 ### Textbook Formula Audit As A Public Entry Surface
 
@@ -226,8 +226,8 @@ Why it matters:
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Next visible artifact: a scoped exact-reference identity gate or an independent
-Stellar M-L mass-source selection before any empirical metrics.
+Next visible artifact: a DEBCat row-readiness decision before any empirical
+Stellar M-L metrics.
 
 ### Materials Dataset-To-Benchmark Path
 
@@ -237,8 +237,8 @@ repo, and now has holdout, citation metadata, a first conservative baseline
 benchmark, independent replay, a do-not-promote decision, formation-energy null
 controls, and split-sensitivity evidence. Formation energy is the stronger
 axis; band gap stays diagnostic and split-fragile. The next public artifact
-should be a source-first MD-0002 preflight, not a model leaderboard or material
-recommendation.
+should be MD-0002 acquisition/holdout/loader planning or band-gap negative
+memory, not a model leaderboard or material recommendation.
 
 Why it matters:
 
