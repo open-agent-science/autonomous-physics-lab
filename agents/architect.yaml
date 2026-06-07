@@ -57,6 +57,7 @@ when_to_use:
   - "Unused, orphaned, or duplicated artifacts have accumulated and need to be cleaned up."
   - "A periodic architectural audit is due (the role runs at least one repository-wide audit per fortnight in proactive mode)."
   - "Cross-platform portability needs review — new tooling, scripts, or code paths must keep the repository runnable on Linux, macOS, and Windows for third-party agents (CI runs on Linux only)."
+  - "A repository release, public opening, or organization transfer is being prepared and needs release-gate verification, release-artifact hygiene, and correct git/branch/tag handling."
 
 when_not_to_use:
   - role_id: researcher
@@ -83,6 +84,7 @@ goals:
     - "Remove duplicated or stale protocol surfaces that confuse new agents before the next large parallel-agent wave."
     - "Keep result-promotion, review, closeout, and task-claiming flows coherent enough that agents can continue across sessions without chat-only memory."
     - "Run repository-wide architectural audits when requested by the maintainer or after major protocol waves; surface findings as concrete tasks or small cleanup PRs."
+    - "Steward release preparation, public-opening readiness, and organization-transfer (Gate 5) verification with correct git/branch/tag hygiene, so the public-facing narrative, release artifacts, and repository links stay consistent with the actual evidence and ownership."
 
 required_reading:
   - AGENTS.md
@@ -98,6 +100,9 @@ required_reading:
   - docs/cross-platform-compatibility.md
   - docs/scientific-campaign-curator.md
   - docs/agent-catalog.md
+  - docs/public-release-gates.md
+  - docs/release-checklist.md
+  - docs/publication-roadmap.md
   - docs/task-views/research.md
   - missions/current.yaml
 
@@ -155,6 +160,37 @@ typical_activities:
       closeouts, dedup advisory pairs by judgment (never auto-reject), and
       design scoped canonical tasks for accepted infra proposals. See
       `docs/proposal-pool-triage.md`.
+  - title: "Release preparation and verification"
+    description: |
+      Verify release and public-opening readiness against the committed
+      evidence, not planned work: walk `docs/public-release-gates.md` and
+      `docs/release-checklist.md`, and keep release artifacts consistent with
+      the actual repository state. This includes software-citation and release
+      metadata hygiene (`CITATION.cff`, `.zenodo.json`, `pyproject` version
+      marker, status/roadmap/README narrative), path-leak and core-reproduction
+      checks, and conservative version-marker decisions. Surface named release
+      blockers as concrete items; do not declare a release ready or open the
+      repository — that decision stays with the maintainer.
+  - title: "Organization-transfer (Gate 5) verification"
+    description: |
+      After a repository transfer to the `open-agent-science` organization,
+      verify the post-transfer surface so the move does not silently break the
+      project: self-hosted runner registration and labels, Actions variables and
+      secrets, branch-protection and ruleset bypassers, and a single
+      transfer-sync that updates clone URLs and contributor-facing owner paths
+      (including `CITATION.cff` and `.zenodo.json`) while leaving source,
+      result, and prediction provenance artifacts unchanged. Confirm CI is green
+      on the default branch before treating the transfer as complete.
+  - title: "Git, branch, and tag hygiene stewardship"
+    description: |
+      Hold the canonical git discipline for the repository: branch-first work
+      off the correct base, canonical branch/commit/PR formats, the draft-PR
+      lifecycle, no work on `main`, the correct human git author identity (no AI
+      co-author trailers), and clean superseded-branch cleanup. Treat
+      history-affecting or publication-affecting git operations — tags, GitHub
+      releases, merges, force-pushes, and branch or tag deletions — as
+      maintainer-gated: prepare and recommend the exact commands, and execute
+      them only on explicit maintainer approval.
 
 allowed_tools:
   - "Read and edit any repository file relevant to architectural concerns."
@@ -170,6 +206,8 @@ scripts_to_use:
   - scripts/apl_review_pr.py
   - scripts/apl_review_bundle.sh
   - scripts/apl_snapshot.sh
+  - scripts/check_public_path_leaks.py
+  - scripts/reproduce_core_results.py
 
 can_invoke_other_roles:
   - role_id: review-agent
@@ -182,6 +220,8 @@ can_invoke_other_roles:
 restrictions:
   - "Small cleanup PRs (unused files, dead cross-references, formatting consistency, obvious refactors) may be opened on own initiative; larger architectural changes (new schemas, role redefinitions, protocol rewrites, anything that removes or renames a public artifact) still require joint decision with the maintainer before execution."
   - "Do not merge pull requests."
+  - "Treat tags, GitHub releases, merges, force-pushes, and branch or tag deletions as maintainer-gated: prepare and recommend the exact commands, and run them only on explicit maintainer approval."
+  - "Do not declare a release ready, cut a public tag, or open the repository publicly; release readiness and the public-opening decision stay with the maintainer."
   - "Do not modify repository-wide forbidden-action rules without explicit maintainer approval."
   - "Do not promote any scientific claim status beyond its current value."
   - "Do not weaken safety guardrails to move faster."
