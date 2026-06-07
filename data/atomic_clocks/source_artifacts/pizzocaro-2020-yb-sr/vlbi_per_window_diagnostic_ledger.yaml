@@ -1,0 +1,318 @@
+ledger_id: ACLOCK-PIZZOCARO-VLBI-WINDOW-DIAGNOSTIC-LEDGER-0001
+schema_version: 0.1.0
+task_id: TASK-0636
+campaign_profile_id: atomic-clock-residuals
+created_by:
+  contributor_id: roman
+  agent_id: claude
+diagnostic_only: true
+source:
+  artifact_id: ACLOCK-SRC-ARTIFACT-2020-PIZZOCARO-VLBI
+  source_file: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv
+  source_csv_sha256: fa81da6f0afadedfc5028352ed2af8c87dc64f1217eb2fb84efd0c6c064c87d2
+  section_locator: 'Figure 2a: Yb/Sr ratio measurement via VLBI'
+  dataset_doi: 10.5281/zenodo.5592085
+  publication_doi: 10.1038/s41567-020-01038-6
+  processing_path: VLBI
+value_semantics:
+  ratio_orientation: Yb/Sr
+  quantity: fractional_frequency_ratio_deviation_relative_units
+  units: dimensionless_relative
+  value_column: yVLBI=Yb/Sr
+  final_uncertainty_column: u
+  uncertainty_confidence_level: 1_sigma
+  direct_vs_derived_class: LINK_DERIVED_DIRECT_COMPARISON_CANDIDATE
+covariance:
+  state: COV_BLOCKED_SHARED_SYSTEMATICS
+  shared_systematic_components:
+  - uB1_comb
+  - uB2
+  - uB4_comb
+  reconstruction_attempt: blocked
+  blocker_reason: The 10 VLBI windows share clocks, frequency comb, the maser/optical
+    and VLBI links, campaign systematics, and deadtime/drift components. Window-invariant
+    systematic components (for example uB1_comb and uB4_comb at 8.00e-17 and uB2 at
+    1.00e-16) are load-bearing for any cross-window combination, but the committed
+    source artifacts do not expose a signed off-diagonal covariance or a deterministic
+    reconstruction recipe.
+  unblock_condition: A future task may move toward COV_SOURCE_DERIVED_PSD_APPROX only
+    if it commits a deterministic covariance reconstruction (row order, unit convention,
+    shared-component sign convention, pairwise decomposition, PSD check, omitted-component
+    list) from the committed source, or COV_EXACT_COMMITTED only if the source publishes
+    the full matrix. Until then the windows stay diagnostic-only.
+promotion_boundary:
+  writes_acr_benchmark_rows: false
+  writes_cross_window_aggregate_metric: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  knowledge_promotion_allowed: false
+window_count: 10
+windows:
+- window_id: PIZZOCARO-VLBI-W01
+  mjd_start: 58405.652
+  mjd_stop: 58406.856
+  mjd_med: 58406.254
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: -1.43e-15
+  final_uncertainty: 1.02e-15
+  statistical_components:
+    uA1: 1.09e-16
+    uA2: 7.4e-17
+    uA3: 3.9e-16
+    uA4: 1.86e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 4.44e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.08e-17
+  extrapolation_components:
+    udead12: 6.61e-16
+    udrift12: 1.54e-17
+    udead23: 3.02e-16
+    udrift23: 1.46e-17
+    udead34: 5.31e-16
+    udrift34: 7.85e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W02
+  mjd_start: 58426.028
+  mjd_stop: 58427.303
+  mjd_med: 58426.666
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: -4.45e-16
+  final_uncertainty: 9.41e-16
+  statistical_components:
+    uA1: 9.71e-17
+    uA2: 5.85e-17
+    uA3: 2.6e-16
+    uA4: 1.34e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 4.16e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.08e-17
+  extrapolation_components:
+    udead12: 6.84e-16
+    udrift12: 2.97e-18
+    udead23: 4.18e-16
+    udrift23: 3.31e-17
+    udead34: 3.46e-16
+    udrift34: 5.44e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W03
+  mjd_start: 58436.333
+  mjd_stop: 58437.54
+  mjd_med: 58436.937
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: 1.51e-15
+  final_uncertainty: 1.08e-15
+  statistical_components:
+    uA1: 1.02e-16
+    uA2: 6.93e-17
+    uA3: 2.3e-16
+    uA4: 1.97e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 4.2e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.08e-17
+  extrapolation_components:
+    udead12: 7.95e-16
+    udrift12: 3.53e-17
+    udead23: 4.35e-16
+    udrift23: 5.32e-17
+    udead34: 4.63e-16
+    udrift34: 1.57e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W04
+  mjd_start: 58446.569
+  mjd_stop: 58447.768
+  mjd_med: 58447.168
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: 1.21e-15
+  final_uncertainty: 1.57e-15
+  statistical_components:
+    uA1: 1.02e-16
+    uA2: 5.97e-17
+    uA3: 2.5e-16
+    uA4: 1.42e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 4.2e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.08e-17
+  extrapolation_components:
+    udead12: 1.41e-15
+    udrift12: 1.33e-16
+    udead23: 4.14e-16
+    udrift23: 4.27e-17
+    udead34: 4.08e-16
+    udrift34: 1.54e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W05
+  mjd_start: 58456.792
+  mjd_stop: 58457.999
+  mjd_med: 58457.395
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: 1.24e-15
+  final_uncertainty: 9.74e-16
+  statistical_components:
+    uA1: 1.69e-16
+    uA2: 1.01e-16
+    uA3: 2.2e-16
+    uA4: 6.55e-17
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 3.9e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.08e-17
+  extrapolation_components:
+    udead12: 7.65e-16
+    udrift12: 7.0e-18
+    udead23: 4.96e-16
+    udrift23: 3.99e-17
+    udead34: 5.14e-17
+    udrift34: 5.97e-19
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W06
+  mjd_start: 58467.021
+  mjd_stop: 58468.249
+  mjd_med: 58467.635
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: -1.2e-17
+  final_uncertainty: 8.64e-16
+  statistical_components:
+    uA1: 4.79e-17
+    uA2: 9.67e-17
+    uA3: 1.6e-16
+    uA4: 4.98e-17
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 3.84e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.14e-17
+  extrapolation_components:
+    udead12: 7.28e-16
+    udrift12: 1.08e-17
+    udead23: 1.98e-16
+    udrift23: 6.09e-17
+    udead34: 3.33e-16
+    udrift34: 4.28e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W07
+  mjd_start: 58477.25
+  mjd_stop: 58478.456
+  mjd_med: 58477.853
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: -2.49e-15
+  final_uncertainty: 1.35e-15
+  statistical_components:
+    uA1: 4.61e-17
+    uA2: 6.42e-17
+    uA3: 2.0e-16
+    uA4: 1.87e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 3.83e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.86e-17
+  extrapolation_components:
+    udead12: 9.65e-16
+    udrift12: 6.0e-17
+    udead23: 7.4e-16
+    udrift23: 9.3e-17
+    udead34: 4.87e-16
+    udrift34: 1.8e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W08
+  mjd_start: 58498.25
+  mjd_stop: 58499.456
+  mjd_med: 58498.853
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: 2.62e-16
+  final_uncertainty: 6.19e-16
+  statistical_components:
+    uA1: 6.68e-17
+    uA2: 9.62e-17
+    uA3: 1.5e-16
+    uA4: 1.3e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 3.19e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 9.86e-17
+  extrapolation_components:
+    udead12: 2.66e-16
+    udrift12: 1.07e-18
+    udead23: 2.52e-16
+    udrift23: 9.06e-17
+    udead34: 4.09e-16
+    udrift34: 5.45e-18
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W09
+  mjd_start: 58508.133
+  mjd_stop: 58509.308
+  mjd_med: 58508.72
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: 4.48e-16
+  final_uncertainty: 8.23e-16
+  statistical_components:
+    uA1: 5.41e-17
+    uA2: 7.4e-17
+    uA3: 1.8e-16
+    uA4: 1.34e-16
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 2.56e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 8.83e-17
+  extrapolation_components:
+    udead12: 4.83e-16
+    udrift12: 9.84e-18
+    udead23: 3.86e-16
+    udrift23: 2.3e-16
+    udead34: 4.03e-16
+    udrift34: 1.19e-17
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+- window_id: PIZZOCARO-VLBI-W10
+  mjd_start: 58528.125
+  mjd_stop: 58529.616
+  mjd_med: 58528.87
+  ratio_orientation: Yb/Sr
+  value_yb_sr_relative: 4.03e-16
+  final_uncertainty: 4.04e-16
+  statistical_components:
+    uA1: 5.48e-17
+    uA2: 1.13e-16
+    uA3: 1.9e-16
+    uA4: 6.27e-17
+  systematic_components:
+    uB1_comb: 8.0e-17
+    uB1_clock: 2.54e-17
+    uB2: 1.0e-16
+    uB4_comb: 8.0e-17
+    uB4_clock: 7.26e-17
+  extrapolation_components:
+    udead12: 1.38e-16
+    udrift12: 5.26e-19
+    udead23: 2.52e-16
+    udrift23: 3.26e-17
+    udead34: 6.43e-17
+    udrift34: 2.07e-19
+  covariance_state: COV_BLOCKED_SHARED_SYSTEMATICS
+limitations:
+- Diagnostic-only readiness memory; windows are not independent benchmark rows.
+- No cross-window aggregate value or uncertainty is computed.
+- Covariance remains COV_BLOCKED_SHARED_SYSTEMATICS until a reconstruction clears
+  the Atomic covariance policy.
+- Values are copied deterministically from the committed source CSV; no live fetch.
