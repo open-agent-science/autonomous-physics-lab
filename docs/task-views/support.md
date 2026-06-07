@@ -25,3 +25,4 @@ None.
 - `TASK-0663` - Harden closeout helper and result-artifact policy contract (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
 - `TASK-0664` - Fix stale task-archive validation command (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-0665` - Exclude PR body helper artifact from task PR changed-file list (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
+- `TASK-0671` - Add pytest runtime fail-fast guard (`maintainer_tooling`, priority `high`, difficulty `low`, domain `validation_runtime`)
