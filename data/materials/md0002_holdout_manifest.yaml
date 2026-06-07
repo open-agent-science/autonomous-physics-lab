@@ -1,0 +1,191 @@
+manifest_id: MD-0002-HOLDOUT-NOPEEK-SCAFFOLD-0001
+schema_version: 0.1.0
+task_id: TASK-0644
+campaign_id: materials-property-residuals
+status: draft_no_peek_scaffold_no_rows
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+created_utc: 2026-06-07
+
+purpose: >
+  Scaffold the pre-acquisition split vocabulary and no-peek boundaries for a
+  future MD-0002 Materials Project stable-ternary-oxides slice. This manifest
+  contains no value-bearing row ids, no fetched rows, and no benchmark metrics.
+
+scope:
+  dataset_family: MD-0002
+  source_id: materials-project
+  source_manifest: data/materials/source_manifest.yaml
+  planned_snapshot_manifest: data/materials/materials_md0002_snapshot_manifest.yaml
+  planned_raw_snapshot: data/materials/snapshots/materials_project_stable_ternary_oxides_<database_version>.json
+  planned_dataset_files:
+    - data/materials/md-0002-materials-project-formation-energy.yaml
+    - data/materials/md-0002-materials-project-band-gap.yaml
+  database_version: TO_BE_PINNED_BY_ACQUISITION
+  snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+  row_count_per_axis: TO_BE_REPORTED_BY_ACQUISITION
+  target_row_count_per_axis: "600-1500 bounded acquisition target; stop and report if exceeded"
+  material_scope: stable_ternary_oxides
+  composition_rule: "Exactly three distinct elements, one oxygen and two non-oxygen cations."
+
+promotion_boundary:
+  benchmark_allowed_by_this_manifest: false
+  claims_allowed: false
+  results_allowed: false
+  prediction_registry_allowed: false
+  live_fetch_allowed: false
+  notes:
+    - "This scaffold declares split candidates before acquisition; it does not authorize fetching rows."
+    - "A later acquisition task must replace placeholders with source version, checksum, and row-count metadata before scoring."
+    - "No train, validation, holdout, stress, or excluded row assignment is made by this scaffold."
+
+holdout_schema:
+  allowed_split_values:
+    - train
+    - validation
+    - holdout
+    - stress
+    - excluded
+  required_benchmark_binding:
+    dataset_family: MD-0002
+    holdout_manifest: data/materials/md0002_holdout_manifest.yaml
+    snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+  no_peek_enforcement:
+    - "Declare the final split rule and random seeds before residuals, metrics, or model errors are inspected."
+    - "Do not tune material_id modulo buckets, cation-pair families, prototype groups, property bins, or exclusions after scoring."
+    - "Do not pool formation_energy_per_atom with band_gap."
+    - "Do not mix computed_dft rows with measured or model-only rows."
+
+axis_policies:
+  - axis_id: md0002_formation_energy_per_atom
+    planned_dataset_file: data/materials/md-0002-materials-project-formation-energy.yaml
+    property_kind: formation_energy_per_atom
+    units: eV_per_atom
+    provenance_class: computed_dft
+    row_class: computed_property
+    include_if:
+      inclusion_status: included
+      is_stable: true
+      composition_family: ternary_oxide
+    must_not_pool_with:
+      - md0002_band_gap
+      - measured_property_rows
+      - model_only_rows
+
+  - axis_id: md0002_band_gap
+    planned_dataset_file: data/materials/md-0002-materials-project-band-gap.yaml
+    property_kind: band_gap
+    units: eV
+    provenance_class: computed_dft
+    row_class: computed_property
+    include_if:
+      inclusion_status: included
+      is_stable: true
+      composition_family: ternary_oxide
+    must_not_pool_with:
+      - md0002_formation_energy_per_atom
+      - measured_property_rows
+      - model_only_rows
+
+provenance_row_classes:
+  computed_property:
+    provenance_class: computed_dft
+    benchmark_axis_allowed: true
+    notes: "MD-0002 is planned as Materials Project computed DFT only."
+  measured_property:
+    provenance_class: measured
+    benchmark_axis_allowed: false
+    notes: "Measured rows require a separate source review and must not be mixed into MD-0002 computed axes."
+  model_only_context:
+    provenance_class: model_only
+    benchmark_axis_allowed: false
+    default_split: excluded
+  excluded_row:
+    provenance_class: excluded
+    benchmark_axis_allowed: false
+    default_split: excluded
+    required_field: exclusion_reason
+
+pre_score_split_axes:
+  material_id_modulo:
+    source_fields:
+      - material_id
+    candidate_rule: "Sort stable material_id values, then assign deterministic modulo buckets such as 70/15/15."
+    no_peek_rule: "Modulo divisor and bucket mapping must be frozen before residual inspection."
+
+  seeded_random:
+    source_fields:
+      - material_id
+    candidate_rule: "Use predeclared integer seeds on the frozen admissible material_id list."
+    required_record:
+      - seed
+      - split_fraction
+      - software_version
+    no_peek_rule: "Seeds may not be chosen or discarded after seeing metrics."
+
+  cation_pair_family:
+    source_fields:
+      - composition
+      - formula_pretty
+    candidate_rule: "Group by unordered non-oxygen cation pair or predeclared cation-family bucket."
+    allowed_grouping_examples:
+      - transition_metal_pair
+      - alkali_transition_pair
+      - alkaline_earth_transition_pair
+      - rare_earth_transition_pair
+      - p_block_transition_pair
+      - mixed_or_ambiguous_pair
+    no_peek_rule: "Family definitions must be frozen before scoring."
+
+  spacegroup_or_prototype:
+    source_fields:
+      - spacegroup_symbol
+      - nsites
+    candidate_rule: "Use exact spacegroup_symbol first; any prototype collapsing must be documented before scoring."
+    allowed_grouping_examples:
+      - same_spacegroup_symbol
+      - low_symmetry
+      - high_symmetry
+      - small_cell
+      - large_cell
+      - prototype_unknown
+
+  property_range_bins:
+    source_fields:
+      - value
+      - property_kind
+    candidate_rule: >
+      Numeric thresholds may be used only when declared before residual
+      inspection and reported separately for formation_energy_per_atom and
+      band_gap.
+    example_bins:
+      formation_energy_per_atom:
+        - near_zero
+        - moderate_negative
+        - strongly_negative
+      band_gap:
+        - metallic_or_zero_gap
+        - small_gap
+        - moderate_or_large_gap
+
+  source_version:
+    source_fields:
+      - database_version
+      - snapshot_checksum_sha256
+    candidate_rule: "A second Materials Project snapshot must use a separate manifest revision."
+    md0002_value: TO_BE_PINNED_BY_ACQUISITION
+
+blocked_actions:
+  - "Fetch or ingest Materials Project rows."
+  - "Commit value-bearing MD-0002 row ids."
+  - "Run baseline metrics or residual maps."
+  - "Choose split thresholds after inspecting residuals."
+  - "Pool formation_energy_per_atom with band_gap."
+  - "Mix computed DFT rows with measured rows."
+  - "Promote material-discovery, design, synthesis, device, biomedical, or new-law claims."
+
+next_allowed_work:
+  - "A maintainer-authorized acquisition task may pin database_version, checksum, row counts, and source snapshot metadata."
+  - "A later loader/schema task may validate row structure after acquisition without scoring residuals."
+  - "A benchmark task may bind to the finalized MD-0002 manifest only after split rules are frozen."
