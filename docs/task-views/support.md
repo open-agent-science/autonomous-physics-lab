@@ -23,3 +23,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0663` - Harden closeout helper and result-artifact policy contract (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
+- `TASK-0664` - Fix stale task-archive validation command (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `maintainer_workflow`)
