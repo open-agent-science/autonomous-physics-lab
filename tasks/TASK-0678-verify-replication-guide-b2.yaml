@@ -1,0 +1,50 @@
+id: TASK-0678
+title: "Verify external reviewer replication guide for public-readiness blocker B2"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Clear named blocker B2 from the v0.2 public-readiness review with durable, dated evidence."
+  - "Confirm the external-reviewer replication path matches the current public evidence surface after the organization transfer, without overstating readiness."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - docs/external-reviewer-replication-guide.md
+    - scripts/reproduce_core_results.py
+    - docs/reviews/v0.2-public-readiness.md
+  planning_context: >-
+    Named blocker B2 from docs/reviews/v0.2-public-readiness.md asks to verify
+    the external-reviewer replication guide against the current major public
+    evidence surface. The guide was audited against the live repository: the
+    bounded core replay table matches scripts/reproduce_core_results.py --list
+    exactly, all referenced canonical result directories and docs exist, the
+    clone URL points at the post-transfer owner, and the validation commands
+    match the canonical commands. No corrections to the guide are required, so
+    this task records the verification as a dated review note.
+
+requirements:
+  - "Add a dated verification note under docs/reviews/ recording the audit method, findings, and the B2 PASS verdict."
+  - "Do not edit docs/external-reviewer-replication-guide.md; the audit found no required corrections."
+  - "Do not change any result artifact, scientific value, verdict, or metric."
+  - "Keep wording readiness-honest: a passing replication-guide audit is not by itself a public-opening decision."
+
+accepted_outputs:
+  - "docs/reviews/external-reviewer-replication-guide-verification-2026-06-07.md"
+  - "tasks/TASK-0678-verify-replication-guide-b2.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 scripts/reproduce_core_results.py --list"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
