@@ -23,12 +23,22 @@ def build_parser() -> argparse.ArgumentParser:
         default=200,
         help="How many merged PRs to inspect via gh.",
     )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help=(
+            "Apply all READY closeout candidates by updating task statuses from "
+            "REVIEW_READY to DONE. Requires clean main."
+        ),
+    )
     return parser
 
 
 def main() -> int:
     """Run the closeout sweep helper."""
     from physics_lab.registry.closeout_sweep import (
+        apply_closeout_sweep_report,
+        render_closeout_sweep_apply_report,
         build_closeout_sweep_report,
         render_closeout_sweep_report,
     )
@@ -37,6 +47,10 @@ def main() -> int:
     args = parser.parse_args()
     report = build_closeout_sweep_report(REPO_ROOT, merged_limit=args.merged_limit)
     print(render_closeout_sweep_report(report))
+    if args.apply:
+        print("")
+        apply_report = apply_closeout_sweep_report(REPO_ROOT, report)
+        print(render_closeout_sweep_apply_report(apply_report))
     return 0
 
 

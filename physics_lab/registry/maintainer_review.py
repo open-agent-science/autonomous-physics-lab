@@ -22,6 +22,7 @@ from physics_lab.registry.review_git import (
     parse_added_lines,  # noqa: F401 — re-exported; tests import from here
 )
 from physics_lab.registry.generated_state import sync_generated_task_state
+from physics_lab.registry.pr_capability import find_gh_path
 from physics_lab.registry.task_discovery import find_task_files
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
@@ -450,9 +451,12 @@ def run_task_validation(
 
 def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
     """Load PR metadata through the GitHub CLI when available."""
+    gh_path = find_gh_path()
+    if gh_path is None:
+        return None
     result = run_command(
         [
-            "gh",
+            gh_path,
             "pr",
             "view",
             str(number),
@@ -463,19 +467,27 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
         timeout=30,
     )
     if result.returncode != 0:
-        return _load_pr_metadata_from_list(root, number)
+        return _load_pr_metadata_from_list(root, number, gh_path=gh_path)
     try:
         payload = json.loads(result.stdout)
     except json.JSONDecodeError:
-        return _load_pr_metadata_from_list(root, number)
+        return _load_pr_metadata_from_list(root, number, gh_path=gh_path)
     return _pull_request_metadata_from_payload(payload)
 
 
-def _load_pr_metadata_from_list(root: Path, number: int) -> PullRequestMetadata | None:
+def _load_pr_metadata_from_list(
+    root: Path,
+    number: int,
+    *,
+    gh_path: str | None = None,
+) -> PullRequestMetadata | None:
     """Fallback PR metadata path for flaky direct gh pr view calls."""
+    resolved_gh_path = gh_path or find_gh_path()
+    if resolved_gh_path is None:
+        return None
     result = run_command(
         [
-            "gh",
+            resolved_gh_path,
             "pr",
             "list",
             "--state",

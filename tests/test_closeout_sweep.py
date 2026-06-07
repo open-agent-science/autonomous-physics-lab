@@ -5,11 +5,14 @@ from pathlib import Path
 from unittest.mock import patch
 
 from physics_lab.registry.closeout_sweep import (
+    CloseoutSweepCandidate,
+    apply_closeout_sweep_report,
     CloseoutSweepReport,
     build_closeout_sweep_report,
     closeout_pr_binding_blockers,
     list_review_ready_tasks,
     load_merged_task_pull_requests,
+    render_closeout_sweep_apply_report,
     render_closeout_sweep_report,
 )
 from physics_lab.registry.maintainer_review import CloseoutReport, PullRequestMetadata
@@ -116,16 +119,57 @@ def test_load_merged_task_pull_requests_falls_back_to_gh_pr_list(
             )
         if command[:2] == ["git", "log"]:
             return CommandResult(returncode=0, stdout="", stderr="")
-        if command[:3] == ["gh", "pr", "list"]:
+        if command[1:3] == ["pr", "list"]:
             return CommandResult(returncode=0, stdout=gh_payload, stderr="")
         return CommandResult(returncode=1, stdout="", stderr="unexpected command")
 
-    with patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command):
+    with (
+        patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command),
+    ):
         result = load_merged_task_pull_requests(tmp_path)
 
     assert result["TASK-1002"].number == 14
     assert result["TASK-1002"].url.endswith("/pull/14")
     assert "TASK-CLOSEOUT" not in result
+
+
+def test_load_merged_task_pull_requests_uses_discovered_gh_path(
+    tmp_path: Path,
+) -> None:
+    commands: list[list[str]] = []
+    gh_payload = json.dumps(
+        [
+            {
+                "number": 16,
+                "title": "TASK-1003: Remote merged task",
+                "mergedAt": "2026-05-04T16:00:00Z",
+            },
+        ]
+    )
+
+    def _fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        commands.append(command)
+        if command[:4] == ["git", "remote", "get-url", "origin"]:
+            return CommandResult(
+                returncode=0,
+                stdout="https://github.com/gladunrv/autonomous-physics-lab.git\n",
+                stderr="",
+            )
+        if command[:2] == ["git", "log"]:
+            return CommandResult(returncode=0, stdout="", stderr="")
+        if command[:3] == ["/custom/gh", "pr", "list"]:
+            return CommandResult(returncode=0, stdout=gh_payload, stderr="")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected command")
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command),
+    ):
+        result = load_merged_task_pull_requests(tmp_path)
+
+    assert result["TASK-1003"].number == 16
+    assert any(command[:3] == ["/custom/gh", "pr", "list"] for command in commands)
 
 
 def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_path: Path) -> None:
@@ -330,3 +374,60 @@ def test_render_closeout_sweep_report_lists_sections() -> None:
     assert "Ready closeout candidates:" in rendered
     assert "Blocked closeout candidates:" in rendered
     assert "Skipped REVIEW_READY tasks:" in rendered
+
+
+def test_apply_closeout_sweep_report_updates_all_ready_tasks(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_task(
+        tasks_dir / "TASK-1000-alpha.yaml",
+        task_id="TASK-1000",
+        title="Alpha",
+        status="REVIEW_READY",
+    )
+    _write_task(
+        tasks_dir / "TASK-1001-beta.yaml",
+        task_id="TASK-1001",
+        title="Beta",
+        status="REVIEW_READY",
+    )
+    candidates = (
+        CloseoutSweepCandidate(
+            task_id="TASK-1000",
+            task_title="Alpha",
+            pull_request=10,
+            pr_title="TASK-1000: Alpha",
+            pr_url="https://example/10",
+            outcome="READY_TO_APPLY",
+            blockers=(),
+            required_actions=(),
+            recommended_apply_command=None,
+        ),
+        CloseoutSweepCandidate(
+            task_id="TASK-1001",
+            task_title="Beta",
+            pull_request=11,
+            pr_title="TASK-1001: Beta",
+            pr_url="https://example/11",
+            outcome="READY_TO_APPLY",
+            blockers=(),
+            required_actions=(),
+            recommended_apply_command=None,
+        ),
+    )
+    report = CloseoutSweepReport(
+        branch="main",
+        ready=candidates,
+        blocked=(),
+        skipped=(),
+    )
+
+    with patch("physics_lab.registry.closeout_sweep.git_status_clean", return_value=True):
+        apply_report = apply_closeout_sweep_report(tmp_path, report)
+
+    assert len(apply_report.applied) == 2
+    assert "status: DONE" in (tasks_dir / "TASK-1000-alpha.yaml").read_text(encoding="utf-8")
+    assert "status: DONE" in (tasks_dir / "TASK-1001-beta.yaml").read_text(encoding="utf-8")
+    rendered = render_closeout_sweep_apply_report(apply_report)
+    assert "TASK-1000 -> DONE" in rendered
+    assert "TASK-1001 -> DONE" in rendered
