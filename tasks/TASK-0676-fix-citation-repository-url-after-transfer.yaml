@@ -1,0 +1,47 @@
+id: TASK-0676
+title: "Fix CITATION.cff repository URL after organization transfer"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Complete the organization-transfer (Gate 5) link sync so the public-facing software-citation artifact points at the actual repository owner."
+  - "Keep release-artifact hygiene consistent with the real repository state without rewriting source, result, or prediction provenance."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - CITATION.cff
+    - tasks/TASK-0674-sync-repo-links-after-organization-transfer.yaml
+  planning_context: >-
+    TASK-0674 synced live repository links after the transfer to the
+    open-agent-science organization but missed CITATION.cff, whose
+    repository-code and url still pointed at the old gladunrv path. This task
+    fixes that straggler. The remaining gladunrv references on main are
+    provenance, historical, or generated surfaces (results, microtask runs,
+    archived tasks, historical docs, the 0673/0674 task files themselves, and
+    the regenerated CONTEXT.md) and are intentionally left unchanged.
+
+requirements:
+  - "Update repository-code and url in CITATION.cff from the gladunrv path to https://github.com/open-agent-science/autonomous-physics-lab."
+  - "Do not change version, authors, ORCID, abstract, or other CITATION.cff metadata."
+  - "Do not rewrite source, result, prediction, microtask-run, archived-task, or historical-doc provenance that legitimately records the old owner path."
+
+accepted_outputs:
+  - "CITATION.cff"
+  - "tasks/TASK-0676-fix-citation-repository-url-after-transfer.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -c \"import yaml; d=yaml.safe_load(open('CITATION.cff', encoding='utf-8')); assert d['cff-version'] == '1.2.0'; assert 'open-agent-science' in d['repository-code']\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
