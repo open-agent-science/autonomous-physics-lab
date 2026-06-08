@@ -1,0 +1,48 @@
+id: TASK-0683
+title: "Fix stale CLI status stage assertion after post-transfer status refresh"
+type: workflow_hardening
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Repair the red full_repo suite on main so the launch-gate test reflects current status wording."
+  - "Keep docs/status.md the single source of truth for the public stage string."
+  - "Prevent the post-transfer status refresh from silently breaking the status smoke test."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "docs/status.md"
+    - "tests/test_pendulum.py"
+    - "tasks/TASK-0680-refresh-public-launch-docs-after-transfer.yaml"
+  planning_context: >
+    TASK-0680 (commit d38dce32) refreshed docs/status.md to
+    "v0.2-public-alpha candidate — post-transfer launch gate review" but did not
+    update tests/test_pendulum.py::test_cli_status_smoke, which still asserts the
+    previous string "final maintainer opening decision pending". The full_repo
+    pytest lane (skipped in fast PR CI, run only in the main matrix) has been red
+    on main since 2026-06-07. This task realigns the test assertion with the
+    current committed status wording. It changes only the test expectation, not
+    the status content or any scientific artifact.
+
+requirements:
+  - "Update the test_cli_status_smoke stage assertion to match the current docs/status.md stage string."
+  - "Do not change docs/status.md, the status CLI output, or any scientific artifact."
+  - "Confirm the full_repo pytest lane passes after the change."
+
+accepted_outputs:
+  - "tests/test_pendulum.py stage assertion aligned with docs/status.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_pendulum.py -k test_cli_status_smoke"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
