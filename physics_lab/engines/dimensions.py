@@ -198,6 +198,9 @@ _DIMENSIONLESS_FUNCTIONS = {
     "asin", "acos", "atan", "sinh", "cosh", "tanh",
     "abs",
 }
+_DIMENSIONLESS_CONSTANTS = {
+    "pi": DIMENSIONLESS,
+}
 
 
 def _eval_node(node: ast.AST, var_dims: dict[str, Dimension]) -> Dimension:
@@ -305,7 +308,8 @@ def evaluate_expression_dimension(
     var_dimensions: dict[str, Dimension],
 ) -> Dimension:
     """Compute the SI dimension of a free-form formula expression."""
-    safe_expression, safe_vars = _sanitize_identifiers(expression, var_dimensions)
+    dimensions = {**_DIMENSIONLESS_CONSTANTS, **var_dimensions}
+    safe_expression, safe_vars = _sanitize_identifiers(expression, dimensions)
     tree = ast.parse(safe_expression, mode="eval")
     return _eval_node(tree.body, safe_vars)
 
@@ -389,8 +393,12 @@ def validate_item(item: dict[str, Any]) -> ValidationResult:
     if lhs_dim == rhs_dim:
         # Suspicious heuristic: if every variable is dimensionless, flag.
         if all(v.is_dimensionless() for v in var_dims.values()) and var_dims:
-            verdict = "SUSPICIOUS"
-            detail = "All variables dimensionless; no physical scale check."
+            if item.get("dimensionless_relation_policy") == "accepted_textbook_identity":
+                verdict = "VALID"
+                detail = "Curated all-dimensionless textbook identity."
+            else:
+                verdict = "SUSPICIOUS"
+                detail = "All variables dimensionless; no physical scale check."
         else:
             verdict = "VALID"
             detail = f"LHS = RHS = {lhs_dim}"
