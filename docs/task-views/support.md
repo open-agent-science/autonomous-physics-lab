@@ -20,3 +20,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0622` - Add PR finish gate helper for review, CI, and ready transition (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
+- `TASK-0683` - Fix stale CLI status stage assertion after post-transfer status refresh (`workflow_hardening`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
