@@ -1,0 +1,1724 @@
+approximation_id: ACLOCK-PIZZOCARO-VLBI-COV-APPROX-0001
+schema_version: 0.1.0
+task_id: TASK-0666
+campaign_profile_id: atomic-clock-residuals
+covariance_state: COV_SOURCE_DERIVED_PSD_APPROX
+status: source_derived_psd_approximation
+created_by:
+  contributor_id: master
+  agent_id: codex
+derived_from:
+  ledger_id: ACLOCK-PIZZOCARO-VLBI-WINDOW-DIAGNOSTIC-LEDGER-0001
+  ledger_path: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_per_window_diagnostic_ledger.yaml
+  source_artifact_id: ACLOCK-SRC-ARTIFACT-2020-PIZZOCARO-VLBI
+  source_csv_sha256: fa81da6f0afadedfc5028352ed2af8c87dc64f1217eb2fb84efd0c6c064c87d2
+  publication_doi: 10.1038/s41567-020-01038-6
+  dataset_doi: 10.5281/zenodo.5592085
+  processing_path: VLBI
+scope:
+  purpose: Source-derived approximate covariance matrix for the ten committed Pizzocaro 2020 Yb/Sr VLBI
+    campaign windows.
+  sensitivity_only: true
+  benchmark_allowed: false
+  aggregates_windows: false
+  drift_fitting_allowed: false
+  claim_promotion_allowed: false
+  prediction_registry_allowed: false
+methodology:
+  unit_convention: dimensionless fractional uncertainty; covariance entries reported in (1e-17)^2 = 1e-34
+    relative-units-squared
+  row_order_frozen: true
+  diagonal_source: Per-window final u uncertainty from the committed VLBI diagnostic ledger, squared.
+  off_diagonal_rule: Common-mode covariance from uB1_comb, uB2, and uB4_comb plus same-sign fully correlated
+    clock terms uB1_clock and uB4_clock.
+  shared_component_sign_convention: All included shared components use same-sign +1 covariance across
+    VLBI windows.
+  clock_correlation_assumption: Primary approximation uses rho_clock = +1 for same physical Yb and Sr
+    clocks; sensitivity lower bound also reports rho_clock = 0.
+  diagonal_only_components:
+  - uA1
+  - uA2
+  - uA3
+  - uA4
+  - udead12
+  - udrift12
+  - udead23
+  - udrift23
+  - udead34
+  - udrift34
+  shared_components_in_off_diagonals:
+  - uB1_comb
+  - uB2
+  - uB4_comb
+  - uB1_clock
+  - uB4_clock
+covariance_matrix_e_minus_34:
+  row_order: &id001
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W05
+  - PIZZOCARO-VLBI-W06
+  - PIZZOCARO-VLBI-W07
+  - PIZZOCARO-VLBI-W08
+  - PIZZOCARO-VLBI-W09
+  - PIZZOCARO-VLBI-W10
+  matrix:
+  - - 10404.0
+    - 328.9168
+    - 329.0944
+    - 329.0944
+    - 327.7624
+    - 328.0408
+    - 334.534
+    - 331.6924
+    - 319.5428
+    - 305.1984
+  - - 328.9168
+    - 8854.81
+    - 327.9184
+    - 327.9184
+    - 326.6704
+    - 326.9656
+    - 333.4616
+    - 330.7992
+    - 318.826
+    - 304.4872
+  - - 329.0944
+    - 327.9184
+    - 11664.0
+    - 328.0864
+    - 326.8264
+    - 327.1192
+    - 333.6148
+    - 330.9268
+    - 318.9284
+    - 304.5888
+  - - 329.0944
+    - 327.9184
+    - 328.0864
+    - 24649.0
+    - 326.8264
+    - 327.1192
+    - 333.6148
+    - 330.9268
+    - 318.9284
+    - 304.5888
+  - - 327.7624
+    - 326.6704
+    - 326.8264
+    - 326.8264
+    - 9486.76
+    - 325.9672
+    - 332.4658
+    - 329.9698
+    - 318.1604
+    - 303.8268
+  - - 328.0408
+    - 326.9656
+    - 327.1192
+    - 327.1192
+    - 325.9672
+    - 7464.96
+    - 332.8276
+    - 330.37
+    - 318.5366
+    - 304.11
+  - - 334.534
+    - 333.4616
+    - 333.6148
+    - 333.6148
+    - 332.4658
+    - 332.8276
+    - 18225.0
+    - 337.4373
+    - 324.8686
+    - 309.3118
+  - - 331.6924
+    - 330.7992
+    - 330.9268
+    - 330.9268
+    - 329.9698
+    - 330.37
+    - 337.4373
+    - 3831.61
+    - 323.2302
+    - 307.6862
+  - - 319.5428
+    - 318.826
+    - 318.9284
+    - 318.9284
+    - 318.1604
+    - 318.5366
+    - 324.8686
+    - 323.2302
+    - 6773.29
+    - 298.6082
+  - - 305.1984
+    - 304.4872
+    - 304.5888
+    - 304.5888
+    - 303.8268
+    - 304.11
+    - 309.3118
+    - 307.6862
+    - 298.6082
+    - 1632.16
+  positive_semidefinite_check:
+    eigenvalues_e_minus_34:
+    - 1539.04345
+    - 3743.676295
+    - 6619.632681
+    - 7396.436223
+    - 8718.123143
+    - 9460.401664
+    - 10490.264565
+    - 11978.509671
+    - 18307.94559
+    - 24731.556718
+    minimum_eigenvalue_e_minus_34: 1539.04345
+    psd_verdict: PASS
+correlation_matrix:
+  row_order: *id001
+  matrix:
+  - - 1.0
+    - 0.034269
+    - 0.029874
+    - 0.02055
+    - 0.032991
+    - 0.037223
+    - 0.024294
+    - 0.052535
+    - 0.038065
+    - 0.074063
+  - - 0.034269
+    - 1.0
+    - 0.032267
+    - 0.022196
+    - 0.035642
+    - 0.040216
+    - 0.02625
+    - 0.056792
+    - 0.041168
+    - 0.080094
+  - - 0.029874
+    - 0.032267
+    - 1.0
+    - 0.019349
+    - 0.03107
+    - 0.035056
+    - 0.022882
+    - 0.049501
+    - 0.035881
+    - 0.069809
+  - - 0.02055
+    - 0.022196
+    - 0.019349
+    - 1.0
+    - 0.021373
+    - 0.024115
+    - 0.01574
+    - 0.034052
+    - 0.024683
+    - 0.048021
+  - - 0.032991
+    - 0.035642
+    - 0.03107
+    - 0.021373
+    - 1.0
+    - 0.038735
+    - 0.025284
+    - 0.05473
+    - 0.039691
+    - 0.077212
+  - - 0.037223
+    - 0.040216
+    - 0.035056
+    - 0.024115
+    - 0.038735
+    - 1.0
+    - 0.028535
+    - 0.061773
+    - 0.044797
+    - 0.087124
+  - - 0.024294
+    - 0.02625
+    - 0.022882
+    - 0.01574
+    - 0.025284
+    - 0.028535
+    - 1.0
+    - 0.04038
+    - 0.02924
+    - 0.056713
+  - - 0.052535
+    - 0.056792
+    - 0.049501
+    - 0.034052
+    - 0.05473
+    - 0.061773
+    - 0.04038
+    - 1.0
+    - 0.063449
+    - 0.123037
+  - - 0.038065
+    - 0.041168
+    - 0.035881
+    - 0.024683
+    - 0.039691
+    - 0.044797
+    - 0.02924
+    - 0.063449
+    - 1.0
+    - 0.089809
+  - - 0.074063
+    - 0.080094
+    - 0.069809
+    - 0.048021
+    - 0.077212
+    - 0.087124
+    - 0.056713
+    - 0.123037
+    - 0.089809
+    - 1.0
+per_pair_decomposition_e_minus_34:
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W02
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 4.16e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 18.4704
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 328.9168
+  correlation_rho: 0.034269
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W03
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 4.2e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 18.648
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 329.0944
+  correlation_rho: 0.029874
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W04
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 4.2e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 18.648
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 329.0944
+  correlation_rho: 0.02055
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W05
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 3.9e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 17.316
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 327.7624
+  correlation_rho: 0.032991
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W06
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 3.84e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 17.0496
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.14e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.9912
+  total_covariance_e_minus_34: 328.0408
+  correlation_rho: 0.037223
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W07
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 3.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 17.0052
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 334.534
+  correlation_rho: 0.024294
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 14.1636
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 331.6924
+  correlation_rho: 0.052535
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 11.3664
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 80.1764
+  total_covariance_e_minus_34: 319.5428
+  correlation_rho: 0.038065
+- pair:
+  - PIZZOCARO-VLBI-W01
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.44e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 11.2776
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 65.9208
+  total_covariance_e_minus_34: 305.1984
+  correlation_rho: 0.074063
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W03
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 4.2e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 17.472
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 327.9184
+  correlation_rho: 0.032267
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W04
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 4.2e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 17.472
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 327.9184
+  correlation_rho: 0.022196
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W05
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 3.9e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.224
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 326.6704
+  correlation_rho: 0.035642
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W06
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 3.84e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 15.9744
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.14e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.9912
+  total_covariance_e_minus_34: 326.9656
+  correlation_rho: 0.040216
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W07
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 3.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 15.9328
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 333.4616
+  correlation_rho: 0.02625
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 13.2704
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 330.7992
+  correlation_rho: 0.056792
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 10.6496
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 80.1764
+  total_covariance_e_minus_34: 318.826
+  correlation_rho: 0.041168
+- pair:
+  - PIZZOCARO-VLBI-W02
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.16e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 10.5664
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 65.9208
+  total_covariance_e_minus_34: 304.4872
+  correlation_rho: 0.080094
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W04
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 4.2e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 17.64
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 328.0864
+  correlation_rho: 0.019349
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W05
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.9e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.38
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 326.8264
+  correlation_rho: 0.03107
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W06
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.84e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.128
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.14e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.9912
+  total_covariance_e_minus_34: 327.1192
+  correlation_rho: 0.035056
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W07
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.086
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 333.6148
+  correlation_rho: 0.022882
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 13.398
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 330.9268
+  correlation_rho: 0.049501
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 10.752
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 80.1764
+  total_covariance_e_minus_34: 318.9284
+  correlation_rho: 0.035881
+- pair:
+  - PIZZOCARO-VLBI-W03
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 10.668
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 65.9208
+  total_covariance_e_minus_34: 304.5888
+  correlation_rho: 0.069809
+- pair:
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W05
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.9e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.38
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.08e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.4464
+  total_covariance_e_minus_34: 326.8264
+  correlation_rho: 0.021373
+- pair:
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W06
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.84e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.128
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.14e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.9912
+  total_covariance_e_minus_34: 327.1192
+  correlation_rho: 0.024115
+- pair:
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W07
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 16.086
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 333.6148
+  correlation_rho: 0.01574
+- pair:
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 13.398
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 330.9268
+  correlation_rho: 0.034052
+- pair:
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 10.752
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 80.1764
+  total_covariance_e_minus_34: 318.9284
+  correlation_rho: 0.024683
+- pair:
+  - PIZZOCARO-VLBI-W04
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 4.2e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 10.668
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 65.9208
+  total_covariance_e_minus_34: 304.5888
+  correlation_rho: 0.048021
+- pair:
+  - PIZZOCARO-VLBI-W05
+  - PIZZOCARO-VLBI-W06
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.9e-17
+    sigma_j: 3.84e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 14.976
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.14e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 82.9912
+  total_covariance_e_minus_34: 325.9672
+  correlation_rho: 0.038735
+- pair:
+  - PIZZOCARO-VLBI-W05
+  - PIZZOCARO-VLBI-W07
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.9e-17
+    sigma_j: 3.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 14.937
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 332.4658
+  correlation_rho: 0.025284
+- pair:
+  - PIZZOCARO-VLBI-W05
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.9e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 12.441
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 89.5288
+  total_covariance_e_minus_34: 329.9698
+  correlation_rho: 0.05473
+- pair:
+  - PIZZOCARO-VLBI-W05
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.9e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 9.984
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 80.1764
+  total_covariance_e_minus_34: 318.1604
+  correlation_rho: 0.039691
+- pair:
+  - PIZZOCARO-VLBI-W05
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.9e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 9.906
+  - component: uB4_clock
+    sigma_i: 9.08e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 65.9208
+  total_covariance_e_minus_34: 303.8268
+  correlation_rho: 0.077212
+- pair:
+  - PIZZOCARO-VLBI-W06
+  - PIZZOCARO-VLBI-W07
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.84e-17
+    sigma_j: 3.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 14.7072
+  - component: uB4_clock
+    sigma_i: 9.14e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 90.1204
+  total_covariance_e_minus_34: 332.8276
+  correlation_rho: 0.028535
+- pair:
+  - PIZZOCARO-VLBI-W06
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.84e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 12.2496
+  - component: uB4_clock
+    sigma_i: 9.14e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 90.1204
+  total_covariance_e_minus_34: 330.37
+  correlation_rho: 0.061773
+- pair:
+  - PIZZOCARO-VLBI-W06
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.84e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 9.8304
+  - component: uB4_clock
+    sigma_i: 9.14e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 80.7062
+  total_covariance_e_minus_34: 318.5366
+  correlation_rho: 0.044797
+- pair:
+  - PIZZOCARO-VLBI-W06
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.84e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 9.7536
+  - component: uB4_clock
+    sigma_i: 9.14e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 66.3564
+  total_covariance_e_minus_34: 304.11
+  correlation_rho: 0.087124
+- pair:
+  - PIZZOCARO-VLBI-W07
+  - PIZZOCARO-VLBI-W08
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.83e-17
+    sigma_j: 3.19e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 12.2177
+  - component: uB4_clock
+    sigma_i: 9.86e-17
+    sigma_j: 9.86e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 97.2196
+  total_covariance_e_minus_34: 337.4373
+  correlation_rho: 0.04038
+- pair:
+  - PIZZOCARO-VLBI-W07
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.83e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 9.8048
+  - component: uB4_clock
+    sigma_i: 9.86e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 87.0638
+  total_covariance_e_minus_34: 324.8686
+  correlation_rho: 0.02924
+- pair:
+  - PIZZOCARO-VLBI-W07
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.83e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 9.7282
+  - component: uB4_clock
+    sigma_i: 9.86e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 71.5836
+  total_covariance_e_minus_34: 309.3118
+  correlation_rho: 0.056713
+- pair:
+  - PIZZOCARO-VLBI-W08
+  - PIZZOCARO-VLBI-W09
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.19e-17
+    sigma_j: 2.56e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 8.1664
+  - component: uB4_clock
+    sigma_i: 9.86e-17
+    sigma_j: 8.83e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 87.0638
+  total_covariance_e_minus_34: 323.2302
+  correlation_rho: 0.063449
+- pair:
+  - PIZZOCARO-VLBI-W08
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 3.19e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 8.1026
+  - component: uB4_clock
+    sigma_i: 9.86e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 71.5836
+  total_covariance_e_minus_34: 307.6862
+  correlation_rho: 0.123037
+- pair:
+  - PIZZOCARO-VLBI-W09
+  - PIZZOCARO-VLBI-W10
+  shared_components:
+  - component: uB1_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB2
+    sigma_i: 1.0e-16
+    sigma_j: 1.0e-16
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 100.0
+  - component: uB4_comb
+    sigma_i: 8.0e-17
+    sigma_j: 8.0e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.0
+  - component: uB1_clock
+    sigma_i: 2.56e-17
+    sigma_j: 2.54e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 6.5024
+  - component: uB4_clock
+    sigma_i: 8.83e-17
+    sigma_j: 7.26e-17
+    correlation_assumption: 1.0
+    covariance_e_minus_34: 64.1058
+  total_covariance_e_minus_34: 298.6082
+  correlation_rho: 0.089809
+sensitivity_bounds:
+  clock_rho_0_uncorrelated_clock_terms:
+    included_off_diagonal_components:
+    - uB1_comb
+    - uB2
+    - uB4_comb
+    minimum_eigenvalue_e_minus_34: 1575.069635
+    psd_verdict: PASS
+  clock_rho_1_fully_correlated_clock_terms:
+    included_off_diagonal_components:
+    - uB1_comb
+    - uB2
+    - uB4_comb
+    - uB1_clock
+    - uB4_clock
+    minimum_eigenvalue_e_minus_34: 1539.04345
+    psd_verdict: PASS
+omitted_components:
+- component: cross_processing_path_vlbi_ippp_ppp_correlation
+  rationale: VLBI and IPPP/PPP paths share y1 and y4 links; this file is VLBI-only and does not authorize
+    mixed-path metrics.
+- component: network_or_geopotential_terms_not_exposed_as_signed_cross_window_covariance
+  rationale: No additional signed covariance decomposition is committed for these effects.
+- component: deadtime_and_drift_cross_window_correlation
+  rationale: udead and udrift terms are treated as campaign-window-specific diagonal contributions.
+- component: statistical_cross_window_correlation
+  rationale: Per-link statistical components are treated as independent across windows.
+promotion_boundary:
+  writes_acr_benchmark_rows: false
+  writes_cross_window_aggregate_metric: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  knowledge_promotion_allowed: false
+  required_next_step: Maintainer-reviewed benchmark-readiness task may consume this only as approximate-covariance
+    sensitivity input.
+limitations:
+- This is not a paper-published exact covariance matrix.
+- Clock-term cross-window correlation is an explicit approximation; sensitivity bounds keep rho_clock=0
+  and rho_clock=1 visible.
+- The artifact does not aggregate windows into benchmark rows and does not authorize drift fits or cross-source
+  metrics.
+- All values are derived from committed Pizzocaro source artifacts; no live fetch is performed.
