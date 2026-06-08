@@ -19,6 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0666` - Build Atomic Pizzocaro source-derived PSD covariance approximation (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0668` - Package Quantum Almeida checksum-pinned source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
-- `TASK-0681` - Expand Dimensional Validator boundary cases after preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
+None.
