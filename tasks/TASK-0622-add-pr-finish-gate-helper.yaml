@@ -1,7 +1,7 @@
 id: TASK-0622
 title: "Add PR finish gate helper for review, CI, and ready transition"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
