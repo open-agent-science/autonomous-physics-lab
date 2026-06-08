@@ -27,6 +27,15 @@ def test_maintainer_review_script_help_smoke() -> None:
     assert "--branch" in result.stdout
 
 
+def test_pr_finish_gate_script_help_smoke() -> None:
+    result = _run_help("scripts/apl_pr_finish_gate.py")
+
+    assert result.returncode == 0
+    assert "Run the PR finish gate" in result.stdout
+    assert "--pr" in result.stdout
+    assert "--dry-run" in result.stdout
+
+
 def test_closeout_task_script_help_smoke() -> None:
     result = _run_help("scripts/apl_closeout_task.py")
 

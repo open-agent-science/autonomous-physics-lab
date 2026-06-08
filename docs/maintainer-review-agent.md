@@ -155,6 +155,21 @@ case where the maintainer wants every task validation command re-run locally:
 python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX --validation-mode strict
 ```
 
+### Finish Gate Helper
+
+After a contributor PR has been opened as a draft, the bounded finish helper can
+compose the deterministic review verdict, GitHub CI state, and ready transition:
+
+```bash
+python3 scripts/apl_pr_finish_gate.py --pr <number>
+```
+
+The helper does not merge PRs, promote claims, or relax review policy. It marks
+the PR ready only when `scripts/apl_review_pr.py --pr <number>` returns
+`MERGE_OK` and `gh pr checks --json` reports no failing or pending required
+checks. If review or CI blocks, it keeps the PR draft and prints the next safe
+command, including a failing-check inspection command when available.
+
 ### Clean PR Worktree Review
 
 For PR-number reviews, the helper prefers the caller checkout only when it is
