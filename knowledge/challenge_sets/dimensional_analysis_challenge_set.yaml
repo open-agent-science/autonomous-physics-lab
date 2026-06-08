@@ -3,10 +3,10 @@ id: DA-CHALLENGE-001
 title: "Dimensional Analysis Challenge Set — Current Curation Surface"
 task_id: TASK-0017
 domain: physics_validation
-total_items: 70
+total_items: 74
 status: draft
 description: >
-  A growing curated set of 70 physics formulas for testing dimensional analysis
+  A growing curated set of 74 physics formulas for testing dimensional analysis
   verification. This is the live curation surface for follow-on work, not the
   frozen EXP-0006/RUN-0006 MVP replay input. Covers five categories: valid,
   invalid-units, missing-constants, dimensionless/suspicious, and known-limit
@@ -16,7 +16,7 @@ categories:
   - id: cat1
     name: valid_formulas
     expected_verdict: VALID
-    count: 12
+    count: 14
   - id: cat2
     name: invalid_unit_formulas
     expected_verdict: INVALID
@@ -28,11 +28,11 @@ categories:
   - id: cat4
     name: dimensionless_suspicious
     expected_verdict: mixed
-    count: 10
+    count: 11
   - id: cat5
     name: known_limit_violations
     expected_verdict: KNOWN_LIMIT_FAIL
-    count: 5
+    count: 6
 
 items:
 
@@ -704,6 +704,22 @@ items:
     difficulty: medium
     reason: "sqrt([kg]/[kg·s⁻²]) = [s]. Dimensionally balanced, but the correct formula is T = 2π·sqrt(m/k). A dimensional-only checker accepts this while the numerical prediction is wrong by a factor of 2π ≈ 6.28."
 
+
+  - id: DA-312
+    name: "Snell's law normalized ratio"
+    domain: optics
+    formula: "sin(theta1) / sin(theta2) = n2 / n1"
+    variables:
+      theta1: "dimensionless"
+      theta2: "dimensionless"
+      n1: "dimensionless"
+      n2: "dimensionless"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    dimensionless_relation_policy: accepted_textbook_identity
+    difficulty: easy
+    reason: "A curated all-dimensionless textbook identity should pass the dimensional validator instead of being auto-flagged as suspicious."
   # ── Category 5: Known-limit violations ──────────────────────────────────
 
   - id: DA-401
@@ -802,6 +818,7 @@ items:
     expected_verdict: VALID
     failure_mode: null
     check_type: dimensional
+    dimensionless_relation_policy: accepted_textbook_identity
     difficulty: easy
     reason: "All factors are dimensionless; both sides are dimensionless. Standard form of Snell's law."
 
@@ -951,6 +968,33 @@ items:
     difficulty: hard
     reason: "B^2 / mu_0 = (kg^2 s^-4 A^-2) / (kg m s^-2 A^-2) = kg m^-1 s^-2, which matches energy density [J/m^3] = [kg m^2 s^-2 / m^3]."
 
+
+  - id: DA-022
+    name: "Circle circumference with pi"
+    domain: geometry
+    formula: "C = 2 * pi * r"
+    variables:
+      C: "m"
+      r: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "The numerical constant pi is dimensionless; 2*pi*r has units of length."
+
+  - id: DA-023
+    name: "Small-angle pendulum period with pi"
+    domain: mechanics
+    formula: "T = 2 * pi * sqrt(L / g)"
+    variables:
+      T: "s"
+      L: "m"
+      g: "m s^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "The dimensionless 2*pi factor does not change sqrt(L/g) = s."
   # -- Category 2 extension: Invalid unit formulas -----------------------------
 
   - id: DA-116
@@ -1070,3 +1114,18 @@ items:
     difficulty: medium
     condition: "theta >> 0.24 rad (~14 deg) where relative error exceeds 1%; diverges as theta approaches pi"
     reason: "sqrt([m]/[m·s⁻²]) = [s]. Dimensionally correct. KNOWN_LIMIT_FAIL because the formula assumes sin(θ) ≈ θ; the exact period is T = (2/π)·T₀·K(sin²(θ/2)) involving the complete elliptic integral K. Error exceeds 1% above ~14° and grows without bound near the separatrix."
+
+  - id: DA-408
+    name: "Lorentz beta above unity"
+    domain: mechanics
+    formula: "beta = v / c"
+    variables:
+      beta: "dimensionless"
+      v: "m s^-1"
+      c: "m s^-1"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: easy
+    condition: "v > c for a massive object"
+    reason: "Dimensionally valid, but beta > 1 is outside the standard massive-particle Lorentz kinematic regime."

@@ -120,6 +120,12 @@ def test_eval_sqrt_dimensionless() -> None:
     assert result == DIMENSIONLESS
 
 
+def test_eval_dimensionless_pi_constant() -> None:
+    dims = {"r": parse_dimension_string("m")}
+    result = evaluate_expression_dimension("2 * pi * r", dims)
+    assert result == parse_dimension_string("m")
+
+
 def test_eval_sqrt_dimensional() -> None:
     dims = {"v": parse_dimension_string("m^2 s^-2")}
     result = evaluate_expression_dimension("sqrt(v)", dims)
@@ -225,6 +231,15 @@ def test_challenge_set_no_inconclusive() -> None:
     assert summary.inconclusive_count <= 1, (
         f"Expected at most 1 INCONCLUSIVE, got {summary.inconclusive_count}"
     )
+
+
+def test_boundary_expansion_handles_dimensionless_constants_and_textbook_identity() -> None:
+    challenge_set = _load_yaml(CHALLENGE_SET_PATH)
+    items = {item["id"]: item for item in challenge_set["items"]}
+
+    assert validate_item(items["DA-022"]).computed_verdict == "VALID"
+    assert validate_item(items["DA-312"]).computed_verdict == "VALID"
+    assert validate_item(items["DA-408"]).agrees is True
 
 
 def test_dimensional_validator_mvp_scope_is_frozen_apart_from_live_curation() -> None:
