@@ -1,7 +1,7 @@
 id: TASK-0666
 title: "Build Atomic Pizzocaro source-derived PSD covariance approximation"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
