@@ -532,6 +532,23 @@ ready:
 python3 scripts/apl_task_pr_helper.py ready --pr <number>
 ```
 
+For the bounded finish step, agents may use the repository finish gate helper
+instead of repeating the review, CI, and ready commands by hand:
+
+```bash
+python3 scripts/apl_pr_finish_gate.py --pr <number>
+```
+
+The helper first runs `python3 scripts/apl_review_pr.py --pr <number>`, then
+checks GitHub PR checks through `gh pr checks --json`, and only then calls
+`gh pr ready <number>`. It leaves the PR draft if the review verdict is not
+`MERGE_OK`, if checks are pending or failing, or if GitHub status cannot be
+loaded. For a non-mutating preflight, use:
+
+```bash
+python3 scripts/apl_pr_finish_gate.py --pr <number> --dry-run
+```
+
 When `scripts/apl_agent_doctor.py` reports the known loopback blocker proxy
 (`127.0.0.1:9` or `localhost:9`) and network access is allowed, add
 `--ignore-suspicious-proxy` to `apl_task_pr_helper.py create` or `ready`.

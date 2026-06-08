@@ -46,6 +46,12 @@ from physics_lab.registry.review_policy import (
     classify_review_protocol,
     validate_pr_title,
 )
+from physics_lab.registry.pr_finish_gate import (
+    CheckState,
+    CiGate,
+    finish_pr,
+    render_finish_gate_report,
+)
 
 
 def _full_pr_body(
@@ -2453,3 +2459,84 @@ def test_build_review_report_blocks_microtask_pr_when_queue_file_missing(tmp_pat
 
     assert report.verdict == "BLOCKED"
     assert any("No microtask queue file found" in item for item in report.blockers)
+
+
+def test_finish_gate_marks_ready_after_merge_ok_and_green_ci(tmp_path: Path) -> None:
+    ci_gate = CiGate(
+        status="pass",
+        checks=(CheckState(name="Python fast tests", bucket="pass", state="SUCCESS", link=""),),
+        failures=(),
+        pending=(),
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.pr_finish_gate.run_review_gate",
+            return_value=CommandResult(returncode=0, stdout="Verdict: MERGE_OK\n", stderr=""),
+        ),
+        patch("physics_lab.registry.pr_finish_gate.load_ci_gate", return_value=ci_gate),
+        patch(
+            "physics_lab.registry.pr_finish_gate.mark_ready",
+            return_value=CommandResult(returncode=0, stdout="ready\n", stderr=""),
+        ) as ready,
+    ):
+        report = finish_pr(tmp_path, 101)
+
+    assert report.ok
+    assert report.status == "ready_marked"
+    assert report.review_verdict == "MERGE_OK"
+    assert report.ci_status == "pass"
+    ready.assert_called_once()
+
+
+def test_finish_gate_blocks_ready_transition_when_ci_fails(tmp_path: Path) -> None:
+    failing_check = CheckState(
+        name="Python fast tests",
+        bucket="fail",
+        state="FAILURE",
+        link="https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/123/job/456",
+    )
+    ci_gate = CiGate(
+        status="fail",
+        checks=(failing_check,),
+        failures=(failing_check,),
+        pending=(),
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.pr_finish_gate.run_review_gate",
+            return_value=CommandResult(returncode=0, stdout="Verdict: MERGE_OK\n", stderr=""),
+        ),
+        patch("physics_lab.registry.pr_finish_gate.load_ci_gate", return_value=ci_gate),
+        patch("physics_lab.registry.pr_finish_gate.mark_ready") as ready,
+    ):
+        report = finish_pr(tmp_path, 102)
+
+    rendered = render_finish_gate_report(report, pr_number=102)
+    assert not report.ok
+    assert report.status == "blocked"
+    assert report.ready_transition == "not_attempted"
+    assert report.next_safe_command == "gh run view 123 --log-failed"
+    assert "Python fast tests" in rendered
+    assert "https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/123/job/456" in rendered
+    ready.assert_not_called()
+
+
+def test_finish_gate_leaves_draft_when_review_blocks(tmp_path: Path) -> None:
+    with (
+        patch(
+            "physics_lab.registry.pr_finish_gate.run_review_gate",
+            return_value=CommandResult(returncode=0, stdout="Verdict: BLOCKED\n", stderr=""),
+        ),
+        patch("physics_lab.registry.pr_finish_gate.load_ci_gate") as ci_gate,
+        patch("physics_lab.registry.pr_finish_gate.mark_ready") as ready,
+    ):
+        report = finish_pr(tmp_path, 103)
+
+    assert not report.ok
+    assert report.review_verdict == "BLOCKED"
+    assert report.ci_status == "not_checked"
+    assert report.next_safe_command == "python3 scripts/apl_review_pr.py --pr 103"
+    ci_gate.assert_not_called()
+    ready.assert_not_called()
