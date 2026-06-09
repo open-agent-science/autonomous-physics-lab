@@ -19,3 +19,4 @@ None.
 
 - `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0623` - Add subprocess environment guardrails for tests and helpers (`developer_infrastructure`, priority `medium`, difficulty `medium`, domain `repository_validation`)
+- `TASK-0684` - Harden review helper PR fallback and local PR-ref handling (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
