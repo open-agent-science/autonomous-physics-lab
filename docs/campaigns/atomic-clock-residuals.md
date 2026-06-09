@@ -267,8 +267,8 @@ Safe future tasks:
 - audit whether derived constraints can be separated from direct measurements.
 - build the scoped Pizzocaro PSD covariance approximation before rerunning the
   Atomic baseline-readiness gate;
-- decide the Lange/PTB artifact retrieval and reuse route before any source
-  copy, checksum, or value extraction task.
+- keep Lange/PTB metadata-only until maintainer license approval before any
+  source copy, checksum, or value extraction task.
 
 Unsafe next tasks:
 
