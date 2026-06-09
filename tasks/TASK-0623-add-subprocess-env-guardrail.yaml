@@ -1,7 +1,7 @@
 id: TASK-0623
 title: "Add subprocess environment guardrails for tests and helpers"
 type: developer_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
