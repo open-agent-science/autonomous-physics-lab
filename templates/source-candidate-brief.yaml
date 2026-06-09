@@ -1,0 +1,59 @@
+# Source Candidate Brief Template
+#
+# Copy this shape into a review note or task proposal input when a Fresh Source
+# Scout evaluates a published source candidate. Keep this as a brief, not a
+# committed machine-readable source index.
+
+brief_id: SOURCE-CANDIDATE-BRIEF-XXXX
+task_id: TASK-XXXX
+campaign_id: ""
+scout:
+  contributor_id: ""
+  agent_id: ""
+  reviewed_by: ""
+  created_utc: YYYY-MM-DD
+
+source_candidate:
+  title: ""
+  authors: []
+  publication_year: null
+  stable_locators:
+    doi: null
+    arxiv: null
+    archive_url: null
+    source_url: null
+    repository_release: null
+  citation_note: ""
+  source_surface:
+    artifact_type: ""  # paper | supplementary_table | archive_snapshot | api_endpoint | repository_release | figure | other
+    table_or_figure_locator: null
+    value_bearing_artifact_known: false
+    redistributable_without_permission: null
+
+campaign_fit:
+  intended_row_class: ""
+  intended_campaign_axis: ""
+  target_schema_kind: ""
+  why_this_source_matters: ""
+
+admissibility:
+  verdict: INCONCLUSIVE_SOURCE_REVIEW  # VALID_SOURCE_CANDIDATE | BLOCKED_WITH_NEGATIVE_MEMORY | INCONCLUSIVE_SOURCE_REVIEW
+  blocker_type: null  # T1_access | T2_extraction_tool | T3_coverage | T4_snapshot_approval | none
+  blocker_reason: ""
+  next_allowed_lane: ""  # source_review | acquisition_pinning | extraction_planning | coverage_expansion | row_curation | blocker_preservation
+  follow_up_proposal_needed: false
+
+guardrails:
+  rows_curated: false
+  benchmark_metrics_created: false
+  downstream_tasks_auto_unblocked: false
+  claim_or_knowledge_promoted: false
+  live_fetch_performed: false
+
+limitations:
+  - ""
+
+recommended_follow_up:
+  task_kind: ""  # acquisition | extraction | coverage | row_curation | proposal | blocker_only
+  summary: ""
+  accepted_output_hint: ""

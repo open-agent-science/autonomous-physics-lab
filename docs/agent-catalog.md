@@ -220,6 +220,27 @@ Status: active, maintainer-run. Never curates rows, never commits secrets or
 copyrighted artifacts, never live-fetches inside benchmark code, and never
 promotes claims. Rows require a separate row-curation task.
 
+### 11. Fresh Source Scout
+
+Use this path when a campaign needs published source candidates identified and
+classified before acquisition, extraction, row curation, or benchmark work.
+
+- Typical work: source-candidate briefs, admissibility verdicts,
+  `blocker_type` routing, follow-up lane recommendations, negative source memory
+- Role profile: [`agents/fresh-source-scout.yaml`](../agents/fresh-source-scout.yaml)
+- Template: [`templates/source-candidate-brief.yaml`](../templates/source-candidate-brief.yaml)
+- Primary docs:
+  - [published-source-dataset-standard.md](./published-source-dataset-standard.md)
+  - [fresh-data-intake-protocol.md](./fresh-data-intake-protocol.md)
+  - [source-acquisition-lane.md](./source-acquisition-lane.md)
+
+Status: active front-of-funnel source triage. The scout never curates rows,
+fetches or pins artifacts, computes benchmark metrics, promotes claims, or
+auto-unblocks downstream tasks. It sits before Data Acquisition / Source-Pinning
+and before row-curation tasks, while remaining separate from the Scientific
+Campaign Director's campaign-level prioritization and the Task Proposal Agent's
+proposal-formatting role.
+
 ## Planned Future Specialized Agents
 
 The repository also names several future automation surfaces:

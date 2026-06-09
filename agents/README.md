@@ -76,6 +76,14 @@ public/key-free fetches or prepares a runbook for maintainer-run key-gated
 fetches; never curates rows, never commits secrets, never live-fetches inside
 benchmark code. See `docs/source-acquisition-lane.md`.
 
+### [Fresh Source Scout](fresh-source-scout.yaml)
+
+Front-of-funnel role that finds and classifies published source candidates
+before acquisition, extraction, row curation, or benchmark work. Emits an
+admissibility verdict, `blocker_type`, and follow-up recommendation using
+`templates/source-candidate-brief.yaml`; never curates rows, computes metrics,
+or auto-unblocks downstream tasks.
+
 ## Activation Convention
 
 When the maintainer (or any contributor) asks the agent to act in a
