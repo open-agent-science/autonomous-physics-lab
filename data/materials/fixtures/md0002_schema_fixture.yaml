@@ -1,0 +1,121 @@
+fixture_id: MD-0002-SCHEMA-FIXTURE-0001
+schema_version: 0.1.0
+task_id: TASK-0645
+dataset_family: MD-0002
+fixture_only: true
+fixture_value_policy: "Synthetic fake values only; not Materials Project data."
+source_id: materials-project
+source_manifest: data/materials/source_manifest.yaml
+source_version: TO_BE_PINNED_BY_ACQUISITION
+snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+live_external_fetch_allowed: false
+material_scope: stable_ternary_oxides
+composition_rule: "Exactly three distinct elements: two non-oxygen cations plus O."
+provenance_class: computed_dft
+row_count: 3
+no_claim_boundary: >
+  Fixture rows validate loader/schema shape only. They are not source rows,
+  benchmark rows, residual inputs, material recommendations, or scientific
+  claims.
+
+axis_policies:
+  - property_kind: formation_energy_per_atom
+    units: eV_per_atom
+    provenance_class: computed_dft
+  - property_kind: band_gap
+    units: eV
+    provenance_class: computed_dft
+
+rows:
+  - row_id: MD-0002-FIXTURE-FE-0001
+    material_id: mp-fixture-ternary-001
+    formula_pretty: FixtureA2B1O4
+    composition:
+      A: 2
+      B: 1
+      O: 4
+    cations:
+      - A
+      - B
+    composition_family: ternary_oxide
+    nsites: 7
+    spacegroup_symbol: Pnma
+    property_kind: formation_energy_per_atom
+    value: -1.234
+    units: eV_per_atom
+    method: DFT (GGA/GGA+U, Materials Project convention)
+    dft_functional: GGA_or_GGA+U
+    database_version: TO_BE_PINNED_BY_ACQUISITION
+    record_locator: mp-fixture-ternary-001
+    snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+    energy_above_hull: 0.0
+    is_stable: true
+    source_id: materials-project
+    provenance_class: computed_dft
+    inclusion_status: included
+    exclusion_reason: null
+    fixture_value: true
+    limitations:
+      - "Fake schema fixture value; do not benchmark or cite as source data."
+
+  - row_id: MD-0002-FIXTURE-BG-0001
+    material_id: mp-fixture-ternary-001
+    formula_pretty: FixtureA2B1O4
+    composition:
+      A: 2
+      B: 1
+      O: 4
+    cations:
+      - A
+      - B
+    composition_family: ternary_oxide
+    nsites: 7
+    spacegroup_symbol: Pnma
+    property_kind: band_gap
+    value: 2.345
+    units: eV
+    method: DFT (GGA/GGA+U, Materials Project convention)
+    dft_functional: GGA_or_GGA+U
+    database_version: TO_BE_PINNED_BY_ACQUISITION
+    record_locator: mp-fixture-ternary-001
+    snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+    energy_above_hull: 0.0
+    is_stable: true
+    source_id: materials-project
+    provenance_class: computed_dft
+    inclusion_status: included
+    exclusion_reason: null
+    fixture_value: true
+    limitations:
+      - "Fake schema fixture value; do not benchmark or cite as source data."
+
+  - row_id: MD-0002-FIXTURE-BG-EXCLUDED-0001
+    material_id: mp-fixture-ternary-002
+    formula_pretty: FixtureC1D1O3
+    composition:
+      C: 1
+      D: 1
+      O: 3
+    cations:
+      - C
+      - D
+    composition_family: ternary_oxide
+    nsites: 5
+    spacegroup_symbol: null
+    property_kind: band_gap
+    value: null
+    units: eV
+    method: DFT (GGA/GGA+U, Materials Project convention)
+    dft_functional: GGA_or_GGA+U
+    database_version: TO_BE_PINNED_BY_ACQUISITION
+    record_locator: mp-fixture-ternary-002
+    snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+    energy_above_hull: 0.0
+    is_stable: true
+    source_id: materials-project
+    provenance_class: excluded
+    inclusion_status: excluded
+    exclusion_reason: "Synthetic row missing a fake band_gap value for axis-only exclusion."
+    fixture_value: true
+    limitations:
+      - "Excluded fixture row; validates explicit axis-specific exclusion only."
