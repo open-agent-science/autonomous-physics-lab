@@ -186,6 +186,8 @@ can_invoke_other_roles:
     when: "a campaign-impacting PR is open and the curator needs Review Agent metadata to complete the brief"
   - role_id: architect
     when: "the campaign analysis surfaces a structural / cross-protocol issue that should be raised to the Architect"
+  - role_id: fresh-source-scout
+    when: "a campaign bottleneck is missing source candidates and needs front-of-funnel source admissibility triage"
 
 restrictions:
   - "Must not run experiments or hypothesis lanes itself."
