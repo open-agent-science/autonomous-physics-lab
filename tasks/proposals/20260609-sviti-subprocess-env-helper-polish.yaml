@@ -31,7 +31,7 @@ input:
   mode: planning_only
   related_domain: repository_validation
   related_objects:
-    - tasks/TASK-0623-add-subprocess-env-guardrail.yaml
+    - TASK-0623
     - tasks/proposals/20260606-sviti-subprocess-env-guardrail.yaml
     - physics_lab/registry/pr_capability.py
     - tests/test_pr_capability.py

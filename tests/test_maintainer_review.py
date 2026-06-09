@@ -974,22 +974,75 @@ def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
 ) -> None:
     with (
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
-        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
-        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
-        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=()),
-        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
-        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
         patch(
-            "physics_lab.registry.maintainer_review.run_task_validation",
-            return_value=ValidationSummary(status="not_run", failed_commands=()),
+            "physics_lab.registry.maintainer_review.current_branch",
+            side_effect=AssertionError("metadata failure must not inspect current checkout"),
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.changed_files_vs_main",
+            side_effect=AssertionError("metadata failure must not diff current checkout"),
         ),
     ):
         report = build_review_report(tmp_path, pull_request=104)
 
     assert report.verdict == "BLOCKED"
-    assert any("Could not load PR metadata via gh CLI" in item for item in report.blockers)
+    assert report.branch == "PR-104-UNRESOLVED"
+    assert report.changed_files == ()
+    assert any("intentionally did not review the current checkout" in item for item in report.blockers)
     assert any("Fallback commands" in item for item in report.blockers)
+
+
+def test_build_review_report_allows_explicit_local_pr_ref_review(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0104")
+    task_path = "tasks/TASK-0104-helper.yaml"
+    clean_root = tmp_path / ".worktrees" / "_reviews" / "origin-pr-104-abc123"
+    clean_root.mkdir(parents=True)
+    _write_review_task(clean_root, "TASK-0104")
+
+    def fake_changed_files(root: Path, ref: str, **_: object) -> tuple[str, ...]:
+        assert root == clean_root
+        assert ref == "HEAD"
+        return (task_path,)
+
+    with (
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch(
+            "physics_lab.registry.maintainer_review.prepare_clean_local_ref_worktree",
+            return_value=CleanPrWorktree(
+                root=clean_root,
+                review_ref="HEAD",
+                ready=True,
+                message="Reviewing local PR ref from clean fixture worktree.",
+            ),
+        ) as worktree_mock,
+        patch(
+            "physics_lab.registry.maintainer_review.local_branch_exists",
+            side_effect=AssertionError("local PR refs must not require local canonical branches"),
+        ),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", side_effect=fake_changed_files),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(
+            tmp_path,
+            branch="origin/pr-104",
+            task_id="TASK-0104",
+            validation_mode="strict",
+        )
+
+    assert report.verdict == "MERGE_OK"
+    assert report.branch == "origin/pr-104"
+    assert report.changed_files == (task_path,)
+    worktree_mock.assert_called_once_with(tmp_path, "origin/pr-104")
+    assert any("fetched local PR ref" in item for item in report.advisory_warnings)
 
 
 def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) -> None:

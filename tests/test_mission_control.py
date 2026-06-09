@@ -1096,6 +1096,7 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0587",
         "TASK-0588",
         "TASK-0589",
+        "TASK-0591",
         "TASK-0594",
         "TASK-0595",
         "TASK-0596",
