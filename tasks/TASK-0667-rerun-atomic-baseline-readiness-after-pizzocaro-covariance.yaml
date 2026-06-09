@@ -1,7 +1,7 @@
 id: TASK-0667
 title: "Rerun Atomic baseline-readiness gate after Pizzocaro covariance approximation"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
