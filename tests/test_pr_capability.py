@@ -9,6 +9,7 @@ from textwrap import dedent
 from physics_lab.registry.pr_capability import (
     check_pr_capability,
     env_with_discovered_tool_paths,
+    env_with_overrides,
     find_git_path,
     suspicious_proxy_env_names,
     without_suspicious_proxy_env,
@@ -175,6 +176,27 @@ def test_env_with_discovered_tool_paths_can_clear_known_blocker_proxy(
         clear_suspicious_proxy=True,
     )
 
+    assert "HTTPS_PROXY" not in env
+    assert env["HTTP_PROXY"] == "http://proxy.example.test:8080"
+
+
+def test_env_with_overrides_inherits_active_environment(monkeypatch) -> None:
+    monkeypatch.setenv("APL_ENV_GUARDRAIL_SENTINEL", "kept")
+
+    env = env_with_overrides(HTTPS_PROXY="http://127.0.0.1:9")
+
+    assert env["APL_ENV_GUARDRAIL_SENTINEL"] == "kept"
+    assert env["HTTPS_PROXY"] == "http://127.0.0.1:9"
+
+
+def test_env_with_overrides_can_remove_explicit_keys() -> None:
+    env = env_with_overrides(
+        {"PATH": "base-path", "HTTPS_PROXY": "http://127.0.0.1:9"},
+        HTTPS_PROXY=None,
+        HTTP_PROXY="http://proxy.example.test:8080",
+    )
+
+    assert env["PATH"] == "base-path"
     assert "HTTPS_PROXY" not in env
     assert env["HTTP_PROXY"] == "http://proxy.example.test:8080"
 
