@@ -194,6 +194,7 @@ source_families:
         readiness_evidence:
           - docs/reviews/atomic-second-yb-sr-fallback-source-scout.md
           - docs/reviews/atomic-lange-ptb-source-artifact-preflight.md
+          - docs/reviews/atomic-lange-ptb-artifact-retrieval-route.md
         triage_role: |
           Different source family from the Yb/Sr direct-ratio members: this is a
           PTB Yb+ E3/Cs absolute-frequency plus intra-ion E3/E2 optical-ratio
@@ -203,8 +204,12 @@ source_families:
           single-source dependence if Pizzocaro stays covariance-blocked.
           TASK-0652 pins the locator, citation, reuse posture, and checksum/archive
           feasibility at metadata level only; artifact retrieval and extraction are
-          deferred to a follow-up task.
+          deferred to a follow-up task. TASK-0669 keeps the retrieval route
+          metadata-only until explicit maintainer license approval, because the
+          default arXiv nonexclusive-distrib license is not treated as an
+          automatic third-party redistribution grant for this repository.
         ingestion_blockers:
+          - maintainer_license_approval_required_before_artifact_commit
           - arxiv_pdf_redistribution_license_review_required
           - direct_yb_sr_rows_not_present_different_source_family
           - value_bearing_table_extraction_from_pdf_not_started
