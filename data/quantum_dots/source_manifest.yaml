@@ -343,6 +343,41 @@ sources:
       digitization export, uncertainty/cross-check fields, and row-readiness
       gate — not schema shape.
 
+  - source_id: prasad-2017-nanomaterials-cdse-zns-laser
+    title: "A High Power, Frequency Tunable Colloidal Quantum Dot (CdSe/ZnS) Laser"
+    authors: "Prasad, S.; AlHesseny, H.; AlSalhi, M.; Devaraj, D.; Masilamai, V."
+    year: 2017
+    doi: "10.3390/nano7020029"
+    journal: "Nanomaterials"
+    volume: "7"
+    pages: "29"
+    table_reference: "Article Table 1 lists CdSe/ZnS quantum-dot core size, shell size, absorption peak, emission peak, and Stokes shift; TASK-0656 records this as excluded for the current pure-core benchmark path"
+    properties:
+      - absorption_peak_eV
+      - emission_peak_eV
+    materials:
+      - CdSe/ZnS
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0656 scouted this open table surface as a second direct-table
+      candidate, but the rows describe CdSe/ZnS core-shell quantum dots in a
+      tunable-laser/device context. The current Quantum Size Effects benchmark
+      keeps pure-core absorption, emission, and band-edge axes separate from
+      core-shell or device-confounded surfaces. Keep metadata only until a
+      future task defines core-shell size semantics and a separate admissible
+      property axis.
+    license_note: "Open Nanomaterials article with PMC mirror; DOI-pinned metadata only. Do not commit article PDF, supporting information, table images, or extracted rows until a future source-artifact task verifies reuse terms and checksum policy."
+    checksum_policy: doi_pinned
+    notes: >
+      Table 1 is a real table-like source surface with six size/optical-peak
+      entries, but it records separate core and shell dimensions. Do not
+      collapse those values into a single diameter_nm row or mix amplified
+      spontaneous emission / laser-cavity context with pure-core
+      quantum-size residual metrics. See
+      docs/reviews/quantum-second-open-direct-table-source-scout.md.
+
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25
     task_id: TASK-0364
