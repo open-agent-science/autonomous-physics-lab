@@ -183,6 +183,21 @@ If GitHub metadata, fetch, or worktree creation is unavailable, the helper
 returns a blocker with explicit maintainer-run fallback commands instead of
 silently reviewing the wrong local checkout.
 
+When the fallback uses a fetched `origin/pr-<number>` ref, pass the task id
+explicitly:
+
+```bash
+git fetch origin pull/<number>/head:refs/remotes/origin/pr-<number>
+python3 scripts/apl_review_pr.py --branch origin/pr-<number> --task TASK-XXXX --validation-mode strict
+```
+
+The helper treats that `origin/pr-*` value as a PR review ref, not as a valid
+contributor branch name. It checks the ref out into a clean detached review
+worktree before reading task files, so a flaky GitHub metadata lookup cannot
+fall through to the caller's current checkout. If the helper cannot prove which
+PR head it is reviewing, the review must stay `BLOCKED`; do not infer a merge
+verdict from the current local branch.
+
 ### Advisory Quality Score
 
 The deterministic review output includes a compact `Quality: X/10` line for

@@ -74,6 +74,7 @@ from physics_lab.registry.task_unblock import safe_unblock_candidates
 
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
+LOCAL_PR_REF_PATTERN = re.compile(r"^(?:refs/remotes/)?origin/pr-[0-9]+$")
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
@@ -562,6 +563,81 @@ def _clean_pr_worktree_path(root: Path, metadata: PullRequestMetadata) -> Path:
     return root / ".worktrees" / "_reviews" / f"pr-{metadata.number}-{suffix}"
 
 
+def _clean_local_ref_worktree_path(root: Path, ref: str, head_sha: str) -> Path:
+    """Return the deterministic path for a generated local-ref review worktree."""
+    normalized = re.sub(r"[^A-Za-z0-9._-]+", "-", ref).strip("-") or "local-pr-ref"
+    suffix = head_sha[:12] if head_sha else "unknown"
+    return root / ".worktrees" / "_reviews" / f"{normalized}-{suffix}"
+
+
+def prepare_clean_local_ref_worktree(root: Path, ref: str) -> CleanPrWorktree:
+    """Check out an already-fetched PR ref in a clean disposable worktree."""
+    fallback_commands = (
+        "git fetch origin pull/<number>/head:refs/remotes/origin/pr-<number>",
+        f"git worktree add --detach <review-worktree> {ref}",
+        f"python3 scripts/apl_review_pr.py --branch {ref} --task <TASK-XXXX>",
+    )
+    rev_parse = run_command(["git", "rev-parse", "--verify", ref], cwd=root, timeout=30)
+    if rev_parse.returncode != 0:
+        detail = (rev_parse.stderr or rev_parse.stdout).strip()
+        return CleanPrWorktree(
+            root=root,
+            review_ref=ref,
+            ready=False,
+            message="Could not resolve local PR ref" + (f": {detail}" if detail else "."),
+            fallback_commands=fallback_commands,
+        )
+    head_sha = rev_parse.stdout.strip().splitlines()[0].strip()
+    worktree = _clean_local_ref_worktree_path(root, ref, head_sha)
+    if worktree.exists():
+        remove = run_command(
+            ["git", "worktree", "remove", "--force", str(worktree)],
+            cwd=root,
+            timeout=120,
+        )
+        if remove.returncode != 0:
+            detail = (remove.stderr or remove.stdout).strip()
+            return CleanPrWorktree(
+                root=root,
+                review_ref=ref,
+                ready=False,
+                message="Could not replace existing local PR-ref review worktree"
+                + (f": {detail}" if detail else "."),
+                fallback_commands=fallback_commands,
+            )
+    worktree.parent.mkdir(parents=True, exist_ok=True)
+    add = run_command(
+        ["git", "worktree", "add", "--detach", str(worktree), head_sha],
+        cwd=root,
+        timeout=120,
+    )
+    if add.returncode != 0:
+        detail = (add.stderr or add.stdout).strip()
+        return CleanPrWorktree(
+            root=root,
+            review_ref=ref,
+            ready=False,
+            message="Could not create local PR-ref review worktree"
+            + (f": {detail}" if detail else "."),
+            fallback_commands=fallback_commands,
+        )
+    if not git_status_clean(worktree, ignore_paths=()):
+        return CleanPrWorktree(
+            root=worktree,
+            review_ref="HEAD",
+            ready=False,
+            message="Prepared local PR-ref review worktree is not clean.",
+            fallback_commands=fallback_commands,
+        )
+    return CleanPrWorktree(
+        root=worktree,
+        review_ref="HEAD",
+        ready=True,
+        message=f"Reviewing {ref} from clean local PR-ref worktree at {worktree}.",
+        fallback_commands=fallback_commands,
+    )
+
+
 def prepare_clean_pr_worktree(root: Path, metadata: PullRequestMetadata) -> CleanPrWorktree:
     """Fetch a PR head and check it out in a clean disposable worktree."""
     fallback_commands = (
@@ -870,6 +946,27 @@ def build_review_report(
     if validation_mode not in {"strict", "ci-aware"}:
         raise ValueError(f"Unsupported validation mode: {validation_mode}")
     pr_metadata = load_pr_metadata(root, pull_request) if pull_request is not None else None
+    if pull_request is not None and pr_metadata is None and branch is None:
+        return ReviewReport(
+            verdict="BLOCKED",
+            risk="high",
+            task_id=task_id or "TASK-UNKNOWN",
+            branch=f"PR-{pull_request}-UNRESOLVED",
+            changed_files=(),
+            validation="not_run",
+            security_risks=(),
+            blockers=(
+                "Could not load PR metadata via gh CLI, so the helper cannot "
+                "prove which PR head to review. It intentionally did not review "
+                "the current checkout. Fallback commands: "
+                f"gh pr view {pull_request} --json headRefName,headRefOid,baseRefName ; "
+                f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request} ; "
+                f"python3 scripts/apl_review_pr.py --branch origin/pr-{pull_request} --task <TASK-XXXX>.",
+            ),
+            required_fixes=(),
+            recommended_action="Do not merge. Re-run review against a verified PR head ref.",
+            advisory_warnings=(),
+        )
     clean_pr_worktree: CleanPrWorktree | None = None
     current = current_branch(root)
     needs_clean_pr_worktree = (
@@ -885,9 +982,24 @@ def build_review_report(
             root = clean_pr_worktree.root
             branch = pr_metadata.branch
             current = current_branch(root)
+    requested_local_pr_ref_review = bool(
+        branch is not None
+        and LOCAL_PR_REF_PATTERN.match(branch) is not None
+        and task_id is not None
+    )
+    if (
+        clean_pr_worktree is None
+        and requested_local_pr_ref_review
+        and (current != branch or not git_status_clean(root))
+    ):
+        clean_pr_worktree = prepare_clean_local_ref_worktree(root, branch)
+        if clean_pr_worktree.ready:
+            root = clean_pr_worktree.root
+            current = current_branch(root)
     target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
     review_ref = clean_pr_worktree.review_ref if clean_pr_worktree and clean_pr_worktree.ready else target_branch
     base_ref = diff_base_ref(root, pr_metadata)
+    local_pr_ref_review = requested_local_pr_ref_review
     blockers: list[str] = []
     required_fixes: list[str] = []
     security_risks: list[str] = []
@@ -926,11 +1038,21 @@ def build_review_report(
     is_closeout_review = protocol.kind == "closeout"
     is_task_queue_review = protocol.kind == "task_queue"
     is_microtask_review = protocol.kind == "microtask"
-    if not protocol.is_supported:
+    if local_pr_ref_review:
+        advisory_warnings.append(
+            "Review target is a fetched local PR ref, not the contributor's "
+            "canonical branch name. This is allowed only because an explicit "
+            "task id was supplied; prefer --pr <number> when GitHub metadata is available."
+        )
+    if not protocol.is_supported and not local_pr_ref_review:
         blockers.append(
             "Branch does not follow a canonical task, task-proposal, task-queue, closeout, or microtask branch format."
         )
-    elif not reviewing_clean_pr_worktree and not local_branch_exists(root, target_branch):
+    elif (
+        not local_pr_ref_review
+        and not reviewing_clean_pr_worktree
+        and not local_branch_exists(root, target_branch)
+    ):
         blockers.append(
             f"Local branch {target_branch} is not available. Checkout the PR branch locally first."
         )
