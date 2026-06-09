@@ -26,6 +26,13 @@ When you implement a task, write code that runs on all three platforms:
 - **Subprocesses**: pass an argument list, keep `shell=False` (the default), and
   do not rely on shell features (`|`, `&&`, globbing, `&`). `shell=True` is also
   a security smell and is blocked by review.
+- **Subprocess environment overrides**: if a test or helper needs to set proxy,
+  token, or `PATH` values for one child process, start from the inherited
+  environment and override only the needed keys. Use
+  `physics_lab.registry.pr_capability.env_with_overrides(...)` or the equivalent
+  `{**os.environ, ...}` pattern. A tiny replacement `env={...}` is allowed only
+  when the test name or comment makes dependency loss, missing tools, or minimal
+  environment behavior the scenario under test.
 - **Line endings & encoding**: always pass `encoding="utf-8"` to `open(...)` and
   `read_text` / `write_text`. Line-ending normalization is handled by
   `.gitattributes`; do not write `\r\n` by hand.

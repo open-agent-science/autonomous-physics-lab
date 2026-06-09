@@ -7,6 +7,7 @@ import subprocess
 import sys
 
 from scripts.apl_task_occupancy import check_task_occupancy
+from physics_lab.registry.pr_capability import env_with_overrides
 from physics_lab.registry.task_occupancy import classify_task_pr_occupancy
 
 
@@ -122,10 +123,14 @@ def test_task_occupancy_cli_json_runs_with_proxy_advisory() -> None:
         check=False,
         capture_output=True,
         text=True,
-        env={**os.environ, "HTTPS_PROXY": "http://127.0.0.1:9"},
+        env=env_with_overrides(
+            HTTPS_PROXY="http://127.0.0.1:9",
+            PATH=os.environ.get("PATH", ""),
+        ),
     )
 
     assert result.returncode == 0, (result.stdout, result.stderr)
+    assert "ModuleNotFoundError" not in result.stderr
     payload = json.loads(result.stdout)
     assert payload["checked"] is False
     assert payload["source"] == "local_registry_only"
