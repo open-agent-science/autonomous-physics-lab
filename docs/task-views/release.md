@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0658` - Run Stellar M-L DEBCat row-readiness gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
-- `TASK-0667` - Rerun Atomic baseline-readiness gate after Pizzocaro covariance approximation (`scientific_validation`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
 
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0667` - Rerun Atomic baseline-readiness gate after Pizzocaro covariance approximation (`scientific_validation`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
