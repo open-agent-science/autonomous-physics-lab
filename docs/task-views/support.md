@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0683` - Fix stale CLI status stage assertion after post-transfer status refresh (`workflow_hardening`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
+None.
