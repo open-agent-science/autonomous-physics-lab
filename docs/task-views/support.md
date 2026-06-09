@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0591` - Decouple the generated CONTEXT.md bundle from the committed tree (`documentation_architecture`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 - `TASK-0592` - Harden Exoplanet source-acquisition portability checks (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0650` - Specify Exoplanet source-version monitor contract (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
@@ -18,4 +17,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0623` - Add subprocess environment guardrails for tests and helpers (`developer_infrastructure`, priority `medium`, difficulty `medium`, domain `repository_validation`)
