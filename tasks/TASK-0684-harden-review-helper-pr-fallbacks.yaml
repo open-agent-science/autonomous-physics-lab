@@ -1,0 +1,48 @@
+id: TASK-0684
+title: "Harden review helper PR fallback and local PR-ref handling"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review deterministic across flaky GitHub CLI/network environments."
+  - "Prevent review agents from accidentally reviewing the current checkout instead of the PR head."
+
+input:
+  mode: workflow
+  related_domain: "maintainer_review"
+  related_objects:
+    - "scripts/apl_review_pr.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    PR-number review can fall back through GitHub CLI failures. The fallback must
+    never review the caller's current checkout by accident, and fetched
+    origin/pr-* refs should be reviewable safely when an explicit task id is
+    provided.
+
+requirements:
+  - "Block --pr review when GitHub PR metadata cannot be loaded and no explicit branch/ref is supplied."
+  - "Do not inspect or diff the caller's current checkout after a PR metadata failure."
+  - "Support explicit fetched origin/pr-* review refs through a clean detached review worktree."
+  - "Require an explicit TASK-XXXX id for local PR-ref review so branch naming rules stay intact."
+  - "Document the safe fallback workflow for maintainer review agents."
+  - "Keep the helper portable across Linux, macOS, Windows, Codex, and Claude Code environments."
+
+accepted_outputs:
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_maintainer_review.py"
+  - "docs/maintainer-review-agent.md"
+  - "tasks/TASK-0684-harden-review-helper-pr-fallbacks.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
