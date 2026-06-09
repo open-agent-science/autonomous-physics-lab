@@ -1,0 +1,48 @@
+id: TASK-0685
+title: "Fix brittle mission-control top-candidate test (frozen task-id snapshot)"
+type: test_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Stop legitimate task completions and unblocks from breaking the mission-control smoke test."
+  - "Verify the mission top candidate against the live task registry, not a frozen snapshot."
+  - "Keep the full-suite (full_repo/main-matrix) lane green on main."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "tests/test_mission_control.py"
+    - "physics_lab/registry/mission_control.py"
+  planning_context: >
+    tests/test_mission_control.py::test_cli_mission_json_runs_from_repo_root
+    asserted that the mission's top live_task_candidate id was a member of a
+    ~275-line hardcoded set of task ids. The test's own comment said "Accept any
+    current research-mode top candidate from the live queue", but the frozen
+    snapshot defeated that intent: completing or unblocking tasks shifts the top
+    candidate to an id outside the snapshot and breaks the test. This task
+    replaces the snapshot with a dynamic check that the top candidate is a real
+    currently-READY task in the registry with a valid mode.
+
+requirements:
+  - "Replace the hardcoded task-id set with a dynamic READY-task check loaded from the task registry."
+  - "Keep the mode assertion (research/support) and the READY-only fallback branch."
+  - "Do not change mission_control behavior or any scientific artifact."
+  - "Confirm the full mission-control test module and the full_repo lane pass."
+
+accepted_outputs:
+  - "tests/test_mission_control.py dynamic top-candidate check"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
