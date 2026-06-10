@@ -22,3 +22,4 @@
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)
+- `TASK-0698` - Guard safe auto-closeout on full_repo status: report-only when red/stale/unknown (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
