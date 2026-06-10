@@ -1,0 +1,47 @@
+id: TASK-0696
+title: "Grant pull-requests:read to the board-sync action so auto-closeout works"
+type: ci_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make the TASK-0691 safe auto-closeout actually function (it was inert without PR read access)."
+  - "Keep the action least-privilege: add only the read scope the gh PR lookups need."
+  - "Preserve the protected-artifact guard, which depends on reading the merged PR's changed files."
+
+input:
+  mode: workflow
+  related_domain: ci_infrastructure
+  related_objects:
+    - ".github/workflows/sync-active-board.yml"
+    - "physics_lab/registry/closeout_sweep.py"
+    - "scripts/apl_closeout_sweep.py"
+  planning_context: >
+    TASK-0691 wired safe auto-closeout into the Sync Active Board action, which
+    runs `apl_closeout_sweep.py --auto-safe`. That helper uses `gh pr list` and
+    `gh pr view --json files` to find merged task PRs and to run the
+    protected-artifact guard. The action declared only `permissions: contents:
+    write`, so the gh PR calls returned nothing (no candidates) and the feature
+    did nothing — it was safe but inert. This task adds `pull-requests: read` so
+    the auto-closeout can read merged PR metadata and changed files.
+
+requirements:
+  - "Add `pull-requests: read` to the sync-active-board workflow permissions (alongside `contents: write`)."
+  - "Do not broaden permissions beyond the read scope the gh PR lookups require."
+  - "Do not change the auto-closeout guard or any task status in this task."
+
+accepted_outputs:
+  - ".github/workflows/sync-active-board.yml `pull-requests: read` permission"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
