@@ -17,4 +17,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0690` - Add scientific_dataset_schema to the done-task result-exemption set (`repository_validation`, priority `high`, difficulty `low`, domain `repository_validation`)
