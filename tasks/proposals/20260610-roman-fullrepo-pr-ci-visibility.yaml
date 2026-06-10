@@ -1,0 +1,62 @@
+proposal_id: 20260610-roman-fullrepo-pr-ci-visibility
+title: "Make full_repo test breakage visible at PR time, not only at closeout"
+status: PROPOSED
+type: ci_infrastructure
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Catch main-breaking tests on the PR that introduces them, not three PRs later during a closeout review."
+  - "Reduce closeout-time fix→rebase→re-review cycles that produce no science."
+  - "Keep cross-platform CI coverage honest without slowing every fast PR."
+
+summary: >
+  The PR fast-CI lane skips the full test suite (`Python tests (main matrix)`
+  is `skipping`), so `full_repo` failures are invisible until a TASK-CLOSEOUT
+  review runs the full suite. This proposal makes `full_repo` breakage visible
+  at PR time: either (a) run the `full_repo` slice on PRs that touch
+  `tests/**`, `physics_lab/**`, `docs/status.md`, `docs/**`, or task YAML, or
+  (b) add a nightly/main-push full-suite run with an alert, or both. It does not
+  change any test logic.
+
+rationale: >
+  This session lost two fix→PR→rebase→re-review cycles to `full_repo` tests
+  (`test_cli_status_smoke`, `test_cli_mission_json_runs_from_repo_root`) that
+  broke main invisibly because fast PR CI does not run them. Surfacing the
+  failure on the introducing PR removes the most expensive recurring overhead
+  observed in the maintainer-review/closeout flow.
+
+input:
+  mode: planning_only
+  related_domain: ci_infrastructure
+  related_objects:
+    - ".github/workflows/"
+    - "scripts/validate_fast.py"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    Define the smallest CI change that makes full_repo breakage visible at PR
+    time for risk-relevant paths, or a nightly main run with alerting, without
+    slowing unrelated fast PRs. Decide the trigger path filter and where the
+    full_repo lane runs (PR vs nightly vs both).
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Do not weaken existing fast-CI gates; only add full_repo visibility for risk-relevant paths or a nightly main run."
+
+accepted_outputs:
+  - "canonical task spec for a CI change adding full_repo visibility (path-filtered PR job and/or nightly main run with alert)"
+  - "docs update describing the new lane in docs/agent-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From the 2026-06-10 workflow retrospective. Pairs with the auto-closeout work (closeout must not land on a red main)."

@@ -1,0 +1,68 @@
+proposal_id: 20260610-roman-promotion-lane-throughput
+title: "Unblock the output side: wire Gate A/B and claim-promotion throughput"
+status: PROPOSED
+type: scientific_result_publication
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Let disciplined evidence actually become canonical results, claims, and knowledge."
+  - "Fix the promotion bottleneck: 19 results, 10 DRAFT claims, 0 promoted knowledge."
+  - "Keep promotion gated and maintainer-final, but make the path executable instead of stalled."
+
+summary: >
+  The repository has 19 RESULT artifacts, 63 PRED entries, 10 CLAIM files (all
+  DRAFT), and 0 KNOW entries, against ~275 review/gate docs. The output side is
+  as blocked as the input side: claims sit in DRAFT, Gate A/B tooling is only
+  partially wired (Gate B replay helper noted as not yet wired in the
+  maintainer-review protocol), and no reviewed knowledge has ever been promoted.
+  This proposal audits the promotion lane end to end and defines the smallest
+  changes that let strong evidence flow to RESULT/CLAIM/KNOW under existing
+  gates — not by weakening gates, but by completing the missing tooling and the
+  maintainer-decision handoff.
+
+rationale: >
+  Scientific discipline without throughput on either end yields gates, not
+  results. The acquisition fix unblocks the input; this unblocks the output. A
+  high gate-doc to result ratio and zero promoted knowledge indicate strong
+  candidates are stuck in sandbox/DRAFT limbo, which the Director role is
+  explicitly told not to allow indefinitely.
+
+input:
+  mode: planning_only
+  related_domain: scientific_result_publication
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/claim-promotion-policy.md"
+    - "results/"
+    - "claims/"
+  planning_context: >
+    Audit the promotion lane: identify which DRAFT claims have passing evidence
+    ready for review, what Gate A/B tooling is missing (e.g. the Gate B replay
+    helper), and the smallest maintainer-decision workflow to move
+    review-tier-eligible evidence to RESULT/CLAIM/KNOW. Produce a promotion
+    backlog with per-candidate routing. Do not promote any artifact in this
+    task.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Do not weaken Gate A/B, claim-promotion policy, or overclaim rules; only complete missing tooling and the maintainer-decision handoff."
+
+accepted_outputs:
+  - "canonical task spec for a promotion-lane audit + a per-campaign promotion backlog"
+  - "list of missing Gate A/B tooling pieces and the smallest task(s) to wire them"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From the 2026-06-10 workflow retrospective. Output-side counterpart to the acquisition (input-side) work."

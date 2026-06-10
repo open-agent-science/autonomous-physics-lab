@@ -1,0 +1,66 @@
+proposal_id: 20260610-roman-structural-bottleneck-escalation
+title: "Require agents to escalate recurring structural bottlenecks, not just report symptoms"
+status: PROPOSED
+type: agent_workflow
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Turn repeated 'blocked, need maintainer action' symptoms into durable process proposals."
+  - "Make the system improve its own throughput, not just preserve blockers."
+  - "Keep the maintainer the decision-maker while ensuring systemic causes are surfaced."
+
+summary: >
+  Agents (including the Scientific Campaign Director/Curator) repeatedly report
+  the symptom — "agents lack data", "a maintainer action is needed" — without
+  escalating the systemic cause as an actionable proposal (e.g. "acquisition is
+  a rare manual step; here is a cadence to make it regular"). This proposal adds
+  an explicit escalation duty: when an agent observes the SAME class of blocker
+  recurring across tasks/campaigns (data acquisition, promotion, source license,
+  CI invisibility, pool drought), it must file a structural-improvement proposal
+  under tasks/proposals/, not only preserve the per-task blocker.
+
+rationale: >
+  The single biggest gap this session was not technical but reflective: no
+  agent connected "every campaign stalls at source readiness" to "acquisition
+  is the bottleneck, here is how to fix it." The disciplined blocker-memory
+  habit captured symptoms but never the systemic cause. Codifying an escalation
+  duty (in the Preserve-External-Agent-Signals protocol and the curator role)
+  makes structural improvement a first-class agent output.
+
+input:
+  mode: planning_only
+  related_domain: agent_workflow
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "agents/scientific-curator.yaml"
+    - "docs/scientific-campaign-curator.md"
+    - "docs/task-proposal-protocol.md"
+  planning_context: >
+    Extend the "Preserve External-Agent Signals" section and the Director role
+    with an explicit recurring-bottleneck escalation rule: define what counts as
+    a recurring structural blocker, the threshold to escalate, and the required
+    proposal shape (problem, evidence of recurrence, proposed process change).
+    Keep it advisory-to-maintainer; agents escalate, the maintainer decides.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Escalation produces a proposal for maintainer decision; it must not auto-create canonical tasks or change protocol unilaterally."
+
+accepted_outputs:
+  - "canonical task spec to add a recurring-structural-bottleneck escalation rule to docs/agent-task-protocol.md and the Director role profile"
+  - "definition of the escalation threshold and required proposal shape"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From the 2026-06-10 workflow retrospective; directly addresses the maintainer's observation that no agent proposed the systemic fix."
