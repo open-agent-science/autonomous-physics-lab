@@ -1,0 +1,52 @@
+id: TASK-0686
+title: "Re-gate Atomic Pizzocaro Yb/Sr row admissibility after PSD covariance"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the committed Pizzocaro PSD covariance approximation into a clear row-admissibility decision."
+  - "Keep any Beloy/Pizzocaro comparison sensitivity-only until an exact covariance exists."
+  - "Provide the single next step toward the first Atomic Yb/Sr benchmark without premature execution."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_source_derived_psd_covariance_approximation.yaml"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_per_window_diagnostic_ledger.yaml"
+    - "docs/reviews/atomic-baseline-readiness-after-pizzocaro-covariance.md"
+    - "docs/reviews/atomic-pizzocaro-vlbi-row-aggregation-covariance-gate.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+  planning_context: >
+    TASK-0666 committed a source-derived PSD covariance approximation for the ten
+    Pizzocaro VLBI windows (sensitivity-only, both clock-rho bounds PSD-pass), and
+    TASK-0667 confirmed Atomic stays PINNED_DATASET with the load-bearing blocker
+    being a second admissible Yb/Sr benchmark row. The earlier admissibility gates
+    (TASK-0567, TASK-0627) preserved the aggregation blocker before that covariance
+    existed. This task re-decides admissibility now that the covariance artifact is
+    committed.
+
+requirements:
+  - "Use only committed Pizzocaro source artifacts, the per-window ledger, the PSD covariance approximation, and the covariance policy."
+  - "Decide one of: (a) a single frozen Pizzocaro summary row via a committed, deterministic aggregation recipe; (b) a per-window Beloy-vs-Pizzocaro consistency surface; or (c) preserve the aggregation blocker."
+  - "Any admitted surface must be sensitivity-only and must require diagonal-only comparators reported alongside the approximate-covariance metric."
+  - "Do not compute cross-source metrics, aggregate window values, fit constants drift, add acr-*.yaml rows, create results, or promote claims."
+  - "If admissible, specify the exact row/surface shape, covariance state, and no-live-fetch boundary for TASK-0456; if blocked, recommend the single next source or covariance task."
+
+accepted_outputs:
+  - "docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md"
+  - "optional update to tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml only if the decision explicitly changes its unblock condition"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

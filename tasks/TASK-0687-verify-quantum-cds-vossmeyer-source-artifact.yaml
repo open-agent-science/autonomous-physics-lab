@@ -1,0 +1,48 @@
+id: TASK-0687
+title: "Verify Quantum CdS (Vossmeyer 1994) source-artifact access and table status"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce Quantum dependence on the digitization-gated Almeida InP path by advancing a new CdS family."
+  - "Confirm whether a candidate yields direct table rows before any extraction or benchmark work."
+  - "Keep source rights, provenance, and direct-vs-polynomial discipline intact."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-second-open-direct-table-source-scout.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0656 scouted Vossmeyer et al. 1994 (CdS, DOI 10.1021/j100082a044) as a
+    new material-family candidate and preserved a verification blocker
+    (PROMISING_NEW_FAMILY_DIRECT_TABLE_UNVERIFIED). This task verifies the source
+    access path and direct-table status without transcribing values or asserting
+    unverified table contents.
+
+requirements:
+  - "Verify an open, public, institutional-mirror, PMC, or maintainer-provided access path for DOI 10.1021/j100082a044; an ACS subscription is not a committable path."
+  - "Determine whether a printed per-sample (size, absorption energy) table exists versus figure-only data requiring the digitization protocol."
+  - "Confirm the values are direct per-sample measurements, not evaluations of a published sizing polynomial."
+  - "Package a metadata-only source artifact with checksum/locator and reuse posture, or preserve a precise BLOCKER_SOURCE_ARTIFACT_NOT_COMMITTED review."
+  - "Do not transcribe table values, estimate figure coordinates by eye, add qd-*.yaml rows, run baselines, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-cds-vossmeyer-source-artifact-verification.md"
+  - "optional data/quantum_dots/source_manifest.yaml metadata-only candidate entry (inclusion_decision: excluded until row-readiness)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
