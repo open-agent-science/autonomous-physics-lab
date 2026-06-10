@@ -1,7 +1,7 @@
 id: TASK-0670
 title: "Decide Materials MD-0002 acquisition go/no-go after preflight package"
 type: research_quality_gate
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
