@@ -22,3 +22,4 @@ None.
 - `TASK-0691` - Auto-close safe tasks via a direct board-sync commit after merge (`maintainer_workflow`, priority `high`, difficulty `high`, domain `maintainer_workflow`)
 - `TASK-0694` - Fix task-path reference convention in the Atomic Pizzocaro row-admissibility doc (`documentation`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-0695` - Run the task-reference convention test on docs/task-only PRs (fail fast) (`ci_infrastructure`, priority `high`, difficulty `low`, domain `ci_infrastructure`)
+- `TASK-0697` - Add risk-based full_repo PR gate and nightly full_repo watchdog (`ci_infrastructure`, priority `high`, difficulty `medium`, domain `ci_infrastructure`)
