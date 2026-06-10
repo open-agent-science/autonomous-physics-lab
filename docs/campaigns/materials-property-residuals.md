@@ -77,10 +77,13 @@ Factory smoke sprint and found no candidate that clears the frozen baseline
 plus controls. `TASK-0614` selected `MD0002_WIDENING_FIRST`: do not promote the
 small `MD-0001` benchmark yet, but retest the robust formation-energy axis on a
 larger source-pinned slice before deciding whether the signal is durable.
-`TASK-0631`, `TASK-0644`, and `TASK-0645` now form the pre-acquisition planning
-wave: acquisition preflight, holdout/no-peek manifest, and loader/schema
-fixture. `TASK-0670` is the later go/no-go decision that should run only after
-those three surfaces agree.
+`TASK-0631`, `TASK-0644`, and `TASK-0645` completed the pre-acquisition
+planning wave: acquisition preflight, holdout/no-peek manifest, and loader/schema
+fixture. `TASK-0670` authorized a maintainer-run MD-0002 acquisition under the
+frozen contract (formation energy primary retest axis; band gap diagnostic-only;
+1500-row cap per axis; pinned version, checksum, and no-peek holdout binding).
+The next maintainer step is execution of that acquisition task — no agent-side
+live fetch.
 
 ## Admissible Source Classes
 
