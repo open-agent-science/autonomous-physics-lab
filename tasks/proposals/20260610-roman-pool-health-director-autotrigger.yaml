@@ -1,0 +1,62 @@
+proposal_id: 20260610-roman-pool-health-director-autotrigger
+title: "Signal a Director refill when the READY science pool drops below minimum"
+status: PROPOSED
+type: maintainer_workflow
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Prevent the executable science pool from silently draining to near-zero after closeout waves."
+  - "Keep enough bounded READY lanes for parallel agents without busywork."
+  - "Make pool-health a visible signal, not something a human notices after agents idle."
+
+summary: >
+  After the closeout wave, mission health showed ready-science ≈1 (vs minimum
+  12) and 1 active surface (vs minimum 6) before a Director refill happened.
+  The mission helper already computes ready_science_pool_health. This proposal
+  adds an automated signal: a CI/scheduled check (or a post-closeout hook) that
+  flags when ready_science < minimum or active_surfaces < minimum and emits a
+  "Director wave needed" notice (issue comment or status line), so the refill is
+  triggered before agents idle rather than after.
+
+rationale: >
+  Closeouts drain the READY pool with no automatic refill, and no agent
+  proactively flagged the impending drought this session — the maintainer found
+  it only when asking for the next wave. A cheap automated pool-health signal
+  turns a reactive scramble into a proactive Director cadence.
+
+input:
+  mode: planning_only
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_mission.py"
+    - "scripts/apl_campaign_curator.py"
+    - "agents/scientific-curator.yaml"
+    - "missions/current.yaml"
+  planning_context: >
+    Define where the pool-health threshold check runs (scheduled CI, post-merge
+    hook, or mission CLI exit signal) and what it emits. Reuse the existing
+    ready_science_pool_health computation; do not duplicate it. Decide the
+    notice channel and the Director activation handoff.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Reuse existing pool-health computation; do not create a second source of truth or a duplicate dashboard."
+
+accepted_outputs:
+  - "canonical task spec for an automated pool-health threshold signal and Director-wave handoff"
+  - "scientific-curator role/cadence note describing the trigger"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From the 2026-06-10 workflow retrospective."

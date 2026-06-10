@@ -1,0 +1,62 @@
+proposal_id: 20260610-roman-pr-review-helper-polish
+title: "Polish PR/review helpers: diff vs origin/main and auto-prune stale review worktrees"
+status: PROPOSED
+type: maintainer_tooling
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Remove recurring helper friction that costs a debug round-trip per occurrence."
+  - "Make PR bodies and reviews reflect the true diff and the true PR head."
+  - "Keep maintainer tooling trustworthy so reviewers do not chase phantom files or stale SHAs."
+
+summary: >
+  Two recurring helper quirks cost time this session. (1)
+  apl_task_pr_helper.py prepare-current computes Changed Files against the local
+  `main` ref, which is often stale, so it injects unrelated files (e.g.
+  docs/task-views/*.md and already-merged PRs) into the PR body; it should diff
+  against origin/main. (2) apl_review_pr.py caches a review worktree at
+  .worktrees/_reviews/pr-<n>-<sha>; after a force-push/new head it reviews the
+  stale SHA until manually pruned. This proposal fixes both: diff prepare-current
+  against origin/main, and auto-prune/refresh the review worktree when the PR
+  head OID changes.
+
+rationale: >
+  Each quirk individually caused a wrong-state result this session (noisy
+  Changed Files; a review run against the pre-fix SHA that returned a false
+  BLOCKED). Both are mechanical, low-risk fixes to maintainer tooling that
+  remove repeated friction from every PR and review.
+
+input:
+  mode: planning_only
+  related_domain: maintainer_tooling
+  related_objects:
+    - "scripts/apl_task_pr_helper.py"
+    - "scripts/apl_review_pr.py"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    Define the two fixes: (a) prepare-current Changed Files computed against
+    origin/main (with a fetch or an explicit base ref), and (b) apl_review_pr.py
+    detecting a changed PR head OID and pruning/recreating the cached review
+    worktree before reviewing. Keep behavior identical otherwise.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Pure tooling polish; do not change review verdict semantics or PR-shape gates."
+
+accepted_outputs:
+  - "canonical task spec for the two helper fixes with regression tests"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From the 2026-06-10 workflow retrospective. Mechanical; lower priority than acquisition/closeout/promotion."
