@@ -1,0 +1,50 @@
+id: TASK-0690
+title: "Add scientific_dataset_schema to the done-task result-exemption set"
+type: repository_validation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Let planning/schema tasks close to DONE without a spurious done_task_without_result warning."
+  - "Keep the strict result-exemption set complete and consistent with sibling planning types."
+  - "Unblock the TASK-0645 closeout that the missing exemption was holding."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - "physics_lab/registry/scientific_memory_integrity.py"
+    - "tests/test_scientific_memory_integrity.py"
+    - "tasks/TASK-0645-plan-materials-md0002-loader-fixture.yaml"
+  planning_context: >
+    The strict `done_task_without_result` check exempts planning/schema task
+    types that legitimately produce no result artifact (e.g. scientific_dataset,
+    schema_extension, dataset_workflow). The planning type
+    `scientific_dataset_schema` (used by TASK-0645) was missing from
+    STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS, so closing TASK-0645 to DONE tripped
+    `done_task_without_result` under --fail-on-warnings. This task adds the type
+    to the exemption set and the regression test, then closes TASK-0645.
+
+requirements:
+  - "Add `scientific_dataset_schema` to STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS."
+  - "Add a regression case asserting a DONE `scientific_dataset_schema` task without a result does not warn."
+  - "Close TASK-0645 (REVIEW_READY -> DONE); its accepted outputs are already in main via PR #996."
+  - "Do not change any scientific artifact, result, or claim, and do not relax any other validation rule."
+
+accepted_outputs:
+  - "physics_lab/registry/scientific_memory_integrity.py exemption update"
+  - "tests/test_scientific_memory_integrity.py regression case"
+  - "tasks/TASK-0645 status DONE"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_scientific_memory_integrity.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
