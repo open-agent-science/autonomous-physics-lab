@@ -750,7 +750,7 @@ def context_bundle_followups(
     return (
         "Regenerate CONTEXT.md after this merge batch because context bundle "
         f"sources changed: {rendered}. Run python3 scripts/generate_context_bundle.py "
-        "and stage CONTEXT.md if it changes.",
+        "after merge on main; task PR branches need not commit regenerated CONTEXT.md."
     )
 
 

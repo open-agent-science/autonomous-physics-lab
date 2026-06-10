@@ -1,7 +1,7 @@
 id: TASK-0591
 title: "Decouple the generated CONTEXT.md bundle from the committed tree"
 type: documentation_architecture
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
