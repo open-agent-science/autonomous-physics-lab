@@ -1,0 +1,47 @@
+id: TASK-0695
+title: "Run the task-reference convention test on docs/task-only PRs (fail fast)"
+type: ci_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Catch task-path reference convention violations on the docs PR that introduces them, not downstream on an unrelated PR."
+  - "Keep cheap deterministic convention gates in the fast path, per the staged-lane principle."
+  - "Stop docs-only PRs from silently turning main red on the fast lane."
+
+input:
+  mode: workflow
+  related_domain: ci_infrastructure
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "tests/test_task_reference_convention.py"
+    - "docs/task-reference-convention.md"
+  planning_context: >
+    The CI fast job runs a TARGETED test subset for docs/task-only PRs
+    (docs_task_only == true) that omitted tests/test_task_reference_convention.py.
+    A docs-only PR (the TASK-0686 output) therefore introduced a file-path task
+    reference without CI catching it, turning main red on the fast lane and
+    blocking unrelated PRs (the violation only surfaced on a later non-docs PR
+    that runs the full suite). This task adds the convention test to the targeted
+    docs/task run so the introducing PR fails fast.
+
+requirements:
+  - "Add tests/test_task_reference_convention.py to the `Run targeted docs/task tests` step in .github/workflows/ci.yml."
+  - "Do not change the full-suite step or any other CI behavior."
+  - "Confirm the convention test runs as a cheap deterministic file scan (no heavy fixtures)."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml targeted docs/task test list includes the task-reference convention test"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_reference_convention.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
