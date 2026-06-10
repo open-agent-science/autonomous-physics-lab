@@ -864,13 +864,22 @@ def test_prepare_clean_pr_worktree_fetches_remote_head(tmp_path: Path) -> None:
     )
     commands: list[list[str]] = []
 
-    def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
-        assert isinstance(command, list)
-        commands.append(command)
+    def fake_run_git_command(
+        args: list[str],
+        *,
+        cwd: Path,
+        extra_safe_directories: tuple[Path, ...] = (),
+        timeout: int = 60,
+    ) -> CommandResult:
+        del cwd, extra_safe_directories, timeout
+        commands.append(args)
         return _EMPTY_DIFF
 
     with (
-        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch(
+            "physics_lab.registry.maintainer_review.run_git_command",
+            side_effect=fake_run_git_command,
+        ),
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
     ):
         prepared = prepare_clean_pr_worktree(tmp_path, metadata)
@@ -879,14 +888,12 @@ def test_prepare_clean_pr_worktree_fetches_remote_head(tmp_path: Path) -> None:
     assert prepared.root == tmp_path / ".worktrees" / "_reviews" / "pr-104-1234567890ab"
     assert prepared.review_ref == "HEAD"
     assert commands[0] == [
-        "git",
         "fetch",
         "--no-tags",
         "origin",
         f"refs/heads/{branch}:refs/remotes/origin/{branch}",
     ]
     assert commands[1] == [
-        "git",
         "worktree",
         "add",
         "--detach",

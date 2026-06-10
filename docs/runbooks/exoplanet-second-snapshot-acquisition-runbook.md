@@ -91,6 +91,30 @@ The acquisition manifest must record:
 If any checksum, timestamp, row count, or no-peek attestation is missing, the
 future acquisition is incomplete and must not feed row curation or scoring.
 
+## Checksum Portability Policy
+
+Exoplanet source acquisition uses two checksum classes:
+
+| Artifact class | Examples | Checksum rule |
+| --- | --- | --- |
+| Raw value-bearing source | TAP CSV snapshots under `data/exoplanets/raw/` | **Raw byte SHA-256** over the file as retrieved |
+| Committed text artifacts | ADQL query contracts, normalized YAML snapshots, acquisition manifests | **LF-canonical SHA-256**: decode UTF-8, normalize `\r\n` to `\n`, hash the resulting bytes |
+
+Implementation: `physics_lab/checksums.py` (`sha256_file`, `sha256_lf_canonical_file`).
+
+Rules:
+
+- Never compare raw-byte and LF-canonical digests against each other.
+- Windows checkouts must not change LF-canonical digests for committed text
+  artifacts when Git checks them out with normalized line endings.
+- Recompute LF-canonical digests before acquisition if a text artifact's
+  logical content changes; raw CSV digests always reflect the retrieved bytes.
+
+Maintainer review helpers pass per-invocation `safe.directory` flags for
+disposable PR review worktrees (`physics_lab/registry/review_git.py`) so Codex
+and other container agents can run `git worktree` without mutating global git
+config.
+
 ## Row-Class Rules
 
 Normalization must preserve these row states separately:

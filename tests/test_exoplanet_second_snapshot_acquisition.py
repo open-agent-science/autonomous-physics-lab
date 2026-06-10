@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import hashlib
 from pathlib import Path
 
 import pytest
 import yaml
 
+from physics_lab.checksums import sha256_file, sha256_lf_canonical_file
 from physics_lab.datasets.exoplanets import (
     apply_inclusion_filters,
     load_exoplanet_snapshot,
@@ -28,19 +28,6 @@ QUERY_PATH = ROOT / "data" / "exoplanets" / "snapshot_plans" / "pscomppars_query
 EXPECTED_QUERY_SHA256 = "28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8"
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _sha256_lf_text(path: Path) -> str:
-    text = path.read_text(encoding="utf-8")
-    return hashlib.sha256(text.replace("\r\n", "\n").encode("utf-8")).hexdigest()
-
-
 def _load_yaml(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as fh:
         payload = yaml.safe_load(fh)
@@ -49,7 +36,7 @@ def _load_yaml(path: Path) -> dict:
 
 
 def test_second_snapshot_query_contract_remains_frozen() -> None:
-    assert _sha256_lf_text(QUERY_PATH) == EXPECTED_QUERY_SHA256
+    assert sha256_lf_canonical_file(QUERY_PATH) == EXPECTED_QUERY_SHA256
 
 
 def test_second_snapshot_manifest_records_acquisition_without_scoring() -> None:
@@ -85,8 +72,8 @@ def test_second_snapshot_committed_checksums_replay() -> None:
 
     assert raw_path.exists()
     assert normalized_path == SNAPSHOT_PATH
-    assert checksum_policy["raw_checksum_sha256"] == _sha256(raw_path)
-    assert checksum_policy["normalized_file_checksum_sha256"] == _sha256_lf_text(
+    assert checksum_policy["raw_checksum_sha256"] == sha256_file(raw_path)
+    assert checksum_policy["normalized_file_checksum_sha256"] == sha256_lf_canonical_file(
         normalized_path
     )
 

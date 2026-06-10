@@ -6,12 +6,18 @@ from physics_lab.registry import review_git
 from physics_lab.registry.review_git import CommandResult
 
 
+def _assert_git_command(command: list[str] | str, *tail: str) -> None:
+    assert isinstance(command, list)
+    assert command[0] == "git"
+    assert command[-len(tail) :] == list(tail)
+
+
 def test_working_tree_changed_files_handles_renames_and_arrow_literals(
     monkeypatch,
     tmp_path: Path,
 ) -> None:
     def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
-        assert command == ["git", "status", "--short"]
+        _assert_git_command(command, "status", "--short")
         return CommandResult(
             returncode=0,
             stdout="\n".join(
@@ -45,11 +51,15 @@ def test_changed_files_vs_main_uses_merge_base_ref_and_current_worktree(
 
     def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
         seen_commands.append(command)
-        if command == ["git", "diff", "--name-only", "origin/main...feature"]:
+        if isinstance(command, list) and command[-3:] == [
+            "diff",
+            "--name-only",
+            "origin/main...feature",
+        ]:
             return CommandResult(returncode=0, stdout="docs/a.md\ndocs/b.md\n", stderr="")
-        if command == ["git", "branch", "--show-current"]:
+        if isinstance(command, list) and command[-2:] == ["branch", "--show-current"]:
             return CommandResult(returncode=0, stdout="feature\n", stderr="")
-        if command == ["git", "status", "--short"]:
+        if isinstance(command, list) and command[-2:] == ["status", "--short"]:
             return CommandResult(returncode=0, stdout=" M docs/b.md\n?? docs/c.md\n", stderr="")
         raise AssertionError(f"Unexpected command: {command!r}")
 
@@ -60,7 +70,10 @@ def test_changed_files_vs_main_uses_merge_base_ref_and_current_worktree(
         "docs/b.md",
         "docs/c.md",
     )
-    assert ["git", "diff", "--name-only", "origin/main...feature"] in seen_commands
+    assert any(
+        isinstance(command, list) and command[-3:] == ["diff", "--name-only", "origin/main...feature"]
+        for command in seen_commands
+    )
 
 
 def test_changed_files_vs_main_omits_worktree_for_other_branch(
@@ -68,11 +81,11 @@ def test_changed_files_vs_main_omits_worktree_for_other_branch(
     tmp_path: Path,
 ) -> None:
     def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
-        if command == ["git", "diff", "--name-only", "main...feature"]:
+        if isinstance(command, list) and command[-3:] == ["diff", "--name-only", "main...feature"]:
             return CommandResult(returncode=0, stdout="docs/a.md\n", stderr="")
-        if command == ["git", "branch", "--show-current"]:
+        if isinstance(command, list) and command[-2:] == ["branch", "--show-current"]:
             return CommandResult(returncode=0, stdout="other\n", stderr="")
-        if command == ["git", "status", "--short"]:
+        if isinstance(command, list) and command[-2:] == ["status", "--short"]:
             raise AssertionError("status should not be read for a non-current branch")
         raise AssertionError(f"Unexpected command: {command!r}")
 
@@ -83,9 +96,9 @@ def test_changed_files_vs_main_omits_worktree_for_other_branch(
 
 def test_branch_exists_reports_missing_ref(monkeypatch, tmp_path: Path) -> None:
     def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
-        if command == ["git", "rev-parse", "--verify", "origin/main"]:
+        if isinstance(command, list) and command[-3:] == ["rev-parse", "--verify", "origin/main"]:
             return CommandResult(returncode=0, stdout="abc123\n", stderr="")
-        if command == ["git", "rev-parse", "--verify", "missing/ref"]:
+        if isinstance(command, list) and command[-3:] == ["rev-parse", "--verify", "missing/ref"]:
             return CommandResult(returncode=128, stdout="", stderr="fatal: Needed a single revision\n")
         raise AssertionError(f"Unexpected command: {command!r}")
 
@@ -100,7 +113,7 @@ def test_branch_exists_reports_missing_ref(monkeypatch, tmp_path: Path) -> None:
 
 def _fake_status(stdout: str):
     def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
-        assert command == ["git", "status", "--short"]
+        _assert_git_command(command, "status", "--short")
         return CommandResult(returncode=0, stdout=stdout, stderr="")
 
     return fake_run_command
@@ -198,4 +211,3 @@ def test_harness_ignore_paths_is_a_tuple() -> None:
     assert isinstance(review_git.HARNESS_IGNORE_PATHS, tuple)
     assert ".claude/scheduled_tasks.lock" in review_git.HARNESS_IGNORE_PATHS
     assert all(isinstance(p, str) for p in review_git.HARNESS_IGNORE_PATHS)
-

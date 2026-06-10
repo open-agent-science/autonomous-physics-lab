@@ -14,6 +14,7 @@ import yaml
 from physics_lab.registry.review_git import (
     CommandResult,  # noqa: F401 — re-exported for backwards compatibility
     run_command,
+    run_git_command,
     branch_exists,
     current_branch,
     git_status_clean,
@@ -577,7 +578,7 @@ def prepare_clean_local_ref_worktree(root: Path, ref: str) -> CleanPrWorktree:
         f"git worktree add --detach <review-worktree> {ref}",
         f"python3 scripts/apl_review_pr.py --branch {ref} --task <TASK-XXXX>",
     )
-    rev_parse = run_command(["git", "rev-parse", "--verify", ref], cwd=root, timeout=30)
+    rev_parse = run_git_command(["rev-parse", "--verify", ref], cwd=root, timeout=30)
     if rev_parse.returncode != 0:
         detail = (rev_parse.stderr or rev_parse.stdout).strip()
         return CleanPrWorktree(
@@ -590,9 +591,10 @@ def prepare_clean_local_ref_worktree(root: Path, ref: str) -> CleanPrWorktree:
     head_sha = rev_parse.stdout.strip().splitlines()[0].strip()
     worktree = _clean_local_ref_worktree_path(root, ref, head_sha)
     if worktree.exists():
-        remove = run_command(
-            ["git", "worktree", "remove", "--force", str(worktree)],
+        remove = run_git_command(
+            ["worktree", "remove", "--force", str(worktree)],
             cwd=root,
+            extra_safe_directories=(worktree,),
             timeout=120,
         )
         if remove.returncode != 0:
@@ -606,9 +608,10 @@ def prepare_clean_local_ref_worktree(root: Path, ref: str) -> CleanPrWorktree:
                 fallback_commands=fallback_commands,
             )
     worktree.parent.mkdir(parents=True, exist_ok=True)
-    add = run_command(
-        ["git", "worktree", "add", "--detach", str(worktree), head_sha],
+    add = run_git_command(
+        ["worktree", "add", "--detach", str(worktree), head_sha],
         cwd=root,
+        extra_safe_directories=(worktree,),
         timeout=120,
     )
     if add.returncode != 0:
@@ -661,9 +664,8 @@ def prepare_clean_pr_worktree(root: Path, metadata: PullRequestMetadata) -> Clea
             message="PR metadata did not include headRefOid.",
             fallback_commands=fallback_commands,
         )
-    fetch = run_command(
+    fetch = run_git_command(
         [
-            "git",
             "fetch",
             "--no-tags",
             "origin",
@@ -684,9 +686,10 @@ def prepare_clean_pr_worktree(root: Path, metadata: PullRequestMetadata) -> Clea
 
     worktree = _clean_pr_worktree_path(root, metadata)
     if worktree.exists():
-        remove = run_command(
-            ["git", "worktree", "remove", "--force", str(worktree)],
+        remove = run_git_command(
+            ["worktree", "remove", "--force", str(worktree)],
             cwd=root,
+            extra_safe_directories=(worktree,),
             timeout=120,
         )
         if remove.returncode != 0:
@@ -700,9 +703,10 @@ def prepare_clean_pr_worktree(root: Path, metadata: PullRequestMetadata) -> Clea
                 fallback_commands=fallback_commands,
             )
     worktree.parent.mkdir(parents=True, exist_ok=True)
-    add = run_command(
-        ["git", "worktree", "add", "--detach", str(worktree), metadata.head_sha],
+    add = run_git_command(
+        ["worktree", "add", "--detach", str(worktree), metadata.head_sha],
         cwd=root,
+        extra_safe_directories=(worktree,),
         timeout=120,
     )
     if add.returncode != 0:
@@ -795,7 +799,7 @@ def _public_state_docs_need_review(
 
 def load_yaml_payload_from_ref(root: Path, ref: str, repo_path: str) -> dict[str, Any] | None:
     """Load a YAML mapping from a git ref, or from the worktree for the current branch."""
-    result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root, timeout=30)
+    result = run_git_command(["show", f"{ref}:{repo_path}"], cwd=root, timeout=30)
     text: str | None = result.stdout if result.returncode == 0 else None
     if text is None and ref == current_branch(root):
         path = root / repo_path
@@ -1399,8 +1403,8 @@ def build_review_report(
 
     overclaim_lines = tuple(
         parse_added_lines(
-            run_command(
-                ["git", "diff", "--unified=0", f"{base_ref}...{review_ref}"],
+            run_git_command(
+                ["diff", "--unified=0", f"{base_ref}...{review_ref}"],
                 cwd=root,
                 timeout=120,
             ).stdout,
@@ -1409,7 +1413,7 @@ def build_review_report(
     )
     if review_worktree_is_current and not git_status_clean(root):
         overclaim_lines = overclaim_lines + parse_added_lines(
-            run_command(["git", "diff", "--unified=0"], cwd=root, timeout=120).stdout,
+            run_git_command(["diff", "--unified=0"], cwd=root, timeout=120).stdout,
             exclude_prefixes=("tests/",),
         )
     overclaims = overclaim_hits(overclaim_lines)
@@ -1448,8 +1452,8 @@ def build_review_report(
     advisory_warnings.extend(follow_up_task_advisories)
     security_lines = tuple(
         parse_added_lines(
-            run_command(
-                ["git", "diff", "--unified=0", f"{base_ref}...{review_ref}"],
+            run_git_command(
+                ["diff", "--unified=0", f"{base_ref}...{review_ref}"],
                 cwd=root,
                 timeout=120,
             ).stdout,
@@ -1458,7 +1462,7 @@ def build_review_report(
     )
     if review_worktree_is_current and not git_status_clean(root):
         security_lines = security_lines + parse_added_lines(
-            run_command(["git", "diff", "--unified=0"], cwd=root, timeout=120).stdout,
+            run_git_command(["diff", "--unified=0"], cwd=root, timeout=120).stdout,
             include_prefixes=("physics_lab/", "scripts/", ".github/workflows/"),
         )
     dangerous_patterns = security_pattern_hits(security_lines)
