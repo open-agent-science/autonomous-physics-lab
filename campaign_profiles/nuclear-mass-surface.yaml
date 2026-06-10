@@ -148,5 +148,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-06-01"
+    review_interval: quarterly_active
+    next_review_due: "2026-09-01"
+    review_reason: flagship_validation
     source: "TASK-0479, TASK-0507, TASK-0516, and TASK-0517 unblock"
     notes: "Flagship lane remains high-value. The first full Research Factory sprint on NMD-0002 produced no shortlist and is underpowered; TASK-0516 has now landed the source-gated NMD-0003 measured-row training surface needed for the first large factory sprint. Keep reveal-readiness separate from training expansion."

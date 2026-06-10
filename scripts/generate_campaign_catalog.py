@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +15,25 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CATALOG_PATH = REPO_ROOT / "campaign_profiles" / "_catalog.yaml"
 PROFILE_ROOT = REPO_ROOT / "campaign_profiles"
 
+CURATOR_REVIEW_INTERVALS = frozenset(
+    {
+        "quarterly_active",
+        "quarterly_blocked",
+        "quarterly_planning",
+        "semiannual_quality_floor",
+    }
+)
+CURATOR_REVIEW_REASONS = frozenset(
+    {
+        "flagship_validation",
+        "benchmark_monitoring",
+        "source_readiness",
+        "planning_scaffold",
+        "quality_floor_hygiene",
+    }
+)
+ISO_DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
 
 def _load_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
@@ -21,6 +41,44 @@ def _load_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError(f"Expected mapping in {path}")
     return data
+
+
+def _validate_curator_review(path: Path, campaign_id: str, review: dict[str, Any]) -> None:
+    for field in (
+        "status",
+        "last_reviewed",
+        "review_interval",
+        "next_review_due",
+        "review_reason",
+        "source",
+        "notes",
+    ):
+        if field not in review:
+            raise ValueError(f"{path}: campaign {campaign_id} curator_review missing {field}")
+
+    interval = str(review["review_interval"])
+    if interval not in CURATOR_REVIEW_INTERVALS:
+        allowed = ", ".join(sorted(CURATOR_REVIEW_INTERVALS))
+        raise ValueError(
+            f"{path}: campaign {campaign_id} has invalid review_interval {interval!r}; "
+            f"expected one of: {allowed}"
+        )
+
+    reason = str(review["review_reason"])
+    if reason not in CURATOR_REVIEW_REASONS:
+        allowed = ", ".join(sorted(CURATOR_REVIEW_REASONS))
+        raise ValueError(
+            f"{path}: campaign {campaign_id} has invalid review_reason {reason!r}; "
+            f"expected one of: {allowed}"
+        )
+
+    for date_field in ("last_reviewed", "next_review_due"):
+        value = str(review[date_field])
+        if not ISO_DATE_PATTERN.match(value):
+            raise ValueError(
+                f"{path}: campaign {campaign_id} curator_review.{date_field} "
+                f"must be YYYY-MM-DD, got {value!r}"
+            )
 
 
 def _portfolio_profiles(profile_root: Path) -> list[tuple[Path, dict[str, Any]]]:
@@ -45,6 +103,7 @@ def build_catalog(root: Path = REPO_ROOT) -> dict[str, Any]:
         seen.add(campaign_id)
 
         portfolio = profile["portfolio"]
+        _validate_curator_review(path, campaign_id, portfolio["curator_review"])
         allowed_work = []
         allowed_work.extend(profile.get("allowed_hypothesis_families", []))
         allowed_work.extend(profile.get("allowed_experiment_families", []))

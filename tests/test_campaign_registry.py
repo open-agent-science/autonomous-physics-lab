@@ -61,6 +61,9 @@ campaigns:
     curator_review:
       status: current
       last_reviewed: "2026-05-29"
+      review_interval: quarterly_planning
+      next_review_due: "2026-09-01"
+      review_reason: planning_scaffold
       source: "test"
       notes: "Synthetic test catalog."
 """
@@ -93,6 +96,9 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-05-29"
+    review_interval: quarterly_planning
+    next_review_due: "2026-09-01"
+    review_reason: planning_scaffold
     source: "test"
     notes: "Synthetic test profile."
 """
@@ -146,6 +152,21 @@ def test_campaign_catalog_rejects_missing_required_fields(tmp_path: Path) -> Non
 
     with pytest.raises(ValueError, match="required property"):
         load_campaign_catalog(catalog_path)
+
+
+def test_campaign_catalog_generator_rejects_invalid_curator_review_cadence(
+    tmp_path: Path,
+) -> None:
+    profile_dir = tmp_path / "campaign_profiles"
+    profile_dir.mkdir()
+    profile_text = _minimal_profile().replace(
+        "review_interval: quarterly_planning",
+        "review_interval: weekly",
+    )
+    (profile_dir / "example-campaign.yaml").write_text(profile_text, encoding="utf-8")
+
+    with pytest.raises(ValueError, match="invalid review_interval"):
+        build_catalog(tmp_path)
 
 
 def test_validate_repository_counts_campaign_catalog(tmp_path: Path) -> None:
