@@ -641,6 +641,34 @@ Default behavior:
   publish the local closeout diff through a closeout commit and PR, or ask the
   maintainer to do it, so task-state changes do not remain only local
 
+### Automated safe auto-closeout (post-merge)
+
+The post-merge `Sync Active Board` GitHub Action also auto-closes the **safe**
+subset of merged tasks: it runs
+`python scripts/apl_closeout_sweep.py --auto-safe`, flips the safe subset
+`REVIEW_READY -> DONE`, and folds those flips into its direct
+`[skip-board-sync]` board-sync commit on `main`. The closeout content was
+already vetted by the pre-merge review agent plus green CI, so this only
+mechanizes the status flip; safety is a tested deterministic guard, not a
+watching period.
+
+A task is **auto-safe** only when ALL hold:
+
+- it is `REVIEW_READY` with a verified merged canonical PR;
+- it is not opted out via `closeout: review` (the per-task opt-out field);
+- its merged PR touched no protected scientific artifact (`claims/`, `results/`,
+  `prediction_registry/`, `experiments/`, `knowledge/`);
+- it does **not** unblock any other task (no `BLOCKED` task references it).
+
+Everything else — result-bearing, follow-up-spawning, unblocking, and
+`closeout: review` tasks, plus all deterministic dependent-unblocks — stays on
+the **review path** for a maintainer or Scientific Curator decision; the action
+never auto-unblocks. The auto-closeout runs only on `main`, keeps the
+`[skip-board-sync]` recursion guard, and is meaningful only on a green main, so
+land full_repo PR/nightly visibility with or before relying on it. Manual
+closeout via the helpers below remains available, and a wrong status flip is a
+trivially revertible commit.
+
 ### Closeout sweep helper
 
 Use this helper to find tasks that are still `REVIEW_READY` but already have a

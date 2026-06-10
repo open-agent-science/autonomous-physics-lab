@@ -186,6 +186,149 @@ def apply_closeout_sweep_report(
     )
 
 
+PROTECTED_ARTIFACT_PREFIXES: tuple[str, ...] = (
+    "claims/",
+    "results/",
+    "prediction_registry/",
+    "experiments/",
+    "knowledge/",
+)
+
+
+def task_closeout_policy(task_payload: dict) -> str:
+    """Return a task's closeout policy: 'review' (opt-out) or 'auto' (default)."""
+    return "review" if task_payload.get("closeout") == "review" else "auto"
+
+
+def task_unblocks_others(root: Path, task_id: str) -> bool:
+    """Return True if any BLOCKED task references ``task_id``.
+
+    Conservative over-approximation: closing a task that another BLOCKED task
+    names may require a manual dependent-unblock decision, so such tasks are not
+    auto-closed.
+    """
+    tasks_dir = root / "tasks"
+    if not tasks_dir.is_dir():
+        return False
+    for path in sorted(tasks_dir.glob("TASK-*.yaml")):
+        text = path.read_text(encoding="utf-8")
+        status_match = re.search(r"^status:\s*(\S+)", text, re.MULTILINE)
+        if status_match is None or status_match.group(1) != "BLOCKED":
+            continue
+        own_id_match = re.search(r"^id:\s*(\S+)", text, re.MULTILINE)
+        if own_id_match is not None and own_id_match.group(1) == task_id:
+            continue
+        if task_id in text:
+            return True
+    return False
+
+
+def auto_closeout_blockers(
+    task_payload: dict,
+    *,
+    pr_changed_files: tuple[str, ...],
+    unblocks_others: bool,
+) -> tuple[str, ...]:
+    """Return reasons a task is NOT safe for automatic closeout (empty = auto-safe)."""
+    reasons: list[str] = []
+    if task_closeout_policy(task_payload) == "review":
+        reasons.append("Task opts out of auto-closeout via `closeout: review`.")
+    protected = sorted(
+        path
+        for path in pr_changed_files
+        if any(path.startswith(prefix) for prefix in PROTECTED_ARTIFACT_PREFIXES)
+    )
+    if protected:
+        reasons.append(
+            "Merged PR touched protected scientific artifact(s): " + ", ".join(protected) + "."
+        )
+    if unblocks_others:
+        reasons.append(
+            "Task is referenced by a BLOCKED task; closing it may need a manual unblock decision."
+        )
+    return tuple(reasons)
+
+
+def load_pr_changed_files(
+    root: Path, pull_request: int, *, gh_path: str | None = None
+) -> tuple[str, ...]:
+    """Return the file paths changed by a PR via gh; empty tuple if unavailable."""
+    resolved_gh_path = gh_path or find_gh_path()
+    if resolved_gh_path is None:
+        return ()
+    result = run_command(
+        [
+            resolved_gh_path,
+            "pr",
+            "view",
+            str(pull_request),
+            "--json",
+            "files",
+            "--jq",
+            ".files[].path",
+        ],
+        cwd=root,
+        timeout=60,
+    )
+    if result.returncode != 0:
+        return ()
+    return tuple(line.strip() for line in result.stdout.splitlines() if line.strip())
+
+
+def auto_safe_closeout_candidates(
+    root: Path,
+    report: CloseoutSweepReport,
+    *,
+    pr_changed_files_by_number: dict[int, tuple[str, ...]] | None = None,
+) -> tuple[tuple[CloseoutSweepCandidate, tuple[str, ...]], ...]:
+    """Pair each ready candidate with its auto-closeout blockers (empty = auto-safe)."""
+    files_by_number = pr_changed_files_by_number or {}
+    classified: list[tuple[CloseoutSweepCandidate, tuple[str, ...]]] = []
+    for candidate in report.ready:
+        task_file = _task_file_by_id(root, candidate.task_id)
+        payload = load_task(task_file) if task_file is not None else {}
+        pr_files = files_by_number.get(candidate.pull_request or -1)
+        if pr_files is None and candidate.pull_request is not None:
+            pr_files = load_pr_changed_files(root, candidate.pull_request)
+        blockers = auto_closeout_blockers(
+            payload,
+            pr_changed_files=pr_files or (),
+            unblocks_others=task_unblocks_others(root, candidate.task_id),
+        )
+        classified.append((candidate, blockers))
+    return tuple(classified)
+
+
+def apply_auto_safe_closeouts(
+    root: Path,
+    report: CloseoutSweepReport,
+    *,
+    pr_changed_files_by_number: dict[int, tuple[str, ...]] | None = None,
+) -> CloseoutSweepApplyReport:
+    """Flip only auto-safe ready candidates from REVIEW_READY to DONE."""
+    if not git_status_clean(root):
+        raise ValueError("Auto-safe closeout apply requires a clean git status.")
+    classified = auto_safe_closeout_candidates(
+        root, report, pr_changed_files_by_number=pr_changed_files_by_number
+    )
+    applied: list[CloseoutSweepCandidate] = []
+    changed_files: list[Path] = []
+    for candidate, blockers in classified:
+        if blockers:
+            continue
+        task_file = _task_file_by_id(root, candidate.task_id)
+        if task_file is None:
+            continue
+        text = task_file.read_text(encoding="utf-8")
+        needle = "status: REVIEW_READY"
+        if needle not in text:
+            continue
+        task_file.write_text(text.replace(needle, "status: DONE", 1), encoding="utf-8")
+        applied.append(candidate)
+        changed_files.append(task_file)
+    return CloseoutSweepApplyReport(applied=tuple(applied), changed_files=tuple(changed_files))
+
+
 def _load_merged_task_pull_requests_from_git(
     root: Path,
     *,

@@ -9,6 +9,11 @@ status: PROPOSED
 difficulty: medium
 priority: medium
 
+# Optional closeout policy. Omit (default) to allow safe auto-closeout, or set
+# `closeout: review` to force a manual closeout decision even when otherwise safe
+# (use for tasks that produce a result, spawn follow-ups, or need a human call).
+# closeout: review
+
 strategy_alignment:
   - ""
 

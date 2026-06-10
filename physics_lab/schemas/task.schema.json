@@ -150,6 +150,13 @@
         "high"
       ]
     },
+    "closeout": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "review"
+      ]
+    },
     "strategy_alignment": {
       "type": "array",
       "items": {
