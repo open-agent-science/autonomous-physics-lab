@@ -1,0 +1,51 @@
+id: TASK-0691
+title: "Add a per-task closeout policy field (auto vs review)"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Let each task declare whether it is safe for automatic closeout or needs agent/maintainer review."
+  - "Foundation for safe board-sync-style auto-closeout without over-automating result-bearing tasks."
+  - "Default to review so nothing auto-closes unless it explicitly opts in (safe-by-default)."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/schemas/task.schema.json"
+    - "tasks/TASK-TEMPLATE.yaml"
+    - "physics_lab/registry/closeout_sweep.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Closeout is currently per-task hand-crafted PRs, and every fix-task spawns
+    its own closeout. The maintainer wants safe, simple tasks to close
+    automatically (as a board-sync-style direct commit) while result-bearing,
+    follow-up-spawning, or unblocking tasks stay under agent/maintainer review.
+    This first step adds the declaration mechanism only: a per-task `closeout`
+    policy field. It does not change any closeout behavior yet.
+
+requirements:
+  - "Add an optional `closeout` field to physics_lab/schemas/task.schema.json with enum [auto, review]; absent means review (safe default)."
+  - "Add `closeout: review` to tasks/TASK-TEMPLATE.yaml with an explanatory comment."
+  - "Add a pure reader/classifier (e.g. closeout_policy(payload) -> 'auto'|'review') in physics_lab/registry/closeout_sweep.py with a default-review fallback, plus a unit test."
+  - "Do not change the actual REVIEW_READY -> DONE flipping behavior, the sweep mutation path, or any dependent-unblock logic in this task."
+  - "Keep the field optional so existing tasks and schema validation are unaffected."
+
+accepted_outputs:
+  - "task.schema.json `closeout` field"
+  - "TASK-TEMPLATE.yaml `closeout: review` default"
+  - "closeout_policy classifier + unit test"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_scientific_memory_integrity.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

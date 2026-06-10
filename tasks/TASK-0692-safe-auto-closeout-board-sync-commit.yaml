@@ -1,0 +1,58 @@
+id: TASK-0692
+title: "Phase 1 safe closeout automation: dry-run sweep + batched closeout PR (no direct-main yet)"
+type: maintainer_workflow
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Remove per-task hand-crafted closeout PRs for the safe majority, keeping a human checkpoint on the automation in phase 1."
+  - "Trust the pre-merge-reviewed content; verify the automation before granting it direct-main writes."
+  - "Keep result-bearing, follow-up-spawning, and unblocking tasks under explicit review."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "physics_lab/registry/task_closeout.py"
+    - ".github/workflows/sync-active-board.yml"
+    - "scripts/apl_closeout_sweep.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Phasing per the architect review. Phase 1 does NOT enable direct-main
+    auto-closeout. Instead: a dry-run closeout sweep that reports auto-safe vs
+    review-needed tasks, and a batched closeout PR workflow that runs after green
+    main CI, with a mandatory protected-artifact guard. Deterministic
+    dependent-unblocks are applied ONLY inside that reviewed batched PR (never
+    auto, never direct). This keeps a human checkpoint on the automation's
+    classification while the content itself is already pre-merge-reviewed.
+    Direct-main board-sync auto-closeout is a later phase, only after phase 1
+    proves the classifier safe.
+
+requirements:
+  - "Start only after TASK-0691 is merged (per-task closeout field exists)."
+  - "Add a dry-run mode to the closeout sweep that reports, per REVIEW_READY-with-merged-PR task: auto-safe vs review-needed, with the reason."
+  - "Auto-safe requires ALL: `closeout: auto`; GitHub-metadata-verified merged canonical PR; the merged PR touched no protected artifact (claims/, results/, prediction_registry/, experiments/, knowledge/, public-release state); and the task does NOT unblock any other task."
+  - "Build a batched closeout PR workflow that flips only auto-safe tasks to DONE, runs only after main CI is green, and is opened for maintainer review — NOT committed directly to main in this phase."
+  - "Apply deterministic dependent-unblocks only inside the batched PR; do not auto-unblock and do not unblock on direct-main."
+  - "Make the protected-artifact guard mandatory and tested; route every review-needed task to a list, never into the batch."
+  - "Document the phase-1 boundary and the deferred phase-2 (direct-main board-sync auto-closeout) in docs/maintainer-review-agent.md; do not enable direct-main in this task."
+
+accepted_outputs:
+  - "closeout sweep dry-run report (auto-safe vs review-needed)"
+  - "batched closeout PR workflow gated on green main CI"
+  - "protected-artifact + no-unblock guard with tests"
+  - "docs/maintainer-review-agent.md phase-1/phase-2 boundary note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_closeout_sweep.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,53 @@
+id: TASK-0693
+title: "Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot"
+type: dataset_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Turn the rare manual acquisition step into a regular, visible, dry-run-first lane."
+  - "Make acquisition proactive: surface license-cleared, ready-to-fetch sources before agents idle."
+  - "Keep no-secret, no-crawler, no-live-fetch-in-benchmark, no-copyrighted-artifact discipline intact."
+
+input:
+  mode: planning_only
+  related_domain: data_acquisition
+  related_objects:
+    - "agents/data-acquisition.yaml"
+    - "agents/fresh-source-scout.yaml"
+    - "docs/source-acquisition-lane.md"
+    - "data/materials/source_manifest.yaml"
+    - "docs/reviews/materials-md0002-acquisition-preflight-package.md"
+  planning_context: >
+    Phasing per the architect review (Plan 1, second). Phase 1 is dry-run only:
+    no cron real fetch. The Fresh-Source-Scout already finds candidates and
+    data-acquisition already defines the lane, but nothing runs on a cadence, so
+    acquisition stalled after the single MD-0001 fetch. This task adds the queue
+    and a dry-run reminder, and pilots the MD-0002 fetch as a maintainer-run
+    key-gated runbook (not a GitHub Action fetch).
+
+requirements:
+  - "Add data/<campaign>/acquisition_queue.yaml (or a source-manifest acquisition_status field) listing only license-verified, checksum-policy-defined, ready-to-fetch sources, each tagged with the downstream task it unblocks and a public_keyfree vs key_gated flag."
+  - "Add a scheduled workflow that in phase 1 produces ONLY a dry-run report/reminder of queued sources (no fetch)."
+  - "Pilot MD-0002 stable ternary oxides as a key-gated MAINTAINER-run runbook (uses MP_API_KEY, never committed), not a GitHub Action fetch, executing the TASK-0631 frozen contract."
+  - "Allow public key-free fetch only via a manual workflow_dispatch (no automatic run) in a later step; do not enable a weekly cron real fetch in this task."
+  - "Guardrails (hard): no secrets committed, no crawler, no live fetch inside benchmark/test code, no copyrighted artifacts; license verified before any queue entry."
+
+accepted_outputs:
+  - "acquisition queue artifact (queue file or manifest acquisition_status field)"
+  - "scheduled dry-run reminder workflow (report only, no fetch)"
+  - "MD-0002 key-gated maintainer runbook"
+  - "docs/source-acquisition-lane.md update describing the phased lane"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
