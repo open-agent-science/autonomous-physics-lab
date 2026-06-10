@@ -1,0 +1,58 @@
+id: TASK-0691
+title: "Auto-close safe tasks via a direct board-sync commit after merge"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Remove per-task hand-crafted closeout PRs for the safe majority — one mechanism, no phases."
+  - "Safety comes from a tested deterministic guard, a green-main gate, and easy revert, not from a watching period."
+  - "Keep result-bearing, follow-up-spawning, and unblocking tasks on the review path."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "scripts/apl_closeout_sweep.py"
+    - ".github/workflows/sync-active-board.yml"
+    - "physics_lab/schemas/task.schema.json"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Closeout content is already vetted by the pre-merge review agent plus green
+    CI before merge, and closing a safe task is a trivially revertible status
+    flip that touches no scientific artifact. So after a task PR merges, safe
+    tasks are closed immediately via the existing post-merge Sync Active Board
+    action: it flips the safe subset REVIEW_READY -> DONE and folds those flips
+    into its direct `[skip-board-sync]` board-sync commit on main. One task, no
+    phases. The green-main gate is only meaningful once full_repo PR/nightly
+    visibility lands (separate proposal), since closeout review previously caught
+    red-main full_repo breakage.
+
+requirements:
+  - "Add an optional per-task `closeout` field (enum [auto, review]) to task.schema.json as an opt-out: `closeout: review` forces manual closeout even when otherwise safe; absent or `auto` allows safe auto-closeout."
+  - "Auto-close only the safe subset of merged closeout candidates: not `closeout: review`; whose merged PR touched no protected artifact (claims/, results/, prediction_registry/, experiments/, knowledge/); and that does NOT unblock any other task."
+  - "Never auto-unblock dependent BLOCKED tasks; leave result-bearing, follow-up-spawning, unblocking, and `closeout: review` tasks for maintainer/Scientific Curator review."
+  - "Wire the auto-closeout into the existing Sync Active Board post-merge action so DONE flips ship in its direct board-sync commit; keep the [skip-board-sync] recursion guard and run only on main."
+  - "Unit-test the guard (closeout policy, protected-artifact, no-unblock) with positive and negative cases — this is the primary safety mechanism — and keep a `--dry-run`/report path available."
+  - "Document the safe-auto vs review-path boundary in docs/maintainer-review-agent.md; keep manual closeout available."
+
+accepted_outputs:
+  - "physics_lab/schemas/task.schema.json optional `closeout` field"
+  - "auto-closeout guard + apply in physics_lab/registry/closeout_sweep.py with tests"
+  - "scripts/apl_closeout_sweep.py --auto-safe mode"
+  - ".github/workflows/sync-active-board.yml auto-close step"
+  - "docs/maintainer-review-agent.md boundary note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_closeout_sweep.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
