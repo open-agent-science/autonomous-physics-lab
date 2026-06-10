@@ -103,6 +103,7 @@ jobs:
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
+            tests/test_task_reference_convention.py \
             tests/test_docs_links.py \
             tests/test_mission_control.py \
             tests/test_mission_freshness.py \
