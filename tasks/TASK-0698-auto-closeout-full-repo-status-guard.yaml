@@ -1,0 +1,54 @@
+id: TASK-0698
+title: "Guard safe auto-closeout on full_repo status: report-only when red/stale/unknown"
+type: maintainer_workflow
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stop commit-safe auto-closeout from acting on an incomplete green signal."
+  - "Keep APL verification-first: DONE flips on main must not rely on `seems green`."
+  - "Complete the auto-closeout safety system together with the full_repo visibility gate."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "scripts/apl_closeout_sweep.py"
+    - ".github/workflows/sync-active-board.yml"
+    - ".github/workflows/nightly-full-repo.yml"
+    - "docs/ci-full-repo-policy.md"
+  planning_context: >
+    TASK-0691 wired safe auto-closeout as a direct board-sync commit on main, and
+    TASK-0697 makes full_repo status visible (risk-based PR gate + nightly
+    watchdog). This task closes the loop: the auto-closeout must check the
+    full_repo signal before commit-applying. When the latest full_repo status
+    (PR gate on the merged commit, or the nightly watchdog on main) is red,
+    stale, or unavailable, the auto-closeout falls back to report-only and
+    commits nothing.
+
+requirements:
+  - "Start only after TASK-0697 is merged (full_repo gate + nightly exist)."
+  - "Before commit-applying auto-safe closeouts, determine the latest full_repo status for main (via gh run/checks for the risk gate and/or the nightly watchdog)."
+  - "When full_repo status is success and fresh, allow commit-safe auto-closeout as today."
+  - "When full_repo status is red, stale (older than a configured window), or unavailable, fall back to report-only: print the would-close list and commit nothing."
+  - "Add tests for the status-classification logic (green/fresh -> apply; red/stale/unknown -> report-only) with injected status, no live network."
+  - "Document the full_repo guard in docs/maintainer-review-agent.md and docs/ci-full-repo-policy.md."
+
+accepted_outputs:
+  - "full_repo-status guard in the auto-closeout path with tests"
+  - "report-only fallback wired into the board-sync auto-close step"
+  - "docs update describing the guard"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_closeout_sweep.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
