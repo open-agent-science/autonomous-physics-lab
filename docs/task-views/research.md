@@ -17,4 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0645` - Plan Materials MD-0002 loader and schema fixture (`scientific_dataset_schema`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
+None.
