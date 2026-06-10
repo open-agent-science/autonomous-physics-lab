@@ -29,7 +29,7 @@ claims.
 | `docs/reviews/atomic-pizzocaro-source-derived-psd-covariance.md` | `TASK-0666` covariance review |
 | `docs/reviews/atomic-first-benchmark-covariance-policy.md` | `TASK-0486` covariance states |
 | `docs/reviews/atomic-pizzocaro-source-to-row-extraction-ledger.md` | `TASK-0615` row-surface ledger |
-| `tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml` | blocked first benchmark consumer |
+| `TASK-0456` | blocked first benchmark consumer |
 
 ## What TASK-0666 Changed
 
