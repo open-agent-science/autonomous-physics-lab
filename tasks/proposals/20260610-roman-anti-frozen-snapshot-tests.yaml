@@ -1,0 +1,62 @@
+proposal_id: 20260610-roman-anti-frozen-snapshot-tests
+title: "Ban frozen task-id/board snapshots in tests; check live state dynamically"
+status: PROPOSED
+type: test_infrastructure
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Stop legitimate task completions/unblocks from breaking unrelated tests."
+  - "Make registry/board-dependent tests robust by construction."
+  - "Reduce brittle-test maintenance that diverts agents from science."
+
+summary: >
+  Several tests asserted against a frozen snapshot of repository state (a
+  ~275-line hardcoded task-id set in test_cli_mission_json_runs_from_repo_root;
+  a hardcoded stage string in test_cli_status_smoke). Any routine task
+  completion, unblock, or doc refresh breaks them. This proposal adds a policy
+  plus a lightweight guard: tests that depend on the task registry, board, or
+  mission output must compute expected sets dynamically from the registry, not
+  hardcode snapshots. Provide a small test helper that returns the current
+  READY/board state for assertions.
+
+rationale: >
+  Two such tests broke main this session; one was fixed by making the check
+  dynamic (TASK-0685). The remaining risk is structural: any test that freezes
+  a snapshot of live task/board state is a future closeout landmine. A policy
+  plus a shared dynamic-state helper prevents the pattern from recurring.
+
+input:
+  mode: planning_only
+  related_domain: test_infrastructure
+  related_objects:
+    - "tests/test_mission_control.py"
+    - "tests/test_pendulum.py"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    Define the anti-snapshot policy and a shared helper for tests that need the
+    current task-registry/board state, and identify any remaining tests that
+    hardcode registry snapshots. Decide whether to enforce via review checklist,
+    a meta-test, or a lint rule.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Do not weaken any scientific or schema test; only de-brittle registry/board snapshot assertions."
+
+accepted_outputs:
+  - "canonical task spec for the anti-frozen-snapshot policy and shared dynamic-state test helper"
+  - "review-checklist or meta-test addition to enforce it"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From the 2026-06-10 workflow retrospective; follows TASK-0685."
