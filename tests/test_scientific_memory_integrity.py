@@ -126,6 +126,10 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             {"id": "TASK-SNAPSHOT-TOOLING", "status": "DONE", "type": "snapshot_tooling"},
         ),
         (
+            tmp_path / "tasks" / "TASK-DATASET-SCHEMA.yaml",
+            {"id": "TASK-DATASET-SCHEMA", "status": "DONE", "type": "scientific_dataset_schema"},
+        ),
+        (
             tmp_path / "tasks" / "TASK-VALIDATION-INFRA.yaml",
             {
                 "id": "TASK-VALIDATION-INFRA",

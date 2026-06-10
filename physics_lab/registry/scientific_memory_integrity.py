@@ -64,6 +64,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "dataset_workflow",
     "physics_dataset_extension",
     "scientific_dataset",
+    "scientific_dataset_schema",
     "scientific_campaign",
     "scientific_communication",
     "scientific_visualization",
