@@ -1,13 +1,13 @@
 id: TASK-0692
-title: "Hybrid safe auto-closeout: dry-run, then direct board-sync commit for the strict safe subset"
+title: "Safe auto-closeout: direct board-sync commit after merge for the strict safe subset"
 type: maintainer_workflow
 status: BLOCKED
 difficulty: high
 priority: high
 
 strategy_alignment:
-  - "Remove per-task hand-crafted closeout PRs for the safe majority, at full speed once the classifier is proven."
-  - "Trust the pre-merge-reviewed content; earn direct-main writes with a short dry-run instead of a permanent PR checkpoint."
+  - "Remove per-task hand-crafted closeout PRs for the safe majority, at full speed."
+  - "Make safety come from tests + an opt-in field + a protected-artifact guard + a green-main gate + revertibility, not from a watching period."
   - "Keep result-bearing, follow-up-spawning, and unblocking tasks on the review path forever."
 
 input:
@@ -20,30 +20,34 @@ input:
     - "scripts/apl_closeout_sweep.py"
     - "docs/maintainer-review-agent.md"
   planning_context: >
-    Hybrid path chosen by the maintainer. Closeout content is already vetted by
-    the pre-merge review agent plus green CI before merge, so a batched-PR
-    closeout would mainly re-review the AUTOMATION, not the science. The
-    classifier is narrow and deterministic, and a wrong status flip is trivially
-    revertible. So instead of a permanent batched-PR phase, the same mechanism
-    has a report->commit switch: a short dry-run earns a direct board-sync
-    commit (the pattern Sync Active Board already uses, and AGENTS.md permits for
-    closeout DONE). Deterministic dependent-unblocks and any result/follow-up
-    task always stay on the review path.
+    Closeout content is already vetted by the pre-merge review agent plus green
+    CI before merge, and closing a safe task is a trivially revertible status
+    flip that touches no scientific artifact. So safe tasks are auto-closed
+    immediately after merge via a direct board-sync commit (the pattern Sync
+    Active Board already uses, and AGENTS.md permits for closeout DONE). A
+    mandatory dry-run watching period is not used; the real safety is a
+    well-tested deterministic classifier, an opt-in `closeout` field, a
+    protected-artifact + no-unblock guard, a green-main gate, and easy revert.
+    A `--dry-run` mode stays available for on-demand spot-checks. NOTE: closeout
+    review was the checkpoint that twice caught a red main (full_repo) this
+    cycle; removing it means full_repo PR/nightly visibility should land
+    first/with this so the green-main gate is meaningful.
 
 requirements:
   - "Start only after TASK-0691 is merged (per-task closeout field exists)."
-  - "Phase 0 (dry-run): the sweep reports, per REVIEW_READY-with-merged-PR task, auto-safe vs review-needed with the reason, and writes nothing. Keep it dry-run for 1-2 closeout waves to confirm the classification is correct."
   - "Auto-safe requires ALL: `closeout: auto`; GitHub-metadata-verified merged canonical PR; the merged PR touched no protected artifact (claims/, results/, prediction_registry/, experiments/, knowledge/, public-release state); and the task does NOT unblock any other task."
-  - "Phase 1 (after a clean dry-run): flip only the strict auto-safe subset to DONE via a direct `chore(board-sync): close out <ids> [skip-board-sync]` commit on main, consistent with the Sync Active Board action, and only when main CI is green."
+  - "On merge, flip the strict auto-safe subset to DONE immediately via a direct `chore(board-sync): close out <ids> [skip-board-sync]` commit on main, only when main CI is green."
+  - "Provide a `--dry-run` mode that reports auto-safe vs review-needed with reasons and writes nothing; it is an on-demand spot-check, not a mandatory phase."
   - "Never auto/direct-unblock dependent BLOCKED tasks; route all deterministic unblocks, result-bearing, follow-up-spawning, and `closeout: review` tasks to a review-needed list for maintainer or Scientific Curator decision."
-  - "Make the protected-artifact + no-unblock guard mandatory and tested; the direct commit must be idempotent, logged, maintainer-overridable, and must never run on a red main (depends on full_repo PR/main visibility)."
-  - "Document the dry-run->direct-commit boundary and the review-path-forever set in docs/maintainer-review-agent.md; keep manual closeout available."
+  - "Make the protected-artifact + no-unblock guard and the classifier mandatory and thoroughly unit/integration tested (positive and negative cases) — this is the primary safety mechanism."
+  - "The direct commit must be idempotent, logged, maintainer-overridable, and must never run on a red main; recommend landing full_repo PR/nightly visibility first so 'green main' detects full_repo breakage."
+  - "Document the safe-auto vs review-path boundary in docs/maintainer-review-agent.md; keep manual closeout available."
 
 accepted_outputs:
-  - "closeout sweep dry-run report (auto-safe vs review-needed) with reasons"
-  - "direct board-sync auto-closeout for the strict safe subset, green-main-gated, behind the dry-run graduation"
-  - "protected-artifact + no-unblock guard with tests"
-  - "docs/maintainer-review-agent.md hybrid boundary note"
+  - "direct board-sync auto-closeout for the strict safe subset, green-main-gated, immediate after merge"
+  - "`--dry-run` report mode (auto-safe vs review-needed, with reasons)"
+  - "protected-artifact + no-unblock guard and classifier with positive/negative tests"
+  - "docs/maintainer-review-agent.md boundary note"
 
 validation:
   commands:
