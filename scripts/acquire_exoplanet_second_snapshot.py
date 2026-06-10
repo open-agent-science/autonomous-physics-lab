@@ -8,7 +8,6 @@ write prediction/result artifacts.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 import sys
@@ -22,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from physics_lab.checksums import sha256_file, sha256_lf_canonical_file  # noqa: E402
 from physics_lab.datasets.exoplanets import (  # noqa: E402
     load_and_filter,
     normalized_snapshot_checksum,
@@ -44,19 +44,6 @@ REVIEW_PATH = ROOT / "docs" / "reviews" / "exoplanet-second-snapshot-source-acqu
 
 def _repo_relative(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _sha256_lf_text(path: Path) -> str:
-    text = path.read_text(encoding="utf-8")
-    return hashlib.sha256(text.replace("\r\n", "\n").encode("utf-8")).hexdigest()
 
 
 def _retrieval_slug(timestamp: str) -> str:
@@ -299,7 +286,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--raw-path", type=Path)
     args = parser.parse_args(argv)
 
-    query_hash = _sha256_lf_text(QUERY_PATH)
+    query_hash = sha256_lf_canonical_file(QUERY_PATH)
     if query_hash != EXPECTED_QUERY_SHA256:
         raise RuntimeError(
             "Committed PSCompPars query hash drifted before acquisition: "
@@ -330,7 +317,7 @@ def main(argv: list[str] | None = None) -> int:
                 "%Y-%m-%dT%H:%M:%SZ"
             )
 
-    raw_checksum = _sha256_file(raw_path)
+    raw_checksum = sha256_file(raw_path)
     rows = first_snapshot._read_csv_rows(raw_path)
     method_map, mass_map = first_snapshot._load_maps()
     first_entries, raw_summary = first_snapshot._normalize_rows(rows, method_map, mass_map)
@@ -349,7 +336,7 @@ def main(argv: list[str] | None = None) -> int:
         yaml.safe_dump(payload, sort_keys=False, allow_unicode=False, width=100),
         encoding="utf-8",
     )
-    normalized_file_checksum = _sha256_lf_text(DATASET_PATH)
+    normalized_file_checksum = sha256_lf_canonical_file(DATASET_PATH)
 
     filtered = load_and_filter(DATASET_PATH)
     filter_summary = summarize(filtered)
