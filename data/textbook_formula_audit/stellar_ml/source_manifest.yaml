@@ -134,10 +134,28 @@ candidate_sources:
         - citation
         - license_note
     row_class_policy:
-      direct_observation: "Potentially allowed for component dynamical masses only after license/storage and row-schema review."
-      derived_luminosity: "Blocked until luminosity provenance and conversion policy are defined."
+      direct_observation: "Allowed for component dynamical masses and for catalogue-reported log-luminosity when populated with traceable literature provenance (TASK-0688 primary path)."
+      derived_luminosity: "Allowed when catalogue log-luminosity is absent: reconstruct from DEBCat radius and effective temperature via log10(L/L_sun) = 2 log10(R/R_sun) + 4 log10(Teff/5772 K); mass must not enter derivation (TASK-0688 fallback path)."
       model_derived_mass: "Forbidden as benchmark truth; Gaia or isochrone masses remain excluded."
-      excluded: "Required when system identity, component pairing, uncertainty, license, multiplicity, or row-schema gates fail."
+      excluded: "Required when system identity, component pairing, uncertainty, license, multiplicity, row-schema, or luminosity-provenance gates fail."
+    luminosity_provenance_policy:
+      status: defined_by_task_0688
+      review: docs/reviews/stellar-ml-luminosity-provenance-and-license-route.md
+      primary_path:
+        row_class: direct_observation
+        field: log_luminosity_solar
+        conversion: "L/L_sun = 10^(log10(L/L_sun))"
+        requires: traceable source_reference_notes per component
+      fallback_path:
+        row_class: derived_luminosity
+        inputs: [radius_solar, effective_temperature_k]
+        conversion: "log10(L/L_sun) = 2 log10(R/R_sun) + 4 log10(Teff/5772 K)"
+        teff_solar_k: 5772
+      uncertainty:
+        primary: preserve catalogue/literature uncertainty when present; unknown uncertainty -> diagnostic or excluded lane
+        fallback: independent log-space propagation from radius and temperature uncertainties
+      licence_route_recommended: metadata_only_checksum_with_extraction_ledger_no_raw_debs_dat
+      licence_route_decision: pending_maintainer
     no_leakage_policy:
       split_axis: physical_binary_system
       requirement: "Keep all components of the same binary system in the same train/test/holdout lane."
