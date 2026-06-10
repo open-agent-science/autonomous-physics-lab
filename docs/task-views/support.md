@@ -8,6 +8,7 @@
 
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0591` - Decouple the generated CONTEXT.md bundle from the committed tree (`documentation_architecture`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
+- `TASK-0693` - Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `data_acquisition`)
 
 ## IN_PROGRESS
 
