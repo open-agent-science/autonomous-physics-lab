@@ -1,0 +1,47 @@
+id: TASK-0697
+title: "Run full_repo smoke tests on every PR so breakage is caught pre-merge"
+type: ci_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make full_repo failures visible at PR time, not only post-merge on the main matrix."
+  - "Make the green-main gate meaningful, which the safe auto-closeout (TASK-0691) relies on."
+  - "Keep the staged lanes: cheap deterministic gates first, the ~7-test full_repo smoke at PR time."
+
+input:
+  mode: workflow
+  related_domain: ci_infrastructure
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "tasks/proposals/20260610-roman-fullrepo-pr-ci-visibility.yaml"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    Realizes proposal 20260610-roman-fullrepo-pr-ci-visibility. The CI fast PR
+    job runs `pytest -m "not full_repo"` (code PRs) or a targeted subset (docs
+    PRs), so full_repo tests never run on a PR; they only run post-merge on the
+    main matrix. Two full_repo breaks this cycle (test_cli_status_smoke from a
+    docs/status.md drift, and a mission-control snapshot test) therefore surfaced
+    only after merge. full_repo is a small ~7-test smoke (~20s), so this adds a
+    step that runs it on every PR (docs and code), catching breakage pre-merge.
+
+requirements:
+  - "Add a `Run full_repo smoke tests` step (`pytest -m full_repo`) to the pull-request CI job that runs on every PR, after the existing fast steps."
+  - "Run it for both docs/task-only and code PRs, since docs/status.md and task-state changes can break full_repo."
+  - "Do not change the main-matrix job or the fast steps' markers."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml pull-request job runs full_repo smoke tests on PRs"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -m full_repo"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

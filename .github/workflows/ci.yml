@@ -114,6 +114,14 @@ jobs:
         run: |
           pytest --durations=10 -n auto --dist loadgroup -m "not full_repo"
 
+      # full_repo smoke tests are skipped by the steps above (fast lane) but run
+      # cheaply here on every PR so full_repo breakage is caught at PR time, not
+      # only post-merge on the main matrix. Runs for both docs/task-only and code
+      # PRs, since docs/status.md and task-state changes can break full_repo.
+      - name: Run full_repo smoke tests
+        run: |
+          pytest --durations=10 -m full_repo
+
   main-matrix:
     name: Python tests (main matrix)
     runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
