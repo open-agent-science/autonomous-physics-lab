@@ -343,6 +343,39 @@ sources:
       digitization export, uncertainty/cross-check fields, and row-readiness
       gate — not schema shape.
 
+  - source_id: vossmeyer-1994-jpc-cds-absorption
+    title: "CdS Nanoclusters: Synthesis, Characterization, Size Dependent Oscillator Strength, Temperature Shift of the Excitonic Transition Energy, and Reversible Absorbance Shift"
+    authors: "Vossmeyer, T.; Katsikas, L.; Giersig, M.; Popovic, I. G.; Diesner, K.; Chemseddine, A.; Eychmüller, A.; Weller, H."
+    year: 1994
+    doi: "10.1021/j100082a044"
+    journal: "The Journal of Physical Chemistry"
+    volume: "98"
+    pages: "7665-7673"
+    table_reference: "Article Table 1 (probable per-sample SAXS diameter and 1s-1s excitonic transition summary; TASK-0687 verified access blocker and pending primary-PDF confirmation)"
+    properties:
+      - absorption_peak_eV
+    materials:
+      - CdS
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0687 verified Vossmeyer et al. 1994 as a promising pure-core CdS
+      direct-table candidate for the small-cluster regime cited by Yu 2003, but
+      found no committable open, PMC, institutional-mirror, or maintainer-provided
+      full-text path and no checksum-pinned source artifact. ACS subscriber or
+      pay-per-view access alone is not a committable repository path. Remains
+      excluded until a future source-artifact task confirms Table 1 on primary
+      inspection and records reuse/checksum metadata.
+    license_note: "ACS publication (J. Phys. Chem., ACS Legacy Archive); DOI-pinned metadata only. Do not commit publisher PDFs, tables, or figures unless a maintainer-reviewed source-artifact task verifies compatible reuse terms."
+    checksum_policy: doi_pinned
+    notes: >
+      Secondary bibliographic evidence suggests six discrete CdS samples with
+      SAXS mean diameters and UV-vis 1s-1s excitonic transitions in Table 1,
+      not polynomial-generated sizing-curve evaluations. Expected future row
+      class is table_derived pending primary PDF verification. See
+      docs/reviews/quantum-cds-vossmeyer-source-artifact-verification.md.
+
   - source_id: prasad-2017-nanomaterials-cdse-zns-laser
     title: "A High Power, Frequency Tunable Colloidal Quantum Dot (CdSe/ZnS) Laser"
     authors: "Prasad, S.; AlHesseny, H.; AlSalhi, M.; Devaraj, D.; Masilamai, V."

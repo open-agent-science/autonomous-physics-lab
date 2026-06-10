@@ -1,7 +1,7 @@
 id: TASK-0687
 title: "Verify Quantum CdS (Vossmeyer 1994) source-artifact access and table status"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
