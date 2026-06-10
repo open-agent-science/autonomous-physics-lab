@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       docs_task_only: ${{ steps.classify.outputs.docs_task_only }}
+      full_repo_risk: ${{ steps.classify.outputs.full_repo_risk }}
 
     steps:
       - name: Checkout
@@ -32,6 +33,7 @@ jobs:
 
           if [[ "${{ github.event_name }}" != "pull_request" ]]; then
             echo "docs_task_only=false" >> "$GITHUB_OUTPUT"
+            echo "full_repo_risk=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -60,6 +62,24 @@ jobs:
           done <<< "$changed_files"
 
           echo "docs_task_only=$docs_task_only" >> "$GITHUB_OUTPUT"
+
+          # full_repo smoke tests are cheap (~7 tests) but only meaningful for PRs
+          # that can break them: code, config, schemas, CI, example/result inputs,
+          # or the docs/mission state that full_repo CLI smoke tests assert on
+          # (e.g. docs/status.md drives test_cli_status_smoke). Pure prose docs and
+          # routine task-status flips stay on the fast lane.
+          full_repo_risk=false
+          while IFS= read -r path; do
+            [[ -z "$path" ]] && continue
+            case "$path" in
+              physics_lab/*|scripts/*|tests/*|examples/*|results/*|.github/workflows/*|pyproject.toml|missions/*|campaign_profiles/*|docs/status.md|docs/mission-control.md|README.md)
+                full_repo_risk=true
+                ;;
+            esac
+          done <<< "$changed_files"
+
+          echo "full_repo_risk=$full_repo_risk" >> "$GITHUB_OUTPUT"
+          echo "full_repo_risk=$full_repo_risk"
 
   pull-request:
     name: Python fast tests (3.12)
@@ -113,6 +133,17 @@ jobs:
         if: needs.classify.outputs.docs_task_only != 'true'
         run: |
           pytest --durations=10 -n auto --dist loadgroup -m "not full_repo"
+
+      # full_repo smoke tests are skipped by the steps above (fast lane). Run them
+      # here only for risk-relevant PRs (code/config/schemas/CI/example-result
+      # inputs, or docs/mission state that full_repo CLI smoke tests assert on) so
+      # breakage is caught at PR time, not only post-merge on the main matrix.
+      # Pure prose docs and routine task-status flips stay fast. The nightly
+      # full_repo watchdog (nightly-full-repo.yml) covers what slips past this.
+      - name: Run full_repo smoke tests (risk-relevant PRs)
+        if: needs.classify.outputs.full_repo_risk == 'true'
+        run: |
+          pytest --durations=10 -m full_repo
 
   main-matrix:
     name: Python tests (main matrix)

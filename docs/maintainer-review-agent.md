@@ -664,10 +664,13 @@ Everything else — result-bearing, follow-up-spawning, unblocking, and
 `closeout: review` tasks, plus all deterministic dependent-unblocks — stays on
 the **review path** for a maintainer or Scientific Curator decision; the action
 never auto-unblocks. The auto-closeout runs only on `main`, keeps the
-`[skip-board-sync]` recursion guard, and is meaningful only on a green main, so
-land full_repo PR/nightly visibility with or before relying on it. Manual
-closeout via the helpers below remains available, and a wrong status flip is a
-trivially revertible commit.
+`[skip-board-sync]` recursion guard, and is meaningful only on a green main.
+The `full_repo` signal is load-bearing here: per
+[`docs/ci-full-repo-policy.md`](ci-full-repo-policy.md) a risk-based PR gate plus
+a nightly watchdog keep `full_repo` status honest, and commit-safe auto-closeout
+must fall back to **report-only** when the latest `full_repo` status is red,
+stale, or unknown. Manual closeout via the helpers below remains available, and a
+wrong status flip is a trivially revertible commit.
 
 ### Closeout sweep helper
 
