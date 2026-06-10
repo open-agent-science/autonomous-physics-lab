@@ -1,0 +1,48 @@
+id: TASK-0689
+title: "Decide Dimensional Validator Gate A result-candidate readiness after boundary expansion"
+type: scientific_result_publication
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Convert the expanded dimensional challenge set into a clear Gate A go/no-go for a quality-gate result."
+  - "Prefer one reviewable AGENT_VALIDATED quality-gate result over further challenge-set expansion."
+  - "Keep the dimensional validator a software/convention gate, not a measurement claim."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "docs/reviews/dimensional-validator-boundary-expansion.md"
+    - "docs/reviews/dimensional-validator-boundary-result-preflight.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0661 ran a pre-expansion boundary-case result preflight and recommended a
+    targeted challenge-set expansion, which TASK-0681 then landed (pi constant,
+    accepted_textbook_identity policy, and four new boundary items). This task
+    re-assesses, with that new evidence, whether the expanded challenge set now
+    clears Gate A for an AGENT_VALIDATED quality-gate RESULT candidate.
+
+requirements:
+  - "Re-assess Gate A readiness using the committed expanded challenge set and the boundary-expansion review, not a new expansion."
+  - "If ready, specify the exact RESULT artifact shape, the deterministic evidence it cites, and the Gate A publication path per docs/result-promotion-protocol.md; do not create the RESULT or promote a claim in this task."
+  - "If not ready, record the precise remaining Gate A blocker and the smallest task that would clear it."
+  - "Keep the verdict conservative: a dimensional-consistency gate is not a numerical or empirical validation of physics."
+  - "Do not run new metrics beyond reusing committed challenge-set verdicts, add claims, or modify result artifacts."
+
+accepted_outputs:
+  - "docs/reviews/dimensional-validator-gate-a-result-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_dimensions.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

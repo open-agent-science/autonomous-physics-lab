@@ -1,0 +1,50 @@
+id: TASK-0688
+title: "Define Stellar M-L luminosity-provenance policy and DEBCat license route"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the load-bearing Stellar M-L blocker: an admissible luminosity (the dependent variable)."
+  - "Keep direct dynamical masses separate from derived luminosities and model-derived values."
+  - "Prepare the DEBCat licence/storage decision for the maintainer before any row commit."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/stellar-ml-debcat-row-readiness-gate.md"
+    - "docs/reviews/stellar-ml-debcat-holdout-leakage-protocol.md"
+    - "docs/reviews/textbook-stellar-ml-debcat-source-artifact-package.md"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+  planning_context: >
+    TASK-0658 ran the DEBCat row-readiness gate and preserved
+    SOURCE_PINNED_ROWS_BLOCKED: luminosity provenance is undefined and the DEBCat
+    licence/storage route is unresolved. Because luminosity is the dependent
+    variable of L = (M)^alpha, no benchmark row package can proceed without it.
+    This task defines the luminosity-provenance policy and recommends the licence
+    route for maintainer decision.
+
+requirements:
+  - "Decide whether DEBCat luminosity is directly reported or must be reconstructed from radius and effective temperature (Stefan-Boltzmann); pin the conversion and uncertainty-propagation semantics."
+  - "Classify the resulting luminosity as direct_observation or derived_luminosity, and forbid importing model-derived mass truth into the derivation."
+  - "Recommend one DEBCat licence/storage route (explicit permission, metadata-only checksum route, or replacement source) for the maintainer to decide; do not make the licence determination."
+  - "Do not fetch DEBCat rows, transcribe values, compute luminosities, fit exponents, create results, or promote claims."
+  - "State what evidence would let a later row-curation gate proceed."
+
+accepted_outputs:
+  - "docs/reviews/stellar-ml-luminosity-provenance-and-license-route.md"
+  - "optional metadata-only update to data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
