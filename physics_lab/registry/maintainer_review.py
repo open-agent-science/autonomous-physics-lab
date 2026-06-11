@@ -78,6 +78,14 @@ REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
 LOCAL_PR_REF_PATTERN = re.compile(r"^(?:refs/remotes/)?origin/pr-[0-9]+$")
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
+PROPOSAL_TRIAGE_BODY_MARKERS = (
+    "proposal triage",
+    "proposal-pool triage",
+    "proposal superseded",
+    "proposal rejected",
+    "proposal cleanup",
+    "stale proposal",
+)
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
@@ -287,6 +295,12 @@ def changed_task_proposal_files(changed_files: tuple[str, ...]) -> tuple[str, ..
         and path.endswith(".yaml")
         and Path(path).name != "TASK-PROPOSAL-TEMPLATE.yaml"
     )
+
+
+def body_requests_proposal_triage(body: str | None) -> bool:
+    """Return whether the PR body explicitly frames proposal status cleanup."""
+    normalized = (body or "").lower()
+    return any(marker in normalized for marker in PROPOSAL_TRIAGE_BODY_MARKERS)
 
 
 def latest_review_bundle(root: Path, branch: str) -> Path | None:
@@ -1085,23 +1099,36 @@ def build_review_report(
     validation_payload: dict[str, Any] = {}
     if is_proposal_review:
         resolved_task_id = "TASK-PROPOSAL"
+        proposal_triage_review = body_requests_proposal_triage(
+            pr_metadata.body if pr_metadata is not None else None
+        )
         proposal_files = changed_task_proposal_files(changed_files)
         if len(proposal_files) == 0:
             blockers.append("Task proposal review requires at least one changed tasks/proposals/*.yaml file.")
         elif len(proposal_files) == 1:
             proposal_path = root / proposal_files[0]
             task_payload = load_task_proposal(proposal_path)
-            if str(task_payload["status"]) != "PROPOSED":
+            proposal_status = str(task_payload["status"])
+            if proposal_status != "PROPOSED" and not (
+                proposal_triage_review and proposal_status in {"REJECTED", "SUPERSEDED"}
+            ):
                 required_fixes.append(
-                    f"Task proposal status is {task_payload['status']}. Keep it PROPOSED while requesting acceptance."
+                    f"Task proposal status is {proposal_status}. Keep it PROPOSED while requesting "
+                    "acceptance, or use an explicit proposal-triage PR body when closing a stale "
+                    "proposal as REJECTED or SUPERSEDED."
                 )
         else:
             # Multiple proposals in one PR is allowed — validate each one individually.
             for pf in proposal_files:
                 payload = load_task_proposal(root / pf)
-                if str(payload["status"]) != "PROPOSED":
+                proposal_status = str(payload["status"])
+                if proposal_status != "PROPOSED" and not (
+                    proposal_triage_review and proposal_status in {"REJECTED", "SUPERSEDED"}
+                ):
                     required_fixes.append(
-                        f"Proposal {pf} status is {payload['status']}. Keep it PROPOSED while requesting acceptance."
+                        f"Proposal {pf} status is {proposal_status}. Keep it PROPOSED while requesting "
+                        "acceptance, or use an explicit proposal-triage PR body when closing a stale "
+                        "proposal as REJECTED or SUPERSEDED."
                     )
         if proposal_files:
             validation_payload = {

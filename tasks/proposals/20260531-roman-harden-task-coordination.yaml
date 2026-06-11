@@ -1,6 +1,6 @@
 proposal_id: 20260531-roman-harden-task-coordination
 title: Harden multi-agent task coordination beyond the claiming ledger
-status: PROPOSED
+status: SUPERSEDED
 type: maintainer_workflow
 priority: medium
 proposed_by:
@@ -47,5 +47,14 @@ accepted_outputs:
 - optional scoped follow-up task specs for maintainer acceptance
 promotion:
   canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  decision: superseded
+  notes: >
+    Superseded during 2026-06-11 proposal triage. The live duplicate-PR
+    detection portion is covered by TASK-0617 and the occupancy helpers; local
+    lane/write-surface collision detection is covered by TASK-0461; queue and
+    closeout false-positive fixes are covered by TASK-0662 and the TASK-0718
+    through TASK-0721 closeout helper series; and the remaining new-task-id
+    allocation concern is now handled by the proposal-first / maintainer-gated
+    canonical task-id rule in docs/agent-task-protocol.md and
+    docs/agent-task-claiming.md. Do not create a new canonical task from this
+    proposal unless a fresh, narrower bottleneck appears.
