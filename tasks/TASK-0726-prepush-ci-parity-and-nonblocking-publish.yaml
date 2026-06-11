@@ -1,0 +1,54 @@
+id: TASK-0726
+title: "Add a pre-push CI-parity check and document non-blocking PR publish"
+type: tooling_reliability
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Catch CI-only failures locally before push instead of after a 3-6 minute CI round-trip."
+  - "Give agents one discoverable command that runs the always-on CI gates a narrow task validation set misses."
+  - "Make PR publication non-blocking so an agent moves to the next task instead of foreground-watching CI."
+
+input:
+  mode: workflow
+  related_domain: tooling_reliability
+  related_objects:
+    - "scripts/validate_fast.py"
+    - "scripts/apl_pr_finish_gate.py"
+    - "physics_lab/registry/repo_python.py"
+    - "docs/agent-task-protocol.md"
+    - "docs/notes/agent-worktree-discipline.md"
+  planning_context: >
+    A task's declared validation is often narrower than what CI runs. On PR #1029
+    the task validation passed locally but the CI "fast tests" job failed on
+    tests/test_task_reference_convention.py, costing a full CI round-trip. The
+    lesson: run the CI-parity gate before pushing. This task adds one
+    cross-platform pre-push checker that runs the always-on gates (ruff, the
+    targeted docs/task tests CI runs, and strict repository validation) using the
+    repository venv interpreter, with a --full mode that runs the whole fast
+    suite. It also documents the non-blocking publish flow: after opening a draft
+    PR, run the finish gate once and continue; do not foreground-watch CI.
+
+requirements:
+  - "Add a cross-platform pre-push checker that runs ruff, the targeted docs/task tests CI runs, and strict repository validation by default, and the full fast suite under --full."
+  - "Run the checks with the repository venv interpreter via the TASK-0725 resolver so a bare system python does not produce false failures."
+  - "Return a non-zero exit code when any gate fails and print which gate failed."
+  - "Document the non-blocking PR-publish flow (create draft, run apl_pr_finish_gate once, continue; do not block-watch CI) in the worktree discipline notes."
+  - "Keep it portable: pathlib, arg-list subprocesses, UTF-8, no hardcoded /tmp or python3, no new .sh on the critical path."
+
+accepted_outputs:
+  - "pre-push CI-parity checker core module and script"
+  - "non-blocking PR-publish guidance in the worktree discipline notes"
+  - "focused tests for the default vs --full gate set, interpreter resolution, and failure exit code"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_prepush_check.py tests/test_docs_links.py tests/test_task_reference_convention.py"
+    - "python3 -m ruff check physics_lab/registry/prepush_check.py scripts/apl_prepush_check.py tests"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
