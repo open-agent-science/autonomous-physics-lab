@@ -1,0 +1,47 @@
+id: TASK-0718
+title: "Detect squash-merged task PRs in closeout sweep"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep post-merge task closeout reliable when GitHub CLI is unavailable or rate-limited."
+  - "Prevent safe auto-closeout from skipping squash-merged canonical task PRs."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "scripts/apl_closeout_sweep.py"
+    - "tests/test_closeout_sweep.py"
+    - "TASK-0717"
+  planning_context: >
+    TASK-0717 remained REVIEW_READY after merge because the closeout sweep's
+    local git-history fallback recognized only classic merge commits such as
+    "Merge pull request #...", while this repository commonly uses squash-style
+    subjects such as "TASK-0717: ... (#1024)". When the GitHub CLI fallback is
+    unavailable or transiently fails, the helper should still find merged
+    canonical task PRs from local first-parent history.
+
+requirements:
+  - "Parse squash-merged canonical task commit subjects of the form `TASK-XXXX: ... (#PR)` in closeout sweep local history."
+  - "Ignore non-canonical squash subjects such as `TASK-QUEUE: ... (#PR)`."
+  - "Add a regression test covering the TASK-0717-style failure mode without requiring GitHub CLI access."
+  - "Do not change auto-closeout safety policy, protected artifact blockers, or task status transition rules."
+
+accepted_outputs:
+  - "closeout sweep local history parser supports squash-merged canonical task PRs"
+  - "regression test for squash-merge closeout detection"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
