@@ -1,0 +1,47 @@
+id: TASK-0700
+title: "Build MD-0002 loader and dataset validation checks"
+type: scientific_dataset_schema
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare the deterministic Materials loader path so the MD-0002 acquisition can become a benchmark surface quickly."
+  - "Keep formation energy and band gap separated at loader, schema, and validation time."
+  - "Catch provenance, checksum, units, and exclusion mistakes before residual metrics are computed."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "data/materials/fixtures/md0002_schema_fixture.yaml"
+    - "tests/test_materials_md0002_schema_fixture.py"
+    - "docs/reviews/materials-md0002-loader-schema-fixture.md"
+    - "docs/reviews/materials-md0002-acquisition-go-no-go.md"
+  planning_context: >
+    TASK-0645 added a synthetic MD-0002 fixture but did not implement the full
+    acquisition dataset loader/validator path. This task makes the loader ready
+    for real MD-0002 files without fetching or scoring real rows.
+
+requirements:
+  - "Add or extend deterministic loader utilities for MD-0002 normalized dataset files using the committed fixture as the first test surface."
+  - "Validate source version, checksum placeholders, property axis, units, computed_dft provenance, inclusion/exclusion state, and material_id uniqueness."
+  - "Keep formation_energy_per_atom and band_gap as separate axes; do not pool metrics."
+  - "Do not fetch Materials Project rows, compute benchmark metrics, recommend materials, or promote claims."
+
+accepted_outputs:
+  - "loader or validation code for MD-0002 normalized datasets"
+  - "focused tests covering the fixture and expected acquisition file shape"
+  - "docs/reviews/materials-md0002-loader-validation-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0002_schema_fixture.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

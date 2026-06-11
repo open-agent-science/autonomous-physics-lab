@@ -1,0 +1,56 @@
+id: TASK-0699
+title: "Run MD-0002 maintainer-gated Materials Project acquisition"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Materials from planning gates to the value-bearing MD-0002 dataset that can produce the next important benchmark result."
+  - "Keep the Materials Project API key, live fetch, source version, checksum, and no-peek holdout boundary maintainer-controlled."
+  - "Retest the split-robust MD-0001 formation-energy signal on a larger stable-ternary-oxide slice before any claim or dataset publication."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0002-acquisition-go-no-go.md"
+    - "docs/reviews/materials-md0002-acquisition-preflight-package.md"
+    - "data/materials/md0002_holdout_manifest.yaml"
+    - "data/materials/fixtures/md0002_schema_fixture.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    TASK-0670 authorized MD-0002 acquisition under the frozen TASK-0631
+    contract. This task performs the maintainer-gated acquisition and commits
+    the pinned raw snapshot, normalized formation-energy and band-gap datasets,
+    and populated holdout/no-peek manifest. It is a source/data task only, not
+    a benchmark or claim task.
+
+requirements:
+  - "Run only as a maintainer-gated acquisition with MP_API_KEY provided outside the repository; never commit secrets."
+  - "Execute the frozen stable ternary oxide query contract from TASK-0631 and stop if the included row count exceeds the 1500-row cap per axis."
+  - "Pin Materials Project database_version, retrieval date UTC, raw snapshot checksum, normalized dataset checksums, and exact filter dictionary."
+  - "Commit formation_energy_per_atom and band_gap as separate dataset files with computed_dft provenance and mandatory CC BY 4.0 attribution."
+  - "Populate the MD-0002 holdout/no-peek manifest before any metric or residual inspection."
+  - "Do not compute benchmarks, tune baselines, recommend materials, create RESULT/PRED/CLAIM artifacts, or provide synthesis/device/biomedical guidance."
+
+accepted_outputs:
+  - "data/materials/snapshots/materials_project_stable_ternary_oxides_<database_version>.json"
+  - "data/materials/md-0002-materials-project-formation-energy.yaml"
+  - "data/materials/md-0002-materials-project-band-gap.yaml"
+  - "data/materials/md0002_holdout_manifest.yaml"
+  - "docs/reviews/materials-md0002-acquisition-runbook-result.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0002_schema_fixture.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

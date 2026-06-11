@@ -1,0 +1,47 @@
+id: TASK-0707
+title: "Confirm Stellar M-L DEBCat Route 2 storage decision"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the Stellar M-L luminosity policy into an executable row-curation route."
+  - "Avoid committing unclear-licence raw DEBCat artifacts while preserving reproducible extraction."
+  - "Keep the first empirical Textbook audit source-gated and non-claiming."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/stellar-ml-luminosity-provenance-and-license-route.md"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+    - "data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml"
+  planning_context: >
+    TASK-0688 defined luminosity provenance and recommended DEBCat Route 2:
+    metadata-only checksum pinning with a reviewed extraction ledger and
+    normalized row commit. This task records the maintainer storage decision
+    and updates metadata so row curation can proceed or stay blocked.
+
+requirements:
+  - "Record a maintainer decision for DEBCat Route 2, Route 1, or Route 3; default recommendation is Route 2."
+  - "If Route 2 is accepted, update manifest/provenance metadata to authorize normalized row curation while keeping raw debs.dat uncommitted."
+  - "If rejected, preserve the blocker and state the replacement source or permission path."
+  - "Do not fetch DEBCat rows, transcribe values, fit M-L exponents, create results, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/stellar-ml-debcat-storage-route-decision.md"
+  - "optional data/textbook_formula_audit/stellar_ml/source_manifest.yaml update"
+  - "optional data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

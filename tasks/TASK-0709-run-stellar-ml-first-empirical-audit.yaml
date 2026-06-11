@@ -1,0 +1,51 @@
+id: TASK-0709
+title: "Run first Stellar M-L empirical audit on DEBCat rows"
+type: scientific_benchmark
+status: BLOCKED
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Produce the first empirical Textbook Formula Audit result path after source, row, and holdout gates pass."
+  - "Audit the mass-luminosity relation per slice and range, not as a universal law."
+  - "Create a public-friendly but conservative benchmark result if Gate A passes."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0708-curate-stellar-debcat-row-package.yaml"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    After DEBCat rows and holdout lanes exist, this task runs the first
+    empirical mass-luminosity audit against a frozen textbook baseline and
+    reports per-slice residual behavior. It must not claim universal validity
+    or falsification of the formula.
+
+requirements:
+  - "Start only after TASK-0708 lands admissible rows and holdout/no-peek assignments."
+  - "Use a frozen M-L baseline, declared mass range, uncertainty treatment, and slice rules before computing metrics."
+  - "Report per-slice metrics, residual maps, matched controls, and limitations."
+  - "Use verdicts such as VALID_IN_RANGE, PARTIALLY_VALID, INCONCLUSIVE, OVERFITTED, or FALSIFIED only for the audited slice."
+  - "Do not promote broad textbook formula claims or stellar-evolution claims."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/stellar-ml-first-empirical-audit.md"
+  - "optional RESULT candidate only if Gate A passes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

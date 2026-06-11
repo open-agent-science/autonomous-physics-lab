@@ -1,0 +1,49 @@
+id: TASK-0711
+title: "Package Quantum Almeida source-copy checksum and reuse decision"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the promising Almeida 2023 InP route into a deterministic source-artifact decision."
+  - "Keep non-spherical size-axis semantics and per-point provenance visible before digitization."
+  - "Avoid running quantum-size models before a real checksum-pinned source artifact exists."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-almeida-checksum-source-artifact-package.md"
+    - "docs/reviews/quantum-almeida-license-figure-surface-review.md"
+    - "docs/reviews/quantum-nonspherical-digitization-fixture-design.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0668 selected exact Almeida article/SI locators but preserved a
+    metadata-only blocker. This task performs the next source-copy decision:
+    recheck reuse terms, record checksums for the exact selected copies if
+    allowed, or preserve a precise blocker.
+
+requirements:
+  - "Select exactly one article copy and one SI copy from the previously identified Almeida locators."
+  - "Recheck reuse terms and decide whether files can be committed or whether checksum/locator-only metadata is required."
+  - "Record retrieval date, upstream filename, byte size, SHA-256 checksum, and artifact role for each accepted copy."
+  - "Keep Figure 1b coordinate extraction and qd row curation out of scope."
+  - "Do not digitize points, transcribe values, run baselines, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-almeida-source-copy-checksum-decision.md"
+  - "optional data/quantum_dots/source_artifacts/almeida-2023-inp-optical/ metadata files"
+  - "optional data/quantum_dots/source_manifest.yaml update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

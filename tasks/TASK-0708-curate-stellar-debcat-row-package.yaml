@@ -1,0 +1,48 @@
+id: TASK-0708
+title: "Curate Stellar M-L DEBCat component-row package"
+type: scientific_dataset
+status: BLOCKED
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Create the first empirical row dataset for the Textbook Formula Audit campaign."
+  - "Pair direct dynamical masses with traceable luminosity paths before fitting any mass-luminosity relation."
+  - "Freeze system-level holdout lanes before residual inspection."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0707-confirm-stellar-debcat-route2-storage.yaml"
+    - "docs/reviews/stellar-ml-luminosity-provenance-and-license-route.md"
+    - "docs/reviews/stellar-ml-debcat-holdout-leakage-protocol.md"
+  planning_context: >
+    This row-curation task starts only after the maintainer confirms the DEBCat
+    storage route. It creates normalized component rows with mass, luminosity
+    class, uncertainty, source reference, and system-level split assignment.
+
+requirements:
+  - "Start only after TASK-0707 accepts a storage route that permits normalized row curation."
+  - "Use the TASK-0688 luminosity policy: catalogue log luminosity first, Stefan-Boltzmann radius/temperature fallback only when allowed, no model-derived masses."
+  - "Preserve physical binary system ids and assign holdout lanes before any exponent fit or residual inspection."
+  - "Record excluded rows and reasons, including missing luminosity path, missing uncertainty, missing provenance, or ambiguous identifiers."
+  - "Do not fit alpha, compute residuals, create RESULT/PRED/CLAIM artifacts, or claim M-L validity."
+
+accepted_outputs:
+  - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml"
+  - "docs/reviews/stellar-ml-debcat-row-package.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
