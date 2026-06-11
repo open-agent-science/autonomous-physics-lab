@@ -1202,6 +1202,73 @@ def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) ->
     assert "Validation commands were not executed during this review run." not in report.required_fixes
 
 
+def test_build_review_report_allows_explicit_proposal_triage_supersede(
+    tmp_path: Path,
+) -> None:
+    clean_root = tmp_path / "clean-pr"
+    proposal_path = "tasks/proposals/20260531-roman-old-coordination.yaml"
+    (clean_root / "tasks" / "proposals").mkdir(parents=True)
+    (clean_root / proposal_path).write_text(
+        _PROPOSAL_YAML.format(proposal_id="20260531-roman-old-coordination").replace(
+            "status: PROPOSED",
+            "status: SUPERSEDED",
+        ).replace(
+            "decision: pending",
+            "decision: superseded",
+        ),
+        encoding="utf-8",
+    )
+    branch = "agent/roman/codex/propose-task-supersede-old-coordination"
+    pr_metadata = PullRequestMetadata(
+        number=1032,
+        title="TASK-PROPOSAL: Supersede stale task coordination proposal",
+        body=_full_pr_body(
+            task_ref="TASK-PROPOSAL",
+            branch=branch,
+            kind="Task proposal PR",
+            primary_reference=(
+                "- Task ID: `TASK-PROPOSAL`\n"
+                "- Proposal File: `tasks/proposals/20260531-roman-old-coordination.yaml`\n"
+                "- Proposal superseded during proposal triage."
+            ),
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=(proposal_path,),
+        head_sha="abc123456789",
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch(
+            "physics_lab.registry.maintainer_review.prepare_clean_pr_worktree",
+            return_value=CleanPrWorktree(
+                root=clean_root,
+                review_ref="HEAD",
+                ready=True,
+                message="Reviewing from clean fixture worktree.",
+            ),
+        ),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=""),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=(proposal_path,)),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=1032)
+
+    assert report.verdict == "MERGE_OK"
+    assert not any("status is SUPERSEDED" in item for item in report.required_fixes)
+
+
 def test_load_claim_status_from_ref_handles_git_worktree_layout(tmp_path: Path) -> None:
     """The helper must work when .git is a file, as in git worktrees."""
     (tmp_path / ".git").write_text("gitdir: /tmp/fake-worktree-gitdir\n", encoding="utf-8")

@@ -149,6 +149,14 @@ Director, infra/workflow → Architect, drift/done → review-agent), plus advis
 possible-duplicate pairs. `validate-repo --strict` reports proposal status
 drift as an `INFO` advisory.
 
+Proposal-pool triage PRs are different from new proposal PRs. A new proposal PR
+must keep proposal files at `status: PROPOSED`. A triage PR may instead mark an
+existing stale proposal as `SUPERSEDED` or `REJECTED` when the PR body clearly
+states that it is proposal triage, names the newer work or reason, and does not
+create a new canonical `TASK-XXXX` file. Use `SUPERSEDED` when the idea was
+valid but is now covered by newer tasks, helpers, or protocols; use `REJECTED`
+when the idea should not become repository work.
+
 ## Proposal Tooling
 
 Use `scripts/apl_proposal_pr_helper.py` to scaffold and check a proposal the
