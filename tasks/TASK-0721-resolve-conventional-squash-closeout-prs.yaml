@@ -1,0 +1,41 @@
+id: TASK-0721
+title: "Resolve conventional squash task commits during closeout sweep"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+strategy_alignment:
+  - "Keep safe post-merge auto-closeout working for maintainer squash merges that use conventional commit subjects."
+  - "Prevent REVIEW_READY task debt from recurring after helper and protocol PRs."
+input:
+  mode: workflow
+  related_domain: "maintainer_workflow"
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "TASK-0718"
+    - "TASK-0719"
+    - "TASK-0720"
+  planning_context: >
+    TASK-0718 and TASK-0720 fixed closeout discovery for squash subjects with
+    explicit PR numbers and for reused PR metadata. However, maintainer squash
+    merges often use conventional subjects like `fix(task-0718): ...`, which
+    expose the task id in git history but not the PR number. The closeout sweep
+    should resolve that task id through an exact merged-PR search before applying
+    closeout, and must not close anything when the PR number cannot be verified.
+requirements:
+  - "Detect conventional commit subjects that include a canonical task id scope."
+  - "Resolve those candidates through an exact merged PR search for the task id."
+  - "Require a canonical `TASK-XXXX:` PR title before accepting the resolved PR."
+  - "Do not apply closeout when the PR number cannot be verified."
+accepted_outputs:
+  - "physics_lab/registry/closeout_sweep.py"
+  - "tests/test_closeout_sweep.py"
+validation:
+  commands:
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+can_be_done_by:
+  - codex
+  - claude_code
+  - human

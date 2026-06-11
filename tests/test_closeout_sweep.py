@@ -148,6 +148,95 @@ def test_load_merged_task_pull_requests_parses_squash_merge_subjects(
     assert "--merges" not in git_log_command
 
 
+def test_load_merged_task_pull_requests_resolves_conventional_squash_via_gh_search(
+    tmp_path: Path,
+) -> None:
+    commands: list[list[str]] = []
+    git_payload = "\n".join(
+        [
+            (
+                "2026-06-11T08:59:05Z\x1f"
+                "fix(task-0720): reuse merged PR metadata in closeout sweep\x1f"
+                "\x1e"
+            ),
+        ]
+    )
+    gh_payload = json.dumps(
+        [
+            {
+                "number": 1027,
+                "title": "TASK-0720: Use merged PR summary metadata for auto-closeout verification",
+                "mergedAt": "2026-06-11T08:59:05Z",
+                "headRefName": (
+                    "agent/roman/codex/"
+                    "task-0720-use-merged-pr-summary-metadata-for-auto-closeout-verification"
+                ),
+                "baseRefName": "main",
+                "statusCheckRollup": [{"conclusion": "SUCCESS", "status": "COMPLETED"}],
+            }
+        ]
+    )
+
+    def _fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        commands.append(command)
+        if command[:4] == ["git", "remote", "get-url", "origin"]:
+            return CommandResult(
+                returncode=0,
+                stdout="https://github.com/open-agent-science/autonomous-physics-lab.git\n",
+                stderr="",
+            )
+        if command[:2] == ["git", "log"]:
+            return CommandResult(returncode=0, stdout=git_payload, stderr="")
+        if command[:3] == ["/custom/gh", "pr", "list"]:
+            if "--search" not in command:
+                return CommandResult(returncode=0, stdout="[]", stderr="")
+            return CommandResult(returncode=0, stdout=gh_payload, stderr="")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected command")
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command),
+    ):
+        result = load_merged_task_pull_requests(tmp_path)
+
+    pr = result["TASK-0720"]
+    assert pr.number == 1027
+    assert pr.title.startswith("TASK-0720:")
+    assert pr.status_checks_passed is True
+    assert any("--search" in command and "TASK-0720" in command for command in commands)
+
+
+def test_load_merged_task_pull_requests_ignores_unresolved_conventional_squash(
+    tmp_path: Path,
+) -> None:
+    git_payload = (
+        "2026-06-11T08:59:05Z\x1f"
+        "fix(task-0720): reuse merged PR metadata in closeout sweep\x1f"
+        "\x1e"
+    )
+
+    def _fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        if command[:4] == ["git", "remote", "get-url", "origin"]:
+            return CommandResult(
+                returncode=0,
+                stdout="https://github.com/open-agent-science/autonomous-physics-lab.git\n",
+                stderr="",
+            )
+        if command[:2] == ["git", "log"]:
+            return CommandResult(returncode=0, stdout=git_payload, stderr="")
+        if command[:3] == ["/custom/gh", "pr", "list"]:
+            return CommandResult(returncode=0, stdout="[]", stderr="")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected command")
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command),
+    ):
+        result = load_merged_task_pull_requests(tmp_path)
+
+    assert "TASK-0720" not in result
+
+
 def test_load_merged_task_pull_requests_falls_back_to_gh_pr_list(
     tmp_path: Path,
 ) -> None:
