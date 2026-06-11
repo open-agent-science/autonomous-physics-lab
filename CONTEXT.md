@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-07 15:41 UTC
+Generated: 2026-06-11 08:23 UTC
 Mode: core
 Repo: open-agent-science/autonomous-physics-lab
 
@@ -1023,10 +1023,11 @@ an `EXO-0003` acquisition trigger, not another current-snapshot residual pilot.
 
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
-default work is not another broad Nuclear hypothesis burst; it is preserving
-the Exoplanet benchmark negative/control memory, frozen second-snapshot
-discipline, and benchmark-only wording until a materially changed input surface
-is reviewed.
+science path is the post-gate data-to-benchmark wave: Materials `MD-0002`
+acquisition and validation, Atomic Nemitz `ACR-0002` row curation, Stellar M-L
+DEBCat Route 2 / row curation, and Quantum source-artifact handoff. Exoplanet
+remains monitor-only until a material source-version trigger appears; do not
+run another current-snapshot residual pilot.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
@@ -1035,10 +1036,11 @@ Nuclear Mass Surface remains the flagship validation challenge, but the latest
 controls-first lanes landed as negative, inconclusive, diagnostic-only,
 chain-local, or validation-regressing memory. The best Nuclear work now is
 reveal-readiness, F2/factory result routing, and only tightly bounded
-controls-first follow-up. Quantum Size Effects remains a source-readiness lane
-with Almeida source packaging and direct-row readiness as the gate, while
-Atomic-Clock Residuals is a pinned-source/covariance lane moving toward
-benchmark readiness through the Pizzocaro PSD covariance approximation. New
+controls-first follow-up. Quantum Size Effects remains source-artifact gated:
+Almeida and Vossmeyer are promising but still need checksum/source-copy
+decisions before row curation. Atomic-Clock Residuals should now prioritize
+Nemitz `ACR-0002`; the Pizzocaro PSD covariance artifact is useful diagnostic
+evidence, but its row-admissibility gate preserved the aggregation blocker. New
 campaign ideas should enter through source/schema/baseline scaffolds first,
 not broad hypothesis batches.
 
@@ -1056,10 +1058,10 @@ turning watchlist topics into formula-search work.
 | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, reveal-readiness blockers, and several negative/control lanes | reveal-readiness matrix, F2/factory result routing, and new lanes only when controls and stop conditions are predeclared |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and define source-version or `EXO-0003` trigger work before any new residual audit |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | Almeida checksum source package, open direct-table scouting, and direct-row readiness gates |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy rows, real-row loader, synthetic dry-run, Nemitz/Pizzocaro/Lange source surfaces, and covariance policy | Pizzocaro PSD covariance approximation, cross-source blocker map, Lange/PTB route decision, then baseline-readiness gate |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with exact-reference fixtures and a Gate-B-validated Stefan-Boltzmann software/convention result; empirical audits remain gated | DEBCat row-readiness after holdout/leakage protocol; no empirical metrics before row provenance passes |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Emerging reusable-dataset lane with `MD-0001`, independent replay, controls, split sensitivity, and publication blockers | MD-0002 acquisition preflight/loader planning and band-gap negative-memory packaging; no broad material-law claims |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark; Vossmeyer and Almeida are promising but source-artifact blocked | Vossmeyer source-copy handoff, Almeida checksum/reuse decision, and direct-row readiness gates |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy rows, real-row loader, synthetic dry-run, Nemitz/Pizzocaro/Lange source surfaces, and covariance policy | Nemitz `ACR-0002` row curation first; Pizzocaro remains diagnostic-only unless an observable-harmonization contract lands |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with exact-reference fixtures and a Gate-B-validated Stefan-Boltzmann software/convention result; empirical audits remain gated | DEBCat Route 2 storage decision, normalized component rows, then Stellar M-L empirical audit |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Emerging reusable-dataset lane with `MD-0001`, independent replay, controls, split sensitivity, and authorized `MD-0002` acquisition | Execute `MD-0002` maintainer-gated acquisition, validate holdout binding, then run the formation-energy benchmark |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -1080,10 +1082,10 @@ Near-term portfolio shape:
 | --- | --- | --- |
 | Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, mixed shell-axis transfer, factory no-shortlist, and broad-refit validation regression as negative/inconclusive memory unless a later review creates a narrower publication artifact. |
 | Default public benchmark story | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
-| Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
-| Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close Pizzocaro covariance, second-source, holdout/no-peek, and admitted-row blockers before the first Yb/Sr consistency benchmark. |
-| Public-friendly verifier lane | Textbook Formula Audit | Use exact-reference fixtures and DEBCat source gates first; no real-source metrics before source, schema, holdout, and verification gates. |
-| Emerging reusable-dataset lane | Materials Property Residuals | Treat `MD-0001` as source-pinned dataset memory; run MD-0002 planning and negative-memory packaging before widening or result promotion. |
+| Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting; Vossmeyer and Almeida need source-copy/checksum decisions. |
+| Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Curate Nemitz `ACR-0002` or explicitly preserve the blocker; do not use Pizzocaro as a benchmark row without harmonization. |
+| Public-friendly verifier lane | Textbook Formula Audit | Use exact-reference fixtures and DEBCat source gates first; Route 2 and row curation must land before empirical M-L metrics. |
+| Emerging reusable-dataset lane | Materials Property Residuals | Treat `MD-0001` as source-pinned dataset memory; `MD-0002` is now the strongest near-term data-to-benchmark path. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
@@ -2477,6 +2479,12 @@ preflight branches, titles, bodies, metadata, and obvious PR-shape mistakes.
 They do not decide whether a scientific result is true, whether a task should be
 accepted, or whether a PR should merge.
 
+For closeout behavior, task YAML may optionally set `closeout: auto` or
+`closeout: review`. Omitted is equivalent to `auto`; `review` opts the task out
+of safe auto-closeout and keeps it on the manual maintainer closeout path.
+`TASK-CLOSEOUT` is separate: it is the PR kind marker for closeout PR titles and
+metadata, not a task id and not a value for the task YAML field.
+
 ## Canonical Task PR Helper
 
 Before opening a canonical task PR, prefer the Python helper over ad-hoc
@@ -2772,6 +2780,23 @@ ready:
 
 ```bash
 python3 scripts/apl_task_pr_helper.py ready --pr <number>
+```
+
+For the bounded finish step, agents may use the repository finish gate helper
+instead of repeating the review, CI, and ready commands by hand:
+
+```bash
+python3 scripts/apl_pr_finish_gate.py --pr <number>
+```
+
+The helper first runs `python3 scripts/apl_review_pr.py --pr <number>`, then
+checks GitHub PR checks through `gh pr checks --json`, and only then calls
+`gh pr ready <number>`. It leaves the PR draft if the review verdict is not
+`MERGE_OK`, if checks are pending or failing, or if GitHub status cannot be
+loaded. For a non-mutating preflight, use:
+
+```bash
+python3 scripts/apl_pr_finish_gate.py --pr <number> --dry-run
 ```
 
 When `scripts/apl_agent_doctor.py` reports the known loopback blocker proxy

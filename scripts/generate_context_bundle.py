@@ -119,8 +119,23 @@ def write_bundle_if_changed(out_path: Path, bundle: str) -> bool:
     return True
 
 
+def bundle_is_current(*, full: bool = False, out_path: Path | None = None) -> bool:
+    """Return whether the on-disk bundle matches a fresh generation."""
+    target = out_path or (REPO_ROOT / "CONTEXT.md")
+    candidate = build_bundle(full=full)
+    if not target.exists():
+        return False
+    existing = target.read_text(encoding="utf-8")
+    return existing == candidate or differs_only_by_generated_timestamp(existing, candidate)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Exit 1 when the output file is missing or stale relative to sources.",
+    )
     parser.add_argument(
         "--full",
         action="store_true",
@@ -138,13 +153,27 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    out_path = REPO_ROOT / args.out
+
+    if args.check:
+        if not bundle_is_current(full=args.full, out_path=out_path):
+            rel = out_path.relative_to(REPO_ROOT)
+            print(
+                f"Stale or missing context bundle: {rel}. "
+                "Run python3 scripts/generate_context_bundle.py to refresh.",
+                file=sys.stderr,
+            )
+            raise SystemExit(1)
+        rel = out_path.relative_to(REPO_ROOT)
+        print(f"Context bundle is current: {rel}")
+        return
+
     bundle = build_bundle(full=args.full)
 
     if args.stdout:
         sys.stdout.write(bundle)
         return
 
-    out_path = REPO_ROOT / args.out
     changed = write_bundle_if_changed(out_path, bundle)
     lines = bundle.count("\n")
     size_kb = len(bundle.encode()) / 1024

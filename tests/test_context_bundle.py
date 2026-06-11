@@ -4,6 +4,8 @@ import importlib.util
 from pathlib import Path
 from types import ModuleType
 
+import pytest
+
 
 def _load_context_bundle_script() -> ModuleType:
     script_path = Path(__file__).resolve().parent.parent / "scripts" / "generate_context_bundle.py"
@@ -71,3 +73,35 @@ def test_write_bundle_if_changed_writes_real_content_change(tmp_path: Path) -> N
 
     assert changed is True
     assert out_path.read_text(encoding="utf-8") == candidate
+
+
+def test_bundle_is_current_accepts_timestamp_only_drift(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    out_path = tmp_path / "CONTEXT.md"
+    existing = "# Bundle\n\nGenerated: 2026-05-11 10:44 UTC\nMode: core\n"
+    out_path.write_text(existing, encoding="utf-8")
+
+    def fake_build_bundle(*, full: bool = False) -> str:
+        del full
+        return "# Bundle\n\nGenerated: 2026-05-11 10:52 UTC\nMode: core\n"
+
+    monkeypatch.setattr(context_bundle, "build_bundle", fake_build_bundle)
+    assert context_bundle.bundle_is_current(out_path=out_path) is True
+
+
+def test_bundle_is_current_rejects_content_drift(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    out_path = tmp_path / "CONTEXT.md"
+    out_path.write_text(
+        "# Bundle\n\nGenerated: 2026-05-11 10:44 UTC\nMode: core\nA\n",
+        encoding="utf-8",
+    )
+
+    def fake_build_bundle(*, full: bool = False) -> str:
+        del full
+        return "# Bundle\n\nGenerated: 2026-05-11 10:52 UTC\nMode: core\nB\n"
+
+    monkeypatch.setattr(context_bundle, "build_bundle", fake_build_bundle)
+    assert context_bundle.bundle_is_current(out_path=out_path) is False

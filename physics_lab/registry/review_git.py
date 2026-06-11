@@ -17,6 +17,18 @@ HARNESS_IGNORE_PATHS: tuple[str, ...] = (
     ".claude/scheduled_tasks.lock",
 )
 
+# Generated aggregates that may drift locally during review or pytest without
+# indicating a task-PR problem. See docs/notes/context-bundle-architecture-decision.md
+# and docs/notes/generated-task-navigation-architecture-decision.md.
+GENERATED_EPHEMERAL_IGNORE_PATHS: tuple[str, ...] = (
+    "CONTEXT.md",
+    "docs/task-views/*",
+)
+
+REVIEW_IGNORE_PATHS: tuple[str, ...] = (
+    HARNESS_IGNORE_PATHS + GENERATED_EPHEMERAL_IGNORE_PATHS
+)
+
 
 def _path_matches_ignore(path: str, patterns: tuple[str, ...]) -> bool:
     """Return True if path matches any of the fnmatch-style ignore patterns."""
@@ -103,15 +115,15 @@ def current_branch(root: Path) -> str:
 def git_status_clean(
     root: Path,
     *,
-    ignore_paths: tuple[str, ...] = HARNESS_IGNORE_PATHS,
+    ignore_paths: tuple[str, ...] = REVIEW_IGNORE_PATHS,
 ) -> bool:
     """Return whether the worktree is clean.
 
     Paths matching ``ignore_paths`` are excluded from the cleanliness check.
-    The default ignore list covers harness/local-session artifacts that
-    should never block maintainer review (see ``HARNESS_IGNORE_PATHS``).
-    Pass ``ignore_paths=()`` to disable filtering and require a strictly
-    empty ``git status --short``.
+    The default ignore list covers harness/local-session artifacts and
+    generated ephemeral aggregates that should not block maintainer review
+    (see ``REVIEW_IGNORE_PATHS``). Pass ``ignore_paths=()`` to disable
+    filtering and require a strictly empty ``git status --short``.
     """
     paths = working_tree_changed_files(root, ignore_paths=ignore_paths)
     return len(paths) == 0
@@ -125,7 +137,7 @@ def local_branch_exists(root: Path, branch: str) -> bool:
 def working_tree_changed_files(
     root: Path,
     *,
-    ignore_paths: tuple[str, ...] = HARNESS_IGNORE_PATHS,
+    ignore_paths: tuple[str, ...] = REVIEW_IGNORE_PATHS,
 ) -> tuple[str, ...]:
     """Return changed files from git status for the current worktree.
 
