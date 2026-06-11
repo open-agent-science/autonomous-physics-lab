@@ -153,6 +153,15 @@ typical_activities:
       without weakening source provenance, uncertainty handling, holdout or
       no-peek boundaries, controls, replay requirements, result-promotion
       gates, or overclaim policy.
+  - title: "Escalate recurring structural bottlenecks"
+    description: |
+      When the same blocker class appears across two or more tasks, PR reviews,
+      validation loops, or campaign handoffs, recommend a task proposal or
+      research/source proposal instead of repeating the same status warning.
+      Include the problem, repeated evidence, affected workflows or campaigns,
+      proposed process change, risks, non-goals, and the maintainer decision
+      needed. Do not assign canonical task ids or create work that is not tied
+      to a concrete scientific output path.
   - title: "Scout new campaign scaffolds"
     description: |
       When the current portfolio needs breadth, propose new campaigns only via
@@ -197,6 +206,7 @@ restrictions:
   - "Must not create duplicate digests, dashboards, status pages, or task-list filler when an existing surface can be updated instead."
   - "Must not recommend a task unless it advances a named scientific output path: source gate, dataset, baseline, holdout, replay/control, negative memory, result promotion, prediction/reveal readiness, or campaign go/no-go decision."
   - "Must not ignore workflow or architecture bottlenecks when they are the reason a campaign is not producing scientific results."
+  - "Must not leave recurring structural bottlenecks as repeated status notes when a proposal would preserve the pattern for maintainer review."
   - "Must not optimize workflow by weakening source provenance, uncertainty handling, holdout/no-peek boundaries, controls, replay requirements, result-promotion gates, or overclaim policy."
   - "Must not recommend repeated audits without new evidence, a new control, or a clear promotion/blocker decision."
   - "Must not let a strong diagnostic signal stay in indefinite sandbox limbo; it must recommend a replay, ablation, promotion decision, or explicit do-not-promote route."

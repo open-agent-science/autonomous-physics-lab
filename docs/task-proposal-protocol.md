@@ -35,6 +35,30 @@ to be identified. For scientific ideas that belong in the research memory
 before they become tasks, use the relevant hypothesis, experiment, or source
 proposal path and cross-reference it from any task proposal.
 
+## Recurring Structural Bottleneck Proposals
+
+Create a structural-bottleneck proposal when the same blocker class has appeared
+in at least two task attempts, PR reviews, validation loops, or campaign
+handoffs and the pattern is likely to keep costing future agents or maintainers
+time. This is an escalation threshold, not a permission to create canonical
+tasks directly.
+
+Use this shape:
+
+- problem;
+- repeated evidence, including task ids, PRs, validation failures, or campaign
+  handoffs;
+- affected workflows, helpers, protocols, or campaigns;
+- proposed process, helper, source-lane, or task-shape change;
+- risks, non-goals, and gates that must not be weakened;
+- maintainer decision needed.
+
+Good structural-bottleneck proposals remove a repeated cause of delay while
+preserving validation, source provenance, holdout/no-peek discipline,
+result-promotion gates, and maintainer authority. Do not use this path to pad
+the task pool, repackage one-off friction, bypass a blocked source gate, or
+auto-assign canonical `TASK-XXXX` ids.
+
 ## When To Create A Canonical Task Directly
 
 Create a canonical `TASK-XXXX` file directly only when at least one of the
