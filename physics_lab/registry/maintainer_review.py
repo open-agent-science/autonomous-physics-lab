@@ -1725,6 +1725,7 @@ def build_closeout_report(
     pull_request: int,
     apply: bool,
     sync_board: bool = False,
+    pr_metadata: PullRequestMetadata | None = None,
 ) -> CloseoutReport:
     """Build and optionally apply a maintainer closeout decision on main."""
     blockers: list[str] = []
@@ -1738,7 +1739,7 @@ def build_closeout_report(
     if not git_status_clean(root):
         blockers.append("Git status is not clean before closeout.")
 
-    pr_metadata = load_pr_metadata(root, pull_request)
+    pr_metadata = pr_metadata or load_pr_metadata(root, pull_request)
     merged = "unknown"
     ci_status = "unknown"
     changed_files: tuple[str, ...] = ()

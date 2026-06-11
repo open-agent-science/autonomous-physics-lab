@@ -1,0 +1,39 @@
+id: TASK-0720
+title: "Use merged PR summary metadata for auto-closeout verification"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+strategy_alignment:
+  - "Keep post-merge auto-closeout reliable when detailed GitHub PR metadata calls are flaky."
+  - "Prevent REVIEW_READY task debt from accumulating after safe merged tooling PRs."
+input:
+  mode: workflow
+  related_domain: "maintainer_workflow"
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "TASK-0718"
+  planning_context: >
+    TASK-0718 stayed REVIEW_READY after merge because safe auto-closeout found
+    the merged PR in the sweep but then blocked on a second detailed GitHub PR
+    metadata call. The sweep should reuse merged PR summary metadata from the
+    discovery step when it already includes task binding and green checks.
+requirements:
+  - "Allow closeout sweep to pass already-discovered merged PR metadata into the closeout report."
+  - "Carry branch and status-check summary fields from the GitHub PR-list discovery path."
+  - "Keep mismatched PR/task binding as a blocker when metadata is available."
+  - "Do not weaken protected scientific artifact closeout policy."
+accepted_outputs:
+  - "physics_lab/registry/closeout_sweep.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_closeout_sweep.py"
+validation:
+  commands:
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py physics_lab/registry/maintainer_review.py tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
