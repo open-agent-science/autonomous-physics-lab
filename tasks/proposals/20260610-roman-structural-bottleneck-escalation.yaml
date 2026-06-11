@@ -1,6 +1,6 @@
 proposal_id: 20260610-roman-structural-bottleneck-escalation
 title: "Require agents to escalate recurring structural bottlenecks, not just report symptoms"
-status: PROPOSED
+status: ACCEPTED
 type: agent_workflow
 priority: high
 
@@ -61,6 +61,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "From the 2026-06-10 workflow retrospective; directly addresses the maintainer's observation that no agent proposed the systemic fix."
+  canonical_task_id: TASK-0723
+  decision: accepted
+  notes: "Accepted as TASK-0723. Adds a structured escalation rule for recurring bottlenecks while keeping canonical task creation maintainer-gated."

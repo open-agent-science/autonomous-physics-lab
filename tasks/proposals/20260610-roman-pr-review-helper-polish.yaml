@@ -1,6 +1,6 @@
 proposal_id: 20260610-roman-pr-review-helper-polish
 title: "Polish PR/review helpers: diff vs origin/main and auto-prune stale review worktrees"
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_tooling
 priority: medium
 
@@ -57,6 +57,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "From the 2026-06-10 workflow retrospective. Mechanical; lower priority than acquisition/closeout/promotion."
+  canonical_task_id: TASK-0722
+  decision: accepted
+  notes: "Accepted as TASK-0722. Mechanical maintainer-tooling polish that removes repeated PR/review friction without changing review verdict semantics."
