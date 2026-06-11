@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import re
@@ -327,6 +328,87 @@ def apply_auto_safe_closeouts(
         applied.append(candidate)
         changed_files.append(task_file)
     return CloseoutSweepApplyReport(applied=tuple(applied), changed_files=tuple(changed_files))
+
+
+def classify_full_repo_signal(
+    conclusion: str | None,
+    created_at: str | None,
+    *,
+    now: datetime | None = None,
+    max_age_hours: float = 48.0,
+) -> str:
+    """Classify the latest completed full_repo signal: ok | red | stale | unknown."""
+    if conclusion is None or not str(conclusion).strip():
+        return "unknown"
+    if str(conclusion).strip().lower() != "success":
+        return "red"
+    if created_at is None or not str(created_at).strip():
+        return "unknown"
+    try:
+        created = datetime.fromisoformat(str(created_at).replace("Z", "+00:00"))
+    except ValueError:
+        return "unknown"
+    if created.tzinfo is None:
+        created = created.replace(tzinfo=timezone.utc)
+    current = now or datetime.now(timezone.utc)
+    age_hours = (current - created).total_seconds() / 3600.0
+    if age_hours > max_age_hours:
+        return "stale"
+    return "ok"
+
+
+def full_repo_signal_status(
+    root: Path,
+    *,
+    gh_path: str | None = None,
+    now: datetime | None = None,
+    max_age_hours: float = 48.0,
+) -> str:
+    """Return the latest main full_repo signal (ok|red|stale|unknown) via gh.
+
+    Reads the most recent completed CI run on ``main`` (the main matrix runs
+    full_repo on every push to main). Any gh failure yields ``unknown`` so the
+    caller falls back to report-only.
+    """
+    resolved_gh_path = gh_path or find_gh_path()
+    if resolved_gh_path is None:
+        return "unknown"
+    result = run_command(
+        [
+            resolved_gh_path,
+            "run",
+            "list",
+            "--workflow",
+            "ci.yml",
+            "--branch",
+            "main",
+            "--event",
+            "push",
+            "--status",
+            "completed",
+            "--limit",
+            "1",
+            "--json",
+            "conclusion,createdAt",
+        ],
+        cwd=root,
+        timeout=60,
+    )
+    if result.returncode != 0:
+        return "unknown"
+    try:
+        rows = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return "unknown"
+    if not isinstance(rows, list) or not rows:
+        return "unknown"
+    latest = rows[0]
+    return classify_full_repo_signal(
+        latest.get("conclusion"),
+        latest.get("createdAt"),
+        now=now,
+        max_age_hours=max_age_hours,
+    )
 
 
 def _load_merged_task_pull_requests_from_git(
