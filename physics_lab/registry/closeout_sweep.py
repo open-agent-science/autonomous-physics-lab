@@ -23,6 +23,10 @@ MERGE_SUBJECT_PATTERN = re.compile(r"^Merge pull request #(?P<number>[0-9]+)\s+f
 SQUASH_MERGE_SUBJECT_PATTERN = re.compile(
     r"^(?P<title>(?P<task_id>TASK-[0-9]{4}):\s+.+)\s+\(#(?P<number>[0-9]+)\)$"
 )
+CONVENTIONAL_TASK_SUBJECT_PATTERN = re.compile(
+    r"^[a-z]+(?:\((?P<task_id>TASK-[0-9]{4})\))!?:\s+.+$",
+    re.IGNORECASE,
+)
 PR_TITLE_TASK_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}):\s+.+$")
 CANONICAL_TASK_ID_PATTERN = re.compile(r"^TASK-[0-9]{4}$")
 
@@ -166,6 +170,18 @@ def load_merged_task_pull_requests(
         previous = by_task.get(task_id)
         if previous is None or candidate.merged_at > previous.merged_at:
             by_task[task_id] = candidate
+    for task_id, candidate in tuple(by_task.items()):
+        if candidate.number > 0:
+            continue
+        resolved = _load_merged_task_pull_request_from_gh_search(
+            root,
+            task_id=task_id,
+            remote_url=remote_url,
+        )
+        if resolved is not None:
+            by_task[task_id] = resolved
+        else:
+            del by_task[task_id]
     return by_task
 
 
@@ -487,6 +503,20 @@ def _load_merged_task_pull_requests_from_git(
             if previous is None or candidate.merged_at > previous.merged_at:
                 by_task[task_id] = candidate
             continue
+        conventional_match = CONVENTIONAL_TASK_SUBJECT_PATTERN.match(subject.strip())
+        if conventional_match is not None:
+            task_id = conventional_match.group("task_id").upper()
+            candidate = MergedTaskPullRequest(
+                task_id=task_id,
+                number=0,
+                title=f"{task_id}: merged via conventional squash commit",
+                merged_at=merged_at.strip(),
+                url="",
+            )
+            previous = by_task.get(task_id)
+            if previous is None or candidate.merged_at > previous.merged_at:
+                by_task[task_id] = candidate
+            continue
         merge_match = MERGE_SUBJECT_PATTERN.match(subject.strip())
         if merge_match is None:
             continue
@@ -514,6 +544,73 @@ def _load_merged_task_pull_requests_from_git(
         if previous is None or candidate.merged_at > previous.merged_at:
             by_task[task_id] = candidate
     return by_task
+
+
+def _load_merged_task_pull_request_from_gh_search(
+    root: Path,
+    *,
+    task_id: str,
+    remote_url: str | None,
+) -> MergedTaskPullRequest | None:
+    """Resolve a conventional squash commit's PR number via exact task search."""
+    gh_path = find_gh_path()
+    if gh_path is None:
+        return None
+    result = run_command(
+        [
+            gh_path,
+            "pr",
+            "list",
+            "--state",
+            "merged",
+            "--search",
+            task_id,
+            "--limit",
+            "20",
+            "--json",
+            "number,title,mergedAt,headRefName,baseRefName,statusCheckRollup",
+        ],
+        cwd=root,
+        timeout=60,
+    )
+    if result.returncode != 0:
+        return None
+    try:
+        rows = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(rows, list):
+        return None
+
+    best: MergedTaskPullRequest | None = None
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        title = str(row.get("title") or "").strip()
+        title_match = PR_TITLE_TASK_PATTERN.match(title)
+        if title_match is None or title_match.group("task_id") != task_id:
+            continue
+        try:
+            pr_number = int(row["number"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        status_checks_passed, status_checks_pending = _status_checks_from_rollup(
+            row.get("statusCheckRollup")
+        )
+        candidate = MergedTaskPullRequest(
+            task_id=task_id,
+            number=pr_number,
+            title=title,
+            merged_at=str(row.get("mergedAt") or "").strip(),
+            url=(f"{remote_url}/pull/{pr_number}" if remote_url else ""),
+            branch=str(row.get("headRefName") or "").strip(),
+            base_branch=str(row.get("baseRefName") or "main").strip() or "main",
+            status_checks_passed=status_checks_passed,
+            status_checks_pending=status_checks_pending,
+        )
+        if best is None or candidate.merged_at > best.merged_at:
+            best = candidate
+    return best
 
 
 def _status_checks_from_rollup(status_checks: object) -> tuple[bool | None, bool]:
