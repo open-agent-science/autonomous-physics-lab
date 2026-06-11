@@ -1,0 +1,47 @@
+id: TASK-0699
+title: "Document closeout policy schema and helper examples"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep auto-closeout safe and understandable for agents."
+  - "Prevent helper/documentation drift around closeout policy fields."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/schemas/task.schema.json"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "scripts/apl_closeout_pr_helper.py"
+  planning_context: >
+    TASK-0698 made `closeout: review` a task-level opt-out from safe
+    auto-closeout, but the surrounding documentation and regression tests need
+    to make that contract obvious so agents do not confuse the task YAML
+    `closeout` policy with the `TASK-CLOSEOUT` PR marker.
+
+requirements:
+  - "Clarify that task YAML may use optional `closeout: auto|review` while `TASK-CLOSEOUT` remains the PR-kind marker."
+  - "Update closeout helper command examples to use current supported flags."
+  - "Add a regression test proving the task schema accepts `closeout: review` and rejects unsupported values."
+  - "Do not change auto-closeout behavior beyond documentation/schema-contract clarity."
+
+accepted_outputs:
+  - "documented task closeout policy contract"
+  - "updated closeout helper examples"
+  - "schema regression test for `closeout: auto|review`"
+
+validation:
+  commands:
+    - "python3 -m ruff check tests/test_registry_validation.py"
+    - "python3 -m pytest tests/test_registry_validation.py tests/test_closeout_sweep.py tests/test_closeout_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
