@@ -27,3 +27,4 @@ None.
 - `TASK-0698` - Guard safe auto-closeout on full_repo status: report-only when red/stale/unknown (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
 - `TASK-0717` - Document closeout policy schema and helper examples (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-0718` - Detect squash-merged task PRs in closeout sweep (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
+- `TASK-0719` - Treat AI co-author trailer noise as advisory review hygiene (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `maintainer_review`)
