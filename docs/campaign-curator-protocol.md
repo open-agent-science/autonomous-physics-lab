@@ -206,6 +206,15 @@ recommend a faster workflow if it weakens source provenance, uncertainty
 handling, holdout/no-peek boundaries, controls, replay requirements,
 result-promotion gates, or overclaim policy.
 
+When the same structural bottleneck appears in two or more campaign tasks,
+reviews, validation loops, or handoffs, the Director should route it into a
+task proposal or research/source proposal instead of repeating the same status
+warning. The proposal should name the problem, repeated evidence, affected
+campaigns or workflows, proposed process change, risks, non-goals, and the
+maintainer decision needed. This escalation is advisory: the Director still
+must not assign canonical task ids, bypass gates, or create busywork when the
+right answer is to execute an existing task.
+
 ## Promotion Backlog
 
 The Promotion Backlog is an advisory triage section for existing sandbox or

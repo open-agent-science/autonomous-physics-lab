@@ -98,6 +98,35 @@ actionable, likely to recur, likely to block another agent, or scientifically
 useful enough that losing them would slow the project. If a signal is
 intentionally advisory-only, say that explicitly in the handoff.
 
+## Recurring Structural Bottlenecks
+
+Agents should escalate a recurring structural bottleneck when the same blocker
+class appears in two or more task attempts, PR reviews, validation loops, or
+campaign handoffs and the issue is likely to keep slowing future work unless a
+process, helper, protocol, source-lane, or task-shape change is reviewed.
+
+Examples include repeated source-acquisition stalls, unclear source-to-row
+handoffs, stale READY-pool droughts, recurring CI or review-helper failures,
+validation commands that fail for the same environment reason, or task scopes
+that repeatedly push agents into duplicate audits instead of durable scientific
+outputs.
+
+Escalation means creating or recommending a proposal; it does not grant agents
+authority to assign canonical task ids, change governance, bypass source or
+promotion gates, weaken validation, or create work for its own sake. Prefer a
+task proposal when the fix is repository work, a research/source proposal when
+the fix is scientific intake, and a lightweight issue/comment when ownership is
+unclear or repository edits are not safe.
+
+A structural-bottleneck proposal should include:
+
+- problem;
+- repeated evidence, with task, PR, validation, or campaign references;
+- affected workflows, helpers, or campaigns;
+- proposed process or helper change;
+- risks and non-goals;
+- maintainer decision needed.
+
 Default rule:
 
 - create a proposal under `tasks/proposals/`

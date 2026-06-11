@@ -82,6 +82,14 @@ typical_activities:
   - title: "Targeted closeout health check"
     description: |
       Run `python3 scripts/apl_task_closeout_check.py` against one task.
+  - title: "Surface recurring review bottlenecks"
+    description: |
+      When the same helper, CI, validation, branch-shape, PR-body, or closeout
+      failure class appears in two or more reviews, call it out as a recurring
+      structural bottleneck and recommend a task proposal or maintainer issue.
+      Include repeated evidence, affected workflow, proposed process change,
+      risk, and the maintainer decision needed. Do not weaken review gates or
+      treat the proposal as a merge approval.
 
 allowed_tools:
   - "Read pull-request diffs, bodies, branch metadata, and CI status."
@@ -110,6 +118,7 @@ restrictions:
   - "Must not make the repository public."
   - "Must report contested-result or AGENT_PUBLISHED artifact PRs as requiring stricter scrutiny (Gate C territory)."
   - "Must surface security-sensitive changes (auth, secrets, CI, hooks) for explicit maintainer review."
+  - "Must not leave repeated review-helper, CI, validation, or closeout failures only as local comments when they indicate a structural bottleneck worth proposing."
 
 cadence: |
   Prompt-first. The maintainer asks the Review Agent to review a specific
