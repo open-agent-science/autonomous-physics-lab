@@ -49,6 +49,7 @@ def main() -> int:
     from physics_lab.registry.closeout_sweep import (
         apply_auto_safe_closeouts,
         apply_closeout_sweep_report,
+        full_repo_signal_status,
         render_closeout_sweep_apply_report,
         build_closeout_sweep_report,
         render_closeout_sweep_report,
@@ -60,8 +61,16 @@ def main() -> int:
     print(render_closeout_sweep_report(report))
     if args.auto_safe:
         print("")
-        apply_report = apply_auto_safe_closeouts(REPO_ROOT, report)
-        print(render_closeout_sweep_apply_report(apply_report))
+        signal = full_repo_signal_status(REPO_ROOT)
+        if signal != "ok":
+            print(
+                f"full_repo signal is `{signal}` (red/stale/unknown) -> report-only; "
+                "committing no auto-closeouts. The main full_repo status must be a "
+                "fresh success before safe tasks are auto-closed."
+            )
+        else:
+            apply_report = apply_auto_safe_closeouts(REPO_ROOT, report)
+            print(render_closeout_sweep_apply_report(apply_report))
     elif args.apply:
         print("")
         apply_report = apply_closeout_sweep_report(REPO_ROOT, report)
