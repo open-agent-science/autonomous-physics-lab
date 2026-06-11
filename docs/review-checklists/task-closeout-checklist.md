@@ -24,6 +24,12 @@ instruction, may perform closeout after merge.
 ## Closeout Actions
 
 - Set the task file status to `DONE`.
+- Respect the optional task-level `closeout` policy. Omitted or
+  `closeout: auto` means the task may be eligible for safe auto-closeout when
+  all automation guards pass; `closeout: review` forces the manual review path
+  even if the task otherwise looks safe.
+- Do not confuse the task YAML `closeout` policy with `TASK-CLOSEOUT`, which is
+  the closeout PR kind marker used in PR titles and metadata.
 - Keep closeout PRs YAML-only. Do not regenerate
   [the task views](../task-views/research.md) or
   `docs/task-views/*.md` in the closeout branch; the post-merge

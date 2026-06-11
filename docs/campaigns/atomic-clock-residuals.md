@@ -18,10 +18,11 @@ deterministic real-row loader, a source-derived covariance approximation,
 synthetic cross-source dry-run plumbing, a corrected Nemitz 2016 source
 artifact pinned with rows blocked, a first-benchmark covariance policy,
 manifest-backed Beloy row-role assignments, a Pizzocaro per-window diagnostic
-ledger, and a baseline-readiness gate rerun that keeps the campaign at
-`PINNED_DATASET`. `TASK-0651` found that the Pizzocaro VLBI windows are
-feasible as a source-derived positive-semidefinite covariance approximation,
-but not as an exact committed covariance matrix. No real-row benchmark yet.
+ledger, and baseline-readiness gate reruns that keep the campaign at
+`PINNED_DATASET`. Pizzocaro is now useful diagnostic evidence, but its
+post-PSD row-admissibility review preserved the aggregation blocker. The
+primary path to the first Yb/Sr benchmark is Nemitz `ACR-0002` row curation.
+No real-row benchmark yet.
 
 ## Public Monitoring Snapshot
 
@@ -46,21 +47,20 @@ new constant, or anomaly explanation exists in APL.
 
 **Active next work:** `TASK-0538` populated the Beloy row-role assignments,
 `TASK-0542` pinned the Pizzocaro source artifacts with checksum/provenance,
-`TASK-0636` created the Pizzocaro per-window diagnostic ledger, and `TASK-0651`
-found the committed component data sufficient for a deterministic
-`COV_SOURCE_DERIVED_PSD_APPROX` recipe. The immediate Atomic path is now
-`TASK-0666`: build and test that Pizzocaro source-derived PSD covariance
-artifact without aggregating windows into benchmark rows. `TASK-0652` also
-pinned Lange/PTB Yb+ metadata, but that source is a separate Yb+ family
-(E3/Cs and E3/E2), not a Yb/Sr benchmark unblocker.
+`TASK-0636` created the Pizzocaro per-window diagnostic ledger, `TASK-0666`
+landed a source-derived PSD covariance approximation, and `TASK-0686`
+preserved the Pizzocaro aggregation blocker. The immediate Atomic path is now
+Nemitz `ACR-0002` row curation. A secondary Pizzocaro path may define a
+sensitivity-only observable-harmonization contract, but it should not be used
+as a benchmark row without that contract. `TASK-0652` also pinned Lange/PTB
+Yb+ metadata, but that source is a separate Yb+ family (E3/Cs and E3/E2), not a
+Yb/Sr benchmark unblocker.
 
-**Expected next result:** a machine-readable Pizzocaro covariance approximation
-with explicit row order, shared-systematic recipe, PSD check, and sensitivity
-ceiling. If that lands, a later baseline-readiness gate can decide whether the
-first narrow Yb/Sr consistency benchmark is still blocked or ready. If it fails,
-Pizzocaro remains diagnostic-only and Atomic should prioritize another Yb/Sr
-source. Lange/PTB remains a useful separate-family fallback after a reuse and
-artifact-retrieval route is decided.
+**Expected next result:** a Nemitz row-curation decision that either commits a
+second admissible Yb/Sr row or preserves the exact blocker. If the row lands,
+a later baseline-readiness gate can decide whether the first narrow Yb/Sr
+consistency benchmark is ready. If it fails, Atomic should either pursue the
+Pizzocaro harmonization fallback or keep the campaign source-gated.
 
 `TASK-0311` adds:
 
@@ -143,6 +143,11 @@ Current next tasks:
   committed covariance matrix.
 - `TASK-0652` pinned Lange/PTB Yb+ metadata and reuse blockers; it is a
   separate Yb+ source-family path, not a Yb/Sr benchmark unblocker.
+- `TASK-0666` committed a source-derived Pizzocaro PSD covariance
+  approximation for sensitivity-only diagnostics.
+- `TASK-0686` re-gated Pizzocaro after that covariance work and preserved the
+  aggregation blocker; Pizzocaro remains diagnostic-only until a separate
+  aggregation or observable-harmonization contract lands.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. After `TASK-0455`, the
@@ -153,9 +158,9 @@ loader and first-benchmark covariance policy blockers are cleared at the
 policy/validation level.
 
 The next tasks can run in parallel only when they own separate surfaces:
-Pizzocaro row-admissibility review, direct-vs-derived policy, or
-maintainer-waived single-source diagnostic planning. None should fit drift,
-derive constants constraints, or promote a claim.
+Nemitz `ACR-0002` row curation, Pizzocaro observable harmonization, or a
+separate-family Lange/PTB artifact route. None should fit drift, derive
+constants constraints, or promote a claim.
 
 ## Why This Could Matter Later
 
@@ -263,10 +268,12 @@ Safe future tasks:
   benchmark consumer touches atomic rows;
 - rerun the baseline-readiness gate only after a second value-bearing source
   row is committed or explicitly waived;
+- rerun the baseline-readiness gate after a Nemitz `ACR-0002` row package
+  passes, while preserving any failed source as blocker memory;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
-- build the scoped Pizzocaro PSD covariance approximation before rerunning the
-  Atomic baseline-readiness gate;
+- define a narrow Pizzocaro observable-harmonization contract only if the
+  campaign still needs diagnostic cross-source consistency after Nemitz;
 - keep Lange/PTB metadata-only until maintainer license approval before any
   source copy, checksum, or value extraction task.
 

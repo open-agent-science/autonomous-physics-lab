@@ -1,0 +1,48 @@
+id: TASK-0713
+title: "Run Gate B replay for Nuclear RESULT-0018 F2 diagnostic"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Nuclear F2 evidence out of indefinite diagnostic limbo through replay or explicit do-not-promote memory."
+  - "Use result-promotion gates instead of another broad Nuclear hypothesis burst."
+  - "Keep F2 framed as diagnostic/inconclusive unless independent replay and controls justify a higher tier."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "results/EXP-0012/RUN-0002/result.yaml"
+    - "docs/reviews/nmd0003-factory-negative-result-publication-preflight.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    RESULT-0018 packaged the Nuclear F2 component-ablation diagnostic preflight
+    as AGENT_PUBLISHED/inconclusive evidence. This task performs an independent
+    Gate B replay or preserves the blocker, then recommends whether F2 remains
+    diagnostic-only or can be upgraded in tier.
+
+requirements:
+  - "Replay the committed RESULT-0018 command and input artifacts from a clean branch/worktree."
+  - "Compare metrics, verdict, limitations, input hashes, and line-ending sensitivity under the Gate B rules."
+  - "Do not score nuclear predictions, fetch reveal data, change PRED entries, create claims, or claim a nuclear mass formula."
+  - "If replay fails or remains inconclusive, preserve explicit do-not-promote or replay-blocker memory."
+
+accepted_outputs:
+  - "docs/reviews/result-0018-gate-b-replay.md"
+  - "optional update to results/EXP-0012/RUN-0002/review_metadata.yaml only if Gate B policy allows it"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

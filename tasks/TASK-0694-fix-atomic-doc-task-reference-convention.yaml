@@ -1,0 +1,46 @@
+id: TASK-0694
+title: "Fix task-path reference convention in the Atomic Pizzocaro row-admissibility doc"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep main green on the fast test lane so unrelated PRs are not blocked."
+  - "Reference tasks by id, not by file path, per docs/task-reference-convention.md."
+  - "Preserve the document's meaning; change only the reference form."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md"
+    - "tests/test_task_reference_convention.py"
+    - "docs/task-reference-convention.md"
+  planning_context: >
+    docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md (the
+    TASK-0686 output) referenced TASK-0456 by file path
+    (`tasks/TASK-0456-...yaml`) in its Inputs Reviewed table. The
+    test_no_task_path_references_in_prose convention test (fast lane, not
+    full_repo) failed on main, blocking unrelated PRs. This task corrects the
+    reference to the task id `TASK-0456`.
+
+requirements:
+  - "Replace the `tasks/TASK-0456-...yaml` file-path reference with the task id `TASK-0456`."
+  - "Do not change any scientific content, verdict, or other reference in the document."
+  - "Confirm tests/test_task_reference_convention.py passes."
+
+accepted_outputs:
+  - "corrected reference in docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_reference_convention.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

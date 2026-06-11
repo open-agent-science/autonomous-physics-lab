@@ -1,0 +1,68 @@
+# Nightly full_repo watchdog.
+#
+# The PR CI fast lane skips full_repo, and the risk-based PR gate
+# (ci.yml -> full_repo_risk) runs it only for risk-relevant PRs. This nightly
+# job runs the full_repo smoke tests plus strict validation and the core example
+# replays on main, so anything that slips past the PR gate (a flaky test, a
+# dependency drift, or a main-only interaction) is caught within a day rather
+# than surfacing on an unrelated PR. A failure here means main is not
+# full_repo-clean and safe auto-closeout should fall back to report-only.
+
+name: Nightly full_repo watchdog
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-full-repo
+  cancel-in-progress: false
+
+jobs:
+  full-repo:
+    name: full_repo smoke + strict validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run full_repo smoke tests
+        run: |
+          python -m pytest --durations=20 -m full_repo
+
+      - name: Strict validate repository artifacts
+        run: |
+          python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+
+      - name: Core example replays
+        run: |
+          python -m physics_lab.cli run examples/pendulum.yaml --output-dir "${RUNNER_TEMP}/apl-pendulum"
+          python -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir "${RUNNER_TEMP}/apl-damped"
+
+      - name: Report failure
+        if: failure()
+        run: |
+          {
+            echo "## Nightly full_repo watchdog FAILED"
+            echo ""
+            echo "main is not full_repo-clean. Safe auto-closeout should fall back"
+            echo "to report-only until this is green. Inspect the failing step above."
+          } >> "$GITHUB_STEP_SUMMARY"

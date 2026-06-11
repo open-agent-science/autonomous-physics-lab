@@ -1,0 +1,57 @@
+id: TASK-0697
+title: "Add risk-based full_repo PR gate and nightly full_repo watchdog"
+type: ci_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the green-main signal honest about full_repo before safe auto-closeout relies on it (P0 release safety)."
+  - "Catch full_repo breakage at PR time for risk-relevant PRs; keep docs/task-only PRs fast."
+  - "Add a nightly watchdog so anything that slips past the PR gate is caught within a day."
+
+input:
+  mode: workflow
+  related_domain: ci_infrastructure
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - ".github/workflows/nightly-full-repo.yml"
+    - "docs/ci-full-repo-policy.md"
+    - "docs/maintainer-review-agent.md"
+    - "tasks/proposals/20260610-roman-fullrepo-pr-ci-visibility.yaml"
+  planning_context: >
+    Realizes proposal 20260610-roman-fullrepo-pr-ci-visibility, with the
+    risk-based design from the strategy review. The PR fast lane runs
+    `pytest -m "not full_repo"` (code) or a targeted subset (docs), so full_repo
+    never ran on a PR; it only ran post-merge on the main matrix. Two full_repo
+    breaks this cycle therefore surfaced only after merge. Safe auto-closeout
+    (TASK-0691) commits DONE on a green main, so that green must be honest about
+    full_repo. Two layers: a risk-based PR gate (run full_repo only for
+    risk-relevant paths; docs/task-only stay fast) and a nightly watchdog on main.
+
+requirements:
+  - "Extend the ci.yml classify job to compute `full_repo_risk` from changed paths (code, scripts, tests, examples, results, workflows, pyproject, schemas, missions, campaign_profiles, docs/status.md, docs/mission-control.md, README.md)."
+  - "Run `pytest -m full_repo` in the pull-request job only when full_repo_risk is true; keep the existing fast steps and the stable required check name."
+  - "Keep pure prose docs and routine task-status-flip PRs on the fast lane."
+  - "Add a nightly full_repo watchdog workflow (full_repo + strict validate + core example replays) that fails visibly when main is not full_repo-clean."
+  - "Document the policy in docs/ci-full-repo-policy.md and note the auto-closeout report-only fallback in docs/maintainer-review-agent.md."
+  - "Do not run full_repo on all PRs without classification; do not block docs-only PRs with heavy tests; do not rely on nightly alone."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml risk-based full_repo gate"
+  - ".github/workflows/nightly-full-repo.yml watchdog"
+  - "docs/ci-full-repo-policy.md"
+  - "docs/maintainer-review-agent.md note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -m full_repo"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

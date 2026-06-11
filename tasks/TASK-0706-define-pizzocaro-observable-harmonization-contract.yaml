@@ -1,0 +1,45 @@
+id: TASK-0706
+title: "Define Pizzocaro observable-harmonization contract for Atomic diagnostics"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Preserve useful Pizzocaro work without pretending it already unblocks the Yb/Sr benchmark."
+  - "Separate fractional-deviation windows from absolute-ratio rows before any Beloy comparison."
+  - "Create a future sensitivity-only diagnostic path if Nemitz remains blocked."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_per_window_diagnostic_ledger.yaml"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_source_derived_psd_covariance_approximation.yaml"
+  planning_context: >
+    TASK-0686 rejected per-window Beloy/Pizzocaro benchmark admission because
+    Pizzocaro windows are fractional deviations while Beloy carries an absolute
+    frequency ratio. This task defines, or rejects, a narrow harmonization
+    contract for future sensitivity-only diagnostics.
+
+requirements:
+  - "State whether Pizzocaro fractional deviation windows can be mapped to a Beloy-comparable residual axis without creating an absolute row."
+  - "If yes, define the exact observable mapping, units, uncertainty/covariance labels, diagonal comparator, and approximate-covariance sensitivity label."
+  - "If no, preserve a do-not-run blocker that explains what source evidence is missing."
+  - "Do not compute metrics, aggregate windows, commit acr rows, fit drift, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-pizzocaro-observable-harmonization-contract.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

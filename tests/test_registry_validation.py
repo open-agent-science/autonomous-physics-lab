@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
+import jsonschema
+import pytest
+
 from physics_lab.registry import repository
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _task_payload(
@@ -27,6 +34,47 @@ def _issues_for(tmp_path: Path, payload: dict) -> tuple[repository.ValidationIss
             root_path=tmp_path,
         )
     )
+
+
+def _schema_valid_task_payload(*, closeout: str | None = None) -> dict:
+    payload = {
+        "id": "TASK-9999",
+        "title": "Closeout policy fixture",
+        "type": "maintainer_workflow",
+        "status": "READY",
+        "difficulty": "low",
+        "priority": "medium",
+        "input": {
+            "mode": "workflow",
+            "related_objects": [],
+            "planning_context": "fixture",
+        },
+        "requirements": ["fixture requirement"],
+        "accepted_outputs": ["fixture output"],
+        "validation": {"commands": ["python3 -m physics_lab.cli validate-repo ."]},
+        "can_be_done_by": ["human"],
+    }
+    if closeout is not None:
+        payload["closeout"] = closeout
+    return payload
+
+
+def _task_schema() -> dict:
+    return json.loads((REPO_ROOT / "physics_lab/schemas/task.schema.json").read_text())
+
+
+def test_task_schema_accepts_closeout_policy_values() -> None:
+    schema = _task_schema()
+
+    jsonschema.validate(instance=_schema_valid_task_payload(), schema=schema)
+    jsonschema.validate(instance=_schema_valid_task_payload(closeout="auto"), schema=schema)
+    jsonschema.validate(instance=_schema_valid_task_payload(closeout="review"), schema=schema)
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(
+            instance=_schema_valid_task_payload(closeout="manual"),
+            schema=schema,
+        )
 
 
 def test_task_validation_command_paths_accept_existing_repo_local_paths(

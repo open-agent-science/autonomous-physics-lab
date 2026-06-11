@@ -1,0 +1,46 @@
+id: TASK-0702
+title: "Validate MD-0002 acquisition and freeze holdout binding"
+type: scientific_validation
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the MD-0002 acquisition output into a benchmark-ready pinned dataset without scoring residuals prematurely."
+  - "Verify row counts, checksums, source version, attribution, and no-peek split binding before any model comparison."
+  - "Keep the acquisition-to-benchmark boundary explicit for reviewers."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0699-run-md0002-maintainer-acquisition.yaml"
+    - "tasks/TASK-0700-build-md0002-loader-and-dataset-validation.yaml"
+    - "data/materials/md0002_holdout_manifest.yaml"
+  planning_context: >
+    This task starts only after TASK-0699 lands real MD-0002 files. It validates
+    that the committed acquisition is source-pinned and holdout-bound before a
+    benchmark task can run.
+
+requirements:
+  - "Start only after TASK-0699 lands real MD-0002 dataset files and TASK-0700 provides loader validation."
+  - "Verify raw and normalized checksums, row counts, database_version, attribution, source fields, and excluded-row reasons."
+  - "Confirm holdout/no-peek assignment was frozen before any scoring."
+  - "Do not compute baselines, residuals, rankings, or claims."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
+  - "optional task-status recommendation for the first MD-0002 benchmark"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0002_schema_fixture.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

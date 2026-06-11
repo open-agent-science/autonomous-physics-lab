@@ -1,0 +1,45 @@
+id: TASK-0715
+title: "Run one Exoplanet source-version monitor check"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep Exoplanet paused until a material source-version or coverage trigger exists."
+  - "Replace ad hoc EXO-0003 scouting with the new conservative monitor contract."
+  - "Avoid repeating residual pilots on an unchanged pinned snapshot."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/runbooks/exoplanet-source-version-monitor-contract.md"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "docs/reviews/exoplanet-exo0003-metadata-trigger-scout.md"
+  planning_context: >
+    TASK-0650 defined a monitor contract and no-notify rule for EXO-0003
+    triggers. This task runs one bounded metadata-only monitor check, records
+    NO_NOTIFY or a NOTIFY class, and does not acquire value-bearing rows.
+
+requirements:
+  - "Use only the metadata checks allowed by the source-version monitor contract: release markers, query availability, and aggregate COUNT(*) thresholds."
+  - "Do not fetch, store, log, or inspect individual planet rows or names."
+  - "If unchanged, record a one-line NO_NOTIFY monitor log and do not open acquisition work."
+  - "If a notify class fires, recommend the bounded metadata scout or query amendment review; do not acquire EXO-0003 rows in this task."
+  - "Do not compute residuals, habitability, composition, target priority, or planet-law claims."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-source-version-monitor-run-YYYY-MM-DD.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

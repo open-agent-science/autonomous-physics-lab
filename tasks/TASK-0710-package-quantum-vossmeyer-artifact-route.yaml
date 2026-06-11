@@ -1,0 +1,47 @@
+id: TASK-0710
+title: "Package Quantum Vossmeyer 1994 artifact route and copy handoff"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Quantum Size Effects toward a real direct-table CdS row source without fabricating values."
+  - "Convert Vossmeyer 1994 from a promising metadata-only blocker into an executable source-artifact handoff."
+  - "Keep the direct-measurement benchmark blocked until primary-source table evidence is checksum-pinned."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-cds-vossmeyer-source-artifact-verification.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-source-artifact-intake.md"
+  planning_context: >
+    TASK-0687 found Vossmeyer 1994 scientifically promising for CdS
+    direct-table rows but blocked by lack of a committable primary source
+    artifact. This task creates the maintainer/source-copy handoff route and
+    exact evidence checklist without transcribing values.
+
+requirements:
+  - "Define the accepted source-copy routes for Vossmeyer 1994, including maintainer-provided copy, institutional access review, or replacement source."
+  - "Specify required checksums, reuse notes, table headers/units verification, and extraction ledger fields for Article Table 1."
+  - "Update metadata-only manifest state if needed, but do not mark the source row-ready."
+  - "Do not commit ACS publisher PDFs unless a maintainer-approved license route explicitly allows it."
+  - "Do not transcribe table values, digitize figures, run baselines, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-vossmeyer-source-copy-handoff.md"
+  - "optional data/quantum_dots/source_manifest.yaml metadata update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
