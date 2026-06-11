@@ -1,7 +1,7 @@
 id: TASK-0688
 title: "Define Stellar M-L luminosity-provenance policy and DEBCat license route"
 type: benchmark_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
