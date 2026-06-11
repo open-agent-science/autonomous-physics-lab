@@ -1,6 +1,6 @@
 proposal_id: 20260611-roman-review-worktree-self-cleanup
 title: "Self-cleaning PR-review worktrees with age-based GC (no disk leak)"
-status: PROPOSED
+status: ACCEPTED
 type: tooling_reliability
 priority: high
 
@@ -78,6 +78,11 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "From TASK-0716 / PR #1029 cleanup. Tooling-reliability follow-up; .worktrees/ already gitignored so this is local-disk hygiene, not a committed-artifact leak."
+  canonical_task_id: TASK-0724
+  decision: accepted
+  notes: >
+    Accepted as TASK-0724. The cleanup is useful now because review-helper
+    worktrees are local disposable artifacts that can accumulate across many PR
+    reviews and cause false review blockers, but the implementation must stay
+    conservative: only `.worktrees/_reviews/pr-*` cleanup, age-based backstop,
+    no normal task-worktree deletion, and cross-platform Python behavior.

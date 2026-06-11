@@ -10,6 +10,7 @@
 - `TASK-0699` - Run MD-0002 maintainer-gated Materials Project acquisition (`scientific_dataset`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
 - `TASK-0722` - Polish PR/review helpers: origin-main diff and stale review worktree refresh (`maintainer_tooling`, priority `medium`, difficulty `medium`, domain `maintainer_tooling`)
 - `TASK-0723` - Add recurring structural bottleneck escalation rule for agents (`agent_workflow`, priority `high`, difficulty `medium`, domain `agent_workflow`)
+- `TASK-0724` - Add self-cleaning PR-review worktrees with age-based GC (`tooling_reliability`, priority `high`, difficulty `medium`, domain `tooling_reliability`)
 
 ## IN_PROGRESS
 
