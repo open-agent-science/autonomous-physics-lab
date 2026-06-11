@@ -1,0 +1,46 @@
+id: TASK-0705
+title: "Rerun Atomic baseline-readiness gate after Nemitz ACR-0002"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decide whether Atomic can finally move from PINNED_DATASET to BASELINE_READY."
+  - "Use the second Yb/Sr row gate result rather than another broad source scout."
+  - "Keep TASK-0456 blocked unless source, row-role, covariance, and no-peek semantics are explicit."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0704-curate-nemitz-acr0002-row-gate.yaml"
+    - "tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml"
+    - "docs/reviews/atomic-baseline-readiness-after-pizzocaro-covariance.md"
+  planning_context: >
+    This gate starts only after TASK-0704 either commits ACR-0002 or preserves a
+    blocker. If ACR-0002 lands, the gate decides whether the first Yb/Sr
+    consistency benchmark can run. If it does not, the gate keeps Atomic below
+    BASELINE_READY and states the next unblock path.
+
+requirements:
+  - "Start only after TASK-0704 is merged."
+  - "Use committed Beloy and Nemitz row/source/covariance artifacts only; no live fetch."
+  - "Classify Atomic as BASELINE_READY or not, and state whether TASK-0456 can proceed."
+  - "Do not compute benchmark metrics, fit constants drift, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-baseline-readiness-after-nemitz-acr0002.md"
+  - "optional TASK-0456 update only if the unblock condition changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,47 @@
+id: TASK-0701
+title: "Predeclare MD-0002 formation-energy benchmark and control plan"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Freeze Materials benchmark decisions before MD-0002 residuals are inspected."
+  - "Make the next benchmark fast to run after acquisition without allowing post-score tuning."
+  - "Keep the robust formation-energy axis primary and the split-fragile band-gap axis diagnostic-only."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0002-acquisition-go-no-go.md"
+    - "docs/reviews/materials-md0001-split-sensitivity-audit.md"
+    - "docs/reviews/materials-bandgap-split-fragility-negative-memory.md"
+    - "data/materials/md0002_holdout_manifest.yaml"
+  planning_context: >
+    MD-0002 acquisition is authorized but metrics are not yet allowed. This
+    task freezes the exact benchmark and control plan now, before real MD-0002
+    residuals exist, so the later benchmark cannot tune baselines or split
+    rules after seeing holdout behavior.
+
+requirements:
+  - "Declare the baseline family for formation_energy_per_atom, including global null, cation-group, cation-pair, and structure/prototype comparators."
+  - "Declare deterministic null controls, split-sensitivity seeds, success margins, and do-not-promote conditions."
+  - "State that band_gap remains diagnostic-only unless it beats nulls and split-sensitivity gates on the acquired slice."
+  - "Do not run metrics, inspect MD-0002 residuals, fetch rows, or promote results."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0002-benchmark-control-plan.md"
+  - "optional examples/materials_md0002_formation_energy.yaml skeleton with no real metrics"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,46 @@
+id: TASK-0712
+title: "Fix dimensional validator boundary disagreements before Gate A"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Unblock a scoped quality-gate RESULT path by fixing the exact remaining live-set disagreements."
+  - "Keep dimensional analysis framed as a formula-quality preflight, not physical truth."
+  - "Improve a reusable validator surface that supports every campaign."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "docs/reviews/dimensional-validator-gate-a-result-readiness.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "physics_lab/engines/dimensions.py"
+  planning_context: >
+    TASK-0689 replayed the live dimensional challenge set at 71/74 agreement
+    and blocked Gate A on DA-310, DA-311, and DA-406. This task targets only
+    those boundary classes before a later rebaseline result task.
+
+requirements:
+  - "Add explicit handling for semantically suspicious but dimensionally balanced formulas such as DA-310 and DA-311 without hiding the limitation."
+  - "Teach known-limit handling to honor all-dimensionless known-limit cases such as DA-406."
+  - "Re-run the live challenge-set replay and preserve any remaining disagreements explicitly."
+  - "Do not create a new RESULT artifact in this task; a later Gate A task must decide publication."
+
+accepted_outputs:
+  - "code or challenge metadata changes for DA-310, DA-311, and DA-406 only"
+  - "tests covering the targeted boundary classes"
+  - "docs/reviews/dimensional-validator-boundary-disagreement-fix.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_dimensions.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
