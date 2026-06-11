@@ -34,6 +34,7 @@ from physics_lab.registry.review_checks import (
     sensitive_surface_hits,
     cross_platform_advisory_hits,
     cross_platform_surface_hits,
+    coauthor_trailer_advisory_hits,
     decision_regression_advisory_hits,
     follow_up_task_advisory_hits,
     missing_expected_outputs,
@@ -1480,6 +1481,9 @@ def build_review_report(
             + " ".join(cross_platform_advisories)
         )
     advisory_warnings.extend(cross_platform_surface_hits(changed_files))
+    pr_body_lines = tuple(pr_metadata.body.splitlines()) if pr_metadata is not None else ()
+    coauthor_advisories = coauthor_trailer_advisory_hits(overclaim_lines + pr_body_lines)
+    advisory_warnings.extend(coauthor_advisories)
 
     bundle_path, bundle_status = ensure_review_bundle(
         root,

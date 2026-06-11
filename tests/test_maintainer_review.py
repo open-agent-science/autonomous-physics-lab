@@ -20,6 +20,7 @@ from physics_lab.registry.maintainer_review import (
     classify_artifact_review_changes,
     changed_task_proposal_files,
     ci_aware_validation_command,
+    coauthor_trailer_advisory_hits,
     line_is_rule_catalog_line,
     load_pr_metadata,
     missing_pr_metadata_fields,
@@ -486,6 +487,66 @@ def test_agent_tool_metadata_mismatch_detects_claude_branch_with_codex_body() ->
 
     assert mismatch is not None
     assert "expected `Claude Code`" in mismatch
+
+
+def test_coauthor_trailer_is_advisory_only() -> None:
+    hits = coauthor_trailer_advisory_hits(
+        (
+            "Co-authored-by: Claude <noreply@example.com>",
+            "Regular line.",
+        )
+    )
+
+    assert hits == (
+        "Co-authored-by trailer detected; keep AI attribution in PR metadata "
+        "and omit the trailer from the final squash merge body.",
+    )
+
+
+def test_build_review_report_keeps_coauthor_trailer_noise_advisory(
+    tmp_path: Path,
+) -> None:
+    task_id = "TASK-0719"
+    branch = "agent/roman/codex/task-0719-coauthor-trailer-advisory"
+    changed = (f"tasks/{task_id}-coauthor-trailer-advisory.yaml",)
+    _write_review_task(tmp_path, task_id, slug="coauthor-trailer-advisory")
+    body = (
+        _full_pr_body(task_ref=task_id, branch=branch)
+        + "\n\nCo-authored-by: Claude <noreply@example.com>\n"
+    )
+    pr_metadata = PullRequestMetadata(
+        number=719,
+        title=f"{task_id}: Treat co-author trailer noise as advisory",
+        body=body,
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_git_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=719)
+
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+    assert report.required_fixes == ()
+    assert any("Co-authored-by trailer detected" in item for item in report.advisory_warnings)
 
 
 def test_missing_pr_template_sections_detects_short_pr_body() -> None:

@@ -226,6 +226,20 @@ The review AI agent should not ignore advisory warnings. It should read nearby
 context and report whether the wording is safe, ambiguous, or actually
 claim-like.
 
+### AI Co-Author Trailer Noise
+
+AI-agent attribution belongs in PR metadata, not in git co-author trailers.
+When a contributor commit, PR body, or generated review bundle contains a
+`Co-authored-by` / `Co-Authored-By` trailer for an AI tool, report it as
+advisory hygiene unless the PR also has another attribution or authorship
+problem.
+
+Do not block an otherwise valid PR only because historical contributor commits
+contain AI co-author trailers. The maintainer can omit that trailer from the
+final squash merge message. Continue to block missing or misleading
+`Agent / Contributor Metadata`, because that metadata is the repository source
+of truth for agent involvement.
+
 ### Scientific Artifact Classes
 
 The deterministic review helper classifies canonical scientific-memory changes

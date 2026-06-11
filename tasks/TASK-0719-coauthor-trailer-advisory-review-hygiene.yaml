@@ -1,0 +1,36 @@
+id: TASK-0719
+title: "Treat AI co-author trailer noise as advisory review hygiene"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+strategy_alignment:
+  - "Keep maintainer review strict on metadata while avoiding non-material PR blockers."
+input:
+  mode: workflow
+  related_domain: "maintainer_review"
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/review_checks.py"
+  planning_context: >
+    AI agents should not add git co-author trailers, but historical contributor
+    commits or PR bodies that contain those trailers should not block an
+    otherwise reviewable PR when proper Agent / Contributor Metadata exists.
+requirements:
+  - "Classify AI co-author trailer mentions as advisory hygiene, not blockers."
+  - "Preserve blocking behavior for missing or misleading PR Agent / Contributor Metadata."
+  - "Document the severity rule for maintainer review agents."
+accepted_outputs:
+  - "physics_lab/registry/review_checks.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_maintainer_review.py"
+  - "docs/maintainer-review-agent.md"
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py -k coauthor"
+    - "python3 -m ruff check physics_lab/registry/review_checks.py physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+can_be_done_by:
+  - codex
+  - claude
+  - human

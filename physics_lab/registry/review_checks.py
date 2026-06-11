@@ -150,6 +150,7 @@ FOLLOW_UP_TASK_PATTERNS = (
 FORMAL_FOLLOW_UP_PATH_PREFIXES = (
     "tasks/proposals/",
 )
+COAUTHOR_TRAILER_PATTERN = re.compile(r"^\s*co-authored-by\s*:", re.IGNORECASE)
 
 
 def line_is_rule_catalog_line(line: str) -> bool:
@@ -246,6 +247,23 @@ def cross_platform_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ..
                 f"Shell script changed ({path}): confirm it is not a needless "
                 "wrapper around a Python command and that non-bash (Windows) "
                 "agents have an equivalent path."
+            )
+    return tuple(dict.fromkeys(hits))
+
+
+def coauthor_trailer_advisory_hits(lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return advisory-only hits for AI co-author trailer noise.
+
+    AI tool involvement belongs in PR metadata, not git co-author trailers.
+    The trailer is still undesirable, but it is review hygiene rather than a
+    merge blocker: maintainers can omit it from the final squash body.
+    """
+    hits: list[str] = []
+    for line in lines:
+        if COAUTHOR_TRAILER_PATTERN.search(line):
+            hits.append(
+                "Co-authored-by trailer detected; keep AI attribution in PR "
+                "metadata and omit the trailer from the final squash merge body."
             )
     return tuple(dict.fromkeys(hits))
 
