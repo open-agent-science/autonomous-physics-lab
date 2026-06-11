@@ -1,0 +1,83 @@
+proposal_id: 20260611-roman-review-worktree-self-cleanup
+title: "Self-cleaning PR-review worktrees with age-based GC (no disk leak)"
+status: PROPOSED
+type: tooling_reliability
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Keep the maintainer-review lane usable: a full disk turns apl_review_pr.py into false BLOCKED verdicts."
+  - "Let many agents share one machine without the review tooling silently filling the disk."
+  - "Fix the tooling gap at the source instead of relying on contributors to remember manual cleanup."
+
+summary: >
+  The PR-review helper creates a disposable git worktree per review at
+  <root>/.worktrees/_reviews/pr-<number>-<sha> (see
+  physics_lab/registry/maintainer_review.py: _clean_pr_worktree_path,
+  prepare_clean_pr_worktree, prepare_clean_local_ref_worktree) but never tears it
+  down after the review run. The only worktree removals are the "replace if the
+  same pr+sha already exists" guard, so every distinct PR/SHA leaves a full
+  ~2,800-file checkout behind forever. On 2026-06-11 these accumulated to >2GB
+  across sibling session checkouts and filled the Data volume to 100%, causing a
+  review run to fail mid-checkout with "No space left on device" and return a
+  false BLOCKED (Validation: not_run) verdict unrelated to the diff. Disk was
+  reclaimed manually this session; this proposal makes the behavior durable.
+
+rationale: >
+  Discovered during TASK-0716 / PR #1029. .worktrees/ is already gitignored, so
+  nothing leaks into commits — the harm is purely local disk exhaustion, which
+  blocks the review lane for every agent on the machine. A self-cleaning helper
+  plus a conservative age-based janitor removes the manual burden without
+  endangering parallel agents' in-progress review worktrees.
+
+input:
+  mode: planning_only
+  related_domain: tooling_reliability
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_pr_finish_gate.py"
+    - "scripts/apl_agent_doctor.py"
+    - "docs/notes/agent-worktree-discipline.md"
+  planning_context: >
+    Layered design. Layer 1: wrap the review body in try/finally so the helper
+    removes ONLY the worktree this run created (immediate, never touches another
+    agent's worktree). Layer 2: a conservative age-based janitor that prunes
+    detached _reviews/pr-* worktrees older than a TTL (default 48h, configurable
+    via --older-than-hours; 48h matches the claim-expiry window in
+    docs/agent-task-claiming.md) so leftovers from crashes self-heal without
+    killing active parallel work. Layer 3: one cross-platform GC entrypoint
+    scripts/apl_worktree_gc.py (idempotent; --older-than-hours, --dry-run; never
+    removes a _reviews worktree with a checked-out branch) used both as the
+    standalone command a human runs and as the function Layer 2 calls at review
+    start. Layer 4: apl_agent_doctor.py adds a read-only check reporting free
+    disk and _reviews worktree count/size and recommends apl_worktree_gc.py when
+    over threshold (doctor stays diagnostic-only, mutates nothing).
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Layer 1 must only remove the current run's own worktree; never remove a worktree with a checked-out branch or one younger than the TTL."
+  - "Default GC TTL is 48h and configurable; do not delete recent worktrees that may belong to a parallel agent on the same machine."
+  - "apl_worktree_gc.py must be cross-platform (pathlib, subprocess arg-list, encoding=utf-8, no hardcoded /tmp or python3) and not add a .sh on the review critical path."
+  - "apl_agent_doctor.py stays read-only/diagnostic; it reports and recommends but does not delete."
+
+accepted_outputs:
+  - "canonical task spec for the self-cleaning + age-based-GC work"
+  - "scripts/apl_worktree_gc.py with --older-than-hours/--dry-run and a focused test"
+  - "try/finally teardown + startup janitor wired into the review helper, with a test that a happy-path review leaves no _reviews/pr-* worktree behind"
+  - "read-only disk/worktree check added to apl_agent_doctor.py"
+  - "short cleanup convention note in docs/notes/agent-worktree-discipline.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "From TASK-0716 / PR #1029 cleanup. Tooling-reliability follow-up; .worktrees/ already gitignored so this is local-disk hygiene, not a committed-artifact leak."
