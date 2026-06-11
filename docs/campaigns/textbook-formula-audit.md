@@ -47,12 +47,14 @@ gates and to the multi-tier review-promotion protocol introduced by
 Scaffold plus first verifier lanes. This page records the campaign charter,
 candidate list, and guardrails. No empirical formula audit has run yet under
 this campaign. The first recommended empirical slice is the **Stellar
-Mass-Luminosity (M-L) out-of-distribution audit** on Gaia DR3 main-sequence
-stars; `TASK-0555` has completed the source/baseline planning pass, and
-`TASK-0564` is the pinned-source acquisition package. The current public-
-verifier wave now has exact-reference fixtures for Stefan-Boltzmann and Wien
-displacement, and `RESULT-0019` has advanced from `AGENT_PUBLISHED` to
-`AGENT_VALIDATED` after Gate B replay. This validates the
+Mass-Luminosity (M-L) out-of-distribution audit** on DEBCat/Gaia-style
+main-sequence rows. `TASK-0555` completed the source/baseline planning pass,
+`TASK-0564` prepared the pinned-source acquisition package, `TASK-0604`
+selected DEBCat as the first independent dynamical-mass source, and the latest
+Stellar M-L source work keeps model-derived Gaia mass fields out of truth
+rows. The current public-verifier wave also has exact-reference fixtures for
+Stefan-Boltzmann and Wien displacement, and `RESULT-0019` has advanced from
+`AGENT_PUBLISHED` to `AGENT_VALIDATED` after Gate B replay. This validates the
 software/convention fixture route only; empirical rows are still gated.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
@@ -78,13 +80,16 @@ not claim that any formula is globally right or wrong.
 software/convention result and `TASK-0635` replayed it through Gate B. The
 empirical lane is now Stellar M-L: `TASK-0587` kept Gaia model-derived mass
 fields out of truth rows, `TASK-0604` selected DEBCat as the first-choice
-independent mass source, and `TASK-0657` is the next protocol gate for
-holdout/leakage. `TASK-0658` remains the existing row-readiness task after that
-protocol lands.
+independent mass source, and the latest luminosity-provenance policy recommends
+the explicit DEBCat storage route before row curation. The next task wave is
+therefore `TASK-0707` (confirm the DEBCat Route 2 storage path), `TASK-0708`
+(curate the normalized DEBCat row package), and `TASK-0709` (run the first
+empirical Stellar M-L audit only after rows pass).
 
-**Expected next result:** either a DEBCat holdout/leakage protocol that lets
-the row-readiness gate run, or a precise blocker showing that Stellar M-L
-cannot yet move to empirical rows without better mass/luminosity provenance.
+**Expected next result:** either a normalized DEBCat row package with leakage
+and luminosity provenance documented, or a precise blocker showing that Stellar
+M-L cannot yet move to empirical metrics without stronger direct row
+provenance.
 
 ## Why It Matters
 

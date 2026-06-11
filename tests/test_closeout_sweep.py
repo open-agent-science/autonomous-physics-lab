@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 from unittest.mock import patch
@@ -8,12 +9,16 @@ from physics_lab.registry.closeout_sweep import (
     CloseoutSweepCandidate,
     apply_closeout_sweep_report,
     CloseoutSweepReport,
+    auto_closeout_blockers,
     build_closeout_sweep_report,
+    classify_full_repo_signal,
     closeout_pr_binding_blockers,
     list_review_ready_tasks,
     load_merged_task_pull_requests,
     render_closeout_sweep_apply_report,
     render_closeout_sweep_report,
+    task_closeout_policy,
+    task_unblocks_others,
 )
 from physics_lab.registry.maintainer_review import CloseoutReport, PullRequestMetadata
 from physics_lab.registry.review_git import CommandResult
@@ -431,3 +436,111 @@ def test_apply_closeout_sweep_report_updates_all_ready_tasks(tmp_path: Path) -> 
     rendered = render_closeout_sweep_apply_report(apply_report)
     assert "TASK-1000 -> DONE" in rendered
     assert "TASK-1001 -> DONE" in rendered
+
+
+def test_task_closeout_policy_defaults_to_auto_and_honors_opt_out() -> None:
+    assert task_closeout_policy({}) == "auto"
+    assert task_closeout_policy({"closeout": "auto"}) == "auto"
+    assert task_closeout_policy({"closeout": "review"}) == "review"
+
+
+def test_auto_closeout_blockers_is_empty_for_a_safe_task() -> None:
+    blockers = auto_closeout_blockers(
+        {"id": "TASK-2000"},
+        pr_changed_files=("docs/reviews/some-gate.md", "tasks/TASK-2000-x.yaml"),
+        unblocks_others=False,
+    )
+    assert blockers == ()
+
+
+def test_auto_closeout_blockers_flags_review_opt_out() -> None:
+    blockers = auto_closeout_blockers(
+        {"closeout": "review"},
+        pr_changed_files=("docs/reviews/some-gate.md",),
+        unblocks_others=False,
+    )
+    assert any("closeout: review" in reason for reason in blockers)
+
+
+def test_auto_closeout_blockers_flags_protected_artifacts() -> None:
+    blockers = auto_closeout_blockers(
+        {},
+        pr_changed_files=("results/EXP-0001/RUN-0001/result.yaml", "tasks/TASK-2000-x.yaml"),
+        unblocks_others=False,
+    )
+    assert any("protected scientific artifact" in reason for reason in blockers)
+    assert any("results/EXP-0001/RUN-0001/result.yaml" in reason for reason in blockers)
+
+
+def test_auto_closeout_blockers_flags_unblocking_task() -> None:
+    blockers = auto_closeout_blockers(
+        {},
+        pr_changed_files=("docs/reviews/some-gate.md",),
+        unblocks_others=True,
+    )
+    assert any("BLOCKED task" in reason for reason in blockers)
+
+
+def test_task_unblocks_others_detects_a_blocked_dependent(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_task(
+        tasks_dir / "TASK-3000-self.yaml",
+        task_id="TASK-3000",
+        title="Self",
+        status="REVIEW_READY",
+    )
+    blocked = tasks_dir / "TASK-3001-dependent.yaml"
+    blocked.write_text(
+        "id: TASK-3001\n"
+        "status: BLOCKED\n"
+        'planning_context: "Start only after TASK-3000 is merged."\n',
+        encoding="utf-8",
+    )
+
+    assert task_unblocks_others(tmp_path, "TASK-3000") is True
+    # A task that nobody references does not unblock anything.
+    assert task_unblocks_others(tmp_path, "TASK-9999") is False
+    # A task referenced only by its own (non-BLOCKED) file does not count.
+    assert task_unblocks_others(tmp_path, "TASK-3001") is False
+
+
+def test_classify_full_repo_signal_ok_for_fresh_success() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert (
+        classify_full_repo_signal("success", "2026-06-11T10:00:00Z", now=now) == "ok"
+    )
+
+
+def test_classify_full_repo_signal_red_for_failure() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert (
+        classify_full_repo_signal("failure", "2026-06-11T10:00:00Z", now=now) == "red"
+    )
+    assert (
+        classify_full_repo_signal("cancelled", "2026-06-11T10:00:00Z", now=now)
+        == "red"
+    )
+
+
+def test_classify_full_repo_signal_stale_when_too_old() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert (
+        classify_full_repo_signal("success", "2026-06-08T10:00:00Z", now=now)
+        == "stale"
+    )
+    # A custom freshness window is honored.
+    assert (
+        classify_full_repo_signal(
+            "success", "2026-06-11T08:00:00Z", now=now, max_age_hours=1.0
+        )
+        == "stale"
+    )
+
+
+def test_classify_full_repo_signal_unknown_for_missing_or_bad_fields() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert classify_full_repo_signal(None, "2026-06-11T10:00:00Z", now=now) == "unknown"
+    assert classify_full_repo_signal("", "2026-06-11T10:00:00Z", now=now) == "unknown"
+    assert classify_full_repo_signal("success", None, now=now) == "unknown"
+    assert classify_full_repo_signal("success", "not-a-date", now=now) == "unknown"

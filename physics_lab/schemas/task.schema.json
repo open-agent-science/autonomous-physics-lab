@@ -150,6 +150,14 @@
         "high"
       ]
     },
+    "closeout": {
+      "description": "Optional post-merge closeout policy. Omit or use auto for safe auto-closeout eligibility; use review to force maintainer closeout review.",
+      "type": "string",
+      "enum": [
+        "auto",
+        "review"
+      ]
+    },
     "strategy_alignment": {
       "type": "array",
       "items": {

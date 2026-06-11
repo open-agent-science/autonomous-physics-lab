@@ -31,13 +31,25 @@ def build_parser() -> argparse.ArgumentParser:
             "REVIEW_READY to DONE. Requires clean main."
         ),
     )
+    parser.add_argument(
+        "--auto-safe",
+        action="store_true",
+        help=(
+            "Apply only the auto-safe subset of READY candidates: tasks not opted "
+            "out via `closeout: review`, whose merged PR touched no protected "
+            "scientific artifact, and that do not unblock another task. Requires "
+            "clean main. Used by the post-merge board-sync automation."
+        ),
+    )
     return parser
 
 
 def main() -> int:
     """Run the closeout sweep helper."""
     from physics_lab.registry.closeout_sweep import (
+        apply_auto_safe_closeouts,
         apply_closeout_sweep_report,
+        full_repo_signal_status,
         render_closeout_sweep_apply_report,
         build_closeout_sweep_report,
         render_closeout_sweep_report,
@@ -47,7 +59,19 @@ def main() -> int:
     args = parser.parse_args()
     report = build_closeout_sweep_report(REPO_ROOT, merged_limit=args.merged_limit)
     print(render_closeout_sweep_report(report))
-    if args.apply:
+    if args.auto_safe:
+        print("")
+        signal = full_repo_signal_status(REPO_ROOT)
+        if signal != "ok":
+            print(
+                f"full_repo signal is `{signal}` (red/stale/unknown) -> report-only; "
+                "committing no auto-closeouts. The main full_repo status must be a "
+                "fresh success before safe tasks are auto-closed."
+            )
+        else:
+            apply_report = apply_auto_safe_closeouts(REPO_ROOT, report)
+            print(render_closeout_sweep_apply_report(apply_report))
+    elif args.apply:
         print("")
         apply_report = apply_closeout_sweep_report(REPO_ROOT, report)
         print(render_closeout_sweep_apply_report(apply_report))

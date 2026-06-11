@@ -1,0 +1,47 @@
+id: TASK-0714
+title: "Repair Nuclear prediction reveal-readiness checklist references"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce artificial reveal-readiness blockers without scoring any prediction."
+  - "Make the frozen Nuclear PRED registry easier to audit when a source-grade release arrives."
+  - "Separate mechanical checklist hygiene from scientific reveal scoring."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-prediction-reveal-readiness-matrix.md"
+    - "prediction_registry/nuclear_masses"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    The latest reveal-readiness matrix found all 60 Nuclear prediction entries
+    source-gated, with many entries also missing reveal-protocol or
+    source-readiness checklist references. This task repairs those reference
+    links where the protocol already exists, without scoring predictions or
+    changing prediction values.
+
+requirements:
+  - "Inventory PRED entries with REVEAL_PROTOCOL_REFERENCE_MISSING or SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING."
+  - "Add or normalize references only to existing approved reveal protocol and source-readiness checklist documents."
+  - "Do not change prediction target sets, quantities, frozen values, model metadata, or reveal conditions."
+  - "Do not fetch live nuclear data, score reveals, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-prediction-reveal-checklist-reference-repair.md"
+  - "minimal prediction_registry/nuclear_masses metadata-only reference updates if allowed by the review"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
