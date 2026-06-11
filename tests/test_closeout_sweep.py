@@ -97,6 +97,55 @@ def test_load_merged_task_pull_requests_parses_latest_by_task(tmp_path: Path) ->
     assert result["TASK-1000"].url.endswith("/pull/12")
 
 
+def test_load_merged_task_pull_requests_parses_squash_merge_subjects(
+    tmp_path: Path,
+) -> None:
+    commands: list[list[str]] = []
+    payload = "\n".join(
+        [
+            (
+                "2026-06-11T07:22:08Z\x1f"
+                "TASK-0717: Document closeout policy schema and helper examples (#1024)\x1f"
+                "\x1e"
+            ),
+            (
+                "2026-06-11T07:10:01Z\x1f"
+                "TASK-QUEUE: Seed source-gated science cycle (#1022)\x1f"
+                "\x1e"
+            ),
+        ]
+    )
+
+    def _fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        commands.append(command)
+        if command[:4] == ["git", "remote", "get-url", "origin"]:
+            return CommandResult(
+                returncode=0,
+                stdout="git@github.com:open-agent-science/autonomous-physics-lab.git\n",
+                stderr="",
+            )
+        if command[:2] == ["git", "log"]:
+            return CommandResult(returncode=0, stdout=payload, stderr="")
+        if command[1:3] == ["pr", "list"]:
+            return CommandResult(returncode=1, stdout="", stderr="gh unavailable")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected command")
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command),
+    ):
+        result = load_merged_task_pull_requests(tmp_path)
+
+    assert result["TASK-0717"].number == 1024
+    assert result["TASK-0717"].title == (
+        "TASK-0717: Document closeout policy schema and helper examples"
+    )
+    assert result["TASK-0717"].url.endswith("/pull/1024")
+    assert "TASK-QUEUE" not in result
+    git_log_command = next(command for command in commands if command[:2] == ["git", "log"])
+    assert "--merges" not in git_log_command
+
+
 def test_load_merged_task_pull_requests_falls_back_to_gh_pr_list(
     tmp_path: Path,
 ) -> None:
