@@ -78,6 +78,31 @@ def test_resolve_validation_python_prefers_repo_venv(tmp_path: Path) -> None:
     assert resolved != sys.executable
 
 
+def test_find_repo_python_keeps_venv_symlink_not_base_interpreter(tmp_path: Path) -> None:
+    # A real venv's `bin/python` is a symlink to the base interpreter. The
+    # resolver must return the venv symlink path (which carries venv semantics
+    # and the project deps), NOT the followed base interpreter.
+    base_interpreter = tmp_path / "system" / "python3"
+    base_interpreter.parent.mkdir(parents=True, exist_ok=True)
+    base_interpreter.write_text("", encoding="utf-8")
+    venv_bin = tmp_path / ".venv" / "bin"
+    venv_bin.mkdir(parents=True, exist_ok=True)
+    venv_python = venv_bin / "python"
+    try:
+        venv_python.symlink_to(base_interpreter)
+    except (OSError, NotImplementedError):  # pragma: no cover - Windows w/o privilege
+        pytest.skip("symlinks not supported in this environment")
+
+    found = find_repo_python(tmp_path, git_common_dir=NO_COMMON_DIR)
+
+    assert found is not None
+    assert found.name == "python"
+    assert found.parent.name == "bin"
+    # The .venv path is preserved; the base interpreter symlink target is not.
+    assert ".venv" in found.parts
+    assert found != base_interpreter.resolve()
+
+
 def test_find_repo_python_resolves_from_real_worktree(tmp_path: Path) -> None:
     if shutil.which("git") is None:  # pragma: no cover - environment guard
         pytest.skip("git is required for the real-worktree discovery test")

@@ -73,7 +73,11 @@ def find_repo_python(root: Path, *, git_common_dir: Path | None = None) -> Path 
         seen.add(resolved_root)
         for candidate in venv_python_candidates(search_root):
             if candidate.exists():
-                return candidate.resolve()
+                # Normalize the parent but DO NOT resolve the interpreter symlink
+                # itself: `.venv/bin/python` is a symlink to the base interpreter,
+                # and following it (`.resolve()`) drops venv semantics so the
+                # child process loses the project dependencies. Keep the venv path.
+                return candidate.parent.resolve() / candidate.name
     return None
 
 
