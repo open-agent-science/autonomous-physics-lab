@@ -22,6 +22,11 @@ from physics_lab.registry.review_git import (
     changed_files_vs_main,
     parse_added_lines,  # noqa: F401 — re-exported; tests import from here
 )
+from physics_lab.registry.review_worktree_gc import (
+    DEFAULT_GC_AGE_HOURS,
+    gc_review_worktrees,
+    teardown_own_worktree,
+)
 from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.pr_capability import find_gh_path
 from physics_lab.registry.task_discovery import find_task_files
@@ -961,6 +966,52 @@ def build_review_report(
     task_id: str | None = None,
     validation_mode: str = "strict",
 ) -> ReviewReport:
+    """Build a maintainer review verdict, self-cleaning any review worktree.
+
+    Thin wrapper around :func:`_compose_review_report` that adds the two
+    review-worktree lifecycle guards from TASK-0724:
+
+    - **Backstop janitor (Layer 2):** before reviewing, reclaim *abandoned*
+      detached review worktrees older than the TTL so crashed earlier runs
+      self-heal. Best-effort; never blocks the review.
+    - **Self-cleanup (Layer 1):** in a ``finally``, tear down only the worktree
+      this run created, on every exit path (success or exception). Removal is
+      branch-safety checked, so a parallel agent's active worktree is never
+      touched.
+    """
+    repo_root = root
+    try:
+        gc_review_worktrees(repo_root, older_than_hours=DEFAULT_GC_AGE_HOURS)
+    except Exception:
+        # Cleanup must never break a review run; the GC is a backstop, not a gate.
+        pass
+    created_worktrees: list[Path] = []
+    try:
+        return _compose_review_report(
+            root,
+            pull_request=pull_request,
+            branch=branch,
+            task_id=task_id,
+            validation_mode=validation_mode,
+            worktree_sink=created_worktrees,
+        )
+    finally:
+        for worktree_path in created_worktrees:
+            try:
+                teardown_own_worktree(repo_root, worktree_path)
+            except Exception:
+                pass
+
+
+def _compose_review_report(
+    root: Path,
+    *,
+    pull_request: int | None = None,
+    branch: str | None = None,
+    task_id: str | None = None,
+    validation_mode: str = "strict",
+    worktree_sink: list[Path] | None = None,
+) -> ReviewReport:
     """Build a maintainer review verdict for the current or provided branch."""
     if validation_mode not in {"strict", "ci-aware"}:
         raise ValueError(f"Unsupported validation mode: {validation_mode}")
@@ -1015,6 +1066,14 @@ def build_review_report(
         if clean_pr_worktree.ready:
             root = clean_pr_worktree.root
             current = current_branch(root)
+    if (
+        worktree_sink is not None
+        and clean_pr_worktree is not None
+        and clean_pr_worktree.ready
+    ):
+        # Hand the disposable worktree this run created to the caller's finally
+        # so it is torn down on every exit path (Layer 1 self-cleanup).
+        worktree_sink.append(clean_pr_worktree.root)
     target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
     review_ref = clean_pr_worktree.review_ref if clean_pr_worktree and clean_pr_worktree.ready else target_branch
     base_ref = diff_base_ref(root, pr_metadata)

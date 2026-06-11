@@ -26,6 +26,9 @@ from physics_lab._runtime import (  # noqa: E402
     unsupported_message as _python_unsupported_message,
 )
 from physics_lab.registry.pr_capability import check_pr_capability  # noqa: E402
+from physics_lab.registry.review_worktree_gc import (  # noqa: E402
+    review_worktree_disk_report,
+)
 
 
 PYTHON_MODULE_CHECKS = ("pip", "pytest", "ruff", "yaml")
@@ -73,6 +76,7 @@ class WorktreeRuntimePreflightReport:
 class AgentDoctorReport:
     python: PythonRuntimeReport
     pr_capability: dict[str, object]
+    review_worktrees: dict[str, object] | None = None
     pytest_runtime: PytestRuntimeProbeReport | None = None
     worktree_runtime: WorktreeRuntimePreflightReport | None = None
 
@@ -415,6 +419,7 @@ def build_report(
     return AgentDoctorReport(
         python=python_runtime_report(),
         pr_capability=asdict(pr_report),
+        review_worktrees=asdict(review_worktree_disk_report(root)),
         pytest_runtime=pytest_runtime_probe(root) if probe_pytest_runtime else None,
         worktree_runtime=(
             worktree_runtime_preflight(root)
@@ -466,6 +471,27 @@ def _print_human(report: AgentDoctorReport) -> None:
             print(f"- {item}")
     else:
         print("Warnings: none")
+
+    if report.review_worktrees is not None:
+        rw = report.review_worktrees
+        free_bytes = rw.get("free_bytes")
+        free_label = (
+            f"{int(free_bytes) // (1024 * 1024)} MiB"
+            if isinstance(free_bytes, int) and free_bytes >= 0
+            else "unknown"
+        )
+        print("Review worktrees")
+        print(f"- count under .worktrees/_reviews: {rw.get('review_worktree_count')}")
+        print(f"- free disk: {free_label}")
+        if rw.get("recommend_gc"):
+            for reason in rw.get("reasons") or ():
+                print(f"- buildup: {reason}")
+            print(
+                "- recommendation: run `python3 scripts/apl_worktree_gc.py` "
+                "(add --dry-run first) to reclaim abandoned review worktrees."
+            )
+        else:
+            print("- recommendation: none (no review-worktree buildup detected)")
 
     if report.pytest_runtime is not None:
         probe = report.pytest_runtime
