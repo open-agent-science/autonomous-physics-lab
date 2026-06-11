@@ -1,7 +1,7 @@
 id: TASK-0724
 title: "Add self-cleaning PR-review worktrees with age-based GC"
 type: tooling_reliability
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -46,8 +46,8 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 -m pytest tests/test_maintainer_review.py tests/test_agent_doctor.py tests/test_apl_new_worktree.py"
-    - "python3 -m ruff check physics_lab/registry/maintainer_review.py scripts/apl_agent_doctor.py tests"
+    - "python3 -m pytest tests/test_review_worktree_gc.py tests/test_maintainer_review.py tests/test_agent_doctor.py tests/test_apl_new_worktree.py"
+    - "python3 -m ruff check physics_lab/registry/review_worktree_gc.py physics_lab/registry/maintainer_review.py scripts/apl_worktree_gc.py scripts/apl_agent_doctor.py tests"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
