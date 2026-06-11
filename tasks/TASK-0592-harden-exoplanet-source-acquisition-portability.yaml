@@ -1,7 +1,7 @@
 id: TASK-0592
 title: "Harden Exoplanet source-acquisition portability checks"
 type: workflow_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 

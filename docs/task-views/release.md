@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0689` - Decide Dimensional Validator Gate A result-candidate readiness after boundary expansion (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `dimensional_analysis_validator`)
+None.
