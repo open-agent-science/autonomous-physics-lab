@@ -1,7 +1,7 @@
 id: TASK-0691
 title: "Auto-close safe tasks via a direct board-sync commit after merge"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

@@ -1,7 +1,7 @@
 id: TASK-0695
 title: "Run the task-reference convention test on docs/task-only PRs (fail fast)"
 type: ci_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
