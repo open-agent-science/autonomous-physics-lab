@@ -13,8 +13,10 @@ from physics_lab.registry.closeout_sweep import (
     build_closeout_sweep_report,
     classify_full_repo_signal,
     closeout_pr_binding_blockers,
+    closeout_pr_metadata_binding_blockers,
     list_review_ready_tasks,
     load_merged_task_pull_requests,
+    merged_task_pr_metadata,
     render_closeout_sweep_apply_report,
     render_closeout_sweep_report,
     task_closeout_policy,
@@ -223,7 +225,53 @@ def test_load_merged_task_pull_requests_uses_discovered_gh_path(
         result = load_merged_task_pull_requests(tmp_path)
 
     assert result["TASK-1003"].number == 16
+    assert result["TASK-1003"].status_checks_passed is None
     assert any(command[:3] == ["/custom/gh", "pr", "list"] for command in commands)
+
+
+def test_load_merged_task_pull_requests_carries_pr_list_status_rollup(
+    tmp_path: Path,
+) -> None:
+    gh_payload = json.dumps(
+        [
+            {
+                "number": 17,
+                "title": "TASK-1004: Remote merged task",
+                "mergedAt": "2026-05-04T17:00:00Z",
+                "headRefName": "agent/roman/codex/task-1004-remote-merged-task",
+                "baseRefName": "main",
+                "statusCheckRollup": [
+                    {"conclusion": "SUCCESS", "status": "COMPLETED"},
+                    {"conclusion": "SKIPPED", "status": "COMPLETED"},
+                ],
+            },
+        ]
+    )
+
+    def _fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        if command[:4] == ["git", "remote", "get-url", "origin"]:
+            return CommandResult(
+                returncode=0,
+                stdout="https://github.com/gladunrv/autonomous-physics-lab.git\n",
+                stderr="",
+            )
+        if command[:2] == ["git", "log"]:
+            return CommandResult(returncode=0, stdout="", stderr="")
+        if command[:3] == ["/custom/gh", "pr", "list"]:
+            return CommandResult(returncode=0, stdout=gh_payload, stderr="")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected command")
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command),
+    ):
+        result = load_merged_task_pull_requests(tmp_path)
+
+    pr = result["TASK-1004"]
+    assert pr.number == 17
+    assert pr.branch == "agent/roman/codex/task-1004-remote-merged-task"
+    assert pr.status_checks_passed is True
+    assert pr.status_checks_pending is False
 
 
 def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_path: Path) -> None:
@@ -271,7 +319,14 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
             for task_id, values in merged_payload.items()
         }
 
-    def _fake_closeout_report(root: Path, *, task_id: str, pull_request: int, apply: bool):  # noqa: ARG001
+    def _fake_closeout_report(
+        root: Path,
+        *,
+        task_id: str,
+        pull_request: int,
+        apply: bool,
+        pr_metadata: PullRequestMetadata | None = None,
+    ):  # noqa: ARG001
         if task_id == "TASK-1000":
             return CloseoutReport(
                 outcome="READY_TO_APPLY",
@@ -318,6 +373,49 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
     assert report.skipped[0].task_id == "TASK-1002"
 
 
+def test_build_closeout_sweep_report_uses_merged_pr_summary_when_view_unavailable(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_task(
+        tasks_dir / "TASK-1004-remote-merged-task.yaml",
+        task_id="TASK-1004",
+        title="Remote merged task",
+        status="REVIEW_READY",
+    )
+
+    def _fake_prs(_root: Path, *, limit: int = 200):  # noqa: ARG001
+        from physics_lab.registry.closeout_sweep import MergedTaskPullRequest
+
+        return {
+            "TASK-1004": MergedTaskPullRequest(
+                task_id="TASK-1004",
+                number=17,
+                title="TASK-1004: Remote merged task",
+                merged_at="2026-05-04T17:00:00Z",
+                url="https://example/17",
+                branch="agent/roman/codex/task-1004-remote-merged-task",
+                status_checks_passed=True,
+                status_checks_pending=False,
+            )
+        }
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
+        patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=None),
+        patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+    ):
+        report = build_closeout_sweep_report(tmp_path)
+
+    assert len(report.ready) == 1
+    assert report.ready[0].task_id == "TASK-1004"
+    assert report.ready[0].outcome == "READY_TO_APPLY"
+    assert report.blocked == ()
+
+
 def test_closeout_pr_binding_blockers_flags_mismatched_pr_metadata(tmp_path: Path) -> None:
     pr_metadata = PullRequestMetadata(
         number=10,
@@ -343,6 +441,29 @@ def test_closeout_pr_binding_blockers_flags_mismatched_pr_metadata(tmp_path: Pat
         "Merged PR metadata does not match canonical task id: title task id is TASK-1001, "
         "branch task id is TASK-1001.",
     )
+
+
+def test_merged_task_pr_metadata_preserves_binding_fields() -> None:
+    from physics_lab.registry.closeout_sweep import MergedTaskPullRequest
+
+    pr = MergedTaskPullRequest(
+        task_id="TASK-1005",
+        number=18,
+        title="TASK-1005: Summary metadata",
+        merged_at="2026-05-04T18:00:00Z",
+        url="https://example/18",
+        branch="agent/roman/codex/task-1005-summary-metadata",
+        status_checks_passed=True,
+    )
+
+    metadata = merged_task_pr_metadata(pr)
+
+    assert metadata.merged is True
+    assert metadata.status_checks_passed is True
+    assert closeout_pr_metadata_binding_blockers(
+        task_id="TASK-1005",
+        pr_metadata=metadata,
+    ) == ()
 
 
 def test_build_closeout_sweep_report_blocks_ready_candidate_on_pr_binding_mismatch(

@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 
 from physics_lab.registry.maintainer_review import (
+    PullRequestMetadata,
     branch_task_id,
     build_closeout_report,
     load_pr_metadata,
@@ -35,6 +36,11 @@ class MergedTaskPullRequest:
     title: str
     merged_at: str
     url: str
+    branch: str = ""
+    base_branch: str = "main"
+    status_checks_passed: bool | None = None
+    status_checks_pending: bool = False
+    changed_files: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -73,6 +79,15 @@ class CloseoutSweepApplyReport:
 def closeout_pr_binding_blockers(root: Path, *, task_id: str, pull_request: int) -> tuple[str, ...]:
     """Verify that GitHub PR metadata still binds the PR to the expected task id."""
     pr_metadata = load_pr_metadata(root, pull_request)
+    return closeout_pr_metadata_binding_blockers(task_id=task_id, pr_metadata=pr_metadata)
+
+
+def closeout_pr_metadata_binding_blockers(
+    *,
+    task_id: str,
+    pr_metadata: PullRequestMetadata | None,
+) -> tuple[str, ...]:
+    """Verify that already-loaded GitHub PR metadata binds to the expected task id."""
     if pr_metadata is None:
         return ()
 
@@ -152,6 +167,22 @@ def load_merged_task_pull_requests(
         if previous is None or candidate.merged_at > previous.merged_at:
             by_task[task_id] = candidate
     return by_task
+
+
+def merged_task_pr_metadata(pr: MergedTaskPullRequest) -> PullRequestMetadata:
+    """Convert merged-PR summary data into closeout report metadata."""
+    return PullRequestMetadata(
+        number=pr.number,
+        title=pr.title,
+        body="",
+        branch=pr.branch,
+        base_branch=pr.base_branch,
+        state="MERGED",
+        merged=True,
+        status_checks_passed=pr.status_checks_passed,
+        status_checks_pending=pr.status_checks_pending,
+        changed_files=pr.changed_files,
+    )
 
 
 def apply_closeout_sweep_report(
@@ -485,6 +516,31 @@ def _load_merged_task_pull_requests_from_git(
     return by_task
 
 
+def _status_checks_from_rollup(status_checks: object) -> tuple[bool | None, bool]:
+    """Return (passed, pending) from GitHub statusCheckRollup-like payloads."""
+    if not isinstance(status_checks, list):
+        return None, False
+    has_failure = False
+    has_pending = False
+    has_success = False
+    for item in status_checks:
+        if not isinstance(item, dict):
+            continue
+        conclusion = str(item.get("conclusion") or "").upper()
+        status = str(item.get("status") or item.get("state") or "").upper()
+        if conclusion in {"FAILURE", "TIMED_OUT", "CANCELLED", "ACTION_REQUIRED"}:
+            has_failure = True
+        elif conclusion == "SUCCESS":
+            has_success = True
+        elif status and status not in {"COMPLETED", "SUCCESS"}:
+            has_pending = True
+    if has_failure:
+        return False, has_pending
+    if has_success and not has_pending:
+        return True, False
+    return None, has_pending
+
+
 def _load_merged_task_pull_requests_from_gh(
     root: Path,
     *,
@@ -505,7 +561,7 @@ def _load_merged_task_pull_requests_from_gh(
             "--limit",
             str(limit),
             "--json",
-            "number,title,mergedAt",
+            "number,title,mergedAt,headRefName,baseRefName,statusCheckRollup",
         ],
         cwd=root,
         timeout=60,
@@ -533,12 +589,19 @@ def _load_merged_task_pull_requests_from_gh(
         except (KeyError, TypeError, ValueError):
             continue
         task_id = title_match.group("task_id")
+        status_checks_passed, status_checks_pending = _status_checks_from_rollup(
+            row.get("statusCheckRollup")
+        )
         candidate = MergedTaskPullRequest(
             task_id=task_id,
             number=pr_number,
             title=title,
             merged_at=str(row.get("mergedAt") or "").strip(),
             url=(f"{remote_url}/pull/{pr_number}" if remote_url else ""),
+            branch=str(row.get("headRefName") or "").strip(),
+            base_branch=str(row.get("baseRefName") or "main").strip() or "main",
+            status_checks_passed=status_checks_passed,
+            status_checks_pending=status_checks_pending,
         )
         previous = by_task.get(task_id)
         if previous is None or candidate.merged_at > previous.merged_at:
@@ -589,16 +652,17 @@ def build_closeout_sweep_report(
             )
             continue
 
+        pr_metadata = load_pr_metadata(root, pr.number) or merged_task_pr_metadata(pr)
         closeout = build_closeout_report(
             root,
             task_id=task_id,
             pull_request=pr.number,
             apply=False,
+            pr_metadata=pr_metadata,
         )
-        binding_blockers = closeout_pr_binding_blockers(
-            root,
+        binding_blockers = closeout_pr_metadata_binding_blockers(
             task_id=task_id,
-            pull_request=pr.number,
+            pr_metadata=pr_metadata,
         )
         blockers = closeout.blockers + binding_blockers
         outcome = closeout.outcome if not binding_blockers else "BLOCKED"
