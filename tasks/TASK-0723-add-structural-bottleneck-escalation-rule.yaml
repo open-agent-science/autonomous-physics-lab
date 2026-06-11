@@ -1,0 +1,46 @@
+id: TASK-0723
+title: "Add recurring structural bottleneck escalation rule for agents"
+type: agent_workflow
+status: READY
+difficulty: medium
+priority: high
+strategy_alignment:
+  - "Make repeated blocker classes become actionable process-improvement proposals instead of repeated status reports."
+  - "Help Scientific Campaign Director and review agents improve APL throughput without bypassing maintainer decisions."
+  - "Keep external-agent signals useful by turning recurring friction into structured proposals."
+input:
+  mode: workflow
+  related_domain: agent_workflow
+  related_objects:
+    - "tasks/proposals/20260610-roman-structural-bottleneck-escalation.yaml"
+    - "docs/agent-task-protocol.md"
+    - "docs/task-proposal-protocol.md"
+    - "docs/campaign-curator-protocol.md"
+    - "agents/scientific-curator.yaml"
+    - "agents/review-agent.yaml"
+  planning_context: >
+    The accepted proposal observed that agents often preserve individual
+    blockers but do not escalate recurring structural causes, such as repeated
+    source-acquisition stalls, CI visibility gaps, review-helper friction, or
+    READY-pool drought. This task should document a lightweight escalation rule:
+    agents propose process improvements when the same blocker class recurs, but
+    the maintainer still decides whether to accept a canonical task.
+requirements:
+  - "Define what counts as a recurring structural bottleneck and the threshold for escalation."
+  - "Specify the required proposal shape: problem, repeated evidence, affected workflows or campaigns, proposed process change, risk, and maintainer decision needed."
+  - "Update the agent task protocol and task-proposal protocol without granting agents authority to auto-create canonical tasks."
+  - "Update the Scientific Campaign Director/curator role so it proactively proposes throughput improvements without inventing work-for-work's-sake."
+  - "Update review-agent guidance so repeated review/helper/CI failures are surfaced as proposals rather than only local comments."
+accepted_outputs:
+  - "protocol documentation for recurring bottleneck escalation"
+  - "role-profile updates for Scientific Campaign Director and review agent"
+  - "example proposal shape or checklist for structural bottlenecks"
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_agent_role_profiles.py"
+    - "python3 -m ruff check ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
