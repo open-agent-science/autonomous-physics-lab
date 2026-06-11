@@ -29,6 +29,7 @@ from physics_lab.registry.pr_capability import check_pr_capability  # noqa: E402
 from physics_lab.registry.review_worktree_gc import (  # noqa: E402
     review_worktree_disk_report,
 )
+from physics_lab.registry.repo_python import find_repo_python  # noqa: E402
 
 
 PYTHON_MODULE_CHECKS = ("pip", "pytest", "ruff", "yaml")
@@ -290,22 +291,10 @@ def _resolve_git_path(root: Path, value: str | None) -> Path | None:
     return path if path.is_absolute() else (root / path).resolve()
 
 
-def _venv_python_candidates(base: Path) -> tuple[Path, ...]:
-    return (
-        base / ".venv" / "Scripts" / "python.exe",
-        base / ".venv" / "bin" / "python",
-    )
-
-
 def _find_repository_venv_python(root: Path, git_common_dir: Path | None) -> Path | None:
-    search_roots: list[Path] = [root]
-    if git_common_dir is not None and git_common_dir.name == ".git":
-        search_roots.append(git_common_dir.parent)
-    for search_root in search_roots:
-        for candidate in _venv_python_candidates(search_root):
-            if candidate.exists():
-                return candidate.resolve()
-    return None
+    # Shared resolver (TASK-0725) so the doctor and the review helper agree on
+    # which interpreter is the repository venv.
+    return find_repo_python(root, git_common_dir=git_common_dir)
 
 
 def _path_matches(left: Path | None, right: str) -> bool | None:
