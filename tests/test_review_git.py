@@ -184,6 +184,17 @@ def test_git_status_clean_true_when_only_harness_lock_is_present(
     assert review_git.git_status_clean(tmp_path)
 
 
+def test_git_status_clean_ignores_generated_context_and_task_views(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setattr(
+        review_git,
+        "run_command",
+        _fake_status(" M CONTEXT.md\n M docs/task-views/support.md\n"),
+    )
+    assert review_git.git_status_clean(tmp_path)
+
+
 def test_git_status_clean_false_for_real_modifications(
     monkeypatch, tmp_path: Path
 ) -> None:
