@@ -1,0 +1,56 @@
+id: TASK-0724
+title: "Add self-cleaning PR-review worktrees with age-based GC"
+type: tooling_reliability
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer PR review reliable by preventing stale clean-review worktrees from filling local disks."
+  - "Support many parallel agents sharing one machine without relying on manual `.worktrees/_reviews` cleanup."
+  - "Improve review-helper reliability without weakening review verdicts, task protocol, or scientific gates."
+
+input:
+  mode: workflow
+  related_domain: tooling_reliability
+  related_objects:
+    - "tasks/proposals/20260611-roman-review-worktree-self-cleanup.yaml"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_agent_doctor.py"
+    - "docs/notes/agent-worktree-discipline.md"
+  planning_context: >
+    Accepted from the review-worktree self-cleanup proposal. Maintainer review
+    creates clean detached worktrees under `.worktrees/_reviews/pr-<number>-<sha>`.
+    Those worktrees are useful for safe PR review but can accumulate after many
+    PRs or after crashed runs, causing local disk exhaustion and false review
+    blockers. Implement a conservative cleanup path that removes only safe
+    review-helper worktrees and never touches active task worktrees.
+
+requirements:
+  - "Add a cross-platform Python GC entrypoint for `.worktrees/_reviews/pr-*` with `--dry-run` and configurable `--older-than-hours`."
+  - "Default the age-based GC threshold conservatively, using 48 hours unless the implementation justifies a safer default."
+  - "Never remove normal task worktrees, non-review worktrees, recent review worktrees, or a review worktree that appears to have a checked-out branch or active ownership."
+  - "Wire review-helper cleanup so a successful review tears down only the clean worktree created by that same review run."
+  - "Add a startup/backstop janitor for old detached review worktrees so crashed or interrupted reviews can self-heal later."
+  - "Extend `apl_agent_doctor.py` with a read-only disk/review-worktree count or size diagnostic that recommends the GC command without deleting anything."
+  - "Document the cleanup convention in the worktree discipline notes."
+  - "Keep behavior portable for macOS, Linux, Windows, Claude Code, and Codex; use `pathlib`, arg-list subprocesses, UTF-8 encoding, and no shell-only critical path."
+
+accepted_outputs:
+  - "cross-platform review-worktree GC helper script"
+  - "maintainer review helper self-cleanup and age-based janitor wiring"
+  - "read-only agent doctor diagnostic for review worktree buildup"
+  - "focused regression tests for dry-run, age filtering, branch-safety, and review-run self-cleanup"
+  - "documentation note for safe review-worktree cleanup"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_agent_doctor.py tests/test_apl_new_worktree.py"
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py scripts/apl_agent_doctor.py tests"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
