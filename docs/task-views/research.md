@@ -22,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0688` - Define Stellar M-L luminosity-provenance policy and DEBCat license route (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
