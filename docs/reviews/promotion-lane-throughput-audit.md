@@ -1,7 +1,6 @@
 # Promotion-Lane Throughput Audit
 
-**Task:** `TASK-0716`
-**Task file:** [`tasks/TASK-0716-run-promotion-lane-throughput-audit.yaml`](../../tasks/TASK-0716-run-promotion-lane-throughput-audit.yaml)
+**Task:** `TASK-0716` (canonical task YAML in `tasks/`)
 **Source proposal:** [`tasks/proposals/20260610-roman-promotion-lane-throughput.yaml`](../../tasks/proposals/20260610-roman-promotion-lane-throughput.yaml)
 **Mode:** planning only (no engine run, no live fetch, no new metrics, no promotion)
 **Domain:** `scientific_result_publication`
