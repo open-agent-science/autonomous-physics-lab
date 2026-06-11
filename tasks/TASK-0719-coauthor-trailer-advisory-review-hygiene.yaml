@@ -1,7 +1,7 @@
 id: TASK-0719
 title: "Treat AI co-author trailer noise as advisory review hygiene"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 strategy_alignment:

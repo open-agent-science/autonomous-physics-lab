@@ -1,7 +1,7 @@
 id: TASK-0694
 title: "Fix task-path reference convention in the Atomic Pizzocaro row-admissibility doc"
 type: documentation
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

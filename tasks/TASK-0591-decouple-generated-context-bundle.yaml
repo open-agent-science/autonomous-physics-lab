@@ -1,9 +1,12 @@
 id: TASK-0591
 title: "Decouple the generated CONTEXT.md bundle from the committed tree"
 type: documentation_architecture
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
+result_artifact_policy:
+  required: false
+  reason: "Documentation-architecture task; it records a generated-context handling decision and does not produce a scientific RESULT artifact."
 
 strategy_alignment:
   - "Extend the generated-state cleanup policy beyond task views to the remaining committed context aggregate."

@@ -1,7 +1,7 @@
 id: TASK-0720
 title: "Use merged PR summary metadata for auto-closeout verification"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 strategy_alignment:

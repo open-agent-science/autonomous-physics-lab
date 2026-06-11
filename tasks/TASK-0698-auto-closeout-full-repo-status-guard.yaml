@@ -1,7 +1,7 @@
 id: TASK-0698
 title: "Guard safe auto-closeout on full_repo status: report-only when red/stale/unknown"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
