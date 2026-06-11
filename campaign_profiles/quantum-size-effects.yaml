@@ -94,5 +94,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-05-29"
+    review_interval: quarterly_blocked
+    next_review_due: "2026-09-01"
+    review_reason: source_readiness
     source: "docs/status.md"
     notes: "Source blocker is intentional scientific hygiene, not a failed campaign."

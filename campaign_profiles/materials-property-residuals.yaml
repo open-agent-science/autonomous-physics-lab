@@ -95,5 +95,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-06-02"
+    review_interval: quarterly_planning
+    next_review_due: "2026-09-01"
+    review_reason: planning_scaffold
     source: "TASK-0439"
     notes: "Scaffold-only campaign surface for parallel source-first work; no pinned snapshot, dataset, or benchmark result yet."

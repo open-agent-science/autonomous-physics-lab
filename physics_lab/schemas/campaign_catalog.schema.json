@@ -161,6 +161,9 @@
             "required": [
               "status",
               "last_reviewed",
+              "review_interval",
+              "next_review_due",
+              "review_reason",
               "source",
               "notes"
             ],
@@ -176,6 +179,29 @@
               "last_reviewed": {
                 "type": "string",
                 "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "review_interval": {
+                "type": "string",
+                "enum": [
+                  "quarterly_active",
+                  "quarterly_blocked",
+                  "quarterly_planning",
+                  "semiannual_quality_floor"
+                ]
+              },
+              "next_review_due": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "review_reason": {
+                "type": "string",
+                "enum": [
+                  "flagship_validation",
+                  "benchmark_monitoring",
+                  "source_readiness",
+                  "planning_scaffold",
+                  "quality_floor_hygiene"
+                ]
               },
               "source": {
                 "type": "string",

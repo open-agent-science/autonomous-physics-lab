@@ -110,5 +110,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-05-29"
+    review_interval: quarterly_planning
+    next_review_due: "2026-09-01"
+    review_reason: planning_scaffold
     source: "TASK-0438"
     notes: "Best public-friendly entry lane once the first source/baseline plan lands."
