@@ -163,12 +163,44 @@ A follow-up task may consider whether to make the precondition check
 mandatory before `apl_task_pr_helper.py create`; for now it is
 opt-in so agents that do not need it can ignore it.
 
-## 6. Files
+## 6. Review-worktree cleanup (TASK-0724)
+
+Maintainer review checks out each reviewed PR head in a throwaway **detached**
+git worktree under `<root>/.worktrees/_reviews/pr-<number>-<sha>` (see
+`physics_lab/registry/maintainer_review.py`). These are disposable, but if they
+are left behind they accumulate across many PRs and crashed runs and can exhaust
+local disk — a full volume turns `apl_review_pr.py` into a false `BLOCKED`
+verdict. Cleanup is layered so no contributor or agent has to remember it:
+
+1. **Self-cleanup.** A review run tears down only the worktree it created, on
+   every exit path (success or exception). It never removes a worktree younger
+   than the TTL or one with a branch checked out, so a parallel agent's active
+   review is safe.
+2. **Age-based backstop.** Before each review, abandoned **detached** review
+   worktrees older than **48h** (matching the claim-expiry window in
+   [`agent-task-claiming.md`](../agent-task-claiming.md)) are reclaimed, so
+   crashed earlier runs self-heal without endangering recent parallel work.
+3. **One GC command.** Run [`scripts/apl_worktree_gc.py`](../../scripts/apl_worktree_gc.py)
+   to reclaim manually; `--dry-run` previews and `--older-than-hours` tunes the
+   TTL. It only ever touches detached `.worktrees/_reviews` checkouts — never a
+   normal task worktree, never a branch-checked-out one.
+4. **Visibility.** `python3 scripts/apl_agent_doctor.py` reports review-worktree
+   count and free disk and recommends the GC command when buildup is detected
+   (read-only; the doctor never deletes).
+
+The cleanup never touches the normal task worktrees described in sections 1–4;
+only `.worktrees/_reviews` disposable review checkouts are in scope.
+
+## 7. Files
 
 - [`scripts/apl_new_worktree.sh`](../../scripts/apl_new_worktree.sh)
 - [`scripts/apl_branch_precondition.py`](../../scripts/apl_branch_precondition.py)
 - [`scripts/apl_lane_precondition.py`](../../scripts/apl_lane_precondition.py)
 - [`scripts/apl_setup_worktree.sh`](../../scripts/apl_setup_worktree.sh) (pre-existing,
   copies `.claude/settings.local.json` into a worktree)
+- [`scripts/apl_worktree_gc.py`](../../scripts/apl_worktree_gc.py) (review-worktree GC)
+- [`physics_lab/registry/review_worktree_gc.py`](../../physics_lab/registry/review_worktree_gc.py)
+  (GC core: self-cleanup, age-based backstop, doctor diagnostic)
 - [`tests/test_apl_branch_precondition.py`](../../tests/test_apl_branch_precondition.py)
 - [`tests/test_apl_lane_precondition.py`](../../tests/test_apl_lane_precondition.py)
+- [`tests/test_review_worktree_gc.py`](../../tests/test_review_worktree_gc.py)

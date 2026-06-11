@@ -235,3 +235,31 @@ def test_agent_doctor_cli_json_includes_worktree_runtime_preflight() -> None:
     assert result.returncode == 0, (result.stdout, result.stderr)
     assert '"worktree_runtime"' in result.stdout
     assert '"recommended_pytest_basetemp"' in result.stdout
+
+
+def test_agent_doctor_reports_review_worktree_diagnostic(tmp_path: Path) -> None:
+    report = build_report(tmp_path, require_gh_auth=False)
+
+    assert report.review_worktrees is not None
+    rw = report.review_worktrees
+    assert set(rw).issuperset(
+        {"review_worktree_count", "free_bytes", "recommend_gc", "reasons"}
+    )
+    # A non-review temp dir has no review worktrees and triggers no recommendation.
+    assert rw["review_worktree_count"] == 0
+    assert rw["recommend_gc"] is False
+
+
+def test_agent_doctor_cli_json_includes_review_worktrees() -> None:
+    import json
+
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT_PATH), "--json", "--no-gh-auth-check"],
+        cwd=Path(__file__).resolve().parents[1],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(result.stdout)
+    assert "review_worktrees" in payload
+    assert "review_worktree_count" in payload["review_worktrees"]

@@ -2728,3 +2728,138 @@ def test_finish_gate_leaves_draft_when_review_blocks(tmp_path: Path) -> None:
     assert report.next_safe_command == "python3 scripts/apl_review_pr.py --pr 103"
     ci_gate.assert_not_called()
     ready.assert_not_called()
+
+
+def _init_review_gc_repo(tmp_path: Path) -> Path:
+    """Create a minimal real git repo for review-worktree self-cleanup tests."""
+    import shutil
+    import subprocess
+
+    if shutil.which("git") is None:  # pragma: no cover - environment guard
+        import pytest
+
+        pytest.skip("git is required for review-worktree self-cleanup tests")
+
+    def _git(*args: str) -> None:
+        subprocess.run(
+            ["git", *args], cwd=repo, check=True, capture_output=True, text=True
+        )
+
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git("init", "-b", "main")
+    _git("config", "user.email", "test@example.com")
+    _git("config", "user.name", "Test Runner")
+    (repo / ".gitignore").write_text(".worktrees/\n", encoding="utf-8")
+    _git("add", ".gitignore")
+    _git("commit", "-m", "init")
+    return repo
+
+
+def _add_detached_review_worktree(repo: Path, name: str) -> Path:
+    import subprocess
+
+    from physics_lab.registry.review_worktree_gc import review_worktrees_root
+
+    head = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=repo, check=True, capture_output=True, text=True
+    ).stdout.strip()
+    path = review_worktrees_root(repo) / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(
+        ["git", "worktree", "add", "--detach", str(path), head],
+        cwd=repo,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return path
+
+
+def test_build_review_report_tears_down_own_review_worktree(tmp_path: Path) -> None:
+    repo = _init_review_gc_repo(tmp_path)
+    created = _add_detached_review_worktree(repo, "pr-42-self00000000")
+    assert created.exists()
+
+    dummy = ReviewReport(
+        verdict="MERGE_OK",
+        risk="low",
+        task_id="TASK-0001",
+        branch="main",
+        changed_files=(),
+        validation="pass",
+        security_risks=(),
+        blockers=(),
+        required_fixes=(),
+        recommended_action="Merge.",
+    )
+
+    def fake_compose(root, *, worktree_sink=None, **kwargs):  # noqa: ANN001, ANN003
+        # Simulate a review run that created a clean PR worktree.
+        if worktree_sink is not None:
+            worktree_sink.append(created)
+        return dummy
+
+    with patch(
+        "physics_lab.registry.maintainer_review._compose_review_report",
+        side_effect=fake_compose,
+    ):
+        report = build_review_report(repo, branch="main", task_id="TASK-0001")
+
+    assert report.verdict == "MERGE_OK"
+    # Layer 1: the worktree this run created must be gone afterward.
+    assert not created.exists()
+
+
+def test_build_review_report_self_cleanup_runs_even_on_exception(tmp_path: Path) -> None:
+    repo = _init_review_gc_repo(tmp_path)
+    created = _add_detached_review_worktree(repo, "pr-43-boom00000000")
+
+    def boom(root, *, worktree_sink=None, **kwargs):  # noqa: ANN001, ANN003
+        if worktree_sink is not None:
+            worktree_sink.append(created)
+        raise RuntimeError("review blew up mid-run")
+
+    with patch(
+        "physics_lab.registry.maintainer_review._compose_review_report",
+        side_effect=boom,
+    ):
+        try:
+            build_review_report(repo, branch="main", task_id="TASK-0001")
+        except RuntimeError:
+            pass
+
+    # finally must still tear the worktree down on the exception path.
+    assert not created.exists()
+
+
+def test_build_review_report_startup_janitor_reclaims_old_worktree(tmp_path: Path) -> None:
+    import os
+    import time
+
+    repo = _init_review_gc_repo(tmp_path)
+    stale = _add_detached_review_worktree(repo, "pr-44-stale0000000")
+    old = time.time() - 100 * 3600.0
+    os.utime(stale, (old, old))
+
+    dummy = ReviewReport(
+        verdict="MERGE_OK",
+        risk="low",
+        task_id="TASK-0001",
+        branch="main",
+        changed_files=(),
+        validation="pass",
+        security_risks=(),
+        blockers=(),
+        required_fixes=(),
+        recommended_action="Merge.",
+    )
+
+    with patch(
+        "physics_lab.registry.maintainer_review._compose_review_report",
+        return_value=dummy,
+    ):
+        build_review_report(repo, branch="main", task_id="TASK-0001")
+
+    # Layer 2: the abandoned >48h detached review worktree is reclaimed.
+    assert not stale.exists()
