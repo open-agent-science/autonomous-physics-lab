@@ -161,23 +161,22 @@ readiness stay separate.
 
 ## Recommended Next Tasks
 
-These are recommendations only. Current canonical tasks cover the first two
-open steps below:
+These are recommendations only. The first `MD-0001` replay/control wave is
+complete enough to justify the authorized `MD-0002` widening path:
 
-1. **Benchmark promotion preflight** — decide whether the benchmark remains a
-   review note, becomes a scoped result candidate, needs replay, or should not
-   be promoted (`TASK-0566`).
-2. **Independent replay** — reproduce the `TASK-0550` metrics from committed
-   data and code before promotion or widening (`TASK-0578`).
-3. **Band-gap null-control audit** — test whether the weaker band-gap axis
-   survives deterministic controls before interpretation (`TASK-0579`).
-4. **Optional widening** — only after the first benchmark, consider a separate
-   pre-fetch-amended task for ternary oxides or another Materials Project slice.
-   The
-   [MD-0002 wider replication slice plan](../reviews/materials-md0002-wider-replication-slice-plan.md)
-   selects stable ternary oxides as the `MD-0002` candidate scope and defines its
-   axes, inclusion rules, provenance, and holdout/split candidates (planning only;
-   no data fetched).
+1. **Maintainer-gated acquisition** — run `TASK-0699` to commit the pinned
+   stable-ternary-oxide raw snapshot, normalized formation-energy / band-gap
+   datasets, checksums, citation metadata, and populated holdout manifest.
+2. **Loader and dataset validation** — run `TASK-0700` against the committed
+   `MD-0002` rows before any benchmark consumer reads them.
+3. **Benchmark/control predeclaration** — run `TASK-0701` so the formation-
+   energy retest has frozen baselines, null controls, split policy, and stop
+   conditions before metrics are inspected.
+4. **Holdout freeze audit** — run `TASK-0702` to verify no-peek binding and
+   acquisition provenance after rows land.
+5. **Formation-energy retest** — run `TASK-0703` only after the dataset and
+   controls are frozen. Band gap remains diagnostic-only unless its control
+   evidence improves.
 
 ## Why It Matters
 

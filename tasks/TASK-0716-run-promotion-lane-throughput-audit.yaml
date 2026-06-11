@@ -1,0 +1,51 @@
+id: TASK-0716
+title: "Run promotion-lane throughput audit for result and claim candidates"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock the output side of APL so strong evidence can become reviewed scientific memory."
+  - "Audit Gate A/B, DRAFT claims, and knowledge-promotion handoff without weakening review gates."
+  - "Prevent review notes from accumulating indefinitely when a scoped RESULT, negative memory, or do-not-promote decision is possible."
+
+input:
+  mode: planning_only
+  related_domain: scientific_result_publication
+  related_objects:
+    - "tasks/proposals/20260610-roman-promotion-lane-throughput.yaml"
+    - "docs/result-promotion-protocol.md"
+    - "docs/claim-promotion-policy.md"
+    - "results"
+    - "claims"
+  planning_context: >
+    The proposal pool now includes a high-priority promotion-lane throughput
+    proposal. This task turns it into a bounded audit: identify the strongest
+    result-backfill, negative-result, replay-needed, do-not-promote, and
+    claim-review candidates across campaigns, plus the smallest tooling gaps
+    that block Gate A/B handoff.
+
+requirements:
+  - "Do not promote any claim, result, or knowledge artifact automatically."
+  - "Classify candidates using the Promotion Backlog classes from docs/campaign-curator-protocol.md."
+  - "Identify missing Gate A/B tooling or maintainer-decision handoff gaps without changing gates."
+  - "Recommend at most 3 follow-up tasks, each tied to a named evidence artifact and output path."
+  - "Reject duplicate digest or dashboard work; update existing protocol recommendations only if needed."
+
+accepted_outputs:
+  - "docs/reviews/promotion-lane-throughput-audit.md"
+  - "optional updates to docs/result-promotion-protocol.md if a small wording gap blocks execution"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

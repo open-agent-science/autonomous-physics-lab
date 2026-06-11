@@ -36,24 +36,18 @@ copy, target panel, redistribution decision, WebPlotDigitizer-class tool run,
 axis calibration, extracted points, uncertainty, and replay before rows can be
 curated. `TASK-0588` rejected the Kang-Wise 1997 fallback as currently
 inadmissible: the visible tables are model parameters, not direct size-energy
-measurements, and no checksum-pinned source copy or deterministic
-digitization package exists. Current safe work is either a maintainer-supplied
-Norris-Bawendi source-copy/digitization path or scouting one genuinely open
-direct-table source beyond the exhausted Norris/Kang pair. `TASK-0605` scouted
-Almeida 2023 InP optical data as a promising but digitization-required open
-candidate. `TASK-0630` found the source promising but not row-ready under the
-current schema: Almeida reports tetrahedral edge length / volume rather than
-direct diameter or radius. `TASK-0637` added the non-spherical size-axis
-schema route, `TASK-0654` resolved the Almeida license/figure-surface checklist
-at metadata level, and `TASK-0655` validated a synthetic non-spherical
-digitization fixture. The remaining Almeida blockers are checksum-pinned
-source-artifact packaging, real WebPlotDigitizer-class exports, per-point
-provenance, and row-readiness review.
+measurements, and no checksum-pinned source copy or deterministic digitization
+package exists. `TASK-0605`, `TASK-0630`, `TASK-0637`, `TASK-0654`, and
+`TASK-0655` built the Almeida 2023 non-spherical source route, but it is still
+metadata/fixture-only without a source-copy checksum or real digitized points.
+`TASK-0687` added a Vossmeyer 1994 source-artifact verification path: promising
+for CdS direct-table rows, but still blocked on a committable legal source
+artifact. The next task wave is `TASK-0710` (Vossmeyer source-copy handoff) and
+`TASK-0711` (Almeida source-copy checksum/reuse decision).
 
-**Expected next result:** a checksum-pinned Almeida source-artifact package
-(`TASK-0668`) that either authorizes a later Figure 1b digitization task or
-records an exact reuse/source blocker. The baseline benchmark remains blocked
-until real direct measurement rows pass readiness.
+**Expected next result:** a legal source-artifact package or precise blocker
+for Vossmeyer or Almeida. The baseline benchmark remains blocked until real
+direct measurement rows pass readiness.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -155,8 +149,11 @@ Current task posture:
   metadata-only, no source files or coordinates committed).
 - `TASK-0655` — synthetic non-spherical digitization fixture (DONE; validates
   schema/ledger mechanics, no real Almeida points).
-- `TASK-0668` — checksum-pinned Almeida source-artifact package (READY; no
-  digitization or rows).
+- `TASK-0668` — checksum-pinned Almeida source-artifact package (DONE;
+  metadata/source-route pass only, no committed source copy, digitization, or
+  rows).
+- `TASK-0687` — Vossmeyer 1994 source-artifact verification (DONE; promising
+  CdS direct-table path, but no committable legal source artifact yet).
 
 Safe next contributions are:
 
@@ -165,9 +162,9 @@ Safe next contributions are:
   `TASK-0283` readiness gate;
 - a maintainer-approved waiver package if the first benchmark is intentionally
   scoped as calibration-curve consistency rather than measurement-versus-model;
-- deterministic source-artifact packaging for Norris-Bawendi 1996 after a
-  maintainer-provided source copy, or an equivalent open direct-table source
-  before any direct band-edge row seed is added;
+- deterministic source-artifact packaging for Vossmeyer 1994, Almeida 2023,
+  Norris-Bawendi 1996 after a maintainer-provided source copy, or an equivalent
+  open direct-table source before any direct band-edge row seed is added;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
@@ -242,6 +239,9 @@ Current evidence is infrastructure and source curation only:
   `quantum_calibration_curve_consistency` sandbox implementation. It defines
   mandatory labels, negative controls, and stop conditions without running
   metrics or unblocking the direct-row benchmark.
+- `TASK-0668` and `TASK-0687` keep the two most promising current routes
+  honest: Almeida 2023 and Vossmeyer 1994 both remain source-artifact gated
+  before any real measurement rows can be committed.
 
 Historical context:
 
