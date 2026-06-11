@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 from unittest.mock import patch
@@ -10,6 +11,7 @@ from physics_lab.registry.closeout_sweep import (
     CloseoutSweepReport,
     auto_closeout_blockers,
     build_closeout_sweep_report,
+    classify_full_repo_signal,
     closeout_pr_binding_blockers,
     list_review_ready_tasks,
     load_merged_task_pull_requests,
@@ -501,3 +503,44 @@ def test_task_unblocks_others_detects_a_blocked_dependent(tmp_path: Path) -> Non
     assert task_unblocks_others(tmp_path, "TASK-9999") is False
     # A task referenced only by its own (non-BLOCKED) file does not count.
     assert task_unblocks_others(tmp_path, "TASK-3001") is False
+
+
+def test_classify_full_repo_signal_ok_for_fresh_success() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert (
+        classify_full_repo_signal("success", "2026-06-11T10:00:00Z", now=now) == "ok"
+    )
+
+
+def test_classify_full_repo_signal_red_for_failure() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert (
+        classify_full_repo_signal("failure", "2026-06-11T10:00:00Z", now=now) == "red"
+    )
+    assert (
+        classify_full_repo_signal("cancelled", "2026-06-11T10:00:00Z", now=now)
+        == "red"
+    )
+
+
+def test_classify_full_repo_signal_stale_when_too_old() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert (
+        classify_full_repo_signal("success", "2026-06-08T10:00:00Z", now=now)
+        == "stale"
+    )
+    # A custom freshness window is honored.
+    assert (
+        classify_full_repo_signal(
+            "success", "2026-06-11T08:00:00Z", now=now, max_age_hours=1.0
+        )
+        == "stale"
+    )
+
+
+def test_classify_full_repo_signal_unknown_for_missing_or_bad_fields() -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+    assert classify_full_repo_signal(None, "2026-06-11T10:00:00Z", now=now) == "unknown"
+    assert classify_full_repo_signal("", "2026-06-11T10:00:00Z", now=now) == "unknown"
+    assert classify_full_repo_signal("success", None, now=now) == "unknown"
+    assert classify_full_repo_signal("success", "not-a-date", now=now) == "unknown"
