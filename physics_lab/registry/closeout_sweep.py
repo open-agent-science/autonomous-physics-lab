@@ -19,6 +19,9 @@ from physics_lab.registry.tasks import load_task
 
 
 MERGE_SUBJECT_PATTERN = re.compile(r"^Merge pull request #(?P<number>[0-9]+)\s+from\s+.+$")
+SQUASH_MERGE_SUBJECT_PATTERN = re.compile(
+    r"^(?P<title>(?P<task_id>TASK-[0-9]{4}):\s+.+)\s+\(#(?P<number>[0-9]+)\)$"
+)
 PR_TITLE_TASK_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}):\s+.+$")
 CANONICAL_TASK_ID_PATTERN = re.compile(r"^TASK-[0-9]{4}$")
 
@@ -423,7 +426,6 @@ def _load_merged_task_pull_requests_from_git(
             "git",
             "log",
             "--first-parent",
-            "--merges",
             f"--max-count={limit}",
             "--format=%cI%x1f%s%x1f%b%x1e",
         ],
@@ -439,6 +441,21 @@ def _load_merged_task_pull_requests_from_git(
         if not record:
             continue
         merged_at, subject, body = (record.split("\x1f", 2) + ["", "", ""])[:3]
+        squash_match = SQUASH_MERGE_SUBJECT_PATTERN.match(subject.strip())
+        if squash_match is not None:
+            pr_number = int(squash_match.group("number"))
+            task_id = squash_match.group("task_id")
+            candidate = MergedTaskPullRequest(
+                task_id=task_id,
+                number=pr_number,
+                title=squash_match.group("title"),
+                merged_at=merged_at.strip(),
+                url=(f"{remote_url}/pull/{pr_number}" if remote_url else ""),
+            )
+            previous = by_task.get(task_id)
+            if previous is None or candidate.merged_at > previous.merged_at:
+                by_task[task_id] = candidate
+            continue
         merge_match = MERGE_SUBJECT_PATTERN.match(subject.strip())
         if merge_match is None:
             continue
