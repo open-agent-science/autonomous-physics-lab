@@ -91,5 +91,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-05-29"
+    review_interval: semiannual_quality_floor
+    next_review_due: "2026-12-01"
+    review_reason: quality_floor_hygiene
     source: "docs/status.md"
     notes: "Quality-floor track remains useful for reproducibility and public examples."

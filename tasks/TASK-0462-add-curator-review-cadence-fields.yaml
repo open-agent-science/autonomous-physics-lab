@@ -1,7 +1,7 @@
 id: TASK-0462
 title: "Add curator review cadence fields to campaign portfolio metadata"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 

@@ -50,6 +50,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: semiannual_quality_floor
+    next_review_due: '2026-12-01'
+    review_reason: quality_floor_hygiene
     source: docs/status.md
     notes: Quality-floor benchmark that is useful for replay and range-limit discipline.
   source_docs:
@@ -102,6 +105,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: quarterly_active
+    next_review_due: '2026-09-01'
+    review_reason: source_readiness
     source: TASK-QUEUE atomic baseline-readiness wave
     notes: High-prestige lane, but benchmark work remains gated on source and covariance semantics.
   source_docs:
@@ -148,6 +154,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: semiannual_quality_floor
+    next_review_due: '2026-12-01'
+    review_reason: quality_floor_hygiene
     source: docs/status.md
     notes: Quality-floor track for fast formula sanity checks and benchmark hygiene.
   source_docs:
@@ -206,6 +215,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-06-01'
+    review_interval: quarterly_active
+    next_review_due: '2026-09-01'
+    review_reason: benchmark_monitoring
     source: docs/campaigns/public-science-dashboard.md
     notes: Strongest current public-safe benchmark surface, not a composition claim.
   source_docs:
@@ -273,6 +285,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-06-02'
+    review_interval: quarterly_planning
+    next_review_due: '2026-09-01'
+    review_reason: planning_scaffold
     source: TASK-0439
     notes: Scaffold-only campaign surface for parallel source-first work; no pinned snapshot,
       dataset, or benchmark result yet.
@@ -343,6 +358,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-06-01'
+    review_interval: quarterly_active
+    next_review_due: '2026-09-01'
+    review_reason: flagship_validation
     source: TASK-0479, TASK-0507, TASK-0516, and TASK-0517 unblock
     notes: Flagship lane remains high-value. The first full Research Factory sprint on NMD-0002
       produced no shortlist and is underpowered; TASK-0516 has now landed the source-gated
@@ -393,6 +411,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: semiannual_quality_floor
+    next_review_due: '2026-12-01'
+    review_reason: quality_floor_hygiene
     source: docs/strategy.md
     notes: Guardrail track stays useful by resisting numerology and preserving falsifications.
   source_docs:
@@ -439,6 +460,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: semiannual_quality_floor
+    next_review_due: '2026-12-01'
+    review_reason: quality_floor_hygiene
     source: docs/status.md
     notes: Quality-floor track remains useful for reproducibility and public examples.
   source_docs:
@@ -495,6 +519,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: quarterly_blocked
+    next_review_due: '2026-09-01'
+    review_reason: source_readiness
     source: docs/status.md
     notes: Source blocker is intentional scientific hygiene, not a failed campaign.
   source_docs:
@@ -557,6 +584,9 @@ campaigns:
   curator_review:
     status: current
     last_reviewed: '2026-05-29'
+    review_interval: quarterly_planning
+    next_review_due: '2026-09-01'
+    review_reason: planning_scaffold
     source: TASK-0438
     notes: Best public-friendly entry lane once the first source/baseline plan lands.
   source_docs:

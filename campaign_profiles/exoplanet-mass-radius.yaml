@@ -144,5 +144,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-06-01"
+    review_interval: quarterly_active
+    next_review_due: "2026-09-01"
+    review_reason: benchmark_monitoring
     source: "docs/campaigns/public-science-dashboard.md"
     notes: "Strongest current public-safe benchmark surface, not a composition claim."

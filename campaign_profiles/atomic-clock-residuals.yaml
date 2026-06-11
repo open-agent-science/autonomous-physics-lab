@@ -93,5 +93,8 @@ portfolio:
   curator_review:
     status: current
     last_reviewed: "2026-05-29"
+    review_interval: quarterly_active
+    next_review_due: "2026-09-01"
+    review_reason: source_readiness
     source: "TASK-QUEUE atomic baseline-readiness wave"
     notes: "High-prestige lane, but benchmark work remains gated on source and covariance semantics."
