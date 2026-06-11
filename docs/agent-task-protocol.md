@@ -235,6 +235,12 @@ preflight branches, titles, bodies, metadata, and obvious PR-shape mistakes.
 They do not decide whether a scientific result is true, whether a task should be
 accepted, or whether a PR should merge.
 
+For closeout behavior, task YAML may optionally set `closeout: auto` or
+`closeout: review`. Omitted is equivalent to `auto`; `review` opts the task out
+of safe auto-closeout and keeps it on the manual maintainer closeout path.
+`TASK-CLOSEOUT` is separate: it is the PR kind marker for closeout PR titles and
+metadata, not a task id and not a value for the task YAML field.
+
 ## Canonical Task PR Helper
 
 Before opening a canonical task PR, prefer the Python helper over ad-hoc

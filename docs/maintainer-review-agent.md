@@ -475,7 +475,7 @@ Use this mode only after the maintainer has already merged the PR.
 
    ```bash
    python3 scripts/apl_closeout_pr_helper.py scaffold \
-     --task-id TASK-XXXX \
+     --closed-task TASK-XXXX \
      --contributor-id <contributor-id> \
      --github-username <github-username> \
      --agent-id <agent-id> \
@@ -483,7 +483,7 @@ Use this mode only after the maintainer has already merged the PR.
      --human-reviewer <human-reviewer> \
      --slug <closeout-slug> \
      --description "mark task done" \
-     --include-active-board \
+     --include-task-views \
      --include-context
    ```
 
@@ -492,7 +492,7 @@ Use this mode only after the maintainer has already merged the PR.
 
    ```bash
    python3 scripts/apl_closeout_pr_helper.py scaffold \
-     --task-id TASK-XXXX \
+     --closed-task TASK-XXXX \
      --contributor-id <contributor-id> \
      --github-username <github-username> \
      --agent-id <agent-id> \
@@ -500,7 +500,7 @@ Use this mode only after the maintainer has already merged the PR.
      --human-reviewer <human-reviewer> \
      --slug <closeout-slug> \
      --description "mark task done" \
-     --include-active-board \
+     --include-task-views \
      --include-context \
      --body-only > /tmp/apl-closeout-pr-body.md
    ```
