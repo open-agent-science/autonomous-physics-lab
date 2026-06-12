@@ -57,7 +57,7 @@ sources:
       values are direct table entries, source calibration outputs, or
       curve-read values.
     license_note: "ACS publication; DOI-pinned metadata only. Do not redistribute tables or figures without permission."
-    checksum_policy: maintainer_or_institutional_source_copy_pending
+    checksum_policy: doi_pinned
     notes: >
       Candidate for absorption_peak_eV-only dataset curation. Do not mix with
       photoluminescence or bandgap residuals in benchmark metrics.
