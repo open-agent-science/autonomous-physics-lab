@@ -16,6 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0723` - Add recurring structural bottleneck escalation rule for agents (`agent_workflow`, priority `high`, difficulty `medium`, domain `agent_workflow`)
-- `TASK-0724` - Add self-cleaning PR-review worktrees with age-based GC (`tooling_reliability`, priority `high`, difficulty `medium`, domain `tooling_reliability`)
-- `TASK-0727` - Document result_artifact_policy and warn before DONE when it is missing (`repository_hardening`, priority `high`, difficulty `medium`, domain `repository_hardening`)
+None.
