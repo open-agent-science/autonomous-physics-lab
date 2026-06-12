@@ -1,7 +1,7 @@
 id: TASK-0707
 title: "Confirm Stellar M-L DEBCat Route 2 storage decision"
 type: research_quality_gate
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,6 +33,14 @@ accepted_outputs:
   - "docs/reviews/stellar-ml-debcat-storage-route-decision.md"
   - "optional data/textbook_formula_audit/stellar_ml/source_manifest.yaml update"
   - "optional data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml update"
+
+result_artifact_policy:
+  required: false
+  reason: "Planning-only source storage route decision; authorizes the next row-curation route but produces no scientific RESULT artifact."
+  evidence:
+    - "docs/reviews/stellar-ml-debcat-storage-route-decision.md"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+    - "data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml"
 
 validation:
   commands:
