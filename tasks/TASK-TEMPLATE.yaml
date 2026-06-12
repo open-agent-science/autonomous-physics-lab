@@ -50,6 +50,20 @@ accepted_outputs:
   - "tests"
   - "docs update"
 
+# Result-artifact policy. A task that is marked DONE is expected to link a
+# scientific RESULT (results/.../result.yaml) or a registered PRED artifact,
+# UNLESS its `type` is on the no-result exemption list in
+# physics_lab/registry/scientific_memory_integrity.py (e.g. tooling_fix,
+# documentation, repository_hardening). If this task legitimately produces no
+# RESULT/PRED artifact and its type is NOT exempt (tooling, docs, workflow,
+# infra, audit, planning), declare that explicitly here, or strict closeout
+# validation will warn (done_task_without_result). See docs/agent-task-protocol.md.
+# result_artifact_policy:
+#   required: false
+#   reason: "Tooling/docs/workflow task; no scientific RESULT artifact is expected."
+#   evidence:
+#     - "path/to/the/code/or/doc/this/task/produced"
+
 validation:
   commands:
     - "python3 -m ruff check ."

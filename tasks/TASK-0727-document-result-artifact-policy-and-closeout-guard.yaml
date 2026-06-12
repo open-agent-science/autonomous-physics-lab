@@ -1,0 +1,64 @@
+id: TASK-0727
+title: "Document result_artifact_policy and warn before DONE when it is missing"
+type: repository_hardening
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stop tooling/docs tasks from hitting the done_task_without_result check at closeout instead of earlier."
+  - "Make result_artifact_policy discoverable in the task template and protocol instead of only in validator code."
+  - "Shift the no-result check left: warn at closeout-report time, before the task is set DONE."
+
+input:
+  mode: workflow
+  related_domain: repository_hardening
+  related_objects:
+    - "physics_lab/registry/scientific_memory_integrity.py"
+    - "physics_lab/registry/task_closeout.py"
+    - "tasks/TASK-TEMPLATE.yaml"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    The strict scientific-memory check raises done_task_without_result only once a
+    task is DONE, and result_artifact_policy is absent from both the task template
+    and the protocol. So a non-result tooling/docs task can pass every check while
+    REVIEW_READY and only fail at closeout (observed on TASK-0724/0725/0726, type
+    tooling_reliability). Rather than broaden the global no-result type-exemption
+    list (which would silently weaken the control), this task keeps the explicit
+    per-task policy and makes it visible and early: document it in the template
+    and protocol, and add a closeout-report guard that warns before DONE when a
+    non-exempt task links no result/PRED artifact and declares no policy.
+
+requirements:
+  - "Do not add task types to STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS; keep the explicit result_artifact_policy path as the documented mechanism for non-result tasks."
+  - "Expose a reusable check that mirrors the DONE done_task_without_result rule (type not exempt, no committed PRED, no linked result, no result_artifact_policy) for shift-left use."
+  - "Have task_closeout.build_closeout_report add a warning when that check flags the task, so the gap surfaces before DONE instead of at closeout strict validation."
+  - "Add a commented result_artifact_policy block with guidance to tasks/TASK-TEMPLATE.yaml."
+  - "Add a protocol rule to docs/agent-task-protocol.md explaining when a task needs result_artifact_policy vs when its type is already exempt."
+  - "Keep it portable: pathlib, UTF-8, no hardcoded /tmp or python3, no new .sh on the critical path."
+
+accepted_outputs:
+  - "reusable shift-left result-artifact advisory in scientific_memory_integrity.py"
+  - "closeout-report warning wired into task_closeout.py"
+  - "commented result_artifact_policy block in TASK-TEMPLATE.yaml"
+  - "protocol rule in docs/agent-task-protocol.md"
+  - "focused tests for the advisory and the closeout warning"
+
+result_artifact_policy:
+  required: false
+  reason: "Repository-hardening task; documents and guards the result-policy rule, produces no scientific RESULT artifact."
+  evidence:
+    - "physics_lab/registry/scientific_memory_integrity.py"
+    - "physics_lab/registry/task_closeout.py"
+    - "docs/agent-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_scientific_memory_integrity.py tests/test_task_closeout.py tests/test_task_reference_convention.py tests/test_docs_links.py"
+    - "python3 -m ruff check physics_lab/registry/scientific_memory_integrity.py physics_lab/registry/task_closeout.py tests"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human

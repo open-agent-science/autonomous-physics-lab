@@ -5,6 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from physics_lab.registry.scientific_memory_integrity import (
+    result_artifact_policy_advice,
+)
 from physics_lab.registry.task_discovery import find_task_files
 from physics_lab.registry.tasks import load_task
 
@@ -80,6 +83,12 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
             f"{status}, not REVIEW_READY. Closeout normally starts from "
             "REVIEW_READY after merge."
         )
+
+    # Shift-left guard: surface the missing result_artifact_policy before DONE so
+    # the no-result check does not first fail at closeout strict validation.
+    policy_advice = result_artifact_policy_advice(payload, root_path=root)
+    if policy_advice is not None:
+        warnings.append(policy_advice)
 
     if status == "REVIEW_READY":
         suggested_actions.append(
