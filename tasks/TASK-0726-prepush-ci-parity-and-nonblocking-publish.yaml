@@ -42,6 +42,14 @@ accepted_outputs:
   - "non-blocking PR-publish guidance in the worktree discipline notes"
   - "focused tests for the default vs --full gate set, interpreter resolution, and failure exit code"
 
+result_artifact_policy:
+  required: false
+  reason: "Tooling reliability task; no scientific RESULT artifact is expected."
+  evidence:
+    - "physics_lab/registry/prepush_check.py"
+    - "scripts/apl_prepush_check.py"
+    - "docs/notes/agent-worktree-discipline.md"
+
 validation:
   commands:
     - "python3 -m pytest tests/test_prepush_check.py tests/test_docs_links.py tests/test_task_reference_convention.py"
