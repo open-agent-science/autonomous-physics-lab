@@ -1,0 +1,54 @@
+id: TASK-0725
+title: "Review and finish-gate helpers run validation with the repository venv"
+type: tooling_reliability
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stop false BLOCKED review verdicts caused by running task validation on an unsupported interpreter."
+  - "Make `apl_review_pr.py` reliable regardless of which python launched it, so agents and contributors do not have to remember to activate the repo venv first."
+  - "Reuse the venv discovery the agent doctor already trusts instead of duplicating it."
+
+input:
+  mode: workflow
+  related_domain: tooling_reliability
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_pr_finish_gate.py"
+    - "scripts/apl_agent_doctor.py"
+  planning_context: >
+    The maintainer review helper runs each task validation command through
+    `_portable_validation_command`, which rewrites a `python3`/`python` prefix to
+    `sys.executable`. When the helper is launched with a bare system interpreter
+    older than the project minimum (for example macOS python 3.9.6), the rewritten
+    pytest run aborts on the runtime guard and the review returns a false BLOCKED
+    that has nothing to do with the diff (observed on PR #1029). The agent doctor
+    already locates the repository `.venv` interpreter; this task extracts that
+    discovery into a shared helper and points review-time validation at it, with a
+    safe fallback to `sys.executable` when no repo venv exists.
+
+requirements:
+  - "Add a shared, cross-platform helper that resolves the repository venv python (`.venv/bin/python` or `.venv/Scripts/python.exe`, including the git common-dir parent for worktrees) and falls back to `sys.executable` when none exists."
+  - "Use the resolved repository python for review-time task validation in `physics_lab/registry/maintainer_review.py` instead of always using `sys.executable`."
+  - "Refactor `scripts/apl_agent_doctor.py` to reuse the shared discovery helper instead of its private duplicate, with no behavior change to the doctor."
+  - "Never hard-require a venv: when no repository venv is found, behavior must match today (use `sys.executable`)."
+  - "Keep it portable: pathlib, arg-list subprocesses, UTF-8, no hardcoded `/tmp` or `python3`, no new `.sh` on the critical path."
+
+accepted_outputs:
+  - "shared repository-python resolver module"
+  - "review validation wired to the resolved repository python"
+  - "agent doctor refactored onto the shared helper"
+  - "focused tests for venv discovery, worktree common-dir fallback, and sys.executable fallback"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_repo_python.py tests/test_maintainer_review.py tests/test_agent_doctor.py"
+    - "python3 -m ruff check physics_lab/registry/repo_python.py physics_lab/registry/maintainer_review.py scripts/apl_agent_doctor.py tests"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human

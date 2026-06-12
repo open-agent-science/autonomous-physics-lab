@@ -27,6 +27,7 @@ from physics_lab.registry.review_worktree_gc import (
     gc_review_worktrees,
     teardown_own_worktree,
 )
+from physics_lab.registry.repo_python import resolve_validation_python
 from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.pr_capability import find_gh_path
 from physics_lab.registry.task_discovery import find_task_files
@@ -353,11 +354,20 @@ def review_bundle_branch(path: Path) -> str | None:
     return None
 
 
-def _portable_validation_command(command_text: str) -> str:
-    """Run validation through local portable executables where needed."""
+def _portable_validation_command(
+    command_text: str, *, python_executable: str | None = None
+) -> str:
+    """Run validation through local portable executables where needed.
+
+    ``python_executable`` is the interpreter used for ``python3``/``python``
+    validation commands; it defaults to ``sys.executable``. Callers with a
+    repository root pass the resolved repo-venv interpreter so validation does not
+    run on an unsupported launcher (see TASK-0725).
+    """
+    interpreter = python_executable or sys.executable
     for launcher in ("python3 ", "python "):
         if command_text.startswith(launcher):
-            return f'"{sys.executable}" {command_text.removeprefix(launcher)}'
+            return f'"{interpreter}" {command_text.removeprefix(launcher)}'
     if _looks_like_repo_shell_script(command_text):
         bash = _git_bash_path()
         if bash is not None:
@@ -433,6 +443,9 @@ def run_task_validation(
     failed_commands: list[str] = []
     executed_commands: list[str] = []
     skipped_commands: list[str] = []
+    # Prefer the repository venv interpreter so validation never runs on an
+    # unsupported launcher (e.g. a bare system python 3.9) — see TASK-0725.
+    validation_python = resolve_validation_python(root)
     for command in task_payload.get("validation", {}).get("commands", []):
         command_text = str(command)
         if any(token in command_text for token in skip_commands_containing):
@@ -444,7 +457,7 @@ def run_task_validation(
             continue
         executed_commands.append(local_command)
         result = run_command(
-            _portable_validation_command(local_command),
+            _portable_validation_command(local_command, python_executable=validation_python),
             cwd=root,
             shell=True,
             # The full local pytest fallback (used when GitHub checks are not yet
