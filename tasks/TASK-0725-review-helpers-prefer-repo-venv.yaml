@@ -42,6 +42,14 @@ accepted_outputs:
   - "agent doctor refactored onto the shared helper"
   - "focused tests for venv discovery, worktree common-dir fallback, and sys.executable fallback"
 
+result_artifact_policy:
+  required: false
+  reason: "Tooling reliability task; no scientific RESULT artifact is expected."
+  evidence:
+    - "physics_lab/registry/repo_python.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_agent_doctor.py"
+
 validation:
   commands:
     - "python3 -m pytest tests/test_repo_python.py tests/test_maintainer_review.py tests/test_agent_doctor.py"
