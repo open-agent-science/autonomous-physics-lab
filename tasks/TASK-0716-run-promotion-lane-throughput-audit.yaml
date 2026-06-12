@@ -1,7 +1,7 @@
 id: TASK-0716
 title: "Run promotion-lane throughput audit for result and claim candidates"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
