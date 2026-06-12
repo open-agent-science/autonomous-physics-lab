@@ -191,7 +191,39 @@ verdict. Cleanup is layered so no contributor or agent has to remember it:
 The cleanup never touches the normal task worktrees described in sections 1–4;
 only `.worktrees/_reviews` disposable review checkouts are in scope.
 
-## 7. Files
+## 7. Fast, non-blocking PR publish (TASK-0726)
+
+Two habits keep PR publication cheap.
+
+**Run the CI-parity gate before pushing.** A task's declared
+`validation.commands` is often narrower than what CI runs, so a PR can pass
+locally and then fail the CI fast-tests job (for example on
+`test_task_reference_convention.py`), costing a 3-6 minute round-trip. Run the
+gate that mirrors CI first:
+
+```bash
+python3 scripts/apl_prepush_check.py        # ruff + targeted docs/task tests + strict validate-repo
+python3 scripts/apl_prepush_check.py --full # whole fast suite (validate_fast.py)
+```
+
+It runs with the repository venv interpreter, so launching with a bare system
+python does not produce false failures.
+
+**Do not foreground-watch CI after opening the PR.** Publication is
+non-blocking: open the draft PR, run the finish gate **once**, and move on to the
+next task.
+
+```bash
+python3 scripts/apl_pr_finish_gate.py --pr <number>   # review + CI check + mark ready, one shot
+```
+
+If CI is still pending or the review is not yet `MERGE_OK`, the finish gate
+leaves the PR a draft and reports the next command. Re-run it later (or rely on a
+maintainer/scheduled re-check) instead of blocking on `gh pr checks --watch`.
+Activate the repo venv (or let the helpers resolve it) so review-time validation
+runs on a supported interpreter — see section 6 and TASK-0725.
+
+## 8. Files
 
 - [`scripts/apl_new_worktree.sh`](../../scripts/apl_new_worktree.sh)
 - [`scripts/apl_branch_precondition.py`](../../scripts/apl_branch_precondition.py)
@@ -201,6 +233,10 @@ only `.worktrees/_reviews` disposable review checkouts are in scope.
 - [`scripts/apl_worktree_gc.py`](../../scripts/apl_worktree_gc.py) (review-worktree GC)
 - [`physics_lab/registry/review_worktree_gc.py`](../../physics_lab/registry/review_worktree_gc.py)
   (GC core: self-cleanup, age-based backstop, doctor diagnostic)
+- [`scripts/apl_prepush_check.py`](../../scripts/apl_prepush_check.py) (pre-push CI-parity gate)
+- [`physics_lab/registry/prepush_check.py`](../../physics_lab/registry/prepush_check.py)
+  (pre-push gate core)
 - [`tests/test_apl_branch_precondition.py`](../../tests/test_apl_branch_precondition.py)
 - [`tests/test_apl_lane_precondition.py`](../../tests/test_apl_lane_precondition.py)
 - [`tests/test_review_worktree_gc.py`](../../tests/test_review_worktree_gc.py)
+- [`tests/test_prepush_check.py`](../../tests/test_prepush_check.py)
