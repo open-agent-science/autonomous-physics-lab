@@ -1,7 +1,7 @@
 id: TASK-0701
 title: "Predeclare MD-0002 formation-energy benchmark and control plan"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,6 +33,12 @@ requirements:
 accepted_outputs:
   - "docs/reviews/materials-md0002-benchmark-control-plan.md"
   - "optional examples/materials_md0002_formation_energy.yaml skeleton with no real metrics"
+
+result_artifact_policy:
+  required: false
+  reason: "Planning-only benchmark protocol task; freezes controls and success margins before MD-0002 rows exist, but produces no scientific RESULT artifact."
+  evidence:
+    - "docs/reviews/materials-md0002-benchmark-control-plan.md"
 
 validation:
   commands:
