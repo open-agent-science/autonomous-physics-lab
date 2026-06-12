@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0729` - Add curator-pool metadata for focused campaign sessions (`architecture`, priority `high`, difficulty `medium`, domain `campaign_portfolio_architecture`)
