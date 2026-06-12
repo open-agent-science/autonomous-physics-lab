@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0728` - Fix closeout sweep exact merged-PR fallback (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
