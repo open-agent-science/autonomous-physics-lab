@@ -377,7 +377,8 @@ sources:
       SAXS mean diameters and UV-vis 1s-1s excitonic transitions in Table 1,
       not polynomial-generated sizing-curve evaluations. Expected future row
       class is table_derived pending primary PDF verification. See
-      docs/reviews/quantum-cds-vossmeyer-source-artifact-verification.md.
+      docs/reviews/quantum-cds-vossmeyer-source-artifact-verification.md and
+      docs/reviews/quantum-vossmeyer-source-copy-handoff.md.
 
   - source_id: prasad-2017-nanomaterials-cdse-zns-laser
     title: "A High Power, Frequency Tunable Colloidal Quantum Dot (CdSe/ZnS) Laser"
