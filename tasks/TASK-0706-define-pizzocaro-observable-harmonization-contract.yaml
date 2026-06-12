@@ -1,7 +1,7 @@
 id: TASK-0706
 title: "Define Pizzocaro observable-harmonization contract for Atomic diagnostics"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -31,6 +31,15 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/atomic-pizzocaro-observable-harmonization-contract.md"
+
+result_artifact_policy:
+  required: false
+  reason: >
+    Planning-only observable-harmonization contract; defines a sensitivity-only
+    diagnostic residual axis and preserves benchmark/publication blockers, but
+    produces no scientific RESULT artifact.
+  evidence:
+    - "docs/reviews/atomic-pizzocaro-observable-harmonization-contract.md"
 
 validation:
   commands:
