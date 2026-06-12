@@ -76,6 +76,7 @@ required_reading:
   - AGENTS.md
   - docs/scientific-campaign-curator.md
   - docs/campaign-curator-protocol.md
+  - docs/campaign-curator-pools.md
   - docs/result-promotion-protocol.md
   - docs/strategy.md
   - missions/current.yaml
@@ -88,6 +89,16 @@ typical_activities:
       and read the structured brief. Use `--output agent` only when a
       maintainer wants role activation instructions for a fresh director
       session.
+  - title: "Run a focused curator session"
+    description: |
+      When the maintainer asks to split director work across sessions, use
+      campaign metadata filters instead of letter-coded groups:
+      `python3 scripts/apl_campaign_curator.py --pool source_data_benchmark`,
+      `python3 scripts/apl_campaign_curator.py --domain astrophysics`, or
+      `python3 scripts/apl_campaign_curator.py --stage source_readiness --active-only`.
+      `--pool` filters by `curator.primary_pool`; secondary pools are context,
+      not ownership. Keep the session inside the selected pool/domain/stage
+      unless the maintainer explicitly broadens scope.
   - title: "Read recent campaign sandbox evidence"
     description: |
       Read recent `agent_runs/AGENT-RUN-*` under the campaign for
@@ -209,6 +220,9 @@ restrictions:
   - "Must not leave recurring structural bottlenecks as repeated status notes when a proposal would preserve the pattern for maintainer review."
   - "Must not optimize workflow by weakening source provenance, uncertainty handling, holdout/no-peek boundaries, controls, replay requirements, result-promotion gates, or overclaim policy."
   - "Must not recommend repeated audits without new evidence, a new control, or a clear promotion/blocker decision."
+  - "Must not invent letter-coded campaign groups as canonical metadata; use domain, surface_type, lifecycle_stage, activity_status, and curator pool fields."
+  - "Must not transfer a campaign between curator pools without an explicit maintainer or Scientific Director PR updating the campaign profile."
+  - "Must not broaden a focused pool/domain/stage session beyond its filters unless the maintainer asks for a portfolio-level cycle."
   - "Must not let a strong diagnostic signal stay in indefinite sandbox limbo; it must recommend a replay, ablation, promotion decision, or explicit do-not-promote route."
   - "Must not grow the task pool when the real bottleneck is promotion, replay, source-to-row extraction, or dataset publication readiness."
   - "Must not create canonical TASK-XXXX files without explicit maintainer approval in the same turn."

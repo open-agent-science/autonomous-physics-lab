@@ -51,6 +51,10 @@ Each generated campaign entry records:
 - `id` and `title`;
 - `status`;
 - `domain`;
+- `surface_type`;
+- `lifecycle_stage`;
+- `activity_status`;
+- `curator`;
 - `current_stage`;
 - `agent_capacity`;
 - `best_next_actions`;
@@ -60,6 +64,12 @@ Each generated campaign entry records:
 - `current_results`;
 - `open_questions`;
 - `curator_review`.
+
+`domain` is the science domain. `curator.primary_pool` is the operational
+ownership shard for focused Scientific Campaign Director sessions. These are
+different dimensions; do not use domain values as curator-session groups.
+For pool vocabulary and transfer rules, see
+[Campaign Curator Pools](./campaign-curator-pools.md).
 
 The schema lives at
 `physics_lab/schemas/campaign_catalog.schema.json`. Repository validation loads
@@ -100,6 +110,23 @@ Good capacity notes name the safe split:
 
 Bad capacity notes say only "more agents welcome" without naming disjoint
 artifact surfaces.
+
+## Curator Pools
+
+Use `curator.primary_pool` to run focused curator sessions without changing the
+Scientific Campaign Director prompt:
+
+```bash
+python3 scripts/apl_campaign_curator.py --pool source_data_benchmark
+python3 scripts/apl_campaign_curator.py --domain astrophysics
+python3 scripts/apl_campaign_curator.py --stage source_readiness --active-only
+```
+
+`--pool` matches primary ownership only. `curator.secondary_pools` provides
+handoff context but does not automatically include a campaign in another
+session. Pool transfers require a maintainer or Scientific Campaign
+Director-approved PR; scripts may filter or warn but must not mutate
+assignment.
 
 ## Update Rules
 

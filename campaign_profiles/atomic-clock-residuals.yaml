@@ -68,6 +68,20 @@ handoff_requires:
 portfolio:
   status: pinned_dataset
   domain: precision_metrology
+  surface_type: source_pinned_benchmark
+  lifecycle_stage: source_readiness
+  activity_status: active
+  curator:
+    primary_pool: source_data_benchmark
+    secondary_pools:
+      - verifier_quality_floor
+      - result_promotion
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - source_readiness_pass
+      - updated_campaign_profile
   current_stage: "Beloy 2021 pinned rows and covariance approximation, moving toward benchmark readiness"
   recommended_parallel_agents: 2
   coordination_notes: "Second-source ingestion, loader work, and holdout/no-peek manifest can proceed in separate branches."

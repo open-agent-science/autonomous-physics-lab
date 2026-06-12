@@ -7,6 +7,8 @@ Each profile defines:
 
 - campaign id and source documentation;
 - autonomy status;
+- portfolio metadata for curator sessions (`domain`, `surface_type`,
+  `lifecycle_stage`, `activity_status`, and `curator.primary_pool`);
 - allowed hypothesis and experiment families;
 - required inputs and references;
 - required quality gates;
@@ -40,6 +42,20 @@ contract.
 Profiles may also include a `portfolio` block. That block is the editable
 source for the generated `campaign_profiles/_catalog.yaml` portfolio index;
 edit profiles, then run `python3 scripts/generate_campaign_catalog.py --write`.
+
+The portfolio block separates physics domain from curator ownership:
+
+- `domain` describes the science area;
+- `surface_type` describes the type of research surface;
+- `lifecycle_stage` describes maturity/readiness;
+- `activity_status` describes whether the campaign is active, limited,
+  support-only, planning, or watchlist;
+- `curator.primary_pool` selects the focused Scientific Campaign Director
+  session that owns the campaign;
+- `curator.secondary_pools` lists adjacent pools for context only.
+
+See [Campaign Curator Pools](../docs/campaign-curator-pools.md). Do not use
+letter-coded groups as canonical metadata.
 
 `_catalog.yaml` is a service-style generated aggregate, not an editable campaign
 profile. Profile discovery ignores `_*.yaml` files so generated helpers can live

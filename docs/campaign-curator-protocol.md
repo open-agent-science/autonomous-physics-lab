@@ -115,6 +115,19 @@ For Nuclear Mass Surface, prioritize:
 - `results/EXP-0012/`
 - nuclear review notes under `docs/reviews/`
 
+For focused director sessions across more than one campaign, use
+`campaign_profiles/_catalog.yaml` metadata rather than informal group aliases.
+The supported filters are:
+
+- `curator.primary_pool`;
+- `domain`;
+- `lifecycle_stage`;
+- `activity_status` via the `--active-only` helper.
+
+`secondary_pools` are handoff context, not automatic ownership. A campaign can
+move to another primary pool only through an explicit maintainer or Scientific
+Director PR that updates its campaign profile and explains the transfer reason.
+
 ## Modes
 
 `cycle-review` is the default mode. Use it after one or more research PRs have
@@ -124,6 +137,28 @@ merged or reached review.
 proposals, mission updates, or a pause.
 
 Both modes are maintainer-facing and advisory.
+
+## Focused Sessions
+
+When the maintainer wants several curator sessions to split the portfolio, use
+the campaign curator helper instead of naming Group A/B/C:
+
+```bash
+python3 scripts/apl_campaign_curator.py --pool source_data_benchmark
+python3 scripts/apl_campaign_curator.py --domain astrophysics --active-only
+python3 scripts/apl_campaign_curator.py --stage source_readiness --output json
+python3 scripts/apl_campaign_curator.py --pool prediction_reveal --output agent
+```
+
+Focused sessions should analyze only the matching campaigns unless the
+maintainer explicitly broadens scope. They should still obey the normal
+scientific-output filter: recommend only work that advances a source gate,
+dataset, baseline, holdout, replay/control, negative memory, result promotion,
+prediction/reveal readiness, or campaign go/no-go decision.
+
+Do not create committed `docs/campaign-views/` files just to support focused
+sessions. Those views are a separate product decision; focused sessions can use
+the catalog and CLI filters directly.
 
 ## Required Brief Sections
 

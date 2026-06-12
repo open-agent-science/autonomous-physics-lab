@@ -91,6 +91,19 @@ handoff_requires:
 portfolio:
   status: scaffold
   domain: cross_domain_physics
+  surface_type: formula_audit
+  lifecycle_stage: scaffold
+  activity_status: active
+  curator:
+    primary_pool: verifier_quality_floor
+    secondary_pools:
+      - source_data_benchmark
+      - result_promotion
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
   current_stage: "campaign scaffold and candidate slate; first source/baseline planning task is ready"
   recommended_parallel_agents: 1
   coordination_notes: "Use one formula slice at a time until source, schema, baseline, and holdout conventions are proven."

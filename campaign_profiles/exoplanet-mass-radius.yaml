@@ -120,6 +120,20 @@ handoff_requires:
 portfolio:
   status: active_secondary
   domain: astrophysics
+  surface_type: fresh_data_benchmark
+  lifecycle_stage: monitor_only
+  activity_status: active_monitor
+  curator:
+    primary_pool: prediction_reveal
+    secondary_pools:
+      - source_data_benchmark
+      - verifier_quality_floor
+      - result_promotion
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
   current_stage: "pinned PSCompPars snapshot, baseline residual maps, matched controls, null-baseline controls, host-context preflight, and benchmark-summary scorecard"
   recommended_parallel_agents: 2
   coordination_notes: "Parallel-safe for replay, checksum cleanup, evidence-card packaging, and second-snapshot protocol work on separate branches."
