@@ -1,7 +1,7 @@
 id: TASK-0723
 title: "Add recurring structural bottleneck escalation rule for agents"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 strategy_alignment:

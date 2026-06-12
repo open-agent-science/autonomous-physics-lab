@@ -1,7 +1,7 @@
 id: TASK-0706
 title: "Define Pizzocaro observable-harmonization contract for Atomic diagnostics"
 type: benchmark_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
