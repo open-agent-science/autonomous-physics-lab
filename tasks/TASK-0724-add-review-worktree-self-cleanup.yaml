@@ -1,7 +1,7 @@
 id: TASK-0724
 title: "Add self-cleaning PR-review worktrees with age-based GC"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
@@ -43,6 +43,15 @@ accepted_outputs:
   - "read-only agent doctor diagnostic for review worktree buildup"
   - "focused regression tests for dry-run, age filtering, branch-safety, and review-run self-cleanup"
   - "documentation note for safe review-worktree cleanup"
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling-reliability task; adds review-worktree cleanup helpers, tests, and documentation, but produces no scientific RESULT or PRED artifact."
+  evidence:
+    - "physics_lab/registry/review_worktree_gc.py"
+    - "scripts/apl_worktree_gc.py"
+    - "tests/test_review_worktree_gc.py"
+    - "docs/notes/agent-worktree-discipline.md"
 
 validation:
   commands:
