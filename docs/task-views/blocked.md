@@ -26,4 +26,3 @@
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)
-- `TASK-0708` - Curate Stellar M-L DEBCat component-row package (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
