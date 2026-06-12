@@ -1,7 +1,7 @@
 package_id: TFA-STELLAR-ML-SOURCE-DEBCAT-20260606
 schema_version: 0.1.0
 task_id: TASK-0628
-package_status: METADATA_ONLY_BLOCKER
+package_status: ROUTE2_CONFIRMED_RAW_BLOCKED_ROWS_ALLOWED_WITH_LEDGER
 campaign_profile_id: textbook-formula-audit
 source_id: debcat-detached-eclipsing-binaries
 source_title: DEBCat catalogue of the physical properties of well-studied eclipsing binaries
@@ -35,7 +35,7 @@ artifact:
     raw_line_count_including_header: 375
 
 redistribution:
-  redistribution_status: metadata_only_checksum_pinned_no_raw_commit
+  redistribution_status: route2_confirmed_metadata_only_checksum_no_raw_commit
   license_note: >
     The consulted DEBCat catalogue page is public and asks users to cite the
     DEBCat paper, but no explicit redistribution license for committing the
@@ -45,7 +45,14 @@ redistribution:
     Cite the DEBCat paper requested on the catalogue page before any use of
     DEBCat rows in a benchmark or review artifact.
   raw_artifact_commit_allowed: false
-  derived_artifact_commit_allowed: false
+  derived_artifact_commit_allowed: true
+  normalized_row_commit_allowed: true
+  storage_route_decision:
+    route: metadata_only_checksum_with_extraction_ledger_no_raw_debs_dat
+    decision_task: TASK-0707
+    decision_review: docs/reviews/stellar-ml-debcat-storage-route-decision.md
+    normalized_rows_require_extraction_ledger: true
+    raw_source_table_must_not_be_committed: true
 
 row_admissibility:
   row_class: direct_dynamical_mass_source_candidate
@@ -63,15 +70,14 @@ row_admissibility:
     - do_not_use_gaia_or_isochrone_model_derived_masses_as_truth
   blocker_reasons:
     - RAW_ARTIFACT_NOT_COMMITTED
-    - EXPLICIT_REDISTRIBUTION_LICENSE_NOT_FOUND
     - COMPONENT_ROW_SCHEMA_NOT_REVIEWED
-    - LICENCE_STORAGE_ROUTE_PENDING_MAINTAINER
+    - EXTRACTION_LEDGER_NOT_CREATED
 
 review:
-  review_status: metadata_pinned_rows_blocked
+  review_status: route2_storage_confirmed_rows_pending_curation
   reviewed_by: akutenyov/codex
   review_notes: >
     TASK-0628 pins the current DEBCat locator, retrieval metadata, checksum,
     source timestamp, citation posture, and row blockers. It intentionally
     does not commit value-bearing source rows or derived rows.
-  allowed_next_step: propose_or_execute_separate_debcat_row_curation_gate_after_license_and_schema_review
+  allowed_next_step: execute_separate_debcat_row_curation_gate_with_extraction_ledger_no_raw_debs_dat
