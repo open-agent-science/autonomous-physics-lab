@@ -67,12 +67,12 @@ source_families:
           - single_source_campaign_until_a_second_source_pinned
 
       - source_id: ACLOCK-SRC-CANDIDATE-2016-NEMITZ-RIKEN
-        status: source_artifact_pinned_rows_blocked
+        status: direct_ratio_row_committed
         ratio_set:
           - Yb/Sr
         lab: RIKEN
-        epoch_start: null
-        epoch_end: null
+        epoch_start: 2015-02
+        epoch_end: 2015-06
         source_locator: https://arxiv.org/abs/1601.04582
         archive_url: https://arxiv.org/pdf/1601.04582
         retrieval_date: 2026-05-30
@@ -87,13 +87,14 @@ source_families:
           page: 258
           year: 2016
           redistributable_here: false
-        value_status: source_artifact_pinned_no_values
-        dataset_path: null
+        value_status: direct_ratio_row_committed
+        dataset_path: data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml
         covariance_artifact_path: null
-        readiness_state: SOURCE_ARTIFACT_PINNED_ROWS_BLOCKED
+        readiness_state: ROW_COMMITTED_CROSS_SOURCE_TARGET
         readiness_evidence:
           - docs/reviews/atomic-second-direct-ratio-source-triage.md
           - docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md
+          - docs/reviews/atomic-nemitz-acr0002-row-curation-gate.md
         triage_role: |
           Strongest direct independent cross-check for the Beloy 2021
           Yb/Sr row (ACR-0001-ROW-003) because the species pair matches
@@ -105,12 +106,15 @@ source_families:
           That arXiv record is Akamatsu et al. 2014, not Nemitz et al. 2016.
           TASK-0452 pins the corrected Nemitz 2016 arXiv source:
           arXiv:1601.04582.
-        ingestion_blockers:
-          - table_level_arxiv_vs_nature_version_drift_cross_check_pending
-          - exact_campaign_window_not_locked_from_committed_artifact
-          - per_systematic_budget_not_transcribed_under_task_0344
-          - transition_labels_epoch_window_not_locked
-          - holdout_or_reveal_freeze_manifest_unset
+        resolved_blockers:
+          # All TASK-0452 ingestion blockers cleared by TASK-0704 using the
+          # maintainer-supplied Nature version-of-record (held locally, not
+          # committed). See docs/reviews/atomic-nemitz-acr0002-row-curation-gate.md.
+          - table_level_arxiv_vs_nature_version_drift_cross_check_pending  # NO_DRIFT
+          - exact_campaign_window_not_locked_from_committed_artifact  # 2015-02..2015-06 from VOR Fig 3
+          - per_systematic_budget_not_transcribed_under_task_0344  # Table 1 transcribed
+          - transition_labels_epoch_window_not_locked  # 171Yb/87Sr 1S0-3P0 locked
+          - holdout_or_reveal_freeze_manifest_unset  # cross_source_target bound to manifest
 
       - source_id: ACLOCK-SRC-ARTIFACT-2020-PIZZOCARO-VLBI
         status: source_artifact_pinned_rows_blocked
