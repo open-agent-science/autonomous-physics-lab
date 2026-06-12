@@ -71,6 +71,19 @@ handoff_requires:
 portfolio:
   status: source_readiness
   domain: condensed_matter
+  surface_type: source_pinned_benchmark
+  lifecycle_stage: source_readiness
+  activity_status: active_limited
+  curator:
+    primary_pool: source_data_benchmark
+    secondary_pools:
+      - verifier_quality_floor
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - source_readiness_pass
+      - updated_campaign_profile
   current_stage: "source artifacts and direct-row readiness before any baseline benchmark"
   recommended_parallel_agents: 1
   coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."

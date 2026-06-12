@@ -7,7 +7,9 @@ from pathlib import Path
 
 from physics_lab.registry.campaign_curator import (
     build_campaign_brief,
+    build_campaign_scope_brief,
     campaign_brief_json,
+    campaign_scope_brief_json,
     render_campaign_agent_prompt,
     render_campaign_brief,
 )
@@ -68,6 +70,44 @@ def test_campaign_curator_json_is_agent_readable() -> None:
     )
 
 
+def test_campaign_curator_scope_filters_by_primary_pool() -> None:
+    brief = build_campaign_scope_brief(
+        ROOT,
+        pool="source_data_benchmark",
+        active_only=True,
+    )
+
+    ids = {item.campaign_id for item in brief.matching_campaigns}
+    assert {
+        "atomic-clock-residuals",
+        "materials-property-residuals",
+        "quantum-size-effects",
+    } <= ids
+    assert "nuclear-mass-surface" not in ids
+    assert all(
+        item.primary_pool == "source_data_benchmark"
+        for item in brief.matching_campaigns
+    )
+    assert any(
+        "secondary_pools are context" in item for item in brief.session_guidance
+    )
+
+
+def test_campaign_curator_scope_json_is_agent_readable() -> None:
+    brief = build_campaign_scope_brief(ROOT, domain="classical_mechanics")
+    payload = json.loads(campaign_scope_brief_json(brief))
+
+    assert payload["scope_kind"] == "campaign_scope"
+    assert payload["filters"]["domain"] == "classical_mechanics"
+    ids = {campaign["campaign_id"] for campaign in payload["matching_campaigns"]}
+    assert "pendulum-formula-falsification" in ids
+    assert "anharmonic-oscillator" in ids
+    assert any(
+        "Do not create letter-coded groups" in item
+        for item in payload["guardrails"]
+    )
+
+
 def test_campaign_curator_prompt_preserves_authority_boundary() -> None:
     brief = build_campaign_brief(ROOT, campaign_id="nuclear-mass-surface")
     prompt = render_campaign_agent_prompt(brief)
@@ -117,6 +157,53 @@ def test_campaign_curator_script_json_smoke() -> None:
     assert payload["role_name"] == "Scientific Campaign Director"
     assert "campaign-curator" in payload["accepted_aliases"]
     assert payload["recommended_next_tasks"]
+
+
+def test_campaign_curator_script_scope_json_smoke() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_campaign_curator.py",
+            "--pool",
+            "source_data_benchmark",
+            "--active-only",
+            "--json",
+        ],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(result.stdout)
+
+    assert payload["scope_kind"] == "campaign_scope"
+    assert payload["filters"]["pool"] == "source_data_benchmark"
+    assert payload["filters"]["active_only"] is True
+    assert payload["matching_campaigns"]
+    assert all(
+        campaign["primary_pool"] == "source_data_benchmark"
+        for campaign in payload["matching_campaigns"]
+    )
+
+
+def test_campaign_curator_script_rejects_campaign_plus_scope_filter() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_campaign_curator.py",
+            "--campaign",
+            "nuclear-mass-surface",
+            "--pool",
+            "prediction_reveal",
+        ],
+        cwd=ROOT,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+
+    assert result.returncode != 0
+    assert "--campaign cannot be combined" in result.stderr
 
 
 def test_campaign_curator_script_role_director_prompt_smoke() -> None:

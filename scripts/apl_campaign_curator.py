@@ -15,9 +15,13 @@ from physics_lab.registry.campaign_curator import (  # noqa: E402
     SUPPORTED_CAMPAIGN_CURATOR_MODES,
     SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS,
     build_campaign_brief,
+    build_campaign_scope_brief,
     campaign_brief_json,
+    campaign_scope_brief_json,
     render_campaign_brief,
     render_campaign_role_instructions,
+    render_campaign_scope_brief,
+    render_campaign_scope_role_instructions,
 )
 
 
@@ -33,6 +37,26 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--campaign",
         help="Campaign id. Defaults to the top-ranked campaign in missions/current.yaml.",
+    )
+    parser.add_argument(
+        "--pool",
+        help=(
+            "Curator primary pool slug for a focused multi-campaign session, "
+            "for example source_data_benchmark or prediction_reveal."
+        ),
+    )
+    parser.add_argument(
+        "--domain",
+        help="Physics/science domain filter for a focused multi-campaign session.",
+    )
+    parser.add_argument(
+        "--stage",
+        help="Lifecycle-stage filter for a focused multi-campaign session.",
+    )
+    parser.add_argument(
+        "--active-only",
+        action="store_true",
+        help="Limit focused session filters to campaigns with active activity statuses.",
     )
     parser.add_argument(
         "--mode",
@@ -80,24 +104,53 @@ def main() -> int:
     """Run the Campaign Curator entrypoint."""
     args = build_parser().parse_args()
     root = Path(args.root).resolve()
-    brief = build_campaign_brief(
-        root,
-        campaign_id=args.campaign,
-        mode=args.mode,
-        role=args.role,
+    scope_filter_requested = any(
+        (
+            args.pool is not None,
+            args.domain is not None,
+            args.stage is not None,
+            args.active_only,
+        )
     )
+    if args.campaign and scope_filter_requested:
+        raise SystemExit(
+            "--campaign cannot be combined with --pool/--domain/--stage/--active-only; "
+            "run either a single-campaign brief or a focused scope brief."
+        )
     output = args.output
     if args.agent_prompt:
         output = "agent"
     elif args.json:
         output = "json"
 
-    if output == "agent":
-        print(render_campaign_role_instructions(brief))
-    elif output == "json":
-        print(campaign_brief_json(brief))
+    if scope_filter_requested:
+        scope_brief = build_campaign_scope_brief(
+            root,
+            pool=args.pool,
+            domain=args.domain,
+            stage=args.stage,
+            active_only=args.active_only,
+            role=args.role,
+        )
+        if output == "agent":
+            print(render_campaign_scope_role_instructions(scope_brief))
+        elif output == "json":
+            print(campaign_scope_brief_json(scope_brief))
+        else:
+            print(render_campaign_scope_brief(scope_brief))
     else:
-        print(render_campaign_brief(brief))
+        brief = build_campaign_brief(
+            root,
+            campaign_id=args.campaign,
+            mode=args.mode,
+            role=args.role,
+        )
+        if output == "agent":
+            print(render_campaign_role_instructions(brief))
+        elif output == "json":
+            print(campaign_brief_json(brief))
+        else:
+            print(render_campaign_brief(brief))
     return 0
 
 

@@ -72,6 +72,18 @@ handoff_requires:
 portfolio:
   status: quality_floor
   domain: physics_validation
+  surface_type: quality_floor
+  lifecycle_stage: mature
+  activity_status: active_support
+  curator:
+    primary_pool: verifier_quality_floor
+    secondary_pools:
+      - result_promotion
+    review_cadence: as_needed
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
   current_stage: "mature validator MVP with challenge-entry and limitation-probe follow-up value"
   recommended_parallel_agents: 1
   coordination_notes: "Best for small challenge-entry or limitation-probe work; avoid concurrent edits to the same challenge set."

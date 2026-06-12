@@ -71,6 +71,18 @@ handoff_requires:
 portfolio:
   status: quality_floor
   domain: classical_mechanics
+  surface_type: quality_floor
+  lifecycle_stage: mature
+  activity_status: active_support
+  curator:
+    primary_pool: verifier_quality_floor
+    secondary_pools:
+      - result_promotion
+    review_cadence: as_needed
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
   current_stage: "validated-in-range benchmark with replay and candidate-limit comparison value"
   recommended_parallel_agents: 1
   coordination_notes: "Use as a bounded replay/follow-up benchmark; avoid broad candidate expansion without a task."

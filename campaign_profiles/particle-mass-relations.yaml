@@ -77,6 +77,19 @@ handoff_requires:
 portfolio:
   status: guardrail
   domain: particle_physics
+  surface_type: guardrail_falsification
+  lifecycle_stage: mature
+  activity_status: active_support
+  curator:
+    primary_pool: verifier_quality_floor
+    secondary_pools:
+      - result_promotion
+      - frontier_planning
+    review_cadence: as_needed
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
   current_stage: "falsification-first quality floor with strict numerology guardrails"
   recommended_parallel_agents: 1
   coordination_notes: "Use for provenance, uncertainty, or negative-result memory only unless a maintainer opens a narrow task."

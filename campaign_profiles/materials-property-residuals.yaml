@@ -72,6 +72,20 @@ handoff_requires:
 portfolio:
   status: scaffold
   domain: materials_science
+  surface_type: source_pinned_benchmark
+  lifecycle_stage: source_readiness
+  activity_status: active
+  curator:
+    primary_pool: source_data_benchmark
+    secondary_pools:
+      - verifier_quality_floor
+      - result_promotion
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - source_readiness_pass
+      - updated_campaign_profile
   current_stage: "campaign scaffold and source policy; pinned source snapshot planning not started"
   recommended_parallel_agents: 1
   coordination_notes: "Use one source class at a time until source-manifest, schema, baseline, and holdout conventions are proven; avoid concurrent edits to the same scaffold file."
