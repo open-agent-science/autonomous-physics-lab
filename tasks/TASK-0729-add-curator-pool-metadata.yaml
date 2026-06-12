@@ -1,0 +1,65 @@
+id: TASK-0729
+title: "Add curator-pool metadata for focused campaign sessions"
+type: architecture
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Let one Scientific Campaign Director role run focused sessions over stable campaign slices without hardcoded Group A/B/C labels."
+  - "Prepare campaign metadata for 100+ future campaigns by separating physics domain, work-surface type, lifecycle stage, activity status, and curator ownership pool."
+  - "Keep curator sharding lightweight: metadata and filters only, no database, dashboard, automatic transfers, or generated campaign-view pages."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio_architecture
+  related_objects:
+    - "campaign_profiles/*.yaml"
+    - "campaign_profiles/_catalog.yaml"
+    - "scripts/generate_campaign_catalog.py"
+    - "scripts/apl_campaign_curator.py"
+    - "agents/scientific-curator.yaml"
+    - "docs/campaign-registry.md"
+  planning_context: >
+    The maintainer wants to run several Scientific Campaign Director sessions,
+    each focused on a stable subset of campaigns, without creating separate
+    prompts or letter-coded groups. The scalable shape is campaign metadata:
+    domain, surface_type, lifecycle_stage, activity_status, and curator
+    primary/secondary pools.
+
+requirements:
+  - "Do not introduce Group A/B/C or other letter aliases as canonical truth."
+  - "Keep physics domain separate from curator ownership pool."
+  - "Add stable curator pools as slugs, not human shorthand."
+  - "Campaigns may have one primary pool and multiple secondary pools."
+  - "Treat pool transfer as a maintainer or Scientific Director PR decision; scripts may filter or warn but must not mutate assignments automatically."
+  - "Do not add committed docs/campaign-views/ generated pages in this task."
+  - "Update the Scientific Campaign Director role so focused sessions can use pool/domain/stage/activity filters."
+
+accepted_outputs:
+  - "campaign profile metadata for domain, surface_type, lifecycle_stage, activity_status, and curator pools"
+  - "generated campaign catalog carrying the new metadata"
+  - "campaign catalog schema and generator validation for the new metadata"
+  - "apl_campaign_curator.py filters for pool/domain/stage/active-only focused sessions"
+  - "Scientific Campaign Director role instructions for focused campaign sessions"
+  - "tests for catalog metadata and curator filters"
+
+result_artifact_policy:
+  required: false
+  reason: "Architecture and curator-workflow metadata task; produces no scientific RESULT, PRED, CLAIM, or KNOW artifact."
+  evidence:
+    - "campaign_profiles/_catalog.yaml"
+    - "scripts/apl_campaign_curator.py"
+    - "agents/scientific-curator.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_campaign_registry.py tests/test_campaign_curator.py"
+    - "python3 -m ruff check scripts/generate_campaign_catalog.py scripts/apl_campaign_curator.py physics_lab/registry/campaign_curator.py tests/test_campaign_registry.py tests/test_campaign_curator.py"
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human

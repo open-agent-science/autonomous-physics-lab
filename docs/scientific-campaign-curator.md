@@ -185,10 +185,23 @@ python3 scripts/apl_campaign_curator.py --role curator --campaign nuclear-mass-s
 python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface --output json
 python3 scripts/apl_campaign_curator.py --role director --campaign nuclear-mass-surface --output agent
 python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface --mode cycle-review
+python3 scripts/apl_campaign_curator.py --pool source_data_benchmark
+python3 scripts/apl_campaign_curator.py --domain astrophysics --active-only
+python3 scripts/apl_campaign_curator.py --stage source_readiness --output json
 ```
 
 If no campaign is supplied, the script uses the top-ranked campaign from
 `missions/current.yaml`.
+
+For focused multi-campaign sessions, use metadata filters from
+`campaign_profiles/_catalog.yaml` instead of informal letter aliases. `--pool`
+matches `curator.primary_pool`; `secondary_pools` are context for handoffs and
+review, not automatic ownership. Campaigns may move between pools only through
+an explicit maintainer or Scientific Director PR that updates the campaign
+profile.
+
+Do not add or depend on generated `docs/campaign-views/` files for focused
+sessions unless a separate task explicitly asks for committed generated views.
 
 Do not confuse this with `python3 scripts/apl_mission.py --output agent`,
 which remains the normal instruction output for a task-executing Researcher.

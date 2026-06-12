@@ -116,6 +116,19 @@ factory_stop_rules:
 portfolio:
   status: flagship_validation
   domain: nuclear_physics
+  surface_type: prediction_reveal
+  lifecycle_stage: reveal_blocked
+  activity_status: active
+  curator:
+    primary_pool: prediction_reveal
+    secondary_pools:
+      - result_promotion
+      - verifier_quality_floor
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
   current_stage: "frozen baseline, sandbox diagnostics, Research Factory available, NMD-0002 underpowered, NMD-0003 source-gated training surface ready for the first large factory sprint"
   recommended_parallel_agents: 3
   coordination_notes: "Parallel work is useful when lanes are disjoint: NMD-0003 factory sprint execution, NMD-0002 uncertainty controls, negative/preflight packaging, reveal-readiness, or independent replay/validation of already landed sandbox evidence. Do not launch another full Nuclear factory sprint on NMD-0002."

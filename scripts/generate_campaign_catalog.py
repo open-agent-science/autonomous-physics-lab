@@ -32,6 +32,55 @@ CURATOR_REVIEW_REASONS = frozenset(
         "quality_floor_hygiene",
     }
 )
+CURATOR_POOLS = frozenset(
+    {
+        "frontier_planning",
+        "prediction_reveal",
+        "result_promotion",
+        "source_data_benchmark",
+        "verifier_quality_floor",
+    }
+)
+SURFACE_TYPES = frozenset(
+    {
+        "formula_audit",
+        "fresh_data_benchmark",
+        "guardrail_falsification",
+        "prediction_reveal",
+        "quality_floor",
+        "source_pinned_benchmark",
+    }
+)
+LIFECYCLE_STAGES = frozenset(
+    {
+        "active_benchmark",
+        "mature",
+        "monitor_only",
+        "pinned_dataset",
+        "reveal_blocked",
+        "scaffold",
+        "source_readiness",
+    }
+)
+ACTIVITY_STATUSES = frozenset(
+    {
+        "active",
+        "active_limited",
+        "active_monitor",
+        "active_support",
+        "planning",
+        "watchlist",
+    }
+)
+CURATOR_REVIEW_CADENCES = frozenset(
+    {
+        "as_needed",
+        "biweekly",
+        "monthly",
+        "quarterly",
+        "weekly",
+    }
+)
 ISO_DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -81,6 +130,76 @@ def _validate_curator_review(path: Path, campaign_id: str, review: dict[str, Any
             )
 
 
+def _validate_enum(
+    path: Path,
+    campaign_id: str,
+    field: str,
+    value: object,
+    allowed_values: frozenset[str],
+) -> None:
+    rendered = str(value)
+    if rendered not in allowed_values:
+        allowed = ", ".join(sorted(allowed_values))
+        raise ValueError(
+            f"{path}: campaign {campaign_id} has invalid {field} {rendered!r}; "
+            f"expected one of: {allowed}"
+        )
+
+
+def _validate_curator_metadata(path: Path, campaign_id: str, portfolio: dict[str, Any]) -> None:
+    for field, allowed in (
+        ("surface_type", SURFACE_TYPES),
+        ("lifecycle_stage", LIFECYCLE_STAGES),
+        ("activity_status", ACTIVITY_STATUSES),
+    ):
+        if field not in portfolio:
+            raise ValueError(f"{path}: campaign {campaign_id} portfolio missing {field}")
+        _validate_enum(path, campaign_id, field, portfolio[field], allowed)
+
+    curator = portfolio.get("curator")
+    if not isinstance(curator, dict):
+        raise ValueError(f"{path}: campaign {campaign_id} portfolio.curator must be a mapping")
+
+    for field in (
+        "primary_pool",
+        "secondary_pools",
+        "review_cadence",
+        "transfer_requires",
+    ):
+        if field not in curator:
+            raise ValueError(f"{path}: campaign {campaign_id} curator missing {field}")
+
+    _validate_enum(path, campaign_id, "curator.primary_pool", curator["primary_pool"], CURATOR_POOLS)
+    _validate_enum(
+        path,
+        campaign_id,
+        "curator.review_cadence",
+        curator["review_cadence"],
+        CURATOR_REVIEW_CADENCES,
+    )
+
+    secondary_pools = curator["secondary_pools"]
+    if not isinstance(secondary_pools, list):
+        raise ValueError(f"{path}: campaign {campaign_id} curator.secondary_pools must be a list")
+    for pool in secondary_pools:
+        _validate_enum(path, campaign_id, "curator.secondary_pools", pool, CURATOR_POOLS)
+    if str(curator["primary_pool"]) in {str(pool) for pool in secondary_pools}:
+        raise ValueError(
+            f"{path}: campaign {campaign_id} curator.secondary_pools must not repeat primary_pool"
+        )
+
+    transfer_requires = curator["transfer_requires"]
+    if not isinstance(transfer_requires, list) or not transfer_requires:
+        raise ValueError(
+            f"{path}: campaign {campaign_id} curator.transfer_requires must be a non-empty list"
+        )
+    for requirement in transfer_requires:
+        if not isinstance(requirement, str) or not requirement:
+            raise ValueError(
+                f"{path}: campaign {campaign_id} curator.transfer_requires entries must be strings"
+            )
+
+
 def _portfolio_profiles(profile_root: Path) -> list[tuple[Path, dict[str, Any]]]:
     profiles: list[tuple[Path, dict[str, Any]]] = []
     for path in sorted(profile_root.glob("*.yaml")):
@@ -103,6 +222,7 @@ def build_catalog(root: Path = REPO_ROOT) -> dict[str, Any]:
         seen.add(campaign_id)
 
         portfolio = profile["portfolio"]
+        _validate_curator_metadata(path, campaign_id, portfolio)
         _validate_curator_review(path, campaign_id, portfolio["curator_review"])
         allowed_work = []
         allowed_work.extend(profile.get("allowed_hypothesis_families", []))
@@ -118,6 +238,10 @@ def build_catalog(root: Path = REPO_ROOT) -> dict[str, Any]:
                 "title": profile["title"],
                 "status": portfolio["status"],
                 "domain": portfolio["domain"],
+                "surface_type": portfolio["surface_type"],
+                "lifecycle_stage": portfolio["lifecycle_stage"],
+                "activity_status": portfolio["activity_status"],
+                "curator": portfolio["curator"],
                 "current_stage": portfolio["current_stage"],
                 "agent_capacity": {
                     "recommended_parallel_agents": portfolio[
@@ -139,7 +263,7 @@ def build_catalog(root: Path = REPO_ROOT) -> dict[str, Any]:
     campaigns.sort(key=lambda item: item["id"])
     return {
         "registry_version": 1,
-        "updated": "2026-05-29",
+        "updated": "2026-06-12",
         "generated_by": "scripts/generate_campaign_catalog.py",
         "source_roots": [
             "campaign_profiles/",

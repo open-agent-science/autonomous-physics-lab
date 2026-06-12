@@ -42,6 +42,17 @@ campaigns:
     title: "Example Campaign"
     status: scaffold
     domain: example_domain
+    surface_type: source_pinned_benchmark
+    lifecycle_stage: scaffold
+    activity_status: planning
+    curator:
+      primary_pool: source_data_benchmark
+      secondary_pools:
+        - verifier_quality_floor
+      review_cadence: monthly
+      transfer_requires:
+        - scientific_director_or_maintainer_pr
+        - updated_campaign_profile
     current_stage: "scaffold only"
     agent_capacity:
       recommended_parallel_agents: 1
@@ -78,6 +89,17 @@ source_docs:
 portfolio:
   status: scaffold
   domain: example_domain
+  surface_type: source_pinned_benchmark
+  lifecycle_stage: scaffold
+  activity_status: planning
+  curator:
+    primary_pool: source_data_benchmark
+    secondary_pools:
+      - verifier_quality_floor
+    review_cadence: monthly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - updated_campaign_profile
   current_stage: "scaffold only"
   recommended_parallel_agents: 1
   coordination_notes: "Use one test agent."
@@ -166,6 +188,21 @@ def test_campaign_catalog_generator_rejects_invalid_curator_review_cadence(
     (profile_dir / "example-campaign.yaml").write_text(profile_text, encoding="utf-8")
 
     with pytest.raises(ValueError, match="invalid review_interval"):
+        build_catalog(tmp_path)
+
+
+def test_campaign_catalog_generator_rejects_invalid_curator_pool(
+    tmp_path: Path,
+) -> None:
+    profile_dir = tmp_path / "campaign_profiles"
+    profile_dir.mkdir()
+    profile_text = _minimal_profile().replace(
+        "primary_pool: source_data_benchmark",
+        "primary_pool: group_b",
+    )
+    (profile_dir / "example-campaign.yaml").write_text(profile_text, encoding="utf-8")
+
+    with pytest.raises(ValueError, match="invalid curator.primary_pool"):
         build_catalog(tmp_path)
 
 

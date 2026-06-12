@@ -17,12 +17,21 @@ from typing import Any
 import yaml
 
 from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
+from physics_lab.registry.campaigns import campaign_catalog_path, load_campaign_catalog
 from physics_lab.registry.mission_control import load_current_missions
 
 
 SUPPORTED_CAMPAIGN_CURATOR_MODES = ("cycle-review", "planning")
 SUPPORTED_CAMPAIGN_CURATOR_ROLES = ("director", "curator")
 SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS = ("brief", "json", "agent")
+ACTIVE_CAMPAIGN_ACTIVITY_STATUSES = frozenset(
+    {
+        "active",
+        "active_limited",
+        "active_monitor",
+        "active_support",
+    }
+)
 
 CAMPAIGN_PROPOSAL_DIRS = {
     "nuclear-mass-surface": "nuclear-mass",
@@ -102,6 +111,42 @@ class CampaignCuratorBrief:
         return asdict(self)
 
 
+@dataclass(frozen=True)
+class CampaignScopeEntry:
+    """One campaign selected for a focused curator session."""
+
+    campaign_id: str
+    title: str
+    status: str
+    domain: str
+    surface_type: str
+    lifecycle_stage: str
+    activity_status: str
+    primary_pool: str
+    secondary_pools: tuple[str, ...]
+    recommended_parallel_agents: int
+    current_stage: str
+
+
+@dataclass(frozen=True)
+class CampaignCuratorScopeBrief:
+    """Serializable focused campaign-scope memo."""
+
+    scope_kind: str
+    role_name: str
+    accepted_aliases: tuple[str, ...]
+    maintainer_facing: bool
+    advisory_only: bool
+    filters: dict[str, str | bool | None]
+    matching_campaigns: tuple[CampaignScopeEntry, ...]
+    session_guidance: tuple[str, ...]
+    guardrails: tuple[str, ...]
+
+    def to_json_data(self) -> dict[str, Any]:
+        """Return a JSON-safe representation."""
+        return asdict(self)
+
+
 def build_campaign_brief(
     root: Path,
     *,
@@ -165,6 +210,70 @@ def build_campaign_brief(
         overclaim_public_wording_notes=_overclaim_notes(selected_campaign_id),
         guardrails=_guardrails(selected_campaign_id, campaign),
         source_paths=source_paths,
+    )
+
+
+def build_campaign_scope_brief(
+    root: Path,
+    *,
+    pool: str | None = None,
+    domain: str | None = None,
+    stage: str | None = None,
+    active_only: bool = False,
+    role: str = "director",
+) -> CampaignCuratorScopeBrief:
+    """Build an advisory focused-session brief from campaign metadata filters."""
+    if role not in SUPPORTED_CAMPAIGN_CURATOR_ROLES:
+        supported = ", ".join(SUPPORTED_CAMPAIGN_CURATOR_ROLES)
+        raise ValueError(f"Unsupported campaign role: {role}. Use: {supported}")
+
+    root = root.resolve()
+    catalog = load_campaign_catalog(campaign_catalog_path(root))
+    selected = tuple(
+        _scope_entry(campaign)
+        for campaign in catalog.get("campaigns", [])
+        if _matches_scope_filters(
+            campaign,
+            pool=pool,
+            domain=domain,
+            stage=stage,
+            active_only=active_only,
+        )
+    )
+    return CampaignCuratorScopeBrief(
+        scope_kind="campaign_scope",
+        role_name=(
+            "Scientific Campaign Director"
+            if role == "director"
+            else "Scientific Campaign Curator"
+        ),
+        accepted_aliases=(
+            "Scientific Campaign Curator",
+            "campaign-director",
+            "campaign-curator",
+            "localized equivalents of Scientific Campaign Director/Curator",
+        ),
+        maintainer_facing=True,
+        advisory_only=True,
+        filters={
+            "pool": pool,
+            "domain": domain,
+            "stage": stage,
+            "active_only": active_only,
+        },
+        matching_campaigns=tuple(
+            sorted(
+                selected,
+                key=lambda item: (
+                    item.primary_pool,
+                    item.domain,
+                    item.lifecycle_stage,
+                    item.campaign_id,
+                ),
+            )
+        ),
+        session_guidance=_scope_session_guidance(pool=pool, domain=domain, stage=stage),
+        guardrails=_scope_guardrails(),
     )
 
 
@@ -236,8 +345,48 @@ def render_campaign_brief(brief: CampaignCuratorBrief) -> str:
     return "\n".join(lines)
 
 
+def render_campaign_scope_brief(brief: CampaignCuratorScopeBrief) -> str:
+    """Render a focused campaign-scope brief."""
+    lines = [
+        "# Scientific Campaign Director Scope Brief",
+        "",
+        f"Role: maintainer-run {brief.role_name} focused session",
+        f"Filters: `{json.dumps(brief.filters, sort_keys=True)}`",
+        "",
+        "## Matching Campaigns",
+    ]
+    if brief.matching_campaigns:
+        for campaign in brief.matching_campaigns:
+            secondary = (
+                f"; secondary pools: {', '.join(campaign.secondary_pools)}"
+                if campaign.secondary_pools
+                else ""
+            )
+            lines.append(
+                f"- `{campaign.campaign_id}` — {campaign.title} "
+                f"({campaign.domain}, {campaign.surface_type}, "
+                f"{campaign.lifecycle_stage}, {campaign.activity_status}; "
+                f"primary pool: {campaign.primary_pool}{secondary}; "
+                f"capacity: {campaign.recommended_parallel_agents})"
+            )
+    else:
+        lines.append("- No campaigns matched these filters.")
+
+    lines.extend(["", "## Session Guidance"])
+    lines.extend(f"- {item}" for item in brief.session_guidance)
+
+    lines.extend(["", "## Guardrails"])
+    lines.extend(f"- {item}" for item in brief.guardrails)
+    return "\n".join(lines)
+
+
 def campaign_brief_json(brief: CampaignCuratorBrief) -> str:
     """Render campaign brief JSON for agents."""
+    return json.dumps(brief.to_json_data(), indent=2, sort_keys=False)
+
+
+def campaign_scope_brief_json(brief: CampaignCuratorScopeBrief) -> str:
+    """Render campaign scope brief JSON for agents."""
     return json.dumps(brief.to_json_data(), indent=2, sort_keys=False)
 
 
@@ -303,9 +452,131 @@ Do not:
 """
 
 
+def render_campaign_scope_role_instructions(brief: CampaignCuratorScopeBrief) -> str:
+    """Render activation instructions for a focused campaign-scope session."""
+    campaign_lines = "\n".join(
+        (
+            f"- {item.campaign_id}: {item.title} "
+            f"({item.domain}; {item.lifecycle_stage}; primary pool {item.primary_pool})"
+        )
+        for item in brief.matching_campaigns
+    )
+    guidance_lines = "\n".join(f"- {item}" for item in brief.session_guidance)
+    guardrail_lines = "\n".join(f"- {item}" for item in brief.guardrails)
+    return f"""You are the APL Scientific Campaign Director for a focused campaign session.
+Use the same Scientific Campaign Director role, but restrict attention to the campaign
+set selected by the metadata filters below. Do not invent Group A/B/C aliases; use
+stable pool/domain/stage/activity metadata from campaign_profiles/_catalog.yaml.
+
+Filters:
+{json.dumps(brief.filters, indent=2, sort_keys=True)}
+
+Campaigns in scope:
+{campaign_lines or "- No campaigns matched these filters."}
+
+Session guidance:
+{guidance_lines}
+
+Guardrails:
+{guardrail_lines}
+"""
+
+
 def render_campaign_agent_prompt(brief: CampaignCuratorBrief) -> str:
     """Backward-compatible alias for role activation instructions."""
     return render_campaign_role_instructions(brief)
+
+
+def render_campaign_scope_agent_prompt(brief: CampaignCuratorScopeBrief) -> str:
+    """Backward-compatible naming for scope role activation instructions."""
+    return render_campaign_scope_role_instructions(brief)
+
+
+def _scope_entry(campaign: dict[str, Any]) -> CampaignScopeEntry:
+    curator = campaign.get("curator", {})
+    agent_capacity = campaign.get("agent_capacity", {})
+    return CampaignScopeEntry(
+        campaign_id=str(campaign["id"]),
+        title=str(campaign["title"]),
+        status=str(campaign["status"]),
+        domain=str(campaign["domain"]),
+        surface_type=str(campaign["surface_type"]),
+        lifecycle_stage=str(campaign["lifecycle_stage"]),
+        activity_status=str(campaign["activity_status"]),
+        primary_pool=str(curator["primary_pool"]),
+        secondary_pools=tuple(str(pool) for pool in curator.get("secondary_pools", [])),
+        recommended_parallel_agents=int(agent_capacity.get("recommended_parallel_agents", 0)),
+        current_stage=str(campaign["current_stage"]),
+    )
+
+
+def _matches_scope_filters(
+    campaign: dict[str, Any],
+    *,
+    pool: str | None,
+    domain: str | None,
+    stage: str | None,
+    active_only: bool,
+) -> bool:
+    curator = campaign.get("curator", {})
+    if pool is not None and curator.get("primary_pool") != pool:
+        return False
+    if domain is not None and campaign.get("domain") != domain:
+        return False
+    if stage is not None and campaign.get("lifecycle_stage") != stage:
+        return False
+    if active_only and campaign.get("activity_status") not in ACTIVE_CAMPAIGN_ACTIVITY_STATUSES:
+        return False
+    return True
+
+
+def _scope_session_guidance(
+    *,
+    pool: str | None,
+    domain: str | None,
+    stage: str | None,
+) -> tuple[str, ...]:
+    guidance = [
+        "Use this as a focused curator session: analyze only the matching campaigns unless the maintainer explicitly broadens scope.",
+        "`--pool` matches curator.primary_pool ownership; secondary_pools are context, not automatic ownership.",
+        "Recommend tasks only when they advance source gate, dataset, baseline, holdout, replay/control, negative memory, result promotion, prediction/reveal readiness, or campaign go/no-go.",
+        "Campaign transfers between pools require a maintainer or Scientific Director PR; scripts must not mutate pool assignment automatically.",
+    ]
+    if pool == "source_data_benchmark":
+        guidance.append(
+            "Prioritize source artifacts, checksums, row readiness, loaders, and holdout manifests before metrics."
+        )
+    if pool == "prediction_reveal":
+        guidance.append(
+            "Prioritize frozen baselines, no-peek/reveal gates, reopen conditions, and controls-first negative memory."
+        )
+    if pool == "verifier_quality_floor":
+        guidance.append(
+            "Prioritize exact references, falsification boundaries, range limits, and public-safe verifier artifacts."
+        )
+    if pool == "result_promotion":
+        guidance.append(
+            "Prioritize Gate A/B routing, replay candidates, negative-result packaging, and maintainer decision backlogs."
+        )
+    if pool == "frontier_planning":
+        guidance.append(
+            "Keep work planning-only until source, schema, baseline, holdout, and overclaim gates exist."
+        )
+    if domain is not None:
+        guidance.append(f"Keep the session constrained to domain `{domain}` unless a cross-domain blocker is explicit.")
+    if stage is not None:
+        guidance.append(f"Treat lifecycle stage `{stage}` as the session boundary for readiness decisions.")
+    return tuple(guidance)
+
+
+def _scope_guardrails() -> tuple[str, ...]:
+    return (
+        "Do not create letter-coded groups as canonical metadata.",
+        "Do not add committed docs/campaign-views/ pages for this scope unless a separate task asks for generated views.",
+        "Do not create busywork just because a pool has capacity.",
+        "Do not weaken source, holdout, no-peek, control, replay, promotion, or overclaim gates.",
+        "Do not transfer a campaign between pools without a maintainer or Scientific Director-approved PR.",
+    )
 
 
 def _director_objective(role: str) -> tuple[str, ...]:

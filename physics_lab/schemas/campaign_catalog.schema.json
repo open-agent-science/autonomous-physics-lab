@@ -53,6 +53,10 @@
           "title",
           "status",
           "domain",
+          "surface_type",
+          "lifecycle_stage",
+          "activity_status",
+          "curator",
           "current_stage",
           "agent_capacity",
           "best_next_actions",
@@ -88,6 +92,79 @@
           "domain": {
             "type": "string",
             "minLength": 1
+          },
+          "surface_type": {
+            "type": "string",
+            "enum": [
+              "formula_audit",
+              "fresh_data_benchmark",
+              "guardrail_falsification",
+              "prediction_reveal",
+              "quality_floor",
+              "source_pinned_benchmark"
+            ]
+          },
+          "lifecycle_stage": {
+            "type": "string",
+            "enum": [
+              "active_benchmark",
+              "mature",
+              "monitor_only",
+              "pinned_dataset",
+              "reveal_blocked",
+              "scaffold",
+              "source_readiness"
+            ]
+          },
+          "activity_status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "active_limited",
+              "active_monitor",
+              "active_support",
+              "planning",
+              "watchlist"
+            ]
+          },
+          "curator": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "primary_pool",
+              "secondary_pools",
+              "review_cadence",
+              "transfer_requires"
+            ],
+            "properties": {
+              "primary_pool": {
+                "$ref": "#/$defs/curator_pool"
+              },
+              "secondary_pools": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/curator_pool"
+                }
+              },
+              "review_cadence": {
+                "type": "string",
+                "enum": [
+                  "as_needed",
+                  "biweekly",
+                  "monthly",
+                  "quarterly",
+                  "weekly"
+                ]
+              },
+              "transfer_requires": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
           },
           "current_stage": {
             "type": "string",
@@ -245,6 +322,16 @@
           "minLength": 1
         }
       }
+    },
+    "curator_pool": {
+      "type": "string",
+      "enum": [
+        "frontier_planning",
+        "prediction_reveal",
+        "result_promotion",
+        "source_data_benchmark",
+        "verifier_quality_floor"
+      ]
     }
   }
 }
