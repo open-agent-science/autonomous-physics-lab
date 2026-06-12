@@ -677,6 +677,40 @@ specific queue id used by the PR. Placeholders may remain only in task
 templates, future `READY` tasks, or proposal files that are not being handed off
 as completed work.
 
+## Result Artifact Policy
+
+When a task is set to `DONE`, strict scientific-memory validation expects it to
+link a scientific result (`results/.../result.yaml`) or a registered `PRED-*`
+artifact. A task that produces neither will raise the `done_task_without_result`
+warning at closeout (and `--fail-on-warnings` turns that into a failure).
+
+There are two ways a non-result task satisfies this rule:
+
+1. its `type` is on the no-result exemption list in
+   `physics_lab/registry/scientific_memory_integrity.py`
+   (`STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS`) — for example `tooling_fix`,
+   `documentation`, `repository_hardening`, `test_infrastructure`; or
+2. it declares an explicit `result_artifact_policy`.
+
+Prefer the **explicit policy** for tooling, docs, workflow, infrastructure,
+audit, and planning tasks whose `type` is not already exempt. Do not broaden the
+exemption list to dodge the check — a blanket type exemption silently weakens the
+control, while an explicit policy is an auditable per-task decision:
+
+```yaml
+result_artifact_policy:
+  required: false
+  reason: "Tooling/docs/workflow task; no scientific RESULT artifact is expected."
+  evidence:
+    - "path/to/the/code/or/doc/this/task/produced"
+```
+
+Add this block while the task is still `READY`/`IN_PROGRESS` — the closeout
+report (`build_closeout_report`) now warns when a non-exempt task links no
+result/`PRED` artifact and declares no policy, so the gap surfaces before `DONE`
+rather than at closeout strict validation. Tasks that genuinely produce a result
+need no policy block; keep `required: false` only for the no-result case.
+
 ## Cross-Platform Compatibility
 
 APL must run on Linux, macOS, and Windows so third-party agents can contribute,

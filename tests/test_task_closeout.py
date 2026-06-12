@@ -13,6 +13,7 @@ def _write_task(
     *,
     task_id: str,
     status: str,
+    task_type: str = "documentation",
     requirements: tuple[str, ...] = ("Keep output deterministic",),
 ) -> None:
     (root / "tasks").mkdir(parents=True, exist_ok=True)
@@ -22,7 +23,7 @@ def _write_task(
             [
                 f"id: {task_id}",
                 'title: "Example task"',
-                "type: documentation",
+                f"type: {task_type}",
                 f"status: {status}",
                 "difficulty: low",
                 "priority: medium",
@@ -66,6 +67,37 @@ def test_build_closeout_report_for_review_ready_task(tmp_path: Path) -> None:
     assert report.warnings == ()
     assert any("sync-active-board" in item for item in report.suggested_actions)
     assert any("Closeout publish reminder" in item for item in report.suggested_actions)
+
+
+def test_build_closeout_report_warns_missing_result_policy_for_non_exempt_type(
+    tmp_path: Path,
+) -> None:
+    # A non-exempt type with no result/PRED link and no policy must surface the
+    # shift-left advisory before DONE (TASK-0727).
+    _write_task(
+        tmp_path,
+        task_id="TASK-2727",
+        status="REVIEW_READY",
+        task_type="tooling_reliability",
+    )
+
+    report = build_closeout_report(tmp_path, "TASK-2727")
+
+    assert any("result_artifact_policy" in item for item in report.warnings)
+
+
+def test_build_closeout_report_no_policy_warning_for_exempt_type(tmp_path: Path) -> None:
+    # documentation is on the no-result exemption list -> no policy advisory.
+    _write_task(
+        tmp_path,
+        task_id="TASK-2728",
+        status="REVIEW_READY",
+        task_type="documentation",
+    )
+
+    report = build_closeout_report(tmp_path, "TASK-2728")
+
+    assert not any("result_artifact_policy" in item for item in report.warnings)
 
 
 def test_build_closeout_report_warns_when_not_review_ready(tmp_path: Path) -> None:
