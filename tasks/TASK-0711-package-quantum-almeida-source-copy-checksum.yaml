@@ -1,7 +1,7 @@
 id: TASK-0711
 title: "Package Quantum Almeida source-copy checksum and reuse decision"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,6 +35,13 @@ accepted_outputs:
   - "docs/reviews/quantum-almeida-source-copy-checksum-decision.md"
   - "optional data/quantum_dots/source_artifacts/almeida-2023-inp-optical/ metadata files"
   - "optional data/quantum_dots/source_manifest.yaml update"
+
+result_artifact_policy:
+  required: false
+  reason: "Planning/source-artifact gate; records selected Almeida source-copy routes and checksum blocker, but produces no scientific RESULT artifact."
+  evidence:
+    - "docs/reviews/quantum-almeida-source-copy-checksum-decision.md"
+    - "data/quantum_dots/source_artifacts/almeida-2023-inp-optical/provenance.yaml"
 
 validation:
   commands:

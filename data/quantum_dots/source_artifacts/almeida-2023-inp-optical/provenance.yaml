@@ -1,0 +1,51 @@
+package_id: QD-SOURCE-ALMEIDA-2023-INP-OPTICAL-TASK-0711
+schema_version: 0.1.0
+task_id: TASK-0711
+package_status: METADATA_ONLY_CHECKSUM_BLOCKED
+source_id: almeida-2023-nano-letters-inp-optical
+source_title: "Size-Dependent Optical Properties of InP Colloidal Quantum Dots"
+source_family: quantum_dot_size_effects
+
+selected_copies:
+  article:
+    locator: https://dspace.library.uu.nl/bitstream/handle/1874/434964/almeida-et-al-2023-size-dependent-optical-properties-of-inp-colloidal-quantum-dots.pdf
+    upstream_filename: almeida-et-al-2023-size-dependent-optical-properties-of-inp-colloidal-quantum-dots.pdf
+    retrieval_date_utc: 2026-06-12
+    accepted_source_copy: false
+    blocker: returned_html_shell_not_pdf
+    failed_response:
+      body_length_bytes: 751
+      sha256: 4c3c53b8889706e55a82eb7c0cf452cc3aec4b0de0a27c07581963517e3d9d4f
+      first_bytes_ascii: "<!DOC"
+      note: "Hash describes the failed HTML shell response, not the article PDF."
+  supporting_information:
+    locator: https://pubs.acs.org/doi/suppl/10.1021/acs.nanolett.3c02630/suppl_file/nl3c02630_si_001.pdf
+    upstream_filename: nl3c02630_si_001.pdf
+    retrieval_date_utc: 2026-06-12
+    accepted_source_copy: false
+    blocker: javascript_cloudflare_challenge
+    fallback_locator: https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/64b00532ae3d1a7b0d9cf337/original/si-size-dependent-optical-properties-of-in-p-colloidal-quantum-dots.pdf
+    fallback_outcome: javascript_cloudflare_challenge
+
+reuse_decision:
+  status: exact_copy_recheck_blocked
+  prior_posture: "Public article surfaces indicate CC-BY 4.0, but exact selected source bytes must be rechecked before any file commit."
+  raw_article_or_si_commit_allowed: false
+  locator_checksum_only_metadata_allowed: true
+
+row_admissibility:
+  row_class: digitization_required_candidate
+  inclusion_status: excluded
+  accepted_for_benchmark: false
+  blocked_actions:
+    - commit_article_pdf
+    - commit_si_pdf
+    - commit_figure_raster
+    - digitize_figure_1b
+    - create_quantum_dot_rows
+    - run_size_effect_baselines
+
+review:
+  review_status: metadata_only_checksum_blocked
+  review_doc: docs/reviews/quantum-almeida-source-copy-checksum-decision.md
+  allowed_next_step: maintainer_or_browser_assisted_source_copy_checksum_retry
