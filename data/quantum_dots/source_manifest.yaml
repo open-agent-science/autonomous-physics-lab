@@ -336,11 +336,14 @@ sources:
       source value and conversion rule in size_conversion. Figure 1b is the
       primary row-candidate surface; label Almeida versus Xu et al. comparison
       points with per-point primary_source_id. See
+      docs/reviews/quantum-almeida-source-copy-checksum-decision.md,
+      data/quantum_dots/source_artifacts/almeida-2023-inp-optical/,
       docs/reviews/quantum-almeida-license-figure-surface-review.md,
       docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md,
       and docs/reviews/quantum-open-direct-table-source-scout-02.md. Remaining
-      blockers after TASK-0654: checksum-pinned source artifact, real
-      digitization export, uncertainty/cross-check fields, and row-readiness
+      blockers after TASK-0711: no valid article/SI source bytes were obtained
+      for checksum pinning, so exact-copy reuse recheck, real digitization
+      export, uncertainty/cross-check fields, and row-readiness
       gate — not schema shape.
 
   - source_id: vossmeyer-1994-jpc-cds-absorption
