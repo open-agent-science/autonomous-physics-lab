@@ -15,8 +15,8 @@ cross-source partner for the Beloy 2021 / BACON reference row
 `cross_source_target` holdout role.
 
 It does **not** compare Nemitz against Beloy, compute consistency metrics, fit
-constants drift, create `RESULT-*` / `PRED-*` / `CLAIM-*` artifacts, or infer
-new physics.
+constants drift, create `RESULT-*` / `PRED-*` / `CLAIM-*` artifacts, or make any
+fundamental-physics interpretation.
 
 ## Why This Was Previously Blocked
 

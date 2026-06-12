@@ -30,7 +30,7 @@ requirements:
   - "Review version-of-record versus arXiv table identity, campaign window, observable axis, units, uncertainty transcription, and checksum/source provenance."
   - "If admissible, commit exactly one narrow ACR-0002 direct Yb/Sr row or a minimal row package with explicit uncertainty and row-role fields."
   - "If blocked, preserve a row-gate review that states the single missing evidence path."
-  - "Do not compare against Beloy, compute consistency metrics, fit constants drift, create RESULT/PRED/CLAIM artifacts, or infer new physics."
+  - "Do not compare against Beloy, compute consistency metrics, fit constants drift, create RESULT/PRED/CLAIM artifacts, or make fundamental-physics interpretation."
 
 accepted_outputs:
   - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml or a blocker review explaining why it cannot be committed"

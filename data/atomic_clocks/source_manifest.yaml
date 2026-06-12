@@ -230,13 +230,14 @@ manifest_global_stop_conditions:
 
 next_actions:
   - description: |
-      Future Nemitz row-curation task should complete the table-level
-      arXiv-vs-Nature version-drift comparison and exact campaign-window
-      lock, then add ACR-0002-NEMITZ-2016-DIRECT-RATIO rows under a fresh
-      dataset id following the TASK-0363/TASK-0371 layout if the row gates
-      pass.
-    blocking_task: TASK-0403
-    enables: TASK-0401_blocker_4_resolution
+      TASK-0704 completed the table-level arXiv-vs-Nature version-drift
+      comparison (NO_DRIFT) and locked the campaign window, then committed the
+      ACR-0002-NEMITZ-2016-DIRECT-RATIO row as a sandbox second-source seed
+      (cross_source_target). The remaining step is the first exploratory
+      diagonal-only cross-source Yb/Sr diagnostic (TASK-0456); benchmark and
+      consistency comparison stay blocked until that task runs.
+    blocking_task: TASK-0456
+    enables: first_exploratory_cross_source_yb_sr_diagnostic
   - description: |
       TASK-0567 reviewed the pinned Pizzocaro Zenodo source files and keeps
       ACR rows blocked. A future extraction-ledger task must freeze one row
@@ -265,6 +266,6 @@ promotion_boundary:
 
 global_limitations:
   - "This manifest records source-family status only; pinned values live in their dataset files and pinned provenance lives under data/atomic_clocks/source_artifacts/."
-  - "The Nemitz 2016 entry has a pinned arXiv source artifact but no value-bearing rows; ACR-0002 remains blocked pending table-level version-drift and row-readiness gates."
+  - "The Nemitz 2016 entry has the ACR-0002 cross-source Yb/Sr row committed as a sandbox second-source seed (TASK-0704, NO_DRIFT version-of-record cross-check); cross-source benchmark and consistency comparison remain blocked until the first exploratory diagonal-only diagnostic task (TASK-0456)."
   - "The Pizzocaro/VLBI entry has pinned Zenodo source artifacts but no value-bearing rows; TASK-0567 reviewed row admissibility and keeps ACR rows blocked until an extraction ledger freezes source mapping, uncertainty/covariance semantics, direct-vs-derived class, and campaign-window boundaries."
   - "Sandbox-only. Do not ingest values, benchmark, fit drifts, derive constants constraints, or promote claims from this manifest."
