@@ -1,7 +1,7 @@
 id: TASK-0701
 title: "Predeclare MD-0002 formation-energy benchmark and control plan"
 type: benchmark_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
