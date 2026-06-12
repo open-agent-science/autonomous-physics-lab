@@ -101,9 +101,9 @@ candidate_sources:
     candidate_role: first_choice_independent_dynamical_mass_source
     locator_shape: "Catalogue page https://astro.keele.ac.uk/jkt/debcat/ with machine-readable ASCII table https://astro.keele.ac.uk/jkt/debcat/debs.dat."
     acquisition_lane: source_artifact_metadata_pinned
-    blocker_type: redistribution_and_row_schema_review
+    blocker_type: row_schema_and_extraction_ledger_review
     license_status: public_catalogue_citation_requested_no_explicit_redistribution_license_found
-    redistribution_decision: metadata_only_checksum_pinned_raw_not_committed
+    redistribution_decision: route2_normalized_rows_with_ledger_allowed_raw_not_committed
     checksum_policy: "sha256_remote_ascii_table_debs_dat=326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da"
     value_bearing_artifact_committed: false
     source_artifact_package: data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/
@@ -155,7 +155,19 @@ candidate_sources:
         primary: preserve catalogue/literature uncertainty when present; unknown uncertainty -> diagnostic or excluded lane
         fallback: independent log-space propagation from radius and temperature uncertainties
       licence_route_recommended: metadata_only_checksum_with_extraction_ledger_no_raw_debs_dat
-      licence_route_decision: pending_maintainer
+      licence_route_decision: route2_confirmed_by_task_0707
+      storage_route_decision:
+        route: metadata_only_checksum_with_extraction_ledger_no_raw_debs_dat
+        decision_review: docs/reviews/stellar-ml-debcat-storage-route-decision.md
+        raw_artifact_commit_allowed: false
+        normalized_row_commit_allowed: true
+        row_curation_requires:
+          - extraction_ledger
+          - source_checksum_binding
+          - source_column_mapping
+          - physical_binary_system_no_leakage_manifest
+          - luminosity_provenance_class_per_row
+          - citation_and_license_note_per_package
     no_leakage_policy:
       split_axis: physical_binary_system
       requirement: "Keep all components of the same binary system in the same train/test/holdout lane."

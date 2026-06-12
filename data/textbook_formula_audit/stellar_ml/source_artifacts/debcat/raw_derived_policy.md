@@ -15,22 +15,29 @@ last_modified: Sat, 16 May 2026 11:14:34 GMT
 etag: "17441-651ed6f2a15a0"
 ```
 
-## Derived Artifacts
+## Derived / Normalized Artifacts
 
-No derived extraction products are authorized by this task. A later task must
-define:
+`TASK-0707` accepts Route 2: metadata-only checksum pinning with a reviewed
+extraction ledger and normalized row commit. A later row-curation task may
+commit normalized component rows derived from the checksum-pinned source copy
+only if it defines:
 
 - row schema;
 - source-value extraction method;
 - uncertainty semantics;
 - binary-system holdout/no-leakage policy;
 - luminosity provenance policy;
-- license and storage decision.
+- license and storage decision reference (`TASK-0707`, Route 2).
+
+The later row-curation task must not commit raw `debs.dat`. It must bind each
+normalized row to the recorded source checksum, source locator, source column
+mapping, binary-system identity, component role, luminosity provenance path,
+uncertainty class, citation note, and exclusion reason when applicable.
 
 ## Forbidden In This Package
 
 - table transcription;
-- row normalization;
+- row normalization in this package;
 - luminosity computation;
 - exponent fitting;
 - residual or benchmark metrics;
