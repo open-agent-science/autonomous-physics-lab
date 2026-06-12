@@ -448,6 +448,7 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
 
     with (
         patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
+        patch("physics_lab.registry.closeout_sweep._load_merged_task_pull_request_from_gh_search", return_value=None),
         patch("physics_lab.registry.closeout_sweep.build_closeout_report", side_effect=_fake_closeout_report),
         patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=None),
         patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main"),
@@ -460,6 +461,60 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
     assert report.blocked[0].task_id == "TASK-1001"
     assert len(report.skipped) == 1
     assert report.skipped[0].task_id == "TASK-1002"
+
+
+def test_build_closeout_sweep_report_recovers_missing_task_with_exact_search(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_task(
+        tasks_dir / "TASK-1003-delta.yaml",
+        task_id="TASK-1003",
+        title="Delta",
+        status="REVIEW_READY",
+    )
+
+    def _fake_prs(_root: Path, *, limit: int = 200):  # noqa: ARG001
+        return {}
+
+    from physics_lab.registry.closeout_sweep import MergedTaskPullRequest
+
+    recovered = MergedTaskPullRequest(
+        task_id="TASK-1003",
+        number=13,
+        title="TASK-1003: Delta",
+        merged_at="2026-06-12T14:00:00Z",
+        url="https://example/13",
+        branch="agent/roman/codex/task-1003-delta",
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
+        patch("physics_lab.registry.closeout_sweep._origin_remote_web_url", return_value="https://example"),
+        patch(
+            "physics_lab.registry.closeout_sweep._load_merged_task_pull_request_from_gh_search",
+            return_value=recovered,
+        ) as exact_search,
+        patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=None),
+        patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+    ):
+        report = build_closeout_sweep_report(tmp_path)
+
+    exact_search.assert_called_once_with(
+        tmp_path,
+        task_id="TASK-1003",
+        remote_url="https://example",
+    )
+    assert report.skipped == ()
+    assert report.blocked == ()
+    assert len(report.ready) == 1
+    assert report.ready[0].task_id == "TASK-1003"
+    assert report.ready[0].pull_request == 13
 
 
 def test_build_closeout_sweep_report_uses_merged_pr_summary_when_view_unavailable(

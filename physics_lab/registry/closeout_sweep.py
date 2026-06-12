@@ -727,12 +727,23 @@ def build_closeout_sweep_report(
 ) -> CloseoutSweepReport:
     """Build a sweep report for merged tasks that may need closeout."""
     merged_prs = load_merged_task_pull_requests(root, limit=merged_limit)
+    remote_url = _origin_remote_web_url(root)
     ready: list[CloseoutSweepCandidate] = []
     blocked: list[CloseoutSweepCandidate] = []
     skipped: list[CloseoutSweepCandidate] = []
 
     for task_id, task_title in list_review_ready_tasks(root):
         pr = merged_prs.get(task_id)
+        if pr is None:
+            # GitHub's bulk merged-PR listing can miss recently merged PRs
+            # depending on API ordering/cache behavior. Before declaring a
+            # REVIEW_READY task unmatched, try the exact TASK-XXXX search used
+            # for conventional squash commits.
+            pr = _load_merged_task_pull_request_from_gh_search(
+                root,
+                task_id=task_id,
+                remote_url=remote_url,
+            )
         if pr is None:
             skipped.append(
                 CloseoutSweepCandidate(

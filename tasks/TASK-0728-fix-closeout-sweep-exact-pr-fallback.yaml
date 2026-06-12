@@ -1,0 +1,53 @@
+id: TASK-0728
+title: "Fix closeout sweep exact merged-PR fallback"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent merged REVIEW_READY tasks from lingering when bulk GitHub PR discovery misses them."
+  - "Keep closeout sweep deterministic and conservative while improving maintainer queue hygiene."
+  - "Reduce manual closeout triage without weakening protected-artifact, unblock, or review-only gates."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_closeout_sweep.py"
+    - "physics_lab/registry/closeout_sweep.py"
+    - "tests/test_closeout_sweep.py"
+  planning_context: >
+    During the post-merge closeout sweep after PRs #1040-#1046, exact GitHub
+    searches found merged canonical PRs for several REVIEW_READY tasks, but
+    apl_closeout_sweep reported them as NO_MERGED_PR. The sweep should perform
+    an exact per-task GitHub fallback before skipping a task as unmatched.
+
+requirements:
+  - "When a REVIEW_READY task is missing from bulk/local merged-PR discovery, try an exact merged PR search for that task id before marking it skipped."
+  - "Keep the fallback conservative: if GitHub CLI is unavailable, search fails, or the returned PR does not bind to the exact task id, leave the task skipped."
+  - "Do not change auto-safe closeout policy, protected scientific artifact checks, closeout: review semantics, or dependent-unblock behavior."
+  - "Add a regression test covering a REVIEW_READY task recovered by the exact fallback after bulk discovery misses it."
+
+accepted_outputs:
+  - "physics_lab/registry/closeout_sweep.py fallback update"
+  - "tests/test_closeout_sweep.py regression coverage"
+  - "TASK-0728 task record"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling bugfix; improves closeout discovery but produces no scientific RESULT or PRED artifact."
+  evidence:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "tests/test_closeout_sweep.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
