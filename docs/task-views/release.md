@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0716` - Run promotion-lane throughput audit for result and claim candidates (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `scientific_result_publication`)
+None.
