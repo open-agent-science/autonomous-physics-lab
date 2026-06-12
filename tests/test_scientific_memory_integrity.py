@@ -4,7 +4,58 @@ from pathlib import Path
 
 from physics_lab.registry.scientific_memory_integrity import (
     collect_scientific_memory_integrity_issues,
+    result_artifact_policy_advice,
 )
+
+
+def test_policy_advice_flags_non_exempt_task_without_policy(tmp_path: Path) -> None:
+    advice = result_artifact_policy_advice(
+        {"id": "TASK-A", "type": "tooling_reliability"}, root_path=tmp_path
+    )
+    assert advice is not None
+    assert "result_artifact_policy" in advice
+
+
+def test_policy_advice_silent_for_exempt_type(tmp_path: Path) -> None:
+    assert (
+        result_artifact_policy_advice(
+            {"id": "TASK-B", "type": "tooling_fix"}, root_path=tmp_path
+        )
+        is None
+    )
+
+
+def test_policy_advice_silent_when_policy_declared(tmp_path: Path) -> None:
+    payload = {
+        "id": "TASK-C",
+        "type": "tooling_reliability",
+        "result_artifact_policy": {"required": False, "reason": "no result expected"},
+    }
+    assert result_artifact_policy_advice(payload, root_path=tmp_path) is None
+
+
+def test_policy_advice_silent_when_pred_artifact_linked(tmp_path: Path) -> None:
+    pred = tmp_path / "prediction_registry" / "nuclear_masses" / "PRED-0001.yaml"
+    pred.parent.mkdir(parents=True)
+    pred.write_text("prediction_id: PRED-0001\n", encoding="utf-8")
+    payload = {
+        "id": "TASK-D",
+        "type": "tooling_reliability",
+        "accepted_outputs": ["prediction_registry/nuclear_masses/PRED-0001.yaml"],
+    }
+    assert result_artifact_policy_advice(payload, root_path=tmp_path) is None
+
+
+def test_policy_advice_silent_when_result_artifact_linked(tmp_path: Path) -> None:
+    result = tmp_path / "results" / "EXP-0001" / "RUN-0001" / "result.yaml"
+    result.parent.mkdir(parents=True)
+    result.write_text("result_id: RESULT-0001\n", encoding="utf-8")
+    payload = {
+        "id": "TASK-E",
+        "type": "scientific_benchmark",
+        "accepted_outputs": ["results/EXP-0001/RUN-0001/result.yaml"],
+    }
+    assert result_artifact_policy_advice(payload, root_path=tmp_path) is None
 
 
 def test_scientific_memory_integrity_reports_orphan_result(tmp_path: Path) -> None:

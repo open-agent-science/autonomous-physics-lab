@@ -245,6 +245,54 @@ def _task_declares_result_artifact_not_required(task_payload: dict[str, Any]) ->
     return bool(reason)
 
 
+def _task_links_result_artifact(
+    task_payload: dict[str, Any], *, root_path: Path
+) -> bool:
+    """Return true when an accepted output points at a committed result.yaml."""
+    for output in task_payload.get("accepted_outputs", []):
+        if not isinstance(output, str):
+            continue
+        output_path = Path(output)
+        if (
+            output_path.parts
+            and output_path.parts[0] == "results"
+            and output_path.name == "result.yaml"
+            and (root_path / output_path).is_file()
+        ):
+            return True
+    return False
+
+
+def result_artifact_policy_advice(
+    task_payload: dict[str, Any], *, root_path: Path
+) -> str | None:
+    """Return shift-left advice when a task is at risk of `done_task_without_result`.
+
+    Mirrors the DONE-time rule (type not on the no-result exemption list, no
+    committed PRED output, no linked ``results/.../result.yaml``, and no
+    ``result_artifact_policy``) without scanning the whole results tree, so
+    closeout and PR helpers can warn *before* a task is set ``DONE`` rather than
+    only when strict validation runs at closeout. Returns ``None`` when the task
+    is already fine.
+    """
+    task_type = str(task_payload.get("type") or "")
+    if task_type in STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS:
+        return None
+    if _task_declares_result_artifact_not_required(task_payload):
+        return None
+    if _task_has_committed_prediction_output(task_payload, root_path=root_path):
+        return None
+    if _task_links_result_artifact(task_payload, root_path=root_path):
+        return None
+    return (
+        f"Task type '{task_type}' is not on the no-result exemption list and the "
+        "task declares no result_artifact_policy. If this task produces no RESULT "
+        "or PRED artifact, add a result_artifact_policy block (required: false, "
+        "reason: ...) before setting it DONE, or strict closeout validation will "
+        "warn (done_task_without_result). See docs/agent-task-protocol.md."
+    )
+
+
 def _required_run_artifact_issues(
     result_path: Path,
     payload: dict[str, Any],
