@@ -1,7 +1,7 @@
 id: TASK-0725
 title: "Review and finish-gate helpers run validation with the repository venv"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
