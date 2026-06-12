@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from physics_lab.registry.campaign_curator import (
     build_campaign_brief,
     build_campaign_scope_brief,
@@ -108,6 +110,11 @@ def test_campaign_curator_scope_json_is_agent_readable() -> None:
     )
 
 
+def test_campaign_curator_scope_rejects_unknown_domain() -> None:
+    with pytest.raises(ValueError, match="Unsupported campaign scope domain"):
+        build_campaign_scope_brief(ROOT, domain="typo_domain")
+
+
 def test_campaign_curator_prompt_preserves_authority_boundary() -> None:
     brief = build_campaign_brief(ROOT, campaign_id="nuclear-mass-surface")
     prompt = render_campaign_agent_prompt(brief)
@@ -204,6 +211,24 @@ def test_campaign_curator_script_rejects_campaign_plus_scope_filter() -> None:
 
     assert result.returncode != 0
     assert "--campaign cannot be combined" in result.stderr
+
+
+def test_campaign_curator_script_rejects_unknown_pool() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_campaign_curator.py",
+            "--pool",
+            "group_b",
+        ],
+        cwd=ROOT,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+
+    assert result.returncode != 0
+    assert "invalid choice: 'group_b'" in result.stderr
 
 
 def test_campaign_curator_script_role_director_prompt_smoke() -> None:

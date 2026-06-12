@@ -24,6 +24,22 @@ from physics_lab.registry.mission_control import load_current_missions
 SUPPORTED_CAMPAIGN_CURATOR_MODES = ("cycle-review", "planning")
 SUPPORTED_CAMPAIGN_CURATOR_ROLES = ("director", "curator")
 SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS = ("brief", "json", "agent")
+SUPPORTED_CAMPAIGN_CURATOR_POOLS = (
+    "frontier_planning",
+    "prediction_reveal",
+    "result_promotion",
+    "source_data_benchmark",
+    "verifier_quality_floor",
+)
+SUPPORTED_CAMPAIGN_LIFECYCLE_STAGES = (
+    "active_benchmark",
+    "mature",
+    "monitor_only",
+    "pinned_dataset",
+    "reveal_blocked",
+    "scaffold",
+    "source_readiness",
+)
 ACTIVE_CAMPAIGN_ACTIVITY_STATUSES = frozenset(
     {
         "active",
@@ -229,6 +245,29 @@ def build_campaign_scope_brief(
 
     root = root.resolve()
     catalog = load_campaign_catalog(campaign_catalog_path(root))
+    _validate_scope_filter(
+        "pool",
+        pool,
+        supported=SUPPORTED_CAMPAIGN_CURATOR_POOLS,
+    )
+    _validate_scope_filter(
+        "stage",
+        stage,
+        supported=SUPPORTED_CAMPAIGN_LIFECYCLE_STAGES,
+    )
+    _validate_scope_filter(
+        "domain",
+        domain,
+        supported=tuple(
+            sorted(
+                {
+                    str(campaign.get("domain"))
+                    for campaign in catalog.get("campaigns", [])
+                    if campaign.get("domain")
+                }
+            )
+        ),
+    )
     selected = tuple(
         _scope_entry(campaign)
         for campaign in catalog.get("campaigns", [])
@@ -508,6 +547,20 @@ def _scope_entry(campaign: dict[str, Any]) -> CampaignScopeEntry:
         recommended_parallel_agents=int(agent_capacity.get("recommended_parallel_agents", 0)),
         current_stage=str(campaign["current_stage"]),
     )
+
+
+def _validate_scope_filter(
+    field: str,
+    value: str | None,
+    *,
+    supported: tuple[str, ...],
+) -> None:
+    if value is None:
+        return
+    if value in supported:
+        return
+    allowed = ", ".join(supported)
+    raise ValueError(f"Unsupported campaign scope {field}: {value!r}. Use one of: {allowed}")
 
 
 def _matches_scope_filters(

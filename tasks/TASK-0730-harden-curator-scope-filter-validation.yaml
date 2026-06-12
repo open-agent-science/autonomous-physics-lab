@@ -1,0 +1,54 @@
+id: TASK-0730
+title: "Harden curator scope filter validation"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep focused Scientific Campaign Director sessions reliable for agents by failing fast on mistyped curator filter slugs."
+  - "Preserve the new curator-pool metadata architecture without introducing static agent-facing boards or duplicate routing surfaces."
+  - "Improve cross-agent onboarding clarity while keeping campaign ownership metadata profile-driven."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio_architecture
+  related_objects:
+    - "scripts/apl_campaign_curator.py"
+    - "physics_lab/registry/campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+  planning_context: >
+    After TASK-0729 added curator-pool metadata and focused campaign-session
+    filters, the CLI accepted arbitrary pool and lifecycle-stage strings.
+    A typo could produce an empty scope rather than a clear agent-facing error.
+
+requirements:
+  - "Add fail-fast validation for focused curator scope filters."
+  - "Expose stable pool and lifecycle-stage choices through the curator CLI."
+  - "Validate domain filters against the campaign catalog domains."
+  - "Do not change valid curator brief output, campaign metadata, task routing policy, or generated board behavior."
+  - "Add regression tests for invalid filter handling."
+
+accepted_outputs:
+  - "curator helper validation for pool/stage/domain filters"
+  - "apl_campaign_curator.py argparse choices for stable pool and lifecycle-stage slugs"
+  - "tests covering invalid pool/domain filters"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling polish; no scientific RESULT, PRED, CLAIM, or KNOW artifact."
+  evidence:
+    - "scripts/apl_campaign_curator.py"
+    - "physics_lab/registry/campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_campaign_curator.py"
+    - "python3 -m ruff check physics_lab/registry/campaign_curator.py scripts/apl_campaign_curator.py tests/test_campaign_curator.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
