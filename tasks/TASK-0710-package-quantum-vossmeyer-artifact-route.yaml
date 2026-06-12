@@ -1,7 +1,7 @@
 id: TASK-0710
 title: "Package Quantum Vossmeyer 1994 artifact route and copy handoff"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,6 +33,13 @@ requirements:
 accepted_outputs:
   - "docs/reviews/quantum-vossmeyer-source-copy-handoff.md"
   - "optional data/quantum_dots/source_manifest.yaml metadata update"
+
+result_artifact_policy:
+  required: false
+  reason: "Planning/source-artifact handoff task; defines source-copy and extraction-ledger requirements but produces no scientific RESULT artifact."
+  evidence:
+    - "docs/reviews/quantum-vossmeyer-source-copy-handoff.md"
+    - "data/quantum_dots/source_manifest.yaml"
 
 validation:
   commands:
