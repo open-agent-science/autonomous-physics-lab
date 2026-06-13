@@ -20,6 +20,10 @@ examples/reports/*.md
 results/**/plots/
 device-id
 
+# Local maintainer secrets for key-gated source acquisition. Keep the tracked
+# `.apl-local-secrets.env.example` template, never the filled file.
+.apl-local-secrets.env
+
 # Source PDFs under data require explicit license review and force-add.
 data/**/*.pdf
 
