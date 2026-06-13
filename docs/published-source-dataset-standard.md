@@ -38,7 +38,7 @@ material, and does not relax any existing protocol.
 | --- | --- | --- |
 | Open licensed database | Materials Project (CC BY 4.0), JARVIS-DFT (NIST), OQMD, NASA Exoplanet Archive | Rows committable with attribution; pin a snapshot. |
 | Open repository dataset | Zenodo / Figshare records with a stated open license | Rows committable per the record's license. |
-| Author-deposited preprint | arXiv preprint PDF under the arXiv license | Preprint artifact committable with checksum (e.g. Beloy/Nemitz). |
+| Author-deposited preprint | arXiv preprint PDF under an article-specific license | Metadata and expected checksum by default; commit PDF bytes only with a compatible license or explicit permission. |
 | Open-access journal (verify per article) | APS public-access, PMC OA | Facts extractable; verify per-article reuse before committing tables. |
 | Subscription / copyrighted | ACS, Nature, AIP version-of-record | Metadata-only; rows need an open mirror, permission, or maintainer-held artifact. |
 | Model/theory output | DFT-only or fitted curves | Admissible only as explicitly excluded/labelled context, never as measured rows. |
@@ -48,19 +48,35 @@ material, and does not relax any existing protocol.
 A source being *published* (readable, citable) does **not** mean its content is
 *redistributable* (committable to this repo).
 
+Publicly accessible source files are also not automatically worth vendoring.
+If an upstream artifact is already stable and retrievable from its DOI, archive,
+or source URL, APL's default is metadata-only: store the locator, expected
+checksum, retrieval instructions, and provenance, not another copy of the file.
+Commit raw upstream files only when they are license-clean, materially needed
+for reproducibility, and explicitly approved for repository storage.
+
 **Generally committable** (subject to the source's license/ToS):
 
 - citation, DOI, URL, access date, version/query;
 - SHA-256 checksums and source locators;
 - our own extraction ledger and curated schema;
+- APL-authored normalized/curated dataset rows when source license, ToS,
+  attribution, and row provenance allow redistribution;
 - individual factual numeric values (a mass, radius, band gap) — facts are not
   copyrightable — when license/ToS allow and with attribution;
-- author-deposited preprint PDFs under a compatible license.
+- author-deposited preprint PDFs only when the exact artifact has a compatible
+  license or explicit permission recorded in a machine-readable marker.
 
 **Generally NOT committable**:
 
 - publisher PDFs, page scans, or typeset table images;
 - copyrighted figures or full supplementary files;
+- arXiv or other preprint PDFs when the available license only grants the
+  archive itself a distribution right rather than a clear third-party
+  redistribution right;
+- raw upstream source files that are already public and stable elsewhere,
+  unless the task records a clear reproducibility need, compatible license, and
+  maintainer approval for committing the bytes;
 - bulk extraction that triggers a database's terms-of-service or the EU
   sui-generis database right.
 
@@ -68,6 +84,15 @@ Guardrails:
 
 - prefer **openly licensed** sources so the actual rows are committable;
 - always record `license_status` and attribution per source;
+- for metadata-only source artifacts, preserve DOI/URL, expected SHA-256, and a
+  local fetch+verify command instead of vendoring the artifact bytes;
+- distinguish source artifacts from APL datasets: do not copy public upstream
+  files just because they are accessible, but do preserve curated benchmark
+  rows when they are license-clean and scientifically useful;
+- if a PDF artifact is explicitly redistributable and must be committed, add a
+  sibling `<artifact>.license.yaml` marker with `redistribution_status` set to
+  `cc_by_4_0`, `cc0`, `public_domain`, or `explicit_permission_recorded`, plus
+  a non-empty `permission_evidence` field; repository validation guards this;
 - never commit secrets, API keys, tokens, cookies, or private files;
 - this is engineering guidance, not legal advice — for borderline closed
   sources, get explicit permission or stay metadata-only.

@@ -119,6 +119,15 @@ TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "knowledge/",
     "results/",
 )
+ALLOWED_PDF_REDISTRIBUTION_STATES = frozenset(
+    {
+        "cc_by_4_0",
+        "cc0",
+        "public_domain",
+        "explicit_permission_recorded",
+    }
+)
+SOURCE_ARTIFACT_METADATA_SUFFIXES = frozenset({".md", ".yaml", ".yml", ".sha256"})
 AGENT_PUBLICATION_TIERS = frozenset({"AGENT_PUBLISHED", "AGENT_VALIDATED"})
 CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
     {
@@ -962,6 +971,95 @@ def _agent_tier_pr_body_issues(
     return tuple(required)
 
 
+def _load_yaml_file(path: Path) -> dict[str, Any] | None:
+    if not path.exists() or not path.is_file():
+        return None
+    try:
+        payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def _has_explicit_pdf_permission(root: Path, relative_path: Path) -> bool:
+    marker = root / relative_path.with_suffix(relative_path.suffix + ".license.yaml")
+    payload = _load_yaml_file(marker)
+    if payload is None:
+        return False
+    status = payload.get("redistribution_status")
+    evidence = payload.get("permission_evidence")
+    return status in ALLOWED_PDF_REDISTRIBUTION_STATES and bool(evidence)
+
+
+def _source_artifact_provenance_payload(root: Path, relative_path: Path) -> dict[str, Any] | None:
+    current = relative_path.parent
+    while current != Path("."):
+        candidate = root / current / "provenance.yaml"
+        payload = _load_yaml_file(candidate)
+        if payload is not None:
+            return payload
+        if current.name == "source_artifacts":
+            break
+        current = current.parent
+    return None
+
+
+def _provenance_has_license_posture(payload: dict[str, Any]) -> bool:
+    redistribution = payload.get("redistribution")
+    if isinstance(redistribution, dict):
+        status = redistribution.get("redistribution_status")
+        note = redistribution.get("license_note") or redistribution.get("citation_note")
+        if status not in {None, "", "unknown", "not_reviewed"} or note:
+            return True
+    direct_status = payload.get("redistribution_status")
+    direct_note = (
+        payload.get("license_or_reuse_notes")
+        or payload.get("license_note")
+        or payload.get("citation_note")
+    )
+    return direct_status not in {None, "", "unknown", "not_reviewed"} or bool(direct_note)
+
+
+def publication_license_blockers(root: Path, changed_files: tuple[str, ...]) -> tuple[str, ...]:
+    """Return blockers for newly published raw data/source artifacts.
+
+    The check is intentionally conservative around raw upstream files: deletion
+    is allowed, metadata/provenance files are allowed, but tracked source PDFs
+    and raw source-artifact payloads need machine-readable license evidence.
+    """
+    blockers: list[str] = []
+    for changed_file in changed_files:
+        relative_path = Path(changed_file)
+        absolute_path = root / relative_path
+        if not changed_file.startswith("data/") or not absolute_path.exists():
+            continue
+        if absolute_path.is_dir():
+            continue
+
+        suffix = relative_path.suffix.lower()
+        if suffix == ".pdf" and not _has_explicit_pdf_permission(root, relative_path):
+            blockers.append(
+                f"Publication/license blocker: {changed_file} is a tracked PDF without "
+                "a sibling .pdf.license.yaml marker carrying explicit redistribution permission."
+            )
+            continue
+        if suffix == ".pdf":
+            continue
+
+        if "source_artifacts" not in relative_path.parts:
+            continue
+        if relative_path.name == ".gitkeep" or suffix in SOURCE_ARTIFACT_METADATA_SUFFIXES:
+            continue
+
+        provenance = _source_artifact_provenance_payload(root, relative_path)
+        if provenance is None or not _provenance_has_license_posture(provenance):
+            blockers.append(
+                f"Publication/license blocker: {changed_file} is a raw source_artifacts payload "
+                "without nearby provenance.yaml carrying license or redistribution posture."
+            )
+    return tuple(blockers)
+
+
 def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
     """Return the best available diff base ref for PR review."""
     base_branch = pr_metadata.base_branch if pr_metadata is not None else "main"
@@ -1572,6 +1670,7 @@ def _compose_review_report(
             "Dangerous code patterns detected: " + ", ".join(dangerous_patterns) + "."
         )
     security_risks.extend(sensitive_surface_hits(changed_files))
+    blockers.extend(publication_license_blockers(root, changed_files))
 
     cross_platform_advisories = cross_platform_advisory_hits(security_lines)
     if cross_platform_advisories:

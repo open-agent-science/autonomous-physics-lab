@@ -10,14 +10,25 @@ source_locator: https://arxiv.org/abs/2005.14694
 archive_url: https://arxiv.org/pdf/2005.14694
 retrieval_date_utc: 2026-05-25
 checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
-checksum_scope: arxiv_preprint_pdf
+checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+preprint_committed: false
+source_files_vendored: []
+redistribution_status: not_redistributable_arxiv_nonexclusive
+covered_by_repo_license: false
+expected_artifact:
+  filename: arxiv-2005.14694.pdf
+  archive_url: https://arxiv.org/pdf/2005.14694
+  checksum_sidecar: arxiv-2005.14694.sha256
+  checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
+  fetch_helper: scripts/fetch_source_artifact.py
 license_or_reuse_notes: |
-  The committed PDF is the arXiv preprint of the Boulder Atomic Clock Optical Network
-  (BACON) paper. The arXiv perpetual licence permits archival redistribution of the
-  author's accepted manuscript, which is what this artifact contains. The
-  Nature-published version-of-record PDF is NOT committed; verbatim redistribution
-  of the Nature PDF is forbidden. The Nature DOI is the publication-of-record
-  citation for downstream provenance.
+  Metadata-only source package. The arXiv preprint can be fetched locally and
+  verified against the expected SHA-256 sidecar, but the PDF bytes are not
+  redistributed by this repository. The arXiv non-exclusive distribution route
+  is not treated as automatic third-party redistribution permission. The
+  Nature-published version-of-record PDF is also not committed; verbatim
+  redistribution of the Nature PDF is forbidden. The Nature DOI is the
+  publication-of-record citation for downstream provenance.
 
 publication_of_record:
   doi: 10.1038/s41586-021-03253-4
@@ -37,7 +48,7 @@ version_check_with_publication_of_record:
   result: NO_DRIFT
   method: |
     Local-only side-by-side comparison of the three primary frequency-ratio
-    values in the arXiv preprint (this committed artifact) against the Nature
+    values in the arXiv preprint (expected checksum recorded above) against the Nature
     paper-of-record PDF (held locally on the maintainer machine, never
     committed to this repository). Specifically compared, character-for-character:
       - nu(Al+)/nu(Yb)  = 2.162887127516663703(13)
@@ -50,7 +61,7 @@ version_check_with_publication_of_record:
   not_recheckable_from_committed_artifacts_alone: true
   follow_up_note: |
     A future maintainer with continued institutional access to Nature can
-    re-verify by comparing this committed arXiv PDF against
+    re-verify by locally fetching the arXiv PDF and comparing it against
     doi:10.1038/s41586-021-03253-4 using the same value list above. This
     re-verification is documentation-only; no new commit is required if the
     values still match.

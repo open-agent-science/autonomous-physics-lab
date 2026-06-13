@@ -32,6 +32,7 @@ from physics_lab.registry.maintainer_review import (
     _portable_validation_command,
     output_routing_value,
     prepare_clean_pr_worktree,
+    publication_license_blockers,
     render_review_report,
     run_task_validation,
     security_pattern_hits,
@@ -212,6 +213,82 @@ def test_branch_microtask_queue_id_extracts_queue_id_from_batch_branch() -> None
     assert branch_microtask_queue_id(
         "agent/roman/codex/microtask-PMR-001-audit-electron-mass"
     ) is None
+
+
+def test_publication_license_blocks_tracked_data_pdf_without_marker(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "data" / "atomic_clocks" / "source_artifacts" / "paper.pdf"
+    pdf_path.parent.mkdir(parents=True)
+    pdf_path.write_bytes(b"%PDF fixture\n")
+
+    blockers = publication_license_blockers(tmp_path, ("data/atomic_clocks/source_artifacts/paper.pdf",))
+
+    assert len(blockers) == 1
+    assert "tracked PDF" in blockers[0]
+
+
+def test_publication_license_accepts_pdf_with_explicit_permission_marker(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "data" / "open_source" / "source_artifacts" / "paper.pdf"
+    pdf_path.parent.mkdir(parents=True)
+    pdf_path.write_bytes(b"%PDF fixture\n")
+    marker_path = pdf_path.with_suffix(pdf_path.suffix + ".license.yaml")
+    marker_path.write_text(
+        "\n".join(
+            [
+                "redistribution_status: explicit_permission_recorded",
+                "permission_evidence: maintainer-recorded permission fixture",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    assert publication_license_blockers(tmp_path, ("data/open_source/source_artifacts/paper.pdf",)) == ()
+
+
+def test_publication_license_blocks_raw_source_payload_without_provenance(
+    tmp_path: Path,
+) -> None:
+    payload_path = tmp_path / "data" / "atomic_clocks" / "source_artifacts" / "source.csv"
+    payload_path.parent.mkdir(parents=True)
+    payload_path.write_text("value\n1\n", encoding="utf-8")
+
+    blockers = publication_license_blockers(
+        tmp_path,
+        ("data/atomic_clocks/source_artifacts/source.csv",),
+    )
+
+    assert len(blockers) == 1
+    assert "without nearby provenance.yaml" in blockers[0]
+
+
+def test_publication_license_accepts_raw_source_payload_with_provenance(
+    tmp_path: Path,
+) -> None:
+    source_dir = tmp_path / "data" / "atomic_clocks" / "source_artifacts" / "open-source"
+    source_dir.mkdir(parents=True)
+    (source_dir / "source.csv").write_text("value\n1\n", encoding="utf-8")
+    (source_dir / "provenance.yaml").write_text(
+        "\n".join(
+            [
+                "redistribution_status: raw_artifact_redistributable_with_attribution",
+                "license_or_reuse_notes: CC BY 4.0 fixture.",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    assert (
+        publication_license_blockers(
+            tmp_path,
+            ("data/atomic_clocks/source_artifacts/open-source/source.csv",),
+        )
+        == ()
+    )
+
+
+def test_publication_license_ignores_deleted_raw_artifact(tmp_path: Path) -> None:
+    assert publication_license_blockers(tmp_path, ("data/atomic_clocks/source_artifacts/paper.pdf",)) == ()
 
 
 def test_review_protocol_classifies_supported_review_lanes() -> None:
