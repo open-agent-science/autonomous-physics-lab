@@ -1,7 +1,7 @@
 id: TASK-0715
 title: "Run one Exoplanet source-version monitor check"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -30,7 +30,13 @@ requirements:
   - "Do not compute residuals, habitability, composition, target priority, or planet-law claims."
 
 accepted_outputs:
-  - "docs/reviews/exoplanet-source-version-monitor-run-YYYY-MM-DD.md"
+  - "docs/reviews/exoplanet-source-version-monitor-run-2026-06-13.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only monitor task; records source-version and aggregate COUNT(*) checks but produces no scientific RESULT artifact."
+  evidence:
+    - "docs/reviews/exoplanet-source-version-monitor-run-2026-06-13.md"
 
 validation:
   commands:
