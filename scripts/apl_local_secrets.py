@@ -43,7 +43,7 @@ def load_env_file(path: Path) -> dict[str, str]:
         return {}
 
     values: dict[str, str] = {}
-    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), 1):
         line = raw_line.strip()
         if not line or line.startswith("#"):
             continue

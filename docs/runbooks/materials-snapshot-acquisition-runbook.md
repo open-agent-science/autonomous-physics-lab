@@ -26,6 +26,15 @@ chmod 600 .apl-local-secrets.env
 python3 scripts/apl_local_secrets.py status --require MP_API_KEY
 ```
 
+Windows/PowerShell:
+
+```powershell
+py -3 -m pip install mp-api            # or .\.venv\Scripts\python.exe -m pip install mp-api
+Copy-Item .apl-local-secrets.env.example .apl-local-secrets.env
+# Fill MP_API_KEY in .apl-local-secrets.env, then verify without printing it:
+py -3 scripts\apl_local_secrets.py status --require MP_API_KEY
+```
+
 Get a key from your Materials Project account (Dashboard → API). The key is
 personal; do not share or commit it.
 
@@ -61,6 +70,8 @@ deterministic; do not widen it after seeing rows (no-peek).
 # materials_acquire.py
 # Run locally via:
 # python3 scripts/apl_local_secrets.py run -- python3 materials_acquire.py
+# Windows/PowerShell:
+# py -3 scripts\apl_local_secrets.py run -- py -3 materials_acquire.py
 # Do NOT commit outputs containing the key.
 import csv, hashlib, json, datetime
 from mp_api.client import MPRester

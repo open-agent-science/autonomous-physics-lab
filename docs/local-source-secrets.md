@@ -11,11 +11,19 @@ maintainer confirms the key is available or unavailable.
 
 ## Local File Pattern
 
-Use a local env file in the repository checkout:
+Use a local env file in the repository checkout.
+
+macOS/Linux/zsh/bash:
 
 ```bash
 cp .apl-local-secrets.env.example .apl-local-secrets.env
 chmod 600 .apl-local-secrets.env
+```
+
+Windows/PowerShell:
+
+```powershell
+Copy-Item .apl-local-secrets.env.example .apl-local-secrets.env
 ```
 
 Fill only the variables needed for maintainer-run acquisition tasks. The filled
@@ -38,6 +46,13 @@ To check whether a key exists without printing it:
 python3 scripts/apl_local_secrets.py status --require MP_API_KEY
 ```
 
+On Windows, use the repository virtualenv Python or the Python launcher:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\apl_local_secrets.py status --require MP_API_KEY
+py -3 scripts\apl_local_secrets.py status --require MP_API_KEY
+```
+
 To run a key-gated acquisition command with local secrets loaded into the child
 process:
 
@@ -45,8 +60,16 @@ process:
 python3 scripts/apl_local_secrets.py run -- python3 <acquisition-script>.py
 ```
 
+Windows/PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\apl_local_secrets.py run -- .\.venv\Scripts\python.exe <acquisition-script>.py
+```
+
 The helper does not export variables to the parent shell and does not print
 secret values. The child command must still avoid logging environment contents.
+The parser accepts plain UTF-8 and UTF-8-with-BOM local env files, which covers
+common PowerShell-created files.
 
 For dedicated agent worktrees, the helper checks `APL_LOCAL_SECRETS_FILE` first,
 then the current checkout, then parent directories. That lets a maintainer keep

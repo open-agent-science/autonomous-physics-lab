@@ -31,6 +31,13 @@ def test_load_env_file_supports_comments_export_and_quotes(tmp_path: Path) -> No
     }
 
 
+def test_load_env_file_accepts_utf8_bom_from_windows_powershell(tmp_path: Path) -> None:
+    secrets = tmp_path / "secrets.env"
+    secrets.write_text("MP_API_KEY=abc123\n", encoding="utf-8-sig")
+
+    assert apl_local_secrets.load_env_file(secrets) == {"MP_API_KEY": "abc123"}
+
+
 def test_status_reports_presence_without_values(tmp_path: Path, capsys) -> None:
     secrets = tmp_path / "secrets.env"
     secrets.write_text("MP_API_KEY=secret-value\n", encoding="utf-8")
