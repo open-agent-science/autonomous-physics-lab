@@ -52,35 +52,47 @@ failed/inconclusive replay would preserve an explicit do-not-promote blocker.
 divergence — an improvement on the original `TASK-0633` note, which reported a
 metrics match only after ignoring line endings.
 
-## Gate B Verdict And Tier Recommendation
+## Gate B Verdict And Tier Upgrade
 
 - **Gate B (reproducibility): PASS.** The diagnostic is deterministically
   reproducible from the pinned inputs and command; metrics reproduce byte-for-byte.
+- **Independence: confirmed.** `RESULT-0018` was originally published by a
+  different agent (`codex` / contributor `akutenyov`, `TASK-0633` / PR #927); this
+  Gate B replay was run by a different agent (`claude` / contributor `roman`).
+  Different `agent_id` and different contributor — the strongest form of Gate B
+  independence.
 - **Scientific verdict: unchanged — `INCONCLUSIVE` / diagnostic-only.** The F2
   reference remains replayable, but no ablation variant clears the predeclared
   controls-first survival margin. Reproducibility confirms determinism; it does
   **not** convert an inconclusive diagnostic into a claim-supporting result.
-- **Tier:** the independent Gate B reproduction is the evidence that would support
-  promoting `RESULT-0018` from `AGENT_PUBLISHED` to `AGENT_VALIDATED` (independently
-  replayed). The actual tier transition is a **maintainer decision** (Phase 1
-  claim/tier transitions are maintainer-only). Recommendation: a maintainer may
-  mark `RESULT-0018` `AGENT_VALIDATED` and record this Gate B pass in
-  `results/EXP-0012/RUN-0002/review_metadata.yaml`. No claim, knowledge entry, or
-  nuclear mass formula is promoted. The diagnostic/do-not-promote-to-claim posture
-  is preserved.
+- **Tier: upgraded `AGENT_PUBLISHED` → `AGENT_VALIDATED`** (maintainer-approved,
+  2026-06-13). All five Gate B conditions are met (same inputs/hashes, same
+  deterministic command/code_reference, metrics byte-identical, verdict unchanged,
+  no protected-artifact rewrite beyond the tier/record update). A
+  `validation_record` was added under `agent_proposal_evaluation` in
+  `results/EXP-0012/RUN-0002/result.yaml`; the original Gate A evaluation is
+  retained. No claim, knowledge entry, or nuclear mass formula is promoted, and
+  `CLAIM-0010` stays `DRAFT` (Gate C remains maintainer-only). Per the
+  result-promotion protocol's Phase-1 rule, this AGENT_VALIDATED tier was set
+  under maintainer approval.
 
 ## Output-Routing Summary (`docs/result-promotion-protocol.md`)
 
 - **Task verdict:** `INCONCLUSIVE` (the replayed result's verdict); the replay
   itself is `VALID` as an independent reproduction.
-- **Canonical destination:** this review note. No `results/`, `prediction_registry/`,
-  `claims/`, or `knowledge/` artifact is changed. The replay output was written to
-  a temporary directory only.
-- **Review tier:** `none` for this note. The replayed `RESULT-0018` stays
-  `AGENT_PUBLISHED` unless a maintainer upgrades it to `AGENT_VALIDATED`.
-- **Gate A status:** not attempted. **Gate B status:** **PASS (reproduced)**.
-- **Claim impact:** no claim change. **Knowledge impact:** none.
+- **Canonical destination:** this review note, plus a maintainer-approved tier
+  update to `results/EXP-0012/RUN-0002/result.yaml` (`review_tier` →
+  `AGENT_VALIDATED` and an added `validation_record`). `best_verdict`, metrics,
+  and the verification block are unchanged. No `prediction_registry/`, `claims/`,
+  or `knowledge/` artifact is changed; the replay output itself was written to a
+  temporary directory only.
+- **Review tier:** `RESULT-0018` upgraded `AGENT_PUBLISHED` → `AGENT_VALIDATED`
+  (Gate B, maintainer-approved). This note carries no tier.
+- **Gate A status:** not attempted. **Gate B status:** **PASS (reproduced,
+  AGENT_VALIDATED).**
+- **Claim impact:** no claim change (`CLAIM-0010` stays `DRAFT`; Gate C is
+  maintainer-only). **Knowledge impact:** none.
 - **Limitations / blockers:** the result is diagnostic and `INCONCLUSIVE` by
-  construction; reproducibility does not change that. No reveal-data scoring was
-  performed. The tier upgrade and any `review_metadata.yaml` edit are left to the
-  maintainer.
+  construction; reproducibility and the tier upgrade do not change that. No
+  reveal-data scoring was performed. Promotion beyond `AGENT_VALIDATED`
+  (Gate C / claim status) remains a maintainer decision.
