@@ -23,6 +23,10 @@ All of the following must be true:
 - `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings` green
 - no local path leaks
 - no tracked cache, OS, or agent-local files
+- public source/data artifact history has been reviewed: no reachable
+  non-redistributable publisher PDFs, preprint PDFs, restricted third-party raw
+  datasets, or license-ambiguous source payloads remain in the public-launch
+  history
 
 Suggested evidence:
 
@@ -30,6 +34,9 @@ Suggested evidence:
 - maintainer validation log
 - release-time validation signoff artifact
 - repository snapshot without local-only files
+- Phase B history scan / cleanup signoff that records scanned refs, candidate
+  removal paths, verification commands, and whether a merge-freeze rewrite was
+  required
 
 ## Gate 2 — Multi-Agent / Open Agent Network Contributor Pilot
 
@@ -116,6 +123,23 @@ opening it publicly, all of the following must remain true:
   historical review/CI evidence;
 - no source artifact, result artifact, or prediction registry entry is rewritten
   merely to match the new organization path.
+
+## Gate 6 — Public Artifact History And Redistribution Boundary
+
+Before the repository is opened publicly, the maintainer must confirm that the
+public default branch and its reachable history satisfy the source-artifact
+publication policy:
+
+- publisher PDFs, arXiv/preprint PDFs, and other third-party source documents
+  are not vendored unless explicit redistribution evidence is recorded;
+- committed source/data artifacts either carry machine-readable reuse evidence
+  or are limited to metadata, checksum, extractor, and non-substitutive sample
+  forms;
+- any required history cleanup is performed only after a maintainer-declared
+  merge freeze, full blob/path scan, reviewed paths-to-remove list, backup plan,
+  and contributor re-clone/rebase instructions;
+- no public launch proceeds while known non-redistributable source artifacts
+  remain reachable from the public default branch history.
 
 ## Release Decision
 
