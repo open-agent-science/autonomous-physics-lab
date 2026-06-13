@@ -30,7 +30,7 @@ requirements:
   - "Do not compute residuals, habitability, composition, target priority, or planet-law claims."
 
 accepted_outputs:
-  - "docs/reviews/exoplanet-source-version-monitor-run-YYYY-MM-DD.md"
+  - "docs/reviews/exoplanet-source-version-monitor-run-2026-06-13.md"
 
 result_artifact_policy:
   required: false
