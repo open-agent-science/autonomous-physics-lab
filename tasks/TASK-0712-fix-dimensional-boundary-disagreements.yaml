@@ -1,7 +1,7 @@
 id: TASK-0712
 title: "Fix dimensional validator boundary disagreements before Gate A"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -32,6 +32,12 @@ accepted_outputs:
   - "code or challenge metadata changes for DA-310, DA-311, and DA-406 only"
   - "tests covering the targeted boundary classes"
   - "docs/reviews/dimensional-validator-boundary-disagreement-fix.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Boundary-fix workflow task; produces code, metadata, tests, and replay evidence, while a later Gate A task decides any RESULT publication."
+  evidence:
+    - "docs/reviews/dimensional-validator-boundary-disagreement-fix.md"
 
 validation:
   commands:
