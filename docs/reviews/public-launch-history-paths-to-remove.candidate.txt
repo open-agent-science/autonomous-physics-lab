@@ -1,0 +1,16 @@
+# Candidate paths to purge from public-bound git history (TASK-0732).
+# Scope: ONLY non-redistributable third-party source artifacts reachable in
+# origin/main history. Verified by the full scan in
+# docs/reviews/public-launch-history-source-artifact-scan-plan.md
+# (origin/main @ a92f2f4e, 2026-06-13).
+#
+# These two arXiv preprint PDFs are under the arXiv.org perpetual, non-exclusive
+# licence (distribution granted to arXiv only, not to third parties) and are NOT
+# Creative Commons. They were removed from the working tree by TASK-0731 (#1052)
+# but their blobs remain reachable in history.
+#
+# This file is the input for a future maintainer-approved, freeze-time
+# `git filter-repo --invert-paths --paths-from-file` run. Nothing is rewritten
+# by TASK-0732.
+data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.pdf
+data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.pdf
