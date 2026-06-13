@@ -43,17 +43,21 @@ datasets:
   - id: post-ame2020-nst-holdout
     source: "Post-AME2020 nuclear masses (Qu et al. 2025, Nuclear Science and Techniques 36, 231)"
     source_url: https://doi.org/10.1007/s41365-025-01821-1
-    license: license_verification_pending
-    redistribution_status: factual_values_with_source_citation
+    license: "Springer subscription article; no Creative Commons licence (Crossref records only the Springer text-and-data-mining policy)"
+    redistribution_status: committed_as_measured_facts_with_citation_source_not_vendored
     citation_or_acknowledgement: >
       Cite Qu, Chen, Pan, Yu & Zhang 2025, Nuclear Science and Techniques 36, 231,
       doi:10.1007/s41365-025-01821-1. Committed values are individual published mass
-      facts with per-source citation; the source article is not vendored.
+      facts with full source citation; the source article/PDF is not vendored.
     evidence: >
-      Individual measured/published mass values (facts) curated with full source
-      citation; raw source artifact not vendored. The journal article licence is
-      not yet authoritatively verified, so the licence is marked pending rather
-      than asserted.
+      Licence verified 2026-06-13 via Crossref metadata for doi:10.1007/s41365-025-01821-1:
+      the only registered licence is the Springer text-and-data-mining policy
+      (https://www.springernature.com/gp/researchers/text-and-data-mining); no
+      Creative Commons licence is present, i.e. the article is not open for general
+      redistribution. The committed dataset therefore rests on a facts basis -
+      individual measured nuclear mass values (not copyrightable) curated with full
+      citation, with the raw article/PDF not vendored. See
+      docs/reviews/post-ame2020-nst-license-verification.md.
     raw_artifact_vendored: false
     provenance: data/nuclear_masses/post_ame2020_sources.yaml
     paths:
