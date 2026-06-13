@@ -62,7 +62,7 @@ datasets:
   - id: nasa-exoplanet-archive-pscomppars
     source: "NASA Exoplanet Archive (IPAC/Caltech; NASA Exoplanet Exploration Program)"
     source_url: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
-    license: "NASA Exoplanet Archive terms (open/unrestricted access; US Government work)"
+    license: "NASA Exoplanet Archive terms (open access; re3data licence category: other)"
     redistribution_status: redistributable_with_acknowledgement_and_source_citations
     citation_or_acknowledgement: >
       Required acknowledgement: "This research has made use of the NASA Exoplanet
@@ -71,9 +71,10 @@ datasets:
       Exoplanet Exploration Program." Preserve per-row pl_refname / st_refname /
       disc_refname literature references.
     evidence: >
-      re3data r3d100010524 lists data access as open (licence "other" = NASA
-      policy); NASA Exoplanet Archive acknowledgements page specifies the required
-      acknowledgement and per-reference citation.
+      re3data r3d100010524 lists data access as open and licence as "other";
+      NASA Exoplanet Archive acknowledgements page specifies the required
+      acknowledgement and per-reference citation. The registry intentionally does
+      not assert a generic public-domain or US-Government-work status for all rows.
     raw_artifact_vendored: true
     provenance: data/exoplanets/source_manifest.yaml
     paths:

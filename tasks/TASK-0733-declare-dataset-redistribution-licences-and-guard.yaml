@@ -31,7 +31,7 @@ input:
 
 requirements:
   - "Create data/DATA_LICENSES.yaml: a central registry declaring source, source_url, license, redistribution_status, citation_or_acknowledgement, and evidence for every committed third-party dataset under data/."
-  - "Record verified bases: AME2020 = CC BY 3.0 (Chinese Physics C OA / SCOAP3; cite the CPC papers, not electronic files); NASA Exoplanet Archive = open/unrestricted with required acknowledgement + per-row source citations; Materials Project and Pizzocaro/Zenodo = CC BY 4.0."
+  - "Record verified bases: AME2020 = CC BY 3.0 (Chinese Physics C OA / SCOAP3; cite the CPC papers, not electronic files); NASA Exoplanet Archive = open access with required acknowledgement + per-row source citations (without asserting generic public-domain status); Materials Project and Pizzocaro/Zenodo = CC BY 4.0."
   - "For sources whose licence is not authoritatively verified (e.g. post-AME2020 NST holdout), use license_verification_pending with a factual-values-plus-citation note; do not assert an unverified licence."
   - "Add license/redistribution_status fields to the AME2020 and NASA Exoplanet source manifests so per-source files are self-consistent."
   - "Add a CI guard test that fails if any committed CSV/JSON dataset or large data YAML under data/ is not declared in the registry with complete fields."
