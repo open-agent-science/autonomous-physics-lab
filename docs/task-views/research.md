@@ -16,6 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0704` - Curate Atomic Nemitz 2016 ACR-0002 Yb/Sr row gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0708` - Curate Stellar M-L DEBCat component-row package (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
 - `TASK-0729` - Add curator-pool metadata for focused campaign sessions (`architecture`, priority `high`, difficulty `medium`, domain `campaign_portfolio_architecture`)
