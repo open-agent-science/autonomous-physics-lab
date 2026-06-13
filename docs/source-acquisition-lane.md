@@ -55,6 +55,19 @@ Never commit API keys, tokens, cookies, credentials, `.env` files, or private
 artifacts. Key-gated fetches are maintainer-run; the key stays in the
 maintainer's environment and never enters the repo, a commit, a log, or a PR.
 
+### Key-Gated Acquisition Handshake
+
+If a source needs a local API key, login, cookie, or private artifact, the agent
+should not immediately publish a blocker. It should first tell the maintainer
+the exact environment variable needed, point to the relevant runbook, and provide
+the local setup pattern from [Local Source Secrets](local-source-secrets.md).
+
+Agents may check only whether the variable is present (`SET` / `not set`),
+preferably with the cross-platform `scripts/apl_local_secrets.py` helper. They
+must never print, log, commit, or paste the value. A source-access blocker is
+recorded only after the maintainer confirms the key/access is unavailable or the
+safe local setup path fails.
+
 ## Maintainer Acquisition Runbook Contract
 
 Every acquisition (agent-run or maintainer-run) must record:
@@ -95,6 +108,7 @@ A runbook that cannot fill `checksum_sha256`, `license_status`, or
 - [Published-Source and Reusable-Dataset Standard](published-source-dataset-standard.md) — source admissibility, `blocker_type`, dataset-publication rules.
 - [Fresh-Data Intake Protocol](fresh-data-intake-protocol.md) — the source-to-row lifecycle stages this lane feeds.
 - [Source-Manifest Minimum Schema](source-manifest-minimum-schema.md) — required manifest fields for a pinned source.
+- [Local Source Secrets](local-source-secrets.md) — local-only env file pattern and key-gated acquisition handshake.
 - `agents/data-acquisition.yaml` — the maintainer-run role profile that operates this lane.
 
 ## Output Routing Summary
