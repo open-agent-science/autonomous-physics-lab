@@ -23,15 +23,15 @@ input_file_hashes:
     sha256: cfcc08e236489ab56a37ad00cd66da3e11fdec555c871bef76a10c580646a022
 code_reference: scripts/run_nuclear_f2_component_ablation.py
 limitations:
-  - "Agent-published, not yet independently validated or maintainer-reviewed."
+  - "Independently validated by Gate B replay (TASK-0713, byte-identical reproduction); not yet maintainer-reviewed (Gate C). CLAIM-0010 remains DRAFT."
   - "This is a retrospective AME2020 measured-row component ablation; no post-AME2020 reveal scoring is included."
   - "The result records a diagnostic stop/preflight outcome only; it does not create a prediction, claim, knowledge entry, or broad nuclear mass formula statement."
   - "The replayed metrics match the committed AGENT-RUN-0068 content after ignoring CRLF/LF line-ending differences; byte hashes differ only because of line endings."
 best_model_id: model_f2_component_ablation_full_reference
 best_verdict: INCONCLUSIVE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: INCONCLUSIVE
   gates_checked:
     deterministic_run: true
@@ -51,8 +51,40 @@ agent_proposal_evaluation:
     the scoped publication verdict is INCONCLUSIVE/diagnostic-only rather than
     claim-supporting.
   followup_for_maintainer: >
-    Keep this RESULT as agent-published diagnostic evidence unless a later
-    independent replay task upgrades it through Gate B.
+    Gate B independent replay passed (TASK-0713). The diagnostic verdict remains
+    INCONCLUSIVE and CLAIM-0010 stays DRAFT; a maintainer may optionally proceed
+    to Gate C, but no claim or nuclear mass formula is promoted by this validation.
+  validation_record:
+    gate: GATE_B_INDEPENDENT_REPLAY
+    replayed_by:
+      contributor_id: roman
+      agent_id: claude
+    original_published_by:
+      contributor_id: akutenyov
+      agent_id: codex
+    independent_of_original_author: true
+    replayed_at_utc: '2026-06-13T18:01:00Z'
+    replay_command: "python scripts/run_nuclear_f2_component_ablation.py --output-dir <tmp> --review-path <tmp>/review.md"
+    input_file_hashes_match: true
+    metrics_match: byte_identical
+    best_verdict_unchanged: true
+    drift_observed: none
+    maintainer_approved: true
+    gates_checked:
+      same_inputs_used: true
+      same_deterministic_command_used: true
+      metrics_match_within_tolerance: true
+      verdict_unchanged: true
+      no_protected_artifact_rewrite: true
+    review_note: docs/reviews/result-0018-gate-b-replay.md
+    evidence_summary: >
+      Independent Gate B replay by a different agent (claude/roman) of the
+      RESULT-0018 diagnostic originally published by a different agent
+      (codex/akutenyov, TASK-0633). All four pinned input_file_hashes match;
+      metrics.json is byte-identical (SHA-256) to the committed file; report.md
+      identical; outcome COMPONENT_DIAGNOSTIC_ONLY and best_verdict INCONCLUSIVE
+      unchanged. The original Gate A evaluation above is retained; replay output
+      was written to a temporary directory (no other canonical field changed).
 verification:
   passed: true
   checks:
