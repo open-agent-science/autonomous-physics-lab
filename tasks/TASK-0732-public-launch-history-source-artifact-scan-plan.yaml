@@ -1,0 +1,60 @@
+id: TASK-0732
+title: "Prepare public-launch git-history source-artifact scan and cleanup runbook"
+type: repository_hardening
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Keep the future public repository free of non-redistributable publisher/preprint PDFs and restricted third-party source artifacts."
+  - "Turn the Phase B history cleanup from an ad hoc force-push into a reviewed, reproducible launch-blocker runbook."
+  - "Preserve active private development until a maintainer declares a public-launch merge freeze."
+
+input:
+  mode: workflow
+  related_domain: public_release_readiness
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+    - "tasks/TASK-0731-p0-source-artifact-publication-hardening.yaml"
+    - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml"
+    - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/provenance.yaml"
+  planning_context: >
+    TASK-0731 removed non-redistributable arXiv/Nature source PDFs from the
+    current tree and added guards against reintroducing them. Public launch still
+    needs a Phase B history scan and cleanup plan because old commits may contain
+    raw source artifacts. This task prepares the runbook and candidate removal
+    list only; the destructive history rewrite is a separate maintainer-approved
+    freeze-time operation.
+
+requirements:
+  - "Run a full git-history source-artifact inventory over all reachable refs, including large blobs and historically added PDF/archive/document/source-data file types."
+  - "Identify candidate non-redistributable or license-ambiguous paths to remove from public history, including known pre-TASK-0731 arXiv PDF paths if still reachable."
+  - "Record exact scan commands, current commit, candidate paths, evidence for each candidate, and verification commands that must pass after cleanup."
+  - "Define merge-freeze prerequisites, contributor re-clone/rebase instructions, recontamination risks, and rollback/fallback criteria."
+  - "Do not run git filter-repo, force-push, delete refs, create tags, rewrite main history, or perform any destructive cleanup in this task."
+  - "Do not add or redistribute raw upstream source artifacts while documenting the plan."
+
+accepted_outputs:
+  - "docs/reviews/public-launch-history-source-artifact-scan-plan.md"
+  - "optional docs/reviews/public-launch-history-paths-to-remove.candidate.txt"
+  - "optional task proposal for the actual freeze-time history rewrite if the scan finds removable paths"
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening / release-readiness task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/public-launch-history-source-artifact-scan-plan.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_source_artifact_publication_guard.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -54,6 +54,24 @@ Expected:
 - no path leaks in tracked docs or artifacts;
 - no cache directories tracked by git.
 
+## Public Artifact History Checks
+
+Before opening the repository publicly, confirm that the Phase B
+source-artifact history scan has been completed and reviewed. This is a
+release blocker, not a routine validation command.
+
+Minimum evidence:
+
+- all reachable refs were scanned for large blobs and historically added
+  publisher/preprint/source-artifact payloads;
+- candidate non-redistributable paths, if any, were recorded with evidence and
+  a reviewed removal plan;
+- any `git filter-repo` / force-push cleanup happened only after a maintainer
+  merge freeze and was followed by fresh validation, CI, and contributor
+  re-clone/rebase instructions;
+- if no rewrite was needed, the signoff explains why the public default branch
+  history is already clean enough for launch.
+
 ## Final Signoff
 
 Before opening the repository, add or refresh a dated signoff artifact under
