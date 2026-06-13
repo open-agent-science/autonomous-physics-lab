@@ -6,6 +6,8 @@
 **Operates under:** [Source Acquisition, Pinning, and Extraction Lane](../source-acquisition-lane.md)
 and the [Published-Source and Reusable-Dataset Standard](../published-source-dataset-standard.md)
 
+**Local secret:** `MP_API_KEY` (see [Local Source Secrets](../local-source-secrets.md))
+
 ## Why this is maintainer-run
 
 The Materials Project API requires a personal API key (`MP_API_KEY`). Per the
@@ -18,11 +20,19 @@ but did not run it.
 
 ```bash
 python3 -m pip install mp-api          # provides mp_api.client.MPRester
-export MP_API_KEY="<your key>"          # never commit this; do not paste into a PR
+cp .apl-local-secrets.env.example .apl-local-secrets.env
+chmod 600 .apl-local-secrets.env
+# Fill MP_API_KEY in .apl-local-secrets.env, then verify without printing it:
+python3 scripts/apl_local_secrets.py status --require MP_API_KEY
 ```
 
 Get a key from your Materials Project account (Dashboard → API). The key is
 personal; do not share or commit it.
+
+Agents should ask for `MP_API_KEY` setup before recording an access blocker.
+They may verify only `SET` / `not set`; they must not print the key value. Use
+`scripts/apl_local_secrets.py run -- ...` for cross-platform child-process
+execution when the acquisition script must read the key.
 
 ## Frozen query (pin before fetch)
 
@@ -48,7 +58,10 @@ deterministic; do not widen it after seeing rows (no-peek).
 ## Fetch script (maintainer runs locally)
 
 ```python
-# materials_acquire.py  (run locally; do NOT commit outputs containing the key)
+# materials_acquire.py
+# Run locally via:
+# python3 scripts/apl_local_secrets.py run -- python3 materials_acquire.py
+# Do NOT commit outputs containing the key.
 import csv, hashlib, json, datetime
 from mp_api.client import MPRester
 

@@ -56,11 +56,21 @@ required_reading:
   - AGENTS.md
   - docs/agent-task-protocol.md
   - docs/source-acquisition-lane.md
+  - docs/local-source-secrets.md
   - docs/published-source-dataset-standard.md
   - docs/fresh-data-intake-protocol.md
   - docs/source-manifest-minimum-schema.md
 
 typical_activities:
+  - title: "Key requirement handshake"
+    description: |
+      If an approved acquisition needs a local API key, login, cookie, or
+      maintainer-held credential, tell the maintainer the exact environment
+      variable required, point to the runbook, and use the local-source-secrets
+      pattern. Prefer `scripts/apl_local_secrets.py` so the flow works across
+      macOS, Linux, Windows, and different agent shells. Check only whether the
+      variable is SET/not set. Do not record a blocker until the maintainer
+      confirms the key or access is unavailable or the safe setup path fails.
   - title: "Bounded public acquisition"
     description: |
       For a public, key-free source in an explicitly acquisition-scoped task
@@ -85,6 +95,7 @@ allowed_tools:
 
 scripts_to_use:
   - scripts/apl_mission.py
+  - scripts/apl_local_secrets.py
 
 can_invoke_other_roles:
   - role_id: task-proposal-agent
@@ -95,6 +106,8 @@ can_invoke_other_roles:
 restrictions:
   - "Must not run an autonomous crawler/ingester or live-fetch inside benchmark code."
   - "Must not commit API keys, tokens, cookies, credentials, or private files."
+  - "Must not print or log secret values; presence checks must report only SET/not set."
+  - "Must not publish a key-gated source as blocked before asking the maintainer for the exact required local secret and safe setup path."
   - "Must not commit copyrighted PDFs, tables, or figures without explicit license/permission."
   - "Must not treat arXiv or other non-exclusive archive distribution licences as automatic permission for this repository to redistribute PDF bytes; use metadata-only locator + expected checksum + fetch/verify helper unless a compatible licence or explicit permission is recorded."
   - "Must not mirror public upstream source files just because they are accessible; prefer metadata-only locator + expected checksum unless the task records a maintainer-approved reproducibility and licence route."
