@@ -1,7 +1,7 @@
 id: TASK-0699
 title: "Run MD-0002 maintainer-gated Materials Project acquisition"
 type: scientific_dataset
-status: READY
+status: BLOCKED
 closeout: review
 difficulty: high
 priority: high
@@ -25,7 +25,9 @@ input:
     contract. This task performs the maintainer-gated acquisition and commits
     the pinned raw snapshot, normalized formation-energy and band-gap datasets,
     and populated holdout/no-peek manifest. It is a source/data task only, not
-    a benchmark or claim task.
+    a benchmark or claim task. Current blocker: MP_API_KEY was not available in
+    the 2026-06-13 Codex environment, so the maintainer-gated source fetch was
+    not attempted; see docs/reviews/materials-md0002-acquisition-runbook-result.md.
 
 requirements:
   - "Run only as a maintainer-gated acquisition with MP_API_KEY provided outside the repository; never commit secrets."
@@ -34,6 +36,12 @@ requirements:
   - "Commit formation_energy_per_atom and band_gap as separate dataset files with computed_dft provenance and mandatory CC BY 4.0 attribution."
   - "Populate the MD-0002 holdout/no-peek manifest before any metric or residual inspection."
   - "Do not compute benchmarks, tune baselines, recommend materials, create RESULT/PRED/CLAIM artifacts, or provide synthesis/device/biomedical guidance."
+
+result_artifact_policy:
+  required: false
+  reason: "Blocked maintainer-gated source acquisition; no scientific RESULT artifact or value-bearing dataset was produced."
+  evidence:
+    - "docs/reviews/materials-md0002-acquisition-runbook-result.md"
 
 accepted_outputs:
   - "data/materials/snapshots/materials_project_stable_ternary_oxides_<database_version>.json"
