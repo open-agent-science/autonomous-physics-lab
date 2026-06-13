@@ -1,7 +1,7 @@
 id: TASK-0733
 title: "Declare redistribution licences for committed third-party datasets and add a dataset-licence CI guard"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

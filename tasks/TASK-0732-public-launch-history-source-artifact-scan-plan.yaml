@@ -1,7 +1,7 @@
 id: TASK-0732
 title: "Prepare public-launch git-history source-artifact scan and cleanup runbook"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
