@@ -1,0 +1,68 @@
+id: TASK-0731
+title: "Harden source artifact publication policy before public launch"
+type: repository_hardening
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove non-redistributable or license-ambiguous raw source artifacts from the public-launch tree while preserving checksum-verifiable provenance."
+  - "Keep APL's source/data layer reusable and citable without weakening scientific row provenance."
+  - "Prevent future agents from reintroducing publisher or preprint PDFs without explicit redistribution evidence."
+
+input:
+  mode: workflow
+  related_domain: release_packaging
+  related_objects:
+    - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/"
+    - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >-
+    Public-launch hardening Phase A. The current tree tracked two arXiv
+    preprint PDFs under Atomic source_artifacts. The arXiv non-exclusive
+    distribution license is not treated as an automatic third-party
+    redistribution grant for this repository. More generally, public
+    accessibility is not a reason to mirror raw upstream source files in git.
+    The public tree should keep metadata, DOI/arXiv locator, expected checksum,
+    provenance, and a local fetch+verify helper instead of vendoring the PDF
+    bytes. History rewrite or
+    clean-public-branch work is explicitly out of scope for this task and
+    remains a separate maintainer-controlled launch step.
+
+requirements:
+  - "Remove the currently tracked Atomic arXiv PDF files from the working tree without changing Atomic measurement values, uncertainty values, covariance notes, or scientific verdicts."
+  - "Preserve DOI/arXiv locators, expected SHA-256 checksums, source provenance, and sidecar checksum files so maintainers can locally re-fetch and verify the same artifacts."
+  - "Add a cross-platform Python fetch+verify helper; no shell-only critical path."
+  - "Add a deterministic test guard that fails on tracked PDF source artifacts unless an explicit redistribution-permission marker is present."
+  - "Update source publication policy docs and Atomic source metadata so future agents do not treat arXiv/non-exclusive preprints as automatically redistributable."
+  - "Document the broader public-source default: do not vendor raw upstream files merely because they are publicly accessible; preserve curated APL datasets only when license-clean and scientifically useful."
+  - "Do not perform git history rewrite, force-push, public-branch creation, row curation, benchmark scoring, or claim promotion."
+
+accepted_outputs:
+  - "Removed tracked Atomic PDF artifacts from data/atomic_clocks/source_artifacts/"
+  - "scripts/fetch_source_artifact.py"
+  - "tests/test_fetch_source_artifact.py"
+  - "tests/test_source_artifact_publication_guard.py"
+  - "Updated Atomic provenance/source manifest/README metadata"
+  - "Updated published-source/source-acquisition policy wording"
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening task; no scientific RESULT/PRED artifact is expected."
+  evidence:
+    - "scripts/fetch_source_artifact.py"
+    - "tests/test_source_artifact_publication_guard.py"
+    - "docs/published-source-dataset-standard.md"
+
+validation:
+  commands:
+    - ".venv/bin/python -m pytest tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py"
+    - ".venv/bin/python -m ruff check scripts/fetch_source_artifact.py tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py"
+    - ".venv/bin/python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

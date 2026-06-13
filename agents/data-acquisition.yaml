@@ -96,6 +96,8 @@ restrictions:
   - "Must not run an autonomous crawler/ingester or live-fetch inside benchmark code."
   - "Must not commit API keys, tokens, cookies, credentials, or private files."
   - "Must not commit copyrighted PDFs, tables, or figures without explicit license/permission."
+  - "Must not treat arXiv or other non-exclusive archive distribution licences as automatic permission for this repository to redistribute PDF bytes; use metadata-only locator + expected checksum + fetch/verify helper unless a compatible licence or explicit permission is recorded."
+  - "Must not mirror public upstream source files just because they are accessible; prefer metadata-only locator + expected checksum unless the task records a maintainer-approved reproducibility and licence route."
   - "Must not add measurement rows; rows require a separate row-curation task."
   - "Must not promote claims, knowledge entries, or canonical results."
 

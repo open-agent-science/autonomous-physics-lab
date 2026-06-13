@@ -19,3 +19,6 @@ dist/
 examples/reports/*.md
 results/**/plots/
 device-id
+
+# Source PDFs under data require explicit license review and force-add.
+data/**/*.pdf
