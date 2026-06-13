@@ -685,6 +685,7 @@ items:
       m: "kg"
       kg: "kg"
     expected_verdict: SUSPICIOUS
+    curated_dimensionally_balanced_verdict: SUSPICIOUS
     failure_mode: "physically_meaningless"
     check_type: dimensional
     difficulty: medium
@@ -699,6 +700,7 @@ items:
       m: "kg"
       k: "kg s^-2"
     expected_verdict: SUSPICIOUS
+    curated_dimensionally_balanced_verdict: SUSPICIOUS
     failure_mode: "missing dimensionless factor 2pi; numerically incorrect but dimensionally balanced"
     check_type: dimensional
     difficulty: medium
