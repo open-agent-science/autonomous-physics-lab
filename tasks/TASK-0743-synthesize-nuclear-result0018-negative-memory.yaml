@@ -1,0 +1,56 @@
+id: TASK-0743
+title: "Synthesize Nuclear RESULT-0018 diagnostic negative memory and next-lane decision"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the AGENT_VALIDATED but INCONCLUSIVE Nuclear RESULT-0018 replay into clear campaign memory."
+  - "Prevent agents from repeatedly rerunning the same F2 component-ablation lane as if it were a discovery candidate."
+  - "Decide whether Nuclear should open exactly one non-F2 hypothesis lane, preserve a no-go, or wait for reveal data."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "results/EXP-0012/RUN-0002/result.yaml"
+    - "docs/reviews/result-0018-gate-b-replay.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "tasks/TASK-0714-repair-nuclear-prediction-reveal-checklist-links.yaml"
+  planning_context: >
+    RESULT-0018 is now independently reproduced and AGENT_VALIDATED, but its
+    scientific verdict remains INCONCLUSIVE/diagnostic-only. This task turns
+    that into explicit negative/diagnostic memory and recommends the next
+    Nuclear posture without scoring predictions or inventing a formula.
+
+requirements:
+  - "Summarize what RESULT-0018 validated reproducibly and what it did not validate scientifically."
+  - "Name F2 ablation lanes that should not be repeated without new evidence or a changed contract."
+  - "Recommend one of: wait for reveal data, open one non-F2 no-leakage hypothesis lane, or preserve no-go."
+  - "If recommending a non-F2 lane, define its source/data prerequisites and controls; do not implement it in this task."
+  - "Do not score PRED entries, fetch nuclear data, change frozen prediction values, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-result0018-diagnostic-negative-memory-and-next-lane.md"
+  - "optional campaign page note if it removes stale F2-next wording"
+  - "optional task proposal or task-status recommendation for one non-F2 lane"
+
+result_artifact_policy:
+  required: false
+  reason: "Campaign decision and negative-memory task; no new scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/nuclear-result0018-diagnostic-negative-memory-and-next-lane.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

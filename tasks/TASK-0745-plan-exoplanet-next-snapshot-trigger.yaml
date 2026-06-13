@@ -1,0 +1,54 @@
+id: TASK-0745
+title: "Plan Exoplanet EXO-0003 trigger after monitor no-notify result"
+type: scientific_validation
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep Exoplanet paused until a material source-version or coverage trigger exists."
+  - "Avoid repeating control-sensitive residual pilots on unchanged PSCompPars snapshots."
+  - "Define exactly what would reopen mass-radius residual work without live-row peeking."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "tasks/TASK-0715-run-exoplanet-source-version-monitor-check.yaml"
+    - "docs/runbooks/exoplanet-source-version-monitor-contract.md"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+  planning_context: >
+    Exoplanet residual lanes are closed on the current snapshot. After the
+    TASK-0715 monitor result is closed out, this task decides whether EXO-0003
+    remains monitor-only or needs a bounded metadata scout / coverage-gate
+    amendment.
+
+requirements:
+  - "Start only after TASK-0715 is DONE."
+  - "Use monitor output, coverage gates, and source-version contract only; do not fetch value-bearing planet rows."
+  - "State whether EXO-0003 remains paused, needs a metadata-only scout, or needs a reviewed coverage-gate amendment."
+  - "Do not run residual metrics, habitability, composition, target priority, prediction, or planet-law claims."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-exo0003-trigger-decision-after-monitor.md"
+  - "optional task-status recommendation for a future metadata-only scout"
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-trigger planning gate; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/exoplanet-exo0003-trigger-decision-after-monitor.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

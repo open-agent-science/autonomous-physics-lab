@@ -1,0 +1,53 @@
+id: TASK-0746
+title: "Select one next Nuclear non-F2 no-leakage hypothesis lane"
+type: scientific_validation
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Let Nuclear test new hypotheses only after RESULT-0018 diagnostic memory is explicit."
+  - "Avoid another broad audit loop by selecting exactly one non-F2 lane with source, controls, and stop conditions."
+  - "Keep the Nuclear flagship moving toward either a stronger negative result or a genuinely distinct bounded hypothesis."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0743-synthesize-nuclear-result0018-negative-memory.yaml"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "docs/reviews/research-factory-core-and-nuclear-adapter.md"
+  planning_context: >
+    This task starts only after TASK-0743 decides that a non-F2 lane is
+    warranted. It selects exactly one bounded, no-leakage Nuclear hypothesis
+    lane for a future agent sprint. It does not run the sprint.
+
+requirements:
+  - "Start only after TASK-0743 recommends opening a non-F2 lane."
+  - "Select exactly one hypothesis family and define train/validation/holdout, negative controls, complexity limits, and stop conditions."
+  - "Reject lanes that reuse F2 ablation wording without materially different evidence."
+  - "Do not fetch reveal data, score frozen predictions, fit on holdout, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+  - "optional canonical task recommendation for one future bounded sprint"
+
+result_artifact_policy:
+  required: false
+  reason: "Lane-selection planning task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

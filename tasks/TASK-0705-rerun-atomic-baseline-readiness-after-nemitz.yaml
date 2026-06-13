@@ -1,7 +1,7 @@
 id: TASK-0705
 title: "Rerun Atomic baseline-readiness gate after Nemitz ACR-0002"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -16,15 +16,16 @@ input:
   related_objects:
     - "tasks/TASK-0704-curate-nemitz-acr0002-row-gate.yaml"
     - "tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml"
+    - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml"
+    - "docs/reviews/atomic-nemitz-acr0002-row-curation-gate.md"
     - "docs/reviews/atomic-baseline-readiness-after-pizzocaro-covariance.md"
   planning_context: >
-    This gate starts only after TASK-0704 either commits ACR-0002 or preserves a
-    blocker. If ACR-0002 lands, the gate decides whether the first Yb/Sr
-    consistency benchmark can run. If it does not, the gate keeps Atomic below
-    BASELINE_READY and states the next unblock path.
+    TASK-0704 is DONE and committed ACR-0002, so this gate is now ready. It
+    decides whether the first Yb/Sr consistency benchmark can run, using only
+    the committed Beloy and Nemitz row/source/covariance artifacts.
 
 requirements:
-  - "Start only after TASK-0704 is merged."
+  - "Confirm TASK-0704 is DONE and ACR-0002 is committed before doing the gate review."
   - "Use committed Beloy and Nemitz row/source/covariance artifacts only; no live fetch."
   - "Classify Atomic as BASELINE_READY or not, and state whether TASK-0456 can proceed."
   - "Do not compute benchmark metrics, fit constants drift, or promote claims."
