@@ -1,7 +1,7 @@
 id: TASK-0700
 title: "Build MD-0002 loader and dataset validation checks"
 type: scientific_dataset_schema
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -28,6 +28,14 @@ requirements:
   - "Validate source version, checksum placeholders, property axis, units, computed_dft provenance, inclusion/exclusion state, and material_id uniqueness."
   - "Keep formation_energy_per_atom and band_gap as separate axes; do not pool metrics."
   - "Do not fetch Materials Project rows, compute benchmark metrics, recommend materials, or promote claims."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset loader/schema task; no scientific RESULT artifact is expected."
+  evidence:
+    - "physics_lab/datasets/materials_md0002.py"
+    - "tests/test_materials_md0002_schema_fixture.py"
+    - "docs/reviews/materials-md0002-loader-validation-readiness.md"
 
 accepted_outputs:
   - "loader or validation code for MD-0002 normalized datasets"
