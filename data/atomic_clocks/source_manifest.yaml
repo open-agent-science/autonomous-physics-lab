@@ -40,9 +40,11 @@ source_families:
         archive_url: https://arxiv.org/pdf/2005.14694
         retrieval_date: 2026-05-25
         checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
-        checksum_scope: arxiv_preprint_pdf
+        checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
         provenance_path: data/atomic_clocks/source_artifacts/2021-beloy-bacon/provenance.yaml
-        license_note: arXiv_perpetual_licence_for_committed_preprint
+        license_note: metadata_only_arxiv_nonexclusive_pdf_not_redistributed
+        preprint_committed: false
+        redistribution_status: not_redistributable_arxiv_nonexclusive
         publication_of_record:
           doi: 10.1038/s41586-021-03253-4
           journal: Nature
@@ -77,9 +79,11 @@ source_families:
         archive_url: https://arxiv.org/pdf/1601.04582
         retrieval_date: 2026-05-30
         checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
-        checksum_scope: arxiv_preprint_pdf
+        checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
         provenance_path: data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
-        license_note: arXiv_perpetual_licence_for_committed_preprint
+        license_note: metadata_only_arxiv_nonexclusive_pdf_not_redistributed
+        preprint_committed: false
+        redistribution_status: not_redistributable_arxiv_nonexclusive
         publication_of_record:
           doi: 10.1038/nphoton.2016.20
           journal: Nature Photonics

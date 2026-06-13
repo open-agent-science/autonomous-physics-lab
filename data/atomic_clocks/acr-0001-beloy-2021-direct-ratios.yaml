@@ -23,9 +23,12 @@ scope:
 
 source_artifact:
   artifact_id: ACLOCK-SRC-ARTIFACT-2021-BELOY-BACON
-  preprint_path: data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.pdf
+  preprint_locator: https://arxiv.org/pdf/2005.14694
+  preprint_committed: false
+  local_fetch_target: data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.pdf
   checksum_sidecar: data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.sha256
-  checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
+  expected_checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
+  fetch_helper: scripts/fetch_source_artifact.py
   provenance: data/atomic_clocks/source_artifacts/2021-beloy-bacon/provenance.yaml
   version_check_with_publication_of_record:
     performed: true
@@ -56,7 +59,7 @@ covariance_policy:
     The per-row `total` field below is the Bayesian-model standard deviation
     reported in Table 1's final row, which is the publication-of-record total
     uncertainty for each ratio.
-  paragraph_cite: "arxiv-2005.14694.pdf Sec. 4.5 'Comprehensive Bayesian model'; Nature Methods 'Bayesian model' subsection (cross-checked locally)."
+  paragraph_cite: "arXiv:2005.14694 Sec. 4.5 'Comprehensive Bayesian model'; Nature Methods 'Bayesian model' subsection (cross-checked locally)."
   covariance_reference: diagonal_per_paper_explicit_fold_in_bayesian_sec_4_5
   cross_row_shared_clock_systematics_note: |
     Table 1 of the paper publishes per-clock systematic contributions to each
@@ -157,8 +160,8 @@ rows:
       archive_url: https://arxiv.org/abs/2005.14694
       retrieval_date: 2026-05-25
       checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
-      checksum_scope: arxiv_preprint_pdf
-      license_note: arXiv_perpetual_licence_for_committed_preprint
+      checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+      license_note: metadata_only_arxiv_nonexclusive_pdf_not_redistributed
     classification:
       direct_measurement: true
       derived_constraint: false
@@ -228,8 +231,8 @@ rows:
       archive_url: https://arxiv.org/abs/2005.14694
       retrieval_date: 2026-05-25
       checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
-      checksum_scope: arxiv_preprint_pdf
-      license_note: arXiv_perpetual_licence_for_committed_preprint
+      checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+      license_note: metadata_only_arxiv_nonexclusive_pdf_not_redistributed
     classification:
       direct_measurement: true
       derived_constraint: false
@@ -300,8 +303,8 @@ rows:
       archive_url: https://arxiv.org/abs/2005.14694
       retrieval_date: 2026-05-25
       checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
-      checksum_scope: arxiv_preprint_pdf
-      license_note: arXiv_perpetual_licence_for_committed_preprint
+      checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+      license_note: metadata_only_arxiv_nonexclusive_pdf_not_redistributed
     classification:
       direct_measurement: true
       derived_constraint: false

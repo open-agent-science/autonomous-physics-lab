@@ -17,3 +17,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0728` - Fix closeout sweep exact merged-PR fallback (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
+- `TASK-0730` - Harden curator scope filter validation (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `campaign_portfolio_architecture`)

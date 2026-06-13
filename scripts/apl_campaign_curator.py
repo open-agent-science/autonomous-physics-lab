@@ -14,6 +14,8 @@ if str(REPO_ROOT) not in sys.path:
 from physics_lab.registry.campaign_curator import (  # noqa: E402
     SUPPORTED_CAMPAIGN_CURATOR_MODES,
     SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS,
+    SUPPORTED_CAMPAIGN_CURATOR_POOLS,
+    SUPPORTED_CAMPAIGN_LIFECYCLE_STAGES,
     build_campaign_brief,
     build_campaign_scope_brief,
     campaign_brief_json,
@@ -40,6 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--pool",
+        choices=SUPPORTED_CAMPAIGN_CURATOR_POOLS,
         help=(
             "Curator primary pool slug for a focused multi-campaign session, "
             "for example source_data_benchmark or prediction_reveal."
@@ -51,6 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--stage",
+        choices=SUPPORTED_CAMPAIGN_LIFECYCLE_STAGES,
         help="Lifecycle-stage filter for a focused multi-campaign session.",
     )
     parser.add_argument(
