@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0713` - Run Gate B replay for Nuclear RESULT-0018 F2 diagnostic (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0714` - Repair Nuclear prediction reveal-readiness checklist references (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
@@ -15,4 +14,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0713` - Run Gate B replay for Nuclear RESULT-0018 F2 diagnostic (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0734` - Verify post-AME2020 NST article licence and resolve the DATA_LICENSES pending entry (`repository_hardening`, priority `high`, difficulty `medium`, domain `public_release_readiness`)
