@@ -1,0 +1,61 @@
+id: TASK-0735
+title: "Plan NASA Exoplanet PSCompPars snapshot de-duplication without losing required fields"
+type: repository_hardening
+status: READY
+closeout: review
+difficulty: medium
+priority: low
+
+strategy_alignment:
+  - "Reduce public repository weight only when field equivalence and reproducibility are proven."
+  - "Keep NASA Exoplanet Archive snapshots redistributable, attributed, and reconstructable without duplicating raw and normalized payloads unnecessarily."
+  - "Avoid history surgery for redistributable datasets unless it is deliberately folded into a maintainer-approved public-launch rewrite."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "data/exoplanets/raw/exo-pscomppars-20260523T171549Z.csv"
+    - "data/exoplanets/raw/exo-pscomppars-second-snapshot-20260604T185011Z.csv"
+    - "data/exoplanets/source_manifest.yaml"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    NASA Exoplanet Archive PSCompPars snapshots are currently committed as both
+    raw CSV files and normalized YAML snapshots. They are redistributable with
+    acknowledgement and per-row source citations, so this is not a licence
+    blocker. It is repository-size and reproducibility hygiene: decide whether
+    one canonical artifact plus a rebuild/loader path can replace the duplicate
+    payload safely.
+
+requirements:
+  - "Compare the raw CSV columns against the normalized YAML fields for each committed PSCompPars snapshot and report any fields needed downstream that are missing from either representation."
+  - "Recommend exactly one canonical storage policy: keep raw CSV + derived YAML, keep normalized YAML + raw checksum/retrieval recipe, or keep both with a documented reason."
+  - "Do not delete raw CSV or YAML payloads unless field equivalence and all downstream requirements are proven in the same PR."
+  - "Update `data/DATA_LICENSES.yaml` and `data/exoplanets/source_manifest.yaml` only if the canonical path list changes."
+  - "If history-size reduction is desired, route blob cleanup through the maintainer-approved Phase B rewrite flow rather than creating an independent force-push plan."
+
+accepted_outputs:
+  - "A review note under `docs/reviews/` with raw-vs-normalized field coverage and a canonical artifact recommendation."
+  - "Optional scoped manifest/registry updates only when the canonical path list changes safely."
+  - "Validation showing dataset licence declarations and strict repository validation still pass."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository/publication hardening task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/"
+    - "data/DATA_LICENSES.yaml"
+    - "data/exoplanets/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

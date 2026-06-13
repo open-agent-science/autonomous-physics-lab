@@ -1,0 +1,58 @@
+id: TASK-0734
+title: "Verify post-AME2020 NST article licence and resolve the DATA_LICENSES pending entry"
+type: repository_hardening
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove the only license_verification_pending entry from the dataset redistribution registry before public launch."
+  - "Keep committed nuclear holdout rows on an explicit, reviewed redistribution basis without vendoring the source article."
+  - "Preserve the current facts-plus-citation posture if the article licence is restrictive or cannot be verified."
+
+input:
+  mode: workflow
+  related_domain: public_release_readiness
+  related_objects:
+    - "data/DATA_LICENSES.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    The post-AME2020 nuclear-mass holdout dataset is sourced from Qu et al. 2025
+    (Nuclear Science and Techniques 36, 231; doi:10.1007/s41365-025-01821-1).
+    `data/DATA_LICENSES.yaml` currently marks this source as
+    `license_verification_pending`: the committed values are individual
+    published mass facts with source citation, and the raw article is not
+    vendored, but the article's reuse licence has not been authoritatively
+    recorded. Resolve that pending entry with evidence.
+
+requirements:
+  - "Verify the specific article licence for doi:10.1007/s41365-025-01821-1 from authoritative metadata such as the publisher page, Crossref, DOAJ, or the article PDF landing metadata."
+  - "Update the `post-ame2020-nst-holdout` entry in `data/DATA_LICENSES.yaml`: replace `license_verification_pending` with the verified licence and evidence when permitted, or keep a verified facts-plus-citation basis if the article licence is restrictive or unavailable."
+  - "Do not vendor the raw source article, publisher PDF, or HTML/JATS payload."
+  - "Do not change nuclear result interpretation, prediction status, or claim wording."
+  - "Keep the change scoped to licence/provenance metadata and any minimal tests/docs needed by the guard."
+
+accepted_outputs:
+  - "Updated `data/DATA_LICENSES.yaml` entry for `post-ame2020-nst-holdout`."
+  - "A short evidence note in the registry entry or a review note under `docs/reviews/` when the licence is not straightforward."
+  - "Validation showing the dataset redistribution declaration guard still passes."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository/publication hardening task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "data/DATA_LICENSES.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
