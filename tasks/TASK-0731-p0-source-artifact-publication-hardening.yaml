@@ -57,9 +57,9 @@ result_artifact_policy:
 
 validation:
   commands:
-    - ".venv/bin/python -m pytest tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py"
-    - ".venv/bin/python -m ruff check scripts/fetch_source_artifact.py tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py"
-    - ".venv/bin/python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m ruff check scripts/fetch_source_artifact.py tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
