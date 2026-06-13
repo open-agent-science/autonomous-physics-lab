@@ -10,12 +10,24 @@ source_locator: https://arxiv.org/abs/1601.04582
 archive_url: https://arxiv.org/pdf/1601.04582
 retrieval_date_utc: 2026-05-30
 checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
-checksum_scope: arxiv_preprint_pdf
+checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+preprint_committed: false
+source_files_vendored: []
+redistribution_status: not_redistributable_arxiv_nonexclusive
+covered_by_repo_license: false
+expected_artifact:
+  filename: arxiv-1601.04582.pdf
+  archive_url: https://arxiv.org/pdf/1601.04582
+  checksum_sidecar: arxiv-1601.04582.sha256
+  checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
+  fetch_helper: scripts/fetch_source_artifact.py
 license_or_reuse_notes: |
-  The committed PDF is the arXiv preprint for Nemitz et al. 2016. The arXiv
-  source page exposes a license link and provides a redistributable preprint
-  artifact. The Nature Photonics version-of-record PDF is NOT committed; it is
-  cited by DOI only.
+  Metadata-only source package. The arXiv preprint can be fetched locally and
+  verified against the expected SHA-256 sidecar, but the PDF bytes are not
+  redistributed by this repository. The arXiv non-exclusive distribution route
+  is not treated as automatic third-party redistribution permission. The Nature
+  Photonics version-of-record PDF is also not committed; it is cited by DOI
+  only.
 
 publication_of_record:
   doi: 10.1038/nphoton.2016.20
@@ -48,7 +60,7 @@ version_check_with_publication_of_record:
   result: PARTIAL_NO_DRIFT_PUBLIC_ABSTRACT_ONLY_ROW_GATE_BLOCKED
   method: |
     Compared the arXiv:1601.04582 public abstract/title/authors/DOI metadata and
-    extracted arXiv PDF text against the public Nature Photonics article page.
+    locally inspected arXiv PDF text against the public Nature Photonics article page.
     The Nature public page reports the same title, authors, DOI, publication
     venue, and abstract-level value-bearing ratio statement:
     R = 1.207507039343337749(55), fractional uncertainty 4.6e-17, and
@@ -69,8 +81,8 @@ version_check_with_publication_of_record:
     needs a table-level version check before values are pinned.
   not_recheckable_from_committed_artifacts_alone: true
   required_follow_up: |
-    Maintainer-side Nature Photonics PDF/table comparison against the committed
-    arXiv PDF for all value-bearing and row-defining fields before any
+    Maintainer-side Nature Photonics PDF/table comparison against a locally
+    fetched checksum-verified arXiv PDF for all value-bearing and row-defining fields before any
     data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml rows are added.
 
 arxiv_row_gate_observations:

@@ -25,7 +25,7 @@ never adds measurement rows itself.
 
 | `blocker_type` | Lane | Who runs it | Output |
 | --- | --- | --- | --- |
-| `T1_access` | Maintainer-provided source artifact | Maintainer (has access/version-of-record) | Committed redistributable artifact + checksum, or a recorded access/license blocker |
+| `T1_access` | Maintainer-provided source artifact | Maintainer (has access/version-of-record) | Committed redistributable artifact + checksum, or metadata-only locator + expected checksum + recorded access/license blocker |
 | `T2_extraction_tool` | Deterministic extraction/digitization | Curator with a WebPlotDigitizer-class tool | Extraction ledger + per-point artifact under the campaign's digitization dir |
 | `T3_coverage` | Coverage-expansion task | Curation task | A larger curated slice that clears the campaign's coverage gate |
 | `T4_snapshot_approval` | Approved snapshot fetch + pin | Maintainer or approved actor; agent may run only public, key-free, network-allowed fetches | Pinned snapshot + manifest + checksum |
@@ -40,6 +40,14 @@ never adds measurement rows itself.
 - **Needs an API key, login, cookie, or private artifact** → the **maintainer**
   runs the fetch locally. The agent prepares the runbook, schema, expected
   snapshot manifest, and validator so the maintainer's run is one command.
+- **License is readable but not clearly redistributable by this repository**
+  → keep DOI/URL/checksum metadata and a local fetch+verify command; do not
+  commit the artifact bytes unless a compatible license or explicit permission
+  is recorded.
+- **Artifact is public and stable upstream** → prefer the same metadata-only
+  route unless committing the raw bytes has a documented reproducibility need
+  and a maintainer-approved license route. Public access alone is not a reason
+  to mirror the file in git.
 
 ### No-Secret Rule (hard)
 
@@ -75,6 +83,9 @@ A runbook that cannot fill `checksum_sha256`, `license_status`, or
 
 - autonomous crawler/ingester or live-fetch inside ordinary agent task PRs;
 - committing copyrighted PDFs/tables/figures or any secret;
+- treating arXiv/non-exclusive preprint licenses as automatic third-party
+  redistribution permission;
+- mirroring public upstream files just because they are accessible elsewhere;
 - adding measurement rows (rows need a separate row-curation task);
 - auto-unblocking a benchmark task from an acquisition;
 - promoting any claim, knowledge entry, or canonical result.

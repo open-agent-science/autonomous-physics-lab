@@ -9,12 +9,11 @@ measurements at 18-digit accuracy using an optical clock network*,
 
 ## Purpose
 
-This directory is the pinned-on-disk home of the Beloy 2021 / BACON
-direct frequency-ratio source artifact. It is **metadata-only at the
-time of this TASK-0363 commit** — no frequency-ratio values, no
-uncertainty numbers, no drift fits, no derived constants
-constraints, no prediction registry entries, and no claim updates
-are recorded here.
+This directory is the metadata-only home of the Beloy 2021 / BACON
+direct frequency-ratio source artifact. The raw arXiv PDF is **not**
+redistributed in the repository; instead this package records the DOI/arXiv
+locator, expected SHA-256 sidecar, and provenance needed for a maintainer to
+re-fetch and verify the same source locally.
 
 The companion review at
 `docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md`
@@ -24,36 +23,36 @@ on the future row-curation task.
 
 ## Planned files
 
-This directory is **expected** to grow as follows when the future
-row-curation task is approved. None of these files exist yet.
+This directory may grow only with artifacts whose redistribution rights are
+explicitly recorded. The default source-PDF route is metadata-only.
 
 | Path | Status | Notes |
 | --- | --- | --- |
-| `README.md` | committed by TASK-0363 | This file. |
-| `arxiv-2005.14694.pdf` | not committed by TASK-0363 | arXiv preprint. The row-curation task fetches, archives, and records SHA-256. |
-| `arxiv-2005.14694.sha256` | not committed by TASK-0363 | One-line SHA-256 hex string of the committed PDF. |
-| `supplementary_information.pdf` | not committed by TASK-0363 | Optional. Only if separately released by the authors under a redistributable licence. |
-| `supplementary_information.sha256` | not committed by TASK-0363 | Optional. |
+| `README.md` | committed | This file. |
+| `arxiv-2005.14694.sha256` | committed | Expected SHA-256 for a local maintainer-fetched arXiv preprint copy. |
+| `arxiv-2005.14694.pdf` | not committed | Fetch locally only; do not redistribute unless explicit compatible permission is recorded. |
+| `supplementary_information.pdf` | not committed | Optional. Only if separately released by the authors under a redistributable licence. |
+| `supplementary_information.sha256` | optional | Optional expected checksum for a non-redistributed or explicitly permitted artifact. |
 | `covariance_matrix.yaml` | not committed by TASK-0363 | Optional. Only if a covariance matrix is actually present in the SI; otherwise the row-curation task records a documented diagonal approximation. |
-| `provenance.yaml` | not committed by TASK-0363 | Per-artifact provenance fields (retrieval date, source locator, license note, sha256 cross-reference). |
+| `provenance.yaml` | committed | Per-artifact provenance fields, redistribution status, expected checksum, and local fetch helper. |
 
 ## Retrieval policy (TASK-0363)
 
-- The artifact **must** be the arXiv preprint
+- The artifact locator is the arXiv preprint
   ([arXiv:2005.14694](https://arxiv.org/abs/2005.14694)), not the
-  Nature version-of-record PDF. The arXiv perpetual licence allows
-  archival redistribution of the author's accepted manuscript; the
-  Nature-published PDF is not redistributable here.
+  Nature version-of-record PDF. The arXiv non-exclusive distribution route is
+  not treated as automatic third-party redistribution permission for this
+  repository, so the PDF bytes are not committed.
 - The Nature DOI
   ([10.1038/s41586-021-03253-4](https://doi.org/10.1038/s41586-021-03253-4))
   remains the publication-of-record reference and must be cited
   alongside the arXiv locator in any future per-row source field.
-- The retrieval task must record `retrieval_date_utc`,
+- A local retrieval/recheck should record `retrieval_date_utc`,
   `source_locator: https://arxiv.org/abs/2005.14694`,
   `archive_url: https://arxiv.org/pdf/2005.14694`,
-  `checksum_sha256: <sha256-of-committed-pdf>`,
-  `checksum_scope: arxiv_preprint_pdf`, and
-  `license_or_reuse_notes: arXiv perpetual licence; verbatim redistribution of the Nature PDF is forbidden.`
+  `checksum_sha256: <expected-sha256>`,
+  `checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed`, and
+  `license_or_reuse_notes: metadata-only; PDF bytes are not redistributed.`
 - The retrieval task must verify that the arXiv preprint matches the
   Nature-published ratio table values **before** extracting any row.
 - If the arXiv preprint and Nature version-of-record disagree on a ratio
@@ -100,10 +99,26 @@ The first row-curation task is **locked to per-ratio totals**:
   changes the schema shape; locking the simpler shape first keeps
   the first batch reviewable and reversible.
 
-## Non-goals (TASK-0363)
+## Local fetch and verify
+
+From the repository root, a maintainer can re-fetch the non-redistributed
+preprint copy into a local working tree and verify it against the pinned
+sidecar:
+
+```bash
+python3 scripts/fetch_source_artifact.py \
+  --url https://arxiv.org/pdf/2005.14694 \
+  --output data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.pdf \
+  --sha256-file data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.sha256
+```
+
+The fetched PDF remains local and must not be committed unless a compatible
+redistribution marker is added and reviewed.
+
+## Non-goals (TASK-0363 / TASK-0731)
 
 - This task does **not** fetch the arXiv preprint.
-- This task does **not** commit any PDF or SHA-256.
+- This package does **not** commit any PDF bytes.
 - This task does **not** ingest any frequency-ratio value,
   uncertainty number, drift fit, or derived constants constraint.
 - This task does **not** edit
