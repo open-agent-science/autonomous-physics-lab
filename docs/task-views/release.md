@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0732` - Prepare public-launch git-history source-artifact scan and cleanup runbook (`repository_hardening`, priority `high`, difficulty `high`, domain `public_release_readiness`)
+None.
