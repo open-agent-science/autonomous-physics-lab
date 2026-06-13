@@ -1,0 +1,136 @@
+# Redistribution-licence registry for committed third-party datasets (TASK-0733).
+#
+# Every committed third-party dataset under data/ must be declared here with a
+# redistribution basis. APL-authored artifacts (schemas, source manifests,
+# split/coverage/registry files, illustrative samples, templates, checksums,
+# query contracts) are NOT third-party datasets and are not listed.
+#
+# Enforced by tests/test_data_redistribution_declarations.py:
+#   - every committed CSV/JSON dataset under data/ (excluding *.schema.json and
+#     *_template.csv) must appear in some entry's `paths`;
+#   - every data YAML larger than 100 kB must appear in some entry's `paths`;
+#   - every entry must fill all `required_fields`.
+schema_version: 0.1.0
+task_id: TASK-0733
+
+required_fields:
+  - source
+  - source_url
+  - license
+  - redistribution_status
+  - citation_or_acknowledgement
+  - evidence
+
+datasets:
+  - id: ame2020-nuclear-masses
+    source: "AME2020 atomic mass evaluation (Atomic Mass Data Center / IAEA-NDS)"
+    source_url: https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt
+    license: CC BY 3.0
+    redistribution_status: redistributable_with_attribution
+    citation_or_acknowledgement: >
+      Cite Huang et al. 2021 (Chinese Physics C 45, 030002, doi:10.1088/1674-1137/abddb0)
+      and Wang et al. 2021 (Chinese Physics C 45, 030003, doi:10.1088/1674-1137/abddaf),
+      not the electronic files.
+    evidence: >
+      Chinese Physics C is an open-access journal under CC BY 3.0 (SCOAP3 / IOP
+      Publishing journal open-access policy); the AME2020 tables are published in
+      those CC BY 3.0 articles. Raw AMDC ASCII is not vendored.
+    raw_artifact_vendored: false
+    provenance: data/nuclear_masses/nmd-0003-source-manifest.yaml
+    paths:
+      - data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+
+  - id: post-ame2020-nst-holdout
+    source: "Post-AME2020 nuclear masses (Qu et al. 2025, Nuclear Science and Techniques 36, 231)"
+    source_url: https://doi.org/10.1007/s41365-025-01821-1
+    license: license_verification_pending
+    redistribution_status: factual_values_with_source_citation
+    citation_or_acknowledgement: >
+      Cite Qu, Chen, Pan, Yu & Zhang 2025, Nuclear Science and Techniques 36, 231,
+      doi:10.1007/s41365-025-01821-1. Committed values are individual published mass
+      facts with per-source citation; the source article is not vendored.
+    evidence: >
+      Individual measured/published mass values (facts) curated with full source
+      citation; raw source artifact not vendored. The journal article licence is
+      not yet authoritatively verified, so the licence is marked pending rather
+      than asserted.
+    raw_artifact_vendored: false
+    provenance: data/nuclear_masses/post_ame2020_sources.yaml
+    paths:
+      - data/nuclear_masses/post_ame2020_holdout.yaml
+
+  - id: nasa-exoplanet-archive-pscomppars
+    source: "NASA Exoplanet Archive (IPAC/Caltech; NASA Exoplanet Exploration Program)"
+    source_url: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+    license: "NASA Exoplanet Archive terms (open access; re3data licence category: other)"
+    redistribution_status: redistributable_with_acknowledgement_and_source_citations
+    citation_or_acknowledgement: >
+      Required acknowledgement: "This research has made use of the NASA Exoplanet
+      Archive, which is operated by the California Institute of Technology, under
+      contract with the National Aeronautics and Space Administration under the
+      Exoplanet Exploration Program." Preserve per-row pl_refname / st_refname /
+      disc_refname literature references.
+    evidence: >
+      re3data r3d100010524 lists data access as open and licence as "other";
+      NASA Exoplanet Archive acknowledgements page specifies the required
+      acknowledgement and per-reference citation. The registry intentionally does
+      not assert a generic public-domain or US-Government-work status for all rows.
+    raw_artifact_vendored: true
+    provenance: data/exoplanets/source_manifest.yaml
+    paths:
+      - data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+      - data/exoplanets/exo-0002-pscomppars-snapshot.yaml
+      - data/exoplanets/raw/exo-pscomppars-20260523T171549Z.csv
+      - data/exoplanets/raw/exo-pscomppars-second-snapshot-20260604T185011Z.csv
+
+  - id: materials-project-binary-oxides
+    source: "The Materials Project (materialsproject.org)"
+    source_url: https://materialsproject.org
+    license: CC BY 4.0
+    redistribution_status: redistributable_with_attribution
+    citation_or_acknowledgement: >
+      Data from The Materials Project, licensed CC BY 4.0; cite Jain et al. 2013
+      (APL Materials 1, 011002).
+    evidence: "Materials Project data is licensed CC BY 4.0 (declared inline in the dataset files)."
+    raw_artifact_vendored: true
+    provenance: data/materials/md-0001-materials-project-formation-energy.yaml
+    paths:
+      - data/materials/md-0001-materials-project-formation-energy.yaml
+      - data/materials/md-0001-materials-project-band-gap.yaml
+      - data/materials/snapshots/materials_project_binary_oxides_2025-09-25.json
+
+  - id: pizzocaro-2020-yb-sr-zenodo
+    source: "Pizzocaro et al. Yb/Sr clock-comparison dataset (Zenodo)"
+    source_url: https://zenodo.org/records/5592085
+    license: CC BY 4.0
+    redistribution_status: redistributable_with_attribution
+    citation_or_acknowledgement: >
+      Zenodo dataset doi:10.5281/zenodo.5592085 (CC BY 4.0); cite Pizzocaro et al.
+      2021 (Nature Physics 17, 223).
+    evidence: "Zenodo record 10.5281/zenodo.5592085 is licensed CC BY 4.0 (declared in provenance.yaml)."
+    raw_artifact_vendored: true
+    provenance: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/provenance.yaml
+    paths:
+      - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measurements-IPPP.csv
+      - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv
+      - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/galav-delay-resolution-function.csv
+
+  - id: debcat-stellar-ml-sample
+    source: "DEBCat detached eclipsing binary catalogue (Southworth 2015)"
+    source_url: https://astro.keele.ac.uk/jkt/debcat/debs.dat
+    license: no_explicit_open_redistribution_licence
+    redistribution_status: illustrative_sample_only_full_set_not_redistributed
+    citation_or_acknowledgement: >
+      Cite Southworth, J. 2015 (ASP Conf. Ser. 496, 164). Only a small
+      non-substitutive sample is committed; the full normalized rows are
+      regenerated locally via the extractor. Full rows may be committed only under
+      explicit DEBCat redistribution permission (see TASK-0708 / TASK-0731).
+    evidence: >
+      DEBCat is public and asks users to cite the paper, but no explicit
+      open-redistribution licence was found; only the deterministic extractor and
+      an illustrative sample are committed.
+    raw_artifact_vendored: false
+    provenance: data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml
+    paths:
+      - data/textbook_formula_audit/stellar_ml/debcat_component_rows.sample.yaml
+      - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml
