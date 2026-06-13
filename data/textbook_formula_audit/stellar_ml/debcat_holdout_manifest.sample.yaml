@@ -1,0 +1,84 @@
+manifest_id: TFA-STELLAR-ML-DEBCAT-HOLDOUT-MANIFEST-SAMPLE
+schema_version: 0.1.0
+task_id: TASK-0708
+sample: true
+publication_notice: 'ILLUSTRATIVE SAMPLE ONLY. The full normalized DEBCat row set is NOT redistributed
+  (DEBCat has no explicit open-redistribution licence; see TASK-0731 publication policy). Regenerate the
+  full rows locally: fetch debs.dat (scripts/fetch_source_artifact.py), verify the pinned checksum, then
+  run scripts/extract_debcat_stellar_ml_rows.py. See docs/reviews/stellar-ml-debcat-row-package.md.'
+freeze:
+  frozen: true
+  frozen_at: '2026-06-12T00:00:00Z'
+  frozen_before_residual_inspection: true
+  no_alpha_fit_performed: true
+  no_residual_inspection_performed: true
+split_policy:
+  primary_key: physical_binary_system_id
+  method: deterministic_sha256_of_system_id_mod_10
+  rule: bucket = int(sha256(system_id).hexdigest(), 16) % 10; 0-4 -> train, 5-6 -> validation, 7-9 ->
+    holdout
+  proportions_target:
+    train: 0.5
+    validation: 0.2
+    holdout: 0.3
+  value_blind: true
+  no_leakage_rule: All components of one physical binary share one lane; ambiguous or fully-inadmissible
+    systems go to excluded.
+mass_band_thresholds_solar:
+- band: very_low
+  min: 0.0
+  max: 0.5
+- band: low
+  min: 0.5
+  max: 1.0
+- band: solar
+  min: 1.0
+  max: 2.0
+- band: intermediate
+  min: 2.0
+  max: 8.0
+- band: high
+  min: 8.0
+  max: null
+full_lane_system_counts:
+  excluded: 1
+  holdout: 100
+  train: 191
+  validation: 81
+systems:
+- system_id: 2MASS_J00024841-2953539
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: 2MASS_J03262072+0312362
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - very_low
+- system_id: 2MASS_J05221817-2507112
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: Gaia_DR3_4658237043035232256
+  lane: excluded
+  exclusion_reason: ambiguous_duplicate_system_id
+  n_components_admitted: 0
+  n_components_total: 4
+- system_id: HD_135671
+  lane: holdout
+  n_components_admitted: 1
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TYC_459-771-1
+  lane: train
+  n_components_admitted: 1
+  n_components_total: 2
+  mass_bands:
+  - solar

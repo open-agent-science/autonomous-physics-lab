@@ -1,7 +1,7 @@
 id: TASK-0708
 title: "Curate Stellar M-L DEBCat component-row package"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -31,14 +31,18 @@ requirements:
   - "Do not fit alpha, compute residuals, create RESULT/PRED/CLAIM artifacts, or claim M-L validity."
 
 accepted_outputs:
-  - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
-  - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml"
+  # Public-safe shape (TASK-0731): the full normalized DEBCat dataset is NOT
+  # committed (no explicit open-redistribution licence). Ship the deterministic
+  # extractor plus a small non-substitutive sample; full rows regenerate locally.
+  - "scripts/extract_debcat_stellar_ml_rows.py"
+  - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.sample.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml"
   - "docs/reviews/stellar-ml-debcat-row-package.md"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_docs_links.py tests/test_stellar_ml_debcat_rows.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

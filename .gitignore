@@ -22,3 +22,8 @@ device-id
 
 # Source PDFs under data require explicit license review and force-add.
 data/**/*.pdf
+
+# Full DEBCat rows are regenerated locally, not committed (no explicit
+# redistribution licence; TASK-0731). Only the *.sample.yaml is committed.
+data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
