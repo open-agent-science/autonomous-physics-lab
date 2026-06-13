@@ -57,7 +57,7 @@ version_check_with_publication_of_record:
   performed: true
   performed_on: 2026-05-30
   performer: "roman via Codex source-gate review"
-  result: PARTIAL_NO_DRIFT_PUBLIC_ABSTRACT_ONLY_ROW_GATE_BLOCKED
+  result: PARTIAL_AT_TASK_0452_SUPERSEDED_BY_TASK_0704_NO_DRIFT
   method: |
     Compared the arXiv:1601.04582 public abstract/title/authors/DOI metadata and
     locally inspected arXiv PDF text against the public Nature Photonics article page.
@@ -67,12 +67,11 @@ version_check_with_publication_of_record:
     instability 4e-16 (tau/s)^-1/2. The arXiv PDF text reports the same ratio
     and uncertainty in the abstract and body.
   blocker: |
-    The public Nature page does not expose the full Table 1 uncertainty budget.
-    Because TASK-0452 requires an arXiv-vs-Nature version-drift verdict before
-    value-bearing rows are committed, the source artifact can be pinned but
-    ACR-0002 rows remain blocked until a maintainer with version-of-record
-    access performs the same table-level comparison used for the Beloy 2021
-    artifact.
+    RESOLVED by TASK-0704. At TASK-0452 the public Nature page did not expose the
+    full Table 1 uncertainty budget, so the table-level version-drift verdict was
+    pending. TASK-0704 completed it against a maintainer-supplied version-of-record
+    PDF (held locally, not committed); see version_of_record_full_check_task_0704
+    below.
   nature_public_change_history_note: |
     The Nature page records a 2016-03-15 correction: in the originally published
     online Letter, a Table 2 column heading "171Yb" was mistakenly included and
@@ -81,9 +80,37 @@ version_check_with_publication_of_record:
     needs a table-level version check before values are pinned.
   not_recheckable_from_committed_artifacts_alone: true
   required_follow_up: |
-    Maintainer-side Nature Photonics PDF/table comparison against a locally
-    fetched checksum-verified arXiv PDF for all value-bearing and row-defining fields before any
-    data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml rows are added.
+    COMPLETED by TASK-0704: the maintainer-side Nature Photonics PDF/table
+    comparison against the checksum-verified arXiv preprint was performed for all
+    value-bearing and row-defining fields, returning NO_DRIFT. The ACR-0002 row is
+    now committed at data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml.
+    Per TASK-0731 neither PDF is committed; the arXiv preprint is fetched and
+    checksum-verified via scripts/fetch_source_artifact.py.
+
+version_of_record_full_check_task_0704:
+  performed: true
+  performed_on: 2026-06-12
+  performer: "roman via Claude local cross-check"
+  result: NO_DRIFT
+  drift_found: false
+  pdf_of_record_committed: false
+  publication_of_record_doi: 10.1038/nphoton.2016.20
+  method: |
+    The maintainer supplied the Nature Photonics version-of-record PDF locally
+    (held off-repository, copyright). It was compared field-by-field against the
+    checksum-verified arXiv:1601.04582v1 preprint for every value-bearing and
+    row-defining quantity. All fields matched exactly; neither PDF is committed
+    (the arXiv preprint is fetch-and-verify only, per TASK-0731).
+  compared_fields_no_drift:
+    - "ratio R = 1.207507039343337749(55) (abstract, both versions)"
+    - "ratio R = ...749(43)sys(35)stat (body precision form, both versions)"
+    - "Table 1 Yb single-clock total 103.7 / 34.7 (x1e-18)"
+    - "Table 1 Sr single-clock total 177.6 / 5.8 (x1e-18)"
+    - "Table 1 Yb/Sr ratio rows: Yb 34.7, Sr 5.8, link 5.4, gravitational 0.2, statistical 28.6, total 45.6 (x1e-18)"
+    - "transition labels 171Yb and 87Sr neutral 1S0-3P0"
+  campaign_window_locked_from_record: |
+    Nature version-of-record Figure 3 date axis: ten measurements in 2015 spanning
+    approximately 2015-02-26 to 2015-06-23 (recorded month-level as 2015-02..2015-06).
 
 arxiv_row_gate_observations:
   direct_ratio_orientation: "nu_Yb / nu_Sr"
@@ -94,10 +121,9 @@ arxiv_row_gate_observations:
   table_1_systematic_components_recoverable_from_arxiv: true
   clock_transition_labels_visible: "171Yb and 87Sr neutral optical lattice clock 1S0-3P0 transitions"
   campaign_window_visible: "ten measurements over a period of four months; exact calendar start/end not stated in the extracted arXiv text"
-  row_gate_result: BLOCKED_PENDING_TABLE_LEVEL_VERSION_DRIFT_AND_EPOCH_LOCK
+  row_gate_result: CLEARED_BY_TASK_0704_ROW_COMMITTED_AS_ACR_0002_ROW_001
 
 non_goals_of_this_artifact:
-  - "Does not commit Nature Photonics version-of-record PDF."
-  - "Does not add ACR-0002 value-bearing rows because row gates are not fully cleared."
-  - "Does not compare Nemitz 2016 values against Beloy 2021."
+  - "Does not commit Nature Photonics version-of-record PDF (copyright; cross-checked locally only)."
+  - "Does not compare Nemitz 2016 values against Beloy 2021 (cross-source metric deferred to TASK-0456)."
   - "Does not fit drift, derive constants constraints, create prediction entries, or promote claims."

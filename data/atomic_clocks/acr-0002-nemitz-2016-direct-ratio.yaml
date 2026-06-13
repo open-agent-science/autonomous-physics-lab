@@ -1,0 +1,197 @@
+dataset_id: ACR-0002-NEMITZ-2016-DIRECT-RATIO
+schema_version: 0.1.0
+task_id: TASK-0704
+campaign_profile_id: atomic-clock-residuals
+status: sandbox_second_source_seed
+created_by:
+  contributor_id: roman
+  agent_id: claude
+
+scope:
+  purpose: |
+    Second independent direct Yb/Sr frequency-ratio row for the Atomic-Clock
+    Residuals campaign. Source: Nemitz et al. 2016 / RIKEN. This is the first
+    admissible cross-source partner for the Beloy 2021 / BACON Yb/Sr reference
+    row (ACR-0001-ROW-003), curated only after a maintainer-supplied Nature
+    Photonics version-of-record cross-check cleared the version-drift gate.
+  sandbox_only: true
+  live_external_fetch_allowed: false
+  benchmark_allowed: false
+  drift_fitting_allowed: false
+  derived_constants_constraint_allowed: false
+  claim_promotion_allowed: false
+  prediction_registry_allowed: false
+  cross_source_comparison_allowed: false
+
+source_artifact:
+  artifact_id: ACLOCK-SRC-ARTIFACT-2016-NEMITZ-RIKEN
+  source_locator: https://arxiv.org/abs/1601.04582
+  archive_url: https://arxiv.org/pdf/1601.04582
+  expected_preprint_filename: arxiv-1601.04582.pdf
+  preprint_committed: false
+  source_files_vendored: []
+  checksum_sidecar: data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.sha256
+  checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
+  checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+  fetch_helper: scripts/fetch_source_artifact.py
+  provenance: data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
+  version_check_with_publication_of_record:
+    performed: true
+    performed_on: 2026-06-12
+    performer: "roman via Claude local cross-check"
+    result: NO_DRIFT
+    drift_found: false
+    pdf_of_record_committed: false
+    publication_of_record:
+      doi: 10.1038/nphoton.2016.20
+      journal: Nature Photonics
+      volume: 10
+      page: 258
+      year: 2016
+      redistributable_here: false
+    method_summary: |
+      The maintainer supplied the Nature Photonics version-of-record PDF locally
+      (held off-repository, copyright). The committed arXiv preprint
+      (arXiv:1601.04582v1) was compared field-by-field against the version of
+      record for all value-bearing and row-defining quantities. Every compared
+      field matched exactly; the Nature PDF is intentionally NOT committed.
+    compared_fields_no_drift:
+      - "ratio R = 1.207507039343337749(55) (abstract, both versions)"
+      - "ratio R = ...749(43)sys(35)stat (body precision form, both versions)"
+      - "Table 1 Yb single-clock total 103.7 / 34.7 (x1e-18)"
+      - "Table 1 Sr single-clock total 177.6 / 5.8 (x1e-18)"
+      - "Table 1 Yb/Sr ratio rows: Yb 34.7, Sr 5.8, laser-link 5.4, gravitational 0.2, statistical 28.6, total 45.6 (x1e-18)"
+      - "transition labels 171Yb and 87Sr neutral 1S0-3P0"
+      - "total fractional ratio uncertainty 4.6e-17"
+
+covariance_policy:
+  cross_source_pair: ACR-0002-ROW-001_vs_ACR-0001-ROW-003
+  covariance_state: COV_DIAGONAL_ONLY_DECLARED
+  rationale: |
+    Nemitz 2016 (RIKEN) and Beloy 2021 (NIST + JILA + NIST, BACON 2018) are
+    fully independent: no shared clock, comb, network link, or geopotential
+    systematic couples them. The off-diagonal between the two sources is
+    defensibly zero, with each source's published total on the diagonal.
+  consequence: |
+    Under COV_DIAGONAL_ONLY_DECLARED a cross-source consistency VERDICT is not
+    allowed. The first cross-source Yb/Sr check (TASK-0456) must be an
+    exploratory diagonal-only diagnostic carrying an explicit independence
+    banner, not a headline consistency claim.
+
+campaign_window:
+  year: 2015
+  epoch_start: 2015-02
+  epoch_end: 2015-06
+  measurement_count: 10
+  duration_months: 4
+  window_source: |
+    Ten measurements over four months in 2015, read from the Nature Photonics
+    version-of-record Figure 3 date axis (approximately 2015-02-26 to
+    2015-06-23). Month-level epoch is used to avoid over-precise figure-axis
+    day reading; the arXiv text states only "ten measurements over a period of
+    four months".
+
+rows:
+  - row_id: ACR-0002-ROW-001
+    row_class: direct_measurement
+    observable_id: frequency_ratio_yb171_sr87_nemitz2016
+    inclusion_reason: |
+      Second independent direct Yb/Sr ratio; admissible after the Nature
+      version-of-record drift cross-check returned NO_DRIFT and the campaign
+      window was locked from the version-of-record figure.
+    clock_system:
+      clock_id: RIKEN-CLOCK-YB171
+      species: Yb
+      isotope: "171"
+      charge_state: neutral
+      transition_label: 1S0_to_3P0
+    reference_system:
+      clock_id: RIKEN-CLOCK-SR87
+      species: Sr
+      isotope: "87"
+      charge_state: neutral
+      transition_label: 1S0_to_3P0
+    observable:
+      value_kind: frequency_ratio
+      value: 1.207507039343337749
+      value_uncertainty_last_digits: 55
+      value_uncertainty_last_digits_unit_label: 1e-18
+      value_is_fully_corrected: true
+      applied_total_correction_e_minus_18: -74.2
+      residual_form: null
+      units: dimensionless_ratio
+      epoch_start: 2015-02
+      epoch_end: 2015-06
+    uncertainty:
+      total: 4.56e-17
+      total_basis: table1_total_fractional_uncertainty_systematic_and_statistical_in_quadrature
+      statistical: 2.86e-17
+      statistical_basis: table1_standard_deviation_of_individual_ratio_measurements
+      systematic: 3.56e-17
+      systematic_basis: quadrature_of_table1_yb_sr_ratio_systematics_link_and_gravitational
+      systematic_components_e_minus_18:
+        yb_systematic: 34.7
+        sr_systematic: 5.8
+        laser_to_laser_link: 5.4
+        gravitational_shift: 0.2
+      covariance_group: nemitz_2016_riken_independent
+      covariance_reference: diagonal_per_table1_independent_of_beloy_bacon_campaign
+      correlation_notes: |
+        Independent RIKEN measurement. No shared clock, comb, network, or
+        geopotential systematic with the Beloy BACON 2018 campaign, so the
+        off-diagonal versus ACR-0001-ROW-003 is defensibly zero
+        (COV_DIAGONAL_ONLY_DECLARED). The per-effect systematic components are
+        informational diagonal terms from Table 1, not a cross-source matrix.
+      confidence_level_label: 1_sigma
+      bound_style: measurement
+    source:
+      citation: |
+        Nemitz, N., Ohkubo, T., Takamoto, M., Ushijima, I., Das, M., Ohmae, N.
+        & Katori, H., "Frequency ratio of Yb and Sr clocks with 5x10^-17
+        uncertainty at 150 seconds averaging time", Nature Photonics 10,
+        258-261 (2016); arXiv:1601.04582.
+      doi: 10.1038/nphoton.2016.20
+      arxiv_id: "1601.04582"
+      arxiv_doi: 10.48550/arXiv.1601.04582
+      archive_url: https://arxiv.org/abs/1601.04582
+      retrieval_date: 2026-06-12
+      checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
+      checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+      license_note: |
+        Metadata-only source locator/checksum. The arXiv preprint PDF is not
+        redistributed by this repository; fetch and verify it locally with
+        scripts/fetch_source_artifact.py when source re-check is required. The
+        Nature Photonics version-of-record was locally cross-checked (NO_DRIFT)
+        and is intentionally not committed (copyright).
+    classification:
+      direct_measurement: true
+      derived_constraint: false
+      review_summary: false
+      synthetic: false
+    holdout:
+      split: cross_source_target
+      freeze_manifest: data/atomic_clocks/atomic_holdout_manifest.yaml
+      row_role: cross_source_target
+    limitations:
+      - "Cross-source covariance versus Beloy ACR-0001-ROW-003 is diagonal-only (independent labs); a cross-source consistency verdict is NOT allowed. The first cross-source check (TASK-0456) must stay exploratory with an independence banner."
+      - "Campaign-window epoch is month-level (2015-02 to 2015-06), read from the Nature version-of-record Figure 3 date axis; per-measurement calendar days (~Feb 26 to Jun 23) are figure reads, not committed values."
+      - "Value-of-record drift cross-check NO_DRIFT was performed against a locally-held Nature Photonics PDF that is intentionally not committed (copyright)."
+      - "Sandbox-only second-source seed. Do not benchmark, fit constants drift, derive constraints, compare against Beloy, or promote claims from this row."
+
+promotion_boundary:
+  writes_real_clock_values: true_as_second_source_seed
+  writes_derived_constraint_values: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: |
+    Maintainer review of this second-source seed. TASK-0456 may then define the
+    first exploratory cross-source Yb/Sr diagnostic using ACR-0001-ROW-003
+    (cross_source_reference) and ACR-0002-ROW-001 (cross_source_target) under
+    the diagonal-only covariance policy, without a consistency claim.
+
+global_limitations:
+  - "Second real-value commit in the Atomic-Clock Residuals campaign; treat it as a cross-source seed, not a benchmark result."
+  - "Nature paper-of-record was cross-checked locally; the Nature PDF is intentionally NOT committed (copyright)."
+  - "Cross-source consistency between Nemitz and Beloy is diagonal-only and exploratory until a stronger covariance state is justified."
