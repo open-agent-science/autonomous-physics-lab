@@ -25,10 +25,15 @@ scope:
 
 source_artifact:
   artifact_id: ACLOCK-SRC-ARTIFACT-2016-NEMITZ-RIKEN
-  preprint_path: data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.pdf
+  source_locator: https://arxiv.org/abs/1601.04582
+  archive_url: https://arxiv.org/pdf/1601.04582
+  expected_preprint_filename: arxiv-1601.04582.pdf
+  preprint_committed: false
+  source_files_vendored: []
   checksum_sidecar: data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.sha256
   checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
-  checksum_scope: arxiv_preprint_pdf
+  checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
+  fetch_helper: scripts/fetch_source_artifact.py
   provenance: data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
   version_check_with_publication_of_record:
     performed: true
@@ -151,11 +156,13 @@ rows:
       archive_url: https://arxiv.org/abs/1601.04582
       retrieval_date: 2026-06-12
       checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
-      checksum_scope: arxiv_preprint_pdf
+      checksum_scope: expected_arxiv_preprint_pdf_sha256_not_committed
       license_note: |
-        arXiv preprint committed under its perpetual licence. Nature Photonics
-        version-of-record locally cross-checked (NO_DRIFT) and intentionally NOT
-        committed (copyright).
+        Metadata-only source locator/checksum. The arXiv preprint PDF is not
+        redistributed by this repository; fetch and verify it locally with
+        scripts/fetch_source_artifact.py when source re-check is required. The
+        Nature Photonics version-of-record was locally cross-checked (NO_DRIFT)
+        and is intentionally not committed (copyright).
     classification:
       direct_measurement: true
       derived_constraint: false
