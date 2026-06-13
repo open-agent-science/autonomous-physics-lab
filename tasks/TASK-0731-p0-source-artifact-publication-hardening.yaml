@@ -35,6 +35,7 @@ requirements:
   - "Preserve DOI/arXiv locators, expected SHA-256 checksums, source provenance, and sidecar checksum files so maintainers can locally re-fetch and verify the same artifacts."
   - "Add a cross-platform Python fetch+verify helper; no shell-only critical path."
   - "Add a deterministic test guard that fails on tracked PDF source artifacts unless an explicit redistribution-permission marker is present."
+  - "Strengthen maintainer review-agent checks so PRs that publish raw source artifacts without license/provenance evidence are blocked before merge."
   - "Update source publication policy docs and Atomic source metadata so future agents do not treat arXiv/non-exclusive preprints as automatically redistributable."
   - "Document the broader public-source default: do not vendor raw upstream files merely because they are publicly accessible; preserve curated APL datasets only when license-clean and scientifically useful."
   - "Do not perform git history rewrite, force-push, public-branch creation, row curation, benchmark scoring, or claim promotion."
@@ -44,6 +45,8 @@ accepted_outputs:
   - "scripts/fetch_source_artifact.py"
   - "tests/test_fetch_source_artifact.py"
   - "tests/test_source_artifact_publication_guard.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_maintainer_review.py"
   - "Updated Atomic provenance/source manifest/README metadata"
   - "Updated published-source/source-acquisition policy wording"
 
@@ -53,12 +56,13 @@ result_artifact_policy:
   evidence:
     - "scripts/fetch_source_artifact.py"
     - "tests/test_source_artifact_publication_guard.py"
+    - "physics_lab/registry/maintainer_review.py"
     - "docs/published-source-dataset-standard.md"
 
 validation:
   commands:
-    - "python3 -m pytest tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py"
-    - "python3 -m ruff check scripts/fetch_source_artifact.py tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py"
+    - "python3 -m pytest tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py tests/test_maintainer_review.py"
+    - "python3 -m ruff check scripts/fetch_source_artifact.py physics_lab/registry/maintainer_review.py tests/test_fetch_source_artifact.py tests/test_source_artifact_publication_guard.py tests/test_maintainer_review.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
