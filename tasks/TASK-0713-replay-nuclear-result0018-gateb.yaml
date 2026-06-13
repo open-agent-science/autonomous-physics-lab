@@ -1,7 +1,7 @@
 id: TASK-0713
 title: "Run Gate B replay for Nuclear RESULT-0018 F2 diagnostic"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -33,7 +33,7 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/result-0018-gate-b-replay.md"
-  - "optional update to results/EXP-0012/RUN-0002/review_metadata.yaml only if Gate B policy allows it"
+  - "maintainer-approved Gate B tier upgrade of results/EXP-0012/RUN-0002/result.yaml (review_tier -> AGENT_VALIDATED plus an agent_proposal_evaluation.validation_record); best_verdict, metrics, and verification unchanged"
 
 validation:
   commands:
