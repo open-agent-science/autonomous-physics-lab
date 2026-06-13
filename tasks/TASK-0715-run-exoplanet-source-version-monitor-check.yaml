@@ -1,7 +1,7 @@
 id: TASK-0715
 title: "Run one Exoplanet source-version monitor check"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
