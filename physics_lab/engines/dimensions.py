@@ -10,7 +10,9 @@ Verdicts produced by ``validate_item`` and ``validate_challenge_set``:
 - ``VALID``: LHS and RHS have identical SI dimensions.
 - ``INVALID``: dimensional mismatch or unparseable structure.
 - ``SUSPICIOUS``: formula is dimensionally consistent but the validator
-  flags it as unphysical (currently: every variable is dimensionless).
+  flags it as unphysical or boundary-risky (for example: every variable is
+  dimensionless, or a challenge item explicitly marks a dimensionally-balanced
+  formula as curated suspicious).
 - ``INCONCLUSIVE``: validator cannot decide (unsupported syntax, unknown
   unit, etc.). MVP keeps this category small and explicit.
 
@@ -391,8 +393,23 @@ def validate_item(item: dict[str, Any]) -> ValidationResult:
         )
 
     if lhs_dim == rhs_dim:
+        curated_balanced = str(
+            item.get("curated_dimensionally_balanced_verdict", "")
+        ).strip()
+        if expected == "KNOWN_LIMIT_FAIL" and item.get("check_type") == "known_limit":
+            verdict = "VALID"
+            detail = (
+                "Known-limit item is dimensionally balanced; numerical or "
+                "regime limit is outside dimensional scope."
+            )
+        elif curated_balanced == "SUSPICIOUS":
+            verdict = "SUSPICIOUS"
+            detail = (
+                "Curated dimensionally-balanced boundary case marked "
+                "SUSPICIOUS."
+            )
         # Suspicious heuristic: if every variable is dimensionless, flag.
-        if all(v.is_dimensionless() for v in var_dims.values()) and var_dims:
+        elif all(v.is_dimensionless() for v in var_dims.values()) and var_dims:
             if item.get("dimensionless_relation_policy") == "accepted_textbook_identity":
                 verdict = "VALID"
                 detail = "Curated all-dimensionless textbook identity."

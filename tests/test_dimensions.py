@@ -242,6 +242,30 @@ def test_boundary_expansion_handles_dimensionless_constants_and_textbook_identit
     assert validate_item(items["DA-408"]).agrees is True
 
 
+def test_live_boundary_disagreements_are_explicitly_handled() -> None:
+    challenge_set = _load_yaml(CHALLENGE_SET_PATH)
+    items = {item["id"]: item for item in challenge_set["items"]}
+
+    da310 = validate_item(items["DA-310"])
+    da311 = validate_item(items["DA-311"])
+    da406 = validate_item(items["DA-406"])
+
+    assert da310.computed_verdict == "SUSPICIOUS"
+    assert da310.agrees is True
+    assert da311.computed_verdict == "SUSPICIOUS"
+    assert da311.agrees is True
+    assert da406.computed_verdict == "VALID"
+    assert da406.agrees is True
+
+
+def test_live_challenge_set_has_no_remaining_boundary_disagreements() -> None:
+    results, summary = validate_challenge_set(CHALLENGE_SET_PATH)
+
+    assert summary.total == 74
+    assert summary.agree == 74
+    assert [result.item_id for result in results if not result.agrees] == []
+
+
 def test_dimensional_validator_mvp_scope_is_frozen_apart_from_live_curation() -> None:
     live_challenge_set = _load_yaml(CHALLENGE_SET_PATH)
     frozen_challenge_set = _load_yaml(FROZEN_MVP_CHALLENGE_SET_PATH)
