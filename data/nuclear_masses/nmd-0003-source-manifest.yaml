@@ -24,6 +24,10 @@ redistribution_boundary:
   note: The source manifest pins the raw artifact checksum and retrieval location;
     the repository commits structured row values, not the publisher/AMDC raw ASCII
     artifact.
+  license: CC BY 3.0
+  redistribution_status: redistributable_with_attribution
+  license_verification: Chinese Physics C is open access under CC BY 3.0 (SCOAP3 / IOP Publishing).
+  registry: data/DATA_LICENSES.yaml
 filtering:
   source_data_rows: 3558
   z0_rows_excluded: 1

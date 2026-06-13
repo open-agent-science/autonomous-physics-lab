@@ -1,0 +1,62 @@
+id: TASK-0733
+title: "Declare redistribution licences for committed third-party datasets and add a dataset-licence CI guard"
+type: repository_hardening
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close the public-launch gap: every committed third-party dataset must declare a redistribution basis (Gate 6, docs/public-release-gates.md)."
+  - "Extend the TASK-0731 publication policy beyond PDFs/source_artifacts to bulk datasets committed as YAML/CSV/JSON under data/."
+  - "Keep verified-redistributable datasets (AME2020 CC BY 3.0, NASA Exoplanet Archive open, Materials Project / Pizzocaro CC BY 4.0) committed, declared, and CI-enforced; reserve history rewrite (Phase B) for genuinely non-redistributable artifacts only."
+
+input:
+  mode: workflow
+  related_domain: repository_hardening
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/provenance.yaml"
+    - "data/materials/md-0001-materials-project-formation-energy.yaml"
+    - "data/nuclear_masses/nmd-0003-source-manifest.yaml"
+    - "data/exoplanets/source_manifest.yaml"
+  planning_context: >
+    A data/ licensing audit found that beyond the two non-redistributable arXiv
+    PDFs (handled by Phase B), several full third-party datasets are committed
+    as YAML/CSV/JSON (AME2020 nuclear masses, NASA Exoplanet Archive PSCompPars,
+    Materials Project, Pizzocaro/Zenodo). Verification shows these are
+    redistributable (CC BY / open) but were under-declared, and the TASK-0731
+    guard did not cover them. This task records each dataset's redistribution
+    basis in a central registry and enforces it in CI.
+
+requirements:
+  - "Create data/DATA_LICENSES.yaml: a central registry declaring source, source_url, license, redistribution_status, citation_or_acknowledgement, and evidence for every committed third-party dataset under data/."
+  - "Record verified bases: AME2020 = CC BY 3.0 (Chinese Physics C OA / SCOAP3; cite the CPC papers, not electronic files); NASA Exoplanet Archive = open/unrestricted with required acknowledgement + per-row source citations; Materials Project and Pizzocaro/Zenodo = CC BY 4.0."
+  - "For sources whose licence is not authoritatively verified (e.g. post-AME2020 NST holdout), use license_verification_pending with a factual-values-plus-citation note; do not assert an unverified licence."
+  - "Add license/redistribution_status fields to the AME2020 and NASA Exoplanet source manifests so per-source files are self-consistent."
+  - "Add a CI guard test that fails if any committed CSV/JSON dataset or large data YAML under data/ is not declared in the registry with complete fields."
+  - "Do not redistribute non-redistributable artifacts, rewrite git history, or run filter-repo/force-push (Phase B remains separate)."
+
+accepted_outputs:
+  - "data/DATA_LICENSES.yaml"
+  - "tests/test_data_redistribution_declarations.py"
+  - "license/redistribution metadata additions to AME2020 and NASA Exoplanet source manifests"
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening / data-publication policy task; no scientific RESULT artifact is produced."
+  evidence:
+    - "data/DATA_LICENSES.yaml"
+    - "tests/test_data_redistribution_declarations.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
