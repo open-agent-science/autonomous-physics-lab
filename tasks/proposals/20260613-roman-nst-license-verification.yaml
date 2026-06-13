@@ -1,0 +1,62 @@
+proposal_id: 20260613-roman-nst-license-verification
+title: "Verify post-AME2020 NST article licence and resolve the registry license_verification_pending entry"
+status: PROPOSED
+type: repository_hardening
+priority: low
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Remove the single license_verification_pending entry from the dataset redistribution registry before public launch."
+  - "Keep every committed third-party dataset on a verified redistribution basis (Gate 6, docs/public-release-gates.md)."
+
+summary: >
+  The post-AME2020 nuclear-mass holdout dataset is sourced from Qu et al. 2025
+  (Nuclear Science and Techniques 36, 231; Springer). In data/DATA_LICENSES.yaml
+  it is the only entry marked license_verification_pending: committed values are
+  individual published mass facts curated with full source citation and the raw
+  article is not vendored, but the article's reuse licence was not authoritatively
+  verified. This proposal verifies the licence and resolves the pending status.
+
+rationale: >
+  Individual measured mass values are facts and the raw artifact is not vendored,
+  so the launch risk is low; but an unresolved license_verification_pending entry
+  should not remain at public launch. Nuclear Science and Techniques is published
+  by Springer and many articles are open access (often CC BY 4.0); the specific
+  article licence should be confirmed from authoritative metadata.
+
+input:
+  mode: planning_only
+  related_domain: repository_hardening
+  related_objects:
+    - "data/DATA_LICENSES.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    Resolve the post-ame2020-nst-holdout registry entry once the article licence
+    is confirmed (doi:10.1007/s41365-025-01821-1). If CC BY (or another
+    redistribution-permitting licence), set the explicit licence with evidence; if
+    restricted, keep facts-plus-citation posture and record the verified basis.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Verify the NST article licence (doi:10.1007/s41365-025-01821-1) from authoritative metadata (publisher/DOAJ/Crossref)."
+  - "Update the data/DATA_LICENSES.yaml post-ame2020-nst-holdout entry: replace license_verification_pending with the verified licence + evidence, or record the confirmed facts-plus-citation basis."
+  - "Do not vendor the raw source article; do not promote claims automatically."
+
+accepted_outputs:
+  - "data/DATA_LICENSES.yaml update resolving the pending entry"
+  - "evidence note for the verified licence basis"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Low-priority launch-readiness follow-up from the TASK-0733 data-licensing audit."
