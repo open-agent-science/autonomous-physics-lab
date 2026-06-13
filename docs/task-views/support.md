@@ -19,4 +19,3 @@ None.
 
 - `TASK-0728` - Fix closeout sweep exact merged-PR fallback (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `maintainer_workflow`)
 - `TASK-0730` - Harden curator scope filter validation (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `campaign_portfolio_architecture`)
-- `TASK-0733` - Declare redistribution licences for committed third-party datasets and add a dataset-licence CI guard (`repository_hardening`, priority `high`, difficulty `medium`, domain `repository_hardening`)
