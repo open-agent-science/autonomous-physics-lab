@@ -1,0 +1,174 @@
+dataset_id: TFA-STELLAR-ML-DEBCAT-COMPONENT-ROWS-SAMPLE
+schema_version: 0.1.0
+task_id: TASK-0708
+campaign_profile_id: textbook-formula-audit
+status: illustrative_sample_full_set_not_redistributed
+sample: true
+publication_notice: 'ILLUSTRATIVE SAMPLE ONLY. The full normalized DEBCat row set is NOT redistributed
+  (DEBCat has no explicit open-redistribution licence; see TASK-0731 publication policy). Regenerate the
+  full rows locally: fetch debs.dat (scripts/fetch_source_artifact.py), verify the pinned checksum, then
+  run scripts/extract_debcat_stellar_ml_rows.py. See docs/reviews/stellar-ml-debcat-row-package.md.'
+source:
+  source_id: debcat-detached-eclipsing-binaries
+  artifact_locator: https://astro.keele.ac.uk/jkt/debcat/debs.dat
+  checksum_sha256: 326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da
+  checksum_scope: remote_ascii_table_debs_dat_not_committed
+  raw_artifact_committed: false
+  storage_route: route2_metadata_only_checksum_normalized_rows_only
+  citation: Southworth, J. (2015), The DEBCat detached eclipsing binary catalogue, ASP Conference Series,
+    496, 164.
+  extraction_script: scripts/extract_debcat_stellar_ml_rows.py
+conventions:
+  missing_value_sentinel: -9.99
+  solar_teff_k: 5772.0
+  stefan_boltzmann_log_form: log10(L/Lsun) = 2*log10(R/Rsun) + 4*(log10(Teff) - log10(5772))
+  luminosity_uncertainty_log_form: sigma_logL = sqrt((2*sigma_logR)^2 + (4*sigma_logT)^2)
+  mass_provenance: DEBCat direct dynamical masses; no model-derived mass truth.
+full_dataset_counts:
+  systems_total: 373
+  records_total: 374
+  systems_admitted: 372
+  systems_excluded: 1
+  component_rows_total: 748
+  component_rows_admitted: 742
+  component_rows_excluded: 6
+  luminosity_direct_observation: 597
+  luminosity_derived: 145
+  lane_system_counts:
+    excluded: 1
+    holdout: 100
+    train: 191
+    validation: 81
+  exclusion_reason_counts:
+    ambiguous_duplicate_system_id: 4
+    no_admissible_luminosity_path: 2
+rows:
+- row_id: DEBCAT-2MASS_J00024841-2953539-C1
+  system_id: 2MASS_J00024841-2953539
+  component: 1
+  spectral_type: M
+  log_mass_solar: -0.4003
+  log_mass_solar_unc: 0.0036
+  mass_solar: 0.397832
+  mass_provenance_class: direct_observation
+  mass_uncertainty_class: precise
+  mass_band: very_low
+  evolutionary_stage_flag: unknown
+  log_luminosity_solar: -1.72
+  log_luminosity_solar_unc: 0.02
+  luminosity_solar: 0.019055
+  luminosity_provenance_class: direct_observation
+  luminosity_source: debcat_catalogue_reported_logL
+  luminosity_uncertainty_class: standard
+  admissibility: admitted
+  lane: train
+- row_id: DEBCAT-2MASS_J00024841-2953539-C2
+  system_id: 2MASS_J00024841-2953539
+  component: 2
+  spectral_type: M
+  log_mass_solar: -0.6488
+  log_mass_solar_unc: 0.0035
+  mass_solar: 0.224492
+  mass_provenance_class: direct_observation
+  mass_uncertainty_class: precise
+  mass_band: very_low
+  evolutionary_stage_flag: unknown
+  log_luminosity_solar: -2.12
+  log_luminosity_solar_unc: 0.03
+  luminosity_solar: 0.007586
+  luminosity_provenance_class: direct_observation
+  luminosity_source: debcat_catalogue_reported_logL
+  luminosity_uncertainty_class: standard
+  admissibility: admitted
+  lane: train
+- row_id: DEBCAT-2MASS_J03262072+0312362-C1
+  system_id: 2MASS_J03262072+0312362
+  component: 1
+  spectral_type: M3_V
+  log_mass_solar: -0.2782
+  log_mass_solar_unc: 0.0016
+  mass_solar: 0.526987
+  mass_provenance_class: direct_observation
+  mass_uncertainty_class: precise
+  mass_band: low
+  evolutionary_stage_flag: main_sequence_compatible
+  log_luminosity_solar: -1.55
+  log_luminosity_solar_unc: 0.05
+  luminosity_solar: 0.028184
+  luminosity_provenance_class: direct_observation
+  luminosity_source: debcat_catalogue_reported_logL
+  luminosity_uncertainty_class: standard
+  admissibility: admitted
+  lane: validation
+- row_id: DEBCAT-2MASS_J05221817-2507112-C1
+  system_id: 2MASS_J05221817-2507112
+  component: 1
+  spectral_type: M5_V
+  log_mass_solar: -0.7597
+  log_mass_solar_unc: 0.0032
+  mass_solar: 0.1739
+  mass_provenance_class: direct_observation
+  mass_uncertainty_class: precise
+  mass_band: very_low
+  evolutionary_stage_flag: main_sequence_compatible
+  log_luminosity_solar: -2.519905
+  log_luminosity_solar_unc: 0.0596
+  luminosity_solar: 0.003021
+  luminosity_provenance_class: derived_luminosity
+  luminosity_source: stefan_boltzmann_from_debcat_logR_logT
+  log_radius_solar: -0.6893
+  log_radius_solar_unc: 0.0102
+  log_teff_k: 3.476
+  log_teff_k_unc: 0.014
+  luminosity_uncertainty_class: coarse
+  admissibility: admitted
+  lane: holdout
+- row_id: DEBCAT-2MASS_J05221817-2507112-C2
+  system_id: 2MASS_J05221817-2507112
+  component: 2
+  spectral_type: M5_V
+  log_mass_solar: -0.759
+  log_mass_solar_unc: 0.0032
+  mass_solar: 0.174181
+  mass_provenance_class: direct_observation
+  mass_uncertainty_class: precise
+  mass_band: very_low
+  evolutionary_stage_flag: main_sequence_compatible
+  log_luminosity_solar: -2.465105
+  log_luminosity_solar_unc: 0.051698
+  luminosity_solar: 0.003427
+  luminosity_provenance_class: derived_luminosity
+  luminosity_source: stefan_boltzmann_from_debcat_logR_logT
+  log_radius_solar: -0.6639
+  log_radius_solar_unc: 0.0096
+  log_teff_k: 3.477
+  log_teff_k_unc: 0.012
+  luminosity_uncertainty_class: coarse
+  admissibility: admitted
+  lane: holdout
+- row_id: DEBCAT-Gaia_DR3_4658237043035232256-OCC1-C1
+  system_id: Gaia_DR3_4658237043035232256
+  component: 1
+  spectral_type: none
+  admissibility: excluded
+  exclusion_reason: ambiguous_duplicate_system_id
+- row_id: DEBCAT-Gaia_DR3_4658237043035232256-OCC2-C1
+  system_id: Gaia_DR3_4658237043035232256
+  component: 1
+  spectral_type: G6_III
+  admissibility: excluded
+  exclusion_reason: ambiguous_duplicate_system_id
+- row_id: DEBCAT-HD_135671-C2
+  system_id: HD_135671
+  component: 2
+  spectral_type: none
+  admissibility: excluded
+  exclusion_reason: no_admissible_luminosity_path
+  available_log_mass_solar: -0.1421
+- row_id: DEBCAT-TYC_459-771-1-C2
+  system_id: TYC_459-771-1
+  component: 2
+  spectral_type: none
+  admissibility: excluded
+  exclusion_reason: no_admissible_luminosity_path
+  available_log_mass_solar: 0.0414

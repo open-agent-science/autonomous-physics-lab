@@ -56,28 +56,38 @@ redistribution:
 
 row_admissibility:
   row_class: direct_dynamical_mass_source_candidate
-  inclusion_status: metadata_only
-  row_schema_kind: stellar_ml_component_rows_pending
-  extraction_method: not_extracted
+  inclusion_status: extractor_and_sample_only_full_set_not_redistributed
+  row_schema_kind: stellar_ml_component_rows
+  extraction_method: task_0708_deterministic_script
+  extraction_task: TASK-0708
+  full_dataset_committed: false  # TASK-0731: DEBCat has no explicit redistribution licence
+  redistribution_status: not_redistributable_no_explicit_debcat_licence
+  extractor: scripts/extract_debcat_stellar_ml_rows.py
+  committed_sample: data/textbook_formula_audit/stellar_ml/debcat_component_rows.sample.yaml
+  committed_manifest_sample: data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml
+  full_rows_regenerate_locally: "fetch debs.dat (scripts/fetch_source_artifact.py), verify checksum, run the extractor"
   uncertainty_semantics: >
-    DEBCat records component-level masses and uncertainties. A later row task
-    must preserve primary/secondary component pairing and uncertainty semantics
-    before any normalized benchmark rows are created.
+    DEBCat records component-level masses and uncertainties. TASK-0708 preserves
+    primary/secondary component pairing, keeps mass and luminosity uncertainty
+    semantics separate, and assigns frozen system-level holdout lanes before any
+    residual inspection. No exponent was fitted.
   accepted_for_benchmark: false
   no_leakage_constraints:
     - split_holdout_by_physical_binary_system_before_component_rows_are_used
     - keep_primary_and_secondary_components_from_the_same_system_in_the_same_lane
     - do_not_use_gaia_or_isochrone_model_derived_masses_as_truth
-  blocker_reasons:
-    - RAW_ARTIFACT_NOT_COMMITTED
+  resolved_blockers:
     - COMPONENT_ROW_SCHEMA_NOT_REVIEWED
     - EXTRACTION_LEDGER_NOT_CREATED
+  retained_constraints:
+    - RAW_ARTIFACT_NOT_COMMITTED  # intentional Route 2 posture; not a row blocker
 
 review:
-  review_status: route2_storage_confirmed_rows_pending_curation
+  review_status: route2_rows_curated_pending_maintainer_review
   reviewed_by: akutenyov/codex
   review_notes: >
-    TASK-0628 pins the current DEBCat locator, retrieval metadata, checksum,
-    source timestamp, citation posture, and row blockers. It intentionally
-    does not commit value-bearing source rows or derived rows.
-  allowed_next_step: execute_separate_debcat_row_curation_gate_with_extraction_ledger_no_raw_debs_dat
+    TASK-0628 pinned the DEBCat locator, retrieval metadata, checksum, source
+    timestamp, and citation posture. TASK-0708 then curated normalized component
+    rows and a frozen holdout manifest under Route 2 (raw debs.dat still not
+    committed). See docs/reviews/stellar-ml-debcat-row-package.md.
+  allowed_next_step: maintainer_review_of_task_0708_row_package_then_benchmark_readiness_gate
