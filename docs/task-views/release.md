@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0714` - Repair Nuclear prediction reveal-readiness checklist references (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0750` - Package Dimensional Validator live 74-item replay as a Gate A result (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
 
 ## IN_PROGRESS
 
