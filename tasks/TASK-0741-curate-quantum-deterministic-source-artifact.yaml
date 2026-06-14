@@ -1,7 +1,7 @@
 id: TASK-0741
 title: "Curate one deterministic Quantum direct-row source artifact package"
 type: scientific_dataset
-status: BLOCKED
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -10,7 +10,7 @@ strategy_alignment:
   - "Unblock Quantum Size Effects by producing or rejecting one real direct-row source artifact, not another formula search."
   - "Convert source access into deterministic table/digitization evidence before any baseline benchmark."
   - "Keep licensing, figure/table provenance, and uncertainty notes explicit."
-  - "Held until the maintainer resolves the recurring Quantum source-acquisition stall; running another scout before that decision only adds blocker memory, not direct rows."
+  - "Resolved: the maintainer selected the Almeida 2023 route and supplied the source locally. This task cleared the license (CC-BY 4.0 confirmed) and checksum-pinned the source bytes; the only remaining blocker is the size-axis figure digitization tool run."
 
 input:
   mode: workflow
@@ -49,7 +49,7 @@ input:
     benchmark task.
 
 requirements:
-  - "Do not start until the maintainer resolves the Quantum source go/no-go decision (provide a redistributable source copy, approve the calibration-consistency waiver, or pause the campaign)."
+  - "Resolved: maintainer selected the Almeida 2023 CC-BY 4.0 route and supplied the article and SI locally."
   - "Select exactly one approved source path from the source manifest/review notes before doing any extraction."
   - "If using a table source, commit only the allowed extracted table evidence and provenance needed for row curation; respect source licence limits."
   - "If using a figure source, include axis calibration, extracted point file, tool/version notes, uncertainty notes, and source locator/checksum metadata."
@@ -57,9 +57,9 @@ requirements:
   - "Do not use calibration polynomials, sizing equations, LLM-estimated coordinates, synthesis recipes, biomedical/device claims, or baseline metrics."
 
 accepted_outputs:
-  - "data/quantum_dots/digitization/<source-id>/"
-  - "docs/reviews/quantum-<source-id>-deterministic-source-artifact-package.md"
-  - "optional source_manifest update with artifact path and row-curation readiness"
+  - "data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/README.md"
+  - "docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md"
+  - "data/quantum_dots/source_manifest.yaml (Almeida license/checksum/blocker update)"
 
 result_artifact_policy:
   required: false
