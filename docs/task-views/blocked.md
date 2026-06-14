@@ -28,6 +28,8 @@
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)
+- `TASK-0693` - Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `data_acquisition`)
 - `TASK-0737` - Define narrowed MD-0002 acquisition predicate after cap-exceeded stop (`scientific_dataset_planning`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0738` - Run narrowed MD-0002 maintainer-gated acquisition (`scientific_dataset`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
+- `TASK-0741` - Curate one deterministic Quantum direct-row source artifact package (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0745` - Plan Exoplanet EXO-0003 trigger after monitor no-notify result (`scientific_validation`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)

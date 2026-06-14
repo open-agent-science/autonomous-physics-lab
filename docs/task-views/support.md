@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0693` - Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `data_acquisition`)
+- `TASK-0749` - Add acquisition queue and dry-run reminder (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_source_acquisition`)
 
 ## IN_PROGRESS
 

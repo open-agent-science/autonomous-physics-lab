@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0741` - Curate one deterministic Quantum direct-row source artifact package (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0742` - Run Atomic Pizzocaro Yb/Sr row-admissibility extraction ledger gate (`scientific_validation`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0743` - Synthesize Nuclear RESULT-0018 diagnostic negative memory and next-lane decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 
