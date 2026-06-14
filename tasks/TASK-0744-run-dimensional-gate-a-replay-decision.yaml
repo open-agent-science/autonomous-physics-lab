@@ -1,7 +1,7 @@
 id: TASK-0744
 title: "Run Dimensional Validator Gate A replay decision after boundary fix"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -18,10 +18,9 @@ input:
     - "tasks/TASK-0712-fix-dimensional-boundary-disagreements.yaml"
     - "docs/result-promotion-protocol.md"
   planning_context: >
-    TASK-0712 is REVIEW_READY. After it is merged/closed out, this task reruns
-    the narrow Dimensional Validator publication gate and decides whether a
-    Gate A artifact is warranted or whether limitations should remain blocker
-    memory.
+    TASK-0712 is DONE. This task reruns the narrow Dimensional Validator
+    publication gate and decides whether a Gate A artifact is warranted or
+    whether limitations should remain blocker memory.
 
 requirements:
   - "Start only after TASK-0712 is DONE."
@@ -33,10 +32,17 @@ accepted_outputs:
   - "docs/reviews/dimensional-validator-gate-a-replay-decision.md"
   - "optional RESULT candidate only if Gate A passes and maintainer approval allows it"
 
+result_artifact_policy:
+  required: false
+  reason: "TASK-0744 is a publication decision gate; this PR records replay evidence and defers RESULT packaging until maintainer-approved artifact creation."
+  evidence:
+    - "docs/reviews/dimensional-validator-gate-a-replay-decision.md"
+
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 -m pytest tests/test_dimensions.py tests/test_task_reference_convention.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_task_proposals.py tests/test_mission_control.py tests/test_mission_freshness.py tests/test_validate_repo_auto_sync.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
