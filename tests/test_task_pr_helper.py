@@ -8,6 +8,7 @@ import pytest
 
 from physics_lab.registry.task_pr_helper import (
     commit_subject_errors_for_task,
+    default_prepare_current_base,
     prepare_current_task_pr,
     preflight_task_pr,
     task_branch,
@@ -73,6 +74,37 @@ def test_commit_subject_errors_for_task_enforces_task_scoped_format() -> None:
     assert len(errors) == 2
     assert "fix: prefer GitHub usernames" in errors[0]
     assert "<type>(task-0747): <short summary>" in errors[0]
+
+
+def test_default_prepare_current_base_prefers_available_remote(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    checked_refs: list[str] = []
+
+    def fake_branch_exists(root: Path, ref: str) -> bool:
+        checked_refs.append(ref)
+        return ref == "origin/main"
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.branch_exists",
+        fake_branch_exists,
+    )
+
+    assert default_prepare_current_base(tmp_path) == "origin/main"
+    assert checked_refs == ["origin/main"]
+
+
+def test_default_prepare_current_base_falls_back_to_main(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.branch_exists",
+        lambda root, ref: False,
+    )
+
+    assert default_prepare_current_base(tmp_path) == "main"
 
 
 def test_task_pr_body_mentions_template_sections_and_metadata() -> None:
@@ -189,6 +221,99 @@ def test_prepare_current_task_pr_generates_body_from_task_and_current_branch(
         "validate-repo . --strict --fail-on-warnings" in command
         for command in prepared.validation_commands
     )
+
+
+def test_prepare_current_task_pr_uses_remote_base_by_default(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    observed_base_refs: dict[str, str] = {}
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.current_branch",
+        lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.branch_exists",
+        lambda root, ref: ref == "origin/main",
+    )
+
+    def fake_changed_files(root: Path, branch: str, base_ref: str = "main") -> tuple[str, ...]:
+        observed_base_refs["changed"] = base_ref
+        return ("scripts/apl_task_pr_helper.py",)
+
+    def fake_commit_subjects(root: Path, branch: str, *, base_ref: str = "main") -> tuple[str, ...]:
+        observed_base_refs["commits"] = base_ref
+        return ()
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        fake_changed_files,
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.commit_subjects_vs_base",
+        fake_commit_subjects,
+    )
+
+    prepared = prepare_current_task_pr(
+        repo_root,
+        task_id="TASK-0247",
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_id="codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+    )
+
+    assert prepared.base_ref == "origin/main"
+    assert observed_base_refs == {"changed": "origin/main", "commits": "origin/main"}
+
+
+def test_prepare_current_task_pr_respects_explicit_base_ref(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    observed_base_refs: dict[str, str] = {}
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.current_branch",
+        lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.branch_exists",
+        lambda root, ref: ref == "origin/main",
+    )
+
+    def fake_changed_files(root: Path, branch: str, base_ref: str = "main") -> tuple[str, ...]:
+        observed_base_refs["changed"] = base_ref
+        return ("scripts/apl_task_pr_helper.py",)
+
+    def fake_commit_subjects(root: Path, branch: str, *, base_ref: str = "main") -> tuple[str, ...]:
+        observed_base_refs["commits"] = base_ref
+        return ()
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        fake_changed_files,
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.commit_subjects_vs_base",
+        fake_commit_subjects,
+    )
+
+    prepared = prepare_current_task_pr(
+        repo_root,
+        task_id="TASK-0247",
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_id="codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+        base_ref="main",
+    )
+
+    assert prepared.base_ref == "main"
+    assert observed_base_refs == {"changed": "main", "commits": "main"}
 
 
 def test_prepare_current_task_pr_omits_local_body_file_artifact(

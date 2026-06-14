@@ -294,6 +294,11 @@ python3 scripts/apl_task_pr_helper.py prepare-current \
 `.apl-pr-body.md` is ignored local helper state and must not be committed.
 Regenerate it whenever the PR body needs an update.
 
+By default, `prepare-current` compares the current branch against `origin/main`
+when that remote-tracking ref exists, then `upstream/main` if available, and
+finally local `main`. Pass `--base <ref>` when a maintainer explicitly wants a
+different base.
+
 If `prepare-current` reports errors, fix them before creating the PR. In
 particular, do not open a PR from a `feature/...` or other non-canonical branch
 for canonical task work, and do not open a PR when commits ahead of the base
