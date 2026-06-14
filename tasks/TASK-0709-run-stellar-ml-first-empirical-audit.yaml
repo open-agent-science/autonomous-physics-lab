@@ -1,7 +1,7 @@
 id: TASK-0709
 title: "Run first Stellar M-L empirical audit on DEBCat rows"
 type: scientific_benchmark
-status: BLOCKED
+status: SUPERSEDED
 closeout: review
 difficulty: high
 priority: high
@@ -22,11 +22,14 @@ input:
   planning_context: >
     After DEBCat rows and holdout lanes exist, this task runs the first
     empirical mass-luminosity audit against a frozen textbook baseline and
-    reports per-slice residual behavior. It must not claim universal validity
-    or falsification of the formula.
+    reports per-slice residual behavior. TASK-0739 superseded this generic
+    route with TASK-0740, the explicit Route 2 local-extractor benchmark path.
+    It must not claim universal validity or falsification of the formula.
 
 requirements:
-  - "Start only after TASK-0739 explicitly authorizes a benchmark route after the TASK-0708 Route 2 row package."
+  - "Superseded by TASK-0740 after TASK-0739 authorized the Route 2 local-extractor benchmark route."
+  - "Do not start this task directly; use TASK-0740."
+  - "Historical condition: start only after TASK-0739 explicitly authorizes a benchmark route after the TASK-0708 Route 2 row package."
   - "Use a frozen M-L baseline, declared mass range, uncertainty treatment, and slice rules before computing metrics."
   - "Report per-slice metrics, residual maps, matched controls, and limitations."
   - "Use verdicts such as VALID_IN_RANGE, PARTIALLY_VALID, INCONCLUSIVE, OVERFITTED, or FALSIFIED only for the audited slice."
