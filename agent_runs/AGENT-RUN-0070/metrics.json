@@ -1,0 +1,398 @@
+{
+  "agent_run_id": "AGENT-RUN-0070",
+  "all_admitted": {
+    "by_lane": {
+      "holdout": {
+        "count": 199,
+        "fraction_abs_residual_le_0p1": 0.211055,
+        "fraction_abs_residual_le_0p2": 0.39196,
+        "fraction_abs_residual_le_0p3": 0.59799,
+        "mae_dex": 0.385491,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 0.25045,
+        "median_residual_dex": 0.2193,
+        "p90_abs_residual_dex": 0.9557,
+        "rmse_dex": 0.602248
+      },
+      "train": {
+        "count": 381,
+        "fraction_abs_residual_le_0p1": 0.191601,
+        "fraction_abs_residual_le_0p2": 0.370079,
+        "fraction_abs_residual_le_0p3": 0.56168,
+        "mae_dex": 0.387582,
+        "max_abs_residual_dex": 2.1059,
+        "median_abs_residual_dex": 0.26645,
+        "median_residual_dex": 0.2374,
+        "p90_abs_residual_dex": 0.9423,
+        "rmse_dex": 0.557409
+      },
+      "validation": {
+        "count": 162,
+        "fraction_abs_residual_le_0p1": 0.179012,
+        "fraction_abs_residual_le_0p2": 0.345679,
+        "fraction_abs_residual_le_0p3": 0.5,
+        "mae_dex": 0.364903,
+        "max_abs_residual_dex": 2.25185,
+        "median_abs_residual_dex": 0.2886,
+        "median_residual_dex": 0.216473,
+        "p90_abs_residual_dex": 0.7155,
+        "rmse_dex": 0.518761
+      }
+    },
+    "by_mass_band": {
+      "high": {
+        "count": 56,
+        "fraction_abs_residual_le_0p1": 0.017857,
+        "fraction_abs_residual_le_0p2": 0.107143,
+        "fraction_abs_residual_le_0p3": 0.285714,
+        "mae_dex": 0.405519,
+        "max_abs_residual_dex": 0.988,
+        "median_abs_residual_dex": 0.361247,
+        "median_residual_dex": 0.361247,
+        "p90_abs_residual_dex": 0.6224,
+        "rmse_dex": 0.448344
+      },
+      "intermediate": {
+        "count": 161,
+        "fraction_abs_residual_le_0p1": 0.012422,
+        "fraction_abs_residual_le_0p2": 0.086957,
+        "fraction_abs_residual_le_0p3": 0.217391,
+        "mae_dex": 0.554111,
+        "max_abs_residual_dex": 1.31395,
+        "median_abs_residual_dex": 0.4393,
+        "median_residual_dex": 0.4393,
+        "p90_abs_residual_dex": 1.01725,
+        "rmse_dex": 0.632406
+      },
+      "low": {
+        "count": 123,
+        "fraction_abs_residual_le_0p1": 0.252033,
+        "fraction_abs_residual_le_0p2": 0.422764,
+        "fraction_abs_residual_le_0p3": 0.577236,
+        "mae_dex": 0.352403,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 0.245855,
+        "median_residual_dex": -0.0652,
+        "p90_abs_residual_dex": 0.5763,
+        "rmse_dex": 0.586389
+      },
+      "solar": {
+        "count": 366,
+        "fraction_abs_residual_le_0p1": 0.286885,
+        "fraction_abs_residual_le_0p2": 0.521858,
+        "fraction_abs_residual_le_0p3": 0.748634,
+        "mae_dex": 0.313564,
+        "max_abs_residual_dex": 2.25185,
+        "median_abs_residual_dex": 0.189295,
+        "median_residual_dex": 0.186373,
+        "p90_abs_residual_dex": 0.593995,
+        "rmse_dex": 0.54149
+      },
+      "very_low": {
+        "count": 36,
+        "fraction_abs_residual_le_0p1": 0.138889,
+        "fraction_abs_residual_le_0p2": 0.333333,
+        "fraction_abs_residual_le_0p3": 0.5,
+        "mae_dex": 0.374026,
+        "max_abs_residual_dex": 1.55605,
+        "median_abs_residual_dex": 0.2934,
+        "median_residual_dex": -0.054975,
+        "p90_abs_residual_dex": 0.632045,
+        "rmse_dex": 0.497119
+      }
+    },
+    "summary": {
+      "count": 742,
+      "fraction_abs_residual_le_0p1": 0.19407,
+      "fraction_abs_residual_le_0p2": 0.37062,
+      "fraction_abs_residual_le_0p3": 0.557951,
+      "mae_dex": 0.38207,
+      "max_abs_residual_dex": 2.5142,
+      "median_abs_residual_dex": 0.26145,
+      "median_residual_dex": 0.227925,
+      "p90_abs_residual_dex": 0.9094,
+      "rmse_dex": 0.561756
+    }
+  },
+  "benchmark": {
+    "alpha": 3.5,
+    "formula": "L/L_sun = (M/M_sun)^3.5",
+    "l0": 1.0,
+    "no_alpha_fit_performed": true,
+    "primary_mass_range_solar": {
+      "max_exclusive": 2.0,
+      "min_inclusive": 0.5
+    },
+    "residual_axis": "log10(L_observed/L_predicted) dex"
+  },
+  "campaign_profile_id": "textbook-formula-audit",
+  "classification": {
+    "rationale": "Primary-range holdout formula MAE beats the predeclared train-median null.",
+    "verdict": "SANDBOX_PASS"
+  },
+  "input_references": {
+    "extract_command": "python3 scripts/extract_debcat_stellar_ml_rows.py --debs-dat <local-only>/debs.dat --out-rows <local-only>/debcat_component_rows.yaml --out-manifest <local-only>/debcat_holdout_manifest.yaml",
+    "extractor": "scripts/extract_debcat_stellar_ml_rows.py",
+    "fetch_command": "python3 scripts/fetch_source_artifact.py --url https://astro.keele.ac.uk/jkt/debcat/debs.dat --sha256 326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da --output <local-only>/debs.dat",
+    "manifest_local": "<local-only>/debcat_holdout_manifest.yaml",
+    "readiness_gate": "docs/reviews/stellar-ml-benchmark-readiness-after-route2.md",
+    "rows_local": "<local-only>/debcat_component_rows.yaml",
+    "source_manifest": "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+  },
+  "manifest_lane_counts": {
+    "excluded": 1,
+    "holdout": 100,
+    "train": 191,
+    "validation": 81
+  },
+  "null_control": {
+    "definition": "Per-mass-band train-lane median log_luminosity_solar.",
+    "global_train_median_log_luminosity": 0.541748,
+    "lanes": {
+      "holdout": {
+        "count": 132,
+        "formula_beats_null": true,
+        "formula_mae_dex": 0.347101,
+        "formula_minus_null_mae_dex": -0.097819,
+        "mass_band_train_median_null_mae_dex": 0.44492
+      },
+      "validation": {
+        "count": 103,
+        "formula_beats_null": true,
+        "formula_mae_dex": 0.316253,
+        "formula_minus_null_mae_dex": -0.133489,
+        "mass_band_train_median_null_mae_dex": 0.449742
+      }
+    },
+    "train_median_log_luminosity_by_mass_band": {
+      "low": -0.353,
+      "solar": 0.666395
+    }
+  },
+  "primary_mass_range": {
+    "by_evolutionary_stage_flag": {
+      "evolved": {
+        "count": 33,
+        "fraction_abs_residual_le_0p1": 0.0,
+        "fraction_abs_residual_le_0p2": 0.030303,
+        "fraction_abs_residual_le_0p3": 0.030303,
+        "mae_dex": 1.627101,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 1.78895,
+        "median_residual_dex": 1.78895,
+        "p90_abs_residual_dex": 2.1952,
+        "rmse_dex": 1.717818
+      },
+      "main_sequence_compatible": {
+        "count": 223,
+        "fraction_abs_residual_le_0p1": 0.372197,
+        "fraction_abs_residual_le_0p2": 0.641256,
+        "fraction_abs_residual_le_0p3": 0.883408,
+        "mae_dex": 0.168406,
+        "max_abs_residual_dex": 2.10375,
+        "median_abs_residual_dex": 0.1372,
+        "median_residual_dex": 0.0741,
+        "p90_abs_residual_dex": 0.3276,
+        "rmse_dex": 0.242104
+      },
+      "subgiant": {
+        "count": 15,
+        "fraction_abs_residual_le_0p1": 0.0,
+        "fraction_abs_residual_le_0p2": 0.133333,
+        "fraction_abs_residual_le_0p3": 0.4,
+        "mae_dex": 0.312877,
+        "max_abs_residual_dex": 0.4495,
+        "median_abs_residual_dex": 0.32325,
+        "median_residual_dex": 0.32325,
+        "p90_abs_residual_dex": 0.4091,
+        "rmse_dex": 0.322696
+      },
+      "unknown": {
+        "count": 218,
+        "fraction_abs_residual_le_0p1": 0.243119,
+        "fraction_abs_residual_le_0p2": 0.444954,
+        "fraction_abs_residual_le_0p3": 0.646789,
+        "mae_dex": 0.285174,
+        "max_abs_residual_dex": 1.9353,
+        "median_abs_residual_dex": 0.21602,
+        "median_residual_dex": 0.186072,
+        "p90_abs_residual_dex": 0.519745,
+        "rmse_dex": 0.415284
+      }
+    },
+    "by_lane": {
+      "holdout": {
+        "count": 132,
+        "fraction_abs_residual_le_0p1": 0.295455,
+        "fraction_abs_residual_le_0p2": 0.515152,
+        "fraction_abs_residual_le_0p3": 0.742424,
+        "mae_dex": 0.347101,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 0.186425,
+        "median_residual_dex": 0.141623,
+        "p90_abs_residual_dex": 1.2396,
+        "rmse_dex": 0.628189
+      },
+      "train": {
+        "count": 254,
+        "fraction_abs_residual_le_0p1": 0.271654,
+        "fraction_abs_residual_le_0p2": 0.5,
+        "fraction_abs_residual_le_0p3": 0.712598,
+        "mae_dex": 0.313852,
+        "max_abs_residual_dex": 2.1059,
+        "median_abs_residual_dex": 0.200323,
+        "median_residual_dex": 0.15585,
+        "p90_abs_residual_dex": 0.551295,
+        "rmse_dex": 0.521781
+      },
+      "validation": {
+        "count": 103,
+        "fraction_abs_residual_le_0p1": 0.271845,
+        "fraction_abs_residual_le_0p2": 0.466019,
+        "fraction_abs_residual_le_0p3": 0.640777,
+        "mae_dex": 0.316253,
+        "max_abs_residual_dex": 2.25185,
+        "median_abs_residual_dex": 0.21535,
+        "median_residual_dex": 0.14125,
+        "p90_abs_residual_dex": 0.5763,
+        "rmse_dex": 0.524785
+      }
+    },
+    "by_luminosity_provenance_class": {
+      "derived_luminosity": {
+        "count": 108,
+        "fraction_abs_residual_le_0p1": 0.259259,
+        "fraction_abs_residual_le_0p2": 0.472222,
+        "fraction_abs_residual_le_0p3": 0.703704,
+        "mae_dex": 0.276657,
+        "max_abs_residual_dex": 1.620195,
+        "median_abs_residual_dex": 0.208175,
+        "median_residual_dex": 0.192695,
+        "p90_abs_residual_dex": 0.526095,
+        "rmse_dex": 0.407541
+      },
+      "direct_observation": {
+        "count": 381,
+        "fraction_abs_residual_le_0p1": 0.283465,
+        "fraction_abs_residual_le_0p2": 0.503937,
+        "fraction_abs_residual_le_0p3": 0.706037,
+        "mae_dex": 0.336564,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 0.1978,
+        "median_residual_dex": 0.1406,
+        "p90_abs_residual_dex": 0.62685,
+        "rmse_dex": 0.587873
+      }
+    },
+    "by_luminosity_uncertainty_class": {
+      "coarse": {
+        "count": 110,
+        "fraction_abs_residual_le_0p1": 0.236364,
+        "fraction_abs_residual_le_0p2": 0.5,
+        "fraction_abs_residual_le_0p3": 0.7,
+        "mae_dex": 0.360191,
+        "max_abs_residual_dex": 2.32365,
+        "median_abs_residual_dex": 0.2,
+        "median_residual_dex": 0.076847,
+        "p90_abs_residual_dex": 0.757095,
+        "rmse_dex": 0.638577
+      },
+      "precise": {
+        "count": 15,
+        "fraction_abs_residual_le_0p1": 0.2,
+        "fraction_abs_residual_le_0p2": 0.266667,
+        "fraction_abs_residual_le_0p3": 0.466667,
+        "mae_dex": 0.254763,
+        "max_abs_residual_dex": 0.4042,
+        "median_abs_residual_dex": 0.3035,
+        "median_residual_dex": 0.23105,
+        "p90_abs_residual_dex": 0.38485,
+        "rmse_dex": 0.283008
+      },
+      "standard": {
+        "count": 360,
+        "fraction_abs_residual_le_0p1": 0.297222,
+        "fraction_abs_residual_le_0p2": 0.511111,
+        "fraction_abs_residual_le_0p3": 0.725,
+        "mae_dex": 0.306926,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 0.194675,
+        "median_residual_dex": 0.169175,
+        "p90_abs_residual_dex": 0.5171,
+        "rmse_dex": 0.52328
+      },
+      "unknown": {
+        "count": 4,
+        "fraction_abs_residual_le_0p1": 0.0,
+        "fraction_abs_residual_le_0p2": 0.0,
+        "fraction_abs_residual_le_0p3": 0.0,
+        "mae_dex": 1.043558,
+        "max_abs_residual_dex": 1.475845,
+        "median_abs_residual_dex": 1.13047,
+        "median_residual_dex": 1.13047,
+        "p90_abs_residual_dex": 1.475845,
+        "rmse_dex": 1.115356
+      }
+    },
+    "by_mass_band": {
+      "low": {
+        "count": 123,
+        "fraction_abs_residual_le_0p1": 0.252033,
+        "fraction_abs_residual_le_0p2": 0.422764,
+        "fraction_abs_residual_le_0p3": 0.577236,
+        "mae_dex": 0.352403,
+        "max_abs_residual_dex": 2.5142,
+        "median_abs_residual_dex": 0.245855,
+        "median_residual_dex": -0.0652,
+        "p90_abs_residual_dex": 0.5763,
+        "rmse_dex": 0.586389
+      },
+      "solar": {
+        "count": 366,
+        "fraction_abs_residual_le_0p1": 0.286885,
+        "fraction_abs_residual_le_0p2": 0.521858,
+        "fraction_abs_residual_le_0p3": 0.748634,
+        "mae_dex": 0.313564,
+        "max_abs_residual_dex": 2.25185,
+        "median_abs_residual_dex": 0.189295,
+        "median_residual_dex": 0.186373,
+        "p90_abs_residual_dex": 0.593995,
+        "rmse_dex": 0.54149
+      }
+    },
+    "summary": {
+      "count": 489,
+      "fraction_abs_residual_le_0p1": 0.278119,
+      "fraction_abs_residual_le_0p2": 0.496933,
+      "fraction_abs_residual_le_0p3": 0.705521,
+      "mae_dex": 0.323333,
+      "max_abs_residual_dex": 2.5142,
+      "median_abs_residual_dex": 0.20165,
+      "median_residual_dex": 0.1499,
+      "p90_abs_residual_dex": 0.593995,
+      "rmse_dex": 0.553127
+    }
+  },
+  "source_counts": {
+    "component_rows_admitted": 742,
+    "component_rows_excluded": 6,
+    "component_rows_total": 748,
+    "exclusion_reason_counts": {
+      "ambiguous_duplicate_system_id": 4,
+      "no_admissible_luminosity_path": 2
+    },
+    "lane_system_counts": {
+      "excluded": 1,
+      "holdout": 100,
+      "train": 191,
+      "validation": 81
+    },
+    "luminosity_derived": 145,
+    "luminosity_direct_observation": 597,
+    "records_total": 374,
+    "systems_admitted": 372,
+    "systems_excluded": 1,
+    "systems_total": 373
+  },
+  "task_id": "TASK-0740"
+}

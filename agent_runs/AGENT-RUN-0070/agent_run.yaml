@@ -1,0 +1,42 @@
+id: AGENT-RUN-0070
+campaign_profile_id: textbook-formula-audit
+task_id: TASK-0740
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/textbook-formula-audit/HYP-PROPOSAL-0058-stellar-ml-route2-local-benchmark.yaml
+  experiment: experiment_proposals/textbook-formula-audit/EXP-PROPOSAL-0024-stellar-ml-route2-local-benchmark.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0070/metrics.json
+  report: agent_runs/AGENT-RUN-0070/report.md
+  limitations: agent_runs/AGENT-RUN-0070/limitations.md
+  preflight: agent_runs/AGENT-RUN-0070/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0070/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: campaign_scope
+    status: PASS
+    notes: textbook-formula-audit permits sandbox-only formula-audit runs.
+  - name: source_binding
+    status: PASS
+    notes: Rows were generated from checksum-verified local DEBCat source.
+  - name: baseline_freeze
+    status: PASS
+    notes: Fixed alpha=3.5 baseline; no exponent fitting.
+  - name: promotion_boundary
+    status: PASS
+    notes: No RESULT, PRED, CLAIM, or KNOW artifact is created.
+limitations:
+- Sandbox-only first empirical benchmark; no universal M-L claim.
+- Full DEBCat rows remain local-only under Route 2.
+- Catalogue-level luminosity provenance limits interpretation.
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any RESULT-* packaging or claim/knowledge
+    routing.
