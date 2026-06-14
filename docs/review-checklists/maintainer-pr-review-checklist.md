@@ -12,6 +12,9 @@ Use this checklist during pre-merge maintainer review.
 ## Branch / Commit / PR Format
 
 - Branch follows `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
+- `contributor-id` is the lowercased GitHub username when available, or a stable
+  maintainer-approved short id otherwise.
+- PR Contributor ID metadata matches the contributor segment in the branch.
 - PR title follows `TASK-XXXX: ...`.
 - PR metadata block is filled in.
 - Review bundle was generated from the PR branch, not `main`.

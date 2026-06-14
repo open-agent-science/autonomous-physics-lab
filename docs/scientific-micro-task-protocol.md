@@ -232,6 +232,9 @@ For one small batch from one queue, use:
 
 `agent/<contributor-id>/<agent-id>/microtask-batch-<queue-id>--<short-slug>`
 
+Use the lowercased GitHub username as `contributor-id` when available;
+otherwise use a stable maintainer-approved short id.
+
 In both cases, keep the PR title in the same queue-oriented form:
 
 `microtask(<queue-id>): <short description>`

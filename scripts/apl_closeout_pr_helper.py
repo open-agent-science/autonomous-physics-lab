@@ -44,7 +44,14 @@ def build_parser() -> argparse.ArgumentParser:
             "here; TASK-CLOSEOUT is the PR kind marker rendered by the helper."
         ),
     )
-    scaffold.add_argument("--contributor-id", required=True)
+    scaffold.add_argument(
+        "--contributor-id",
+        required=True,
+        help=(
+            "Lowercased GitHub username when available; otherwise a stable "
+            "maintainer-approved short id."
+        ),
+    )
     scaffold.add_argument("--github-username", required=True)
     scaffold.add_argument("--agent-id", required=True)
     scaffold.add_argument(

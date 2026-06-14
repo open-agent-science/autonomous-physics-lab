@@ -12,10 +12,12 @@ from physics_lab.registry.review_policy import (
     PR_TITLE_PATTERN,
     agent_tool_metadata_mismatch,
     branch_task_id,
+    contributor_metadata_mismatch,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
+    normalize_contributor_id,
 )
-from physics_lab.registry.review_git import changed_files_vs_main, current_branch
+from physics_lab.registry.review_git import changed_files_vs_main, current_branch, run_git_command
 from physics_lab.registry.task_closeout import find_task_file
 from physics_lab.registry.tasks import load_task
 
@@ -32,6 +34,9 @@ STRICT_VALIDATE_REPO_PATTERN = re.compile(
     r"\s+-m\s+physics_lab\.cli\s+validate-repo\s+\."
     r"\s+--strict\s+--fail-on-warnings(?:$|[\s`)])",
     re.IGNORECASE,
+)
+TASK_COMMIT_SUBJECT_PATTERN = re.compile(
+    r"^(feat|fix|refactor|docs|test|chore)\(task-(?P<number>[0-9]{4})\): .+"
 )
 
 
@@ -64,6 +69,7 @@ class PreparedTaskPr:
 
 def task_branch(contributor_id: str, agent_id: str, task_id: str, short_slug: str) -> str:
     """Build a canonical task branch name."""
+    contributor_id = normalize_contributor_id(contributor_id)
     task_number = task_id.removeprefix("TASK-")
     return f"agent/{contributor_id}/{agent_id}/task-{task_number}-{short_slug}"
 
@@ -101,6 +107,29 @@ def task_validation_commands_from_payload(payload: dict) -> tuple[str, ...]:
     if not isinstance(commands, list):
         return ()
     return tuple(str(command) for command in commands if str(command).strip())
+
+
+def commit_subjects_vs_base(root: Path, branch: str, *, base_ref: str = "main") -> tuple[str, ...]:
+    """Return commit subjects on ``branch`` that are not in ``base_ref``."""
+    result = run_git_command(["log", "--format=%s", f"{base_ref}..{branch}"], cwd=root)
+    if result.returncode != 0:
+        return ()
+    return tuple(line.strip() for line in result.stdout.splitlines() if line.strip())
+
+
+def commit_subject_errors_for_task(task_id: str, subjects: tuple[str, ...]) -> tuple[str, ...]:
+    """Return commit subject format errors for a canonical task PR."""
+    expected_number = task_id.removeprefix("TASK-").lower()
+    expected_format = f"<type>(task-{expected_number}): <short summary>"
+    errors: list[str] = []
+    for subject in subjects:
+        match = TASK_COMMIT_SUBJECT_PATTERN.match(subject)
+        if match is None or match.group("number") != expected_number:
+            errors.append(
+                f"Commit subject {subject!r} does not follow {expected_format!r} "
+                f"for {task_id}."
+            )
+    return tuple(errors)
 
 
 def prepare_current_task_pr(
@@ -187,6 +216,12 @@ def prepare_current_task_pr(
     report = preflight_task_pr(root, branch=branch, title=title, body_text=body)
     errors = list(report.errors)
     warnings = list(report.warnings)
+    errors.extend(
+        commit_subject_errors_for_task(
+            task_id,
+            commit_subjects_vs_base(root, branch, base_ref=base_ref),
+        )
+    )
     if branch != expected_branch:
         warnings.append(
             "Current branch differs from the generated suggested branch for this task: "
@@ -240,6 +275,7 @@ def task_pr_body(
     root: Path = Path("."),
 ) -> str:
     """Render a repository-native canonical task PR body."""
+    contributor_id = normalize_contributor_id(contributor_id)
     task_file = find_task_file(root, task_id).as_posix()
     changed = tuple(dict.fromkeys((task_file, *changed_files)))
     changed_lines = [f"- `{item}`" for item in changed] or ["- "]
@@ -391,6 +427,10 @@ def preflight_task_pr(
     agent_tool_mismatch = agent_tool_metadata_mismatch(branch, body_text)
     if agent_tool_mismatch is not None:
         errors.append(agent_tool_mismatch)
+
+    contributor_mismatch = contributor_metadata_mismatch(branch, body_text)
+    if contributor_mismatch is not None:
+        errors.append(contributor_mismatch)
 
     placeholders = _placeholder_hits(body_text)
     if placeholders:

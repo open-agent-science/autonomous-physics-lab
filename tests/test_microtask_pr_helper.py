@@ -33,6 +33,18 @@ def test_microtask_branch_builds_single_and_batch_variants() -> None:
     )
 
 
+def test_microtask_branch_normalizes_github_username_contributor_id() -> None:
+    assert (
+        microtask_branch(
+            "GladunRV",
+            "codex",
+            "challenge-entries",
+            queue_id="dimensional-analysis-validator",
+        )
+        == "agent/gladunrv/codex/microtask-batch-dimensional-analysis-validator--challenge-entries"
+    )
+
+
 def test_microtask_pr_body_mentions_review_bundle_and_queue() -> None:
     branch = "agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries"
     title = microtask_title(

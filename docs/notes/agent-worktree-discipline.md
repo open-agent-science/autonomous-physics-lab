@@ -49,6 +49,10 @@ Use the helper:
 ./scripts/apl_new_worktree.sh agent/<contributor-id>/<agent-id>/task-XXXX-<slug>
 ```
 
+Use the lowercased GitHub username as `contributor-id` when available;
+otherwise use a stable maintainer-approved short id. Keep the separate GitHub
+username PR metadata field filled in, even when it matches `contributor-id`.
+
 The script:
 
 1. Refuses to overwrite an existing branch — name conflicts usually
@@ -105,7 +109,7 @@ Example for a task that generates a draft PR body in `/tmp`:
 
 ```bash
 python3 scripts/apl_branch_precondition.py \
-    --expected-branch agent/roman/claude/task-0263-foo \
+    --expected-branch agent/gladunrv/claude/task-0263-foo \
     --allow-untracked "tasks/TASK-0263-*.yaml"
 ```
 
@@ -138,7 +142,7 @@ prints an exact, safe explicit-push command:
 
 ```bash
 python3 scripts/apl_branch_precondition.py \
-    --expected-branch agent/roman/claude/task-0624-foo \
+    --expected-branch agent/gladunrv/claude/task-0624-foo \
     --check-upstream
 ```
 

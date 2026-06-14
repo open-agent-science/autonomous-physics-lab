@@ -18,9 +18,12 @@ Filename format:
 
 Examples:
 
-- `20260502-roman-koide-track.yaml`
-- `20260502-ihor-rf-signal-sandbox.yaml`
-- `20260502-claude-diffusion-benchmark.yaml`
+- `20260502-gladunrv-koide-track.yaml`
+- `20260502-ihor-github-rf-signal-sandbox.yaml`
+- `20260502-romanhladun24-dot-diffusion-benchmark.yaml`
+
+Use the lowercased GitHub username as `contributor-id` when available;
+otherwise use a stable maintainer-approved short id.
 
 Use [./TASK-PROPOSAL-TEMPLATE.yaml](./TASK-PROPOSAL-TEMPLATE.yaml) as the
 starting point.

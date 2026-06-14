@@ -1,0 +1,73 @@
+id: TASK-0747
+title: "Prefer GitHub usernames for contributor IDs in agent branches"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make public-repository agent branches globally traceable to GitHub identities."
+  - "Reduce contributor-id collisions as external contributors and multiple agents join the same task pool."
+  - "Keep branch, PR metadata, review helper, and proposal tooling aligned on one contributor identity rule."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/agent-task-claiming.md"
+    - "scripts/apl_task_pr_helper.py"
+    - "scripts/apl_proposal_pr_helper.py"
+    - "scripts/apl_microtask_pr_helper.py"
+    - "scripts/apl_closeout_pr_helper.py"
+    - "physics_lab/registry/review_policy.py"
+  planning_context: >
+    The canonical branch shape is already
+    `agent/<contributor-id>/<agent-id>/task-XXXX-short-slug`, but the protocol
+    describes `contributor-id` as the human responsible for the PR while
+    `github-username` is stored separately in PR metadata. For a public
+    multi-contributor repository, the contributor segment should prefer the
+    lowercased GitHub username when one is available, with stable
+    maintainer-approved short ids only as a fallback. This task updates the
+    protocol, helper scaffolds, preflight checks, and tests so new agents use
+    the GitHub-login contributor id consistently without rewriting old branch
+    examples or history.
+
+requirements:
+  - "Document that `contributor-id` SHOULD be the lowercased GitHub username when available; otherwise use a stable maintainer-approved short id."
+  - "Keep the canonical branch path shape unchanged: `agent/<contributor-id>/<agent-id>/...`."
+  - "Teach PR/helper scaffolds to normalize contributor ids to lowercase for generated branches and metadata."
+  - "Support dashed contributor ids in proposal filenames and proposal preflight, so lowercased GitHub-style ids remain usable across PR kinds."
+  - "Flag mismatches where the PR metadata Contributor ID differs from the contributor segment in a canonical agent branch."
+  - "Make `apl_task_pr_helper.py prepare-current` fail before PR creation when commits ahead of the base branch do not follow `<type>(task-XXXX): <short summary>`."
+  - "Do not rename old examples, old task artifacts, old proposal files, or historical branches."
+
+accepted_outputs:
+  - "contributor-id policy documentation"
+  - "helper normalization and metadata mismatch checks"
+  - "proposal filename support for dashed contributor ids"
+  - "focused regression tests for task, proposal, microtask, and closeout helpers"
+  - "pre-PR commit subject guard in `prepare-current`"
+  - "ignored local PR body helper artifact"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling and protocol task; no scientific RESULT artifact is expected."
+  evidence:
+    - "physics_lab/registry/review_policy.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "physics_lab/registry/proposal_pr_helper.py"
+    - "physics_lab/registry/microtask_pr_helper.py"
+    - "physics_lab/registry/closeout_pr_helper.py"
+    - "docs/agent-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_task_pr_helper.py tests/test_proposal_pr_helper.py tests/test_microtask_pr_helper.py tests/test_closeout_pr_helper.py tests/test_maintainer_review.py"
+    - "python3 -m ruff check physics_lab/registry/review_policy.py physics_lab/registry/task_pr_helper.py physics_lab/registry/proposal_pr_helper.py physics_lab/registry/microtask_pr_helper.py physics_lab/registry/closeout_pr_helper.py physics_lab/registry/maintainer_review.py scripts/apl_task_pr_helper.py scripts/apl_proposal_pr_helper.py scripts/apl_microtask_pr_helper.py scripts/apl_closeout_pr_helper.py scripts/apl_branch_precondition.py scripts/auto_run_next_task.py tests"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human

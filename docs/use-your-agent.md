@@ -84,6 +84,10 @@ Every contribution must follow this flow — no exceptions:
 
 **Branch format:** `agent/<contributor-id>/<agent-id>/task-<number>-<short-slug>`
 
+Use your lowercased GitHub username as `contributor-id` when available;
+otherwise use a stable maintainer-approved short id. Keep the separate GitHub
+username PR metadata field filled in, even when it matches `contributor-id`.
+
 Example: `agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams`
 
 Never work directly on `main`, invent a canonical task id, or mix unrelated
