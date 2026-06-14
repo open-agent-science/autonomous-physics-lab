@@ -326,7 +326,7 @@ sources:
       future source-artifact or digitization task checksum-pins the article/SI
       files, runs WebPlotDigitizer-class extraction on Figure 1b, and passes
       row-readiness review.
-    license_note: "ACS Nano Letters open-access article; DOI-pinned metadata only in this manifest. Public article surfaces indicate CC-BY 4.0; TASK-0654 records reuse as promising but artifact-gated. Do not commit publisher PDF, SI PDF, figures, or extracted rows until a maintainer-reviewed source-artifact task re-verifies reuse terms and checksums the selected file copies."
+    license_note: "ACS Nano Letters article; CC-BY 4.0 CONFIRMED on the version-of-record (TASK-0741, via PMC PMC10540257 and Crossref vor, zero embargo). Redistribution of attributed extracted data is permitted. The publisher PDF / SI PDF are still not vendored; only SHA-256 checksums and locators are recorded (see the digitization package README). Figures and extracted rows remain subject to the row-readiness gate, but the license and exact-copy reuse recheck are no longer blockers."
     checksum_policy: doi_pinned
     notes: >
       Candidate for a future InP absorption_peak_eV digitization-required
@@ -340,11 +340,18 @@ sources:
       data/quantum_dots/source_artifacts/almeida-2023-inp-optical/,
       docs/reviews/quantum-almeida-license-figure-surface-review.md,
       docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md,
-      and docs/reviews/quantum-open-direct-table-source-scout-02.md. Remaining
-      blockers after TASK-0711: no valid article/SI source bytes were obtained
-      for checksum pinning, so exact-copy reuse recheck, real digitization
-      export, uncertainty/cross-check fields, and row-readiness
-      gate — not schema shape.
+      and docs/reviews/quantum-open-direct-table-source-scout-02.md. TASK-0741
+      cleared two prior blockers: the CC-BY 4.0 license is confirmed on the
+      version-of-record, and maintainer-supplied article/SI source bytes are now
+      checksum-pinned (SHA-256 in the digitization package README; PDFs not
+      vendored). The deterministic optical-energy axis (six labeled λ1s samples,
+      460-620 nm) is recorded. The single remaining blocker is the size-axis
+      figure digitization: per-sample edge length / volume is figure-only
+      (SI Figure S2b histograms, Figure 1b sizing curve), so a
+      WebPlotDigitizer-class tool run plus the TASK-0293 row-readiness gate are
+      required before qd-*.yaml rows can be curated. See
+      docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md
+      and data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/.
 
   - source_id: vossmeyer-1994-jpc-cds-absorption
     title: "CdS Nanoclusters: Synthesis, Characterization, Size Dependent Oscillator Strength, Temperature Shift of the Excitonic Transition Energy, and Reversible Absorbance Shift"
