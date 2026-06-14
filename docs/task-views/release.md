@@ -9,6 +9,7 @@
 - `TASK-0705` - Rerun Atomic baseline-readiness gate after Nemitz ACR-0002 (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0714` - Repair Nuclear prediction reveal-readiness checklist references (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0739` - Run Stellar M-L benchmark-readiness gate after DEBCat Route 2 (`scientific_validation`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0744` - Run Dimensional Validator Gate A replay decision after boundary fix (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `dimensional_analysis_validator`)
 
 ## IN_PROGRESS
 
@@ -16,5 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0713` - Run Gate B replay for Nuclear RESULT-0018 F2 diagnostic (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0734` - Verify post-AME2020 NST article licence and resolve the DATA_LICENSES pending entry (`repository_hardening`, priority `high`, difficulty `medium`, domain `public_release_readiness`)
+None.
