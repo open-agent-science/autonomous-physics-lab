@@ -18,3 +18,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0737` - Define narrowed MD-0002 acquisition predicate after cap-exceeded stop (`scientific_dataset_planning`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0741` - Curate one deterministic Quantum direct-row source artifact package (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
