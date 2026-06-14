@@ -1,0 +1,65 @@
+id: TASK-0749
+title: "Add acquisition queue and dry-run reminder"
+type: dataset_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Turn source-access follow-up work into a visible maintainer queue before agents idle on missing materials."
+  - "Separate metadata-only acquisition readiness from real fetches, key-gated runs, and benchmark execution."
+  - "Preserve no-secret, no-crawler, no-copyrighted-artifact, no-live-fetch-in-benchmark discipline while making maintainer access actions explicit."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_source_acquisition
+  related_objects:
+    - "tasks/TASK-0693-phase1-acquisition-queue-dry-run-md0002-runbook.yaml"
+    - "docs/source-acquisition-lane.md"
+    - "docs/local-source-secrets.md"
+    - "agents/data-acquisition.yaml"
+    - "agents/fresh-source-scout.yaml"
+    - "data/materials/source_manifest.yaml"
+    - "tasks/TASK-0738-run-narrowed-md0002-acquisition.yaml"
+  planning_context: >
+    TASK-0693 mixed a still-useful acquisition queue/dry-run reminder with an
+    MD-0002 key-gated runbook pilot. The MD-0002 and local-secret pieces are now
+    routed through narrower successors (TASK-0699, TASK-0736, TASK-0737, and
+    TASK-0738). This task keeps only the cross-campaign metadata queue: a
+    report-only surface that tells the maintainer which source candidates are
+    ready for access, which are blocked, what local artifact/API/article access
+    is needed, and which downstream task each acquisition would unblock.
+
+requirements:
+  - "Add a metadata-only acquisition queue artifact, either global or campaign-scoped, that records candidate sources without measurement values, raw rows, secrets, local file contents, PDFs, tables, or copyrighted artifact bytes."
+  - "Each queue entry must declare source identity, campaign/domain, readiness status, access class (`public_keyfree`, `key_gated`, `manual_artifact`, or `restricted_or_unknown`), blocker type when applicable, license/readiness note, checksum or pinning policy status, downstream task or blocker it unblocks, and the exact maintainer action needed."
+  - "Represent maintainer-provided article/material access explicitly: local-only artifact path expectations, citation/locator, redistribution decision, and what an agent may do locally after access is provided."
+  - "Add a report-only dry-run helper, scheduled reminder, or both that reads the queue and prints ready/blocked acquisition actions without fetching network resources, reading secret values, mutating source artifacts, or creating benchmark inputs."
+  - "Document the queue lifecycle in `docs/source-acquisition-lane.md` or an adjacent runbook: how candidates enter the queue, how maintainers satisfy access, and how a separate acquisition task consumes a ready queue entry."
+  - "Do not pilot MD-0002, run the Materials Project API, use `MP_API_KEY`, fetch live source data, enable cron real fetches, compute metrics, curate rows, create RESULT/PRED/CLAIM artifacts, or unblock benchmark tasks automatically."
+  - "Keep the implementation portable across macOS, Linux, Windows, Claude Code, and Codex environments."
+
+accepted_outputs:
+  - "metadata-only acquisition queue artifact or schema-backed queue location"
+  - "report-only dry-run helper and/or scheduled reminder workflow"
+  - "documentation for queue entry lifecycle and maintainer access handoff"
+  - "focused tests proving queue/report behavior stays metadata-only and no-fetch"
+
+result_artifact_policy:
+  required: false
+  reason: "Cross-campaign acquisition workflow task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "metadata-only acquisition queue artifact"
+    - "docs/source-acquisition-lane.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m ruff check scripts physics_lab tests"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

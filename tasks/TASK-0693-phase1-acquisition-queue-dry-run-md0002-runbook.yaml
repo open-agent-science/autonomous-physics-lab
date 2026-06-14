@@ -1,7 +1,7 @@
 id: TASK-0693
 title: "Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot"
 type: dataset_workflow
-status: READY
+status: BLOCKED
 difficulty: medium
 priority: medium
 
@@ -19,6 +19,11 @@ input:
     - "docs/source-acquisition-lane.md"
     - "data/materials/source_manifest.yaml"
     - "docs/reviews/materials-md0002-acquisition-preflight-package.md"
+    - "tasks/TASK-0699-run-md0002-maintainer-acquisition.yaml"
+    - "tasks/TASK-0736-document-local-source-secret-handshake.yaml"
+    - "tasks/TASK-0737-define-md0002-narrowed-predicate.yaml"
+    - "tasks/TASK-0738-run-narrowed-md0002-acquisition.yaml"
+    - "tasks/TASK-0749-acquisition-queue-dry-run-reminder.yaml"
   planning_context: >
     Phasing per the architect review (Plan 1, second). Phase 1 is dry-run only:
     no cron real fetch. The Fresh-Source-Scout already finds candidates and
@@ -26,6 +31,15 @@ input:
     acquisition stalled after the single MD-0001 fetch. This task adds the queue
     and a dry-run reminder, and pilots the MD-0002 fetch as a maintainer-run
     key-gated runbook (not a GitHub Action fetch).
+
+    Blocked from execution in this mixed form after the MD-0002 and
+    key-gated-secret pieces moved into narrower reviewed lanes: TASK-0699
+    recorded the maintainer-gated MD-0002 cap-exceeded runbook result, TASK-0736
+    documented the reusable local source-secret handshake, and
+    TASK-0737/TASK-0738 define and run the narrowed MD-0002 follow-up path. The
+    still-useful metadata-only acquisition queue and report-only dry-run
+    reminder scope is preserved as TASK-0749. A maintainer may supersede or
+    archive this mixed task after the narrowed queue task is accepted.
 
 requirements:
   - "Add data/<campaign>/acquisition_queue.yaml (or a source-manifest acquisition_status field) listing only license-verified, checksum-policy-defined, ready-to-fetch sources, each tagged with the downstream task it unblocks and a public_keyfree vs key_gated flag."
