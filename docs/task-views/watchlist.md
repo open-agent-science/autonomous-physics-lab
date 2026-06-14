@@ -18,6 +18,7 @@
 - `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0237` - Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0540` - Plan Materials pinned source snapshot (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0709` - Run first Stellar M-L empirical audit on DEBCat rows (`scientific_benchmark`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
 
 ## REJECTED
 
