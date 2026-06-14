@@ -1,0 +1,138 @@
+queue_version: "1"
+status: active
+task_id: TASK-0749
+title: "Metadata-only acquisition queue"
+updated: "2026-06-14"
+
+policy:
+  mode: report_only_no_fetch
+  live_fetch_allowed: false
+  secrets_read_allowed: false
+  local_artifacts_read_allowed: false
+  benchmark_input_allowed: false
+  value_bearing_rows_allowed: false
+  artifact_bytes_allowed: false
+  notes:
+    - "This queue is maintainer-action metadata only."
+    - "Queue reports must not fetch URLs, read local source copies, read secret values, or create benchmark inputs."
+    - "A separate acquisition or source-artifact task must consume a ready entry before any source bytes, rows, checksums, or metrics are committed."
+
+entries:
+  - entry_id: ACQ-QUEUE-0001
+    source_id: materials-project-md0002-narrowed
+    title: "Materials Project MD-0002 narrowed acquisition"
+    campaign_id: materials-property-residuals
+    domain: materials_property_residuals
+    status: waiting_on_upstream_task
+    access_class: key_gated
+    blocker_type: T4_snapshot_approval
+    source_locator: "https://api.materialsproject.org/materials/summary/"
+    local_secret_name: MP_API_KEY
+    license_readiness: >
+      Materials Project source and CC BY 4.0 attribution posture are recorded in
+      the Materials source manifest, but the narrowed MD-0002 query must still
+      pin its own database version, retrieval timestamp, selected fields, row
+      count, and checksums in a separate acquisition task.
+    checksum_policy: "sha256_file_after_separate_maintainer_run"
+    downstream_task: TASK-0738
+    blocked_by:
+      - TASK-0737
+    maintainer_action: >
+      After TASK-0737 is DONE and names the approved narrowed predicate, run the
+      MD-0002 acquisition through the local source-secret handshake using
+      MP_API_KEY. Stop if the reviewed row cap or source metadata checks fail.
+    local_artifact_expectation: "No local artifact is expected before the separate maintainer-gated acquisition run."
+    agent_local_work_allowed: >
+      Agents may read this queue entry, report that it is waiting on TASK-0737,
+      and prepare review-only follow-up text. They must not query the Materials
+      Project API from this queue.
+    forbidden_actions:
+      - "fetch Materials Project rows from this queue helper"
+      - "read or print MP_API_KEY"
+      - "commit raw or normalized MD-0002 rows"
+      - "compute materials metrics, residuals, rankings, predictions, or claims"
+    evidence:
+      - "data/materials/source_manifest.yaml"
+      - "docs/reviews/materials-md0002-acquisition-runbook-result.md"
+      - "tasks/TASK-0737-define-md0002-narrowed-predicate.yaml"
+      - "tasks/TASK-0738-run-narrowed-md0002-acquisition.yaml"
+
+  - entry_id: ACQ-QUEUE-0002
+    source_id: vossmeyer-1994-jpc-cds-absorption
+    title: "Vossmeyer 1994 CdS direct-table source copy"
+    campaign_id: quantum-size-effects
+    domain: quantum_size_effects
+    status: ready_for_maintainer_action
+    access_class: manual_artifact
+    blocker_type: T1_access
+    source_locator: "https://doi.org/10.1021/j100082a044"
+    license_readiness: >
+      ACS publication metadata is DOI-pinned only. Repository redistribution of
+      publisher PDFs, tables, or figures is blocked unless a maintainer records
+      an explicit compatible reuse route.
+    checksum_policy: "checksum_only_for_maintainer_local_copy_until_reuse_route_is_approved"
+    downstream_task: TASK-0741
+    blocked_by: []
+    maintainer_action: >
+      Provide a legitimate local full-text copy or institutional-access
+      inspection of the article, then record checksum metadata, Table 1
+      headers/units, and redistribution posture before any extraction ledger.
+    local_artifact_expectation: >
+      Maintainer-local source copy outside git, or metadata-only institutional
+      inspection notes. Do not commit the article, table, figure, crop, or
+      screenshot by default.
+    agent_local_work_allowed: >
+      After maintainer access is provided in a separate task, agents may prepare
+      checksum-only metadata and a table-structure/extraction ledger allowed by
+      the source-copy handoff. This queue report itself may only list the action.
+    forbidden_actions:
+      - "commit ACS publisher PDFs, tables, figures, crops, or screenshots"
+      - "transcribe Table 1 values from queue metadata"
+      - "create qd-*.yaml rows"
+      - "run quantum-size baselines or promote claims"
+    evidence:
+      - "data/quantum_dots/source_manifest.yaml"
+      - "docs/reviews/quantum-vossmeyer-source-copy-handoff.md"
+      - "tasks/TASK-0741-curate-quantum-deterministic-source-artifact.yaml"
+
+  - entry_id: ACQ-QUEUE-0003
+    source_id: almeida-2023-nano-letters-inp-optical
+    title: "Almeida 2023 InP article and SI source copy"
+    campaign_id: quantum-size-effects
+    domain: quantum_size_effects
+    status: ready_for_maintainer_action
+    access_class: manual_artifact
+    blocker_type: T1_access
+    source_locator: "https://doi.org/10.1021/acs.nanolett.3c02630"
+    license_readiness: >
+      Prior reviews recorded promising open-access/CC BY posture, but exact
+      article and SI file copies still need maintainer/browser-assisted
+      retrieval, true-PDF verification, and reuse recheck before any artifact
+      or digitization task proceeds.
+    checksum_policy: "sha256_for_valid_article_and_si_bytes_after_browser_assisted_retrieval"
+    downstream_task: TASK-0741
+    blocked_by: []
+    maintainer_action: >
+      Obtain valid article and supporting-information PDF bytes through a
+      maintainer/browser-assisted route, verify the bodies are real PDFs rather
+      than challenge HTML, record byte sizes, SHA-256 digests, and exact-copy
+      reuse terms.
+    local_artifact_expectation: >
+      Maintainer-local article and SI copies outside git until reuse is
+      rechecked. Commit only locators/checksum metadata unless a reviewed reuse
+      route allows storing file bytes.
+    agent_local_work_allowed: >
+      After valid maintainer-provided source copies exist in a separate task,
+      agents may prepare source-copy metadata or a Figure 1b digitization
+      package under the quantum source-artifact protocol. This queue report may
+      only list the access action.
+    forbidden_actions:
+      - "download challenge-gated article or SI bytes from this queue helper"
+      - "commit article PDFs, SI PDFs, figures, crops, or screenshots without reviewed reuse permission"
+      - "digitize Figure 1b or create qd-*.yaml rows from this queue"
+      - "run quantum-size baselines or promote claims"
+    evidence:
+      - "data/quantum_dots/source_manifest.yaml"
+      - "docs/reviews/quantum-almeida-source-copy-checksum-decision.md"
+      - "docs/reviews/quantum-almeida-license-figure-surface-review.md"
+      - "tasks/TASK-0741-curate-quantum-deterministic-source-artifact.yaml"

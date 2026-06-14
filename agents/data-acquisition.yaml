@@ -50,7 +50,9 @@ goals:
     - "Make data acquisition a sanctioned, auditable, maintainer-run lane across campaigns."
     - "Keep every committed source pinned with checksum, license, and provenance."
     - "Never leak secrets and never commit copyrighted publisher artifacts."
-  current_targets: []
+  current_targets:
+    - "Keep `data/acquisition_queue.yaml` as the metadata-only maintainer action queue for source-access work."
+    - "Use `scripts/apl_acquisition_queue.py report` before proposing or running a source acquisition."
 
 required_reading:
   - AGENTS.md
@@ -62,6 +64,13 @@ required_reading:
   - docs/source-manifest-minimum-schema.md
 
 typical_activities:
+  - title: "Acquisition queue dry-run"
+    description: |
+      Before starting source-access work, run the metadata-only acquisition
+      queue report. Use it to identify ready maintainer actions, blocked
+      upstream tasks, key-gated sources, manual article/material handoffs, and
+      downstream tasks. The report must not fetch sources, read secret values,
+      read local source copies, or create benchmark inputs.
   - title: "Key requirement handshake"
     description: |
       If an approved acquisition needs a local API key, login, cookie, or
@@ -95,6 +104,7 @@ allowed_tools:
 
 scripts_to_use:
   - scripts/apl_mission.py
+  - scripts/apl_acquisition_queue.py
   - scripts/apl_local_secrets.py
 
 can_invoke_other_roles:

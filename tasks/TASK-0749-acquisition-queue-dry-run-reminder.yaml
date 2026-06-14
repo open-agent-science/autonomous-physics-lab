@@ -1,7 +1,7 @@
 id: TASK-0749
 title: "Add acquisition queue and dry-run reminder"
 type: dataset_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -40,22 +40,24 @@ requirements:
   - "Keep the implementation portable across macOS, Linux, Windows, Claude Code, and Codex environments."
 
 accepted_outputs:
-  - "metadata-only acquisition queue artifact or schema-backed queue location"
-  - "report-only dry-run helper and/or scheduled reminder workflow"
-  - "documentation for queue entry lifecycle and maintainer access handoff"
-  - "focused tests proving queue/report behavior stays metadata-only and no-fetch"
+  - "data/acquisition_queue.yaml metadata-only queue artifact"
+  - "scripts/apl_acquisition_queue.py report-only dry-run helper"
+  - "docs/source-acquisition-lane.md queue lifecycle and maintainer access handoff documentation"
+  - "tests/test_acquisition_queue.py focused metadata-only and no-fetch regression tests"
 
 result_artifact_policy:
   required: false
   reason: "Cross-campaign acquisition workflow task; no scientific RESULT or PRED artifact is expected."
   evidence:
-    - "metadata-only acquisition queue artifact"
+    - "data/acquisition_queue.yaml"
+    - "scripts/apl_acquisition_queue.py"
     - "docs/source-acquisition-lane.md"
+    - "tests/test_acquisition_queue.py"
 
 validation:
   commands:
-    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
-    - "python3 -m ruff check scripts physics_lab tests"
+    - "python3 -m pytest tests/test_acquisition_queue.py tests/test_docs_links.py tests/test_data_redistribution_declarations.py tests/test_agent_role_profiles.py"
+    - "python3 -m ruff check scripts/apl_acquisition_queue.py physics_lab/registry/acquisition_queue.py tests/test_acquisition_queue.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

@@ -68,6 +68,52 @@ must never print, log, commit, or paste the value. A source-access blocker is
 recorded only after the maintainer confirms the key/access is unavailable or the
 safe local setup path fails.
 
+## Acquisition Queue And Dry-Run Reminder
+
+The cross-campaign queue lives at `data/acquisition_queue.yaml`. It is
+metadata-only maintainer coordination state: source candidates, access class,
+license/checksum readiness, downstream blocker, and the exact maintainer action
+needed before a separate acquisition task can consume the source.
+
+Run the dry-run report with:
+
+```bash
+python3 scripts/apl_acquisition_queue.py report
+```
+
+Validate the queue shape with:
+
+```bash
+python3 scripts/apl_acquisition_queue.py validate
+```
+
+The report is intentionally non-mutating. It must not fetch network resources,
+read local source copies, read secret values, create source artifacts, create
+measurement rows, or create benchmark inputs. It only groups queue entries into
+maintainer-ready and blocked/waiting actions.
+
+Every queue entry must record:
+
+- source id, title, campaign, and domain;
+- readiness status;
+- access class: `public_keyfree`, `key_gated`, `manual_artifact`, or
+  `restricted_or_unknown`;
+- blocker type when applicable;
+- locator/citation surface;
+- license/readiness note;
+- checksum or pinning policy status;
+- downstream task or blocker it unblocks;
+- exact maintainer action needed;
+- local artifact expectation for maintainer-provided articles/materials;
+- what agents may do locally after a later task provides access;
+- forbidden actions and evidence pointers.
+
+Maintainer-provided article/material access should be recorded as an expectation
+or checksum-only handoff, not as a repository-local private path. Do not commit
+publisher PDFs, tables, figures, screenshots, local-only source copies, secret
+files, or artifact bytes from the queue. A separate source-artifact or
+acquisition task must make the reuse, checksum, and row-curation decisions.
+
 ## Maintainer Acquisition Runbook Contract
 
 Every acquisition (agent-run or maintainer-run) must record:
