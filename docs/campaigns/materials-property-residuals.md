@@ -165,11 +165,19 @@ These are recommendations only. The first `MD-0001` replay/control wave is
 complete enough to justify the authorized `MD-0002` widening path. Current
 state of that chain: `TASK-0701` (benchmark/control predeclaration) is DONE,
 and `TASK-0699` (acquisition) and `TASK-0700` (loader/validation) are
-`REVIEW_READY` awaiting maintainer merge. The current bottleneck is maintainer
-merge plus the maintainer-run acquisition itself; `TASK-0702` (holdout freeze)
-and `TASK-0703` (formation-energy retest) stay `BLOCKED` until the committed
-`MD-0002` dataset files land. The numbered path below is the intended sequence
-once those merges complete:
+`REVIEW_READY`. The maintainer-gated MD-0002 acquisition was **executed on
+2026-06-13** and stopped on the predeclared row cap: the frozen
+stable-ternary-oxide predicate returned 2738 included rows per axis against the
+1500-row cap, so the verdict is `CAP_EXCEEDED_NO_DATASET_COMMITTED` and **no
+MD-0002 dataset files were committed** (see
+[`docs/reviews/materials-md0002-acquisition-runbook-result.md`](../reviews/materials-md0002-acquisition-runbook-result.md)).
+The current bottleneck is therefore a **narrowed pre-fetch predicate decision**,
+chosen blind (without inspecting property values, residuals, or material
+desirability), followed by a re-run acquisition; `TASK-0749` queues that
+narrowing step. `TASK-0702` (holdout freeze) and `TASK-0703` (formation-energy
+retest) stay `BLOCKED` until a capped MD-0002 dataset lands. The numbered path
+below is the intended sequence once a narrowed predicate clears the cap and the
+dataset is committed:
 
 1. **Maintainer-gated acquisition** — run `TASK-0699` to commit the pinned
    stable-ternary-oxide raw snapshot, normalized formation-energy / band-gap

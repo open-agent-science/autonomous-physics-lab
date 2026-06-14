@@ -1,0 +1,62 @@
+id: TASK-0749
+title: "Narrow MD-0002 stable-ternary-oxide acquisition predicate under the row cap"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock the authorized MD-0002 formation-energy retest by fitting the frozen acquisition contract under the 1500-row-per-axis cap."
+  - "Choose the narrowing rule blind, from chemistry definitions and candidate counts only, never from property values, residuals, or material desirability."
+  - "Keep the acquisition source/data-only: propose and recommend a predicate amendment; do not fetch, commit rows, or compute metrics."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0002-acquisition-runbook-result.md"
+    - "tasks/TASK-0699-run-md0002-maintainer-acquisition.yaml"
+    - "tasks/TASK-0702-validate-md0002-acquisition-and-freeze-holdout.yaml"
+    - "data/materials/md0002_holdout_manifest.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    TASK-0699 executed the maintainer-gated Materials Project acquisition on
+    2026-06-13 and stopped on the predeclared cap: the frozen stable-ternary-
+    oxide predicate returned 2738 included rows per axis against the 1500-row
+    cap (verdict CAP_EXCEEDED_NO_DATASET_COMMITTED), so no dataset was committed.
+    The runbook recommends a separate pre-acquisition amendment task to narrow
+    the predicate before any re-fetch. This task produces that amendment. The
+    narrowing rule must be justified only by chemistry definitions and the
+    candidate-occurrence counts already recorded in the runbook, never by
+    property values, residuals, or material desirability, to preserve no-peek
+    discipline.
+
+requirements:
+  - "Propose 2-3 candidate narrowing predicates (for example a precise cation-oxide definition, a single chemistry-family or cation-group restriction, or another predeclared stable subset) that plausibly fit at or below the 1500-row-per-axis cap."
+  - "Justify each candidate only by chemistry definitions and the candidate-occurrence counts already in docs/reviews/materials-md0002-acquisition-runbook-result.md; do not use property values, residuals, rankings, or material desirability."
+  - "Recommend one predicate and write it as a frozen pre-acquisition contract amendment for maintainer approval before any re-fetch."
+  - "Keep formation_energy_per_atom and band_gap as separate axes and preserve the no-peek holdout boundary."
+  - "Do not run a live fetch, commit MD-0002 dataset rows, populate value-bearing holdout assignments, compute benchmarks, or create RESULT/PRED/CLAIM artifacts."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0002-acquisition-predicate-narrowing.md"
+  - "optional dependency/blocker-note update to tasks/TASK-0699-run-md0002-maintainer-acquisition.yaml or tasks/TASK-0702-validate-md0002-acquisition-and-freeze-holdout.yaml if the re-acquisition condition changes"
+
+result_artifact_policy:
+  required: false
+  reason: "Pre-acquisition contract-amendment task; no scientific RESULT or PRED artifact is expected until a capped dataset is fetched and benchmarked later."
+  evidence:
+    - "docs/reviews/materials-md0002-acquisition-predicate-narrowing.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0002_schema_fixture.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
