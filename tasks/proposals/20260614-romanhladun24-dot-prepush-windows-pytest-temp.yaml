@@ -1,0 +1,51 @@
+proposal_id: 20260614-romanhladun24-dot-prepush-windows-pytest-temp
+title: Make pre-push pytest temp handling robust on Windows
+status: PROPOSED
+type: tooling_reliability
+priority: high
+proposed_by:
+  contributor_id: romanhladun24-dot
+  agent_id: codex
+strategy_alignment:
+- Make the mandatory pre-push CI-parity gate executable on supported Windows agent environments
+  without weakening its checks.
+summary: Make apl_prepush_check.py select or probe a writable isolated pytest temp root on
+  Windows so the CI-parity gate can execute tests instead of failing during pytest session
+  setup.
+rationale: 'The TASK-0726 pre-push gate failed twice on June 14 before test execution: first
+  at the default pytest-of-sviti temp root and then at a new C:\tmp basetemp, both with WinError
+  5. Existing TASK-0523 and TASK-0620 diagnose runtime problems but the newer pre-push helper
+  does not consume that capability.'
+input:
+  mode: planning_only
+  related_domain: contributor_validation
+  related_objects:
+  - physics_lab/registry/prepush_check.py
+  - scripts/apl_prepush_check.py
+  - scripts/apl_agent_doctor.py
+  - TASK-0523
+  - TASK-0620
+  - TASK-0726
+  planning_context: Reuse the existing repository Python resolver and agent-doctor pytest
+    probe. The future task should keep the same targeted CI-parity test set, select a disposable
+    writable temp path through cross-platform APIs, and report a distinct environment blocker
+    when no candidate is writable.
+requirements:
+- Probe or allocate pytest basetemp with tempfile/pathlib and pass it explicitly to the targeted
+  pytest gate.
+- Never hardcode C:\tmp, repository-local temp paths, or a POSIX-only location.
+- Return a distinct actionable environment failure when no writable temp root exists.
+- Preserve xdist/default CI parity when the runtime supports it, with a documented narrow
+  diagnostic fallback rather than silently disabling coverage.
+accepted_outputs:
+- cross-platform pre-push pytest temp selection or probe
+- focused Windows permission-failure and successful-fallback tests
+- agent protocol note for environment-blocked pre-push validation
+validation:
+  commands:
+  - python3 -m physics_lab.cli validate-repo .
+  - python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.

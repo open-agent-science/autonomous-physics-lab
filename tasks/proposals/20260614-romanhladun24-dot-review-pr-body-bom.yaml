@@ -1,0 +1,50 @@
+proposal_id: 20260614-romanhladun24-dot-review-pr-body-bom
+title: Normalize UTF-8 BOM in maintainer-review PR body parsing
+status: PROPOSED
+type: tooling_reliability
+priority: medium
+proposed_by:
+  contributor_id: romanhladun24-dot
+  agent_id: codex
+strategy_alignment:
+- Keep PR helper and maintainer-review parsing behavior consistent across Windows and PowerShell-generated
+  UTF-8 files.
+summary: >
+  Normalize a leading UTF-8 BOM before maintainer-review template and metadata
+  parsing so a valid PR body does not lose its first section.
+rationale: >
+  TASK-0530 made canonical task PR preflight BOM-tolerant after PowerShell-generated
+  UTF-8 input exposed the first occurrence. PR #1076 exposed the same boundary at
+  the later maintainer-review stage: the review policy still parses the GitHub
+  body directly, so a BOM-prefixed first heading can hide the PR Kind section and
+  create a false missing-template finding. The repeated evidence shows that
+  normalization is inconsistent across the PR lifecycle.
+input:
+  mode: planning_only
+  related_domain: maintainer_review
+  related_objects:
+  - physics_lab/registry/review_policy.py
+  - physics_lab/registry/maintainer_review.py
+  - physics_lab/registry/task_pr_helper.py
+  - TASK-0530
+  planning_context: >
+    Extend the existing TASK-0530 behavior across review_policy entrypoints that
+    inspect PR body sections and metadata. Keep the change limited to leading BOM
+    normalization and regression coverage; do not relax required sections or
+    metadata.
+requirements:
+- Normalize only leading Unicode BOM markers before PR body section and metadata parsing.
+- Cover the first PR Kind heading, metadata fields, output routing, and normal no-BOM bodies
+  with regression tests.
+- Do not weaken required PR template sections or accept blank metadata.
+accepted_outputs:
+- shared or consistently applied PR-body normalization in review policy
+- focused BOM regression tests for maintainer review
+validation:
+  commands:
+  - python3 -m physics_lab.cli validate-repo .
+  - python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
