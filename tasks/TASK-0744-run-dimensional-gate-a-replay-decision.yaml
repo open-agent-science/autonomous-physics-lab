@@ -1,7 +1,7 @@
 id: TASK-0744
 title: "Run Dimensional Validator Gate A replay decision after boundary fix"
 type: scientific_result_publication
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: medium
 priority: medium

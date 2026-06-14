@@ -1,7 +1,7 @@
 id: TASK-0699
 title: "Run MD-0002 maintainer-gated Materials Project acquisition"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

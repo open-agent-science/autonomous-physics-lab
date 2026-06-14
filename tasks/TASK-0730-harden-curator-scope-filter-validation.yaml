@@ -1,7 +1,7 @@
 id: TASK-0730
 title: "Harden curator scope filter validation"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 

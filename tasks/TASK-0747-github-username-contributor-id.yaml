@@ -1,7 +1,7 @@
 id: TASK-0747
 title: "Prefer GitHub usernames for contributor IDs in agent branches"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 

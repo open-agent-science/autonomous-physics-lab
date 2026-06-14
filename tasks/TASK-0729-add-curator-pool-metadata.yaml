@@ -1,7 +1,7 @@
 id: TASK-0729
 title: "Add curator-pool metadata for focused campaign sessions"
 type: architecture
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

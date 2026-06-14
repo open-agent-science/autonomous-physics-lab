@@ -1,7 +1,7 @@
 id: TASK-0728
 title: "Fix closeout sweep exact merged-PR fallback"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
