@@ -7,7 +7,7 @@
 ## READY
 
 - `TASK-0742` - Run Atomic Pizzocaro Yb/Sr row-admissibility extraction ledger gate (`scientific_validation`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0743` - Synthesize Nuclear RESULT-0018 diagnostic negative memory and next-lane decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0746` - Select one next Nuclear non-F2 no-leakage hypothesis lane (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
@@ -18,3 +18,4 @@ None.
 - `TASK-0737` - Define narrowed MD-0002 acquisition predicate after cap-exceeded stop (`scientific_dataset_planning`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0740` - Run Stellar M-L Route 2 local-extractor benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
 - `TASK-0741` - Curate one deterministic Quantum direct-row source artifact package (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
+- `TASK-0743` - Synthesize Nuclear RESULT-0018 diagnostic negative memory and next-lane decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)

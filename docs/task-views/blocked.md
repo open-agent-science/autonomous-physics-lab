@@ -17,7 +17,6 @@
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
 - `TASK-0702` - Validate MD-0002 acquisition and freeze holdout binding (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0703` - Run MD-0002 formation-energy baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
-- `TASK-0746` - Select one next Nuclear non-F2 no-leakage hypothesis lane (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 
 ## Support Blockers
 
