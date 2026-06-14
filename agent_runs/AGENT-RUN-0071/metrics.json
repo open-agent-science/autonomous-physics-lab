@@ -1,0 +1,62 @@
+{
+  "task_id": "TASK-0456",
+  "agent_run_id": "AGENT-RUN-0071",
+  "diagnostic": "atomic_yb_sr_cross_source_consistency_exploratory_diagonal_only",
+  "covariance_state": "COV_DIAGONAL_ONLY_DECLARED",
+  "independence_banner": "Beloy 2021 / BACON and Nemitz 2016 / RIKEN are fully independent (no shared clock, comb, network link, or geopotential systematic); the off-diagonal is defensibly zero. This is an exploratory diagnostic, not a headline consistency claim, constants-drift result, prediction, or canonical result.",
+  "rows": {
+    "reference": {
+      "row_id": "ACR-0001-ROW-003",
+      "source": "Beloy 2021 / BACON",
+      "split": "cross_source_reference",
+      "observable_id": "frequency_ratio_yb171_sr87_beloy2021",
+      "ratio_value": "1.2075070393433378482",
+      "total_fractional_uncertainty_1sigma": 6.8e-18,
+      "total_absolute_uncertainty_1sigma": 8.211047867534697e-18
+    },
+    "target": {
+      "row_id": "ACR-0002-ROW-001",
+      "source": "Nemitz 2016 / RIKEN",
+      "split": "cross_source_target",
+      "observable_id": "frequency_ratio_yb171_sr87_nemitz2016",
+      "ratio_value": "1.207507039343337749",
+      "total_fractional_uncertainty_1sigma": 4.56e-17,
+      "total_absolute_uncertainty_1sigma": 5.50623209940562e-17
+    }
+  },
+  "comparison": {
+    "difference_absolute_reference_minus_target": 9.92e-17,
+    "difference_fractional_reference_minus_target": 8.21527301852804e-17,
+    "combined_1sigma_absolute_diagonal_only": 5.567118195561712e-17,
+    "combined_1sigma_fractional_diagonal_only": 4.610422974088169e-17,
+    "z_score": 1.781891393631367,
+    "abs_z_score": 1.781891393631367,
+    "no_tension_z_threshold": 2.0,
+    "uncertainty_dominance_ratio_target_over_reference": 6.705882352941176,
+    "source_limited_dominance_threshold": 3.0
+  },
+  "verdict": "CONSISTENT_WITHIN_UNCERTAINTY_EXPLORATORY_SOURCE_LIMITED",
+  "interpretation": "The two independent Yb/Sr ratios differ by 9.920e-17 (fractional 8.215e-17); |z| = 1.782 against the diagonal-only combined 1-sigma (5.567e-17). This is within 2 sigma, so there is no tension at the probed precision. The comparison is dominated and limited by the Nemitz 2016 uncertainty (~6.7x the Beloy 2021 uncertainty), so it does not test Beloy's 18-digit precision and is source-limited.",
+  "limitations": [
+    "Exploratory diagonal-only diagnostic; COV_DIAGONAL_ONLY_DECLARED forbids a headline cross-source consistency verdict.",
+    "Source-limited: the Nemitz 2016 total uncertainty dominates the comparison; Beloy 2021 precision is not tested.",
+    "Two rows only (one per source); not a population-level consistency test.",
+    "Both source PDFs (arXiv preprints and the Nature/Nature Photonics versions of record) are not redistributed; only metadata, checksums, and committed values are used.",
+    "No constants-drift fit, new-physics inference, prediction entry, RESULT/CLAIM artifact, or knowledge promotion."
+  ],
+  "output_routing": {
+    "task_verdict": "PARTIALLY_VALID",
+    "canonical_destination": [
+      "agent_runs/AGENT-RUN-0071/metrics.json",
+      "agent_runs/AGENT-RUN-0071/report.md",
+      "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
+    ],
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "result_impact": "no RESULT artifact created",
+    "publication_blocker": "exploratory diagonal-only diagnostic; source-limited and diagonal-only covariance forbid canonical consistency promotion without a maintainer-approved Gate A path"
+  }
+}

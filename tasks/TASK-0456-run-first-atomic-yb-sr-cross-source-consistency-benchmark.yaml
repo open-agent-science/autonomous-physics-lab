@@ -1,7 +1,7 @@
 id: TASK-0456
 title: "Run first Atomic Yb/Sr cross-source consistency benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -35,9 +35,9 @@ requirements:
   - "Use conservative verdict vocabulary such as CONSISTENT_WITHIN_UNCERTAINTY, INCONCLUSIVE, or SOURCE_LIMITED."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0071/metrics.json"
+  - "agent_runs/AGENT-RUN-0071/report.md"
+  - "scripts/atomic_yb_sr_consistency_diagnostic.py"
   - "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
   - "optional RESULT candidate only if the task scope is amended by maintainer approval and Gate A passes"
 
