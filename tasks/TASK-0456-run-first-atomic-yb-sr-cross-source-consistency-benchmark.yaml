@@ -1,7 +1,7 @@
 id: TASK-0456
 title: "Run first Atomic Yb/Sr cross-source consistency benchmark"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
