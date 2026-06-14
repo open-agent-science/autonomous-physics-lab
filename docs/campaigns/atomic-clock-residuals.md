@@ -13,16 +13,19 @@ schema scaffold needed before any future ingestion task can add rows.
 
 ## Current Status
 
-Pinned-dataset source surface with one committed direct-ratio seed, a
-deterministic real-row loader, a source-derived covariance approximation,
-synthetic cross-source dry-run plumbing, a corrected Nemitz 2016 source
-artifact pinned with rows blocked, a first-benchmark covariance policy,
-manifest-backed Beloy row-role assignments, a Pizzocaro per-window diagnostic
-ledger, and baseline-readiness gate reruns that keep the campaign at
-`PINNED_DATASET`. Pizzocaro is now useful diagnostic evidence, but its
-post-PSD row-admissibility review preserved the aggregation blocker. The
-primary path to the first Yb/Sr benchmark is Nemitz `ACR-0002` row curation.
-No real-row benchmark yet.
+Pinned-dataset source surface with two committed direct-ratio seeds (Beloy
+2021 `ACR-0001` and Nemitz 2016 `ACR-0002`), a deterministic real-row loader, a
+source-derived covariance approximation, synthetic cross-source dry-run
+plumbing, a first-benchmark covariance policy, manifest-backed Beloy row-role
+assignments, a Pizzocaro per-window diagnostic ledger, and baseline-readiness
+gate reruns that have kept the campaign at `PINNED_DATASET`. `TASK-0704`
+(DONE) curated and committed the Nemitz `ACR-0002` Yb/Sr row, so the
+second-source blocker that previously held the campaign is now cleared.
+Pizzocaro remains diagnostic-only: its post-PSD row-admissibility review
+preserved the aggregation blocker. The primary path to the first Yb/Sr
+benchmark is now the `TASK-0705` baseline-readiness gate rerun, which decides
+whether Atomic moves from `PINNED_DATASET` to `BASELINE_READY` and unblocks the
+`TASK-0456` benchmark. No real-row benchmark yet.
 
 ## Public Monitoring Snapshot
 
@@ -45,22 +48,23 @@ fitting constants drift yet.
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0538` populated the Beloy row-role assignments,
-`TASK-0542` pinned the Pizzocaro source artifacts with checksum/provenance,
-`TASK-0636` created the Pizzocaro per-window diagnostic ledger, `TASK-0666`
-landed a source-derived PSD covariance approximation, and `TASK-0686`
-preserved the Pizzocaro aggregation blocker. The immediate Atomic path is now
-Nemitz `ACR-0002` row curation. A secondary Pizzocaro path may define a
-sensitivity-only observable-harmonization contract, but it should not be used
-as a benchmark row without that contract. `TASK-0652` also pinned Lange/PTB
-Yb+ metadata, but that source is a separate Yb+ family (E3/Cs and E3/E2), not a
-Yb/Sr benchmark unblocker.
+**Active next work:** `TASK-0704` (DONE) committed the Nemitz `ACR-0002` Yb/Sr
+row, completing the second-source curation step. The immediate Atomic path is
+now the `TASK-0705` baseline-readiness gate rerun, which uses only the
+committed Beloy and Nemitz row/source/covariance artifacts to classify Atomic
+as `BASELINE_READY` or not and to state whether `TASK-0456` may proceed. A
+secondary Pizzocaro path (`TASK-0742`, row-admissibility extraction ledger
+gate) may define a sensitivity-only observable-harmonization contract, but it
+should not be used as a benchmark row without that contract. `TASK-0652` also
+pinned Lange/PTB Yb+ metadata, but that source is a separate Yb+ family (E3/Cs
+and E3/E2), not a Yb/Sr benchmark unblocker.
 
-**Expected next result:** a Nemitz row-curation decision that either commits a
-second admissible Yb/Sr row or preserves the exact blocker. If the row lands,
-a later baseline-readiness gate can decide whether the first narrow Yb/Sr
-consistency benchmark is ready. If it fails, Atomic should either pursue the
-Pizzocaro harmonization fallback or keep the campaign source-gated.
+**Expected next result:** a `TASK-0705` baseline-readiness verdict. If it
+returns `BASELINE_READY`, the first narrow Yb/Sr cross-source consistency
+benchmark (`TASK-0456`) can be unblocked and run on the committed Beloy and
+Nemitz rows. If it stays below readiness, the review preserves the exact
+remaining blocker (for example row-level holdout/no-peek assignment or
+covariance treatment) and Atomic stays source-gated.
 
 `TASK-0311` adds:
 

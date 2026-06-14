@@ -42,12 +42,27 @@ package exists. `TASK-0605`, `TASK-0630`, `TASK-0637`, `TASK-0654`, and
 metadata/fixture-only without a source-copy checksum or real digitized points.
 `TASK-0687` added a Vossmeyer 1994 source-artifact verification path: promising
 for CdS direct-table rows, but still blocked on a committable legal source
-artifact. The next task wave is `TASK-0710` (Vossmeyer source-copy handoff) and
-`TASK-0711` (Almeida source-copy checksum/reuse decision).
+artifact. `TASK-0710` (Vossmeyer source-copy handoff) and `TASK-0711` (Almeida
+source-copy checksum/reuse decision) are both DONE and each preserved the same
+blocker: no redistributable source copy exists yet, so neither route can land
+direct rows.
 
-**Expected next result:** a legal source-artifact package or precise blocker
-for Vossmeyer or Almeida. The baseline benchmark remains blocked until real
-direct measurement rows pass readiness.
+**Current decision point:** every ranked direct-table source
+(Norris-Bawendi, Kang-Wise, Almeida, Vossmeyer) has now been worked and
+preserved as a blocker, and the only committed rows remain calibration-derived.
+Further source-scout tasks would only add more blocker memory, so the source
+artifact task (`TASK-0741`) is held `BLOCKED` pending one maintainer go/no-go
+decision: (a) provide a legitimate, redistributable source copy for one ranked
+source so deterministic digitization can land direct rows; (b) approve the
+weaker calibration-curve consistency benchmark waiver (see the archived
+`TASK-0491` scorecard and
+[`docs/reviews/quantum-calibration-consistency-waiver-decision.md`](../reviews/quantum-calibration-consistency-waiver-decision.md));
+or (c) pause Quantum as documented source-blocked negative memory.
+
+**Expected next result:** a maintainer route decision among the three options
+above. The baseline benchmark remains blocked until real direct-measurement
+rows pass readiness or the calibration-consistency waiver is explicitly
+approved.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first

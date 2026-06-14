@@ -162,7 +162,14 @@ readiness stay separate.
 ## Recommended Next Tasks
 
 These are recommendations only. The first `MD-0001` replay/control wave is
-complete enough to justify the authorized `MD-0002` widening path:
+complete enough to justify the authorized `MD-0002` widening path. Current
+state of that chain: `TASK-0701` (benchmark/control predeclaration) is DONE,
+and `TASK-0699` (acquisition) and `TASK-0700` (loader/validation) are
+`REVIEW_READY` awaiting maintainer merge. The current bottleneck is maintainer
+merge plus the maintainer-run acquisition itself; `TASK-0702` (holdout freeze)
+and `TASK-0703` (formation-energy retest) stay `BLOCKED` until the committed
+`MD-0002` dataset files land. The numbered path below is the intended sequence
+once those merges complete:
 
 1. **Maintainer-gated acquisition** — run `TASK-0699` to commit the pinned
    stable-ternary-oxide raw snapshot, normalized formation-energy / band-gap
