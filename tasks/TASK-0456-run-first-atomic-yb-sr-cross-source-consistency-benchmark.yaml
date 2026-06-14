@@ -14,7 +14,7 @@ input:
   mode: workflow
   related_domain: atomic_clock_residuals
   related_objects:
-    - "tasks/TASK-0455-rerun-atomic-baseline-readiness-gate.yaml"
+    - "tasks/TASK-0705-rerun-atomic-baseline-readiness-after-nemitz.yaml"
     - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
     - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml"
     - "data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml"
@@ -26,7 +26,7 @@ input:
     constants-drift, new-constant, anomaly, or new-physics task.
 
 requirements:
-  - "Start only if TASK-0455 classifies Atomic as BASELINE_READY and explicitly authorizes this narrow benchmark shape."
+  - "Start only if TASK-0705 classifies Atomic as BASELINE_READY and explicitly authorizes this narrow benchmark shape."
   - "Use only committed rows and committed source/covariance artifacts; no live fetch."
   - "Compare independent Yb/Sr direct-ratio rows with uncertainty and covariance treatment declared before computing metrics."
   - "Report consistency metrics, uncertainty treatment, and limitations; preserve null, inconclusive, or inconsistent outcomes."

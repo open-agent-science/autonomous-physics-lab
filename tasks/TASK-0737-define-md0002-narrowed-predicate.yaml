@@ -1,0 +1,55 @@
+id: TASK-0737
+title: "Define narrowed MD-0002 acquisition predicate after cap-exceeded stop"
+type: scientific_dataset_planning
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the MD-0002 cap-exceeded stop into a reviewed narrowing decision rather than silently changing scope."
+  - "Keep the Materials campaign moving toward a benchmark-ready dataset without weakening the predeclared cap discipline."
+  - "Preserve enough row power for holdout and split-sensitivity tests while avoiding an oversized acquisition."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0699-run-md0002-maintainer-acquisition.yaml"
+    - "docs/reviews/materials-md0002-acquisition-preflight-package.md"
+    - "docs/reviews/materials-md0002-acquisition-go-no-go.md"
+    - "data/materials/md0002_holdout_manifest.yaml"
+  planning_context: >
+    This task starts after TASK-0699 lands its cap-exceeded acquisition result.
+    It chooses exactly one narrowed MD-0002 predicate for a follow-up
+    maintainer-gated acquisition. The decision must be made before any
+    residual or benchmark inspection.
+
+requirements:
+  - "Start only after TASK-0699 is merged and its acquisition runbook result is available."
+  - "Review the cap-exceeded count, the frozen TASK-0631 contract, and the MD-0002 holdout goals."
+  - "Recommend exactly one narrowed predicate plus one fallback predicate; include expected row-count rationale without inspecting value-bearing rows."
+  - "Keep formation energy and band gap as separate axes; do not compute metrics or tune to residuals."
+  - "Do not silently raise the 1500-row cap, sub-sample rows after fetch, or broaden beyond the MD-0002 oxide scope."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0002-narrowed-predicate-decision.md"
+  - "optional update to data/materials/md0002_holdout_manifest.yaml only if the pre-score split axes change"
+
+result_artifact_policy:
+  required: false
+  reason: "Planning/source-gate task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/materials-md0002-narrowed-predicate-decision.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_materials_md0002_schema_fixture.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

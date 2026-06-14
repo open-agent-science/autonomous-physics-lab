@@ -1,0 +1,46 @@
+id: TASK-0744
+title: "Run Dimensional Validator Gate A replay decision after boundary fix"
+type: scientific_result_publication
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Move the Dimensional Analysis Validator from boundary-fix review into a clean result-publication decision."
+  - "Preserve benchmark limitations instead of treating validator agreement as a physics discovery."
+  - "Create a small but reviewable cross-campaign quality artifact only after the boundary disagreement fix lands."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "tasks/TASK-0712-fix-dimensional-boundary-disagreements.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0712 is REVIEW_READY. After it is merged/closed out, this task reruns
+    the narrow Dimensional Validator publication gate and decides whether a
+    Gate A artifact is warranted or whether limitations should remain blocker
+    memory.
+
+requirements:
+  - "Start only after TASK-0712 is DONE."
+  - "Replay the relevant validator checks after the boundary fix using deterministic code."
+  - "Report pass/fail/inconclusive behavior, remaining boundary limitations, and publication tier recommendation."
+  - "Do not claim general symbolic reasoning, proof of physical law, or open-ended dimensional intelligence."
+
+accepted_outputs:
+  - "docs/reviews/dimensional-validator-gate-a-replay-decision.md"
+  - "optional RESULT candidate only if Gate A passes and maintainer approval allows it"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

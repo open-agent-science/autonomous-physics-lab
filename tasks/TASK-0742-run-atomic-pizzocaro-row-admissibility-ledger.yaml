@@ -1,0 +1,52 @@
+id: TASK-0742
+title: "Run Atomic Pizzocaro Yb/Sr row-admissibility extraction ledger gate"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prepare a possible third Atomic Yb/Sr cross-check without broad constants-drift claims."
+  - "Use the already pinned Zenodo/CC BY 4.0 Pizzocaro source files to decide whether a row can be curated."
+  - "Reduce Atomic single-source dependence after the Beloy/Nemitz baseline-readiness gate."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "docs/reviews/atomic-pizzocaro-yb-sr-row-admissibility-gate.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/"
+  planning_context: >
+    Pizzocaro remains a pinned fallback source with row-curation blockers. This
+    task does not ingest values into ACR rows. It builds the extraction-ledger
+    decision needed to know whether Pizzocaro can become a third Yb/Sr source.
+
+requirements:
+  - "Use only committed Pizzocaro source artifacts and provenance; no live fetch."
+  - "Map candidate source files to possible row fields, campaign window semantics, uncertainty/covariance treatment, and direct-vs-derived row class."
+  - "State whether a future row-curation task is authorized, blocked, or needs maintainer source input."
+  - "Do not compute Yb/Sr consistency metrics, constants drift, anomaly tests, prediction entries, or claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-pizzocaro-yb-sr-extraction-ledger-gate.md"
+  - "optional source_manifest blocker/readiness update"
+
+result_artifact_policy:
+  required: false
+  reason: "Row-admissibility planning gate; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/atomic-pizzocaro-yb-sr-extraction-ledger-gate.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

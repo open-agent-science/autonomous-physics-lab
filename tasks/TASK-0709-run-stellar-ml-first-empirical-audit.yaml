@@ -15,6 +15,7 @@ input:
   mode: workflow
   related_domain: textbook_formula_audit
   related_objects:
+    - "tasks/TASK-0739-run-stellar-ml-benchmark-readiness-gate.yaml"
     - "tasks/TASK-0708-curate-stellar-debcat-row-package.yaml"
     - "docs/campaigns/textbook-formula-audit.md"
     - "docs/result-promotion-protocol.md"
@@ -25,7 +26,7 @@ input:
     or falsification of the formula.
 
 requirements:
-  - "Start only after TASK-0708 lands admissible rows and holdout/no-peek assignments."
+  - "Start only after TASK-0739 explicitly authorizes a benchmark route after the TASK-0708 Route 2 row package."
   - "Use a frozen M-L baseline, declared mass range, uncertainty treatment, and slice rules before computing metrics."
   - "Report per-slice metrics, residual maps, matched controls, and limitations."
   - "Use verdicts such as VALID_IN_RANGE, PARTIALLY_VALID, INCONCLUSIVE, OVERFITTED, or FALSIFIED only for the audited slice."

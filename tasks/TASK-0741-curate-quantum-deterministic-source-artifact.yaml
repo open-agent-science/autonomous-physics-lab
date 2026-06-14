@@ -1,0 +1,58 @@
+id: TASK-0741
+title: "Curate one deterministic Quantum direct-row source artifact package"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects by producing or rejecting one real direct-row source artifact, not another formula search."
+  - "Convert source access into deterministic table/digitization evidence before any baseline benchmark."
+  - "Keep licensing, figure/table provenance, and uncertainty notes explicit."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0336-curate-quantum-band-edge-rows-from-source-artifact.yaml"
+    - "tasks/TASK-0293-rerun-quantum-row-level-readiness-gate-after-direct-seed.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/reviews/quantum-direct-measurement-digitization-package.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    Quantum remains blocked because the repository lacks a deterministic table
+    extraction or WebPlotDigitizer-class artifact for at least six clean direct
+    rows. This task selects exactly one approved source path and either commits
+    a deterministic artifact package or preserves a blocker.
+
+requirements:
+  - "Select exactly one approved source path from the source manifest/review notes before doing any extraction."
+  - "If using a table source, commit only the allowed extracted table evidence and provenance needed for row curation; respect source licence limits."
+  - "If using a figure source, include axis calibration, extracted point file, tool/version notes, uncertainty notes, and source locator/checksum metadata."
+  - "If the source cannot support at least six clean direct rows, preserve a blocker review and do not fabricate values."
+  - "Do not use calibration polynomials, sizing equations, LLM-estimated coordinates, synthesis recipes, biomedical/device claims, or baseline metrics."
+
+accepted_outputs:
+  - "data/quantum_dots/digitization/<source-id>/"
+  - "docs/reviews/quantum-<source-id>-deterministic-source-artifact-package.md"
+  - "optional source_manifest update with artifact path and row-curation readiness"
+
+result_artifact_policy:
+  required: false
+  reason: "Source-artifact/data-readiness task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "data/quantum_dots/digitization/"
+    - "docs/reviews/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
