@@ -1,0 +1,61 @@
+proposal_id: 20260614-romanhladun24-dot-dimensional-live-gate-a-result
+title: Package the 74-item Dimensional Validator replay as a Gate A result
+status: PROPOSED
+type: scientific_result_publication
+priority: high
+proposed_by:
+  contributor_id: romanhladun24-dot
+  agent_id: codex
+strategy_alignment:
+- Move a completed deterministic replay into public scientific memory through explicit result-promotion
+  gates.
+- Preserve conservative dimensional-analysis interpretation and frozen benchmark history.
+summary: Create a new checksum-pinned result package for the live 74-item Dimensional Validator
+  replay after TASK-0744 established 74/74 deterministic agreement, without rewriting the
+  frozen MVP RESULT-0007.
+rationale: TASK-0744 completed the publication decision and found 74/74 agreement with no
+  remaining disagreements or inconclusive rows. The scientific evidence is mechanically ready
+  for a scoped result candidate, but no RESULT artifact was created because a new identity,
+  frozen input snapshot, provenance hashes, and Gate A checker run require explicit maintainer-approved
+  packaging scope.
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+  - TASK-0744
+  - docs/reviews/dimensional-validator-gate-a-replay-decision.md
+  - knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml
+  - results/EXP-0006/RUN-0006/result.yaml
+  - scripts/apl_check_result_publication.py
+  - docs/result-promotion-protocol.md
+  planning_context: Treat docs/reviews/dimensional-validator-gate-a-replay-decision.md as
+    the decision input. The future canonical task should snapshot the live challenge set at
+    the publication commit, assign a new experiment/run/result identity according to repository
+    policy, replay deterministically, and publish only if the Gate A checker passes. Keep
+    the frozen 50-item MVP artifact unchanged.
+requirements:
+- Create a new run/result identity; do not overwrite or silently rebaseline RESULT-0007.
+- Require a maintainer decision on whether the successor result remains under EXP-0006 or
+  receives a new experiment identity before artifact paths are created.
+- Commit a checksum-pinned snapshot of the exact 74-item challenge-set input used for publication.
+- Record the deterministic replay command, repository commit, input hashes, 74/74 agreement
+  metrics, verdict counts, and zero-disagreement ledger.
+- Run the repository Gate A publication checker and set AGENT_PUBLISHED only if every required
+  check passes.
+- Keep Gate B not attempted until an independent replay task exists; do not promote CLAIM-0005
+  or create a knowledge endorsement automatically.
+- State that dimensional consistency is formula-quality evidence, not proof of physical truth,
+  numerical correctness, or general symbolic intelligence.
+accepted_outputs:
+- new results/<experiment>/<run>/result.yaml candidate with a new result identity
+- frozen 74-item input snapshot and checksum/provenance metadata
+- deterministic metrics and zero-disagreement report
+- Gate A checker report and output-routing summary
+validation:
+  commands:
+  - python3 -m physics_lab.cli validate-repo .
+  - python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
