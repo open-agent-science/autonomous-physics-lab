@@ -20,3 +20,4 @@ None.
 - `TASK-0730` - Harden curator scope filter validation (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `campaign_portfolio_architecture`)
 - `TASK-0735` - Plan NASA Exoplanet PSCompPars snapshot de-duplication without losing required fields (`repository_hardening`, priority `low`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0747` - Prefer GitHub usernames for contributor IDs in agent branches (`maintainer_tooling`, priority `medium`, difficulty `medium`, domain `maintainer_tooling`)
+- `TASK-0748` - Ignore local PR body helper artifact (`maintainer_tooling`, priority `medium`, difficulty `low`, domain `maintainer_tooling`)
