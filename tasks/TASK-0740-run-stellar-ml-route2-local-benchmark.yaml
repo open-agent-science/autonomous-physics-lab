@@ -1,7 +1,7 @@
 id: TASK-0740
 title: "Run Stellar M-L Route 2 local-extractor benchmark"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: high
 priority: high
