@@ -105,6 +105,7 @@ Every change must go through the full task lifecycle:
 
 1. `tasks/TASK-XXXX-*.yaml` — create or reference a task file
 2. branch: `agent/<contributor-id>/<agent-id>/task-<number>-<slug>`
+   (`contributor-id` SHOULD be the lowercased GitHub username when available)
 3. PR — open it, do not merge it yourself
 4. maintainer review → merge
 

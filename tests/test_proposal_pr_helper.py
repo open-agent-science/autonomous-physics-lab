@@ -32,8 +32,16 @@ def _scaffold_kwargs() -> dict:
 
 def test_canonical_names() -> None:
     assert proposal_branch("roman", "claude", "demo") == "agent/roman/claude/propose-task-demo"
+    assert (
+        proposal_branch("RomanHladun24-Dot", "claude", "demo")
+        == "agent/romanhladun24-dot/claude/propose-task-demo"
+    )
     assert proposal_title("Demo") == "TASK-PROPOSAL: Demo"
     assert proposal_filename("20260530", "roman", "demo") == "20260530-roman-demo.yaml"
+    assert (
+        proposal_filename("20260530", "RomanHladun24-Dot", "demo")
+        == "20260530-romanhladun24-dot-demo.yaml"
+    )
 
 
 def test_scaffold_is_schema_valid() -> None:
@@ -42,6 +50,16 @@ def test_scaffold_is_schema_valid() -> None:
     validate_document(document, kind="task_proposal", source="scaffold.yaml")
     assert document["input"]["planning_context"] == "Demo planning context."
     assert document["proposal_id"] == "20260530-roman-demo-finding"
+
+
+def test_scaffold_normalizes_dashed_github_username_contributor_id() -> None:
+    kwargs = _scaffold_kwargs()
+    kwargs["contributor_id"] = "RomanHladun24-Dot"
+    document = yaml.safe_load(proposal_yaml(**kwargs))
+
+    validate_document(document, kind="task_proposal", source="scaffold.yaml")
+    assert document["proposal_id"] == "20260530-romanhladun24-dot-demo-finding"
+    assert document["proposed_by"]["contributor_id"] == "romanhladun24-dot"
 
 
 def _write_scaffold(root: Path) -> str:
@@ -60,6 +78,28 @@ def test_preflight_accepts_clean_proposal(tmp_path: Path) -> None:
         title="TASK-PROPOSAL: Demo finding",
         proposal_path=rel,
     )
+    assert report.ok
+    assert report.warnings == ()
+
+
+def test_preflight_accepts_dashed_contributor_id_in_proposal_filename(tmp_path: Path) -> None:
+    kwargs = _scaffold_kwargs()
+    kwargs["contributor_id"] = "RomanHladun24-Dot"
+    rel = (
+        "tasks/proposals/"
+        f"{proposal_filename('20260530', 'RomanHladun24-Dot', 'demo-finding')}"
+    )
+    target = tmp_path / rel
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(proposal_yaml(**kwargs), encoding="utf-8")
+
+    report = preflight_proposal_pr(
+        tmp_path,
+        branch="agent/romanhladun24-dot/claude/propose-task-demo-finding",
+        title="TASK-PROPOSAL: Demo finding",
+        proposal_path=rel,
+    )
+
     assert report.ok
     assert report.warnings == ()
 

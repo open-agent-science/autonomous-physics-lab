@@ -74,18 +74,22 @@ Use the canonical format from
 Example:
 
 ```bash
-git checkout -b agent/roman/codex/task-0011-numerical-audit
+git checkout -b agent/gladunrv/codex/task-0011-numerical-audit
 ```
 
 Rules:
 
-- `contributor-id` is the human responsible for the PR
+- `contributor-id` SHOULD be the lowercased GitHub username for the human
+  responsible for the PR when available; otherwise use a stable
+  maintainer-approved short id
 - `agent-id` is the execution tool or mode
 - lowercase only
 - no spaces
 - no underscores
 - include the task number
 - keep the slug short
+- keep the separate `GitHub username` PR metadata field filled in, even when it
+  matches `contributor-id`
 
 Create and switch to this branch before editing repository files or generating
 task artifacts.

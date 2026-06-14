@@ -36,7 +36,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     scaffold = subparsers.add_parser("scaffold", help="Print a suggested branch, title, and PR body.")
     scaffold.add_argument("--queue-id", required=True)
-    scaffold.add_argument("--contributor-id", required=True)
+    scaffold.add_argument(
+        "--contributor-id",
+        required=True,
+        help=(
+            "Lowercased GitHub username when available; otherwise a stable "
+            "maintainer-approved short id."
+        ),
+    )
     scaffold.add_argument("--agent-id", required=True)
     scaffold.add_argument("--slug", required=True)
     scaffold.add_argument("--description", required=True)

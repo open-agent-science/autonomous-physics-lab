@@ -76,6 +76,12 @@ BRANCH_PATTERNS_WITH_AGENT = (
     MICROTASK_BRANCH_PATTERN,
     MICROTASK_BATCH_BRANCH_PATTERN,
 )
+BRANCH_PATTERNS_WITH_CONTRIBUTOR = BRANCH_PATTERNS_WITH_AGENT
+
+
+def normalize_contributor_id(contributor_id: str) -> str:
+    """Return the canonical contributor-id spelling for new agent branches."""
+    return contributor_id.strip().lower()
 
 
 @dataclass(frozen=True)
@@ -109,6 +115,15 @@ def branch_task_id(branch: str) -> str | None:
     if match is None:
         return None
     return f"TASK-{match.group('number')}"
+
+
+def branch_contributor_id(branch: str) -> str | None:
+    """Extract the contributor id segment from any canonical agent branch."""
+    for pattern in BRANCH_PATTERNS_WITH_CONTRIBUTOR:
+        match = pattern.match(branch)
+        if match is not None:
+            return str(match.group("contributor"))
+    return None
 
 
 def branch_agent_id(branch: str) -> str | None:
@@ -288,6 +303,21 @@ def agent_tool_metadata_mismatch(branch: str, body: str) -> str | None:
     return (
         f"PR Agent tool metadata `{actual}` does not match branch agent id "
         f"`{agent_id}`; expected `{expected}` or pass --agent-tool explicitly."
+    )
+
+
+def contributor_metadata_mismatch(branch: str, body: str) -> str | None:
+    """Return a mismatch message when branch contributor and PR metadata disagree."""
+    expected = branch_contributor_id(branch)
+    if expected is None:
+        return None
+    actual = pr_metadata_field_value(body, "Contributor ID")
+    if actual is None or actual == expected:
+        return None
+    return (
+        f"PR Contributor ID metadata `{actual}` does not match branch contributor id "
+        f"`{expected}`. Use the lowercased GitHub username when available, or a "
+        "stable maintainer-approved short id when no GitHub username is available."
     )
 
 

@@ -56,8 +56,11 @@ Every claim must include:
 
 - Task ID, for example `TASK-0483`.
 - Task file path, for example `tasks/TASK-0483-...yaml`.
-- Contributor ID and agent/tool ID.
-- GitHub username when available.
+- Contributor ID and agent/tool ID. Contributor ID SHOULD be the lowercased
+  GitHub username when available; otherwise use a stable maintainer-approved
+  short id.
+- GitHub username when available, kept as separate PR metadata even when it
+  matches Contributor ID.
 - Planned branch name.
 - Claim channel and URL once available.
 - Expected write surfaces.
@@ -226,8 +229,8 @@ the lifecycle status.
 ```text
 Task ID: TASK-0483
 Task file: TASK-0483
-Contributor / agent: roman / codex
-Branch: agent/roman/codex/task-0483-exoplanet-null-baselines
+Contributor / agent: gladunrv / codex
+Branch: agent/gladunrv/codex/task-0483-exoplanet-null-baselines
 Write surfaces:
 - scripts/run_exoplanet_null_baseline_family_audit.py
 - tests/test_exoplanet_null_baseline_family_audit.py

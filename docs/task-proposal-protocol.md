@@ -84,9 +84,12 @@ Filename format:
 
 Examples:
 
-- `tasks/proposals/20260502-roman-koide-track.yaml`
-- `tasks/proposals/20260502-ihor-rf-signal-sandbox.yaml`
-- `tasks/proposals/20260502-claude-diffusion-benchmark.yaml`
+- `tasks/proposals/20260502-gladunrv-koide-track.yaml`
+- `tasks/proposals/20260502-ihor-github-rf-signal-sandbox.yaml`
+- `tasks/proposals/20260502-romanhladun24-dot-diffusion-benchmark.yaml`
+
+Use the lowercased GitHub username as `contributor-id` when available;
+otherwise use a stable maintainer-approved short id.
 
 Use [../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml)
 as the starting template.
@@ -99,7 +102,7 @@ Use this branch format for task proposals:
 
 Example:
 
-`agent/roman/codex/propose-task-koide-track`
+`agent/gladunrv/codex/propose-task-koide-track`
 
 Do not invent alternate proposal branch formats.
 
@@ -191,7 +194,7 @@ before anything is pushed:
 ```bash
 # Emit a schema-valid proposal YAML, branch name, and PR title.
 python3 scripts/apl_proposal_pr_helper.py scaffold \
-  --date 20260530 --contributor-id roman --agent-id claude \
+  --date 20260530 --contributor-id gladunrv --agent-id claude \
   --slug short-slug --title "Short title" --type maintainer_workflow \
   --related-domain cross_campaign_quality \
   --summary "What this proposes." \
@@ -199,9 +202,9 @@ python3 scripts/apl_proposal_pr_helper.py scaffold \
 
 # Lightweight preflight: branch, title, filename, and schema only (no pytest).
 python3 scripts/apl_proposal_pr_helper.py preflight \
-  --branch agent/roman/claude/propose-task-short-slug \
+  --branch agent/gladunrv/claude/propose-task-short-slug \
   --title "TASK-PROPOSAL: Short title" \
-  --proposal-path tasks/proposals/20260530-roman-short-slug.yaml
+  --proposal-path tasks/proposals/20260530-gladunrv-short-slug.yaml
 ```
 
 The `preflight` subcommand is the lighter proposal validation path: it validates

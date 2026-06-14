@@ -13,6 +13,7 @@ from physics_lab.registry.maintainer_review import (
     latest_review_bundle,
     review_bundle_branch,
 )
+from physics_lab.registry.review_policy import normalize_contributor_id
 
 
 PLACEHOLDER_MARKERS = (
@@ -45,6 +46,7 @@ def microtask_branch(
     """Build a canonical microtask branch name."""
     if (queue_id is None) == (microtask_id is None):
         raise ValueError("Provide exactly one of queue_id or microtask_id.")
+    contributor_id = normalize_contributor_id(contributor_id)
     if microtask_id is not None:
         return (
             f"agent/{contributor_id}/{agent_id}/"

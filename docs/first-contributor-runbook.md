@@ -59,10 +59,12 @@ Required branch format:
 Example:
 
 ```bash
-git checkout -b agent/your-id/codex/task-0023-first-contributor-runbook
+git checkout -b agent/gladunrv/codex/task-0023-first-contributor-runbook
 ```
 
-Use your human contributor id first, then the execution tool id.
+Use your lowercased GitHub username first when available, then the execution
+tool id. If no GitHub username is available, use a stable maintainer-approved
+short id.
 
 Do this before editing repository files. Do not work on `main`.
 

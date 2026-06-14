@@ -67,6 +67,7 @@ from physics_lab.registry.review_policy import (
     branch_task_id,  # noqa: F401 — re-exported; tests import from here
     agent_tool_metadata_mismatch,
     classify_review_protocol,
+    contributor_metadata_mismatch,
     missing_pr_metadata_fields,  # noqa: F401 — re-exported; tests import from here
     missing_pr_template_sections,  # noqa: F401 — re-exported; tests import from here
     validate_pr_title,
@@ -1534,6 +1535,9 @@ def _compose_review_report(
         agent_tool_mismatch = agent_tool_metadata_mismatch(target_branch, pr_metadata.body)
         if agent_tool_mismatch is not None:
             required_fixes.append(agent_tool_mismatch)
+        contributor_mismatch = contributor_metadata_mismatch(target_branch, pr_metadata.body)
+        if contributor_mismatch is not None:
+            required_fixes.append(contributor_mismatch)
         for signal in artifact_signals:
             if signal.review_tier in AGENT_PUBLICATION_TIERS:
                 required_fixes.extend(
