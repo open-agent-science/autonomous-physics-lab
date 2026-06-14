@@ -47,13 +47,13 @@ are **not** vendored in the repository.
 
 | Role | Filename (local) | SHA-256 |
 | --- | --- | --- |
+| Article (PDF) | `size-dependent-optical-properties-of-inp-colloidal-quantum-dots.pdf` | `dcd8ee5ef4fadb364aa55b9031828165f87016defcf77f183e1615fbe7ab8f39` |
 | Supporting Information (canonical ACS filename) | `nl3c02630_si_001.pdf` | `2d0080214d9f7116561cbd80659d40463f868b57ca211179f5d854d12ad265ee` |
-| Article copy A | `size-dependent-optical-properties-of-inp-colloidal-quantum-dots (1).pdf` | `dcd8ee5ef4fadb364aa55b9031828165f87016defcf77f183e1615fbe7ab8f39` |
-| Article copy B | `Size-Dependent-Optical-Properties-of-InP-Colloidal-Quantum-Dots.pdf` | `8ba8de0cca3bf45a8f6b46c6cf9d10dcd3b0c2309652c7272af574fe98ae8112` |
 
-The two article copies are distinct mirror bytes (institutional-repository vs
-publisher copies legitimately differ); the ACS version-of-record should be the
-canonical article pin. The SI hash is unambiguous (canonical ACS SI filename).
+These are the maintainer-supplied local copies used for extraction. A given
+article PDF copy is one mirror of the CC-BY 4.0 version-of-record; other mirrors
+may differ in bytes, so a future verifier should re-confirm against the copy it
+fetches. The SI filename is the canonical ACS SI name.
 
 ## Deterministic Optical-Energy Anchors (size pending)
 

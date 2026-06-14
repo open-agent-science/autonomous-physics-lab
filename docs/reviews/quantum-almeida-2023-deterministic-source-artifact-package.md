@@ -36,9 +36,10 @@ attribution. This clears the redistribution gate for this source.
 The manifest previously recorded "no valid article/SI source bytes were obtained
 for checksum pinning." A maintainer-supplied local copy is now available
 off-repository and is checksum-pinned in the package README. The PDFs are not
-vendored; only SHA-256 hashes and locators are recorded. The SI hash
-(`nl3c02630_si_001.pdf`) is unambiguous; two article mirror copies differ in
-bytes, so the ACS version-of-record is recommended as the canonical article pin.
+vendored; only SHA-256 hashes and locators are recorded (one article PDF and the
+canonical ACS SI). A given article PDF is one mirror of the CC-BY 4.0
+version-of-record; other mirrors may differ in bytes, so a future verifier
+should re-confirm against the copy it fetches.
 
 ## What Was Deterministically Extracted
 
@@ -95,8 +96,8 @@ longer needs another source decision — only the tool run and review.
 - No direct (size, energy) rows are committed; the size axis is figure-only.
 - The optical-energy anchors are exact stated labels, not a full spectrum
   digitization; line-width / second-transition data are not extracted here.
-- Two article mirror PDFs differ in bytes; the ACS version-of-record should be
-  the canonical checksum pin.
+- The article PDF is one mirror of the version-of-record; other mirrors may
+  differ in bytes, so re-confirm the checksum against the fetched copy.
 - This package makes no quantum-dot design, material, device, or biomedical
   claim and promotes no benchmark, result, prediction, or claim.
 
