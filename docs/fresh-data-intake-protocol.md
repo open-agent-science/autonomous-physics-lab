@@ -39,6 +39,45 @@ The following are never admissible as committed data:
 These inputs may be preserved as blockers or source-candidate notes, but they
 must not become benchmark rows.
 
+## Source-Selection Preference Order (Open-Licensed-First)
+
+When a campaign needs a new source, rank candidates by **both** redistribution
+license and extraction cost, and exhaust higher tiers before lower ones. The
+goal is to land table-derived rows from open-licensed data rather than to mass-
+digitize closed figures.
+
+- **Tier 1 — Open tabulated data (preferred).** CC0 / CC BY / open-data-licensed
+  datasets or repository releases (e.g. Zenodo, Figshare, OSF, government or
+  materials databases) that publish the numerical per-row values directly.
+  Table-derived; no digitization; no permission; lowest provenance risk.
+- **Tier 2 — Open-licensed article with a tabulated table or SI.** A CC BY (or
+  equivalently open) article whose primary or supplementary table contains the
+  per-sample values. Table-derived; attribution only.
+- **Tier 3 — Open-licensed article with figure-only data.** A CC BY / open
+  article whose values live in figures and require a WebPlotDigitizer-class tool
+  run. The license is clear, but extraction cost and digitization uncertainty are
+  higher. Acceptable, not preferred.
+- **Tier 4 — Closed or permission-required (last resort).** Subscription/closed
+  sources, or any source needing per-figure digitization without an open
+  license. Admissible only with explicit author/publisher redistribution
+  permission recorded in `data/DATA_LICENSES.yaml`, and never via mass-
+  digitization of closed figures.
+
+Rules:
+
+- Record each candidate's tier in the source manifest or review note.
+- Do not open a Tier 3/4 figure-digitization lane while an untried Tier 1/2
+  candidate plausibly exists for the same campaign axis.
+- Prefer one Tier 1/2 source that lands table-derived rows over several Tier 3/4
+  lanes that each preserve a blocker.
+- The preference order is additive: it does not weaken the source, license,
+  checksum, holdout, or overclaim gates below.
+
+This rule encodes the Quantum Size Effects lesson, where repeated closed
+figure-PDF scouts (Tier 4) stalled the campaign while open tabular alternatives
+(Tier 1/2) were not exhausted first. See
+[Quantum open-licensed-first application](reviews/quantum-open-licensed-first-source-selection-application.md).
+
 ## Lifecycle Stages
 
 ### SOURCE_CANDIDATE
