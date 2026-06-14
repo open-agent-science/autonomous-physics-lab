@@ -1,6 +1,6 @@
 proposal_id: 20260614-romanhladun24-dot-dimensional-live-gate-a-result
 title: Package the 74-item Dimensional Validator replay as a Gate A result
-status: PROPOSED
+status: ACCEPTED
 type: scientific_result_publication
 priority: high
 proposed_by:
@@ -56,6 +56,6 @@ validation:
   - python3 -m physics_lab.cli validate-repo .
   - python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0750
+  decision: accepted
+  notes: Promoted by maintainer-directed TASK-QUEUE PR after TASK-0744 closeout.
