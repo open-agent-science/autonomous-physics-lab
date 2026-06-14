@@ -21,10 +21,11 @@ MAE is `1.899279` MeV. `TASK-0583` independently replayed that gate and matched
 the frozen metrics exactly after a narrow path-normalization portability fix.
 `TASK-0625` then ran the only authorized F2 component-ablation follow-up and
 classified the lane as `COMPONENT_DIAGNOSTIC_ONLY`: the full aggregate remains
-replayable, but no component clears the survival-margin gate. The next useful
-work is result-publication preflight for that diagnostic/negative memory and
-source-gated reveal scouting, not broad prediction waves or reruns on the
-11-row bootstrap slice.
+replayable, but no component clears the survival-margin gate. `TASK-0633`
+packaged that memory as `RESULT-0018`, `TASK-0713` independently replayed it
+as `AGENT_VALIDATED`, and `TASK-0743` records the do-not-repeat boundary. The
+next source-safe Nuclear work is one non-F2 lane-selection task plus separate
+reveal-source readiness, not broad prediction waves or another F2 loop.
 
 ## Public Monitoring Snapshot
 
@@ -53,14 +54,12 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** F2 no longer needs another hypothesis burst.
-`TASK-0625` found the best single component (`magic_n_near`) diagnostic but
-insufficient for promotion; the full F2 reference still improves
-validation/full-known MAE but misses the controls-first survival margin. The
-next useful Nuclear result is a scoped result-publication preflight
-(`TASK-0633`) that either packages F2 as a diagnostic/negative
-`AGENT_PUBLISHED RESULT` candidate or records the exact Gate A blocker. Reveal
-scoring remains separate and source-gated.
+**Expected next decision:** F2 no longer needs another hypothesis burst or
+publication preflight. `TASK-0633` packaged F2 as diagnostic `RESULT-0018`, and
+`TASK-0713` replayed it through Gate B without changing the `INCONCLUSIVE`
+scientific verdict. The next useful Nuclear decision is `TASK-0746`: select
+exactly one materially non-F2 no-leakage lane for a future controlled sprint.
+Reveal scoring remains separate and source-gated.
 
 ## Orientation Note for New Contributors
 
@@ -333,8 +332,9 @@ Current next Nuclear posture:
   replayed it with matching metrics, so bounded residual-feature scoring can
   proceed against that gate rather than selecting a validation policy after
   seeing candidate behavior.
-- `TASK-0553` can now run F2 finer-taxonomy controls-first scoring because the
-  NMD-0003 stratified gate has landed.
+- F2 finer-taxonomy controls-first scoring, replay, component ablation, and
+  diagnostic publication have now run. Treat `RESULT-0018` as validated
+  diagnostic/negative memory, not as a reason for another F2 loop.
 - `TASK-0585` found no admissible post-freeze reveal source. Keep reveal
   scoring blocked until a source postdating the 2026-05-20 freeze is pinned
   without exposing target values.
@@ -345,8 +345,9 @@ Current next Nuclear posture:
 - `TASK-0449` has now tested the first residual-free high-error cluster
   taxonomy and landed `INCONCLUSIVE` because the current training slice is too
   sparse for per-cluster leave-one-out evaluation. Do not repeat the same
-  taxonomy as another near-miss; any future F2 retry needs a declared finer
-  taxonomy or a larger curated training slice.
+  taxonomy as another near-miss; `RESULT-0018` now keeps the current F2
+  contract diagnostic-only unless a future maintainer-approved source or
+  baseline contract changes the scientific question.
 - `TASK-0396` should keep reveal-source readiness separate from every
   retrospective audit. No real reveal scoring is allowed until a source-grade
   post-freeze release passes the no-peek source gate.
@@ -458,9 +459,10 @@ Start here:
 - Run `TASK-0583` and `TASK-0584` as the current source-safe Nuclear follow-up
   pair: replay the frozen stratified gate, then test exactly one materially new
   residual-feature family under controls.
-- Run `TASK-0553` for F2 only under the frozen NMD-0003 gate. F2 remains
-  diagnostic-only regardless of outcome unless a later promotion task changes
-  scope.
+- Use `TASK-0746` as the next Nuclear hypothesis-planning step: select exactly
+  one materially non-F2 no-leakage lane, with source/data prerequisites,
+  negative controls, survival margin, and stop conditions fixed before any
+  execution sprint.
 - Use `TASK-0585` to scout post-AME2020 reveal source manifests without target
   values. It is reveal-readiness work, not reveal scoring.
 - Keep `TASK-0477` and `TASK-0478` useful as negative-result packaging and F2
