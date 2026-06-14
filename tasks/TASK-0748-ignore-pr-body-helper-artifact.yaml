@@ -1,0 +1,53 @@
+id: TASK-0748
+title: "Ignore local PR body helper artifact"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep agent PR helper workflows from leaving untracked local noise after publication."
+  - "Make the documented `.apl-pr-body.md` helper path safe to regenerate repeatedly."
+  - "Preserve clean handoffs for maintainers and parallel agents."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - ".gitignore"
+    - "docs/agent-task-protocol.md"
+    - "scripts/apl_task_pr_helper.py"
+  planning_context: >
+    The canonical task PR protocol recommends using
+    `--body-file .apl-pr-body.md` with `apl_task_pr_helper.py prepare-current`.
+    The helper correctly excludes that local body file from generated Changed
+    Files, but the repository did not ignore the predictable path. That leaves a
+    stale untracked `.apl-pr-body.md` after PR creation, which is local helper
+    state rather than a repository artifact.
+
+requirements:
+  - "Ignore `.apl-pr-body.md` as local PR helper state."
+  - "Document that `.apl-pr-body.md` is ignored, local-only, and must not be committed."
+  - "Keep PR body generation behavior unchanged; the helper should still write a body file when requested."
+  - "Do not commit generated PR body artifacts."
+
+accepted_outputs:
+  - ".gitignore entry for `.apl-pr-body.md`"
+  - "protocol note for local PR body helper state"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer workflow hygiene task; no scientific RESULT artifact is expected."
+  evidence:
+    - ".gitignore"
+    - "docs/agent-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - human
