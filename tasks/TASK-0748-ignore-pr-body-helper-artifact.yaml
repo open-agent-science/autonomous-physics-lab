@@ -1,7 +1,7 @@
 id: TASK-0748
 title: "Ignore local PR body helper artifact"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 

@@ -1,7 +1,7 @@
 id: TASK-0700
 title: "Build MD-0002 loader and dataset validation checks"
 type: scientific_dataset_schema
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

@@ -1,7 +1,7 @@
 id: TASK-0737
 title: "Define narrowed MD-0002 acquisition predicate after cap-exceeded stop"
 type: scientific_dataset_planning
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: medium
 priority: high

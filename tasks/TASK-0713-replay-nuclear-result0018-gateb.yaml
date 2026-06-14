@@ -1,7 +1,7 @@
 id: TASK-0713
 title: "Run Gate B replay for Nuclear RESULT-0018 F2 diagnostic"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
