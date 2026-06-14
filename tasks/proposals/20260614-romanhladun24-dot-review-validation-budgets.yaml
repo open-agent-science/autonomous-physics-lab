@@ -1,0 +1,60 @@
+proposal_id: 20260614-romanhladun24-dot-review-validation-budgets
+title: Bound maintainer-review task validation and classify environment failures
+status: PROPOSED
+type: tooling_reliability
+priority: high
+proposed_by:
+  contributor_id: romanhladun24-dot
+  agent_id: codex
+strategy_alignment:
+- Keep maintainer review deterministic and strong while avoiding false BLOCKED verdicts from
+  local runtime instability.
+- Preserve task-specific validation and GitHub CI authority without foreground hangs.
+summary: Add bounded review-time validation with structured timeout and environment-failure
+  outcomes so a narrow PR review does not hang or misclassify Windows pytest infrastructure
+  failures as scientific diff failures.
+rationale: 'PR #1077 reproduced recurring Windows temp-directory and xdist worker failures,
+  while apl_review_pr.py spent long review cycles rerunning broad task commands despite green
+  CI. The review lane needs explicit budgets and outcome classification without weakening
+  task-specific validation. TASK-0523 previously recorded the same class of Windows temp and
+  worker instability, while TASK-0350 established CI-aware review without defining structured
+  timeout or environment-failure outcomes. The repeated evidence now spans multiple task and
+  review cycles.'
+input:
+  mode: planning_only
+  related_domain: maintainer_review
+  related_objects:
+  - physics_lab/registry/maintainer_review.py
+  - scripts/apl_review_pr.py
+  - scripts/apl_pr_finish_gate.py
+  - docs/reviews/dimensional-validator-gate-a-replay-decision.md
+  planning_context: 'Narrow the future task to maintainer-review execution policy: preserve
+    CI-aware reuse, run truly task-specific commands, bound each command, and surface timeout
+    or known environment failure separately from assertion failure. Reuse existing TASK-0523,
+    TASK-0620, TASK-0697, and TASK-0725 infrastructure rather than replacing it.'
+requirements:
+- Add a configurable per-command review validation budget with a conservative default and
+  visible timeout reporting.
+- Distinguish assertion/test failure from timeout, interpreter/runtime failure, and known
+  temp-directory or xdist infrastructure failure.
+- Reuse green CI for overlapping broad gates while still executing task-specific deterministic
+  commands.
+- Preserve the exact command, elapsed time, exit status, and bounded stderr/stdout excerpt for
+  maintainer diagnosis.
+- Do not convert genuine test failures into advisories or mark a PR ready when required validation
+  is unresolved.
+- Require an explicit maintainer decision on whether an environment-blocked command may rely on
+  an equivalent green CI gate or must be rerun in a healthy local environment.
+accepted_outputs:
+- structured review validation outcomes and CLI/report rendering
+- focused regression tests for timeout, Windows temp failure, xdist worker failure, and real
+  assertion failure
+- maintainer documentation for CI-aware and strict review modes
+validation:
+  commands:
+  - python3 -m physics_lab.cli validate-repo .
+  - python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
