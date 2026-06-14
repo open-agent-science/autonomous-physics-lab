@@ -1,7 +1,7 @@
 id: TASK-0456
 title: "Run first Atomic Yb/Sr cross-source consistency benchmark"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -15,12 +15,13 @@ input:
   related_domain: atomic_clock_residuals
   related_objects:
     - "tasks/TASK-0705-rerun-atomic-baseline-readiness-after-nemitz.yaml"
+    - "docs/reviews/atomic-baseline-readiness-after-nemitz-acr0002.md"
     - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
     - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml"
     - "data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml"
   planning_context: >
-    This is the first future Atomic benchmark task. It is intentionally
-    blocked until Atomic reaches BASELINE_READY. The expected benchmark is a
+    TASK-0705 classified Atomic as BASELINE_READY for this first exploratory
+    diagonal-only Yb/Sr cross-source diagnostic. The expected benchmark is a
     narrow Yb/Sr cross-source consistency comparison between Beloy 2021 and
     Nemitz 2016, with covariance and source limitations visible. It is not a
     constants-drift, new-constant, anomaly, or new-physics task.
