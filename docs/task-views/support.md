@@ -15,3 +15,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0749` - Add acquisition queue and dry-run reminder (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_source_acquisition`)
+- `TASK-0751` - Adopt open-licensed-first source-selection preference order and apply to Quantum (`dataset_workflow`, priority `high`, difficulty `low`, domain `cross_campaign_source_acquisition`)
