@@ -1,7 +1,7 @@
 id: TASK-0743
 title: "Synthesize Nuclear RESULT-0018 diagnostic negative memory and next-lane decision"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -46,7 +46,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest -n0 --basetemp .pytest-basetemp-task0743 tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

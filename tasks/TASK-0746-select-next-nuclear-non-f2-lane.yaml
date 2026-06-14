@@ -1,7 +1,7 @@
 id: TASK-0746
 title: "Select one next Nuclear non-F2 no-leakage hypothesis lane"
 type: scientific_validation
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: medium
 priority: high
@@ -26,6 +26,7 @@ input:
 
 requirements:
   - "Start only after TASK-0743 recommends opening a non-F2 lane."
+  - "Use docs/reviews/nuclear-result0018-diagnostic-negative-memory-and-next-lane.md as the unblocking decision record."
   - "Select exactly one hypothesis family and define train/validation/holdout, negative controls, complexity limits, and stop conditions."
   - "Reject lanes that reuse F2 ablation wording without materially different evidence."
   - "Do not fetch reveal data, score frozen predictions, fit on holdout, or promote claims."
@@ -43,7 +44,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest -n0 --basetemp .pytest-basetemp-task0746 tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
