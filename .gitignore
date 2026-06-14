@@ -20,6 +20,9 @@ examples/reports/*.md
 results/**/plots/
 device-id
 
+# Local PR helper bodies generated for `gh pr create --body-file`.
+.apl-pr-body.md
+
 # Local maintainer secrets for key-gated source acquisition. Keep the tracked
 # `.apl-local-secrets.env.example` template, never the filled file.
 .apl-local-secrets.env
