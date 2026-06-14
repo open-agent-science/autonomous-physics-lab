@@ -1,6 +1,6 @@
 {
   "task_id": "TASK-0456",
-  "agent_run_id": "AGENT-RUN-0070",
+  "agent_run_id": "AGENT-RUN-0071",
   "diagnostic": "atomic_yb_sr_cross_source_consistency_exploratory_diagonal_only",
   "covariance_state": "COV_DIAGONAL_ONLY_DECLARED",
   "independence_banner": "Beloy 2021 / BACON and Nemitz 2016 / RIKEN are fully independent (no shared clock, comb, network link, or geopotential systematic); the off-diagonal is defensibly zero. This is an exploratory diagnostic, not a headline consistency claim, constants-drift result, prediction, or canonical result.",
@@ -47,8 +47,8 @@
   "output_routing": {
     "task_verdict": "PARTIALLY_VALID",
     "canonical_destination": [
-      "agent_runs/AGENT-RUN-0070/metrics.json",
-      "agent_runs/AGENT-RUN-0070/report.md",
+      "agent_runs/AGENT-RUN-0071/metrics.json",
+      "agent_runs/AGENT-RUN-0071/report.md",
       "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
     ],
     "review_tier": "none",

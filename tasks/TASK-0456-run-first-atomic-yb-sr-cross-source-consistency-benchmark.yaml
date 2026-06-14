@@ -35,8 +35,8 @@ requirements:
   - "Use conservative verdict vocabulary such as CONSISTENT_WITHIN_UNCERTAINTY, INCONCLUSIVE, or SOURCE_LIMITED."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-0070/metrics.json"
-  - "agent_runs/AGENT-RUN-0070/report.md"
+  - "agent_runs/AGENT-RUN-0071/metrics.json"
+  - "agent_runs/AGENT-RUN-0071/report.md"
   - "scripts/atomic_yb_sr_consistency_diagnostic.py"
   - "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
   - "optional RESULT candidate only if the task scope is amended by maintainer approval and Gate A passes"

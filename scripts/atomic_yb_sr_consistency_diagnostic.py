@@ -21,7 +21,7 @@ constants-drift result, a prediction, or a canonical result.
 Run from the repository root:
 
     python3 scripts/atomic_yb_sr_consistency_diagnostic.py \
-        --output agent_runs/AGENT-RUN-0070/metrics.json
+        --output agent_runs/AGENT-RUN-0071/metrics.json
 """
 
 from __future__ import annotations
@@ -110,7 +110,7 @@ def compute_diagnostic() -> dict[str, Any]:
 
     return {
         "task_id": "TASK-0456",
-        "agent_run_id": "AGENT-RUN-0070",
+        "agent_run_id": "AGENT-RUN-0071",
         "diagnostic": "atomic_yb_sr_cross_source_consistency_exploratory_diagonal_only",
         "covariance_state": "COV_DIAGONAL_ONLY_DECLARED",
         "independence_banner": (
@@ -171,8 +171,8 @@ def compute_diagnostic() -> dict[str, Any]:
         "output_routing": {
             "task_verdict": "PARTIALLY_VALID",
             "canonical_destination": [
-                "agent_runs/AGENT-RUN-0070/metrics.json",
-                "agent_runs/AGENT-RUN-0070/report.md",
+                "agent_runs/AGENT-RUN-0071/metrics.json",
+                "agent_runs/AGENT-RUN-0071/report.md",
                 "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md",
             ],
             "review_tier": "none",
@@ -195,7 +195,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=REPO_ROOT / "agent_runs/AGENT-RUN-0070/metrics.json",
+        default=REPO_ROOT / "agent_runs/AGENT-RUN-0071/metrics.json",
         help="Path to write the metrics JSON artifact.",
     )
     args = parser.parse_args()

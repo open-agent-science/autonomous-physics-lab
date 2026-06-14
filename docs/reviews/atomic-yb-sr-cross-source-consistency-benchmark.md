@@ -2,7 +2,7 @@
 
 **Task:** `TASK-0456`
 **Campaign:** `atomic-clock-residuals`
-**Agent run:** `agent_runs/AGENT-RUN-0070/`
+**Agent run:** `agent_runs/AGENT-RUN-0071/`
 **Benchmark verdict:** `CONSISTENT_WITHIN_UNCERTAINTY` — exploratory,
 diagonal-only, source-limited. Not a constants-drift result, new-physics
 inference, prediction, or canonical result.
@@ -84,7 +84,7 @@ The two independent Yb/Sr ratios agree at `|z| = 1.78`, within the predeclared
 ## Output-Routing Summary
 
 - **Task verdict:** `PARTIALLY_VALID` (valid exploratory diagnostic, source-limited).
-- **Canonical destination:** this review note plus `agent_runs/AGENT-RUN-0070/`
+- **Canonical destination:** this review note plus `agent_runs/AGENT-RUN-0071/`
   (`metrics.json`, `report.md`); `TASK-0456` moves to `REVIEW_READY`.
 - **Review tier:** `none`; no `RESULT-*` or `PRED-*` artifact.
 - **Gate A status:** not attempted. **Gate B status:** not applicable.

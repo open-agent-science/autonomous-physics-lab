@@ -1,4 +1,4 @@
-# AGENT-RUN-0070 - Atomic Yb/Sr Cross-Source Consistency Diagnostic (Exploratory)
+# AGENT-RUN-0071 - Atomic Yb/Sr Cross-Source Consistency Diagnostic (Exploratory)
 
 **Task:** `TASK-0456`
 **Outcome:** `CONSISTENT_WITHIN_UNCERTAINTY_EXPLORATORY_SOURCE_LIMITED`
@@ -62,7 +62,7 @@ Beloy's 18-digit precision, so the diagnostic is explicitly source-limited.
 
 - Task verdict: `PARTIALLY_VALID` (valid exploratory diagnostic, source-limited).
 - Benchmark-level reading: `CONSISTENT_WITHIN_UNCERTAINTY` (exploratory, diagonal-only, source-limited).
-- Canonical destination: `agent_runs/AGENT-RUN-0070/metrics.json`, `agent_runs/AGENT-RUN-0070/report.md`, `docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md`.
+- Canonical destination: `agent_runs/AGENT-RUN-0071/metrics.json`, `agent_runs/AGENT-RUN-0071/report.md`, `docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md`.
 - Review tier: `none`.
 - Gate A status: `not_attempted`. Gate B status: `not_applicable`.
 - Claim impact: `none`. Knowledge impact: `none`. Result impact: `no RESULT artifact created`.
