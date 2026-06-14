@@ -1,0 +1,120 @@
+id: EXP-PROPOSAL-0024
+title: "Sandbox Stellar M-L Route 2 local benchmark"
+campaign_profile_id: textbook-formula-audit
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact, prediction, claim, knowledge update, or stellar-evolution promotion."
+
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+  task_id: TASK-0740
+
+input_references:
+  - "campaign_profiles/textbook-formula-audit.yaml"
+  - "docs/campaigns/textbook-formula-audit.md"
+  - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md"
+  - "docs/reviews/stellar-ml-benchmark-readiness-after-route2.md"
+  - "docs/reviews/stellar-ml-debcat-row-package.md"
+  - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.sample.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml"
+  - "hypothesis_proposals/textbook-formula-audit/HYP-PROPOSAL-0058-stellar-ml-route2-local-benchmark.yaml"
+
+question: "On checksum-verified locally regenerated DEBCat Route 2 rows, does the frozen textbook alpha=3.5 mass-luminosity baseline beat a deterministic per-mass-band train-median null on primary-range holdout log10 luminosity MAE, and what residual slices constrain interpretation?"
+
+method:
+  summary: "Fetch the pinned DEBCat source locally, verify the recorded sha256, regenerate full component rows and holdout manifest into ignored .worktrees storage, then run a deterministic local benchmark. Score L/L_sun = (M/M_sun)^3.5 without fitting parameters, compare primary-range holdout MAE against a per-mass-band train-lane median log10 luminosity null, and write metrics.json, report.md, limitations.md, preflight.md, review_summary.md, and agent_run.yaml under AGENT-RUN-0070."
+  code_references:
+    - "scripts/fetch_source_artifact.py"
+    - "scripts/extract_debcat_stellar_ml_rows.py"
+    - "scripts/run_stellar_ml_route2_local_benchmark.py"
+    - "tests/test_stellar_ml_debcat_rows.py"
+  commands:
+    - "python3 scripts/fetch_source_artifact.py --url https://astro.keele.ac.uk/jkt/debcat/debs.dat --output .worktrees/task-0740-local/debs.dat --sha256 326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da --timeout 30 --force"
+    - "python3 scripts/extract_debcat_stellar_ml_rows.py --debs-dat .worktrees/task-0740-local/debs.dat --out-rows .worktrees/task-0740-local/debcat_component_rows.yaml --out-manifest .worktrees/task-0740-local/debcat_holdout_manifest.yaml --generated-at 2026-06-14T00:00:00Z"
+    - "python3 scripts/run_stellar_ml_route2_local_benchmark.py --rows .worktrees/task-0740-local/debcat_component_rows.yaml --manifest .worktrees/task-0740-local/debcat_holdout_manifest.yaml --out-dir agent_runs/AGENT-RUN-0070"
+  parameters:
+    frozen_alpha: 3.5
+    primary_mass_range_m_sun: "0.5 <= M < 2.0"
+    residual_axis: "log10(observed_luminosity / predicted_luminosity)"
+    null_baseline: "per-mass-band train-lane median log10 luminosity"
+    route2_full_rows_committed: false
+
+inputs:
+  datasets:
+    - "Local-only DEBCat debs.dat fetched from the pinned Route 2 source URL and verified against sha256 326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da."
+    - "Committed DEBCat sample rows and sample holdout manifest are schema references only, not the benchmark input."
+  constants:
+    - "Frozen alpha = 3.5"
+    - "Primary mass range = 0.5 <= M/M_sun < 2.0"
+    - "Solar-normalized formula L/L_sun = (M/M_sun)^3.5"
+  prior_results:
+    - "docs/reviews/stellar-ml-debcat-row-package.md"
+    - "docs/reviews/stellar-ml-benchmark-readiness-after-route2.md"
+  assumptions:
+    - "The full source table is not committed because Route 2 keeps it local-only."
+    - "No exponent, breakpoint, normalization, or residual correction is fit."
+    - "The deterministic null baseline is computed only from train-lane rows."
+    - "No RESULT, PRED, CLAIM, KNOW, or public science-dashboard promotion is produced."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0070/"
+    - "docs/reviews/stellar-ml-route2-local-benchmark.md"
+  metrics:
+    - "dataset_counts"
+    - "formula_alpha"
+    - "primary_mass_range"
+    - "lane_mass_band_summary"
+    - "holdout_primary_range_formula_mae_dex"
+    - "holdout_primary_range_train_median_null_mae_dex"
+    - "holdout_primary_range_formula_beats_null"
+    - "luminosity_provenance_summary"
+    - "uncertainty_quality_summary"
+    - "stage_summary"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0070/report.md"
+    - "agent_runs/AGENT-RUN-0070/limitations.md"
+    - "agent_runs/AGENT-RUN-0070/review_summary.md"
+    - "docs/reviews/stellar-ml-route2-local-benchmark.md"
+
+validation:
+  pass_condition: "Sandbox pass if the primary-range holdout formula MAE is lower than the declared train-median null MAE, the run is deterministic, source checksum and extraction commands are preserved, and no canonical promotion artifacts are created."
+  fail_condition: "Fail if alpha or other formula parameters are fit, the benchmark uses committed sample rows instead of locally regenerated full rows, full Route 2 rows are committed, the null baseline is omitted, or the outcome is framed as a universal validation or falsification."
+  baseline_or_reference: "Frozen textbook L/L_sun = (M/M_sun)^3.5 baseline compared against a per-mass-band train-lane median log10 luminosity null."
+  expected_failure_modes:
+    - "The train-median null may beat the formula on holdout primary-range rows."
+    - "Derived luminosity rows may have different residual behavior than direct luminosity rows."
+    - "High-mass and low-mass rows may fail the single-alpha relation outside the pass/fail primary range."
+    - "Catalogue-stage labels and binary-system context may limit interpretation."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not state that the mass-luminosity relation has been universally validated or falsified."
+    - "Do not call this benchmark a stellar-evolution discovery."
+    - "Do not imply the committed sample files contain the full benchmark rows."
+    - "Do not promote sandbox evidence to RESULT, PRED, CLAIM, or KNOW artifacts."
+  mitigations:
+    - "Keep outputs under agent_runs and docs/reviews."
+    - "State that full rows are local-only and regenerated from the pinned source."
+    - "Report the null baseline and residual slice limitations."
+    - "Require maintainer review before any canonical packaging."
+
+limitations:
+  - "The benchmark is limited to DEBCat detached-binary rows admissible under the local extractor."
+  - "Full row artifacts are intentionally not committed under Route 2."
+  - "The frozen alpha=3.5 baseline is a simple textbook comparator, not a fitted model."
+  - "Residual interpretation is constrained by luminosity provenance and evolutionary-stage metadata."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether this sandbox benchmark should be preserved as AGENT-RUN-0070 only or followed by a separate canonical-result packaging task."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical experiment task before any RESULT-*, PRED-*, CLAIM, KNOW, or public formula-verdict promotion."

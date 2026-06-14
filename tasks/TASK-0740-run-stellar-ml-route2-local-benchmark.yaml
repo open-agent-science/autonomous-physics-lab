@@ -1,7 +1,7 @@
 id: TASK-0740
 title: "Run Stellar M-L Route 2 local-extractor benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -32,16 +32,21 @@ requirements:
   - "Do not claim a universal stellar law, stellar-evolution result, or discovery."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "hypothesis_proposals/textbook-formula-audit/HYP-PROPOSAL-0058-stellar-ml-route2-local-benchmark.yaml"
+  - "experiment_proposals/textbook-formula-audit/EXP-PROPOSAL-0024-stellar-ml-route2-local-benchmark.yaml"
+  - "scripts/run_stellar_ml_route2_local_benchmark.py"
+  - "agent_runs/AGENT-RUN-0070/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0070/metrics.json"
+  - "agent_runs/AGENT-RUN-0070/report.md"
+  - "agent_runs/AGENT-RUN-0070/limitations.md"
+  - "agent_runs/AGENT-RUN-0070/preflight.md"
+  - "agent_runs/AGENT-RUN-0070/review_summary.md"
   - "docs/reviews/stellar-ml-route2-local-benchmark.md"
-  - "optional RESULT candidate only if Gate A passes and maintainer approval allows publication"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_stellar_ml_debcat_rows.py"
+    - "python3 -m pytest -n0 --basetemp .pytest-basetemp-task0740 tests/test_stellar_ml_debcat_rows.py tests/test_docs_links.py tests/test_task_reference_convention.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
