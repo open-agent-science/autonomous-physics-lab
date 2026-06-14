@@ -1,7 +1,7 @@
 id: TASK-0741
 title: "Curate one deterministic Quantum direct-row source artifact package"
 type: scientific_dataset
-status: READY
+status: BLOCKED
 closeout: review
 difficulty: high
 priority: high
@@ -10,6 +10,7 @@ strategy_alignment:
   - "Unblock Quantum Size Effects by producing or rejecting one real direct-row source artifact, not another formula search."
   - "Convert source access into deterministic table/digitization evidence before any baseline benchmark."
   - "Keep licensing, figure/table provenance, and uncertainty notes explicit."
+  - "Held until the maintainer resolves the recurring Quantum source-acquisition stall; running another scout before that decision only adds blocker memory, not direct rows."
 
 input:
   mode: workflow
@@ -26,7 +27,29 @@ input:
     rows. This task selects exactly one approved source path and either commits
     a deterministic artifact package or preserves a blocker.
 
+    Curator re-gate (source_data_benchmark pool): every ranked direct-table
+    source has already been worked and preserved as a blocker without a
+    committable legal source copy — Norris-Bawendi (TASK-0556/0563/0589),
+    Kang-Wise (TASK-0588), Almeida (TASK-0630/0654/0668/0711), and Vossmeyer
+    (TASK-0687/0710). The committed quantum rows (qd-0001 Yu 2003, qd-0002
+    Moreels 2009) are calibration-derived, and the digitization directories hold
+    only templates, so a fresh scout would only produce another blocker package.
+    The campaign now needs one maintainer go/no-go decision, not another source
+    attempt:
+      (a) provide a legitimate, redistributable source copy for one ranked
+          source (Vossmeyer 1994 or Almeida 2023) so deterministic digitization
+          can finally land direct rows; or
+      (b) approve the weaker calibration-curve consistency benchmark waiver
+          scoped by the archived TASK-0491 scorecard and
+          docs/reviews/quantum-calibration-consistency-waiver-decision.md; or
+      (c) pause Quantum as documented source-blocked negative memory and stop
+          spawning further source-scout tasks until new source access exists.
+    This task flips back to READY the moment option (a) lands a usable source
+    copy; option (b) would instead activate a separate calibration-consistency
+    benchmark task.
+
 requirements:
+  - "Do not start until the maintainer resolves the Quantum source go/no-go decision (provide a redistributable source copy, approve the calibration-consistency waiver, or pause the campaign)."
   - "Select exactly one approved source path from the source manifest/review notes before doing any extraction."
   - "If using a table source, commit only the allowed extracted table evidence and provenance needed for row curation; respect source licence limits."
   - "If using a figure source, include axis calibration, extracted point file, tool/version notes, uncertainty notes, and source locator/checksum metadata."
