@@ -124,7 +124,13 @@ def build_parser() -> argparse.ArgumentParser:
     prepare_current.add_argument("--claim-impact", default="No claim promotion.")
     prepare_current.add_argument("--knowledge-impact", default="No knowledge promotion.")
     prepare_current.add_argument("--limitations-blockers", default="None for this PR shape.")
-    prepare_current.add_argument("--base", default="main")
+    prepare_current.add_argument(
+        "--base",
+        help=(
+            "Explicit diff/commit base ref. Defaults to origin/main when "
+            "available, then upstream/main, then local main."
+        ),
+    )
     prepare_current.add_argument("--body-file")
     prepare_current.add_argument("--body-only", action="store_true")
     prepare_current.add_argument("--root", default=".")
@@ -269,6 +275,7 @@ def command_prepare_current(args: argparse.Namespace) -> int:
     sys.stdout.write(f"Task file: {prepared.task_file.as_posix()}\n")
     sys.stdout.write(f"Current branch: {prepared.current_branch}\n")
     sys.stdout.write(f"Expected branch: {prepared.expected_branch}\n")
+    sys.stdout.write(f"Base ref: {prepared.base_ref}\n")
     sys.stdout.write(f"Title: {prepared.title}\n")
     if args.body_file:
         sys.stdout.write(f"Body file: {Path(args.body_file).as_posix()}\n")

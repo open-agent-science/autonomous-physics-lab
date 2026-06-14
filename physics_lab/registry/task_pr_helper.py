@@ -17,11 +17,18 @@ from physics_lab.registry.review_policy import (
     missing_pr_template_sections,
     normalize_contributor_id,
 )
-from physics_lab.registry.review_git import changed_files_vs_main, current_branch, run_git_command
+from physics_lab.registry.review_git import (
+    branch_exists,
+    changed_files_vs_main,
+    current_branch,
+    run_git_command,
+)
 from physics_lab.registry.task_closeout import find_task_file
 from physics_lab.registry.tasks import load_task
 
 
+DEFAULT_PREPARE_CURRENT_REMOTE_BASES = ("origin/main", "upstream/main")
+DEFAULT_PREPARE_CURRENT_LOCAL_BASE = "main"
 PLACEHOLDER_MARKERS = (
     "TASK-XXXX",
     "tasks/TASK-XXXX-short-slug.yaml",
@@ -61,6 +68,7 @@ class PreparedTaskPr:
     expected_branch: str
     current_branch: str
     title: str
+    base_ref: str
     body: str
     changed_files: tuple[str, ...]
     validation_commands: tuple[str, ...]
@@ -132,6 +140,14 @@ def commit_subject_errors_for_task(task_id: str, subjects: tuple[str, ...]) -> t
     return tuple(errors)
 
 
+def default_prepare_current_base(root: Path) -> str:
+    """Return the safest default base ref for prepare-current helper diffs."""
+    for ref in DEFAULT_PREPARE_CURRENT_REMOTE_BASES:
+        if branch_exists(root, ref):
+            return ref
+    return DEFAULT_PREPARE_CURRENT_LOCAL_BASE
+
+
 def prepare_current_task_pr(
     root: Path,
     *,
@@ -156,7 +172,7 @@ def prepare_current_task_pr(
     knowledge_impact: str = "No knowledge promotion.",
     limitations_blockers: str = "None for this PR shape.",
     model_version: str | None = None,
-    base_ref: str = "main",
+    base_ref: str | None = None,
     agent_tool: str | None = None,
     local_artifact_paths: tuple[str, ...] = (),
 ) -> PreparedTaskPr:
@@ -174,12 +190,13 @@ def prepare_current_task_pr(
     expected_branch = task_branch(contributor_id, agent_id, task_id, task_slug)
     branch = current_branch(root)
     title = task_title(task_id, task_description)
+    resolved_base_ref = base_ref or default_prepare_current_base(root)
     ignored_local_artifacts = {
         Path(item).as_posix().lstrip("./") for item in local_artifact_paths
     }
     auto_changed_files = tuple(
         path
-        for path in changed_files_vs_main(root, branch, base_ref=base_ref)
+        for path in changed_files_vs_main(root, branch, base_ref=resolved_base_ref)
         if path.lstrip("./") not in ignored_local_artifacts
     )
     merged_changed_files = tuple(dict.fromkeys((*auto_changed_files, *changed_files)))
@@ -219,7 +236,7 @@ def prepare_current_task_pr(
     errors.extend(
         commit_subject_errors_for_task(
             task_id,
-            commit_subjects_vs_base(root, branch, base_ref=base_ref),
+            commit_subjects_vs_base(root, branch, base_ref=resolved_base_ref),
         )
     )
     if branch != expected_branch:
@@ -234,6 +251,7 @@ def prepare_current_task_pr(
         expected_branch=expected_branch,
         current_branch=branch,
         title=title,
+        base_ref=resolved_base_ref,
         body=body,
         changed_files=merged_changed_files,
         validation_commands=merged_validation_commands,

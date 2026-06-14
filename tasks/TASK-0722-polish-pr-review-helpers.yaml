@@ -1,41 +1,44 @@
 id: TASK-0722
-title: "Polish PR/review helpers: origin-main diff and stale review worktree refresh"
+title: "Prefer remote base for prepare-current changed files"
 type: maintainer_tooling
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 strategy_alignment:
   - "Remove recurring helper friction that costs a maintainer or agent debug round-trip per PR."
-  - "Keep PR bodies and maintainer reviews aligned with the true PR head and true diff."
-  - "Improve review-agent trust without changing scientific or merge verdict semantics."
+  - "Keep helper-generated PR bodies aligned with the true remote-base diff."
+  - "Improve PR-helper trust without changing review verdict semantics or scientific gates."
 input:
   mode: workflow
   related_domain: maintainer_tooling
   related_objects:
     - "tasks/proposals/20260610-roman-pr-review-helper-polish.yaml"
     - "scripts/apl_task_pr_helper.py"
-    - "scripts/apl_review_pr.py"
-    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "tasks/TASK-0724-add-review-worktree-self-cleanup.yaml"
   planning_context: >
     The accepted proposal identified two recurring mechanical review frictions:
     `apl_task_pr_helper.py prepare-current` can compute changed files against a
     stale local `main`, and `apl_review_pr.py` can reuse stale remote review
-    worktrees after a PR head changes. This task should make both paths reflect
-    the current remote PR state while keeping review verdict semantics unchanged.
+    worktrees after a PR head changes. The review-worktree lifecycle part is now
+    covered by TASK-0724, which checks PR review worktrees out at SHA-suffixed
+    paths and adds self-cleanup/GC. This narrowed execution of TASK-0722 keeps
+    only the still-current prepare-current diff-base fix.
 requirements:
-  - "Compute prepare-current changed files against `origin/main` or an explicit remote base, not a stale local `main`."
-  - "Detect when a cached PR review worktree targets an older head OID and refresh it before review."
+  - "Compute prepare-current changed files and commit-subject checks against `origin/main` by default when available, then another available remote main ref, then local `main`."
+  - "Keep `--base` as an explicit override for maintainer-selected comparison refs."
   - "Keep branch-name, PR-shape, task-id, validation, and scientific promotion review semantics unchanged."
-  - "Add regression coverage for stale-base diff and stale-review-worktree behavior."
+  - "Do not change `apl_review_pr.py` or review-worktree lifecycle semantics already covered by TASK-0724."
+  - "Add regression coverage for stale-local-main diff behavior."
   - "Preserve cross-platform Python behavior on macOS, Linux, Windows, Claude Code, and Codex environments."
 accepted_outputs:
   - "PR helper changed-files base fix"
-  - "review helper stale-worktree refresh fix"
-  - "regression tests for both helper paths"
+  - "prepare-current CLI documentation for default base selection"
+  - "regression tests for remote-base default behavior"
 validation:
   commands:
-    - "python3 -m pytest tests/test_task_pr_helper.py tests/test_maintainer_review.py"
-    - "python3 -m ruff check scripts/apl_task_pr_helper.py scripts/apl_review_pr.py physics_lab/registry/maintainer_review.py tests"
+    - "python3 -m pytest tests/test_task_pr_helper.py"
+    - "python3 -m ruff check scripts/apl_task_pr_helper.py physics_lab/registry/task_pr_helper.py tests/test_task_pr_helper.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 can_be_done_by:
   - codex
