@@ -1,0 +1,66 @@
+id: TASK-0750
+title: "Package Dimensional Validator live 74-item replay as a Gate A result"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move a completed deterministic Dimensional Validator replay into public scientific memory through explicit result-promotion gates."
+  - "Preserve the frozen 50-item MVP RESULT-0007 while publishing the live 74-item surface as a new, checksum-pinned successor."
+  - "Keep dimensional agreement framed as formula-quality evidence, not as proof of physical truth or open-ended symbolic reasoning."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "tasks/TASK-0744-run-dimensional-gate-a-replay-decision.yaml"
+    - "tasks/proposals/20260614-romanhladun24-dot-dimensional-live-gate-a-result.yaml"
+    - "docs/reviews/dimensional-validator-gate-a-replay-decision.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "results/EXP-0006/RUN-0006/result.yaml"
+    - "scripts/apl_check_result_publication.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0744 is DONE and recorded a 74/74 deterministic replay agreement on
+    the live Dimensional Validator challenge set while deferring RESULT
+    packaging. This task packages that replay as a new successor result
+    candidate with frozen inputs, hashes, Gate A checker evidence, and explicit
+    limitations. Do not overwrite or silently rebaseline RESULT-0007.
+
+requirements:
+  - "Create a new run/result identity; do not overwrite or mutate `results/EXP-0006/RUN-0006/` or `RESULT-0007`."
+  - "Use the EXP-0006 successor-result lane unless the task records a maintainer-approved reason to assign a new experiment identity before artifact paths are created."
+  - "Freeze the exact 74-item challenge-set input used for publication and record its checksum/provenance metadata."
+  - "Replay the Dimensional Validator deterministically from the frozen input and record total count, verdict counts, agreement fraction, zero-disagreement ledger, command, repository commit, and input hashes."
+  - "Run `scripts/apl_check_result_publication.py` against the concrete result candidate before assigning `AGENT_PUBLISHED`."
+  - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
+  - "Leave Gate B as not attempted and do not promote `CLAIM-0005`, create a knowledge endorsement, or claim physical truth."
+  - "State that dimensional consistency is formula-quality evidence only, not proof of numerical correctness, empirical validity, or general symbolic intelligence."
+
+accepted_outputs:
+  - "new `results/<experiment>/<run>/result.yaml` candidate with a new result identity"
+  - "frozen 74-item input snapshot and checksum/provenance metadata"
+  - "deterministic replay metrics and zero-disagreement report"
+  - "Gate A checker report and output-routing summary"
+
+result_artifact_policy:
+  required: true
+  reason: "This is a scientific result-publication packaging task for the Dimensional Validator live 74-item replay."
+  evidence:
+    - "new `results/<experiment>/<run>/result.yaml` successor candidate"
+    - "Gate A checker report"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_dimensions.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 scripts/apl_check_result_publication.py --result <new-result-path>"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
