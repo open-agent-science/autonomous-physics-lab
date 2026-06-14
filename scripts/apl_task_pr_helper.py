@@ -40,7 +40,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     scaffold = subparsers.add_parser("scaffold", help="Print a suggested branch, title, and PR body.")
     scaffold.add_argument("--task-id", required=True)
-    scaffold.add_argument("--contributor-id", required=True)
+    scaffold.add_argument(
+        "--contributor-id",
+        required=True,
+        help=(
+            "Lowercased GitHub username when available; otherwise a stable "
+            "maintainer-approved short id."
+        ),
+    )
     scaffold.add_argument("--github-username", required=True)
     scaffold.add_argument("--agent-id", required=True)
     scaffold.add_argument(
@@ -83,7 +90,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Generate and preflight a full canonical task PR body for the current branch.",
     )
     prepare_current.add_argument("--task-id", required=True)
-    prepare_current.add_argument("--contributor-id", required=True)
+    prepare_current.add_argument(
+        "--contributor-id",
+        required=True,
+        help=(
+            "Lowercased GitHub username when available; otherwise a stable "
+            "maintainer-approved short id."
+        ),
+    )
     prepare_current.add_argument("--github-username", required=True)
     prepare_current.add_argument("--agent-id", required=True)
     prepare_current.add_argument(

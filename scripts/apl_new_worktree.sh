@@ -42,8 +42,8 @@ if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
 Usage: apl_new_worktree.sh <branch-name> [<worktree-path>]
 
 Example:
-  ./scripts/apl_new_worktree.sh agent/roman/claude/task-0263-foo
-  ./scripts/apl_new_worktree.sh agent/roman/claude/task-0263-foo .worktrees/task-0263-foo
+  ./scripts/apl_new_worktree.sh agent/gladunrv/claude/task-0263-foo
+  ./scripts/apl_new_worktree.sh agent/gladunrv/claude/task-0263-foo .worktrees/task-0263-foo
 USAGE
     exit 2
 fi

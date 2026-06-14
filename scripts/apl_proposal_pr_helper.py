@@ -44,7 +44,14 @@ def build_parser() -> argparse.ArgumentParser:
         "scaffold", help="Print a branch, title, filename, and schema-valid proposal YAML."
     )
     scaffold.add_argument("--date", required=True, help="Proposal date as YYYYMMDD.")
-    scaffold.add_argument("--contributor-id", required=True)
+    scaffold.add_argument(
+        "--contributor-id",
+        required=True,
+        help=(
+            "Lowercased GitHub username when available; otherwise a stable "
+            "maintainer-approved short id."
+        ),
+    )
     scaffold.add_argument("--agent-id", required=True)
     scaffold.add_argument("--slug", required=True)
     scaffold.add_argument("--title", required=True)

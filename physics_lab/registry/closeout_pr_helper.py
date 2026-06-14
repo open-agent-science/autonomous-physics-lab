@@ -11,7 +11,11 @@ from physics_lab.registry.maintainer_review import (
     missing_pr_metadata_fields,
     missing_pr_template_sections,
 )
-from physics_lab.registry.review_policy import agent_tool_metadata_mismatch
+from physics_lab.registry.review_policy import (
+    agent_tool_metadata_mismatch,
+    contributor_metadata_mismatch,
+    normalize_contributor_id,
+)
 from physics_lab.registry.task_closeout import find_task_file
 
 
@@ -35,6 +39,7 @@ class CloseoutPreflightReport:
 
 def closeout_branch(contributor_id: str, agent_id: str, short_slug: str) -> str:
     """Build a canonical closeout branch name."""
+    contributor_id = normalize_contributor_id(contributor_id)
     return f"agent/{contributor_id}/{agent_id}/closeout-{short_slug}"
 
 
@@ -63,6 +68,7 @@ def closeout_pr_body(
     root: Path = Path("."),
 ) -> str:
     """Render a repository-native closeout PR body."""
+    contributor_id = normalize_contributor_id(contributor_id)
     if not task_ids:
         raise ValueError("At least one --closed-task TASK-XXXX value is required.")
     if any(task_id == "TASK-CLOSEOUT" for task_id in task_ids):
@@ -209,6 +215,10 @@ def preflight_closeout_pr(
     agent_tool_mismatch = agent_tool_metadata_mismatch(branch, body_text)
     if agent_tool_mismatch is not None:
         errors.append(agent_tool_mismatch)
+
+    contributor_mismatch = contributor_metadata_mismatch(branch, body_text)
+    if contributor_mismatch is not None:
+        errors.append(contributor_mismatch)
 
     placeholders = _placeholder_hits(body_text)
     if placeholders:

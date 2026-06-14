@@ -17,7 +17,7 @@ Agents should run this script before any ``git add`` / ``git commit`` /
 Usage:
 
     python3 scripts/apl_branch_precondition.py \\
-        --expected-branch agent/roman/claude/task-0263-foo \\
+        --expected-branch agent/gladunrv/claude/task-0263-foo \\
         --allow-untracked "docs/notes/draft-*.md"
 
 Exit codes:

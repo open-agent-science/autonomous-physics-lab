@@ -21,14 +21,16 @@ from physics_lab.registry.review_policy import (
     PROPOSAL_BRANCH_PATTERN,
     PROPOSAL_PR_TITLE_PATTERN,
     branch_proposal_slug,
+    normalize_contributor_id,
 )
 from physics_lab.registry.task_proposals import load_task_proposal
 
 
 PROPOSAL_DIR = "tasks/proposals"
-# The contributor id is a single dash-free token (e.g. roman, ihor, codex) so
-# the slug, which may contain dashes, is parsed unambiguously as the remainder.
 PROPOSAL_FILENAME_PATTERN = re.compile(
+    r"^(?P<date>[0-9]{8})-(?P<rest>[a-z0-9-]+)\.yaml$"
+)
+LEGACY_PROPOSAL_FILENAME_PATTERN = re.compile(
     r"^(?P<date>[0-9]{8})-(?P<contributor>[a-z0-9]+)-(?P<slug>[a-z0-9-]+)\.yaml$"
 )
 
@@ -47,6 +49,7 @@ class ProposalPrPreflightReport:
 
 def proposal_branch(contributor_id: str, agent_id: str, slug: str) -> str:
     """Build the canonical proposal branch name."""
+    contributor_id = normalize_contributor_id(contributor_id)
     return f"agent/{contributor_id}/{agent_id}/propose-task-{slug}"
 
 
@@ -57,6 +60,7 @@ def proposal_title(short_title: str) -> str:
 
 def proposal_id_value(date_str: str, contributor_id: str, slug: str) -> str:
     """Build the canonical proposal id (and filename stem)."""
+    contributor_id = normalize_contributor_id(contributor_id)
     return f"{date_str}-{contributor_id}-{slug}"
 
 
@@ -89,6 +93,7 @@ def proposal_yaml(
     The ``planning_context`` field (a frequent omission that fails the input
     ``oneOf`` schema) is always included.
     """
+    contributor_id = normalize_contributor_id(contributor_id)
     document = {
         "proposal_id": proposal_id_value(date_str, contributor_id, slug),
         "title": title,
@@ -120,6 +125,41 @@ def proposal_yaml(
         },
     }
     return yaml.safe_dump(document, sort_keys=False, allow_unicode=True, width=88)
+
+
+def _proposal_filename_parts(
+    name: str,
+    *,
+    branch_slug: str | None,
+) -> tuple[str, str, str] | None:
+    """Parse proposal filenames, using the branch slug to disambiguate dashes.
+
+    Proposal filenames are ``YYYYMMDD-<contributor-id>-<slug>.yaml``. Once
+    contributor ids may contain dashes, the branch slug is the canonical way to
+    determine where the contributor id ends and the slug begins.
+    """
+    match = PROPOSAL_FILENAME_PATTERN.match(name)
+    if match is None:
+        return None
+    date_str = match.group("date")
+    rest = match.group("rest")
+    if branch_slug:
+        suffix = f"-{branch_slug}"
+        if not rest.endswith(suffix):
+            return None
+        contributor = rest[: -len(suffix)]
+        if not contributor:
+            return None
+        return date_str, contributor, branch_slug
+
+    legacy_match = LEGACY_PROPOSAL_FILENAME_PATTERN.match(name)
+    if legacy_match is None:
+        return None
+    return (
+        legacy_match.group("date"),
+        legacy_match.group("contributor"),
+        legacy_match.group("slug"),
+    )
 
 
 def preflight_proposal_pr(
@@ -155,21 +195,27 @@ def preflight_proposal_pr(
     name = Path(rel_path).name
     if not rel_path.startswith(f"{PROPOSAL_DIR}/"):
         errors.append(f"Proposal file {rel_path!r} must live under {PROPOSAL_DIR}/.")
-    filename_match = PROPOSAL_FILENAME_PATTERN.match(name)
-    if filename_match is None:
+    # Branch slug and filename slug should agree, so the PR is easy to trace.
+    branch_slug = branch_proposal_slug(branch)
+    filename_parts = _proposal_filename_parts(name, branch_slug=branch_slug)
+    if filename_parts is None and branch_slug is not None:
+        legacy_match = LEGACY_PROPOSAL_FILENAME_PATTERN.match(name)
+        if legacy_match is not None:
+            filename_parts = (
+                legacy_match.group("date"),
+                legacy_match.group("contributor"),
+                legacy_match.group("slug"),
+            )
+    if filename_parts is None:
         errors.append(
             f"Proposal filename {name!r} does not match the format "
             "YYYYMMDD-<contributor-id>-<short-slug>.yaml."
         )
-
-    # Branch slug and filename slug should agree, so the PR is easy to trace.
-    branch_slug = branch_proposal_slug(branch)
-    if filename_match is not None and branch_slug is not None:
-        if filename_match.group("slug") != branch_slug:
-            warnings.append(
-                f"Branch slug {branch_slug!r} does not match proposal filename slug "
-                f"{filename_match.group('slug')!r}."
-            )
+    elif branch_slug is not None and filename_parts[2] != branch_slug:
+        warnings.append(
+            f"Branch slug {branch_slug!r} does not match proposal filename slug "
+            f"{filename_parts[2]!r}."
+        )
 
     absolute_path = (root / rel_path).resolve()
     if not absolute_path.exists():
