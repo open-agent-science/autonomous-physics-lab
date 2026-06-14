@@ -21,9 +21,9 @@ create `RESULT-*` / `PRED-*` / `CLAIM-*` artifacts, or change any claim status.
 
 | Input | Role |
 | --- | --- |
-| `tasks/TASK-0708-curate-stellar-debcat-row-package.yaml` | Completed Route 2 row-curation contract and accepted public-safe outputs. |
-| `tasks/TASK-0709-run-stellar-ml-first-empirical-audit.yaml` | Original empirical audit task, still blocked until this gate resolves the benchmark route. |
-| `tasks/TASK-0740-run-stellar-ml-route2-local-benchmark.yaml` | Replacement local-extractor benchmark task waiting on this gate. |
+| `TASK-0708` | Completed Route 2 row-curation contract and accepted public-safe outputs. |
+| `TASK-0709` | Original empirical audit task, still blocked until this gate resolves the benchmark route. |
+| `TASK-0740` | Replacement local-extractor benchmark task waiting on this gate. |
 | `docs/reviews/stellar-ml-debcat-storage-route-decision.md` | Route 2 accepted: metadata/checksum route, raw `debs.dat` not committed. |
 | `docs/reviews/stellar-ml-luminosity-provenance-and-license-route.md` | Luminosity policy: catalogue `logL` first, Stefan-Boltzmann fallback when allowed, no model-derived mass truth. |
 | `docs/reviews/stellar-ml-debcat-holdout-leakage-protocol.md` | System-level no-leakage split and pre-metric freeze requirements. |
