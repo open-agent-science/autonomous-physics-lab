@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0749` - Add acquisition queue and dry-run reminder (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_source_acquisition`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0749` - Add acquisition queue and dry-run reminder (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_source_acquisition`)
