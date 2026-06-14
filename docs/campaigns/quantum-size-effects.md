@@ -197,7 +197,11 @@ Safe next contributions are:
 Future source-artifact, digitisation, and row-curation work should use the
 [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md) so
 calibration-derived rows, direct measurements, and figure-derived points stay
-separate before any baseline task runs.
+separate before any baseline task runs. Per the protocol's
+[open-licensed-first source-selection preference order](../fresh-data-intake-protocol.md#source-selection-preference-order-open-licensed-first),
+scout open tabulated sources (Tier 1/2) before opening a figure-digitisation
+lane on a closed source; see
+[the Quantum application note](../reviews/quantum-open-licensed-first-source-selection-application.md).
 
 ## Why It Matters
 

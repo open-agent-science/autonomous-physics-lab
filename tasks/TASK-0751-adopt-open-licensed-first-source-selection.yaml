@@ -1,0 +1,63 @@
+id: TASK-0751
+title: "Adopt open-licensed-first source-selection preference order and apply to Quantum"
+type: dataset_workflow
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Attack the recurring source-acquisition stall at its root: prefer open-licensed, table-derived sources over closed figure PDFs that require digitization."
+  - "Encode the Quantum lesson as a reusable selection rule for the whole source_data_benchmark pool, not a one-off note."
+  - "Reduce wasted effort: stop opening figure-digitization lanes on closed sources while untried open tabular alternatives exist."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_source_acquisition
+  planning_context: >
+    Maintainer-directed create-and-execute task. The Quantum Size Effects
+    campaign stalled because every ranked source was a closed figure-PDF
+    requiring digitization (Norris-Bawendi, Kang-Wise, Vossmeyer), and the one
+    open-licensed source (Almeida 2023, CC-BY 4.0) still exposes its size axis
+    only through figures. The strategic lever is to bias source selection toward
+    open-licensed, table-derived data (open datasets, CC-BY articles with
+    tabulated supplementary data) before committing to figure digitization of
+    closed sources. This task adds an explicit, reusable preference order to the
+    Fresh-Data Intake Protocol and applies it to the Quantum candidate set.
+  related_objects:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/notes/fresh-data-source-policy.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md"
+
+requirements:
+  - "Add an explicit open-licensed-first source-selection preference order (tiered by license and extraction cost) to docs/fresh-data-intake-protocol.md."
+  - "State the rule that higher tiers must be exhausted before lower ones, and that each candidate's tier is recorded in the manifest/review."
+  - "Apply the rule to the Quantum candidate set: classify each existing candidate by tier and name the mandated next action (open tabular scout before figure digitization of closed sources)."
+  - "Keep this a workflow/policy change only: do not curate rows, fetch live data, run a digitizer, compute metrics, or promote any claim."
+  - "Do not weaken existing source, license, checksum, holdout, or overclaim gates; the preference order is additive."
+
+accepted_outputs:
+  - "docs/fresh-data-intake-protocol.md (new Source-Selection Preference Order section)"
+  - "docs/reviews/quantum-open-licensed-first-source-selection-application.md"
+  - "docs/campaigns/quantum-size-effects.md (one-line pointer to the rule)"
+
+result_artifact_policy:
+  required: false
+  reason: "Cross-campaign source-selection workflow/policy task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/reviews/quantum-open-licensed-first-source-selection-application.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
