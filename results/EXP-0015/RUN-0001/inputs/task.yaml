@@ -1,7 +1,7 @@
 id: TASK-0703
 title: "Run MD-0002 formation-energy baseline benchmark"
 type: scientific_benchmark
-status: REVIEW_READY
+status: IN_PROGRESS
 closeout: review
 difficulty: high
 priority: high
@@ -32,13 +32,11 @@ requirements:
   - "Do not recommend materials, syntheses, devices, biomedical uses, or promote materials-law claims."
 
 accepted_outputs:
-  - "hypothesis_proposals/materials-property-residuals/HYP-PROPOSAL-0059-md0002-formation-energy-baseline.yaml"
-  - "experiment_proposals/materials-property-residuals/EXP-PROPOSAL-0025-md0002-formation-energy-baseline.yaml"
-  - "agent_runs/AGENT-RUN-0072/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-0072/metrics.json"
-  - "agent_runs/AGENT-RUN-0072/report.md"
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
   - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
-  - "results/EXP-0015/RUN-0001/result.yaml"
+  - "optional RESULT candidate only if Gate A passes under docs/result-promotion-protocol.md"
 
 validation:
   commands:

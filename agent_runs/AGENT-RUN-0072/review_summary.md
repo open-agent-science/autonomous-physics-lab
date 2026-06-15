@@ -1,0 +1,10 @@
+# AGENT-RUN-0072 Review Summary
+
+The exact cation-pair mean clears the predeclared absolute and relative holdout
+MAE margins against both global nulls, beats all declared shuffle controls,
+and wins all five seeded split checks. Review should verify the frozen source
+binding, train-only aggregation, fallback behavior, and the narrow
+computed-DFT claim ceiling.
+
+The result is suitable for Gate A publication as `RESULT-0021`, but it does
+not justify a claim, knowledge entry, materials ranking, or universal law.

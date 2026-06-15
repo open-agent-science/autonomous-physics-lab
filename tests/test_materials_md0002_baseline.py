@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from physics_lab.engines.materials_md0002_baseline import (
     BASELINE_IDS,
     CONTROL_SEEDS,
     SPLIT_SEEDS,
     run_materials_md0002_formation_energy_benchmark,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_md0002_benchmark_is_deterministic_and_frozen() -> None:
@@ -45,3 +50,12 @@ def test_md0002_promotion_assessment_is_mechanical() -> None:
     ]
     assert metrics["verdict"] in {"VALID_IN_RANGE", "INCONCLUSIVE"}
     assert metrics["output_routing"]["claim_impact"] == "no claim change"
+
+
+def test_md0002_committed_metrics_match_deterministic_replay() -> None:
+    committed = json.loads(
+        (REPO_ROOT / "agent_runs/AGENT-RUN-0072/metrics.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert committed == run_materials_md0002_formation_energy_benchmark()
