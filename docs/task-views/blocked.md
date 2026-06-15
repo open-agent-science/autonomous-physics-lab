@@ -15,8 +15,6 @@
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
-- `TASK-0702` - Validate MD-0002 acquisition and freeze holdout binding (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0703` - Run MD-0002 formation-energy baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
 
 ## Support Blockers
 
