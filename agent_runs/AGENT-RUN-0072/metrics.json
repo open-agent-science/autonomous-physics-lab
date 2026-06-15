@@ -3823,11 +3823,12 @@
     "No material ranking, synthesis, device, biomedical, or materials-law claim is made."
   ],
   "output_routing": {
-    "canonical_destination": "result publication preflight",
+    "canonical_destination": "future task-authorized result packaging",
     "review_tier": "none",
-    "gate_a_status": "not_attempted_pending_result_packaging",
+    "gate_a_status": "blocked_missing_task_authorized_canonical_identities",
     "gate_b_status": "not_attempted",
     "claim_impact": "no claim change",
-    "knowledge_impact": "no knowledge change"
+    "knowledge_impact": "no knowledge change",
+    "publication_blocker": "TASK-0703 does not authorize new hypotheses/ or experiments/ artifacts; package a RESULT only under a separate task with explicit protected-path authority."
   }
 }

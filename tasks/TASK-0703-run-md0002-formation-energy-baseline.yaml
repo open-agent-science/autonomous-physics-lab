@@ -38,12 +38,22 @@ accepted_outputs:
   - "agent_runs/AGENT-RUN-0072/metrics.json"
   - "agent_runs/AGENT-RUN-0072/report.md"
   - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
-  - "results/EXP-0015/RUN-0001/result.yaml"
+
+result_artifact_policy:
+  required: false
+  reason: >
+    TASK-0703 executes and preserves the sandbox benchmark, but does not
+    authorize new protected hypotheses/ or experiments/ identities required
+    for canonical RESULT packaging.
+  evidence:
+    - "agent_runs/AGENT-RUN-0072/agent_run.yaml"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 scripts/validate_fast.py"
+    - "python3 -m pytest -n0 -m full_repo"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

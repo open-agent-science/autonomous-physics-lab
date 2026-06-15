@@ -30,10 +30,12 @@ actionable material recommendation.
 ## Routing
 
 - Agent run: `agent_runs/AGENT-RUN-0072/`
-- Canonical result: `results/EXP-0015/RUN-0001/`
-- Review tier: `AGENT_PUBLISHED`
-- Gate A: PASS (`scripts/apl_check_result_publication.py`)
+- Canonical destination: future task-authorized result packaging
+- Review tier: none
+- Gate A: blocked before packaging
 - Gate B: not attempted
 - Claim impact: none
 - Knowledge impact: none
-- Publication blocker: maintainer review and merge
+- Publication blocker: TASK-0703 does not authorize new protected
+  `hypotheses/` or `experiments/` identities; a separate publication task is
+  required

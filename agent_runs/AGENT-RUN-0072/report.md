@@ -29,14 +29,15 @@ cation-label-shuffle control.
 
 ## Verdict
 
-`SANDBOX_PASS`. All predeclared benchmark gates passed. The scoped scientific
-verdict packaged in `RESULT-0021` is `VALID_IN_RANGE` for this frozen
-computed-DFT slice only.
+`SANDBOX_PASS`. All predeclared benchmark gates passed. The scoped benchmark
+behavior is `VALID_IN_RANGE` for this frozen computed-DFT slice only.
 
 ## Output Routing
 
-- Canonical result candidate: `results/EXP-0015/RUN-0001/result.yaml`
-- Review tier: `AGENT_PUBLISHED` after Gate A
+- Canonical destination: future task-authorized result packaging
+- Review tier: none
+- Gate A: blocked before packaging
 - Claim impact: none
 - Knowledge impact: none
-- Publication blocker: maintainer review remains required
+- Publication blocker: TASK-0703 does not authorize new canonical hypothesis
+  or experiment identities

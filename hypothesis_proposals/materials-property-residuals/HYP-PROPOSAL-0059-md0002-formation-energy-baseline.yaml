@@ -107,12 +107,13 @@ limitations:
 
 verdict: SANDBOX_PASS
 maintainer_decision_requested: >
-  Review the sandbox evidence and the separate RESULT-0021 Gate A package
-  without promoting a claim or knowledge entry.
+  Review the sandbox evidence and decide whether to queue a separate
+  task-authorized Gate A result package without promoting a claim or knowledge
+  entry.
 
 promotion_boundary:
   canonical_result_allowed: false
   claim_promotion_allowed: false
   required_next_step: >
-    Use the separately validated RESULT-0021 package for canonical result
-    review; this proposal itself remains sandbox-only.
+    Create a separate publication task with explicit protected-path authority;
+    this proposal remains sandbox-only.

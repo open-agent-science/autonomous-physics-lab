@@ -6,5 +6,7 @@ and wins all five seeded split checks. Review should verify the frozen source
 binding, train-only aggregation, fallback behavior, and the narrow
 computed-DFT claim ceiling.
 
-The result is suitable for Gate A publication as `RESULT-0021`, but it does
-not justify a claim, knowledge entry, materials ranking, or universal law.
+The evidence clears the scientific preconditions for a future Gate A package,
+but TASK-0703 does not authorize new canonical hypothesis or experiment
+identities. A separate result-publication task is required. The sandbox result
+does not justify a claim, knowledge entry, materials ranking, or universal law.

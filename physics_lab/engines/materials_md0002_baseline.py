@@ -182,19 +182,26 @@ def run_materials_md0002_formation_energy_benchmark(
         ],
         "output_routing": {
             "canonical_destination": (
-                "result publication preflight"
+                "future task-authorized result packaging"
                 if promotion["eligible_for_gate_a"]
                 else "agent_runs/AGENT-RUN-0072/ and diagnostic review memory"
             ),
             "review_tier": "none",
             "gate_a_status": (
-                "not_attempted_pending_result_packaging"
+                "blocked_missing_task_authorized_canonical_identities"
                 if promotion["eligible_for_gate_a"]
                 else "blocked_by_predeclared_benchmark_gates"
             ),
             "gate_b_status": "not_attempted",
             "claim_impact": "no claim change",
             "knowledge_impact": "no knowledge change",
+            "publication_blocker": (
+                "TASK-0703 does not authorize new hypotheses/ or experiments/ "
+                "artifacts; package a RESULT only under a separate task with "
+                "explicit protected-path authority."
+                if promotion["eligible_for_gate_a"]
+                else "predeclared benchmark gates did not all pass"
+            ),
         },
     }
 

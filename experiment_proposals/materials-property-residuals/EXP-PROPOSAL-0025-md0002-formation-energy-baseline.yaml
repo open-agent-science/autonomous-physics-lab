@@ -109,12 +109,12 @@ limitations:
 
 verdict: SANDBOX_PASS
 maintainer_decision_requested: >
-  Review the sandbox run and separate Gate A result package under the stated
-  computed-DFT claim ceiling.
+  Review the sandbox run and decide whether to queue a separate Gate A result
+  package under the stated computed-DFT claim ceiling.
 
 promotion_boundary:
   writes_canonical_result: false
   writes_claim_update: false
   required_next_step: >
-    Canonical result review proceeds through RESULT-0021, not through this
-    sandbox experiment proposal.
+    A separate publication task must authorize canonical hypothesis,
+    experiment, and result paths before Gate A packaging.

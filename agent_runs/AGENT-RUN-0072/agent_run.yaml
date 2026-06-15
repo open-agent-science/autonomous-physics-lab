@@ -44,5 +44,5 @@ promotion_boundary:
   writes_canonical_result: false
   claim_promotion_allowed: false
   required_next_step: >
-    Review the separate RESULT-0021 Gate A package; do not promote a claim or
-    knowledge entry from this sandbox record.
+    Create a separate result-packaging task with explicit hypotheses/,
+    experiments/, and results/ authority before any Gate A publication.
