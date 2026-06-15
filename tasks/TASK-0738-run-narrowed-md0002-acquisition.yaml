@@ -10,7 +10,7 @@ strategy_alignment:
   - "Produce the benchmark-ready MD-0002 dataset only after the narrowed predicate is reviewed."
   - "Convert the Materials campaign from cap-stopped source work into a pinned dataset with frozen no-peek splits."
   - "Preserve the acquisition-to-benchmark boundary before TASK-0702 and TASK-0703."
-  - "Executed count check: the TASK-0737 selected predicate returned 362 rows/axis (fallback 225), below the predeclared 600 lower target. Per contract, stopped and reported; no dataset committed. Maintainer row-count decision required before the value-bearing acquire run."
+  - "Executed: the TASK-0737 selected predicate returned 362 rows/axis (below the 600 target). The maintainer accepted 362; the pinned snapshot + normalized combined dataset (724 rows, 70/15/15 frozen) were acquired and committed. TASK-0702 next validates/freezes the holdout binding."
 
 input:
   mode: workflow
@@ -34,13 +34,12 @@ requirements:
   - "Do not compute baselines, residuals, rankings, device/synthesis guidance, predictions, or claims."
 
 accepted_outputs:
-  # Below-target stop: only the deterministic tool + runbook result landed.
   - "scripts/acquire_md0002_materials_project.py"
   - "docs/reviews/materials-md0002-narrowed-acquisition-runbook-result.md"
-  # Produced only after a maintainer row-count decision (accept 362, widen, or lower the floor):
-  - "data/materials/snapshots/materials_project_md0002_<database_version>.json (pending decision)"
-  - "data/materials/md-0002-materials-project-*.yaml (pending decision)"
-  - "data/materials/md0002_holdout_manifest.yaml (pending decision)"
+  - "data/materials/snapshots/materials_project_md0002_2026.04.13.json"
+  - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+  - "data/materials/md0002_holdout_manifest.yaml"
+  - "data/DATA_LICENSES.yaml"
 
 validation:
   commands:
