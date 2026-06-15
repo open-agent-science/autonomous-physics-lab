@@ -1,0 +1,61 @@
+id: TASK-0761
+title: "Adjudicate Materials MD-0002 formation-energy result path after the wider-slice retest"
+type: scientific_validation
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "The MD0002_WIDENING_FIRST decision (TASK-0614) deferred promotion until the wider-slice retest ran; TASK-0703 has now run it with a robust, split-stable, control-surviving result, so the post-retest result-path decision is due."
+  - "Decide whether MD-0002 formation energy is ready for a maintainer-gated Gate A reusable-dataset + benchmark RESULT candidate, and in what scope-limited framing."
+  - "Keep it a conservative benchmark/dataset result, not a materials-discovery, design, or new-law claim."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  planning_context: >
+    TASK-0703 / AGENT-RUN-0072 ran the MD-0002 formation-energy retest on the
+    checksum-pinned, holdout-frozen 362-row slice (253/55/54). The exact
+    cation-pair mean reached holdout MAE 0.200606 eV/atom vs the global-median
+    null 0.506092 (60.4% relative improvement), won all five seeded splits
+    (margin 0.350 >> across-seed noise 0.015), and beat all label-shuffle and
+    cation-label-shuffle controls; verdict SANDBOX_PASS / VALID_IN_RANGE. This
+    replicates and strengthens the MD-0001 composition-baseline finding on a
+    wider independent slice. This task adjudicates the result path; it scores no
+    new metrics and promotes nothing itself (Gate A and claim status are
+    maintainer-only).
+  related_objects:
+    - "agent_runs/AGENT-RUN-0072/report.md"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
+    - "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
+    - "tasks/TASK-0614-adjudicate-materials-md0001-result-path.yaml"
+    - "docs/result-promotion-protocol.md"
+
+requirements:
+  - "Use only committed MD-0002 retest evidence; run no new metric, fit, or fetch."
+  - "Give a Gate-A-readiness checklist (what is ready vs what blocks) and a single result-path verdict."
+  - "If recommending promotion, scope it as a reusable-dataset + conservative-baseline benchmark RESULT candidate, computed-DFT and slice-limited, not a discovery/claim."
+  - "State that Gate A packaging and any claim status remain maintainer-only; this task does not promote a RESULT."
+  - "Do not overclaim novelty (a composition-aware baseline beating a global null is expected); frame the value as the reusable dataset + the disciplined, replicated, controlled characterization."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Result-path adjudication / Gate-A-readiness scorecard; no RESULT or PRED artifact is promoted in this task."
+  evidence:
+    - "docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
