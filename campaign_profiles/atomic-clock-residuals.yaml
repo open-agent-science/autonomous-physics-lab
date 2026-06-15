@@ -82,16 +82,14 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Beloy 2021 pinned rows and covariance approximation, moving toward benchmark readiness"
+  current_stage: "Beloy and Nemitz Yb/Sr rows support a first exploratory cross-source diagnostic; promotion route or Pizzocaro third-source gate is next"
   recommended_parallel_agents: 2
-  coordination_notes: "Second-source ingestion, loader work, and holdout/no-peek manifest can proceed in separate branches."
+  coordination_notes: "Route the completed Yb/Sr diagnostic before more metrics; Pizzocaro row-admissibility can proceed separately as a third-source-first path."
   best_next_actions:
-    - task_id: TASK-0453
-      label: "Add atomic real direct row loader"
-    - task_id: TASK-0454
-      label: "Define atomic holdout and no-peek manifest"
-    - task_id: TASK-0455
-      label: "Rerun atomic baseline-readiness gate"
+    - task_id: TASK-0756
+      label: "Adjudicate the completed Yb/Sr benchmark result path"
+    - task_id: TASK-0742
+      label: "Run Pizzocaro Yb/Sr row-admissibility ledger as optional third-source-first path"
   required_gates:
     - "Second-source provenance review."
     - "Real-row loader and schema validation."
@@ -99,16 +97,18 @@ portfolio:
     - "Covariance semantics must remain explicit."
   current_results:
     - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/acr-0002-nemitz-2016-yb-sr.yaml"
     - "data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml"
+    - "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
     - "docs/campaigns/atomic-clock-residuals.md"
   open_questions:
-    - "Can Nemitz 2016 serve as a source-grade second direct-ratio source?"
-    - "Which uncertainty/covariance policy is acceptable for the first benchmark?"
+    - "Should the completed Yb/Sr diagnostic be routed to result-promotion preflight, consistency memory, third-source-first, or do-not-promote?"
+    - "Can Pizzocaro provide a third admissible Yb/Sr row without collapsing covariance/source semantics?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-15"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-QUEUE atomic baseline-readiness wave"
-    notes: "High-prestige lane, but benchmark work remains gated on source and covariance semantics."
+    source: "TASK-0756 and TASK-0742 science-director routing"
+    notes: "High-prestige lane with a first exploratory diagnostic; next step is route decision or third-source readiness, not constants-drift fitting."

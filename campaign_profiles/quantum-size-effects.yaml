@@ -84,16 +84,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "source artifacts and direct-row readiness before any baseline benchmark"
+  current_stage: "Almeida 2023 InP source selected, license-confirmed, checksum-pinned, and awaiting size-axis digitization before row readiness"
   recommended_parallel_agents: 1
   coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."
   best_next_actions:
-    - task_id: TASK-0398
-      label: "Package Norris-Bawendi digitization preflight"
-    - task_id: TASK-0400
-      label: "Verify Kang-Wise PbS direct source path"
-    - task_id: null
-      label: "Revisit blocked row curation only after a source artifact exists"
+    - task_id: TASK-0755
+      label: "Digitize Almeida size axis and rerun row-readiness gate before baseline metrics"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -102,13 +98,13 @@ portfolio:
     - "data/quantum_dots/source_manifest.yaml"
     - "docs/campaigns/quantum-size-effects.md"
   open_questions:
-    - "Which source provides direct measurement rows with usable provenance?"
-    - "Is a weaker calibration-consistency benchmark worth approving?"
+    - "Can the Almeida size-axis figure be digitized with enough provenance to curate >=6 direct rows?"
+    - "If not, should the campaign pause or revisit the weaker calibration-consistency scope?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-15"
     review_interval: quarterly_blocked
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "docs/status.md"
-    notes: "Source blocker is intentional scientific hygiene, not a failed campaign."
+    source: "TASK-0741 and TASK-0755 source-readiness route"
+    notes: "Source selection is resolved for the current wave; the blocker is deterministic size-axis digitization, not another scout."

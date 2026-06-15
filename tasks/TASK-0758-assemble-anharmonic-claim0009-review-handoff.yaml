@@ -1,0 +1,56 @@
+id: TASK-0758
+title: "Assemble CLAIM-0009 Anharmonic evidence handoff"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Route the first Gate-B-validated Anharmonic benchmark toward a maintainer claim decision."
+  - "Turn AGENT_VALIDATED evidence into a reviewable handoff without letting agents promote the claim themselves."
+  - "Keep the campaign focused on range-limited benchmark evidence rather than new hypothesis churn."
+
+input:
+  mode: planning_only
+  related_domain: anharmonic_oscillator
+  related_objects:
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "results/EXP-0011/RUN-0002/result.yaml"
+    - "docs/reviews/first-agent-validated-replay.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    RESULT-0016 is AGENT_VALIDATED for the Anharmonic Oscillator benchmark.
+    CLAIM-0009 remains DRAFT, and the next useful step is a maintainer-facing
+    evidence handoff that names the exact scope, limits, and claim-decision
+    options. This task does not change claim status.
+
+requirements:
+  - "Summarize the RESULT-0016 evidence chain, Gate A/Gate B state, commands, metrics, and limitations."
+  - "Map the evidence to the current wording of CLAIM-0009 and identify any wording that is supportable, too broad, or still missing evidence."
+  - "Present maintainer decision options: leave DRAFT, revise claim wording, promote after maintainer review, or request more evidence."
+  - "Do not edit CLAIM-0009 status, create knowledge artifacts, change benchmark metrics, or assert external replication."
+  - "Use safe public wording: range-limited numerical benchmark evidence, not a universal oscillator theory."
+
+accepted_outputs:
+  - "docs/reviews/claim-0009-anharmonic-evidence-handoff.md"
+  - "output-routing summary with claim impact, knowledge impact, and maintainer decision blocker"
+
+result_artifact_policy:
+  required: false
+  reason: "Evidence-handoff task for an existing AGENT_VALIDATED result; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/claim-0009-anharmonic-evidence-handoff.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
