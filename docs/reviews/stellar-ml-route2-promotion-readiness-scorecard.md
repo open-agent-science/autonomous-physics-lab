@@ -5,6 +5,9 @@
 **Scores:** `TASK-0740` / `AGENT-RUN-0070` Route 2 `SANDBOX_PASS`
 **Verdict:** `NOT_YET_GATE_A_READY` (promising; one controlled wave away from a
 first RESULT candidate)
+**Scope note:** dated readiness scorecard only. This file is not a live campaign
+board, mission-priority surface, or canonical routing map; durable campaign state
+belongs in the relevant campaign docs and `missions/current.yaml`.
 
 ## What The Route 2 Benchmark Established
 
@@ -44,9 +47,10 @@ RESULT candidate must not inherit that confounder, and a single 0.098 dex margin
 needs the same control discipline Materials applied (null controls +
 split-sensitivity) before promotion.
 
-## Ordered Path To A First RESULT Candidate
+## Follow-Up Checks Before A First RESULT Candidate
 
-Each step is a bounded, parallel-safe lane on the Stellar write surface.
+These are local follow-up candidates for the Stellar M-L evidence package, not a
+maintained campaign routing board.
 
 1. **Stage-controlled re-score.** Restrict the primary benchmark to
    `main_sequence_compatible` rows (and report `evolved` / `unknown` separately as
@@ -75,12 +79,13 @@ Each step is a bounded, parallel-safe lane on the Stellar write surface.
 
 - **Task verdict:** `not_applicable` (promotion-readiness scorecard).
 - **Benchmark-readiness verdict:** `NOT_YET_GATE_A_READY`.
-- **Canonical destination:** this scorecard; `TASK-0753` → `REVIEW_READY`.
+- **Canonical destination:** this dated scorecard; `TASK-0753` → `REVIEW_READY`.
 - **Review tier:** `none`; no `RESULT-*` or `PRED-*` created.
 - **Gate A status:** not attempted (blocked on stage control + control audit).
 - **Gate B status:** not applicable.
 - **Claim impact:** no claim change.
-- **Knowledge impact:** campaign routing only.
+- **Knowledge impact:** none; no knowledge entry or canonical campaign route is
+  changed.
 - **Limitations / blockers:** scores only committed Route 2 evidence; the
   stage-controlled re-score (step 1) is the single highest-leverage next lane and
   is not run here.

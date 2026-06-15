@@ -8,15 +8,15 @@ priority: high
 
 strategy_alignment:
   - "Decide whether the Route 2 SANDBOX_PASS is ready for Gate A RESULT promotion or what controlled steps remain."
-  - "Drive the second open-data frontier lead (Stellar, open DEBCat) toward a first frontier RESULT in parallel with Materials, without premature promotion."
+  - "Record a dated Stellar readiness scorecard without creating a live campaign-routing surface or premature RESULT promotion."
   - "Preserve the storage/redistribution boundary and the no-universal-claim discipline."
 
 input:
   mode: planning_only
   related_domain: textbook_formula_audit
   planning_context: >
-    Maintainer-directed create-and-execute task in the portfolio open-data lane
-    map (TASK-0752). TASK-0740 ran the first empirical Stellar M-L Route 2
+    Maintainer-directed create-and-execute readiness scorecard. TASK-0740 ran
+    the first empirical Stellar M-L Route 2
     benchmark on locally-regenerated DEBCat rows and recorded SANDBOX_PASS: the
     frozen alpha L=(M/M_sun)^3.5 beat the per-mass-band train-median null on
     validation and holdout in the 0.5-2.0 M_sun primary range (holdout MAE
@@ -33,7 +33,8 @@ input:
 requirements:
   - "Use only committed Route 2 benchmark evidence; run no new metric, fit, or fetch."
   - "Score Gate A readiness as a checklist (what is ready vs what blocks) and give a single verdict."
-  - "If not ready, name the ordered controlled steps to a first RESULT candidate (stage control, null/split-sensitivity audit, baseline-comparison decision, Gate A packaging)."
+  - "If not ready, name local follow-up checks before a first RESULT candidate (stage control, null/split-sensitivity audit, baseline-comparison decision, Gate A packaging)."
+  - "State that the scorecard is not a live campaign board, mission-priority surface, or canonical routing map."
   - "Do not promote a RESULT, make a universal mass-luminosity claim, commit full DEBCat rows, or weaken the storage/holdout/overclaim boundary."
 
 accepted_outputs:
