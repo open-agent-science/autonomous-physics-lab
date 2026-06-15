@@ -1,7 +1,7 @@
 id: TASK-0741
 title: "Curate one deterministic Quantum direct-row source artifact package"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

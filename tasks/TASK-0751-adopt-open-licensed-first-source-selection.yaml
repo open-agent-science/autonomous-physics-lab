@@ -1,7 +1,7 @@
 id: TASK-0751
 title: "Adopt open-licensed-first source-selection preference order and apply to Quantum"
 type: dataset_workflow
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
