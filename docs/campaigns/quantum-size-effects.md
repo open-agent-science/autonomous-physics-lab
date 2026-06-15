@@ -59,9 +59,9 @@ figure digitization: per-sample edge length / volume is figure-only
 (SI Figure S2b TEM histograms, Figure 1b sizing curve), so it needs a
 WebPlotDigitizer-class tool run before `qd-*.yaml` rows can be curated. That
 tool run plus the `TASK-0293` row-readiness gate rerun are queued as
-`TASK-0752`. Further source-scout tasks are not needed.
+`TASK-0755`. Further source-scout tasks are not needed.
 
-**Expected next result:** `TASK-0752` produces either >=6 direct Almeida InP
+**Expected next result:** `TASK-0755` produces either >=6 direct Almeida InP
 (size, energy) rows that re-run the `TASK-0293` readiness gate and can finally
 unblock the `TASK-0225` baseline, or a precise digitization tool-run blocker if
 the maintainer-supplied figure raster is not available for the run. The

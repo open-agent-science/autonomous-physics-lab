@@ -27,7 +27,7 @@ preserved the aggregation blocker. `TASK-0705` (DONE) then classified Atomic as
 first benchmark: an exploratory, diagonal-only Yb/Sr cross-source consistency
 diagnostic between Beloy 2021 and Nemitz 2016. The first real-row benchmark now
 exists. The current blocker is no longer source readiness; it is a
-**promotion-route decision** for that completed diagnostic (`TASK-0753`),
+**promotion-route decision** for that completed diagnostic (`TASK-0756`),
 optionally preceded by a third Yb/Sr source via the Pizzocaro
 row-admissibility gate (`TASK-0742`) to reduce single-source dependence.
 
@@ -58,7 +58,7 @@ Atomic `BASELINE_READY` for one narrow shape, and the first Yb/Sr cross-source
 diagnostic ran with verdict `CONSISTENT_WITHIN_UNCERTAINTY` (exploratory,
 diagonal-only, source-limited; see
 [atomic-yb-sr-cross-source-consistency-benchmark.md](../reviews/atomic-yb-sr-cross-source-consistency-benchmark.md)).
-The immediate path is now `TASK-0753` (adjudicate the benchmark result path:
+The immediate path is now `TASK-0756` (adjudicate the benchmark result path:
 result-promotion preflight, source-limited consistency-memory card,
 third-source-first, or do-not-promote) and, optionally before any promotion,
 `TASK-0742` (Pizzocaro Yb/Sr row-admissibility extraction ledger gate) to add a
@@ -67,7 +67,7 @@ observable-harmonization contract that `TASK-0742` depends on. `TASK-0652`
 pinned Lange/PTB Yb+ metadata, but that source is a separate Yb+ family (E3/Cs
 and E3/E2), not a Yb/Sr benchmark unblocker.
 
-**Expected next result:** a `TASK-0753` route decision for the completed Yb/Sr
+**Expected next result:** a `TASK-0756` route decision for the completed Yb/Sr
 diagnostic. The benchmark agreed at `|z| = 1.78` within a predeclared 2-sigma
 no-tension threshold, but is dominated by the Nemitz 2016 uncertainty
 (~6.7x Beloy 2021), so the decision must weigh its source-limited, two-row
