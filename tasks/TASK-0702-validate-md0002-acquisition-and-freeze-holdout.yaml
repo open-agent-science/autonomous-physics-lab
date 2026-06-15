@@ -1,7 +1,7 @@
 id: TASK-0702
 title: "Validate MD-0002 acquisition and freeze holdout binding"
 type: scientific_validation
-status: BLOCKED
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -15,18 +15,20 @@ input:
   mode: planning_only
   related_domain: materials_property_residuals
   related_objects:
-    - "tasks/TASK-0699-run-md0002-maintainer-acquisition.yaml"
-    - "tasks/TASK-0700-build-md0002-loader-and-dataset-validation.yaml"
+    - "tasks/TASK-0738-run-narrowed-md0002-acquisition.yaml"
+    - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+    - "data/materials/snapshots/materials_project_md0002_2026.04.13.json"
     - "data/materials/md0002_holdout_manifest.yaml"
   planning_context: >
-    This task starts only after TASK-0699 lands real MD-0002 files. It validates
-    that the committed acquisition is source-pinned and holdout-bound before a
-    benchmark task can run.
+    Dependency corrected: the cap-stopped TASK-0699 produced no dataset; the
+    value-bearing MD-0002 acquisition landed via TASK-0738. This task validates
+    that committed acquisition is source-pinned and holdout-frozen before any
+    benchmark scoring (TASK-0703).
 
 requirements:
-  - "Start only after TASK-0699 lands real MD-0002 dataset files and TASK-0700 provides loader validation."
-  - "Verify raw and normalized checksums, row counts, database_version, attribution, source fields, and excluded-row reasons."
-  - "Confirm holdout/no-peek assignment was frozen before any scoring."
+  - "Start only after TASK-0738 lands the committed MD-0002 dataset, snapshot, and pinned holdout manifest (done; loader physics_lab/datasets/materials_md0002.py validates the shape)."
+  - "Verify snapshot checksum, row counts, database_version, attribution, source fields, and excluded-row reasons."
+  - "Confirm the holdout/no-peek split was frozen deterministically (depends only on material_id ordering) before any scoring."
   - "Do not compute baselines, residuals, rankings, or claims."
 
 accepted_outputs:
