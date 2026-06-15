@@ -86,10 +86,10 @@ That first acquisition attempt (`TASK-0699`, DONE) hit a cap-exceeded stop, so
 `TASK-0737` (DONE) defined a narrowed acquisition predicate and `TASK-0700`
 (loader/validation) and `TASK-0701` (benchmark/control predeclaration) are also
 DONE. `TASK-0738` then acquired and committed the narrowed, maintainer-accepted
-362-row-per-axis MD-0002 snapshot and normalized combined dataset. The current
-blocker is closeout/unblock into `TASK-0702` (holdout freeze); `TASK-0703`
-(formation-energy retest) stays BLOCKED until `TASK-0702` validates the
-acquisition and freezes the holdout binding.
+362-row-per-axis MD-0002 snapshot and normalized combined dataset. `TASK-0702`
+validated the acquisition and confirmed the deterministic no-peek holdout
+freeze. The current next benchmark task is `TASK-0703`, the formation-energy
+retest under the predeclared control plan.
 
 ## Admissible Source Classes
 
@@ -175,16 +175,13 @@ should not be re-audited further. Current state of the MD-0002 chain:
 cap-exceeded stop), and `TASK-0738` (narrowed acquisition) are complete at the
 data-artifact level. `TASK-0738` accepted a 362-row-per-axis slice below the
 original 600-row floor and committed the pinned snapshot / normalized combined
-dataset. The current bottleneck is `TASK-0702` (holdout freeze) after task
-closeout/unblock; `TASK-0703` (formation-energy retest) stays `BLOCKED` until
-`TASK-0702` validates the acquisition and freezes the holdout binding. The
-numbered path below is now:
+dataset. `TASK-0702` validated checksum/source/attribution consistency and
+confirmed the deterministic no-peek holdout freeze. The current bottleneck is
+now the `TASK-0703` formation-energy retest. The numbered path below is now:
 
-1. **Holdout freeze audit** — run `TASK-0702` to verify no-peek binding and
-   acquisition provenance after rows land.
-2. **Formation-energy retest** — run `TASK-0703` only after the dataset and
-   controls are frozen. Band gap remains diagnostic-only unless its control
-   evidence improves.
+1. **Formation-energy retest** — run `TASK-0703` under the frozen dataset,
+   holdout binding, and predeclared controls. Band gap remains diagnostic-only
+   unless its control evidence improves.
 
 ## Why It Matters
 

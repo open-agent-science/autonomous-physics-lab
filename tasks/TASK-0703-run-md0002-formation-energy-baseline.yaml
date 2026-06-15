@@ -1,7 +1,7 @@
 id: TASK-0703
 title: "Run MD-0002 formation-energy baseline benchmark"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: high
 priority: high
@@ -19,9 +19,10 @@ input:
     - "tasks/TASK-0702-validate-md0002-acquisition-and-freeze-holdout.yaml"
     - "docs/reviews/materials-md0002-acquisition-go-no-go.md"
   planning_context: >
-    After MD-0002 rows and holdouts are validated, this task runs the first
-    formation-energy benchmark under the predeclared control plan. Band gap
-    remains diagnostic-only and must not be mixed into the primary verdict.
+    TASK-0702 validated the MD-0002 acquisition and confirmed the deterministic
+    no-peek holdout freeze, so this task can now run the first formation-energy
+    benchmark under the predeclared control plan. Band gap remains
+    diagnostic-only and must not be mixed into the primary verdict.
 
 requirements:
   - "Start only after TASK-0701 and TASK-0702 are complete."
