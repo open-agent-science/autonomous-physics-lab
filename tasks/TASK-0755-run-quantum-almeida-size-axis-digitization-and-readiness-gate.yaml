@@ -1,0 +1,69 @@
+id: TASK-0755
+title: "Run Quantum Almeida 2023 InP size-axis digitization and re-run readiness gate"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Convert the now-unblocked Almeida 2023 source artifact into the first direct-measurement Quantum rows, not another source scout."
+  - "Use the deterministic, license-cleared, checksum-pinned Almeida package to land >=6 direct (size, energy) InP rows or preserve a precise digitization blocker."
+  - "Re-run the TASK-0293 row-readiness gate so TASK-0225 can move toward a baseline only on direct-measurement provenance."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0741-curate-quantum-deterministic-source-artifact.yaml"
+    - "tasks/TASK-0293-rerun-quantum-row-level-readiness-gate-after-direct-seed.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md"
+    - "data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/README.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0741 resolved the long-standing Quantum source blocker: the maintainer
+    selected the Almeida 2023 CC-BY 4.0 route, supplied the article and SI
+    locally, the license is confirmed on the version-of-record, and the source
+    bytes are checksum-pinned. The deterministic optical-energy axis (six labeled
+    lambda_1s samples, 460-620 nm) is recorded. The single remaining blocker is
+    the size-axis digitization: per-sample edge length / volume is figure-only
+    (SI Figure S2b TEM histograms, Figure 1b sizing curve), so it needs a
+    WebPlotDigitizer-class tool run before qd-*.yaml rows can be curated. This is
+    the upstream digitization step that TASK-0336 (Jasieniak band-edge curation)
+    does not cover. The task needs the maintainer-supplied Almeida figure raster
+    to be available locally for the tool run; if it is not, it must preserve a
+    precise tool-run blocker rather than fabricate coordinates.
+
+requirements:
+  - "Use only the maintainer-supplied, checksum-pinned Almeida source artifact and the committed digitization package; no live fetch and no publisher PDF vendoring."
+  - "Run a WebPlotDigitizer-class digitization of the SI Figure S2b / Figure 1b size axis with recorded axis calibration, extracted point file, tool/version notes, and per-point uncertainty, following docs/quantum-direct-measurement-digitization-protocol.md."
+  - "Pair the digitized sizes with the deterministic E1s optical-energy anchors already recorded in the Almeida package; keep diameter/edge-length/volume semantics explicit per the non-spherical schema."
+  - "If the figure supports them, curate >=6 clean direct (size, energy) InP rows as data/quantum_dots/qd-almeida-2023-inp-optical.yaml; otherwise preserve a precise tool-run blocker review and keep TASK-0225 and TASK-0293 blocked."
+  - "Re-run the TASK-0293 row-level readiness gate after the rows or blocker land and record whether Quantum is now ROW_READY for a direct-measurement baseline."
+  - "Do not use calibration polynomials, sizing equations, LLM-estimated coordinates, synthesis recipes, biomedical/device claims, or baseline/residual metrics in this task."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-almeida-2023-inp-optical.yaml or a precise digitization blocker review"
+  - "data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/ (axis calibration, extracted points, extraction ledger)"
+  - "docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md"
+  - "optional update to data/quantum_dots/source_manifest.yaml (Almeida readiness/blocker status)"
+
+result_artifact_policy:
+  required: false
+  reason: "Source-to-row digitization and readiness-gate task; no scientific RESULT or PRED artifact is expected, only direct rows or a preserved blocker."
+  evidence:
+    - "data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/"
+    - "docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

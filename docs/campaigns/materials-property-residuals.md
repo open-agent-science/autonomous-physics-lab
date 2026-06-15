@@ -82,8 +82,14 @@ planning wave: acquisition preflight, holdout/no-peek manifest, and loader/schem
 fixture. `TASK-0670` authorized a maintainer-run MD-0002 acquisition under the
 frozen contract (formation energy primary retest axis; band gap diagnostic-only;
 1500-row cap per axis; pinned version, checksum, and no-peek holdout binding).
-The next maintainer step is execution of that acquisition task — no agent-side
-live fetch.
+That first acquisition attempt (`TASK-0699`, DONE) hit a cap-exceeded stop, so
+`TASK-0737` (DONE) defined a narrowed acquisition predicate and `TASK-0700`
+(loader/validation) and `TASK-0701` (benchmark/control predeclaration) are also
+DONE. `TASK-0738` then acquired and committed the narrowed, maintainer-accepted
+362-row-per-axis MD-0002 snapshot and normalized combined dataset. The current
+blocker is closeout/unblock into `TASK-0702` (holdout freeze); `TASK-0703`
+(formation-energy retest) stays BLOCKED until `TASK-0702` validates the
+acquisition and freezes the holdout binding.
 
 ## Admissible Source Classes
 
@@ -162,26 +168,21 @@ readiness stay separate.
 ## Recommended Next Tasks
 
 These are recommendations only. The first `MD-0001` replay/control wave is
-complete enough to justify the authorized `MD-0002` widening path. Current
-state of that chain: `TASK-0701` (benchmark/control predeclaration) is DONE,
-and `TASK-0699` (acquisition) and `TASK-0700` (loader/validation) are
-`REVIEW_READY` awaiting maintainer merge. The current bottleneck is maintainer
-merge plus the maintainer-run acquisition itself; `TASK-0702` (holdout freeze)
-and `TASK-0703` (formation-energy retest) stay `BLOCKED` until the committed
-`MD-0002` dataset files land. The numbered path below is the intended sequence
-once those merges complete:
+complete enough to justify the authorized `MD-0002` widening path, and that wave
+should not be re-audited further. Current state of the MD-0002 chain:
+`TASK-0699` (first acquisition), `TASK-0700` (loader/validation), `TASK-0701`
+(benchmark/control predeclaration), `TASK-0737` (narrowed predicate after the
+cap-exceeded stop), and `TASK-0738` (narrowed acquisition) are complete at the
+data-artifact level. `TASK-0738` accepted a 362-row-per-axis slice below the
+original 600-row floor and committed the pinned snapshot / normalized combined
+dataset. The current bottleneck is `TASK-0702` (holdout freeze) after task
+closeout/unblock; `TASK-0703` (formation-energy retest) stays `BLOCKED` until
+`TASK-0702` validates the acquisition and freezes the holdout binding. The
+numbered path below is now:
 
-1. **Maintainer-gated acquisition** — run `TASK-0699` to commit the pinned
-   stable-ternary-oxide raw snapshot, normalized formation-energy / band-gap
-   datasets, checksums, citation metadata, and populated holdout manifest.
-2. **Loader and dataset validation** — run `TASK-0700` against the committed
-   `MD-0002` rows before any benchmark consumer reads them.
-3. **Benchmark/control predeclaration** — run `TASK-0701` so the formation-
-   energy retest has frozen baselines, null controls, split policy, and stop
-   conditions before metrics are inspected.
-4. **Holdout freeze audit** — run `TASK-0702` to verify no-peek binding and
+1. **Holdout freeze audit** — run `TASK-0702` to verify no-peek binding and
    acquisition provenance after rows land.
-5. **Formation-energy retest** — run `TASK-0703` only after the dataset and
+2. **Formation-energy retest** — run `TASK-0703` only after the dataset and
    controls are frozen. Band gap remains diagnostic-only unless its control
    evidence improves.
 
