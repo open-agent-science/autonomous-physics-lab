@@ -19,7 +19,8 @@ purpose: |
   naming, title format, template completeness, scope match, validation
   status, accepted outputs presence, repository-safety classification) so
   the maintainer's time is spent on the parts that actually need human
-  judgement (scientific scope wording, claim language, novel risk).
+  judgement (scientific scope wording, claim language, novel architectural
+  risk, and publication/legal-rights risk).
 
   The Review Agent is also the post-merge closeout assistant: once a PR
   is merged, the Review Agent helps prepare the closeout PR that moves
@@ -63,7 +64,10 @@ typical_activities:
       Checkout the PR branch if needed, run
       `python3 scripts/apl_review_pr.py --pr <n> --branch <branch> --task <task-id>`,
       read the structured verdict, and translate it into the four-section
-      report (Verdict, Risk, Required fixes, Recommended action).
+      report (Verdict, Risk, Required fixes, Recommended action). Treat
+      duplicate live routing surfaces and raw upstream artifacts without clear
+      redistribution rights as merge blockers unless the maintainer explicitly
+      accepts the tradeoff.
   - title: "Closeout PR preparation"
     description: |
       Run `python3 scripts/apl_closeout_pr_helper.py` or
@@ -118,6 +122,8 @@ restrictions:
   - "Must not make the repository public."
   - "Must report contested-result or AGENT_PUBLISHED artifact PRs as requiring stricter scrutiny (Gate C territory)."
   - "Must surface security-sensitive changes (auth, secrets, CI, hooks) for explicit maintainer review."
+  - "Must surface architecture-sensitive routing changes (new live campaign, mission, portfolio, or task-state surfaces) for explicit maintainer review."
+  - "Must block publication of raw upstream artifacts when redistribution permission, license posture, or source provenance is missing."
   - "Must not leave repeated review-helper, CI, validation, or closeout failures only as local comments when they indicate a structural bottleneck worth proposing."
 
 cadence: |

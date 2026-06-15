@@ -82,6 +82,9 @@ Rules:
 - `contributor-id` SHOULD be the lowercased GitHub username for the human
   responsible for the PR when available; otherwise use a stable
   maintainer-approved short id
+- use authenticated local GitHub identity first when available; local Git
+  config is only a clue, and unrelated PR authors or branch examples are not a
+  safe source for the current contributor id
 - `agent-id` is the execution tool or mode
 - lowercase only
 - no spaces

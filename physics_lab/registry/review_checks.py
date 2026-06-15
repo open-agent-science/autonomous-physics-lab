@@ -140,6 +140,20 @@ DECISION_REGRESSION_RULES = (
         re.compile(r"\b(?:new|second|duplicate)\b.*\bsource of truth\b"),
         "Potential duplicate source-of-truth architecture decision.",
     ),
+    (
+        re.compile(
+            r"\b(?:portfolio|campaign|mission)s?\b.*\b"
+            r"(?:lane[- ]map|open[- ]data lane|priority ranking|prioriti[sz]ation|routing surface)\b"
+        ),
+        "Potential duplicate live campaign/mission routing surface; use canonical mission/campaign surfaces or an explicit dated non-canonical memo.",
+    ),
+    (
+        re.compile(
+            r"\b(?:see|refer to|link(?:s|ed)? to|points? to|pointer to)\b.*\b"
+            r"(?:lane[- ]map|priority ranking|prioriti[sz]ation|routing surface)\b"
+        ),
+        "Potential live pointer to a duplicate routing/prioritization surface; confirm it is not replacing canonical mission/campaign state.",
+    ),
 )
 FOLLOW_UP_TASK_PATTERNS = (
     re.compile(r"\bfollow[- ]up task\b"),
