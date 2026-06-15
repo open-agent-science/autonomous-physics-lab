@@ -2,29 +2,37 @@ manifest_id: MD-0002-HOLDOUT-NOPEEK-SCAFFOLD-0001
 schema_version: 0.1.0
 task_id: TASK-0644
 campaign_id: materials-property-residuals
-status: draft_no_peek_scaffold_no_rows
+status: acquired_pinned_pending_holdout_freeze_validation
 created_by:
   contributor_id: akutenyov
   agent_id: codex
 created_utc: 2026-06-07
 
 purpose: >
-  Scaffold the pre-acquisition split vocabulary and no-peek boundaries for a
-  future MD-0002 Materials Project stable-ternary-oxides slice. This manifest
-  contains no value-bearing row ids, no fetched rows, and no benchmark metrics.
+  Preserve the MD-0002 pre-score split vocabulary, source pins, and no-peek
+  boundaries after the TASK-0738 maintainer-accepted acquisition. This manifest
+  records the acquired source version, checksum, and per-axis row counts; it
+  still authorizes no benchmark metrics, residual inspection, predictions, or
+  claims.
 
 scope:
   dataset_family: MD-0002
   source_id: materials-project
   source_manifest: data/materials/source_manifest.yaml
   planned_snapshot_manifest: data/materials/materials_md0002_snapshot_manifest.yaml
-  planned_raw_snapshot: data/materials/snapshots/materials_project_stable_ternary_oxides_<database_version>.json
-  planned_dataset_files:
-    - data/materials/md-0002-materials-project-formation-energy.yaml
-    - data/materials/md-0002-materials-project-band-gap.yaml
-  database_version: TO_BE_PINNED_BY_ACQUISITION
-  snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
-  row_count_per_axis: TO_BE_REPORTED_BY_ACQUISITION
+  acquired_raw_snapshot: data/materials/snapshots/materials_project_md0002_2026.04.13.json
+  acquired_dataset_file: data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+  dataset_file_shape_note: >
+    Single combined-axis file (both formation_energy_per_atom and band_gap) per
+    the physics_lab/datasets/materials_md0002.py loader contract; supersedes the
+    earlier two-file plan. Per-row split assignment is frozen in the dataset.
+  frozen_split_counts_per_axis:
+    train: 253
+    validation: 55
+    holdout: 54
+  database_version: 2026.04.13
+  snapshot_checksum_sha256: 5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567
+  row_count_per_axis: 362
   target_row_count_per_axis: "600-1500 bounded acquisition target; stop and report if exceeded"
   material_scope: stable_ternary_oxides
   composition_rule: "Exactly three distinct elements, one oxygen and two non-oxygen cations."
@@ -36,9 +44,9 @@ promotion_boundary:
   prediction_registry_allowed: false
   live_fetch_allowed: false
   notes:
-    - "This scaffold declares split candidates before acquisition; it does not authorize fetching rows."
-    - "A later acquisition task must replace placeholders with source version, checksum, and row-count metadata before scoring."
-    - "No train, validation, holdout, stress, or excluded row assignment is made by this scaffold."
+    - "This manifest records the TASK-0738 acquisition pins while preserving the pre-score split vocabulary."
+    - "TASK-0702 must validate the acquired dataset and freeze the benchmark binding before any scoring."
+    - "No residual, baseline, prediction, result, or claim is authorized by this manifest."
 
 holdout_schema:
   allowed_split_values:
@@ -50,7 +58,7 @@ holdout_schema:
   required_benchmark_binding:
     dataset_family: MD-0002
     holdout_manifest: data/materials/md0002_holdout_manifest.yaml
-    snapshot_checksum_sha256: TO_BE_COMPUTED_BY_ACQUISITION
+    snapshot_checksum_sha256: 5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567
   no_peek_enforcement:
     - "Declare the final split rule and random seeds before residuals, metrics, or model errors are inspected."
     - "Do not tune material_id modulo buckets, cation-pair families, prototype groups, property bins, or exclusions after scoring."
@@ -174,11 +182,11 @@ pre_score_split_axes:
       - database_version
       - snapshot_checksum_sha256
     candidate_rule: "A second Materials Project snapshot must use a separate manifest revision."
-    md0002_value: TO_BE_PINNED_BY_ACQUISITION
+    md0002_value: 2026.04.13
 
 blocked_actions:
-  - "Fetch or ingest Materials Project rows."
-  - "Commit value-bearing MD-0002 row ids."
+  - "Re-fetch, widen, narrow, or replace Materials Project rows for this benchmark binding without a new reviewed task and manifest revision."
+  - "Change value-bearing MD-0002 row ids or split assignments after inspecting residuals or metrics."
   - "Run baseline metrics or residual maps."
   - "Choose split thresholds after inspecting residuals."
   - "Pool formation_energy_per_atom with band_gap."
@@ -186,6 +194,6 @@ blocked_actions:
   - "Promote material-discovery, design, synthesis, device, biomedical, or new-law claims."
 
 next_allowed_work:
-  - "A maintainer-authorized acquisition task may pin database_version, checksum, row counts, and source snapshot metadata."
-  - "A later loader/schema task may validate row structure after acquisition without scoring residuals."
-  - "A benchmark task may bind to the finalized MD-0002 manifest only after split rules are frozen."
+  - "TASK-0702 may validate the acquired MD-0002 dataset and freeze the holdout binding against this pinned checksum."
+  - "TASK-0703 may run the formation-energy benchmark only after TASK-0702 validates the binding."
+  - "Band gap rows remain diagnostic-only unless a later reviewed task explicitly promotes that axis."

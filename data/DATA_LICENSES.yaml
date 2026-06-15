@@ -103,6 +103,21 @@ datasets:
       - data/materials/md-0001-materials-project-band-gap.yaml
       - data/materials/snapshots/materials_project_binary_oxides_2025-09-25.json
 
+  - id: materials-project-ternary-oxides-md0002
+    source: "The Materials Project (materialsproject.org)"
+    source_url: https://materialsproject.org
+    license: CC BY 4.0
+    redistribution_status: redistributable_with_attribution
+    citation_or_acknowledgement: >
+      Data from The Materials Project, licensed CC BY 4.0; cite Jain et al. 2013
+      (APL Materials 1, 011002).
+    evidence: "Materials Project data is licensed CC BY 4.0 (declared inline in the dataset files)."
+    raw_artifact_vendored: true
+    provenance: data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+    paths:
+      - data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+      - data/materials/snapshots/materials_project_md0002_2026.04.13.json
+
   - id: pizzocaro-2020-yb-sr-zenodo
     source: "Pizzocaro et al. Yb/Sr clock-comparison dataset (Zenodo)"
     source_url: https://zenodo.org/records/5592085
