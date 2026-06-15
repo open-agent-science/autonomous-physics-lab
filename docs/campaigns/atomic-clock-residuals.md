@@ -33,24 +33,19 @@ row-admissibility gate (`TASK-0742`) to reduce single-source dependence.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can high-precision atomic-clock comparison data be
-curated with source provenance, covariance, and version-drift semantics intact
-before any residual analysis?
+**Current question:** can high-precision atomic-clock comparison data become
+durable benchmark memory without hiding covariance, source limits, or version-
+drift semantics?
 
-**Shareable result:** APL has pinned Beloy 2021 / BACON as a sandbox-only
-direct-frequency-ratio seed (`PINNED_DATASET`), reconstructed a positive-
-semidefinite source-derived covariance approximation, pinned the correct
-Nemitz 2016 RIKEN Yb/Sr arXiv source artifact, and defined conservative
-covariance states for the first benchmark. `TASK-0453` also landed a
-deterministic loader for committed `direct_measurement` rows, and `TASK-0488`
-landed a synthetic-only cross-source fixture. `TASK-0455` reran the
-baseline-readiness gate and kept Atomic below `BASELINE_READY` because no
-second value-bearing direct source row is committed and the Beloy row-level
-holdout assignments remain unpopulated. The campaign is deliberately not
-fitting constants drift yet.
+**Shareable result:** APL has pinned Beloy 2021 / BACON and Nemitz 2016 RIKEN
+Yb/Sr as direct-frequency-ratio rows, kept covariance semantics explicit, and
+run the first exploratory Yb/Sr cross-source diagnostic. Beloy and Nemitz agree
+at `|z| = 1.78` within the predeclared 2-sigma no-tension threshold, but the
+comparison is two-row, diagonal-only, and dominated by the Nemitz uncertainty.
+The campaign is deliberately not fitting constants drift yet.
 
-**Not a claim:** no atomic-clock residual benchmark, constants-drift result,
-new constant, or anomaly explanation exists in APL.
+**Not a claim:** the Yb/Sr diagnostic is not a promoted residual result,
+constants-drift result, new constant, or anomaly explanation.
 
 **Active next work:** `TASK-0704`, `TASK-0705`, and `TASK-0456` are all DONE:
 the Nemitz `ACR-0002` row was committed, the baseline-readiness gate classified
@@ -270,24 +265,12 @@ If any of those are missing, the future task should stay planning-only.
 
 Safe future tasks:
 
-- create an atomic-clock source manifest template without values;
-- review one source class for admissibility and preserve blockers;
-- run a synthetic-only loader dry-run with fabricated rows;
-- run a real-row readiness gate before any future row seed;
-- curate a single source-specific row seed only when covariance, confidence
-  level, direct-vs-derived, and version-drift stop conditions are satisfied;
-- curate Nemitz 2016 value-bearing rows only after arXiv/Nature version-drift,
-  table-level uncertainty, campaign-window, checksum, and license gates pass;
-- populate row-level holdout/no-peek fields from the manifest before any
-  benchmark consumer touches atomic rows;
-- rerun the baseline-readiness gate only after a second value-bearing source
-  row is committed or explicitly waived;
-- rerun the baseline-readiness gate after a Nemitz `ACR-0002` row package
-  passes, while preserving any failed source as blocker memory;
+- adjudicate the completed Yb/Sr diagnostic route: result-promotion preflight,
+  source-limited consistency memory, third-source-first, or do-not-promote;
+- run the Pizzocaro Yb/Sr row-admissibility ledger only as a third-source path
+  with source/covariance limits preserved;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
-- define a narrow Pizzocaro observable-harmonization contract only if the
-  campaign still needs diagnostic cross-source consistency after Nemitz;
 - keep Lange/PTB metadata-only until maintainer license approval before any
   source copy, checksum, or value extraction task.
 
@@ -298,8 +281,8 @@ Unsafe next tasks:
 - merge direct rows and derived constraints in one unflagged table;
 - add prediction registry entries before a source manifest and holdout policy
   exist.
-- run the Yb/Sr cross-source consistency benchmark before `TASK-0455` declares
-  Atomic `BASELINE_READY`.
+- rerun the completed Yb/Sr diagnostic as if it were a new metrics task before
+  `TASK-0756` routes the existing evidence.
 
 ## What Not To Claim
 

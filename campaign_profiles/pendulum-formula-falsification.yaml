@@ -86,25 +86,29 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "mature deterministic exact-reference benchmark and gauntlet replay surface"
+  current_stage: "mature deterministic exact-reference benchmark, AGENT_PUBLISHED overfit/negative result pending Gate B, and CLAIM-0001 handoff queued"
   recommended_parallel_agents: 1
   coordination_notes: "Use mainly for replay, validation hardening, and examples; not the default expansion lane."
   best_next_actions:
-    - task_id: null
-      label: "Replay or package result capsules when public documentation needs a quality-floor example"
+    - task_id: TASK-0757
+      label: "Run RESULT-0017 Gate B replay validation"
+    - task_id: TASK-0760
+      label: "Assemble CLAIM-0001 evidence handoff for maintainer review"
   required_gates:
     - "Exact-reference and configured-range wording."
     - "No exactness claim without symbolic proof."
   current_results:
     - "results/EXP-0001/"
     - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/reviews/first-agent-published-negative-result-review.md"
   open_questions:
-    - "Which pendulum capsule should be the default external replay example?"
+    - "Does RESULT-0017 pass independent Gate B replay?"
+    - "Which CLAIM-0001 wording, if any, is supportable after separating positive range-limited and overfit evidence?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-15"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "docs/status.md"
-    notes: "Quality-floor track remains useful for reproducibility and public examples."
+    source: "TASK-0757 and TASK-0760 science-director routing"
+    notes: "Quality-floor track now has concrete replay and claim-handoff tasks; no new formula search is needed."

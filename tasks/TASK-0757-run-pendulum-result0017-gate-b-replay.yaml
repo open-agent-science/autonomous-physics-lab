@@ -1,0 +1,58 @@
+id: TASK-0757
+title: "Run RESULT-0017 Pendulum Gate B replay validation"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move the first agent-published Pendulum negative/overfit result through an independent replay gate before treating it as validated memory."
+  - "Preserve the falsification value of RESULT-0017 without turning an overfit finding into a broader claim."
+  - "Exercise the result-promotion protocol on an already published scientific artifact instead of creating another audit page."
+
+input:
+  mode: planning_only
+  related_domain: pendulum_formula_falsification
+  related_objects:
+    - "results/EXP-0001/RUN-0006/result.yaml"
+    - "docs/reviews/first-agent-published-negative-result-review.md"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0017 is AGENT_PUBLISHED and records an OVERFITTED Pendulum symbolic
+    gauntlet finding. The current blocker is not another formula search; it is
+    independent Gate B replay validation that either upgrades the artifact to
+    AGENT_VALIDATED or records a contested replay note.
+
+requirements:
+  - "Replay the RESULT-0017 evidence using the committed validation helper and recorded reproduction command when available."
+  - "Use an independent validating-agent identity in the validation record; do not reuse the publishing agent identity."
+  - "If the replay passes, update only the result metadata needed for AGENT_VALIDATED / validation_record and write a concise replay review note."
+  - "If the replay fails or drifts, do not edit metrics or verdicts to make them pass; write a contested replay note with exact failing commands and blockers."
+  - "Do not run a new Pendulum formula search, change the overfit verdict, promote exactness/global claims, or create knowledge/golden artifacts."
+  - "Keep public wording limited to a replay-validated overfit/negative result if Gate B passes."
+
+accepted_outputs:
+  - "updated `results/EXP-0001/RUN-0006/result.yaml` validation metadata if Gate B passes"
+  - "docs/reviews/result-0017-pendulum-gate-b-replay.md"
+  - "output-routing summary with Gate A/Gate B status and any publication blocker"
+
+result_artifact_policy:
+  required: false
+  reason: "Gate B validates an existing RESULT artifact; it must not create a new RESULT or PRED entry."
+  evidence:
+    - "results/EXP-0001/RUN-0006/result.yaml"
+    - "docs/reviews/result-0017-pendulum-gate-b-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_replay_validation.py tests/test_promotion_protocol.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -83,25 +83,26 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "validated-in-range benchmark with replay and candidate-limit comparison value"
+  current_stage: "AGENT_VALIDATED range-limited benchmark with CLAIM-0009 evidence handoff queued"
   recommended_parallel_agents: 1
   coordination_notes: "Use as a bounded replay/follow-up benchmark; avoid broad candidate expansion without a task."
   best_next_actions:
-    - task_id: null
-      label: "Replay and compare candidate limits when a maintainer asks for benchmark hygiene"
+    - task_id: TASK-0758
+      label: "Assemble CLAIM-0009 evidence handoff for maintainer review"
   required_gates:
     - "Train, holdout, and stress metrics must remain separated."
     - "No exactness or broad-range wording."
   current_results:
     - "results/EXP-0011/"
     - "docs/results/anharmonic-oscillator-summary.md"
+    - "docs/reviews/first-agent-validated-replay.md"
   open_questions:
-    - "Which candidate limits are useful enough to become a public replay capsule?"
+    - "Which CLAIM-0009 wording, if any, is supportable from the AGENT_VALIDATED range-limited benchmark?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-15"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "docs/status.md"
-    notes: "Quality-floor benchmark that is useful for replay and range-limit discipline."
+    source: "TASK-0758 science-director routing"
+    notes: "Quality-floor benchmark now has a concrete maintainer evidence-handoff task; avoid broad candidate expansion."

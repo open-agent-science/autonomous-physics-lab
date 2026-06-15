@@ -1,0 +1,58 @@
+id: TASK-0760
+title: "Assemble CLAIM-0001 Pendulum evidence handoff"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Route mature Pendulum benchmark evidence toward a maintainer claim decision instead of another formula search."
+  - "Combine positive range-limited validation and negative overfit evidence into one bounded review packet."
+  - "Keep public Pendulum wording conservative until claim status changes by maintainer review."
+
+input:
+  mode: planning_only
+  related_domain: pendulum_formula_falsification
+  related_objects:
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "results/EXP-0001/RUN-0003/result.yaml"
+    - "results/EXP-0001/RUN-0006/result.yaml"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    Pendulum has both mature range-limited benchmark evidence and a newer
+    AGENT_PUBLISHED overfit/negative result. The next useful promotion-lane
+    action is a maintainer-facing evidence handoff for CLAIM-0001, with clear
+    separation between validated benchmark support and any replay-pending
+    negative evidence.
+
+requirements:
+  - "Summarize the positive range-limited Pendulum evidence and the RESULT-0017 overfit/negative evidence separately."
+  - "State whether RESULT-0017 has completed Gate B at the time of the handoff; if not, mark it replay-pending and do not rely on it as validated memory."
+  - "Map the evidence to CLAIM-0001 wording and identify any exactness, global, or out-of-range wording that remains unsupported."
+  - "Present maintainer decision options: leave DRAFT, revise wording, request Gate B replay first, or promote after maintainer review."
+  - "Do not edit CLAIM-0001 status, create knowledge artifacts, rerun formula discovery, or claim exact/global pendulum discovery."
+
+accepted_outputs:
+  - "docs/reviews/claim-0001-pendulum-evidence-handoff.md"
+  - "output-routing summary with claim impact, knowledge impact, and maintainer decision blocker"
+
+result_artifact_policy:
+  required: false
+  reason: "Evidence-handoff task for existing Pendulum artifacts; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/claim-0001-pendulum-evidence-handoff.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

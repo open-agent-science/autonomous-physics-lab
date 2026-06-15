@@ -129,16 +129,14 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "frozen baseline, sandbox diagnostics, Research Factory available, NMD-0002 underpowered, NMD-0003 source-gated training surface ready for the first large factory sprint"
+  current_stage: "frozen baseline, sandbox diagnostics, RESULT-0018 AGENT_VALIDATED diagnostic memory, reveal scoring blocked, and one non-F2 no-leakage lane selection queued"
   recommended_parallel_agents: 3
-  coordination_notes: "Parallel work is useful when lanes are disjoint: NMD-0003 factory sprint execution, NMD-0002 uncertainty controls, negative/preflight packaging, reveal-readiness, or independent replay/validation of already landed sandbox evidence. Do not launch another full Nuclear factory sprint on NMD-0002."
+  coordination_notes: "Parallel work is useful when lanes are disjoint: reveal-checklist repair, non-F2 lane selection, and evidence packaging. Do not launch another broad F2 or NMD-0002 factory sprint."
   best_next_actions:
-    - task_id: TASK-0517
-      label: "Run Nuclear factory sprint on NMD-0003 measured training surface"
-    - task_id: TASK-0518
-      label: "Run NMD-0002 uncertainty perturbation control as robustness-only evidence"
-    - task_id: TASK-0477
-      label: "Package Nuclear negative-result evidence card"
+    - task_id: TASK-0714
+      label: "Repair reveal-readiness checklist references without scoring reveal rows"
+    - task_id: TASK-0746
+      label: "Select one bounded non-F2 no-leakage hypothesis lane"
   required_gates:
     - "Use the source-gated NMD-0003 measured-row training surface and frozen split manifest for the next broad Nuclear factory sprint."
     - "No reveal scoring before a source-grade no-peek release passes preflight."
@@ -146,6 +144,7 @@ portfolio:
     - "Result-promotion routing must follow docs/result-promotion-protocol.md."
   current_results:
     - "results/EXP-0012/RUN-0001/result.yaml"
+    - "docs/reviews/nuclear-result0018-diagnostic-negative-memory-and-next-lane.md"
     - "agent_runs/AGENT-RUN-0052/report.md"
     - "docs/reviews/nuclear-training-slice-expansion-feasibility.md"
     - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
@@ -155,14 +154,14 @@ portfolio:
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
   open_questions:
-    - "Does the Research Factory produce any shortlist on NMD-0003 beyond underpowered NMD-0002 behavior?"
-    - "Would F2 require a finer residual-free taxonomy or the larger NMD-0003 training slice before another test?"
+    - "Which non-F2 lane is scientifically distinct enough to justify one bounded sprint?"
+    - "Would any future F2 work require a new taxonomy rather than another audit of the same signal?"
     - "What future source can satisfy the reveal-readiness checklist?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-01"
+    last_reviewed: "2026-06-15"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "TASK-0479, TASK-0507, TASK-0516, and TASK-0517 unblock"
-    notes: "Flagship lane remains high-value. The first full Research Factory sprint on NMD-0002 produced no shortlist and is underpowered; TASK-0516 has now landed the source-gated NMD-0003 measured-row training surface needed for the first large factory sprint. Keep reveal-readiness separate from training expansion."
+    source: "RESULT-0018 and TASK-0746 science-director routing"
+    notes: "Flagship lane remains high-value, but the current useful work is reveal readiness and one genuinely distinct non-F2 lane. Keep F2 diagnostic/inconclusive until stronger controls exist."

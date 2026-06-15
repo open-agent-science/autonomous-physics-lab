@@ -89,10 +89,10 @@ handoff_requires:
   - maintainer_decision_requested
 
 portfolio:
-  status: scaffold
+  status: active_secondary
   domain: cross_domain_physics
   surface_type: formula_audit
-  lifecycle_stage: scaffold
+  lifecycle_stage: active_benchmark
   activity_status: active
   curator:
     primary_pool: verifier_quality_floor
@@ -104,27 +104,30 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "campaign scaffold and candidate slate; first source/baseline planning task is ready"
+  current_stage: "exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L Route 2 has sandbox-pass evidence but is not Gate-A-ready"
   recommended_parallel_agents: 1
-  coordination_notes: "Use one formula slice at a time until source, schema, baseline, and holdout conventions are proven."
+  coordination_notes: "Use one formula slice at a time. For Stellar M-L, run controls and split sensitivity before any RESULT packaging."
   best_next_actions:
-    - task_id: TASK-0444
-      label: "Plan Stellar Mass-Luminosity OOD source and baseline"
+    - task_id: TASK-0759
+      label: "Run Stellar M-L stage-control, null/shuffle, split-sensitivity, and baseline-adequacy audit"
   required_gates:
-    - "Source and range assumptions before metrics."
-    - "Baseline and OOD failure-map plan."
+    - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
+    - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
     - "No universal formula-audit claims."
   current_results:
     - "docs/campaigns/textbook-formula-audit.md"
     - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "results/EXP-0013/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-route2-local-benchmark.md"
+    - "docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md"
   open_questions:
-    - "Which source snapshot and baseline should define the Stellar M-L first slice?"
-    - "What public wording keeps formula audits useful without overclaiming?"
+    - "Does the Stellar M-L Route 2 sandbox-pass survive stage restriction, null controls, and split sensitivity?"
+    - "Is a stronger piecewise/stage-aware baseline required before Gate A packaging?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-15"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
-    review_reason: planning_scaffold
-    source: "TASK-0438"
-    notes: "Best public-friendly entry lane once the first source/baseline plan lands."
+    review_reason: benchmark_monitoring
+    source: "TASK-0753 and TASK-0759 science-director routing"
+    notes: "Public-friendly entry lane has one validated exact-reference result and one promising empirical sandbox signal; do not package Stellar M-L until controls pass."

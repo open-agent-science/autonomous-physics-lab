@@ -176,14 +176,12 @@ Current task posture:
 
 Safe next contributions are:
 
-- planning, scope, and limitation notes;
-- direct-measurement row-level dataset curation that can re-run the
-  `TASK-0283` readiness gate;
-- a maintainer-approved waiver package if the first benchmark is intentionally
-  scoped as calibration-curve consistency rather than measurement-versus-model;
-- deterministic source-artifact packaging for Vossmeyer 1994, Almeida 2023,
-  Norris-Bawendi 1996 after a maintainer-provided source copy, or an equivalent
-  open direct-table source before any direct band-edge row seed is added;
+- Almeida 2023 size-axis digitization with point provenance, axis calibration,
+  uncertainty notes, and inclusion/exclusion states;
+- direct Almeida row-level dataset curation only if the digitization package can
+  re-run the `TASK-0283` / `TASK-0293` readiness gate;
+- a precise digitization blocker if the maintainer-supplied figure raster or
+  tool-run provenance is insufficient;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
