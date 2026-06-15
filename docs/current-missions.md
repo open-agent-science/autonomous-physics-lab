@@ -44,10 +44,7 @@ campaign's `agent_capacity` block in
 [`campaign_profiles/_catalog.yaml`](../campaign_profiles/_catalog.yaml) (the
 generated portfolio index) and
 query the on-demand task-to-campaign index
-(`python3 scripts/apl_task_campaign_index.py`). For a curator view that ranks
-campaigns by open-data availability and assigns each a bounded, parallel-safe
-lane (open-data parallel leads: Materials and Stellar M-L), see the
-[portfolio open-data lane map](reviews/portfolio-open-data-lane-map.md).
+(`python3 scripts/apl_task_campaign_index.py`).
 
 ## Recommended Mission Now
 
