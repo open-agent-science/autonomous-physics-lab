@@ -1,0 +1,146 @@
+generated_at: '2026-06-15T06:18:04.817202+00:00'
+result_id: RESULT-0020
+run_id: RUN-0007
+experiment_id: EXP-0006
+title: Dimensional Analysis Validator Live 74-Item Replay
+hypothesis_id: HYP-0006
+task_id: TASK-0750
+engine_version: 0.1.0
+git_commit: f47c86ca4df8b059a5b9482c758bc432a82feed0
+command: python -m physics_lab.cli run examples/dimensional_analysis_live_74.yaml
+  --output-dir results/EXP-0006/RUN-0007
+input_file_hashes:
+  config:
+    path: results/EXP-0006/RUN-0007/inputs/config.yaml
+    sha256: ef6e792a5734e209e2c97eca3d3606a9648d4be6c5aba341aa0bf8ae576187b5
+  fixture:
+    path: results/EXP-0006/RUN-0007/inputs/fixture.yaml
+    sha256: 2717de440c8718e24d341be0037bbeda043abca0fe3381a5e2b5842f701d3b42
+  experiment:
+    path: results/EXP-0006/RUN-0007/inputs/experiment.yaml
+    sha256: c3b9ef8b620fa972256d88f0ad8ba53a55e70adfd9735979249f1f13e7bd180c
+  hypothesis:
+    path: results/EXP-0006/RUN-0007/inputs/hypothesis.yaml
+    sha256: 9b2d287dee14bd8ada684f668ecaf92eb4471981a14b853239824c362ada1375
+  task:
+    path: results/EXP-0006/RUN-0007/inputs/task.yaml
+    sha256: a64132cdc2416f2c9a45ee84cf24547a50c4f1f8513b070dd162ee7357130425
+code_reference: physics_lab/workflows/dimensional_validator.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- Dimension-only agreement is formula-quality evidence, not proof of numerical correctness,
+  empirical validity, or physical truth.
+- KNOWN_LIMIT_FAIL rows are treated as dimensionally valid because numerical and regime
+  limits are outside validator scope.
+- Curated dimensionally balanced SUSPICIOUS rows rely on explicit benchmark metadata;
+  the validator does not infer semantic emptiness or missing dimensionless factors
+  unaided.
+- This result is restricted to the frozen 74-item frozen_live_74 input snapshot.
+- SUSPICIOUS items with explicit dimensional mismatch are classified INVALID.
+- Unit symbol table covers SI base units and common derived units only.
+- Natural-unit or Gaussian-unit formulas are outside scope.
+best_verdict: VALID
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: VALID
+  published_by:
+    contributor_id: romanhladun24-dot
+    github_username: romanhladun24-dot
+    agent_tool: Codex
+    model_version: GPT-5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: >
+    The committed deterministic dimensional-validation workflow replayed the
+    checksum-pinned 74-item challenge set with 74/74 agreement, zero
+    disagreements, and zero inconclusive rows. The VALID verdict applies only
+    to agreement with the curated dimensional benchmark policy and does not
+    establish numerical correctness, empirical validity, or physical truth.
+  followup_for_maintainer: >
+    Keep RESULT-0020 at AGENT_PUBLISHED until an independent Gate B replay or
+    maintainer review occurs. Do not promote CLAIM-0005 or create a knowledge
+    endorsement from this result automatically.
+comparison_summary:
+- target_id: target_agreement
+  label: Agreement fraction target
+  reference_value: 0.9
+  observed_value: 1.0
+  unit: null
+  absolute_difference: 0.1
+  relative_difference: 0.111111
+  notes: Validator agreed with 74/74 curated labels; threshold 90%.
+uncertainty_summary:
+  method: binomial standard error sqrt(p(1-p)/n) on agreement fraction
+  observed_uncertainty: 0.0
+  reference_uncertainty: 0.0
+  combined_uncertainty: 0.0
+  z_score: null
+  within_combined_uncertainty: false
+  notes: Binomial standard error on the agreement fraction. Reference uncertainty
+    is 0 because the threshold is a fixed target.
+verification:
+  passed: true
+  checks:
+  - name: challenge_set_loaded
+    status: PASS
+    details: Loaded 74 items from the frozen_live_74 challenge-set scope.
+    metrics:
+      item_count: 74
+  - name: challenge_set_declared_total_matches_items
+    status: PASS
+    details: Challenge-set metadata declares total_items=74; parsed 74 items.
+    metrics:
+      declared_total_items: 74
+      parsed_item_count: 74
+  - name: inconclusive_items_within_mvp_tolerance
+    status: PASS
+    details: All items produced a definite verdict.
+    metrics:
+      inconclusive_count: 0
+      inconclusive_limit: 1
+  - name: agreement_fraction
+    status: PASS
+    details: Validator agreed with 74/74 curated labels (100.0%), threshold 90%.
+    metrics:
+      agree: 74
+      total: 74
+      agreement_fraction: 1.0
+      threshold: 0.9
+  - name: zero_disagreement_ledger
+    status: PASS
+    details: The deterministic replay produced no disagreements with the 74 curated
+      benchmark expectations.
+    metrics:
+      disagreement_count: 0
+      disagreement_ids: none
+  - name: frozen_input_checksum
+    status: PASS
+    details: The frozen publication fixture is checksum-pinned and byte-identical
+      to the live challenge set at the publication code commit.
+    metrics:
+      fixture_sha256: 2717de440c8718e24d341be0037bbeda043abca0fe3381a5e2b5842f701d3b42
+      source_sha256_at_freeze: 2717de440c8718e24d341be0037bbeda043abca0fe3381a5e2b5842f701d3b42
+  - name: protected_result_not_rewritten
+    status: PASS
+    details: RESULT-0020 and RUN-0007 are new identities; frozen RESULT-0007 and
+      EXP-0006/RUN-0006 remain unchanged.
+    metrics:
+      protected_result_rewrite: false
+artifacts:
+  report: results/EXP-0006/RUN-0007/report.md
+  metrics: results/EXP-0006/RUN-0007/metrics.json
+  claim_update: results/EXP-0006/RUN-0007/claim_update.md
+  claim_update_patch: results/EXP-0006/RUN-0007/claim_update.patch.md
+  knowledge_update: results/EXP-0006/RUN-0007/knowledge_update.md
+  knowledge_update_patch: results/EXP-0006/RUN-0007/knowledge_update.patch.md
+  review_summary: results/EXP-0006/RUN-0007/review_summary.md
+  review_metadata: results/EXP-0006/RUN-0007/review_metadata.yaml

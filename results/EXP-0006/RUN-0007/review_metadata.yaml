@@ -1,0 +1,18 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0020
+run_id: RUN-0007
+experiment_id: EXP-0006
+claim_id: CLAIM-0005
+knowledge_id: KNOW-0004
+generated_at: '2026-06-15T06:18:04.817202+00:00'
+proposed_claim_status: DRAFT
+required_human_review: true
+evidence_basis:
+- RESULT-0020
+claim_target_file: claims/CLAIM-0005-dimensional-analysis-validator.md
+knowledge_target_file: knowledge/physics_validation/dimensional_analysis_validator.md
+patch_artifacts:
+  claim_patch: results/EXP-0006/RUN-0007/claim_update.patch.md
+  knowledge_patch: results/EXP-0006/RUN-0007/knowledge_update.patch.md
+  review_summary: results/EXP-0006/RUN-0007/review_summary.md
