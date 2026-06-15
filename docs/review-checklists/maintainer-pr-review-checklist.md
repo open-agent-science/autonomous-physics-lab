@@ -14,6 +14,9 @@ Use this checklist during pre-merge maintainer review.
 - Branch follows `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
 - `contributor-id` is the lowercased GitHub username when available, or a stable
   maintainer-approved short id otherwise.
+- `contributor-id` was sourced from authenticated local GitHub identity or a
+  maintainer-confirmed local checkout identity, not inferred from unrelated PR
+  authors or examples.
 - PR Contributor ID metadata matches the contributor segment in the branch.
 - PR title follows `TASK-XXXX: ...`.
 - PR metadata block is filled in.

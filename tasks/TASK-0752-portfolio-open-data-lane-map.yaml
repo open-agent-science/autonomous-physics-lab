@@ -1,0 +1,62 @@
+id: TASK-0752
+title: "Record a dated open-data frontier priority curator memo"
+type: dataset_workflow
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Record one dated curator finding (open-data frontier leads: Materials, Stellar) without creating a competing live strategy surface."
+  - "Per maintainer review of PR #1092: do NOT add a new long-lived board/lane-map; canonical strategy stays in missions/current.yaml, docs/current-missions.md, docs/campaigns/*, and campaign_profiles/*."
+  - "Generalize the open-licensed-first rule (TASK-0751) as a dated prioritization note, not as a maintained portfolio surface."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_source_acquisition
+  planning_context: >
+    Maintainer-directed create-and-execute task. The project already produces
+    durable outputs (10 CLAIMs) only from the mature classical/particle
+    campaigns; the source-readiness frontier has produced no promoted RESULT yet
+    because it is gated on source-to-row acquisition. Two frontier campaigns are
+    now near a first promotable result on OPEN data and can be driven in
+    parallel: Materials (MD-0002 formation-energy chain) and Stellar M-L (Route 2
+    DEBCat SANDBOX_PASS). Maintainer review of PR #1092 marked the original live
+    "lane map" board as needs-changes (it duplicated missions/current.yaml,
+    docs/current-missions.md, and campaign docs and would go stale). This task
+    was therefore reduced to a single dated curator memo with no live-lane table
+    and no current-missions pointer; durable strategic direction belongs in the
+    canonical mission and campaign surfaces.
+  related_objects:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/reviews/quantum-open-licensed-first-source-selection-application.md"
+    - "docs/current-missions.md"
+    - "missions/current.yaml"
+    - "campaign_profiles/"
+
+requirements:
+  - "Record the dated finding (open-data frontier leads) as an explicitly dated, single-use memo with no live-lane table."
+  - "Do NOT add a new long-lived board/strategy/status surface or a strong pointer from current-missions; that duplicates missions/current.yaml, docs/current-missions.md, and campaign docs."
+  - "Route durable strategic direction to missions/current.yaml / docs/current-missions.md and per-campaign conclusions to docs/campaigns/* / campaign_profiles/*."
+  - "Do not abandon any campaign, weaken any source/license/holdout/overclaim gate, curate rows, fetch live data, or promote a claim."
+
+accepted_outputs:
+  - "docs/reviews/open-data-frontier-priority-memo-2026-06-15.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Dated curator prioritization memo; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/open-data-frontier-priority-memo-2026-06-15.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

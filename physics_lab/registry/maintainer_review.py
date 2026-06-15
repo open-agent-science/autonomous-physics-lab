@@ -1027,12 +1027,18 @@ def publication_license_blockers(root: Path, changed_files: tuple[str, ...]) -> 
     The check is intentionally conservative around raw upstream files: deletion
     is allowed, metadata/provenance files are allowed, but tracked source PDFs
     and raw source-artifact payloads need machine-readable license evidence.
+    Source-artifact directories are rights-sensitive even outside ``data/`` so
+    future lanes cannot bypass review by moving raw upstream bytes elsewhere.
     """
     blockers: list[str] = []
     for changed_file in changed_files:
         relative_path = Path(changed_file)
         absolute_path = root / relative_path
-        if not changed_file.startswith("data/") or not absolute_path.exists():
+        in_source_artifacts = "source_artifacts" in relative_path.parts
+        if (
+            not changed_file.startswith("data/")
+            and not in_source_artifacts
+        ) or not absolute_path.exists():
             continue
         if absolute_path.is_dir():
             continue

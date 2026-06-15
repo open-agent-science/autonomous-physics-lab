@@ -1,0 +1,59 @@
+id: TASK-0753
+title: "Score Stellar M-L Route 2 promotion-readiness toward a first RESULT candidate"
+type: scientific_validation
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Decide whether the Route 2 SANDBOX_PASS is ready for Gate A RESULT promotion or what controlled steps remain."
+  - "Record a dated Stellar readiness scorecard without creating a live campaign-routing surface or premature RESULT promotion."
+  - "Preserve the storage/redistribution boundary and the no-universal-claim discipline."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  planning_context: >
+    Maintainer-directed create-and-execute readiness scorecard. TASK-0740 ran
+    the first empirical Stellar M-L Route 2
+    benchmark on locally-regenerated DEBCat rows and recorded SANDBOX_PASS: the
+    frozen alpha L=(M/M_sun)^3.5 beat the per-mass-band train-median null on
+    validation and holdout in the 0.5-2.0 M_sun primary range (holdout MAE
+    0.347 dex vs null 0.445 dex). This task scores whether that evidence is ready
+    for a Gate A RESULT candidate or what controlled steps remain. It scores no
+    new metrics and promotes no result.
+  related_objects:
+    - "docs/reviews/stellar-ml-route2-local-benchmark.md"
+    - "agent_runs/AGENT-RUN-0070/metrics.json"
+    - "agent_runs/AGENT-RUN-0070/report.md"
+    - "docs/reviews/stellar-ml-benchmark-readiness-after-route2.md"
+    - "docs/result-promotion-protocol.md"
+
+requirements:
+  - "Use only committed Route 2 benchmark evidence; run no new metric, fit, or fetch."
+  - "Score Gate A readiness as a checklist (what is ready vs what blocks) and give a single verdict."
+  - "If not ready, name local follow-up checks before a first RESULT candidate (stage control, null/split-sensitivity audit, baseline-comparison decision, Gate A packaging)."
+  - "State that the scorecard is not a live campaign board, mission-priority surface, or canonical routing map."
+  - "Do not promote a RESULT, make a universal mass-luminosity claim, commit full DEBCat rows, or weaken the storage/holdout/overclaim boundary."
+
+accepted_outputs:
+  - "docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Promotion-readiness scorecard; no scientific RESULT or PRED artifact is created in this task."
+  evidence:
+    - "docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

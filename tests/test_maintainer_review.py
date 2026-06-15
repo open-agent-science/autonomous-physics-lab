@@ -291,6 +291,20 @@ def test_publication_license_ignores_deleted_raw_artifact(tmp_path: Path) -> Non
     assert publication_license_blockers(tmp_path, ("data/atomic_clocks/source_artifacts/paper.pdf",)) == ()
 
 
+def test_publication_license_blocks_source_artifact_outside_data(tmp_path: Path) -> None:
+    payload_path = tmp_path / "docs" / "reviews" / "source_artifacts" / "table-scan.png"
+    payload_path.parent.mkdir(parents=True)
+    payload_path.write_bytes(b"png fixture")
+
+    blockers = publication_license_blockers(
+        tmp_path,
+        ("docs/reviews/source_artifacts/table-scan.png",),
+    )
+
+    assert len(blockers) == 1
+    assert "raw source_artifacts payload" in blockers[0]
+
+
 def test_review_protocol_classifies_supported_review_lanes() -> None:
     assert (
         classify_review_protocol(
@@ -729,6 +743,19 @@ def test_decision_regression_hits_flag_static_agent_state_layers() -> None:
 
     assert any("campaign task-index" in item for item in hits)
     assert any("source-of-truth" in item for item in hits)
+
+
+def test_decision_regression_hits_flag_live_campaign_routing_surfaces() -> None:
+    added_lines = (
+        "Portfolio Open-Data Lane Map",
+        "Parallel-safe campaign prioritization should use this lane map for current work.",
+        "See docs/reviews/portfolio-open-data-lane-map.md for current campaign priority ranking.",
+    )
+
+    hits = decision_regression_advisory_hits(added_lines)
+
+    assert any("campaign/mission routing surface" in item for item in hits)
+    assert any("duplicate routing/prioritization surface" in item for item in hits)
 
 
 def test_decision_regression_hits_ignore_guardrail_context() -> None:

@@ -87,6 +87,10 @@ Every contribution must follow this flow — no exceptions:
 Use your lowercased GitHub username as `contributor-id` when available;
 otherwise use a stable maintainer-approved short id. Keep the separate GitHub
 username PR metadata field filled in, even when it matches `contributor-id`.
+Prefer the authenticated local GitHub identity (`gh auth status` or
+`gh api user --jq .login`) when available; if that is unavailable, use local
+Git config only as a clue and ask the maintainer when the checkout identity is
+ambiguous.
 
 Example: `agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams`
 

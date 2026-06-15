@@ -1,0 +1,47 @@
+proposal_id: 20260615-gladunrv-vossmeyer-table-inspection
+title: Record Vossmeyer Table 1 maintainer inspection
+status: PROPOSED
+type: dataset_workflow
+priority: medium
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: codex
+strategy_alignment:
+- Preserve maintainer-provided source-access evidence durably while respecting published-source
+  and open-licensed-first rules.
+- Do not lose a useful Vossmeyer direct-table lead, but keep Tier 1/2 open tabular scout as
+  the preferred next Quantum source step.
+summary: Preserve the maintainer-inspected Vossmeyer 1994 Table 1 source-surface evidence
+  without committing ACS PDF, screenshots, or value-bearing rows.
+rationale: The maintainer has inspected the Vossmeyer Table 1 surface and confirmed page,
+  filename, byte size, row count, columns, and footnotes, but checksum and redistribution
+  permission are intentionally deferred. This should become a bounded metadata/source-access
+  task, not an immediate row-curation task.
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+  - data/acquisition_queue.yaml
+  - data/quantum_dots/source_manifest.yaml
+  - docs/reviews/quantum-vossmeyer-source-copy-handoff.md
+  - docs/reviews/quantum-open-licensed-first-source-selection-application.md
+  planning_context: Set up a future canonical source-access memory task for Vossmeyer 1994
+    CdS Table 1 after TASK-0751 made closed-source Tier 4 candidates fallback-only.
+requirements:
+- Record DOI 10.1021/j100082a044, page 7667, Table 1 surface, filename j100082a044.pdf, byte_size
+  1669226, and checksum_sha256 not_recorded.
+- Do not commit the ACS PDF, screenshots, page scans, full table image, or a verbatim publisher
+  table reproduction.
+- Do not create qd-*.yaml rows, benchmark inputs, metrics, RESULT/PRED artifacts, claims,
+  or knowledge promotions.
+- Classify Vossmeyer as a closed-source Tier 4 fallback under TASK-0751; value-bearing extraction
+  requires explicit future license/ToS review or maintainer-approved row-use decision.
+accepted_outputs:
+- metadata-only Vossmeyer maintainer-inspection review note
+- source_manifest or acquisition_queue update that changes access-blocker wording without
+  adding rows
+- focused validation of docs links and strict repository validation
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
