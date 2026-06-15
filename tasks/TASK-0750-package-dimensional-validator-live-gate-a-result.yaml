@@ -36,6 +36,7 @@ requirements:
   - "Replay the Dimensional Validator deterministically from the frozen input and record total count, verdict counts, agreement fraction, zero-disagreement ledger, command, repository commit, and input hashes."
   - "Run `scripts/apl_check_result_publication.py` against the concrete result candidate before assigning `AGENT_PUBLISHED`."
   - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
+  - "Add `RESULT-0020` only as an evidence reference in `hypotheses/HYP-0006-dimensional-analysis-validator.yaml`; do not change the hypothesis status or verdict."
   - "Leave Gate B as not attempted and do not promote `CLAIM-0005`, create a knowledge endorsement, or claim physical truth."
   - "State that dimensional consistency is formula-quality evidence only, not proof of numerical correctness, empirical validity, or general symbolic intelligence."
 
@@ -44,6 +45,7 @@ accepted_outputs:
   - "results/EXP-0006/RUN-0007/inputs/fixture.yaml (frozen 74-item input)"
   - "results/EXP-0006/RUN-0007/metrics.json and report.md"
   - "results/EXP-0006/RUN-0007/gate_a_report.md"
+  - "hypotheses/HYP-0006-dimensional-analysis-validator.yaml (evidence reference only; status and verdict unchanged)"
 
 result_artifact_policy:
   required: true
