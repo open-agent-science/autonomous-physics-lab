@@ -22,4 +22,3 @@
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)
 - `TASK-0693` - Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `data_acquisition`)
-- `TASK-0745` - Plan Exoplanet EXO-0003 trigger after monitor no-notify result (`scientific_validation`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
