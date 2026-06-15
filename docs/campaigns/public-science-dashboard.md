@@ -150,7 +150,7 @@ repository, or DOI.
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build direct Almeida InP size/energy rows before running size-effect baselines? | Calibration-derived rows remain excluded; Almeida 2023 is now license-confirmed and checksum-pinned, with the optical-energy axis recorded. | Almeida size-axis digitization and row-readiness gate (`TASK-0755`). | Direct rows plus readiness rerun, or a precise digitization blocker; not model metrics. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can the first Yb/Sr cross-source diagnostic become durable memory without hiding covariance/source limits? | Beloy 2021 and Nemitz 2016 now support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited. | `TASK-0756` result-path decision, with optional `TASK-0742` Pizzocaro third-source row-admissibility first. | A route decision or third-source admissibility ledger, not constants-drift metrics. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L Route 2 has a sandbox-pass but scorecard says `NOT_YET_GATE_A_READY`. | Stage-control, null/shuffle, split-sensitivity, and baseline-adequacy audit for Stellar M-L. | A controlled readiness decision before any empirical result package. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is acquired, validated, and holdout-frozen. | `TASK-0703` MD-0002 formation-energy retest under the frozen control plan. | A pinned MD-0002 benchmark, not a material recommendation. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is acquired, validated, holdout-frozen, and benchmarked as sandbox evidence. | Route the `TASK-0703` sandbox-pass evidence before any canonical result package. | A publication-route decision, not a material recommendation. |
 
 ## What Is Interesting Right Now
 
@@ -243,9 +243,10 @@ The first pinned dataset is small by design, openly licensed, validated in the
 repo, and now has holdout, citation metadata, a first conservative baseline
 benchmark, independent replay, a do-not-promote decision, formation-energy null
 controls, and split-sensitivity evidence. Formation energy is the stronger
-axis; band gap stays diagnostic and split-fragile. `MD-0002` acquisition is now
-authorized, so the next public artifact should be a pinned wider dataset and
-formation-energy benchmark, not a model leaderboard or material recommendation.
+axis; band gap stays diagnostic and split-fragile. `MD-0002` is now acquired,
+validated, holdout-frozen, and formation-energy benchmarked as sandbox evidence,
+so the next public artifact should be a route decision for that evidence, not a
+model leaderboard or material recommendation.
 
 Why it matters:
 

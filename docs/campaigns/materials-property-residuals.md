@@ -88,8 +88,9 @@ That first acquisition attempt (`TASK-0699`, DONE) hit a cap-exceeded stop, so
 DONE. `TASK-0738` then acquired and committed the narrowed, maintainer-accepted
 362-row-per-axis MD-0002 snapshot and normalized combined dataset. `TASK-0702`
 validated the acquisition and confirmed the deterministic no-peek holdout
-freeze. The current next benchmark task is `TASK-0703`, the formation-energy
-retest under the predeclared control plan.
+freeze. `TASK-0703` then ran the formation-energy retest under the predeclared
+control plan and preserved the outcome as sandbox evidence, not a canonical
+result or materials claim.
 
 ## Admissible Source Classes
 
@@ -176,12 +177,16 @@ cap-exceeded stop), and `TASK-0738` (narrowed acquisition) are complete at the
 data-artifact level. `TASK-0738` accepted a 362-row-per-axis slice below the
 original 600-row floor and committed the pinned snapshot / normalized combined
 dataset. `TASK-0702` validated checksum/source/attribution consistency and
-confirmed the deterministic no-peek holdout freeze. The current bottleneck is
-now the `TASK-0703` formation-energy retest. The numbered path below is now:
+confirmed the deterministic no-peek holdout freeze. `TASK-0703` produced a
+sandbox-pass formation-energy benchmark package at
+`agent_runs/AGENT-RUN-0072/` and
+`docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md`.
+The numbered path below is now:
 
-1. **Formation-energy retest** — run `TASK-0703` under the frozen dataset,
-   holdout binding, and predeclared controls. Band gap remains diagnostic-only
-   unless its control evidence improves.
+1. **Publication-route decision** — decide whether the `TASK-0703` sandbox-pass
+   evidence warrants a dedicated canonical result-publication task with explicit
+   protected-path authority, or should remain sandbox memory. Band gap remains
+   diagnostic-only unless its control evidence improves.
 
 ## Why It Matters
 

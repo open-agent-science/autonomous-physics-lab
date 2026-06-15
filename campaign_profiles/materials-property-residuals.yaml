@@ -86,12 +86,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot acquired, validated, and no-peek holdout-frozen"
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot acquired, validated, holdout-frozen, and formation-energy benchmarked as sandbox evidence"
   recommended_parallel_agents: 1
-  coordination_notes: "Use the frozen MD-0002 dataset/control plan for the next benchmark; avoid re-auditing MD-0001 unless promotion routing explicitly asks for it."
+  coordination_notes: "Use the frozen MD-0002 dataset/control plan and TASK-0703 sandbox benchmark evidence for route decisions; avoid re-auditing MD-0001 unless promotion routing explicitly asks for it."
   best_next_actions:
-    - task_id: TASK-0703
-      label: "Run MD-0002 formation-energy retest under the frozen control plan"
+    - task_id: null
+      label: "Decide whether the TASK-0703 sandbox-pass evidence warrants an explicit result-publication task, or should remain sandbox memory"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -104,8 +104,10 @@ portfolio:
     - "data/materials/md-0002/"
     - "docs/reviews/materials-md0001-split-sensitivity-audit.md"
     - "docs/reviews/materials-md0002-validation-and-holdout-freeze.md"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
+    - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Does the MD-0001 formation-energy signal survive on the wider MD-0002 snapshot?"
+    - "Should the TASK-0703 MD-0002 sandbox-pass evidence be packaged under a dedicated canonical result-publication task, or kept as sandbox memory?"
     - "Does band gap remain diagnostic-only after the wider snapshot?"
   curator_review:
     status: current
@@ -114,4 +116,4 @@ portfolio:
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
     source: "TASK-0702 and TASK-0703 MD-0002 routing"
-    notes: "No longer scaffold-only: MD-0002 is frozen and ready for the next formation-energy retest."
+    notes: "No longer scaffold-only: MD-0002 is frozen and TASK-0703 produced sandbox-pass formation-energy evidence; any canonical result package needs explicit publication authority."
