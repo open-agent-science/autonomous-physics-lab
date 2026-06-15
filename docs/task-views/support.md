@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0738` - Run narrowed MD-0002 maintainer-gated acquisition (`scientific_dataset`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
