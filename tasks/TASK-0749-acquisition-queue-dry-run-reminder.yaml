@@ -1,7 +1,7 @@
 id: TASK-0749
 title: "Add acquisition queue and dry-run reminder"
 type: dataset_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
