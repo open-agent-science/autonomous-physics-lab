@@ -15,4 +15,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0753` - Score Stellar M-L Route 2 promotion-readiness toward a first RESULT candidate (`scientific_validation`, priority `high`, difficulty `low`, domain `textbook_formula_audit`)
 - `TASK-0754` - Harden review-agent architecture and publication-rights risk gates (`repository_hardening`, priority `high`, difficulty `medium`, domain `maintainer_review`)
