@@ -1,0 +1,62 @@
+id: TASK-0756
+title: "Adjudicate Atomic Yb/Sr cross-source benchmark result path"
+type: research_quality_gate
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Route the completed TASK-0456 Yb/Sr cross-source diagnostic out of sandbox limbo into one explicit promotion decision."
+  - "Decide whether the first Atomic benchmark becomes a scoped result/dataset candidate, source-limited consistency memory, or stays diagnostic-only pending a third source."
+  - "Keep Atomic free of constants-drift, new-constant, or anomaly framing while still extracting durable scientific value from the first benchmark."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml"
+    - "tasks/TASK-0742-run-atomic-pizzocaro-row-admissibility-ledger.yaml"
+    - "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
+    - "docs/reviews/atomic-baseline-readiness-after-nemitz-acr0002.md"
+    - "agent_runs/AGENT-RUN-0071/metrics.json"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0456 produced APL's first Atomic Yb/Sr cross-source diagnostic:
+    Beloy 2021 and Nemitz 2016 agree at |z| = 1.78 within a predeclared 2-sigma
+    no-tension threshold, under COV_DIAGONAL_ONLY_DECLARED, but the comparison is
+    source-limited (Nemitz uncertainty ~6.7x Beloy) and uses only two rows. The
+    review note labels it exploratory and explicitly not a canonical result. This
+    diagnostic must not stay in indefinite sandbox limbo; this task decides its
+    route. It does not promote any claim, result, prediction, or knowledge
+    artifact and does not run new metrics.
+
+requirements:
+  - "Review the TASK-0456 metrics, the COV_DIAGONAL_ONLY_DECLARED independence banner, the source-limitation note, the no-peek manifest binding, and the two-row population limit."
+  - "Choose exactly one next route: RESULT_PROMOTION_PREFLIGHT, CONSISTENCY_NEGATIVE_MEMORY_CARD, THIRD_SOURCE_FIRST, or DO_NOT_PROMOTE."
+  - "If THIRD_SOURCE_FIRST is selected, tie the decision to TASK-0742 (Pizzocaro row-admissibility) as the path to reduce single-source dependence before any promotion."
+  - "State the promotion blocker or do-not-promote reason using docs/result-promotion-protocol.md vocabulary (for example underpowered_rows, source_blocker, control_sensitive, needs_maintainer_decision)."
+  - "Do not fit constants drift, infer new physics, merge direct and derived rows, create prediction entries, or promote any RESULT/CLAIM/KNOW artifact in this task."
+
+accepted_outputs:
+  - "docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md"
+  - "optional update to docs/campaigns/atomic-clock-residuals.md"
+  - "optional follow-up task recommendation (result-promotion preflight, consistency-memory card, or third-source curation)"
+
+result_artifact_policy:
+  required: false
+  reason: "Promotion-route adjudication gate; it selects a path and names blockers without creating a RESULT or PRED artifact."
+  evidence:
+    - "docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

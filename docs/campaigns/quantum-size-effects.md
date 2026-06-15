@@ -47,22 +47,26 @@ source-copy checksum/reuse decision) are both DONE and each preserved the same
 blocker: no redistributable source copy exists yet, so neither route can land
 direct rows.
 
-**Current decision point:** every ranked direct-table source
-(Norris-Bawendi, Kang-Wise, Almeida, Vossmeyer) has now been worked and
-preserved as a blocker, and the only committed rows remain calibration-derived.
-Further source-scout tasks would only add more blocker memory, so the source
-artifact task (`TASK-0741`) is held `BLOCKED` pending one maintainer go/no-go
-decision: (a) provide a legitimate, redistributable source copy for one ranked
-source so deterministic digitization can land direct rows; (b) approve the
-weaker calibration-curve consistency benchmark waiver (see the archived
-`TASK-0491` scorecard and
-[`docs/reviews/quantum-calibration-consistency-waiver-decision.md`](../reviews/quantum-calibration-consistency-waiver-decision.md));
-or (c) pause Quantum as documented source-blocked negative memory.
+**Current decision point (resolved):** the maintainer selected option (a) and
+`TASK-0741` (DONE) executed it. The Almeida 2023 InP CC-BY 4.0 source was
+chosen over Vossmeyer and over the calibration-consistency waiver; the article
+and SI were supplied locally, the CC-BY 4.0 license is confirmed on the
+version-of-record, and the source bytes are checksum-pinned (see
+[`docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md`](../reviews/quantum-almeida-2023-deterministic-source-artifact-package.md)).
+The deterministic optical-energy axis (six labeled lambda_1s samples,
+460-620 nm) is recorded. The **single remaining blocker** is the size-axis
+figure digitization: per-sample edge length / volume is figure-only
+(SI Figure S2b TEM histograms, Figure 1b sizing curve), so it needs a
+WebPlotDigitizer-class tool run before `qd-*.yaml` rows can be curated. That
+tool run plus the `TASK-0293` row-readiness gate rerun are queued as
+`TASK-0755`. Further source-scout tasks are not needed.
 
-**Expected next result:** a maintainer route decision among the three options
-above. The baseline benchmark remains blocked until real direct-measurement
-rows pass readiness or the calibration-consistency waiver is explicitly
-approved.
+**Expected next result:** `TASK-0755` produces either >=6 direct Almeida InP
+(size, energy) rows that re-run the `TASK-0293` readiness gate and can finally
+unblock the `TASK-0225` baseline, or a precise digitization tool-run blocker if
+the maintainer-supplied figure raster is not available for the run. The
+calibration-consistency waiver (option b) and pause (option c) are no longer the
+active path.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
