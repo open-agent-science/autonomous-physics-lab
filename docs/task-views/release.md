@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0754` - Harden review-agent architecture and publication-rights risk gates (`repository_hardening`, priority `high`, difficulty `medium`, domain `maintainer_review`)
