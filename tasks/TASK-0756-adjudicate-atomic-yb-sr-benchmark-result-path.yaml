@@ -1,7 +1,7 @@
 id: TASK-0756
 title: "Adjudicate Atomic Yb/Sr cross-source benchmark result path"
 type: research_quality_gate
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
