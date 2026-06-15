@@ -1,7 +1,7 @@
 id: TASK-0703
 title: "Run MD-0002 formation-energy baseline benchmark"
 type: scientific_benchmark
-status: READY
+status: IN_PROGRESS
 closeout: review
 difficulty: high
 priority: high

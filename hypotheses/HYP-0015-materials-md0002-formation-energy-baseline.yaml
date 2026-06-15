@@ -1,0 +1,43 @@
+id: HYP-0015
+title: "Cation-pair grouping can provide a scoped formation-energy baseline on frozen MD-0002 rows"
+domain: materials_property_residuals
+status: TESTING
+
+hypothesis:
+  statement: >
+    On the checksum-pinned MD-0002 stable ternary-oxide slice, a train-only
+    unordered cation-pair mean can reduce formation-energy holdout error
+    relative to global train statistics while surviving predeclared shuffle
+    controls and seeded split-sensitivity checks.
+  formula_candidates:
+    - "predicted formation energy = train mean for the row's unordered cation pair, with global-train-mean fallback"
+    - "predicted formation energy = train mean for the row's cation-family pair, with global-train-mean fallback"
+    - "predicted formation energy = train mean for the row's spacegroup, with global-train-mean fallback"
+
+assumptions:
+  - "Only committed Materials Project computed-DFT rows from MD-0002 are used."
+  - "Formation energy is evaluated separately from band gap."
+  - "The train/validation/holdout assignment and all control seeds were frozen before scoring."
+  - "A passing benchmark is evidence about a scoped baseline on this slice, not a materials law or experimental-property claim."
+
+variables:
+  formation_energy_per_atom:
+    unit: eV_per_atom
+    description: "Materials Project computed-DFT formation energy per atom"
+  cation_pair:
+    unit: categorical
+    description: "Unordered pair of the two non-oxygen cation elements"
+  spacegroup_symbol:
+    unit: categorical
+    description: "Exact committed Materials Project spacegroup label"
+
+evidence:
+  experiments:
+    - EXP-0015
+  results:
+    - RESULT-0021
+
+verdict: >
+  Scoped identity for TASK-0703. RESULT-0021 may establish VALID_IN_RANGE
+  benchmark behavior on the frozen MD-0002 computed-DFT slice only; it does not
+  establish a universal formation-energy relation or measured-material claim.
