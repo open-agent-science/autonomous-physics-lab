@@ -22,10 +22,14 @@ gate reruns that have kept the campaign at `PINNED_DATASET`. `TASK-0704`
 (DONE) curated and committed the Nemitz `ACR-0002` Yb/Sr row, so the
 second-source blocker that previously held the campaign is now cleared.
 Pizzocaro remains diagnostic-only: its post-PSD row-admissibility review
-preserved the aggregation blocker. The primary path to the first Yb/Sr
-benchmark is now the `TASK-0705` baseline-readiness gate rerun, which decides
-whether Atomic moves from `PINNED_DATASET` to `BASELINE_READY` and unblocks the
-`TASK-0456` benchmark. No real-row benchmark yet.
+preserved the aggregation blocker. `TASK-0705` (DONE) then classified Atomic as
+`BASELINE_READY` for exactly one narrow shape, and `TASK-0456` (DONE) ran that
+first benchmark: an exploratory, diagonal-only Yb/Sr cross-source consistency
+diagnostic between Beloy 2021 and Nemitz 2016. The first real-row benchmark now
+exists. The current blocker is no longer source readiness; it is a
+**promotion-route decision** for that completed diagnostic (`TASK-0753`),
+optionally preceded by a third Yb/Sr source via the Pizzocaro
+row-admissibility gate (`TASK-0742`) to reduce single-source dependence.
 
 ## Public Monitoring Snapshot
 
@@ -48,23 +52,29 @@ fitting constants drift yet.
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0704` (DONE) committed the Nemitz `ACR-0002` Yb/Sr
-row, completing the second-source curation step. The immediate Atomic path is
-now the `TASK-0705` baseline-readiness gate rerun, which uses only the
-committed Beloy and Nemitz row/source/covariance artifacts to classify Atomic
-as `BASELINE_READY` or not and to state whether `TASK-0456` may proceed. A
-secondary Pizzocaro path (`TASK-0742`, row-admissibility extraction ledger
-gate) may define a sensitivity-only observable-harmonization contract, but it
-should not be used as a benchmark row without that contract. `TASK-0652` also
+**Active next work:** `TASK-0704`, `TASK-0705`, and `TASK-0456` are all DONE:
+the Nemitz `ACR-0002` row was committed, the baseline-readiness gate classified
+Atomic `BASELINE_READY` for one narrow shape, and the first Yb/Sr cross-source
+diagnostic ran with verdict `CONSISTENT_WITHIN_UNCERTAINTY` (exploratory,
+diagonal-only, source-limited; see
+[atomic-yb-sr-cross-source-consistency-benchmark.md](../reviews/atomic-yb-sr-cross-source-consistency-benchmark.md)).
+The immediate path is now `TASK-0753` (adjudicate the benchmark result path:
+result-promotion preflight, source-limited consistency-memory card,
+third-source-first, or do-not-promote) and, optionally before any promotion,
+`TASK-0742` (Pizzocaro Yb/Sr row-admissibility extraction ledger gate) to add a
+third independent source. `TASK-0706` has landed the Pizzocaro
+observable-harmonization contract that `TASK-0742` depends on. `TASK-0652`
 pinned Lange/PTB Yb+ metadata, but that source is a separate Yb+ family (E3/Cs
 and E3/E2), not a Yb/Sr benchmark unblocker.
 
-**Expected next result:** a `TASK-0705` baseline-readiness verdict. If it
-returns `BASELINE_READY`, the first narrow Yb/Sr cross-source consistency
-benchmark (`TASK-0456`) can be unblocked and run on the committed Beloy and
-Nemitz rows. If it stays below readiness, the review preserves the exact
-remaining blocker (for example row-level holdout/no-peek assignment or
-covariance treatment) and Atomic stays source-gated.
+**Expected next result:** a `TASK-0753` route decision for the completed Yb/Sr
+diagnostic. The benchmark agreed at `|z| = 1.78` within a predeclared 2-sigma
+no-tension threshold, but is dominated by the Nemitz 2016 uncertainty
+(~6.7x Beloy 2021), so the decision must weigh its source-limited, two-row
+character. A `THIRD_SOURCE_FIRST` route would run `TASK-0742` toward a Pizzocaro
+third row before any promotion preflight; a `DO_NOT_PROMOTE` route preserves it
+as exploratory diagnostic memory. No constants-drift, new-constant, or anomaly
+framing is in scope.
 
 `TASK-0311` adds:
 
