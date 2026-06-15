@@ -67,17 +67,19 @@ def run_dimensional_validator_with_output(
     experiment_id = experiment["id"]
     hypothesis_id = hypothesis["id"]
 
-    # Locate the challenge set (dataset_path per experiment schema)
-    challenge_set_relative = experiment["data"]["dataset_path"]
+    # A successor run may bind a frozen challenge-set snapshot without
+    # mutating the experiment definition used by an earlier protected result.
+    challenge_set_relative = config.get(
+        "challenge_set_path",
+        experiment["data"]["dataset_path"],
+    )
     challenge_set_path = resolve_path(experiment_path, challenge_set_relative)
     # Agreement threshold encoded in comparison_targets[0].reference_value
     targets = experiment.get("comparison_targets") or []
     agreement_threshold: float = float(targets[0]["reference_value"]) if targets else 0.90
 
     # Determine output directory
-    result_root = Path(
-        resolve_path(config_path, config["result_root"])
-    )
+    result_root = Path(resolve_path(config_path, config["result_root"]))
     if output_dir is not None:
         run_dir = Path(output_dir).resolve()
     else:
@@ -91,6 +93,7 @@ def run_dimensional_validator_with_output(
         repo_root=repo_root,
         input_files={
             "config": config_path,
+            "fixture": challenge_set_path,
             "experiment": experiment_path,
             "hypothesis": hypothesis_path,
             "task": task_path(repo_root, task_id),
@@ -100,11 +103,10 @@ def run_dimensional_validator_with_output(
     challenge_snapshot_dir = run_dir / "inputs"
     challenge_snapshot_dir.mkdir(parents=True, exist_ok=True)
     import shutil
+
     shutil.copy2(challenge_set_path, challenge_snapshot_dir / "challenge_set.yaml")
 
-    challenge_set_data = (
-        yaml.safe_load(challenge_set_path.read_text(encoding="utf-8")) or {}
-    )
+    challenge_set_data = yaml.safe_load(challenge_set_path.read_text(encoding="utf-8")) or {}
 
     # Run validator
     item_results, summary = validate_challenge_set(challenge_set_data)
@@ -116,22 +118,33 @@ def run_dimensional_validator_with_output(
             f"but contains {summary.total} items."
         )
 
-    expected_item_count = experiment["data"].get("expected_item_count")
+    expected_item_count = config.get(
+        "expected_item_count",
+        experiment["data"].get("expected_item_count"),
+    )
     if expected_item_count is not None and summary.total != int(expected_item_count):
         raise ValueError(
             f"{experiment_id} benchmark scope expects {expected_item_count} items, "
             f"but {challenge_set_path} contains {summary.total}."
         )
-    benchmark_scope = experiment["data"].get("benchmark_scope", "unspecified")
+    benchmark_scope = config.get(
+        "benchmark_scope",
+        experiment["data"].get("benchmark_scope", "unspecified"),
+    )
+    result_title = str(config.get("result_title", experiment["title"]))
+    source_challenge_set_path = str(
+        config.get(
+            "challenge_set_source_path",
+            experiment["data"].get("source_challenge_set_path", challenge_set_relative),
+        )
+    )
 
     # Determine verdict
     agreement = summary.agreement_fraction
     best_verdict = "VALID" if agreement >= agreement_threshold else "INCONCLUSIVE"
 
     inconclusive_limit = 1
-    inconclusive_status = (
-        "PASS" if summary.inconclusive_count <= inconclusive_limit else "FAIL"
-    )
+    inconclusive_status = "PASS" if summary.inconclusive_count <= inconclusive_limit else "FAIL"
     if summary.inconclusive_count == 0:
         inconclusive_details = "All items produced a definite verdict."
     elif summary.inconclusive_count <= inconclusive_limit:
@@ -151,8 +164,7 @@ def run_dimensional_validator_with_output(
             "name": "challenge_set_loaded",
             "status": "PASS",
             "details": (
-                f"Loaded {summary.total} items from the {benchmark_scope} "
-                "challenge-set scope."
+                f"Loaded {summary.total} items from the {benchmark_scope} challenge-set scope."
             ),
             "metrics": {"item_count": summary.total},
         },
@@ -208,6 +220,12 @@ def run_dimensional_validator_with_output(
         "suspicious_count": summary.suspicious_count,
         "inconclusive_count": summary.inconclusive_count,
         "best_verdict": best_verdict,
+        "disagreement_count": summary.total - summary.agree,
+        "disagreement_ids": [result.item_id for result in item_results if not result.agrees],
+        "challenge_set_provenance": {
+            "frozen_input": relative_or_absolute(challenge_set_path, repo_root),
+            "source_path": source_challenge_set_path,
+        },
         "item_results": [
             {
                 "id": r.item_id,
@@ -230,9 +248,10 @@ def run_dimensional_validator_with_output(
         if not r.agrees
     )
     report_text = textwrap.dedent(f"""\
-        # Dimensional Analysis Validator MVP — Run Report
+        # Dimensional Analysis Validator - Run Report
 
         **Run:** {run_id}  **Experiment:** {experiment_id}  **Verdict:** {best_verdict}
+        **Scope:** `{benchmark_scope}`
 
         ## Summary
 
@@ -242,7 +261,9 @@ def run_dimensional_validator_with_output(
         | Agreement | {summary.agree}/{summary.total} ({agreement:.1%}) |
         | VALID computed | {summary.valid_count} |
         | INVALID computed | {summary.invalid_count} |
+        | SUSPICIOUS computed | {summary.suspicious_count} |
         | INCONCLUSIVE | {summary.inconclusive_count} |
+        | Remaining disagreements | {summary.total - summary.agree} |
         | Agreement threshold | {agreement_threshold:.0%} |
         | Best verdict | **{best_verdict}** |
 
@@ -254,9 +275,13 @@ def run_dimensional_validator_with_output(
 
         ## Limitations
 
-        - MVP scope: dimension-only check. Cannot detect KNOWN_LIMIT_FAIL
-          (numerical limit violations) or semantically-empty dimensionless
-          formulas (DA-310 class).
+        - Dimension-only checks do not establish numerical correctness,
+          empirical validity, or physical truth.
+        - KNOWN_LIMIT_FAIL rows are expected to be dimensionally balanced;
+          their numerical or regime failures remain outside validator scope.
+        - Curated dimensionally balanced SUSPICIOUS rows require explicit
+          metadata because dimensions alone cannot infer missing dimensionless
+          factors or semantic emptiness.
         - SUSPICIOUS items with explicit dimensional mismatch are classified
           INVALID; this is stricter but operationally correct (formula is flagged).
         - Unit symbol table is limited to SI base units and common derived units.
@@ -265,9 +290,9 @@ def run_dimensional_validator_with_output(
         ## Claim Ceiling
 
         The validator achieves {agreement:.1%} agreement on the frozen
-        {summary.total}-item DA-CHALLENGE-001 MVP benchmark scope. No claim
-        about unseen formulas, future challenge-set additions, or physics
-        domains outside the benchmark scope is made.
+        {summary.total}-item `{benchmark_scope}` benchmark scope. No claim
+        about unseen formulas, numerical correctness, empirical validity,
+        or physics domains outside the benchmark scope is made.
     """)
     report_path = run_dir / "report.md"
     write_text_atomic(report_path, report_text)
@@ -276,8 +301,12 @@ def run_dimensional_validator_with_output(
     _know_target = "knowledge/physics_validation/dimensional_analysis_validator.md"
     _claim_target_path = repo_root / _claim_target
     _know_target_path = repo_root / _know_target
-    _claim_original = _claim_target_path.read_text(encoding="utf-8") if _claim_target_path.exists() else ""
-    _know_original = _know_target_path.read_text(encoding="utf-8") if _know_target_path.exists() else ""
+    _claim_original = (
+        _claim_target_path.read_text(encoding="utf-8") if _claim_target_path.exists() else ""
+    )
+    _know_original = (
+        _know_target_path.read_text(encoding="utf-8") if _know_target_path.exists() else ""
+    )
 
     # ---------- claim_update ----------
     claim_update_text = textwrap.dedent(f"""\
@@ -287,7 +316,7 @@ def run_dimensional_validator_with_output(
         Proposed status: DRAFT (no automatic promotion).
 
         The validator achieves {agreement:.1%} agreement on the frozen
-        {summary.total}-item DA-CHALLENGE-001 MVP benchmark scope.
+        {summary.total}-item `{benchmark_scope}` benchmark scope.
         CLAIM-0005 is already drafted with this scope restriction. Maintainer
         review is required before any status or benchmark-text change.
     """)
@@ -313,10 +342,9 @@ def run_dimensional_validator_with_output(
 
         Evidence source: {result_id}.
 
-        Dimensional validator MVP benchmarked at {agreement:.1%} agreement on
-        the frozen DA-CHALLENGE-001 MVP benchmark scope ({summary.total} items).
-        If this replay differs from the stored benchmark artifact, update
-        KNOW-0004 only in a dedicated evidence-review task.
+        Dimensional validator benchmarked at {agreement:.1%} agreement on
+        the frozen `{benchmark_scope}` scope ({summary.total} items).
+        No knowledge change is authorized by this result-publication task.
     """)
     knowledge_update_path = run_dir / "knowledge_update.md"
     write_text_atomic(knowledge_update_path, knowledge_update_text)
@@ -342,17 +370,17 @@ def run_dimensional_validator_with_output(
         suggested_status="DRAFT",
         rationale=(
             f"Dimensional validator achieves {agreement:.1%} agreement on "
-            f"the frozen {summary.total}-item DA-CHALLENGE-001 MVP scope; "
+            f"the frozen {summary.total}-item {benchmark_scope} scope; "
             "keep DRAFT until independent review."
         ),
         highlights=[
             f"Agreement: {summary.agree}/{summary.total} ({agreement:.1%})",
             f"VALID: {summary.valid_count}, INVALID: {summary.invalid_count}",
-            "One documented scope limit: DA-310-class semantically-empty formulas.",
+            f"Remaining disagreements: {summary.total - summary.agree}.",
         ],
         limitations=[
-            "MVP scope: dimensional check only; cannot detect KNOWN_LIMIT_FAIL.",
-            "Canonical replay is frozen to the 50-item MVP benchmark scope.",
+            "Dimensional checks do not establish numerical or empirical validity.",
+            "KNOWN_LIMIT_FAIL behavior remains outside the dimension-only verdict.",
             "Challenge set is internally curated (TASK-0017); no external validation.",
         ],
     )
@@ -376,26 +404,35 @@ def run_dimensional_validator_with_output(
     )
     review_metadata_path = run_dir / "review_metadata.yaml"
     import yaml as _yaml
-    write_text_atomic(review_metadata_path, _yaml.safe_dump(review_metadata_payload, sort_keys=False))
+
+    write_text_atomic(
+        review_metadata_path, _yaml.safe_dump(review_metadata_payload, sort_keys=False)
+    )
 
     # ---------- result.yaml ----------
     commit = git_commit(repo_root)
+    config_reference = relative_or_absolute(config_path, repo_root)
+    run_reference = relative_or_absolute(run_dir, repo_root)
     result_payload: dict[str, Any] = {
         "generated_at": now_iso,
         "result_id": result_id,
         "run_id": run_id,
         "experiment_id": experiment_id,
-        "title": str(experiment["title"]),
+        "title": result_title,
         "hypothesis_id": hypothesis_id,
         "task_id": task_id,
         "engine_version": __version__,
         "git_commit": commit or "unknown",
-        "command": f"physics-lab run {config_path.name}",
+        "command": (
+            f"python -m physics_lab.cli run {config_reference} --output-dir {run_reference}"
+        ),
         "input_file_hashes": input_hashes,
         "code_reference": "physics_lab/workflows/dimensional_validator.py",
         "limitations": [
-            "MVP scope: dimensional check only; cannot detect known-limit violations.",
-            "Canonical EXP-0006 replay is frozen to the 50-item MVP benchmark scope.",
+            "Dimension-only agreement is formula-quality evidence, not proof of numerical correctness, empirical validity, or physical truth.",
+            "KNOWN_LIMIT_FAIL rows are treated as dimensionally valid because numerical and regime limits are outside validator scope.",
+            "Curated dimensionally balanced SUSPICIOUS rows rely on explicit benchmark metadata; the validator does not infer semantic emptiness or missing dimensionless factors unaided.",
+            f"This result is restricted to the frozen {summary.total}-item {benchmark_scope} input snapshot.",
             "SUSPICIOUS items with explicit dimensional mismatch are classified INVALID.",
             "Unit symbol table covers SI base units and common derived units only.",
             "Natural-unit or Gaussian-unit formulas are outside scope.",
@@ -455,9 +492,7 @@ def run_dimensional_validator_with_output(
             "claim_update": relative_or_absolute(claim_update_path, repo_root),
             "claim_update_patch": relative_or_absolute(claim_update_patch_path, repo_root),
             "knowledge_update": relative_or_absolute(knowledge_update_path, repo_root),
-            "knowledge_update_patch": relative_or_absolute(
-                knowledge_update_patch_path, repo_root
-            ),
+            "knowledge_update_patch": relative_or_absolute(knowledge_update_patch_path, repo_root),
             "review_summary": relative_or_absolute(review_summary_path, repo_root),
             "review_metadata": relative_or_absolute(review_metadata_path, repo_root),
         },
@@ -480,7 +515,7 @@ def run_dimensional_validator_with_output(
     )
 
     return ExperimentOutcome(
-        title=str(experiment["title"]),
+        title=result_title,
         result_id=result_id,
         run_id=run_id,
         hypothesis_id=hypothesis_id,

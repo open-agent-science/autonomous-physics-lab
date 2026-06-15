@@ -1,0 +1,1133 @@
+schema_version: "1"
+id: DA-CHALLENGE-001
+title: "Dimensional Analysis Challenge Set — Current Curation Surface"
+task_id: TASK-0017
+domain: physics_validation
+total_items: 74
+status: draft
+description: >
+  A growing curated set of 74 physics formulas for testing dimensional analysis
+  verification. This is the live curation surface for follow-on work, not the
+  frozen EXP-0006/RUN-0006 MVP replay input. Covers five categories: valid,
+  invalid-units, missing-constants, dimensionless/suspicious, and known-limit
+  violations.
+
+categories:
+  - id: cat1
+    name: valid_formulas
+    expected_verdict: VALID
+    count: 14
+  - id: cat2
+    name: invalid_unit_formulas
+    expected_verdict: INVALID
+    count: 16
+  - id: cat3
+    name: missing_constants
+    expected_verdict: INVALID
+    count: 10
+  - id: cat4
+    name: dimensionless_suspicious
+    expected_verdict: mixed
+    count: 11
+  - id: cat5
+    name: known_limit_violations
+    expected_verdict: KNOWN_LIMIT_FAIL
+    count: 6
+
+items:
+
+  # ── Category 1: Valid formulas ───────────────────────────────────────────
+
+  - id: DA-001
+    name: "Newton's second law"
+    domain: mechanics
+    formula: "F = m * a"
+    variables:
+      F: "kg m s^-2"
+      m: "kg"
+      a: "m s^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "LHS and RHS both have units kg·m·s⁻²."
+
+  - id: DA-002
+    name: "Kinetic energy"
+    domain: mechanics
+    formula: "E = (1/2) * m * v**2"
+    variables:
+      E: "kg m^2 s^-2"
+      m: "kg"
+      v: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·(m·s⁻¹)² = kg·m²·s⁻²."
+
+  - id: DA-003
+    name: "Gravitational potential energy"
+    domain: mechanics
+    formula: "U = m * g * h"
+    variables:
+      U: "kg m^2 s^-2"
+      m: "kg"
+      g: "m s^-2"
+      h: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·m·s⁻²·m = kg·m²·s⁻²."
+
+  - id: DA-004
+    name: "Ohm's law"
+    domain: electromagnetism
+    formula: "V = I * R"
+    variables:
+      V: "kg m^2 s^-3 A^-1"
+      I: "A"
+      R: "kg m^2 s^-3 A^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "A·(kg·m²·s⁻³·A⁻²) = kg·m²·s⁻³·A⁻¹ = V."
+
+  - id: DA-005
+    name: "Ideal gas law"
+    domain: thermodynamics
+    formula: "p * V = n * R_gas * T"
+    variables:
+      p: "kg m^-1 s^-2"
+      V: "m^3"
+      n: "mol"
+      R_gas: "kg m^2 s^-2 mol^-1 K^-1"
+      T: "K"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "Both sides reduce to kg·m²·s⁻²."
+
+  - id: DA-006
+    name: "Lorentz time dilation"
+    domain: mechanics
+    formula: "t_prime = t / sqrt(1 - v**2 / c**2)"
+    variables:
+      t_prime: "s"
+      t: "s"
+      v: "m s^-1"
+      c: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "v²/c² is dimensionless; t_prime has units of s."
+
+  - id: DA-007
+    name: "Power"
+    domain: mechanics
+    formula: "P = F * v"
+    variables:
+      P: "kg m^2 s^-3"
+      F: "kg m s^-2"
+      v: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·m·s⁻²·m·s⁻¹ = kg·m²·s⁻³ = W."
+
+  - id: DA-008
+    name: "Wave speed"
+    domain: waves
+    formula: "v_wave = f * lambda"
+    variables:
+      v_wave: "m s^-1"
+      f: "s^-1"
+      lambda: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "s⁻¹·m = m·s⁻¹."
+
+  - id: DA-009
+    name: "Stefan-Boltzmann radiated power"
+    domain: thermodynamics
+    formula: "P = sigma * A * T**4"
+    variables:
+      P: "kg m^2 s^-3"
+      sigma: "kg s^-3 K^-4"
+      A: "m^2"
+      T: "K"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "kg·s⁻³·K⁻⁴·m²·K⁴ = kg·m²·s⁻³ = W."
+
+  - id: DA-010
+    name: "Boltzmann entropy"
+    domain: statistical_physics
+    formula: "S = k_B * ln(Omega)"
+    variables:
+      S: "kg m^2 s^-2 K^-1"
+      k_B: "kg m^2 s^-2 K^-1"
+      Omega: "dimensionless"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "ln(Ω) is dimensionless; S inherits units of k_B = J/K."
+
+  # ── Category 2: Invalid unit formulas ───────────────────────────────────
+
+  - id: DA-101
+    name: "Force without acceleration"
+    domain: mechanics
+    formula: "F = m"
+    variables:
+      F: "kg m s^-2"
+      m: "kg"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "RHS is kg; LHS requires kg·m·s⁻²."
+
+  - id: DA-102
+    name: "Energy with linear velocity"
+    domain: mechanics
+    formula: "E = m * v"
+    variables:
+      E: "kg m^2 s^-2"
+      m: "kg"
+      v: "m s^-1"
+    expected_verdict: INVALID
+    failure_mode: "wrong_exponent"
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·m·s⁻¹ (momentum) ≠ kg·m²·s⁻² (energy)."
+
+  - id: DA-103
+    name: "Ohm's law without resistance"
+    domain: electromagnetism
+    formula: "V = I"
+    variables:
+      V: "kg m^2 s^-3 A^-1"
+      I: "A"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "A ≠ V; missing R (Ω = kg·m²·s⁻³·A⁻²)."
+
+  - id: DA-104
+    name: "Pressure with area in numerator"
+    domain: mechanics
+    formula: "p = F * A"
+    variables:
+      p: "kg m^-1 s^-2"
+      F: "kg m s^-2"
+      A: "m^2"
+    expected_verdict: INVALID
+    failure_mode: "inverted_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "F·A = kg·m³·s⁻²; pressure requires F/A = kg·m⁻¹·s⁻²."
+
+  - id: DA-105
+    name: "Gravitational force without r²"
+    domain: mechanics
+    formula: "F = G * m1 * m2"
+    variables:
+      F: "kg m s^-2"
+      G: "m^3 kg^-1 s^-2"
+      m1: "kg"
+      m2: "kg"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: medium
+    reason: "G·m1·m2 = m³·s⁻²; missing r⁻² (m⁻²) to give kg·m·s⁻²."
+
+  - id: DA-106
+    name: "Power as force only"
+    domain: mechanics
+    formula: "P = F"
+    variables:
+      P: "kg m^2 s^-3"
+      F: "kg m s^-2"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "Missing velocity (m·s⁻¹); kg·m·s⁻² ≠ kg·m²·s⁻³."
+
+  - id: DA-107
+    name: "Momentum confused with energy"
+    domain: mechanics
+    formula: "p = m * v**2"
+    variables:
+      p: "kg m s^-1"
+      m: "kg"
+      v: "m s^-1"
+    expected_verdict: INVALID
+    failure_mode: "wrong_exponent"
+    check_type: dimensional
+    difficulty: easy
+    reason: "m·v² = kg·m²·s⁻² (energy); momentum is m·v = kg·m·s⁻¹."
+
+  - id: DA-108
+    name: "Charge times field as energy"
+    domain: electromagnetism
+    formula: "E = q * E_field"
+    variables:
+      E: "kg m^2 s^-2"
+      q: "A s"
+      E_field: "kg m s^-3 A^-1"
+    expected_verdict: INVALID
+    failure_mode: "wrong_quantity"
+    check_type: dimensional
+    difficulty: medium
+    reason: "q·E_field = kg·m·s⁻² (force, N); energy requires an additional metre."
+
+  - id: DA-109
+    name: "Temperature as mass times velocity"
+    domain: thermodynamics
+    formula: "T = m * v"
+    variables:
+      T: "K"
+      m: "kg"
+      v: "m s^-1"
+    expected_verdict: INVALID
+    failure_mode: "wrong_quantity"
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·m·s⁻¹ (momentum units) ≠ K."
+
+  - id: DA-110
+    name: "Current as charge squared over time"
+    domain: electromagnetism
+    formula: "I = q**2 / t"
+    variables:
+      I: "A"
+      q: "A s"
+      t: "s"
+    expected_verdict: INVALID
+    failure_mode: "wrong_exponent"
+    check_type: dimensional
+    difficulty: medium
+    reason: "C²/s = A²·s ≠ A; current is I = q/t."
+
+  - id: DA-111
+    name: "Wavelength as frequency"
+    domain: waves
+    formula: "lambda = f"
+    variables:
+      lambda: "m"
+      f: "s^-1"
+    expected_verdict: INVALID
+    failure_mode: "wrong_quantity"
+    check_type: dimensional
+    difficulty: easy
+    reason: "m ≠ s⁻¹; λ = v_wave / f."
+
+  - id: DA-112
+    name: "Gravitational PE without g"
+    domain: mechanics
+    formula: "U = m * h"
+    variables:
+      U: "kg m^2 s^-2"
+      m: "kg"
+      h: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·m ≠ kg·m²·s⁻²; missing g (m·s⁻²)."
+
+  - id: DA-113
+    name: "Ideal gas law without R"
+    domain: thermodynamics
+    formula: "p * V = n * T"
+    variables:
+      p: "kg m^-1 s^-2"
+      V: "m^3"
+      n: "mol"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: medium
+    reason: "n·T = mol·K; LHS = kg·m²·s⁻²; missing R (J·mol⁻¹·K⁻¹)."
+
+  - id: DA-114
+    name: "Magnetic force without B"
+    domain: electromagnetism
+    formula: "F = q * v"
+    variables:
+      F: "kg m s^-2"
+      q: "A s"
+      v: "m s^-1"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: medium
+    reason: "C·m·s⁻¹ = A·m ≠ N; missing B (kg·s⁻²·A⁻¹ = T)."
+
+  - id: DA-115
+    name: "Wien's law without displacement constant"
+    domain: thermodynamics
+    formula: "lambda_max = T"
+    variables:
+      lambda_max: "m"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "m ≠ K; Wien's law: λ_max = b/T where b = 2.898×10⁻³ m·K."
+
+  # ── Category 3: Missing constants ────────────────────────────────────────
+
+  - id: DA-201
+    name: "Gravitational force without G"
+    domain: mechanics
+    formula: "F = m1 * m2 / r**2"
+    variables:
+      F: "kg m s^-2"
+      m1: "kg"
+      m2: "kg"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "kg²·m⁻² ≠ kg·m·s⁻²; missing G (m³·kg⁻¹·s⁻²)."
+
+  - id: DA-202
+    name: "Coulomb force without k_e"
+    domain: electromagnetism
+    formula: "F = q1 * q2 / r**2"
+    variables:
+      F: "kg m s^-2"
+      q1: "A s"
+      q2: "A s"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "C²·m⁻² = A²·s²·m⁻² ≠ N; missing k_e (kg·m³·s⁻⁴·A⁻²)."
+
+  - id: DA-203
+    name: "Photon energy without h"
+    domain: waves
+    formula: "E = f"
+    variables:
+      E: "kg m^2 s^-2"
+      f: "s^-1"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: easy
+    reason: "s⁻¹ ≠ J; missing h (kg·m²·s⁻¹) so E = h·f."
+
+  - id: DA-204
+    name: "Stefan-Boltzmann without sigma"
+    domain: thermodynamics
+    formula: "P = A * T**4"
+    variables:
+      P: "kg m^2 s^-3"
+      A: "m^2"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "m²·K⁴ ≠ W; missing σ (kg·s⁻³·K⁻⁴)."
+
+  - id: DA-205
+    name: "Magnetic field without mu_0"
+    domain: electromagnetism
+    formula: "B = I / r"
+    variables:
+      B: "kg s^-2 A^-1"
+      I: "A"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "A·m⁻¹ ≠ T; missing μ₀/2π (kg·m·s⁻²·A⁻²)."
+
+  - id: DA-206
+    name: "Wien's law without b"
+    domain: thermodynamics
+    formula: "lambda_max = 1 / T"
+    variables:
+      lambda_max: "m"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: easy
+    reason: "K⁻¹ ≠ m; missing b = 2.898×10⁻³ m·K."
+
+  - id: DA-207
+    name: "Biot-Savart without mu_0"
+    domain: electromagnetism
+    formula: "dB = I * dl / r**2"
+    variables:
+      dB: "kg s^-2 A^-1"
+      I: "A"
+      dl: "m"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: hard
+    reason: "A·m·m⁻² = A·m⁻¹ ≠ T; missing μ₀/4π."
+
+  - id: DA-208
+    name: "Thermal de Broglie without h"
+    domain: statistical_physics
+    formula: "lambda_th = 1 / sqrt(m * k_B * T)"
+    variables:
+      lambda_th: "m"
+      m: "kg"
+      k_B: "kg m^2 s^-2 K^-1"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: hard
+    reason: "1/sqrt(kg·J) = 1/sqrt(kg²·m²·s⁻²) = kg⁻¹·m⁻¹·s ≠ m; missing h²."
+
+  - id: DA-209
+    name: "Escape velocity without G"
+    domain: mechanics
+    formula: "v_esc = sqrt(M / r)"
+    variables:
+      v_esc: "m s^-1"
+      M: "kg"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "sqrt(kg·m⁻¹) ≠ m·s⁻¹; missing G so v_esc = sqrt(2GM/r)."
+
+  - id: DA-210
+    name: "Coulomb electric field without k_e"
+    domain: electromagnetism
+    formula: "E_field = q / r**2"
+    variables:
+      E_field: "kg m s^-3 A^-1"
+      q: "A s"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "C·m⁻² = A·s·m⁻² ≠ V·m⁻¹; missing k_e."
+
+  # ── Category 4: Dimensionless / suspicious ───────────────────────────────
+
+  - id: DA-301
+    name: "Mach number"
+    domain: fluid_mechanics
+    formula: "Ma = v / v_sound"
+    variables:
+      Ma: "dimensionless"
+      v: "m s^-1"
+      v_sound: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "Standard dimensionless ratio of two speeds."
+
+  - id: DA-302
+    name: "Lorentz beta"
+    domain: mechanics
+    formula: "beta = v / c"
+    variables:
+      beta: "dimensionless"
+      v: "m s^-1"
+      c: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "Standard SR dimensionless velocity ratio."
+
+  - id: DA-303
+    name: "Ratio of two energies"
+    domain: any
+    formula: "r = E1 / E2"
+    variables:
+      r: "dimensionless"
+      E1: "kg m^2 s^-2"
+      E2: "kg m^2 s^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "Generic dimensionless ratio of like quantities."
+
+  - id: DA-304
+    name: "Mass over time"
+    domain: any
+    formula: "r = m / t"
+    variables:
+      r: "dimensionless"
+      m: "kg"
+      t: "s"
+    expected_verdict: INVALID
+    failure_mode: "not_dimensionless"
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg·s⁻¹ is a mass-flow rate, not dimensionless."
+
+  - id: DA-305
+    name: "Gravity-to-EM force ratio"
+    domain: mechanics
+    formula: "r = (G * m1 * m2) / (k_e * q1 * q2)"
+    variables:
+      r: "dimensionless"
+      G: "m^3 kg^-1 s^-2"
+      m1: "kg"
+      m2: "kg"
+      k_e: "kg m^3 s^-4 A^-2"
+      q1: "A s"
+      q2: "A s"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: hard
+    reason: "Both numerator and denominator have units of N·m²; ratio is dimensionless and physically meaningful."
+
+  - id: DA-306
+    name: "Reynolds mimic with temperature"
+    domain: fluid_mechanics
+    formula: "Re_fake = rho * L * T / mu"
+    variables:
+      Re_fake: "dimensionless"
+      rho: "kg m^-3"
+      L: "m"
+      T: "K"
+      mu: "kg m^-1 s^-1"
+    expected_verdict: SUSPICIOUS
+    failure_mode: "physically_meaningless"
+    check_type: dimensional
+    difficulty: medium
+    reason: "kg·m⁻³·m·K / (kg·m⁻¹·s⁻¹) = K·s; not dimensionless. T substituted for velocity breaks both dimensions and physics."
+
+  - id: DA-307
+    name: "Fine structure constant mimic with mass"
+    domain: quantum_mechanics
+    formula: "alpha_fake = e**2 / (h_bar * c * m_e)"
+    variables:
+      alpha_fake: "dimensionless"
+      e: "A s"
+      h_bar: "kg m^2 s^-1"
+      c: "m s^-1"
+      m_e: "kg"
+    expected_verdict: SUSPICIOUS
+    failure_mode: "physically_meaningless"
+    check_type: dimensional
+    difficulty: hard
+    reason: "Real α = e²/(4πε₀ℏc) is dimensionless. Adding m_e in denominator changes units to kg⁻¹·[something] and has no physical motivation."
+
+  - id: DA-308
+    name: "Mass over charge"
+    domain: any
+    formula: "r = m / q"
+    variables:
+      r: "dimensionless"
+      m: "kg"
+      q: "A s"
+    expected_verdict: INVALID
+    failure_mode: "not_dimensionless"
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg/(A·s) = kg·A⁻¹·s⁻¹; not dimensionless."
+
+  - id: DA-309
+    name: "Reynolds number"
+    domain: fluid_mechanics
+    formula: "Re = rho * v * L / mu"
+    variables:
+      Re: "dimensionless"
+      rho: "kg m^-3"
+      v: "m s^-1"
+      L: "m"
+      mu: "kg m^-1 s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "Standard dimensionless fluid mechanics ratio."
+
+  - id: DA-310
+    name: "Incompatible ratio product"
+    domain: any
+    formula: "r = (v / c) / (m / kg)"
+    variables:
+      r: "dimensionless"
+      v: "m s^-1"
+      c: "m s^-1"
+      m: "kg"
+      kg: "kg"
+    expected_verdict: SUSPICIOUS
+    curated_dimensionally_balanced_verdict: SUSPICIOUS
+    failure_mode: "physically_meaningless"
+    check_type: dimensional
+    difficulty: medium
+    reason: "m/kg is trivially 1 (number of kilograms), carrying no physical content. The composite ratio has no physical interpretation."
+
+  - id: DA-311
+    name: "Undamped spring period (missing 2pi)"
+    domain: mechanics
+    formula: "T = sqrt(m / k)"
+    variables:
+      T: "s"
+      m: "kg"
+      k: "kg s^-2"
+    expected_verdict: SUSPICIOUS
+    curated_dimensionally_balanced_verdict: SUSPICIOUS
+    failure_mode: "missing dimensionless factor 2pi; numerically incorrect but dimensionally balanced"
+    check_type: dimensional
+    difficulty: medium
+    reason: "sqrt([kg]/[kg·s⁻²]) = [s]. Dimensionally balanced, but the correct formula is T = 2π·sqrt(m/k). A dimensional-only checker accepts this while the numerical prediction is wrong by a factor of 2π ≈ 6.28."
+
+
+  - id: DA-312
+    name: "Snell's law normalized ratio"
+    domain: optics
+    formula: "sin(theta1) / sin(theta2) = n2 / n1"
+    variables:
+      theta1: "dimensionless"
+      theta2: "dimensionless"
+      n1: "dimensionless"
+      n2: "dimensionless"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    dimensionless_relation_policy: accepted_textbook_identity
+    difficulty: easy
+    reason: "A curated all-dimensionless textbook identity should pass the dimensional validator instead of being auto-flagged as suspicious."
+  # ── Category 5: Known-limit violations ──────────────────────────────────
+
+  - id: DA-401
+    name: "Superluminal velocity in Lorentz factor"
+    domain: mechanics
+    formula: "gamma = 1 / sqrt(1 - v**2 / c**2)"
+    variables:
+      gamma: "dimensionless"
+      v: "m s^-1"
+      c: "m s^-1"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: medium
+    condition: "v >= c"
+    reason: "Formula is dimensionally valid but γ becomes imaginary for v ≥ c. Special relativity requires v < c for massive objects."
+
+  - id: DA-402
+    name: "Negative absolute temperature in ideal gas"
+    domain: thermodynamics
+    formula: "p * V = n * R_gas * T"
+    variables:
+      p: "kg m^-1 s^-2"
+      V: "m^3"
+      n: "mol"
+      R_gas: "kg m^2 s^-2 mol^-1 K^-1"
+      T: "K"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: easy
+    condition: "T < 0"
+    reason: "Dimensionally valid, but T < 0 K is forbidden by the third law of thermodynamics in the classical ideal-gas regime."
+
+  - id: DA-403
+    name: "Negative mass in Newton's law"
+    domain: mechanics
+    formula: "F = m * a"
+    variables:
+      F: "kg m s^-2"
+      m: "kg"
+      a: "m s^-2"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: easy
+    condition: "m < 0"
+    reason: "Dimensionally valid, but classical mechanics requires m > 0 for ordinary matter."
+
+  - id: DA-404
+    name: "Sound speed exceeds c in Mach number"
+    domain: waves
+    formula: "Ma = v / v_sound"
+    variables:
+      Ma: "dimensionless"
+      v: "m s^-1"
+      v_sound: "m s^-1"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: medium
+    condition: "v_sound >= c"
+    reason: "Formula is dimensionally valid but v_sound < c always in any physical medium; setting v_sound ≥ c is unphysical."
+
+  - id: DA-405
+    name: "Negative kinetic energy"
+    domain: mechanics
+    formula: "E_kin = p**2 / (2 * m)"
+    variables:
+      E_kin: "kg m^2 s^-2"
+      p: "kg m s^-1"
+      m: "kg"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: easy
+    condition: "E_kin < 0"
+    reason: "p²/(2m) ≥ 0 always for real p and positive m; a negative result signals an input error."
+
+  # -- New items added by TASK-0026 -------------------------------------------
+  # Domain coverage: optics, quantum_mechanics, mechanics, thermodynamics,
+  # electromagnetism. All items follow the existing schema exactly.
+  # No new physics is claimed; all formulas are standard reference material.
+
+  # -- Category 1 extension: Valid formulas ------------------------------------
+
+  - id: DA-011
+    name: "Snell's law (index of refraction ratio)"
+    domain: optics
+    formula: "n1 * sin(theta1) = n2 * sin(theta2)"
+    variables:
+      n1: "dimensionless"
+      theta1: "dimensionless"
+      n2: "dimensionless"
+      theta2: "dimensionless"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    dimensionless_relation_policy: accepted_textbook_identity
+    difficulty: easy
+    reason: "All factors are dimensionless; both sides are dimensionless. Standard form of Snell's law."
+
+  - id: DA-012
+    name: "de Broglie wavelength"
+    domain: quantum_mechanics
+    formula: "lambda = h / p"
+    variables:
+      lambda: "m"
+      h: "kg m^2 s^-1"
+      p: "kg m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg m^2 s^-1 / (kg m s^-1) = m. Correct."
+
+  - id: DA-013
+    name: "Centripetal acceleration"
+    domain: mechanics
+    formula: "a_c = v**2 / r"
+    variables:
+      a_c: "m s^-2"
+      v: "m s^-1"
+      r: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "(m s^-1)^2 / m = m s^-2. Correct."
+
+  - id: DA-014
+    name: "Capacitor stored energy"
+    domain: electromagnetism
+    formula: "U = (1/2) * C * V**2"
+    variables:
+      U: "kg m^2 s^-2"
+      C: "kg^-1 m^-2 s^4 A^2"
+      V: "kg m^2 s^-3 A^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "F V^2 = (kg^-1 m^-2 s^4 A^2)(kg m^2 s^-3 A^-1)^2 = kg m^2 s^-2 = J."
+
+  - id: DA-015
+    name: "Heat conduction (Fourier's law)"
+    domain: thermodynamics
+    formula: "Q_dot = -k * A * dT_dx"
+    variables:
+      Q_dot: "kg m^2 s^-3"
+      k: "kg m s^-3 K^-1"
+      A: "m^2"
+      dT_dx: "K m^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "kg m s^-3 K^-1 * m^2 * K m^-1 = kg m^2 s^-3 = W."
+
+  - id: DA-016
+    name: "Mean thermal speed"
+    domain: statistical_physics
+    formula: "v_th = sqrt(3 * k_B * T / m)"
+    variables:
+      v_th: "m s^-1"
+      k_B: "kg m^2 s^-2 K^-1"
+      T: "K"
+      m: "kg"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "sqrt(3 k_B T / m) = sqrt(J kg^-1) = sqrt(m^2 s^-2) = m s^-1; factor 3 is dimensionless."
+
+  - id: DA-017
+    name: "Gravitational surface acceleration"
+    domain: mechanics
+    formula: "g = G * M / R**2"
+    variables:
+      g: "m s^-2"
+      G: "m^3 kg^-1 s^-2"
+      M: "kg"
+      R: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "G * M / R**2 = [m^3 kg^-1 s^-2][kg][m^-2] = m s^-2; dimensions balance exactly."
+
+  - id: DA-018
+    name: "Doppler frequency shift"
+    domain: waves
+    formula: "f_obs = f_src * (v_s + v_obs) / (v_s + v_src)"
+    variables:
+      f_obs: "s^-1"
+      f_src: "s^-1"
+      v_s: "m s^-1"
+      v_obs: "m s^-1"
+      v_src: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "(v_s + v_obs) / (v_s + v_src) is dimensionless; f_obs = f_src [s^-1]. LHS and RHS are both Hz."
+
+  - id: DA-019
+    name: "de Broglie wavelength"
+    domain: quantum_mechanics
+    formula: "lambda_dB = h / (m * v)"
+    variables:
+      lambda_dB: "m"
+      h: "kg m^2 s^-1"
+      m: "kg"
+      v: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "h/(m·v): [kg·m²·s⁻¹] / ([kg]·[m·s⁻¹]) = [m]. Dimensionally consistent."
+
+  - id: DA-020
+    name: "Hubble's law"
+    domain: cosmology
+    formula: "v = H0 * d"
+    variables:
+      v: "m s^-1"
+      H0: "s^-1"
+      d: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "H0 [s^-1] * d [m] = m s^-1, which matches velocity units."
+
+  - id: DA-021
+    name: "Magnetic energy density"
+    domain: electromagnetism
+    formula: "u_B = B**2 / (2 * mu_0)"
+    variables:
+      u_B: "kg m^-1 s^-2"
+      B: "kg s^-2 A^-1"
+      mu_0: "kg m s^-2 A^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: hard
+    reason: "B^2 / mu_0 = (kg^2 s^-4 A^-2) / (kg m s^-2 A^-2) = kg m^-1 s^-2, which matches energy density [J/m^3] = [kg m^2 s^-2 / m^3]."
+
+
+  - id: DA-022
+    name: "Circle circumference with pi"
+    domain: geometry
+    formula: "C = 2 * pi * r"
+    variables:
+      C: "m"
+      r: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "The numerical constant pi is dimensionless; 2*pi*r has units of length."
+
+  - id: DA-023
+    name: "Small-angle pendulum period with pi"
+    domain: mechanics
+    formula: "T = 2 * pi * sqrt(L / g)"
+    variables:
+      T: "s"
+      L: "m"
+      g: "m s^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "The dimensionless 2*pi factor does not change sqrt(L/g) = s."
+  # -- Category 2 extension: Invalid unit formulas -----------------------------
+
+  - id: DA-116
+    name: "de Broglie without h"
+    domain: quantum_mechanics
+    formula: "lambda = 1 / p"
+    variables:
+      lambda: "m"
+      p: "kg m s^-1"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: easy
+    reason: "1/(kg m s^-1) = kg^-1 m^-1 s != m; missing h (kg m^2 s^-1)."
+
+  - id: DA-117
+    name: "Centripetal force without mass"
+    domain: mechanics
+    formula: "F_c = v**2 / r"
+    variables:
+      F_c: "kg m s^-2"
+      v: "m s^-1"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "v^2/r = m s^-2 (acceleration); missing m (kg) to give force kg m s^-2."
+
+  - id: DA-118
+    name: "Capacitor energy without C"
+    domain: electromagnetism
+    formula: "U = V**2"
+    variables:
+      U: "kg m^2 s^-2"
+      V: "kg m^2 s^-3 A^-1"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "V^2 = kg^2 m^4 s^-6 A^-2 != J; missing C (F = kg^-1 m^-2 s^4 A^2)."
+
+  - id: DA-119
+    name: "Entropy with wrong temperature exponent"
+    domain: thermodynamics
+    formula: "S = Q / T**2"
+    variables:
+      S: "kg m^2 s^-2 K^-1"
+      Q: "kg m^2 s^-2"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "wrong_exponent"
+    check_type: dimensional
+    difficulty: easy
+    reason: "Q/T^2 = J K^-2 = kg m^2 s^-2 K^-2 != J K^-1 (entropy); exponent on T should be 1, not 2."
+
+  - id: DA-120
+    name: "Bernoulli's equation (missing density)"
+    domain: fluid_mechanics
+    formula: "p + v**2 / 2 + g * h = C"
+    variables:
+      p: "kg m^-1 s^-2"
+      v: "m s^-1"
+      g: "m s^-2"
+      h: "m"
+      C: "kg m^-1 s^-2"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: medium
+    reason: "Pressure p has units kg/(m s^2), but v^2 and g*h have units m^2/s^2. Missing density factor rho [kg/m^3] for the kinetic and potential terms."
+
+  # -- Category 3 extension: Missing constants ---------------------------------
+
+  - id: DA-211
+    name: "Photon momentum without h"
+    domain: quantum_mechanics
+    formula: "p = 1 / lambda"
+    variables:
+      p: "kg m s^-1"
+      lambda: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: easy
+    reason: "m^-1 != kg m s^-1; missing h so p = h/lambda."
+
+  # -- Category 5 extension: Known-limit violations ----------------------------
+
+  - id: DA-406
+    name: "Refractive index below unity in Snell's law"
+    domain: optics
+    formula: "n1 * sin(theta1) = n2 * sin(theta2)"
+    variables:
+      n1: "dimensionless"
+      theta1: "dimensionless"
+      n2: "dimensionless"
+      theta2: "dimensionless"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: medium
+    condition: "n2 < 1 in a standard dielectric medium"
+    reason: "Dimensionally valid, but the refractive index of a passive dielectric is always >= 1. n < 1 requires a dispersive or active medium and signals a physical-limit violation in the standard regime."
+
+  - id: DA-407
+    name: "Small-angle pendulum period (large-angle regime)"
+    domain: mechanics
+    formula: "T = 2 * pi * sqrt(L / g)"
+    variables:
+      T: "s"
+      L: "m"
+      g: "m s^-2"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "small_angle_approximation_breakdown"
+    check_type: known_limit
+    difficulty: medium
+    condition: "theta >> 0.24 rad (~14 deg) where relative error exceeds 1%; diverges as theta approaches pi"
+    reason: "sqrt([m]/[m·s⁻²]) = [s]. Dimensionally correct. KNOWN_LIMIT_FAIL because the formula assumes sin(θ) ≈ θ; the exact period is T = (2/π)·T₀·K(sin²(θ/2)) involving the complete elliptic integral K. Error exceeds 1% above ~14° and grows without bound near the separatrix."
+
+  - id: DA-408
+    name: "Lorentz beta above unity"
+    domain: mechanics
+    formula: "beta = v / c"
+    variables:
+      beta: "dimensionless"
+      v: "m s^-1"
+      c: "m s^-1"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: easy
+    condition: "v > c for a massive object"
+    reason: "Dimensionally valid, but beta > 1 is outside the standard massive-particle Lorentz kinematic regime."

@@ -295,6 +295,29 @@ def test_dimensional_validator_replay_uses_frozen_mvp_scope(tmp_path: Path) -> N
     assert len(challenge_snapshot["items"]) == 50
 
 
+def test_dimensional_validator_replay_accepts_frozen_scope_override(
+    tmp_path: Path,
+) -> None:
+    outcome = run_dimensional_validator_with_output(
+        "examples/dimensional_analysis_live_74.yaml",
+        output_dir=tmp_path / "run",
+    )
+
+    metrics = json.loads(outcome.artifacts.metrics_path.read_text(encoding="utf-8"))
+    result_payload = yaml.safe_load(outcome.artifacts.result_path.read_text(encoding="utf-8"))
+
+    assert metrics["benchmark_scope"] == "frozen_live_74"
+    assert metrics["total_items"] == 74
+    assert metrics["agree"] == 74
+    assert metrics["agreement_fraction"] == 1.0
+    assert metrics["disagreement_count"] == 0
+    assert metrics["disagreement_ids"] == []
+    assert result_payload["title"] == "Dimensional Analysis Validator Live 74-Item Replay"
+    fixture_hash_path = Path(result_payload["input_file_hashes"]["fixture"]["path"])
+    assert fixture_hash_path.name == "fixture.yaml"
+    assert fixture_hash_path.parent.name == "inputs"
+
+
 @pytest.mark.skipif(
     not CHALLENGE_SET_PATH.exists(),
     reason="Challenge set not available",

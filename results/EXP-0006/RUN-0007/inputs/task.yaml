@@ -1,7 +1,7 @@
 id: TASK-0750
 title: "Package Dimensional Validator live 74-item replay as a Gate A result"
 type: scientific_result_publication
-status: REVIEW_READY
+status: IN_PROGRESS
 closeout: review
 difficulty: medium
 priority: high
@@ -36,29 +36,27 @@ requirements:
   - "Replay the Dimensional Validator deterministically from the frozen input and record total count, verdict counts, agreement fraction, zero-disagreement ledger, command, repository commit, and input hashes."
   - "Run `scripts/apl_check_result_publication.py` against the concrete result candidate before assigning `AGENT_PUBLISHED`."
   - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
-  - "Add `RESULT-0020` only as an evidence reference in `hypotheses/HYP-0006-dimensional-analysis-validator.yaml`; do not change the hypothesis status or verdict."
   - "Leave Gate B as not attempted and do not promote `CLAIM-0005`, create a knowledge endorsement, or claim physical truth."
   - "State that dimensional consistency is formula-quality evidence only, not proof of numerical correctness, empirical validity, or general symbolic intelligence."
 
 accepted_outputs:
-  - "results/EXP-0006/RUN-0007/result.yaml (`RESULT-0020`)"
-  - "results/EXP-0006/RUN-0007/inputs/fixture.yaml (frozen 74-item input)"
-  - "results/EXP-0006/RUN-0007/metrics.json and report.md"
-  - "results/EXP-0006/RUN-0007/gate_a_report.md"
-  - "hypotheses/HYP-0006-dimensional-analysis-validator.yaml (evidence reference only; status and verdict unchanged)"
+  - "new `results/<experiment>/<run>/result.yaml` candidate with a new result identity"
+  - "frozen 74-item input snapshot and checksum/provenance metadata"
+  - "deterministic replay metrics and zero-disagreement report"
+  - "Gate A checker report and output-routing summary"
 
 result_artifact_policy:
   required: true
   reason: "This is a scientific result-publication packaging task for the Dimensional Validator live 74-item replay."
   evidence:
-    - "results/EXP-0006/RUN-0007/result.yaml"
-    - "results/EXP-0006/RUN-0007/gate_a_report.md"
+    - "new `results/<experiment>/<run>/result.yaml` successor candidate"
+    - "Gate A checker report"
 
 validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_dimensions.py tests/test_result_publication_gate.py tests/test_docs_links.py"
-    - "python3 scripts/apl_check_result_publication.py results/EXP-0006/RUN-0007/result.yaml"
+    - "python3 scripts/apl_check_result_publication.py --result <new-result-path>"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
