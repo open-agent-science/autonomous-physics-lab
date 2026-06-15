@@ -9,9 +9,11 @@ created_by:
 created_utc: 2026-06-07
 
 purpose: >
-  Scaffold the pre-acquisition split vocabulary and no-peek boundaries for a
-  future MD-0002 Materials Project stable-ternary-oxides slice. This manifest
-  contains no value-bearing row ids, no fetched rows, and no benchmark metrics.
+  Preserve the MD-0002 pre-score split vocabulary, source pins, and no-peek
+  boundaries after the TASK-0738 maintainer-accepted acquisition. This manifest
+  records the acquired source version, checksum, and per-axis row counts; it
+  still authorizes no benchmark metrics, residual inspection, predictions, or
+  claims.
 
 scope:
   dataset_family: MD-0002
@@ -42,9 +44,9 @@ promotion_boundary:
   prediction_registry_allowed: false
   live_fetch_allowed: false
   notes:
-    - "This scaffold declares split candidates before acquisition; it does not authorize fetching rows."
-    - "A later acquisition task must replace placeholders with source version, checksum, and row-count metadata before scoring."
-    - "No train, validation, holdout, stress, or excluded row assignment is made by this scaffold."
+    - "This manifest records the TASK-0738 acquisition pins while preserving the pre-score split vocabulary."
+    - "TASK-0702 must validate the acquired dataset and freeze the benchmark binding before any scoring."
+    - "No residual, baseline, prediction, result, or claim is authorized by this manifest."
 
 holdout_schema:
   allowed_split_values:
@@ -183,8 +185,8 @@ pre_score_split_axes:
     md0002_value: 2026.04.13
 
 blocked_actions:
-  - "Fetch or ingest Materials Project rows."
-  - "Commit value-bearing MD-0002 row ids."
+  - "Re-fetch, widen, narrow, or replace Materials Project rows for this benchmark binding without a new reviewed task and manifest revision."
+  - "Change value-bearing MD-0002 row ids or split assignments after inspecting residuals or metrics."
   - "Run baseline metrics or residual maps."
   - "Choose split thresholds after inspecting residuals."
   - "Pool formation_energy_per_atom with band_gap."
@@ -192,6 +194,6 @@ blocked_actions:
   - "Promote material-discovery, design, synthesis, device, biomedical, or new-law claims."
 
 next_allowed_work:
-  - "A maintainer-authorized acquisition task may pin database_version, checksum, row counts, and source snapshot metadata."
-  - "A later loader/schema task may validate row structure after acquisition without scoring residuals."
-  - "A benchmark task may bind to the finalized MD-0002 manifest only after split rules are frozen."
+  - "TASK-0702 may validate the acquired MD-0002 dataset and freeze the holdout binding against this pinned checksum."
+  - "TASK-0703 may run the formation-energy benchmark only after TASK-0702 validates the binding."
+  - "Band gap rows remain diagnostic-only unless a later reviewed task explicitly promotes that axis."

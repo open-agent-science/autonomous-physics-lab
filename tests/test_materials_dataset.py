@@ -15,6 +15,8 @@ SNAPSHOT = MATERIALS / "snapshots" / "materials_project_binary_oxides_2025-09-25
 CITATION = MATERIALS / "md-0001-citation.yaml"
 HOLDOUT_MANIFEST = MATERIALS / "holdout_manifest.yaml"
 MD0002_HOLDOUT_MANIFEST = MATERIALS / "md0002_holdout_manifest.yaml"
+MD0002_DATASET = MATERIALS / "md-0002-materials-project-stable-ternary-oxides.yaml"
+MD0002_SNAPSHOT = MATERIALS / "snapshots" / "materials_project_md0002_2026.04.13.json"
 
 DATASETS = {
     "formation_energy_per_atom": (MATERIALS / "md-0001-materials-project-formation-energy.yaml", "eV_per_atom"),
@@ -121,15 +123,27 @@ def test_holdout_manifest_preserves_no_peek_boundaries():
     assert "property_range" in manifest["pre_score_split_axes"]
 
 
-def test_md0002_holdout_manifest_is_no_peek_scaffold_only():
+def test_md0002_holdout_manifest_records_acquired_pinned_no_peek_boundaries():
     manifest = _load(MD0002_HOLDOUT_MANIFEST)
+    dataset = _load(MD0002_DATASET)
+    snapshot_checksum = hashlib.sha256(MD0002_SNAPSHOT.read_bytes()).hexdigest()
     assert manifest["manifest_id"] == "MD-0002-HOLDOUT-NOPEEK-SCAFFOLD-0001"
+    assert manifest["status"] == "acquired_pinned_pending_holdout_freeze_validation"
     assert manifest["scope"]["dataset_family"] == "MD-0002"
     assert manifest["scope"]["material_scope"] == "stable_ternary_oxides"
-    assert manifest["scope"]["database_version"] == "TO_BE_PINNED_BY_ACQUISITION"
-    assert manifest["scope"]["snapshot_checksum_sha256"] == "TO_BE_COMPUTED_BY_ACQUISITION"
+    assert manifest["scope"]["database_version"] == "2026.04.13"
+    assert manifest["scope"]["database_version"] == dataset["source_version"]
+    assert manifest["scope"]["snapshot_checksum_sha256"] == snapshot_checksum
+    assert manifest["scope"]["snapshot_checksum_sha256"] == dataset["snapshot_checksum_sha256"]
+    assert manifest["scope"]["row_count_per_axis"] == 362
+    assert manifest["scope"]["frozen_split_counts_per_axis"] == {
+        "train": 253,
+        "validation": 55,
+        "holdout": 54,
+    }
     assert manifest["promotion_boundary"]["live_fetch_allowed"] is False
     assert manifest["promotion_boundary"]["results_allowed"] is False
+    assert manifest["promotion_boundary"]["claims_allowed"] is False
     axes = {axis["property_kind"]: axis for axis in manifest["axis_policies"]}
     assert set(axes) == {"formation_energy_per_atom", "band_gap"}
     assert axes["formation_energy_per_atom"]["units"] == "eV_per_atom"
@@ -144,5 +158,6 @@ def test_md0002_holdout_manifest_is_no_peek_scaffold_only():
         "source_version",
     } <= split_axes
     blocked = "\n".join(manifest["blocked_actions"])
-    assert "Fetch or ingest" in blocked
-    assert "Commit value-bearing MD-0002 row ids" in blocked
+    assert "Run baseline metrics or residual maps" in blocked
+    assert "Change value-bearing MD-0002 row ids" in blocked
+    assert "Pool formation_energy_per_atom with band_gap" in blocked
