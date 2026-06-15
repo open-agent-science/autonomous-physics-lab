@@ -1,7 +1,7 @@
 id: TASK-0703
 title: "Run MD-0002 formation-energy baseline benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -32,16 +32,28 @@ requirements:
   - "Do not recommend materials, syntheses, devices, biomedical uses, or promote materials-law claims."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "hypothesis_proposals/materials-property-residuals/HYP-PROPOSAL-0059-md0002-formation-energy-baseline.yaml"
+  - "experiment_proposals/materials-property-residuals/EXP-PROPOSAL-0025-md0002-formation-energy-baseline.yaml"
+  - "agent_runs/AGENT-RUN-0072/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0072/metrics.json"
+  - "agent_runs/AGENT-RUN-0072/report.md"
   - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
-  - "optional RESULT candidate only if Gate A passes under docs/result-promotion-protocol.md"
+
+result_artifact_policy:
+  required: false
+  reason: >
+    TASK-0703 executes and preserves the sandbox benchmark, but does not
+    authorize new protected hypotheses/ or experiments/ identities required
+    for canonical RESULT packaging.
+  evidence:
+    - "agent_runs/AGENT-RUN-0072/agent_run.yaml"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 scripts/validate_fast.py"
+    - "python3 -m pytest -n0 -m full_repo"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

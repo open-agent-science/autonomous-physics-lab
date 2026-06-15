@@ -38,7 +38,5 @@ variables:
 evidence:
   experiments:
     - EXP-0006
-  results:
-    - RESULT-0020
 
 verdict: INCONCLUSIVE

@@ -1,0 +1,3834 @@
+{
+  "task_id": "TASK-0703",
+  "agent_run_id": "AGENT-RUN-0072",
+  "benchmark_id": "materials-md0002-formation-energy-baseline-benchmark",
+  "method": "Train-only global, cation-family, exact cation-pair, and exact spacegroup mean baselines on the frozen MD-0002 formation-energy axis.",
+  "input_references": {
+    "config": "examples/benchmarks/materials_md0002_formation_energy.yaml",
+    "dataset": "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml",
+    "holdout_manifest": "data/materials/md0002_holdout_manifest.yaml",
+    "control_plan": "docs/reviews/materials-md0002-benchmark-control-plan.md",
+    "acquisition_validation": "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
+  },
+  "input_file_hashes": {
+    "examples/benchmarks/materials_md0002_formation_energy.yaml": "cb18158c21904341d64d22bdea8c4c265badf76297ad1331184d645948467e51",
+    "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml": "516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1",
+    "data/materials/md0002_holdout_manifest.yaml": "c98c6e699d5fd0146f3456c4726bf71adbd5aeea2cff6aada9190671095e5451"
+  },
+  "dataset_summary": {
+    "dataset_family": "MD-0002",
+    "source_id": "materials-project",
+    "source_version": "2026.04.13",
+    "snapshot_checksum_sha256": "5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567",
+    "property_kind": "formation_energy_per_atom",
+    "units": "eV_per_atom",
+    "provenance_class": "computed_dft",
+    "row_count": 362,
+    "split_counts": {
+      "train": 253,
+      "validation": 55,
+      "holdout": 54
+    },
+    "live_external_fetch": false
+  },
+  "frozen_contract": {
+    "baseline_ids": [
+      "global_mean",
+      "global_median",
+      "cation_group_mean",
+      "cation_pair_mean",
+      "structure_or_prototype_mean"
+    ],
+    "control_seeds": [
+      0,
+      1,
+      2,
+      7,
+      11
+    ],
+    "split_sensitivity_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "minimum_seed_wins": 4,
+    "minimum_relative_improvement": 0.1,
+    "minimum_absolute_improvement_eV_per_atom": 0.05,
+    "property_range_bins": [
+      {
+        "id": "strongly_negative",
+        "max": -3.0
+      },
+      {
+        "id": "moderate_negative",
+        "min": -3.0,
+        "max": -1.0
+      },
+      {
+        "id": "near_zero",
+        "min": -1.0
+      }
+    ],
+    "fallback": "global train mean for unseen groups",
+    "row_order": "material_id ascending"
+  },
+  "baseline_summaries": {
+    "global_mean": {
+      "metrics": {
+        "train": {
+          "count": 253,
+          "mae": 0.550889,
+          "rmse": 0.658616,
+          "median_abs_residual": 0.512477
+        },
+        "validation": {
+          "count": 55,
+          "mae": 0.545885,
+          "rmse": 0.667828,
+          "median_abs_residual": 0.470983
+        },
+        "holdout": {
+          "count": 54,
+          "mae": 0.525992,
+          "rmse": 0.597905,
+          "median_abs_residual": 0.503842
+        }
+      },
+      "full_axis_metrics": {
+        "count": 362,
+        "mae": 0.546415,
+        "rmse": 0.651347,
+        "median_abs_residual": 0.503883
+      },
+      "holdout_subset_metrics": {
+        "cation_group": {
+          "alkali_or_alkaline_earth__transition_metal": {
+            "count": 54,
+            "mae": 0.525992,
+            "rmse": 0.597905,
+            "median_abs_residual": 0.503842
+          }
+        },
+        "cation_pair": {
+          "Ba__Cr": {
+            "count": 3,
+            "mae": 0.461907,
+            "rmse": 0.462936,
+            "median_abs_residual": 0.448373
+          },
+          "Ba__Fe": {
+            "count": 2,
+            "mae": 0.07452,
+            "rmse": 0.086325,
+            "median_abs_residual": 0.07452
+          },
+          "Ba__Mn": {
+            "count": 1,
+            "mae": 0.143156,
+            "rmse": 0.143156,
+            "median_abs_residual": 0.143156
+          },
+          "Ba__V": {
+            "count": 2,
+            "mae": 0.618539,
+            "rmse": 0.621426,
+            "median_abs_residual": 0.618539
+          },
+          "Be__Cr": {
+            "count": 1,
+            "mae": 0.41885,
+            "rmse": 0.41885,
+            "median_abs_residual": 0.41885
+          },
+          "Ca__Co": {
+            "count": 2,
+            "mae": 0.482408,
+            "rmse": 0.504635,
+            "median_abs_residual": 0.482408
+          },
+          "Ca__Cu": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Ca__Fe": {
+            "count": 1,
+            "mae": 0.229198,
+            "rmse": 0.229198,
+            "median_abs_residual": 0.229198
+          },
+          "Ca__Ni": {
+            "count": 1,
+            "mae": 0.519133,
+            "rmse": 0.519133,
+            "median_abs_residual": 0.519133
+          },
+          "Ca__Ti": {
+            "count": 1,
+            "mae": 1.374686,
+            "rmse": 1.374686,
+            "median_abs_residual": 1.374686
+          },
+          "Ca__V": {
+            "count": 1,
+            "mae": 0.681344,
+            "rmse": 0.681344,
+            "median_abs_residual": 0.681344
+          },
+          "Co__Cs": {
+            "count": 1,
+            "mae": 0.748211,
+            "rmse": 0.748211,
+            "median_abs_residual": 0.748211
+          },
+          "Co__K": {
+            "count": 1,
+            "mae": 0.677055,
+            "rmse": 0.677055,
+            "median_abs_residual": 0.677055
+          },
+          "Co__Li": {
+            "count": 1,
+            "mae": 0.404176,
+            "rmse": 0.404176,
+            "median_abs_residual": 0.404176
+          },
+          "Co__Na": {
+            "count": 1,
+            "mae": 0.817378,
+            "rmse": 0.817378,
+            "median_abs_residual": 0.817378
+          },
+          "Co__Rb": {
+            "count": 1,
+            "mae": 0.721552,
+            "rmse": 0.721552,
+            "median_abs_residual": 0.721552
+          },
+          "Co__Sr": {
+            "count": 2,
+            "mae": 0.150805,
+            "rmse": 0.151651,
+            "median_abs_residual": 0.150805
+          },
+          "Cr__Cs": {
+            "count": 1,
+            "mae": 0.323442,
+            "rmse": 0.323442,
+            "median_abs_residual": 0.323442
+          },
+          "Cr__K": {
+            "count": 2,
+            "mae": 0.22628,
+            "rmse": 0.249118,
+            "median_abs_residual": 0.22628
+          },
+          "Cr__Na": {
+            "count": 1,
+            "mae": 0.224768,
+            "rmse": 0.224768,
+            "median_abs_residual": 0.224768
+          },
+          "Cs__Fe": {
+            "count": 5,
+            "mae": 0.684379,
+            "rmse": 0.689508,
+            "median_abs_residual": 0.683082
+          },
+          "Cs__Mn": {
+            "count": 1,
+            "mae": 0.40649,
+            "rmse": 0.40649,
+            "median_abs_residual": 0.40649
+          },
+          "Cs__Ti": {
+            "count": 2,
+            "mae": 0.776726,
+            "rmse": 0.823518,
+            "median_abs_residual": 0.776726
+          },
+          "Cs__V": {
+            "count": 1,
+            "mae": 0.271298,
+            "rmse": 0.271298,
+            "median_abs_residual": 0.271298
+          },
+          "Cu__K": {
+            "count": 1,
+            "mae": 0.817532,
+            "rmse": 0.817532,
+            "median_abs_residual": 0.817532
+          },
+          "Fe__Rb": {
+            "count": 1,
+            "mae": 0.750076,
+            "rmse": 0.750076,
+            "median_abs_residual": 0.750076
+          },
+          "K__Mn": {
+            "count": 3,
+            "mae": 0.408965,
+            "rmse": 0.418863,
+            "median_abs_residual": 0.461728
+          },
+          "K__Ni": {
+            "count": 1,
+            "mae": 0.767017,
+            "rmse": 0.767017,
+            "median_abs_residual": 0.767017
+          },
+          "Li__Mn": {
+            "count": 1,
+            "mae": 0.113119,
+            "rmse": 0.113119,
+            "median_abs_residual": 0.113119
+          },
+          "Li__Ni": {
+            "count": 2,
+            "mae": 0.738333,
+            "rmse": 0.740386,
+            "median_abs_residual": 0.738333
+          },
+          "Mg__Ni": {
+            "count": 1,
+            "mae": 0.412969,
+            "rmse": 0.412969,
+            "median_abs_residual": 0.412969
+          },
+          "Mn__Na": {
+            "count": 1,
+            "mae": 0.392021,
+            "rmse": 0.392021,
+            "median_abs_residual": 0.392021
+          },
+          "Mn__Rb": {
+            "count": 1,
+            "mae": 0.265946,
+            "rmse": 0.265946,
+            "median_abs_residual": 0.265946
+          },
+          "Na__Ni": {
+            "count": 1,
+            "mae": 1.055395,
+            "rmse": 1.055395,
+            "median_abs_residual": 1.055395
+          },
+          "Ni__Sr": {
+            "count": 1,
+            "mae": 0.792397,
+            "rmse": 0.792397,
+            "median_abs_residual": 0.792397
+          },
+          "Rb__Ti": {
+            "count": 1,
+            "mae": 1.068298,
+            "rmse": 1.068298,
+            "median_abs_residual": 1.068298
+          },
+          "Rb__V": {
+            "count": 2,
+            "mae": 0.217609,
+            "rmse": 0.217884,
+            "median_abs_residual": 0.217609
+          },
+          "Sr__V": {
+            "count": 1,
+            "mae": 0.782609,
+            "rmse": 0.782609,
+            "median_abs_residual": 0.782609
+          }
+        },
+        "structure_or_prototype": {
+          "C2": {
+            "count": 1,
+            "mae": 0.678373,
+            "rmse": 0.678373,
+            "median_abs_residual": 0.678373
+          },
+          "C2/c": {
+            "count": 1,
+            "mae": 0.563356,
+            "rmse": 0.563356,
+            "median_abs_residual": 0.563356
+          },
+          "C2/m": {
+            "count": 10,
+            "mae": 0.748317,
+            "rmse": 0.826256,
+            "median_abs_residual": 0.792914
+          },
+          "Cc": {
+            "count": 1,
+            "mae": 0.504598,
+            "rmse": 0.504598,
+            "median_abs_residual": 0.504598
+          },
+          "Cmc2_1": {
+            "count": 1,
+            "mae": 0.229198,
+            "rmse": 0.229198,
+            "median_abs_residual": 0.229198
+          },
+          "Cmce": {
+            "count": 1,
+            "mae": 0.748211,
+            "rmse": 0.748211,
+            "median_abs_residual": 0.748211
+          },
+          "Cmcm": {
+            "count": 3,
+            "mae": 0.680724,
+            "rmse": 0.693323,
+            "median_abs_residual": 0.721552
+          },
+          "I-4": {
+            "count": 1,
+            "mae": 0.677055,
+            "rmse": 0.677055,
+            "median_abs_residual": 0.677055
+          },
+          "Imma": {
+            "count": 1,
+            "mae": 0.113119,
+            "rmse": 0.113119,
+            "median_abs_residual": 0.113119
+          },
+          "P-1": {
+            "count": 6,
+            "mae": 0.455091,
+            "rmse": 0.493583,
+            "median_abs_residual": 0.407035
+          },
+          "P1": {
+            "count": 2,
+            "mae": 0.565803,
+            "rmse": 0.577861,
+            "median_abs_residual": 0.565803
+          },
+          "P2": {
+            "count": 1,
+            "mae": 0.40649,
+            "rmse": 0.40649,
+            "median_abs_residual": 0.40649
+          },
+          "P2/c": {
+            "count": 1,
+            "mae": 0.143156,
+            "rmse": 0.143156,
+            "median_abs_residual": 0.143156
+          },
+          "P2_1": {
+            "count": 1,
+            "mae": 0.43275,
+            "rmse": 0.43275,
+            "median_abs_residual": 0.43275
+          },
+          "P2_1/c": {
+            "count": 7,
+            "mae": 0.439091,
+            "rmse": 0.499984,
+            "median_abs_residual": 0.461728
+          },
+          "P2_1/m": {
+            "count": 1,
+            "mae": 0.767017,
+            "rmse": 0.767017,
+            "median_abs_residual": 0.767017
+          },
+          "P31m": {
+            "count": 1,
+            "mae": 0.228554,
+            "rmse": 0.228554,
+            "median_abs_residual": 0.228554
+          },
+          "P4_12_12": {
+            "count": 1,
+            "mae": 0.206665,
+            "rmse": 0.206665,
+            "median_abs_residual": 0.206665
+          },
+          "P4bm": {
+            "count": 1,
+            "mae": 0.271298,
+            "rmse": 0.271298,
+            "median_abs_residual": 0.271298
+          },
+          "P6_3": {
+            "count": 1,
+            "mae": 0.782609,
+            "rmse": 0.782609,
+            "median_abs_residual": 0.782609
+          },
+          "P6_3/mmc": {
+            "count": 1,
+            "mae": 0.030944,
+            "rmse": 0.030944,
+            "median_abs_residual": 0.030944
+          },
+          "Pc": {
+            "count": 1,
+            "mae": 1.055395,
+            "rmse": 1.055395,
+            "median_abs_residual": 1.055395
+          },
+          "Pm-3m": {
+            "count": 1,
+            "mae": 0.412969,
+            "rmse": 0.412969,
+            "median_abs_residual": 0.412969
+          },
+          "Pm-3n": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Pnma": {
+            "count": 5,
+            "mae": 0.46097,
+            "rmse": 0.49229,
+            "median_abs_residual": 0.41885
+          },
+          "R-3c": {
+            "count": 1,
+            "mae": 0.134809,
+            "rmse": 0.134809,
+            "median_abs_residual": 0.134809
+          },
+          "R-3m": {
+            "count": 1,
+            "mae": 0.630525,
+            "rmse": 0.630525,
+            "median_abs_residual": 0.630525
+          }
+        },
+        "property_range": {
+          "moderate_negative": {
+            "count": 51,
+            "mae": 0.488436,
+            "rmse": 0.545394,
+            "median_abs_residual": 0.483591
+          },
+          "strongly_negative": {
+            "count": 3,
+            "mae": 1.16445,
+            "rmse": 1.173923,
+            "median_abs_residual": 1.068298
+          }
+        }
+      }
+    },
+    "global_median": {
+      "metrics": {
+        "train": {
+          "count": 253,
+          "mae": 0.549166,
+          "rmse": 0.664001,
+          "median_abs_residual": 0.471581
+        },
+        "validation": {
+          "count": 55,
+          "mae": 0.5359,
+          "rmse": 0.675198,
+          "median_abs_residual": 0.438901
+        },
+        "holdout": {
+          "count": 54,
+          "mae": 0.506092,
+          "rmse": 0.583126,
+          "median_abs_residual": 0.524956
+        }
+      },
+      "full_axis_metrics": {
+        "count": 362,
+        "mae": 0.540725,
+        "rmse": 0.654317,
+        "median_abs_residual": 0.473027
+      },
+      "holdout_subset_metrics": {
+        "cation_group": {
+          "alkali_or_alkaline_earth__transition_metal": {
+            "count": 54,
+            "mae": 0.506092,
+            "rmse": 0.583126,
+            "median_abs_residual": 0.524956
+          }
+        },
+        "cation_pair": {
+          "Ba__Cr": {
+            "count": 3,
+            "mae": 0.546302,
+            "rmse": 0.547173,
+            "median_abs_residual": 0.532768
+          },
+          "Ba__Fe": {
+            "count": 2,
+            "mae": 0.127971,
+            "rmse": 0.148087,
+            "median_abs_residual": 0.127971
+          },
+          "Ba__Mn": {
+            "count": 1,
+            "mae": 0.05876,
+            "rmse": 0.05876,
+            "median_abs_residual": 0.05876
+          },
+          "Ba__V": {
+            "count": 2,
+            "mae": 0.702935,
+            "rmse": 0.705476,
+            "median_abs_residual": 0.702935
+          },
+          "Be__Cr": {
+            "count": 1,
+            "mae": 0.503245,
+            "rmse": 0.503245,
+            "median_abs_residual": 0.503245
+          },
+          "Ca__Co": {
+            "count": 2,
+            "mae": 0.398013,
+            "rmse": 0.42468,
+            "median_abs_residual": 0.398013
+          },
+          "Ca__Cu": {
+            "count": 1,
+            "mae": 0.536112,
+            "rmse": 0.536112,
+            "median_abs_residual": 0.536112
+          },
+          "Ca__Fe": {
+            "count": 1,
+            "mae": 0.313593,
+            "rmse": 0.313593,
+            "median_abs_residual": 0.313593
+          },
+          "Ca__Ni": {
+            "count": 1,
+            "mae": 0.434738,
+            "rmse": 0.434738,
+            "median_abs_residual": 0.434738
+          },
+          "Ca__Ti": {
+            "count": 1,
+            "mae": 1.459081,
+            "rmse": 1.459081,
+            "median_abs_residual": 1.459081
+          },
+          "Ca__V": {
+            "count": 1,
+            "mae": 0.765739,
+            "rmse": 0.765739,
+            "median_abs_residual": 0.765739
+          },
+          "Co__Cs": {
+            "count": 1,
+            "mae": 0.663815,
+            "rmse": 0.663815,
+            "median_abs_residual": 0.663815
+          },
+          "Co__K": {
+            "count": 1,
+            "mae": 0.59266,
+            "rmse": 0.59266,
+            "median_abs_residual": 0.59266
+          },
+          "Co__Li": {
+            "count": 1,
+            "mae": 0.31978,
+            "rmse": 0.31978,
+            "median_abs_residual": 0.31978
+          },
+          "Co__Na": {
+            "count": 1,
+            "mae": 0.732983,
+            "rmse": 0.732983,
+            "median_abs_residual": 0.732983
+          },
+          "Co__Rb": {
+            "count": 1,
+            "mae": 0.637157,
+            "rmse": 0.637157,
+            "median_abs_residual": 0.637157
+          },
+          "Co__Sr": {
+            "count": 2,
+            "mae": 0.2352,
+            "rmse": 0.235743,
+            "median_abs_residual": 0.2352
+          },
+          "Cr__Cs": {
+            "count": 1,
+            "mae": 0.239047,
+            "rmse": 0.239047,
+            "median_abs_residual": 0.239047
+          },
+          "Cr__K": {
+            "count": 2,
+            "mae": 0.141885,
+            "rmse": 0.176036,
+            "median_abs_residual": 0.141885
+          },
+          "Cr__Na": {
+            "count": 1,
+            "mae": 0.140373,
+            "rmse": 0.140373,
+            "median_abs_residual": 0.140373
+          },
+          "Cs__Fe": {
+            "count": 5,
+            "mae": 0.599984,
+            "rmse": 0.605827,
+            "median_abs_residual": 0.598687
+          },
+          "Cs__Mn": {
+            "count": 1,
+            "mae": 0.322095,
+            "rmse": 0.322095,
+            "median_abs_residual": 0.322095
+          },
+          "Cs__Ti": {
+            "count": 2,
+            "mae": 0.861121,
+            "rmse": 0.903553,
+            "median_abs_residual": 0.861121
+          },
+          "Cs__V": {
+            "count": 1,
+            "mae": 0.355693,
+            "rmse": 0.355693,
+            "median_abs_residual": 0.355693
+          },
+          "Cu__K": {
+            "count": 1,
+            "mae": 0.733137,
+            "rmse": 0.733137,
+            "median_abs_residual": 0.733137
+          },
+          "Fe__Rb": {
+            "count": 1,
+            "mae": 0.665681,
+            "rmse": 0.665681,
+            "median_abs_residual": 0.665681
+          },
+          "K__Mn": {
+            "count": 3,
+            "mae": 0.32457,
+            "rmse": 0.336956,
+            "median_abs_residual": 0.377332
+          },
+          "K__Ni": {
+            "count": 1,
+            "mae": 0.682621,
+            "rmse": 0.682621,
+            "median_abs_residual": 0.682621
+          },
+          "Li__Mn": {
+            "count": 1,
+            "mae": 0.028724,
+            "rmse": 0.028724,
+            "median_abs_residual": 0.028724
+          },
+          "Li__Ni": {
+            "count": 2,
+            "mae": 0.653938,
+            "rmse": 0.656255,
+            "median_abs_residual": 0.653938
+          },
+          "Mg__Ni": {
+            "count": 1,
+            "mae": 0.497364,
+            "rmse": 0.497364,
+            "median_abs_residual": 0.497364
+          },
+          "Mn__Na": {
+            "count": 1,
+            "mae": 0.307626,
+            "rmse": 0.307626,
+            "median_abs_residual": 0.307626
+          },
+          "Mn__Rb": {
+            "count": 1,
+            "mae": 0.18155,
+            "rmse": 0.18155,
+            "median_abs_residual": 0.18155
+          },
+          "Na__Ni": {
+            "count": 1,
+            "mae": 0.971,
+            "rmse": 0.971,
+            "median_abs_residual": 0.971
+          },
+          "Ni__Sr": {
+            "count": 1,
+            "mae": 0.708001,
+            "rmse": 0.708001,
+            "median_abs_residual": 0.708001
+          },
+          "Rb__Ti": {
+            "count": 1,
+            "mae": 1.152693,
+            "rmse": 1.152693,
+            "median_abs_residual": 1.152693
+          },
+          "Rb__V": {
+            "count": 2,
+            "mae": 0.302004,
+            "rmse": 0.302203,
+            "median_abs_residual": 0.302004
+          },
+          "Sr__V": {
+            "count": 1,
+            "mae": 0.867004,
+            "rmse": 0.867004,
+            "median_abs_residual": 0.867004
+          }
+        },
+        "structure_or_prototype": {
+          "C2": {
+            "count": 1,
+            "mae": 0.762768,
+            "rmse": 0.762768,
+            "median_abs_residual": 0.762768
+          },
+          "C2/c": {
+            "count": 1,
+            "mae": 0.478961,
+            "rmse": 0.478961,
+            "median_abs_residual": 0.478961
+          },
+          "C2/m": {
+            "count": 10,
+            "mae": 0.748317,
+            "rmse": 0.842658,
+            "median_abs_residual": 0.72101
+          },
+          "Cc": {
+            "count": 1,
+            "mae": 0.588993,
+            "rmse": 0.588993,
+            "median_abs_residual": 0.588993
+          },
+          "Cmc2_1": {
+            "count": 1,
+            "mae": 0.313593,
+            "rmse": 0.313593,
+            "median_abs_residual": 0.313593
+          },
+          "Cmce": {
+            "count": 1,
+            "mae": 0.663815,
+            "rmse": 0.663815,
+            "median_abs_residual": 0.663815
+          },
+          "Cmcm": {
+            "count": 3,
+            "mae": 0.652592,
+            "rmse": 0.655386,
+            "median_abs_residual": 0.637157
+          },
+          "I-4": {
+            "count": 1,
+            "mae": 0.59266,
+            "rmse": 0.59266,
+            "median_abs_residual": 0.59266
+          },
+          "Imma": {
+            "count": 1,
+            "mae": 0.028724,
+            "rmse": 0.028724,
+            "median_abs_residual": 0.028724
+          },
+          "P-1": {
+            "count": 6,
+            "mae": 0.398827,
+            "rmse": 0.453173,
+            "median_abs_residual": 0.322639
+          },
+          "P1": {
+            "count": 2,
+            "mae": 0.565803,
+            "rmse": 0.566767,
+            "median_abs_residual": 0.565803
+          },
+          "P2": {
+            "count": 1,
+            "mae": 0.322095,
+            "rmse": 0.322095,
+            "median_abs_residual": 0.322095
+          },
+          "P2/c": {
+            "count": 1,
+            "mae": 0.05876,
+            "rmse": 0.05876,
+            "median_abs_residual": 0.05876
+          },
+          "P2_1": {
+            "count": 1,
+            "mae": 0.517145,
+            "rmse": 0.517145,
+            "median_abs_residual": 0.517145
+          },
+          "P2_1/c": {
+            "count": 7,
+            "mae": 0.378809,
+            "rmse": 0.434382,
+            "median_abs_residual": 0.377332
+          },
+          "P2_1/m": {
+            "count": 1,
+            "mae": 0.682621,
+            "rmse": 0.682621,
+            "median_abs_residual": 0.682621
+          },
+          "P31m": {
+            "count": 1,
+            "mae": 0.312949,
+            "rmse": 0.312949,
+            "median_abs_residual": 0.312949
+          },
+          "P4_12_12": {
+            "count": 1,
+            "mae": 0.29106,
+            "rmse": 0.29106,
+            "median_abs_residual": 0.29106
+          },
+          "P4bm": {
+            "count": 1,
+            "mae": 0.355693,
+            "rmse": 0.355693,
+            "median_abs_residual": 0.355693
+          },
+          "P6_3": {
+            "count": 1,
+            "mae": 0.867004,
+            "rmse": 0.867004,
+            "median_abs_residual": 0.867004
+          },
+          "P6_3/mmc": {
+            "count": 1,
+            "mae": 0.053451,
+            "rmse": 0.053451,
+            "median_abs_residual": 0.053451
+          },
+          "Pc": {
+            "count": 1,
+            "mae": 0.971,
+            "rmse": 0.971,
+            "median_abs_residual": 0.971
+          },
+          "Pm-3m": {
+            "count": 1,
+            "mae": 0.497364,
+            "rmse": 0.497364,
+            "median_abs_residual": 0.497364
+          },
+          "Pm-3n": {
+            "count": 1,
+            "mae": 0.536112,
+            "rmse": 0.536112,
+            "median_abs_residual": 0.536112
+          },
+          "Pnma": {
+            "count": 5,
+            "mae": 0.410332,
+            "rmse": 0.447151,
+            "median_abs_residual": 0.434738
+          },
+          "R-3c": {
+            "count": 1,
+            "mae": 0.219204,
+            "rmse": 0.219204,
+            "median_abs_residual": 0.219204
+          },
+          "R-3m": {
+            "count": 1,
+            "mae": 0.54613,
+            "rmse": 0.54613,
+            "median_abs_residual": 0.54613
+          }
+        },
+        "property_range": {
+          "moderate_negative": {
+            "count": 51,
+            "mae": 0.4624,
+            "rmse": 0.516714,
+            "median_abs_residual": 0.503245
+          },
+          "strongly_negative": {
+            "count": 3,
+            "mae": 1.248845,
+            "rmse": 1.257683,
+            "median_abs_residual": 1.152693
+          }
+        }
+      }
+    },
+    "cation_group_mean": {
+      "metrics": {
+        "train": {
+          "count": 253,
+          "mae": 0.550889,
+          "rmse": 0.658616,
+          "median_abs_residual": 0.512477
+        },
+        "validation": {
+          "count": 55,
+          "mae": 0.545885,
+          "rmse": 0.667828,
+          "median_abs_residual": 0.470983
+        },
+        "holdout": {
+          "count": 54,
+          "mae": 0.525992,
+          "rmse": 0.597905,
+          "median_abs_residual": 0.503842
+        }
+      },
+      "full_axis_metrics": {
+        "count": 362,
+        "mae": 0.546415,
+        "rmse": 0.651347,
+        "median_abs_residual": 0.503883
+      },
+      "holdout_subset_metrics": {
+        "cation_group": {
+          "alkali_or_alkaline_earth__transition_metal": {
+            "count": 54,
+            "mae": 0.525992,
+            "rmse": 0.597905,
+            "median_abs_residual": 0.503842
+          }
+        },
+        "cation_pair": {
+          "Ba__Cr": {
+            "count": 3,
+            "mae": 0.461907,
+            "rmse": 0.462936,
+            "median_abs_residual": 0.448373
+          },
+          "Ba__Fe": {
+            "count": 2,
+            "mae": 0.07452,
+            "rmse": 0.086325,
+            "median_abs_residual": 0.07452
+          },
+          "Ba__Mn": {
+            "count": 1,
+            "mae": 0.143156,
+            "rmse": 0.143156,
+            "median_abs_residual": 0.143156
+          },
+          "Ba__V": {
+            "count": 2,
+            "mae": 0.618539,
+            "rmse": 0.621426,
+            "median_abs_residual": 0.618539
+          },
+          "Be__Cr": {
+            "count": 1,
+            "mae": 0.41885,
+            "rmse": 0.41885,
+            "median_abs_residual": 0.41885
+          },
+          "Ca__Co": {
+            "count": 2,
+            "mae": 0.482408,
+            "rmse": 0.504635,
+            "median_abs_residual": 0.482408
+          },
+          "Ca__Cu": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Ca__Fe": {
+            "count": 1,
+            "mae": 0.229198,
+            "rmse": 0.229198,
+            "median_abs_residual": 0.229198
+          },
+          "Ca__Ni": {
+            "count": 1,
+            "mae": 0.519133,
+            "rmse": 0.519133,
+            "median_abs_residual": 0.519133
+          },
+          "Ca__Ti": {
+            "count": 1,
+            "mae": 1.374686,
+            "rmse": 1.374686,
+            "median_abs_residual": 1.374686
+          },
+          "Ca__V": {
+            "count": 1,
+            "mae": 0.681344,
+            "rmse": 0.681344,
+            "median_abs_residual": 0.681344
+          },
+          "Co__Cs": {
+            "count": 1,
+            "mae": 0.748211,
+            "rmse": 0.748211,
+            "median_abs_residual": 0.748211
+          },
+          "Co__K": {
+            "count": 1,
+            "mae": 0.677055,
+            "rmse": 0.677055,
+            "median_abs_residual": 0.677055
+          },
+          "Co__Li": {
+            "count": 1,
+            "mae": 0.404176,
+            "rmse": 0.404176,
+            "median_abs_residual": 0.404176
+          },
+          "Co__Na": {
+            "count": 1,
+            "mae": 0.817378,
+            "rmse": 0.817378,
+            "median_abs_residual": 0.817378
+          },
+          "Co__Rb": {
+            "count": 1,
+            "mae": 0.721552,
+            "rmse": 0.721552,
+            "median_abs_residual": 0.721552
+          },
+          "Co__Sr": {
+            "count": 2,
+            "mae": 0.150805,
+            "rmse": 0.151651,
+            "median_abs_residual": 0.150805
+          },
+          "Cr__Cs": {
+            "count": 1,
+            "mae": 0.323442,
+            "rmse": 0.323442,
+            "median_abs_residual": 0.323442
+          },
+          "Cr__K": {
+            "count": 2,
+            "mae": 0.22628,
+            "rmse": 0.249118,
+            "median_abs_residual": 0.22628
+          },
+          "Cr__Na": {
+            "count": 1,
+            "mae": 0.224768,
+            "rmse": 0.224768,
+            "median_abs_residual": 0.224768
+          },
+          "Cs__Fe": {
+            "count": 5,
+            "mae": 0.684379,
+            "rmse": 0.689508,
+            "median_abs_residual": 0.683082
+          },
+          "Cs__Mn": {
+            "count": 1,
+            "mae": 0.40649,
+            "rmse": 0.40649,
+            "median_abs_residual": 0.40649
+          },
+          "Cs__Ti": {
+            "count": 2,
+            "mae": 0.776726,
+            "rmse": 0.823518,
+            "median_abs_residual": 0.776726
+          },
+          "Cs__V": {
+            "count": 1,
+            "mae": 0.271298,
+            "rmse": 0.271298,
+            "median_abs_residual": 0.271298
+          },
+          "Cu__K": {
+            "count": 1,
+            "mae": 0.817532,
+            "rmse": 0.817532,
+            "median_abs_residual": 0.817532
+          },
+          "Fe__Rb": {
+            "count": 1,
+            "mae": 0.750076,
+            "rmse": 0.750076,
+            "median_abs_residual": 0.750076
+          },
+          "K__Mn": {
+            "count": 3,
+            "mae": 0.408965,
+            "rmse": 0.418863,
+            "median_abs_residual": 0.461728
+          },
+          "K__Ni": {
+            "count": 1,
+            "mae": 0.767017,
+            "rmse": 0.767017,
+            "median_abs_residual": 0.767017
+          },
+          "Li__Mn": {
+            "count": 1,
+            "mae": 0.113119,
+            "rmse": 0.113119,
+            "median_abs_residual": 0.113119
+          },
+          "Li__Ni": {
+            "count": 2,
+            "mae": 0.738333,
+            "rmse": 0.740386,
+            "median_abs_residual": 0.738333
+          },
+          "Mg__Ni": {
+            "count": 1,
+            "mae": 0.412969,
+            "rmse": 0.412969,
+            "median_abs_residual": 0.412969
+          },
+          "Mn__Na": {
+            "count": 1,
+            "mae": 0.392021,
+            "rmse": 0.392021,
+            "median_abs_residual": 0.392021
+          },
+          "Mn__Rb": {
+            "count": 1,
+            "mae": 0.265946,
+            "rmse": 0.265946,
+            "median_abs_residual": 0.265946
+          },
+          "Na__Ni": {
+            "count": 1,
+            "mae": 1.055395,
+            "rmse": 1.055395,
+            "median_abs_residual": 1.055395
+          },
+          "Ni__Sr": {
+            "count": 1,
+            "mae": 0.792397,
+            "rmse": 0.792397,
+            "median_abs_residual": 0.792397
+          },
+          "Rb__Ti": {
+            "count": 1,
+            "mae": 1.068298,
+            "rmse": 1.068298,
+            "median_abs_residual": 1.068298
+          },
+          "Rb__V": {
+            "count": 2,
+            "mae": 0.217609,
+            "rmse": 0.217884,
+            "median_abs_residual": 0.217609
+          },
+          "Sr__V": {
+            "count": 1,
+            "mae": 0.782609,
+            "rmse": 0.782609,
+            "median_abs_residual": 0.782609
+          }
+        },
+        "structure_or_prototype": {
+          "C2": {
+            "count": 1,
+            "mae": 0.678373,
+            "rmse": 0.678373,
+            "median_abs_residual": 0.678373
+          },
+          "C2/c": {
+            "count": 1,
+            "mae": 0.563356,
+            "rmse": 0.563356,
+            "median_abs_residual": 0.563356
+          },
+          "C2/m": {
+            "count": 10,
+            "mae": 0.748317,
+            "rmse": 0.826256,
+            "median_abs_residual": 0.792914
+          },
+          "Cc": {
+            "count": 1,
+            "mae": 0.504598,
+            "rmse": 0.504598,
+            "median_abs_residual": 0.504598
+          },
+          "Cmc2_1": {
+            "count": 1,
+            "mae": 0.229198,
+            "rmse": 0.229198,
+            "median_abs_residual": 0.229198
+          },
+          "Cmce": {
+            "count": 1,
+            "mae": 0.748211,
+            "rmse": 0.748211,
+            "median_abs_residual": 0.748211
+          },
+          "Cmcm": {
+            "count": 3,
+            "mae": 0.680724,
+            "rmse": 0.693323,
+            "median_abs_residual": 0.721552
+          },
+          "I-4": {
+            "count": 1,
+            "mae": 0.677055,
+            "rmse": 0.677055,
+            "median_abs_residual": 0.677055
+          },
+          "Imma": {
+            "count": 1,
+            "mae": 0.113119,
+            "rmse": 0.113119,
+            "median_abs_residual": 0.113119
+          },
+          "P-1": {
+            "count": 6,
+            "mae": 0.455091,
+            "rmse": 0.493583,
+            "median_abs_residual": 0.407035
+          },
+          "P1": {
+            "count": 2,
+            "mae": 0.565803,
+            "rmse": 0.577861,
+            "median_abs_residual": 0.565803
+          },
+          "P2": {
+            "count": 1,
+            "mae": 0.40649,
+            "rmse": 0.40649,
+            "median_abs_residual": 0.40649
+          },
+          "P2/c": {
+            "count": 1,
+            "mae": 0.143156,
+            "rmse": 0.143156,
+            "median_abs_residual": 0.143156
+          },
+          "P2_1": {
+            "count": 1,
+            "mae": 0.43275,
+            "rmse": 0.43275,
+            "median_abs_residual": 0.43275
+          },
+          "P2_1/c": {
+            "count": 7,
+            "mae": 0.439091,
+            "rmse": 0.499984,
+            "median_abs_residual": 0.461728
+          },
+          "P2_1/m": {
+            "count": 1,
+            "mae": 0.767017,
+            "rmse": 0.767017,
+            "median_abs_residual": 0.767017
+          },
+          "P31m": {
+            "count": 1,
+            "mae": 0.228554,
+            "rmse": 0.228554,
+            "median_abs_residual": 0.228554
+          },
+          "P4_12_12": {
+            "count": 1,
+            "mae": 0.206665,
+            "rmse": 0.206665,
+            "median_abs_residual": 0.206665
+          },
+          "P4bm": {
+            "count": 1,
+            "mae": 0.271298,
+            "rmse": 0.271298,
+            "median_abs_residual": 0.271298
+          },
+          "P6_3": {
+            "count": 1,
+            "mae": 0.782609,
+            "rmse": 0.782609,
+            "median_abs_residual": 0.782609
+          },
+          "P6_3/mmc": {
+            "count": 1,
+            "mae": 0.030944,
+            "rmse": 0.030944,
+            "median_abs_residual": 0.030944
+          },
+          "Pc": {
+            "count": 1,
+            "mae": 1.055395,
+            "rmse": 1.055395,
+            "median_abs_residual": 1.055395
+          },
+          "Pm-3m": {
+            "count": 1,
+            "mae": 0.412969,
+            "rmse": 0.412969,
+            "median_abs_residual": 0.412969
+          },
+          "Pm-3n": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Pnma": {
+            "count": 5,
+            "mae": 0.46097,
+            "rmse": 0.49229,
+            "median_abs_residual": 0.41885
+          },
+          "R-3c": {
+            "count": 1,
+            "mae": 0.134809,
+            "rmse": 0.134809,
+            "median_abs_residual": 0.134809
+          },
+          "R-3m": {
+            "count": 1,
+            "mae": 0.630525,
+            "rmse": 0.630525,
+            "median_abs_residual": 0.630525
+          }
+        },
+        "property_range": {
+          "moderate_negative": {
+            "count": 51,
+            "mae": 0.488436,
+            "rmse": 0.545394,
+            "median_abs_residual": 0.483591
+          },
+          "strongly_negative": {
+            "count": 3,
+            "mae": 1.16445,
+            "rmse": 1.173923,
+            "median_abs_residual": 1.068298
+          }
+        }
+      }
+    },
+    "cation_pair_mean": {
+      "metrics": {
+        "train": {
+          "count": 253,
+          "mae": 0.097089,
+          "rmse": 0.140526,
+          "median_abs_residual": 0.064655
+        },
+        "validation": {
+          "count": 55,
+          "mae": 0.241746,
+          "rmse": 0.382735,
+          "median_abs_residual": 0.135101
+        },
+        "holdout": {
+          "count": 54,
+          "mae": 0.200606,
+          "rmse": 0.297225,
+          "median_abs_residual": 0.123431
+        }
+      },
+      "full_axis_metrics": {
+        "count": 362,
+        "mae": 0.134509,
+        "rmse": 0.221892,
+        "median_abs_residual": 0.078713
+      },
+      "holdout_subset_metrics": {
+        "cation_group": {
+          "alkali_or_alkaline_earth__transition_metal": {
+            "count": 54,
+            "mae": 0.200606,
+            "rmse": 0.297225,
+            "median_abs_residual": 0.123431
+          }
+        },
+        "cation_pair": {
+          "Ba__Cr": {
+            "count": 3,
+            "mae": 0.167704,
+            "rmse": 0.170519,
+            "median_abs_residual": 0.15417
+          },
+          "Ba__Fe": {
+            "count": 2,
+            "mae": 0.07452,
+            "rmse": 0.07536,
+            "median_abs_residual": 0.07452
+          },
+          "Ba__Mn": {
+            "count": 1,
+            "mae": 0.465661,
+            "rmse": 0.465661,
+            "median_abs_residual": 0.465661
+          },
+          "Ba__V": {
+            "count": 2,
+            "mae": 0.059834,
+            "rmse": 0.062669,
+            "median_abs_residual": 0.059834
+          },
+          "Be__Cr": {
+            "count": 1,
+            "mae": 0.41885,
+            "rmse": 0.41885,
+            "median_abs_residual": 0.41885
+          },
+          "Ca__Co": {
+            "count": 2,
+            "mae": 0.179768,
+            "rmse": 0.232927,
+            "median_abs_residual": 0.179768
+          },
+          "Ca__Cu": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Ca__Fe": {
+            "count": 1,
+            "mae": 0.068069,
+            "rmse": 0.068069,
+            "median_abs_residual": 0.068069
+          },
+          "Ca__Ni": {
+            "count": 1,
+            "mae": 0.519133,
+            "rmse": 0.519133,
+            "median_abs_residual": 0.519133
+          },
+          "Ca__Ti": {
+            "count": 1,
+            "mae": 0.000176,
+            "rmse": 0.000176,
+            "median_abs_residual": 0.000176
+          },
+          "Ca__V": {
+            "count": 1,
+            "mae": 0.018252,
+            "rmse": 0.018252,
+            "median_abs_residual": 0.018252
+          },
+          "Co__Cs": {
+            "count": 1,
+            "mae": 0.748211,
+            "rmse": 0.748211,
+            "median_abs_residual": 0.748211
+          },
+          "Co__K": {
+            "count": 1,
+            "mae": 0.092439,
+            "rmse": 0.092439,
+            "median_abs_residual": 0.092439
+          },
+          "Co__Li": {
+            "count": 1,
+            "mae": 0.065164,
+            "rmse": 0.065164,
+            "median_abs_residual": 0.065164
+          },
+          "Co__Na": {
+            "count": 1,
+            "mae": 0.134085,
+            "rmse": 0.134085,
+            "median_abs_residual": 0.134085
+          },
+          "Co__Rb": {
+            "count": 1,
+            "mae": 0.193868,
+            "rmse": 0.193868,
+            "median_abs_residual": 0.193868
+          },
+          "Co__Sr": {
+            "count": 2,
+            "mae": 0.399697,
+            "rmse": 0.400017,
+            "median_abs_residual": 0.399697
+          },
+          "Cr__Cs": {
+            "count": 1,
+            "mae": 0.147151,
+            "rmse": 0.147151,
+            "median_abs_residual": 0.147151
+          },
+          "Cr__K": {
+            "count": 2,
+            "mae": 0.104198,
+            "rmse": 0.106062,
+            "median_abs_residual": 0.104198
+          },
+          "Cr__Na": {
+            "count": 1,
+            "mae": 0.022358,
+            "rmse": 0.022358,
+            "median_abs_residual": 0.022358
+          },
+          "Cs__Fe": {
+            "count": 5,
+            "mae": 0.095992,
+            "rmse": 0.113282,
+            "median_abs_residual": 0.07737
+          },
+          "Cs__Mn": {
+            "count": 1,
+            "mae": 0.165618,
+            "rmse": 0.165618,
+            "median_abs_residual": 0.165618
+          },
+          "Cs__Ti": {
+            "count": 2,
+            "mae": 0.776726,
+            "rmse": 0.823518,
+            "median_abs_residual": 0.776726
+          },
+          "Cs__V": {
+            "count": 1,
+            "mae": 0.03173,
+            "rmse": 0.03173,
+            "median_abs_residual": 0.03173
+          },
+          "Cu__K": {
+            "count": 1,
+            "mae": 0.120429,
+            "rmse": 0.120429,
+            "median_abs_residual": 0.120429
+          },
+          "Fe__Rb": {
+            "count": 1,
+            "mae": 0.171991,
+            "rmse": 0.171991,
+            "median_abs_residual": 0.171991
+          },
+          "K__Mn": {
+            "count": 3,
+            "mae": 0.101007,
+            "rmse": 0.102572,
+            "median_abs_residual": 0.101006
+          },
+          "K__Ni": {
+            "count": 1,
+            "mae": 0.121444,
+            "rmse": 0.121444,
+            "median_abs_residual": 0.121444
+          },
+          "Li__Mn": {
+            "count": 1,
+            "mae": 0.047185,
+            "rmse": 0.047185,
+            "median_abs_residual": 0.047185
+          },
+          "Li__Ni": {
+            "count": 2,
+            "mae": 0.142152,
+            "rmse": 0.152457,
+            "median_abs_residual": 0.142152
+          },
+          "Mg__Ni": {
+            "count": 1,
+            "mae": 0.412969,
+            "rmse": 0.412969,
+            "median_abs_residual": 0.412969
+          },
+          "Mn__Na": {
+            "count": 1,
+            "mae": 0.076711,
+            "rmse": 0.076711,
+            "median_abs_residual": 0.076711
+          },
+          "Mn__Rb": {
+            "count": 1,
+            "mae": 0.175828,
+            "rmse": 0.175828,
+            "median_abs_residual": 0.175828
+          },
+          "Na__Ni": {
+            "count": 1,
+            "mae": 0.209542,
+            "rmse": 0.209542,
+            "median_abs_residual": 0.209542
+          },
+          "Ni__Sr": {
+            "count": 1,
+            "mae": 0.792397,
+            "rmse": 0.792397,
+            "median_abs_residual": 0.792397
+          },
+          "Rb__Ti": {
+            "count": 1,
+            "mae": 0.207882,
+            "rmse": 0.207882,
+            "median_abs_residual": 0.207882
+          },
+          "Rb__V": {
+            "count": 2,
+            "mae": 0.011331,
+            "rmse": 0.015753,
+            "median_abs_residual": 0.011331
+          },
+          "Sr__V": {
+            "count": 1,
+            "mae": 0.002541,
+            "rmse": 0.002541,
+            "median_abs_residual": 0.002541
+          }
+        },
+        "structure_or_prototype": {
+          "C2": {
+            "count": 1,
+            "mae": 0.041196,
+            "rmse": 0.041196,
+            "median_abs_residual": 0.041196
+          },
+          "C2/c": {
+            "count": 1,
+            "mae": 0.197096,
+            "rmse": 0.197096,
+            "median_abs_residual": 0.197096
+          },
+          "C2/m": {
+            "count": 10,
+            "mae": 0.291292,
+            "rmse": 0.44829,
+            "median_abs_residual": 0.165668
+          },
+          "Cc": {
+            "count": 1,
+            "mae": 0.210395,
+            "rmse": 0.210395,
+            "median_abs_residual": 0.210395
+          },
+          "Cmc2_1": {
+            "count": 1,
+            "mae": 0.068069,
+            "rmse": 0.068069,
+            "median_abs_residual": 0.068069
+          },
+          "Cmce": {
+            "count": 1,
+            "mae": 0.748211,
+            "rmse": 0.748211,
+            "median_abs_residual": 0.748211
+          },
+          "Cmcm": {
+            "count": 3,
+            "mae": 0.272461,
+            "rmse": 0.318948,
+            "median_abs_residual": 0.193868
+          },
+          "I-4": {
+            "count": 1,
+            "mae": 0.092439,
+            "rmse": 0.092439,
+            "median_abs_residual": 0.092439
+          },
+          "Imma": {
+            "count": 1,
+            "mae": 0.047185,
+            "rmse": 0.047185,
+            "median_abs_residual": 0.047185
+          },
+          "P-1": {
+            "count": 6,
+            "mae": 0.098419,
+            "rmse": 0.106488,
+            "median_abs_residual": 0.081774
+          },
+          "P1": {
+            "count": 2,
+            "mae": 0.120611,
+            "rmse": 0.125193,
+            "median_abs_residual": 0.120611
+          },
+          "P2": {
+            "count": 1,
+            "mae": 0.165618,
+            "rmse": 0.165618,
+            "median_abs_residual": 0.165618
+          },
+          "P2/c": {
+            "count": 1,
+            "mae": 0.465661,
+            "rmse": 0.465661,
+            "median_abs_residual": 0.465661
+          },
+          "P2_1": {
+            "count": 1,
+            "mae": 0.138548,
+            "rmse": 0.138548,
+            "median_abs_residual": 0.138548
+          },
+          "P2_1/c": {
+            "count": 7,
+            "mae": 0.095502,
+            "rmse": 0.102869,
+            "median_abs_residual": 0.101006
+          },
+          "P2_1/m": {
+            "count": 1,
+            "mae": 0.121444,
+            "rmse": 0.121444,
+            "median_abs_residual": 0.121444
+          },
+          "P31m": {
+            "count": 1,
+            "mae": 0.000386,
+            "rmse": 0.000386,
+            "median_abs_residual": 0.000386
+          },
+          "P4_12_12": {
+            "count": 1,
+            "mae": 0.022275,
+            "rmse": 0.022275,
+            "median_abs_residual": 0.022275
+          },
+          "P4bm": {
+            "count": 1,
+            "mae": 0.03173,
+            "rmse": 0.03173,
+            "median_abs_residual": 0.03173
+          },
+          "P6_3": {
+            "count": 1,
+            "mae": 0.002541,
+            "rmse": 0.002541,
+            "median_abs_residual": 0.002541
+          },
+          "P6_3/mmc": {
+            "count": 1,
+            "mae": 0.085742,
+            "rmse": 0.085742,
+            "median_abs_residual": 0.085742
+          },
+          "Pc": {
+            "count": 1,
+            "mae": 0.209542,
+            "rmse": 0.209542,
+            "median_abs_residual": 0.209542
+          },
+          "Pm-3m": {
+            "count": 1,
+            "mae": 0.412969,
+            "rmse": 0.412969,
+            "median_abs_residual": 0.412969
+          },
+          "Pm-3n": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Pnma": {
+            "count": 5,
+            "mae": 0.241809,
+            "rmse": 0.310129,
+            "median_abs_residual": 0.171991
+          },
+          "R-3c": {
+            "count": 1,
+            "mae": 0.3837,
+            "rmse": 0.3837,
+            "median_abs_residual": 0.3837
+          },
+          "R-3m": {
+            "count": 1,
+            "mae": 0.327885,
+            "rmse": 0.327885,
+            "median_abs_residual": 0.327885
+          }
+        },
+        "property_range": {
+          "moderate_negative": {
+            "count": 51,
+            "mae": 0.187732,
+            "rmse": 0.26657,
+            "median_abs_residual": 0.12287
+          },
+          "strongly_negative": {
+            "count": 3,
+            "mae": 0.419474,
+            "rmse": 0.618191,
+            "median_abs_residual": 0.207882
+          }
+        }
+      }
+    },
+    "structure_or_prototype_mean": {
+      "metrics": {
+        "train": {
+          "count": 253,
+          "mae": 0.446402,
+          "rmse": 0.582216,
+          "median_abs_residual": 0.40704
+        },
+        "validation": {
+          "count": 55,
+          "mae": 0.575664,
+          "rmse": 0.718735,
+          "median_abs_residual": 0.460261
+        },
+        "holdout": {
+          "count": 54,
+          "mae": 0.53987,
+          "rmse": 0.644125,
+          "median_abs_residual": 0.473393
+        }
+      },
+      "full_axis_metrics": {
+        "count": 362,
+        "mae": 0.479984,
+        "rmse": 0.614235,
+        "median_abs_residual": 0.441753
+      },
+      "holdout_subset_metrics": {
+        "cation_group": {
+          "alkali_or_alkaline_earth__transition_metal": {
+            "count": 54,
+            "mae": 0.53987,
+            "rmse": 0.644125,
+            "median_abs_residual": 0.473393
+          }
+        },
+        "cation_pair": {
+          "Ba__Cr": {
+            "count": 3,
+            "mae": 0.618123,
+            "rmse": 0.757016,
+            "median_abs_residual": 0.43275
+          },
+          "Ba__Fe": {
+            "count": 2,
+            "mae": 0.269365,
+            "rmse": 0.339066,
+            "median_abs_residual": 0.269365
+          },
+          "Ba__Mn": {
+            "count": 1,
+            "mae": 0.143156,
+            "rmse": 0.143156,
+            "median_abs_residual": 0.143156
+          },
+          "Ba__V": {
+            "count": 2,
+            "mae": 0.912123,
+            "rmse": 0.967366,
+            "median_abs_residual": 0.912123
+          },
+          "Be__Cr": {
+            "count": 1,
+            "mae": 0.47149,
+            "rmse": 0.47149,
+            "median_abs_residual": 0.47149
+          },
+          "Ca__Co": {
+            "count": 2,
+            "mae": 0.653343,
+            "rmse": 0.697784,
+            "median_abs_residual": 0.653343
+          },
+          "Ca__Cu": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Ca__Fe": {
+            "count": 1,
+            "mae": 0.321325,
+            "rmse": 0.321325,
+            "median_abs_residual": 0.321325
+          },
+          "Ca__Ni": {
+            "count": 1,
+            "mae": 0.466493,
+            "rmse": 0.466493,
+            "median_abs_residual": 0.466493
+          },
+          "Ca__Ti": {
+            "count": 1,
+            "mae": 1.300674,
+            "rmse": 1.300674,
+            "median_abs_residual": 1.300674
+          },
+          "Ca__V": {
+            "count": 1,
+            "mae": 0.607332,
+            "rmse": 0.607332,
+            "median_abs_residual": 0.607332
+          },
+          "Co__Cs": {
+            "count": 1,
+            "mae": 1.267996,
+            "rmse": 1.267996,
+            "median_abs_residual": 1.267996
+          },
+          "Co__K": {
+            "count": 1,
+            "mae": 0.677055,
+            "rmse": 0.677055,
+            "median_abs_residual": 0.677055
+          },
+          "Co__Li": {
+            "count": 1,
+            "mae": 0.478188,
+            "rmse": 0.478188,
+            "median_abs_residual": 0.478188
+          },
+          "Co__Na": {
+            "count": 1,
+            "mae": 0.89139,
+            "rmse": 0.89139,
+            "median_abs_residual": 0.89139
+          },
+          "Co__Rb": {
+            "count": 1,
+            "mae": 0.574839,
+            "rmse": 0.574839,
+            "median_abs_residual": 0.574839
+          },
+          "Co__Sr": {
+            "count": 2,
+            "mae": 0.113799,
+            "rmse": 0.115722,
+            "median_abs_residual": 0.113799
+          },
+          "Cr__Cs": {
+            "count": 1,
+            "mae": 0.033759,
+            "rmse": 0.033759,
+            "median_abs_residual": 0.033759
+          },
+          "Cr__K": {
+            "count": 2,
+            "mae": 0.267204,
+            "rmse": 0.269123,
+            "median_abs_residual": 0.267204
+          },
+          "Cr__Na": {
+            "count": 1,
+            "mae": 0.172129,
+            "rmse": 0.172129,
+            "median_abs_residual": 0.172129
+          },
+          "Cs__Fe": {
+            "count": 5,
+            "mae": 0.501474,
+            "rmse": 0.546731,
+            "median_abs_residual": 0.374038
+          },
+          "Cs__Mn": {
+            "count": 1,
+            "mae": 0.40649,
+            "rmse": 0.40649,
+            "median_abs_residual": 0.40649
+          },
+          "Cs__Ti": {
+            "count": 2,
+            "mae": 0.813076,
+            "rmse": 0.829308,
+            "median_abs_residual": 0.813076
+          },
+          "Cs__V": {
+            "count": 1,
+            "mae": 0.003776,
+            "rmse": 0.003776,
+            "median_abs_residual": 0.003776
+          },
+          "Cu__K": {
+            "count": 1,
+            "mae": 0.67082,
+            "rmse": 0.67082,
+            "median_abs_residual": 0.67082
+          },
+          "Fe__Rb": {
+            "count": 1,
+            "mae": 0.697436,
+            "rmse": 0.697436,
+            "median_abs_residual": 0.697436
+          },
+          "K__Mn": {
+            "count": 3,
+            "mae": 0.269104,
+            "rmse": 0.304568,
+            "median_abs_residual": 0.250386
+          },
+          "K__Ni": {
+            "count": 1,
+            "mae": 1.011284,
+            "rmse": 1.011284,
+            "median_abs_residual": 1.011284
+          },
+          "Li__Mn": {
+            "count": 1,
+            "mae": 0.113119,
+            "rmse": 0.113119,
+            "median_abs_residual": 0.113119
+          },
+          "Li__Ni": {
+            "count": 2,
+            "mae": 0.899426,
+            "rmse": 0.899994,
+            "median_abs_residual": 0.899426
+          },
+          "Mg__Ni": {
+            "count": 1,
+            "mae": 0.371211,
+            "rmse": 0.371211,
+            "median_abs_residual": 0.371211
+          },
+          "Mn__Na": {
+            "count": 1,
+            "mae": 0.339381,
+            "rmse": 0.339381,
+            "median_abs_residual": 0.339381
+          },
+          "Mn__Rb": {
+            "count": 1,
+            "mae": 0.234755,
+            "rmse": 0.234755,
+            "median_abs_residual": 0.234755
+          },
+          "Na__Ni": {
+            "count": 1,
+            "mae": 1.055395,
+            "rmse": 1.055395,
+            "median_abs_residual": 1.055395
+          },
+          "Ni__Sr": {
+            "count": 1,
+            "mae": 0.866409,
+            "rmse": 0.866409,
+            "median_abs_residual": 0.866409
+          },
+          "Rb__Ti": {
+            "count": 1,
+            "mae": 0.994286,
+            "rmse": 0.994286,
+            "median_abs_residual": 0.994286
+          },
+          "Rb__V": {
+            "count": 2,
+            "mae": 0.276966,
+            "rmse": 0.386741,
+            "median_abs_residual": 0.276966
+          },
+          "Sr__V": {
+            "count": 1,
+            "mae": 0.782609,
+            "rmse": 0.782609,
+            "median_abs_residual": 0.782609
+          }
+        },
+        "structure_or_prototype": {
+          "C2": {
+            "count": 1,
+            "mae": 1.234349,
+            "rmse": 1.234349,
+            "median_abs_residual": 1.234349
+          },
+          "C2/c": {
+            "count": 1,
+            "mae": 0.751623,
+            "rmse": 0.751623,
+            "median_abs_residual": 0.751623
+          },
+          "C2/m": {
+            "count": 10,
+            "mae": 0.748317,
+            "rmse": 0.818789,
+            "median_abs_residual": 0.866927
+          },
+          "Cc": {
+            "count": 1,
+            "mae": 1.22142,
+            "rmse": 1.22142,
+            "median_abs_residual": 1.22142
+          },
+          "Cmc2_1": {
+            "count": 1,
+            "mae": 0.321325,
+            "rmse": 0.321325,
+            "median_abs_residual": 0.321325
+          },
+          "Cmce": {
+            "count": 1,
+            "mae": 1.267996,
+            "rmse": 1.267996,
+            "median_abs_residual": 1.267996
+          },
+          "Cmcm": {
+            "count": 3,
+            "mae": 0.631819,
+            "rmse": 0.633161,
+            "median_abs_residual": 0.6498
+          },
+          "I-4": {
+            "count": 1,
+            "mae": 0.677055,
+            "rmse": 0.677055,
+            "median_abs_residual": 0.677055
+          },
+          "Imma": {
+            "count": 1,
+            "mae": 0.113119,
+            "rmse": 0.113119,
+            "median_abs_residual": 0.113119
+          },
+          "P-1": {
+            "count": 6,
+            "mae": 0.434297,
+            "rmse": 0.47731,
+            "median_abs_residual": 0.375844
+          },
+          "P1": {
+            "count": 2,
+            "mae": 0.565803,
+            "rmse": 0.673646,
+            "median_abs_residual": 0.565803
+          },
+          "P2": {
+            "count": 1,
+            "mae": 0.40649,
+            "rmse": 0.40649,
+            "median_abs_residual": 0.40649
+          },
+          "P2/c": {
+            "count": 1,
+            "mae": 0.143156,
+            "rmse": 0.143156,
+            "median_abs_residual": 0.143156
+          },
+          "P2_1": {
+            "count": 1,
+            "mae": 0.43275,
+            "rmse": 0.43275,
+            "median_abs_residual": 0.43275
+          },
+          "P2_1/c": {
+            "count": 7,
+            "mae": 0.26077,
+            "rmse": 0.296638,
+            "median_abs_residual": 0.276769
+          },
+          "P2_1/m": {
+            "count": 1,
+            "mae": 1.011284,
+            "rmse": 1.011284,
+            "median_abs_residual": 1.011284
+          },
+          "P31m": {
+            "count": 1,
+            "mae": 0.007043,
+            "rmse": 0.007043,
+            "median_abs_residual": 0.007043
+          },
+          "P4_12_12": {
+            "count": 1,
+            "mae": 0.546889,
+            "rmse": 0.546889,
+            "median_abs_residual": 0.546889
+          },
+          "P4bm": {
+            "count": 1,
+            "mae": 0.003776,
+            "rmse": 0.003776,
+            "median_abs_residual": 0.003776
+          },
+          "P6_3": {
+            "count": 1,
+            "mae": 0.782609,
+            "rmse": 0.782609,
+            "median_abs_residual": 0.782609
+          },
+          "P6_3/mmc": {
+            "count": 1,
+            "mae": 0.063434,
+            "rmse": 0.063434,
+            "median_abs_residual": 0.063434
+          },
+          "Pc": {
+            "count": 1,
+            "mae": 1.055395,
+            "rmse": 1.055395,
+            "median_abs_residual": 1.055395
+          },
+          "Pm-3m": {
+            "count": 1,
+            "mae": 0.371211,
+            "rmse": 0.371211,
+            "median_abs_residual": 0.371211
+          },
+          "Pm-3n": {
+            "count": 1,
+            "mae": 0.620508,
+            "rmse": 0.620508,
+            "median_abs_residual": 0.620508
+          },
+          "Pnma": {
+            "count": 5,
+            "mae": 0.429386,
+            "rmse": 0.462849,
+            "median_abs_residual": 0.466493
+          },
+          "R-3c": {
+            "count": 1,
+            "mae": 0.134809,
+            "rmse": 0.134809,
+            "median_abs_residual": 0.134809
+          },
+          "R-3m": {
+            "count": 1,
+            "mae": 0.898383,
+            "rmse": 0.898383,
+            "median_abs_residual": 0.898383
+          }
+        },
+        "property_range": {
+          "moderate_negative": {
+            "count": 51,
+            "mae": 0.507483,
+            "rmse": 0.606676,
+            "median_abs_residual": 0.466493
+          },
+          "strongly_negative": {
+            "count": 3,
+            "mae": 1.090437,
+            "rmse": 1.100549,
+            "median_abs_residual": 0.994286
+          }
+        }
+      }
+    }
+  },
+  "best_global_null": {
+    "baseline_id": "global_median",
+    "count": 54,
+    "mae": 0.506092,
+    "rmse": 0.583126,
+    "median_abs_residual": 0.524956
+  },
+  "best_composition_baseline": {
+    "baseline_id": "cation_pair_mean",
+    "count": 54,
+    "mae": 0.200606,
+    "rmse": 0.297225,
+    "median_abs_residual": 0.123431
+  },
+  "deterministic_controls": {
+    "baseline_id": "cation_pair_mean",
+    "real_holdout_mae": 0.200606,
+    "seeds": [
+      0,
+      1,
+      2,
+      7,
+      11
+    ],
+    "per_seed": [
+      {
+        "seed": 0,
+        "label_shuffle_holdout_mae": 0.761247,
+        "cation_label_shuffle_holdout_mae": 0.657826
+      },
+      {
+        "seed": 1,
+        "label_shuffle_holdout_mae": 0.564957,
+        "cation_label_shuffle_holdout_mae": 0.504772
+      },
+      {
+        "seed": 2,
+        "label_shuffle_holdout_mae": 0.530919,
+        "cation_label_shuffle_holdout_mae": 0.474316
+      },
+      {
+        "seed": 7,
+        "label_shuffle_holdout_mae": 0.618394,
+        "cation_label_shuffle_holdout_mae": 0.6069
+      },
+      {
+        "seed": 11,
+        "label_shuffle_holdout_mae": 0.572298,
+        "cation_label_shuffle_holdout_mae": 0.621543
+      }
+    ],
+    "label_shuffle": {
+      "control_mae_min": 0.530919,
+      "control_mae_median": 0.572298,
+      "control_mae_max": 0.761247,
+      "real_beats_every_seed": true
+    },
+    "cation_label_shuffle": {
+      "control_mae_min": 0.474316,
+      "control_mae_median": 0.6069,
+      "control_mae_max": 0.657826,
+      "real_beats_every_seed": true
+    },
+    "row_order_invariance": {
+      "canonical_holdout_mae": 0.200606,
+      "reversed_input_holdout_mae": 0.200606,
+      "invariant": true
+    }
+  },
+  "split_sensitivity": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_fraction": 0.7,
+    "per_seed": [
+      {
+        "seed": 0,
+        "train_count": 253,
+        "holdout_count": 109,
+        "holdout_mae": {
+          "global_mean": 0.516858,
+          "global_median": 0.518967,
+          "cation_group_mean": 0.516858,
+          "cation_pair_mean": 0.187206,
+          "structure_or_prototype_mean": 0.536913
+        },
+        "winner": "cation_pair_mean"
+      },
+      {
+        "seed": 1,
+        "train_count": 253,
+        "holdout_count": 109,
+        "holdout_mae": {
+          "global_mean": 0.534358,
+          "global_median": 0.561304,
+          "cation_group_mean": 0.534358,
+          "cation_pair_mean": 0.188647,
+          "structure_or_prototype_mean": 0.511802
+        },
+        "winner": "cation_pair_mean"
+      },
+      {
+        "seed": 2,
+        "train_count": 253,
+        "holdout_count": 109,
+        "holdout_mae": {
+          "global_mean": 0.555392,
+          "global_median": 0.548059,
+          "cation_group_mean": 0.555392,
+          "cation_pair_mean": 0.172441,
+          "structure_or_prototype_mean": 0.598536
+        },
+        "winner": "cation_pair_mean"
+      },
+      {
+        "seed": 3,
+        "train_count": 253,
+        "holdout_count": 109,
+        "holdout_mae": {
+          "global_mean": 0.557344,
+          "global_median": 0.554967,
+          "cation_group_mean": 0.557344,
+          "cation_pair_mean": 0.216158,
+          "structure_or_prototype_mean": 0.578738
+        },
+        "winner": "cation_pair_mean"
+      },
+      {
+        "seed": 4,
+        "train_count": 253,
+        "holdout_count": 109,
+        "holdout_mae": {
+          "global_mean": 0.550879,
+          "global_median": 0.546708,
+          "cation_group_mean": 0.550879,
+          "cation_pair_mean": 0.199955,
+          "structure_or_prototype_mean": 0.579451
+        },
+        "winner": "cation_pair_mean"
+      }
+    ],
+    "per_baseline": {
+      "global_mean": {
+        "holdout_mae_mean": 0.542966,
+        "holdout_mae_std": 0.015359,
+        "holdout_mae_min": 0.516858,
+        "holdout_mae_max": 0.557344,
+        "seed_win_count": 0
+      },
+      "global_median": {
+        "holdout_mae_mean": 0.546001,
+        "holdout_mae_std": 0.014492,
+        "holdout_mae_min": 0.518967,
+        "holdout_mae_max": 0.561304,
+        "seed_win_count": 0
+      },
+      "cation_group_mean": {
+        "holdout_mae_mean": 0.542966,
+        "holdout_mae_std": 0.015359,
+        "holdout_mae_min": 0.516858,
+        "holdout_mae_max": 0.557344,
+        "seed_win_count": 0
+      },
+      "cation_pair_mean": {
+        "holdout_mae_mean": 0.192881,
+        "holdout_mae_std": 0.014559,
+        "holdout_mae_min": 0.172441,
+        "holdout_mae_max": 0.216158,
+        "seed_win_count": 5
+      },
+      "structure_or_prototype_mean": {
+        "holdout_mae_mean": 0.561088,
+        "holdout_mae_std": 0.031826,
+        "holdout_mae_min": 0.511802,
+        "holdout_mae_max": 0.598536,
+        "seed_win_count": 0
+      }
+    },
+    "selected_baseline_id": "cation_pair_mean",
+    "seeded_mean_winner": "cation_pair_mean",
+    "runner_up_baseline": "global_mean",
+    "seeded_mean_margin_over_runner_up": 0.350085,
+    "across_seed_noise": 0.015359,
+    "verdict": "split_robust"
+  },
+  "extrapolation_stress_tests": {
+    "leave_one_cation_pair_out": {
+      "group_count": 89,
+      "per_group": {
+        "Ba__Co": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.122754,
+          "rmse": 0.127138,
+          "median_abs_residual": 0.11424
+        },
+        "Ba__Cr": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 0.406884,
+          "rmse": 0.439282,
+          "median_abs_residual": 0.459569
+        },
+        "Ba__Cu": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.291976,
+          "rmse": 0.330354,
+          "median_abs_residual": 0.239144
+        },
+        "Ba__Fe": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.103577,
+          "rmse": 0.128299,
+          "median_abs_residual": 0.071931
+        },
+        "Ba__Mn": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 0.312806,
+          "rmse": 0.325231,
+          "median_abs_residual": 0.335498
+        },
+        "Ba__Ni": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.342928,
+          "rmse": 0.342928,
+          "median_abs_residual": 0.342928
+        },
+        "Ba__Sc": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 1.444524,
+          "rmse": 1.447394,
+          "median_abs_residual": 1.444524
+        },
+        "Ba__Ti": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 1.339007,
+          "rmse": 1.340131,
+          "median_abs_residual": 1.354837
+        },
+        "Ba__V": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 0.666468,
+          "rmse": 0.682698,
+          "median_abs_residual": 0.694093
+        },
+        "Ba__Zn": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.289465,
+          "rmse": 0.301531,
+          "median_abs_residual": 0.289465
+        },
+        "Be__Co": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.373015,
+          "rmse": 0.373015,
+          "median_abs_residual": 0.373015
+        },
+        "Be__Cr": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.439286,
+          "rmse": 0.439286,
+          "median_abs_residual": 0.439286
+        },
+        "Ca__Co": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.406633,
+          "rmse": 0.432617,
+          "median_abs_residual": 0.318439
+        },
+        "Ca__Cr": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.416792,
+          "rmse": 0.441122,
+          "median_abs_residual": 0.416792
+        },
+        "Ca__Cu": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.384854,
+          "rmse": 0.440235,
+          "median_abs_residual": 0.45495
+        },
+        "Ca__Fe": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.204738,
+          "rmse": 0.227126,
+          "median_abs_residual": 0.250117
+        },
+        "Ca__Mn": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.271937,
+          "rmse": 0.272376,
+          "median_abs_residual": 0.271937
+        },
+        "Ca__Ni": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.501295,
+          "rmse": 0.501295,
+          "median_abs_residual": 0.501295
+        },
+        "Ca__Sc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 1.626177,
+          "rmse": 1.626177,
+          "median_abs_residual": 1.626177
+        },
+        "Ca__Ti": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 1.401741,
+          "rmse": 1.401741,
+          "median_abs_residual": 1.401741
+        },
+        "Ca__V": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.696907,
+          "rmse": 0.703642,
+          "median_abs_residual": 0.68157
+        },
+        "Co__Cs": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.715313,
+          "rmse": 0.71553,
+          "median_abs_residual": 0.715313
+        },
+        "Co__K": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 0.7516,
+          "rmse": 0.756375,
+          "median_abs_residual": 0.752651
+        },
+        "Co__Li": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.424707,
+          "rmse": 0.451922,
+          "median_abs_residual": 0.405341
+        },
+        "Co__Mg": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.417632,
+          "rmse": 0.426958,
+          "median_abs_residual": 0.417632
+        },
+        "Co__Na": {
+          "train_count": 353,
+          "holdout_count": 9,
+          "count": 9,
+          "mae": 0.693726,
+          "rmse": 0.696135,
+          "median_abs_residual": 0.684021
+        },
+        "Co__Rb": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.823654,
+          "rmse": 0.831223,
+          "median_abs_residual": 0.847961
+        },
+        "Co__Sr": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.212666,
+          "rmse": 0.32449,
+          "median_abs_residual": 0.153053
+        },
+        "Cr__Cs": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.207842,
+          "rmse": 0.224972,
+          "median_abs_residual": 0.221271
+        },
+        "Cr__K": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.18478,
+          "rmse": 0.208356,
+          "median_abs_residual": 0.221757
+        },
+        "Cr__Li": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.148087,
+          "rmse": 0.181,
+          "median_abs_residual": 0.160174
+        },
+        "Cr__Mg": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.246566,
+          "rmse": 0.331587,
+          "median_abs_residual": 0.246566
+        },
+        "Cr__Na": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.220284,
+          "rmse": 0.231628,
+          "median_abs_residual": 0.235037
+        },
+        "Cr__Rb": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.177781,
+          "rmse": 0.184525,
+          "median_abs_residual": 0.189613
+        },
+        "Cr__Sr": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.373795,
+          "rmse": 0.431679,
+          "median_abs_residual": 0.400047
+        },
+        "Cs__Cu": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 1.02708,
+          "rmse": 1.03649,
+          "median_abs_residual": 1.039618
+        },
+        "Cs__Fe": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 0.669669,
+          "rmse": 0.679085,
+          "median_abs_residual": 0.702738
+        },
+        "Cs__Mn": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.501838,
+          "rmse": 0.51716,
+          "median_abs_residual": 0.437563
+        },
+        "Cs__Ni": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.919096,
+          "rmse": 0.919096,
+          "median_abs_residual": 0.919096
+        },
+        "Cs__Sc": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.461654,
+          "rmse": 0.582711,
+          "median_abs_residual": 0.461654
+        },
+        "Cs__Ti": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.793576,
+          "rmse": 0.876039,
+          "median_abs_residual": 0.804717
+        },
+        "Cs__V": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.269702,
+          "rmse": 0.272209,
+          "median_abs_residual": 0.275017
+        },
+        "Cs__Zn": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.694569,
+          "rmse": 0.696778,
+          "median_abs_residual": 0.694569
+        },
+        "Cu__K": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.907183,
+          "rmse": 0.913139,
+          "median_abs_residual": 0.886727
+        },
+        "Cu__Li": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.612103,
+          "rmse": 0.632736,
+          "median_abs_residual": 0.716494
+        },
+        "Cu__Mg": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.669485,
+          "rmse": 0.669485,
+          "median_abs_residual": 0.669485
+        },
+        "Cu__Na": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.862704,
+          "rmse": 0.869305,
+          "median_abs_residual": 0.819583
+        },
+        "Cu__Rb": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.955683,
+          "rmse": 0.960764,
+          "median_abs_residual": 0.959195
+        },
+        "Cu__Sr": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.213371,
+          "rmse": 0.262432,
+          "median_abs_residual": 0.199137
+        },
+        "Fe__K": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 0.575176,
+          "rmse": 0.581835,
+          "median_abs_residual": 0.557602
+        },
+        "Fe__Li": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.208759,
+          "rmse": 0.219356,
+          "median_abs_residual": 0.218796
+        },
+        "Fe__Mg": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.065354,
+          "rmse": 0.065354,
+          "median_abs_residual": 0.065354
+        },
+        "Fe__Na": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.492326,
+          "rmse": 0.49586,
+          "median_abs_residual": 0.514407
+        },
+        "Fe__Rb": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 0.624934,
+          "rmse": 0.633155,
+          "median_abs_residual": 0.647341
+        },
+        "Fe__Sr": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 0.248594,
+          "rmse": 0.28189,
+          "median_abs_residual": 0.278581
+        },
+        "K__Mn": {
+          "train_count": 350,
+          "holdout_count": 12,
+          "count": 12,
+          "mae": 0.332638,
+          "rmse": 0.348907,
+          "median_abs_residual": 0.333605
+        },
+        "K__Ni": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.848251,
+          "rmse": 0.849898,
+          "median_abs_residual": 0.874584
+        },
+        "K__Sc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.933712,
+          "rmse": 0.933712,
+          "median_abs_residual": 0.933712
+        },
+        "K__Ti": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.74919,
+          "rmse": 0.834194,
+          "median_abs_residual": 0.759912
+        },
+        "K__V": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 0.229217,
+          "rmse": 0.234226,
+          "median_abs_residual": 0.241528
+        },
+        "K__Zn": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.575739,
+          "rmse": 0.582834,
+          "median_abs_residual": 0.58933
+        },
+        "Li__Mn": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.063865,
+          "rmse": 0.077784,
+          "median_abs_residual": 0.094683
+        },
+        "Li__Ni": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.748468,
+          "rmse": 0.761022,
+          "median_abs_residual": 0.727381
+        },
+        "Li__Sc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 1.185894,
+          "rmse": 1.185894,
+          "median_abs_residual": 1.185894
+        },
+        "Li__Ti": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.878681,
+          "rmse": 0.900562,
+          "median_abs_residual": 0.832088
+        },
+        "Li__V": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.315439,
+          "rmse": 0.317196,
+          "median_abs_residual": 0.334392
+        },
+        "Li__Zn": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.148646,
+          "rmse": 0.150303,
+          "median_abs_residual": 0.148646
+        },
+        "Mg__Mn": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.288106,
+          "rmse": 0.369029,
+          "median_abs_residual": 0.192552
+        },
+        "Mg__Ni": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.433388,
+          "rmse": 0.433388,
+          "median_abs_residual": 0.433388
+        },
+        "Mg__Ti": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 1.253018,
+          "rmse": 1.254096,
+          "median_abs_residual": 1.28048
+        },
+        "Mg__V": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.530407,
+          "rmse": 0.537356,
+          "median_abs_residual": 0.546986
+        },
+        "Mn__Na": {
+          "train_count": 353,
+          "holdout_count": 9,
+          "count": 9,
+          "mae": 0.311197,
+          "rmse": 0.338203,
+          "median_abs_residual": 0.292302
+        },
+        "Mn__Rb": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 0.378642,
+          "rmse": 0.413828,
+          "median_abs_residual": 0.254045
+        },
+        "Mn__Sr": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.464353,
+          "rmse": 0.473533,
+          "median_abs_residual": 0.465368
+        },
+        "Na__Ni": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.898164,
+          "rmse": 0.903311,
+          "median_abs_residual": 0.917035
+        },
+        "Na__Sc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 1.031624,
+          "rmse": 1.031624,
+          "median_abs_residual": 1.031624
+        },
+        "Na__Ti": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.894977,
+          "rmse": 0.950638,
+          "median_abs_residual": 1.001386
+        },
+        "Na__V": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.179473,
+          "rmse": 0.186697,
+          "median_abs_residual": 0.181185
+        },
+        "Na__Zn": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.538249,
+          "rmse": 0.541462,
+          "median_abs_residual": 0.531843
+        },
+        "Ni__Rb": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.899015,
+          "rmse": 0.899015,
+          "median_abs_residual": 0.899015
+        },
+        "Ni__Sr": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.429837,
+          "rmse": 0.551613,
+          "median_abs_residual": 0.429837
+        },
+        "Rb__Sc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.840896,
+          "rmse": 0.840896,
+          "median_abs_residual": 0.840896
+        },
+        "Rb__Ti": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.679813,
+          "rmse": 0.788403,
+          "median_abs_residual": 0.59857
+        },
+        "Rb__V": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.247042,
+          "rmse": 0.248596,
+          "median_abs_residual": 0.251027
+        },
+        "Rb__Zn": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.551807,
+          "rmse": 0.5556,
+          "median_abs_residual": 0.551807
+        },
+        "Sc__Sr": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 1.580172,
+          "rmse": 1.580172,
+          "median_abs_residual": 1.580172
+        },
+        "Sr__Ti": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 1.331733,
+          "rmse": 1.332604,
+          "median_abs_residual": 1.320693
+        },
+        "Sr__V": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.815627,
+          "rmse": 0.816216,
+          "median_abs_residual": 0.817031
+        },
+        "Sr__Zn": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.273535,
+          "rmse": 0.273535,
+          "median_abs_residual": 0.273535
+        }
+      },
+      "macro_holdout_mae": 0.576133
+    },
+    "leave_one_cation_family_out": {
+      "group_count": 0,
+      "per_group": {},
+      "macro_holdout_mae": null
+    },
+    "leave_one_structure_or_prototype_out": {
+      "group_count": 71,
+      "per_group": {
+        "Ama2": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.065987,
+          "rmse": 0.065987,
+          "median_abs_residual": 0.065987
+        },
+        "Amm2": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.023839,
+          "rmse": 0.023839,
+          "median_abs_residual": 0.023839
+        },
+        "C2": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.047389,
+          "rmse": 0.063979,
+          "median_abs_residual": 0.03405
+        },
+        "C2/c": {
+          "train_count": 347,
+          "holdout_count": 15,
+          "count": 15,
+          "mae": 0.133843,
+          "rmse": 0.175276,
+          "median_abs_residual": 0.126555
+        },
+        "C2/m": {
+          "train_count": 326,
+          "holdout_count": 36,
+          "count": 36,
+          "mae": 0.188236,
+          "rmse": 0.280969,
+          "median_abs_residual": 0.118342
+        },
+        "C222": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.137189,
+          "rmse": 0.137189,
+          "median_abs_residual": 0.137189
+        },
+        "C222_1": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.162588,
+          "rmse": 0.162588,
+          "median_abs_residual": 0.162588
+        },
+        "Cc": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.07227,
+          "rmse": 0.096039,
+          "median_abs_residual": 0.03144
+        },
+        "Cm": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.027324,
+          "rmse": 0.027728,
+          "median_abs_residual": 0.027324
+        },
+        "Cmc2_1": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.092984,
+          "rmse": 0.111672,
+          "median_abs_residual": 0.068069
+        },
+        "Cmce": {
+          "train_count": 354,
+          "holdout_count": 8,
+          "count": 8,
+          "mae": 0.125019,
+          "rmse": 0.152527,
+          "median_abs_residual": 0.107567
+        },
+        "Cmcm": {
+          "train_count": 347,
+          "holdout_count": 15,
+          "count": 15,
+          "mae": 0.186454,
+          "rmse": 0.226767,
+          "median_abs_residual": 0.164265
+        },
+        "Fd-3m": {
+          "train_count": 355,
+          "holdout_count": 7,
+          "count": 7,
+          "mae": 0.327267,
+          "rmse": 0.38046,
+          "median_abs_residual": 0.272079
+        },
+        "Fddd": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.021256,
+          "rmse": 0.021256,
+          "median_abs_residual": 0.021256
+        },
+        "Fm-3m": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.522682,
+          "rmse": 0.522682,
+          "median_abs_residual": 0.522682
+        },
+        "I-4": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.092439,
+          "rmse": 0.092439,
+          "median_abs_residual": 0.092439
+        },
+        "I-42m": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.081696,
+          "rmse": 0.081986,
+          "median_abs_residual": 0.081696
+        },
+        "I4/m": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.334564,
+          "rmse": 0.415993,
+          "median_abs_residual": 0.334564
+        },
+        "I4/mcm": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.096856,
+          "rmse": 0.096856,
+          "median_abs_residual": 0.096856
+        },
+        "I4/mmm": {
+          "train_count": 348,
+          "holdout_count": 14,
+          "count": 14,
+          "mae": 0.194558,
+          "rmse": 0.355824,
+          "median_abs_residual": 0.077809
+        },
+        "I4_1/a": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.105144,
+          "rmse": 0.105144,
+          "median_abs_residual": 0.105144
+        },
+        "I4_1/amd": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.433224,
+          "rmse": 0.569748,
+          "median_abs_residual": 0.335195
+        },
+        "Ibam": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.020387,
+          "rmse": 0.020387,
+          "median_abs_residual": 0.020387
+        },
+        "Imma": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.047185,
+          "rmse": 0.047185,
+          "median_abs_residual": 0.047185
+        },
+        "Immm": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.344497,
+          "rmse": 0.363671,
+          "median_abs_residual": 0.394317
+        },
+        "P-1": {
+          "train_count": 330,
+          "holdout_count": 32,
+          "count": 32,
+          "mae": 0.158224,
+          "rmse": 0.227535,
+          "median_abs_residual": 0.101533
+        },
+        "P-3": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.247191,
+          "rmse": 0.268486,
+          "median_abs_residual": 0.247191
+        },
+        "P-3m1": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.142369,
+          "rmse": 0.170279,
+          "median_abs_residual": 0.142369
+        },
+        "P1": {
+          "train_count": 352,
+          "holdout_count": 10,
+          "count": 10,
+          "mae": 0.064404,
+          "rmse": 0.081813,
+          "median_abs_residual": 0.047741
+        },
+        "P2": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.165618,
+          "rmse": 0.165618,
+          "median_abs_residual": 0.165618
+        },
+        "P2/c": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.241839,
+          "rmse": 0.328205,
+          "median_abs_residual": 0.241839
+        },
+        "P2/m": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.167566,
+          "rmse": 0.167566,
+          "median_abs_residual": 0.167566
+        },
+        "P2_1": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.1959,
+          "rmse": 0.228752,
+          "median_abs_residual": 0.1959
+        },
+        "P2_1/c": {
+          "train_count": 319,
+          "holdout_count": 43,
+          "count": 43,
+          "mae": 0.198636,
+          "rmse": 0.296612,
+          "median_abs_residual": 0.123829
+        },
+        "P2_1/m": {
+          "train_count": 353,
+          "holdout_count": 9,
+          "count": 9,
+          "mae": 0.08424,
+          "rmse": 0.096642,
+          "median_abs_residual": 0.071299
+        },
+        "P2_13": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.08185,
+          "rmse": 0.091742,
+          "median_abs_residual": 0.08185
+        },
+        "P31m": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.012066,
+          "rmse": 0.013892,
+          "median_abs_residual": 0.012066
+        },
+        "P321": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.691425,
+          "rmse": 0.691425,
+          "median_abs_residual": 0.691425
+        },
+        "P3_121": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.141178,
+          "rmse": 0.143872,
+          "median_abs_residual": 0.141178
+        },
+        "P3m1": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.020724,
+          "rmse": 0.020724,
+          "median_abs_residual": 0.020724
+        },
+        "P4/mmm": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.035991,
+          "rmse": 0.035991,
+          "median_abs_residual": 0.035991
+        },
+        "P4_122": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.137348,
+          "rmse": 0.137348,
+          "median_abs_residual": 0.137348
+        },
+        "P4_12_12": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.018979,
+          "rmse": 0.02025,
+          "median_abs_residual": 0.022178
+        },
+        "P4_2/m": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.057125,
+          "rmse": 0.057125,
+          "median_abs_residual": 0.057125
+        },
+        "P4_2/mnm": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.135508,
+          "rmse": 0.198192,
+          "median_abs_residual": 0.04479
+        },
+        "P4_2/nmc": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.27574,
+          "rmse": 0.319337,
+          "median_abs_residual": 0.217048
+        },
+        "P4_32_12": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.086461,
+          "rmse": 0.08766,
+          "median_abs_residual": 0.086461
+        },
+        "P4_332": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.273883,
+          "rmse": 0.273883,
+          "median_abs_residual": 0.273883
+        },
+        "P4bm": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.052503,
+          "rmse": 0.054666,
+          "median_abs_residual": 0.057981
+        },
+        "P6_3": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.000332,
+          "rmse": 0.000332,
+          "median_abs_residual": 0.000332
+        },
+        "P6_3/mmc": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.396077,
+          "rmse": 0.495152,
+          "median_abs_residual": 0.258309
+        },
+        "P6_3cm": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.010918,
+          "rmse": 0.010918,
+          "median_abs_residual": 0.010918
+        },
+        "P6_3mc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.117992,
+          "rmse": 0.117992,
+          "median_abs_residual": 0.117992
+        },
+        "Pbam": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.148856,
+          "rmse": 0.159952,
+          "median_abs_residual": 0.182206
+        },
+        "Pbca": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.105674,
+          "rmse": 0.116277,
+          "median_abs_residual": 0.109352
+        },
+        "Pbcm": {
+          "train_count": 357,
+          "holdout_count": 5,
+          "count": 5,
+          "mae": 0.148706,
+          "rmse": 0.298736,
+          "median_abs_residual": 0.023447
+        },
+        "Pc": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.188019,
+          "rmse": 0.188019,
+          "median_abs_residual": 0.188019
+        },
+        "Pm": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.050919,
+          "rmse": 0.053357,
+          "median_abs_residual": 0.050919
+        },
+        "Pm-3m": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.319662,
+          "rmse": 0.339347,
+          "median_abs_residual": 0.319662
+        },
+        "Pm-3n": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.329432,
+          "rmse": 0.329432,
+          "median_abs_residual": 0.329432
+        },
+        "Pmmn": {
+          "train_count": 356,
+          "holdout_count": 6,
+          "count": 6,
+          "mae": 0.073387,
+          "rmse": 0.100974,
+          "median_abs_residual": 0.051909
+        },
+        "Pmn2_1": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.093337,
+          "rmse": 0.137737,
+          "median_abs_residual": 0.043509
+        },
+        "Pna2_1": {
+          "train_count": 358,
+          "holdout_count": 4,
+          "count": 4,
+          "mae": 0.271395,
+          "rmse": 0.318179,
+          "median_abs_residual": 0.322701
+        },
+        "Pnma": {
+          "train_count": 329,
+          "holdout_count": 33,
+          "count": 33,
+          "mae": 0.253262,
+          "rmse": 0.440692,
+          "median_abs_residual": 0.147133
+        },
+        "Pnnm": {
+          "train_count": 360,
+          "holdout_count": 2,
+          "count": 2,
+          "mae": 0.182879,
+          "rmse": 0.227099,
+          "median_abs_residual": 0.182879
+        },
+        "R-3": {
+          "train_count": 359,
+          "holdout_count": 3,
+          "count": 3,
+          "mae": 0.072705,
+          "rmse": 0.079077,
+          "median_abs_residual": 0.077373
+        },
+        "R-3c": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.279777,
+          "rmse": 0.279777,
+          "median_abs_residual": 0.279777
+        },
+        "R-3m": {
+          "train_count": 347,
+          "holdout_count": 15,
+          "count": 15,
+          "mae": 0.244106,
+          "rmse": 0.39882,
+          "median_abs_residual": 0.080977
+        },
+        "R3": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.196094,
+          "rmse": 0.196094,
+          "median_abs_residual": 0.196094
+        },
+        "R32": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.109266,
+          "rmse": 0.109266,
+          "median_abs_residual": 0.109266
+        },
+        "R3m": {
+          "train_count": 361,
+          "holdout_count": 1,
+          "count": 1,
+          "mae": 0.1775,
+          "rmse": 0.1775,
+          "median_abs_residual": 0.1775
+        }
+      },
+      "macro_holdout_mae": 0.159746
+    }
+  },
+  "promotion_assessment": {
+    "selected_composition_baseline": "cation_pair_mean",
+    "best_global_null": "global_median",
+    "holdout_mae_absolute_improvement": 0.305486,
+    "holdout_mae_relative_improvement": 0.603618,
+    "gates": {
+      "beats_global_mean": true,
+      "beats_global_median": true,
+      "relative_improvement_at_least_10_percent": true,
+      "absolute_improvement_at_least_0_05_eV_per_atom": true,
+      "label_shuffle_control_pass": true,
+      "cation_label_shuffle_control_pass": true,
+      "row_order_invariant": true,
+      "split_robust": true,
+      "provenance_and_no_peek_stop_conditions_clear": true
+    },
+    "failed_gates": [],
+    "eligible_for_gate_a": true
+  },
+  "verdict": "VALID_IN_RANGE",
+  "limitations": [
+    "Computed DFT Materials Project values only; no experimental measurements.",
+    "The narrowed slice contains 362 materials, below the original 600-row target but accepted by the maintainer before scoring.",
+    "Exact cation-pair and spacegroup means are simple train-only comparators, not learned physical laws; unseen groups fall back to the global train mean.",
+    "Leave-one-group-out views are extrapolation stress tests and can force grouped baselines to their global fallback by construction.",
+    "Formation energy is evaluated alone; band gap is not scored or pooled.",
+    "No material ranking, synthesis, device, biomedical, or materials-law claim is made."
+  ],
+  "output_routing": {
+    "canonical_destination": "future task-authorized result packaging",
+    "review_tier": "none",
+    "gate_a_status": "blocked_missing_task_authorized_canonical_identities",
+    "gate_b_status": "not_attempted",
+    "claim_impact": "no claim change",
+    "knowledge_impact": "no knowledge change",
+    "publication_blocker": "TASK-0703 does not authorize new hypotheses/ or experiments/ artifacts; package a RESULT only under a separate task with explicit protected-path authority."
+  }
+}

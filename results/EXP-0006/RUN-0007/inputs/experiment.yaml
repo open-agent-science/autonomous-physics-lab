@@ -1,0 +1,31 @@
+id: EXP-0006
+title: "Dimensional Analysis Validator MVP Benchmark"
+domain: physics_validation
+status: COMPLETED
+
+hypothesis_id: HYP-0006
+
+method:
+  type: "dimensional_validation"
+  simulator: "deterministic_dimension_checker"
+  comparator: "agreement_fraction"
+
+data:
+  dataset_path: ../knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml
+  dataset_kind: dimensional_challenge_set
+  benchmark_scope: frozen_mvp_50
+  expected_item_count: 50
+  source_challenge_set_path: ../knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml
+  notes: >
+    Runs the dimension validator over the frozen 50-item MVP benchmark scope
+    and reports agreement with expected_verdict labels. The live curation
+    challenge set may grow independently, but it must not silently change this
+    canonical EXP-0006/RUN-0006 replay surface.
+    Agreement threshold: 0.90.
+
+comparison_targets:
+  - id: target_agreement
+    label: "Agreement fraction target"
+    reference_value: 0.90
+    unit: null
+    notes: "Validator must agree with curated labels on ≥90% of items."

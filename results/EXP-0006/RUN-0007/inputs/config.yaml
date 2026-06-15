@@ -1,0 +1,12 @@
+experiment_path: ../experiments/EXP-0006-dimensional-analysis-validator.yaml
+hypothesis_path: ../hypotheses/HYP-0006-dimensional-analysis-validator.yaml
+task_id: TASK-0750
+run_id: RUN-0007
+result_id: RESULT-0020
+result_root: ../results/EXP-0006
+workflow: dimensional_validation
+challenge_set_path: ../results/EXP-0006/RUN-0007/inputs/fixture.yaml
+challenge_set_source_path: knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml
+benchmark_scope: frozen_live_74
+expected_item_count: 74
+result_title: Dimensional Analysis Validator Live 74-Item Replay

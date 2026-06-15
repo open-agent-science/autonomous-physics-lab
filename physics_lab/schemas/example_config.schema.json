@@ -72,6 +72,26 @@
       "type": "string",
       "minLength": 1
     },
+    "challenge_set_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "challenge_set_source_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "benchmark_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_item_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "result_title": {
+      "type": "string",
+      "minLength": 1
+    },
     "claim_id": {
       "type": "string",
       "pattern": "^CLAIM-[0-9]{4}$"
