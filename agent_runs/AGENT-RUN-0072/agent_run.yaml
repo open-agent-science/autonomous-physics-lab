@@ -1,0 +1,48 @@
+id: AGENT-RUN-0072
+campaign_profile_id: materials-property-residuals
+task_id: TASK-0703
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: romanhladun24-dot
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/materials-property-residuals/HYP-PROPOSAL-0059-md0002-formation-energy-baseline.yaml
+  experiment: experiment_proposals/materials-property-residuals/EXP-PROPOSAL-0025-md0002-formation-energy-baseline.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0072/metrics.json
+  report: agent_runs/AGENT-RUN-0072/report.md
+  limitations: agent_runs/AGENT-RUN-0072/limitations.md
+  preflight: agent_runs/AGENT-RUN-0072/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0072/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "Materials property residual baselines are in campaign scope."
+    - name: frozen_source_binding
+      status: PASS
+      notes: "The committed MD-0002 checksum and frozen split counts were verified."
+    - name: benchmark_contract
+      status: PASS
+      notes: "Baselines, controls, seeds, bins, and margins match the predeclared plan."
+    - name: no_live_fetch
+      status: PASS
+      notes: "The benchmark reads committed computed-DFT rows only."
+    - name: promotion_boundary
+      status: PASS
+      notes: "The sandbox record itself promotes no claim or knowledge artifact."
+limitations:
+  - "Computed DFT Materials Project values only; no experimental measurements."
+  - "The accepted narrowed slice contains 362 materials, below the original 600-row target."
+  - "The cation-pair mean is a scoped comparator, not a physical law."
+  - "Formation energy is evaluated alone; band gap is not pooled."
+  - "No material ranking, synthesis, device, biomedical, or universal-law claim is made."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: >
+    Create a separate result-packaging task with explicit hypotheses/,
+    experiments/, and results/ authority before any Gate A publication.

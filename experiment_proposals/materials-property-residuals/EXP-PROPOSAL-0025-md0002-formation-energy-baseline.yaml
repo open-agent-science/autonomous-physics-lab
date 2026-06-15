@@ -1,0 +1,120 @@
+id: EXP-PROPOSAL-0025
+title: "Sandbox MD-0002 formation-energy baseline benchmark"
+campaign_profile_id: materials-property-residuals
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: >
+  Sandbox baseline evidence on the frozen MD-0002 computed-DFT slice only; no
+  claim, knowledge, measured-property, recommendation, or universal-law output.
+
+proposed_by:
+  contributor_id: romanhladun24-dot
+  agent_id: codex
+  task_id: TASK-0703
+
+input_references:
+  - "campaign_profiles/materials-property-residuals.yaml"
+  - "hypothesis_proposals/materials-property-residuals/HYP-PROPOSAL-0059-md0002-formation-energy-baseline.yaml"
+  - "docs/reviews/materials-md0002-benchmark-control-plan.md"
+  - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+  - "data/materials/md0002_holdout_manifest.yaml"
+
+question: >
+  Does a train-only composition-group baseline reduce holdout
+  formation-energy MAE against global nulls on frozen MD-0002 rows while
+  surviving the predeclared controls and split-sensitivity checks?
+
+method:
+  summary: >
+    Fit global mean, global median, cation-family mean, exact cation-pair mean,
+    and exact spacegroup mean on train rows only. Score frozen validation and
+    holdout lanes, run five shuffle-control seeds, check row-order invariance,
+    run five seeded 70/30 split checks, and record leave-group-out diagnostics.
+  code_references:
+    - "physics_lab/engines/materials_md0002_baseline.py"
+    - "scripts/run_materials_md0002_formation_energy_benchmark.py"
+    - "tests/test_materials_md0002_baseline.py"
+  commands:
+    - "python scripts/run_materials_md0002_formation_energy_benchmark.py --config examples/benchmarks/materials_md0002_formation_energy.yaml --output-dir agent_runs/AGENT-RUN-0072"
+  parameters:
+    property_kind: formation_energy_per_atom
+    units: eV_per_atom
+    control_seeds: [0, 1, 2, 7, 11]
+    split_seeds: [0, 1, 2, 3, 4]
+    minimum_relative_improvement: 0.10
+    minimum_absolute_improvement_eV_per_atom: 0.05
+    live_fetch: false
+
+inputs:
+  datasets:
+    - "Committed checksum-pinned MD-0002 Materials Project computed-DFT rows."
+  constants:
+    - "Frozen train/validation/holdout assignments."
+    - "Global train mean fallback for unseen groups."
+  prior_results:
+    - "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
+  assumptions:
+    - "Computed and measured rows are not mixed."
+    - "Formation energy and band gap are not pooled."
+    - "Baseline definitions and gates remain frozen after scoring."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0072/"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
+  metrics:
+    - "train, validation, and holdout MAE and RMSE"
+    - "holdout subset metrics"
+    - "shuffle-control summaries"
+    - "seeded split-sensitivity summaries"
+    - "leave-group-out stress tests"
+  plots: []
+  notes:
+    - "agent_runs/AGENT-RUN-0072/report.md"
+    - "agent_runs/AGENT-RUN-0072/limitations.md"
+    - "agent_runs/AGENT-RUN-0072/review_summary.md"
+
+validation:
+  pass_condition: >
+    Pass only if all frozen bindings and stop conditions clear, a composition
+    baseline beats both global nulls by the declared margins, all control seeds
+    lose, and seeded split robustness passes.
+  fail_condition: >
+    Fail or remain inconclusive if any source binding differs, any control or
+    global null wins, or the selected baseline is split-sensitive.
+  baseline_or_reference: "Global train mean and median null baselines."
+  expected_failure_modes:
+    - "Sparse cation pairs may use the global fallback."
+    - "Structure grouping may overfit train labels."
+    - "A holdout win may not survive seeded resplits."
+    - "Coarse cation-family labels may be uninformative."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not state that a universal formation-energy law was discovered."
+    - "Do not describe the source as experimental measurements."
+    - "Do not recommend materials or applications."
+  mitigations:
+    - "Use VALID_IN_RANGE only for the frozen slice."
+    - "Keep negative controls and limitations visible."
+    - "Request no claim or knowledge update."
+
+limitations:
+  - "Computed DFT values only."
+  - "The selected baseline is a simple grouped mean."
+  - "The cation-family leave-one-group-out view is not estimable with one coarse family label."
+  - "No band-gap result is included."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: >
+  Review the sandbox run and decide whether to queue a separate Gate A result
+  package under the stated computed-DFT claim ceiling.
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: >
+    A separate publication task must authorize canonical hypothesis,
+    experiment, and result paths before Gate A packaging.
