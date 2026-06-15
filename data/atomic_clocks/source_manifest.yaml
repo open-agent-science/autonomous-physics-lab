@@ -121,7 +121,7 @@ source_families:
           - holdout_or_reveal_freeze_manifest_unset  # cross_source_target bound to manifest
 
       - source_id: ACLOCK-SRC-ARTIFACT-2020-PIZZOCARO-VLBI
-        status: source_artifact_pinned_rows_blocked
+        status: source_artifact_pinned_diagnostic_surface_ready_rows_blocked
         ratio_set:
           - Yb/Sr
         lab: INRIM_NICT_VLBI
@@ -141,31 +141,39 @@ source_families:
           page: 223
           year: 2021
           redistributable_here: false
-        value_status: source_artifact_pinned_no_values
+        value_status: diagnostic_windows_pinned_no_acr_rows
         dataset_path: null
-        covariance_artifact_path: null
-        readiness_state: SOURCE_ARTIFACT_PINNED_ROWS_BLOCKED
+        covariance_artifact_path: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_source_derived_psd_covariance_approximation.yaml
+        readiness_state: DIAGNOSTIC_SURFACE_READY_ACR_ROWS_BLOCKED
         readiness_evidence:
           - docs/reviews/atomic-second-source-yb-sr-row-gate.md
           - docs/reviews/atomic-pizzocaro-source-artifact-review.md
           - docs/reviews/atomic-pizzocaro-yb-sr-row-admissibility-gate.md
+          - docs/reviews/atomic-pizzocaro-source-to-row-extraction-ledger.md
+          - docs/reviews/atomic-pizzocaro-source-derived-psd-covariance.md
+          - docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md
+          - docs/reviews/atomic-pizzocaro-observable-harmonization-contract.md
+          - docs/reviews/atomic-pizzocaro-yb-sr-extraction-ledger-gate.md
         triage_role: |
-          Secondary Yb/Sr fallback after Nemitz 2016. TASK-0542 pins the
-          open Zenodo source dataset linked to the Pizzocaro et al. Nature
-          Physics VLBI clock-comparison paper. Row curation remains deferred
-          to TASK-0567 because source-file mapping, uncertainty/covariance
-          semantics, campaign-window handling, and holdout binding still need
-          a dedicated row-admissibility gate.
+          Diagnostic Yb/Sr fallback after the committed Beloy and Nemitz rows.
+          The open Zenodo files, ten-window VLBI ledger, approximate PSD
+          covariance, and residual-axis harmonization contract support a
+          sensitivity-only diagnostic. TASK-0742 confirms that they do not
+          supply an admissible third absolute-ratio ACR row: aggregation is
+          forbidden, Figure 2b summaries lack row-construction semantics, and
+          the diagnostic residual contract does not create an absolute ratio.
         source_artifact_files:
           - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/galav-delay-resolution-function.csv
           - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measurements-IPPP.csv
           - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv
+          - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_per_window_diagnostic_ledger.yaml
+          - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/vlbi_source_derived_psd_covariance_approximation.yaml
         ingestion_blockers:
-          - source_file_to_row_mapping_reviewed_blocked
-          - uncertainty_and_covariance_semantics_reviewed_blocked
-          - campaign_window_semantics_reviewed_blocked
-          - direct_vs_derived_row_class_reviewed_blocked
-          - extraction_ledger_required_before_acr_row
+          - no_admissible_absolute_yb_sr_ratio_row_surface
+          - no_frozen_cross_window_aggregation_recipe
+          - figure_2b_summary_lacks_campaign_and_component_semantics
+          - residual_axis_contract_forbids_benchmark_row_admission
+          - ippp_ppp_cross_path_covariance_not_modeled
           - holdout_or_reveal_freeze_manifest_unset
 
       - source_id: ACLOCK-SRC-CANDIDATE-2021-LANGE-PTB-YBPLUS
@@ -243,12 +251,13 @@ next_actions:
     blocking_task: TASK-0456
     enables: first_exploratory_cross_source_yb_sr_diagnostic
   - description: |
-      TASK-0567 reviewed the pinned Pizzocaro Zenodo source files and keeps
-      ACR rows blocked. A future extraction-ledger task must freeze one row
-      surface, direct-vs-derived class, covariance state, and campaign-window
-      binding before changing any data/atomic_clocks/acr-*.yaml dataset.
-    blocking_task: TASK-0567
-    enables: TASK-0456_second_source_path
+      TASK-0742 completed the Pizzocaro extraction ledger after the VLBI
+      per-window, PSD covariance, and observable-harmonization contracts.
+      Diagnostic-only use is authorized under TASK-0706, but ACR row curation
+      remains blocked until a new absolute-ratio source surface or an approved
+      aggregation and uncertainty-propagation contract exists.
+    blocking_task: new_absolute_ratio_or_aggregation_contract_required
+    enables: pizzocaro_diagnostic_only_sensitivity_path
   - description: |
       Maintainer decision: keep one aggregate source_manifest.yaml (this
       shape) or split into per-source-family manifests as the campaign
@@ -271,5 +280,5 @@ promotion_boundary:
 global_limitations:
   - "This manifest records source-family status only; pinned values live in their dataset files and pinned provenance lives under data/atomic_clocks/source_artifacts/."
   - "The Nemitz 2016 entry has the ACR-0002 cross-source Yb/Sr row committed as a sandbox second-source seed (TASK-0704, NO_DRIFT version-of-record cross-check); cross-source benchmark and consistency comparison remain blocked until the first exploratory diagonal-only diagnostic task (TASK-0456)."
-  - "The Pizzocaro/VLBI entry has pinned Zenodo source artifacts but no value-bearing rows; TASK-0567 reviewed row admissibility and keeps ACR rows blocked until an extraction ledger freezes source mapping, uncertainty/covariance semantics, direct-vs-derived class, and campaign-window boundaries."
+  - "The Pizzocaro/VLBI entry has pinned source files, ten mapped diagnostic windows, and approximate PSD covariance. TASK-0742 authorizes only diagnostic residual-axis use and keeps ACR rows blocked because no absolute-ratio row or approved aggregation contract exists."
   - "Sandbox-only. Do not ingest values, benchmark, fit drifts, derive constants constraints, or promote claims from this manifest."
