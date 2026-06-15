@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0761` - Adjudicate Materials MD-0002 formation-energy result path after the wider-slice retest (`scientific_validation`, priority `high`, difficulty `low`, domain `materials_property_residuals`)
+None.
