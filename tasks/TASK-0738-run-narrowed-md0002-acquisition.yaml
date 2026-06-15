@@ -1,7 +1,7 @@
 id: TASK-0738
 title: "Run narrowed MD-0002 maintainer-gated acquisition"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

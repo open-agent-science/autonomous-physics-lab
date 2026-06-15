@@ -1,7 +1,7 @@
 id: TASK-0754
 title: "Harden review-agent architecture and publication-rights risk gates"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 closeout: review
