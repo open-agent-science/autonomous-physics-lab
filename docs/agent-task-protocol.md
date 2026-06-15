@@ -374,6 +374,17 @@ Field meanings:
 - `agent-id`: the execution mode or tool, such as `codex`, `claude`,
   `cursor`, `human`, or `other`.
 
+Contributor-id source of truth:
+
+- Prefer the authenticated local GitHub identity (`gh auth status` or
+  `gh api user --jq .login`) when it is available.
+- If GitHub auth is unavailable, use local Git configuration only as a clue
+  (`git config user.email` / `git config user.name`) and prefer a previously
+  maintainer-confirmed contributor id for that checkout.
+- Do not infer the current contributor id from unrelated open PR authors,
+  branch history, or task examples. If the local identity signals conflict or
+  only indirect clues exist, ask the maintainer before creating the branch.
+
 Rules:
 
 - lowercase only

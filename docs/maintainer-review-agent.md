@@ -355,28 +355,37 @@ This mode supports:
 19. Missing result-publication tooling, source provenance, or replay support
     must be treated as a blocked publication or follow-up task, not as a reason
     to bypass the result-promotion protocol with narrative claims.
-20. Cross-platform compatibility (advisory): the PR does not introduce
+20. Publication/legal rights gate: published does not mean redistributable.
+    If a PR commits PDFs, scans, figures, screenshots, raw upstream tables,
+    source-artifact payloads, or dataset rows derived from restricted sources,
+    verify machine-readable license/provenance posture before recommending
+    merge. Missing redistribution permission or source provenance blocks
+    publication; route the PR to metadata-only handling, explicit maintainer
+    permission, or source-artifact correction. See
+    `docs/published-source-dataset-standard.md`.
+21. Cross-platform compatibility (advisory): the PR does not introduce
     portability regressions for Linux/macOS/Windows agents — hardcoded `/tmp`,
     hardcoded `python3`, `HOME` reads, hardcoded `/` paths, `shell=True`, or a
     new bash-only critical-path script with no Python equivalent. The review
     helper surfaces these as advisory warnings (it does not auto-block); ask for
     a portable alternative when the smell is on a contributor-facing path. See
     `docs/cross-platform-compatibility.md`.
-21. Generated-state architecture: if a PR adds a generated or checkable
+22. Generated-state architecture: if a PR adds a generated or checkable
     repository-state file, identify whether it is canonical source,
     human-facing stable navigation, or agent-facing volatile query output.
     Frequently changing agent-facing views should remain scripts/CLI output,
     snapshot sections, or CI artifacts rather than committed static files. See
     `docs/reviews/static-agent-facing-generated-index-postmortem.md`.
-22. Decision-regression sanity check: if a PR correctly implements its task but
+23. Decision-regression sanity check: if a PR correctly implements its task but
     appears to revive a recently retired architecture decision, add a duplicate
-    source of truth, or create a new static agent-facing state layer, pause the
-    merge path. The correct review response is not "the task contract allowed
-    it" but "this needs explicit maintainer confirmation". If the maintainer
-    intentionally accepts the tradeoff, record that confirmation in the PR body
-    before merge. Otherwise, return it for task-scope correction or route it to
-    the Architect.
-23. Follow-up task handoff (advisory): if the PR body or added review notes say
+    source of truth, create a new static agent-facing state layer, or introduce
+    a living campaign/mission/portfolio routing surface outside the canonical
+    mission and campaign files, pause the merge path. The correct review
+    response is not "the task contract allowed it" but "this needs explicit
+    maintainer confirmation". If the maintainer intentionally accepts the
+    tradeoff, record that confirmation in the PR body before merge. Otherwise,
+    return it for task-scope correction or route it to the Architect.
+24. Follow-up task handoff (advisory): if the PR body or added review notes say
     that a follow-up task, separate task, or minimal schema follow-up is needed,
     check whether the PR also creates a `TASK-QUEUE` item or a
     `tasks/proposals/` artifact. If it does not, surface an advisory warning:

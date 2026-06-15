@@ -1,0 +1,57 @@
+id: TASK-0754
+title: "Harden review-agent architecture and publication-rights risk gates"
+type: repository_hardening
+status: REVIEW_READY
+difficulty: medium
+priority: high
+closeout: review
+
+strategy_alignment:
+  - "Keep maintainer review deterministic for recurring architectural and publication-risk failures."
+  - "Prevent duplicate live coordination surfaces and unlicensed source-artifact publication from passing routine PR review."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - docs/maintainer-review-agent.md
+    - agents/review-agent.yaml
+    - physics_lab/registry/review_checks.py
+    - physics_lab/registry/maintainer_review.py
+  planning_context: "Maintainer asked to promote the observed review-agent gap into a canonical task and execute the hardening immediately."
+
+requirements:
+  - "Keep the review helper deterministic and heuristic rather than replacing maintainer judgement."
+  - "Flag PRs that introduce duplicate live campaign, mission, or portfolio routing surfaces."
+  - "Preserve guardrail/postmortem exemptions so documentation warning against a bad pattern does not block itself."
+  - "Keep publication/legal-rights review conservative: raw upstream artifacts require machine-readable license or redistribution posture before publication."
+  - "Clarify that contributor-id should come from local authenticated identity or maintainer confirmation, not unrelated PR history."
+  - "Do not weaken existing scientific-memory, PR-shape, or validation gates."
+
+accepted_outputs:
+  - "Task file for TASK-0754"
+  - "Review-agent profile and protocol update"
+  - "Contributor-id source-of-truth protocol clarification"
+  - "Maintainer review helper heuristic update"
+  - "Regression tests covering duplicate live routing surfaces and source-artifact rights blockers"
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/review_checks.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+    - "agents/review-agent.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py -k 'decision_regression or publication_license'"
+    - "python3 -m ruff check physics_lab/registry/review_checks.py physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
