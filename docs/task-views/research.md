@@ -18,6 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0702` - Validate MD-0002 acquisition and freeze holdout binding (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0703` - Run MD-0002 formation-energy baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
-- `TASK-0742` - Run Atomic Pizzocaro Yb/Sr row-admissibility extraction ledger gate (`scientific_validation`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
+None.
