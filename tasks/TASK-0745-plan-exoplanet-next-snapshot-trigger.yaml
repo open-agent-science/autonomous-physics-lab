@@ -1,7 +1,7 @@
 id: TASK-0745
 title: "Plan Exoplanet EXO-0003 trigger after monitor no-notify result"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
