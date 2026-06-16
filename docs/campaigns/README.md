@@ -7,8 +7,9 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Flagship validation challenge:** Nuclear Mass Surface.
-- **Default near-term science-output sprint:** Materials MD-0002 and the
-  source-gated Atomic / Stellar / Quantum data-to-benchmark wave.
+- **Default near-term science-output sprint:** Materials MD-0002 and Stellar
+  M-L Gate A packaging, Dimensional RESULT-0020 replay, plus the source-gated
+  Atomic / Quantum data-to-benchmark wave.
 - **Fresh-data buildout:** Atomic-Clock Residuals and Quantum Size Effects
   (source-gated; Atomic has pinned rows, Quantum still needs direct rows).
 - **Reusable-dataset buildout:** Materials Property Residuals now has the first
@@ -36,8 +37,8 @@ campaign map or `missions/current.yaml`.
 | see what can be shared publicly today | [Public Science Dashboard](./public-science-dashboard.md) | It has linkable result cards, safe wording, current questions, and expected next results per active campaign. |
 | review the flagship validation challenge | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, explicit negative controls, and several useful negative/control results. |
 | help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 is the selected, checksum-pinned source path; the current blocker is deterministic size-axis digitization and row-readiness, not another source scout. |
-| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy and Nemitz Yb/Sr rows plus a first exploratory cross-source diagnostic; the next question is result-path routing or a Pizzocaro third-source admissibility ledger. |
-| work on reusable benchmark datasets | [Materials Property Residuals](./materials-property-residuals.md) | It has `MD-0001`, replayed baseline evidence, null/split controls, a frozen `MD-0002` widening, and sandbox-pass formation-energy evidence awaiting a publication-route decision. |
+| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy and Nemitz Yb/Sr rows plus a first exploratory cross-source diagnostic; the next question is source-limited memory packaging, not another metric rerun. |
+| work on reusable benchmark datasets | [Materials Property Residuals](./materials-property-residuals.md) | It has `MD-0001`, replayed baseline evidence, null/split controls, a frozen `MD-0002` widening, and formation-energy evidence adjudicated as Gate-A-package-ready. |
 | monitor the exoplanet benchmark surface | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It has pinned snapshots, benchmark diagnostics, target-freeze protocol, reviewer capsule, null-baseline control panel, and a closed `EXO-0002` reopen gate; new scoring waits for a source-version trigger. |
 | replay mature evidence | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) or [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | These are safer quality-floor tracks with deterministic replay value. |
 | propose a longer-horizon direction | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) or [Anomaly Registry](./anomaly-registry.md) | These are planning surfaces; keep them schema- and guardrail-first. |
@@ -49,9 +50,9 @@ campaign map or `missions/current.yaml`.
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, uncertainty-weighted diagnostic, replayable F2 signal, component-ablation evidence that keeps F2 diagnostic-only, and AGENT_VALIDATED diagnostic memory. | `TASK-0714` / `TASK-0746`: repair reveal-checklist links and select one non-F2 no-leakage lane; keep scoring blocked until a source-grade no-peek release exists. |
 | [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshots, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, reviewer capsule, closed `EXO-0002` reopen gate, and a no-notify source-version monitor. | `TASK-0745`: decide whether `EXO-0003` remains monitor-only or needs a metadata-only scout / coverage-gate amendment. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds kept out of benchmark metrics, source-artifact intake path, synthetic/non-spherical digitization fixtures, and Almeida 2023 source bytes checksum-pinned under CC BY 4.0. | `TASK-0755`: digitize Almeida size axis and rerun row-readiness before any baseline. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz Yb/Sr rows, real-row loader, covariance policy, first exploratory cross-source diagnostic, Pizzocaro diagnostics, and preserved aggregation/source-limit blockers. | `TASK-0756` and `TASK-0742`: route the completed Yb/Sr diagnostic or run Pizzocaro third-source row-admissibility first. |
-| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001` pinned Materials Project binary-oxide dataset, replayed baseline, formation-energy control survival, split-robust formation-energy signal, split-fragile band gap, validated/frozen `MD-0002` snapshot, and TASK-0703 sandbox-pass formation-energy evidence. | Decide whether the TASK-0703 sandbox evidence warrants an explicit result-publication task, or remains sandbox memory; do not promote materials claims. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Verifier-first scaffold, exact-reference fixtures, Gate-B-validated Stefan-Boltzmann software/convention result, DEBCat source choice, and a Stellar M-L Route 2 sandbox-pass that is not Gate-A-ready. | `TASK-0759`: run stage-control, null/shuffle, split-sensitivity, and baseline-adequacy audit before any empirical result package. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz Yb/Sr rows, real-row loader, covariance policy, first exploratory cross-source diagnostic, Pizzocaro diagnostics, and preserved aggregation/source-limit blockers. | `TASK-0767`: package the completed Yb/Sr diagnostic as source-limited consistency memory; no constants-drift or RESULT framing. |
+| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001` pinned Materials Project binary-oxide dataset, replayed baseline, formation-energy control survival, split-robust formation-energy signal, split-fragile band gap, validated/frozen `MD-0002` snapshot, and TASK-0703/TASK-0761 Gate-A-package-ready formation-energy evidence. | `TASK-0765`: package the MD-0002 formation-energy benchmark as a computed-DFT, slice-limited RESULT candidate; do not promote materials claims. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Verifier-first scaffold, exact-reference fixtures, Gate-B-validated Stefan-Boltzmann software/convention result, DEBCat source choice, and Stellar M-L controls/baseline adequacy/full dataset evidence. | `TASK-0764`: package the controlled Stellar M-L DEBCat audit as a scoped Gate A result candidate; no universal formula claim. |
 
 These are the main public-facing surfaces today. They should be presented as
 disciplined research infrastructure, not as finished discoveries.
@@ -74,8 +75,8 @@ the newer campaigns can be stricter.
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning and source-policy layer. | Source-policy review or manifest-only triage for less-saturated data axes. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed, exact-reference fixtures exist, Stefan-Boltzmann has an agent-validated software/convention result, and Stellar M-L has a local Route 2 sandbox-pass that is not Gate-A-ready. | Stage-control, null/shuffle controls, split sensitivity, and baseline adequacy before empirical result promotion; no model-derived Gaia mass truth rows. |
-| Materials widenings | `MD-0002` stable ternary oxides are frozen and have a sandbox-pass formation-energy benchmark. | Route the TASK-0703 evidence before any canonical result package or public result promotion. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed, exact-reference fixtures exist, Stefan-Boltzmann has an agent-validated software/convention result, and Stellar M-L has controls/baseline/full-dataset evidence ready for packaging. | Gate A packaging before any empirical result publication; no model-derived Gaia mass truth rows or universal formula claims. |
+| Materials widenings | `MD-0002` stable ternary oxides are frozen and have formation-energy evidence adjudicated as Gate-A-package-ready. | Package the TASK-0703/TASK-0761 evidence before any public result promotion; no materials claims. |
 
 Do not turn planning surfaces into broad formula searches. A planning campaign
 is useful when it prevents chaotic future work.

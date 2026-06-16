@@ -52,12 +52,15 @@ Gate B replay. This validates the software/convention fixture route only; it
 does not validate an empirical law.
 
 The first empirical slice is now the **Stellar Mass-Luminosity (M-L)
-out-of-distribution audit** on DEBCat/Gaia-style rows. `TASK-0740` ran the
-first local Route 2 benchmark and found a sandbox-pass signal, but `TASK-0753`
-judged it `NOT_YET_GATE_A_READY`: the current blocker is controlled empirical
-readiness, not source selection. The next useful step is stage-controlled
-re-scoring with deterministic null/shuffle controls, seeded split-sensitivity,
-and baseline-adequacy review before any result packaging.
+out-of-distribution audit** on DEBCat direct dynamical-mass rows. `TASK-0740`
+ran the first local Route 2 benchmark and found a sandbox-pass signal.
+`TASK-0759` then completed stage-control, deterministic null/shuffle, and
+split-sensitivity checks, and `TASK-0762` found the important baseline lesson:
+fixed single-alpha `M^3.5` is inadequate as the sole frozen baseline on this
+slice, while fitted-alpha and piecewise/stage-aware baselines are materially
+better. `TASK-0763` committed the full normalized DEBCat rows and holdout
+manifest under an explicit CC BY 4.0 permission grant. The current blocker is
+not another scout; it is Gate A packaging with conservative wording.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -72,23 +75,25 @@ claiming universal truth or falsity?
 source/baseline planning artifacts, and a Gate-B-validated exact-reference
 software/convention result now exist. `RESULT-0019` replayed with zero numeric
 drift and remains scoped to the Stefan-Boltzmann synthetic fixture. The first
-Stellar M-L Route 2 local benchmark also exists as sandbox evidence, but its
-promotion-readiness scorecard says `NOT_YET_GATE_A_READY`.
+Stellar M-L empirical lane now has committed DEBCat rows, stage/split/null
+controls, and baseline-adequacy evidence ready to be packaged as a scoped
+benchmark result candidate.
 
 **Not a claim:** no empirical textbook formula result has been promoted. This
 campaign does not claim that any formula is globally right or wrong, and the
-Stellar M-L sandbox pass is not yet a published result.
+Stellar M-L evidence is not yet a published result. The current evidence says
+only that `M^3.5` is not an adequate sole baseline for the committed DEBCat
+slice under the completed controls.
 
 **Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
 software/convention result and `TASK-0635` replayed it through Gate B. The
-empirical lane is now Stellar M-L: `TASK-0740` produced the local Route 2
-sandbox benchmark and `TASK-0753` recorded the promotion-readiness blocker. The
-next result path is `TASK-0759`, a stage-control and split-sensitivity audit
-with deterministic null/shuffle controls and baseline-adequacy review.
+empirical lane is now Stellar M-L: `TASK-0759`, `TASK-0762`, and `TASK-0763`
+closed the control, baseline-adequacy, and full-dataset blockers. The next
+result path is `TASK-0764`, which packages the controlled DEBCat audit as a
+Gate A result candidate if the publication checker passes.
 
-**Expected next result:** a controlled Stellar M-L audit that either authorizes
-future Gate A packaging, routes the signal to negative/control memory, requests
-a stronger baseline, or records a source-readiness blocker.
+**Expected next result:** a scoped Stellar M-L reusable-dataset plus benchmark
+result candidate, or a precise Gate A blocker if the package cannot yet pass.
 
 ## Why It Matters
 
@@ -233,9 +238,10 @@ Per `docs/result-promotion-protocol.md`:
 
 See `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
-(M-L) out-of-distribution audit**. Source/baseline and Route 2 local benchmark
-work have landed; the next step is controlled stage/split/null audit before any
-Gate A result package.
+(M-L) out-of-distribution audit**. Source/baseline, Route 2 local benchmark,
+stage/split/null controls, baseline adequacy, and full DEBCat dataset
+publication have landed; the next step is Gate A packaging with conservative
+scope and no universal-law wording.
 
 ## Cross-References
 

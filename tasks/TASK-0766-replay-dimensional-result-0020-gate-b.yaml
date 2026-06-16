@@ -1,0 +1,63 @@
+id: TASK-0766
+title: "Run independent Gate B replay for Dimensional Validator RESULT-0020"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the live 74-item Dimensional Validator result into independently replayed scientific memory if the frozen Gate A artifact reproduces."
+  - "Keep the validator's public claim ceiling intact: dimensional consistency is formula-quality evidence, not proof of physical truth."
+  - "Increase the pool of validated quality-floor evidence without changing the frozen RESULT-0007 MVP benchmark."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "tasks/TASK-0750-package-dimensional-validator-live-gate-a-result.yaml"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "results/EXP-0006/RUN-0007/gate_a_report.md"
+    - "results/EXP-0006/RUN-0007/metrics.json"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0750 published RESULT-0020 as an AGENT_PUBLISHED successor result for
+    the live 74-item Dimensional Validator challenge-set replay. The scientific
+    memory index marks it replay-needed. This task runs an independent Gate B
+    replay through the standard validation helper and records only replay-tier
+    metadata if the run reproduces.
+
+requirements:
+  - "Use `scripts/apl_validate_agent_published_result.py` against `results/EXP-0006/RUN-0007/result.yaml` with a disposable output directory."
+  - "Compare replay metrics, verdict, and numeric drift using the helper's recorded tolerances."
+  - "If Gate B passes, update only the validation/review-tier metadata that the helper is designed to update."
+  - "If Gate B fails or is contested, do not mutate RESULT metrics; write a contested replay note and leave the result at `AGENT_PUBLISHED`."
+  - "Do not alter `results/EXP-0006/RUN-0006/`, `RESULT-0007`, the live challenge set, CLAIM-0005, or any knowledge artifact."
+  - "State that the 74-item replay supports dimensional-consistency classification only, not empirical correctness or general symbolic intelligence."
+
+accepted_outputs:
+  - "Updated `results/EXP-0006/RUN-0007/result.yaml` review-tier metadata only if Gate B passes."
+  - "A review note under `docs/reviews/` recording command, replay output directory, compared metrics, numeric drift, verdict, and limitations."
+  - "Output-routing summary with canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay validation updates or contests an existing RESULT artifact; it does not create a new RESULT or PRED."
+  evidence:
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "docs/reviews/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_dimensions.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

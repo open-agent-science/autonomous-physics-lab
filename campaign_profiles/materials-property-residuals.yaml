@@ -86,12 +86,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot acquired, validated, holdout-frozen, and formation-energy benchmarked as sandbox evidence"
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot acquired, validated, holdout-frozen, formation-energy benchmarked, and adjudicated as Gate-A-package-ready"
   recommended_parallel_agents: 1
-  coordination_notes: "Use the frozen MD-0002 dataset/control plan and TASK-0703 sandbox benchmark evidence for route decisions; avoid re-auditing MD-0001 unless promotion routing explicitly asks for it."
+  coordination_notes: "Use the frozen MD-0002 dataset/control plan and TASK-0703/TASK-0761 evidence for Gate A packaging; avoid re-auditing MD-0001 unless promotion routing explicitly asks for it."
   best_next_actions:
-    - task_id: null
-      label: "Decide whether the TASK-0703 sandbox-pass evidence warrants an explicit result-publication task, or should remain sandbox memory"
+    - task_id: TASK-0765
+      label: "Package the MD-0002 formation-energy benchmark as a Gate A reusable-dataset plus conservative-baseline result candidate"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -103,17 +103,18 @@ portfolio:
     - "data/materials/md-0001/"
     - "data/materials/md-0002/"
     - "docs/reviews/materials-md0001-split-sensitivity-audit.md"
-    - "docs/reviews/materials-md0002-validation-and-holdout-freeze.md"
+    - "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
     - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
+    - "docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Should the TASK-0703 MD-0002 sandbox-pass evidence be packaged under a dedicated canonical result-publication task, or kept as sandbox memory?"
+    - "Can the TASK-0703/TASK-0761 MD-0002 evidence pass Gate A as a computed-DFT, slice-limited benchmark result?"
     - "Does band gap remain diagnostic-only after the wider snapshot?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-15"
+    last_reviewed: "2026-06-16"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0702 and TASK-0703 MD-0002 routing"
-    notes: "No longer scaffold-only: MD-0002 is frozen and TASK-0703 produced sandbox-pass formation-energy evidence; any canonical result package needs explicit publication authority."
+    source: "TASK-0703 and TASK-0761 MD-0002 routing"
+    notes: "MD-0002 is frozen and TASK-0703/TASK-0761 support a dedicated Gate A packaging task; no materials claim or band-gap promotion."

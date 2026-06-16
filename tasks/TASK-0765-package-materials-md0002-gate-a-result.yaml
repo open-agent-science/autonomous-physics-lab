@@ -1,0 +1,72 @@
+id: TASK-0765
+title: "Package Materials MD-0002 formation-energy benchmark as a Gate A result candidate"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move the MD-0002 formation-energy widening retest from sandbox evidence into a maintainer-gated reusable-dataset plus benchmark RESULT candidate."
+  - "Preserve the useful benchmark value while preventing materials-discovery, design, synthesis, or new-law wording."
+  - "Use the wider, checksum-pinned Materials Project slice to test whether the MD-0001 formation-energy baseline lesson is durable."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0703-run-md0002-formation-energy-baseline.yaml"
+    - "tasks/TASK-0761-adjudicate-md0002-result-path.yaml"
+    - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+    - "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
+    - "docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md"
+    - "agent_runs/AGENT-RUN-0072/"
+    - "docs/result-promotion-protocol.md"
+    - "scripts/apl_check_result_publication.py"
+  planning_context: >
+    TASK-0703 ran the MD-0002 formation-energy retest on the checksum-pinned,
+    holdout-frozen 362-row Materials Project ternary-oxide slice. The exact
+    cation-pair mean reached holdout MAE 0.200606 eV/atom versus global-median
+    null MAE 0.506092, won all seeded split checks, and beat deterministic
+    label-shuffle controls. TASK-0761 adjudicated the path as ready for a
+    Gate A reusable-dataset plus conservative-baseline benchmark RESULT
+    candidate. This task performs that packaging; it does not create any
+    materials claim.
+
+requirements:
+  - "Create a new result/run identity for the MD-0002 formation-energy benchmark; do not overwrite `agent_runs/AGENT-RUN-0072/`."
+  - "Use only committed MD-0002 dataset, holdout, attribution, validation, and benchmark-control artifacts."
+  - "Record input hashes, Materials Project version/provenance, row counts, train/validation/holdout split, split seeds, baseline definitions, controls, commands, and repository commit."
+  - "Package formation energy only; keep band gap diagnostic-only and out of the promoted metrics unless explicitly marked as non-promoted context."
+  - "Frame the result as computed-DFT, slice-limited reusable-dataset plus conservative baseline evidence."
+  - "State explicitly that the result is not a material recommendation, synthesis guide, device claim, biomedical claim, experimental measurement, or new materials law."
+  - "Run `scripts/apl_check_result_publication.py` against the candidate before assigning `AGENT_PUBLISHED`."
+  - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
+  - "Do not promote any CLAIM or KNOW artifact and do not edit external dataset/DOI wording."
+
+accepted_outputs:
+  - "A new `results/EXP-*/RUN-*/result.yaml` or documented successor experiment path for the MD-0002 formation-energy benchmark."
+  - "Frozen inputs, metrics, report, and Gate A report for that result candidate."
+  - "A result-routing summary covering canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
+  - "A campaign/profile update only if the task outcome changes public wording or readiness."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to package completed MD-0002 benchmark evidence as a gated scientific RESULT candidate."
+  evidence:
+    - "results/EXP-*/RUN-*/result.yaml"
+    - "results/EXP-*/RUN-*/gate_a_report.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_result_publication_gate.py"
+    - "python3 scripts/apl_check_result_publication.py <new-result-yaml>"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

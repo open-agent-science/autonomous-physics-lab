@@ -84,25 +84,29 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "mature validator MVP with challenge-entry and limitation-probe follow-up value"
+  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; RESULT-0020 needs Gate B replay before validated claim support"
   recommended_parallel_agents: 1
-  coordination_notes: "Best for small challenge-entry or limitation-probe work; avoid concurrent edits to the same challenge set."
+  coordination_notes: "Prioritize RESULT-0020 Gate B replay and claim-evidence handoff before adding more live challenge examples."
   best_next_actions:
-    - task_id: null
-      label: "Add bounded challenge examples or limitation notes when a task explicitly asks for validator coverage"
+    - task_id: TASK-0766
+      label: "Run independent Gate B replay for RESULT-0020"
+    - task_id: TASK-0768
+      label: "Assemble CLAIM-0005 evidence handoff after separating validated and replay-needed evidence"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
   current_results:
     - "results/EXP-0006/RUN-0006/result.yaml"
+    - "results/EXP-0006/RUN-0007/result.yaml"
     - "docs/results/dimensional-analysis-validator-summary.md"
   open_questions:
-    - "Which hard boundary cases best expose current validator limitations?"
+    - "Does RESULT-0020 pass independent Gate B replay?"
+    - "What conservative CLAIM-0005 wording is supportable after separating RESULT-0007 and RESULT-0020 review tiers?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-16"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "docs/status.md"
-    notes: "Quality-floor track for fast formula sanity checks and benchmark hygiene."
+    source: "RESULT-0020 scientific-memory index and TASK-0766/TASK-0768 task-queue routing"
+    notes: "Quality-floor track now has a replay-needed live result and claim-evidence handoff path; avoid silent challenge-set drift."
