@@ -1,0 +1,64 @@
+{
+  "result_id": "RESULT-0022",
+  "run_id": "RUN-0001",
+  "experiment_id": "EXP-0015",
+  "hypothesis_id": "HYP-0015",
+  "task_id": "TASK-0764",
+  "benchmark_id": "stellar-ml-debcat-controlled-baseline-benchmark",
+  "dataset": {
+    "dataset_id": "TFA-STELLAR-ML-DEBCAT-COMPONENT-ROWS",
+    "rows_path": "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml",
+    "holdout_manifest_path": "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml",
+    "source": "DEBCat detached eclipsing binary catalogue (Southworth 2015, ASP Conf. Ser. 496, 164)",
+    "source_snapshot_sha256": "326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da",
+    "license": "CC BY 4.0",
+    "raw_artifact_committed": false,
+    "live_external_fetch": false,
+    "mass_provenance": "direct_dynamical"
+  },
+  "predeclared_policy": {
+    "primary_mass_range_solar": [0.5, 2.0],
+    "primary_stage": "main_sequence_compatible",
+    "split_seeds": [11, 23, 37, 53, 71],
+    "split_train_fraction": 0.7,
+    "fixed_intercept_l0": 1.0,
+    "split_noise_reference_dex": 0.04
+  },
+  "counts": {"main_sequence_components": 223, "train": 102, "validation": 56, "holdout": 65},
+  "replay": {
+    "command": "python3 scripts/replay_stellar_ml_result.py --check",
+    "tolerance": 1e-06,
+    "gate_a_replay": "PASS",
+    "single_alpha_3p5_inadequate": true
+  },
+  "holdout_mae_dex": {
+    "textbook_single_3p5": 0.184954,
+    "textbook_piecewise_4p0": 0.137608,
+    "train_fitted": 0.119925,
+    "massband_median_null": 0.331817
+  },
+  "train_fitted_alpha": 4.526004,
+  "single_alpha_gap_to_best_dex": 0.065029,
+  "single_alpha_gap_to_piecewise_dex": 0.047346,
+  "split_sensitivity": {
+    "null_minus_formula_holdout_dex_per_seed": [0.180271, 0.15486, 0.127142, 0.102269, 0.133989],
+    "positive_seed_count": 5,
+    "stable_positive": true
+  },
+  "shuffle_control": {
+    "real_holdout_null_minus_formula_dex": 0.146863,
+    "shuffled_holdout_null_minus_formula_dex_per_seed": [-0.141034, -0.146732, -0.14912, -0.09802, -0.092278],
+    "real_margin_exceeds_all_shuffled": true
+  },
+  "by_stage_holdout_formula_mae_dex": {
+    "main_sequence_compatible": 0.184954,
+    "subgiant": 0.30805,
+    "evolved": 1.708908,
+    "unknown": 0.237776
+  },
+  "best_model_id": "model_train_fitted_alpha",
+  "best_verdict": "VALID_IN_RANGE",
+  "review_tier": "AGENT_PUBLISHED",
+  "verdict_headline": "Fixed M^3.5 beats the null but is not the adequate sole baseline on this slice; fitted/piecewise exponents are materially better. M^3.5 is not falsified as a universal textbook relation.",
+  "source_evidence": ["agent_runs/AGENT-RUN-0073/", "agent_runs/AGENT-RUN-0074/"]
+}

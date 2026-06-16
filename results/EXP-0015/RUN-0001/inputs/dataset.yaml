@@ -1,0 +1,13 @@
+dataset_id: TFA-STELLAR-ML-DEBCAT-COMPONENT-ROWS
+rows_path: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+rows_sha256: 9bc2cc7946ec0d0789a1a3bc1572f30c49e4b7a2ad7ffa07bf93bf2ab521bcaa
+holdout_manifest_path: data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
+holdout_manifest_sha256: 6972737b237e221b42d44b60a817f244f3c79b0ac01c448e1504d8d91457a5ee
+source: DEBCat detached eclipsing binary catalogue (Southworth 2015, ASP Conf. Ser. 496, 164)
+source_snapshot_sha256: 326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da
+license: CC BY 4.0
+permission_evidence: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml.license.yaml
+attribution: "Southworth, J. (2015), The DEBCat detached eclipsing binary catalogue; CC BY 4.0; https://astro.keele.ac.uk/jkt/debcat/"
+raw_artifact_committed: false
+mass_provenance: direct_dynamical
+note: "Pointer/provenance only; full rows + holdout manifest are committed and DATA_LICENSES-declared, not duplicated here. Header carries seed-stage advisory scope flags superseded by TASK-0763/0759/0762 (see result limitations)."

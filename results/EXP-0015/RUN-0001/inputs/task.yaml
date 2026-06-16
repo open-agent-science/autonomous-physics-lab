@@ -1,7 +1,7 @@
 id: TASK-0764
 title: "Package Stellar M-L controlled DEBCat audit as a Gate A result candidate"
 type: scientific_result_publication
-status: REVIEW_READY
+status: READY
 closeout: review
 difficulty: high
 priority: high
