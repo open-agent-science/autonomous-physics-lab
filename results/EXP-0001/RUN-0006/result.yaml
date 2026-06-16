@@ -23,7 +23,8 @@ input_file_hashes:
     sha256: d42613b1e54a0cae3a65efcb370fb0c3eefdc6693a74e5548aad686ab8ce0ee3
 code_reference: physics_lab/workflows/gauntlet.py
 limitations:
-- Agent-published, not independently validated or maintainer-reviewed.
+- Agent-published negative/overfit evidence, independently replay-validated by
+  Gate B but not maintainer-reviewed.
 - Backfills the mature `RESULT-0008` pendulum gauntlet overfit evidence as a
   first-class negative/overfit canonical result without changing the candidate
   surface or metrics.
@@ -45,33 +46,42 @@ test_range:
 - 3.0
 best_model_id: model_t2_x4_l2
 best_verdict: OVERFITTED
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: OVERFITTED
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
-    no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
   evidence_summary: >
-    `RESULT-0017` republishes the deterministic `EXP-0001` pendulum gauntlet
-    overfit surface as the first AGENT_PUBLISHED negative/overfit RESULT
-    artifact. The run preserves the mature `RESULT-0008` evidence pattern
-    while using the current gauntlet runner's 101-candidate accounting: the best
-    candidate ranks well by composite score but fails verification checks, so
-    the canonical verdict remains `OVERFITTED` rather than a promoted pendulum
-    formula claim.
+    Independent Gate B replay reproduced the published pendulum gauntlet
+    negative/overfit result metrics within tolerance and preserved the
+    `OVERFITTED` verdict. The replay compared 878 numeric metrics with maximum
+    absolute drift 6.892264536872972e-13 under tolerance 1.0e-09 and did not
+    change RESULT metrics, command, inputs, claims, knowledge, or golden-result
+    status.
   followup_for_maintainer: >
-    Treat this as agent-published negative/overfit evidence only. It does not
-    weaken existing positive pendulum benchmark results, does not update
-    `CLAIM-0001` status, and needs independent replay before any review-tier
-    upgrade.
+    Treat this as AGENT_VALIDATED negative/overfit evidence only. It does not
+    weaken existing positive pendulum benchmark results and does not update
+    `CLAIM-0001` status. Original publisher metadata is not stored on this
+    RESULT, so the replay records validating-agent identity but cannot
+    mechanically compare it against the original publisher.
+  validation_record:
+    replayed_by:
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex
+      model_version: GPT-5
+    replayed_at_utc: '2026-06-16T19:16:11+00:00'
+    replay_command: physics-lab run examples/pendulum_agent_published_negative_result.yaml
+    replay_output_dir: .gate-b-replay-task0757
+    tolerance_used: 1.0e-09
+    max_abs_delta: 6.892264536872972e-13
+    metric_count: 878
+    drift_observed: none
 verification:
   passed: false
   checks:
