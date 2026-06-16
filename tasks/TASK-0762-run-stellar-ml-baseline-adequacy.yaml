@@ -1,0 +1,60 @@
+id: TASK-0762
+title: "Run Stellar M-L baseline-adequacy audit (single-alpha vs piecewise/fitted)"
+type: scientific_validation
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close the last TASK-0759 control gap (baseline adequacy) before any Stellar Gate A packaging."
+  - "Decide whether the textbook single alpha=3.5 is the adequate baseline or whether a piecewise/fitted exponent is materially better on the main-sequence slice."
+  - "Keep it a controlled benchmark audit; no universal mass-luminosity law claim and no RESULT promotion."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  planning_context: >
+    TASK-0759 resolved the stage-control, split-sensitivity, and shuffle-control
+    gaps for the Stellar M-L Route 2 benchmark, leaving baseline adequacy as the
+    final control before Gate A. This task compares, on the same frozen
+    main-sequence DEBCat rows, the textbook single exponent alpha=3.5 against the
+    textbook piecewise mid-mass alpha=4.0 and a train-fitted exponent
+    (fixed-intercept, fit on the train lane only). Maintainer-authorized Route 2
+    fetch; raw debs.dat and full rows are not committed.
+  related_objects:
+    - "docs/reviews/stellar-ml-route2-stage-control-split-audit.md"
+    - "agent_runs/AGENT-RUN-0073/metrics.json"
+    - "scripts/run_stellar_ml_stage_control_audit.py"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+    - "docs/result-promotion-protocol.md"
+
+requirements:
+  - "Use the approved Route 2 local path and the same frozen main-sequence rows; predeclare the alphas before scoring (no-peek)."
+  - "Fit any data-driven exponent on the train lane only; score all baselines on the frozen holdout."
+  - "State whether single-alpha 3.5 is adequate or a piecewise/fitted baseline is materially better, with the threshold referenced to the measured split noise."
+  - "Do not promote a RESULT/PRED/CLAIM, state a universal mass-luminosity law, or commit raw DEBCat content."
+
+accepted_outputs:
+  - "docs/reviews/stellar-ml-route2-baseline-adequacy.md"
+  - "scripts/run_stellar_ml_baseline_adequacy.py"
+  - "agent_runs/AGENT-RUN-0074/metrics.json"
+  - "agent_runs/AGENT-RUN-0074/report.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Baseline-adequacy control audit before any RESULT packaging; no scientific RESULT or PRED artifact is created."
+  evidence:
+    - "docs/reviews/stellar-ml-route2-baseline-adequacy.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_textbook_stefan_boltzmann_exact_reference.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
