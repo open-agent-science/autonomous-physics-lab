@@ -15,8 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0745` - Plan Exoplanet EXO-0003 trigger after monitor no-notify result (`scientific_validation`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0756` - Adjudicate Atomic Yb/Sr cross-source benchmark result path (`research_quality_gate`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0759` - Run Stellar M-L stage-control and split-sensitivity audit (`scientific_validation`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
-- `TASK-0762` - Run Stellar M-L baseline-adequacy audit (single-alpha vs piecewise/fitted) (`scientific_validation`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0763` - Publish full DEBCat Stellar M-L dataset under granted CC BY 4.0 permission (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.

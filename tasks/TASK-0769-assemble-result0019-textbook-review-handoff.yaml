@@ -1,0 +1,57 @@
+id: TASK-0769
+title: "Assemble RESULT-0019 Textbook exact-reference maintainer handoff"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce maintainer review friction for an already AGENT_VALIDATED Textbook exact-reference software/convention result."
+  - "Keep the exact-reference fixture lane clearly separate from empirical textbook-formula validation."
+  - "Create a small, useful promotion-readiness handoff without adding a new benchmark or claim."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0013/RUN-0001/result.yaml"
+    - "docs/reviews/textbook-exact-reference-agent-published-result.md"
+    - "docs/reviews/result-0019-gate-b-replay.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0019 is the Textbook Formula Audit exact-reference
+    software/convention fixture result. It passed Gate A under TASK-0634 and
+    Gate B replay under TASK-0635, upgrading to AGENT_VALIDATED. This task
+    prepares a maintainer handoff note that summarizes the result's review
+    state, evidence, limitations, and safe public wording without changing any
+    claim or knowledge artifact.
+
+requirements:
+  - "Use only existing RESULT-0019, Gate A, and Gate B evidence; run no new metrics unless needed to reproduce a validation command in the note."
+  - "Create a concise maintainer handoff note summarizing scope, evidence, review tier, limitations, and safe wording."
+  - "State that RESULT-0019 validates deterministic software/convention fixtures only, not Stefan-Boltzmann, Wien displacement, blackbody radiation, stellar observations, or any empirical physical law."
+  - "Do not edit result metrics, CLAIM artifacts, KNOW artifacts, or `results/golden-results.yaml`."
+  - "If any required link or review evidence is missing, stop with a blocker note rather than drafting promotion language."
+
+accepted_outputs:
+  - "docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md"
+  - "Output-routing summary with canonical destination, review tier, Gate A/Gate B status, claim impact, knowledge impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer handoff reviews an existing AGENT_VALIDATED RESULT and does not create a new RESULT/PRED artifact."
+  evidence:
+    - "docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,76 @@
+id: TASK-0764
+title: "Package Stellar M-L controlled DEBCat audit as a Gate A result candidate"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move the completed Stellar M-L DEBCat source, stage-control, split-sensitivity, and baseline-adequacy evidence into a single gated result-publication package."
+  - "Publish only a scope-limited reusable-dataset plus benchmark result candidate, not a universal mass-luminosity law or stellar-evolution claim."
+  - "Preserve the main scientific lesson from TASK-0762: fixed M^3.5 is not an adequate sole baseline for this slice; fitted or piecewise/stage-aware baselines are materially better."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0759-run-stellar-ml-stage-control-split-audit.yaml"
+    - "tasks/TASK-0762-run-stellar-ml-baseline-adequacy.yaml"
+    - "tasks/TASK-0763-publish-full-debcat-dataset-under-granted-cc-by.yaml"
+    - "docs/reviews/stellar-ml-route2-stage-control-split-audit.md"
+    - "docs/reviews/stellar-ml-route2-baseline-adequacy.md"
+    - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+    - "agent_runs/AGENT-RUN-0073/"
+    - "agent_runs/AGENT-RUN-0074/"
+    - "docs/result-promotion-protocol.md"
+    - "scripts/apl_check_result_publication.py"
+  planning_context: >
+    TASK-0759 completed the Stellar M-L stage-control, deterministic
+    null/shuffle, and split-sensitivity audit. TASK-0762 then found that fixed
+    single-alpha M^3.5 is an inadequate sole baseline on the direct dynamical
+    DEBCat slice, while fitted alpha (~4.5) and piecewise/stage-aware baselines
+    are materially better. TASK-0763 committed the full normalized DEBCat rows
+    and holdout manifest under an explicit CC BY 4.0 permission grant. This task
+    packages the controlled evidence as a Gate A result candidate with
+    conservative wording.
+
+requirements:
+  - "Create a new result/run identity for the Stellar M-L controlled DEBCat audit; do not overwrite sandbox agent-run outputs."
+  - "Use only committed DEBCat rows, holdout manifests, source manifests, and review evidence; do not fetch live Gaia/DEBCat data."
+  - "Record input hashes, source/license provenance, row counts, split policy, stage policy, and exact commands."
+  - "Include fixed M^3.5, fitted-alpha, piecewise/stage-aware, null, shuffle, and split-sensitivity evidence in the result package."
+  - "Frame the result as a reusable-dataset plus conservative benchmark artifact for a DEBCat direct-dynamical-mass slice."
+  - "State explicitly that M^3.5 is not falsified as a universal textbook formula; it is inadequate as the sole frozen baseline on this scoped slice."
+  - "Run `scripts/apl_check_result_publication.py` against the candidate before assigning `AGENT_PUBLISHED`."
+  - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
+  - "Do not promote any CLAIM or KNOW artifact, do not make stellar-evolution or application-domain claims, and do not call the benchmark a new law."
+
+accepted_outputs:
+  - "A new `results/EXP-*/RUN-*/result.yaml` or documented successor experiment path for the Stellar M-L controlled DEBCat audit."
+  - "Frozen inputs, metrics, report, and Gate A report for that result candidate."
+  - "A result-routing summary covering canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
+  - "A campaign/profile update only if the task outcome changes public wording or readiness."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to package completed Stellar M-L controlled evidence as a gated scientific RESULT candidate."
+  evidence:
+    - "results/EXP-*/RUN-*/result.yaml"
+    - "results/EXP-*/RUN-*/gate_a_report.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_result_publication_gate.py"
+    - "python3 scripts/apl_check_result_publication.py <new-result-yaml>"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

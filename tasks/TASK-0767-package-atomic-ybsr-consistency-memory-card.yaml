@@ -1,0 +1,63 @@
+id: TASK-0767
+title: "Package Atomic Yb/Sr source-limited consistency diagnostic as memory"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Preserve the completed Beloy/Nemitz Yb/Sr no-tension diagnostic as durable, source-limited scientific memory without promoting a RESULT."
+  - "Make the Atomic campaign's blocker explicit: the comparison is two-row, diagonal-only, and dominated by Nemitz uncertainty."
+  - "Prevent redundant metric reruns while keeping a clear future gate for any better absolute Yb/Sr source or aggregation contract."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml"
+    - "tasks/TASK-0756-adjudicate-atomic-yb-sr-benchmark-result-path.yaml"
+    - "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
+    - "docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml"
+    - "data/atomic_clocks/atomic_holdout_manifest.yaml"
+    - "agent_runs/AGENT-RUN-0071/"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0456 ran the narrow Beloy 2021 / Nemitz 2016 Yb/Sr cross-source
+    diagnostic and found |z| = 1.78, consistent within the predeclared
+    two-sigma no-tension threshold. TASK-0756 ruled out RESULT promotion and
+    selected `CONSISTENCY_NEGATIVE_MEMORY_CARD`. This task writes that concise
+    memory card and records why rerunning the same metric is not useful.
+
+requirements:
+  - "Use only committed diagnostic evidence; do not compute new clock metrics or fetch new sources."
+  - "Create a concise review/memory note that records the diagnostic, source limitation, uncertainty dominance, covariance boundary, and no-claim wording."
+  - "State that the diagnostic is not a constants-drift result, new-constant result, anomaly explanation, prediction, RESULT, CLAIM, or KNOW artifact."
+  - "Record the future reopen condition: a finer-precision independent absolute Yb/Sr source or maintainer-approved aggregation contract that reduces the current two-row/source-limited blocker."
+  - "Do not edit atomic data rows, covariance files, claims, knowledge, or result artifacts."
+  - "Do not launch another Beloy/Nemitz metric rerun as follow-up."
+
+accepted_outputs:
+  - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+  - "A short campaign/profile update only if it links the new memory card and keeps RESULT promotion blocked."
+  - "Output-routing summary with canonical destination, review tier, Gate A/Gate B status, claim impact, knowledge impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-limited consistency-memory packaging explicitly does not create or promote a RESULT/PRED artifact."
+  evidence:
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

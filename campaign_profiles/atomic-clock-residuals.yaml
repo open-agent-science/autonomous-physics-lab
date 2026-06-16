@@ -86,7 +86,7 @@ portfolio:
   recommended_parallel_agents: 2
   coordination_notes: "Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics task; future work needs a source-limited memory card or a new absolute Yb/Sr source/aggregation contract."
   best_next_actions:
-    - task_id: null
+    - task_id: TASK-0767
       label: "Package the Beloy/Nemitz no-tension diagnostic as source-limited consistency memory without RESULT promotion."
   required_gates:
     - "Second-source provenance review."
@@ -105,9 +105,9 @@ portfolio:
     - "Should the source-limited consistency-memory card become a future maintainer-reviewed public summary surface?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-15"
+    last_reviewed: "2026-06-16"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-0756 result-path decision"
-    notes: "High-prestige lane with a first exploratory diagnostic routed to source-limited consistency memory; no RESULT promotion, constants-drift fitting, or third-source row path is open without a new source or aggregation contract."
+    source: "TASK-0756 result-path decision and TASK-0767 task-queue routing"
+    notes: "High-prestige lane with a first exploratory diagnostic routed to source-limited consistency memory; no RESULT promotion, constants-drift fitting, metric rerun, or third-source row path is open without a new source or aggregation contract."

@@ -24,6 +24,9 @@ challenge surface:
 
 - `EXP-0006/RUN-0006` produced `RESULT-0007`, a frozen 50-item MVP benchmark
   with **49/50 agreement (98%)**.
+- `EXP-0006/RUN-0007` produced `RESULT-0020`, an `AGENT_PUBLISHED` live
+  74-item replay with **74/74 agreement**. It is replay-needed until an
+  independent Gate B task validates the artifact.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
   stores the frozen canonical replay input.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml` stores the
@@ -35,13 +38,15 @@ challenge surface:
 
 Current campaign state in one sentence:
 
-The validator has a frozen MVP result, while new challenge entries are
-curation work until a future benchmark task intentionally rebaselines them.
+The validator has a frozen MVP result and a newer live 74-item
+`AGENT_PUBLISHED` result; the next scientific step is independent replay, not
+silent challenge-set drift or claim promotion.
 
 Start here:
 
 - [Dimensional Analysis Validator MVP summary](../results/dimensional-analysis-validator-summary.md)
 - [RESULT-0007 report](../../results/EXP-0006/RUN-0006/report.md)
+- [RESULT-0020 report](../../results/EXP-0006/RUN-0007/report.md)
 - [Dimensional Analysis Challenge Set](../notes/dimensional-analysis-challenge-set.md)
 - [Reproducibility capsule](../reproducibility-capsules.md#result-0007--dimensional-analysis-validator-mvp)
 
@@ -53,16 +58,16 @@ Start here:
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
   the current SI-focused benchmark version?
-- When should the live challenge-set curation surface be intentionally
-  rebaselined into a new canonical benchmark run?
+- Should `RESULT-0020` pass independent Gate B replay before any CLAIM-0005
+  evidence handoff uses it as validated support?
 
 ## Recommended Tasks
 
-- `TASK-0134` — freeze benchmark replay scope and prevent silent challenge-set
-  drift.
-- `TASK-0146` — add one-command reproduction for core current results.
+- `TASK-0766` — independently replay `RESULT-0020` through Gate B.
+- `TASK-0768` — assemble a CLAIM-0005 maintainer evidence handoff after
+  clearly separating AGENT_VALIDATED evidence from replay-needed evidence.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
-  for live challenge-set curation, with explicit claim ceilings.
+  only when they do not rewrite canonical benchmark metrics.
 
 ## Recommended Contributor Types
 
@@ -75,6 +80,7 @@ Start here:
 
 - Do not let live challenge-set additions rewrite the canonical MVP result.
 - Do not report follow-on curation metrics as if they were `RESULT-0007`.
+- Do not treat `RESULT-0020` as AGENT_VALIDATED until Gate B replay passes.
 - Do not treat SI-only validation as support for natural-unit workflows.
 - Do not blur dimensional consistency with full physical correctness.
 - Do not promote any claim automatically from challenge-set curation alone.
