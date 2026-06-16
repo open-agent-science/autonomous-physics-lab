@@ -1,7 +1,7 @@
 id: TASK-0759
 title: "Run Stellar M-L stage-control and split-sensitivity audit"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
