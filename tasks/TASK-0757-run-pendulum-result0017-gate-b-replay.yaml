@@ -1,7 +1,7 @@
 id: TASK-0757
 title: "Run RESULT-0017 Pendulum Gate B replay validation"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -48,7 +48,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_agent_replay_validation.py tests/test_promotion_protocol.py tests/test_docs_links.py"
+    - "python3 -m pytest --basetemp=.pytest-basetemp tests/test_agent_replay_validation.py tests/test_promotion_protocol.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
