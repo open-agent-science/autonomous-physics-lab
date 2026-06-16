@@ -229,16 +229,16 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: pinned PSCompPars snapshots, control-sensitive residual memory, closed EXO-0002
-    reopen gate, and no-notify source-version monitor
+    reopen gate, and monitor-only EXO-0003 trigger posture after TASK-0745
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Parallel-safe for metadata-only trigger decisions and evidence packaging;
       do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate
       amendment.
   best_next_actions:
-  - task_id: TASK-0745
-    label: Decide whether EXO-0003 remains monitor-only or needs a metadata-only scout / coverage-gate
-      amendment
+  - task_id: null
+    label: Continue source-version monitoring until a future NOTIFY-class result justifies
+      an EXO-0003 metadata scout.
   required_gates:
   - Pinned snapshot and checksum state must remain explicit.
   - Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes.
@@ -267,8 +267,8 @@ campaigns:
   - docs/reviews/exoplanet-compact-radius-host-context-preflight.md
   - data/exoplanets/exo-0001-pscomppars-snapshot.yaml
   open_questions:
-  - Does the no-notify monitor result leave EXO-0003 monitor-only, or is a metadata-only scout
-    justified?
+  - Which future NOTIFY class, if any, will justify an EXO-0003 metadata scout without row-value
+    inspection?
   - What source-version or coverage-gate change would justify reopening residual scoring?
   curator_review:
     status: current
@@ -276,9 +276,10 @@ campaigns:
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0745 science-director unblock
-    notes: Monitor-only lane with useful negative/control memory; next step is trigger discipline,
-      not residual scoring.
+    source: TASK-0745 trigger decision
+    notes: Monitor-only lane with useful negative/control memory; TASK-0745 keeps EXO-0003
+      paused after NO_NOTIFY. Next step is a future NOTIFY-class monitor result, not residual
+      scoring.
   source_docs:
   - docs/campaigns/exoplanet-mass-radius.md
   - docs/exoplanet-mass-radius-baseline-protocol.md
