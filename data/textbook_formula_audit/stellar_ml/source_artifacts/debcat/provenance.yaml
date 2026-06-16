@@ -35,12 +35,18 @@ artifact:
     raw_line_count_including_header: 375
 
 redistribution:
-  redistribution_status: route2_confirmed_metadata_only_checksum_no_raw_commit
+  redistribution_status: cc_by_4_0_normalized_rows_committed_raw_still_route2
   license_note: >
-    The consulted DEBCat catalogue page is public and asks users to cite the
-    DEBCat paper, but no explicit redistribution license for committing the
-    value-bearing ASCII table was found during TASK-0628. Raw table storage
-    remains blocked until maintainer/license review allows it.
+    DEBCat maintainer Dr John Southworth granted explicit CC BY 4.0
+    redistribution permission for DEBCat-derived content on 2026-06-16
+    (TASK-0763): "I am happy for you to include what you wish from DEBCat in your
+    repository, if you apply a CC BY 4.0 license." The normalized derived rows
+    and frozen holdout manifest are therefore committed under CC BY 4.0 with
+    attribution (each value-bearing file carries a sibling *.license.yaml
+    marker). The raw debs.dat ASCII table is still intentionally NOT committed
+    (Route 2: metadata-only checksum pinning); the permission would also allow
+    it, but Route 2 is retained because the raw table is regenerable from the
+    pinned locator and checksum.
   citation_note: >
     Cite the DEBCat paper requested on the catalogue page before any use of
     DEBCat rows in a benchmark or review artifact.
@@ -56,16 +62,19 @@ redistribution:
 
 row_admissibility:
   row_class: direct_dynamical_mass_source_candidate
-  inclusion_status: extractor_and_sample_only_full_set_not_redistributed
+  inclusion_status: full_set_committed_under_cc_by_4_0_with_attribution
   row_schema_kind: stellar_ml_component_rows
   extraction_method: task_0708_deterministic_script
   extraction_task: TASK-0708
-  full_dataset_committed: false  # TASK-0731: DEBCat has no explicit redistribution licence
-  redistribution_status: not_redistributable_no_explicit_debcat_licence
+  full_dataset_committed: true  # TASK-0763: explicit CC BY 4.0 permission (Southworth, 2026-06-16)
+  redistribution_status: cc_by_4_0_explicit_permission
+  publication_task: TASK-0763
   extractor: scripts/extract_debcat_stellar_ml_rows.py
   committed_sample: data/textbook_formula_audit/stellar_ml/debcat_component_rows.sample.yaml
   committed_manifest_sample: data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml
-  full_rows_regenerate_locally: "fetch debs.dat (scripts/fetch_source_artifact.py), verify checksum, run the extractor"
+  committed_full_rows: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+  committed_full_manifest: data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
+  full_rows_regenerate_locally: "fetch debs.dat (scripts/fetch_source_artifact.py), verify checksum, run the extractor; committed full files match this deterministic output"
   uncertainty_semantics: >
     DEBCat records component-level masses and uncertainties. TASK-0708 preserves
     primary/secondary component pairing, keeps mass and luminosity uncertainty

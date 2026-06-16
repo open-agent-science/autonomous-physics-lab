@@ -137,19 +137,27 @@ datasets:
   - id: debcat-stellar-ml-sample
     source: "DEBCat detached eclipsing binary catalogue (Southworth 2015)"
     source_url: https://astro.keele.ac.uk/jkt/debcat/debs.dat
-    license: no_explicit_open_redistribution_licence
-    redistribution_status: illustrative_sample_only_full_set_not_redistributed
+    license: CC BY 4.0
+    redistribution_status: cc_by_4_0_explicit_permission
     citation_or_acknowledgement: >
-      Cite Southworth, J. 2015 (ASP Conf. Ser. 496, 164). Only a small
-      non-substitutive sample is committed; the full normalized rows are
-      regenerated locally via the extractor. Full rows may be committed only under
-      explicit DEBCat redistribution permission (see TASK-0708 / TASK-0731).
+      Cite Southworth, J. 2015 (ASP Conf. Ser. 496, 164) and link DEBCat
+      (https://astro.keele.ac.uk/jkt/debcat/). The full normalized component
+      rows and frozen holdout manifest are committed under CC BY 4.0 with
+      attribution; each value-bearing file carries a sibling *.license.yaml
+      redistribution marker. The illustrative *.sample.yaml artifacts remain for
+      quick inspection. The raw debs.dat ASCII table is still not committed
+      (Route 2: metadata-only checksum pinning).
     evidence: >
-      DEBCat is public and asks users to cite the paper, but no explicit
-      open-redistribution licence was found; only the deterministic extractor and
-      an illustrative sample are committed.
+      DEBCat maintainer Dr John Southworth granted explicit CC BY 4.0
+      redistribution permission by email on 2026-06-16 (TASK-0763): "I am happy
+      for you to include what you wish from DEBCat in your repository, if you
+      apply a CC BY 4.0 license." Full grant context and the request thread are
+      recorded in docs/reviews/stellar-ml-debcat-full-dataset-publication.md and
+      the per-file *.license.yaml markers.
     raw_artifact_vendored: false
     provenance: data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml
     paths:
       - data/textbook_formula_audit/stellar_ml/debcat_component_rows.sample.yaml
       - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml
+      - data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+      - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml

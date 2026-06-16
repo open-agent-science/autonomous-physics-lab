@@ -1,0 +1,71 @@
+id: TASK-0763
+title: "Publish full DEBCat Stellar M-L dataset under granted CC BY 4.0 permission"
+type: scientific_dataset
+status: DONE
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the forward-compatible DEBCat extractor+sample posture into a committed, reusable, source-pinned dataset now that explicit redistribution permission exists."
+  - "Record the maintainer permission as durable provenance so the Stellar M-L benchmark is reproducible from the public tree, not only by local regeneration."
+  - "Keep the publish step separate from any benchmark/result promotion: license flip only, no mass-luminosity claim."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0708-curate-stellar-debcat-row-package.yaml"
+    - "data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml"
+    - "data/DATA_LICENSES.yaml"
+    - "scripts/extract_debcat_stellar_ml_rows.py"
+    - "scripts/fetch_source_artifact.py"
+    - "tests/test_stellar_ml_debcat_rows.py"
+  planning_context: >
+    The DEBCat full normalized rows and holdout manifest were intentionally not
+    committed because TASK-0628/TASK-0731 found no explicit redistribution
+    licence; only the deterministic extractor and non-substitutive samples were
+    committed, behind a forward-compatible marker guard. DEBCat maintainer
+    Dr John Southworth granted explicit CC BY 4.0 redistribution permission by
+    email on 2026-06-16. This task performs the designed drop-in flip: fetch the
+    pinned debs.dat snapshot, verify the checksum, regenerate the full files with
+    the existing extractor, add the per-file redistribution markers, un-ignore
+    the full files, and flip the provenance and DATA_LICENSES metadata. The raw
+    debs.dat table is still not committed (Route 2). No benchmark, residual,
+    exponent fit, or claim is produced.
+
+requirements:
+  - "Use the explicit DEBCat CC BY 4.0 grant (Southworth, 2026-06-16) as the redistribution basis; record grantor, date, verbatim wording, and applied attribution."
+  - "Regenerate the full rows deterministically from the pinned debs.dat snapshot (SHA-256 326902...b464da) via the committed extractor; do not hand-edit row values."
+  - "Do not commit the raw debs.dat ASCII table (Route 2: metadata-only checksum pinning is retained)."
+  - "Add a sibling <file>.license.yaml marker (redistribution_status: cc_by_4_0 + permission_evidence) for each committed value-bearing file, per the TASK-0731 guard."
+  - "Keep the frozen, value-blind holdout lanes unchanged; do not fit an exponent, compute residuals, run a benchmark, or promote a RESULT/PRED/CLAIM."
+
+accepted_outputs:
+  - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml.license.yaml"
+  - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml.license.yaml"
+  - "data/textbook_formula_audit/stellar_ml/source_artifacts/debcat/provenance.yaml (flip flags)"
+  - "data/DATA_LICENSES.yaml (debcat entry -> CC BY 4.0 + full paths)"
+  - ".gitignore (remove DEBCat full-file ignore block)"
+  - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset-publication / license-flip task; it commits a reusable source-pinned dataset under granted permission and produces no scientific RESULT or PRED artifact."
+  evidence:
+    - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml.license.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_stellar_ml_debcat_rows.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
