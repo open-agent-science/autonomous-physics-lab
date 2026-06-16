@@ -18,8 +18,8 @@ redistribution permission."*
 
 That permission has now been granted by the DEBCat maintainer:
 
-- **Requested by:** Roman Hladun (`gladunrv@gmail.com`), email to John Southworth, 2026-06-13.
-- **Granted by:** Dr John Southworth (DEBCat maintainer, Astrophysics Group, Keele University; reply from `taylorsouthworth@gmail.com`), 2026-06-16.
+- **Requested by:** Roman Hladun, email to John Southworth, 2026-06-13.
+- **Granted by:** Dr John Southworth (DEBCat maintainer, Astrophysics Group, Keele University; original reply email retained privately by the maintainer), 2026-06-16.
 - **Verbatim grant:** "All the information in DEBCat is publicly available from
   other sources as well as DEBCat. I am happy for you to include what you wish
   from DEBCat in your repository, if you apply a CC BY 4.0 license."
