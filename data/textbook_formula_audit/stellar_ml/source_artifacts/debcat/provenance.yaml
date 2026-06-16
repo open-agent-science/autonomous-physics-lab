@@ -35,24 +35,46 @@ artifact:
     raw_line_count_including_header: 375
 
 redistribution:
-  redistribution_status: cc_by_4_0_normalized_rows_committed_raw_still_route2
+  # License/permission basis, split into single-purpose fields so this scales as
+  # a template for other permission-backed datasets (TASK-0763 polish).
+  redistribution_status: explicit_permission
+  license: CC-BY-4.0
+  attribution_required: true
+  covered_by_repo_license: false
+  permission_granted_by: "Dr John Southworth (DEBCat maintainer, Astrophysics Group, Keele University)"
+  permission_date: 2026-06-16
+  permission_channel: email_to_project_maintainer
+  permission_record_public: summary_only
+  original_permission_record_retained_privately: true
+  # Commit state, kept separate from license and route policy.
+  normalized_row_commit_allowed: true
+  normalized_rows_committed: true
+  derived_artifact_commit_allowed: true
+  raw_artifact_commit_allowed: false
+  raw_artifact_committed: false
+  raw_artifact_route: route2_metadata_only_checksum_pinned
+  # Explicit grant scope, to remove future ambiguity about what is covered.
+  permitted_scope:
+    - normalized_component_rows
+    - frozen_holdout_manifest
+    - benchmark_provenance_metadata
+  not_committed:
+    - raw_debs_dat
+    - raw_catalog_page_snapshot
+    - email_thread
+    - screenshots
   license_note: >
-    DEBCat maintainer Dr John Southworth granted explicit CC BY 4.0
-    redistribution permission for DEBCat-derived content on 2026-06-16
-    (TASK-0763): "I am happy for you to include what you wish from DEBCat in your
-    repository, if you apply a CC BY 4.0 license." The normalized derived rows
-    and frozen holdout manifest are therefore committed under CC BY 4.0 with
-    attribution (each value-bearing file carries a sibling *.license.yaml
-    marker). The raw debs.dat ASCII table is still intentionally NOT committed
-    (Route 2: metadata-only checksum pinning); the permission would also allow
-    it, but Route 2 is retained because the raw table is regenerable from the
-    pinned locator and checksum.
+    DEBCat maintainer Dr John Southworth granted explicit permission by email on
+    2026-06-16 (TASK-0763) for APL to redistribute DEBCat-derived normalized
+    benchmark rows under CC BY 4.0 with attribution. The normalized component
+    rows and frozen holdout manifest are committed (each value-bearing file
+    carries a sibling *.license.yaml marker with the recorded grant). The raw
+    debs.dat table is intentionally not committed; it stays reproducible from the
+    pinned locator and checksum (Route 2). The grant is summarized here; the
+    original email is retained privately by the maintainer.
   citation_note: >
     Cite the DEBCat paper requested on the catalogue page before any use of
     DEBCat rows in a benchmark or review artifact.
-  raw_artifact_commit_allowed: false
-  derived_artifact_commit_allowed: true
-  normalized_row_commit_allowed: true
   storage_route_decision:
     route: metadata_only_checksum_with_extraction_ledger_no_raw_debs_dat
     decision_task: TASK-0707
