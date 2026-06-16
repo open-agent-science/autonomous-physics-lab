@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0745` - Plan Exoplanet EXO-0003 trigger after monitor no-notify result (`scientific_validation`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0746` - Select one next Nuclear non-F2 no-leakage hypothesis lane (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0756` - Adjudicate Atomic Yb/Sr cross-source benchmark result path (`research_quality_gate`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0757` - Run RESULT-0017 Pendulum Gate B replay validation (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `pendulum_formula_falsification`)
@@ -18,4 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0761` - Adjudicate Materials MD-0002 formation-energy result path after the wider-slice retest (`scientific_validation`, priority `high`, difficulty `low`, domain `materials_property_residuals`)
+- `TASK-0745` - Plan Exoplanet EXO-0003 trigger after monitor no-notify result (`scientific_validation`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
