@@ -94,17 +94,17 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: Beloy and Nemitz Yb/Sr rows support a first exploratory cross-source diagnostic;
-    promotion route or Pizzocaro third-source gate is next
+  current_stage: Beloy and Nemitz Yb/Sr rows are routed to source-limited consistency memory;
+    no RESULT promotion or third-source row path is open yet
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: Route the completed Yb/Sr diagnostic before more metrics; Pizzocaro
-      row-admissibility can proceed separately as a third-source-first path.
+    coordination_notes: Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics
+      task; future work needs a source-limited memory card or a new absolute Yb/Sr source/aggregation
+      contract.
   best_next_actions:
-  - task_id: TASK-0756
-    label: Adjudicate the completed Yb/Sr benchmark result path
-  - task_id: TASK-0742
-    label: Run Pizzocaro Yb/Sr row-admissibility ledger as optional third-source-first path
+  - task_id: null
+    label: Package the Beloy/Nemitz no-tension diagnostic as source-limited consistency memory
+      without RESULT promotion.
   required_gates:
   - Second-source provenance review.
   - Real-row loader and schema validation.
@@ -125,24 +125,26 @@ campaigns:
   - Covariance can be ignored for high-precision interpretation.
   current_results:
   - data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml
-  - data/atomic_clocks/acr-0002-nemitz-2016-yb-sr.yaml
+  - data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml
   - data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml
   - docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md
+  - docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md
   - docs/campaigns/atomic-clock-residuals.md
   open_questions:
-  - Should the completed Yb/Sr diagnostic be routed to result-promotion preflight, consistency
-    memory, third-source-first, or do-not-promote?
-  - Can Pizzocaro provide a third admissible Yb/Sr row without collapsing covariance/source
-    semantics?
+  - What future absolute Yb/Sr source or aggregation contract could reduce the current two-row/source-limited
+    blocker?
+  - Should the source-limited consistency-memory card become a future maintainer-reviewed
+    public summary surface?
   curator_review:
     status: current
     last_reviewed: '2026-06-15'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: source_readiness
-    source: TASK-0756 and TASK-0742 science-director routing
-    notes: High-prestige lane with a first exploratory diagnostic; next step is route decision
-      or third-source readiness, not constants-drift fitting.
+    source: TASK-0756 result-path decision
+    notes: High-prestige lane with a first exploratory diagnostic routed to source-limited
+      consistency memory; no RESULT promotion, constants-drift fitting, or third-source row
+      path is open without a new source or aggregation contract.
   source_docs:
   - docs/campaigns/atomic-clock-residuals.md
   - data/atomic_clocks/README.md
