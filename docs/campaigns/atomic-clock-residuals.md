@@ -55,14 +55,14 @@ the first Yb/Sr cross-source diagnostic ran with verdict
 Pizzocaro was kept diagnostic-only, and the result-path decision selected
 `CONSISTENCY_NEGATIVE_MEMORY_CARD` (see
 [atomic-yb-sr-benchmark-result-path-decision.md](../reviews/atomic-yb-sr-benchmark-result-path-decision.md)).
-The immediate follow-up is not another Beloy/Nemitz metric rerun. Future work
-should either package the source-limited consistency memory for maintainer
-review or identify a new absolute Yb/Sr source / aggregation contract that can
-reduce the current two-row blocker.
+The immediate follow-up is `TASK-0767`: package the source-limited consistency
+memory for maintainer review. A new source/aggregation task should open only if
+a future absolute Yb/Sr source or aggregation contract can reduce the current
+two-row blocker.
 
-**Expected next result:** a source-limited consistency-memory card or a new
-source/aggregation preflight. No constants-drift, new-constant, anomaly,
-prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in scope.
+**Expected next result:** a source-limited consistency-memory card. No
+constants-drift, new-constant, anomaly, prediction, `RESULT`, `CLAIM`, or
+`KNOW` framing is in scope.
 
 `TASK-0311` adds:
 
@@ -258,8 +258,8 @@ If any of those are missing, the future task should stay planning-only.
 
 Safe future tasks:
 
-- package the completed Yb/Sr diagnostic as source-limited consistency memory
-  without `RESULT` promotion;
+- `TASK-0767`: package the completed Yb/Sr diagnostic as source-limited
+  consistency memory without `RESULT` promotion;
 - open a new source/aggregation task only if a future absolute Yb/Sr source or
   maintainer-approved aggregation contract can reduce the two-row blocker;
 - define a no-peek freeze package for a future source update;

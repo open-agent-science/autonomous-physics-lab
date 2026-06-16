@@ -102,7 +102,7 @@ campaigns:
       task; future work needs a source-limited memory card or a new absolute Yb/Sr source/aggregation
       contract.
   best_next_actions:
-  - task_id: null
+  - task_id: TASK-0767
     label: Package the Beloy/Nemitz no-tension diagnostic as source-limited consistency memory
       without RESULT promotion.
   required_gates:
@@ -137,14 +137,14 @@ campaigns:
     public summary surface?
   curator_review:
     status: current
-    last_reviewed: '2026-06-15'
+    last_reviewed: '2026-06-16'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: source_readiness
-    source: TASK-0756 result-path decision
+    source: TASK-0756 result-path decision and TASK-0767 task-queue routing
     notes: High-prestige lane with a first exploratory diagnostic routed to source-limited
-      consistency memory; no RESULT promotion, constants-drift fitting, or third-source row
-      path is open without a new source or aggregation contract.
+      consistency memory; no RESULT promotion, constants-drift fitting, metric rerun, or third-source
+      row path is open without a new source or aggregation contract.
   source_docs:
   - docs/campaigns/atomic-clock-residuals.md
   - data/atomic_clocks/README.md
@@ -167,16 +167,18 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: mature validator MVP with challenge-entry and limitation-probe follow-up
-    value
+  current_stage: RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay;
+    RESULT-0020 needs Gate B replay before validated claim support
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Best for small challenge-entry or limitation-probe work; avoid concurrent
-      edits to the same challenge set.
+    coordination_notes: Prioritize RESULT-0020 Gate B replay and claim-evidence handoff before
+      adding more live challenge examples.
   best_next_actions:
-  - task_id: null
-    label: Add bounded challenge examples or limitation notes when a task explicitly asks
-      for validator coverage
+  - task_id: TASK-0766
+    label: Run independent Gate B replay for RESULT-0020
+  - task_id: TASK-0768
+    label: Assemble CLAIM-0005 evidence handoff after separating validated and replay-needed
+      evidence
   required_gates:
   - Do not change frozen RESULT-0007 replay scope.
   - Separate live curation from canonical MVP metrics.
@@ -195,17 +197,21 @@ campaigns:
   - Sandbox classification is a canonical benchmark rebaseline.
   current_results:
   - results/EXP-0006/RUN-0006/result.yaml
+  - results/EXP-0006/RUN-0007/result.yaml
   - docs/results/dimensional-analysis-validator-summary.md
   open_questions:
-  - Which hard boundary cases best expose current validator limitations?
+  - Does RESULT-0020 pass independent Gate B replay?
+  - What conservative CLAIM-0005 wording is supportable after separating RESULT-0007 and RESULT-0020
+    review tiers?
   curator_review:
     status: current
-    last_reviewed: '2026-05-29'
+    last_reviewed: '2026-06-16'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: docs/status.md
-    notes: Quality-floor track for fast formula sanity checks and benchmark hygiene.
+    source: RESULT-0020 scientific-memory index and TASK-0766/TASK-0768 task-queue routing
+    notes: Quality-floor track now has a replay-needed live result and claim-evidence handoff
+      path; avoid silent challenge-set drift.
   source_docs:
   - docs/campaigns/dimensional-analysis-validator.md
   - docs/results/dimensional-analysis-validator-summary.md
@@ -309,16 +315,17 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot
-    acquired, validated, holdout-frozen, and formation-energy benchmarked as sandbox evidence
+    acquired, validated, holdout-frozen, formation-energy benchmarked, and adjudicated as
+    Gate-A-package-ready
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use the frozen MD-0002 dataset/control plan and TASK-0703 sandbox
-      benchmark evidence for route decisions; avoid re-auditing MD-0001 unless promotion routing
-      explicitly asks for it.
+    coordination_notes: Use the frozen MD-0002 dataset/control plan and TASK-0703/TASK-0761
+      evidence for Gate A packaging; avoid re-auditing MD-0001 unless promotion routing explicitly
+      asks for it.
   best_next_actions:
-  - task_id: null
-    label: Decide whether the TASK-0703 sandbox-pass evidence warrants an explicit result-publication
-      task, or should remain sandbox memory
+  - task_id: TASK-0765
+    label: Package the MD-0002 formation-energy benchmark as a Gate A reusable-dataset plus
+      conservative-baseline result candidate
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -353,22 +360,23 @@ campaigns:
   - data/materials/md-0001/
   - data/materials/md-0002/
   - docs/reviews/materials-md0001-split-sensitivity-audit.md
-  - docs/reviews/materials-md0002-validation-and-holdout-freeze.md
+  - docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md
   - docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md
+  - docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md
   - agent_runs/AGENT-RUN-0072/
   open_questions:
-  - Should the TASK-0703 MD-0002 sandbox-pass evidence be packaged under a dedicated canonical
-    result-publication task, or kept as sandbox memory?
+  - Can the TASK-0703/TASK-0761 MD-0002 evidence pass Gate A as a computed-DFT, slice-limited
+    benchmark result?
   - Does band gap remain diagnostic-only after the wider snapshot?
   curator_review:
     status: current
-    last_reviewed: '2026-06-15'
+    last_reviewed: '2026-06-16'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0702 and TASK-0703 MD-0002 routing
-    notes: 'No longer scaffold-only: MD-0002 is frozen and TASK-0703 produced sandbox-pass
-      formation-energy evidence; any canonical result package needs explicit publication authority.'
+    source: TASK-0703 and TASK-0761 MD-0002 routing
+    notes: MD-0002 is frozen and TASK-0703/TASK-0761 support a dedicated Gate A packaging
+      task; no materials claim or band-gap promotion.
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -676,16 +684,19 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L Route 2 has sandbox-pass
-    evidence but is not Gate-A-ready
+  current_stage: exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L has committed
+    DEBCat rows, stage/split/null controls, baseline-adequacy evidence, and is ready for Gate
+    A packaging
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use one formula slice at a time. For Stellar M-L, run controls and
-      split sensitivity before any RESULT packaging.
+    coordination_notes: Use one formula slice at a time. For Stellar M-L, package the controlled
+      DEBCat evidence before opening any new empirical formula slice.
   best_next_actions:
-  - task_id: TASK-0759
-    label: Run Stellar M-L stage-control, null/shuffle, split-sensitivity, and baseline-adequacy
-      audit
+  - task_id: TASK-0764
+    label: Package the controlled Stellar M-L DEBCat audit as a scoped Gate A result candidate
+  - task_id: TASK-0769
+    label: Assemble RESULT-0019 exact-reference maintainer handoff without empirical-claim
+      wording
   required_gates:
   - Stage policy, source/range assumptions, and baseline adequacy before promotion.
   - Null/shuffle controls and seeded split sensitivity before Gate A packaging.
@@ -724,19 +735,23 @@ campaigns:
   - results/EXP-0013/RUN-0001/result.yaml
   - docs/reviews/stellar-ml-route2-local-benchmark.md
   - docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md
+  - docs/reviews/stellar-ml-route2-stage-control-split-audit.md
+  - docs/reviews/stellar-ml-route2-baseline-adequacy.md
+  - docs/reviews/stellar-ml-debcat-full-dataset-publication.md
   open_questions:
-  - Does the Stellar M-L Route 2 sandbox-pass survive stage restriction, null controls, and
-    split sensitivity?
-  - Is a stronger piecewise/stage-aware baseline required before Gate A packaging?
+  - Can the Stellar M-L controlled DEBCat evidence pass Gate A publication checks as a scoped
+    reusable-dataset plus benchmark result?
+  - Should RESULT-0019 receive maintainer-reviewed wording as a software/convention result
+    without any empirical formula implication?
   curator_review:
     status: current
-    last_reviewed: '2026-06-15'
+    last_reviewed: '2026-06-16'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0753 and TASK-0759 science-director routing
-    notes: Public-friendly entry lane has one validated exact-reference result and one promising
-      empirical sandbox signal; do not package Stellar M-L until controls pass.
+    source: TASK-0759/TASK-0762/TASK-0763 science-director routing
+    notes: Public-friendly entry lane has one validated exact-reference result and one empirical
+      Stellar M-L package-ready surface; no universal formula claim.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md

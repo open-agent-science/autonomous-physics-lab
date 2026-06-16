@@ -90,7 +90,9 @@ DONE. `TASK-0738` then acquired and committed the narrowed, maintainer-accepted
 validated the acquisition and confirmed the deterministic no-peek holdout
 freeze. `TASK-0703` then ran the formation-energy retest under the predeclared
 control plan and preserved the outcome as sandbox evidence, not a canonical
-result or materials claim.
+result or materials claim. `TASK-0761` adjudicated that evidence as ready for a
+dedicated Gate A reusable-dataset plus conservative-baseline benchmark
+packaging task, with computed-DFT and slice-limited wording.
 
 ## Admissible Source Classes
 
@@ -181,12 +183,14 @@ confirmed the deterministic no-peek holdout freeze. `TASK-0703` produced a
 sandbox-pass formation-energy benchmark package at
 `agent_runs/AGENT-RUN-0072/` and
 `docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md`.
+`TASK-0761` selected the result path: package a Gate A reusable-dataset plus
+benchmark result candidate, but do not promote a materials claim.
 The numbered path below is now:
 
-1. **Publication-route decision** — decide whether the `TASK-0703` sandbox-pass
-   evidence warrants a dedicated canonical result-publication task with explicit
-   protected-path authority, or should remain sandbox memory. Band gap remains
-   diagnostic-only unless its control evidence improves.
+1. **Gate A result packaging** — package the `TASK-0703` / `TASK-0761`
+   formation-energy evidence as a computed-DFT, slice-limited reusable-dataset
+   plus conservative-baseline RESULT candidate. Band gap remains diagnostic-only
+   unless its control evidence improves.
 
 ## Why It Matters
 

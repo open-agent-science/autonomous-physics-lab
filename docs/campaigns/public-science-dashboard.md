@@ -89,16 +89,17 @@ current evidence is source readiness, not model performance.
 **Short version:** APL is preparing a campaign to audit famous textbook
 formulas by source, range, assumptions, and out-of-distribution failure maps.
 It now has a Gate-B-validated exact-reference software/convention result and a
-first Stellar M-L sandbox benchmark that is promising but not yet Gate-A-ready.
+first Stellar M-L empirical lane with committed DEBCat rows, stage/split/null
+controls, and baseline-adequacy evidence ready for Gate A packaging.
 
 **Why it is interesting:** it is an accessible way for many agents to run
 bounded, reviewable audits without claiming new laws.
 
 **Limitation:** no empirical textbook formula result has been promoted. The
 first formula tasks include exact-reference fixtures and a Stellar M-L sandbox
-run, not universal validation or falsification. The current Stellar M-L blocker
-is controlled readiness: stage restrictions, null/shuffle controls, split
-sensitivity, and baseline adequacy.
+run, not universal validation or falsification. The current Stellar M-L evidence
+supports only a scoped benchmark statement: fixed `M^3.5` is inadequate as the
+sole baseline for the committed DEBCat slice; it is not a universal law claim.
 
 **Evidence trail:**
 
@@ -106,6 +107,9 @@ sensitivity, and baseline adequacy.
 - [Stellar M-L luminosity provenance and storage route](../reviews/stellar-ml-luminosity-provenance-and-license-route.md)
 - [Stellar M-L Route 2 local benchmark](../reviews/stellar-ml-route2-local-benchmark.md)
 - [Stellar M-L promotion-readiness scorecard](../reviews/stellar-ml-route2-promotion-readiness-scorecard.md)
+- [Stellar M-L stage-control and split-sensitivity audit](../reviews/stellar-ml-route2-stage-control-split-audit.md)
+- [Stellar M-L baseline-adequacy audit](../reviews/stellar-ml-route2-baseline-adequacy.md)
+- [Stellar M-L DEBCat full dataset publication](../reviews/stellar-ml-debcat-full-dataset-publication.md)
 - [Candidate slate](../notes/textbook-formula-audit-candidate-list.md)
 
 ### Materials Reusable Dataset And First Baseline
@@ -148,9 +152,9 @@ repository, or DOI.
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which non-F2, no-leakage lane is worth one bounded sprint while reveal scoring stays blocked? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `RESULT-0018` is AGENT_VALIDATED and preserved as diagnostic/inconclusive memory. | Reveal-checklist repair and one non-F2 lane selection with controls and stop conditions. | A reveal-readiness matrix or scoped next-lane decision, not a reveal score. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version change would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate, so CK17 replay was not run. The closed-lane decision is preserved as negative/control memory. | `EXO-0003` trigger decision after the no-notify source-version monitor. | A trigger decision or negative-memory artifact, not a residual score. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build direct Almeida InP size/energy rows before running size-effect baselines? | Calibration-derived rows remain excluded; Almeida 2023 is now license-confirmed and checksum-pinned, with the optical-energy axis recorded. | Almeida size-axis digitization and row-readiness gate (`TASK-0755`). | Direct rows plus readiness rerun, or a precise digitization blocker; not model metrics. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can the first Yb/Sr cross-source diagnostic become durable memory without hiding covariance/source limits? | Beloy 2021 and Nemitz 2016 now support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited. | `TASK-0756` result-path decision, with optional `TASK-0742` Pizzocaro third-source row-admissibility first. | A route decision or third-source admissibility ledger, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L Route 2 has a sandbox-pass but scorecard says `NOT_YET_GATE_A_READY`. | Stage-control, null/shuffle, split-sensitivity, and baseline-adequacy audit for Stellar M-L. | A controlled readiness decision before any empirical result package. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is acquired, validated, holdout-frozen, and benchmarked as sandbox evidence. | Route the `TASK-0703` sandbox-pass evidence before any canonical result package. | A publication-route decision, not a material recommendation. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can the first Yb/Sr cross-source diagnostic become durable memory without hiding covariance/source limits? | Beloy 2021 and Nemitz 2016 now support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited. | `TASK-0767` source-limited consistency-memory packaging; no metric rerun. | A source-limited memory card, not constants-drift metrics. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L now has committed DEBCat rows, controls, split sensitivity, and baseline-adequacy evidence. | `TASK-0764` Gate A packaging for a scoped reusable-dataset plus benchmark result candidate. | A controlled Stellar M-L result package or a precise Gate A blocker. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is acquired, validated, holdout-frozen, benchmarked, and adjudicated as Gate-A-package-ready. | `TASK-0765` Gate A packaging for the MD-0002 formation-energy benchmark. | A computed-DFT, slice-limited reusable-dataset plus benchmark result candidate, not a material recommendation. |
 
 ## What Is Interesting Right Now
 
@@ -213,11 +217,12 @@ Why it matters:
   checksum-pinned and license-confirmed; size-axis digitization is the blocker
   before direct rows and the readiness gate can run.
 - Atomic has Beloy and Nemitz Yb/Sr rows and a first exploratory cross-source
-  diagnostic. The blocker is promotion-route choice and, if selected, a
-  Pizzocaro third-source admissibility ledger.
+  diagnostic. The next artifact is a source-limited consistency-memory card;
+  new source work waits for a better absolute Yb/Sr source or aggregation
+  contract.
 
 Next visible artifact: an Almeida size-axis digitization/readiness decision for
-Quantum, and an Atomic route decision or Pizzocaro row-admissibility ledger.
+Quantum, and an Atomic source-limited memory card.
 
 ### Textbook Formula Audit As A Public Entry Surface
 
@@ -225,16 +230,16 @@ Textbook Formula Audit is the most accessible future campaign for new
 contributors: each task can audit one famous formula in one source-pinned
 range. The exact-reference fixture lane has one AGENT_VALIDATED result. The
 first empirical slice is Stellar Mass-Luminosity through DEBCat direct
-dynamical masses; its first local Route 2 benchmark ran, but the promotion
-scorecard says controlled readiness is still missing.
+dynamical masses; it now has stage/split/null controls, baseline-adequacy
+evidence, and the full committed DEBCat dataset.
 
 Why it matters:
 
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Next visible artifact: a stage-controlled Stellar M-L audit with null/shuffle
-controls and split sensitivity, before any empirical result promotion.
+Next visible artifact: a Gate A Stellar M-L result package or a precise
+publication blocker; no universal formula claim.
 
 ### Materials Dataset-To-Benchmark Path
 
@@ -244,9 +249,9 @@ repo, and now has holdout, citation metadata, a first conservative baseline
 benchmark, independent replay, a do-not-promote decision, formation-energy null
 controls, and split-sensitivity evidence. Formation energy is the stronger
 axis; band gap stays diagnostic and split-fragile. `MD-0002` is now acquired,
-validated, holdout-frozen, and formation-energy benchmarked as sandbox evidence,
-so the next public artifact should be a route decision for that evidence, not a
-model leaderboard or material recommendation.
+validated, holdout-frozen, formation-energy benchmarked, and adjudicated as
+ready for Gate A packaging, so the next public artifact should be a scoped
+benchmark result candidate, not a model leaderboard or material recommendation.
 
 Why it matters:
 

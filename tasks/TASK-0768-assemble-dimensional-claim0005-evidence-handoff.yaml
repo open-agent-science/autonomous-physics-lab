@@ -1,0 +1,60 @@
+id: TASK-0768
+title: "Assemble CLAIM-0005 evidence handoff after Dimensional RESULT-0020"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare a maintainer-readable evidence handoff for CLAIM-0005 using the frozen MVP result and the newer 74-item live replay result."
+  - "Keep claim decisions maintainer-only while reducing review friction for a mature quality-floor campaign."
+  - "Separate AGENT_VALIDATED evidence from replay-needed evidence so claim wording does not outrun review tier."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+    - "results/EXP-0006/RUN-0006/result.yaml"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "docs/reviews/claim-review-cycle-001.md"
+    - "docs/results/dimensional-analysis-validator-summary.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    CLAIM-0005 was listed as eligible for maintainer review in
+    `docs/reviews/claim-review-cycle-001.md`. Since then, RESULT-0020 has been
+    agent-published for the live 74-item Dimensional Validator replay, while
+    the older MVP benchmark remains the frozen baseline. This task assembles a
+    handoff note that distinguishes AGENT_VALIDATED and replay-needed evidence;
+    it does not change the claim.
+
+requirements:
+  - "Read CLAIM-0005, RESULT-0007, RESULT-0020, and the claim review cycle note before writing the handoff."
+  - "Create a maintainer handoff note that lists eligible evidence, review tier, Gate A/Gate B state, limitations, and wording ceilings."
+  - "State explicitly whether RESULT-0020 is still replay-needed at the time of the handoff; do not treat it as AGENT_VALIDATED unless TASK-0766 has passed first."
+  - "Recommend only conservative wording about dimensional-consistency classification; do not claim empirical formula correctness, natural-unit support, or general symbolic reasoning."
+  - "Do not edit CLAIM-0005 status, knowledge artifacts, result metrics, or golden results."
+  - "If the evidence is not ready for maintainer review, stop with a blocker note rather than drafting stronger claim language."
+
+accepted_outputs:
+  - "docs/reviews/claim-0005-dimensional-validator-evidence-handoff.md"
+  - "Output-routing summary with canonical destination, review tier, Gate A/Gate B status, claim impact, knowledge impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim evidence handoff reviews existing RESULT artifacts and does not create a new RESULT/PRED artifact."
+  evidence:
+    - "docs/reviews/claim-0005-dimensional-validator-evidence-handoff.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
