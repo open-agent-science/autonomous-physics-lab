@@ -1,0 +1,43 @@
+{
+  "task_id": "TASK-0762",
+  "agent_run_id": "AGENT-RUN-0074",
+  "audit": "stellar_ml_baseline_adequacy",
+  "source": "DEBCat Route 2 (local-only debs.dat; checksum-pinned; not committed)",
+  "predeclared_policy": {
+    "primary_mass_range_solar": [
+      0.5,
+      2.0
+    ],
+    "primary_stage": "main_sequence_compatible",
+    "fixed_intercept_L0": 1.0,
+    "alphas": "textbook 3.5, piecewise-mid 4.0, train-fitted (fit on train lane only)",
+    "split_noise_reference_dex": 0.04
+  },
+  "counts": {
+    "main_sequence_train": 102,
+    "main_sequence_holdout": 65
+  },
+  "train_fitted_alpha": 4.526,
+  "null_holdout_mae_dex": 0.331817,
+  "per_alpha_holdout": {
+    "textbook_single_3p5": {
+      "alpha": 3.5,
+      "holdout_mae_dex": 0.184954,
+      "holdout_minus_textbook_single_dex": 0.0
+    },
+    "textbook_piecewise_mid_4p0": {
+      "alpha": 4.0,
+      "holdout_mae_dex": 0.137608,
+      "holdout_minus_textbook_single_dex": -0.047346
+    },
+    "train_fitted": {
+      "alpha": 4.526,
+      "holdout_mae_dex": 0.119925,
+      "holdout_minus_textbook_single_dex": -0.065029
+    }
+  },
+  "best_alpha": "train_fitted",
+  "single_alpha_gap_to_best_dex": 0.065029,
+  "single_alpha_adequate": false,
+  "verdict": "PIECEWISE_OR_FITTED_BASELINE_MATERIALLY_BETTER"
+}
