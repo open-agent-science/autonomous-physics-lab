@@ -1,0 +1,97 @@
+{
+  "task_id": "TASK-0759",
+  "agent_run_id": "AGENT-RUN-0073",
+  "audit": "stellar_ml_stage_control_and_split_sensitivity",
+  "source": "DEBCat Route 2 (local-only debs.dat; checksum-pinned; not committed)",
+  "formula": "log L = 3.5 * log M (L0=1)",
+  "predeclared_policy": {
+    "primary_mass_range_solar": [
+      0.5,
+      2.0
+    ],
+    "primary_stage": "main_sequence_compatible",
+    "split_seeds": [
+      11,
+      23,
+      37,
+      53,
+      71
+    ],
+    "split_train_fraction": 0.7,
+    "null": "per-mass-band train-median log_luminosity (global-median fallback)"
+  },
+  "primary_range_counts": {
+    "all_stages": 489,
+    "main_sequence_compatible": 223
+  },
+  "mixed_stage_frozen_lane": {
+    "train_count": 254,
+    "validation": {
+      "count": 103,
+      "formula_mae_dex": 0.316253,
+      "null_mae_dex": 0.449742,
+      "formula_minus_null_dex": -0.133489,
+      "formula_beats_null": true
+    },
+    "holdout": {
+      "count": 132,
+      "formula_mae_dex": 0.347101,
+      "null_mae_dex": 0.44492,
+      "formula_minus_null_dex": -0.097819,
+      "formula_beats_null": true
+    }
+  },
+  "main_sequence_frozen_lane": {
+    "train_count": 102,
+    "validation": {
+      "count": 56,
+      "formula_mae_dex": 0.16461,
+      "null_mae_dex": 0.297444,
+      "formula_minus_null_dex": -0.132835,
+      "formula_beats_null": true
+    },
+    "holdout": {
+      "count": 65,
+      "formula_mae_dex": 0.184954,
+      "null_mae_dex": 0.331817,
+      "formula_minus_null_dex": -0.146863,
+      "formula_beats_null": true
+    }
+  },
+  "by_stage_holdout_formula_mae_dex": {
+    "main_sequence_compatible": 0.184954,
+    "subgiant": 0.30805,
+    "evolved": 1.708908,
+    "unknown": 0.237776
+  },
+  "main_sequence_split_sensitivity": {
+    "seeds": [
+      11,
+      23,
+      37,
+      53,
+      71
+    ],
+    "null_minus_formula_holdout_dex_per_seed": [
+      0.180271,
+      0.15486,
+      0.127142,
+      0.102269,
+      0.133989
+    ],
+    "positive_seed_count": 5,
+    "stable_positive": true
+  },
+  "main_sequence_shuffle_control": {
+    "real_holdout_null_minus_formula_dex": 0.146863,
+    "shuffled_holdout_null_minus_formula_dex_per_seed": [
+      -0.141034,
+      -0.146732,
+      -0.14912,
+      -0.09802,
+      -0.092278
+    ],
+    "shuffled_mean": -0.125437,
+    "real_margin_exceeds_all_shuffled": true
+  }
+}
