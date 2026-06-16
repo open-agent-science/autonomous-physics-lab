@@ -30,7 +30,7 @@ device-id
 # Source PDFs under data require explicit license review and force-add.
 data/**/*.pdf
 
-# Full DEBCat rows are regenerated locally, not committed (no explicit
-# redistribution licence; TASK-0731). Only the *.sample.yaml is committed.
-data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
-data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
+# Full DEBCat rows are now committed under explicit CC BY 4.0 redistribution
+# permission (Southworth, 2026-06-16; TASK-0763). Each value-bearing file ships
+# with a sibling *.license.yaml redistribution marker. The raw debs.dat table
+# itself remains uncommitted (Route 2: metadata-only checksum pinning).

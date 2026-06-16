@@ -1,0 +1,2355 @@
+manifest_id: TFA-STELLAR-ML-DEBCAT-HOLDOUT-MANIFEST
+schema_version: 0.1.0
+task_id: TASK-0708
+campaign_profile_id: textbook-formula-audit
+created_by:
+  contributor_id: roman
+  agent_id: claude
+generated_at: '2026-06-16T13:52:36Z'
+freeze:
+  frozen: true
+  frozen_at: '2026-06-16T13:52:36Z'
+  frozen_before_residual_inspection: true
+  no_alpha_fit_performed: true
+  no_residual_inspection_performed: true
+split_policy:
+  primary_key: physical_binary_system_id
+  method: deterministic_sha256_of_system_id_mod_10
+  rule: bucket = int(sha256(system_id).hexdigest(), 16) % 10; 0-4 -> train, 5-6 -> validation, 7-9 ->
+    holdout
+  proportions_target:
+    train: 0.5
+    validation: 0.2
+    holdout: 0.3
+  value_blind: true
+  no_leakage_rule: All components of one physical binary share one lane; ambiguous or fully-inadmissible
+    systems go to excluded.
+mass_band_thresholds_solar:
+- band: very_low
+  min: 0.0
+  max: 0.5
+- band: low
+  min: 0.5
+  max: 1.0
+- band: solar
+  min: 1.0
+  max: 2.0
+- band: intermediate
+  min: 2.0
+  max: 8.0
+- band: high
+  min: 8.0
+  max: null
+lane_system_counts:
+  excluded: 1
+  holdout: 100
+  train: 191
+  validation: 81
+systems:
+- system_id: 2MASS_J00024841-2953539
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: 2MASS_J03262072+0312362
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - very_low
+- system_id: 2MASS_J04480963+0317480
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: 2MASS_J05221817-2507112
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: 2MASS_J05525572-0044266
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: 2MASS_J07431157+0316220
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: 2MASS_J10305521+0334265
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: 2MASS_J12220147-5737565
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: 2MASS_J23143816+0339493
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: AD_Boo
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: AH_Cep
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: AI_Hya
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: AI_Phe
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: AK_Lac
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: AL_Ari
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: AL_Dor
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: AN_Cam
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: AP_And
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: AQ_Ser
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: AR_Aur
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: ASAS_J052821+0338.5
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: ASAS_J061016-3321.3
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: ASAS_J082552-1622.8
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: ASAS_J085002+1752.5
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: ASAS_J090232-5653.4
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: ASAS_J171750-1915.3
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: ASAS_J212954-5620.1
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: AY_Cam
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BD-13_4929
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+  - intermediate
+- system_id: BD_+37_410
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BD_+47_378
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: BF_Dra
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BG_Ind
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BK_Peg
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BN_Scl
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BS_Dra
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BT_Vul
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: BW_Aqr
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CC_Cas
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: CD-27_2812
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: CD_Tau
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CF_Tau
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CG_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: CM_Dra
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: CN_Lyn
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CO_And
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CPD_-54_810
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CQ_Ind
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CU_Cnc
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: CV_Boo
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: CV_Vel
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: CW_Cep
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: CW_Eri
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CoRoT_102918586
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: CoRoT_105906206
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: DI_Her
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: DM_Vir
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: DN_Cas
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: DS_And
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: DV_Boo
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: DW_Car
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: EE_Peg
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: EF_Aqr
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: EG_Ser
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: EI_Cep
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: EK_Cep
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: EM_Car
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: EPIC_203710387
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: EPIC_203929178
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: EPIC_211409263
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: EPIC_211972086
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: EPIC_219511354
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: EPIC_219552514
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: EP_Cru
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: EW_Ori
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: EY_Cep
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: FL_Lyr
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: FM_Leo
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: FS_Mon
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: FT_Ori
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: GG_Lup
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: GG_Ori
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: GK_Dra
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: GL_Car
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: GU_Boo
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: GW_Eri
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: GX_Gem
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: GZ_CMa
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_2217989899851954816
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_26100417474249344
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_313579414867698176
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+  - very_low
+- system_id: Gaia_DR3_4057237012210464512
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4063342909579750528
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4063353316189129728
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: Gaia_DR3_4068973783492778624
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_4069123969836636160
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4651922753874461824
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4654937339840486528
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4655236681926711808
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4655283338098327552
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4655458542721961728
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4655572445268219392
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4656922572497318400
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4657537032008025088
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4657672718644934912
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: Gaia_DR3_4657941343120064128
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4657984017932353024
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4658065995875376384
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4658142274488480768
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4658207764151075328
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4658237043035232256
+  lane: excluded
+  exclusion_reason: ambiguous_duplicate_system_id
+  n_components_admitted: 0
+  n_components_total: 4
+- system_id: Gaia_DR3_4658260373306002944
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4658274662593320832
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4658278648333088768
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4658354927055221632
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4658426502570852736
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4659220384315198208
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4659300373787150464
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4659341399316612736
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4661840005132690944
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4663771675252350080
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4685851788582340224
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4685862719276363904
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4685896151290218624
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4685896662392593920
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4685931400101383552
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_4687506901499564672
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4688470447316653056
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4688845449503512960
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4688904926210222976
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4688970798174366464
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4688986427557457152
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4689022745764462720
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_4689294015907882624
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_4689639331279101568
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_4689641564666423040
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_5283006522253399168
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: Gaia_DR3_5413575142952201088
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_5413578166614929280
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_5630315754100784000
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_5813082349302593920
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_5813087468905224320
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_6045461417425321984
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_6045465884181859712
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_6045466159069806464
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Gaia_DR3_604988891451223936
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: Gaia_DR3_6247352746075570176
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: Gaia_DR3_6439558201924841600
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Gaia_DR3_6751389835685124992
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: HD_135671
+  lane: holdout
+  n_components_admitted: 1
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_149946
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_187669
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_188872
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_190585
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: HD_219869
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_22064
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: HD_284753
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - very_low
+- system_id: HD_32129
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_60637
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: HD_69735
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_71636
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HD_96609
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: HD_97329
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HIP_28711
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: HIP_7666
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HO_Tel
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HP_Aur
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: HP_Dra
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HR_2214
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: HS_Aur
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: HS_Hya
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HV_2274
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: HW_CMa
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: HY_Vir
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: IM_Per
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: IM_Vir
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: IO_Aqr
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: IQ_Per
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: IT_Cas
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_10001167
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: KIC_10987439
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: KIC_11235323
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: KIC_11285625
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_2306740
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_2557430
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_3439031
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_3858884
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_4054905
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: KIC_4076952
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_4851217
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: KIC_4932691
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_5113053
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_5193386
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_5288543
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: KIC_5359678
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_5640750
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_6131659
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: KIC_6147573
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: KIC_6525196
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: KIC_6778289
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_6864859
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_7037405
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_7177553
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: KIC_7821010
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_8410637
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_8430105
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: KIC_8736245
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: KIC_9540226
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_9777062
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_9850387
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_9851944
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KIC_9970396
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KL_Per
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KOI-126
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: KW_Hya
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: KX_Cnc
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Kepler-16
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - very_low
+- system_id: Kepler-1647
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: Kepler-34
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: Kepler-35
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: Kepler-453
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - very_low
+- system_id: Kepler-47
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - very_low
+- system_id: LL_Aqr
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: LP_819-72
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: LSPM_J1112+7626
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: LV_Her
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: LX_Mus
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: MU_Cas
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: MY_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: NN_Del
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: NP_Per
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: NSVS_10653195
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: NY_Hya
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: OGLE-LMC-ECL-06782
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: OGLE_LMC-ECL-17660
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: OGLE_LMC-ECL-18794
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: OGLE_LMC-ECL-21568
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: OGLE_SMC108.1_14904
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: OGLE_SMC126.1_210
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: OT_And
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: PT_Vel
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: PV_Cas
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: PV_Pup
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: QR_Hya
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: QX_Car
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: RR_Lyn
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: RS_Cha
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: RT_CrB
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: RU_Cnc
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: RW_Lac
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: RZ_Cha
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: SW_CMa
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: SZ_Cen
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: TIC_172900988
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TIC_17303250
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: TIC_322208686
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TIC_339570153
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+  - intermediate
+- system_id: TIC_56913729
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: TIC_71877648
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TIC_81462274
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TIC_97729372
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: TOI-1338
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+  - very_low
+- system_id: TOI-450
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - very_low
+- system_id: TV_Nor
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: TYC_1243-402-1
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: TYC_1321-16-1
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TYC_3488-463-1
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TYC_4535-148-1
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+  - very_low
+- system_id: TYC_459-771-1
+  lane: train
+  n_components_admitted: 1
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TYC_4749-560-1
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: TYC_5227-1023-1
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: TYC_5962-2159-1
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: TYC_6296-2012-1
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: TYC_6296-96-1
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: TYC_7091-888-1
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: TZ_For
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: TZ_Men
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: UW_LMi
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: UX_Men
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: UZ_Dra
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: U_Oph
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V1022_Cas
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V1031_Ori
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V1034_Sco
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V1061_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V1094_Tau
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V1130_Tau
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V1143_Cyg
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V1174_Ori
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V1200_Cen
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V1229_Tau
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V1236_Tau
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: V1292_Sco
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+  - intermediate
+- system_id: V1388_Ori
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V1647_Sgr
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V2080_Cyg
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V2154_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V2365_Oph
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V335_Ser
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V338_Vir
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V346_Cen
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V348_And
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V362_Pav
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V364_Lac
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V375_Cep
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V380_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+  - intermediate
+- system_id: V3903_Sgr
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V392_Car
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V396_Cas
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V402_Lac
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V404_CMa
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: V4089_Sgr
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V413_Ser
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V414_Pup
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V432_Aur
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V436_Per
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V441_UMa
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: V442_Cyg
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V446_Cep
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+  - solar
+- system_id: V451_Oph
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V453_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V454_Aur
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V455_Aur
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V456_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V459_Cas
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V467_Vel
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V478_Cyg
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V501_Her
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V501_Mon
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V505_Per
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V506_Oph
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V530_Ori
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V539_Ara
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V541_Cyg
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V565_Lyr
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: V568_Lyr
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V570_Per
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V572_Per
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V573_Car
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V578_Mon
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: V596_Pup
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V624_Her
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: V636_Cen
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V760_Sco
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V785_Cep
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V788_Cen
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V818_Tau
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: V885_Cyg
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V889_Aql
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V906_Sco
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: V943_Mon
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V963_Cen
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: VV_Crv
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: VV_Ori
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+  - intermediate
+- system_id: VZ_Cep
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: VZ_Hya
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: V_Cir
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: WW_Aur
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: WW_Cam
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: WX_Cep
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: WZ_Oph
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: XY_Cet
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: YY_Gem
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+- system_id: YZ_Cas
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: Y_Cyg
+  lane: holdout
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: ZZ_Boo
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - solar
+- system_id: ZZ_UMa
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - low
+  - solar
+- system_id: alpha_Dra
+  lane: validation
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: beta_Aur
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: chi2_Hya
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+- system_id: delta_Cir
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - high
+- system_id: psi_Cen
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
+  - solar
+- system_id: zeta_Phe
+  lane: train
+  n_components_admitted: 2
+  n_components_total: 2
+  mass_bands:
+  - intermediate
