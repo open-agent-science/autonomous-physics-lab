@@ -1,0 +1,10 @@
+experiment_path: ../experiments/EXP-0014-materials-md0002-formation-energy-benchmark.yaml
+hypothesis_path: ../hypotheses/HYP-0014-materials-md0002-formation-energy-benchmark.yaml
+task_id: TASK-0765
+run_id: RUN-0001
+result_id: RESULT-0021
+result_root: ../results/EXP-0014
+workflow: materials_md0002_formation_energy_benchmark
+replay_command: "python3 scripts/replay_materials_md0002_result.py --check"
+source_dataset: data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+source_evidence: agent_runs/AGENT-RUN-0072/

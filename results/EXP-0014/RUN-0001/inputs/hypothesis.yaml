@@ -1,0 +1,38 @@
+id: HYP-0014
+title: "Within the frozen MD-0002 stable-ternary-oxide scope, a composition-aware cation-pair baseline improves formation-energy residuals over a global-median null"
+domain: materials_science
+status: TESTING
+
+hypothesis:
+  statement: >
+    On the checksum-pinned, holdout-frozen MD-0002 Materials Project stable
+    alkali/alkaline-earth + first-row-transition ternary-oxide slice, an exact
+    cation-pair mean baseline should reduce formation-energy holdout residuals
+    relative to a global-median null, robustly across seeded splits and
+    deterministic shuffle controls. This is a benchmark/dataset evaluation
+    candidate, not a materials-discovery, design, or new-law claim.
+  formula_candidates:
+    - "cation_pair_mean: predict the train-mean formation_energy_per_atom of the unordered non-oxygen cation pair (global train-mean fallback for unseen pairs)"
+    - "global_median_null: predict the train-lane global median formation_energy_per_atom"
+
+assumptions:
+  - "MD-0002 rows are computed DFT formation energies (Materials Project, CC BY 4.0), not experimental measurements."
+  - "Scope is the frozen 362-row stable ternary-oxide slice (alkali/alkaline-earth + first-row transition); not a universal materials law."
+  - "The 70/15/15 split is frozen by material_id ordering before scoring (no-peek)."
+  - "Band gap is diagnostic-only and excluded from the promoted metrics."
+
+variables:
+  formation_energy_per_atom:
+    unit: electronvolt_per_atom
+    description: "DFT formation energy per atom"
+  cation_pair:
+    unit: count
+    description: "Unordered non-oxygen cation pair grouping key"
+
+evidence:
+  experiments:
+    - EXP-0014
+  results:
+    - RESULT-0021
+
+verdict: "Benchmark designed to characterize the composition-aware baseline advantage and its robustness on the frozen MD-0002 slice; not a materials-discovery or new-law claim."

@@ -1,0 +1,178 @@
+result_id: RESULT-0021
+run_id: RUN-0001
+experiment_id: EXP-0014
+title: "Materials MD-0002 Formation-Energy Cation-Pair Baseline Benchmark (stable ternary oxides)"
+hypothesis_id: HYP-0014
+task_id: TASK-0765
+generated_at: '2026-06-16T00:00:00Z'
+engine_version: '0.1.0'
+git_commit: 0e23e2b6e5740f189e9957789ba1408a4b3da596
+command: python3 scripts/replay_materials_md0002_result.py --check
+input_file_hashes:
+  config:
+    path: results/EXP-0014/RUN-0001/inputs/config.yaml
+    sha256: ef204ef33364ebeb1192dd1fd4d96316c506c010d565a89ca1d570c76486d792
+  experiment:
+    path: results/EXP-0014/RUN-0001/inputs/experiment.yaml
+    sha256: 39b576dced8cf042a9e6fd796aa530c1566415237dc3e8fb22009a2f9ab225a6
+  hypothesis:
+    path: results/EXP-0014/RUN-0001/inputs/hypothesis.yaml
+    sha256: d4627e32abe0468880e11afbe95f7e7a425b12566c42dfb458a274234f44ad6f
+  task:
+    path: results/EXP-0014/RUN-0001/inputs/task.yaml
+    sha256: 08a43024c87eb011bfe684f02a8761af5aee95f8921300d1ab7abe733ea2dcf4
+code_reference: scripts/replay_materials_md0002_result.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- Scope is the frozen 362-row MD-0002 stable ternary-oxide slice (alkali/alkaline-earth
+  + first-row transition); this is a benchmark/dataset evaluation, not a materials-discovery,
+  design, or universal-law claim.
+- Rows are computed DFT formation energies from the Materials Project (CC BY 4.0), not
+  experimental measurements; absolute residuals inherit any DFT systematic offset.
+- The cation-pair baseline predicts the train-mean of an unordered non-oxygen cation
+  pair (global train-mean fallback); it carries no per-structure features and is not a
+  predictive materials model.
+- Band gap is diagnostic-only and is excluded from the promoted metrics.
+best_model_id: model_cation_pair_mean
+best_verdict: VALID_IN_RANGE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: VALID_IN_RANGE
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: >
+    On the checksum-pinned, holdout-frozen MD-0002 stable ternary-oxide slice, the
+    exact cation-pair mean baseline reaches a holdout formation-energy MAE of
+    0.200606 eV/atom versus 0.506092 eV/atom for the global-median null (60.4%
+    lower). The advantage is reproduced bit-for-bit by the deterministic replay,
+    holds in 5/5 seeded splits, and beats deterministic label-shuffle and
+    cation-label-shuffle controls in every seed; row order is invariant.
+  followup_for_maintainer: >
+    Keep the trust qualifier explicit: agent-published, not independently validated
+    or maintainer-reviewed. Verdict is scope-limited to the frozen MD-0002 slice; no
+    materials-discovery or universal-law claim is made, and no CLAIM/KNOW promotion
+    is proposed.
+verification:
+  passed: true
+  checks:
+  - name: dataset_loaded_frozen_split
+    status: PASS
+    details: Loaded the committed MD-0002 dataset and selected the included
+      formation-energy rows on the frozen, material-id-ordered 70/15/15 split.
+    metrics:
+      dataset_id_rows_total: 724
+      formation_energy_rows: 362
+      train_count: 253
+      holdout_count: 54
+      live_external_fetch: 0
+  - name: deterministic_replay_matches_committed_metrics
+    status: PASS
+    details: scripts/replay_materials_md0002_result.py --check recomputes both
+      baselines from committed data and matches the committed metrics within tol 1e-6
+      (GATE_A_REPLAY PASS).
+    metrics:
+      expected_cation_pair_holdout_mae: 0.200606
+      replayed_cation_pair_holdout_mae: 0.200606
+      expected_null_holdout_mae: 0.506092
+      replayed_null_holdout_mae: 0.506092
+      tolerance: 1.0e-06
+  - name: cation_pair_baseline_beats_null_on_holdout
+    status: PASS
+    details: Exact cation-pair mean holdout MAE is below the global-median null on
+      the frozen holdout lane.
+    metrics:
+      cation_pair_holdout_mae: 0.200606
+      null_holdout_mae: 0.506092
+      improvement_abs_ev_per_atom: 0.305485
+      improvement_fraction: 0.6036
+  - name: split_sensitivity_stable
+    status: PASS
+    details: Across five seeded 70/30 re-splits the cation-pair baseline is the
+      lowest-MAE baseline in every seed (winner 5/5); null baselines stay near 0.51-0.56.
+    metrics:
+      seeds_evaluated: 5
+      cation_pair_wins: 5
+      cation_pair_holdout_mae_min: 0.172441
+      cation_pair_holdout_mae_max: 0.216158
+  - name: deterministic_shuffle_controls_passed
+    status: PASS
+    details: The real cation-pair holdout MAE beats every seed of both the label-shuffle
+      and cation-label-shuffle nulls; canonical and reversed-input runs are identical.
+    metrics:
+      real_holdout_mae: 0.200606
+      label_shuffle_control_mae_min: 0.530919
+      cation_label_shuffle_control_mae_min: 0.474316
+      row_order_invariant: 1
+  - name: dataset_provenance_recorded
+    status: PASS
+    details: MD-0002 is Materials Project CC BY 4.0, declared in DATA_LICENSES.yaml;
+      computed-DFT provenance, pinned snapshot checksum, no live fetch.
+    metrics:
+      snapshot_checksum_present: 1
+      license: CC_BY_4_0
+      provenance_class_computed_dft: 1
+comparison_summary:
+- target_id: target_cation_pair_beats_null
+  label: Cation-pair baseline holdout MAE below the global-median null
+  reference_value: 0.506092
+  observed_value: 0.200606
+  unit: eV_per_atom
+  absolute_difference: 0.305485
+  relative_difference: 0.6036
+  notes: Diagnostic threshold; lower holdout MAE is better. Frozen MD-0002 slice only.
+uncertainty_summary:
+  method: seeded_split_sensitivity_and_shuffle_controls
+  observed_uncertainty: 0.216158
+  reference_uncertainty: 0.172441
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: Spread is the cation-pair holdout MAE range across five seeded re-splits
+    (0.172441-0.216158 eV/atom); all seeds remain far below the null band.
+artifacts:
+  report: results/EXP-0014/RUN-0001/report.md
+  metrics: results/EXP-0014/RUN-0001/metrics.json
+  claim_update: results/EXP-0014/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0014/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0014/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0014/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0014/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0014/RUN-0001/review_metadata.yaml
+scores:
+- model_id: model_cation_pair_mean
+  formula: Train-mean formation_energy_per_atom per unordered non-oxygen cation pair
+    (global train-mean fallback for unseen pairs)
+  coefficients:
+    distinct_train_pairs: 79
+    global_train_mean_fallback: -2.181225
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.047533
+    max_relative_error: 0.306574
+  test_metrics:
+    mean_relative_error: 0.107392
+    max_relative_error: 0.570550
+  composite_score: 0.200606
+  verdict: VALID
+- model_id: model_global_median_null
+  formula: Train-lane global median formation_energy_per_atom
+  coefficients:
+    global_train_median: -2.096830
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.270742
+    max_relative_error: 1.162940
+  test_metrics:
+    mean_relative_error: 0.269305
+    max_relative_error: 0.862475
+  composite_score: 0.506092
+  verdict: INCONCLUSIVE

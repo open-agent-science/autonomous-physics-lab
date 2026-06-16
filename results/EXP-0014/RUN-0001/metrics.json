@@ -1,0 +1,53 @@
+{
+  "result_id": "RESULT-0021",
+  "run_id": "RUN-0001",
+  "experiment_id": "EXP-0014",
+  "hypothesis_id": "HYP-0014",
+  "task_id": "TASK-0765",
+  "benchmark_id": "materials-md0002-formation-energy-cation-pair-baseline",
+  "dataset": {
+    "dataset_id": "MD-0002-materials-project-stable-ternary-oxides",
+    "path": "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml",
+    "sha256": "516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1",
+    "snapshot_checksum_sha256": "5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567",
+    "source": "The Materials Project",
+    "source_version": "2026.04.13",
+    "license": "CC BY 4.0",
+    "provenance_class": "computed_dft",
+    "property_kind": "formation_energy_per_atom",
+    "units": "eV_per_atom",
+    "live_external_fetch": false,
+    "rows_total": 724,
+    "formation_energy_rows": 362,
+    "split_counts": {"train": 253, "validation": 55, "holdout": 54}
+  },
+  "replay": {
+    "command": "python3 scripts/replay_materials_md0002_result.py --check",
+    "tolerance": 1e-06,
+    "gate_a_replay": "PASS",
+    "row_order_invariant": true
+  },
+  "holdout_results": {
+    "cation_pair_mean": {"mae_ev_per_atom": 0.200606, "rmse_ev_per_atom": 0.297225},
+    "global_median_null": {"mae_ev_per_atom": 0.506092, "rmse_ev_per_atom": 0.583126},
+    "improvement_abs_ev_per_atom": 0.305485,
+    "improvement_fraction": 0.6036
+  },
+  "split_sensitivity": {
+    "seeds": 5,
+    "cation_pair_wins": 5,
+    "cation_pair_holdout_mae_min": 0.172441,
+    "cation_pair_holdout_mae_max": 0.216158
+  },
+  "deterministic_controls": {
+    "real_holdout_mae": 0.200606,
+    "label_shuffle_control_mae_min": 0.530919,
+    "label_shuffle_real_beats_every_seed": true,
+    "cation_label_shuffle_control_mae_min": 0.474316,
+    "cation_label_shuffle_real_beats_every_seed": true
+  },
+  "best_model_id": "model_cation_pair_mean",
+  "best_verdict": "VALID_IN_RANGE",
+  "review_tier": "AGENT_PUBLISHED",
+  "source_evidence": "agent_runs/AGENT-RUN-0072/"
+}
