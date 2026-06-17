@@ -322,10 +322,13 @@ sources:
       systematic core-only InP size series, but the size-energy surface is
       exposed through figures/sizing curves rather than a direct row table.
       TASK-0637 resolved the non-spherical schema blocker. TASK-0654 completed
-      the license and figure-surface checklist. It remains excluded until a
-      future source-artifact or digitization task checksum-pins the article/SI
-      files, runs WebPlotDigitizer-class extraction on Figure 1b, and passes
-      row-readiness review.
+      the license and figure-surface checklist. TASK-0741 confirmed the CC-BY
+      4.0 license and checksum-pinned the maintainer-supplied article/SI
+      source bytes. TASK-0755 could not run the size-axis extraction because
+      the exact figure raster or reusable WebPlotDigitizer export was not
+      available in the accessible workspace. It remains excluded until a future
+      digitization pass records axis calibration, extracted points,
+      uncertainty, and row-readiness review.
     license_note: "ACS Nano Letters article; CC-BY 4.0 CONFIRMED on the version-of-record (TASK-0741, via PMC PMC10540257 and Crossref vor, zero embargo). Redistribution of attributed extracted data is permitted. The publisher PDF / SI PDF are still not vendored; only SHA-256 checksums and locators are recorded (see the digitization package README). Figures and extracted rows remain subject to the row-readiness gate, but the license and exact-copy reuse recheck are no longer blockers."
     checksum_policy: doi_pinned
     notes: >
@@ -349,8 +352,11 @@ sources:
       figure digitization: per-sample edge length / volume is figure-only
       (SI Figure S2b histograms, Figure 1b sizing curve), so a
       WebPlotDigitizer-class tool run plus the TASK-0293 row-readiness gate are
-      required before qd-*.yaml rows can be curated. See
+      required before qd-*.yaml rows can be curated. TASK-0755 records that no
+      exact figure raster/tool export was available locally, so no direct rows
+      were created. See
       docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md
+      docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md
       and data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/.
 
   - source_id: vossmeyer-1994-jpc-cds-absorption
