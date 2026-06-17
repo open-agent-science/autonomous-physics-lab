@@ -251,9 +251,13 @@ def test_agent_doctor_reports_review_worktree_diagnostic(tmp_path: Path) -> None
     assert set(rw).issuperset(
         {"review_worktree_count", "free_bytes", "recommend_gc", "reasons"}
     )
-    # A non-review temp dir has no review worktrees and triggers no recommendation.
+    # A non-review temp dir has no review worktrees. It may still recommend GC
+    # when the containing volume is below the doctor free-disk threshold.
     assert rw["review_worktree_count"] == 0
-    assert rw["recommend_gc"] is False
+    if rw["recommend_gc"]:
+        assert any("free disk" in reason for reason in rw["reasons"])
+    else:
+        assert rw["reasons"] == ()
 
 
 def test_agent_doctor_cli_json_includes_review_worktrees() -> None:
