@@ -238,10 +238,15 @@ def classify_review_protocol(branch: str, *, pr_title: str | None = None) -> Rev
     )
 
 
+def normalize_pr_body(body: str) -> str:
+    """Remove only leading Unicode BOM markers before PR body parsing."""
+    return body.lstrip("\ufeff")
+
+
 def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
     """Return required PR metadata fields that are still blank."""
     missing: list[str] = []
-    lines = body.splitlines()
+    lines = normalize_pr_body(body).splitlines()
     for field in PR_METADATA_FIELDS:
         field_names = PR_METADATA_FIELD_ALIASES.get(field, (field,))
         matching_line = None
@@ -262,7 +267,7 @@ def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
 def pr_metadata_field_value(body: str, field: str) -> str | None:
     """Extract a repository PR metadata field value from a filled PR body."""
     field_names = PR_METADATA_FIELD_ALIASES.get(field, (field,))
-    for line in body.splitlines():
+    for line in normalize_pr_body(body).splitlines():
         for field_name in field_names:
             prefix = f"- {field_name}:"
             if not line.startswith(prefix):
@@ -324,7 +329,7 @@ def contributor_metadata_mismatch(branch: str, body: str) -> str | None:
 def pr_body_sections(body: str) -> tuple[str, ...]:
     """Return top-level PR-template section headings from a PR body."""
     sections: list[str] = []
-    for line in body.splitlines():
+    for line in normalize_pr_body(body).splitlines():
         match = PR_TEMPLATE_SECTION_PATTERN.match(line.strip())
         if match is not None:
             sections.append(match.group("section"))

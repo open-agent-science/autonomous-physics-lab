@@ -70,6 +70,7 @@ from physics_lab.registry.review_policy import (
     contributor_metadata_mismatch,
     missing_pr_metadata_fields,  # noqa: F401 — re-exported; tests import from here
     missing_pr_template_sections,  # noqa: F401 — re-exported; tests import from here
+    normalize_pr_body,
     validate_pr_title,
 )
 from physics_lab.registry.task_proposals import load_task_proposal
@@ -857,7 +858,7 @@ def load_yaml_payload_from_ref(root: Path, ref: str, repo_path: str) -> dict[str
 def output_routing_value(body: str, field: str) -> str | None:
     """Return a value from the PR Output Routing section."""
     prefix = f"- {field}:"
-    for line in body.splitlines():
+    for line in normalize_pr_body(body).splitlines():
         stripped = line.strip()
         if not stripped.startswith(prefix):
             continue

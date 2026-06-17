@@ -15,6 +15,7 @@ from physics_lab.registry.review_policy import (
     contributor_metadata_mismatch,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
+    normalize_pr_body,
     normalize_contributor_id,
 )
 from physics_lab.registry.review_git import (
@@ -407,7 +408,7 @@ def preflight_task_pr(
     body_text: str,
 ) -> TaskPrPreflightReport:
     """Check whether a canonical task PR shape looks repository-ready."""
-    body_text = body_text.lstrip("\ufeff")
+    body_text = normalize_pr_body(body_text)
     errors: list[str] = []
     warnings: list[str] = []
 
