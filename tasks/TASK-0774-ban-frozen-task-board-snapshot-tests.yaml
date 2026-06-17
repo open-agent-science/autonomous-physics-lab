@@ -1,0 +1,64 @@
+id: TASK-0774
+title: "Ban frozen task-id and board snapshots in tests"
+type: test_infrastructure
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Stop legitimate task completions, unblocks, and board syncs from breaking unrelated tests."
+  - "Make registry and board dependent tests robust by construction."
+  - "Reduce brittle-test maintenance that diverts agents from science and maintainer review."
+
+input:
+  mode: workflow
+  related_domain: test_infrastructure
+  related_objects:
+    - "tasks/proposals/20260610-roman-anti-frozen-snapshot-tests.yaml"
+    - "tests/test_mission_control.py"
+    - "tests/test_pendulum.py"
+    - "tests/test_task_views.py"
+    - "docs/agent-task-protocol.md"
+    - "TASK-0685"
+  planning_context: >
+    Maintainer-accepted proposal promotion. Several tests asserted against a
+    frozen snapshot of repository state, such as hardcoded task-id sets or
+    hardcoded generated-board stage text. Routine task completion, unblock, or
+    doc refresh can then break unrelated CI. Define an anti-snapshot policy and
+    add a lightweight guard or shared test helper so tests that depend on the
+    task registry, generated board, or mission output compute expectations from
+    live committed state instead of hardcoded historical snapshots.
+
+requirements:
+  - "Identify remaining tests that hardcode task-registry, generated-board, mission-output, or task-id snapshots."
+  - "Replace brittle snapshot assertions with dynamic expectations derived from the committed registry or generated-board source of truth."
+  - "Add a small shared test helper or meta-test/checklist item that discourages future frozen registry/board snapshots."
+  - "Do not weaken scientific, schema, CLI, or task-view correctness checks; only make expected repository-state assertions dynamic."
+  - "Do not create a second committed board cache or generated availability artifact."
+  - "Keep changes portable and fast for parallel pytest/xdist on macOS, Linux, and Windows."
+
+accepted_outputs:
+  - "anti-frozen-snapshot policy or review-checklist documentation"
+  - "shared dynamic-state test helper or focused meta-test covering task/board snapshot misuse"
+  - "updated brittle tests, if any remain, to compute expected state dynamically"
+
+result_artifact_policy:
+  required: false
+  reason: "Test infrastructure task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "tests/test_mission_control.py"
+    - "tests/test_pendulum.py"
+    - "tests/test_task_views.py"
+    - "docs/agent-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_mission_control.py tests/test_pendulum.py tests/test_task_views.py"
+    - "python3 -m ruff check tests/test_mission_control.py tests/test_pendulum.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

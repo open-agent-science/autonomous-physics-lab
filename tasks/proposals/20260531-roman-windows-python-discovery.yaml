@@ -1,6 +1,6 @@
 proposal_id: 20260531-roman-windows-python-discovery
 title: "Standardize Windows Python environment discovery for APL agents"
-status: PROPOSED
+status: ACCEPTED
 type: developer_infrastructure
 priority: high
 
@@ -64,6 +64,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Promote only after maintainer acceptance; do not pre-assign TASK-0501."
+  canonical_task_id: TASK-0773
+  decision: accepted
+  notes: "Promoted by maintainer-directed TASK-QUEUE PR for architect reliability hardening."
