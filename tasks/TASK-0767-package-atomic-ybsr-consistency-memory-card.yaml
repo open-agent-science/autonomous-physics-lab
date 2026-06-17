@@ -1,7 +1,7 @@
 id: TASK-0767
 title: "Package Atomic Yb/Sr source-limited consistency diagnostic as memory"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: high

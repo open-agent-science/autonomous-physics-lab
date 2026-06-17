@@ -55,10 +55,12 @@ the first Yb/Sr cross-source diagnostic ran with verdict
 Pizzocaro was kept diagnostic-only, and the result-path decision selected
 `CONSISTENCY_NEGATIVE_MEMORY_CARD` (see
 [atomic-yb-sr-benchmark-result-path-decision.md](../reviews/atomic-yb-sr-benchmark-result-path-decision.md)).
-The immediate follow-up is `TASK-0767`: package the source-limited consistency
-memory for maintainer review. A new source/aggregation task should open only if
-a future absolute Yb/Sr source or aggregation contract can reduce the current
-two-row blocker.
+`TASK-0767` packaged that source-limited consistency memory as a card (see
+[atomic-yb-sr-source-limited-consistency-memory-card.md](../reviews/atomic-yb-sr-source-limited-consistency-memory-card.md)),
+which keeps `RESULT`/`PRED`/`CLAIM`/`KNOW` promotion blocked and records the
+reopen gate. A new source/aggregation task should open only if a future
+absolute Yb/Sr source or aggregation contract can reduce the current two-row
+blocker.
 
 **Expected next result:** a source-limited consistency-memory card. No
 constants-drift, new-constant, anomaly, prediction, `RESULT`, `CLAIM`, or
