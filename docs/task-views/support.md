@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-0770` - Bound maintainer-review validation and classify environment failures (`tooling_reliability`, priority `high`, difficulty `medium`, domain `maintainer_review`)
+- `TASK-0771` - Make pre-push pytest temp handling robust on Windows (`tooling_reliability`, priority `high`, difficulty `medium`, domain `contributor_validation`)
 
 ## IN_PROGRESS
 
