@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import textwrap
 from pathlib import Path
 import subprocess
@@ -21,6 +22,31 @@ from physics_lab.registry.mission_control import (
     select_mission,
     task_candidates,
 )
+
+
+FROZEN_REPO_SNAPSHOT_PATTERNS = {
+    "hardcoded current task id": re.compile(r"TASK-(?:0[5-9][0-9]{2}|[1-9][0-9]{3})"),
+    "hardcoded project stage": re.compile(r"Stage:\s*v[0-9]"),
+}
+
+
+def test_registry_board_tests_do_not_freeze_live_repo_snapshots() -> None:
+    """Keep mission/board/status tests tied to fixtures or live state, not today."""
+    repo_root = Path(__file__).resolve().parents[1]
+    scanned_files = (
+        "tests/test_mission_control.py",
+        "tests/test_pendulum.py",
+        "tests/test_task_views.py",
+    )
+    offenders: list[str] = []
+    for relative_path in scanned_files:
+        path = repo_root / relative_path
+        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            for label, pattern in FROZEN_REPO_SNAPSHOT_PATTERNS.items():
+                if pattern.search(line):
+                    offenders.append(f"{relative_path}:{line_number}: {label}")
+
+    assert offenders == []
 
 
 def _write_missions(root: Path) -> None:

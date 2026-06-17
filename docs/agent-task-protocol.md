@@ -682,6 +682,12 @@ their xdist scheduling order. Put tests with measured xdist resource or path
 sensitivity in the same `xdist_group`, which keeps them on one worker while
 unrelated tests continue in parallel.
 
+Do not freeze the current task board, mission output, task-id set, or public
+status text inside tests. Tests that cover registry, mission, status, or
+generated-board behavior should build small fixture repositories or derive
+expectations from the committed source of truth at runtime, so routine task
+completion, unblock, or board sync changes do not break unrelated tests.
+
 Before opening a PR, agents may optionally generate a review bundle for the
 maintainer. This is no longer a required step and its absence is not flagged by
 the PR preflight:

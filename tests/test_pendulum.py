@@ -5,7 +5,7 @@ from typing import Optional
 import pytest
 from typer.testing import CliRunner
 
-from physics_lab.cli import _latest_result_path, app
+from physics_lab.cli import _latest_result_path, _project_stage, app
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, compute_error_metrics
@@ -820,6 +820,7 @@ def test_validate_repository_keeps_science_task_references_strict(tmp_path) -> N
 
 
 @pytest.mark.full_repo
+@pytest.mark.xdist_group("full_repo_smoke")
 def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -838,6 +839,7 @@ def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
 
 
 @pytest.mark.full_repo
+@pytest.mark.xdist_group("full_repo_smoke")
 def test_cli_validate_repo_strict_smoke() -> None:
     runner = CliRunner()
     result = runner.invoke(app, ["validate-repo", ".", "--strict"])
@@ -849,6 +851,7 @@ def test_cli_validate_repo_strict_smoke() -> None:
 
 
 @pytest.mark.full_repo
+@pytest.mark.xdist_group("full_repo_smoke")
 def test_cli_status_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -862,10 +865,7 @@ def test_cli_status_smoke(tmp_path: Path) -> None:
     result = runner.invoke(app, ["status", "."])
 
     assert result.exit_code == 0
-    assert (
-        "Stage: v0.2-public-alpha candidate — post-transfer launch gate review"
-        in result.stdout
-    )
+    assert f"Stage: {_project_stage(repo_root)}" in result.stdout
     assert f"Run id: {latest_result['run_id']}" in result.stdout
     assert "Validation: PASS" in result.stdout
     assert f"Best verdict: {latest_result['best_verdict']}" in result.stdout
