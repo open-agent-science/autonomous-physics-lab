@@ -61,13 +61,16 @@ which keeps `RESULT`/`PRED`/`CLAIM`/`KNOW` promotion blocked and records the
 reopen gate. A new source/aggregation task should open only if a future
 absolute Yb/Sr source or aggregation contract can reduce the current two-row
 blocker.
+`TASK-0780` checked the committed Pizzocaro route against that gate and kept the
+lane closed: Pizzocaro still needs a maintainer-approved aggregation or
+observable-harmonization contract before it can reduce the blocker.
 
-**Expected next result:** a source-route decision, not another metric rerun.
-The next useful task is a concrete source/aggregation scout against the memory
-card's reopen condition: either identify a route that can reduce the two-row,
-Nemitz-dominated blocker, or preserve a durable `DO_NOT_REOPEN`/source-blocker
-decision. No constants-drift, new-constant, anomaly, prediction, `RESULT`,
-`CLAIM`, or `KNOW` framing is in scope.
+**Expected next result:** no immediate Atomic benchmark result. The latest
+source-route scout preserved blocker memory for the checked Pizzocaro path.
+The next useful action requires either a new independent absolute Yb/Sr source
+row or a maintainer-approved Pizzocaro aggregation contract. No constants-drift,
+new-constant, anomaly, prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in
+scope.
 
 `TASK-0311` adds:
 
