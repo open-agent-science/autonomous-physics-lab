@@ -10,6 +10,29 @@ python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
+## Interpreter Discovery
+
+Validation helpers use the repository Python resolver before launching child
+Python commands. The selection order is:
+
+1. the active interpreter, when it is already the repository `.venv`;
+2. the checkout-local `.venv` interpreter;
+3. the main checkout `.venv` interpreter when running from a git worktree;
+4. the active interpreter as a compatibility fallback.
+
+On Windows, `python3` may resolve to a launcher or Store alias. Before a local
+validation run looks suspicious, agents can report the selected interpreter
+without mutating the environment:
+
+```bash
+python3 scripts/apl_agent_doctor.py --worktree-runtime-preflight --no-gh-auth-check
+```
+
+Use the printed `selected validation python` for pytest, Ruff, repository
+validation, and helper scripts when the active shell launcher differs from the
+repository `.venv`. Linux and macOS keep the same resolver path and fall back to
+the active interpreter when no repository `.venv` exists.
+
 Normal pytest runs use the operating system temporary directory for `tmp_path`
 fixtures and disable pytest's cache provider. This keeps Windows validation
 from writing test scratch state into a repository checkout that may be locked by

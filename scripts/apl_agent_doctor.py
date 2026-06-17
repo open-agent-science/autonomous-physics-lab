@@ -29,7 +29,7 @@ from physics_lab.registry.pr_capability import check_pr_capability  # noqa: E402
 from physics_lab.registry.review_worktree_gc import (  # noqa: E402
     review_worktree_disk_report,
 )
-from physics_lab.registry.repo_python import find_repo_python  # noqa: E402
+from physics_lab.registry.repo_python import select_validation_python  # noqa: E402
 
 
 PYTHON_MODULE_CHECKS = ("pip", "pytest", "ruff", "yaml")
@@ -64,6 +64,9 @@ class WorktreeRuntimePreflightReport:
     is_git_worktree: bool
     repository_venv_python: str | None
     active_python_matches_repository_venv: bool | None
+    selected_validation_python: str
+    selected_validation_python_source: str
+    python_discovery_priority: tuple[str, ...]
     system_temp_dir: str
     system_temp_accessible: bool
     recommended_pytest_basetemp: str
@@ -291,21 +294,6 @@ def _resolve_git_path(root: Path, value: str | None) -> Path | None:
     return path if path.is_absolute() else (root / path).resolve()
 
 
-def _find_repository_venv_python(root: Path, git_common_dir: Path | None) -> Path | None:
-    # Shared resolver (TASK-0725) so the doctor and the review helper agree on
-    # which interpreter is the repository venv.
-    return find_repo_python(root, git_common_dir=git_common_dir)
-
-
-def _path_matches(left: Path | None, right: str) -> bool | None:
-    if left is None:
-        return None
-    try:
-        return left.resolve() == Path(right).resolve()
-    except OSError:
-        return str(left) == right
-
-
 def _default_pytest_basetemp_root(root: Path) -> Path:
     return root / ".pytest-basetemp"
 
@@ -323,8 +311,7 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
         and git_common_dir is not None
         and git_dir.resolve() != git_common_dir.resolve()
     )
-    repository_venv_python = _find_repository_venv_python(root, git_common_dir)
-    active_matches = _path_matches(repository_venv_python, sys.executable)
+    python_selection = select_validation_python(root, git_common_dir=git_common_dir)
 
     system_temp_dir = Path(tempfile.gettempdir())
     system_temp_accessible = os.access(system_temp_dir, os.R_OK | os.W_OK | os.X_OK)
@@ -346,15 +333,7 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
     )
 
     recommendations: list[str] = []
-    if repository_venv_python is None:
-        recommendations.append(
-            "Repository .venv Python was not found from this checkout; use the intended "
-            "Python explicitly or create the project venv before validation."
-        )
-    elif active_matches is False:
-        recommendations.append(
-            f"Run validation with repository Python: {repository_venv_python}"
-        )
+    recommendations.extend(python_selection.recommendations)
     if not system_temp_accessible:
         recommendations.append(
             "System temp is not fully accessible; run pytest with "
@@ -381,10 +360,13 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
         git_dir=str(git_dir) if git_dir is not None else None,
         git_common_dir=str(git_common_dir) if git_common_dir is not None else None,
         is_git_worktree=is_git_worktree,
-        repository_venv_python=(
-            str(repository_venv_python) if repository_venv_python is not None else None
+        repository_venv_python=python_selection.repository_venv_python,
+        active_python_matches_repository_venv=(
+            python_selection.active_python_matches_repository_venv
         ),
-        active_python_matches_repository_venv=active_matches,
+        selected_validation_python=python_selection.selected_executable,
+        selected_validation_python_source=python_selection.selected_source,
+        python_discovery_priority=python_selection.priority_order,
         system_temp_dir=str(system_temp_dir),
         system_temp_accessible=system_temp_accessible,
         recommended_pytest_basetemp=recommended_pytest_basetemp,
@@ -504,6 +486,11 @@ def _print_human(report: AgentDoctorReport) -> None:
             "- active python matches repository venv: "
             f"{probe.active_python_matches_repository_venv}"
         )
+        print(f"- selected validation python: {probe.selected_validation_python}")
+        print(f"- selected validation python source: {probe.selected_validation_python_source}")
+        print("- python discovery priority:")
+        for item in probe.python_discovery_priority:
+            print(f"  - {item}")
         print(f"- system temp dir: {probe.system_temp_dir}")
         print(f"- system temp accessible: {probe.system_temp_accessible}")
         print(f"- recommended pytest basetemp: {probe.recommended_pytest_basetemp}")
