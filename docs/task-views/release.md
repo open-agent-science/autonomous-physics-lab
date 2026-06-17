@@ -6,8 +6,8 @@
 
 ## READY
 
-- `TASK-0755` - Run Quantum Almeida 2023 InP size-axis digitization and re-run readiness gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0768` - Assemble CLAIM-0005 evidence handoff after Dimensional RESULT-0020 (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
+- `TASK-0784` - Assemble CLAIM-0007 particle-mass falsifier evidence handoff (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `particle_mass_relations`)
 
 ## IN_PROGRESS
 
@@ -16,6 +16,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0714` - Repair Nuclear prediction reveal-readiness checklist references (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0755` - Run Quantum Almeida 2023 InP size-axis digitization and re-run readiness gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0758` - Assemble CLAIM-0009 Anharmonic evidence handoff (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `anharmonic_oscillator`)
 - `TASK-0760` - Assemble CLAIM-0001 Pendulum evidence handoff (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `pendulum_formula_falsification`)
 - `TASK-0764` - Package Stellar M-L controlled DEBCat audit as a Gate A result candidate (`scientific_result_publication`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
