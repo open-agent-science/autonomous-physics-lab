@@ -1,0 +1,60 @@
+id: TASK-0782
+title: "Adjudicate Dimensional RESULT-0020 Gate B packaging contest"
+type: scientific_replay_validation
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the RESULT-0020 replay blocker without silently rewriting scientific metrics."
+  - "Separate code-reproducible validation checks from hand-authored Gate A packaging checks so future Gate B replays can make a clean pass/fail decision."
+  - "Protect CLAIM-0005 from using RESULT-0020 as validated support until the packaging contest is settled."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "tasks/TASK-0766-replay-dimensional-result-0020-gate-b.yaml"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "results/EXP-0006/RUN-0007/gate_a_report.md"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    A Gate B attempt against RESULT-0020 reported that core numeric metrics
+    reproduce, but some committed verification checks appear to be publication
+    packaging checks rather than outputs of the recorded command. This task is
+    blocked until that contested replay is merged or maintainer-accepted as the
+    active blocker.
+
+requirements:
+  - "Start only after the TASK-0766 contested replay evidence is in main or explicitly accepted by the maintainer."
+  - "Do not change RESULT-0020 metrics, verdict, challenge-set rows, or CLAIM-0005."
+  - "Either make the publication-gate checks deterministically emitted/replayed, or move/relabel them into a packaging section that Gate B intentionally ignores."
+  - "Re-run the Gate B helper after the packaging decision and record whether the result remains contested or can be replayed cleanly."
+  - "If the correct fix requires maintainer interpretation, stop with a blocker note and leave RESULT-0020 at `AGENT_PUBLISHED`."
+
+accepted_outputs:
+  - "A minimal code/schema/result-metadata patch only if it is needed to make RESULT-0020 packaging reproducible without metric changes."
+  - "`docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md` recording the decision, replay outcome, and remaining blockers."
+  - "Output-routing summary with Gate A/Gate B status, claim impact none, knowledge impact none, and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Packaging adjudication for an existing RESULT; it must not create a new RESULT or promote a claim."
+  evidence:
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_agent_replay_validation.py tests/test_docs_links.py"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

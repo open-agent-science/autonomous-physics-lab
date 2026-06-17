@@ -1,0 +1,61 @@
+id: TASK-0777
+title: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Execute exactly one materially non-F2 Nuclear lane selected by TASK-0746, instead of reopening exhausted F2, shell-axis, local-curvature, or broad factory loops."
+  - "Test whether a Wigner-style cusp feature keyed on `|N-Z|` carries information beyond smooth asymmetry controls under the no-leakage gauntlet."
+  - "Preserve negative, diagnostic-only, or inconclusive outcomes as useful Nuclear memory; do not create predictions or claims."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0746-select-next-nuclear-non-f2-lane.yaml"
+    - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "results/EXP-0012/RUN-0002/result.yaml"
+  planning_context: >
+    TASK-0746 selected F6 / WIGNER-CUSP-001 as the next bounded non-F2 lane.
+    This task executes that selected lane once, with the declared asymmetry-only,
+    matched-random, and smooth-A controls. It must not broaden into another
+    factory sprint.
+
+requirements:
+  - "Use the committed NMD-0003 training/split artifacts and the baseline residual surface referenced by the lane-selection note; do not fetch live or reveal data."
+  - "Implement or reuse a deterministic Wigner-cusp feature keyed only on `Z`, `N`, `A`, especially `|N-Z|` or a bounded cusp-sharpness transform declared before scoring."
+  - "Run the three predeclared controls from `docs/reviews/nuclear-next-non-f2-lane-selection.md`: asymmetry-only, matched random, and smooth-A."
+  - "Run and document the no-leakage audit before interpreting metrics."
+  - "Report full-known, validation, and post-AME2020 holdout panels separately; do not pool holdout/reveal-style evidence into one headline."
+  - "Stop as negative/inconclusive if leakage fails, the candidate does not beat all declared controls by the inherited margin, the holdout regresses, or the coefficient is unstable."
+  - "Do not write `PRED-*`, `RESULT-*`, `CLAIM-*`, `KNOW-*`, or reveal-score artifacts from this task."
+
+accepted_outputs:
+  - "One schema-valid `agent_runs/AGENT-RUN-*` package or equivalent accepted sandbox run artifact for WIGNER-CUSP-001."
+  - "`docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md` with inputs, method, controls, leakage audit, metrics, verdict, stop-condition outcome, and limitations."
+  - "Output-routing summary that states sandbox-only destination, Gate A/Gate B not attempted, claim impact none, knowledge impact none, and promotion blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "This is a sandbox controls-first sprint selected by TASK-0746; any RESULT/PRED promotion would require a separate reviewed task."
+  evidence:
+    - "agent_runs/AGENT-RUN-*"
+    - "docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass*.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

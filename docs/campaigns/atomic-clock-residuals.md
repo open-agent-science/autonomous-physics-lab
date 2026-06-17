@@ -62,9 +62,12 @@ reopen gate. A new source/aggregation task should open only if a future
 absolute Yb/Sr source or aggregation contract can reduce the current two-row
 blocker.
 
-**Expected next result:** a source-limited consistency-memory card. No
-constants-drift, new-constant, anomaly, prediction, `RESULT`, `CLAIM`, or
-`KNOW` framing is in scope.
+**Expected next result:** a source-route decision, not another metric rerun.
+The next useful task is a concrete source/aggregation scout against the memory
+card's reopen condition: either identify a route that can reduce the two-row,
+Nemitz-dominated blocker, or preserve a durable `DO_NOT_REOPEN`/source-blocker
+decision. No constants-drift, new-constant, anomaly, prediction, `RESULT`,
+`CLAIM`, or `KNOW` framing is in scope.
 
 `TASK-0311` adds:
 

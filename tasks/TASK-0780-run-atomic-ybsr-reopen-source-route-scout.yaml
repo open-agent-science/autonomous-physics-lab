@@ -1,0 +1,57 @@
+id: TASK-0780
+title: "Scout Atomic Yb/Sr reopen source or aggregation route"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Follow the Atomic memory card's reopen condition instead of rerunning the completed Beloy/Nemitz two-row diagnostic."
+  - "Decide whether any named absolute Yb/Sr source or aggregation contract can reduce the current two-row, Nemitz-dominated blocker."
+  - "Preserve source-blocker memory when no admissible third route exists."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md"
+    - "docs/reviews/atomic-pizzocaro-yb-sr-extraction-ledger-gate.md"
+    - "docs/notes/atomic-clock-source-candidates.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+  planning_context: >
+    TASK-0767 closed the Beloy/Nemitz two-row metric as source-limited
+    no-tension memory. The campaign should reopen only if a materially better
+    absolute Yb/Sr source or maintainer-approved aggregation contract changes
+    the two-row/source-limited/diagonal-only conditions.
+
+requirements:
+  - "Review the memory card and existing Atomic source-candidate notes before proposing any route."
+  - "Evaluate at most one concrete source-family route or one aggregation-contract route; do not run a broad literature search."
+  - "Classify the route as `REOPEN_READY`, `SOURCE_BLOCKED`, `AGGREGATION_CONTRACT_NEEDED`, or `DO_NOT_REOPEN`."
+  - "Do not rerun Beloy/Nemitz metrics, fit constants drift, add source rows, or promote RESULT/PRED/CLAIM/KNOW artifacts."
+  - "If no source route can beat the existing blocker, write durable blocker memory and recommend no new Atomic benchmark task."
+
+accepted_outputs:
+  - "`docs/reviews/atomic-ybsr-reopen-source-route-scout.md` with route checked, evidence, blocker/gate status, and stop condition."
+  - "Optional metadata-only source-manifest note if a non-value locator or route status changes."
+  - "Output-routing summary with source-readiness impact, Gate A/Gate B not attempted, and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/aggregation route scout only; no RESULT or PRED artifact is created."
+  evidence:
+    - "docs/reviews/atomic-ybsr-reopen-source-route-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

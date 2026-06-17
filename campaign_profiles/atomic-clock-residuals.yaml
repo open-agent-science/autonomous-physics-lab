@@ -82,12 +82,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Beloy and Nemitz Yb/Sr rows are routed to source-limited consistency memory; no RESULT promotion or third-source row path is open yet"
+  current_stage: "Beloy/Nemitz Yb/Sr diagnostic is preserved as source-limited consistency memory; reopen requires a better absolute Yb/Sr source or aggregation contract"
   recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics task; future work needs a source-limited memory card or a new absolute Yb/Sr source/aggregation contract."
+  coordination_notes: "Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics task; future work must test a concrete source or aggregation route against the memory-card reopen condition."
   best_next_actions:
-    - task_id: TASK-0767
-      label: "Package the Beloy/Nemitz no-tension diagnostic as source-limited consistency memory without RESULT promotion."
+    - task_id: TASK-0780
+      label: "Scout one concrete absolute Yb/Sr source or aggregation route; preserve blocker memory if none qualifies."
   required_gates:
     - "Second-source provenance review."
     - "Real-row loader and schema validation."
@@ -99,15 +99,16 @@ portfolio:
     - "data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml"
     - "docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md"
     - "docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md"
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
     - "docs/campaigns/atomic-clock-residuals.md"
   open_questions:
     - "What future absolute Yb/Sr source or aggregation contract could reduce the current two-row/source-limited blocker?"
     - "Should the source-limited consistency-memory card become a future maintainer-reviewed public summary surface?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-16"
+    last_reviewed: "2026-06-17"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-0756 result-path decision and TASK-0767 task-queue routing"
-    notes: "High-prestige lane with a first exploratory diagnostic routed to source-limited consistency memory; no RESULT promotion, constants-drift fitting, metric rerun, or third-source row path is open without a new source or aggregation contract."
+    source: "TASK-0767 memory card and TASK-0780 source-route routing"
+    notes: "High-prestige lane with completed source-limited memory; no RESULT promotion, constants-drift fitting, metric rerun, or third-source row path is open without a new source or aggregation contract."

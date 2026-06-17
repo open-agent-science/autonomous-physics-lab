@@ -94,17 +94,17 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: Beloy and Nemitz Yb/Sr rows are routed to source-limited consistency memory;
-    no RESULT promotion or third-source row path is open yet
+  current_stage: Beloy/Nemitz Yb/Sr diagnostic is preserved as source-limited consistency
+    memory; reopen requires a better absolute Yb/Sr source or aggregation contract
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics
-      task; future work needs a source-limited memory card or a new absolute Yb/Sr source/aggregation
-      contract.
+      task; future work must test a concrete source or aggregation route against the memory-card
+      reopen condition.
   best_next_actions:
-  - task_id: TASK-0767
-    label: Package the Beloy/Nemitz no-tension diagnostic as source-limited consistency memory
-      without RESULT promotion.
+  - task_id: TASK-0780
+    label: Scout one concrete absolute Yb/Sr source or aggregation route; preserve blocker
+      memory if none qualifies.
   required_gates:
   - Second-source provenance review.
   - Real-row loader and schema validation.
@@ -129,6 +129,7 @@ campaigns:
   - data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml
   - docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md
   - docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md
+  - docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md
   - docs/campaigns/atomic-clock-residuals.md
   open_questions:
   - What future absolute Yb/Sr source or aggregation contract could reduce the current two-row/source-limited
@@ -137,14 +138,14 @@ campaigns:
     public summary surface?
   curator_review:
     status: current
-    last_reviewed: '2026-06-16'
+    last_reviewed: '2026-06-17'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: source_readiness
-    source: TASK-0756 result-path decision and TASK-0767 task-queue routing
-    notes: High-prestige lane with a first exploratory diagnostic routed to source-limited
-      consistency memory; no RESULT promotion, constants-drift fitting, metric rerun, or third-source
-      row path is open without a new source or aggregation contract.
+    source: TASK-0767 memory card and TASK-0780 source-route routing
+    notes: High-prestige lane with completed source-limited memory; no RESULT promotion, constants-drift
+      fitting, metric rerun, or third-source row path is open without a new source or aggregation
+      contract.
   source_docs:
   - docs/campaigns/atomic-clock-residuals.md
   - data/atomic_clocks/README.md
@@ -244,9 +245,9 @@ campaigns:
       do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate
       amendment.
   best_next_actions:
-  - task_id: null
-    label: Continue source-version monitoring until a future NOTIFY-class result justifies
-      an EXO-0003 metadata scout.
+  - task_id: TASK-0781
+    label: Run one metadata-only source-version monitor check; keep residual scoring closed
+      unless a NOTIFY class appears.
   required_gates:
   - Pinned snapshot and checksum state must remain explicit.
   - Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes.
@@ -274,20 +275,21 @@ campaigns:
   - docs/reviews/exoplanet-null-baseline-family-audit.md
   - docs/reviews/exoplanet-compact-radius-host-context-preflight.md
   - data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+  - docs/reviews/exoplanet-source-version-monitor-check.md
+  - docs/reviews/exoplanet-next-snapshot-trigger-decision.md
   open_questions:
   - Which future NOTIFY class, if any, will justify an EXO-0003 metadata scout without row-value
     inspection?
   - What source-version or coverage-gate change would justify reopening residual scoring?
   curator_review:
     status: current
-    last_reviewed: '2026-06-15'
+    last_reviewed: '2026-06-17'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0745 trigger decision
+    source: TASK-0745 trigger decision and TASK-0781 monitor-only routing
     notes: Monitor-only lane with useful negative/control memory; TASK-0745 keeps EXO-0003
-      paused after NO_NOTIFY. Next step is a future NOTIFY-class monitor result, not residual
-      scoring.
+      paused after NO_NOTIFY. Next step is metadata-only monitoring, not residual scoring.
   source_docs:
   - docs/campaigns/exoplanet-mass-radius.md
   - docs/exoplanet-mass-radius-baseline-protocol.md
@@ -315,17 +317,14 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot
-    acquired, validated, holdout-frozen, formation-energy benchmarked, and adjudicated as
-    Gate-A-package-ready
+    is AGENT_PUBLISHED as RESULT-0021 and needs Gate B replay
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use the frozen MD-0002 dataset/control plan and TASK-0703/TASK-0761
-      evidence for Gate A packaging; avoid re-auditing MD-0001 unless promotion routing explicitly
-      asks for it.
+    coordination_notes: Use the frozen RESULT-0021 command and hashes for Gate B replay; avoid
+      re-auditing MD-0001 or band gap unless promotion routing explicitly asks for it.
   best_next_actions:
-  - task_id: TASK-0765
-    label: Package the MD-0002 formation-energy benchmark as a Gate A reusable-dataset plus
-      conservative-baseline result candidate
+  - task_id: TASK-0775
+    label: Run Gate B replay for RESULT-0021 without changing metrics or materials-claim wording
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -363,20 +362,20 @@ campaigns:
   - docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md
   - docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md
   - docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md
+  - results/EXP-0014/RUN-0001/result.yaml
   - agent_runs/AGENT-RUN-0072/
   open_questions:
-  - Can the TASK-0703/TASK-0761 MD-0002 evidence pass Gate A as a computed-DFT, slice-limited
-    benchmark result?
+  - Does RESULT-0021 pass independent Gate B replay from its committed command and hashes?
   - Does band gap remain diagnostic-only after the wider snapshot?
   curator_review:
     status: current
-    last_reviewed: '2026-06-16'
+    last_reviewed: '2026-06-17'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0703 and TASK-0761 MD-0002 routing
-    notes: MD-0002 is frozen and TASK-0703/TASK-0761 support a dedicated Gate A packaging
-      task; no materials claim or band-gap promotion.
+    source: RESULT-0021 and TASK-0775 science-director routing
+    notes: MD-0002 formation energy is now AGENT_PUBLISHED as a computed-DFT, slice-limited
+      benchmark; no materials claim or band-gap promotion.
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -400,17 +399,18 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: frozen baseline, sandbox diagnostics, RESULT-0018 AGENT_VALIDATED diagnostic
-    memory, reveal scoring blocked, and one non-F2 no-leakage lane selection queued
+    memory, reveal scoring blocked, and Wigner-cusp selected as the one next non-F2 no-leakage
+    lane
   agent_capacity:
     recommended_parallel_agents: 3
-    coordination_notes: 'Parallel work is useful when lanes are disjoint: reveal-checklist
-      repair, non-F2 lane selection, and evidence packaging. Do not launch another broad F2
-      or NMD-0002 factory sprint.'
+    coordination_notes: 'Parallel work is useful when lanes are disjoint: Wigner-cusp execution
+      and value-blind reveal-source preflight. Do not launch another broad F2, shell-axis,
+      local-curvature, or NMD-0002 factory sprint.'
   best_next_actions:
-  - task_id: TASK-0714
-    label: Repair reveal-readiness checklist references without scoring reveal rows
-  - task_id: TASK-0746
-    label: Select one bounded non-F2 no-leakage hypothesis lane
+  - task_id: TASK-0777
+    label: Run the bounded Wigner-cusp no-leakage sprint selected by TASK-0746
+  - task_id: TASK-0778
+    label: Run a value-blind reveal-source manifest preflight without scoring PRED rows
   required_gates:
   - Use the source-gated NMD-0003 measured-row training surface and frozen split manifest
     for the next broad Nuclear factory sprint.
@@ -443,23 +443,25 @@ campaigns:
   - docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md
   - docs/reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md
   - docs/reviews/nuclear-magic-distance-interaction-control-lane.md
+  - docs/reviews/nuclear-next-non-f2-lane-selection.md
   - docs/notes/nuclear-controls-first-hypothesis-gauntlet.md
   - prediction_registry/nuclear_masses/
   open_questions:
-  - Which non-F2 lane is scientifically distinct enough to justify one bounded sprint?
+  - Does WIGNER-CUSP-001 survive the declared asymmetry-only, matched-random, and smooth-A
+    controls?
   - Would any future F2 work require a new taxonomy rather than another audit of the same
     signal?
   - What future source can satisfy the reveal-readiness checklist?
   curator_review:
     status: current
-    last_reviewed: '2026-06-15'
+    last_reviewed: '2026-06-17'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: RESULT-0018 and TASK-0746 science-director routing
-    notes: Flagship lane remains high-value, but the current useful work is reveal readiness
-      and one genuinely distinct non-F2 lane. Keep F2 diagnostic/inconclusive until stronger
-      controls exist.
+    source: RESULT-0018, TASK-0746 lane selection, and TASK-0777/TASK-0778 next-wave routing
+    notes: Flagship lane remains high-value, but the current useful work is one Wigner-cusp
+      sprint and reveal-source readiness. Keep F2 diagnostic/inconclusive until stronger controls
+      exist.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
@@ -484,14 +486,16 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: falsification-first quality floor with strict numerology guardrails
+  current_stage: falsification-first quality floor with strict numerology guardrails; CLAIM-0007
+    evidence handoff is ready for maintainer review preparation
   agent_capacity:
     recommended_parallel_agents: 1
     coordination_notes: Use for provenance, uncertainty, or negative-result memory only unless
       a maintainer opens a narrow task.
   best_next_actions:
-  - task_id: null
-    label: Run narrow replay, provenance, or negative-memory tasks only when explicitly assigned
+  - task_id: TASK-0784
+    label: Assemble CLAIM-0007 evidence handoff from RESULT-0011 without reopening formula
+      search
   required_gates:
   - Complexity penalty and uncertainty semantics before any relation comparison.
   - No broad particle-mass formula search without a reviewed baseline.
@@ -513,16 +517,18 @@ campaigns:
   current_results:
   - docs/results/koide-campaign-summary.md
   - docs/negative-results-registry.md
+  - results/EXP-0009/RUN-0001/result.yaml
   open_questions:
   - Which negative results should be easiest for new agents to avoid repeating?
   curator_review:
     status: current
-    last_reviewed: '2026-05-29'
+    last_reviewed: '2026-06-17'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: docs/strategy.md
-    notes: Guardrail track stays useful by resisting numerology and preserving falsifications.
+    source: RESULT-0011 and TASK-0784 science-director routing
+    notes: Guardrail track stays useful by resisting numerology, preserving falsifications,
+      and preparing maintainer-only claim review packets.
   source_docs:
   - docs/campaigns/particle-mass-relations.md
   - docs/results/koide-campaign-summary.md
@@ -687,19 +693,20 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L has committed
-    DEBCat rows, stage/split/null controls, baseline-adequacy evidence, and is ready for Gate
-    A packaging
+  current_stage: exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L is AGENT_PUBLISHED
+    as RESULT-0022 and needs Gate B replay plus DEBCat scope-flag reconciliation
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use one formula slice at a time. For Stellar M-L, package the controlled
-      DEBCat evidence before opening any new empirical formula slice.
+    coordination_notes: Use one formula slice at a time. Replay RESULT-0022 and reconcile
+      DEBCat metadata before treating Stellar M-L as validated or opening another empirical
+      metric task.
   best_next_actions:
-  - task_id: TASK-0764
-    label: Package the controlled Stellar M-L DEBCat audit as a scoped Gate A result candidate
-  - task_id: TASK-0769
-    label: Assemble RESULT-0019 exact-reference maintainer handoff without empirical-claim
-      wording
+  - task_id: TASK-0776
+    label: Run Gate B replay for RESULT-0022 without universal formula wording
+  - task_id: TASK-0779
+    label: Reconcile superseded DEBCat seed-stage scope flags after RESULT-0022
+  - task_id: TASK-0783
+    label: Plan at most one next formula slice through a source/baseline gate
   required_gates:
   - Stage policy, source/range assumptions, and baseline adequacy before promotion.
   - Null/shuffle controls and seeded split sensitivity before Gate A packaging.
@@ -736,6 +743,8 @@ campaigns:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md
   - results/EXP-0013/RUN-0001/result.yaml
+  - results/EXP-0015/RUN-0001/result.yaml
+  - docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md
   - docs/reviews/stellar-ml-route2-local-benchmark.md
   - docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md
   - docs/reviews/stellar-ml-route2-stage-control-split-audit.md
@@ -748,13 +757,13 @@ campaigns:
     without any empirical formula implication?
   curator_review:
     status: current
-    last_reviewed: '2026-06-16'
+    last_reviewed: '2026-06-17'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0759/TASK-0762/TASK-0763 science-director routing
-    notes: Public-friendly entry lane has one validated exact-reference result and one empirical
-      Stellar M-L package-ready surface; no universal formula claim.
+    source: RESULT-0022, RESULT-0019 handoff, and TASK-0776/TASK-0779/TASK-0783 routing
+    notes: Public-friendly entry lane has one validated exact-reference result and one agent-published
+      empirical Stellar M-L surface; no universal formula claim.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md
