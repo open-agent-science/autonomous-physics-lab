@@ -46,6 +46,7 @@ from physics_lab.registry.review_git import CommandResult
 from physics_lab.registry.review_policy import (
     agent_tool_metadata_mismatch,
     classify_review_protocol,
+    pr_metadata_field_value,
     validate_pr_title,
 )
 from physics_lab.registry.pr_finish_gate import (
@@ -449,6 +450,16 @@ def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
     assert missing_pr_metadata_fields(body) == ()
 
 
+def test_pr_body_parsers_accept_leading_bom_without_template_relaxation() -> None:
+    branch = "agent/roman/codex/task-0772-review-pr-body-bom"
+    body = _full_pr_body(task_ref="TASK-0772", branch=branch)
+
+    assert missing_pr_template_sections("\ufeff" + body) == ()
+    assert missing_pr_metadata_fields("\ufeff" + body) == ()
+    assert pr_metadata_field_value("\ufeff" + body, "Contributor ID") == "roman"
+    assert missing_pr_template_sections(body) == ()
+
+
 def test_output_routing_value_extracts_review_fields() -> None:
     body = "\n".join(
         [
@@ -462,6 +473,21 @@ def test_output_routing_value_extracts_review_fields() -> None:
 
     assert output_routing_value(body, "Review tier") == "AGENT_PUBLISHED"
     assert output_routing_value(body, "Gate A status") == "pass"
+
+
+def test_output_routing_value_accepts_leading_bom() -> None:
+    body = "\n".join(
+        [
+            "## Output Routing",
+            "",
+            "- Review tier: `AGENT_PUBLISHED`",
+            "- Gate A status: pass",
+            "- Gate B status: not_applicable",
+        ]
+    )
+
+    assert output_routing_value("\ufeff" + body, "Review tier") == "AGENT_PUBLISHED"
+    assert output_routing_value("\ufeff" + body, "Gate A status") == "pass"
 
 
 def test_artifact_review_change_classification_uses_distinct_classes(tmp_path: Path) -> None:
