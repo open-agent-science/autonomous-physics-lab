@@ -1,0 +1,20 @@
+experiment_path: ../experiments/EXP-0015-stellar-ml-debcat-baseline-benchmark.yaml
+hypothesis_path: ../hypotheses/HYP-0015-stellar-ml-debcat-baseline-benchmark.yaml
+task_id: TASK-0764
+run_id: RUN-0001
+result_id: RESULT-0022
+result_root: ../results/EXP-0015
+workflow: stellar_ml_debcat_controlled_baseline_benchmark
+replay_command: "python3 scripts/replay_stellar_ml_result.py --check"
+source_rows: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+source_holdout_manifest: data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
+predeclared_policy:
+  primary_mass_range_solar: [0.5, 2.0]
+  primary_stage: main_sequence_compatible
+  split_seeds: [11, 23, 37, 53, 71]
+  split_train_fraction: 0.7
+  fixed_intercept_L0: 1.0
+  split_noise_reference_dex: 0.04
+source_evidence:
+  - agent_runs/AGENT-RUN-0073/
+  - agent_runs/AGENT-RUN-0074/

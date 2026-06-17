@@ -1,0 +1,44 @@
+id: HYP-0015
+title: "On the frozen DEBCat main-sequence slice, the textbook single mass-luminosity exponent alpha=3.5 beats a null but is not the adequate sole baseline; a fitted/piecewise exponent is materially better"
+domain: astrophysics
+status: TESTING
+
+hypothesis:
+  statement: >
+    On the CC-BY-4.0, holdout-frozen DEBCat direct-dynamical-mass slice restricted
+    to main-sequence-compatible components in 0.5-2.0 Msun, the textbook
+    mass-luminosity power law log L = 3.5 * log M should beat a per-mass-band
+    train-median null, but should NOT be the adequate sole baseline: a train-fitted
+    exponent (fixed intercept) and the textbook piecewise mid-mass exponent
+    alpha=4.0 should reduce holdout residuals materially relative to the
+    split-noise reference. This is a controlled benchmark/dataset evaluation, not a
+    universal mass-luminosity law, stellar-evolution, or application-domain claim,
+    and it does not falsify alpha=3.5 as a textbook relation.
+  formula_candidates:
+    - "textbook_single_3p5: log L = 3.5 * log M (fixed intercept L0=1)"
+    - "textbook_piecewise_mid_4p0: log L = 4.0 * log M (fixed intercept L0=1)"
+    - "train_fitted_alpha: log L = alpha_hat * log M, alpha_hat fit on the train lane only (fixed intercept)"
+    - "massband_median_null: per-mass-band train-median log L (global-median fallback)"
+
+assumptions:
+  - "DEBCat component masses are direct dynamical measurements; luminosities are catalogue-reported or Stefan-Boltzmann-derived (provenance flagged per row)."
+  - "Scope is the frozen main-sequence-compatible 0.5-2.0 Msun slice; evolved/subgiant/unknown stages are diagnostics only."
+  - "The system-level train/validation/holdout split is value-blind and frozen before scoring (no leakage, no-peek)."
+  - "Any data-driven exponent is fit on the train lane only and scored on the frozen holdout."
+  - "alpha=3.5 is evaluated as a sole frozen baseline on this slice, not as a universal textbook law."
+
+variables:
+  log_luminosity_solar:
+    unit: dex
+    description: "log10(L/Lsun)"
+  log_mass_solar:
+    unit: dex
+    description: "log10(M/Msun)"
+
+evidence:
+  experiments:
+    - EXP-0015
+  results:
+    - RESULT-0022
+
+verdict: "Benchmark designed to characterize textbook single-exponent adequacy versus fitted/piecewise baselines on the frozen DEBCat main-sequence slice; not a universal mass-luminosity law or stellar-evolution claim."
