@@ -1,0 +1,68 @@
+id: TASK-0770
+title: "Bound maintainer-review validation and classify environment failures"
+type: tooling_reliability
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review deterministic and strong while avoiding false BLOCKED verdicts from local runtime instability."
+  - "Preserve task-specific validation and GitHub CI authority without foreground hangs."
+  - "Turn repeated Windows temp-directory, xdist worker, and timeout review friction into structured maintainer diagnostics."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/proposals/20260614-romanhladun24-dot-review-validation-budgets.yaml"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_pr_finish_gate.py"
+    - "docs/reviews/dimensional-validator-gate-a-replay-decision.md"
+    - "TASK-0350"
+    - "TASK-0523"
+    - "TASK-0620"
+    - "TASK-0697"
+    - "TASK-0725"
+  planning_context: >
+    Maintainer-accepted proposal promotion. The future implementation should
+    narrow review execution policy: preserve CI-aware reuse, run truly
+    task-specific deterministic commands, bound each validation command, and
+    report timeout or known environment failures separately from assertion
+    failures. Reuse existing doctor, CI-aware review, and validation-helper
+    infrastructure rather than replacing it.
+
+requirements:
+  - "Add a configurable per-command review validation budget with a conservative default and visible timeout reporting."
+  - "Distinguish assertion/test failure from timeout, interpreter/runtime failure, and known temp-directory or xdist infrastructure failure."
+  - "Reuse green CI for overlapping broad gates while still executing task-specific deterministic commands."
+  - "Preserve the exact command, elapsed time, exit status, and bounded stdout/stderr excerpt for maintainer diagnosis."
+  - "Do not convert genuine test failures into advisories or mark a PR ready when required validation is unresolved."
+  - "Require an explicit maintainer decision on whether an environment-blocked command may rely on an equivalent green CI gate or must be rerun in a healthy local environment."
+  - "Keep behavior portable across macOS, Linux, Windows, Claude Code, and Codex environments."
+
+accepted_outputs:
+  - "structured review validation outcome model and CLI/report rendering"
+  - "configurable review validation timeout/budget handling"
+  - "focused regression tests for timeout, Windows temp failure, xdist worker failure, runtime failure, and real assertion failure"
+  - "maintainer documentation for CI-aware and strict review validation modes"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer review tooling task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_pr_finish_gate.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_review_checks.py"
+    - "python3 -m ruff check scripts/apl_review_pr.py scripts/apl_pr_finish_gate.py physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py tests/test_review_checks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

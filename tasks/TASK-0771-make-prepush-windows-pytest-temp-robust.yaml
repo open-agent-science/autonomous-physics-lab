@@ -1,0 +1,61 @@
+id: TASK-0771
+title: "Make pre-push pytest temp handling robust on Windows"
+type: tooling_reliability
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the mandatory pre-push CI-parity gate executable on supported Windows agent environments without weakening its checks."
+  - "Route Windows temp-directory permission failures to actionable environment diagnostics instead of pre-test failure loops."
+  - "Preserve xdist and targeted pre-push coverage where the runtime supports it."
+
+input:
+  mode: workflow
+  related_domain: contributor_validation
+  related_objects:
+    - "tasks/proposals/20260614-romanhladun24-dot-prepush-windows-pytest-temp.yaml"
+    - "physics_lab/registry/prepush_check.py"
+    - "scripts/apl_prepush_check.py"
+    - "scripts/apl_agent_doctor.py"
+    - "TASK-0523"
+    - "TASK-0620"
+    - "TASK-0726"
+  planning_context: >
+    Maintainer-accepted proposal promotion. Reuse the existing repository Python
+    resolver and agent-doctor pytest probe. The future task should keep the same
+    targeted CI-parity test set, select a disposable writable pytest temp path
+    through cross-platform APIs, and report a distinct environment blocker when
+    no candidate temp root is writable.
+
+requirements:
+  - "Probe or allocate pytest basetemp with tempfile/pathlib and pass it explicitly to the targeted pytest gate."
+  - "Never hardcode C:\\tmp, repository-local temp paths, or a POSIX-only location."
+  - "Return a distinct actionable environment failure when no writable temp root exists."
+  - "Preserve xdist/default CI parity when the runtime supports it, with a documented narrow diagnostic fallback rather than silently disabling coverage."
+  - "Keep the pre-push helper portable across macOS, Linux, Windows, Claude Code, and Codex environments."
+
+accepted_outputs:
+  - "cross-platform pre-push pytest temp selection or probe"
+  - "focused Windows permission-failure and successful-fallback regression tests"
+  - "agent protocol note for environment-blocked pre-push validation"
+
+result_artifact_policy:
+  required: false
+  reason: "Contributor validation tooling task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/prepush_check.py"
+    - "scripts/apl_prepush_check.py"
+    - "scripts/apl_agent_doctor.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_prepush_check.py tests/test_agent_doctor.py"
+    - "python3 -m ruff check scripts/apl_prepush_check.py scripts/apl_agent_doctor.py physics_lab/registry/prepush_check.py tests/test_prepush_check.py tests/test_agent_doctor.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
