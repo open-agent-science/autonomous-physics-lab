@@ -38,6 +38,19 @@ a material recommendation, synthesis guide, device or biomedical claim, experime
 measurement, or new materials law. Band gap remains diagnostic-only and is excluded
 from the promoted metrics.
 
+## Protected-artifact authorization
+
+TASK-0765 explicitly authorizes creating the registered protected artifacts that the
+result references — `hypotheses/HYP-0014-materials-md0002-formation-energy-benchmark.yaml`
+and `experiments/EXP-0014-materials-md0002-formation-energy-benchmark.yaml` — plus the
+`results/EXP-0014/RUN-0001/` package. These additions are an intended part of result
+packaging (see the task `requirements` and `accepted_outputs`), not incidental edits to
+pre-existing canonical science. No pre-existing protected artifact is modified.
+
+`scripts/replay_materials_md0002_result.py` is intentional, RESULT-scoped replay tooling
+for RESULT-0021 only (it recomputes the committed MD-0002 metrics from committed data);
+it is not a broad new framework.
+
 ## Reproduce
 
 ```
