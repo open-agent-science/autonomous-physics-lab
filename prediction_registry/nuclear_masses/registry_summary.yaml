@@ -104,10 +104,6 @@ blocker_counts:
   count: 60
 - label: SOURCE_PREFLIGHT_REQUIRED
   count: 60
-- label: SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
-  count: 54
-- label: REVEAL_PROTOCOL_REFERENCE_MISSING
-  count: 42
 entries_must_not_be_scored_before_reveal_gate:
 - prediction_id: PRED-0001
   task_id: TASK-0205
@@ -119,8 +115,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0002
   task_id: TASK-0205
   target_batch: n50-forward-row
@@ -131,8 +125,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0003
   task_id: TASK-0205
   target_batch: n82-neighborhood-row
@@ -143,8 +135,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0004
   task_id: TASK-0205
   target_batch: heavy-extension-row
@@ -155,8 +145,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0005
   task_id: TASK-0205
   target_batch: odd-even-stress-row
@@ -167,8 +155,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0006
   task_id: TASK-0205
   target_batch: frontier-next-row
@@ -179,8 +165,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0007
   task_id: TASK-0205
   target_batch: n50-forward-row
@@ -191,8 +175,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0008
   task_id: TASK-0205
   target_batch: n82-neighborhood-row
@@ -203,8 +185,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0009
   task_id: TASK-0205
   target_batch: heavy-extension-row
@@ -215,8 +195,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0010
   task_id: TASK-0205
   target_batch: odd-even-stress-row
@@ -227,8 +205,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0011
   task_id: TASK-0205
   target_batch: frontier-next-row
@@ -239,8 +215,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0012
   task_id: TASK-0205
   target_batch: n50-forward-row
@@ -251,8 +225,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0013
   task_id: TASK-0205
   target_batch: n82-neighborhood-row
@@ -263,8 +235,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0014
   task_id: TASK-0205
   target_batch: heavy-extension-row
@@ -275,8 +245,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0015
   task_id: TASK-0205
   target_batch: odd-even-stress-row
@@ -287,8 +255,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0016
   task_id: TASK-0205
   target_batch: frontier-next-row
@@ -299,8 +265,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0017
   task_id: TASK-0205
   target_batch: n50-forward-row
@@ -311,8 +275,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0018
   task_id: TASK-0205
   target_batch: n82-neighborhood-row
@@ -323,8 +285,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0019
   task_id: TASK-0205
   target_batch: heavy-extension-row
@@ -335,8 +295,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0020
   task_id: TASK-0205
   target_batch: odd-even-stress-row
@@ -347,8 +305,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0021
   task_id: TASK-0228
   target_batch: frontier-next-row
@@ -359,8 +315,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0022
   task_id: TASK-0228
   target_batch: frontier-next-row
@@ -371,8 +325,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0023
   task_id: TASK-0229
   target_batch: odd-even-pairing-sensitivity-probe
@@ -383,8 +335,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0024
   task_id: TASK-0229
   target_batch: null-pairing-control-probe
@@ -395,8 +345,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0025
   task_id: TASK-0230
   target_batch: shell-magic-control-probe
@@ -407,8 +355,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0026
   task_id: TASK-0230
   target_batch: shell-magic-control-probe
@@ -419,8 +365,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0027
   task_id: TASK-0231
   target_batch: neutron-excess-control-probe
@@ -431,8 +375,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0028
   task_id: TASK-0231
   target_batch: neutron-excess-control-probe
@@ -443,8 +385,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0029
   task_id: TASK-0232
   target_batch: sn-chain-isotope-extrapolation
@@ -455,8 +395,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0030
   task_id: TASK-0232
   target_batch: zn-chain-asymmetry-sensitivity-probe
@@ -467,8 +405,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0037
   task_id: TASK-0236
   target_batch: frontier-next-row
@@ -479,8 +415,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0038
   task_id: TASK-0236
   target_batch: frontier-next-row
@@ -491,8 +425,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0041
   task_id: TASK-0251
   target_batch: frontier-next-row
@@ -503,8 +435,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0042
   task_id: TASK-0251
   target_batch: frontier-next-row
@@ -515,8 +445,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0043
   task_id: TASK-0251
   target_batch: mid-mass-stable
@@ -527,8 +455,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0044
   task_id: TASK-0251
   target_batch: odd-even-probe
@@ -539,8 +465,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0045
   task_id: TASK-0251
   target_batch: odd-even-probe
@@ -551,8 +475,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0046
   task_id: TASK-0251
   target_batch: odd-even-probe
@@ -563,8 +485,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0047
   task_id: TASK-0251
   target_batch: frontier-next-row
@@ -575,8 +495,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0048
   task_id: TASK-0251
   target_batch: frontier-next-row
@@ -587,8 +505,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0049
   task_id: TASK-0251
   target_batch: frontier-next-row
@@ -599,8 +515,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0050
   task_id: TASK-0251
   target_batch: frontier-next-row
@@ -611,8 +525,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - REVEAL_PROTOCOL_REFERENCE_MISSING
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0051
   task_id: TASK-0265
   target_batch: shell-magic-probe
@@ -623,7 +535,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0052
   task_id: TASK-0265
   target_batch: shell-magic-probe
@@ -634,7 +545,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0053
   task_id: TASK-0265
   target_batch: shell-magic-probe
@@ -645,7 +555,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0054
   task_id: TASK-0265
   target_batch: shell-magic-probe
@@ -656,7 +565,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0055
   task_id: TASK-0265
   target_batch: neutron-rich-stress
@@ -667,7 +575,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0056
   task_id: TASK-0265
   target_batch: neutron-rich-stress
@@ -678,7 +585,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0057
   task_id: TASK-0265
   target_batch: neutron-rich-stress
@@ -689,7 +595,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0058
   task_id: TASK-0265
   target_batch: neutron-rich-stress
@@ -700,7 +605,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0059
   task_id: TASK-0265
   target_batch: nickel-isotope-chain
@@ -711,7 +615,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0060
   task_id: TASK-0265
   target_batch: nickel-isotope-chain
@@ -722,7 +625,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0061
   task_id: TASK-0265
   target_batch: nickel-isotope-chain
@@ -733,7 +635,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0062
   task_id: TASK-0265
   target_batch: nickel-isotope-chain
@@ -744,7 +645,6 @@ entries_must_not_be_scored_before_reveal_gate:
   - SOURCE_PREFLIGHT_REQUIRED
   - NO_PEEK_REVIEW_REQUIRED
   - MAINTAINER_APPROVAL_REQUIRED
-  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
 - prediction_id: PRED-0063
   task_id: TASK-0297
   target_batch: shell-axis-balanced-001

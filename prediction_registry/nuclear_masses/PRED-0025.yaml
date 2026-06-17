@@ -42,6 +42,8 @@ source_state:
     - "docs/nuclear-mass-holdout-protocol.md"
     - "docs/prediction-registry-policy.md"
     - "docs/reviews/autonomous-nuclear-shell-batch-01.md"
+    - docs/nuclear-prediction-reveal-protocol.md
+    - docs/nuclear-reveal-source-readiness-checklist.md
   live_external_fetch_allowed: false
   source_data_state_note: >
     Registered from repository state 763575eb923a4e9ebcf1565509268b8e17f84c4b without live external

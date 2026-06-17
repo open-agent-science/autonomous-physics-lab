@@ -35,6 +35,7 @@ source_state:
   - docs/nuclear-mass-holdout-protocol.md
   - docs/prediction-registry-policy.md
   - docs/nuclear-prediction-reveal-protocol.md
+  - docs/nuclear-reveal-source-readiness-checklist.md
   live_external_fetch_allowed: false
   source_data_state_note: Selected from reviewed TASK-0264 feature-term slate-002 after TASK-0266
     defined the nuclear prediction reveal protocol. The frozen source commit contains the reviewed
