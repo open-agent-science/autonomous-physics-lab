@@ -77,6 +77,15 @@ If the short system root is unavailable, the helper falls back to the ignored
 workspace-local `.pytest-basetemp/session-*` path instead of weakening the test
 lane.
 
+The pre-push CI-parity helper also passes an explicit unique `--basetemp` to
+its targeted pytest gate. It first tries `APL_PYTEST_BASETEMP_ROOT` when set,
+then the platform temp directory from `tempfile`, then the ignored repository
+`.pytest-basetemp/` fallback. If none is writable, the helper reports
+`ENVIRONMENT BLOCKED` for that pytest gate and points agents to
+`python3 scripts/apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check`;
+it does not silently disable xdist, skip targeted coverage, or reinterpret a
+real test assertion failure as an environment issue.
+
 ## Coverage Reporting
 
 Coverage is report-only. Do not treat the first measured percentage as a merge

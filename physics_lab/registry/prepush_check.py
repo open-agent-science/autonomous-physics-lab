@@ -19,8 +19,12 @@ failures.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
+import shutil
 import subprocess
+import tempfile
+import uuid
 
 from physics_lab.registry.repo_python import resolve_validation_python
 
@@ -39,12 +43,61 @@ TARGETED_TEST_FILES: tuple[str, ...] = (
 )
 
 
+def _candidate_basetemp_roots(root: Path) -> tuple[Path, ...]:
+    """Return temp roots to try for the targeted pytest gate."""
+    candidates: list[Path] = []
+    override = os.environ.get("APL_PYTEST_BASETEMP_ROOT")
+    if override:
+        candidates.append(Path(override))
+    candidates.extend((Path(tempfile.gettempdir()), root / ".pytest-basetemp"))
+
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        try:
+            key = os.path.normcase(str(candidate.resolve()))
+        except OSError:
+            key = os.path.normcase(str(candidate))
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(candidate)
+    return tuple(unique)
+
+
+def allocate_pytest_basetemp(root: Path) -> tuple[Path | None, str | None]:
+    """Return a unique pytest basetemp path or an environment blocker."""
+    errors: list[str] = []
+    for candidate_root in _candidate_basetemp_roots(root):
+        try:
+            candidate_root.mkdir(parents=True, exist_ok=True)
+            probe = Path(tempfile.mkdtemp(prefix="apl-prepush-probe-", dir=str(candidate_root)))
+            shutil.rmtree(probe)
+            basetemp = candidate_root / (
+                f"apl-prepush-pytest-{uuid.uuid4().hex[:12]}"
+            )
+        except OSError as exc:
+            errors.append(f"{candidate_root}: {type(exc).__name__}: {exc}")
+            continue
+        return basetemp, None
+    details = "; ".join(errors) if errors else "no candidate temp roots were available"
+    return (
+        None,
+        "No writable pytest basetemp root was available for the pre-push "
+        f"targeted pytest gate. Checked: {details}. Run "
+        "`python3 scripts/apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check` "
+        "and retry in a writable temp environment.",
+    )
+
+
 @dataclass(frozen=True)
 class GateCommand:
     """A single named pre-push gate command."""
 
     name: str
     command: list[str]
+    environment_error: str | None = None
+    cleanup_paths: tuple[Path, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -54,6 +107,7 @@ class GateResult:
     name: str
     passed: bool
     returncode: int
+    environment_error: str | None = None
 
 
 @dataclass(frozen=True)
@@ -87,11 +141,19 @@ def build_gate_commands(root: Path, *, full: bool = False) -> tuple[GateCommand,
                 command=[python, "scripts/validate_fast.py"],
             ),
         )
+    basetemp, basetemp_error = allocate_pytest_basetemp(root)
+    pytest_command = [python, "-m", "pytest", "-q", *TARGETED_TEST_FILES]
+    cleanup_paths: tuple[Path, ...] = ()
+    if basetemp is not None:
+        pytest_command.extend(["--basetemp", str(basetemp)])
+        cleanup_paths = (basetemp,)
     return (
         GateCommand(name="ruff", command=[python, "-m", "ruff", "check", "."]),
         GateCommand(
             name="targeted-docs-task-tests",
-            command=[python, "-m", "pytest", "-q", *TARGETED_TEST_FILES],
+            command=pytest_command,
+            environment_error=basetemp_error,
+            cleanup_paths=cleanup_paths,
         ),
         GateCommand(
             name="validate-repo-strict",
@@ -121,9 +183,21 @@ def run_prepush_checks(
     """
     results: list[GateResult] = []
     for gate in build_gate_commands(root, full=full):
+        if gate.environment_error is not None:
+            results.append(
+                GateResult(
+                    name=gate.name,
+                    passed=False,
+                    returncode=2,
+                    environment_error=gate.environment_error,
+                )
+            )
+            continue
         completed = runner(gate.command, cwd=root)
         code = int(getattr(completed, "returncode", 1))
         results.append(GateResult(name=gate.name, passed=code == 0, returncode=code))
+        for cleanup_path in gate.cleanup_paths:
+            shutil.rmtree(cleanup_path, ignore_errors=True)
     return PrepushReport(full=full, results=tuple(results))
 
 
@@ -132,8 +206,13 @@ def render_prepush_report(report: PrepushReport) -> str:
     mode = "full fast suite" if report.full else "fast targeted gates"
     lines = [f"Pre-push CI-parity check ({mode})"]
     for result in report.results:
-        status = "PASS" if result.passed else f"FAIL (exit {result.returncode})"
+        if result.environment_error is not None:
+            status = f"ENVIRONMENT BLOCKED (exit {result.returncode})"
+        else:
+            status = "PASS" if result.passed else f"FAIL (exit {result.returncode})"
         lines.append(f"- {result.name}: {status}")
+        if result.environment_error is not None:
+            lines.append(f"  {result.environment_error}")
     if report.passed:
         lines.append("Result: PASS — safe to push.")
     else:
