@@ -1,0 +1,36 @@
+id: EXP-0014
+title: "Materials MD-0002 Formation-Energy Benchmark (stable ternary oxides)"
+domain: materials_science
+status: COMPLETED
+
+hypothesis_id: HYP-0014
+
+method:
+  type: dataset_reproduction
+  simulator: materials_md0002_formation_energy_benchmark
+  comparator: composition_baseline_vs_null_residual_report
+
+data:
+  dataset_path: ../data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+  dataset_kind: materials_property_dataset
+  benchmark_scope: "Frozen 362-row stable ternary-oxide slice (alkali/alkaline-earth + first-row transition); formation energy only; band gap diagnostic-only."
+  expected_item_count: 362
+  sample_axes:
+    - formation_energy_per_atom
+    - cations
+    - mass_band
+    - split
+  notes: "Computed DFT only; Materials Project CC BY 4.0; no live fetch; no experimental rows; 70/15/15 split frozen by material_id ordering."
+
+candidate_models:
+  - id: model_cation_pair_mean
+    formula: "Train-mean formation_energy_per_atom per unordered non-oxygen cation pair (global train-mean fallback)"
+  - id: model_global_median_null
+    formula: "Train-lane global median formation_energy_per_atom"
+
+comparison_targets:
+  - id: target_cation_pair_beats_null
+    label: "Cation-pair baseline holdout MAE below the global-median null"
+    reference_value: 0.506092
+    unit: electronvolt_per_atom
+    notes: "Diagnostic threshold; lower holdout MAE is better. Observed cation-pair holdout MAE 0.200606."

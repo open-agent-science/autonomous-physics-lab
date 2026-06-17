@@ -1,7 +1,7 @@
 id: TASK-0765
 title: "Package Materials MD-0002 formation-energy benchmark as a Gate A result candidate"
 type: scientific_result_publication
-status: REVIEW_READY
+status: READY
 closeout: review
 difficulty: high
 priority: high
@@ -44,12 +44,9 @@ requirements:
   - "Run `scripts/apl_check_result_publication.py` against the candidate before assigning `AGENT_PUBLISHED`."
   - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
   - "Do not promote any CLAIM or KNOW artifact and do not edit external dataset/DOI wording."
-  - "This task authorizes creating the registered `hypotheses/HYP-*` and `experiments/EXP-*` artifacts that the new result references; these protected-artifact additions are an intended part of result packaging."
 
 accepted_outputs:
   - "A new `results/EXP-*/RUN-*/result.yaml` or documented successor experiment path for the MD-0002 formation-energy benchmark."
-  - "A registered `hypotheses/HYP-*` hypothesis artifact for the benchmark (e.g. `hypotheses/HYP-0014-materials-md0002-formation-energy-benchmark.yaml`)."
-  - "A registered `experiments/EXP-*` experiment artifact for the benchmark (e.g. `experiments/EXP-0014-materials-md0002-formation-energy-benchmark.yaml`)."
   - "Frozen inputs, metrics, report, and Gate A report for that result candidate."
   - "A result-routing summary covering canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
   - "A campaign/profile update only if the task outcome changes public wording or readiness."
@@ -65,7 +62,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_docs_links.py tests/test_result_publication_gate.py"
-    - "python3 scripts/apl_check_result_publication.py results/EXP-0014/RUN-0001/result.yaml"
+    - "python3 scripts/apl_check_result_publication.py <new-result-yaml>"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

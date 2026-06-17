@@ -1,0 +1,11 @@
+dataset_id: MD-0002-materials-project-stable-ternary-oxides
+path: data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+sha256: 516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1
+source: The Materials Project (materialsproject.org)
+license: CC BY 4.0
+attribution: "Data from The Materials Project, CC BY 4.0; cite Jain et al. 2013 (APL Materials 1, 011002)."
+database_version: "2026.04.13"
+row_count: 724
+axis_promoted: formation_energy_per_atom
+axis_diagnostic_only: band_gap
+note: "Pointer/provenance only; the full dataset is committed and DATA_LICENSES-declared, not duplicated here."
