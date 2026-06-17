@@ -9,6 +9,7 @@ import re
 import sys
 from typing import Any
 
+from physics_lab.registry.maintainer_review import DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS
 from physics_lab.registry.pr_capability import find_gh_path
 from physics_lab.registry.review_git import CommandResult, run_command
 
@@ -170,7 +171,12 @@ def load_ci_gate(root: Path, pr_number: int, *, gh_path: str | None = None) -> C
     return classify_ci_gate(checks)
 
 
-def run_review_gate(root: Path, pr_number: int) -> CommandResult:
+def run_review_gate(
+    root: Path,
+    pr_number: int,
+    *,
+    validation_timeout_seconds: int = DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS,
+) -> CommandResult:
     """Run the canonical PR review helper through the active Python runtime."""
     return run_command(
         [
@@ -178,6 +184,8 @@ def run_review_gate(root: Path, pr_number: int) -> CommandResult:
             str(root / "scripts" / "apl_review_pr.py"),
             "--pr",
             str(pr_number),
+            "--validation-timeout-seconds",
+            str(validation_timeout_seconds),
         ],
         cwd=root,
         timeout=900,
@@ -206,9 +214,14 @@ def finish_pr(
     *,
     dry_run: bool = False,
     gh_path: str | None = None,
+    validation_timeout_seconds: int = DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS,
 ) -> FinishGateReport:
     """Run review and CI gates, then mark the PR ready when both pass."""
-    review_result = run_review_gate(root, pr_number)
+    review_result = run_review_gate(
+        root,
+        pr_number,
+        validation_timeout_seconds=validation_timeout_seconds,
+    )
     review_output = (review_result.stdout or "") + (review_result.stderr or "")
     review_verdict = parse_review_verdict(review_output)
     if review_result.returncode != 0 or review_verdict != "MERGE_OK":
