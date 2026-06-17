@@ -59,8 +59,10 @@ split-sensitivity checks, and `TASK-0762` found the important baseline lesson:
 fixed single-alpha `M^3.5` is inadequate as the sole frozen baseline on this
 slice, while fitted-alpha and piecewise/stage-aware baselines are materially
 better. `TASK-0763` committed the full normalized DEBCat rows and holdout
-manifest under an explicit CC BY 4.0 permission grant. The current blocker is
-not another scout; it is Gate A packaging with conservative wording.
+manifest under an explicit CC BY 4.0 permission grant. `TASK-0764` packaged
+that evidence as `RESULT-0022`, an `AGENT_PUBLISHED`, `VALID_IN_RANGE`
+controlled benchmark. The current blocker is Gate B replay plus cleanup of
+superseded DEBCat seed-stage scope flags, not another scout.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -76,24 +78,27 @@ source/baseline planning artifacts, and a Gate-B-validated exact-reference
 software/convention result now exist. `RESULT-0019` replayed with zero numeric
 drift and remains scoped to the Stefan-Boltzmann synthetic fixture. The first
 Stellar M-L empirical lane now has committed DEBCat rows, stage/split/null
-controls, and baseline-adequacy evidence ready to be packaged as a scoped
-benchmark result candidate.
+controls, baseline-adequacy evidence, and `RESULT-0022` as an agent-published
+scoped benchmark.
 
-**Not a claim:** no empirical textbook formula result has been promoted. This
-campaign does not claim that any formula is globally right or wrong, and the
-Stellar M-L evidence is not yet a published result. The current evidence says
-only that `M^3.5` is not an adequate sole baseline for the committed DEBCat
-slice under the completed controls.
+**Not a claim:** no empirical textbook formula claim has been promoted. This
+campaign does not claim that any formula is globally right or wrong.
+`RESULT-0022` is agent-published, not independently validated or
+maintainer-reviewed. The current evidence says only that `M^3.5` is not an
+adequate sole baseline for the committed DEBCat slice under the completed
+controls.
 
 **Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
 software/convention result and `TASK-0635` replayed it through Gate B. The
-empirical lane is now Stellar M-L: `TASK-0759`, `TASK-0762`, and `TASK-0763`
-closed the control, baseline-adequacy, and full-dataset blockers. The next
-result path is `TASK-0764`, which packages the controlled DEBCat audit as a
-Gate A result candidate if the publication checker passes.
+empirical lane is now Stellar M-L: `TASK-0759`, `TASK-0762`, `TASK-0763`, and
+`TASK-0764` closed the control, baseline-adequacy, full-dataset, and Gate A
+packaging blockers. The next result path is Gate B replay for `RESULT-0022`.
+The paired source-readiness cleanup is to reconcile superseded DEBCat
+seed-stage scope flags recorded in the result limitations.
 
-**Expected next result:** a scoped Stellar M-L reusable-dataset plus benchmark
-result candidate, or a precise Gate A blocker if the package cannot yet pass.
+**Expected next result:** a Gate-B-validated Stellar M-L reusable-dataset plus
+benchmark result, or a precise contested replay blocker if the package cannot
+reproduce end-to-end.
 
 ## Why It Matters
 
@@ -239,9 +244,9 @@ Per `docs/result-promotion-protocol.md`:
 See `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
 (M-L) out-of-distribution audit**. Source/baseline, Route 2 local benchmark,
-stage/split/null controls, baseline adequacy, and full DEBCat dataset
-publication have landed; the next step is Gate A packaging with conservative
-scope and no universal-law wording.
+stage/split/null controls, baseline adequacy, full DEBCat dataset publication,
+and Gate A packaging have landed; the next step is Gate B replay with
+conservative scope and no universal-law wording.
 
 ## Cross-References
 

@@ -1,0 +1,56 @@
+id: TASK-0784
+title: "Assemble CLAIM-0007 particle-mass falsifier evidence handoff"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Route mature particle-mass falsification evidence toward maintainer review without reopening numerology search."
+  - "Use RESULT-0011 and the Koide campaign summary as scoped negative/guardrail evidence for CLAIM-0007."
+  - "Preserve falsification-first wording and source/scheme limitations before any claim-status decision."
+
+input:
+  mode: planning_only
+  related_domain: particle_mass_relations
+  related_objects:
+    - "claims/CLAIM-0007-particle-mass-falsifier-mvp.md"
+    - "results/EXP-0009/RUN-0001/result.yaml"
+    - "docs/results/koide-campaign-summary.md"
+    - "docs/notes/particle-mass-numerology-guardrails.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    Particle-mass relations are a mature guardrail campaign. RESULT-0011
+    preserves the first falsifier MVP result, but CLAIM-0007 remains DRAFT and
+    should not be strengthened without a maintainer-facing evidence map.
+
+requirements:
+  - "Read CLAIM-0007, RESULT-0011, Koide campaign summary, and numerology guardrails before writing the handoff."
+  - "Map which claim wording is supported, unsupported, or too broad under RESULT-0011 and earlier Koide/particle results."
+  - "State source, scheme, scale, uncertainty, random-baseline, and complexity-penalty limitations."
+  - "Recommend only maintainer decision options; do not edit CLAIM-0007 status, evidence list, knowledge artifacts, result metrics, or golden results."
+  - "Do not propose broad particle-mass formula search, mass-generation explanation, or charged-lepton generalization."
+
+accepted_outputs:
+  - "`docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md`"
+  - "Output-routing summary with canonical destination, review tier of referenced artifacts, Gate A/Gate B status where applicable, claim impact none, knowledge impact none, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim evidence handoff reviews existing RESULT artifacts and does not create a new RESULT/PRED artifact."
+  evidence:
+    - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

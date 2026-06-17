@@ -7,9 +7,10 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Flagship validation challenge:** Nuclear Mass Surface.
-- **Default near-term science-output sprint:** Materials MD-0002 and Stellar
-  M-L Gate A packaging, Dimensional RESULT-0020 replay, plus the source-gated
-  Atomic / Quantum data-to-benchmark wave.
+- **Default near-term science-output sprint:** Materials RESULT-0021 and
+  Stellar M-L RESULT-0022 Gate B replay, Nuclear Wigner-cusp execution,
+  Dimensional RESULT-0020 replay/adjudication, plus the source-gated Atomic /
+  Quantum / Exoplanet monitor wave.
 - **Fresh-data buildout:** Atomic-Clock Residuals and Quantum Size Effects
   (source-gated; Atomic has pinned rows, Quantum still needs direct rows).
 - **Reusable-dataset buildout:** Materials Property Residuals now has the first
@@ -47,12 +48,12 @@ campaign map or `missions/current.yaml`.
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, uncertainty-weighted diagnostic, replayable F2 signal, component-ablation evidence that keeps F2 diagnostic-only, and AGENT_VALIDATED diagnostic memory. | `TASK-0714` / `TASK-0746`: repair reveal-checklist links and select one non-F2 no-leakage lane; keep scoring blocked until a source-grade no-peek release exists. |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshots, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, reviewer capsule, closed `EXO-0002` reopen gate, and a no-notify source-version monitor. | `TASK-0745`: decide whether `EXO-0003` remains monitor-only or needs a metadata-only scout / coverage-gate amendment. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, uncertainty-weighted diagnostic, replayable F2 signal, component-ablation evidence that keeps F2 diagnostic-only, AGENT_VALIDATED diagnostic memory, and a Wigner-cusp next-lane selection. | `TASK-0777` / `TASK-0778`: run the bounded Wigner-cusp no-leakage sprint and a value-blind reveal-source preflight; keep scoring blocked until a source-grade no-peek release exists. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshots, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, reviewer capsule, closed `EXO-0002` reopen gate, and a no-notify source-version monitor. | `TASK-0781`: run one metadata-only monitor check; no residual scoring unless a NOTIFY class appears. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds kept out of benchmark metrics, source-artifact intake path, synthetic/non-spherical digitization fixtures, and Almeida 2023 source bytes checksum-pinned under CC BY 4.0. | `TASK-0755`: digitize Almeida size axis and rerun row-readiness before any baseline. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz Yb/Sr rows, real-row loader, covariance policy, first exploratory cross-source diagnostic, Pizzocaro diagnostics, and preserved aggregation/source-limit blockers. | `TASK-0767`: package the completed Yb/Sr diagnostic as source-limited consistency memory; no constants-drift or RESULT framing. |
-| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001` pinned Materials Project binary-oxide dataset, replayed baseline, formation-energy control survival, split-robust formation-energy signal, split-fragile band gap, validated/frozen `MD-0002` snapshot, and TASK-0703/TASK-0761 Gate-A-package-ready formation-energy evidence. | `TASK-0765`: package the MD-0002 formation-energy benchmark as a computed-DFT, slice-limited RESULT candidate; do not promote materials claims. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Verifier-first scaffold, exact-reference fixtures, Gate-B-validated Stefan-Boltzmann software/convention result, DEBCat source choice, and Stellar M-L controls/baseline adequacy/full dataset evidence. | `TASK-0764`: package the controlled Stellar M-L DEBCat audit as a scoped Gate A result candidate; no universal formula claim. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz Yb/Sr rows, real-row loader, covariance policy, first exploratory cross-source diagnostic, Pizzocaro diagnostics, and a source-limited consistency memory card. | `TASK-0780`: scout one concrete source or aggregation route; no constants-drift or RESULT framing. |
+| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001` pinned Materials Project binary-oxide dataset, replayed baseline, formation-energy controls, frozen `MD-0002`, and AGENT_PUBLISHED `RESULT-0021`. | `TASK-0775`: replay RESULT-0021 through Gate B; do not promote materials claims. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Verifier-first scaffold, exact-reference fixtures, Gate-B-validated Stefan-Boltzmann software/convention result, DEBCat source choice, and AGENT_PUBLISHED Stellar M-L `RESULT-0022`. | `TASK-0776` / `TASK-0779`: replay RESULT-0022 and reconcile DEBCat scope flags; no universal formula claim. |
 
 These are the main public-facing surfaces today. They should be presented as
 disciplined research infrastructure, not as finished discoveries.
@@ -61,7 +62,7 @@ disciplined research infrastructure, not as finished discoveries.
 
 | Campaign | What it teaches APL |
 | --- | --- |
-| [Pendulum Formula Falsification](./pendulum-formula-falsification.md) | Exact-reference replay, approximation failure modes, leaderboard discipline, and honest range limits. |
+| [Pendulum Formula Falsification](./pendulum-formula-falsification.md) | Exact-reference replay, approximation failure modes, AGENT_VALIDATED negative/overfit memory, leaderboard discipline, and honest range limits. |
 | [Particle Mass Relations](./particle-mass-relations.md) | Falsification-first handling of tempting numerical relations and uncertainty-sensitive wording. |
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Fast formula sanity checks and benchmark hygiene for future generated hypotheses. |
 
@@ -75,8 +76,8 @@ the newer campaigns can be stricter.
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning and source-policy layer. | Source-policy review or manifest-only triage for less-saturated data axes. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed, exact-reference fixtures exist, Stefan-Boltzmann has an agent-validated software/convention result, and Stellar M-L has controls/baseline/full-dataset evidence ready for packaging. | Gate A packaging before any empirical result publication; no model-derived Gaia mass truth rows or universal formula claims. |
-| Materials widenings | `MD-0002` stable ternary oxides are frozen and have formation-energy evidence adjudicated as Gate-A-package-ready. | Package the TASK-0703/TASK-0761 evidence before any public result promotion; no materials claims. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed, exact-reference fixtures exist, Stefan-Boltzmann has an agent-validated software/convention result, and Stellar M-L has AGENT_PUBLISHED RESULT-0022. | Gate B replay before stronger empirical wording; no model-derived Gaia mass truth rows or universal formula claims. |
+| Materials widenings | `MD-0002` stable ternary oxides are frozen and have AGENT_PUBLISHED RESULT-0021. | Gate B replay before stronger public result wording; no materials claims. |
 
 Do not turn planning surfaces into broad formula searches. A planning campaign
 is useful when it prevents chaotic future work.

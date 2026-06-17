@@ -23,9 +23,11 @@ the frozen metrics exactly after a narrow path-normalization portability fix.
 classified the lane as `COMPONENT_DIAGNOSTIC_ONLY`: the full aggregate remains
 replayable, but no component clears the survival-margin gate. `TASK-0633`
 packaged that memory as `RESULT-0018`, `TASK-0713` independently replayed it
-as `AGENT_VALIDATED`, and `TASK-0743` records the do-not-repeat boundary. The
-next source-safe Nuclear work is one non-F2 lane-selection task plus separate
-reveal-source readiness, not broad prediction waves or another F2 loop.
+as `AGENT_VALIDATED`, and `TASK-0743` records the do-not-repeat boundary.
+`TASK-0746` has now selected exactly one next non-F2 lane: the Wigner-cusp
+candidate `WIGNER-CUSP-001`. The next source-safe Nuclear work is one bounded
+Wigner-cusp sprint plus separate value-blind reveal-source readiness, not broad
+prediction waves or another F2 loop.
 
 ## Public Monitoring Snapshot
 
@@ -57,9 +59,10 @@ validation-holdout MAE regressed.
 **Expected next decision:** F2 no longer needs another hypothesis burst or
 publication preflight. `TASK-0633` packaged F2 as diagnostic `RESULT-0018`, and
 `TASK-0713` replayed it through Gate B without changing the `INCONCLUSIVE`
-scientific verdict. The next useful Nuclear decision is `TASK-0746`: select
-exactly one materially non-F2 no-leakage lane for a future controlled sprint.
-Reveal scoring remains separate and source-gated.
+scientific verdict. `TASK-0746` selected the Wigner-cusp lane; the next useful
+Nuclear result path is to run that one controls-first sprint and separately
+test whether any value-blind source manifest can satisfy reveal-readiness
+without scoring frozen predictions. Reveal scoring remains source-gated.
 
 ## Orientation Note for New Contributors
 

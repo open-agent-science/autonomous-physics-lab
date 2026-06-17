@@ -1,0 +1,62 @@
+id: TASK-0776
+title: "Run Gate B replay for Stellar M-L RESULT-0022"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the newly AGENT_PUBLISHED Stellar M-L DEBCat benchmark into independently replayed scientific memory if the frozen artifact reproduces."
+  - "Keep the Textbook Formula Audit scope exact: alpha=3.5 is inadequate as the sole frozen baseline on one committed slice, not falsified as a universal textbook relation."
+  - "Prioritize replay and source-scope cleanup before opening another empirical textbook formula slice."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0764-package-stellar-ml-gate-a-result.yaml"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "results/EXP-0015/RUN-0001/gate_a_report.md"
+    - "results/EXP-0015/RUN-0001/metrics.json"
+    - "scripts/replay_stellar_ml_result.py"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0764 published RESULT-0022 as an AGENT_PUBLISHED, VALID_IN_RANGE
+    controlled DEBCat benchmark. The result is public-safe only with its frozen
+    main-sequence slice and no-universal-law qualifier. The next scientific
+    step is Gate B replay, not another M-L scout.
+
+requirements:
+  - "Run `scripts/apl_validate_agent_published_result.py` against `results/EXP-0015/RUN-0001/result.yaml` with a disposable output directory."
+  - "Compare replay metrics, verdict, stage-control metrics, split/noise margins, and numeric drift using the helper's tolerances."
+  - "If Gate B passes, update only the allowed review-tier / validation-record metadata on RESULT-0022."
+  - "If Gate B fails or is contested, do not mutate RESULT metrics or verdict; write a contested replay note and keep RESULT-0022 at `AGENT_PUBLISHED`."
+  - "Do not edit DEBCat rows, result metrics, claims, knowledge artifacts, or `results/golden-results.yaml`."
+  - "State that RESULT-0022 does not validate or falsify the mass-luminosity relation universally and does not support stellar-evolution or application-domain claims."
+
+accepted_outputs:
+  - "Updated `results/EXP-0015/RUN-0001/result.yaml` review-tier metadata only if Gate B passes."
+  - "A review note under `docs/reviews/` recording command, replay output directory, compared metrics, drift, verdict, limitations, and any contested blocker."
+  - "Output-routing summary with canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay validation updates or contests an existing RESULT artifact; it does not create a new RESULT or PRED."
+  evidence:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0015/RUN-0001/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

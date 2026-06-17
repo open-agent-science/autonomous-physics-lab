@@ -1,0 +1,62 @@
+id: TASK-0775
+title: "Run Gate B replay for Materials MD-0002 RESULT-0021"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the newly AGENT_PUBLISHED MD-0002 formation-energy benchmark into independently replayed scientific memory if the frozen artifact reproduces."
+  - "Keep the Materials claim ceiling conservative: computed-DFT, stable ternary-oxide slice only; no material-design or discovery wording."
+  - "Use replay rather than another MD-0001 or MD-0002 audit as the next highest-leverage result-promotion step."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0765-package-materials-md0002-gate-a-result.yaml"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "results/EXP-0014/RUN-0001/gate_a_report.md"
+    - "results/EXP-0014/RUN-0001/metrics.json"
+    - "scripts/replay_materials_md0002_result.py"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0765 published RESULT-0021 as an AGENT_PUBLISHED, VALID_IN_RANGE
+    benchmark for the frozen MD-0002 formation-energy slice. The next useful
+    output is a Gate B replay attempt by an independent agent, not another
+    formation-energy audit or a materials claim.
+
+requirements:
+  - "Run `scripts/apl_validate_agent_published_result.py` against `results/EXP-0014/RUN-0001/result.yaml` with a disposable output directory."
+  - "Compare replay metrics, verdict, review-tier metadata, and numeric drift using the helper's tolerances."
+  - "If Gate B passes, update only the allowed review-tier / validation-record metadata on RESULT-0021."
+  - "If Gate B fails or is contested, do not mutate RESULT metrics or verdict; write a contested replay note and keep RESULT-0021 at `AGENT_PUBLISHED`."
+  - "Do not edit MD-0002 source rows, holdout split, materials claims, knowledge artifacts, or `results/golden-results.yaml`."
+  - "State that RESULT-0021 is a computed-DFT benchmark on a frozen slice, not a material recommendation, material-discovery claim, experimental measurement result, or universal-law claim."
+
+accepted_outputs:
+  - "Updated `results/EXP-0014/RUN-0001/result.yaml` review-tier metadata only if Gate B passes."
+  - "A review note under `docs/reviews/` recording command, replay output directory, compared metrics, drift, verdict, limitations, and any contested blocker."
+  - "Output-routing summary with canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay validation updates or contests an existing RESULT artifact; it does not create a new RESULT or PRED."
+  evidence:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/reviews/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0014/RUN-0001/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -92,7 +92,10 @@ freeze. `TASK-0703` then ran the formation-energy retest under the predeclared
 control plan and preserved the outcome as sandbox evidence, not a canonical
 result or materials claim. `TASK-0761` adjudicated that evidence as ready for a
 dedicated Gate A reusable-dataset plus conservative-baseline benchmark
-packaging task, with computed-DFT and slice-limited wording.
+packaging task, with computed-DFT and slice-limited wording. `TASK-0765`
+packaged that path as `RESULT-0021`, an `AGENT_PUBLISHED`,
+`VALID_IN_RANGE` Materials MD-0002 formation-energy benchmark. It is
+replay-needed before any stronger interpretation.
 
 ## Admissible Source Classes
 
@@ -183,14 +186,16 @@ confirmed the deterministic no-peek holdout freeze. `TASK-0703` produced a
 sandbox-pass formation-energy benchmark package at
 `agent_runs/AGENT-RUN-0072/` and
 `docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md`.
-`TASK-0761` selected the result path: package a Gate A reusable-dataset plus
-benchmark result candidate, but do not promote a materials claim.
+`TASK-0761` selected the result path and `TASK-0765` packaged it as
+`RESULT-0021`, an agent-published benchmark result. It does not promote a
+materials claim.
 The numbered path below is now:
 
-1. **Gate A result packaging** — package the `TASK-0703` / `TASK-0761`
-   formation-energy evidence as a computed-DFT, slice-limited reusable-dataset
-   plus conservative-baseline RESULT candidate. Band gap remains diagnostic-only
-   unless its control evidence improves.
+1. **Gate B replay** — independently replay `RESULT-0021` from its committed
+   command, hashes, and frozen MD-0002 slice. If it reproduces, update only the
+   review-tier metadata; if contested, preserve the blocker without changing
+   metrics. Band gap remains diagnostic-only unless its control evidence
+   improves.
 
 ## Why It Matters
 

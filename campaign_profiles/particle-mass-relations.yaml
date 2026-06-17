@@ -90,25 +90,26 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "falsification-first quality floor with strict numerology guardrails"
+  current_stage: "falsification-first quality floor with strict numerology guardrails; CLAIM-0007 evidence handoff is ready for maintainer review preparation"
   recommended_parallel_agents: 1
   coordination_notes: "Use for provenance, uncertainty, or negative-result memory only unless a maintainer opens a narrow task."
   best_next_actions:
-    - task_id: null
-      label: "Run narrow replay, provenance, or negative-memory tasks only when explicitly assigned"
+    - task_id: TASK-0784
+      label: "Assemble CLAIM-0007 evidence handoff from RESULT-0011 without reopening formula search"
   required_gates:
     - "Complexity penalty and uncertainty semantics before any relation comparison."
     - "No broad particle-mass formula search without a reviewed baseline."
   current_results:
     - "docs/results/koide-campaign-summary.md"
     - "docs/negative-results-registry.md"
+    - "results/EXP-0009/RUN-0001/result.yaml"
   open_questions:
     - "Which negative results should be easiest for new agents to avoid repeating?"
   curator_review:
     status: current
-    last_reviewed: "2026-05-29"
+    last_reviewed: "2026-06-17"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "docs/strategy.md"
-    notes: "Guardrail track stays useful by resisting numerology and preserving falsifications."
+    source: "RESULT-0011 and TASK-0784 science-director routing"
+    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and preparing maintainer-only claim review packets."

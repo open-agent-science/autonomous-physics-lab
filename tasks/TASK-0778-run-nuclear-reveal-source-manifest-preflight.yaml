@@ -1,0 +1,57 @@
+id: TASK-0778
+title: "Run Nuclear no-peek reveal-source manifest preflight"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Nuclear prediction/reveal readiness forward without scoring frozen predictions or touching target values."
+  - "Use the repaired reveal-readiness checklist references from TASK-0714 to test whether any source-manifest route can satisfy no-peek requirements."
+  - "Preserve a source blocker as useful prediction-reveal memory if no admissible source exists."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0714-repair-nuclear-prediction-reveal-checklist-links.yaml"
+    - "tasks/TASK-0305-score-nuclear-shell-axis-mini-wave-reveal.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "prediction_registry/nuclear_masses/"
+  planning_context: >
+    Nuclear has many frozen `PRED-*` entries but reveal scoring remains blocked
+    because a source-grade no-peek release/source manifest has not been accepted.
+    After TASK-0714 repaired checklist links, the useful next step is a
+    value-blind source-manifest preflight, not reveal scoring.
+
+requirements:
+  - "Review the current Nuclear reveal-readiness checklist and prediction-reveal protocol before writing the preflight."
+  - "Inspect only source metadata, release structure, locator stability, license/citation, checksum feasibility, and no-peek compatibility; do not inspect or record target mass values."
+  - "Return `SOURCE_MANIFEST_READY`, `SOURCE_MANIFEST_BLOCKED`, or `NEEDS_MAINTAINER_DECISION` with concrete evidence."
+  - "If blocked, preserve the blocker class and the exact missing source-manifest fields needed to reopen reveal scoring later."
+  - "Do not edit any `PRED-*` entry, score predictions, fetch value-bearing reveal rows, or promote a result/claim."
+
+accepted_outputs:
+  - "`docs/reviews/nuclear-reveal-source-manifest-preflight.md` with checked source classes, no-peek decision, blockers, and next maintainer decision."
+  - "Optional metadata-only checklist update if a link or non-value source locator needs correction."
+  - "Output-routing summary with prediction/reveal readiness status and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-manifest preflight only; no RESULT or PRED artifact is created or scored."
+  evidence:
+    - "docs/reviews/nuclear-reveal-source-manifest-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

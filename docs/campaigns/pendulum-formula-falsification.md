@@ -40,6 +40,13 @@ Current headline result:
 - no symbolic exactness claim
 - no global-validity claim
 
+Latest review state:
+
+- `RESULT-0017`, the pendulum gauntlet negative/overfit result, has passed
+  independent Gate B replay and is now `AGENT_VALIDATED`.
+- `CLAIM-0001` has a maintainer evidence handoff, but the claim remains
+  `DRAFT`; any status change is Gate C / maintainer-only.
+
 Start here:
 
 - [Pendulum Gauntlet 100 Summary](../results/pendulum-gauntlet-100-summary.md)
@@ -59,12 +66,12 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0050` — define and launch approximation-breakdown probes as a broader
-  micro-task track.
+- maintainer Gate C review of `CLAIM-0001`, if the maintainer wants to decide
+  whether range-aware ideal-pendulum wording can move beyond `DRAFT`;
 - documentation or validation tasks that tighten pendulum wording without
-  changing canonical result artifacts.
-- future benchmark tasks that preserve range-aware verdict discipline and
-  non-gating separatrix diagnostics.
+  changing canonical result artifacts;
+- future benchmark tasks only when they preserve range-aware verdict
+  discipline and non-gating separatrix diagnostics.
 
 ## Recommended Contributor Types
 

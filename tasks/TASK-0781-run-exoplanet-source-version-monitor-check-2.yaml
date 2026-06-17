@@ -1,0 +1,57 @@
+id: TASK-0781
+title: "Run metadata-only Exoplanet EXO-0003 source-version monitor check"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the Exoplanet campaign in monitor-only mode until a material source-version trigger exists."
+  - "Use metadata-only monitoring to decide whether EXO-0003 should stay paused, not to reopen residual scoring by habit."
+  - "Preserve NO_NOTIFY or NOTIFY-class outcomes as source-readiness memory with no row-value inspection."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "tasks/TASK-0715-run-exoplanet-source-version-monitor-check.yaml"
+    - "tasks/TASK-0745-plan-exoplanet-next-snapshot-trigger.yaml"
+    - "docs/reviews/exoplanet-source-version-monitor-check.md"
+    - "docs/reviews/exoplanet-next-snapshot-trigger-decision.md"
+    - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+  planning_context: >
+    TASK-0715 returned NO_NOTIFY and TASK-0745 kept EXO-0003 monitor-only.
+    The next valid Exoplanet action is another metadata-only monitor check under
+    the source-version monitor contract, with no value-bearing row fetch and no
+    residual scoring.
+
+requirements:
+  - "Run only the metadata/source-version monitor route authorized by the existing contract; do not fetch value-bearing PSCompPars rows."
+  - "Classify the outcome using the existing monitor vocabulary (`NO_NOTIFY`, `NOTIFY_METADATA_SCOUT`, `NOTIFY_GATE_REVIEW`, or a documented blocker)."
+  - "If `NO_NOTIFY`, preserve the monitor report and explicitly keep residual scoring closed."
+  - "If a NOTIFY class appears, do not ingest rows or score metrics; recommend the next metadata-only scout or coverage-gate review task."
+  - "Do not create RESULT, PRED, CLAIM, KNOW, habitability, composition, target-priority, or planet-law wording."
+
+accepted_outputs:
+  - "`docs/reviews/exoplanet-source-version-monitor-check-2.md` with monitor command/context, metadata outcome, blocker/gate state, and next decision."
+  - "Optional source-version monitor ledger update if an existing ledger surface exists; do not create a duplicate dashboard."
+  - "Output-routing summary with prediction/reveal readiness impact and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only source monitor; no RESULT or PRED artifact is created."
+  evidence:
+    - "docs/reviews/exoplanet-source-version-monitor-check-2.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet*.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

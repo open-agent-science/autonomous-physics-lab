@@ -1,0 +1,59 @@
+id: TASK-0779
+title: "Reconcile Stellar DEBCat scope flags after RESULT-0022"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove a source-scope blocker explicitly recorded in RESULT-0022 without changing benchmark metrics."
+  - "Align committed DEBCat dataset metadata with the TASK-0763 CC BY 4.0 publication route and the RESULT-0022 limitation wording."
+  - "Keep Textbook Formula Audit source readiness clean before future Stellar M-L replay or follow-on audit tasks."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0763-publish-full-debcat-dataset-under-granted-cc-by.yaml"
+    - "tasks/TASK-0764-package-stellar-ml-gate-a-result.yaml"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "data/textbook_formula_audit/"
+    - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+  planning_context: >
+    RESULT-0022 records that the committed DEBCat dataset header still carries
+    seed-stage advisory flags (`sandbox_only`, `benchmark_allowed=false`,
+    `alpha_fit_allowed=false`) from TASK-0708 even though TASK-0763 later
+    established the full CC BY 4.0 publication route. This metadata mismatch
+    should be reconciled without touching result metrics.
+
+requirements:
+  - "Find the committed DEBCat normalized dataset/header and any extractor or schema fixture that still carries superseded seed-stage scope flags."
+  - "Update only metadata/scope flags needed to reflect TASK-0763 and RESULT-0022; do not edit row values, split assignments, result metrics, or claims."
+  - "Preserve explicit no-claim wording: benchmark-allowed metadata does not imply universal M-L validation, stellar-evolution claims, or application-domain claims."
+  - "Add or update a focused regression/validation check if one exists locally for DEBCat metadata semantics."
+  - "If the correct metadata authority is ambiguous, stop with a review note rather than guessing."
+
+accepted_outputs:
+  - "Updated DEBCat dataset metadata/header and any paired schema/extractor expectation needed for consistency, or a blocker note if authority is ambiguous."
+  - "`docs/reviews/stellar-ml-debcat-scope-flag-reconciliation.md` documenting before/after scope semantics, files touched, and no-claim wording."
+  - "Output-routing summary with dataset/source readiness impact and no result/claim/knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset metadata reconciliation only; no RESULT or PRED artifact is created or modified."
+  evidence:
+    - "data/textbook_formula_audit/"
+    - "docs/reviews/stellar-ml-debcat-scope-flag-reconciliation.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

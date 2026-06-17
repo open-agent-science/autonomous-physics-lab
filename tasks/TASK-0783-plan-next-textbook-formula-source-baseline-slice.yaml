@@ -1,0 +1,57 @@
+id: TASK-0783
+title: "Plan the next Textbook Formula Audit source/baseline slice"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep Textbook Formula Audit growing through source/baseline/holdout discipline after the first Stellar M-L Gate A result, not through open-ended formula search."
+  - "Select one next formula slice from the existing candidate slate only if it can be source-pinned with explicit range, units, holdout, and verification gates."
+  - "Avoid launching empirical metrics before the source and baseline contract is reviewable."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "results/EXP-0013/RUN-0001/result.yaml"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Textbook Formula Audit now has one AGENT_VALIDATED exact-reference
+    software/convention result and one AGENT_PUBLISHED empirical Stellar M-L
+    result. The next formula should be admitted only through a source/baseline
+    planning gate, not by immediately running metrics.
+
+requirements:
+  - "Review the candidate slate and choose at most one next formula slice; if no candidate has adequate source/holdout readiness, stop with `NO_NEXT_SLICE_READY`."
+  - "For the selected slice, define dataset source/version/checksum route, row schema, baseline formula/source, independent variables, validity range, holdout policy, and verification gates."
+  - "Name at least one matched or deterministic negative control required before any later metric task."
+  - "Do not fetch live data, run empirical metrics, refit a formula, create RESULT/PRED/CLAIM/KNOW artifacts, or make universal formula claims."
+  - "Prefer updating the existing candidate list or campaign page references over creating a duplicate status page."
+
+accepted_outputs:
+  - "`docs/reviews/textbook-next-formula-source-baseline-slice.md` with selected slice or no-go decision, source gate, holdout plan, controls, stop condition, and no-claim wording."
+  - "Optional targeted update to `docs/notes/textbook-formula-audit-candidate-list.md` if the selected candidate's status changes."
+  - "Output-routing summary with source readiness impact and Gate A/Gate B not attempted."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/baseline planning only; no RESULT or PRED artifact is created."
+  evidence:
+    - "docs/reviews/textbook-next-formula-source-baseline-slice.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
