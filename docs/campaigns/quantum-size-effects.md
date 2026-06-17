@@ -58,15 +58,17 @@ The deterministic optical-energy axis (six labeled lambda_1s samples,
 figure digitization: per-sample edge length / volume is figure-only
 (SI Figure S2b TEM histograms, Figure 1b sizing curve), so it needs a
 WebPlotDigitizer-class tool run before `qd-*.yaml` rows can be curated. That
-tool run plus the `TASK-0293` row-readiness gate rerun are queued as
-`TASK-0755`. Further source-scout tasks are not needed.
+tool run plus the `TASK-0293` row-readiness gate rerun were attempted under
+`TASK-0755`. The accessible workspace did not contain the exact Figure 1b /
+SI Figure S2b raster, source page, or reusable WebPlotDigitizer-class export,
+so the task preserved a precise tool-run blocker instead of fabricating rows.
+Further source-scout tasks are not needed.
 
-**Expected next result:** `TASK-0755` produces either >=6 direct Almeida InP
-(size, energy) rows that re-run the `TASK-0293` readiness gate and can finally
-unblock the `TASK-0225` baseline, or a precise digitization tool-run blocker if
-the maintainer-supplied figure raster is not available for the run. The
-calibration-consistency waiver (option b) and pause (option c) are no longer the
-active path.
+**Expected next result:** a future curator must provide the exact Almeida
+Figure 1b / SI Figure S2b raster or a reusable WebPlotDigitizer-class export
+with axis calibration, extracted points, and uncertainty notes. Until then,
+`TASK-0293` and `TASK-0225` remain blocked. The calibration-consistency waiver
+(option b) and pause (option c) are no longer the active path.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -173,6 +175,9 @@ Current task posture:
   rows).
 - `TASK-0687` — Vossmeyer 1994 source-artifact verification (DONE; promising
   CdS direct-table path, but no committable legal source artifact yet).
+- `TASK-0755` — Almeida 2023 InP size-axis digitization and readiness gate
+  (REVIEW_READY; no figure raster/tool export was available locally, so no
+  `qd-*.yaml` rows were created and `TASK-0293` remains blocked).
 
 Safe next contributions are:
 

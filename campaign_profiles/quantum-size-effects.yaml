@@ -84,12 +84,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Almeida 2023 InP source selected, license-confirmed, checksum-pinned, and awaiting size-axis digitization before row readiness"
+  current_stage: "Almeida 2023 InP source selected, license-confirmed, checksum-pinned, and TASK-0755 preserved a source-raster/tool-export blocker before row readiness"
   recommended_parallel_agents: 1
   coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."
   best_next_actions:
-    - task_id: TASK-0755
-      label: "Digitize Almeida size axis and rerun row-readiness gate before baseline metrics"
+    - task_id: null
+      label: "Provide the exact Almeida Figure 1b / SI Figure S2b raster or WebPlotDigitizer export before reopening row curation"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -97,14 +97,15 @@ portfolio:
   current_results:
     - "data/quantum_dots/source_manifest.yaml"
     - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md"
   open_questions:
-    - "Can the Almeida size-axis figure be digitized with enough provenance to curate >=6 direct rows?"
+    - "Can a future curator provide the exact Almeida size-axis raster or WebPlotDigitizer export with enough provenance to curate >=6 direct rows?"
     - "If not, should the campaign pause or revisit the weaker calibration-consistency scope?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-15"
+    last_reviewed: "2026-06-17"
     review_interval: quarterly_blocked
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-0741 and TASK-0755 source-readiness route"
-    notes: "Source selection is resolved for the current wave; the blocker is deterministic size-axis digitization, not another scout."
+    source: "TASK-0755 source-raster blocker review"
+    notes: "Source selection, license, and checksum pinning are resolved; row curation remains blocked until the exact Almeida size-axis raster or replayable WebPlotDigitizer export is available."
