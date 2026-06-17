@@ -94,6 +94,8 @@ PROPOSAL_TRIAGE_BODY_MARKERS = (
     "proposal cleanup",
     "stale proposal",
 )
+DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS = 300
+VALIDATION_OUTPUT_EXCERPT_CHARS = 500
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
@@ -217,6 +219,20 @@ class CleanPrWorktree:
 
 
 @dataclass(frozen=True)
+class ValidationCommandOutcome:
+    """Structured result for one maintainer-review validation command."""
+
+    command: str
+    executed_command: str
+    status: str
+    returncode: int
+    elapsed_seconds: float
+    stdout_excerpt: str = ""
+    stderr_excerpt: str = ""
+    reason: str = ""
+
+
+@dataclass(frozen=True)
 class ValidationSummary:
     """Result of running task validation commands."""
 
@@ -224,6 +240,7 @@ class ValidationSummary:
     failed_commands: tuple[str, ...]
     executed_commands: tuple[str, ...] = ()
     skipped_commands: tuple[str, ...] = ()
+    outcomes: tuple[ValidationCommandOutcome, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -241,6 +258,7 @@ class ReviewReport:
     required_fixes: tuple[str, ...]
     recommended_action: str
     advisory_warnings: tuple[str, ...] = ()
+    validation_outcomes: tuple[ValidationCommandOutcome, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -440,6 +458,78 @@ def ci_aware_validation_command(command_text: str) -> str | None:
     return command_text
 
 
+def _validation_excerpt(text: str, *, limit: int = VALIDATION_OUTPUT_EXCERPT_CHARS) -> str:
+    """Return a bounded single-line excerpt for review diagnostics."""
+    normalized = " ".join(text.strip().split())
+    if len(normalized) <= limit:
+        return normalized
+    return normalized[: limit - 15].rstrip() + " ... [truncated]"
+
+
+def _validation_failure_status(result: CommandResult) -> tuple[str, str]:
+    """Classify a failed validation command without weakening the review gate."""
+    if result.timed_out:
+        return "timeout", "command exceeded the review validation budget"
+    combined = f"{result.stdout}\n{result.stderr}".lower()
+    if (
+        "permissionerror: [winerror 5]" in combined
+        and (
+            "cleanup_dead_symlinks" in combined
+            or "basetemp" in combined
+            or ".pytest-tmp" in combined
+            or "_pytest" in combined
+        )
+    ):
+        return "environment_failure", "known Windows pytest temp-directory cleanup failure"
+    if (
+        "filenotfounderror: [winerror 3]" in combined
+        and ("basetemp" in combined or "getbasetemp" in combined)
+    ):
+        return "environment_failure", "known Windows pytest basetemp parent-directory failure"
+    if (
+        "xdist" in combined
+        and (
+            "internalerror" in combined
+            or "worker" in combined
+            or "execnet" in combined
+        )
+    ):
+        return "environment_failure", "pytest-xdist worker/runtime infrastructure failure"
+    runtime_markers = (
+        "is not recognized as the name of a cmdlet",
+        "python was not found",
+        "no module named",
+        "can't open file",
+        "no such file or directory",
+        "requires python",
+        "unsupported python",
+    )
+    if any(marker in combined for marker in runtime_markers):
+        return "runtime_failure", "interpreter or validation runtime failed before assertions completed"
+    assertion_markers = (
+        "assertionerror",
+        "e assert",
+        "failed",
+        "== failures ==",
+        "short test summary info",
+    )
+    if any(marker in combined for marker in assertion_markers):
+        return "assertion_failure", "validation command reported a test/assertion failure"
+    return "command_failure", "validation command exited non-zero"
+
+
+def _validation_summary_status(outcomes: tuple[ValidationCommandOutcome, ...]) -> str:
+    failing = tuple(outcome for outcome in outcomes if outcome.status != "pass")
+    if not failing:
+        return "pass"
+    if any(
+        outcome.status in {"assertion_failure", "command_failure"}
+        for outcome in failing
+    ):
+        return "fail"
+    return "environment_blocked"
+
+
 def run_task_validation(
     root: Path,
     task_payload: dict[str, Any],
@@ -447,6 +537,7 @@ def run_task_validation(
     enabled: bool,
     skip_commands_containing: tuple[str, ...] = (),
     ci_aware: bool = False,
+    validation_timeout_seconds: int = DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS,
 ) -> ValidationSummary:
     """Run validation commands from the task file when feasible."""
     if not enabled:
@@ -454,6 +545,7 @@ def run_task_validation(
     failed_commands: list[str] = []
     executed_commands: list[str] = []
     skipped_commands: list[str] = []
+    outcomes: list[ValidationCommandOutcome] = []
     # Prefer the repository venv interpreter so validation never runs on an
     # unsupported launcher (e.g. a bare system python 3.9) — see TASK-0725.
     validation_python = resolve_validation_python(root)
@@ -471,27 +563,40 @@ def run_task_validation(
             _portable_validation_command(local_command, python_executable=validation_python),
             cwd=root,
             shell=True,
-            # The full local pytest fallback (used when GitHub checks are not yet
-            # green and ci-aware cannot reuse them) runs close to 300s, so a 300s
-            # timeout crashed the review tool. Give the fallback ample headroom;
-            # ci-aware mode still skips this re-run when checks are already green.
-            # See TASK-0466, F3.
-            timeout=900,
+            timeout=validation_timeout_seconds,
+        )
+        status = "pass"
+        reason = ""
+        if result.returncode != 0:
+            status, reason = _validation_failure_status(result)
+        outcomes.append(
+            ValidationCommandOutcome(
+                command=command_text,
+                executed_command=local_command,
+                status=status,
+                returncode=result.returncode,
+                elapsed_seconds=result.elapsed_seconds,
+                stdout_excerpt=_validation_excerpt(result.stdout),
+                stderr_excerpt=_validation_excerpt(result.stderr),
+                reason=reason,
+            )
         )
         if result.returncode != 0:
             failed_commands.append(command_text)
     if failed_commands:
         return ValidationSummary(
-            status="fail",
+            status=_validation_summary_status(tuple(outcomes)),
             failed_commands=tuple(failed_commands),
             executed_commands=tuple(executed_commands),
             skipped_commands=tuple(skipped_commands),
+            outcomes=tuple(outcomes),
         )
     return ValidationSummary(
         status="pass",
         failed_commands=(),
         executed_commands=tuple(executed_commands),
         skipped_commands=tuple(skipped_commands),
+        outcomes=tuple(outcomes),
     )
 
 
@@ -1084,6 +1189,7 @@ def build_review_report(
     branch: str | None = None,
     task_id: str | None = None,
     validation_mode: str = "strict",
+    validation_timeout_seconds: int = DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS,
 ) -> ReviewReport:
     """Build a maintainer review verdict, self-cleaning any review worktree.
 
@@ -1112,6 +1218,7 @@ def build_review_report(
             branch=branch,
             task_id=task_id,
             validation_mode=validation_mode,
+            validation_timeout_seconds=validation_timeout_seconds,
             worktree_sink=created_worktrees,
         )
     finally:
@@ -1129,6 +1236,7 @@ def _compose_review_report(
     branch: str | None = None,
     task_id: str | None = None,
     validation_mode: str = "strict",
+    validation_timeout_seconds: int = DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS,
     worktree_sink: list[Path] | None = None,
 ) -> ReviewReport:
     """Build a maintainer review verdict for the current or provided branch."""
@@ -1722,6 +1830,7 @@ def _compose_review_report(
             and pr_metadata is not None
             and pr_metadata.status_checks_passed is True
         ),
+        validation_timeout_seconds=validation_timeout_seconds,
     )
     if validation_mode == "ci-aware" and validation.skipped_commands:
         executed = ", ".join(validation.executed_commands) or "no local-only commands"
@@ -1734,6 +1843,14 @@ def _compose_review_report(
     if validation.status == "fail":
         blockers.append(
             "Validation commands failed: " + ", ".join(validation.failed_commands) + "."
+        )
+    elif validation.status == "environment_blocked":
+        blockers.append(
+            "Validation commands were environment-blocked: "
+            + ", ".join(validation.failed_commands)
+            + ". The maintainer must explicitly decide whether an equivalent "
+            "green CI gate is sufficient or the command must be rerun in a "
+            "healthy local environment."
         )
     elif validation.status == "not_run" and not closeout_ci_pass:
         required_fixes.append("Validation commands were not executed during this review run.")
@@ -1775,6 +1892,7 @@ def _compose_review_report(
         required_fixes=tuple(required_fixes),
         recommended_action=recommended_action,
         advisory_warnings=tuple(advisory_warnings),
+        validation_outcomes=validation.outcomes,
     )
 
 
@@ -1794,6 +1912,25 @@ def render_review_report(report: ReviewReport) -> str:
     else:
         lines.append("- none")
     lines.append(f"Validation: {report.validation}")
+    lines.append("Validation details:")
+    if report.validation_outcomes:
+        for outcome in report.validation_outcomes:
+            lines.append(
+                "- "
+                + outcome.command
+                + f" -> {outcome.status} "
+                + f"(exit {outcome.returncode}, {outcome.elapsed_seconds:.2f}s)"
+            )
+            if outcome.executed_command != outcome.command:
+                lines.append(f"  executed: {outcome.executed_command}")
+            if outcome.reason:
+                lines.append(f"  reason: {outcome.reason}")
+            if outcome.stdout_excerpt:
+                lines.append(f"  stdout: {outcome.stdout_excerpt}")
+            if outcome.stderr_excerpt:
+                lines.append(f"  stderr: {outcome.stderr_excerpt}")
+    else:
+        lines.append("- none")
     lines.append("Security risks:")
     if report.security_risks:
         lines.extend(f"- {item}" for item in report.security_risks)

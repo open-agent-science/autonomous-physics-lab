@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import fnmatch
 import subprocess
+import time
 
 
 # Paths that may appear as untracked in `git status --short` but are pure
@@ -42,6 +43,8 @@ class CommandResult:
     returncode: int
     stdout: str
     stderr: str
+    timed_out: bool = False
+    elapsed_seconds: float = 0.0
 
 
 def run_command(
@@ -52,19 +55,34 @@ def run_command(
     timeout: int = 60,
 ) -> CommandResult:
     """Run a command and return captured output without raising."""
-    completed = subprocess.run(
-        command,
-        cwd=cwd,
-        shell=shell,
-        text=True,
-        capture_output=True,
-        timeout=timeout,
-        check=False,
-    )
+    started = time.monotonic()
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=cwd,
+            shell=shell,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        elapsed = time.monotonic() - started
+        stdout = exc.stdout if isinstance(exc.stdout, str) else ""
+        stderr = exc.stderr if isinstance(exc.stderr, str) else ""
+        return CommandResult(
+            returncode=-1,
+            stdout=stdout,
+            stderr=stderr or f"Command timed out after {timeout} seconds.",
+            timed_out=True,
+            elapsed_seconds=elapsed,
+        )
+    elapsed = time.monotonic() - started
     return CommandResult(
         returncode=completed.returncode,
         stdout=completed.stdout,
         stderr=completed.stderr,
+        elapsed_seconds=elapsed,
     )
 
 

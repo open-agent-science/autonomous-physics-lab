@@ -30,6 +30,15 @@ def build_parser() -> argparse.ArgumentParser:
             "task validation command locally."
         ),
     )
+    parser.add_argument(
+        "--validation-timeout-seconds",
+        type=int,
+        default=300,
+        help=(
+            "Per-command local validation budget for maintainer-review task "
+            "commands. Timeouts block the verdict with environment diagnostics."
+        ),
+    )
     return parser
 
 
@@ -50,6 +59,7 @@ def main() -> int:
         branch=args.branch,
         task_id=args.task,
         validation_mode=args.validation_mode,
+        validation_timeout_seconds=args.validation_timeout_seconds,
     )
     print(render_review_report(report))
     return 0

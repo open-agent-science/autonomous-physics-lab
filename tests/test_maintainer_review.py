@@ -10,6 +10,7 @@ from physics_lab.registry.maintainer_review import (
     CleanPrWorktree,
     ReviewReport,
     PullRequestMetadata,
+    ValidationCommandOutcome,
     ValidationSummary,
     branch_microtask_id,
     branch_microtask_queue_id,
@@ -54,6 +55,7 @@ from physics_lab.registry.pr_finish_gate import (
     CiGate,
     finish_pr,
     render_finish_gate_report,
+    run_review_gate,
 )
 
 
@@ -970,6 +972,151 @@ def test_run_task_validation_ci_aware_skips_ci_duplicates_but_runs_remainder(
         "python3 -m ruff check .",
         "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
     )
+
+
+def test_run_task_validation_classifies_assertion_failure(tmp_path: Path) -> None:
+    payload = {"validation": {"commands": ["python3 -m pytest tests/test_example.py"]}}
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command, kwargs
+        return CommandResult(
+            returncode=1,
+            stdout="FAILED tests/test_example.py::test_example - AssertionError",
+            stderr="",
+            elapsed_seconds=1.25,
+        )
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "fail"
+    assert summary.failed_commands == ("python3 -m pytest tests/test_example.py",)
+    assert summary.outcomes[0].status == "assertion_failure"
+    assert summary.outcomes[0].returncode == 1
+    assert summary.outcomes[0].elapsed_seconds == 1.25
+
+
+def test_run_task_validation_classifies_timeout(tmp_path: Path) -> None:
+    payload = {"validation": {"commands": ["python3 -m pytest tests/test_slow.py"]}}
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command
+        assert kwargs["timeout"] == 7
+        return CommandResult(
+            returncode=-1,
+            stdout="",
+            stderr="Command timed out after 7 seconds.",
+            timed_out=True,
+            elapsed_seconds=7.01,
+        )
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(
+            tmp_path,
+            payload,
+            enabled=True,
+            validation_timeout_seconds=7,
+        )
+
+    assert summary.status == "environment_blocked"
+    assert summary.outcomes[0].status == "timeout"
+    assert "validation budget" in summary.outcomes[0].reason
+
+
+def test_run_task_validation_classifies_windows_temp_failure(tmp_path: Path) -> None:
+    payload = {"validation": {"commands": ["python3 -m pytest tests/test_example.py"]}}
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command, kwargs
+        return CommandResult(
+            returncode=1,
+            stdout="",
+            stderr=(
+                "cleanup_dead_symlinks(basetemp)\n"
+                "PermissionError: [WinError 5] Access is denied: '.pytest-tmp'"
+            ),
+            elapsed_seconds=3.0,
+        )
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "environment_blocked"
+    assert summary.outcomes[0].status == "environment_failure"
+    assert "Windows pytest temp-directory" in summary.outcomes[0].reason
+
+
+def test_run_task_validation_classifies_xdist_worker_failure(tmp_path: Path) -> None:
+    payload = {"validation": {"commands": ["python3 -m pytest tests/test_example.py"]}}
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command, kwargs
+        return CommandResult(
+            returncode=1,
+            stdout="INTERNALERROR> xdist worker crashed via execnet",
+            stderr="",
+            elapsed_seconds=4.0,
+        )
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "environment_blocked"
+    assert summary.outcomes[0].status == "environment_failure"
+    assert "pytest-xdist" in summary.outcomes[0].reason
+
+
+def test_run_task_validation_classifies_runtime_failure(tmp_path: Path) -> None:
+    payload = {"validation": {"commands": ["python3 -m pytest tests/test_example.py"]}}
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command, kwargs
+        return CommandResult(
+            returncode=1,
+            stdout="",
+            stderr="Python was not found; run without arguments to install from the Microsoft Store.",
+            elapsed_seconds=0.2,
+        )
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "environment_blocked"
+    assert summary.outcomes[0].status == "runtime_failure"
+    assert "runtime failed" in summary.outcomes[0].reason
+
+
+def test_render_review_report_includes_validation_outcome_details() -> None:
+    report = ReviewReport(
+        verdict="BLOCKED",
+        risk="high",
+        task_id="TASK-0770",
+        branch="agent/roman/codex/task-0770-validation-budgets",
+        changed_files=("physics_lab/registry/maintainer_review.py",),
+        validation="environment_blocked",
+        security_risks=(),
+        blockers=("Validation commands were environment-blocked: python3 -m pytest.",),
+        required_fixes=(),
+        recommended_action="Do not merge. Return the blockers to the developer.",
+        validation_outcomes=(
+            ValidationCommandOutcome(
+                command="python3 -m pytest",
+                executed_command='"C:/repo/.venv/Scripts/python.exe" -m pytest',
+                status="timeout",
+                returncode=-1,
+                elapsed_seconds=7.01,
+                stderr_excerpt="Command timed out after 7 seconds.",
+                reason="command exceeded the review validation budget",
+            ),
+        ),
+    )
+
+    rendered = render_review_report(report)
+
+    assert "Validation details:" in rendered
+    assert "python3 -m pytest -> timeout (exit -1, 7.01s)" in rendered
+    assert "executed: \"C:/repo/.venv/Scripts/python.exe\" -m pytest" in rendered
+    assert "reason: command exceeded the review validation budget" in rendered
 
 
 def test_portable_validation_command_uses_git_bash_for_repo_shell_script() -> None:
@@ -2838,6 +2985,23 @@ def test_finish_gate_marks_ready_after_merge_ok_and_green_ci(tmp_path: Path) -> 
     assert report.review_verdict == "MERGE_OK"
     assert report.ci_status == "pass"
     ready.assert_called_once()
+
+
+def test_run_review_gate_passes_validation_timeout(tmp_path: Path) -> None:
+    captured: list[list[str]] = []
+
+    def fake_run_command(command: list[str], **kwargs: object) -> CommandResult:
+        del kwargs
+        captured.append(command)
+        return CommandResult(returncode=0, stdout="Verdict: MERGE_OK\n", stderr="")
+
+    with patch("physics_lab.registry.pr_finish_gate.run_command", fake_run_command):
+        result = run_review_gate(tmp_path, 101, validation_timeout_seconds=17)
+
+    assert result.returncode == 0
+    assert captured
+    assert "--validation-timeout-seconds" in captured[0]
+    assert "17" in captured[0]
 
 
 def test_finish_gate_blocks_ready_transition_when_ci_fails(tmp_path: Path) -> None:

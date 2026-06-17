@@ -155,6 +155,23 @@ case where the maintainer wants every task validation command re-run locally:
 python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX --validation-mode strict
 ```
 
+Local validation commands are bounded per command. The default budget is 300
+seconds, and maintainers can override it when a task intentionally needs a
+longer or shorter local gate:
+
+```bash
+python3 scripts/apl_review_pr.py --pr <number> --validation-timeout-seconds 120
+```
+
+The review report preserves the original task command, the portable command
+actually executed, elapsed time, exit status, and bounded stdout/stderr
+excerpts. A real assertion or test failure remains `fail` and blocks merge. A
+timeout, interpreter/runtime failure, Windows pytest temp-directory failure, or
+pytest-xdist worker infrastructure failure is reported as
+`environment_blocked`: it still blocks merge, but it asks for an explicit
+maintainer decision on whether an equivalent green CI gate is sufficient or the
+command must be rerun in a healthy local environment.
+
 ### Finish Gate Helper
 
 After a contributor PR has been opened as a draft, the bounded finish helper can
@@ -169,6 +186,8 @@ the PR ready only when `scripts/apl_review_pr.py --pr <number>` returns
 `MERGE_OK` and `gh pr checks --json` reports no failing or pending required
 checks. If review or CI blocks, it keeps the PR draft and prints the next safe
 command, including a failing-check inspection command when available.
+Pass `--validation-timeout-seconds <seconds>` here too when the finish gate
+should use a non-default local review-validation budget.
 
 ### Clean PR Worktree Review
 

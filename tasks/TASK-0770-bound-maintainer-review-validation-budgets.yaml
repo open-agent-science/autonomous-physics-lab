@@ -1,7 +1,7 @@
 id: TASK-0770
 title: "Bound maintainer-review validation and classify environment failures"
 type: tooling_reliability
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
