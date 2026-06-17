@@ -95,6 +95,10 @@ empirical lane is now Stellar M-L: `TASK-0759`, `TASK-0762`, `TASK-0763`, and
 packaging blockers. The next result path is Gate B replay for `RESULT-0022`.
 The paired source-readiness cleanup is to reconcile superseded DEBCat
 seed-stage scope flags recorded in the result limitations.
+`TASK-0783` selected the next formula slice only as a future source-curation
+route: Wien displacement against a pinned FIRAS source artifact, with no
+metrics until wavelength-domain peak semantics, checksums, license posture, and
+spectral coverage are frozen.
 
 **Expected next result:** a Gate-B-validated Stellar M-L reusable-dataset plus
 benchmark result, or a precise contested replay blocker if the package cannot
@@ -246,7 +250,8 @@ candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
 (M-L) out-of-distribution audit**. Source/baseline, Route 2 local benchmark,
 stage/split/null controls, baseline adequacy, full DEBCat dataset publication,
 and Gate A packaging have landed; the next step is Gate B replay with
-conservative scope and no universal-law wording.
+conservative scope and no universal-law wording. The next source-curation-only
+slice after that bottleneck is Wien/FIRAS, not a live metric run.
 
 ## Cross-References
 
