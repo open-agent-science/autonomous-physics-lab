@@ -47,7 +47,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_exoplanet*.py tests/test_docs_links.py"
+    - "python3 -m pytest --basetemp .pytest-basetemp-task0781 tests/test_exoplanet_source_acquisition_portability.py tests/test_exoplanet_snapshot_delta_audit.py tests/test_exoplanet_second_snapshot_reopen_coverage_check.py tests/test_exoplanet_second_snapshot_dry_run.py tests/test_exoplanet_second_snapshot_baseline_replay_preflight.py tests/test_exoplanet_second_snapshot_acquisition.py tests/test_exoplanet_regime_residual_scout.py tests/test_exoplanet_null_baseline_family_audit.py tests/test_exoplanet_neptunian_residual_matched_control_audit.py tests/test_exoplanet_mass_radius_loader.py tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_mass_radius_baseline.py tests/test_exoplanet_host_uncertainty_selection_effects.py tests/test_exoplanet_compact_subneptune_residual_pilot.py tests/test_exoplanet_compact_subneptune_matched_control_audit.py tests/test_exoplanet_compact_radius_mass_quartile_scout.py tests/test_exoplanet_compact_radius_host_context_preflight.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
