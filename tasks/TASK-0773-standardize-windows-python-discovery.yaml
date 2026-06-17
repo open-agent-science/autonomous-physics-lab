@@ -1,0 +1,75 @@
+id: TASK-0773
+title: "Standardize Windows Python environment discovery for APL agents"
+type: developer_infrastructure
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated Windows setup friction for Codex, Claude Code, and human contributors running APL validation."
+  - "Make interpreter selection deterministic so validation failures are separated from local launcher or PATH ambiguity."
+  - "Preserve cross-platform validation semantics while documenting Windows-specific fallback behavior clearly."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "tasks/proposals/20260531-roman-windows-python-discovery.yaml"
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/contributing-workflow.md"
+    - "docs/testing.md"
+    - "scripts/apl_agent_doctor.py"
+    - "scripts/apl_pr_capability_check.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "scripts/auto_run_next_task.py"
+    - "tests/test_agent_doctor.py"
+    - "tests/test_task_pr_helper.py"
+    - "tests/test_auto_run_next_task.py"
+    - "TASK-0469"
+  planning_context: >
+    Maintainer-accepted proposal promotion. Several Windows agent sessions
+    needed manual discovery or attachment of a usable python.exe before
+    validation could run. TASK-0469 made many subprocess calls
+    active-interpreter safe, but agents still lack a canonical repository-level
+    discovery path when python3, python, the repository virtual environment, and
+    system python.exe differ. Define and document a deterministic interpreter
+    selection/reporting path without installing packages, mutating PATH, or
+    hiding real dependency failures.
+
+requirements:
+  - "Define a deterministic Windows interpreter discovery priority order for APL validation helpers."
+  - "Prefer the active interpreter (`sys.executable`) when a helper is already running under the correct repository environment."
+  - "Document how agents report the selected interpreter before running pytest, repository validation, and helper scripts."
+  - "Audit helper subprocess calls touched by this task and use the selected interpreter only where it is the correct source of truth."
+  - "Do not require network access, package installation, registry edits, global PATH mutation, or shell-profile changes to pass repository validation."
+  - "Do not relax strict validation, skip broad Windows coverage, silently replace missing dependencies with fallback logic, or mask real runtime failures."
+  - "Keep non-Windows behavior stable unless a change is required for a shared helper and covered by tests."
+
+accepted_outputs:
+  - "documented Windows interpreter discovery priority order for APL agents"
+  - "helper or doctor output that reports the selected interpreter and actionable mismatch diagnostics"
+  - "focused regression tests for interpreter selection/reporting behavior"
+  - "minimal docs updates in agent/contributor validation guidance"
+
+result_artifact_policy:
+  required: false
+  reason: "Developer infrastructure task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "scripts/apl_agent_doctor.py"
+    - "scripts/apl_pr_capability_check.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "docs/agent-task-protocol.md"
+    - "docs/testing.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_agent_doctor.py tests/test_task_pr_helper.py tests/test_auto_run_next_task.py"
+    - "python3 -m ruff check scripts/apl_agent_doctor.py scripts/apl_pr_capability_check.py scripts/apl_task_pr_helper.py scripts/auto_run_next_task.py tests/test_agent_doctor.py tests/test_task_pr_helper.py tests/test_auto_run_next_task.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

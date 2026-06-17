@@ -1,0 +1,64 @@
+id: TASK-0772
+title: "Normalize UTF-8 BOM in maintainer-review PR body parsing"
+type: tooling_reliability
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep PR helper and maintainer-review parsing behavior consistent across Windows and PowerShell-generated UTF-8 files."
+  - "Remove a narrow false-review-blocker class without weakening required PR template or metadata checks."
+  - "Preserve long-term review-helper stability by centralizing or consistently applying PR-body normalization."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/proposals/20260614-romanhladun24-dot-review-pr-body-bom.yaml"
+    - "physics_lab/registry/review_policy.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "tests/test_maintainer_review.py"
+    - "tests/test_review_checks.py"
+    - "tests/test_task_pr_helper.py"
+    - "TASK-0530"
+  planning_context: >
+    Maintainer-accepted proposal promotion. TASK-0530 made canonical task PR
+    preflight BOM-tolerant after PowerShell-generated UTF-8 input exposed the
+    first occurrence. PR #1076 exposed the same boundary later in maintainer
+    review, where a BOM-prefixed first heading can hide the PR Kind section and
+    create a false missing-template finding. Keep this task limited to leading
+    BOM normalization before PR body section and metadata parsing.
+
+requirements:
+  - "Normalize only leading Unicode BOM markers before PR body section and metadata parsing."
+  - "Apply the normalization consistently at maintainer-review PR body parsing boundaries, preferably through a shared helper or single parser entrypoint."
+  - "Cover the first PR Kind heading, metadata fields, output routing, and normal no-BOM bodies with focused regression tests."
+  - "Do not weaken required PR template sections, accept blank metadata, skip output-routing checks, or ignore genuinely malformed PR bodies."
+  - "Do not rewrite PR body contents, trim meaningful non-BOM text, or add platform-specific encoding assumptions."
+  - "Keep the fix portable across macOS, Linux, Windows, Claude Code, Codex, and maintainer CLI environments."
+
+accepted_outputs:
+  - "shared or consistently applied PR-body leading-BOM normalization"
+  - "focused maintainer-review BOM regression tests"
+  - "brief documentation or code comment if the normalization boundary is not self-evident"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer review tooling task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/review_policy.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_review_checks.py tests/test_task_pr_helper.py"
+    - "python3 -m ruff check physics_lab/registry/review_policy.py physics_lab/registry/maintainer_review.py physics_lab/registry/task_pr_helper.py tests/test_maintainer_review.py tests/test_review_checks.py tests/test_task_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

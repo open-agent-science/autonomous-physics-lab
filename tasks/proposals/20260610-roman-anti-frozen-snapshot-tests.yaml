@@ -1,6 +1,6 @@
 proposal_id: 20260610-roman-anti-frozen-snapshot-tests
 title: "Ban frozen task-id/board snapshots in tests; check live state dynamically"
-status: PROPOSED
+status: ACCEPTED
 type: test_infrastructure
 priority: medium
 
@@ -57,6 +57,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "From the 2026-06-10 workflow retrospective; follows TASK-0685."
+  canonical_task_id: TASK-0774
+  decision: accepted
+  notes: "Promoted by maintainer-directed TASK-QUEUE PR for architect reliability hardening; follows TASK-0685."
