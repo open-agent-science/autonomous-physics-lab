@@ -211,7 +211,10 @@ python3 scripts/apl_prepush_check.py --full # whole fast suite (validate_fast.py
 ```
 
 It runs with the repository venv interpreter, so launching with a bare system
-python does not produce false failures.
+python does not produce false failures. The targeted pytest gate uses a unique
+explicit `--basetemp`; when no candidate temp root is writable, the helper
+reports the gate as `ENVIRONMENT BLOCKED` and points to the doctor pytest probe
+instead of silently disabling xdist or targeted coverage.
 
 **Do not foreground-watch CI after opening the PR.** Publication is
 non-blocking: open the draft PR, run the finish gate **once**, and move on to the

@@ -8,6 +8,7 @@ import sys
 
 from physics_lab.registry.prepush_check import (
     TARGETED_TEST_FILES,
+    allocate_pytest_basetemp,
     build_gate_commands,
     render_prepush_report,
     run_prepush_checks,
@@ -29,6 +30,7 @@ def test_default_gates_cover_ruff_targeted_tests_and_strict_validation(tmp_path:
     targeted = next(g for g in gates if g.name == "targeted-docs-task-tests")
     assert "tests/test_task_reference_convention.py" in targeted.command
     assert "tests/test_docs_links.py" in targeted.command
+    assert "--basetemp" in targeted.command
 
 
 def test_full_mode_runs_validate_fast_only(tmp_path: Path) -> None:
@@ -52,6 +54,68 @@ def test_gates_prefer_repo_venv_interpreter(tmp_path: Path) -> None:
     gates = build_gate_commands(tmp_path, full=False)
 
     assert gates[0].command[0] == str(venv_python.resolve())
+
+
+def test_allocate_pytest_basetemp_uses_env_override(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    override = tmp_path / "override-temp"
+    monkeypatch.setenv("APL_PYTEST_BASETEMP_ROOT", str(override))
+
+    basetemp, error = allocate_pytest_basetemp(tmp_path)
+
+    assert error is None
+    assert basetemp is not None
+    assert basetemp.parent == override
+    assert override.exists()
+    assert not basetemp.exists()
+
+
+def test_run_prepush_checks_cleans_targeted_pytest_basetemp(tmp_path: Path) -> None:
+    observed_basetemp: list[Path] = []
+
+    def runner(command, cwd):  # noqa: ANN001
+        if "pytest" in command:
+            index = command.index("--basetemp")
+            basetemp = Path(command[index + 1])
+            observed_basetemp.append(basetemp)
+            assert basetemp.parent.exists()
+            basetemp.mkdir()
+        return _FakeCompleted(0)
+
+    report = run_prepush_checks(tmp_path, runner=runner)
+
+    assert report.passed
+    assert observed_basetemp
+    assert not observed_basetemp[0].exists()
+
+
+def test_run_prepush_checks_reports_environment_blocker_for_unwritable_temp(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    marker_file = tmp_path / "not-a-directory"
+    marker_file.write_text("x", encoding="utf-8")
+    monkeypatch.setattr(
+        "physics_lab.registry.prepush_check._candidate_basetemp_roots",
+        lambda root: (marker_file,),
+    )
+    calls: list[list[str]] = []
+
+    def runner(command, cwd):  # noqa: ANN001
+        calls.append(command)
+        return _FakeCompleted(0)
+
+    report = run_prepush_checks(tmp_path, runner=runner)
+
+    assert not report.passed
+    blocked = next(result for result in report.results if result.environment_error)
+    assert blocked.name == "targeted-docs-task-tests"
+    assert blocked.returncode == 2
+    assert "apl_agent_doctor.py --probe-pytest-runtime" in blocked.environment_error
+    assert not any("pytest" in command for command in calls)
+    assert "ENVIRONMENT BLOCKED" in render_prepush_report(report)
 
 
 def test_run_prepush_checks_passes_when_all_gates_pass(tmp_path: Path) -> None:
