@@ -32,6 +32,8 @@ source_state:
   - docs/blind-holdout-benchmark-protocol.md
   - docs/nuclear-mass-holdout-protocol.md
   - docs/prediction-registry-policy.md
+  - docs/nuclear-prediction-reveal-protocol.md
+  - docs/nuclear-reveal-source-readiness-checklist.md
   live_external_fetch_allowed: false
   source_data_state_note: 'Registered from repository state 55e0bb71c7875f43dddcb21b02c7ef7c3c353092
     without live external fetching. Target nuclides are repo-prospective: absent from committed NMD-0002
