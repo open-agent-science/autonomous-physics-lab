@@ -1,6 +1,6 @@
 proposal_id: 20260614-romanhladun24-dot-prepush-windows-pytest-temp
 title: Make pre-push pytest temp handling robust on Windows
-status: PROPOSED
+status: ACCEPTED
 type: tooling_reliability
 priority: high
 proposed_by:
@@ -46,6 +46,6 @@ validation:
   - python3 -m physics_lab.cli validate-repo .
   - python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0771
+  decision: accepted
+  notes: Promoted by maintainer-directed TASK-QUEUE PR for review validation and Windows pre-push reliability work.
