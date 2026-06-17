@@ -380,7 +380,20 @@ def _safe_replay_command(payload: dict[str, Any], *, root: Path) -> tuple[str, .
 def _replayed_result_path(payload: dict[str, Any], replay_dir: Path) -> Path:
     experiment_id = str(payload.get("experiment_id"))
     run_id = str(payload.get("run_id"))
-    return replay_dir / experiment_id / run_id / "result.yaml"
+    # Workflows differ in how they place result.yaml under an explicit
+    # --output-dir. Most nest it as <output-dir>/EXP-XXXX/RUN-XXXX/result.yaml,
+    # but some (e.g. the dimensional analysis validator) write it flat directly
+    # in <output-dir>/result.yaml to avoid double-nesting. Accept either layout
+    # so Gate B replay works across all run workflows.
+    nested = replay_dir / experiment_id / run_id / "result.yaml"
+    if nested.exists():
+        return nested
+    flat = replay_dir / "result.yaml"
+    if flat.exists():
+        return flat
+    # Neither layout produced a file; report the canonical nested path so the
+    # missing-result error stays stable for callers and tests.
+    return nested
 
 
 def _compare_results(
