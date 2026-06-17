@@ -532,12 +532,16 @@ steps:
 
 ```bash
 python3 scripts/apl_agent_doctor.py
+python3 scripts/apl_agent_doctor.py --worktree-runtime-preflight --no-gh-auth-check
 ```
 
 The doctor reports environment diagnostics only. It does not install packages,
 mutate global `PATH`, store credentials, relax validation, or replace the task
-protocol. Use it to identify the next safe troubleshooting step, then continue
-with the standard PR helper flow.
+protocol. The worktree-runtime preflight prints the selected validation Python
+and deterministic discovery order: active repository `.venv`, checkout `.venv`,
+main-checkout `.venv` for git worktrees, then active-interpreter fallback. Use
+it to identify the next safe troubleshooting step, then continue with the
+standard PR helper flow.
 
 Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
 Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI

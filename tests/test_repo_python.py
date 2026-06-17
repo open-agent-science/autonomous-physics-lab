@@ -12,6 +12,7 @@ import pytest
 from physics_lab.registry.repo_python import (
     find_repo_python,
     resolve_validation_python,
+    select_validation_python,
     venv_python_candidates,
 )
 
@@ -76,6 +77,77 @@ def test_resolve_validation_python_prefers_repo_venv(tmp_path: Path) -> None:
 
     assert resolved == str(target.resolve())
     assert resolved != sys.executable
+
+
+def test_select_validation_python_prefers_active_when_it_is_repo_venv(
+    tmp_path: Path,
+) -> None:
+    target = _make_venv_python(tmp_path)
+
+    selection = select_validation_python(
+        tmp_path,
+        git_common_dir=NO_COMMON_DIR,
+        active_executable=str(target),
+    )
+
+    assert selection.selected_executable == str(target)
+    assert selection.selected_source == "active_repository_venv"
+    assert selection.repository_venv_python == str(target.resolve())
+    assert selection.active_python_matches_repository_venv is True
+    assert selection.recommendations == ()
+
+
+def test_select_validation_python_reports_repo_venv_mismatch(tmp_path: Path) -> None:
+    target = _make_venv_python(tmp_path)
+    active = tmp_path / "system-python.exe"
+
+    selection = select_validation_python(
+        tmp_path,
+        git_common_dir=NO_COMMON_DIR,
+        active_executable=str(active),
+    )
+
+    assert selection.selected_executable == str(target.resolve())
+    assert selection.selected_source == "repository_venv"
+    assert selection.active_executable == str(active)
+    assert selection.active_python_matches_repository_venv is False
+    assert any("Run validation with repository Python" in item for item in selection.recommendations)
+
+
+def test_select_validation_python_falls_back_to_active_without_repo_venv(
+    tmp_path: Path,
+) -> None:
+    active = tmp_path / "python.exe"
+
+    selection = select_validation_python(
+        tmp_path,
+        git_common_dir=NO_COMMON_DIR,
+        active_executable=str(active),
+    )
+
+    assert selection.selected_executable == str(active)
+    assert selection.selected_source == "active_fallback"
+    assert selection.repository_venv_python is None
+    assert selection.active_python_matches_repository_venv is None
+
+
+def test_select_validation_python_priority_order_includes_worktree_main_venv(
+    tmp_path: Path,
+) -> None:
+    main = tmp_path / "main"
+    main.mkdir()
+    _make_venv_python(main)
+    worktree = tmp_path / "wt"
+    worktree.mkdir()
+    common_dir = main / ".git"
+    common_dir.mkdir()
+
+    selection = select_validation_python(worktree, git_common_dir=common_dir)
+
+    priority = "\n".join(selection.priority_order)
+    assert "checkout .venv" in priority
+    assert "main checkout for git worktree .venv" in priority
+    assert selection.selected_source == "repository_venv"
 
 
 def test_find_repo_python_keeps_venv_symlink_not_base_interpreter(tmp_path: Path) -> None:

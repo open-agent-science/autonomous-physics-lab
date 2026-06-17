@@ -165,6 +165,8 @@ def test_worktree_runtime_preflight_detects_repository_venv(
 
     assert report.repository_venv_python == str(repo_python.resolve())
     assert report.active_python_matches_repository_venv is True
+    assert report.selected_validation_python == str(repo_python)
+    assert report.selected_validation_python_source == "active_repository_venv"
     assert report.git_index_lock_path is None
 
 
@@ -200,7 +202,10 @@ def test_worktree_runtime_preflight_finds_common_dir_venv_for_worktree(
     assert report.is_git_worktree is True
     assert report.repository_venv_python == str(repo_python.resolve())
     assert report.active_python_matches_repository_venv is False
+    assert report.selected_validation_python == str(repo_python.resolve())
+    assert report.selected_validation_python_source == "repository_venv"
     assert any("Run validation with repository Python" in item for item in report.recommendations)
+    assert any("main checkout for git worktree" in item for item in report.python_discovery_priority)
 
 
 def test_worktree_runtime_preflight_recommends_repo_local_pytest_basetemp(
@@ -235,6 +240,7 @@ def test_agent_doctor_cli_json_includes_worktree_runtime_preflight() -> None:
     assert result.returncode == 0, (result.stdout, result.stderr)
     assert '"worktree_runtime"' in result.stdout
     assert '"recommended_pytest_basetemp"' in result.stdout
+    assert '"selected_validation_python"' in result.stdout
 
 
 def test_agent_doctor_reports_review_worktree_diagnostic(tmp_path: Path) -> None:
