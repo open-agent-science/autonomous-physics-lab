@@ -1,7 +1,7 @@
 id: TASK-0781
 title: "Run metadata-only Exoplanet EXO-0003 source-version monitor check"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
