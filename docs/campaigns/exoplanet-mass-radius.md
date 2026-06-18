@@ -61,9 +61,10 @@ and slice-growth plausibility without fetching value-bearing rows. Residual
 scoring stays closed until a materially changed, reviewed snapshot or an
 explicitly revised coverage gate exists.
 `TASK-0715` then ran the source-version monitor and recorded `NO_NOTIFY`; the
-`TASK-0745` trigger decision keeps `EXO-0003` monitor-only with no metadata
-scout or gate amendment. Future work waits for a later `NOTIFY_*` monitor class
-or explicit maintainer direction.
+`TASK-0745` trigger decision kept `EXO-0003` monitor-only with no metadata
+scout or gate amendment. `TASK-0781` repeated the metadata-only monitor and
+again recorded `NO_NOTIFY`, so future work still waits for a later `NOTIFY_*`
+monitor class or explicit maintainer direction.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -284,10 +285,10 @@ The campaign should mature in this order:
     [row-class drift review](../reviews/exoplanet-second-snapshot-row-class-drift.md);
     planning an `EXO-0003` acquisition trigger (`TASK-0599`) is the only forward
     step before any future Exoplanet residual work.
-20. `TASK-0715` and `TASK-0745` keep `EXO-0003` monitor-only after a `NO_NOTIFY`
-    source-version check. No metadata scout, gate amendment, acquisition,
-    residual replay, or claim path is open until a future monitor emits a
-    material `NOTIFY_*` class.
+20. `TASK-0715`, `TASK-0745`, and `TASK-0781` keep `EXO-0003` monitor-only after
+    repeated `NO_NOTIFY` source-version checks. No metadata scout, gate
+    amendment, acquisition, residual replay, or claim path is open until a
+    future monitor emits a material `NOTIFY_*` class.
 
 This campaign remains a visible, scientist-readable benchmark surface, but
 it should pause residual scoring until a materially changed snapshot or a
