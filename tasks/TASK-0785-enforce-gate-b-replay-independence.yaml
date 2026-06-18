@@ -1,0 +1,68 @@
+id: TASK-0785
+title: "Enforce Gate B replay independence (block same-contributor-and-agent self-validation)"
+type: tooling_reliability
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Gate B exists to certify that an AGENT_PUBLISHED result reproduces under an INDEPENDENT replay; a self-replay by the same contributor and agent defeats that purpose and must not pass."
+  - "Promotion to AGENT_VALIDATED must require a recorded original publisher and a replayer that differs from it; otherwise independence cannot be certified."
+  - "Keep single-maintainer Gate B viable: the same human contributor may validate with a different agent tool, but not with the same agent that published the result."
+
+input:
+  mode: planning_only
+  related_domain: tooling_reliability
+  related_objects:
+    - "physics_lab/registry/agent_replay_validation.py"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "tests/test_agent_replay_validation.py"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "results/RESULT-TEMPLATE.agent-published.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    The Gate B helper currently only emits non-blocking warnings when the replay
+    identity matches the original publisher on the agent tool or contributor, and
+    it passes (ok=True) when the original publisher is unknown. Both behaviours let
+    the SAME contributor and agent that published a result self-validate it to
+    AGENT_VALIDATED, which contradicts the meaning of an independent replay. The
+    first two AGENT_PUBLISHED results (RESULT-0021, RESULT-0022) do not record a
+    publisher identity at all, so the independence check cannot fire on them.
+
+requirements:
+  - "Make a replay BLOCK (error, not pass) when the replay identity matches the recorded original publisher on BOTH contributor_id AND agent_tool (self-validation forbidden)."
+  - "Make a replay BLOCK when the original publisher identity is not recorded on the result, since independence cannot then be certified; the error must instruct recording `agent_proposal_evaluation.published_by`."
+  - "Keep single-axis overlap (same agent only, or same contributor only) as a non-blocking advisory warning so a different-agent maintainer-run Gate B still passes."
+  - "Record `agent_proposal_evaluation.published_by` (contributor_id, github_username, agent_tool, model_version) on RESULT-0021 and RESULT-0022 so they remain Gate B eligible by an independent agent; do not change any result metric, verdict, verification, or science wording."
+  - "Add `published_by` to the AGENT_PUBLISHED result template so future results record it."
+  - "Update and extend the Gate B tests to cover the self-validation block, the unknown-publisher block, and the allowed different-agent same-contributor replay."
+  - "Do not weaken any existing Gate B numeric-drift, review-tier, or schema checks."
+
+accepted_outputs:
+  - "Updated `physics_lab/registry/agent_replay_validation.py` enforcing replay independence."
+  - "Updated `tests/test_agent_replay_validation.py` covering the new blocking and allowed cases."
+  - "`agent_proposal_evaluation.published_by` recorded on `results/EXP-0014/RUN-0001/result.yaml` and `results/EXP-0015/RUN-0001/result.yaml` (metadata only)."
+  - "`published_by` added to `results/RESULT-TEMPLATE.agent-published.yaml`."
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling-reliability fix to the Gate B validator plus publisher-identity metadata backfill; no new RESULT or PRED artifact and no science change."
+  evidence:
+    - "physics_lab/registry/agent_replay_validation.py"
+    - "tests/test_agent_replay_validation.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_replay_validation.py tests/test_textbook_stefan_boltzmann_exact_reference.py tests/test_result_publication_gate.py"
+    - "python3 scripts/apl_check_result_publication.py results/EXP-0014/RUN-0001/result.yaml"
+    - "python3 scripts/apl_check_result_publication.py results/EXP-0015/RUN-0001/result.yaml"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

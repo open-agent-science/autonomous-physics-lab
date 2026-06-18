@@ -39,6 +39,13 @@ review_tier: AGENT_PUBLISHED
 agent_proposal_evaluation:
   review_tier_proposed: AGENT_PUBLISHED
   best_verdict_proposed: INCONCLUSIVE
+  # Required for Gate B independence: an independent replayer must differ from
+  # this publisher on contributor and/or agent tool. Replace all placeholders.
+  published_by:
+    contributor_id: "REPLACE_WITH_CONTRIBUTOR_ID"
+    github_username: "REPLACE_WITH_GITHUB_USERNAME"
+    agent_tool: "REPLACE_WITH_AGENT_TOOL"
+    model_version: "REPLACE_WITH_MODEL_VERSION"
   gates_checked:
     deterministic_run: false
     verification_block_populated: false
