@@ -1,8 +1,10 @@
 dataset_id: TFA-STELLAR-ML-DEBCAT-COMPONENT-ROWS
 schema_version: 0.1.0
 task_id: TASK-0708
+publication_task_id: TASK-0763
+scope_reconciliation_task_id: TASK-0779
 campaign_profile_id: textbook-formula-audit
-status: sandbox_first_seed
+status: cc_by_4_0_benchmark_source
 created_by:
   contributor_id: roman
   agent_id: claude
@@ -11,13 +13,19 @@ scope:
   purpose: First curated empirical row package for the Textbook Formula Audit stellar mass-luminosity
     relation. Direct dynamical component masses paired with catalogue or Stefan-Boltzmann luminosities,
     with frozen system-level holdout lanes.
-  sandbox_only: true
+  sandbox_only: false
   live_external_fetch_allowed: false
-  benchmark_allowed: false
-  alpha_fit_allowed: false
+  benchmark_allowed: true
+  alpha_fit_allowed: true
   residual_inspection_performed: false
   claim_promotion_allowed: false
   prediction_registry_allowed: false
+  route_boundary: >
+    Full normalized DEBCat rows are committed under explicit CC BY 4.0
+    permission (TASK-0763) and may support the frozen, scope-limited Stellar
+    M-L benchmark lane. This does not imply universal M-L validation,
+    stellar-evolution claims, application-domain claims, claim promotion, or
+    prediction-registry use.
 source:
   source_id: debcat-detached-eclipsing-binaries
   artifact_locator: https://astro.keele.ac.uk/jkt/debcat/debs.dat
@@ -32,6 +40,9 @@ policy_refs:
   luminosity_policy: docs/reviews/stellar-ml-luminosity-provenance-and-license-route.md
   holdout_protocol: docs/reviews/stellar-ml-debcat-holdout-leakage-protocol.md
   storage_route_decision: docs/reviews/stellar-ml-debcat-storage-route-decision.md
+  full_dataset_publication: docs/reviews/stellar-ml-debcat-full-dataset-publication.md
+  scope_flag_reconciliation: docs/reviews/stellar-ml-debcat-scope-flag-reconciliation.md
+  benchmark_result: results/EXP-0015/RUN-0001/result.yaml
 conventions:
   missing_value_sentinel: -9.99
   solar_teff_k: 5772.0

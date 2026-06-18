@@ -2,10 +2,11 @@ manifest_id: TFA-STELLAR-ML-DEBCAT-HOLDOUT-MANIFEST-SAMPLE
 schema_version: 0.1.0
 task_id: TASK-0708
 sample: true
-publication_notice: 'ILLUSTRATIVE SAMPLE ONLY. The full normalized DEBCat row set is NOT redistributed
-  (DEBCat has no explicit open-redistribution licence; see TASK-0731 publication policy). Regenerate the
-  full rows locally: fetch debs.dat (scripts/fetch_source_artifact.py), verify the pinned checksum, then
-  run scripts/extract_debcat_stellar_ml_rows.py. See docs/reviews/stellar-ml-debcat-row-package.md.'
+publication_notice: 'ILLUSTRATIVE SAMPLE ONLY. The full normalized DEBCat row set and frozen holdout
+  manifest are now committed under explicit CC BY 4.0 permission (TASK-0763) with sibling license markers.
+  This sample remains only for quick inspection and non-substitutive fixtures. Regenerate the full rows locally
+  by fetching debs.dat (scripts/fetch_source_artifact.py), verifying the pinned checksum, then running
+  scripts/extract_debcat_stellar_ml_rows.py. See docs/reviews/stellar-ml-debcat-full-dataset-publication.md.'
 freeze:
   frozen: true
   frozen_at: '2026-06-12T00:00:00Z'

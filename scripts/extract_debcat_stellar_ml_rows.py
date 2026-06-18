@@ -388,8 +388,10 @@ def build_rows_and_manifest(
         "dataset_id": "TFA-STELLAR-ML-DEBCAT-COMPONENT-ROWS",
         "schema_version": "0.1.0",
         "task_id": "TASK-0708",
+        "publication_task_id": "TASK-0763",
+        "scope_reconciliation_task_id": "TASK-0779",
         "campaign_profile_id": "textbook-formula-audit",
-        "status": "sandbox_first_seed",
+        "status": "cc_by_4_0_benchmark_source",
         "created_by": {"contributor_id": "roman", "agent_id": "claude"},
         "generated_at": generated_at,
         "scope": {
@@ -399,13 +401,20 @@ def build_rows_and_manifest(
                 "component masses paired with catalogue or Stefan-Boltzmann "
                 "luminosities, with frozen system-level holdout lanes."
             ),
-            "sandbox_only": True,
+            "sandbox_only": False,
             "live_external_fetch_allowed": False,
-            "benchmark_allowed": False,
-            "alpha_fit_allowed": False,
+            "benchmark_allowed": True,
+            "alpha_fit_allowed": True,
             "residual_inspection_performed": False,
             "claim_promotion_allowed": False,
             "prediction_registry_allowed": False,
+            "route_boundary": (
+                "Full normalized DEBCat rows are committed under explicit CC BY 4.0 "
+                "permission (TASK-0763) and may support the frozen, scope-limited "
+                "Stellar M-L benchmark lane. This does not imply universal M-L "
+                "validation, stellar-evolution claims, application-domain claims, "
+                "claim promotion, or prediction-registry use."
+            ),
         },
         "source": {
             "source_id": SOURCE_ID,
@@ -427,6 +436,13 @@ def build_rows_and_manifest(
             "storage_route_decision": (
                 "docs/reviews/stellar-ml-debcat-storage-route-decision.md"
             ),
+            "full_dataset_publication": (
+                "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+            ),
+            "scope_flag_reconciliation": (
+                "docs/reviews/stellar-ml-debcat-scope-flag-reconciliation.md"
+            ),
+            "benchmark_result": "results/EXP-0015/RUN-0001/result.yaml",
         },
         "conventions": {
             "missing_value_sentinel": SENTINEL,
