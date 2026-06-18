@@ -91,6 +91,11 @@ For each candidate the table below records:
   outside the assumption window.
 - **Audit isolation**: no campaign collision.
 - **Parallel-agent friendliness**: yes.
+- **TASK-0783 status**: selected as the next source-curation-only slice after
+  Stellar M-L replay/cleanup. The selected route is NASA LAMBDA COBE/FIRAS
+  source-artifact pinning for a wavelength-domain peak audit; no Wien metrics
+  are ready until checksums, license posture, temperature semantics, and
+  spectral-axis/domain semantics are frozen.
 
 ### 4. Stefan-Boltzmann Law
 

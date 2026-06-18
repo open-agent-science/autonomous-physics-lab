@@ -104,7 +104,7 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L is AGENT_PUBLISHED as RESULT-0022 and needs Gate B replay plus DEBCat scope-flag reconciliation"
+  current_stage: "exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L is AGENT_PUBLISHED as RESULT-0022 and needs Gate B replay plus DEBCat scope-flag reconciliation; TASK-0783 selected Wien/FIRAS as the next source-curation-only slice"
   recommended_parallel_agents: 1
   coordination_notes: "Use one formula slice at a time. Replay RESULT-0022 and reconcile DEBCat metadata before treating Stellar M-L as validated or opening another empirical metric task."
   best_next_actions:
@@ -112,8 +112,8 @@ portfolio:
       label: "Run Gate B replay for RESULT-0022 without universal formula wording"
     - task_id: TASK-0779
       label: "Reconcile superseded DEBCat seed-stage scope flags after RESULT-0022"
-    - task_id: TASK-0783
-      label: "Plan at most one next formula slice through a source/baseline gate"
+    - task_id: null
+      label: "After Stellar M-L replay/cleanup, prepare a Wien/FIRAS source-artifact curation task before any Wien metrics."
   required_gates:
     - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
     - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
@@ -129,6 +129,7 @@ portfolio:
     - "docs/reviews/stellar-ml-route2-stage-control-split-audit.md"
     - "docs/reviews/stellar-ml-route2-baseline-adequacy.md"
     - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+    - "docs/reviews/textbook-next-formula-source-baseline-slice.md"
   open_questions:
     - "Can the Stellar M-L controlled DEBCat evidence pass Gate A publication checks as a scoped reusable-dataset plus benchmark result?"
     - "Should RESULT-0019 receive maintainer-reviewed wording as a software/convention result without any empirical formula implication?"
@@ -138,5 +139,5 @@ portfolio:
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0022, RESULT-0019 handoff, and TASK-0776/TASK-0779/TASK-0783 routing"
-    notes: "Public-friendly entry lane has one validated exact-reference result and one agent-published empirical Stellar M-L surface; no universal formula claim."
+    source: "RESULT-0022, RESULT-0019 handoff, and TASK-0783 Wien/FIRAS routing"
+    notes: "Public-friendly entry lane has one validated exact-reference result and one agent-published empirical Stellar M-L surface; TASK-0783 selected Wien/FIRAS as the next source-curation-only slice. No universal formula claim."
