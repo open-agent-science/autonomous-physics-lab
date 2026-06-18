@@ -12,7 +12,6 @@
 - `TASK-0777` - Run bounded Nuclear Wigner-cusp no-leakage sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0778` - Run Nuclear no-peek reveal-source manifest preflight (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0779` - Reconcile Stellar DEBCat scope flags after RESULT-0022 (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0783` - Plan the next Textbook Formula Audit source/baseline slice (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
 
 ## IN_PROGRESS
 
@@ -25,3 +24,4 @@ None.
 - `TASK-0767` - Package Atomic Yb/Sr source-limited consistency diagnostic as memory (`scientific_validation`, priority `high`, difficulty `low`, domain `atomic_clock_residuals`)
 - `TASK-0780` - Scout Atomic Yb/Sr reopen source or aggregation route (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0781` - Run metadata-only Exoplanet EXO-0003 source-version monitor check (`scientific_validation`, priority `medium`, difficulty `low`, domain `exoplanet_mass_radius`)
+- `TASK-0783` - Plan the next Textbook Formula Audit source/baseline slice (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
