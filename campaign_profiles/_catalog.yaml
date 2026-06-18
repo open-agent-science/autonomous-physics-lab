@@ -95,16 +95,17 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: Beloy/Nemitz Yb/Sr diagnostic is preserved as source-limited consistency
-    memory; reopen requires a better absolute Yb/Sr source or aggregation contract
+    memory; TASK-0780 found the checked Pizzocaro route still needs an aggregation contract
+    before any reopen
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics
       task; future work must test a concrete source or aggregation route against the memory-card
       reopen condition.
   best_next_actions:
-  - task_id: TASK-0780
-    label: Scout one concrete absolute Yb/Sr source or aggregation route; preserve blocker
-      memory if none qualifies.
+  - task_id: null
+    label: Keep Atomic Yb/Sr closed until a new independent absolute Yb/Sr source row or maintainer-approved
+      Pizzocaro aggregation contract exists.
   required_gates:
   - Second-source provenance review.
   - Real-row loader and schema validation.
@@ -130,6 +131,7 @@ campaigns:
   - docs/reviews/atomic-yb-sr-cross-source-consistency-benchmark.md
   - docs/reviews/atomic-yb-sr-benchmark-result-path-decision.md
   - docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md
+  - docs/reviews/atomic-ybsr-reopen-source-route-scout.md
   - docs/campaigns/atomic-clock-residuals.md
   open_questions:
   - What future absolute Yb/Sr source or aggregation contract could reduce the current two-row/source-limited
@@ -142,10 +144,10 @@ campaigns:
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: source_readiness
-    source: TASK-0767 memory card and TASK-0780 source-route routing
-    notes: High-prestige lane with completed source-limited memory; no RESULT promotion, constants-drift
-      fitting, metric rerun, or third-source row path is open without a new source or aggregation
-      contract.
+    source: TASK-0780 Pizzocaro route scout
+    notes: High-prestige lane with completed source-limited memory; TASK-0780 checked the
+      Pizzocaro route and classified it AGGREGATION_CONTRACT_NEEDED, so no RESULT promotion,
+      constants-drift fitting, metric rerun, or third-source row path is open now.
   source_docs:
   - docs/campaigns/atomic-clock-residuals.md
   - data/atomic_clocks/README.md
