@@ -1,7 +1,7 @@
 id: TASK-0791
 title: "Run Stellar M-L alternate-split stability audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
