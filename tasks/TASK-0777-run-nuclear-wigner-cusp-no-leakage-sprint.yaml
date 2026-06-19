@@ -1,7 +1,7 @@
 id: TASK-0777
 title: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

@@ -1,7 +1,7 @@
 id: TASK-0797
 title: "Run Quantum Almeida raster/export row-readiness gate"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

@@ -1,5 +1,5 @@
 default_mode: research
-updated: "2026-06-19"
+updated: "2026-06-20"
 
 curator_cycle:
   decision: updated
@@ -146,7 +146,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. With the Materials/Stellar wave closed, the next executable Nuclear lane is the bounded Wigner-cusp no-leakage sprint selected by TASK-0746. Keep it controls-first and sandbox-only; do not reopen exhausted F2, shell-axis, local-curvature, or broad factory loops."
+    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is now negative sandbox memory; the next executable Nuclear lane is to package validated negative/diagnostic memory without reopening exhausted F2, shell-axis, local-curvature, Wigner-shape, or broad factory loops."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -167,6 +167,7 @@ missions:
       - "TASK-0517 ran the first NMD-0003 Research Factory sprint: 73 generated candidates, 72 executed, 0 shortlisted, and the strongest apparent gains rejected by matched random-slice controls"
       - "TASK-0518 confirmed NMD-0002 perturbation survival remains INCONCLUSIVE control evidence, not independent validation"
       - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
+      - "TASK-0777 rejected WIGNER-CUSP-001 under the declared controls-first no-leakage sprint, so it is now negative sandbox memory rather than a surviving lane"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -180,14 +181,27 @@ missions:
       - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
       - "do not present LOCAL-CURVATURE-001 as a surviving no-leakage Nuclear candidate after TASK-0394"
     actions:
+      - id: nuclear-validated-negative-memory-capsule
+        label: "Compile Nuclear validated-negative-memory capsule"
+        task_id: TASK-0803
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "consolidated negative/diagnostic-memory capsule on existing surfaces"
+          - "evidence links to RESULT-0018 and exhausted F2, shell-axis, local-curvature, neutron-rich, and Wigner-cusp lanes"
+          - "explicit source-blocked prospective reveal wording"
+          - "no PRED, CLAIM, KNOW, or RESULT metric mutation"
       - id: nuclear-wigner-cusp-no-leakage-sprint
         label: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
         task_id: TASK-0777
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "one sandbox WIGNER-CUSP-001 run with no-leakage audit"
           - "declared asymmetry-only, matched-random, and smooth-A controls"

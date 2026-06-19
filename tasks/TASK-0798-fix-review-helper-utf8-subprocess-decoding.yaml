@@ -1,7 +1,7 @@
 id: TASK-0798
 title: "Decode maintainer-review Git subprocess output as UTF-8"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
