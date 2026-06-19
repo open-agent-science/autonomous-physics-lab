@@ -1,7 +1,7 @@
 id: TASK-0792
 title: "Run Stellar M-L piecewise-vs-single-alpha complexity audit"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
