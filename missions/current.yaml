@@ -83,6 +83,18 @@ missions:
       - "do not edit RESULT-0021 metrics, MD-0002 source rows, or holdout binding outside a task that explicitly authorizes it"
       - "do not promote band-gap diagnostics or materials claims automatically"
     actions:
+      - id: materials-follow-up-task-queue
+        label: "Review Materials MD-0002 follow-up task queue before reopening execution"
+        task_id: null
+        mode: research
+        status: configured
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "use live_task_candidates before assigning new Materials executor work"
+          - "create a bounded follow-up task queue only if a maintainer wants another MD-0002 stress/control wave"
+          - "keep RESULT-0021 metrics and materials claims unchanged without a dedicated task"
       - id: materials-result0021-gate-b
         label: "Run Gate B replay for Materials RESULT-0021"
         task_id: TASK-0775
