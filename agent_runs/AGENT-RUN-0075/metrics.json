@@ -1,0 +1,208 @@
+{
+  "task_id": "TASK-0777",
+  "agent_run_id": "AGENT-RUN-0075",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "method": "One-parameter bounded Wigner cusp against three one-parameter controls.",
+  "input_references": {
+    "dataset": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml",
+    "holdout": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "baseline_gate": "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml",
+    "split_manifest": "data/nuclear_masses/nmd-0003-split-manifest.yaml",
+    "lane_contract": "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+  },
+  "input_file_hashes": {
+    "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml": "f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52",
+    "data/nuclear_masses/post_ame2020_holdout.yaml": "47bfe520df8ca4a95c1614192c5da165782b2308ba58110e6832afb1b8151e49",
+    "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml": "2988c2eb28e0e1bee783bd4824a9680313b5ef81f1e9ae96698893e4525b8cd2",
+    "data/nuclear_masses/nmd-0003-split-manifest.yaml": "a5fdb116f2f70e448722a77a2c8d11b21b8875123c2b3d5a4b7f145d05dd2002",
+    "docs/reviews/nuclear-next-non-f2-lane-selection.md": "947a8c5ee21e960d8f0c74529f7b96c533d042f3d51c51e0d83413b733c672f3"
+  },
+  "split_contract": {
+    "rule": "sorted (A,Z,N,row_id); training index%10<7; validation index%10>=7",
+    "training_count": 1617,
+    "validation_count": 692,
+    "full_known_count": 2309,
+    "post_ame2020_holdout_count": 295
+  },
+  "candidate_definition": {
+    "id": "WIGNER-CUSP-001",
+    "formula": "beta / (1 + abs(N-Z))",
+    "inputs": [
+      "Z",
+      "N",
+      "A"
+    ],
+    "free_parameters": 1
+  },
+  "controls_contract": {
+    "survival_margin_mev": 0.25,
+    "matched_random_seed": 777,
+    "max_loo_relative_std": 0.05
+  },
+  "baseline": {
+    "training": {
+      "count": 1617,
+      "mae_mev": 1.822262,
+      "rmse_mev": 2.429148
+    },
+    "validation": {
+      "count": 692,
+      "mae_mev": 1.899279,
+      "rmse_mev": 2.587583
+    },
+    "full_known": {
+      "count": 2309,
+      "mae_mev": 1.845344,
+      "rmse_mev": 2.477693
+    },
+    "post_ame2020_holdout": {
+      "count": 295,
+      "mae_mev": 2.438877,
+      "rmse_mev": 3.366447
+    }
+  },
+  "candidate": {
+    "beta_mev": 1.031739683,
+    "panels": {
+      "training": {
+        "count": 1617,
+        "mae_mev": 1.827482,
+        "rmse_mev": 2.421526
+      },
+      "validation": {
+        "count": 692,
+        "mae_mev": 1.904425,
+        "rmse_mev": 2.582801
+      },
+      "full_known": {
+        "count": 2309,
+        "mae_mev": 1.850542,
+        "rmse_mev": 2.470965
+      },
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 2.437756,
+        "rmse_mev": 3.367981
+      }
+    }
+  },
+  "control_asymmetry_only": {
+    "beta_mev": 0.0,
+    "panels": {
+      "training": {
+        "count": 1617,
+        "mae_mev": 1.822262,
+        "rmse_mev": 2.429148
+      },
+      "validation": {
+        "count": 692,
+        "mae_mev": 1.899279,
+        "rmse_mev": 2.587583
+      },
+      "full_known": {
+        "count": 2309,
+        "mae_mev": 1.845344,
+        "rmse_mev": 2.477693
+      },
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 2.438877,
+        "rmse_mev": 3.366447
+      }
+    }
+  },
+  "control_matched_random": {
+    "beta_mev": 0.520671979,
+    "seed": 777,
+    "panels": {
+      "training": {
+        "count": 1617,
+        "mae_mev": 1.829247,
+        "rmse_mev": 2.428427
+      },
+      "validation": {
+        "count": 692,
+        "mae_mev": 1.910896,
+        "rmse_mev": 2.589529
+      },
+      "full_known": {
+        "count": 2309,
+        "mae_mev": 1.852867,
+        "rmse_mev": 2.477398
+      },
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 2.437141,
+        "rmse_mev": 3.364343
+      }
+    }
+  },
+  "control_smooth_a": {
+    "beta_mev": 0.00021563,
+    "panels": {
+      "training": {
+        "count": 1617,
+        "mae_mev": 1.822449,
+        "rmse_mev": 2.429147
+      },
+      "validation": {
+        "count": 692,
+        "mae_mev": 1.899484,
+        "rmse_mev": 2.587562
+      },
+      "full_known": {
+        "count": 2309,
+        "mae_mev": 1.845536,
+        "rmse_mev": 2.477687
+      },
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 2.438869,
+        "rmse_mev": 3.366425
+      }
+    }
+  },
+  "coefficient_stability": {
+    "count": 1617,
+    "mean_beta_mev": 1.0317363,
+    "std_beta_mev": 0.009114988,
+    "relative_std": 0.00883461,
+    "sign_flip_count": 0,
+    "stable": true
+  },
+  "leakage_audit": {
+    "passed": true,
+    "checks": {
+      "features_use_only_z_n_a": true,
+      "candidate_fit_uses_training_only": true,
+      "validation_excluded_from_fit": true,
+      "post_ame2020_excluded_from_fit": true,
+      "no_candidate_residual_reuse": true,
+      "no_live_fetch": true
+    }
+  },
+  "verdict": "NEGATIVE_RESULT",
+  "verdict_rationale": [
+    "candidate vs control_asymmetry_only: -0.005198 MeV",
+    "candidate vs control_matched_random: +0.002325 MeV",
+    "candidate vs control_smooth_a: -0.005006 MeV",
+    "Candidate does not beat every declared control by 0.25 MeV."
+  ],
+  "schema_verdict": "FALSIFIED",
+  "limitations": [
+    "Retrospective committed data only; this is not a blind prediction.",
+    "The post-AME2020 panel is a frozen retrospective stress panel, not reveal scoring.",
+    "A single bounded cusp shape was declared before scoring; no shape search was run.",
+    "The region-stratified baseline is diagnostic and may absorb mass-region structure.",
+    "No RESULT, PRED, CLAIM, KNOW, or golden artifact is created or modified."
+  ],
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0075/ and docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md",
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_attempted",
+    "claim_impact": "no claim change",
+    "knowledge_impact": "no knowledge change",
+    "publication_blocker": "Sandbox-only task; any promotion requires a separate canonical task."
+  }
+}

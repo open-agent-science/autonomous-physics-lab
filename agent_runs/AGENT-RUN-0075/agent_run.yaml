@@ -1,0 +1,43 @@
+id: AGENT-RUN-0075
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0777
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0060-wigner-cusp.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0026-wigner-cusp.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0075/metrics.json
+  report: agent_runs/AGENT-RUN-0075/report.md
+  limitations: agent_runs/AGENT-RUN-0075/limitations.md
+  preflight: agent_runs/AGENT-RUN-0075/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0075/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: frozen_split
+    status: PASS
+    notes: NMD-0003 stratified interleaved 70/30 split reproduced.
+  - name: no_leakage
+    status: PASS
+    notes: Features use Z/N/A only; validation and holdout excluded from fit.
+  - name: declared_controls
+    status: PASS
+    notes: Asymmetry, matched-random, and smooth-A controls executed.
+  - name: promotion_boundary
+    status: PASS
+    notes: Sandbox-only; no canonical scientific artifact is written.
+limitations:
+- Retrospective committed data only; this is not a blind prediction.
+- The post-AME2020 panel is a frozen retrospective stress panel, not reveal scoring.
+- A single bounded cusp shape was declared before scoring; no shape search was run.
+- The region-stratified baseline is diagnostic and may absorb mass-region structure.
+- No RESULT, PRED, CLAIM, KNOW, or golden artifact is created or modified.
+verdict: FALSIFIED
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review; any promotion requires a separate task.

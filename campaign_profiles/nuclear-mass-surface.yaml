@@ -129,12 +129,10 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "frozen baseline, sandbox diagnostics, RESULT-0018 AGENT_VALIDATED diagnostic memory, reveal scoring blocked, and Wigner-cusp selected as the one next non-F2 no-leakage lane"
+  current_stage: "frozen baseline, sandbox diagnostics, RESULT-0018 AGENT_VALIDATED diagnostic memory, reveal scoring blocked, and WIGNER-CUSP-001 rejected by its controls-first sprint"
   recommended_parallel_agents: 3
-  coordination_notes: "Parallel work is useful when lanes are disjoint: Wigner-cusp execution and value-blind reveal-source preflight. Do not launch another broad F2, shell-axis, local-curvature, or NMD-0002 factory sprint."
+  coordination_notes: "WIGNER-CUSP-001 is now negative sandbox memory. Keep value-blind reveal-source preflight separate, and do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint."
   best_next_actions:
-    - task_id: TASK-0777
-      label: "Run the bounded Wigner-cusp no-leakage sprint selected by TASK-0746"
     - task_id: TASK-0778
       label: "Run a value-blind reveal-source manifest preflight without scoring PRED rows"
   required_gates:
@@ -152,10 +150,12 @@ portfolio:
     - "docs/reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md"
     - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
     - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+    - "docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md"
+    - "agent_runs/AGENT-RUN-0075/report.md"
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
   open_questions:
-    - "Does WIGNER-CUSP-001 survive the declared asymmetry-only, matched-random, and smooth-A controls?"
+    - "What materially different source or baseline change would be required before any new non-F2 lane is justified?"
     - "Would any future F2 work require a new taxonomy rather than another audit of the same signal?"
     - "What future source can satisfy the reveal-readiness checklist?"
   curator_review:

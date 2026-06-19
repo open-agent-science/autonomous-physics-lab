@@ -1,0 +1,78 @@
+id: HYP-PROPOSAL-0060
+title: "Bounded nuclear Wigner-cusp hypothesis"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: falsification
+status: REVIEW_READY
+claim_ceiling: "Sandbox hypothesis only; no prediction, result, claim, or knowledge promotion."
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+  task_id: TASK-0777
+input_references:
+  - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+  - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+hypothesis:
+  statement: "A one-parameter bounded cusp term beta/(1+abs(N-Z)) may reduce frozen NMD-0003 baseline residuals beyond smooth asymmetry, matched-random, and smooth-A controls without holdout regression."
+  variables:
+    - "Z, N, A: proton, neutron, and mass numbers."
+    - "cusp = 1/(1+abs(N-Z)), fixed before scoring."
+    - "beta: one scalar coefficient fit on training rows only."
+  assumptions:
+    - "Only deterministic Z/N/A features are allowed."
+    - "The frozen stratified NMD-0003 split is used unchanged."
+    - "The candidate must beat every declared control by 0.25 MeV."
+    - "No live fetch, reveal scoring, or shape search is allowed."
+  expected_scope: "One retrospective controls-first falsification sprint."
+  expected_failure_modes:
+    - "Smooth asymmetry or smooth-A controls match the candidate."
+    - "Matched-random control matches the candidate."
+    - "The candidate regresses validation or post-AME2020 stress panels."
+    - "The fitted coefficient is unstable under leave-one-out refits."
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
+    - "docs/reviews/nuclear-do-not-repeat-diagnostic-lanes.md"
+    - "docs/notes/nms-005-wigner-n-eq-z-pr282-salvage.md"
+  possible_overlap: "The N=Z idea existed as salvage memory, but this is the first execution under the frozen NMD-0003 controls-first contract."
+  notes: "Exactly one bounded cusp form is executed; no adjacent Wigner family is searched."
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_wigner_cusp_no_leakage_sprint.py --write twice and require identical metrics."
+  baseline_or_reference: "Frozen NMD-0003 region-stratified diagnostic baseline and three declared controls."
+  pass_condition: "Only BOUNDED_FOLLOWUP_CANDIDATE if all controls are beaten by 0.25 MeV, holdout does not regress, leakage passes, and beta is stable."
+  fail_condition: "NEGATIVE_RESULT, DIAGNOSTIC_ONLY, or INCONCLUSIVE when any predeclared stop condition fires."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a discovery, new nuclear law, prediction, or explanation of nuclear masses."
+  mitigations:
+    - "Keep all outputs sandbox-only."
+    - "Report controls and panels separately."
+    - "Preserve negative evidence without retuning."
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_wigner_cusp_no_leakage_sprint.py --write"
+    - "python3 -m pytest tests/test_nuclear_wigner_cusp_no_leakage_sprint.py"
+  code_references:
+    - "scripts/run_nuclear_wigner_cusp_no_leakage_sprint.py"
+    - "tests/test_nuclear_wigner_cusp_no_leakage_sprint.py"
+  metrics:
+    - "candidate and control MAE by training, validation, full-known, and post-AME2020 panel"
+    - "leave-one-out beta stability"
+    - "no-leakage audit"
+    - "gauntlet verdict"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0075/"
+    - "docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md"
+limitations:
+  - "Retrospective committed-data evaluation only."
+  - "One bounded cusp shape was tested; this does not cover every Wigner parameterization."
+  - "The region-stratified baseline may absorb mass-region structure."
+verdict: FALSIFIED
+maintainer_decision_requested: "Accept the negative sandbox result and keep this Wigner-cusp form closed unless the source or baseline contract materially changes."
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-approved task for any materially different follow-up."
