@@ -1,0 +1,13 @@
+panel,sample_lambda1s_nm,e1s_ev_known,e1s_ev_measured,size_value,size_unit,size_uncertainty,raw_pixel_x,raw_pixel_y,marker_core_px,inclusion_status,fit_e1s_crosscheck,notes
+edge_length_nm,460,2.695,2.698,1.495,nm,0.183,147.0,638.2,13,included,2.765,filled This-work marker
+edge_length_nm,480,2.583,2.583,1.986,nm,0.265,187.3,672.6,19,included,2.512,filled This-work marker
+edge_length_nm,510,2.431,2.433,2.544,nm,0.489,232.9,717.8,14,included,2.328,filled This-work marker
+edge_length_nm,550,2.254,2.254,2.758,nm,0.397,250.5,771.6,10,included,2.274,filled This-work marker
+edge_length_nm,580,2.138,2.139,3.132,nm,0.086,281.1,806.2,12,included,2.195,filled This-work marker
+edge_length_nm,620,2.0,2.001,4.101,nm,0.458,360.5,847.5,2,included_flag_review,2.05,marker overlaps Xu open triangle; low solidity
+volume_nm3,460,2.695,2.698,0.447,nm^3,0.104,559.1,638.1,8,included,2.822,filled This-work marker
+volume_nm3,480,2.583,2.584,1.127,nm^3,0.539,573.0,672.3,19,included,2.513,filled This-work marker
+volume_nm3,510,2.431,2.433,2.632,nm^3,1.584,603.7,717.8,19,included,2.286,filled This-work marker
+volume_nm3,550,2.254,2.261,2.598,nm^3,0.931,603.0,769.5,2,included_flag_review,2.289,marker overlaps Xu open triangle; low solidity
+volume_nm3,580,2.138,2.14,4.093,nm^3,1.495,633.5,805.8,22,included,2.186,filled This-work marker
+volume_nm3,620,2.0,2.003,9.187,nm^3,1.45,737.4,847.1,17,included,2.029,filled This-work marker

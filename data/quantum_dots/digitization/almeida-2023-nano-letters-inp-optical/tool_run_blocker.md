@@ -28,3 +28,13 @@ Provide one replayable input:
 
 Until then, `TASK-0293` and `TASK-0225` remain blocked.
 
+## RESOLVED (TASK-0797)
+
+The maintainer-supplied version-of-record asset is now available (Figure 2b
+sizing curves, SHA-256 `3b7a37c9...e68e2ce`, CC-BY 4.0). The size axis was
+digitized by the deterministic extractor `scripts/extract_almeida_sizing.py`;
+see `notes.md` and `docs/reviews/quantum-almeida-raster-export-readiness-gate.md`.
+This historical blocker is kept for provenance. Remaining before canonical
+rows: independent reviewer replay, then `qd-*.yaml` curation and the
+`TASK-0293` gate rerun.
+

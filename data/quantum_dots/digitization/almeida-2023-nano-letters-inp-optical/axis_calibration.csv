@@ -1,0 +1,9 @@
+panel,axis,anchor_id,pixel_x,pixel_y,axis_value,axis_unit
+edge_length_nm,x,x_lo,106.5,908,1.0,nm
+edge_length_nm,x,x_hi,516.0,908,6.0,nm
+edge_length_nm,y,y_hi,106,607.5,2.8,eV
+edge_length_nm,y,y_lo,106,908.0,1.8,eV
+volume_nm3,x,x_lo,550.0,908,0.0,nm^3
+volume_nm3,x,x_hi,958.0,908,20.0,nm^3
+volume_nm3,y,y_hi,550,607.5,2.8,eV
+volume_nm3,y,y_lo,550,908.0,1.8,eV
