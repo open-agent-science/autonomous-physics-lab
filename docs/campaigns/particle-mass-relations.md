@@ -95,6 +95,7 @@ Start here:
 - [Koide Neutrino Falsification](../results/koide-neutrino-falsification.md)
 - [Koide Quark Cascade Falsification](../results/koide-quark-cascade-falsification.md)
 - [Particle-Mass Relation Falsifier MVP](../../results/EXP-0009/RUN-0001/report.md)
+- [CLAIM-0007 Falsifier Evidence Handoff](../reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md)
 - [Negative Results Registry](../negative-results-registry.md)
 - [Particle Mass Relation / Koide Track](../notes/particle-mass-relation-track.md)
 - [Particle mass numerology guardrails](../notes/particle-mass-numerology-guardrails.md)
@@ -117,8 +118,11 @@ Start here:
   promoting claims;
 - future data or baseline tasks that preserve explicit source policy and
   overclaim guardrails;
-- review of `RESULT-0011` before any claim-status or knowledge-status
-  strengthening.
+- maintainer Gate C review of the
+  [CLAIM-0007 evidence handoff](../reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md)
+  before any claim-status or wording change;
+- an independent replay or common-scale quark follow-up only if the maintainer
+  requires stronger evidence; do not reopen broad formula search.
 
 ## Recommended Contributor Types
 
