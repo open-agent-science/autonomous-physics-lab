@@ -129,11 +129,22 @@ deterministic null controls, and is split-robust. Band gap is weaker: it
 survived the first null-control audit only modestly, and later split-sensitivity
 found the ordering split-fragile. The wider MD-0002 formation-energy retest has
 now been packaged as `RESULT-0021`, an agent-published computed-DFT benchmark
-awaiting Gate B replay.
+that is now regenerable end-to-end via `physics-lab run` and independently
+Gate-B-replayable (TASK-0786); `AGENT_VALIDATED` promotion is pending an
+independent-agent Gate B run (TASK-0775).
+
+**Result capsule — RESULT-0021 (Materials MD-0002 formation energy):**
+
+- **Source:** The Materials Project, CC BY 4.0, computed-DFT stable ternary-oxide slice (`data/materials/md-0002-materials-project-stable-ternary-oxides.yaml`), frozen 362-row holdout-split slice.
+- **Command:** `python3 -m physics_lab.cli run examples/materials_md0002_formation_energy_benchmark.yaml` (quick check: `python3 scripts/replay_materials_md0002_result.py --check`).
+- **Primary metric:** exact cation-pair mean baseline holdout MAE **0.200606 eV/atom** vs global-median null **0.506092** (60.4% lower); winner in 5/5 seeded splits; beats label-shuffle and cation-label-shuffle nulls.
+- **Review tier:** `AGENT_PUBLISHED` (agent-published; not yet independently validated or maintainer-reviewed).
+- **Gate A:** PASS (9/9). **Gate B:** replayable by an independent agent (PASS on a Codex replay); `AGENT_VALIDATED` promotion pending (TASK-0775, by a different agent).
 
 **Why it is interesting:** this is the first concrete evidence trail showing
 APL can turn a published/open source into a provenance-rich benchmark dataset
-before modeling. It is a dataset artifact, not a claim.
+before modeling, and regenerate the result deterministically for independent
+replay. It is a dataset/benchmark artifact, not a claim.
 
 **Limitation:** the rows are computed DFT values from Materials Project, not
 experimental measurements. This is not a material recommendation, synthesis
@@ -150,6 +161,7 @@ repository, or DOI.
 - [Materials MD-0001 split-sensitivity audit](../reviews/materials-md0001-split-sensitivity-audit.md)
 - [Materials MD-0001 promotion preflight](../reviews/materials-md0001-benchmark-promotion-preflight.md)
 - [Materials MD-0002 RESULT-0021 report](../../results/EXP-0014/RUN-0001/report.md)
+- [Materials MD-0002 RESULT-0021 Gate A report](../../results/EXP-0014/RUN-0001/gate_a_report.md)
 - [Materials MD-0002 result routing](../reviews/materials-md0002-formation-energy-result-routing.md)
 - [Materials data area](../../data/materials/README.md)
 - [Published-source and reusable-dataset standard](../published-source-dataset-standard.md)
