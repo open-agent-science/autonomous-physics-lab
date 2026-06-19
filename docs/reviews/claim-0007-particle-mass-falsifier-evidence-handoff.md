@@ -67,7 +67,8 @@ The evidence does not support wording that:
 - says only charged leptons can satisfy any Koide-like relation;
 - treats the mixed-scale quark result as invariant under renormalization scheme
   or scale;
-- claims that APL explained, derived, or solved particle-mass generation;
+- claims that APL explained, derived, or accounted for particle-mass
+  generation;
 - treats numerical closeness or falsification alone as evidence of a physical
   mechanism;
 - generalizes from three encoded triplets to all particles or all eligible
