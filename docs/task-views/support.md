@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0799` - Repackage Stellar M-L DEBCat benchmark as a physics-lab engine workflow (Gate B replayable) (`tooling_reliability`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.

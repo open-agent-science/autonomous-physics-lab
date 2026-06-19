@@ -16,5 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0794` - Draft public result capsule for Materials RESULT-0021 (`scientific_result_publication`, priority `medium`, difficulty `low`, domain `materials_property_residuals`)
-- `TASK-0795` - Draft public result capsule for Stellar M-L RESULT-0022 (`scientific_result_publication`, priority `medium`, difficulty `low`, domain `textbook_formula_audit`)
+None.
