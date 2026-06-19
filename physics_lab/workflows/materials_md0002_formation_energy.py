@@ -34,7 +34,7 @@ from physics_lab.workflows.artifacts import (
 )
 
 PUBLISHED_BY = {
-    "contributor_id": "roman",
+    "contributor_id": "gladunrv",
     "github_username": "gladunrv",
     "agent_tool": "Claude Code",
     "model_version": "Claude Opus 4.8",

@@ -28,10 +28,10 @@ input:
     it does not regenerate a result.yaml), so TASK-0775 was blocked. This task
     adds a `materials_md0002_formation_energy_benchmark` engine workflow that
     regenerates the full result.yaml from committed data, reusing the frozen
-    TASK-0703 benchmark engine for the canonical numbers, and migrates EXP-0014 to
-    that command. Designed under the APL Architect role; first of two serialized
-    PRs (TASK-0787 repackages the Stellar benchmark and rebases the shared
-    schema/runner change).
+    TASK-0703 benchmark engine for the canonical numbers, and migrates EXP-0014
+    to that command. Designed under the APL Architect role as the Materials
+    MD-0002 workflow migration; any Stellar workflow migration must use its own
+    future task id.
 
 requirements:
   - "Add a deterministic engine + workflow that regenerate `results/EXP-0014/RUN-0001/result.yaml` with numbers identical (within 1e-9) to the published RESULT-0021."
