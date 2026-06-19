@@ -1,7 +1,7 @@
 id: TASK-0771
 title: "Make pre-push pytest temp handling robust on Windows"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
