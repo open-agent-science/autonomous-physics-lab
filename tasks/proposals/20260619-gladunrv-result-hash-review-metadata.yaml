@@ -1,0 +1,52 @@
+proposal_id: 20260619-gladunrv-result-hash-review-metadata
+title: Separate result material hashes from review metadata
+status: PROPOSED
+type: maintainer_workflow
+priority: medium
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: codex
+strategy_alignment:
+- Preserve result-promotion rigor while preventing metadata-only Gate B replay bookkeeping
+  from being treated as scientific drift.
+- Keep maintainer review and golden-result rebaseline decisions focused on material metric,
+  verdict, input, and evidence changes.
+summary: Clarify and harden the material result hash policy so Gate B review-tier metadata
+  changes do not masquerade as scientific result drift.
+rationale: 'During PR #1158, a portable-path cleanup in agent_proposal_evaluation.validation_record
+  changed both the result YAML file hash and current material_result_hash even though input
+  hashes, scores, verification metrics, and verdict were unchanged. This did not break a pinned
+  golden result, but it exposes a repeatable protocol ambiguity for future AGENT_VALIDATED
+  promotions.'
+input:
+  mode: planning_only
+  related_domain: result_promotion_protocol
+  related_objects:
+  - PR #1158
+  - RESULT-0022
+  - results/EXP-0015/RUN-0001/result.yaml
+  - physics_lab/registry/golden_results.py
+  - tests/test_golden_results.py
+  - tests/test_agent_replay_validation.py
+  planning_context: Use this proposal to decide whether review_tier and agent_proposal_evaluation
+    validation metadata should be excluded from material scientific result hashes, and to
+    add tests/docs that keep metric/verdict drift hash-sensitive.
+requirements:
+- Audit physics_lab/registry/golden_results.py material_fields_v1 and decide which review-tier
+  metadata fields are non-material.
+- Add regression coverage showing Gate B replay metadata/path changes do not alter material_result_hash
+  when scores, verification metrics, inputs, and verdict are unchanged.
+- Keep scientific drift hash-sensitive for scores, verification metrics, best_model_id, best_verdict,
+  input file sha256 values, and other result payload fields that affect interpretation.
+- Update result-promotion or maintainer-review docs so reviewers know metadata-only Gate B
+  promotion is not a scientific rebaseline.
+- Do not weaken golden-result drift detection for material scientific content or make
+  review-tier promotion an automatic claim/knowledge promotion.
+accepted_outputs:
+- proposal review decision
+- canonical task spec for result hash policy hardening
+- tests and docs update if accepted
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
