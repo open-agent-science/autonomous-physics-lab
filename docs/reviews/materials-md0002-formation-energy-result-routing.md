@@ -53,7 +53,20 @@ it is not a broad new framework.
 
 ## Reproduce
 
+Canonical (regenerates the full result.yaml; this is what Gate B re-runs):
+
 ```
-python3 scripts/replay_materials_md0002_result.py --check
+python3 -m physics_lab.cli run examples/materials_md0002_formation_energy_benchmark.yaml --output-dir /tmp/md0002
 python3 scripts/apl_check_result_publication.py results/EXP-0014/RUN-0001/result.yaml
 ```
+
+Quick check wrapper (asserts the committed holdout metrics):
+
+```
+python3 scripts/replay_materials_md0002_result.py --check
+```
+
+TASK-0786 repackaged this benchmark as the `materials_md0002_formation_energy_benchmark`
+engine workflow so an independent agent can Gate-B replay it
+(`physics_lab/workflows/materials_md0002_formation_energy.py` +
+`physics_lab/engines/materials_md0002_formation_energy_result.py`).

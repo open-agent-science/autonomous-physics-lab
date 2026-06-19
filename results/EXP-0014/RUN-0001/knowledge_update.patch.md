@@ -1,10 +1,7 @@
 # Knowledge Patch Proposal — none
 
-No knowledge file is targeted and no diff is proposed.
+No file is targeted and no diff is proposed.
 
 ```diff
-# No knowledge patch proposed; this AGENT_PUBLISHED result does not promote a KNOW note.
+# No patch proposed; RESULT-0021 does not promote a CLAIM or KNOW artifact.
 ```
-
-- Evidence basis: `RESULT-0021`
-- Required human review: not applicable (no knowledge change requested)

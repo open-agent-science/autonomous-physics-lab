@@ -9,7 +9,7 @@
 
 | gate | status | evidence |
 |---|---|---|
-| deterministic_run | ✅ | `replay_materials_md0002_result.py --check` → GATE_A_REPLAY PASS (tol 1e-6); row-order invariant |
+| deterministic_run | ✅ | `physics-lab run examples/materials_md0002_formation_energy_benchmark.yaml` regenerates this result; Gate B re-runs and compares (independent Codex identity → PASS). `replay_materials_md0002_result.py --check` remains as a quick `--check` wrapper. |
 | verification_block_populated | ✅ | 6 PASS checks with metrics |
 | input_hashes_recorded | ✅ | config / experiment / hypothesis / task sha256 pinned |
 | limitations_listed | ✅ | 5 scope + provenance limitations |
