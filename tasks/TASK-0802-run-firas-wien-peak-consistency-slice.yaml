@@ -1,0 +1,60 @@
+id: TASK-0802
+title: "Run the FIRAS Wien-peak consistency metric slice on the pinned source"
+type: scientific_benchmark
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Run the bounded Wien-peak consistency check once the FIRAS source is pinned, using the admissible verdicts predeclared in TASK-0793."
+  - "Produce a reviewable in-scope benchmark (consistent / domain-conversion-mismatch), not a universal blackbody-law claim."
+  - "Keep the textbook campaign moving toward a fresh empirical RESULT candidate rather than re-auditing already-validated slices."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-wien-firas-source-artifact.md"
+    - "tasks/TASK-0801-fetch-pin-cobe-firas-source-artifact.yaml"
+    - "data/textbook_formula_audit/"
+  planning_context: >
+    BLOCKED until TASK-0801 commits a checksum-pinned COBE/FIRAS source artifact
+    and admissible rows. Once the source is pinned, this task runs the
+    deterministic Wien-peak consistency metric against the frozen textbook
+    Wien-displacement reference using the admissible verdicts declared in
+    docs/reviews/textbook-wien-firas-source-artifact.md
+    (CONSISTENT_IN_SCOPE, DOMAIN_CONVERSION_MISMATCH, etc.). It must not run
+    before TASK-0801 lands, and must not refit or re-pin the source itself.
+
+requirements:
+  - "Consume only the committed FIRAS rows pinned by TASK-0801; do not fetch live data or re-pin the source."
+  - "Compute the Wien-peak consistency metric deterministically in code against the frozen textbook Wien-displacement reference; handle the wavelength-vs-frequency domain conversion explicitly."
+  - "Emit exactly one of the predeclared admissible verdicts from the TASK-0793 note; report the metric and the domain-conversion handling separately."
+  - "Stop after one consistency evaluation; do not expand to additional spectra, bins, or fitted free parameters."
+  - "If a RESULT candidate is warranted, it may be AGENT_PUBLISHED only via Gate A with a populated agent_proposal_evaluation block; otherwise keep sandbox-only."
+  - "No blackbody-universality, textbook-formula-falsified, proof, or discovery wording; consistency-in-scope only."
+
+accepted_outputs:
+  - "A schema-valid sandbox `agent_runs/AGENT-RUN-*` package with deterministic metrics and the domain-conversion handling, plus a `docs/reviews/textbook-firas-wien-peak-consistency-slice.md` review."
+  - "Optionally a RESULT-* (best_verdict in scope) at review_tier AGENT_PUBLISHED if Gate A passes; otherwise sandbox-only."
+  - "Output-routing summary with Gate A status, claim impact none, knowledge impact none, and any promotion blocker."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes on the metric run; default destination is sandbox plus review note. No claim promotion."
+  evidence:
+    - "agent_runs/AGENT-RUN-*"
+    - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

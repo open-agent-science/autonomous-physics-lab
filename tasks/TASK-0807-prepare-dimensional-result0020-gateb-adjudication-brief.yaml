@@ -1,0 +1,60 @@
+id: TASK-0807
+title: "Prepare the Dimensional RESULT-0020 Gate B packaging-contest adjudication brief"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Unblock the dimensional campaign's only stuck knot by packaging the RESULT-0020 Gate B contest into clean maintainer decision options."
+  - "Separate code-reproducible verification checks from hand-authored Gate A packaging checks so the AGENT_PUBLISHED-vs-AGENT_VALIDATED decision is reviewable."
+  - "Protect CLAIM-0005 from leaning on a contested validation tier."
+
+input:
+  mode: planning_only
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "tasks/TASK-0782-adjudicate-dimensional-result0020-gate-b-packaging-contest.yaml"
+    - "tasks/TASK-0766-replay-dimensional-result-0020-gate-b.yaml"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "results/EXP-0006/RUN-0007/gate_a_report.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0782 (adjudicate the RESULT-0020 Gate B packaging contest) is BLOCKED
+    because the contested replay reported that core numeric metrics reproduce but
+    some committed verification checks look like publication-packaging checks
+    rather than outputs of the recorded command. This task prepares the decision
+    brief that lets the maintainer resolve TASK-0782: it enumerates options and
+    their consequences. It does not rewrite metrics and does not itself set the
+    review tier.
+
+requirements:
+  - "Classify each RESULT-0020 verification check as code-reproducible (recomputed by the recorded command) vs hand-authored Gate A packaging, with evidence from the gate_a_report and replay."
+  - "Lay out the maintainer decision options (e.g. accept AGENT_VALIDATED on reproducible checks only; keep AGENT_PUBLISHED with a recorded blocker; or require a re-packaged Gate B) with the consequence of each for CLAIM-0005."
+  - "Do NOT edit RESULT-0020 metrics, verdict, review_tier, `results/golden-results.yaml`, or CLAIM-0005; this is a decision brief only."
+  - "Do NOT create a new RESULT or upgrade any tier; record only what a maintainer must decide and what evidence supports each option."
+  - "No discovery, proof, or 'dimensional consistency proves physical correctness' wording."
+
+accepted_outputs:
+  - "A `docs/reviews/dimensional-result0020-gateb-adjudication-brief.md` with the per-check classification, decision options, consequences, and the maintainer decision needed."
+  - "Output-routing summary: destination replay/control adjudication readiness, no RESULT/CLAIM mutation, blocker (maintainer decision) stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Adjudication-readiness brief only; no RESULT or PRED artifact is created or modified, and no review tier is changed."
+  evidence:
+    - "docs/reviews/dimensional-result0020-gateb-adjudication-brief.md"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

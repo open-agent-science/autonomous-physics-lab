@@ -1,0 +1,59 @@
+id: TASK-0804
+title: "Promote the Yb/Sr consistency negative-memory card to a public-safe summary"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Turn the existing source-limited Yb/Sr cross-source consistency memory card into reviewable public-safe memory instead of leaving it only in internal review notes."
+  - "Make explicit that the atomic-clock campaign produced a disciplined negative/consistency result (no tension within scope), not a constants-drift discovery."
+  - "Preserve the source ceiling and reopen condition so the campaign is not re-run as a new metric task."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "campaign_profiles/atomic-clock-residuals.yaml"
+    - "data/atomic_clocks/"
+  planning_context: >
+    The Yb/Sr comparison (Beloy 2021 ACR-0001 vs Nemitz 2016 ACR-0002) agrees at
+    |z| = 1.78 within a predeclared 2-sigma no-tension threshold, but it is a
+    two-row, diagonal-only, Nemitz-uncertainty-dominated check that was
+    deliberately routed to a CONSISTENCY_NEGATIVE_MEMORY_CARD rather than a
+    RESULT. This task packages that existing card as a public-safe summary on the
+    established public/campaign surfaces. It does not re-run the comparison, fit
+    constants, or ingest new rows.
+
+requirements:
+  - "Write a reader-facing summary of the Yb/Sr consistency card: what was compared, the in-scope no-tension finding, and the explicit uncertainty/2-row limitations."
+  - "Place it on an existing public/campaign surface (`docs/campaigns/public-science-dashboard.md` and/or the atomic campaign page); do not create a new digest page."
+  - "Preserve verbatim the reopen condition (a new independent absolute Yb/Sr source row, or a maintainer-approved Pizzocaro aggregation/observable-harmonization contract)."
+  - "Do NOT re-run the consistency metric, fit a constants drift, commit a Pizzocaro row, mix direct rows with derived constraints, or ingest values from review plots."
+  - "No constants-drift, new-constant, anomaly, or fundamental-physics-discovery wording; consistency-in-scope negative memory only."
+
+accepted_outputs:
+  - "A public-safe Yb/Sr consistency summary added to an existing public/campaign surface, with the in-scope finding, limitations, and verbatim reopen condition."
+  - "Output-routing summary: destination negative-memory publication, no RESULT/PRED/CLAIM/KNOW creation, overclaim risk noted, source-acquisition blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Public packaging of an existing consistency negative-memory card; no new RESULT or PRED artifact is created. Source ceiling blocks any promotable RESULT."
+  evidence:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/public-science-dashboard.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
