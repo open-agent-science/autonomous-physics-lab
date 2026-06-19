@@ -137,17 +137,27 @@ composition-aware cation-group baseline beats global baselines, survives
 deterministic null controls, and is split-robust. Band gap is weaker: it
 survived the first null-control audit only modestly, and later split-sensitivity
 found the ordering split-fragile. The wider MD-0002 formation-energy retest has
-now been packaged as `RESULT-0021`, an agent-published computed-DFT benchmark
-awaiting Gate B replay.
+now been packaged as `RESULT-0021`, an `AGENT_VALIDATED` computed-DFT
+benchmark that is regenerable end-to-end via `physics-lab run` and replayed
+independently in Gate B with zero numeric drift.
+
+**Result capsule — RESULT-0021 (Materials MD-0002 formation energy):**
+
+- **Source:** The Materials Project, CC BY 4.0, computed-DFT stable ternary-oxide slice (`data/materials/md-0002-materials-project-stable-ternary-oxides.yaml`), frozen 362-row holdout-split slice.
+- **Command:** `python3 -m physics_lab.cli run examples/materials_md0002_formation_energy_benchmark.yaml` (quick check: `python3 scripts/replay_materials_md0002_result.py --check`).
+- **Primary metric:** exact cation-pair mean baseline holdout MAE **0.200606 eV/atom** vs global-median null **0.506092** (60.4% lower); winner in 5/5 seeded splits; beats label-shuffle and cation-label-shuffle nulls.
+- **Review tier:** `AGENT_VALIDATED` (agent-published result independently replayed by a different agent; not maintainer-endorsed knowledge).
+- **Gate A:** PASS (9/9). **Gate B:** PASS on a Codex independent replay (42 numeric fields compared, max absolute drift 0.0; TASK-0775).
 
 **Why it is interesting:** this is the first concrete evidence trail showing
 APL can turn a published/open source into a provenance-rich benchmark dataset
-before modeling. It is a dataset artifact, not a claim.
+before modeling, and regenerate the result deterministically for independent
+replay. It is a dataset/benchmark artifact, not a claim.
 
 **Limitation:** the rows are computed DFT values from Materials Project, not
 experimental measurements. This is not a material recommendation, synthesis
 guide, device claim, biomedical claim, promoted result, external dataset
-repository, or DOI.
+repository, DOI, or promoted materials claim.
 
 **Evidence trail:**
 
@@ -159,6 +169,8 @@ repository, or DOI.
 - [Materials MD-0001 split-sensitivity audit](../reviews/materials-md0001-split-sensitivity-audit.md)
 - [Materials MD-0001 promotion preflight](../reviews/materials-md0001-benchmark-promotion-preflight.md)
 - [Materials MD-0002 RESULT-0021 report](../../results/EXP-0014/RUN-0001/report.md)
+- [Materials MD-0002 RESULT-0021 Gate A report](../../results/EXP-0014/RUN-0001/gate_a_report.md)
+- [Materials MD-0002 RESULT-0021 Gate B replay](../reviews/materials-md0002-result0021-gate-b-replay.md)
 - [Materials MD-0002 result routing](../reviews/materials-md0002-formation-energy-result-routing.md)
 - [Materials data area](../../data/materials/README.md)
 - [Published-source and reusable-dataset standard](../published-source-dataset-standard.md)
@@ -172,7 +184,7 @@ repository, or DOI.
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build direct Almeida InP size/energy rows before running size-effect baselines? | Calibration-derived rows remain excluded; Almeida 2023 is now license-confirmed and checksum-pinned, with the optical-energy axis recorded. | Almeida size-axis digitization and row-readiness gate (`TASK-0755`). | Direct rows plus readiness rerun, or a precise digitization blocker; not model metrics. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What source or aggregation route can reduce the current two-row, Nemitz-dominated Yb/Sr blocker? | Beloy 2021 and Nemitz 2016 support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited; this is now preserved as a memory card. | One source/aggregation reopen scout; no metric rerun. | A `REOPEN_READY`, `SOURCE_BLOCKED`, or `DO_NOT_REOPEN` route decision, not constants-drift metrics. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L now has AGENT_PUBLISHED `RESULT-0022`. | Gate B replay for `RESULT-0022` and DEBCat scope-flag reconciliation. | A Gate-B-validated Stellar M-L result or precise contested replay blocker. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is AGENT_PUBLISHED as `RESULT-0021`. | Gate B replay for `RESULT-0021`. | A Gate-B-validated computed-DFT slice result or precise contested replay blocker, not a material recommendation. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021` after an independent zero-drift Gate B replay. | Post-validation transfer/generalization controls for `RESULT-0021`. | A control audit showing what transfers beyond the frozen split, or a precise blocker; not a material recommendation. |
 
 ## What Is Interesting Right Now
 
@@ -267,9 +279,9 @@ repo, and now has holdout, citation metadata, a first conservative baseline
 benchmark, independent replay, a do-not-promote decision, formation-energy null
 controls, and split-sensitivity evidence. Formation energy is the stronger
 axis; band gap stays diagnostic and split-fragile. `MD-0002` is now acquired,
-validated, holdout-frozen, formation-energy benchmarked, and agent-published as
-RESULT-0021, so the next public artifact should be a Gate B replay decision,
-not a model leaderboard or material recommendation.
+validated, holdout-frozen, formation-energy benchmarked, and Gate-B-validated
+as `RESULT-0021`, so the next public artifact should be a transfer or
+generalization control, not a model leaderboard or material recommendation.
 
 Why it matters:
 
