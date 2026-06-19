@@ -1,17 +1,18 @@
 result_id: RESULT-0022
 run_id: RUN-0001
 experiment_id: EXP-0015
-title: "Stellar M-L DEBCat Controlled Baseline Benchmark — textbook alpha=3.5 inadequate as sole baseline on the frozen main-sequence slice"
+title: Stellar M-L DEBCat Controlled Baseline Benchmark — textbook alpha=3.5 inadequate
+  as sole baseline on the frozen main-sequence slice
 hypothesis_id: HYP-0015
 task_id: TASK-0764
-generated_at: '2026-06-17T00:00:00Z'
-engine_version: '0.1.0'
-git_commit: 0e23e2b6e5740f189e9957789ba1408a4b3da596
-command: python3 scripts/replay_stellar_ml_result.py --check
+generated_at: '2026-06-19T12:26:01+00:00'
+engine_version: 0.1.0
+git_commit: 7d439382643fbe45729d254431184f5a86cdfe1b
+command: physics-lab run examples/stellar_ml_debcat_baseline_benchmark.yaml
 input_file_hashes:
   config:
     path: results/EXP-0015/RUN-0001/inputs/config.yaml
-    sha256: b05078657915f67a3a2f185176fdc7d2b8f0457a14d9590486918ba6fc2645c7
+    sha256: 4796c4e8fec0dcc2b2b129e2be3041f1e44a49c287359cd77eb1fc172e4d173d
   experiment:
     path: results/EXP-0015/RUN-0001/inputs/experiment.yaml
     sha256: ddc6c4ee61d8badf7d1e8b94f50cbfae83485f62713b85e63ff052aff535eb7e
@@ -20,23 +21,21 @@ input_file_hashes:
     sha256: ecfe07be05b388b0288df5f8ceb83ab840589c8403387bea993811e7ce02c19d
   task:
     path: results/EXP-0015/RUN-0001/inputs/task.yaml
-    sha256: e5aba033cacb3d30916294aaa00d41241811570109201731df0186137adf8f67
-code_reference: scripts/replay_stellar_ml_result.py
+    sha256: f3a9648107a0f9b6f0970fa96a04557743e003bf0fad112a6ef532b8806be64d
+code_reference: physics_lab/workflows/stellar_ml_debcat_baseline.py
 limitations:
 - Agent-published, not yet independently validated or maintainer-reviewed.
 - Scope is the frozen DEBCat main-sequence-compatible slice (mass 0.5-2.0 Msun, 223
   components); evolved/subgiant/unknown stages are diagnostics only. Not a universal
   mass-luminosity law, stellar-evolution, or application-domain claim.
 - The textbook single exponent alpha=3.5 is evaluated as a sole frozen baseline on
-  this slice; it beats the null but is materially worse than fitted/piecewise
-  exponents. This does NOT falsify alpha=3.5 as a textbook relation.
+  this slice; it beats the null but is materially worse than fitted/piecewise exponents.
+  This does NOT falsify alpha=3.5 as a textbook relation.
 - Luminosities mix catalogue-reported and Stefan-Boltzmann-derived values (per-row
   provenance flags); residuals inherit that heterogeneity.
-- The committed DEBCat dataset header still carries seed-stage advisory scope flags
-  (sandbox_only, benchmark_allowed=false, alpha_fit_allowed=false) authored in the
-  TASK-0708 seed; these are superseded by TASK-0763 (full CC BY 4.0 publication) and
-  the maintainer-merged benchmark audits TASK-0759/0762, and are slated for a
-  separate header/extractor reconciliation. Rights are clear (CC BY 4.0).
+- The committed DEBCat normalized rows are CC BY 4.0 (Southworth grant, TASK-0763)
+  and benchmark-cleared (seed-stage scope flags reconciled by TASK-0779); raw debs.dat
+  is not committed (Route 2) and no CLAIM/prediction promotion is performed.
 best_model_id: model_train_fitted_alpha
 best_verdict: VALID_IN_RANGE
 review_tier: AGENT_PUBLISHED
@@ -58,52 +57,46 @@ agent_proposal_evaluation:
     no_protected_artifact_rewrite: true
     no_forbidden_overclaim_wording: true
     dataset_provenance_valid: true
-  evidence_summary: >
-    On the CC-BY-4.0, holdout-frozen DEBCat main-sequence slice (0.5-2.0 Msun; train
-    102 / holdout 65), the textbook single exponent alpha=3.5 reaches holdout MAE
-    0.184954 dex versus a per-mass-band null 0.331817 dex, so it beats the null; but
-    a train-fitted exponent (alpha_hat=4.526, holdout MAE 0.119925 dex) and the
-    textbook piecewise mid-mass alpha=4.0 (0.137608 dex) are better by 0.065 / 0.047
-    dex, exceeding the 0.04 dex split-noise reference. The formula margin is positive
-    in 5/5 seeded system-level re-splits and beats deterministic luminosity-shuffle
-    controls in every seed. The deterministic replay reproduces all numbers within
-    tol 1e-6.
-  followup_for_maintainer: >
-    Keep the trust qualifier explicit: agent-published, not independently validated
-    or maintainer-reviewed. The headline is scope-limited: alpha=3.5 is inadequate as
-    the sole frozen baseline on this slice, NOT falsified as a universal textbook
-    law. No CLAIM/KNOW promotion is proposed. A separate task should reconcile the
-    superseded seed-stage scope flags in the committed DEBCat dataset header.
+  evidence_summary: On the CC-BY-4.0, holdout-frozen DEBCat main-sequence slice (0.5-2.0
+    Msun; train 102 / holdout 65), the textbook single exponent alpha=3.5 reaches
+    holdout MAE 0.184954 dex versus a per-mass-band null 0.331817 dex, so it beats
+    the null; but a train-fitted exponent (alpha_hat=4.526004, holdout MAE 0.119925
+    dex) and the textbook piecewise mid-mass alpha=4.0 (0.137608 dex) are better by
+    0.065029 / 0.047346 dex, exceeding the 0.04 dex split-noise reference. The formula
+    margin is positive in 5/5 seeded system-level re-splits and beats deterministic
+    luminosity-shuffle controls in every seed. physics-lab run regenerates all numbers
+    for Gate B.
+  followup_for_maintainer: 'Keep the trust qualifier explicit: agent-published, not
+    independently validated or maintainer-reviewed. The headline is scope-limited:
+    alpha=3.5 is inadequate as the sole frozen baseline on this slice, NOT falsified
+    as a universal textbook law. No CLAIM/KNOW promotion is proposed.'
 verification:
   passed: true
   checks:
   - name: dataset_loaded_frozen_main_sequence_lane
     status: PASS
-    details: Loaded the committed DEBCat rows and selected admitted
-      main-sequence-compatible components in 0.5-2.0 Msun on the frozen value-blind
-      system-level split.
+    details: Loaded the committed DEBCat rows and selected admitted main-sequence-compatible
+      components in 0.5-2.0 Msun on the frozen value-blind system-level split.
     metrics:
       main_sequence_components: 223
       train_count: 102
       validation_count: 56
       holdout_count: 65
       live_external_fetch: 0
-  - name: deterministic_replay_matches_committed_metrics
+  - name: deterministic_regeneration_reproduces_committed_metrics
     status: PASS
-    details: scripts/replay_stellar_ml_result.py --check recomputes all baselines,
-      split-sensitivity, and shuffle controls from committed data and matches the
-      committed metrics within tol 1e-6 (GATE_A_REPLAY PASS).
+    details: physics-lab run regenerates this result from committed data; the Gate
+      B validator re-runs the same command and compares numeric fields.
     metrics:
       alpha_3p5_holdout_mae_dex: 0.184954
       alpha_4p0_holdout_mae_dex: 0.137608
       fitted_alpha: 4.526004
       fitted_holdout_mae_dex: 0.119925
       null_holdout_mae_dex: 0.331817
-      tolerance: 1.0e-06
   - name: textbook_single_alpha_beats_null
     status: PASS
-    details: The textbook single exponent alpha=3.5 holdout MAE is below the
-      per-mass-band median null on the frozen holdout lane.
+    details: The textbook single exponent alpha=3.5 holdout MAE is below the per-mass-band
+      median null on the frozen holdout lane.
     metrics:
       alpha_3p5_holdout_mae_dex: 0.184954
       null_holdout_mae_dex: 0.331817
@@ -111,17 +104,17 @@ verification:
   - name: single_alpha_3p5_inadequate_vs_fitted_piecewise
     status: PASS
     details: A train-fitted exponent and the textbook piecewise mid-mass exponent
-      reduce holdout MAE below alpha=3.5 by more than the 0.04 dex split-noise
-      reference, so single alpha=3.5 is inadequate as the sole baseline (not
-      falsified as a textbook relation).
+      reduce holdout MAE below alpha=3.5 by more than the 0.04 dex split-noise reference,
+      so single alpha=3.5 is inadequate as the sole baseline (not falsified as a textbook
+      relation).
     metrics:
       single_3p5_minus_fitted_dex: 0.065029
       single_3p5_minus_piecewise_dex: 0.047346
       split_noise_reference_dex: 0.04
   - name: split_sensitivity_stable
     status: PASS
-    details: Across five seeded system-level (no-leakage) re-splits the
-      null-minus-formula holdout margin is positive in every seed.
+    details: Across five seeded system-level (no-leakage) re-splits the null-minus-formula
+      holdout margin is positive in every seed.
     metrics:
       seeds_evaluated: 5
       positive_seed_count: 5
@@ -129,11 +122,11 @@ verification:
       margin_max_dex: 0.180271
   - name: deterministic_shuffle_controls_passed
     status: PASS
-    details: The real null-minus-formula margin exceeds every seed of the
-      deterministic luminosity-shuffle control (all shuffled margins negative).
+    details: The real null-minus-formula margin exceeds every seed of the deterministic
+      luminosity-shuffle control (all shuffled margins negative).
     metrics:
       real_margin_dex: 0.146863
-      shuffled_margin_max_dex: -0.09202
+      shuffled_margin_max_dex: -0.092278
       real_exceeds_all_shuffled: 1
   - name: stage_confound_diagnostic
     status: PASS
@@ -146,9 +139,9 @@ verification:
       unknown_holdout_mae_dex: 0.237776
   - name: dataset_provenance_recorded
     status: PASS
-    details: DEBCat normalized derived rows are CC BY 4.0 (Southworth grant,
-      TASK-0763), declared in DATA_LICENSES.yaml; direct dynamical masses; raw
-      debs.dat not committed (Route 2); no live fetch.
+    details: DEBCat normalized derived rows are CC BY 4.0 (Southworth grant, TASK-0763),
+      declared in DATA_LICENSES.yaml; direct dynamical masses; raw debs.dat not committed
+      (Route 2); no live fetch.
     metrics:
       license_cc_by_4_0: 1
       raw_artifact_committed: 0
@@ -160,9 +153,9 @@ comparison_summary:
   observed_value: 0.119925
   unit: dex
   absolute_difference: 0.065029
-  relative_difference: 0.351597
-  notes: Train-fitted alpha=4.526 holdout MAE versus textbook single 3.5; gap exceeds
-    the 0.04 dex split-noise reference. Frozen main-sequence slice only.
+  relative_difference: 0.351596
+  notes: Train-fitted alpha holdout MAE versus textbook single 3.5; gap exceeds the
+    0.04 dex split-noise reference. Frozen main-sequence slice only.
 uncertainty_summary:
   method: seeded_system_level_split_sensitivity_and_shuffle_controls
   observed_uncertainty: 0.180271
@@ -171,8 +164,7 @@ uncertainty_summary:
   z_score: null
   within_combined_uncertainty: null
   notes: Spread is the null-minus-formula holdout margin range across five seeded
-    system-level re-splits (0.102269-0.180271 dex); positive in every seed and above
-    all shuffle-control margins.
+    system-level re-splits; positive in every seed and above all shuffle-control margins.
 artifacts:
   report: results/EXP-0015/RUN-0001/report.md
   metrics: results/EXP-0015/RUN-0001/metrics.json
@@ -184,13 +176,14 @@ artifacts:
   review_metadata: results/EXP-0015/RUN-0001/review_metadata.yaml
 scores:
 - model_id: model_train_fitted_alpha
-  formula: "log L = alpha_hat * log M (fixed intercept L0=1), alpha_hat fit on the train lane only"
+  formula: log L = alpha_hat * log M (fixed intercept L0=1), alpha_hat fit on the
+    train lane only
   coefficients:
     fitted_alpha: 4.526004
     fixed_intercept_log_l0: 0.0
   complexity_score: 2
   train_metrics:
-    mean_relative_error: 0.241840
+    mean_relative_error: 0.24184
     max_relative_error: 0.962558
   test_metrics:
     mean_relative_error: 0.232327
@@ -198,7 +191,7 @@ scores:
   composite_score: 0.119925
   verdict: VALID
 - model_id: model_textbook_piecewise_4p0
-  formula: "log L = 4.0 * log M (textbook piecewise mid-mass exponent, fixed intercept)"
+  formula: log L = 4.0 * log M (textbook piecewise mid-mass exponent, fixed intercept)
   coefficients:
     alpha: 4.0
     fixed_intercept_log_l0: 0.0
@@ -207,12 +200,12 @@ scores:
     mean_relative_error: 0.271914
     max_relative_error: 1.199869
   test_metrics:
-    mean_relative_error: 0.259650
+    mean_relative_error: 0.25965
     max_relative_error: 1.208006
   composite_score: 0.137608
   verdict: VALID
 - model_id: model_textbook_single_3p5
-  formula: "log L = 3.5 * log M (textbook single exponent, fixed intercept)"
+  formula: log L = 3.5 * log M (textbook single exponent, fixed intercept)
   coefficients:
     alpha: 3.5
     fixed_intercept_log_l0: 0.0
@@ -226,7 +219,7 @@ scores:
   composite_score: 0.184954
   verdict: PARTIALLY_VALID
 - model_id: model_massband_median_null
-  formula: "per-mass-band train-median log L (global-median fallback)"
+  formula: per-mass-band train-median log L (global-median fallback)
   coefficients:
     global_train_median_log_l: 0.4235
     distinct_train_mass_bands: 2
@@ -235,7 +228,7 @@ scores:
     mean_relative_error: 0.818681
     max_relative_error: 6.647103
   test_metrics:
-    mean_relative_error: 0.850330
+    mean_relative_error: 0.85033
     max_relative_error: 4.668935
   composite_score: 0.331817
   verdict: INCONCLUSIVE

@@ -75,7 +75,23 @@ the maintainer may open a separate task if desired.
 
 ## Reproduce
 
+Canonical (regenerates the full result.yaml; this is what Gate B re-runs):
+
 ```
-python3 scripts/replay_stellar_ml_result.py --check
+python3 -m physics_lab.cli run examples/stellar_ml_debcat_baseline_benchmark.yaml --output-dir /tmp/stellar
 python3 scripts/apl_check_result_publication.py results/EXP-0015/RUN-0001/result.yaml
 ```
+
+Quick check wrapper (asserts the committed holdout metrics):
+
+```
+python3 scripts/replay_stellar_ml_result.py --check
+```
+
+TASK-0798 repackaged this benchmark as the `stellar_ml_debcat_baseline_benchmark`
+engine workflow so an independent agent can Gate-B replay it
+(`physics_lab/workflows/stellar_ml_debcat_baseline.py` +
+`physics_lab/engines/stellar_ml_debcat_baseline_result.py`). The regeneration also
+corrected one transcription-level diagnostic value (shuffle-control max
+-0.09202 → -0.092278) and refreshed the dataset-header provenance note after the
+TASK-0779 scope-flag reconciliation; the headline science is unchanged.
