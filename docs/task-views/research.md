@@ -19,5 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0777` - Run bounded Nuclear Wigner-cusp no-leakage sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0793` - Curate Wien/FIRAS source artifact for the next Textbook Formula slice (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
