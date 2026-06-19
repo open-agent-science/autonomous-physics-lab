@@ -79,12 +79,12 @@ not fit exponents or inspect residuals.
   742 admitted component rows (597 direct-luminosity, 145 SB-derived),
   6 excluded (4 ambiguous-duplicate `Gaia_DR3_4658237043035232256`,
   2 `no_admissible_luminosity_path`).
-- Publication posture (TASK-0731): the full normalized rows/manifest are
-  **not** committed (DEBCat has no explicit open-redistribution licence). Only
-  the deterministic extractor, a small `*.sample.yaml`, the pinned checksum, and
-  this ledger are committed. The split is frozen by the deterministic hash rule,
-  so the full manifest is reproducible without committing the membership list.
-- Reproduce the full rows locally (output is local-only, not committed): fetch
+- Publication posture (TASK-0763/TASK-0779): the full normalized rows and
+  frozen holdout manifest are committed under explicit CC BY 4.0 permission,
+  each with a sibling license marker. The raw `debs.dat` table remains
+  uncommitted under the Route 2 checksum-pinned source posture. The
+  non-substitutive samples remain only for quick inspection and fixture use.
+- Reproduce the full rows locally: fetch
   `debs.dat` with `scripts/fetch_source_artifact.py`, confirm the checksum, then
   `python3 scripts/extract_debcat_stellar_ml_rows.py --debs-dat <path>
   --out-rows <local>/debcat_component_rows.yaml

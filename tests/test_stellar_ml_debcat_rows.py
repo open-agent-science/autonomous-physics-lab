@@ -1,10 +1,10 @@
-"""TASK-0708 regression tests for the DEBCat stellar M-L row package.
+"""Regression tests for the DEBCat stellar M-L row package.
 
-The full normalized DEBCat row set is intentionally NOT committed (DEBCat has no
-explicit open-redistribution licence; see TASK-0731). These tests therefore
-validate (a) the pure extraction helpers, and (b) the small illustrative
-``*.sample.yaml`` artifacts. A guard test asserts the full value-bearing
-datasets are not re-introduced into the public tree.
+The full normalized DEBCat row set is committed only because TASK-0763 records
+explicit CC BY 4.0 redistribution permission. These tests validate the pure
+extraction helpers, the small illustrative ``*.sample.yaml`` artifacts, the
+license-marker guard for full files, and the reconciled scope flags that allow
+scoped benchmark use without claim promotion.
 """
 
 from __future__ import annotations
@@ -75,9 +75,8 @@ def test_assign_lane_is_deterministic_and_blind() -> None:
 
 # --- Public-safety guard (forward-compatible with future DEBCat permission) ---
 
-# Mirrors the TASK-0731 PDF guard: a value-bearing third-party file may be
-# committed only alongside an explicit redistribution marker. This makes the
-# permission flip a drop-in (add marker + force-add full files); no test edit.
+# Mirrors the TASK-0731/TASK-0763 guard: a value-bearing third-party file may be
+# committed only alongside an explicit redistribution marker.
 ALLOWED_REDISTRIBUTION_STATES = {
     "cc_by_4_0",
     "cc0",
@@ -102,17 +101,33 @@ def test_full_debcat_dataset_requires_license_marker() -> None:
     """Full DEBCat rows/manifest may be committed ONLY with an explicit licence.
 
     Without a sibling ``<file>.license.yaml`` carrying a recorded redistribution
-    permission, the full value-bearing files must not be committed (TASK-0731).
-    After DEBCat grants permission, dropping in the marker file flips this guard
-    open with no code/test changes.
+    permission, the full value-bearing files must not be committed.
     """
     for full_path in (FULL_ROWS_PATH, FULL_MANIFEST_PATH):
         if full_path.exists():
             assert _has_valid_license_marker(full_path), (
                 f"{full_path.name} is committed without a valid "
                 f"{full_path.name}.license.yaml redistribution marker; ship the "
-                "extractor + sample instead, or add the permission marker."
+                "sample-only route instead, or add the permission marker."
             )
+
+
+def test_full_debcat_scope_flags_reflect_publication_route() -> None:
+    """Full rows may support the scoped benchmark lane but not claim promotion."""
+    doc = _load(FULL_ROWS_PATH)
+    scope = doc["scope"]
+    assert doc["status"] == "cc_by_4_0_benchmark_source"
+    assert doc["publication_task_id"] == "TASK-0763"
+    assert doc["scope_reconciliation_task_id"] == "TASK-0779"
+    assert scope["sandbox_only"] is False
+    assert scope["benchmark_allowed"] is True
+    assert scope["alpha_fit_allowed"] is True
+    assert scope["live_external_fetch_allowed"] is False
+    assert scope["claim_promotion_allowed"] is False
+    assert scope["prediction_registry_allowed"] is False
+    assert "universal M-L validation" in scope["route_boundary"]
+    assert _has_valid_license_marker(FULL_ROWS_PATH)
+    assert _has_valid_license_marker(FULL_MANIFEST_PATH)
 
 
 # --- Sample-artifact invariants ----------------------------------------------
