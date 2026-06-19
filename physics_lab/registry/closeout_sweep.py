@@ -728,6 +728,8 @@ def build_closeout_sweep_report(
     """Build a sweep report for merged tasks that may need closeout."""
     merged_prs = load_merged_task_pull_requests(root, limit=merged_limit)
     remote_url = _origin_remote_web_url(root)
+    sweep_branch = current_branch(root)
+    sweep_status_clean = git_status_clean(root)
     ready: list[CloseoutSweepCandidate] = []
     blocked: list[CloseoutSweepCandidate] = []
     skipped: list[CloseoutSweepCandidate] = []
@@ -760,13 +762,20 @@ def build_closeout_sweep_report(
             )
             continue
 
-        pr_metadata = load_pr_metadata(root, pr.number) or merged_task_pr_metadata(pr)
+        pr_metadata = merged_task_pr_metadata(pr)
+        if closeout_pr_metadata_binding_blockers(
+            task_id=task_id,
+            pr_metadata=pr_metadata,
+        ):
+            pr_metadata = load_pr_metadata(root, pr.number) or pr_metadata
         closeout = build_closeout_report(
             root,
             task_id=task_id,
             pull_request=pr.number,
             apply=False,
             pr_metadata=pr_metadata,
+            current_branch_name=sweep_branch,
+            git_status_is_clean=sweep_status_clean,
         )
         binding_blockers = closeout_pr_metadata_binding_blockers(
             task_id=task_id,
@@ -795,7 +804,7 @@ def build_closeout_sweep_report(
             blocked.append(candidate)
 
     return CloseoutSweepReport(
-        branch=current_branch(root),
+        branch=sweep_branch,
         ready=tuple(ready),
         blocked=tuple(blocked),
         skipped=tuple(skipped),

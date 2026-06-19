@@ -1,0 +1,59 @@
+id: TASK-0787
+title: "Bound closeout sweep GitHub metadata lookups"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep post-merge closeout from accumulating stale REVIEW_READY tasks after multi-agent waves."
+  - "Reduce maintainer workflow friction without weakening protected-artifact or dependent-unblock gates."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "scripts/apl_closeout_sweep.py"
+    - "physics_lab/registry/closeout_sweep.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_closeout_sweep.py"
+  planning_context: >
+    After the TASK-0770..TASK-0774 support wave merged, closeout sweep could
+    hang or skip valid merged canonical task PRs even though a direct
+    `gh pr list` returned the relevant merged PR title and head branch quickly.
+    The sweep should avoid expensive per-candidate `gh pr view` calls when the
+    already-loaded merged PR summary is sufficient to prove canonical task
+    binding.
+
+requirements:
+  - "Prefer already-discovered merged PR summary metadata for closeout candidate binding when it contains a canonical task title or branch."
+  - "Use per-PR metadata lookup only as a fallback when the summary does not prove the task binding."
+  - "Do not change auto-safe closeout policy, protected scientific artifact checks, closeout: review semantics, or dependent-unblock behavior."
+  - "Do not apply closeout state changes in this task; leave merged task status transitions to the closeout path."
+  - "Keep the implementation cross-platform and avoid shell-specific behavior."
+
+accepted_outputs:
+  - "physics_lab/registry/closeout_sweep.py bounded metadata lookup update"
+  - "physics_lab/registry/maintainer_review.py cached closeout branch/status inputs"
+  - "tests/test_closeout_sweep.py regression coverage proving sufficient summaries do not call per-PR metadata lookup"
+  - "canonical task file documenting the maintainer-tooling fix"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_closeout_sweep.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py physics_lab/registry/maintainer_review.py tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

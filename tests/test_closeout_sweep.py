@@ -415,6 +415,8 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
         pull_request: int,
         apply: bool,
         pr_metadata: PullRequestMetadata | None = None,
+        current_branch_name: str | None = None,
+        git_status_is_clean: bool | None = None,
     ):  # noqa: ARG001
         if task_id == "TASK-1000":
             return CloseoutReport(
@@ -547,7 +549,7 @@ def test_build_closeout_sweep_report_uses_merged_pr_summary_when_view_unavailabl
 
     with (
         patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
-        patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=None),
+        patch("physics_lab.registry.closeout_sweep.load_pr_metadata") as load_metadata,
         patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main"),
         patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
@@ -558,6 +560,54 @@ def test_build_closeout_sweep_report_uses_merged_pr_summary_when_view_unavailabl
     assert report.ready[0].task_id == "TASK-1004"
     assert report.ready[0].outcome == "READY_TO_APPLY"
     assert report.blocked == ()
+    load_metadata.assert_not_called()
+
+
+def test_build_closeout_sweep_report_reuses_worktree_status_checks(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    for task_id in ("TASK-1006", "TASK-1007"):
+        _write_task(
+            tasks_dir / f"{task_id}-fixture.yaml",
+            task_id=task_id,
+            title=f"{task_id} fixture",
+            status="REVIEW_READY",
+        )
+
+    def _fake_prs(_root: Path, *, limit: int = 200):  # noqa: ARG001
+        from physics_lab.registry.closeout_sweep import MergedTaskPullRequest
+
+        return {
+            task_id: MergedTaskPullRequest(
+                task_id=task_id,
+                number=number,
+                title=f"{task_id}: fixture",
+                merged_at="2026-06-18T10:00:00Z",
+                url=f"https://example/{number}",
+                branch=f"agent/roman/codex/task-{task_id.removeprefix('TASK-').lower()}-fixture",
+                status_checks_passed=True,
+                status_checks_pending=False,
+            )
+            for task_id, number in (("TASK-1006", 26), ("TASK-1007", 27))
+        }
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
+        patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main") as branch,
+        patch("physics_lab.registry.closeout_sweep.git_status_clean", return_value=True) as status_clean,
+        patch("physics_lab.registry.maintainer_review.current_branch") as uncached_branch,
+        patch("physics_lab.registry.maintainer_review.git_status_clean") as uncached_status,
+    ):
+        uncached_branch.side_effect = AssertionError("branch should be cached by sweep")
+        uncached_status.side_effect = AssertionError("status should be cached by sweep")
+        report = build_closeout_sweep_report(tmp_path)
+
+    assert len(report.ready) == 2
+    assert report.blocked == ()
+    branch.assert_called_once_with(tmp_path)
+    status_clean.assert_called_once_with(tmp_path)
 
 
 def test_closeout_pr_binding_blockers_flags_mismatched_pr_metadata(tmp_path: Path) -> None:
@@ -625,7 +675,7 @@ def test_build_closeout_sweep_report_blocks_ready_candidate_on_pr_binding_mismat
     merged_payload = {
         "TASK-1000": {
             "number": 10,
-            "title": "TASK-1000: Alpha",
+            "title": "fix(task-1000): close alpha",
             "merged_at": "2026-05-04T10:00:00Z",
             "url": "https://example/10",
         },

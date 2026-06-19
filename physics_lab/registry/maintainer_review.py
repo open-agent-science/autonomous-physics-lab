@@ -2072,17 +2072,20 @@ def build_closeout_report(
     apply: bool,
     sync_board: bool = False,
     pr_metadata: PullRequestMetadata | None = None,
+    current_branch_name: str | None = None,
+    git_status_is_clean: bool | None = None,
 ) -> CloseoutReport:
     """Build and optionally apply a maintainer closeout decision on main."""
     blockers: list[str] = []
     required_actions: list[str] = []
     suggested_actions: list[str] = []
     applied_changes: list[str] = []
-    branch = current_branch(root)
+    branch = current_branch_name if current_branch_name is not None else current_branch(root)
 
     if branch != "main":
         blockers.append("Current branch is not main. Closeout must run on main after merge.")
-    if not git_status_clean(root):
+    status_clean = git_status_is_clean if git_status_is_clean is not None else git_status_clean(root)
+    if not status_clean:
         blockers.append("Git status is not clean before closeout.")
 
     pr_metadata = pr_metadata or load_pr_metadata(root, pull_request)
