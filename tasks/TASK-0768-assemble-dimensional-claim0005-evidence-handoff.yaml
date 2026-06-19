@@ -1,7 +1,7 @@
 id: TASK-0768
 title: "Assemble CLAIM-0005 evidence handoff after Dimensional RESULT-0020"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -50,7 +50,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest -n0 --basetemp .pytest-basetemp-task0768 tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
