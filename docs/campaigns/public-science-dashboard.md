@@ -93,6 +93,14 @@ first Stellar M-L empirical lane with committed DEBCat rows, stage/split/null
 controls, baseline-adequacy evidence, and an agent-published scoped benchmark
 (`RESULT-0022`) awaiting Gate B replay.
 
+**Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
+
+- **Source:** DEBCat detached eclipsing binaries (Southworth 2015), CC BY 4.0 by explicit grant (`data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml`); direct dynamical masses; raw `debs.dat` not committed (Route 2). Frozen main-sequence 0.5–2.0 Msun slice (223 components).
+- **Command:** `python3 scripts/replay_stellar_ml_result.py --check` (an engine-workflow `physics-lab run` regeneration path is in review via TASK-0799).
+- **Primary metric:** textbook single exponent α=3.5 holdout MAE **0.184954 dex** beats the per-mass-band null (0.331817) but is inadequate as the sole baseline — train-fitted α≈4.53 (**0.119925**) and piecewise α=4.0 (0.137608) are materially better (gaps 0.065 / 0.047 dex > 0.04 dex split-noise). Positive in 5/5 seeded splits; beats luminosity-shuffle controls.
+- **Review tier:** `AGENT_PUBLISHED` (agent-published; not yet independently validated or maintainer-reviewed).
+- **Gate A:** PASS (9/9). **Gate B:** replay pending — the engine-workflow repackaging (TASK-0799) lands the `physics-lab run` regeneration path, then an independent agent runs Gate B (TASK-0776).
+
 **Why it is interesting:** it is an accessible way for many agents to run
 bounded, reviewable audits without claiming new laws.
 
@@ -114,6 +122,7 @@ universal law claim.
 - [Stellar M-L baseline-adequacy audit](../reviews/stellar-ml-route2-baseline-adequacy.md)
 - [Stellar M-L DEBCat full dataset publication](../reviews/stellar-ml-debcat-full-dataset-publication.md)
 - [Stellar M-L RESULT-0022 report](../../results/EXP-0015/RUN-0001/report.md)
+- [Stellar M-L RESULT-0022 Gate A report](../../results/EXP-0015/RUN-0001/gate_a_report.md)
 - [Stellar M-L result routing](../reviews/stellar-ml-debcat-result-routing.md)
 - [Candidate slate](../notes/textbook-formula-audit-candidate-list.md)
 
