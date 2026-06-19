@@ -1,7 +1,7 @@
 id: TASK-0797
 title: "Run Quantum Almeida raster/export row-readiness gate"
 type: scientific_dataset
-status: BLOCKED
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -24,8 +24,12 @@ input:
     TASK-0755 narrowed the Quantum blocker to one missing artifact: the exact
     Almeida Figure 1b / SI Figure S2b raster/source page or a replayable
     WebPlotDigitizer-class export with calibration and uncertainty metadata.
-    This task must remain blocked until that maintainer-supplied artifact is
-    available locally.
+    The maintainer-supplied version-of-record Figure 2b asset is now available
+    (SHA-256 3b7a37c9...e68e2ce, CC-BY 4.0). The size axis was digitized by the
+    deterministic extractor scripts/extract_almeida_sizing.py; see the package
+    notes.md and docs/reviews/quantum-almeida-raster-export-readiness-gate.md.
+    Remaining before canonical qd-*.yaml rows: independent reviewer replay, then
+    row curation + the TASK-0293 gate rerun.
 
 requirements:
   - "Do not start unless the exact Almeida raster/source page or WebPlotDigitizer export is available locally with provenance and checksum metadata."
