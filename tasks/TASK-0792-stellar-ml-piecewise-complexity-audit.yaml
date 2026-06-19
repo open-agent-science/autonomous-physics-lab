@@ -1,0 +1,56 @@
+id: TASK-0792
+title: "Run Stellar M-L piecewise-vs-single-alpha complexity audit"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Test whether a more flexible Stellar M-L baseline earns its complexity under the existing source and split discipline."
+  - "Avoid turning Textbook Formula Audit into unconstrained symbolic regression."
+  - "Preserve overfit or complexity-not-justified outcomes as useful public-facing benchmark memory."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "results/EXP-0015/RUN-0001/metrics.json"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "scripts/replay_stellar_ml_result.py"
+  planning_context: >
+    The Stellar M-L result compares textbook alpha=3.5 to fitted and controlled
+    baselines. A bounded follow-up can ask whether a predeclared piecewise
+    baseline is justified after a complexity penalty, without claiming a new
+    stellar law or opening a broad model search.
+
+requirements:
+  - "Predeclare one piecewise split axis and one complexity penalty or selection rule before computing any comparison."
+  - "Use the same committed DEBCat rows, scope flags, and no-live-fetch discipline as RESULT-0022."
+  - "Compare against textbook alpha=3.5, fitted single-alpha, and the existing null/control baselines."
+  - "Stop with `PIECEWISE_AUDIT_NOT_ADMISSIBLE` if the proposed split is chosen from holdout performance or requires a broad hyperparameter search."
+  - "Do not edit RESULT-0022, promote claims, or describe a piecewise fit as stellar-evolution theory."
+
+accepted_outputs:
+  - "`docs/reviews/stellar-ml-piecewise-complexity-audit.md` with model definition, complexity rule, metrics or no-go reason, verdict, and limitations."
+  - "Optional deterministic helper/test changes only if the audit needs a reusable fixed comparison path."
+  - "Output-routing summary: sandbox/control memory only."
+
+result_artifact_policy:
+  required: false
+  reason: "Complexity-control audit for an existing result path; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_stellar_ml_debcat_rows.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

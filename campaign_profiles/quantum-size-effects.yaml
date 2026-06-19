@@ -88,8 +88,8 @@ portfolio:
   recommended_parallel_agents: 1
   coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."
   best_next_actions:
-    - task_id: null
-      label: "Provide the exact Almeida Figure 1b / SI Figure S2b raster or WebPlotDigitizer export before reopening row curation"
+    - task_id: TASK-0797
+      label: "Run Almeida row-readiness only after exact Figure 1b / SI Figure S2b raster or WebPlotDigitizer export is supplied"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -103,9 +103,9 @@ portfolio:
     - "If not, should the campaign pause or revisit the weaker calibration-consistency scope?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-17"
+    last_reviewed: "2026-06-19"
     review_interval: quarterly_blocked
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-0755 source-raster blocker review"
-    notes: "Source selection, license, and checksum pinning are resolved; row curation remains blocked until the exact Almeida size-axis raster or replayable WebPlotDigitizer export is available."
+    source: "TASK-0755 source-raster blocker review and TASK-0797 blocked unblock task"
+    notes: "Source selection, license, and checksum pinning are resolved; row curation remains blocked until the exact Almeida size-axis raster or replayable WebPlotDigitizer export is available. TASK-0797 records the concrete unblock path and must stay blocked until that maintainer input exists."

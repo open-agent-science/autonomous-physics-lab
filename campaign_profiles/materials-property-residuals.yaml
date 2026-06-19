@@ -73,7 +73,7 @@ portfolio:
   status: active_secondary
   domain: materials_science
   surface_type: source_pinned_benchmark
-  lifecycle_stage: source_readiness
+  lifecycle_stage: active_benchmark
   activity_status: active
   curator:
     primary_pool: source_data_benchmark
@@ -86,12 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_PUBLISHED as RESULT-0021 and needs Gate B replay"
-  recommended_parallel_agents: 1
-  coordination_notes: "Use the frozen RESULT-0021 command and hashes for Gate B replay; avoid re-auditing MD-0001 or band gap unless promotion routing explicitly asks for it."
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_PUBLISHED as RESULT-0021 and needs Gate B replay before broader Materials interpretation."
+  recommended_parallel_agents: 2
+  coordination_notes: "Run RESULT-0021 Gate B first when possible. Follow-up stress tasks must use committed MD-0002 rows, frozen controls, and no materials-claim wording."
   best_next_actions:
     - task_id: TASK-0775
       label: "Run Gate B replay for RESULT-0021 without changing metrics or materials-claim wording"
+    - task_id: TASK-0789
+      label: "Preflight one MD-0002 family-holdout stress axis before any new metric task"
+    - task_id: TASK-0790
+      label: "Run one bounded descriptor/control ablation without opening a feature factory"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -110,12 +114,13 @@ portfolio:
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
     - "Does RESULT-0021 pass independent Gate B replay from its committed command and hashes?"
+    - "Does the cation-pair baseline survive family-holdout or descriptor-control stress without overclaiming?"
     - "Does band gap remain diagnostic-only after the wider snapshot?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-17"
+    last_reviewed: "2026-06-19"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0021 and TASK-0775 science-director routing"
-    notes: "MD-0002 formation energy is now AGENT_PUBLISHED as a computed-DFT, slice-limited benchmark; no materials claim or band-gap promotion."
+    source: "RESULT-0021, TASK-0775, and TASK-0788 mission-wave sync"
+    notes: "MD-0002 formation energy is now AGENT_PUBLISHED as a computed-DFT, slice-limited benchmark. Gate B replay is first priority; follow-up stress audits stay benchmark/control-only with no materials claim or band-gap promotion."

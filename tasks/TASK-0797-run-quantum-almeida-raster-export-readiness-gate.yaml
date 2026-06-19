@@ -1,0 +1,59 @@
+id: TASK-0797
+title: "Run Quantum Almeida raster/export row-readiness gate"
+type: scientific_dataset
+status: BLOCKED
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Preserve the Quantum blocker as one concrete maintainer input rather than another open-ended source scout."
+  - "Unblock direct-row Quantum work only from an exact Almeida raster or replayable WebPlotDigitizer export."
+  - "Prevent agents from rerunning TASK-0755 without the missing artifact."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0755-run-quantum-almeida-size-axis-digitization-and-readiness-gate.yaml"
+    - "docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md"
+    - "data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/tool_run_blocker.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "tasks/TASK-0293-rerun-quantum-row-level-readiness-gate-after-direct-seed.yaml"
+  planning_context: >
+    TASK-0755 narrowed the Quantum blocker to one missing artifact: the exact
+    Almeida Figure 1b / SI Figure S2b raster/source page or a replayable
+    WebPlotDigitizer-class export with calibration and uncertainty metadata.
+    This task must remain blocked until that maintainer-supplied artifact is
+    available locally.
+
+requirements:
+  - "Do not start unless the exact Almeida raster/source page or WebPlotDigitizer export is available locally with provenance and checksum metadata."
+  - "Run the digitization protocol on the supplied artifact and preserve calibration, extracted points, tool/version metadata, uncertainty notes, and extraction ledger."
+  - "If >=6 direct InP rows are supportable, curate them with explicit size semantics and rerun the TASK-0293 readiness gate."
+  - "If the supplied artifact is insufficient, preserve a precise blocker and keep TASK-0225/TASK-0293 blocked."
+  - "Do not use LLM-estimated coordinates, calibration-polynomial substitution, publisher PDF vendoring, synthesis/device/biomedical claims, or baseline metrics."
+
+accepted_outputs:
+  - "Updated Almeida digitization package with calibration/export artifacts or a precise blocker refresh."
+  - "Optional `data/quantum_dots/qd-almeida-2023-inp-optical.yaml` only if direct rows pass provenance checks."
+  - "`docs/reviews/quantum-almeida-raster-export-readiness-gate.md` with artifact provenance, readiness verdict, limitations, and output routing."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-to-row readiness-gate task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/"
+    - "docs/reviews/quantum-almeida-raster-export-readiness-gate.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

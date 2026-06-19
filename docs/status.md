@@ -23,16 +23,19 @@ For linkable, public-safe summaries of active campaign results, use the
 
 ## Current Focus
 
-APL is concentrating on six public-facing research surfaces:
+APL is concentrating on six public-facing research surfaces. The current
+center of gravity is the new Materials/Stellar result-validation wave, while
+Nuclear remains the highest-ambition flagship and several other campaigns stay
+explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; current residual-feature lanes are mostly negative, inconclusive, diagnostic-only, or validation-regressing, so the live path is reveal-readiness reporting and carefully bounded controls-first follow-up rather than broad new fitting |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Almeida needs checksum-pinned source artifacts and later deterministic digitization; the baseline remains blocked until real direct rows pass readiness |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy rows exist and Pizzocaro windows are diagnostic; next work is the source-derived PSD covariance approximation and a later baseline-readiness gate |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring, `EXO-0003` trigger discipline, and result-publication preflight, not another residual pilot |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Exact-reference result replay has landed; the empirical Stellar M-L lane waits on DEBCat row-readiness after the holdout/leakage protocol |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | An emerging reusable-dataset and benchmark-readiness lane built around source-pinned `MD-0001` | `MD-0001` is replayed and useful as dataset memory; the next path is MD-0002 acquisition preflight/holdout/loader planning plus preserving band-gap fragility as negative memory |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory and AGENT_PUBLISHED `MD-0002` formation-energy `RESULT-0021` | Gate B replay, then bounded family-holdout and descriptor/control audits; no material-design, synthesis, recommendation, or new-law wording |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures plus AGENT_PUBLISHED Stellar M-L `RESULT-0022` on frozen DEBCat rows | Gate B replay, DEBCat scope cleanup, split/complexity audits, and source-only Wien/FIRAS curation before any new empirical metric slice |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; current residual-feature lanes are mostly negative, inconclusive, diagnostic-only, or validation-regressing, so the live path is reveal-readiness reporting and one bounded controls-first sprint rather than broad new fitting |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring and `EXO-0003` trigger discipline, not another residual pilot |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Almeida is license/source-pinned but row curation is blocked until the exact Figure 1b / SI Figure S2b raster or replayable WebPlotDigitizer export is supplied |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy rows exist and Pizzocaro windows are diagnostic; benchmark metrics wait on admitted independent rows or an approved aggregation/harmonization contract |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -43,10 +46,10 @@ Use the full [campaign map](./campaigns/README.md) for the complete list.
 
 ## What We Have So Far
 
-The repository currently stores eleven canonical experiment files and seventeen
-canonical result artifacts. The strongest evidence is not a single spectacular
-claim; it is a growing public memory of tests, failures, baselines, and review
-artifacts.
+The repository currently stores fourteen canonical experiment files and
+twenty-two canonical result artifacts. The strongest evidence is not a single
+spectacular claim; it is a growing public memory of tests, failures, baselines,
+and review artifacts.
 
 Highlights:
 
@@ -84,13 +87,16 @@ Highlights:
   rows blocked, a first-benchmark covariance policy, Pizzocaro per-window
   diagnostics, and a feasible source-derived PSD covariance-approximation path.
   It is still not a benchmark or constants-drift result.
-- Textbook Formula Audit has a scaffold, ranked candidate slate, exact-reference
-  fixtures, and a Gate-B-validated Stefan-Boltzmann software/convention result.
-  Empirical Stellar M-L metrics remain blocked until DEBCat rows pass readiness.
-- Materials Property Residuals has `MD-0001`, a source-pinned stable-binary-
-  oxides dataset with independent replay, a do-not-promote benchmark preflight,
-  and early null-control memory. It is useful as a reusable-dataset lane, not
-  as a promoted materials-law result.
+- Textbook Formula Audit has a scaffold, ranked candidate slate,
+  exact-reference fixtures, a Gate-B-validated Stefan-Boltzmann
+  software/convention result, and AGENT_PUBLISHED Stellar M-L `RESULT-0022`.
+  The Stellar result is a controlled DEBCat benchmark surface, not a universal
+  mass-luminosity law or stellar-evolution claim.
+- Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
+  AGENT_PUBLISHED `MD-0002` formation-energy `RESULT-0021`. The new result is a
+  computed-DFT, frozen-slice benchmark candidate, not a material
+  recommendation, synthesis guide, experimental measurement, or materials-law
+  claim.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -121,16 +127,17 @@ Important operating rules:
   release exists.
 - Quantum Size Effects remains blocked for baseline benchmarking until direct
   measurement rows or a maintainer-approved weaker calibration-consistency
-  scope exists.
+  scope exists; the narrow Almeida blocker is the exact raster/export needed
+  for replayable size-axis digitization.
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
-  the Pizzocaro covariance artifact, readiness-gate review, and admitted row
-  semantics before any Yb/Sr consistency benchmark.
+  admitted independent rows or an approved aggregation/harmonization contract
+  before any Yb/Sr consistency benchmark.
 - Exoplanet residual scoring is closed on the current snapshot; it needs a
   materially changed pinned snapshot or approved `EXO-0003` trigger before
   another residual audit.
-- Materials work is ready for MD-0002 planning and band-gap negative-memory
-  packaging, but not for broad property-law claims, material recommendations,
-  or widening without the source-first acquisition gates.
+- Materials and Stellar now need independent replay and bounded control audits
+  before broader science-wave expansion; neither supports broad property-law,
+  material-design, universal-formula, or application-domain claims.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 

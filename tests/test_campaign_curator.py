@@ -15,6 +15,7 @@ from physics_lab.registry.campaign_curator import (
     render_campaign_agent_prompt,
     render_campaign_brief,
 )
+from physics_lab.registry.mission_control import load_current_missions
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,8 +23,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_campaign_curator_defaults_to_top_campaign() -> None:
     brief = build_campaign_brief(ROOT)
+    missions = load_current_missions(ROOT)["missions"]
+    expected_campaign = sorted(
+        missions,
+        key=lambda item: int(item.get("rank", 999)),
+    )[0]["id"]
 
-    assert brief.campaign_id == "exoplanet-mass-radius"
+    assert brief.campaign_id == expected_campaign
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails

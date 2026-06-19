@@ -1,0 +1,56 @@
+id: TASK-0795
+title: "Draft public result capsule for Stellar M-L RESULT-0022"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Turn the new Stellar M-L result into public-safe Textbook Formula Audit communication without universal-law wording."
+  - "Prepare v0.2 launch packaging around reproducible evidence, controls, and limitations."
+  - "Keep Gate B status explicit so public wording does not outrun validation."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "results/EXP-0015/RUN-0001/gate_a_report.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/scientific-memory-review-tiers.md"
+  planning_context: >
+    RESULT-0022 gives APL a public-friendly empirical formula audit surface. A
+    capsule should explain the frozen DEBCat slice and baseline comparison
+    without implying a universal mass-luminosity verdict or stellar-evolution
+    claim.
+
+requirements:
+  - "Create or update a public-facing result capsule for RESULT-0022 with source, command, baseline comparison, review tier, Gate A/B status, limitations, and no-universal-law wording."
+  - "If Gate B is still pending, label it pending; do not imply independent validation."
+  - "Do not edit RESULT-0022 metrics, DEBCat rows, claims, knowledge artifacts, or `results/golden-results.yaml`."
+  - "Do not make stellar-evolution, application-domain, or universal textbook-formula claims."
+
+accepted_outputs:
+  - "A concise public capsule under an existing public-facing result/campaign surface."
+  - "Optional link update from `docs/campaigns/public-science-dashboard.md` if the capsule is added as a standalone file."
+  - "Output-routing summary with Gate A/B status, claim impact, knowledge impact, and public wording blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Public result-capsule packaging for an existing RESULT; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/campaigns/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

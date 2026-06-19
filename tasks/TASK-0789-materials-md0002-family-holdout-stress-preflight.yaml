@@ -1,0 +1,58 @@
+id: TASK-0789
+title: "Run Materials MD-0002 family-holdout stress preflight"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress-test the new Materials RESULT-0021 path through family-aware holdout questions rather than widening into an unconstrained feature factory."
+  - "Keep the result ceiling conservative: computed-DFT stable ternary oxides only, no materials-design or new-law claim."
+  - "Turn a next-wave Materials idea into a bounded audit with locked controls and stop conditions."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "results/EXP-0014/RUN-0001/metrics.json"
+    - "data/materials/md-0002/"
+    - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
+    - "tasks/TASK-0775-run-materials-result0021-gate-b-replay.yaml"
+  planning_context: >
+    RESULT-0021 reports a useful cation-pair baseline on the frozen MD-0002
+    stable ternary-oxide slice. The next useful Materials expansion is not a
+    broad descriptor search, but a narrow family-holdout stress preflight that
+    determines whether a later metric task can test transfer across disjoint
+    element or crystal-family axes.
+
+requirements:
+  - "Define one family-holdout axis only: element-family, cation-pair-family, or crystal/prototype-family, using committed MD-0002 metadata only."
+  - "Report the proposed split sizes, leakage risks, null baseline, cation-pair baseline, and minimum row-count floor before any future metric run."
+  - "If the split is too sparse, stop with `NO_STRESS_SPLIT_READY` and propose no metric task."
+  - "Do not mutate RESULT-0021, source rows, holdout files, claims, knowledge artifacts, or `results/golden-results.yaml`."
+  - "Do not claim material discovery, material recommendation, synthesis guidance, experimental validation, or universal materials law support."
+
+accepted_outputs:
+  - "`docs/reviews/materials-md0002-family-holdout-stress-preflight.md` with split definition, controls, row-count floor, stop condition, and no-claim wording."
+  - "Optional future-task recommendation only if the split passes the declared row-count and leakage checks."
+  - "Output-routing summary with Gate A/Gate B status of RESULT-0021 noted but not modified."
+
+result_artifact_policy:
+  required: false
+  reason: "Preflight/stress-test planning task; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/materials-md0002-family-holdout-stress-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_materials_md0002_baseline.py tests/test_materials_md0002_formation_energy_result.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

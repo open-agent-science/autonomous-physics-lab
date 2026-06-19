@@ -1,0 +1,55 @@
+id: TASK-0794
+title: "Draft public result capsule for Materials RESULT-0021"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Turn a new AGENT_PUBLISHED Materials result into public-safe communication without promoting a materials claim."
+  - "Prepare v0.2 launch packaging around reproducible evidence and limitations."
+  - "Keep Gate B status explicit so public wording does not outrun validation."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "results/EXP-0014/RUN-0001/gate_a_report.md"
+    - "docs/campaigns/materials-property-residuals.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/scientific-memory-review-tiers.md"
+  planning_context: >
+    RESULT-0021 is a strong new Materials benchmark candidate. A public capsule
+    should make it understandable and reusable while preserving computed-DFT,
+    frozen-slice, Gate B, and no-claim limitations.
+
+requirements:
+  - "Create or update a public-facing result capsule for RESULT-0021 with source, command, primary metric, review tier, Gate A/B status, limitations, and no-claim wording."
+  - "If Gate B is still pending, label it pending; do not imply independent validation."
+  - "Do not edit RESULT-0021 metrics, claims, knowledge artifacts, source rows, or `results/golden-results.yaml`."
+  - "Do not describe the result as material discovery, synthesis guidance, material recommendation, experimental evidence, or a universal materials law."
+
+accepted_outputs:
+  - "A concise public capsule under an existing public-facing result/campaign surface."
+  - "Optional link update from `docs/campaigns/public-science-dashboard.md` if the capsule is added as a standalone file."
+  - "Output-routing summary with Gate A/B status, claim impact, knowledge impact, and public wording blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Public result-capsule packaging for an existing RESULT; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/campaigns/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
