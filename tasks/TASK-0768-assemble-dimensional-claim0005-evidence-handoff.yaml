@@ -1,7 +1,7 @@
 id: TASK-0768
 title: "Assemble CLAIM-0005 evidence handoff after Dimensional RESULT-0020"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
