@@ -1,7 +1,7 @@
 id: TASK-0766
 title: "Run independent Gate B replay for Dimensional Validator RESULT-0020"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

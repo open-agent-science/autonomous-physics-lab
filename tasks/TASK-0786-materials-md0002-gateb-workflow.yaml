@@ -1,7 +1,7 @@
 id: TASK-0786
 title: "Repackage Materials MD-0002 formation-energy benchmark as a physics-lab engine workflow (Gate B replayable)"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

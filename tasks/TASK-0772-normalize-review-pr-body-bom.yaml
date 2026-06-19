@@ -1,7 +1,7 @@
 id: TASK-0772
 title: "Normalize UTF-8 BOM in maintainer-review PR body parsing"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 

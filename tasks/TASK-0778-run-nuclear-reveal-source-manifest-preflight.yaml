@@ -1,7 +1,7 @@
 id: TASK-0778
 title: "Run Nuclear no-peek reveal-source manifest preflight"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
