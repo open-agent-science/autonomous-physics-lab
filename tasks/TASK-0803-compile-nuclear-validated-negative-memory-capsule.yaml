@@ -1,0 +1,59 @@
+id: TASK-0803
+title: "Compile the Nuclear validated-negative-memory capsule (RESULT-0018 + exhausted lanes)"
+type: scientific_negative_memory
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the flagship campaign's strongest validated artifact (the AGENT_VALIDATED INCONCLUSIVE F2 diagnostic) and its exhausted lanes into one durable, public-safe negative-memory surface."
+  - "Make the nuclear campaign's real scientific value legible: high-quality validated negative/diagnostic memory while the prospective reveal stays externally source-blocked."
+  - "Stop future agents from reopening exhausted F2, shell-axis, local-curvature, or neutron-rich factory lanes."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "results/EXP-0012/RUN-0002/result.yaml"
+    - "docs/negative-results-registry.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    RESULT-0018 (EXP-0012/RUN-0002) is AGENT_VALIDATED with best_verdict
+    INCONCLUSIVE: a Gate-B-replayed component-ablation diagnostic, i.e. validated
+    negative/diagnostic memory rather than a positive physics result. The F2,
+    shell-axis, local-curvature, and neutron-rich lanes are exhausted into
+    negative memory. This task consolidates that evidence into one reviewable
+    capsule on existing surfaces. It does not run experiments and does not touch
+    the frozen PRED reveal registry.
+
+requirements:
+  - "Summarize what nuclear has ruled out (F2 component ablation, shell-axis, local-curvature, neutron-rich) citing RESULT-0018 and the exhausted-lane notes, in diagnostic/benchmark language."
+  - "Add or extend the capsule on existing surfaces (`docs/negative-results-registry.md` and/or the nuclear campaign page / public dashboard); do not create a new standalone digest page."
+  - "State explicitly that the prospective reveal is source-blocked (no admissible post-2026-05-20-freeze source) and that re-scouting is not a recommended lane."
+  - "Do NOT modify RESULT-0018 metrics, any PRED-* registry entry, `results/golden-results.yaml`, claims, or knowledge artifacts."
+  - "No discovery, breakthrough, solved, new-physics, or universal-mass-law wording; this is negative/diagnostic scientific memory."
+
+accepted_outputs:
+  - "A consolidated nuclear negative/diagnostic-memory capsule added to existing negative-memory / campaign / public surfaces, with evidence links to RESULT-0018 and the exhausted lanes."
+  - "Output-routing summary: destination negative memory / result-promotion (negative), no PRED/CLAIM/KNOW change, overclaim risk noted, reveal-source blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Negative-memory packaging of an existing AGENT_VALIDATED result and exhausted lanes; no new RESULT/PRED artifact is created and none is modified."
+  evidence:
+    - "docs/negative-results-registry.md"
+    - "results/EXP-0012/RUN-0002/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

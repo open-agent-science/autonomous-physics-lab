@@ -1,0 +1,57 @@
+id: TASK-0805
+title: "Run the Materials MD-0002 reusable-dataset publication preflight"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Move the materials campaign's strongest asset toward a durable reusable-dataset output, since MD-0002 is already CC BY 4.0, checksum-pinned, and frozen."
+  - "Demonstrate reusable-dataset science (citable, reproducible source memory) without claiming a material discovery or new materials law."
+  - "Identify the concrete blockers to a future maintainer-approved dataset release before any external publication step."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "data/materials/"
+    - "data/DATA_LICENSES.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+  planning_context: >
+    MD-0002 (362-row stable ternary-oxide formation-energy slice) underpins the
+    AGENT_VALIDATED RESULT-0021 and is already license-clean and checksum-pinned.
+    The nearest durable output beyond the frozen benchmark is reusable-dataset
+    publication readiness. This is a preflight only: assess DOI/citation/reuse
+    metadata completeness and list blockers. It performs no external upload and
+    no new fetch.
+
+requirements:
+  - "Inventory MD-0002 reuse readiness: license, checksum, provenance (computed-DFT), retrieval/version metadata, schema/units documentation, and citation/DOI status."
+  - "Produce a readiness checklist and an explicit blocker list for a future maintainer-approved dataset release; recommend the smallest closing steps."
+  - "Do NOT push to any external repository, mint a DOI, run a live Materials Project fetch, or mutate MD-0001/MD-0002 rows, RESULT-0021, or `results/golden-results.yaml`."
+  - "Keep computed-DFT stable ternary-oxide framing; no materials discovery, design, synthesis, device, or universal-law wording."
+
+accepted_outputs:
+  - "A `docs/reviews/materials-md0002-dataset-publication-preflight.md` with the reuse-readiness checklist, blocker list, and smallest closing steps."
+  - "Output-routing summary: destination dataset-publication readiness, no RESULT/PRED/CLAIM/KNOW change, no external release performed, blockers stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset-publication readiness preflight; no new RESULT or PRED artifact is created and no external release is performed."
+  evidence:
+    - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
+    - "data/DATA_LICENSES.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

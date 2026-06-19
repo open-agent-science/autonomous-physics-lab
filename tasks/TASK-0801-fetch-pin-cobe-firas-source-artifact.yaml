@@ -1,0 +1,61 @@
+id: TASK-0801
+title: "Fetch and pin the COBE/FIRAS source artifact for the Wien-peak slice"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Advance the next Textbook Formula Audit slice (Wien displacement / blackbody peak) through a pinned, checksum-verified source before any metric run."
+  - "Execute the fetch-and-pin step that TASK-0793 deferred with verdict SOURCE_ROUTE_OPEN_PENDING_FETCH_AND_PIN."
+  - "Keep the empirical surface reproducible and license-clean so a later Wien-peak consistency metric task can run deterministically."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-wien-firas-source-artifact.md"
+    - "docs/reviews/textbook-next-formula-source-baseline-slice.md"
+    - "data/textbook_formula_audit/"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    TASK-0793 identified the NASA LAMBDA COBE/FIRAS wavelength-domain Wien-peak
+    route as the next empirical slice and recorded the row schema and baseline
+    contract, but pinned no data ("pending fetch and pin"). This task performs
+    only that source-curation step: retrieve the named FIRAS spectrum from the
+    route in the TASK-0793 note, record license/retrieval-date/checksum, and
+    build the admissible committed rows. No spectrum is fit and no Wien verdict
+    is asserted in this task.
+
+requirements:
+  - "Use exactly the source route, citation, and row schema recorded in `docs/reviews/textbook-wien-firas-source-artifact.md`; do not substitute a different dataset."
+  - "Commit the source artifact (or a faithful pinned copy) with SHA-256 checksum, retrieval date, version, and license/reuse status added to `data/DATA_LICENSES.yaml`."
+  - "Build the admissible row file(s) under `data/textbook_formula_audit/` per the recorded schema; record direct-vs-derived class for each row."
+  - "Do NOT fit a blackbody spectrum, compute a Wien-peak residual, or assert any consistency verdict in this task."
+  - "If the source cannot be retrieved reproducibly or the license forbids redistribution, STOP with a `SOURCE_BLOCKER` note and do not fabricate or estimate rows."
+  - "No blackbody-universality, textbook-formula-falsified, or discovery wording."
+
+accepted_outputs:
+  - "Committed FIRAS source artifact + checksum/license/retrieval metadata, OR a `docs/reviews/...-source-blocker.md` note if the fetch is not reproducible."
+  - "Admissible committed rows under `data/textbook_formula_audit/` matching the TASK-0793 schema, with direct-vs-derived class recorded."
+  - "Output-routing summary: destination source gate/dataset, no metric run, RESULT/PRED not attempted, blocker stated if any."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-curation-only step; no RESULT or PRED artifact is produced. A later metric task (TASK-0802) consumes this pinned source."
+  evidence:
+    - "data/textbook_formula_audit/"
+    - "data/DATA_LICENSES.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
