@@ -53,7 +53,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_agent_replay_validation.py tests/test_dimensions.py tests/test_result_publication_gate.py tests/test_docs_links.py"
-    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --output-dir .gate-b-replay-task0766 --validator-contributor-id gladunrv --validator-github-username gladunrv --validator-agent-tool 'Claude Code' --validator-model 'Claude Opus 4.8' --json"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --output-dir .gate-b-replay-task0766 --validator-contributor-id gladunrv --validator-github-username gladunrv --validator-agent-tool 'Claude Code' --validator-model 'Claude Opus 4.8' --expect-status CONTESTED_RESULT --json"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 # Gate B outcome: CONTESTED_RESULT. The dimensional-consistency core of

@@ -11,6 +11,7 @@ from physics_lab.registry.agent_replay_validation import (
     ReplayIdentity,
     validate_agent_published_result,
 )
+from scripts.apl_validate_agent_published_result import _exit_code_for_report
 
 
 def _identity() -> ReplayIdentity:
@@ -198,6 +199,9 @@ def test_gate_b_contests_metric_drift(tmp_path: Path) -> None:
     assert report.status == "CONTESTED_RESULT"
     assert "metric-drift" in {issue.code for issue in report.issues}
     assert report.contested_report is not None
+    assert _exit_code_for_report(report, expected_status=None) == 1
+    assert _exit_code_for_report(report, expected_status="CONTESTED_RESULT") == 0
+    assert _exit_code_for_report(report, expected_status="PASS") == 1
 
 
 def test_gate_b_rejects_unsupported_command(tmp_path: Path) -> None:

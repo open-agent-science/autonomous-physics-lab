@@ -30,6 +30,7 @@ python3 scripts/apl_validate_agent_published_result.py \
   --validator-github-username gladunrv \
   --validator-agent-tool "Claude Code" \
   --validator-model "Claude Opus 4.8" \
+  --expect-status CONTESTED_RESULT \
   --json
 ```
 

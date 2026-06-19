@@ -39,6 +39,14 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--json", action="store_true", help="Emit machine-readable output.")
     parser.add_argument(
+        "--expect-status",
+        choices=("PASS", "BLOCKED", "CONTESTED_RESULT"),
+        help=(
+            "Return success only when the replay report has this status. "
+            "Without this option, only PASS is successful."
+        ),
+    )
+    parser.add_argument(
         "--validator-contributor-id",
         required=True,
         help="Contributor ID of the validating agent/human.",
@@ -78,6 +86,12 @@ def main(argv: list[str] | None = None) -> int:
     else:
         _print_human_report(report)
 
+    return _exit_code_for_report(report, expected_status=args.expect_status)
+
+
+def _exit_code_for_report(report: ReplayReport, *, expected_status: str | None) -> int:
+    if expected_status is not None:
+        return 0 if report.status == expected_status else 1
     return 0 if report.ok else 1
 
 
