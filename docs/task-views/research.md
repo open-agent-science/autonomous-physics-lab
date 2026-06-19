@@ -16,12 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0746` - Select one next Nuclear non-F2 no-leakage hypothesis lane (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0757` - Run RESULT-0017 Pendulum Gate B replay validation (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `pendulum_formula_falsification`)
-- `TASK-0766` - Run independent Gate B replay for Dimensional Validator RESULT-0020 (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
-- `TASK-0767` - Package Atomic Yb/Sr source-limited consistency diagnostic as memory (`scientific_validation`, priority `high`, difficulty `low`, domain `atomic_clock_residuals`)
-- `TASK-0778` - Run Nuclear no-peek reveal-source manifest preflight (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0779` - Reconcile Stellar DEBCat scope flags after RESULT-0022 (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0780` - Scout Atomic Yb/Sr reopen source or aggregation route (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0781` - Run metadata-only Exoplanet EXO-0003 source-version monitor check (`scientific_validation`, priority `medium`, difficulty `low`, domain `exoplanet_mass_radius`)
-- `TASK-0783` - Plan the next Textbook Formula Audit source/baseline slice (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
+None.

@@ -14,9 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0770` - Bound maintainer-review validation and classify environment failures (`tooling_reliability`, priority `high`, difficulty `medium`, domain `maintainer_review`)
-- `TASK-0772` - Normalize UTF-8 BOM in maintainer-review PR body parsing (`tooling_reliability`, priority `medium`, difficulty `low`, domain `maintainer_review`)
-- `TASK-0774` - Ban frozen task-id and board snapshots in tests (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_infrastructure`)
-- `TASK-0785` - Enforce Gate B replay independence (block same-contributor-and-agent self-validation) (`tooling_reliability`, priority `high`, difficulty `medium`, domain `tooling_reliability`)
-- `TASK-0786` - Repackage Materials MD-0002 formation-energy benchmark as a physics-lab engine workflow (Gate B replayable) (`tooling_reliability`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0787` - Bound closeout sweep GitHub metadata lookups (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_review`)
+None.
