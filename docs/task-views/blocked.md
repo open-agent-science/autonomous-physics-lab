@@ -9,7 +9,6 @@
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0782` - Adjudicate Dimensional RESULT-0020 Gate B packaging contest (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
-- `TASK-0797` - Run Quantum Almeida raster/export row-readiness gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 
 ## Research Blockers
 
