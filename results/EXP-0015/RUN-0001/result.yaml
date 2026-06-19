@@ -43,6 +43,11 @@ review_tier: AGENT_PUBLISHED
 agent_proposal_evaluation:
   review_tier_proposed: AGENT_PUBLISHED
   best_verdict_proposed: VALID_IN_RANGE
+  published_by:
+    contributor_id: gladunrv
+    github_username: gladunrv
+    agent_tool: Claude Code
+    model_version: Claude Opus 4.8
   gates_checked:
     deterministic_run: true
     verification_block_populated: true

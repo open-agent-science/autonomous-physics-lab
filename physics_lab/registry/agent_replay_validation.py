@@ -114,11 +114,12 @@ def validate_agent_published_result(
 
     expected = _load_yaml_mapping(result_file)
     preflight_issues = _preflight_issues(expected, result_file=result_file, root=root_path)
-    warning_issues = _identity_warnings(expected, replayed_by=replayed_by)
-    if any(issue.severity == "error" for issue in preflight_issues):
+    identity_issues = _identity_issues(expected, replayed_by=replayed_by)
+    warning_issues = [issue for issue in identity_issues if issue.severity != "error"]
+    if any(issue.severity == "error" for issue in preflight_issues + identity_issues):
         return _blocked_report(
             result_file,
-            tuple(preflight_issues + warning_issues),
+            tuple(preflight_issues + identity_issues),
             replay_output_dir=None,
         )
 
@@ -297,45 +298,76 @@ def _input_hash_issues(input_hashes: dict[str, Any], *, root: Path) -> list[Repl
     return issues
 
 
-def _identity_warnings(
+def _identity_issues(
     payload: dict[str, Any],
     *,
     replayed_by: ReplayIdentity,
 ) -> list[ReplayIssue]:
-    warnings: list[ReplayIssue] = []
+    """Return Gate B independence issues for the replay identity.
+
+    Gate B certifies that an AGENT_PUBLISHED result reproduces under an
+    *independent* replay, so a self-validation by the same contributor and the
+    same agent that published the result is forbidden (blocking error). Without a
+    recorded original publisher, independence cannot be certified, so that is also
+    blocking. A single-axis overlap (same agent only, or same contributor only)
+    stays a non-blocking advisory warning, which keeps single-maintainer Gate B
+    viable when a different agent tool performs the replay.
+    """
+    issues: list[ReplayIssue] = []
     publisher = _original_publisher(payload)
     if publisher is None:
-        warnings.append(
+        issues.append(
             ReplayIssue(
-                "original-publisher-unknown",
-                "Original publisher metadata is not stored on this RESULT; "
-                "recording replay identity but cannot mechanically compare agents.",
-                severity="warning",
+                "original-publisher-unrecorded",
+                "Gate B cannot certify independence: the result does not record an "
+                "original publisher. Record `agent_proposal_evaluation.published_by` "
+                "(contributor_id, github_username, agent_tool, model_version) before "
+                "an independent agent runs Gate B.",
+                severity="error",
             )
         )
-        return warnings
+        return issues
 
     original_tool = str(publisher.get("agent_tool", "")).strip().lower()
     original_contributor = str(publisher.get("contributor_id", "")).strip().lower()
-    if original_tool and original_tool == replayed_by.agent_tool.strip().lower():
-        warnings.append(
+    same_tool = bool(original_tool) and original_tool == replayed_by.agent_tool.strip().lower()
+    same_contributor = (
+        bool(original_contributor)
+        and original_contributor == replayed_by.contributor_id.strip().lower()
+    )
+
+    if same_tool and same_contributor:
+        issues.append(
+            ReplayIssue(
+                "self-validation-forbidden",
+                "Gate B requires an independent replayer: the replay identity matches "
+                "the original publisher on both contributor and agent tool. Re-run the "
+                "replay with a different agent tool (and/or a different contributor).",
+                severity="error",
+            )
+        )
+        return issues
+
+    if same_tool:
+        issues.append(
             ReplayIssue(
                 "same-agent-tool",
-                "Replay uses the same agent tool as the original publisher; "
-                "prefer cross-tool validation when available.",
+                "Replay uses the same agent tool as the original publisher (different "
+                "contributor); prefer cross-tool validation when available.",
                 severity="warning",
             )
         )
-    if original_contributor and original_contributor == replayed_by.contributor_id.strip().lower():
-        warnings.append(
+    if same_contributor:
+        issues.append(
             ReplayIssue(
                 "same-contributor",
-                "Replay uses the same contributor id as the original publisher; "
-                "this is acceptable for maintainer-run Gate B, but record the limitation.",
+                "Replay uses the same contributor id as the original publisher with a "
+                "different agent tool; this is acceptable for maintainer-run Gate B, but "
+                "record the limitation.",
                 severity="warning",
             )
         )
-    return warnings
+    return issues
 
 
 def _original_publisher(payload: dict[str, Any]) -> dict[str, Any] | None:

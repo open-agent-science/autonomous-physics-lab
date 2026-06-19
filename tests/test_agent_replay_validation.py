@@ -195,7 +195,7 @@ def test_gate_b_rejects_unsupported_command(tmp_path: Path) -> None:
     assert "unsupported-command" in {issue.code for issue in report.issues}
 
 
-def test_gate_b_warns_when_original_publisher_is_unknown(tmp_path: Path) -> None:
+def test_gate_b_blocks_when_original_publisher_is_unknown(tmp_path: Path) -> None:
     result = _fixture_result(tmp_path)
     payload = yaml.safe_load(result.read_text(encoding="utf-8"))
     del payload["agent_proposal_evaluation"]["published_by"]
@@ -211,5 +211,61 @@ def test_gate_b_warns_when_original_publisher_is_unknown(tmp_path: Path) -> None
         dry_run=True,
     )
 
-    assert report.ok
-    assert "original-publisher-unknown" in {issue.code for issue in report.issues}
+    assert not report.ok
+    assert report.status == "BLOCKED"
+    assert "original-publisher-unrecorded" in {issue.code for issue in report.issues}
+
+
+def test_gate_b_blocks_self_validation_same_contributor_and_agent(tmp_path: Path) -> None:
+    result = _fixture_result(tmp_path)
+    payload = yaml.safe_load(result.read_text(encoding="utf-8"))
+    # Original publisher identical to the replayer on both contributor and agent.
+    payload["agent_proposal_evaluation"]["published_by"] = {
+        "contributor_id": _identity().contributor_id,
+        "github_username": _identity().github_username,
+        "agent_tool": _identity().agent_tool,
+        "model_version": _identity().model_version,
+    }
+    _write_yaml(result, payload)
+    replay_root = tmp_path / "replay"
+    _copy_replay_result(result, replay_root)
+
+    report = validate_agent_published_result(
+        result,
+        root=tmp_path,
+        output_dir=replay_root,
+        replayed_by=_identity(),
+        dry_run=True,
+    )
+
+    assert not report.ok
+    assert report.status == "BLOCKED"
+    assert "self-validation-forbidden" in {issue.code for issue in report.issues}
+
+
+def test_gate_b_allows_independent_agent_with_same_contributor(tmp_path: Path) -> None:
+    result = _fixture_result(tmp_path)
+    payload = yaml.safe_load(result.read_text(encoding="utf-8"))
+    # Same human contributor published it, but with a different agent tool.
+    payload["agent_proposal_evaluation"]["published_by"] = {
+        "contributor_id": _identity().contributor_id,
+        "github_username": _identity().github_username,
+        "agent_tool": "Claude Code",
+        "model_version": "claude-opus-4-8",
+    }
+    _write_yaml(result, payload)
+    replay_root = tmp_path / "replay"
+    _copy_replay_result(result, replay_root)
+
+    report = validate_agent_published_result(
+        result,
+        root=tmp_path,
+        output_dir=replay_root,
+        replayed_by=_identity(),
+        dry_run=True,
+    )
+
+    assert report.ok, report.issues
+    assert report.status == "PASS"
+    assert "same-contributor" in {issue.code for issue in report.issues}
+    assert "self-validation-forbidden" not in {issue.code for issue in report.issues}
