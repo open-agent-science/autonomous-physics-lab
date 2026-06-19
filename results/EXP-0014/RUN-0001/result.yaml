@@ -40,7 +40,7 @@ agent_proposal_evaluation:
   review_tier_proposed: AGENT_PUBLISHED
   best_verdict_proposed: VALID_IN_RANGE
   published_by:
-    contributor_id: roman
+    contributor_id: gladunrv
     github_username: gladunrv
     agent_tool: Claude Code
     model_version: Claude Opus 4.8
