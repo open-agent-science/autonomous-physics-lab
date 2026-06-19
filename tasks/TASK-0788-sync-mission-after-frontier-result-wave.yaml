@@ -1,7 +1,7 @@
 id: TASK-0788
 title: "Sync mission and next-wave task pool after Materials/Stellar result wave"
 type: strategy_architecture
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

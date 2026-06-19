@@ -6,10 +6,10 @@ curator_cycle:
   updated: "2026-06-19"
   source: "TASK-0788"
   note: >
-    Mission guidance now reflects the Materials/Stellar frontier result wave.
-    RESULT-0021 (Materials MD-0002) and RESULT-0022 (Stellar M-L) are the
-    strongest current executor surfaces because they are AGENT_PUBLISHED,
-    replayable, and ready for independent Gate B or bounded control audits.
+    Mission guidance now reflects the Materials/Stellar frontier result wave
+    after maintainer closeout. RESULT-0021 (Materials MD-0002) and RESULT-0022
+    (Stellar M-L) have completed their immediate Gate B, bounded control, and
+    public-capsule wave; do not offer those closed tasks as executor work.
     Nuclear remains the flagship validation challenge, but reveal scoring is
     externally source-gated and should not be the default executor lane while
     fresh replayable results exist elsewhere. Exoplanet is monitor/trigger
@@ -66,10 +66,10 @@ missions:
   - id: materials-property-residuals
     title: "Materials Property Residuals"
     rank: 1
-    status: active_result_validation
+    status: result_wave_closed
     scientific_value: high
     risk: medium
-    recommendation: "Current highest-leverage result-validation lane: run independent Gate B replay for RESULT-0021, then only bounded MD-0002 family-holdout or descriptor/control audits with no materials-claim wording."
+    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, and public-capsule wave. Treat Materials MD-0002 as reviewed result memory until a maintainer-approved follow-up task queue creates new READY work; do not offer the closed wave again."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
@@ -87,10 +87,10 @@ missions:
         label: "Run Gate B replay for Materials RESULT-0021"
         task_id: TASK-0775
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "independent replay validation note"
           - "RESULT-0021 review-tier metadata update only if Gate B passes"
@@ -99,10 +99,10 @@ missions:
         label: "Preflight one MD-0002 family-holdout stress axis"
         task_id: TASK-0789
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "split definition, row-count floor, leakage risks, null/cation-pair controls"
           - "NO_STRESS_SPLIT_READY stop if sparse"
@@ -110,10 +110,10 @@ missions:
         label: "Run one MD-0002 descriptor/control ablation"
         task_id: TASK-0790
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "bounded ablation/control audit against existing baselines"
           - "sandbox/control memory only"
@@ -121,7 +121,7 @@ missions:
         label: "Draft public capsule for RESULT-0021"
         task_id: TASK-0794
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: low
         recommended: false
@@ -134,7 +134,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge, but not the current default executor lane while reveal scoring is externally source-gated. The NMD-0003 large-surface factory sprint produced control-dominated negative memory with no shortlist, and the first broad-surface NMD-0003 refit improved train/full metrics while regressing on the validation holdout. Run only bounded no-leakage or reveal-readiness work until a stronger source gate appears."
+    recommendation: "Flagship validation challenge. With the Materials/Stellar wave closed, the next executable Nuclear lane is the bounded Wigner-cusp no-leakage sprint selected by TASK-0746. Keep it controls-first and sandbox-only; do not reopen exhausted F2, shell-axis, local-curvature, or broad factory loops."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -168,6 +168,19 @@ missions:
       - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
       - "do not present LOCAL-CURVATURE-001 as a surviving no-leakage Nuclear candidate after TASK-0394"
     actions:
+      - id: nuclear-wigner-cusp-no-leakage-sprint
+        label: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
+        task_id: TASK-0777
+        mode: research
+        status: ready
+        priority: high
+        difficulty: high
+        recommended: true
+        expected_outputs:
+          - "one sandbox WIGNER-CUSP-001 run with no-leakage audit"
+          - "declared asymmetry-only, matched-random, and smooth-A controls"
+          - "negative, diagnostic-only, or inconclusive outcome preserved as Nuclear memory"
+          - "no prediction, claim, knowledge, or RESULT artifact promotion"
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
         task_id: TASK-0196
@@ -198,7 +211,7 @@ missions:
         mode: research
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
@@ -818,7 +831,7 @@ missions:
     status: active_result_validation
     scientific_value: medium
     risk: low
-    recommendation: "Active public-friendly result-validation lane: run Gate B replay for Stellar M-L RESULT-0022, then bounded split/complexity controls and source-only Wien/FIRAS curation before any new metrics."
+    recommendation: "Stellar M-L RESULT-0022 completed its immediate Gate B replay, split/complexity controls, workflow repackaging, and public-capsule wave. Keep Textbook Formula Audit source-first; the Wien/FIRAS source-artifact task is in maintainer review and should not be offered as executor work."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -834,10 +847,10 @@ missions:
         label: "Run Gate B replay for Stellar M-L RESULT-0022"
         task_id: TASK-0776
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "independent replay validation note"
           - "RESULT-0022 review-tier metadata update only if Gate B passes"
@@ -846,37 +859,37 @@ missions:
         label: "Audit Stellar M-L alternate value-blind split stability"
         task_id: TASK-0791
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "split-stability audit with controls and limitations"
       - id: textbook-stellar-piecewise-complexity
         label: "Audit one piecewise-vs-single-alpha complexity comparison"
         task_id: TASK-0792
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "complexity-control audit or no-go"
       - id: textbook-wien-firas-source-artifact
         label: "Curate Wien/FIRAS source artifact before metrics"
         task_id: TASK-0793
         mode: research
-        status: ready
+        status: review_ready
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "source route, license/checksum status, baseline contract, and controls"
       - id: textbook-stellar-result0022-public-capsule
         label: "Draft public capsule for RESULT-0022"
         task_id: TASK-0795
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: low
         recommended: false
