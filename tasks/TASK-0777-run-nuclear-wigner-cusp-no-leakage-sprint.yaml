@@ -1,7 +1,7 @@
 id: TASK-0777
 title: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -45,13 +45,13 @@ result_artifact_policy:
   required: false
   reason: "This is a sandbox controls-first sprint selected by TASK-0746; any RESULT/PRED promotion would require a separate reviewed task."
   evidence:
-    - "agent_runs/AGENT-RUN-*"
+    - "agent_runs/AGENT-RUN-0075"
     - "docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_nuclear_mass*.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_nuclear_mass_autonomous_pilot.py tests/test_nuclear_mass_baselines.py tests/test_nuclear_mass_dataset.py tests/test_nuclear_mass_hyp_0021_audit.py tests/test_nuclear_mass_prediction_registry.py tests/test_nuclear_mass_robustness_gate.py tests/test_nuclear_wigner_cusp_no_leakage_sprint.py tests/test_agent_runs.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

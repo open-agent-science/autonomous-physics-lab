@@ -24,10 +24,12 @@ classified the lane as `COMPONENT_DIAGNOSTIC_ONLY`: the full aggregate remains
 replayable, but no component clears the survival-margin gate. `TASK-0633`
 packaged that memory as `RESULT-0018`, `TASK-0713` independently replayed it
 as `AGENT_VALIDATED`, and `TASK-0743` records the do-not-repeat boundary.
-`TASK-0746` has now selected exactly one next non-F2 lane: the Wigner-cusp
-candidate `WIGNER-CUSP-001`. The next source-safe Nuclear work is one bounded
-Wigner-cusp sprint plus separate value-blind reveal-source readiness, not broad
-prediction waves or another F2 loop.
+`TASK-0746` selected exactly one next non-F2 lane, the Wigner-cusp candidate
+`WIGNER-CUSP-001`. `TASK-0777` has now run that bounded sprint and rejected the
+candidate as `NEGATIVE_RESULT`: it failed the 0.25 MeV margin against all three
+declared controls despite passing leakage and coefficient-stability checks.
+The next source-safe Nuclear work is value-blind reveal-source readiness, not a
+new Wigner-shape search, broad prediction wave, or another F2 loop.
 
 ## Public Monitoring Snapshot
 
@@ -56,13 +58,13 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next decision:** F2 no longer needs another hypothesis burst or
+**Expected next decision:** F2 and Wigner-cusp no longer need another hypothesis burst or
 publication preflight. `TASK-0633` packaged F2 as diagnostic `RESULT-0018`, and
 `TASK-0713` replayed it through Gate B without changing the `INCONCLUSIVE`
-scientific verdict. `TASK-0746` selected the Wigner-cusp lane; the next useful
-Nuclear result path is to run that one controls-first sprint and separately
-test whether any value-blind source manifest can satisfy reveal-readiness
-without scoring frozen predictions. Reveal scoring remains source-gated.
+scientific verdict. `TASK-0777` rejected the selected Wigner-cusp lane under
+its controls-first contract. The next useful Nuclear path is to test whether
+any value-blind source manifest can satisfy reveal-readiness without scoring
+frozen predictions. Reveal scoring remains source-gated.
 
 ## Orientation Note for New Contributors
 
