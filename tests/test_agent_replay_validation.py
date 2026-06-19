@@ -11,6 +11,7 @@ from physics_lab.registry.agent_replay_validation import (
     ReplayIdentity,
     validate_agent_published_result,
 )
+from scripts.apl_validate_agent_published_result import _exit_code_for_report
 
 
 def _identity() -> ReplayIdentity:
@@ -137,6 +138,30 @@ def test_gate_b_passes_and_emits_validation_record(tmp_path: Path) -> None:
     assert report.validation_record["validation_record"]["replayed_by"] == _identity().as_dict()
 
 
+def test_gate_b_finds_flat_layout_result(tmp_path: Path) -> None:
+    # Some workflows (e.g. the dimensional analysis validator) write result.yaml
+    # flat under --output-dir instead of nesting it as EXP-XXXX/RUN-XXXX/. Gate B
+    # must still locate the replayed result in that flat layout.
+    result = _fixture_result(tmp_path)
+    replay_root = tmp_path / "replay"
+    payload = yaml.safe_load(result.read_text(encoding="utf-8"))
+    replay_root.mkdir(parents=True, exist_ok=True)
+    _write_yaml(replay_root / "result.yaml", payload)
+
+    report = validate_agent_published_result(
+        result,
+        root=tmp_path,
+        output_dir=replay_root,
+        replayed_by=_identity(),
+        dry_run=True,
+    )
+
+    assert report.ok, report.issues
+    assert report.status == "PASS"
+    assert report.validation_record is not None
+    assert report.validation_record["review_tier_proposed"] == "AGENT_VALIDATED"
+
+
 def test_gate_b_blocks_wrong_review_tier(tmp_path: Path) -> None:
     result = _fixture_result(tmp_path, review_tier="MAINTAINER_REVIEWED")
 
@@ -174,6 +199,9 @@ def test_gate_b_contests_metric_drift(tmp_path: Path) -> None:
     assert report.status == "CONTESTED_RESULT"
     assert "metric-drift" in {issue.code for issue in report.issues}
     assert report.contested_report is not None
+    assert _exit_code_for_report(report, expected_status=None) == 1
+    assert _exit_code_for_report(report, expected_status="CONTESTED_RESULT") == 0
+    assert _exit_code_for_report(report, expected_status="PASS") == 1
 
 
 def test_gate_b_rejects_unsupported_command(tmp_path: Path) -> None:
