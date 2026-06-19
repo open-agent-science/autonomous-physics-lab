@@ -19,3 +19,4 @@ None.
 - `TASK-0772` - Normalize UTF-8 BOM in maintainer-review PR body parsing (`tooling_reliability`, priority `medium`, difficulty `low`, domain `maintainer_review`)
 - `TASK-0773` - Standardize Windows Python environment discovery for APL agents (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `contributor_experience`)
 - `TASK-0774` - Ban frozen task-id and board snapshots in tests (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_infrastructure`)
+- `TASK-0787` - Bound closeout sweep GitHub metadata lookups (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_review`)
