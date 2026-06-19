@@ -1,0 +1,58 @@
+id: TASK-0808
+title: "Draft the Exoplanet control-sensitivity negative-memory capsule"
+type: scientific_negative_memory
+status: READY
+closeout: review
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Turn the mined-out exoplanet mass-radius snapshot into durable negative memory so a parked campaign still yields a reviewable scientific output."
+  - "Record that the compact-radius / sub-Neptune / mass-quartile residual slices are control-sensitive and do not beat the nearest-radius null baseline on the frozen snapshot."
+  - "Prevent re-running residual slices on the unchanged snapshot while the campaign stays monitor-only."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/negative-results-registry.md"
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+  planning_context: >
+    The exoplanet campaign is correctly parked in monitor-only: the latest source
+    monitor returned NO_NOTIFY and residual scoring is closed because the
+    candidate slices are control-sensitive and do not beat the nearest-radius
+    null baseline. The durable output available now is a negative/control-memory
+    capsule consolidating those findings. This task packages existing evidence on
+    existing surfaces; it does not reopen residual scoring or fetch new data.
+
+requirements:
+  - "Consolidate the null-baseline / matched-control / underpowered-host-context findings into one reviewable negative/control-memory capsule citing the closing tasks."
+  - "Add it to existing surfaces (`docs/negative-results-registry.md` and/or the exoplanet campaign page / public dashboard); do not create a new standalone digest page."
+  - "Preserve the monitor-only reopen condition (a materially changed, checksum-pinned snapshot that clears the per-axis row-count floors and beats the null baseline)."
+  - "Do NOT reopen residual scoring on the current snapshot, run a live NASA Exoplanet Archive fetch, or add new metrics."
+  - "No habitability, planet-composition-law, or discovery wording; control-sensitivity negative memory only."
+
+accepted_outputs:
+  - "An exoplanet control-sensitivity negative-memory capsule added to existing negative-memory / campaign / public surfaces, with evidence links and the reopen condition."
+  - "Output-routing summary: destination negative memory, no RESULT/PRED/CLAIM/KNOW creation, monitor-only posture preserved, snapshot blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Negative/control-memory packaging of existing closed slices; no new RESULT or PRED artifact is created and the frozen snapshot is not re-scored."
+  evidence:
+    - "docs/negative-results-registry.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

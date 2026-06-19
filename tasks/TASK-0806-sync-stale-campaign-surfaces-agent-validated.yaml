@@ -1,0 +1,60 @@
+id: TASK-0806
+title: "Sync stale campaign surfaces to the AGENT_VALIDATED tier after the Gate B wave"
+type: docs_drift_removal
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Remove an active drift source: several campaign pages and profiles still say AGENT_PUBLISHED / Gate B pending after the Gate B replays already landed."
+  - "Stop new agents from re-running completed Gate B replays or mis-stating validation status to readers."
+  - "Keep public pages reader-facing and protocol/agent instructions out of public dashboards."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/campaigns/materials-property-residuals.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "campaign_profiles/pendulum-formula-falsification.yaml"
+    - "campaign_profiles/textbook-formula-audit.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+  planning_context: >
+    RESULT-0021 (materials), RESULT-0022 (stellar M-L), and RESULT-0017
+    (pendulum) are now AGENT_VALIDATED via completed Gate B replays, but several
+    campaign pages and profile current_stage strings still describe them as
+    AGENT_PUBLISHED with Gate B as the next step. The nuclear profile still lists
+    the already-DONE TASK-0778 as a best_next_action. This task reconciles those
+    stale strings against live result tiers and the task registry. It changes
+    wording/metadata only.
+
+requirements:
+  - "Update stale 'AGENT_PUBLISHED / Gate B pending' prose for RESULT-0021, RESULT-0022, and RESULT-0017 to AGENT_VALIDATED on the listed campaign pages and profiles, matching the actual result files."
+  - "Remove the already-DONE TASK-0778 from the nuclear profile best_next_actions and reconcile any other stale best_next_action entries against current task status."
+  - "Keep public campaign pages reader-facing (status, evidence links, limitations); do not add agent instructions, publication criteria, or workflow rules to public pages."
+  - "Do NOT edit any RESULT-* metrics, claim status, knowledge artifacts, `results/golden-results.yaml`, or the generated `docs/task-views/*` board files."
+  - "No upgrade of evidence strength or scope wording beyond reflecting the already-recorded review tier."
+
+accepted_outputs:
+  - "Updated campaign pages/profiles whose review-tier wording and best_next_actions match the live result files and task registry."
+  - "Output-routing summary: destination drift removal / campaign hygiene, no scientific-content change, no result/claim mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Documentation drift-removal only; no RESULT or PRED artifact is created or modified."
+  evidence:
+    - "docs/campaigns/materials-property-residuals.md"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

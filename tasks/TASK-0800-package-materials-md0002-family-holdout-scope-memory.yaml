@@ -1,0 +1,60 @@
+id: TASK-0800
+title: "Package Materials MD-0002 family-holdout scope boundary as negative/scope memory"
+type: scientific_negative_memory
+status: READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Turn the TASK-0789 family-holdout preflight into durable scope memory instead of leaving a strong-looking signal as open generalization."
+  - "Record honestly that the RESULT-0021 cation-pair baseline is a within-family-membership effect that does not transfer to unseen cation pairs."
+  - "Prevent a future agent from re-running a tautological out-of-family lookup benchmark or widening into a forbidden feature factory."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0002-family-holdout-stress-preflight.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/negative-results-registry.md"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    TASK-0789 found STRESS_SPLIT_READY but the preflight already shows the
+    cation-pair-mean model degenerates to the global train mean on fully unseen
+    cation pairs (holdout MAE 0.637 vs null 0.654 eV/atom), versus 0.201 on the
+    standard frozen split. That is a scope boundary, not an open question: a pure
+    pair-lookup baseline cannot extrapolate to unseen keys by construction. The
+    useful next output is to record this as scope/negative memory and tighten the
+    RESULT-0021 scope wording, not to spend a metric run re-confirming it.
+
+requirements:
+  - "Summarize the family-holdout scope boundary from the existing TASK-0789 preflight: the cation-pair baseline lifts within seen pairs but provides no out-of-family transfer (cite the 0.637 vs 0.654 holdout numbers)."
+  - "Add the finding to the existing `docs/negative-results-registry.md` and, if useful, a one-paragraph scope note linked from the materials campaign page; do not create a new standalone digest page."
+  - "Do NOT run a new metric task, do NOT widen into a multi-descriptor or feature-factory search, and do NOT perform a live Materials Project fetch."
+  - "Do NOT edit RESULT-0021 metrics, MD-0001/MD-0002 source rows, holdout files, `results/golden-results.yaml`, claims, or knowledge artifacts."
+  - "Use computed-DFT stable ternary-oxide framing only; no materials discovery, design, synthesis, device, or universal-law wording."
+
+accepted_outputs:
+  - "An appended entry in `docs/negative-results-registry.md` capturing the MD-0002 family-holdout scope boundary with the preflight numbers and source reference."
+  - "Optional one-paragraph scope clarification linked from `docs/campaigns/materials-property-residuals.md` (no new page)."
+  - "Output-routing summary: destination negative/scope memory, no RESULT/PRED/CLAIM/KNOW change, overclaim risk noted, promotion blocker none (memory-only)."
+
+result_artifact_policy:
+  required: false
+  reason: "Scope/negative-memory packaging of an existing preflight; no new RESULT or PRED artifact is produced or modified."
+  evidence:
+    - "docs/negative-results-registry.md"
+    - "docs/reviews/materials-md0002-family-holdout-stress-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
