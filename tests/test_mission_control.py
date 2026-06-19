@@ -830,7 +830,7 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
 
     rendered = json.loads(result.stdout)
     assert rendered["default_mode"] == "research"
-    assert rendered["recommended"]["mission"] == "exoplanet-mass-radius"
+    assert rendered["recommended"]["mission"] == "materials-property-residuals"
     assert "live_task_candidates" in rendered
 
 
@@ -870,7 +870,7 @@ def test_apl_mission_script_output_agent_runs_from_repo_root() -> None:
 
     assert "Agent First Research Mode" in result.stdout
     assert "Execute the full loop autonomously" in result.stdout
-    assert "choose one executable READY task" in result.stdout
+    assert "list only executable READY tasks" in result.stdout
 
 
 def test_cli_mission_json_runs_from_repo_root() -> None:
@@ -882,11 +882,17 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     )
 
     rendered = json.loads(result.stdout)
+    payload = load_current_missions(Path(__file__).resolve().parents[1])
+    selection = select_mission(payload)
+    assert selection.action is not None
+    expected_task_id = selection.action.get("task_id")
+
     assert rendered["selected_mode"] == "research"
-    assert rendered["recommended"]["action"] == "exoplanet-negative-control-memory"
-    assert rendered["recommended"]["task_id"] is None
-    assert rendered["recommended"]["is_executable"] is False
-    assert rendered["recommended"]["guidance_only"] is True
+    assert rendered["recommended"]["mission"] == selection.mission["id"]
+    assert rendered["recommended"]["action"] == selection.action["id"]
+    assert rendered["recommended"]["task_id"] == expected_task_id
+    assert rendered["recommended"]["is_executable"] is bool(expected_task_id)
+    assert rendered["recommended"]["guidance_only"] is bool(not expected_task_id)
     assert "parallel_work_policy" in rendered
     assert any(
         "result-promotion-protocol.md" in item
