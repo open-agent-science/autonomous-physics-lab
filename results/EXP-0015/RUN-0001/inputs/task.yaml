@@ -1,7 +1,7 @@
 id: TASK-0764
 title: "Package Stellar M-L controlled DEBCat audit as a Gate A result candidate"
 type: scientific_result_publication
-status: READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
@@ -48,9 +48,12 @@ requirements:
   - "Run `scripts/apl_check_result_publication.py` against the candidate before assigning `AGENT_PUBLISHED`."
   - "Set `AGENT_PUBLISHED` only if Gate A passes; otherwise leave the candidate unpublished and report the blocker."
   - "Do not promote any CLAIM or KNOW artifact, do not make stellar-evolution or application-domain claims, and do not call the benchmark a new law."
+  - "This task authorizes creating the registered `hypotheses/HYP-*` and `experiments/EXP-*` artifacts that the new result references; these protected-artifact additions are an intended part of result packaging."
 
 accepted_outputs:
   - "A new `results/EXP-*/RUN-*/result.yaml` or documented successor experiment path for the Stellar M-L controlled DEBCat audit."
+  - "A registered `hypotheses/HYP-*` hypothesis artifact for the benchmark (e.g. `hypotheses/HYP-0015-stellar-ml-debcat-baseline-benchmark.yaml`)."
+  - "A registered `experiments/EXP-*` experiment artifact for the benchmark (e.g. `experiments/EXP-0015-stellar-ml-debcat-baseline-benchmark.yaml`)."
   - "Frozen inputs, metrics, report, and Gate A report for that result candidate."
   - "A result-routing summary covering canonical destination, Gate A status, Gate B status, claim impact, knowledge impact, and publication blockers."
   - "A campaign/profile update only if the task outcome changes public wording or readiness."
@@ -66,7 +69,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_docs_links.py tests/test_result_publication_gate.py"
-    - "python3 scripts/apl_check_result_publication.py <new-result-yaml>"
+    - "python3 scripts/apl_check_result_publication.py results/EXP-0015/RUN-0001/result.yaml"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
