@@ -1,0 +1,62 @@
+id: TASK-0798
+title: "Decode maintainer-review Git subprocess output as UTF-8"
+type: tooling_reliability
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review portable across Windows, macOS, Linux, Codex, Claude Code, and human maintainer shells."
+  - "Remove a real Windows Unicode failure mode without weakening review policy, validation gates, or diff parsing."
+  - "Preserve GitHub issue #1102 as a canonical executable task instead of leaving it only in the external issue queue."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "https://github.com/open-agent-science/autonomous-physics-lab/issues/1102"
+    - "scripts/apl_review_pr.py"
+    - "physics_lab/registry/review_git.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_policy.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    GitHub issue #1102 reported that `python scripts/apl_review_pr.py --pr 1101
+    --validation-mode ci-aware` failed on Windows when Git diff output contained
+    Unicode text. The subprocess reader used the platform default text
+    encoding, so Windows `cp1252` decoding raised `UnicodeDecodeError`; the
+    failed diff read then propagated `None` into added-line parsing. The review
+    helper should decode Git subprocess output explicitly and defensively while
+    preserving clean-remote-worktree review behavior.
+
+requirements:
+  - "Make maintainer-review Git subprocess helpers decode captured stdout/stderr explicitly as UTF-8 on all supported platforms."
+  - "Handle decoding or reader failures without passing `None` into diff parsers or changed-file parsing."
+  - "Add a focused regression test using non-ASCII Unicode diff or subprocess output that would fail under a Windows `cp1252` default."
+  - "Preserve existing timeout reporting, return-code handling, clean remote worktree review, CI-aware validation, and strict validation behavior."
+  - "Do not mask real Git command failures, skip required review gates, weaken diff parsing, or require users to set `PYTHONUTF8`/`PYTHONIOENCODING` manually."
+  - "Keep the implementation portable: `pathlib`, argument-list subprocess calls, no shell-only critical path, and no platform-specific hacks unless covered by tests."
+
+accepted_outputs:
+  - "Updated maintainer-review subprocess helper or equivalent call boundary with explicit UTF-8 decoding."
+  - "Regression coverage for Unicode Git diff/subprocess output and the no-`None` parser boundary."
+  - "A brief issue-close note or PR reference for GitHub issue #1102 after the implementation PR is merged."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer review tooling task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/review_git.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_review_checks.py"
+    - "python3 -m ruff check scripts/apl_review_pr.py physics_lab/registry/review_git.py physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py tests/test_review_checks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
