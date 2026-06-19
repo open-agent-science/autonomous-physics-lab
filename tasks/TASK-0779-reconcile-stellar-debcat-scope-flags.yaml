@@ -1,7 +1,7 @@
 id: TASK-0779
 title: "Reconcile Stellar DEBCat scope flags after RESULT-0022"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

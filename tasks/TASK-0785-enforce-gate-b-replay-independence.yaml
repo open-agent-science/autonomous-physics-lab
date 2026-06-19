@@ -1,7 +1,7 @@
 id: TASK-0785
 title: "Enforce Gate B replay independence (block same-contributor-and-agent self-validation)"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

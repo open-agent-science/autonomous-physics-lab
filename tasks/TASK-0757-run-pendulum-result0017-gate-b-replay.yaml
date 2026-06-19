@@ -1,7 +1,7 @@
 id: TASK-0757
 title: "Run RESULT-0017 Pendulum Gate B replay validation"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
