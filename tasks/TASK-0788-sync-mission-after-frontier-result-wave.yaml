@@ -1,0 +1,68 @@
+id: TASK-0788
+title: "Sync mission and next-wave task pool after Materials/Stellar result wave"
+type: strategy_architecture
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep mission control aligned with the actual scientific memory after RESULT-0021 and RESULT-0022 landed."
+  - "Refill the READY science pool with bounded, source-aware, no-claim tasks instead of repeating stale validation or packaging loops."
+  - "Preserve blocked campaign states explicitly so agents do not rerun source scouts where a concrete maintainer input is required."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "campaign_profiles/materials-property-residuals.yaml"
+    - "campaign_profiles/textbook-formula-audit.yaml"
+    - "campaign_profiles/quantum-size-effects.yaml"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "tasks/TASK-0775-run-materials-result0021-gate-b-replay.yaml"
+    - "tasks/TASK-0776-run-stellar-ml-result0022-gate-b-replay.yaml"
+  planning_context: >
+    A strategy audit found that the mission layer still described the previous
+    source-readiness phase even though Materials MD-0002 and Stellar M-L now
+    have canonical AGENT_PUBLISHED result artifacts. The same audit noted that
+    the READY science pool had fallen below the repository's minimum target.
+
+requirements:
+  - "Update mission/status language so Materials RESULT-0021 and Stellar RESULT-0022 are treated as active result-validation lanes, not pre-result scaffolds."
+  - "Keep Nuclear framed as the flagship ambition but not the default executor lane while reveal/source gates remain externally blocked."
+  - "Keep Exoplanet, Atomic, and Quantum from becoming repeated metric/source-scout loops when their blockers require a changed snapshot, admitted row source, or maintainer-supplied raster/export."
+  - "Add a bounded next-wave task pool that expands Materials and Textbook/Stellar only through replay, controls, source gates, result capsules, or scoped handoffs."
+  - "Do not add generated volatile agent-facing caches, do not change result schemas, and do not promote any CLAIM/KNOW artifact."
+
+accepted_outputs:
+  - "Updated `missions/current.yaml` with current result-validation priorities and blocked/monitor lanes."
+  - "Updated human-facing status/current-mission docs that mention RESULT-0021 and RESULT-0022 without overclaiming."
+  - "Bounded new task files for the next Materials/Textbook/Stellar/Pendulum/Quantum wave."
+  - "Updated campaign profile source blocks and regenerated `campaign_profiles/_catalog.yaml` if profile metadata changes."
+
+result_artifact_policy:
+  required: false
+  reason: "Strategy/architecture synchronization task; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "tasks/TASK-0789-materials-md0002-family-holdout-stress-preflight.yaml"
+
+validation:
+  commands:
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 scripts/apl_mission.py --mode maintainer --output json"
+    - "python3 scripts/apl_proposal_triage.py"
+    - "python3 -m pytest tests/test_task_discovery.py tests/test_docs_links.py tests/test_campaign_registry.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

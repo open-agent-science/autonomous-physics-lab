@@ -1,0 +1,57 @@
+id: TASK-0791
+title: "Run Stellar M-L alternate-split stability audit"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress-test RESULT-0022 with a bounded split-stability question instead of repeating the same textbook alpha comparison."
+  - "Keep Textbook Formula Audit public-friendly while preserving no-universal-law wording."
+  - "Use controls and frozen DEBCat rows before opening another empirical formula slice."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml"
+    - "scripts/replay_stellar_ml_result.py"
+    - "tasks/TASK-0776-run-stellar-ml-result0022-gate-b-replay.yaml"
+  planning_context: >
+    RESULT-0022 found that textbook alpha=3.5 is inadequate as the sole
+    baseline on the frozen main-sequence DEBCat slice. A useful next audit asks
+    whether the qualitative conclusion is stable under a small, predeclared set
+    of alternate value-blind splits.
+
+requirements:
+  - "Use only the committed DEBCat Route 2 rows and no live fetch."
+  - "Predeclare at most three alternate value-blind split seeds or split rules before computing metrics."
+  - "Compare textbook alpha=3.5, fitted single-alpha, and the existing null/control baselines; do not introduce a new broad model family."
+  - "Report whether the conclusion is stable, split-sensitive, or underpowered; preserve all negative or inconclusive outcomes."
+  - "Do not edit RESULT-0022 metrics, promote a claim, or make universal mass-luminosity or stellar-evolution statements."
+
+accepted_outputs:
+  - "`docs/reviews/stellar-ml-alternate-split-stability-audit.md` with split rules, metrics, controls, verdict, and limitations."
+  - "Optional deterministic helper/test changes only if needed to make alternate splits reproducible."
+  - "Output-routing summary: sandbox/control audit unless a later result-publication task is approved."
+
+result_artifact_policy:
+  required: false
+  reason: "Stability audit for an existing RESULT path; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_stellar_ml_debcat_rows.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

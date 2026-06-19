@@ -1,0 +1,54 @@
+id: TASK-0796
+title: "Prepare Pendulum CLAIM-0001 scoped maintainer decision options"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Close APL's first low-risk result-to-scoped-conclusion loop without granting agents claim-promotion authority."
+  - "Use a mature exact-reference benchmark as the safest maintainer-reviewed claim decision candidate."
+  - "Keep Pendulum wording range-limited, tolerance-bound, and non-discovery-framed."
+
+input:
+  mode: planning_only
+  related_domain: pendulum_formula_falsification
+  related_objects:
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "docs/reviews/claim-0001-pendulum-evidence-handoff.md"
+    - "results/EXP-0001/RUN-0003/result.yaml"
+    - "results/EXP-0001/RUN-0006/result.yaml"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    TASK-0760 assembled the Pendulum evidence handoff. The next useful step is
+    a maintainer-facing decision-options note that makes the narrow supported
+    wording, blockers, and alternatives explicit without changing claim status.
+
+requirements:
+  - "Read the existing CLAIM-0001 evidence handoff and current claim text."
+  - "Draft maintainer decision options: leave DRAFT, revise wording, request more replay, or promote a tightly scoped statement after maintainer review."
+  - "Identify the exact supported range/tolerance and unsupported global/exact wording."
+  - "Do not edit CLAIM-0001 status, promote knowledge, rerun formula discovery, or frame the result as a physics discovery."
+
+accepted_outputs:
+  - "`docs/reviews/claim-0001-pendulum-scoped-decision-options.md` with recommended maintainer options and blockers."
+  - "Output-routing summary with claim impact, knowledge impact, and maintainer decision boundary."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-decision preparation for an existing claim; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/claim-0001-pendulum-scoped-decision-options.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

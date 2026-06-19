@@ -1,0 +1,55 @@
+id: TASK-0793
+title: "Curate Wien/FIRAS source artifact for the next Textbook Formula slice"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Advance the next Textbook Formula Audit slice through source curation before metrics."
+  - "Use TASK-0783's source/baseline slice selection without creating another planning-only loop."
+  - "Keep famous-formula work source-first, range-aware, and no-claim."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0783-plan-next-textbook-formula-source-baseline-slice.yaml"
+    - "docs/reviews/textbook-next-formula-source-baseline-slice.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    TASK-0783 selected Wien/FIRAS as the next source-curation-only Textbook
+    Formula slice. The next useful work is a source-artifact package and
+    baseline contract, not metrics or a universal formula verdict.
+
+requirements:
+  - "Identify the exact source route, citation, version, license/reuse status, checksum policy, and row schema needed for a future Wien/FIRAS audit."
+  - "Prepare a value-safe source manifest or review note; do not run metrics, fit parameters, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "Declare validity range, units, independent variables, baseline formula source, and at least one negative/control check required before metrics."
+  - "If the source cannot be pinned or reused safely, stop with a precise blocker and do not propose a metric task."
+  - "Do not add broad symbolic-regression, blackbody-universality, cosmology, or discovery framing."
+
+accepted_outputs:
+  - "`docs/reviews/textbook-wien-firas-source-artifact.md` with source route, license/checksum status, row schema, baseline contract, controls, and blocker/no-go if any."
+  - "Optional source-manifest or candidate-list update if a safe value-free route is identified."
+  - "Output-routing summary: source readiness impact only; Gate A/Gate B not attempted."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-artifact curation for a future benchmark; no RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/textbook-wien-firas-source-artifact.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

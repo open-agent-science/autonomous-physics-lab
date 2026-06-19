@@ -1,0 +1,57 @@
+id: TASK-0790
+title: "Run Materials MD-0002 descriptor-ablation control audit"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Test whether RESULT-0021's signal is tied to the declared composition-aware baseline rather than an overfit or metadata artifact."
+  - "Prefer one physically interpretable descriptor/control audit over an open-ended materials feature search."
+  - "Preserve negative or null outcomes as useful Materials benchmark memory."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "physics_lab/workflows/materials_md0002_formation_energy.py"
+    - "examples/materials_md0002_formation_energy_benchmark.yaml"
+    - "data/materials/md-0002/"
+  planning_context: >
+    The MD-0002 cation-pair baseline is promising but must stay control-first.
+    A bounded ablation audit should compare at most one physically motivated or
+    interpretability-motivated descriptor/control against the existing
+    cation-pair and null baselines without turning the task into a broad feature
+    factory.
+
+requirements:
+  - "Choose at most one descriptor or ablation family before running any comparison; examples include composition-only ablation, cation-pair shuffle, or one simple stoichiometric descriptor."
+  - "Use the existing frozen MD-0002 split and committed rows; no live Materials Project fetches or row changes."
+  - "Compare against the existing global-median/null and cation-pair baselines with the same primary metrics used by RESULT-0021."
+  - "Stop with `NO_DESCRIPTOR_AUDIT_RUN` if the audit would require new source rows, hidden metadata, or a multi-feature search."
+  - "Do not publish a new RESULT, promote a materials claim, or describe any improvement as material-design knowledge."
+
+accepted_outputs:
+  - "`docs/reviews/materials-md0002-descriptor-ablation-control-audit.md` with selected descriptor/control, command or no-go reason, metrics if run, limitations, and verdict."
+  - "Optional small code/test changes only if required to make the chosen audit deterministic and reusable."
+  - "Output-routing summary: sandbox/control memory only unless a later task explicitly authorizes result publication."
+
+result_artifact_policy:
+  required: false
+  reason: "Control audit against an existing result path; no new RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/materials-md0002-descriptor-ablation-control-audit.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0002_baseline.py tests/test_materials_md0002_formation_energy_result.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
