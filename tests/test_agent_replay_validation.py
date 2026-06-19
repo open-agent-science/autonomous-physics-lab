@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 import hashlib
 from pathlib import Path
 
@@ -160,6 +161,69 @@ def test_gate_b_finds_flat_layout_result(tmp_path: Path) -> None:
     assert report.status == "PASS"
     assert report.validation_record is not None
     assert report.validation_record["review_tier_proposed"] == "AGENT_VALIDATED"
+
+
+def test_gate_b_can_recheck_already_validated_result(tmp_path: Path) -> None:
+    result = _fixture_result(tmp_path)
+    expected = yaml.safe_load(result.read_text(encoding="utf-8"))
+    expected["review_tier"] = "AGENT_VALIDATED"
+    expected["agent_proposal_evaluation"].update(
+        {
+            "review_tier_proposed": "AGENT_VALIDATED",
+            "gates_checked": {
+                "same_inputs": True,
+                "same_deterministic_command": True,
+                "metrics_match_within_tolerance": True,
+                "verdict_unchanged": True,
+                "independent_replay_metadata_recorded": True,
+            },
+            "validation_record": {
+                "replayed_by": _identity().as_dict(),
+                "replayed_at_utc": "2026-06-19T12:00:00+00:00",
+                "replay_command": expected["command"],
+                "replay_output_dir": "previous-replay",
+                "tolerance_used": 1.0e-9,
+                "max_abs_delta": 0.0,
+                "metric_count": 1,
+                "drift_observed": "none",
+            },
+        }
+    )
+    _write_yaml(result, expected)
+
+    replay_payload = deepcopy(expected)
+    replay_payload["review_tier"] = "AGENT_PUBLISHED"
+    replay_payload["agent_proposal_evaluation"]["review_tier_proposed"] = "AGENT_PUBLISHED"
+    replay_payload["agent_proposal_evaluation"]["gates_checked"] = {
+        "deterministic_run": True,
+        "verification_block_populated": True,
+        "input_hashes_recorded": True,
+        "limitations_listed": True,
+        "engine_version_and_commit_pinned": True,
+        "schema_validation_passes": True,
+        "no_protected_artifact_rewrite": True,
+        "no_forbidden_overclaim_wording": True,
+        "dataset_provenance_valid": True,
+    }
+    del replay_payload["agent_proposal_evaluation"]["validation_record"]
+    replay_root = tmp_path / "replay"
+    replay_result = replay_root / "EXP-9999" / "RUN-9999" / "result.yaml"
+    _write_yaml(replay_result, replay_payload)
+
+    report = validate_agent_published_result(
+        result,
+        root=tmp_path,
+        output_dir=replay_root,
+        replayed_by=_identity(),
+        dry_run=True,
+    )
+
+    assert report.ok, report.issues
+    assert report.status == "PASS"
+    assert all(
+        not metric.path.startswith("agent_proposal_evaluation")
+        for metric in report.metric_deltas
+    )
 
 
 def test_gate_b_blocks_wrong_review_tier(tmp_path: Path) -> None:

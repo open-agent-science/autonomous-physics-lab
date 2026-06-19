@@ -1,4 +1,4 @@
-"""Gate B independent replay validation for AGENT_PUBLISHED results."""
+"""Gate B independent replay validation for agent-published results."""
 
 from __future__ import annotations
 
@@ -24,6 +24,7 @@ SAFE_RESULT_COMMANDS = (
 SKIPPED_NUMERIC_PATH_PREFIXES = (
     "generated_at",
     "git_commit",
+    "agent_proposal_evaluation",
 )
 STABLE_STRING_PATHS = (
     "result_id",
@@ -106,7 +107,13 @@ def validate_agent_published_result(
     tolerance: float = DEFAULT_TOLERANCE,
     dry_run: bool = False,
 ) -> ReplayReport:
-    """Replay an AGENT_PUBLISHED result and build a Gate B validation report."""
+    """Replay a result and build a Gate B validation report.
+
+    The primary Gate B transition is AGENT_PUBLISHED to AGENT_VALIDATED. The
+    same replay check also supports already-validated artifacts so PR review can
+    rerun the task validation command after the metadata-only tier bump lands in
+    the proposed diff.
+    """
     root_path = Path(root)
     result_file = Path(result_path)
     if not result_file.is_absolute():
@@ -239,11 +246,12 @@ def _load_yaml_mapping(path: Path) -> dict[str, Any]:
 
 def _preflight_issues(payload: dict[str, Any], *, result_file: Path, root: Path) -> list[ReplayIssue]:
     issues: list[ReplayIssue] = []
-    if payload.get("review_tier") != "AGENT_PUBLISHED":
+    if payload.get("review_tier") not in {"AGENT_PUBLISHED", "AGENT_VALIDATED"}:
         issues.append(
             ReplayIssue(
                 "review-tier",
-                "Gate B expects an existing RESULT with review_tier: AGENT_PUBLISHED.",
+                "Gate B expects an existing RESULT with review_tier: "
+                "AGENT_PUBLISHED or AGENT_VALIDATED.",
             )
         )
     if not isinstance(payload.get("result_id"), str):
