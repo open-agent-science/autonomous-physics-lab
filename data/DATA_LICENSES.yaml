@@ -161,3 +161,24 @@ datasets:
       - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml
       - data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
       - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
+  - id: almeida-2023-inp-sizing-digitized
+    source: "Almeida et al. 2023, InP colloidal quantum dot sizing curve (Figure 2b), deterministically digitized"
+    source_url: https://doi.org/10.1021/acs.nanolett.3c02630
+    license: CC BY 4.0
+    redistribution_status: redistributable_with_attribution
+    citation_or_acknowledgement: >
+      Data adapted from Almeida, G. et al., "Size-Dependent Optical Properties of
+      InP Colloidal Quantum Dots," Nano Letters 2023, 23 (18), 8697-8703
+      (doi:10.1021/acs.nanolett.3c02630), licensed CC BY 4.0. Cite the article,
+      not the digitized CSVs.
+    evidence: >
+      ACS Nano Letters version-of-record confirmed CC BY 4.0 (PMC10540257,
+      Crossref VOR, zero embargo; TASK-0741), so redistribution of attributed
+      extracted data is permitted. The publisher figure asset is not vendored
+      (SHA-256 3b7a37c9...e68e2ce + locator only); these CSVs are the
+      deterministic, replayable output of scripts/extract_almeida_sizing.py.
+    raw_artifact_vendored: false
+    provenance: data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/notes.md
+    paths:
+      - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/axis_calibration.csv
+      - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/extracted_points.csv
