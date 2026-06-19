@@ -6,12 +6,11 @@ Canonical artifact: `results/EXP-0015/RUN-0001/result.yaml`
 
 ## Replay Command
 
-```powershell
-$env:PYTHONPATH='C:\tmp\apl-task-0776'
-& 'C:\Users\sviti\OneDrive\Documents\APL\.venv\Scripts\python.exe' scripts\apl_validate_agent_published_result.py results\EXP-0015\RUN-0001\result.yaml --output-dir .pytest-basetemp\task0776-gateb-replay --validator-contributor-id romanhladun24-dot --validator-github-username romanhladun24-dot --validator-agent-tool Codex --validator-model GPT-5 --json
+```bash
+python3 scripts/apl_validate_agent_published_result.py results/EXP-0015/RUN-0001/result.yaml --output-dir .pytest-basetemp/task0776-gateb-replay --validator-contributor-id romanhladun24-dot --validator-github-username romanhladun24-dot --validator-agent-tool Codex --validator-model GPT-5 --json
 ```
 
-Replay output directory: `C:\tmp\apl-task-0776\.pytest-basetemp\task0776-gateb-replay`
+Replay output directory: `.pytest-basetemp/task0776-gateb-replay`
 
 ## Gate B Outcome
 

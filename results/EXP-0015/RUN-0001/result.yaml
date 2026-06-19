@@ -67,7 +67,7 @@ agent_proposal_evaluation:
       model_version: GPT-5
     replayed_at_utc: '2026-06-19T12:53:29+00:00'
     replay_command: physics-lab run examples/stellar_ml_debcat_baseline_benchmark.yaml
-    replay_output_dir: .pytest-basetemp\task0776-gateb-replay
+    replay_output_dir: .pytest-basetemp/task0776-gateb-replay
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 68
