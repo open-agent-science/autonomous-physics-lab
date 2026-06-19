@@ -1,7 +1,7 @@
 id: TASK-0775
 title: "Run Gate B replay for Materials MD-0002 RESULT-0021"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -52,7 +52,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_result_publication_gate.py tests/test_docs_links.py"
-    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0014/RUN-0001/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0014/RUN-0001/result.yaml --output-dir .pytest-basetemp/task0775-gateb-replay --validator-contributor-id romanhladun24-dot --validator-github-username romanhladun24-dot --validator-agent-tool Codex --validator-model GPT-5 --json"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
