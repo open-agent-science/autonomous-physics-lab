@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0777` - Run bounded Nuclear Wigner-cusp no-leakage sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0800` - Package Materials MD-0002 family-holdout scope boundary as negative/scope memory (`scientific_negative_memory`, priority `high`, difficulty `low`, domain `materials_property_residuals`)
 - `TASK-0801` - Fetch and pin the COBE/FIRAS source artifact for the Wien-peak slice (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0803` - Compile the Nuclear validated-negative-memory capsule (RESULT-0018 + exhausted lanes) (`scientific_negative_memory`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
@@ -20,4 +19,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0777` - Run bounded Nuclear Wigner-cusp no-leakage sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0793` - Curate Wien/FIRAS source artifact for the next Textbook Formula slice (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
