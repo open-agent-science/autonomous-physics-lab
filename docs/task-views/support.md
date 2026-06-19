@@ -6,7 +6,7 @@
 
 ## READY
 
-None.
+- `TASK-0798` - Decode maintainer-review Git subprocess output as UTF-8 (`tooling_reliability`, priority `high`, difficulty `low`, domain `maintainer_review`)
 
 ## IN_PROGRESS
 
