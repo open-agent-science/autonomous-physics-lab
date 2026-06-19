@@ -47,6 +47,15 @@ class CommandResult:
     elapsed_seconds: float = 0.0
 
 
+def _output_text(value: str | bytes | None) -> str:
+    """Normalize captured subprocess output to UTF-8 text."""
+    if value is None:
+        return ""
+    if isinstance(value, bytes):
+        return value.decode("utf-8", errors="replace")
+    return value
+
+
 def run_command(
     command: str | list[str],
     *,
@@ -61,15 +70,16 @@ def run_command(
             command,
             cwd=cwd,
             shell=shell,
-            text=True,
             capture_output=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=timeout,
             check=False,
         )
     except subprocess.TimeoutExpired as exc:
         elapsed = time.monotonic() - started
-        stdout = exc.stdout if isinstance(exc.stdout, str) else ""
-        stderr = exc.stderr if isinstance(exc.stderr, str) else ""
+        stdout = _output_text(exc.stdout)
+        stderr = _output_text(exc.stderr)
         return CommandResult(
             returncode=-1,
             stdout=stdout,
@@ -80,8 +90,8 @@ def run_command(
     elapsed = time.monotonic() - started
     return CommandResult(
         returncode=completed.returncode,
-        stdout=completed.stdout,
-        stderr=completed.stderr,
+        stdout=_output_text(completed.stdout),
+        stderr=_output_text(completed.stderr),
         elapsed_seconds=elapsed,
     )
 
