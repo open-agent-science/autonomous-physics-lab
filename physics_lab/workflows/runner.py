@@ -34,6 +34,9 @@ from physics_lab.workflows.textbook_exact_reference import (
 from physics_lab.workflows.materials_md0002_formation_energy import (
     run_materials_md0002_formation_energy_with_output,
 )
+from physics_lab.workflows.stellar_ml_debcat_baseline import (
+    run_stellar_ml_debcat_baseline_with_output,
+)
 
 
 def run_experiment(config_path: str | Path) -> ExperimentOutcome:
@@ -76,6 +79,10 @@ def run_experiment_with_output(
         )
     if workflow == "materials_md0002_formation_energy_benchmark":
         return run_materials_md0002_formation_energy_with_output(
+            config_path=config_path, output_dir=output_dir
+        )
+    if workflow == "stellar_ml_debcat_baseline_benchmark":
+        return run_stellar_ml_debcat_baseline_with_output(
             config_path=config_path, output_dir=output_dir
         )
     if workflow == "textbook_exact_reference":
