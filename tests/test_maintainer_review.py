@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
 import sys
 from unittest.mock import patch
 
@@ -43,7 +44,7 @@ from physics_lab.registry.review_checks import (
     load_claim_status_from_ref,
     unexpected_protected_changes,
 )
-from physics_lab.registry.review_git import CommandResult
+from physics_lab.registry.review_git import CommandResult, run_command
 from physics_lab.registry.review_policy import (
     agent_tool_metadata_mismatch,
     classify_review_protocol,
@@ -172,6 +173,45 @@ def _write_review_task(
         + "\n",
         encoding="utf-8",
     )
+
+
+def test_run_command_decodes_unicode_output_as_utf8(tmp_path: Path) -> None:
+    unicode_diff = "+++ b/docs/Δοκιμή.md\n+перевірено ✓\n"
+    captured_kwargs: dict[str, object] = {}
+
+    def fake_run(command: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+        captured_kwargs.update(kwargs)
+        return subprocess.CompletedProcess(
+            command,
+            returncode=0,
+            stdout=unicode_diff,
+            stderr="",
+        )
+
+    with patch("physics_lab.registry.review_git.subprocess.run", side_effect=fake_run):
+        result = run_command(["git", "diff"], cwd=tmp_path)
+
+    assert captured_kwargs["encoding"] == "utf-8"
+    assert captured_kwargs["errors"] == "replace"
+    assert result.stdout == unicode_diff
+
+
+def test_run_command_normalizes_missing_output_before_diff_parsing(
+    tmp_path: Path,
+) -> None:
+    completed = subprocess.CompletedProcess(
+        ["git", "diff"],
+        returncode=0,
+        stdout=None,
+        stderr=None,
+    )
+
+    with patch("physics_lab.registry.review_git.subprocess.run", return_value=completed):
+        result = run_command(["git", "diff"], cwd=tmp_path)
+
+    assert result.stdout == ""
+    assert result.stderr == ""
+    assert parse_added_lines(result.stdout) == ()
 
 
 def test_branch_task_id_extracts_task_number() -> None:
