@@ -1,7 +1,7 @@
 id: TASK-0805
 title: "Run the Materials MD-0002 reusable-dataset publication preflight"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
@@ -47,7 +47,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_docs_links.py --basetemp .pytest-task-0805-doc-links"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
