@@ -21,6 +21,17 @@ already been done.
 
 ---
 
+## Scope-Memory Entries
+
+Scope-memory entries preserve a verified boundary on an existing result without
+creating a new result or changing the existing result's verdict or metrics.
+
+| Evidence | Dataset | Scope boundary | Key metrics | Classification |
+|----------|---------|----------------|-------------|----------------|
+| [TASK-0789 preflight](reviews/materials-md0002-family-holdout-stress-preflight.md) | MD-0002 stable ternary oxides | The cation-pair-mean baseline is useful when cation-pair families are represented in training, but does not establish transfer to fully unseen pairs. | Standard frozen split MAE: 0.201; unseen-pair holdout MAE: 0.637 vs null 0.654 eV/atom | Negative / scope memory |
+
+---
+
 ## Entries
 
 ### RESULT-0009 — Koide Neutrino Consistency Test
@@ -128,6 +139,42 @@ construction, common-scale quark reformulation, or exploratory relation family.
 - [report.md](../results/EXP-0009/RUN-0001/report.md)
 - [result.yaml](../results/EXP-0009/RUN-0001/result.yaml)
 - [metrics.json](../results/EXP-0009/RUN-0001/metrics.json)
+
+---
+
+### MD-0002 Cation-Pair Family-Holdout Scope Boundary
+
+**Existing result:** [RESULT-0021](../results/EXP-0014/RUN-0001/result.yaml),
+the scope-limited MD-0002 formation-energy cation-pair baseline.
+
+**Boundary evidence:** [TASK-0789 family-holdout
+preflight](reviews/materials-md0002-family-holdout-stress-preflight.md).
+This was a deterministic preflight over committed rows, not a new metric run.
+
+**What the existing evidence establishes:** On the standard frozen split, the
+cation-pair-mean baseline has holdout MAE `0.200606` eV/atom (`0.201` rounded).
+This is useful within the frozen MD-0002 slice when cation-pair families are
+represented in training.
+
+**What does not transfer:** On a disjoint holdout of 27 fully unseen
+cation-pair families (119 rows), every pair misses the lookup table, so the
+baseline falls back to the global train mean. Its MAE is `0.636977` eV/atom
+(`0.637` rounded), versus `0.653596` eV/atom (`0.654` rounded) for the
+global-median null. The comparison does not establish model-specific
+out-of-family transfer; the standard-split advantage is bounded to known
+cation-pair membership rather than extrapolation to unseen keys.
+
+**Scope:** Computed-DFT formation energies for the committed MD-0002 stable
+ternary-oxide slice only. This is negative/scope memory for a lookup baseline,
+not a materials-discovery, design, synthesis, device, experimental-validation,
+or universal-law statement. It does not evaluate a transfer-capable descriptor
+model.
+
+**Output routing:** Destination is this negative/scope-memory registry. No
+`RESULT-*`, `PRED-*`, `CLAIM-*`, `KNOW-*`, source-row, holdout, or golden-result
+artifact is created or modified. Overclaim risk is controlled by the
+computed-DFT, slice-limited, lookup-baseline wording. Promotion blocker: none;
+this is memory-only packaging of existing evidence.
 
 ---
 
