@@ -182,3 +182,5 @@ datasets:
     paths:
       - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/axis_calibration.csv
       - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/extracted_points.csv
+      - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/s2b_centers.csv
+      - data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml

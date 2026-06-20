@@ -1,7 +1,7 @@
 id: TASK-0293
 title: "Rerun quantum row-level readiness gate after direct seed"
 type: scientific_validation
-status: BLOCKED
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -25,6 +25,10 @@ input:
     quantum-dot seed lands, or until the maintainer explicitly waives the
     measurement-versus-model requirement and authorizes a calibration-curve
     consistency benchmark. It reruns the TASK-0283 gate with the new data.
+    Direct seed landed: qd-0003-almeida-2023-inp-optical.yaml (6 figure-digitised
+    TEM rows, second-agent audited). Gate rerun in this PR: PASS; see
+    docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md;
+    TASK-0225 moved BLOCKED -> READY.
 
 requirements:
   - "Start only after TASK-0291 or TASK-0292 is DONE, or after explicit maintainer waiver."
