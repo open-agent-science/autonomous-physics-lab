@@ -56,7 +56,13 @@ digitize closed figures.
 - **Tier 3 — Open-licensed article with figure-only data.** A CC BY / open
   article whose values live in figures and require a WebPlotDigitizer-class tool
   run. The license is clear, but extraction cost and digitization uncertainty are
-  higher. Acceptable, not preferred.
+  higher. Acceptable, not preferred. A deterministic, SHA-gated, reviewer-
+  replayable figure extractor now exists (`scripts/extract_almeida_sizing.py`,
+  see the Almeida InP sizing-curve digitization package), so a Tier-3 open
+  figure source is a usable fallback: extract it deterministically (record
+  calibration anchors, marker centroids, and `reviewer_replay_required`) rather
+  than discarding it. This applies only to an open-licensed (CC BY / CC0) figure
+  and never bypasses the Tier 4 closed-figure prohibition.
 - **Tier 4 — Closed or permission-required (last resort).** Subscription/closed
   sources, or any source needing per-figure digitization without an open
   license. Admissible only with explicit author/publisher redistribution
