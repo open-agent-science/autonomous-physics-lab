@@ -1,6 +1,6 @@
 ---
 id: CLAIM-0001
-title: Pendulum Period Depends on Amplitude
+title: Range-Limited Approximation of the Amplitude-Dependent Pendulum Period
 domain: classical_mechanics
 status: PARTIALLY_SUPPORTED
 review_tier: MAINTAINER_REVIEWED
@@ -16,30 +16,29 @@ scope: >
   Ideal mathematical pendulum (undamped, undriven) benchmarked against the exact
   elliptic-integral period reference, over the sampled EXP-0001 amplitudes up to
   3.10 rad. Range-limited approximation evidence only: valid only within the
-  tested range, not exact, not valid at the separatrix theta = pi, and not a
-  result for non-ideal (damped, driven, finite-size, elastic, or laboratory)
-  pendulums.
+  tested range; the tested approximation is not exact, not valid at the
+  separatrix theta = pi, and not a result for non-ideal (damped, driven,
+  finite-size, elastic, or laboratory) pendulums.
 ---
 
-# CLAIM-0001: Pendulum Period Depends on Amplitude
+# CLAIM-0001: Range-Limited Approximation of the Amplitude-Dependent Pendulum Period
 
 ## Statement
 
-For the ideal mathematical pendulum benchmarked against the exact
-elliptic-integral reference, the period is amplitude-dependent, and the
-small-angle approximation alone is not exact away from its limiting regime.
-Within the sampled `EXP-0001` amplitude ranges up to `3.10` rad, range-limited
-correction formulas improve approximation accuracy and are **valid only within
-the tested range**. The strongest referenced held-out result has maximum
+Within the configured `EXP-0001` amplitude ranges up to `3.10` rad, tested
+correction formulas approximate the exact ideal-pendulum period with
+range-limited accuracy. The ideal mathematical pendulum period is
+amplitude-dependent, so the small-angle approximation alone is not exact away
+from its limiting regime. The strongest referenced held-out result has maximum
 relative error `4.4038e-5` for `model_asymptotic_refined` on `2.1839`-`3.1000`
-rad. This does not establish a globally exact approximation, validity at
-`theta = pi`, or a result for non-ideal pendulums.
+rad. This does not establish that any tested approximation is globally exact,
+valid at `theta = pi`, or applicable to non-ideal pendulums.
 
 ## Evidence Status
 
-`RESULT-0001`, `RESULT-0003`, and `RESULT-0013` together support a bounded,
-verification-backed, amplitude-dependent ideal-pendulum benchmark; the evidence
-is **valid only within the tested range**.
+`RESULT-0001`, `RESULT-0003`, and `RESULT-0013` together support bounded,
+verification-backed approximation quality for tested amplitude-dependent
+ideal-pendulum periods; the evidence is **valid only within the tested range**.
 
 | Result | Scope | Outcome |
 | --- | --- | --- |
@@ -49,10 +48,10 @@ is **valid only within the tested range**.
 
 The held-out tolerance belongs to the named approximation
 (`model_asymptotic_refined`) and its held-out range; it is not transferable to
-other models, amplitudes, or the broader qualitative law. The validated negative
-boundary `RESULT-0017` (`OVERFITTED`, Gate B PASS) is documented separately and
-is not positive support for a formula; it is kept out of this evidence map
-because its verdict fails the in-range verification gate.
+other models, amplitudes, or the broader qualitative amplitude-dependence fact.
+The validated negative boundary `RESULT-0017` (`OVERFITTED`, Gate B PASS) is
+documented separately and is not positive support for a formula; it is kept out
+of this evidence map because its verdict fails the in-range verification gate.
 
 ## Review Recommendation
 
@@ -60,7 +59,7 @@ Promoted from `DRAFT` to `PARTIALLY_SUPPORTED` at `review_tier:
 MAINTAINER_REVIEWED` by a maintainer Gate C decision following Option 4 of
 `docs/reviews/claim-0001-pendulum-scoped-decision-options.md` (TASK-0796).
 
-`PARTIALLY_SUPPORTED` is the ceiling. Reason:
+`PARTIALLY_SUPPORTED` is the current ceiling. Reason:
 
 - the support is range-limited, model-limited, and benchmark-limited
   (`VALID_IN_RANGE`);
