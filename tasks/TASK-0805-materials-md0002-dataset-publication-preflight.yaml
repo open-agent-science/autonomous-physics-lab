@@ -1,7 +1,7 @@
 id: TASK-0805
 title: "Run the Materials MD-0002 reusable-dataset publication preflight"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
