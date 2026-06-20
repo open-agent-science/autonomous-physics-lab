@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
+None.
