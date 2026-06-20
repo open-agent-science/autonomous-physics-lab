@@ -14,18 +14,25 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign is currently **scaffold-complete with source-manifest evidence,
-but not yet row-level benchmark-ready**.
+This campaign is now **row-level benchmark-ready**: six deterministically
+digitized direct `(edge length, E1s)` InP rows from Almeida 2023 landed in
+`data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml`, the `TASK-0293`
+row-readiness gate passed, and `TASK-0225` (the first baseline benchmark) is
+unblocked. The detailed source-readiness history below predates that resolution
+and is kept as scientific memory of the long open-licensed-source path.
 
 ## Public Monitoring Snapshot
 
 **Current question:** can APL curate direct quantum-dot size/optical-property
 measurement rows before running attractive size-effect baselines?
 
-**Shareable result:** the campaign is intentionally blocked from benchmark
-metrics because committed rows are calibration-derived rather than direct
-measurement rows. That blocker is useful public scientific memory: it shows
-APL refusing to score a model against weak provenance.
+**Shareable result:** APL held the provenance line for many cycles (refusing to
+score models against calibration-derived rows), then resolved it the disciplined
+way: an open-licensed (CC-BY 4.0) Almeida 2023 figure set was digitized by a
+deterministic, SHA-gated, byte-replayable extractor and independently
+re-extracted by a second agent (verdict CLEAN_6), yielding six direct InP
+`(edge length, E1s)` rows that pass the row-readiness gate. The refusal-then-
+disciplined-resolution arc is the durable public scientific memory.
 
 **Not a claim:** there is no quantum-dot size-effect benchmark result yet, no
 new material law, and no device, synthesis, biomedical, or design claim.
@@ -64,11 +71,16 @@ SI Figure S2b raster, source page, or reusable WebPlotDigitizer-class export,
 so the task preserved a precise tool-run blocker instead of fabricating rows.
 Further source-scout tasks are not needed.
 
-**Expected next result:** a future curator must provide the exact Almeida
-Figure 1b / SI Figure S2b raster or a reusable WebPlotDigitizer-class export
-with axis calibration, extracted points, and uncertainty notes. Until then,
-`TASK-0293` and `TASK-0225` remain blocked. The calibration-consistency waiver
-(option b) and pause (option c) are no longer the active path.
+**Expected next result (RESOLVED → next step):** the size-axis blocker is
+cleared. The maintainer supplied the Almeida figures locally; a deterministic
+extractor (`scripts/extract_almeida_sizing.py` for Figure 2b and the SI
+Figure S2b TEM-histogram extractor in the digitization package) produced and a
+second agent independently confirmed six direct rows (`qd-0003`). `TASK-0293`
+passed the readiness gate and `TASK-0225` is now `READY`. The next result is the
+first quantum-size-effect **baseline residual benchmark** on `qd-0003` (single
+material, six rows; size-range holdout and null controls; figure-derived
+provenance; no design/law claim). The calibration-consistency waiver and pause
+options were not used.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -84,10 +96,9 @@ Current task posture:
 - `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
 - `TASK-0283` — row-level readiness gate before baseline (DONE; see
   `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
-- `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
-  direct-measurement row-level seed or a maintainer waiver to score a
-  calibration-curve consistency benchmark instead of a measurement-versus-
-  model benchmark);
+- `TASK-0225` — baseline residual benchmark (READY; unblocked by the `qd-0003`
+  direct-measurement seed and the `TASK-0293` readiness-gate pass — see
+  `docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md`);
 - `TASK-0291` — direct-measurement absorption seed (DONE; first-attempt
   investigation against Yu 2003 found no tabulated values and figure-only
   scatter points; see

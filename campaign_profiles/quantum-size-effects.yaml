@@ -72,8 +72,8 @@ portfolio:
   status: source_readiness
   domain: condensed_matter
   surface_type: source_pinned_benchmark
-  lifecycle_stage: source_readiness
-  activity_status: active_limited
+  lifecycle_stage: active_benchmark
+  activity_status: active
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
@@ -84,12 +84,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Almeida 2023 InP source selected, license-confirmed, checksum-pinned, and TASK-0755 preserved a source-raster/tool-export blocker before row readiness"
+  current_stage: "Almeida 2023 InP source-raster blocker resolved: 6 deterministically-digitized direct (edge length, E1s) rows landed (qd-0003, SI Figure S2b TEM + Figure 2b sizing curve, second-agent CLEAN_6); the TASK-0293 row-readiness gate PASSED and TASK-0225 baseline benchmark is unblocked"
   recommended_parallel_agents: 1
-  coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."
+  coordination_notes: "Direct rows landed; next step is the TASK-0225 baseline benchmark on qd-0003 (single material, 6 rows -- keep scope conservative)."
   best_next_actions:
-    - task_id: TASK-0797
-      label: "Run Almeida row-readiness only after exact Figure 1b / SI Figure S2b raster or WebPlotDigitizer export is supplied"
+    - task_id: TASK-0225
+      label: "Run the first quantum-size-effect baseline residual benchmark on qd-0003 (InP, 6 direct rows): size-range holdout + null controls, figure-derived provenance, no design/law claim"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
