@@ -35,7 +35,8 @@ The holdout value must not affect model selection or fitted coefficients.
 
 1. `almeida_fixed_reference`
    - Published source-scoped relation:
-     `E(L) = 1.33 + 9.128 * L^(-0.684)`.
+     `E(L_A) = 1.33 + 9.128 * L_A^(-0.684)`, where
+     `L_A = 10 * L_nm` converts the dataset edge length from nm to Angstrom.
    - No fitted parameters.
 2. `inverse_edge_fit`
    - Train-fitted generalized baseline:
