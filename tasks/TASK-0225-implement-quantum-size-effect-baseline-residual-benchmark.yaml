@@ -1,7 +1,7 @@
 id: TASK-0225
 title: "Implement quantum-dot size-effect baseline and residual benchmark"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
