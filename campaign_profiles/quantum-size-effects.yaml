@@ -84,28 +84,31 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Almeida 2023 InP source selected, license-confirmed, checksum-pinned, and TASK-0755 preserved a source-raster/tool-export blocker before row readiness"
+  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; autonomous correction search remains blocked pending TASK-0277 review"
   recommended_parallel_agents: 1
-  coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."
+  coordination_notes: "Keep work sequential: review the baseline provenance, one-point holdout, controls, and residual surface before any correction-hypothesis pilot."
   best_next_actions:
-    - task_id: TASK-0797
-      label: "Run Almeida row-readiness only after exact Figure 1b / SI Figure S2b raster or WebPlotDigitizer export is supplied"
+    - task_id: TASK-0277
+      label: "Review the TASK-0225 sandbox baseline before deciding whether TASK-0226 may run"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
     - "Dataset schema and source manifest checks."
   current_results:
     - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
     - "docs/campaigns/quantum-size-effects.md"
-    - "docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md"
+    - "docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md"
+    - "agent_runs/AGENT-RUN-0076/report.md"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
   open_questions:
-    - "Can a future curator provide the exact Almeida size-axis raster or WebPlotDigitizer export with enough provenance to curate >=6 direct rows?"
-    - "If not, should the campaign pause or revisit the weaker calibration-consistency scope?"
+    - "Is the single-source, one-holdout baseline strong enough to authorize a narrowly bounded correction pilot?"
+    - "Which independent material/source can provide a future material-transfer holdout?"
   curator_review:
     status: current
     last_reviewed: "2026-06-19"
-    review_interval: quarterly_blocked
+    review_interval: quarterly_active
     next_review_due: "2026-09-01"
-    review_reason: source_readiness
-    source: "TASK-0755 source-raster blocker review and TASK-0797 blocked unblock task"
-    notes: "Source selection, license, and checksum pinning are resolved; row curation remains blocked until the exact Almeida size-axis raster or replayable WebPlotDigitizer export is available. TASK-0797 records the concrete unblock path and must stay blocked until that maintainer input exists."
+    review_reason: benchmark_monitoring
+    source: "TASK-0293 direct-row readiness pass and TASK-0225 source-scoped sandbox baseline"
+    notes: "The direct-row blocker is resolved and a deterministic baseline exists. The next gate is TASK-0277 review; TASK-0226 remains blocked until that review explicitly narrows or authorizes the pilot."

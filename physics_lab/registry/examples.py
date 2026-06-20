@@ -11,6 +11,7 @@ from physics_lab.registry.validation import validate_document
 
 
 TEXTBOOK_WIEN_FIXTURE_CONFIG_KIND = "textbook_wien_exact_reference_fixture"
+QUANTUM_SIZE_EFFECTS_BASELINE_CONFIG_KIND = "quantum_size_effects_baseline"
 
 
 def load_example_config(path: str | Path) -> dict[str, Any]:
@@ -39,6 +40,8 @@ def load_example_config(path: str | Path) -> dict[str, Any]:
         from physics_lab.engines.nuclear_prediction_reveal import load_synthetic_reveal_config
 
         return load_synthetic_reveal_config(config_path)
+    if data.get("config_kind") == QUANTUM_SIZE_EFFECTS_BASELINE_CONFIG_KIND:
+        return _validate_quantum_size_effects_baseline_config(data, source=path)
     return validate_document(data, kind="example_config", source=path)
 
 
@@ -57,3 +60,49 @@ def _is_textbook_wien_fixture_config(data: dict[str, Any]) -> bool:
         and data.get("campaign") == "textbook_formula_audit"
         and data.get("formula") == "wien_displacement_wavelength_domain"
     )
+
+
+def _validate_quantum_size_effects_baseline_config(
+    data: dict[str, Any],
+    *,
+    source: str | Path,
+) -> dict[str, Any]:
+    required = {
+        "config_kind": str,
+        "task_id": str,
+        "campaign_profile_id": str,
+        "dataset_path": str,
+        "pre_reveal_path": str,
+        "output_dir": str,
+        "summary_path": str,
+        "holdout_entry_id": str,
+        "shuffle_seed": int,
+        "required_holdout_improvement_ev": (int, float),
+    }
+    missing = sorted(set(required) - set(data))
+    if missing:
+        raise ValueError(f"Missing quantum baseline config fields in {source}: {missing}")
+
+    unexpected = sorted(set(data) - set(required))
+    if unexpected:
+        raise ValueError(f"Unexpected quantum baseline config fields in {source}: {unexpected}")
+
+    for field, expected_type in required.items():
+        value = data[field]
+        if not isinstance(value, expected_type) or isinstance(value, bool):
+            raise ValueError(
+                f"Invalid quantum baseline config field {field!r} in {source}: "
+                f"expected {expected_type}, got {type(value).__name__}"
+            )
+        if isinstance(value, str) and not value.strip():
+            raise ValueError(f"Empty quantum baseline config field {field!r} in {source}")
+
+    if data["config_kind"] != QUANTUM_SIZE_EFFECTS_BASELINE_CONFIG_KIND:
+        raise ValueError(f"Unsupported quantum baseline config kind in {source}")
+    if data["task_id"] != "TASK-0225":
+        raise ValueError(f"Quantum baseline config must be bound to TASK-0225 in {source}")
+    if data["shuffle_seed"] < 0:
+        raise ValueError(f"shuffle_seed must be non-negative in {source}")
+    if data["required_holdout_improvement_ev"] <= 0:
+        raise ValueError(f"required_holdout_improvement_ev must be positive in {source}")
+    return data

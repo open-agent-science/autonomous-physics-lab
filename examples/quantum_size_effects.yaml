@@ -1,0 +1,10 @@
+config_kind: quantum_size_effects_baseline
+task_id: TASK-0225
+campaign_profile_id: quantum-size-effects
+dataset_path: ../data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml
+pre_reveal_path: ../docs/reviews/quantum-size-effects-baseline-pre-reveal.md
+output_dir: ../agent_runs/AGENT-RUN-0076
+summary_path: ../docs/results/quantum-size-effects-baseline-summary.md
+holdout_entry_id: almeida-2023-inp-620nm
+shuffle_seed: 225
+required_holdout_improvement_ev: 0.05

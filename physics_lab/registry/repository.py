@@ -670,6 +670,7 @@ def _validate_references(
         if payload.get("config_kind") in {
             "nuclear_prediction_variant_factory",
             "nuclear_prediction_synthetic_reveal",
+            "quantum_size_effects_baseline",
             "textbook_wien_exact_reference_fixture",
         }:
             continue

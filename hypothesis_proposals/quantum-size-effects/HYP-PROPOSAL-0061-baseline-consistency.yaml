@@ -1,0 +1,72 @@
+id: HYP-PROPOSAL-0061
+title: "Source-scoped InP size-effect baseline consistency"
+campaign_profile_id: quantum-size-effects
+proposal_kind: falsification
+status: REVIEW_READY
+claim_ceiling: "Sandbox baseline only; no universal size law, result, claim, or knowledge promotion."
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+  task_id: TASK-0225
+input_references:
+  - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+  - "docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md"
+  - "docs/reviews/quantum-size-effects-baseline-pre-reveal.md"
+hypothesis:
+  statement: "A frozen source-scoped size-aware baseline can predict the largest Almeida InP dot more accurately than constant and shuffled-size controls."
+  variables:
+    - "L: tetrahedral edge length in nm, converted to Angstrom only for the published Almeida relation."
+    - "E1s: first absorption peak energy in eV."
+  assumptions:
+    - "Only the six admitted QD-0003 direct rows are scored."
+    - "The largest row is excluded from fitting and selection."
+    - "Absorption, emission, and bandgap targets remain separate."
+  expected_scope: "One six-row, single-material source-scoped baseline benchmark."
+  expected_failure_modes:
+    - "The size-aware model fails to beat the constant null."
+    - "The deterministic shuffled-size control performs as well as the selected model."
+    - "The published source relation appears accurate only because it shares the source series."
+novelty_check:
+  checked_files:
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md"
+  possible_overlap: "The Almeida publication already supplies a sizing relation; this proposal tests repository benchmark plumbing and holdout consistency, not a new formula."
+  notes: "No correction term or exponent search is performed."
+falsification_plan:
+  deterministic_check: "Run scripts/run_quantum_size_effects_baseline.py twice and require identical metrics."
+  baseline_or_reference: "Frozen published Almeida relation plus inverse-size baselines; constant and shuffled-size controls."
+  pass_condition: "Selected size-aware holdout MAE improves on the constant null by at least 0.05 eV and beats the shuffled-size control."
+  fail_condition: "INVALID if the selected model does not beat the null; PARTIALLY_VALID if the margin or control ordering is insufficient."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a universal quantum-dot law, discovery, material recommendation, or independent validation."
+  mitigations:
+    - "Keep output sandbox-only."
+    - "State the shared-source limitation prominently."
+    - "Do not convert tetrahedral edge length into spherical radius."
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_quantum_size_effects_baseline.py --write"
+    - "python3 -m pytest -n0 tests/test_quantum_size_effects.py"
+  code_references:
+    - "physics_lab/engines/quantum_size_effects.py"
+    - "scripts/run_quantum_size_effects_baseline.py"
+  metrics:
+    - "train and holdout MAE/RMSE"
+    - "per-row and size-bin residuals"
+    - "constant and shuffled-size controls"
+    - "size-uncertainty sensitivity"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0076/"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+limitations:
+  - "Six figure-derived rows from one InP source."
+  - "One holdout row and no material holdout."
+  - "The fixed source relation is not independent of the source series."
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Review the baseline as source-scoped sandbox evidence and decide whether a separate canonical result-promotion task is warranted."
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-approved task for canonical result publication or any correction search."
