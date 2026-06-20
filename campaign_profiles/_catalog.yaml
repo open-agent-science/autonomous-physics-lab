@@ -619,8 +619,8 @@ campaigns:
   status: source_readiness
   domain: condensed_matter
   surface_type: source_pinned_benchmark
-  lifecycle_stage: source_readiness
-  activity_status: active_limited
+  lifecycle_stage: active_benchmark
+  activity_status: active
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
@@ -647,20 +647,21 @@ campaigns:
   allowed_work:
   - Planning-only notes that define scope, semantics, or limitations for future benchmark
     work.
-  - Conservative size-scaling baseline proposals such as Brus-style effective-mass approximations,
-    only described in planning text until TASK-0225 lands.
+  - Conservative size-scaling baseline interpretation or follow-up proposals, only as TASK-0277
+    review inputs or later maintainer-authorized pilot scope.
   - Negative-control candidate sketches that intentionally overfit one material or one size
     regime.
   - Holdout, source, or subset-definition proposals that do not claim benchmark improvements.
   - No canonical experiments yet.
-  - Planning notes for future dataset, holdout, and baseline experiments under TASK-0223,
-    TASK-0224, and TASK-0225.
+  - Planning notes for baseline review, conservative visualization, independent-source expansion,
+    and gated pilot work after TASK-0225.
   forbidden_work:
   - APL has discovered a quantum-dot design law.
   - Baseline residuals imply a new condensed-matter theory.
   - The campaign supports material selection, fabrication, or biomedical applications.
   - Absorption, emission, and bandgap targets may be silently merged under one residual metric.
-  - Autonomous correction search may run before TASK-0225 lands a frozen baseline.
+  - Autonomous correction search may run before TASK-0277 accepts or narrows the baseline
+    for a pilot.
   - Sandbox fit improvements are evidence of a broader physical conclusion.
   current_results:
   - data/quantum_dots/source_manifest.yaml

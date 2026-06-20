@@ -70,21 +70,17 @@ and SI were supplied locally, the CC-BY 4.0 license is confirmed on the
 version-of-record, and the source bytes are checksum-pinned (see
 [`docs/reviews/quantum-almeida-2023-deterministic-source-artifact-package.md`](../reviews/quantum-almeida-2023-deterministic-source-artifact-package.md)).
 The deterministic optical-energy axis (six labeled lambda_1s samples,
-460-620 nm) is recorded. The **single remaining blocker** is the size-axis
-figure digitization: per-sample edge length / volume is figure-only
-(SI Figure S2b TEM histograms, Figure 1b sizing curve), so it needs a
-WebPlotDigitizer-class tool run before `qd-*.yaml` rows can be curated. That
-tool run plus the `TASK-0293` row-readiness gate rerun were attempted under
-`TASK-0755`. The accessible workspace did not contain the exact Figure 1b /
-SI Figure S2b raster, source page, or reusable WebPlotDigitizer-class export,
-so the task preserved a precise tool-run blocker instead of fabricating rows.
-Further source-scout tasks are not needed.
+460-620 nm) was recorded before the size-axis digitization was available.
+`TASK-0755` first preserved the missing-raster blocker rather than fabricating
+rows. After the maintainer supplied the needed Almeida figure surfaces, the
+row-curation and readiness path landed six direct InP rows, `TASK-0293` passed,
+and `TASK-0225` produced the first source-scoped sandbox baseline.
 
-**Expected next result:** a future curator must provide the exact Almeida
-Figure 1b / SI Figure S2b raster or a reusable WebPlotDigitizer-class export
-with axis calibration, extracted points, and uncertainty notes. Until then,
-`TASK-0293` and `TASK-0225` remain blocked. The calibration-consistency waiver
-(option b) and pause (option c) are no longer the active path.
+**Expected next result (resolved -> review gate):** `TASK-0277` should review
+the `TASK-0225` baseline provenance, one-point holdout, controls, residuals,
+and leakage risks before any correction-hypothesis pilot is authorized. The
+calibration-consistency waiver (option b) and pause (option c) are no longer
+the active path.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -100,10 +96,9 @@ Current task posture:
 - `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
 - `TASK-0283` — row-level readiness gate before baseline (DONE; see
   `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
-- `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
-  direct-measurement row-level seed or a maintainer waiver to score a
-  calibration-curve consistency benchmark instead of a measurement-versus-
-  model benchmark);
+- `TASK-0225` — baseline residual benchmark (DONE; source-scoped sandbox
+  baseline on six direct Almeida InP rows, with one largest-size holdout and
+  null/shuffled controls);
 - `TASK-0291` — direct-measurement absorption seed (DONE; first-attempt
   investigation against Yu 2003 found no tabulated values and figure-only
   scatter points; see
@@ -117,8 +112,8 @@ Current task posture:
   path, but the SI table was not retrieved for row-level review and no
   digitisation artifact exists; see
   `docs/reviews/quantum-size-direct-band-edge-seed-review.md`);
-- `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
-  `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
+- `TASK-0293` — re-run readiness gate after a direct seed (DONE; six
+  deterministic Almeida InP rows admitted as direct measurement evidence);
 - `TASK-0298` — direct-measurement source triage (DONE; see
   `docs/reviews/quantum-direct-measurement-source-triage.md`. Yu 2003 was
   the triaged first-attempt source for `TASK-0291`; Jasieniak 2011 is the
@@ -192,30 +187,29 @@ Current task posture:
 - `TASK-0687` — Vossmeyer 1994 source-artifact verification (DONE; promising
   CdS direct-table path, but no committable legal source artifact yet).
 - `TASK-0755` — Almeida 2023 InP size-axis digitization and readiness gate
-  (REVIEW_READY; no figure raster/tool export was available locally, so no
-  `qd-*.yaml` rows were created and `TASK-0293` remains blocked).
+  (DONE; preserved the first missing-raster blocker and fed the later direct
+  Almeida row-curation path).
 
 Safe next contributions are:
 
-- Almeida 2023 size-axis digitization with point provenance, axis calibration,
-  uncertainty notes, and inclusion/exclusion states;
-- direct Almeida row-level dataset curation only if the digitization package can
-  re-run the `TASK-0283` / `TASK-0293` readiness gate;
-- a precise digitization blocker if the maintainer-supplied figure raster or
-  tool-run provenance is insufficient;
-- visualization sketches that do not require baseline residual artifacts.
+- `TASK-0277` review of the first source-scoped baseline before any autonomous
+  pilot;
+- conservative residual visualization or tabular summaries only after the
+  baseline closeout is reflected in task state;
+- independent-source scouting for future material-transfer holdouts, without
+  treating the six-row Almeida baseline as cross-material evidence.
 
 ### What not to implement yet
 
 - do not fetch live datasets, scrape publication tables, or store raw vendor
   spec sheets in the repository without source-manifest review;
 - do not treat `data/quantum_dots/source_manifest.yaml` as benchmark data;
-- do not run visualization or autonomous-pilot work before the baseline
-  residual artifact exists;
-- do not run autonomous formula search across quantum-dot size data before
-  `TASK-0225` lands a frozen baseline;
+- do not run autonomous-pilot work before `TASK-0277` reviews and narrows the
+  baseline follow-up scope;
+- do not run autonomous formula search across quantum-dot size data merely
+  because `TASK-0225` produced a source-scoped baseline;
 - do not start a public-facing campaign result, claim, or article task before
-  the first canonical baseline exists.
+  maintainer review approves the baseline interpretation.
 
 Future source-artifact, digitisation, and row-curation work should use the
 [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md) so
@@ -247,9 +241,7 @@ memory, even before any compact correction term survives a holdout.
 
 ## Current Results
 
-No benchmark result yet.
-
-Current evidence is infrastructure and source curation only:
+Current evidence is source-scoped and sandbox-only:
 
 - `TASK-0222` created this campaign page;
 - `campaign_profiles/quantum-size-effects.yaml` — the campaign profile and
@@ -281,9 +273,15 @@ Current evidence is infrastructure and source curation only:
   `quantum_calibration_curve_consistency` sandbox implementation. It defines
   mandatory labels, negative controls, and stop conditions without running
   metrics or unblocking the direct-row benchmark.
-- `TASK-0668` and `TASK-0687` keep the two most promising current routes
-  honest: Almeida 2023 and Vossmeyer 1994 both remain source-artifact gated
-  before any real measurement rows can be committed.
+- `TASK-0668` and `TASK-0687` kept the two then-promising routes honest:
+  Almeida later advanced through the direct-row path, while Vossmeyer remains
+  gated on a committable legal source artifact.
+- `TASK-0293` admitted six deterministic Almeida InP figure-derived rows as
+  direct measurement evidence.
+- `TASK-0225` produced the first source-scoped sandbox baseline: the fixed
+  published Almeida relation held out the largest-size row with absolute error
+  `0.048395 eV`, versus `0.420200 eV` for the train-mean null and
+  `0.375676 eV` for the shuffled-size control.
 
 Historical context:
 
@@ -293,14 +291,13 @@ Historical context:
 
 ## Open Questions
 
-- Which property kind should anchor the first benchmark — absorption peak,
-  emission peak, or bandgap — and how should the other two be treated when the
-  dataset task lands?
-- Which baseline family should be the conservative first comparison — a
-  Brus-style effective-mass approximation, a generalized size-scaling
-  function, or both with explicit per-material applicability flags?
-- Which holdout split should be required versus optional — material-level,
-  size-range, publication-source, or composition-family?
+- Is the six-row, one-holdout Almeida InP baseline sufficient for any bounded
+  autonomous follow-up, or should it remain review-only until an independent
+  material/source holdout exists?
+- Which independent source could provide the next direct row-level material or
+  publication-source holdout?
+- Which visualization or tabular summary would help reviewers inspect the
+  baseline without implying a design law?
 - How should absorption-versus-emission and bandgap semantics be separated in
   the dataset so they are not mistakenly mixed under one residual metric?
 - How should size-related fields be canonicalized — diameter versus radius,
@@ -313,8 +310,8 @@ Historical context:
 - `TASK-0275` has delivered the first source-manifest seed;
 - `TASK-0281` and `TASK-0282` delivered calibration-derived row-level
   absorption seeds;
-- `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
-  direct measurement rows;
+- `TASK-0283` originally kept `TASK-0225` blocked because the committed rows
+  were not direct measurement rows;
 - `TASK-0291` has a deterministic digitisation/table-value protocol, but
   remains blocked until a compliant artifact, primary-source table values,
   maintainer-provided rows, or waiver exists for absorption rows;
@@ -324,37 +321,37 @@ Historical context:
 - `TASK-0306` defined the digitisation protocol and artifact shape that can
   unblock future figure-derived absorption rows once a compliant artifact or
   equivalent table evidence is committed;
-- `TASK-0293` should re-run the readiness gate after either direct seed lands;
+- `TASK-0293` re-ran the readiness gate and admitted six direct Almeida InP
+  rows;
 - `TASK-0298` triaged the direct-measurement source candidates (see
   `docs/reviews/quantum-direct-measurement-source-triage.md`) so row-level
   agents have an explicit first-attempt recommendation per direct-seed task;
-- next, add at least one direct-measurement row-level `qd-*.yaml` seed and
-  re-run the readiness gate, or request a maintainer waiver for a
-  calibration-curve consistency benchmark;
+- `TASK-0225` produced the first source-scoped baseline; review it before
+  opening correction search;
 - use `TASK-0326` to decide whether a weaker calibration-consistency benchmark
   is worth explicitly authorizing; TASK-0325 has preserved a Jasieniak 2011
   evidence blocker rather than producing measurement-grade rows;
-- `TASK-0326` recommends that any calibration-consistency benchmark be a
+- `TASK-0326` recommended that any calibration-consistency benchmark be a
   separate follow-up task with labels such as `calibration_curve_consistency`
-  and `calibration_derived`; it should not unblock `TASK-0225` or replace
-  direct-row readiness review by itself;
+  and `calibration_derived`; it did not replace the direct-row readiness path;
 - use the TASK-0334 source-artifact package as the next handoff for
   Jasieniak 2011: it records the official ACS Supporting Information locator
   and checksum/extraction plan, but row curation remains blocked until the
   SI/table extraction or deterministic digitisation artifact is reviewed;
 - use `TASK-0335` as the weak `calibration_curve_consistency` scope contract;
   do not run metrics or pretend to unblock the measurement benchmark;
-- use `TASK-0491` as the go/no-go scorecard: a separate sandbox-only
-  calibration-consistency task requires explicit maintainer approval, all
-  declared labels, frozen negative controls, and the preserved `TASK-0225`
-  and `TASK-0293` blockers;
+- use `TASK-0491` as historical context for the calibration-consistency
+  alternative: that weaker sandbox-only path still requires explicit
+  maintainer approval, declared labels, and frozen negative controls;
 - keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
   the maintainer supplies equivalent table/digitisation evidence;
 - run `TASK-0364` against the ranked `TASK-0347` candidates before returning
   to calibration-polynomial sources;
-- after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
-  `TASK-0277` to review readiness before the autonomous pilot;
-- run `TASK-0226` only after a maintainer-approved baseline exists.
+- after `TASK-0225`, use `TASK-0277` to review readiness before the autonomous
+  pilot and `TASK-0276` for conservative residual visuals if the review needs
+  them;
+- run `TASK-0226` only after `TASK-0277` explicitly accepts or narrows the
+  pilot scope.
 
 Planning-only microtasks may be picked from
 `tasks/microtasks/quantum-size-effects.yaml`. They must not produce canonical
@@ -382,17 +379,17 @@ results, claims, datasets, or experiments.
 - Do not blur absorption peak, emission peak, and bandgap values under one
   residual metric.
 - Do not promote sandbox fit improvements as canonical benchmark results.
-- Do not open public-facing scientific claims before the first canonical
-  baseline and residual benchmark exist.
+- Do not open public-facing scientific claims before maintainer review accepts
+  the sandbox baseline interpretation and any future result-promotion path.
 
 ## Visualization Ideas
 
-- size-versus-bandgap scatter overlays per material family once the dataset
-  task lands;
+- size-versus-bandgap scatter overlays per material family once an independent
+  row-level source exists;
 - per-material residual heatmaps over diameter or radius bins;
 - absorption-versus-emission diagnostic panels showing why the two should not
   be merged;
-- holdout-versus-train residual comparison strips once the holdout protocol
-  exists;
+- holdout-versus-train residual comparison strips for the current Almeida
+  source-scoped baseline and any future independent-source holdout;
 - campaign flow diagram from pinned dataset to baseline to holdout to
   sandbox pilot to maintainer review.
