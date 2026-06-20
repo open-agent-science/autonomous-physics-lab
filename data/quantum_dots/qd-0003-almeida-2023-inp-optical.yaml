@@ -1,0 +1,94 @@
+dataset_id: qd-0003-almeida-2023-inp-optical
+title: "Almeida 2023 InP colloidal quantum dot direct size-energy rows (Figure 2b, This work)"
+status: curated
+description: >
+  Direct (edge length, E1s) rows for InP colloidal quantum dots, deterministically
+  digitized from the "This work" filled-triangle markers of Figure 2b (E1s vs
+  Edge Length sizing curve) in Almeida et al., Nano Letters 2023, 23 (18),
+  8697-8703 (doi:10.1021/acs.nanolett.3c02630, CC-BY 4.0). Edge lengths were
+  extracted by scripts/extract_almeida_sizing.py (deterministic, SHA-gated,
+  byte-replayable) and independently verified Gate-B-style: byte-identical replay
+  plus an independent by-eye re-read agreeing within <= 0.04 nm, smallest dot
+  1.50 nm matching the source text, monotonic size-energy ordering, and points on
+  the published fit within scatter (residuals <= 0.10 eV). Five samples are
+  included as direct "This work" rows; the sixth (lambda1s 620 nm) is excluded
+  because its Figure 2b marker is a Xu et al. open triangle, not a "This work"
+  filled marker.
+source_policy: >
+  Source metadata is pinned in data/quantum_dots/source_manifest.yaml as
+  almeida-2023-nano-letters-inp-optical (CC-BY 4.0 version-of-record, confirmed by
+  TASK-0741). Edge length L is the figure-digitized tetrahedral edge length;
+  E1s = 1239.84 / lambda1s from the published panel labels. The publisher figure
+  asset is not vendored (SHA-256 + locator only). Full digitization package:
+  data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/. These
+  are figure-derived rows (deterministic_figure_extraction tier), not source-table
+  rows.
+property_kind_covered: absorption_peak_eV
+entries:
+  - entry_id: almeida-2023-inp-460nm
+    material: InP
+    morphology: tetrahedral
+    edge_length_nm: 1.495
+    property_kind: absorption_peak_eV
+    value_eV: 2.695
+    measurement_type: optical_absorption
+    source_id: almeida-2023-nano-letters-inp-optical
+    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 460 nm."
+    inclusion_status: included
+    notes: "Edge length digitized (figure error bar +/- ~0.18 nm); E1s from lambda1s 460 nm. Smallest dot; matches source text L=1.5 nm. deterministic_figure_extraction; independently verified."
+  - entry_id: almeida-2023-inp-480nm
+    material: InP
+    morphology: tetrahedral
+    edge_length_nm: 1.986
+    property_kind: absorption_peak_eV
+    value_eV: 2.583
+    measurement_type: optical_absorption
+    source_id: almeida-2023-nano-letters-inp-optical
+    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 480 nm."
+    inclusion_status: included
+    notes: "Edge length digitized (figure error bar +/- ~0.27 nm); E1s from lambda1s 480 nm. deterministic_figure_extraction; independently verified."
+  - entry_id: almeida-2023-inp-510nm
+    material: InP
+    morphology: tetrahedral
+    edge_length_nm: 2.544
+    property_kind: absorption_peak_eV
+    value_eV: 2.431
+    measurement_type: optical_absorption
+    source_id: almeida-2023-nano-letters-inp-optical
+    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 510 nm."
+    inclusion_status: included
+    notes: "Edge length digitized (figure error bar +/- ~0.49 nm); E1s from lambda1s 510 nm. deterministic_figure_extraction; independently verified."
+  - entry_id: almeida-2023-inp-550nm
+    material: InP
+    morphology: tetrahedral
+    edge_length_nm: 2.758
+    property_kind: absorption_peak_eV
+    value_eV: 2.254
+    measurement_type: optical_absorption
+    source_id: almeida-2023-nano-letters-inp-optical
+    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 550 nm."
+    inclusion_status: included
+    notes: "Edge length digitized (figure error bar +/- ~0.40 nm); E1s from lambda1s 550 nm. Marker sits against a Xu et al. open triangle but is independently readable. deterministic_figure_extraction; independently verified."
+  - entry_id: almeida-2023-inp-580nm
+    material: InP
+    morphology: tetrahedral
+    edge_length_nm: 3.132
+    property_kind: absorption_peak_eV
+    value_eV: 2.138
+    measurement_type: optical_absorption
+    source_id: almeida-2023-nano-letters-inp-optical
+    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 580 nm."
+    inclusion_status: included
+    notes: "Edge length digitized (figure error bar +/- ~0.09 nm); E1s from lambda1s 580 nm. deterministic_figure_extraction; independently verified."
+  - entry_id: almeida-2023-inp-620nm-excluded
+    material: InP
+    morphology: tetrahedral
+    edge_length_nm: 4.101
+    property_kind: absorption_peak_eV
+    value_eV: 2.000
+    measurement_type: optical_absorption
+    source_id: almeida-2023-nano-letters-inp-optical
+    source_table_ref: "Figure 2b near (L ~ 4.1 nm, E1s 2.0); lambda1s 620 nm."
+    inclusion_status: excluded
+    exclusion_reason: "Independent verification found the Figure 2b marker at this position is a Xu et al. open triangle, not a This-work filled marker. A clean Almeida This-work size for lambda1s 620 nm requires SI Figure S2b TEM-histogram digitization."
+    notes: "Coordinate lands on the published fit (residual ~0.05 eV) and is corroborated by the volume panel, but provenance is Xu et al., not Almeida This-work; kept as documented exclusion."
