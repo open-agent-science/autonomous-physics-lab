@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0800` - Package Materials MD-0002 family-holdout scope boundary as negative/scope memory (`scientific_negative_memory`, priority `high`, difficulty `low`, domain `materials_property_residuals`)
+None.
