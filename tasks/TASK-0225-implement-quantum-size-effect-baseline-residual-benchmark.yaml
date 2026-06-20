@@ -62,7 +62,8 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest -n0 --basetemp .pytest-task-0225"
+    - "python3 -m pytest -n0 tests/test_closeout_sweep.py --basetemp ../.pytest-task-0225-closeout"
+    - "python3 -m pytest --ignore=tests/test_closeout_sweep.py --basetemp ../.pytest-task-0225-review"
     - "python3 -m physics_lab.cli validate-repo ."
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
