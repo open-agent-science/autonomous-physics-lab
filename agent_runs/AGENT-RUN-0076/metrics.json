@@ -1,0 +1,624 @@
+{
+  "agent_verdict": "SANDBOX_PASS",
+  "beats_shuffled_control": true,
+  "benchmark_id": "quantum-size-effects-almeida-inp-baseline",
+  "constant_null_holdout_mae_ev": 0.4202,
+  "dataset_id": "qd-0003-almeida-2023-inp-optical",
+  "holdout_count": 1,
+  "holdout_entry_id": "almeida-2023-inp-620nm",
+  "holdout_improvement_vs_null_ev": 0.37180499,
+  "input_hashes": {
+    "config": "9d1aba218ab9dae1c6181b94cfd2c6bb74fe38893cc7751159178be4fbcce77d",
+    "dataset": "9501499584735094aba1a3243d4329969e0d9fe09e9bbc156c677c8408189077",
+    "pre_reveal": "3c660ae854a4c8302dc5b8f051135a15d3d17acad69838872a2c9df2a297488c"
+  },
+  "models": [
+    {
+      "all_rows": {
+        "mae_ev": 0.063812943,
+        "max_abs_residual_ev": 0.118561341,
+        "rmse_ev": 0.071269166
+      },
+      "coefficients": {
+        "coefficient": 9.128,
+        "dataset_conversion": "L_A = 10 * L_nm",
+        "exponent": -0.684,
+        "input_unit": "angstrom",
+        "intercept_ev": 1.33
+      },
+      "fitted_parameters": 0,
+      "formula": "E = 1.33 + 9.128 * L_A^-0.684; L_A = 10 * L_nm",
+      "holdout": {
+        "mae_ev": 0.04839501,
+        "max_abs_residual_ev": 0.04839501,
+        "rmse_ev": 0.04839501
+      },
+      "model_id": "almeida_fixed_reference",
+      "predictions": [
+        {
+          "abs_residual_ev": 0.068261883,
+          "edge_length_nm": 1.498,
+          "entry_id": "almeida-2023-inp-460nm",
+          "material": "InP",
+          "observed_ev": 2.695,
+          "predicted_ev": 2.763261883,
+          "residual_ev": 0.068261883,
+          "size_sensitivity_ev": 0.184552081,
+          "size_sigma_nm": 0.282,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.077631072,
+          "edge_length_nm": 2.002,
+          "entry_id": "almeida-2023-inp-480nm",
+          "material": "InP",
+          "observed_ev": 2.583,
+          "predicted_ev": 2.505368928,
+          "residual_ev": -0.077631072,
+          "size_sensitivity_ev": 0.109228291,
+          "size_sigma_nm": 0.272,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.118561341,
+          "edge_length_nm": 2.602,
+          "entry_id": "almeida-2023-inp-510nm",
+          "material": "InP",
+          "observed_ev": 2.431,
+          "predicted_ev": 2.312438659,
+          "residual_ev": -0.118561341,
+          "size_sensitivity_ev": 0.115183193,
+          "size_sigma_nm": 0.446,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.013350348,
+          "edge_length_nm": 2.787,
+          "entry_id": "almeida-2023-inp-550nm",
+          "material": "InP",
+          "observed_ev": 2.254,
+          "predicted_ev": 2.267350348,
+          "residual_ev": 0.013350348,
+          "size_sensitivity_ev": 0.083047828,
+          "size_sigma_nm": 0.361,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.056678002,
+          "edge_length_nm": 3.136,
+          "entry_id": "almeida-2023-inp-580nm",
+          "material": "InP",
+          "observed_ev": 2.138,
+          "predicted_ev": 2.194678002,
+          "residual_ev": 0.056678002,
+          "size_sensitivity_ev": 0.05827643,
+          "size_sigma_nm": 0.309,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.04839501,
+          "edge_length_nm": 4.112,
+          "entry_id": "almeida-2023-inp-620nm",
+          "material": "InP",
+          "observed_ev": 2.0,
+          "predicted_ev": 2.04839501,
+          "residual_ev": 0.04839501,
+          "size_sensitivity_ev": 0.051623809,
+          "size_sigma_nm": 0.432,
+          "split": "holdout"
+        }
+      ],
+      "train": {
+        "mae_ev": 0.066896529,
+        "max_abs_residual_ev": 0.118561341,
+        "rmse_ev": 0.075011582
+      }
+    },
+    {
+      "all_rows": {
+        "mae_ev": 0.081139953,
+        "max_abs_residual_ev": 0.116220966,
+        "rmse_ev": 0.08557259
+      },
+      "coefficients": {
+        "coefficient_ev_nm_power": 1.500227197692,
+        "intercept_ev": 1.751379721849,
+        "power": 1
+      },
+      "fitted_parameters": 2,
+      "formula": "E = c + a/L_nm",
+      "holdout": {
+        "mae_ev": 0.116220966,
+        "max_abs_residual_ev": 0.116220966,
+        "rmse_ev": 0.116220966
+      },
+      "model_id": "inverse_edge_fit",
+      "predictions": [
+        {
+          "abs_residual_ev": 0.057866503,
+          "edge_length_nm": 1.498,
+          "entry_id": "almeida-2023-inp-460nm",
+          "material": "InP",
+          "observed_ev": 2.695,
+          "predicted_ev": 2.752866503,
+          "residual_ev": 0.057866503,
+          "size_sensitivity_ev": 0.188530889,
+          "size_sigma_nm": 0.282,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.082256044,
+          "edge_length_nm": 2.002,
+          "entry_id": "almeida-2023-inp-480nm",
+          "material": "InP",
+          "observed_ev": 2.583,
+          "predicted_ev": 2.500743956,
+          "residual_ev": -0.082256044,
+          "size_sensitivity_ev": 0.101811724,
+          "size_sigma_nm": 0.272,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.103053331,
+          "edge_length_nm": 2.602,
+          "entry_id": "almeida-2023-inp-510nm",
+          "material": "InP",
+          "observed_ev": 2.431,
+          "predicted_ev": 2.327946669,
+          "residual_ev": -0.103053331,
+          "size_sensitivity_ev": 0.098827386,
+          "size_sigma_nm": 0.446,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.035674375,
+          "edge_length_nm": 2.787,
+          "entry_id": "almeida-2023-inp-550nm",
+          "material": "InP",
+          "observed_ev": 2.254,
+          "predicted_ev": 2.289674375,
+          "residual_ev": 0.035674375,
+          "size_sensitivity_ev": 0.069725285,
+          "size_sigma_nm": 0.361,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.091768497,
+          "edge_length_nm": 3.136,
+          "entry_id": "almeida-2023-inp-580nm",
+          "material": "InP",
+          "observed_ev": 2.138,
+          "predicted_ev": 2.229768497,
+          "residual_ev": 0.091768497,
+          "size_sensitivity_ev": 0.047137159,
+          "size_sigma_nm": 0.309,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.116220966,
+          "edge_length_nm": 4.112,
+          "entry_id": "almeida-2023-inp-620nm",
+          "material": "InP",
+          "observed_ev": 2.0,
+          "predicted_ev": 2.116220966,
+          "residual_ev": 0.116220966,
+          "size_sensitivity_ev": 0.038329625,
+          "size_sigma_nm": 0.432,
+          "split": "holdout"
+        }
+      ],
+      "train": {
+        "mae_ev": 0.07412375,
+        "max_abs_residual_ev": 0.103053331,
+        "rmse_ev": 0.078011148
+      }
+    },
+    {
+      "all_rows": {
+        "mae_ev": 0.105881376,
+        "max_abs_residual_ev": 0.195191265,
+        "rmse_ev": 0.116694827
+      },
+      "coefficients": {
+        "coefficient_ev_nm_power": 1.446903714256,
+        "intercept_ev": 2.109618922472,
+        "power": 2
+      },
+      "fitted_parameters": 2,
+      "formula": "E = c + a/L_nm^2",
+      "holdout": {
+        "mae_ev": 0.195191265,
+        "max_abs_residual_ev": 0.195191265,
+        "rmse_ev": 0.195191265
+      },
+      "model_id": "inverse_square_fit",
+      "predictions": [
+        {
+          "abs_residual_ev": 0.059405525,
+          "edge_length_nm": 1.498,
+          "entry_id": "almeida-2023-inp-460nm",
+          "material": "InP",
+          "observed_ev": 2.695,
+          "predicted_ev": 2.754405525,
+          "residual_ev": 0.059405525,
+          "size_sensitivity_ev": 0.242763447,
+          "size_sigma_nm": 0.282,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.112377517,
+          "edge_length_nm": 2.002,
+          "entry_id": "almeida-2023-inp-480nm",
+          "material": "InP",
+          "observed_ev": 2.583,
+          "predicted_ev": 2.470622483,
+          "residual_ev": -0.112377517,
+          "size_sensitivity_ev": 0.098094874,
+          "size_sigma_nm": 0.272,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.107670978,
+          "edge_length_nm": 2.602,
+          "entry_id": "almeida-2023-inp-510nm",
+          "material": "InP",
+          "observed_ev": 2.431,
+          "predicted_ev": 2.323329022,
+          "residual_ev": -0.107670978,
+          "size_sensitivity_ev": 0.073262648,
+          "size_sigma_nm": 0.446,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.041898693,
+          "edge_length_nm": 2.787,
+          "entry_id": "almeida-2023-inp-550nm",
+          "material": "InP",
+          "observed_ev": 2.254,
+          "predicted_ev": 2.295898693,
+          "residual_ev": 0.041898693,
+          "size_sensitivity_ev": 0.048257623,
+          "size_sigma_nm": 0.361,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.118744277,
+          "edge_length_nm": 3.136,
+          "entry_id": "almeida-2023-inp-580nm",
+          "material": "InP",
+          "observed_ev": 2.138,
+          "predicted_ev": 2.256744277,
+          "residual_ev": 0.118744277,
+          "size_sensitivity_ev": 0.028993453,
+          "size_sigma_nm": 0.309,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.195191265,
+          "edge_length_nm": 4.112,
+          "entry_id": "almeida-2023-inp-620nm",
+          "material": "InP",
+          "observed_ev": 2.0,
+          "predicted_ev": 2.195191265,
+          "residual_ev": 0.195191265,
+          "size_sensitivity_ev": 0.017980181,
+          "size_sigma_nm": 0.432,
+          "split": "holdout"
+        }
+      ],
+      "train": {
+        "mae_ev": 0.088019398,
+        "max_abs_residual_ev": 0.118744277,
+        "rmse_ev": 0.093387864
+      }
+    },
+    {
+      "all_rows": {
+        "mae_ev": 0.2195,
+        "max_abs_residual_ev": 0.4202,
+        "rmse_ev": 0.253627956
+      },
+      "coefficients": {
+        "mean_ev": 2.4202
+      },
+      "fitted_parameters": 1,
+      "formula": "E = mean(E_train)",
+      "holdout": {
+        "mae_ev": 0.4202,
+        "max_abs_residual_ev": 0.4202,
+        "rmse_ev": 0.4202
+      },
+      "model_id": "constant_train_mean",
+      "predictions": [
+        {
+          "abs_residual_ev": 0.2748,
+          "edge_length_nm": 1.498,
+          "entry_id": "almeida-2023-inp-460nm",
+          "material": "InP",
+          "observed_ev": 2.695,
+          "predicted_ev": 2.4202,
+          "residual_ev": -0.2748,
+          "size_sensitivity_ev": 0.0,
+          "size_sigma_nm": 0.282,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.1628,
+          "edge_length_nm": 2.002,
+          "entry_id": "almeida-2023-inp-480nm",
+          "material": "InP",
+          "observed_ev": 2.583,
+          "predicted_ev": 2.4202,
+          "residual_ev": -0.1628,
+          "size_sensitivity_ev": 0.0,
+          "size_sigma_nm": 0.272,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.0108,
+          "edge_length_nm": 2.602,
+          "entry_id": "almeida-2023-inp-510nm",
+          "material": "InP",
+          "observed_ev": 2.431,
+          "predicted_ev": 2.4202,
+          "residual_ev": -0.0108,
+          "size_sensitivity_ev": 0.0,
+          "size_sigma_nm": 0.446,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.1662,
+          "edge_length_nm": 2.787,
+          "entry_id": "almeida-2023-inp-550nm",
+          "material": "InP",
+          "observed_ev": 2.254,
+          "predicted_ev": 2.4202,
+          "residual_ev": 0.1662,
+          "size_sensitivity_ev": 0.0,
+          "size_sigma_nm": 0.361,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.2822,
+          "edge_length_nm": 3.136,
+          "entry_id": "almeida-2023-inp-580nm",
+          "material": "InP",
+          "observed_ev": 2.138,
+          "predicted_ev": 2.4202,
+          "residual_ev": 0.2822,
+          "size_sensitivity_ev": 0.0,
+          "size_sigma_nm": 0.309,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.4202,
+          "edge_length_nm": 4.112,
+          "entry_id": "almeida-2023-inp-620nm",
+          "material": "InP",
+          "observed_ev": 2.0,
+          "predicted_ev": 2.4202,
+          "residual_ev": 0.4202,
+          "size_sensitivity_ev": 0.0,
+          "size_sigma_nm": 0.432,
+          "split": "holdout"
+        }
+      ],
+      "train": {
+        "mae_ev": 0.17936,
+        "max_abs_residual_ev": 0.2822,
+        "rmse_ev": 0.204643495
+      }
+    },
+    {
+      "all_rows": {
+        "mae_ev": 0.196408838,
+        "max_abs_residual_ev": 0.375675554,
+        "rmse_ev": 0.224328403
+      },
+      "coefficients": {
+        "coefficient_ev_nm": 0.219741420449,
+        "intercept_ev": 2.322236492758,
+        "shuffle_seed": 225,
+        "shuffled_train_sizes_nm": [
+          2.787,
+          1.498,
+          2.602,
+          3.136,
+          2.002
+        ]
+      },
+      "fitted_parameters": 2,
+      "formula": "E = c + a/L_nm after deterministic train-size shuffle",
+      "holdout": {
+        "mae_ev": 0.375675554,
+        "max_abs_residual_ev": 0.375675554,
+        "rmse_ev": 0.375675554
+      },
+      "model_id": "shuffled_size_inverse_edge",
+      "predictions": [
+        {
+          "abs_residual_ev": 0.22607364,
+          "edge_length_nm": 1.498,
+          "entry_id": "almeida-2023-inp-460nm",
+          "material": "InP",
+          "observed_ev": 2.695,
+          "predicted_ev": 2.46892636,
+          "residual_ev": -0.22607364,
+          "size_sensitivity_ev": 0.027614514,
+          "size_sigma_nm": 0.282,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.151002558,
+          "edge_length_nm": 2.002,
+          "entry_id": "almeida-2023-inp-480nm",
+          "material": "InP",
+          "observed_ev": 2.583,
+          "predicted_ev": 2.431997442,
+          "residual_ev": -0.151002558,
+          "size_sensitivity_ev": 0.014912577,
+          "size_sigma_nm": 0.272,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.024312539,
+          "edge_length_nm": 2.602,
+          "entry_id": "almeida-2023-inp-510nm",
+          "material": "InP",
+          "observed_ev": 2.431,
+          "predicted_ev": 2.406687461,
+          "residual_ev": -0.024312539,
+          "size_sensitivity_ev": 0.014475454,
+          "size_sigma_nm": 0.446,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.147081638,
+          "edge_length_nm": 2.787,
+          "entry_id": "almeida-2023-inp-550nm",
+          "material": "InP",
+          "observed_ev": 2.254,
+          "predicted_ev": 2.401081638,
+          "residual_ev": 0.147081638,
+          "size_sensitivity_ev": 0.010212809,
+          "size_sigma_nm": 0.361,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.254307099,
+          "edge_length_nm": 3.136,
+          "entry_id": "almeida-2023-inp-580nm",
+          "material": "InP",
+          "observed_ev": 2.138,
+          "predicted_ev": 2.392307099,
+          "residual_ev": 0.254307099,
+          "size_sensitivity_ev": 0.006904278,
+          "size_sigma_nm": 0.309,
+          "split": "train"
+        },
+        {
+          "abs_residual_ev": 0.375675554,
+          "edge_length_nm": 4.112,
+          "entry_id": "almeida-2023-inp-620nm",
+          "material": "InP",
+          "observed_ev": 2.0,
+          "predicted_ev": 2.375675554,
+          "residual_ev": 0.375675554,
+          "size_sensitivity_ev": 0.00561422,
+          "size_sigma_nm": 0.432,
+          "split": "holdout"
+        }
+      ],
+      "train": {
+        "mae_ev": 0.160555495,
+        "max_abs_residual_ev": 0.254307099,
+        "rmse_ev": 0.179336149
+      }
+    }
+  ],
+  "outliers": [
+    {
+      "abs_residual_ev": 0.118561341,
+      "edge_length_nm": 2.602,
+      "entry_id": "almeida-2023-inp-510nm",
+      "material": "InP",
+      "observed_ev": 2.431,
+      "predicted_ev": 2.312438659,
+      "residual_ev": -0.118561341,
+      "size_sensitivity_ev": 0.115183193,
+      "size_sigma_nm": 0.446,
+      "split": "train"
+    },
+    {
+      "abs_residual_ev": 0.077631072,
+      "edge_length_nm": 2.002,
+      "entry_id": "almeida-2023-inp-480nm",
+      "material": "InP",
+      "observed_ev": 2.583,
+      "predicted_ev": 2.505368928,
+      "residual_ev": -0.077631072,
+      "size_sensitivity_ev": 0.109228291,
+      "size_sigma_nm": 0.272,
+      "split": "train"
+    },
+    {
+      "abs_residual_ev": 0.068261883,
+      "edge_length_nm": 1.498,
+      "entry_id": "almeida-2023-inp-460nm",
+      "material": "InP",
+      "observed_ev": 2.695,
+      "predicted_ev": 2.763261883,
+      "residual_ev": 0.068261883,
+      "size_sensitivity_ev": 0.184552081,
+      "size_sigma_nm": 0.282,
+      "split": "train"
+    },
+    {
+      "abs_residual_ev": 0.056678002,
+      "edge_length_nm": 3.136,
+      "entry_id": "almeida-2023-inp-580nm",
+      "material": "InP",
+      "observed_ev": 2.138,
+      "predicted_ev": 2.194678002,
+      "residual_ev": 0.056678002,
+      "size_sensitivity_ev": 0.05827643,
+      "size_sigma_nm": 0.309,
+      "split": "train"
+    },
+    {
+      "abs_residual_ev": 0.04839501,
+      "edge_length_nm": 4.112,
+      "entry_id": "almeida-2023-inp-620nm",
+      "material": "InP",
+      "observed_ev": 2.0,
+      "predicted_ev": 2.04839501,
+      "residual_ev": 0.04839501,
+      "size_sensitivity_ev": 0.051623809,
+      "size_sigma_nm": 0.432,
+      "split": "holdout"
+    },
+    {
+      "abs_residual_ev": 0.013350348,
+      "edge_length_nm": 2.787,
+      "entry_id": "almeida-2023-inp-550nm",
+      "material": "InP",
+      "observed_ev": 2.254,
+      "predicted_ev": 2.267350348,
+      "residual_ev": 0.013350348,
+      "size_sensitivity_ev": 0.083047828,
+      "size_sigma_nm": 0.361,
+      "split": "train"
+    }
+  ],
+  "property_kind": "absorption_peak_eV",
+  "required_holdout_improvement_ev": 0.05,
+  "row_count": 6,
+  "scientific_verdict": "VALID_IN_RANGE",
+  "selected_holdout_mae_ev": 0.04839501,
+  "selected_model_id": "almeida_fixed_reference",
+  "selected_train_mae_ev": 0.066896529,
+  "shuffle_seed": 225,
+  "shuffled_control_holdout_mae_ev": 0.375675554,
+  "size_axis": "edge_length_nm",
+  "size_bin_metrics": {
+    "large_gt_3nm": {
+      "mae_ev": 0.052536506,
+      "max_abs_residual_ev": 0.056678002,
+      "rmse_ev": 0.052699492,
+      "row_count": 2
+    },
+    "mid_2_to_3nm": {
+      "mae_ev": 0.069847587,
+      "max_abs_residual_ev": 0.118561341,
+      "rmse_ev": 0.082181926,
+      "row_count": 3
+    },
+    "small_lt_2nm": {
+      "mae_ev": 0.068261883,
+      "max_abs_residual_ev": 0.068261883,
+      "rmse_ev": 0.068261883,
+      "row_count": 1
+    }
+  },
+  "train_count": 5
+}

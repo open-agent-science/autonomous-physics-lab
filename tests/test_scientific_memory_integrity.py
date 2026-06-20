@@ -136,6 +136,27 @@ def test_scientific_memory_integrity_skips_factory_example_configs(
     assert not any(issue.code == "missing_canonical_result" for issue in issues)
 
 
+def test_scientific_memory_integrity_skips_quantum_sandbox_config(
+    tmp_path: Path,
+) -> None:
+    example_path = tmp_path / "examples" / "quantum.yaml"
+    example_payload = {
+        "config_kind": "quantum_size_effects_baseline",
+    }
+
+    issues = collect_scientific_memory_integrity_issues(
+        hypotheses=[],
+        tasks=[],
+        claims=[],
+        knowledge_files=[],
+        example_configs=[(example_path, example_payload)],
+        results=[],
+        root_path=tmp_path,
+    )
+
+    assert not any(issue.code == "missing_canonical_result" for issue in issues)
+
+
 def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
     tmp_path: Path,
 ) -> None:

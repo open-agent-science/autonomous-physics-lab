@@ -14,23 +14,39 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign is currently **scaffold-complete with source-manifest evidence,
-but not yet row-level benchmark-ready**.
+This campaign now has six direct Almeida 2023 InP measurement rows and a
+source-scoped sandbox baseline. It is **baseline-review-ready**, but not yet
+authorized for autonomous correction search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can APL curate direct quantum-dot size/optical-property
-measurement rows before running attractive size-effect baselines?
+**Current question:** is the first six-row InP baseline, including its
+one-point size holdout and controls, strong enough to authorize a narrowly
+bounded autonomous pilot?
 
-**Shareable result:** the campaign is intentionally blocked from benchmark
-metrics because committed rows are calibration-derived rather than direct
-measurement rows. That blocker is useful public scientific memory: it shows
-APL refusing to score a model against weak provenance.
+**Shareable result:** `TASK-0293` admitted six deterministic figure-derived
+Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
+five-row train / one-row largest-size holdout benchmark. The fixed published
+Almeida relation produced holdout error `0.048395 eV`, versus `0.420200 eV`
+for the constant train-mean null and `0.375676 eV` for a deterministic
+shuffled-size control.
 
-**Not a claim:** there is no quantum-dot size-effect benchmark result yet, no
-new material law, and no device, synthesis, biomedical, or design claim.
+**Not a claim:** this is sandbox, source-scoped consistency evidence. The
+published relation and rows share the same InP source series, the holdout has
+one row, and there is no cross-material validation, new material law, device,
+synthesis, biomedical, or design claim.
 
-**Active next work:** `TASK-0589` turned the Norris-Bawendi 1996 blocker into a
+**Active next work:** `TASK-0277` must review provenance, residuals, controls,
+outliers, and leakage risks before `TASK-0226` can be considered. No correction
+search is authorized by the baseline alone.
+
+## Historical Source-Readiness Trail
+
+The chronology below records how the direct-row blocker was resolved. Status
+labels in this section describe their state at the time and are not the current
+execution recommendation.
+
+**Earlier source work:** `TASK-0589` turned the Norris-Bawendi 1996 blocker into a
 maintainer-ready source-copy checklist, but it still needs a legitimate source
 copy, target panel, redistribution decision, WebPlotDigitizer-class tool run,
 axis calibration, extracted points, uncertainty, and replay before rows can be

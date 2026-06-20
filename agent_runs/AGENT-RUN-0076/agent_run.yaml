@@ -1,0 +1,43 @@
+id: AGENT-RUN-0076
+campaign_profile_id: quantum-size-effects
+task_id: TASK-0225
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-0061-baseline-consistency.yaml
+  experiment: experiment_proposals/quantum-size-effects/EXP-PROPOSAL-0027-baseline-consistency.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0076/metrics.json
+  report: agent_runs/AGENT-RUN-0076/report.md
+  limitations: agent_runs/AGENT-RUN-0076/limitations.md
+  preflight: agent_runs/AGENT-RUN-0076/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0076/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: direct_rows
+    status: PASS
+    notes: Six TASK-0293-admitted direct Almeida InP rows loaded.
+  - name: frozen_holdout
+    status: PASS
+    notes: Largest-size row held out under the committed pre-reveal package.
+  - name: property_separation
+    status: PASS
+    notes: Only absorption_peak_eV rows are scored.
+  - name: controls
+    status: PASS
+    notes: Constant-mean and deterministic shuffled-size controls executed.
+limitations:
+- Six figure-derived InP rows from one source.
+- One size-range holdout row and no material holdout.
+- The selected published relation was derived from the same source series.
+- No canonical scientific artifact is created.
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review; any canonical result requires a separate
+    promotion task.

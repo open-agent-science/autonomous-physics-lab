@@ -1,7 +1,7 @@
 id: TASK-0225
 title: "Implement quantum-dot size-effect baseline and residual benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -35,9 +35,10 @@ input:
     then re-run the TASK-0283 readiness gate; or (b) maintainer waiver to
     interpret the first baseline as a calibration-curve consistency
     benchmark, with that framing recorded in the pre-reveal package, the
-    result note, and the campaign page. See
-    `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`
-    for the full gate decision.
+    result note, and the campaign page. TASK-0293 subsequently admitted six
+    direct Almeida 2023 InP rows and recorded a PASS in
+    `docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md`,
+    which removed the row-level blocker used by this implementation.
 
 requirements:
   - "Do not start until TASK-0223 and TASK-0224 are DONE or explicitly unblocked by the maintainer."
@@ -61,7 +62,8 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 -m pytest -n0 tests/test_closeout_sweep.py --basetemp ../.pytest-task-0225-closeout"
+    - "python3 -m pytest --ignore=tests/test_closeout_sweep.py --basetemp ../.pytest-task-0225-review"
     - "python3 -m physics_lab.cli validate-repo ."
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 

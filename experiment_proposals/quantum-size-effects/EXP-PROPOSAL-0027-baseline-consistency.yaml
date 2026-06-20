@@ -1,0 +1,72 @@
+id: EXP-PROPOSAL-0027
+title: "Almeida InP size-effect baseline and largest-size holdout"
+campaign_profile_id: quantum-size-effects
+proposal_kind: falsification
+status: REVIEW_READY
+claim_ceiling: "Sandbox experiment only; no canonical result, prediction, claim, or knowledge artifact."
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+  task_id: TASK-0225
+input_references:
+  - "hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-0061-baseline-consistency.yaml"
+  - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+  - "docs/reviews/quantum-size-effects-baseline-pre-reveal.md"
+question: "Does the frozen source-scoped size-aware baseline beat constant and shuffled-size controls on the largest InP edge-length holdout?"
+method:
+  summary: "Fit or evaluate the frozen three-model size-aware slate on five rows, select by train MAE, reveal the one largest-size holdout, run two controls, and report residual breakdowns."
+  code_references:
+    - "physics_lab/engines/quantum_size_effects.py"
+    - "scripts/run_quantum_size_effects_baseline.py"
+  commands:
+    - "python3 scripts/run_quantum_size_effects_baseline.py --write"
+  parameters:
+    holdout_entry_id: almeida-2023-inp-620nm
+    shuffle_seed: 225
+    required_holdout_improvement_ev: 0.05
+    property_kind: absorption_peak_eV
+inputs:
+  datasets:
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+  constants:
+    - "Published Almeida relation E=1.33+9.128*L_A^-0.684."
+  prior_results: []
+  assumptions:
+    - "Five rows are training-only; the largest row is holdout-only."
+    - "No calibration-derived rows or other property axes enter scoring."
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0076/"
+  metrics:
+    - "MAE and RMSE by model and split"
+    - "per-row residuals and size-bin metrics"
+    - "outlier table"
+    - "size sensitivity"
+  plots: []
+  notes:
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+validation:
+  pass_condition: "All frozen models, controls, residual tables, and deterministic checks are present."
+  fail_condition: "Any property mixing, holdout leakage, nondeterminism, source substitution, or canonical artifact write fails the experiment."
+  baseline_or_reference: "Published Almeida relation and inverse-size fits versus a constant train-mean null baseline and a shuffled-size negative comparison."
+  expected_failure_modes:
+    - "Single holdout produces unstable interpretation."
+    - "Source relation benefits from sharing the source series."
+    - "Size-distribution sensitivity is mistaken for optical-energy uncertainty."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No discovery, universal law, synthesis guidance, device claim, or independent validation wording."
+  mitigations:
+    - "Sandbox-only routing."
+    - "Source-series dependence and one-row holdout stated in every summary."
+limitations:
+  - "Single source, material, morphology, and one holdout row."
+  - "Figure-derived values."
+  - "No material-transfer evaluation."
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Review the benchmark implementation, metrics, and source-scoped interpretation."
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Separate maintainer-approved task before result promotion or autonomous correction search."
