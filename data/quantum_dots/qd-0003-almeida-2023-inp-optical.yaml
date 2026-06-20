@@ -1,94 +1,95 @@
 dataset_id: qd-0003-almeida-2023-inp-optical
-title: "Almeida 2023 InP colloidal quantum dot direct size-energy rows (Figure 2b, This work)"
+title: "Almeida 2023 InP colloidal quantum dot direct size-energy rows (SI Figure S2b TEM)"
 status: curated
 description: >
-  Direct (edge length, E1s) rows for InP colloidal quantum dots, deterministically
-  digitized from the "This work" filled-triangle markers of Figure 2b (E1s vs
-  Edge Length sizing curve) in Almeida et al., Nano Letters 2023, 23 (18),
-  8697-8703 (doi:10.1021/acs.nanolett.3c02630, CC-BY 4.0). Edge lengths were
-  extracted by scripts/extract_almeida_sizing.py (deterministic, SHA-gated,
-  byte-replayable) and independently verified Gate-B-style: byte-identical replay
-  plus an independent by-eye re-read agreeing within <= 0.04 nm, smallest dot
-  1.50 nm matching the source text, monotonic size-energy ordering, and points on
-  the published fit within scatter (residuals <= 0.10 eV). Five samples are
-  included as direct "This work" rows; the sixth (lambda1s 620 nm) is excluded
-  because its Figure 2b marker is a Xu et al. open triangle, not a "This work"
-  filled marker.
+  Six direct (edge length, E1s) rows for InP colloidal quantum dots from
+  Almeida et al., Nano Letters 2023, 23 (18), 8697-8703
+  (doi:10.1021/acs.nanolett.3c02630, CC-BY 4.0). Edge length L is the per-sample
+  mean from the SI Figure S2b TEM edge-length distribution histograms, extracted
+  by a deterministic gray-histogram weighted-centroid extractor
+  (digitization/.../extract_s2b_histograms.py; byte-reproducible). E1s =
+  1239.84 / lambda1s from the published panel labels. The extraction was produced
+  and audited by a second, independent agent and cross-validated against an
+  independent extraction of the main-article Figure 2b sizing curve
+  (digitization/.../extract_almeida_sizing.py): the five non-620 samples agree
+  to <= 0.62 Angstrom (<= 0.06 nm). The lambda620 sample is included from the
+  clean SI S2b TEM histogram (its Figure 2b scatter marker is a Xu et al. open
+  triangle and was not used).
 source_policy: >
   Source metadata is pinned in data/quantum_dots/source_manifest.yaml as
-  almeida-2023-nano-letters-inp-optical (CC-BY 4.0 version-of-record, confirmed by
-  TASK-0741). Edge length L is the figure-digitized tetrahedral edge length;
-  E1s = 1239.84 / lambda1s from the published panel labels. The publisher figure
-  asset is not vendored (SHA-256 + locator only). Full digitization package:
+  almeida-2023-nano-letters-inp-optical (CC-BY 4.0 version-of-record, TASK-0741).
+  Edge length L is the figure-digitized tetrahedral edge length (TEM histogram
+  mean, SI Figure S2b). The publisher PDF/figure rasters are not vendored
+  (SHA-256 + locator only; SI SHA-256
+  2d0080214d9f7116561cbd80659d40463f868b57ca211179f5d854d12ad265ee). Full
+  digitization package + both deterministic extractors:
   data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/. These
-  are figure-derived rows (deterministic_figure_extraction tier), not source-table
-  rows.
+  are figure-derived rows (deterministic_figure_extraction tier).
 property_kind_covered: absorption_peak_eV
 entries:
   - entry_id: almeida-2023-inp-460nm
     material: InP
     morphology: tetrahedral
-    edge_length_nm: 1.495
+    edge_length_nm: 1.498
     property_kind: absorption_peak_eV
     value_eV: 2.695
     measurement_type: optical_absorption
     source_id: almeida-2023-nano-letters-inp-optical
-    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 460 nm."
+    source_table_ref: "SI Figure S2b TEM edge-length distribution histogram (gray-histogram weighted centroid); lambda1s 460 nm."
     inclusion_status: included
-    notes: "Edge length digitized (figure error bar +/- ~0.18 nm); E1s from lambda1s 460 nm. Smallest dot; matches source text L=1.5 nm. deterministic_figure_extraction; independently verified."
+    notes: "Edge length 1.498 nm +/- 0.282 nm (1-sigma of TEM distribution); E1s from lambda1s 460 nm. Smallest dot; matches source text L=1.5 nm. Fig-2b cross-check delta -0.02 A. deterministic_figure_extraction; second-agent extracted."
   - entry_id: almeida-2023-inp-480nm
     material: InP
     morphology: tetrahedral
-    edge_length_nm: 1.986
+    edge_length_nm: 2.002
     property_kind: absorption_peak_eV
     value_eV: 2.583
     measurement_type: optical_absorption
     source_id: almeida-2023-nano-letters-inp-optical
-    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 480 nm."
+    source_table_ref: "SI Figure S2b TEM edge-length distribution histogram (gray-histogram weighted centroid); lambda1s 480 nm."
     inclusion_status: included
-    notes: "Edge length digitized (figure error bar +/- ~0.27 nm); E1s from lambda1s 480 nm. deterministic_figure_extraction; independently verified."
+    notes: "Edge length 2.002 nm +/- 0.272 nm; E1s from lambda1s 480 nm. Fig-2b cross-check delta +0.12 A. deterministic_figure_extraction; second-agent extracted."
   - entry_id: almeida-2023-inp-510nm
     material: InP
     morphology: tetrahedral
-    edge_length_nm: 2.544
+    edge_length_nm: 2.602
     property_kind: absorption_peak_eV
     value_eV: 2.431
     measurement_type: optical_absorption
     source_id: almeida-2023-nano-letters-inp-optical
-    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 510 nm."
+    source_table_ref: "SI Figure S2b TEM edge-length distribution histogram (gray-histogram weighted centroid); lambda1s 510 nm."
     inclusion_status: included
-    notes: "Edge length digitized (figure error bar +/- ~0.49 nm); E1s from lambda1s 510 nm. deterministic_figure_extraction; independently verified."
+    notes: "Edge length 2.602 nm +/- 0.446 nm; E1s from lambda1s 510 nm. Fig-2b cross-check delta +0.62 A. deterministic_figure_extraction; second-agent extracted."
   - entry_id: almeida-2023-inp-550nm
     material: InP
     morphology: tetrahedral
-    edge_length_nm: 2.758
+    edge_length_nm: 2.787
     property_kind: absorption_peak_eV
     value_eV: 2.254
     measurement_type: optical_absorption
     source_id: almeida-2023-nano-letters-inp-optical
-    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 550 nm."
+    source_table_ref: "SI Figure S2b TEM edge-length distribution histogram (gray-histogram weighted centroid); lambda1s 550 nm."
     inclusion_status: included
-    notes: "Edge length digitized (figure error bar +/- ~0.40 nm); E1s from lambda1s 550 nm. Marker sits against a Xu et al. open triangle but is independently readable. deterministic_figure_extraction; independently verified."
+    notes: "Edge length 2.787 nm +/- 0.361 nm; E1s from lambda1s 550 nm. Fig-2b cross-check delta +0.27 A. deterministic_figure_extraction; second-agent extracted."
   - entry_id: almeida-2023-inp-580nm
     material: InP
     morphology: tetrahedral
-    edge_length_nm: 3.132
+    edge_length_nm: 3.136
     property_kind: absorption_peak_eV
     value_eV: 2.138
     measurement_type: optical_absorption
     source_id: almeida-2023-nano-letters-inp-optical
-    source_table_ref: "Figure 2b (E1s vs Edge Length); This-work filled-triangle marker; lambda1s 580 nm."
+    source_table_ref: "SI Figure S2b TEM edge-length distribution histogram (gray-histogram weighted centroid); lambda1s 580 nm."
     inclusion_status: included
-    notes: "Edge length digitized (figure error bar +/- ~0.09 nm); E1s from lambda1s 580 nm. deterministic_figure_extraction; independently verified."
-  - entry_id: almeida-2023-inp-620nm-excluded
+    notes: "Edge length 3.136 nm +/- 0.309 nm; E1s from lambda1s 580 nm. Fig-2b cross-check delta +0.06 A. deterministic_figure_extraction; second-agent extracted."
+  - entry_id: almeida-2023-inp-620nm
     material: InP
     morphology: tetrahedral
-    edge_length_nm: 4.101
+    edge_length_nm: 4.112
     property_kind: absorption_peak_eV
     value_eV: 2.000
     measurement_type: optical_absorption
     source_id: almeida-2023-nano-letters-inp-optical
-    source_table_ref: "Figure 2b near (L ~ 4.1 nm, E1s 2.0); lambda1s 620 nm."
-    inclusion_status: excluded
-    exclusion_reason: "Independent verification found the Figure 2b marker at this position is a Xu et al. open triangle, not a This-work filled marker. A clean Almeida This-work size for lambda1s 620 nm requires SI Figure S2b TEM-histogram digitization."
-    notes: "Coordinate lands on the published fit (residual ~0.05 eV) and is corroborated by the volume panel, but provenance is Xu et al., not Almeida This-work; kept as documented exclusion."
+    source_table_ref: "SI Figure S2b TEM edge-length distribution histogram (gray-histogram weighted centroid); lambda1s 620 nm."
+    inclusion_status: included
+    notes: "Edge length 4.112 nm +/- 0.432 nm; E1s from lambda1s 620 nm. Largest dot; size from SI S2b TEM (the Figure 2b scatter marker here is a Xu et al. open triangle, not used). Method-insensitive (41.12-41.31 A across thresholds). deterministic_figure_extraction; second-agent extracted."

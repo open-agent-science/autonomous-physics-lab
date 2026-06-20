@@ -1,0 +1,7 @@
+lambda1s_nm,e1s_ev,edge_length_A,edge_length_nm,size_unc_nm,method,calib_px_per_A,x0_px,mode_A,fwhm_A,fig2b_target_A,delta_A
+460,2.695,14.98,1.498,0.282,gray_histogram_weighted_centroid,7.775,848.61,15.87,9.0,15.0,-0.02
+480,2.583,20.02,2.002,0.272,gray_histogram_weighted_centroid,7.775,848.61,20.76,7.72,19.9,0.12
+510,2.431,26.02,2.602,0.446,gray_histogram_weighted_centroid,7.775,848.61,29.76,8.75,25.4,0.62
+550,2.254,27.87,2.787,0.361,gray_histogram_weighted_centroid,7.775,848.61,29.76,9.77,27.6,0.27
+580,2.138,31.36,3.136,0.309,gray_histogram_weighted_centroid,7.775,848.61,33.11,7.2,31.3,0.06
+620,2.0,41.12,4.112,0.432,gray_histogram_weighted_centroid,7.775,848.61,42.11,9.65,,
