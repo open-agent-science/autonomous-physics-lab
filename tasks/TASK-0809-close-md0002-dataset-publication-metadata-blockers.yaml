@@ -1,0 +1,63 @@
+id: TASK-0809
+title: "Close MD-0002 dataset-publication metadata blockers"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the MD-0002 publication preflight into a concrete source/dataset readiness closeout instead of opening more Materials metric work."
+  - "Make the internally reusable, AGENT_VALIDATED RESULT-0021 dataset package closer to external release without changing metrics or claims."
+  - "Preserve the family-holdout and descriptor-ablation scope limits as release notes, not as material-design claims."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
+    - "data/materials/md-0002/"
+    - "data/materials/README.md"
+    - "data/materials/materials_snapshot_manifest.yaml"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    TASK-0805 found MD-0002 internally reusable but not externally
+    publication-ready because metadata/release packaging is incomplete:
+    source/release manifest, checksum/citation/DOI status, changelog,
+    uncertainty semantics, portable schema/readme coverage, and explicit
+    intended-use boundaries. This task closes those metadata blockers only.
+    It does not change MD-0002 rows, RESULT-0021 metrics, or any Materials
+    interpretation.
+
+requirements:
+  - "Create or update the MD-0002 release/source manifest with snapshot identity, source provenance, checksum(s), citation/reuse metadata, retrieval/freeze dates, and external DOI/status fields."
+  - "Update the Materials data README and `data/DATA_LICENSES.yaml` only as needed to describe MD-0002 scope, computed-DFT provenance, intended use, no-claim boundaries, and citation/reuse status."
+  - "Record explicit uncertainty semantics, including whether uncertainty fields are absent by design for the computed DFT slice."
+  - "Add a short changelog or release-note surface for MD-0002 that cites RESULT-0021, the family-holdout scope memory, and descriptor-ablation control memory as limitations."
+  - "Do NOT edit MD-0002 row values, holdout membership, RESULT-0021 metrics/review_tier, claims, knowledge artifacts, or generated task views."
+  - "Stop with `MD0002_RELEASE_METADATA_STILL_BLOCKED` if any required citation, license, checksum, or uncertainty field cannot be stated without speculation."
+  - "No material-discovery, synthesis, device, recommendation, biomedical, experimental-validation, or universal-law wording."
+
+accepted_outputs:
+  - "An MD-0002 manifest/readme/license metadata update that resolves or explicitly preserves each TASK-0805 publication blocker."
+  - "A concise review note or README section stating release readiness after the closeout, remaining blockers if any, and no-claim wording."
+  - "Output-routing summary: destination dataset/source readiness, no RESULT/PRED/CLAIM/KNOW change, external-release blocker status stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset metadata closeout only; no benchmark run or result artifact is produced."
+  evidence:
+    - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
+    - "data/materials/md-0002/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_materials_md0002_baseline.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

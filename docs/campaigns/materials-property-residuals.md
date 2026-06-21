@@ -93,9 +93,15 @@ control plan and preserved the outcome as sandbox evidence, not a canonical
 result or materials claim. `TASK-0761` adjudicated that evidence as ready for a
 dedicated Gate A reusable-dataset plus conservative-baseline benchmark
 packaging task, with computed-DFT and slice-limited wording. `TASK-0765`
-packaged that path as `RESULT-0021`, an `AGENT_PUBLISHED`,
-`VALID_IN_RANGE` Materials MD-0002 formation-energy benchmark. It is
-replay-needed before any stronger interpretation.
+packaged that path as `RESULT-0021`, and `TASK-0775` replayed it through Gate
+B with zero numeric drift. `RESULT-0021` is now an `AGENT_VALIDATED`,
+`VALID_IN_RANGE` Materials MD-0002 formation-energy benchmark. Later
+control/scope audits found the cation-pair signal is useful on the frozen split
+but does not transfer to fully unseen cation pairs, and a descriptor-ablation
+audit showed the advantage is localized to exact cation-pair granularity. The
+current blocker is dataset-publication metadata (`TASK-0805`): release/source
+manifest, checksum/citation/DOI status, changelog, uncertainty semantics,
+README/schema coverage, and explicit no-claim boundaries.
 
 ## Admissible Source Classes
 
@@ -191,10 +197,10 @@ sandbox-pass formation-energy benchmark package at
 materials claim.
 The numbered path below is now:
 
-1. **Gate B replay** — independently replay `RESULT-0021` from its committed
-   command, hashes, and frozen MD-0002 slice. If it reproduces, update only the
-   review-tier metadata; if contested, preserve the blocker without changing
-   metrics. Band gap remains diagnostic-only unless its control evidence
+1. **Dataset-publication metadata closeout** — close the MD-0002 release/source
+   manifest, checksum/citation/DOI-status, changelog, uncertainty semantics,
+   README/schema, and no-claim blockers before any external dataset-release
+   wording. Band gap remains diagnostic-only unless its control evidence
    improves.
 
 ## Why It Matters

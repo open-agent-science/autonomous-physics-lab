@@ -1,0 +1,59 @@
+id: TASK-0814
+title: "Publish Pendulum RESULT-0017 negative-overfit memory"
+type: scientific_negative_memory
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Preserve the AGENT_VALIDATED Pendulum overfit result as durable negative memory now that CLAIM-0001 has a maintainer-reviewed scoped positive status."
+  - "Prevent future agents from treating the gauntlet as an invitation to rerun broad formula search."
+  - "Keep positive range-limited claim wording and negative overfit boundary evidence clearly separated."
+
+input:
+  mode: planning_only
+  related_domain: pendulum_formula_falsification
+  related_objects:
+    - "results/EXP-0001/RUN-0006/result.yaml"
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "docs/reviews/result-0017-pendulum-gate-b-replay.md"
+    - "docs/negative-results-registry.md"
+    - "docs/campaigns/pendulum-formula-falsification.md"
+  planning_context: >
+    RESULT-0017 is AGENT_VALIDATED with best_verdict OVERFITTED. CLAIM-0001 is
+    now MAINTAINER_REVIEWED and PARTIALLY_SUPPORTED with narrowed, range-limited
+    wording. The remaining Pendulum task is not another formula search; it is to
+    publish the overfit/negative boundary as durable memory so future agents
+    understand what not to repeat.
+
+requirements:
+  - "Add or update an existing negative-memory/campaign surface with a concise RESULT-0017 overfit memory capsule, citing the Gate B replay and its limitations."
+  - "State how RESULT-0017 bounds but does not contradict the maintainer-reviewed range-limited CLAIM-0001 wording."
+  - "Use existing surfaces (`docs/negative-results-registry.md`, pendulum campaign page, or public dashboard); do not create a new digest page."
+  - "Do NOT edit CLAIM-0001 status/review_tier, RESULT-0017 metrics/review_tier, knowledge artifacts, or generated task views."
+  - "Do NOT rerun formula discovery, add candidate formulas, or claim exact/global pendulum validity."
+  - "No exactness, all-amplitudes, symbolic-proof, discovery, or stronger physics wording."
+
+accepted_outputs:
+  - "A public-safe Pendulum RESULT-0017 negative-overfit memory capsule on an existing surface, with evidence links and no-repeat guidance."
+  - "Output-routing summary: destination negative memory, no RESULT/PRED/CLAIM/KNOW mutation, relationship to CLAIM-0001 stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Negative-memory packaging of an existing AGENT_VALIDATED result; no new RESULT or PRED artifact is produced."
+  evidence:
+    - "results/EXP-0001/RUN-0006/result.yaml"
+    - "docs/negative-results-registry.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

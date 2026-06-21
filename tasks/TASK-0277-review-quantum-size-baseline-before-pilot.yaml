@@ -1,9 +1,9 @@
 id: TASK-0277
 title: "Review quantum-size baseline before autonomous pilot"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
-priority: medium
+priority: high
 
 strategy_alignment:
   - "Gate the first autonomous Quantum Size Effects pilot behind a reviewed baseline."
@@ -12,28 +12,32 @@ strategy_alignment:
 
 input:
   mode: workflow
-  related_domain: condensed_matter
+  related_domain: quantum_size_effects
   related_objects:
     - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
     - "tasks/TASK-0226-run-first-autonomous-quantum-size-effect-hypothesis-pilot.yaml"
     - "docs/campaigns/quantum-size-effects.md"
   planning_context: >
-    TASK-0226 should not start merely because a baseline exists. This review
-    task is blocked until TASK-0225 lands, then checks whether the dataset,
-    holdout, and baseline residual surface are strong enough for autonomous
-    correction-hypothesis search.
+    TASK-0226 should not start merely because a baseline exists. TASK-0225 has
+    now landed a six-row Almeida InP source-scoped sandbox baseline, so this
+    review task is READY: it checks whether the dataset, one-point holdout,
+    controls, and baseline residual surface are strong enough for autonomous
+    correction-hypothesis search, or whether the pilot must remain blocked or
+    be narrowed.
 
 requirements:
-  - "Start only after TASK-0225 is DONE and the maintainer wants to evaluate readiness for TASK-0226."
+  - "Start from the committed TASK-0225 sandbox baseline, `agent_runs/AGENT-RUN-0076/`, and `docs/results/quantum-size-effects-baseline-summary.md`; do not rerun or expand the baseline."
   - "Review dataset provenance, property-kind separation, holdout leakage risks, baseline metrics, outliers, and negative controls."
   - "Recommend whether TASK-0226 should be unblocked, stay blocked, or be narrowed."
   - "If unblocking is recommended, define the exact hypothesis families and forbidden search behavior for the pilot."
   - "Do not run autonomous hypotheses or create new benchmark results in this task."
+  - "No quantum-dot design-law, material recommendation, device-performance, biomedical, universal size-law, or discovery wording."
 
 accepted_outputs:
   - "docs/reviews/quantum-size-baseline-readiness-for-autonomous-pilot.md"
   - "updated TASK-0226 guidance only if the maintainer asks this task to unblock or narrow it"
   - "updated campaign docs if the review changes the recommended next step"
+  - "output-routing summary: destination readiness review, no RESULT/PRED/CLAIM/KNOW change, blocker/stop condition stated"
 
 validation:
   commands:

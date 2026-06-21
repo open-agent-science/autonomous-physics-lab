@@ -86,14 +86,12 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "mature deterministic exact-reference benchmark, AGENT_PUBLISHED overfit/negative result pending Gate B, and CLAIM-0001 handoff queued"
+  current_stage: "mature deterministic exact-reference benchmark, RESULT-0017 AGENT_VALIDATED overfit/negative memory, and CLAIM-0001 MAINTAINER_REVIEWED as PARTIALLY_SUPPORTED with narrowed range-limited wording"
   recommended_parallel_agents: 1
-  coordination_notes: "Use mainly for replay, validation hardening, and examples; not the default expansion lane."
+  coordination_notes: "Use mainly for negative-memory packaging, validation hardening, and examples; do not restart broad formula search."
   best_next_actions:
-    - task_id: TASK-0757
-      label: "Run RESULT-0017 Gate B replay validation"
-    - task_id: TASK-0760
-      label: "Assemble CLAIM-0001 evidence handoff for maintainer review"
+    - task_id: TASK-0814
+      label: "Publish RESULT-0017 overfit memory on existing negative/campaign surfaces without changing CLAIM-0001"
   required_gates:
     - "Exact-reference and configured-range wording."
     - "No exactness claim without symbolic proof."
@@ -101,14 +99,15 @@ portfolio:
     - "results/EXP-0001/"
     - "docs/results/pendulum-gauntlet-100-summary.md"
     - "docs/reviews/first-agent-published-negative-result-review.md"
+    - "docs/reviews/result-0017-pendulum-gate-b-replay.md"
+    - "docs/reviews/claim-0001-pendulum-evidence-handoff.md"
   open_questions:
-    - "Does RESULT-0017 pass independent Gate B replay?"
-    - "Which CLAIM-0001 wording, if any, is supportable after separating positive range-limited and overfit evidence?"
+    - "How should public surfaces preserve RESULT-0017 as negative/overfit memory while CLAIM-0001 stays narrowly PARTIALLY_SUPPORTED?"
   curator_review:
     status: current
     last_reviewed: "2026-06-15"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-0757 and TASK-0760 science-director routing"
-    notes: "Quality-floor track now has concrete replay and claim-handoff tasks; no new formula search is needed."
+    source: "TASK-0757 Gate B replay, TASK-0760 handoff, CLAIM-0001 maintainer Gate C merge, and TASK-0814 negative-memory routing"
+    notes: "Quality-floor track has its first maintainer-reviewed scoped claim plus validated negative/overfit boundary evidence. The next useful action is memory hygiene, not new formula search."

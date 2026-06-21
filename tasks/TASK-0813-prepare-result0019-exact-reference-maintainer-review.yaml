@@ -1,0 +1,59 @@
+id: TASK-0813
+title: "Prepare RESULT-0019 exact-reference maintainer-review packet"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Route the Gate-B-validated Textbook exact-reference fixture toward safe maintainer-reviewed software/convention wording."
+  - "Separate exact symbolic/software reference validation from empirical blackbody or universal formula claims."
+  - "Make a mature low-risk quality-floor result easier to cite publicly without overclaiming."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0013/RUN-0001/result.yaml"
+    - "docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    RESULT-0019 is AGENT_VALIDATED and represents an exact-reference
+    software/convention fixture for the Textbook Formula Audit surface. It is
+    safe only as a verification/fixture result, not an empirical blackbody-law
+    or physics-discovery claim. This task prepares maintainer review wording and
+    a decision packet for whether the result should receive maintainer-reviewed
+    public wording.
+
+requirements:
+  - "Summarize RESULT-0019 scope, Gate A/Gate B status, command path, exact-reference semantics, and why it is a software/convention result."
+  - "Present maintainer decision options: leave as AGENT_VALIDATED, add maintainer-reviewed public wording, or keep it internal as a quality-floor fixture."
+  - "Draft safe public wording that avoids empirical, universal-law, discovery, blackbody-data, or physical-proof claims."
+  - "Do NOT edit RESULT-0019 metrics/review_tier, create or promote a CLAIM/KNOW artifact, or run a new empirical Wien/FIRAS metric."
+  - "If existing campaign pages already say enough, recommend no page change rather than adding duplicate prose."
+
+accepted_outputs:
+  - "`docs/reviews/result-0019-exact-reference-maintainer-review-packet.md` with scope, decision options, safe wording, limitations, and no-claim statement."
+  - "Optional small update to an existing campaign/public page only if the packet exposes stale wording."
+  - "Output-routing summary: destination maintainer review readiness, no RESULT/CLAIM/KNOW mutation, empirical-scope blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer review packet for an existing AGENT_VALIDATED exact-reference result; no new RESULT or PRED artifact is produced."
+  evidence:
+    - "results/EXP-0013/RUN-0001/result.yaml"
+    - "docs/reviews/result-0019-exact-reference-maintainer-review-packet.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
