@@ -1,7 +1,7 @@
 id: TASK-0801
 title: "Fetch and pin the COBE/FIRAS source artifact for the Wien-peak slice"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -45,13 +45,16 @@ result_artifact_policy:
   required: false
   reason: "Source-curation-only step; no RESULT or PRED artifact is produced. A later metric task (TASK-0802) consumes this pinned source."
   evidence:
-    - "data/textbook_formula_audit/"
+    - "data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/"
+    - "data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
     - "data/DATA_LICENSES.yaml"
+    - "docs/reviews/textbook-wien-firas-source-pinning.md"
 
 validation:
   commands:
+    - "python3 scripts/normalize_firas_monopole_source.py --source data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/firas_monopole_spec_v1.txt --output data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_firas_monopole_source.py tests/test_source_artifact_package_validation.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py --basetemp ../.pytest-task-0801-review-helper"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

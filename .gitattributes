@@ -9,6 +9,7 @@
 *.yml text eol=lf
 
 data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/*.csv binary
+data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/firas_monopole_spec_v1.txt binary
 
 *.gif binary
 *.jpg binary
