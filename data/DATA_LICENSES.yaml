@@ -184,3 +184,24 @@ datasets:
       - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/extracted_points.csv
       - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/s2b_centers.csv
       - data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml
+
+  - id: nasa-cobe-firas-monopole-spectrum-v1
+    source: "NASA LAMBDA COBE/FIRAS CMB Monopole Spectrum v1"
+    source_url: https://lambda.gsfc.nasa.gov/data/cobe/firas/monopole_spec/firas_monopole_spec_v1.txt
+    license: "U.S. Government work; NASA content generally not subject to U.S. copyright"
+    redistribution_status: public_domain_us_government_work_with_attribution
+    citation_or_acknowledgement: >
+      Acknowledge NASA LAMBDA and NASA Goddard Space Flight Center; cite
+      Fixsen et al. 1996 (ApJ 473, 576, Table 4) and Fixsen and Mather 2002
+      (ApJ 581, 817). Do not imply NASA endorsement.
+    evidence: >
+      LAMBDA states that the COBE datasets were developed by NASA GSFC. NASA's
+      media-use guidance states that NASA content generally is not subject to
+      copyright in the United States and should be acknowledged. The selected
+      product carries no third-party copyright marker. Exact bytes are pinned
+      by SHA-256 in the source package provenance.
+    raw_artifact_vendored: true
+    provenance: data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/provenance.yaml
+    paths:
+      - data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/firas_monopole_spec_v1.txt
+      - data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml

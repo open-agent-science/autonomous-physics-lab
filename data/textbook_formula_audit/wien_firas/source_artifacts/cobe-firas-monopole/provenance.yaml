@@ -1,0 +1,68 @@
+package_id: TFA-SRC-COBE-FIRAS-MONOPOLE-V1
+schema_version: 0.1.0
+task_id: TASK-0801
+package_status: SOURCE_ARTIFACT_PINNED
+campaign_profile_id: textbook-formula-audit
+source_id: cobe-firas-cmb-monopole-spectrum-v1
+source_title: COBE/FIRAS CMB Monopole Spectrum
+source_family: nasa_lambda_cobe_firas
+
+locators:
+  doi: 10.1086/178173
+  arxiv_id: astro-ph/9605054
+  archive_url: https://lambda.gsfc.nasa.gov/product/cobe/firas_monopole_get.html
+  source_url: https://lambda.gsfc.nasa.gov/data/cobe/firas/monopole_spec/firas_monopole_spec_v1.txt
+  citation: >
+    Fixsen, D. J. et al. 1996, The Cosmic Microwave Background Spectrum from
+    the Full COBE FIRAS Data Set, ApJ 473, 576, Table 4; Fixsen, D. J. and
+    Mather, J. C. 2002, ApJ 581, 817.
+
+artifact:
+  artifact_type: ascii_spectrum_table
+  artifact_path: firas_monopole_spec_v1.txt
+  artifact_locator: https://lambda.gsfc.nasa.gov/data/cobe/firas/monopole_spec/firas_monopole_spec_v1.txt
+  retrieval_date_utc: "2026-06-21"
+  retrieved_by: akutenyov/codex
+  checksum_sha256: df793c3dca09ebfa7dbc5aa0ec1951daa8884431bc30eff28a710d7516cf50fa
+  checksum_scope: exact_downloaded_ascii_bytes
+  size_bytes: 2388
+  upstream_version: v1
+  upstream_revision_date: 2005-05
+  upstream_last_modified_utc: "2008-04-18T22:38:06Z"
+  upstream_etag: '"954-44b2d6753cf80"'
+  archive_policy: committed_with_checksum
+  value_bearing_artifact: true
+
+redistribution:
+  redistribution_status: public_domain_us_government_work_with_attribution
+  license_note: >
+    The COBE datasets were developed by NASA Goddard Space Flight Center.
+    NASA content generally is not subject to copyright in the United States;
+    NASA must be acknowledged and no endorsement may be implied. No
+    third-party copyright notice appears on this LAMBDA product.
+  citation_note: >
+    Acknowledge NASA LAMBDA/GSFC and cite Fixsen et al. 1996 plus Fixsen and
+    Mather 2002 when using the committed spectrum.
+  raw_artifact_commit_allowed: true
+  derived_artifact_commit_allowed: true
+
+row_admissibility:
+  row_class: mixed_source_reported_and_source_derived_spectral_rows
+  inclusion_status: admitted_for_future_metric_task
+  row_schema_kind: cobe_firas_monopole_spectrum_v1
+  extraction_method: deterministic_ascii_five_column_parse
+  uncertainty_semantics: source_reported_1sigma_kjy_sr
+  accepted_for_benchmark: true
+  blocker_reasons: []
+
+review:
+  review_status: source_gate_passed_no_metrics
+  reviewed_by: akutenyov/codex
+  review_notes: >
+    The LAMBDA product page and file header establish that column 2 is an
+    absolute monopole intensity constructed as a 2.725 K blackbody plus the
+    Table 4 residual. The residual alone is not used as the future audited
+    ordinate.
+  allowed_next_step: >
+    TASK-0802 may consume the committed rows after pinning its reference
+    temperature separately and predeclaring the B_nu to B_lambda conversion.

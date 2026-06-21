@@ -11,6 +11,10 @@ the **spectrum source and the reference-temperature source must be pinned separa
 No data was fetched, no metric was run, and no `RESULT`/`PRED`/`CLAIM`/`KNOW` artifact is
 created here.
 
+> **TASK-0801 follow-up:** the exact v1 source has now been fetched, checksum
+> pinned, and normalized without metrics. See
+> [Textbook Wien/FIRAS Source Pinning](textbook-wien-firas-source-pinning.md).
+
 Builds on the Wien source/baseline plan (`docs/reviews/textbook-wien-displacement-source-baseline-plan.md`, TASK-0492) and the slice selection (`docs/reviews/textbook-next-formula-source-baseline-slice.md`, TASK-0783); it pins the empirical FIRAS route those notes deferred.
 
 ## Audit question (scoped, for a future metric task — not run here)
