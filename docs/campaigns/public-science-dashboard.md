@@ -33,6 +33,17 @@ mass-radius-law claim. The current scorecard verdict is
 compact-radius residual stress as negative/control memory and does not open
 another residual pilot on the current snapshot.
 
+**Closed-lane capsule:** mass-quartile localization is underpowered, no
+compact-radius host-context axis clears the declared bin floor, `EXO-0002`
+failed the frozen reopen gate, and the latest `EXO-0003` monitor returned
+`NO_NOTIFY`. Residual scoring remains closed on the unchanged snapshot.
+
+**Reopen condition:** require a materially changed, checksum-pinned snapshot
+that clears the per-axis row-count and growth floors, supports any proposed
+host-context axis, and beats the nearest-radius null baseline under a
+predeclared comparison. A monitor notification triggers review, not automatic
+scoring.
+
 **Evidence trail:**
 
 - [External-reviewer replication capsule](../results/exoplanet-external-reviewer-replication-capsule.md)
@@ -41,6 +52,8 @@ another residual pilot on the current snapshot.
 - [Exoplanet null-baseline family audit](../reviews/exoplanet-null-baseline-family-audit.md)
 - [Compact/sub-Neptune matched-control audit](../reviews/exoplanet-compact-subneptune-matched-control-audit.md)
 - [Independent compact-radius replay](../reviews/exoplanet-compact-radius-independent-replay.md)
+- [Control-aware no-go synthesis](../reviews/exoplanet-control-aware-go-no-go-synthesis.md)
+- [Source-version monitor check 2](../reviews/exoplanet-source-version-monitor-check-2.md)
 - [Exoplanet campaign page](./exoplanet-mass-radius.md)
 
 ### Nuclear Local-Curvature Falsification

@@ -81,6 +81,49 @@ null-baseline controls, host-context coverage blockers, true-mass/minimum-mass
 separation, and no habitability, composition, atmosphere, target-priority, or
 new-law wording.
 
+## Control-Sensitivity Negative-Memory Capsule
+
+The current pinned exoplanet snapshots support a bounded negative/control
+conclusion, not another residual-scoring lane:
+
+- deterministic nearest-radius null baselines match or beat the frozen
+  CK17-style baseline in the compact, sub-Neptune, Jovian-radius, and
+  hot-Jupiter true-mass slices;
+- the 92-row compact-radius slice is underpowered for the predeclared
+  mass-quartile analysis, and its upper-mass-half pattern remains a coarse
+  diagnostic only;
+- compact-radius host metadata often exist, but no host-context axis clears
+  the declared interpretable-bin floor;
+- `EXO-0002` did not clear the frozen reopen gate, so no CK17 replay or new
+  residual metrics were authorized;
+- the latest `EXO-0003` source-version monitor returned `NO_NOTIFY`, keeping
+  acquisition and residual scoring closed.
+
+**Do not repeat on the unchanged snapshot:** compact-radius residual pilots,
+mass-quartile localization, coarse host-context scoring, or a factory sprint
+that treats nearest-radius nulls as decorative controls.
+
+**Reopen condition:** residual scoring may be reconsidered only after a
+materially changed, checksum-pinned snapshot clears the frozen per-axis
+row-count and growth floors, provides benchmark-usable host-context coverage
+for any claimed host axis, and the predeclared candidate beats the
+nearest-radius null baseline. A future `NOTIFY_*` monitor class starts review;
+it does not itself authorize scoring.
+
+**Scope and routing:** this capsule packages existing negative/control memory.
+It does not fetch live rows, add metrics, create or modify
+`RESULT-*`/`PRED-*`/`CLAIM-*`/`KNOW-*`, or make composition, habitability, or
+universal mass-radius statements. The campaign remains monitor-only.
+
+Evidence:
+
+- [Control-aware go/no-go synthesis](../reviews/exoplanet-control-aware-go-no-go-synthesis.md)
+- [Null-baseline family audit](../reviews/exoplanet-null-baseline-family-audit.md)
+- [Compact-radius mass-quartile scout](../reviews/exoplanet-compact-radius-mass-quartile-scout.md)
+- [Compact-radius host-context preflight](../reviews/exoplanet-compact-radius-host-context-preflight.md)
+- [Second-snapshot reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md)
+- [Source-version monitor check 2](../reviews/exoplanet-source-version-monitor-check-2.md)
+
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
 normalized YAML, checksums, row-class labels, and inclusion/exclusion reasons.
