@@ -60,9 +60,12 @@ fixed single-alpha `M^3.5` is inadequate as the sole frozen baseline on this
 slice, while fitted-alpha and piecewise/stage-aware baselines are materially
 better. `TASK-0763` committed the full normalized DEBCat rows and holdout
 manifest under an explicit CC BY 4.0 permission grant. `TASK-0764` packaged
-that evidence as `RESULT-0022`, an `AGENT_PUBLISHED`, `VALID_IN_RANGE`
-controlled benchmark. The current blocker is Gate B replay plus cleanup of
-superseded DEBCat seed-stage scope flags, not another scout.
+that evidence as `RESULT-0022`, and the result has since become
+`AGENT_VALIDATED`. Follow-up control audits found the headline conclusion
+stable across a small value-blind alternate-split slate, while a predeclared
+piecewise baseline is not justified after complexity penalty. The current
+blocker is maintainer-review wording and external-source posture, not another
+Gate B replay or model search.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -78,31 +81,30 @@ source/baseline planning artifacts, and a Gate-B-validated exact-reference
 software/convention result now exist. `RESULT-0019` replayed with zero numeric
 drift and remains scoped to the Stefan-Boltzmann synthetic fixture. The first
 Stellar M-L empirical lane now has committed DEBCat rows, stage/split/null
-controls, baseline-adequacy evidence, and `RESULT-0022` as an agent-published
-scoped benchmark.
+controls, baseline-adequacy evidence, and `RESULT-0022` as an
+`AGENT_VALIDATED` scoped benchmark.
 
 **Not a claim:** no empirical textbook formula claim has been promoted. This
 campaign does not claim that any formula is globally right or wrong.
-`RESULT-0022` is agent-published, not independently validated or
-maintainer-reviewed. The current evidence says only that `M^3.5` is not an
-adequate sole baseline for the committed DEBCat slice under the completed
-controls.
+`RESULT-0022` is independently replayed but not maintainer-reviewed. The
+current evidence says only that `M^3.5` is not an adequate sole baseline for
+the committed DEBCat slice under the completed controls.
 
 **Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
 software/convention result and `TASK-0635` replayed it through Gate B. The
 empirical lane is now Stellar M-L: `TASK-0759`, `TASK-0762`, `TASK-0763`, and
 `TASK-0764` closed the control, baseline-adequacy, full-dataset, and Gate A
-packaging blockers. The next result path is Gate B replay for `RESULT-0022`.
-The paired source-readiness cleanup is to reconcile superseded DEBCat
-seed-stage scope flags recorded in the result limitations.
+packaging blockers. Later work made `RESULT-0022` Gate-B replayable and then
+validated it, reconciled DEBCat scope flags, and ran split-stability and
+piecewise-complexity controls.
 `TASK-0783` selected the next formula slice only as a future source-curation
 route: Wien displacement against a pinned FIRAS source artifact, with no
 metrics until wavelength-domain peak semantics, checksums, license posture, and
 spectral coverage are frozen.
 
-**Expected next result:** a Gate-B-validated Stellar M-L reusable-dataset plus
-benchmark result, or a precise contested replay blocker if the package cannot
-reproduce end-to-end.
+**Expected next result:** a pinned FIRAS/Wien source package, or a
+maintainer-review packet clarifying safe public wording for `RESULT-0019` and
+`RESULT-0022`.
 
 ## Why It Matters
 

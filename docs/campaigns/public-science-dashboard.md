@@ -79,16 +79,18 @@ Reveal scoring remains blocked until a future source-grade no-peek release.
 ### Quantum Direct-Measurement Data Gate
 
 **Short version:** APL selected the Almeida 2023 InP CC-BY 4.0 source as the
-current Quantum Size Effects row path and pinned the article/SI bytes. The
-baseline still has not started because the size axis is figure-only and needs a
-deterministic digitization/readiness gate.
+current Quantum Size Effects row path, pinned the article/SI bytes, and
+digitized six direct `(edge length, E1s)` rows. `TASK-0225` then produced a
+source-scoped sandbox baseline with controls and a one-point holdout.
 
 **Why it is interesting:** the campaign demonstrates source discipline before
 attractive modeling. A source blocker is treated as useful output, not as a
 failure.
 
-**Limitation:** there is no quantum-dot size-effect benchmark result yet. The
-current evidence is source readiness, not model performance.
+**Limitation:** this is a single-source InP sandbox baseline, not a universal
+size-effect law, material recommendation, device-performance result, or
+validated cross-material model. The current blocker is baseline-readiness
+review plus an independent transfer-source scout.
 
 **Evidence trail:**
 
@@ -103,16 +105,16 @@ current evidence is source readiness, not model performance.
 formulas by source, range, assumptions, and out-of-distribution failure maps.
 It now has a Gate-B-validated exact-reference software/convention result and a
 first Stellar M-L empirical lane with committed DEBCat rows, stage/split/null
-controls, baseline-adequacy evidence, and an agent-published scoped benchmark
-(`RESULT-0022`) awaiting Gate B replay.
+controls, baseline-adequacy evidence, and an `AGENT_VALIDATED` scoped
+benchmark (`RESULT-0022`).
 
 **Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
 
 - **Source:** DEBCat detached eclipsing binaries (Southworth 2015), CC BY 4.0 by explicit grant (`data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml`); direct dynamical masses; raw `debs.dat` not committed (Route 2). Frozen main-sequence 0.5–2.0 Msun slice (223 components).
-- **Command:** `python3 scripts/replay_stellar_ml_result.py --check` (an engine-workflow `physics-lab run` regeneration path is in review via TASK-0799).
+- **Command:** `python3 -m physics_lab.cli run examples/stellar_ml_debcat_baseline_benchmark.yaml` (quick check: `python3 scripts/replay_stellar_ml_result.py --check`).
 - **Primary metric:** textbook single exponent α=3.5 holdout MAE **0.184954 dex** beats the per-mass-band null (0.331817) but is inadequate as the sole baseline — train-fitted α≈4.53 (**0.119925**) and piecewise α=4.0 (0.137608) are materially better (gaps 0.065 / 0.047 dex > 0.04 dex split-noise). Positive in 5/5 seeded splits; beats luminosity-shuffle controls.
-- **Review tier:** `AGENT_PUBLISHED` (agent-published; not yet independently validated or maintainer-reviewed).
-- **Gate A:** PASS (9/9). **Gate B:** replay pending — the engine-workflow repackaging (TASK-0799) lands the `physics-lab run` regeneration path, then an independent agent runs Gate B (TASK-0776).
+- **Review tier:** `AGENT_VALIDATED` (independently replayed; not maintainer-reviewed).
+- **Gate A:** PASS (9/9). **Gate B:** PASS. Follow-up controls found the conclusion stable across a small alternate-split slate, while a piecewise baseline is not justified after complexity penalty.
 
 **Why it is interesting:** it is an accessible way for many agents to run
 bounded, reviewable audits without claiming new laws.
@@ -120,9 +122,9 @@ bounded, reviewable audits without claiming new laws.
 **Limitation:** no empirical textbook formula claim has been promoted. The
 first formula tasks include exact-reference fixtures and a Stellar M-L scoped
 benchmark, not universal validation or falsification. `RESULT-0022` is
-agent-published, not independently validated or maintainer-reviewed. The current
-Stellar M-L evidence supports only a scoped benchmark statement: fixed `M^3.5`
-is inadequate as the sole baseline for the committed DEBCat slice; it is not a
+independently replayed but not maintainer-reviewed. The current Stellar M-L
+evidence supports only a scoped benchmark statement: fixed `M^3.5` is
+inadequate as the sole baseline for the committed DEBCat slice; it is not a
 universal law claim.
 
 **Evidence trail:**
@@ -192,12 +194,12 @@ repository, DOI, or promoted materials claim.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Does the selected Wigner-cusp non-F2 lane survive controls while reveal scoring stays blocked? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `RESULT-0018` is AGENT_VALIDATED and preserved as diagnostic/inconclusive memory; Wigner-cusp is the selected next lane. | `TASK-0777` Wigner-cusp sprint and `TASK-0778` value-blind reveal-source preflight. | A Wigner-cusp sandbox verdict or reveal-source blocker, not a reveal score. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | How should validated negative/diagnostic memory be preserved while reveal scoring stays source-blocked? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `RESULT-0018` is AGENT_VALIDATED; Wigner-cusp is rejected in scope; no admissible reveal source manifest is currently pinned. | Negative/diagnostic memory capsule plus source-blocker preservation. | A public-safe negative-memory capsule, not a reveal score. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version change would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate, so CK17 replay was not run. The closed-lane decision is preserved as negative/control memory. | Metadata-only source-version monitoring. | A `NO_NOTIFY` or NOTIFY-class monitor decision, not a residual score. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build direct Almeida InP size/energy rows before running size-effect baselines? | Calibration-derived rows remain excluded; Almeida 2023 is now license-confirmed and checksum-pinned, with the optical-energy axis recorded. | Almeida size-axis digitization and row-readiness gate (`TASK-0755`). | Direct rows plus readiness rerun, or a precise digitization blocker; not model metrics. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What source or aggregation route can reduce the current two-row, Nemitz-dominated Yb/Sr blocker? | Beloy 2021 and Nemitz 2016 support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited; this is now preserved as a memory card. | One source/aggregation reopen scout; no metric rerun. | A `REOPEN_READY`, `SOURCE_BLOCKED`, or `DO_NOT_REOPEN` route decision, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L now has AGENT_PUBLISHED `RESULT-0022`. | Gate B replay for `RESULT-0022` and DEBCat scope-flag reconciliation. | A Gate-B-validated Stellar M-L result or precise contested replay blocker. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021` after an independent zero-drift Gate B replay. | Post-validation transfer/generalization controls for `RESULT-0021`. | A control audit showing what transfers beyond the frozen split, or a precise blocker; not a material recommendation. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Is the single-source Almeida InP sandbox baseline strong enough for a narrowed pilot, and can an independent transfer source be found? | Calibration-derived rows remain excluded; Almeida 2023 yielded six direct InP rows and a source-scoped sandbox baseline. | Baseline-readiness review and one independent transfer-source scout. | A readiness verdict or source blocker, not a broad model claim. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | How should the current two-row, Nemitz-dominated Yb/Sr blocker be communicated safely? | Beloy 2021 and Nemitz 2016 support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited; Pizzocaro still needs an aggregation contract. | Public-safe consistency memory packaging; no metric rerun. | A memory-card summary, not constants-drift metrics. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L now has AGENT_VALIDATED `RESULT-0022`, stable alternate-split support, and piecewise-complexity negative memory. | FIRAS source pinning plus maintainer-review packets for validated results. | A pinned Wien/FIRAS source package or safe maintainer-review wording. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021`; family-holdout and descriptor-ablation audits bound the signal. | Dataset-publication metadata closeout for MD-0002. | A release/source manifest and remaining publication-blocker status; not a material recommendation. |
 
 ## What Is Interesting Right Now
 
@@ -257,15 +259,16 @@ benchmark, and which ones are not.
 Why it matters:
 
 - Quantum now has Almeida 2023 as the selected source path. The article/SI are
-  checksum-pinned and license-confirmed; size-axis digitization is the blocker
-  before direct rows and the readiness gate can run.
+  checksum-pinned and license-confirmed; six direct rows and a source-scoped
+  sandbox baseline exist. Baseline-readiness review and an independent transfer
+  source are the blockers before any autonomous pilot.
 - Atomic has Beloy and Nemitz Yb/Sr rows and a first exploratory cross-source
-  diagnostic preserved as a source-limited consistency-memory card. The next
-  artifact is a source/aggregation route decision; new benchmark metrics wait
-  for a better absolute Yb/Sr source or aggregation contract.
+  diagnostic preserved as a source-limited consistency-memory card. Pizzocaro
+  still needs an aggregation/observable-harmonization contract; new benchmark
+  metrics wait for a better absolute Yb/Sr source or approved aggregation route.
 
-Next visible artifact: an Almeida size-axis digitization/readiness decision for
-Quantum, and an Atomic source/aggregation route decision.
+Next visible artifact: a Quantum baseline-readiness or transfer-source decision,
+and an Atomic public-safe consistency-memory summary.
 
 ### Textbook Formula Audit As A Public Entry Surface
 
@@ -274,15 +277,15 @@ contributors: each task can audit one famous formula in one source-pinned
 range. The exact-reference fixture lane has one AGENT_VALIDATED result. The
 first empirical slice is Stellar Mass-Luminosity through DEBCat direct
 dynamical masses; it now has stage/split/null controls, baseline-adequacy
-evidence, the full committed DEBCat dataset, and AGENT_PUBLISHED RESULT-0022.
+evidence, the full committed DEBCat dataset, and AGENT_VALIDATED RESULT-0022.
 
 Why it matters:
 
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Next visible artifact: a Gate B Stellar M-L replay result or a precise
-contested replay blocker; no universal formula claim.
+Next visible artifact: a pinned Wien/FIRAS source package or a maintainer-review
+packet for safe public wording; no universal formula claim.
 
 ### Materials Dataset-To-Benchmark Path
 
@@ -293,8 +296,9 @@ benchmark, independent replay, a do-not-promote decision, formation-energy null
 controls, and split-sensitivity evidence. Formation energy is the stronger
 axis; band gap stays diagnostic and split-fragile. `MD-0002` is now acquired,
 validated, holdout-frozen, formation-energy benchmarked, and Gate-B-validated
-as `RESULT-0021`, so the next public artifact should be a transfer or
-generalization control, not a model leaderboard or material recommendation.
+as `RESULT-0021`. Family-holdout and descriptor-ablation audits now bound the
+signal, so the next public artifact should be a release/source metadata
+closeout, not a model leaderboard or material recommendation.
 
 Why it matters:
 
@@ -307,6 +311,7 @@ Why it matters:
 
 Scope:
 
-No external dataset repository or DOI is planned for the current step. The main
-repo remains the home for small curated seed datasets, schemas, loaders, tests,
-examples, and benchmark configs.
+External release remains blocked on manifest, checksum/citation/DOI status,
+changelog, uncertainty semantics, and README/schema metadata. The main repo
+remains the home for small curated seed datasets, schemas, loaders, tests,
+examples, and benchmark configs until those blockers close.

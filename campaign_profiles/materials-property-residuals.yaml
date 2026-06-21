@@ -86,16 +86,12 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_PUBLISHED as RESULT-0021 and needs Gate B replay before broader Materials interpretation."
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, with family-holdout and descriptor-ablation scope memory plus dataset-publication metadata blockers."
   recommended_parallel_agents: 2
-  coordination_notes: "Run RESULT-0021 Gate B first when possible. Follow-up stress tasks must use committed MD-0002 rows, frozen controls, and no materials-claim wording."
+  coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is dataset-publication metadata closeout and preservation of scope limits."
   best_next_actions:
-    - task_id: TASK-0775
-      label: "Run Gate B replay for RESULT-0021 without changing metrics or materials-claim wording"
-    - task_id: TASK-0789
-      label: "Preflight one MD-0002 family-holdout stress axis before any new metric task"
-    - task_id: TASK-0790
-      label: "Run one bounded descriptor/control ablation without opening a feature factory"
+    - task_id: TASK-0809
+      label: "Close MD-0002 release/source-manifest, checksum, citation, uncertainty, README, and no-claim metadata blockers"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -110,17 +106,20 @@ portfolio:
     - "docs/reviews/materials-md0002-acquisition-validation-and-holdout-freeze.md"
     - "docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md"
     - "docs/reviews/materials-md0002-formation-energy-result-path-adjudication.md"
+    - "docs/reviews/materials-md0002-family-holdout-stress-preflight.md"
+    - "docs/reviews/materials-md0002-descriptor-ablation-control-audit.md"
+    - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Does RESULT-0021 pass independent Gate B replay from its committed command and hashes?"
-    - "Does the cation-pair baseline survive family-holdout or descriptor-control stress without overclaiming?"
-    - "Does band gap remain diagnostic-only after the wider snapshot?"
+    - "Can MD-0002 external-release metadata be completed without changing rows or metrics?"
+    - "Should RESULT-0021 receive maintainer-reviewed public wording after dataset packaging is complete?"
+    - "What future Materials task, if any, can add information beyond the already-recorded family-holdout and descriptor-ablation limits?"
   curator_review:
     status: current
     last_reviewed: "2026-06-19"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0021, TASK-0775, and TASK-0788 mission-wave sync"
-    notes: "MD-0002 formation energy is now AGENT_PUBLISHED as a computed-DFT, slice-limited benchmark. Gate B replay is first priority; follow-up stress audits stay benchmark/control-only with no materials claim or band-gap promotion."
+    source: "RESULT-0021, TASK-0775 Gate B replay, TASK-0789/TASK-0790 scope audits, TASK-0805 dataset-publication preflight, and TASK-0809 closeout routing"
+    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark. The cation-pair signal is useful in-split but fails unseen-pair transfer; descriptor-ablation reinforces that the advantage is localized. Next useful work is dataset metadata packaging, not new metrics."

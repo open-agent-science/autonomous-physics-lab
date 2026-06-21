@@ -83,12 +83,12 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "AGENT_VALIDATED range-limited benchmark with CLAIM-0009 evidence handoff queued"
+  current_stage: "AGENT_VALIDATED range-limited benchmark with CLAIM-0009 evidence handoff completed; maintainer Gate C decision remains the blocker"
   recommended_parallel_agents: 1
-  coordination_notes: "Use as a bounded replay/follow-up benchmark; avoid broad candidate expansion without a task."
+  coordination_notes: "Use as a bounded replay/follow-up benchmark only if maintainer asks; avoid broad candidate expansion or duplicate handoff tasks."
   best_next_actions:
-    - task_id: TASK-0758
-      label: "Assemble CLAIM-0009 evidence handoff for maintainer review"
+    - task_id: null
+      label: "Maintainer review of CLAIM-0009 evidence handoff; no executor task needed until a Gate C decision is requested"
   required_gates:
     - "Train, holdout, and stress metrics must remain separated."
     - "No exactness or broad-range wording."
@@ -96,13 +96,14 @@ portfolio:
     - "results/EXP-0011/"
     - "docs/results/anharmonic-oscillator-summary.md"
     - "docs/reviews/first-agent-validated-replay.md"
+    - "docs/reviews/claim-0009-anharmonic-evidence-handoff.md"
   open_questions:
-    - "Which CLAIM-0009 wording, if any, is supportable from the AGENT_VALIDATED range-limited benchmark?"
+    - "Should CLAIM-0009 receive narrowed maintainer-reviewed wording that cites RESULT-0016, or remain DRAFT pending more evidence?"
   curator_review:
     status: current
     last_reviewed: "2026-06-15"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-0758 science-director routing"
-    notes: "Quality-floor benchmark now has a concrete maintainer evidence-handoff task; avoid broad candidate expansion."
+    source: "RESULT-0016 and TASK-0758 evidence handoff"
+    notes: "Quality-floor benchmark has enough evidence for a maintainer decision packet, but not for agent-side claim promotion. Avoid broad candidate expansion."

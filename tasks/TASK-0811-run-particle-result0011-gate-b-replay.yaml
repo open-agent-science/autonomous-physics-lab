@@ -1,0 +1,61 @@
+id: TASK-0811
+title: "Run RESULT-0011 Particle-Mass Falsifier Gate B replay"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Strengthen the Particle-Mass guardrail track by testing whether the legacy RESULT-0011 falsifier evidence is deterministically replayable before any CLAIM-0007 Gate C decision."
+  - "Preserve negative/falsification memory while resisting broad numerology or formula-search expansion."
+  - "Separate deterministic replay support from the unresolved mixed-scheme quark-mass limitation."
+
+input:
+  mode: workflow
+  related_domain: particle_mass_relations
+  related_objects:
+    - "results/EXP-0009/RUN-0001/result.yaml"
+    - "claims/CLAIM-0007-particle-mass-falsifier-mvp.md"
+    - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
+    - "docs/notes/particle-mass-numerology-guardrails.md"
+  planning_context: >
+    TASK-0784 prepared the CLAIM-0007 handoff and identified that RESULT-0011 is
+    legacy-untiered with no independent Gate B replay under the current
+    promotion protocol. This task replays the stored Particle-Mass Falsifier MVP
+    evidence to determine whether the existing invalid/falsification result can
+    be treated as reproducible negative memory. It must not broaden the search
+    space or upgrade claim status.
+
+requirements:
+  - "Replay RESULT-0011 using the committed code/config path or document the exact missing replay path if no deterministic command exists."
+  - "Use an independent validating-agent identity in any validation record; do not reuse the original publisher identity if it is known."
+  - "If replay passes, update only the minimal validation metadata needed for an `AGENT_VALIDATED` or equivalent replay note, if the artifact schema allows it; otherwise write a no-mutation replay note."
+  - "If replay is blocked or drifts, do not edit metrics or verdicts to force a pass; write a contested replay note with commands and blockers."
+  - "Keep the mixed quark mass scheme/scale limitation explicit and unchanged."
+  - "Do NOT run new relation searches, add families, fit constants, edit CLAIM-0007 status, or create knowledge artifacts."
+  - "No particle-mass mechanism, numerology discovery, universal relation, or cross-family explanation wording."
+
+accepted_outputs:
+  - "`docs/reviews/result-0011-particle-mass-falsifier-gate-b-replay.md` with replay commands, metrics comparison, verdict, limitations, and blocker if any."
+  - "Optional validation metadata update to `results/EXP-0009/RUN-0001/result.yaml` only if the schema and replay evidence support it."
+  - "Output-routing summary: destination replay/negative memory, Gate B status, claim impact none, knowledge impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Gate B replay of an existing legacy result; no new RESULT or PRED artifact is created."
+  evidence:
+    - "results/EXP-0009/RUN-0001/result.yaml"
+    - "docs/reviews/result-0011-particle-mass-falsifier-gate-b-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

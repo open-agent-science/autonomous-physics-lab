@@ -1,0 +1,60 @@
+id: TASK-0810
+title: "Scout one independent quantum-size transfer source"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Advance Quantum Size Effects beyond the single-source Almeida InP baseline by testing whether an independent material/source can support a future transfer holdout."
+  - "Keep the next step source-first and row-semantics-first rather than launching a correction pilot prematurely."
+  - "Preserve blockers for table-inaccessible or calibration-derived sources as useful campaign memory."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+  planning_context: >
+    TASK-0293 and TASK-0225 resolved the first direct-row blocker for one
+    Almeida InP figure-digitized surface and produced a source-scoped sandbox
+    baseline. The next source-data question is whether a second independent
+    source/material can provide direct, row-level size-energy evidence for a
+    future transfer holdout. This task scouts exactly one candidate route and
+    records admissibility; it does not add benchmark metrics or run a model.
+
+requirements:
+  - "Choose exactly one candidate independent source/material route from existing campaign notes or clearly justify why the selected route is the best next source scout."
+  - "Assess source accessibility, license/reuse status, row-level availability, property-kind semantics, size-axis semantics, material/composition identity, and whether rows are direct measurements, figure-digitized, calibration-derived, or theoretical."
+  - "Return one verdict: `TRANSFER_SOURCE_READY_FOR_ROW_TASK`, `SOURCE_BLOCKED`, or `NEEDS_MAINTAINER_SOURCE_DECISION`."
+  - "If the route is ready, propose the narrow future row-curation task shape; do not curate rows in this task unless the task is explicitly amended."
+  - "If blocked, preserve the exact blocker class and do not substitute a second source in the same task."
+  - "Do NOT run baseline metrics, modify `qd-0003`, open TASK-0226, or assert transfer/generalization."
+  - "No quantum-dot design-law, material recommendation, device-performance, biomedical, universal size-law, or discovery wording."
+
+accepted_outputs:
+  - "`docs/reviews/quantum-independent-transfer-source-scout.md` with the selected route, admissibility table, verdict, blockers, and future-task recommendation if any."
+  - "Optional metadata-only update to the source manifest if a source route is classified without adding rows."
+  - "Output-routing summary: destination source gate, no RESULT/PRED/CLAIM/KNOW change, transfer-holdout blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Source admissibility scout only; no rows, benchmark metrics, or result artifact are expected."
+  evidence:
+    - "docs/reviews/quantum-independent-transfer-source-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

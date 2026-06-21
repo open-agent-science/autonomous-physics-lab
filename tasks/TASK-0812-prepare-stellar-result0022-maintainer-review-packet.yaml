@@ -1,0 +1,60 @@
+id: TASK-0812
+title: "Prepare Stellar M-L RESULT-0022 maintainer-review packet"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Move the now AGENT_VALIDATED Stellar M-L benchmark from replay/control accumulation toward a clear maintainer review decision."
+  - "Synthesize RESULT-0022, alternate-split stability, piecewise complexity, and DEBCat scope limitations without promoting a universal formula claim."
+  - "Help decide whether the public surface should remain an AGENT_VALIDATED benchmark result, receive maintainer-reviewed wording, or wait for external data."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
+    - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    RESULT-0022 is AGENT_VALIDATED. Follow-up audits found the alpha=3.5
+    inadequacy conclusion stable across modest alternate splits, while a
+    piecewise baseline is not justified after complexity penalty. The next
+    useful task is a maintainer-facing review packet that states what the
+    result supports, what it does not support, and which public wording or
+    external-source decision is appropriate.
+
+requirements:
+  - "Summarize the RESULT-0022 evidence chain, Gate A/Gate B status, deterministic command, core metrics, alternate-split audit, piecewise-complexity audit, and DEBCat source/scope limitations."
+  - "Present maintainer decision options: keep as AGENT_VALIDATED benchmark memory, add maintainer-reviewed public wording, request external source scouting, or keep waiting."
+  - "State explicitly that textbook alpha=3.5 is inadequate as the sole baseline on the frozen DEBCat main-sequence slice, not falsified universally."
+  - "Do NOT edit RESULT-0022 metrics/review_tier, create or promote a CLAIM/KNOW artifact, run new model comparisons, or fetch live stellar data."
+  - "No universal mass-luminosity law, stellar-evolution, Gaia-derived truth, discovery, or formula-falsified wording."
+
+accepted_outputs:
+  - "`docs/reviews/stellar-ml-result0022-maintainer-review-packet.md` with evidence synthesis, decision options, limitations, and recommended public wording."
+  - "Optional reader-facing wording update to an existing campaign/public page only if it removes stale wording; no new dashboard page."
+  - "Output-routing summary: destination maintainer review readiness, no RESULT/CLAIM/KNOW mutation, external-source blocker stated if relevant."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer review packet for an existing AGENT_VALIDATED result; no new benchmark run or result artifact is expected."
+  evidence:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

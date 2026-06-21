@@ -84,14 +84,12 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; RESULT-0020 needs Gate B replay before validated claim support"
+  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; RESULT-0020 Gate B remains a packaging-contest decision, not validated claim support"
   recommended_parallel_agents: 1
-  coordination_notes: "Prioritize RESULT-0020 Gate B replay and claim-evidence handoff before adding more live challenge examples."
+  coordination_notes: "Prioritize the RESULT-0020 packaging-contest adjudication brief before adding more live challenge examples or claim support."
   best_next_actions:
-    - task_id: TASK-0766
-      label: "Run independent Gate B replay for RESULT-0020"
-    - task_id: TASK-0768
-      label: "Assemble CLAIM-0005 evidence handoff after separating validated and replay-needed evidence"
+    - task_id: TASK-0807
+      label: "Prepare the RESULT-0020 Gate B packaging-contest adjudication brief for maintainer decision"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -100,13 +98,13 @@ portfolio:
     - "results/EXP-0006/RUN-0007/result.yaml"
     - "docs/results/dimensional-analysis-validator-summary.md"
   open_questions:
-    - "Does RESULT-0020 pass independent Gate B replay?"
-    - "What conservative CLAIM-0005 wording is supportable after separating RESULT-0007 and RESULT-0020 review tiers?"
+    - "Which RESULT-0020 verification checks are code-reproducible versus hand-authored Gate A packaging?"
+    - "What conservative CLAIM-0005 wording is supportable if RESULT-0020 remains AGENT_PUBLISHED?"
   curator_review:
     status: current
     last_reviewed: "2026-06-16"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0020 scientific-memory index and TASK-0766/TASK-0768 task-queue routing"
-    notes: "Quality-floor track now has a replay-needed live result and claim-evidence handoff path; avoid silent challenge-set drift."
+    source: "RESULT-0020 scientific-memory index and TASK-0807 packaging-contest adjudication routing"
+    notes: "Quality-floor track has a high-value live result but the validation tier is blocked by packaging provenance. Do not treat RESULT-0020 as AGENT_VALIDATED or use it for CLAIM-0005 until maintainer adjudication."

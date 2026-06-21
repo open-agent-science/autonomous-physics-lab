@@ -86,8 +86,8 @@ portfolio:
   recommended_parallel_agents: 2
   coordination_notes: "Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics task; future work must test a concrete source or aggregation route against the memory-card reopen condition."
   best_next_actions:
-    - task_id: null
-      label: "Keep Atomic Yb/Sr closed until a new independent absolute Yb/Sr source row or maintainer-approved Pizzocaro aggregation contract exists."
+    - task_id: TASK-0804
+      label: "Package the Yb/Sr consistency negative-memory card as public-safe summary while preserving the reopen condition"
   required_gates:
     - "Second-source provenance review."
     - "Real-row loader and schema validation."
@@ -112,4 +112,4 @@ portfolio:
     next_review_due: "2026-09-01"
     review_reason: source_readiness
     source: "TASK-0780 Pizzocaro route scout"
-    notes: "High-prestige lane with completed source-limited memory; TASK-0780 checked the Pizzocaro route and classified it AGGREGATION_CONTRACT_NEEDED, so no RESULT promotion, constants-drift fitting, metric rerun, or third-source row path is open now."
+    notes: "High-prestige lane with completed source-limited memory; TASK-0780 checked the Pizzocaro route and classified it AGGREGATION_CONTRACT_NEEDED, so no RESULT promotion, constants-drift fitting, metric rerun, or third-source row path is open now. The only READY work is public-safe memory packaging."

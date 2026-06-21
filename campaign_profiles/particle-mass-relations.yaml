@@ -90,12 +90,12 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "falsification-first quality floor with strict numerology guardrails; CLAIM-0007 evidence handoff prepared for maintainer Gate C decision"
+  current_stage: "falsification-first quality floor with strict numerology guardrails; CLAIM-0007 evidence handoff prepared, and RESULT-0011 needs Gate B replay before stronger negative-memory support"
   recommended_parallel_agents: 1
-  coordination_notes: "Use for provenance, uncertainty, or negative-result memory only unless a maintainer opens a narrow task."
+  coordination_notes: "Use for provenance, uncertainty, replay, or negative-result memory only; keep broad formula search closed."
   best_next_actions:
-    - task_id: null
-      label: "Maintainer review of the CLAIM-0007 evidence handoff; keep broad formula search closed"
+    - task_id: TASK-0811
+      label: "Run RESULT-0011 Gate B replay before any CLAIM-0007 Gate C decision"
   required_gates:
     - "Complexity penalty and uncertainty semantics before any relation comparison."
     - "No broad particle-mass formula search without a reviewed baseline."
@@ -105,12 +105,12 @@ portfolio:
     - "results/EXP-0009/RUN-0001/result.yaml"
     - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
   open_questions:
-    - "Which negative results should be easiest for new agents to avoid repeating?"
+    - "Does RESULT-0011 replay cleanly under current tooling, and how should mixed quark mass scheme/scale limitations constrain CLAIM-0007?"
   curator_review:
     status: current
     last_reviewed: "2026-06-17"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0011 and TASK-0784 science-director routing"
-    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and preparing maintainer-only claim review packets."
+    source: "RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 replay routing"
+    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and strengthening deterministic replay before maintainer-only claim review."
