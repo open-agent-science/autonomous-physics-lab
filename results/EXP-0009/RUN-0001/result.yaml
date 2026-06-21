@@ -32,6 +32,40 @@ limitations:
   prior.
 - No claim promotion is proposed from this falsifier run.
 best_verdict: INVALID
+review_tier: AGENT_VALIDATED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_VALIDATED
+  best_verdict_proposed: INVALID
+  gates_checked:
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
+  evidence_summary: >
+    Independent Gate B replay of legacy RESULT-0011 reproduced 81 numeric
+    metrics with maximum absolute drift 3.730349362740526e-14 under tolerance
+    1.0e-09 and preserved the INVALID falsifier verdict. The frozen task input
+    snapshot hash differs only because TASK-0040 status moved from REVIEW_READY
+    to DONE; scientific inputs are unchanged. Original publisher metadata is
+    not stored on this legacy result.
+  followup_for_maintainer: >
+    Treat this as AGENT_VALIDATED falsification/negative-memory evidence only.
+    Mixed quark scheme/scale limitations remain unchanged. CLAIM-0007 status
+    is not updated by this replay; Gate C remains maintainer-only.
+  validation_record:
+    replayed_by:
+      contributor_id: roman
+      github_username: roman
+      agent_tool: Cursor
+      model_version: Auto
+    replayed_at_utc: '2026-06-21T12:00:00+00:00'
+    replay_command: physics-lab run examples/particle_mass_falsifier.yaml
+    replay_output_dir: /tmp/apl-gateb-result0011
+    tolerance_used: 1.0e-09
+    max_abs_delta: 3.730349362740526e-14
+    metric_count: 81
+    drift_observed: none
 verification:
   passed: true
   checks:
