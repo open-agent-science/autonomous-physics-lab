@@ -54,7 +54,7 @@ validation:
   commands:
     - "python3 scripts/normalize_firas_monopole_source.py --source data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/firas_monopole_spec_v1.txt --output data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
     - "python3 -m ruff check ."
-    - "python3 -m pytest -n0 tests/test_firas_monopole_source.py tests/test_source_artifact_package_validation.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py --basetemp ../.pytest-task-0801"
+    - "python3 -m pytest -n0 tests/test_firas_monopole_source.py tests/test_source_artifact_package_validation.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py --basetemp ../.pytest-task-0801-review"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
