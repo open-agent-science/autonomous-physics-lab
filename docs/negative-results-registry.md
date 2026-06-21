@@ -29,6 +29,7 @@ creating a new result or changing the existing result's verdict or metrics.
 | Evidence | Dataset | Scope boundary | Key metrics | Classification |
 |----------|---------|----------------|-------------|----------------|
 | [TASK-0789 preflight](reviews/materials-md0002-family-holdout-stress-preflight.md) | MD-0002 stable ternary oxides | The cation-pair-mean baseline is useful when cation-pair families are represented in training, but does not establish transfer to fully unseen pairs. | Standard frozen split MAE: 0.201; unseen-pair holdout MAE: 0.637 vs null 0.654 eV/atom | Negative / scope memory |
+| [RESULT-0018 and Nuclear exhausted-lane capsule](../results/EXP-0012/RUN-0002/result.yaml) | NMD-0003 retrospective measured-row surface and related Nuclear audits | F2 is reproducible but does not clear its controls-first survival margin; shell-axis remains diagnostic-only; local-curvature fails the no-leakage gate; neutron-rich behavior does not transfer specifically beyond matched high-error controls. | F2 margin 0.199260 vs required 0.250000 MeV; local-curvature full-known delta MAE +0.0196 MeV and 0/19 subset wins | Validated negative / diagnostic memory |
 
 ---
 
@@ -175,6 +176,63 @@ model.
 artifact is created or modified. Overclaim risk is controlled by the
 computed-DFT, slice-limited, lookup-baseline wording. Promotion blocker: none;
 this is memory-only packaging of existing evidence.
+
+---
+
+### Nuclear Validated Negative-Memory Capsule
+
+**Existing validated result:** [RESULT-0018](../results/EXP-0012/RUN-0002/result.yaml),
+the `AGENT_VALIDATED`, `INCONCLUSIVE` F2 component-ablation diagnostic.
+
+**What the evidence rules out under the current contracts:**
+
+- **F2 component ablation:** the independent Gate B replay reproduced the
+  result, but the full-reference advantage over the best control is
+  `0.199260 MeV`, below the predeclared `0.250000 MeV` survival margin. No
+  component variant cleared the margin, so another run of the same F2
+  taxonomy, split, baseline, and controls is not a new scientific lane.
+- **Shell-axis expansion:** the completed audit wave found fragile
+  coefficients, persistent light-`A<50` regression, mixed isotope-chain
+  transfer, and non-specific neutron-rich tail behavior. The lane remains
+  `DIAGNOSTIC_ONLY`; further retrospective slicing is not recommended.
+- **Local curvature:** `LOCAL-CURVATURE-001` became worse than the
+  no-correction baseline under the bounded no-leakage implementation
+  (`+0.0196 MeV` full-known delta MAE), lost to the strongest control, and won
+  `0 of 19` subset comparisons. The earlier leakage-permissive positive
+  framing must not be revived.
+- **Neutron-rich transfer:** matched non-neutron-rich high-error controls also
+  improve, sometimes more strongly, and isotope-chain transfer is mixed. This
+  does not support a neutron-rich-specific correction or a broad transfer
+  statement.
+
+**Do-not-repeat boundary:** do not reopen these families on the same committed
+rows, splits, baselines, labels, and controls. A later task needs a materially
+different, maintainer-approved source or baseline contract and must predeclare
+its controls before scoring.
+
+**Prospective reveal blocker:** reveal scoring remains source-blocked because
+no admissible measurement source postdating the `2026-05-20` freeze has been
+pinned through the no-peek source gate. Re-scouting the same source surface is
+not a recommended execution lane; future work waits for a genuinely new
+source/version signal.
+
+**Scope:** This capsule preserves negative and diagnostic campaign memory. It
+does not modify RESULT-0018, any `PRED-*` entry, `results/golden-results.yaml`,
+claims, or knowledge artifacts, and it does not establish or falsify a
+universal nuclear mass law.
+
+**Evidence trail:**
+
+- [RESULT-0018 diagnostic memory and next-lane decision](reviews/nuclear-result0018-diagnostic-negative-memory-and-next-lane.md)
+- [Shell-axis post-audit decision](reviews/nuclear-shell-axis-post-audit-decision.md)
+- [Local-curvature promotion preflight](reviews/nuclear-local-curvature-result-promotion-preflight.md)
+- [Neutron-rich boundary-transfer lane](reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md)
+- [Reveal-source manifest preflight](reviews/nuclear-reveal-source-manifest-preflight.md)
+
+**Output routing:** destination is this negative-memory registry and the
+Nuclear campaign page. RESULT/PRED/CLAIM/KNOW artifacts are unchanged.
+RESULT-0018 retains `AGENT_VALIDATED` / `INCONCLUSIVE`; no new Gate A or Gate B
+is attempted. The active blocker is an admissible post-freeze reveal source.
 
 ---
 

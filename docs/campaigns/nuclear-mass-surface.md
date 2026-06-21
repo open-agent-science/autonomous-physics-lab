@@ -327,6 +327,11 @@ for bounded follow-up; reveal scoring remains blocked.
 
 Current next Nuclear posture:
 
+- Treat the [validated negative-memory capsule](../negative-results-registry.md#nuclear-validated-negative-memory-capsule)
+  as the consolidated stop boundary for F2, retrospective shell-axis
+  expansion, local-curvature revival, and neutron-rich-specific transfer
+  wording. These lanes are scientific memory, not a queue of near-miss
+  candidates.
 - Treat `TASK-0517` as completed control-dominated negative memory. Do not run
   the same `NMD-0003` factory sprint again without a new baseline or a new
   maintainer-approved feature family.
@@ -342,7 +347,8 @@ Current next Nuclear posture:
   diagnostic/negative memory, not as a reason for another F2 loop.
 - `TASK-0585` found no admissible post-freeze reveal source. Keep reveal
   scoring blocked until a source postdating the 2026-05-20 freeze is pinned
-  without exposing target values.
+  without exposing target values. Re-scouting the same exhausted source
+  surface is not recommended; wait for a materially new source/version signal.
 - `TASK-0428` should run the result-promotion preflight mainly to preserve the
   `LOCAL-CURVATURE-001` no-leakage falsification and block positive promotion
   unless the scorecard exposes a very narrow, reviewed negative-result
