@@ -1,7 +1,7 @@
 id: TASK-0813
 title: "Prepare RESULT-0019 exact-reference maintainer-review packet"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
