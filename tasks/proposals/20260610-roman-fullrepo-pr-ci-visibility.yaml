@@ -1,6 +1,6 @@
 proposal_id: 20260610-roman-fullrepo-pr-ci-visibility
 title: "Make full_repo test breakage visible at PR time, not only at closeout"
-status: PROPOSED
+status: ACCEPTED
 type: ci_infrastructure
 priority: high
 
@@ -57,6 +57,11 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "From the 2026-06-10 workflow retrospective. Pairs with the auto-closeout work (closeout must not land on a red main)."
+  canonical_task_id: TASK-0697
+  decision: accepted
+  notes: >
+    Accepted and delivered as TASK-0697 (DONE): "Add risk-based full_repo PR
+    gate and nightly full_repo watchdog", which added the path-filtered PR
+    full_repo job and the nightly main watchdog described here. Status
+    reconciled from PROPOSED to ACCEPTED during architect proposal-pool drift
+    closeout; see docs/proposal-pool-triage.md.
