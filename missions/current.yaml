@@ -185,7 +185,7 @@ missions:
         label: "Compile Nuclear validated-negative-memory capsule"
         task_id: TASK-0803
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: true

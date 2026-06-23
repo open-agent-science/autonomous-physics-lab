@@ -1,7 +1,7 @@
 id: TASK-0277
 title: "Review quantum-size baseline before autonomous pilot"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
