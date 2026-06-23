@@ -59,11 +59,11 @@ result_artifact_policy:
 
 validation:
   commands:
-    - ".venv/bin/python scripts/apl_check_mission_drift.py --strict"
-    - ".venv/bin/python scripts/generate_campaign_catalog.py --check"
-    - ".venv/bin/python scripts/apl_mission.py --mode research --output json"
-    - ".venv/bin/python -m pytest tests/test_mission_control.py tests/test_docs_links.py tests/test_campaign_curator.py tests/test_task_discovery.py"
-    - ".venv/bin/python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_check_mission_drift.py --strict"
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 scripts/apl_mission.py --mode research --output json"
+    - "python3 -m pytest tests/test_mission_control.py tests/test_docs_links.py tests/test_campaign_curator.py tests/test_task_discovery.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 
 can_be_done_by:
