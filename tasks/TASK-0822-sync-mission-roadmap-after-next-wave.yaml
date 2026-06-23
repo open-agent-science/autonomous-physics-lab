@@ -1,0 +1,73 @@
+id: TASK-0822
+title: "Sync mission and roadmap after the post-validation next wave"
+type: strategy_architecture
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep mission control aligned with the TASK-QUEUE #1185 post-validation task wave."
+  - "Route agents toward executable READY gates instead of stale result-validation loops."
+  - "Add advisory Director/Architect drift checks without turning curated strategy prose into generated dashboards."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/mission-control.md"
+    - "docs/next-steps.md"
+    - "docs/strategy.md"
+    - "docs/roadmap.md"
+    - "docs/scientific-campaign-curator.md"
+    - "agents/scientific-curator.yaml"
+    - "agents/architect.yaml"
+    - "tasks/TASK-0809-close-md0002-dataset-publication-metadata-blockers.yaml"
+    - "tasks/TASK-0815-pin-wien-firas-temperature-domain-contract.yaml"
+    - "tasks/TASK-0818-prepare-claim0009-anharmonic-gatec-ratification-packet.yaml"
+    - "tasks/TASK-0821-scout-nuclear-post-freeze-reveal-source-route.yaml"
+  planning_context: >
+    After TASK-QUEUE #1185 merged the next post-validation task wave, the live
+    mission layer and roadmap still emphasized the previous Materials/Stellar
+    replay wave and older source-readiness states. The maintainer asked for a
+    useful long-term sync of strategy, roadmap, mission-control files, and agent
+    protocols, including whether future updates should be automated or assigned
+    to Scientific Director / Architect roles.
+
+requirements:
+  - "Update `missions/current.yaml` so recommended research actions are executable, post-validation READY gates rather than already-in-review or stale tasks."
+  - "Refresh `docs/current-missions.md`, `docs/mission-control.md`, `docs/next-steps.md`, `docs/strategy.md`, and `docs/roadmap.md` with concise post-validation routing and safe public wording."
+  - "Update Scientific Director and Architect role guidance so major post-merge waves run advisory drift checks before curated docs are edited."
+  - "Keep generated `docs/task-views/*` out of the PR; the board-sync action owns generated navigation."
+  - "Do not mutate scientific result artifacts, promote claims, or add a new dashboard/index that duplicates dynamic task views."
+
+accepted_outputs:
+  - "Updated mission-control and strategy/roadmap docs that reflect the post-validation next wave without overclaiming scientific results."
+  - "Updated `missions/current.yaml` with current recommended actions across at least the Materials, Nuclear, Quantum, Atomic, Textbook/Stellar, Anharmonic, and Dimensional lanes."
+  - "Updated Scientific Director / Architect instructions that recommend `generate_campaign_catalog --check`, `apl_check_mission_drift.py`, and `apl_mission.py --output json` as advisory drift checks."
+  - "Validation output from mission drift, campaign catalog, mission JSON, targeted tests, strict repo validation, and whitespace diff checks."
+
+result_artifact_policy:
+  required: false
+  reason: "Strategy/architecture synchronization task; it changes routing and protocol docs, not scientific RESULT or PRED artifacts."
+  evidence:
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/scientific-campaign-curator.md"
+
+validation:
+  commands:
+    - "python3 scripts/apl_check_mission_drift.py --strict"
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 scripts/apl_mission.py --mode research --output json"
+    - "python3 -m pytest tests/test_mission_control.py tests/test_docs_links.py tests/test_campaign_curator.py tests/test_task_discovery.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -152,6 +152,16 @@ typical_activities:
       Compare the current task pool and READY mix against strategic goals
       (`docs/strategy.md`, `missions/current.yaml`); recommend pool-shape
       adjustments when the mix drifts away from durable scientific output.
+  - title: "Mission and generated-surface drift audit"
+    description: |
+      After major task-queue, campaign-profile, or result-promotion waves, run
+      `python3 scripts/apl_check_mission_drift.py`,
+      `python3 scripts/generate_campaign_catalog.py --check`, and
+      `python3 scripts/apl_mission.py --mode research --output json` to detect
+      stale mission routing and generated/manual boundary problems. Recommend
+      small curated updates to mission docs or role guidance when needed. Do
+      not propose auto-rewriting strategy or roadmap prose from task state;
+      those files remain manually curated long-horizon surfaces.
   - title: "Monitor the proposal pool"
     description: |
       As a standing responsibility, run `python3 scripts/apl_proposal_triage.py`
@@ -201,6 +211,7 @@ allowed_tools:
 
 scripts_to_use:
   - scripts/apl_mission.py
+  - scripts/apl_check_mission_drift.py
   - scripts/apl_task_pr_helper.py
   - scripts/apl_proposal_triage.py
   - scripts/apl_review_pr.py

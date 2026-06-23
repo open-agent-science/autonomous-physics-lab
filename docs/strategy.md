@@ -52,6 +52,10 @@ emphasis:
   gates);
 - turn high-quality sandbox evidence into `AGENT_PUBLISHED` and
   `AGENT_VALIDATED` scientific memory when explicit result-promotion gates pass;
+- after validation, route campaigns toward the next higher-validity gate
+  instead of another internal audit loop: independent transfer, scoped
+  maintainer ratification, external/no-peek reveal, or concrete source
+  readiness;
 - curate active and preparing campaigns with clear source state, allowed work,
   forbidden work, and honest limitations;
 - keep public-launch work gated behind validation, review discipline, and
@@ -93,13 +97,16 @@ emphasis:
    surfaces.
 11. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-12. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+12. Keep post-validation campaigns pointed at explicit validity gates:
+   transfer, ratification, external reveal, or source readiness. Repeated
+   audits are useful only when they clear one of those gates.
+13. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-13. Distinguish retrospective time-split benchmarks from prospective prediction:
+14. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-14. Prepare public launch only after the explicit gates in
+15. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through

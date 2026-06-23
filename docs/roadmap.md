@@ -32,17 +32,21 @@ campaign-oriented scientific system.
 
 Near-term campaign work:
 
-- keep the pendulum benchmark legible through better summaries and diagnostics;
-- keep the particle-mass track falsification-first and scope-limited while
-  packaging the charged-lepton, tau, neutrino, and quark results as one
-  coherent campaign story;
+- keep validated or source-limited campaigns moving through explicit
+  next-validity gates: transfer, maintainer ratification, external/no-peek
+  reveal, or source readiness;
+- close reusable-dataset and source-publication blockers before turning
+  Materials, Stellar, or similar empirical surfaces into broader transfer
+  claims;
+- keep the pendulum, dimensional-analysis, and particle-mass tracks as
+  falsification-first quality floors with scoped ratification or negative-memory
+  work, not broad formula search;
 - treat the negative-results registry as part of the main scientific output
   layer rather than as a side note;
-- connect benchmark results, campaign pages, status docs, and release-facing
-  summaries through a clearer Mission Control layer;
+- connect benchmark results, campaign pages, mission docs, and release-facing
+  summaries through Mission Control without duplicating live task queues;
 - keep Nuclear Mass Surface as the current flagship validation campaign while
-  preserving `AGENT-RUN-0007` as an inconclusive guard and post-AME2020
-  scoring as retrospective evidence, not strict blind prediction;
+  preserving source-blocked reveal discipline and negative/control memory;
 - improve visual result summaries so current evidence is easier to review.
 
 ## Contributor Pilot — Active
@@ -107,6 +111,9 @@ criteria:
 - dataset publication rules are documented for source-pinned reusable datasets;
 - at least one dataset candidate, such as Materials `MD-0001` or an Exoplanet
   snapshot surface, has explicit citation/reuse metadata and limitations;
+- post-validation dataset candidates such as Materials `MD-0002` and
+  Textbook/Stellar row packages have source, checksum, citation, permission, and
+  no-claim metadata before they are treated as transfer-ready;
 - release docs preserve review-tier labels for `AGENT_PUBLISHED`,
   `AGENT_VALIDATED`, maintainer-reviewed, externally replicated, and legacy
   artifacts.
