@@ -1,7 +1,7 @@
 id: TASK-0812
 title: "Prepare Stellar M-L RESULT-0022 maintainer-review packet"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
