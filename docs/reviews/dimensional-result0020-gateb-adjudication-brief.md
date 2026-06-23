@@ -23,8 +23,8 @@ packaging?
 - `results/EXP-0006/RUN-0007/metrics.json`
 - `results/EXP-0006/RUN-0007/gate_a_report.md`
 - `docs/reviews/dimensional-result-0020-gate-b-contested-replay.md`
-- `tasks/TASK-0766-replay-dimensional-result-0020-gate-b.yaml`
-- `tasks/TASK-0782-adjudicate-dimensional-result0020-gate-b-packaging-contest.yaml`
+- `TASK-0766`
+- `TASK-0782`
 - `physics_lab/workflows/dimensional_validator.py`
 - `scripts/apl_validate_agent_published_result.py`
 
