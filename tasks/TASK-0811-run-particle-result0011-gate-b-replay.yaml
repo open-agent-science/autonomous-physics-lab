@@ -1,7 +1,7 @@
 id: TASK-0811
 title: "Run RESULT-0011 Particle-Mass Falsifier Gate B replay"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

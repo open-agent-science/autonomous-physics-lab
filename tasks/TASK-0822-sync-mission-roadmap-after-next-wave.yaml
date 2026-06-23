@@ -1,7 +1,7 @@
 id: TASK-0822
 title: "Sync mission and roadmap after the post-validation next wave"
 type: strategy_architecture
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
