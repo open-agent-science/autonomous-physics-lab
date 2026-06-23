@@ -16,6 +16,25 @@ It covers stable binary oxides from Materials Project `database_version`
 `2025.09.25` under CC BY 4.0 attribution. It is a reusable source dataset, not a
 benchmark result, model, prediction, or scientific claim.
 
+The second pinned dataset is `MD-0002`, a wider computed-DFT stable ternary
+oxide slice:
+
+- `md-0002-materials-project-stable-ternary-oxides.yaml`
+- `md0002_holdout_manifest.yaml`
+- `materials_md0002_snapshot_manifest.yaml`
+- `snapshots/materials_project_md0002_2026.04.13.json`
+
+It covers Materials Project `database_version` `2026.04.13` stable ternary
+oxides under the narrowed `md0002_alkali_alkaline_earth_3d_transition_oxide`
+predicate. The normalized file contains 724 axis rows over 362 materials:
+formation energy per atom and band gap, both computed DFT values. The
+formation-energy axis is used by `RESULT-0021`; band gap remains diagnostic-only.
+
+`MD-0002` is internally reusable and content-pinned, but it is not an external
+dataset publication. No DOI, release tag, external archive record, material
+recommendation, synthesis guidance, device-performance statement, biomedical
+claim, or universal materials-law claim is created by these files.
+
 ## Citation And Reuse Boundary
 
 `md-0001-citation.yaml` records internal citation and reuse metadata for the
@@ -29,6 +48,13 @@ the dataset, mint a DOI, create a Zenodo or GitHub release, move files into an
 external repository, or grant permission to make benchmark, material-discovery,
 device, synthesis, or biomedical claims. Any external publication path requires
 a separate maintainer-approved publication task.
+
+`materials_md0002_snapshot_manifest.yaml` records the equivalent MD-0002
+release/source metadata: source citation, CC BY 4.0 reuse status, raw and
+normalized checksums, computed-DFT uncertainty semantics, changelog, and
+explicit DOI/external-release status. It preserves the same no-claim boundary:
+MD-0002 supports scoped benchmark reproducibility inside APL, not a standalone
+materials-design or experimental-validation claim.
 
 ## Source Policy
 
@@ -60,6 +86,7 @@ data/materials/
   README.md
   source_manifest.yaml
   materials_snapshot_manifest.yaml
+  materials_md0002_snapshot_manifest.yaml
   md-0001-citation.yaml
   snapshots/
   md-*.yaml
