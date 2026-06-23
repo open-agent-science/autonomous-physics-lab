@@ -23,6 +23,34 @@ Use [future-research-portfolio.md](./future-research-portfolio.md)
 to decide whether a scientific direction belongs in `NOW`, `NEXT`, or
 `WATCHLIST` before starting a new task branch.
 
+## Current Operational Handoff (2026-06-23)
+
+Use `python3 scripts/apl_mission.py --output onboarding` and
+`docs/current-missions.md` for live routing. The current next wave is not a
+repeat of the older Nuclear/Quantum/Exoplanet expansion queues; it is a
+post-validation gate wave:
+
+- source readiness: close concrete dataset, source, checksum, citation,
+  permission, uncertainty, or metric-contract blockers;
+- transfer: scout one independent source, material, regime, or dataset route
+  before broader generalization;
+- ratification: prepare narrowly scoped maintainer decision packets without
+  changing claim status;
+- external reveal: preserve value-blind/no-peek discipline until a source-grade
+  reveal route exists.
+
+The immediate high-signal READY tasks are surfaced by the mission script. As of
+this handoff, the core next-wave anchors are Materials `TASK-0809`, Textbook
+Wien/FIRAS `TASK-0815`, Quantum `TASK-0810` / `TASK-0816`, Nuclear `TASK-0821`,
+Atomic `TASK-0804`, Anharmonic `TASK-0818`, Dimensional `TASK-0807`,
+Pendulum `TASK-0814`, Particle Mass `TASK-0820`, and Stellar transfer
+`TASK-0819`.
+
+The detailed sections below are historical planning context and quality-floor
+memory. They are useful for understanding why the repository arrived here, but
+they are not a replacement for the live mission script, canonical task YAML, or
+generated task views.
+
 ## Current State
 
 Completed:
@@ -102,7 +130,7 @@ python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
-## Recommended Next Work
+## Historical Detail And Background
 
 ### 1. Advance Nuclear Through Feature-Term Slates And Reveal Discipline
 

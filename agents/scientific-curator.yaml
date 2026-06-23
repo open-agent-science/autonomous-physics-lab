@@ -81,6 +81,7 @@ required_reading:
   - docs/strategy.md
   - missions/current.yaml
   - docs/task-views/research.md
+  - docs/notes/mission-drift-checker.md
 
 typical_activities:
   - title: "Run the campaign curator script"
@@ -124,6 +125,19 @@ typical_activities:
       result cards, evidence links, scope, limitations, and current status.
       Put agent instructions, publication criteria, and workflow rules in
       protocol docs or task YAML instead.
+  - title: "Run post-wave mission sync checks"
+    description: |
+      After a validation wave, task-queue PR, or major campaign merge batch,
+      run the curated sync checklist before recommending more work:
+      `python3 scripts/generate_campaign_catalog.py --check`,
+      `python3 scripts/apl_check_mission_drift.py`,
+      `python3 scripts/apl_mission.py --mode research --output json`, and,
+      when a portfolio-level cycle is requested,
+      `python3 scripts/apl_campaign_curator.py --role director --active-only`.
+      Use the results to decide whether `missions/current.yaml`,
+      `docs/current-missions.md`, existing campaign pages, or
+      `docs/mission-control.md` need a small curated update. Do not mirror the
+      whole READY task list into narrative docs.
   - title: "Build a promotion backlog"
     description: |
       Classify recent sandbox and review artifacts as result-backfill,
@@ -197,6 +211,7 @@ allowed_tools:
 
 scripts_to_use:
   - scripts/apl_campaign_curator.py
+  - scripts/apl_check_mission_drift.py
   - scripts/apl_mission.py
   - scripts/apl_review_pr.py
   - scripts/apl_proposal_triage.py
@@ -225,6 +240,7 @@ restrictions:
   - "Must not broaden a focused pool/domain/stage session beyond its filters unless the maintainer asks for a portfolio-level cycle."
   - "Must not let a strong diagnostic signal stay in indefinite sandbox limbo; it must recommend a replay, ablation, promotion decision, or explicit do-not-promote route."
   - "Must not grow the task pool when the real bottleneck is promotion, replay, source-to-row extraction, or dataset publication readiness."
+  - "Must not auto-generate `docs/strategy.md`, `docs/roadmap.md`, `docs/current-missions.md`, `docs/mission-control.md`, or `docs/next-steps.md` from the task pool. Use scripts as advisory checks, then make small curated updates only when the maintainer asks or a major wave changes routing."
   - "Must not create canonical TASK-XXXX files without explicit maintainer approval in the same turn."
   - "Must not replace PR review (use the Review Agent for merge decisions)."
   - "Must not score reveals or modify PRED-* registry entries."

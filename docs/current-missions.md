@@ -49,30 +49,34 @@ query the on-demand task-to-campaign index
 ## Recommended Mission Now
 
 **Materials Property Residuals** is the top-ranked current mission in a
-broader Convergence + Next Science Wave posture. APL has new frontier result
-artifacts in Materials (`RESULT-0021`) and Textbook/Stellar (`RESULT-0022`), so
-the highest-leverage near-term work is independent Gate B replay, scoped result
-communication, and bounded follow-up audits that keep claims conservative.
+post-validation next-wave posture. APL now has several validated or
+source-limited campaign surfaces; the highest-leverage near-term work is to
+move them through explicit next-validity gates instead of repeating internal
+audits.
 
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
 science path is:
 
-1. run Gate B replay for Materials `RESULT-0021`;
-2. run Gate B replay for Stellar M-L `RESULT-0022`;
-3. prepare tightly scoped public capsules and maintainer decision packets only
-   after review-tier status is explicit;
-4. open the next bounded science wave through Materials control audits,
-   Stellar split/complexity audits, and one source-only Wien/FIRAS curation
-   slice.
+1. close Materials `MD-0002` dataset-publication metadata blockers
+   (`TASK-0809`);
+2. pin the Wien/FIRAS temperature-domain metric contract before any Wien metric
+   (`TASK-0815`);
+3. route validated or source-limited campaigns into one of four gates:
+   transfer, ratification, external reveal, or source readiness;
+4. preserve negative/control memory where a campaign has reached a no-go or
+   monitor-only state.
 
 Nuclear Mass Surface remains the flagship ambition, but reveal scoring is still
 externally source-gated and should not be the default executor lane while
-Materials and Stellar have fresh replayable results. Exoplanet remains
-monitor-only until a materially changed pinned snapshot or approved `EXO-0003`
-trigger appears. Quantum remains blocked on the exact Almeida raster or
-WebPlotDigitizer export. Atomic remains blocked on admitted independent rows or
-an approved aggregation contract.
+other campaigns have cleaner source-readiness and ratification tasks. Exoplanet
+remains monitor-only until a materially changed pinned snapshot or approved
+`EXO-0003` trigger appears. Quantum has a source-scoped Almeida baseline, but
+`TASK-0277` kept open-ended autonomous correction search blocked; only
+`TASK-0810` transfer-source scouting and `TASK-0816` fixed-model methodology
+stress testing are open. Atomic remains blocked on admitted independent rows or
+an approved aggregation contract, with `TASK-0804` available only as
+public-safe negative-memory packaging.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
@@ -80,11 +84,10 @@ verdict, destination, review tier, Gate A/B status, limitations, and blockers.
 Nuclear Mass Surface remains the flagship validation challenge, but the latest
 controls-first lanes landed as negative, inconclusive, diagnostic-only,
 chain-local, or validation-regressing memory. The best Nuclear work now is
-reveal-readiness, F2/factory result routing, and only tightly bounded
-controls-first follow-up. Quantum Size Effects remains source-readiness gated:
-Almeida has cleared the source/license path, but direct rows still require the
-exact size-axis raster or replayable WebPlotDigitizer export; Vossmeyer remains
-a separate access/source-artifact blocker, not an executable row lane.
+value-blind reveal-source scouting and negative/control memory preservation.
+Quantum Size Effects remains transfer-gated after a source-scoped Almeida
+baseline: independent source/material scouting and fixed-model methodology
+stress testing are allowed, but open-ended correction search remains blocked.
 Atomic-Clock Residuals should wait for admitted independent rows or an approved
 aggregation contract; the Pizzocaro PSD covariance artifact is useful
 diagnostic evidence, but its row-admissibility gate preserved the aggregation
@@ -93,21 +96,21 @@ scaffolds first, not broad hypothesis batches.
 
 ## Current Mission Shape
 
-APL currently has one flagship validation ambition, two active result-validation
-surfaces, one public-safe monitor surface, and several source-gated or
-quality-floor lanes. That mix is deliberate: some agents should validate and
-stress the strongest current evidence, others should build source/baseline
-discipline, and curators should keep blocked campaigns visible without turning
-watchlist topics into formula-search work.
+APL currently has one flagship validation ambition, several active
+post-validation gate surfaces, one public-safe monitor surface, and several
+source-gated or quality-floor lanes. That mix is deliberate: some agents should
+close source and dataset blockers, others should prepare ratification packets
+or transfer scouts, and curators should keep blocked campaigns visible without
+turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Active result-validation lane: `MD-0002` is source-pinned and `RESULT-0021` is AGENT_PUBLISHED for a computed-DFT formation-energy benchmark | Gate B replay first, then bounded family-holdout and descriptor/control audits; no material-design or new-law claims |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with a Gate-B-validated exact-reference result and AGENT_PUBLISHED Stellar M-L `RESULT-0022` on frozen DEBCat rows | Gate B replay, DEBCat metadata cleanup, split/complexity audits, and source-only Wien/FIRAS curation before any new metrics |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, reveal-readiness blockers, and several negative/control lanes | one bounded no-leakage sprint or reveal-source work only; reveal scoring remains blocked until a source-grade post-freeze release appears |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer lane: `RESULT-0021` is reviewed memory, while `MD-0002` publication metadata remains open | `TASK-0809` metadata closeout and `TASK-0817` independent transfer-route scout; no metric or claim mutation |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference and Stellar M-L surfaces; Wien/FIRAS is source-contract gated | `TASK-0815` temperature/domain contract before `TASK-0802`; `TASK-0819` transfer dataset scouting; no new metric until source contract clears |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory and source-gated prospective reveal | `TASK-0803` is in review; current executor work is `TASK-0821` value-blind reveal-source scouting, with reveal scoring still blocked |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and monitor source-version triggers before any new residual audit |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark; Almeida is license/source-pinned but row curation is blocked on exact raster/export | only resume row-readiness when the maintainer supplies Almeida Figure 1b / SI Figure S2b raster or replayable WebPlotDigitizer export |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy rows, real-row loader, synthetic dry-run, Nemitz/Pizzocaro/Lange source surfaces, and covariance policy | wait for admitted independent rows or an approved aggregation/harmonization contract; no benchmark metrics yet |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, but open-ended correction search remains blocked | `TASK-0810` transfer-source scout or `TASK-0816` fixed-model LOO stress test; neither unblocks `TASK-0226` |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory and covariance policy | `TASK-0804` public-safe memory card only; wait for admitted independent rows or an approved aggregation/harmonization contract before metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -126,12 +129,13 @@ Near-term portfolio shape:
 
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
-| Active result-validation lane | Materials Property Residuals | `RESULT-0021` is the strongest new dataset-backed benchmark; validate it independently and stress-test only with bounded controls. |
-| Active result-validation lane | Textbook Formula Audit / Stellar M-L | `RESULT-0022` is the public-friendly empirical formula audit surface; validate it independently and avoid universal-law wording. |
-| Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, mixed shell-axis transfer, factory no-shortlist, and broad-refit validation regression as negative/inconclusive memory unless a later review creates a narrower publication artifact. |
+| Dataset/source-readiness gate | Materials Property Residuals | Close `MD-0002` metadata blockers and scout one independent transfer route before reopening metrics or claims. |
+| Source-readiness / transfer gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Use `TASK-0815` before any Wien metric and `TASK-0819` before any broader Stellar transfer claim. |
+| External-reveal gate | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes; `TASK-0821` may scout one source route value-blind. Preserve negative/inconclusive memory. |
 | Monitor / trigger-gated benchmark | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
-| Source-readiness blocked | Quantum Size Effects | Stay direct-row/source-artifact first; Almeida needs exact raster/export before row readiness can resume. |
-| Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Do not use Pizzocaro as a benchmark row without harmonization; wait for admitted independent rows or an approved aggregation contract. |
+| Transfer/methodology gate | Quantum Size Effects | Scout independent transfer evidence or run fixed-model methodology stress only; keep `TASK-0226` blocked. |
+| Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Package source-limited Yb/Sr memory safely; do not use Pizzocaro as a benchmark row without harmonization. |
+| Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, or scheme/source preflights; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
