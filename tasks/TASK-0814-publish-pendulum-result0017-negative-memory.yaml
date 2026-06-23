@@ -1,7 +1,7 @@
 id: TASK-0814
 title: "Publish Pendulum RESULT-0017 negative-overfit memory"
 type: scientific_negative_memory
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium

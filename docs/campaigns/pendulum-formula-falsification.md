@@ -48,6 +48,10 @@ Latest review state:
   `MAINTAINER_REVIEWED`, with narrowed range-limited wording. The status does
   not convert `RESULT-0017` into positive evidence; the overfit run remains
   negative boundary memory.
+- The public-safe negative-memory capsule for `RESULT-0017` is recorded in the
+  [Negative Results Registry](../negative-results-registry.md#pendulum-result-0017-overfit-boundary-memory).
+  Its role is no-repeat guidance for broad gauntlet formula search, not a
+  rejection of the already narrowed `CLAIM-0001` range-limited support.
 
 Start here:
 
