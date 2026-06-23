@@ -24,6 +24,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0808` - Draft the Exoplanet control-sensitivity negative-memory capsule (`scientific_negative_memory`, priority `low`, difficulty `low`, domain `exoplanet_mass_radius`)
-- `TASK-0811` - Run RESULT-0011 Particle-Mass Falsifier Gate B replay (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `particle_mass_relations`)
-- `TASK-0822` - Sync mission and roadmap after the post-validation next wave (`strategy_architecture`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
+None.
