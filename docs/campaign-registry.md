@@ -57,6 +57,7 @@ Each generated campaign entry records:
 - `curator`;
 - `current_stage`;
 - `agent_capacity`;
+- `next_validity_gate`;
 - `best_next_actions`;
 - `required_gates`;
 - `allowed_work`;
@@ -110,6 +111,26 @@ Good capacity notes name the safe split:
 
 Bad capacity notes say only "more agents welcome" without naming disjoint
 artifact surfaces.
+
+## Next Validity Gate
+
+`next_validity_gate` records the next higher-validity path for a campaign after
+its current result, blocker, or memory artifact. It is deliberately small:
+
+```yaml
+next_validity_gate:
+  type: transfer | ratification | external_reveal | source_readiness
+  blocker: "What prevents the gate from clearing now."
+  target_artifact: "The task, result, source package, review, or registry path that should clear or preserve the gate."
+```
+
+Use it to prevent validated campaigns from drifting into repeated internal
+audit loops. If the gate is `transfer`, future work should seek an independent
+source/domain/slice. If it is `ratification`, future work should prepare a
+scoped maintainer-reviewed conclusion. If it is `external_reveal`, future work
+should preserve no-peek discipline until a source-grade reveal exists. If it is
+`source_readiness`, future work should close source, checksum, row, license,
+uncertainty, covariance, or release-metadata blockers.
 
 ## Curator Pools
 

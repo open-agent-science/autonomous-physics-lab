@@ -1,0 +1,59 @@
+id: TASK-0815
+title: "Pin the Wien/FIRAS temperature and wavelength-domain metric contract"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close the remaining source/metric-contract blocker between the pinned FIRAS spectrum rows and the empirical Wien consistency slice."
+  - "Prevent TASK-0802 from choosing temperature provenance, wavelength-vs-frequency handling, or controls after seeing metric output."
+  - "Keep Textbook Formula Audit moving toward a fresh empirical benchmark rather than another internal status note."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "TASK-0801"
+    - "TASK-0802"
+    - "docs/reviews/textbook-wien-firas-source-pinning.md"
+    - "docs/reviews/textbook-wien-firas-source-artifact.md"
+    - "data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
+  planning_context: >
+    TASK-0801 pinned the COBE/FIRAS monopole spectrum rows and explicitly did
+    not run a Wien metric. Its review preserved the remaining blocker: TASK-0802
+    needs a chosen reference-temperature source plus a wavelength-domain
+    Jacobian and control contract before a deterministic consistency metric can
+    run. This task pins that contract only; it must not compute the metric.
+
+requirements:
+  - "Select and cite one reference-temperature source or record why no admissible source can be pinned from committed/public metadata."
+  - "Declare whether the metric will compare a wavelength-domain peak, frequency-domain peak, or an explicit domain-conversion diagnostic; include the Jacobian/conversion rule and units."
+  - "Predeclare the deterministic controls and admissible verdicts TASK-0802 must use, including the domain-conversion-mismatch case."
+  - "Do NOT compute the Wien peak residual, fit a blackbody spectrum, add a RESULT/PRED/CLAIM/KNOW artifact, or edit FIRAS row values."
+  - "Stop with `WIEN_TEMPERATURE_DOMAIN_CONTRACT_BLOCKED` if temperature provenance, unit conversion, or control semantics cannot be stated without speculation."
+  - "No blackbody-universality, textbook-formula-falsified, proof, or discovery wording."
+
+accepted_outputs:
+  - "`docs/reviews/textbook-wien-firas-temperature-domain-contract.md` with temperature provenance, domain/Jacobian handling, controls, admissible verdicts, blockers, and TASK-0802 readiness verdict."
+  - "Optional small metadata update to existing `data/textbook_formula_audit/wien_firas/` documentation only if needed for provenance; no row or metric edits."
+  - "Output-routing summary: destination source/metric readiness, no RESULT/PRED/CLAIM/KNOW change, TASK-0802 blocker status stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Metric-contract preflight only; TASK-0802 owns any later benchmark run or RESULT candidate."
+  evidence:
+    - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_firas_monopole_source.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

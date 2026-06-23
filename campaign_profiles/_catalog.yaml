@@ -37,10 +37,14 @@ campaigns:
     recommended_parallel_agents: 1
     coordination_notes: Use as a bounded replay/follow-up benchmark only if maintainer asks;
       avoid broad candidate expansion or duplicate handoff tasks.
+  next_validity_gate:
+    type: ratification
+    blocker: CLAIM-0009 remains DRAFT until maintainer Gate C accepts narrow range-limited
+      benchmark wording.
+    target_artifact: claims/CLAIM-0009-anharmonic-oscillator-period.md
   best_next_actions:
-  - task_id: null
-    label: Maintainer review of CLAIM-0009 evidence handoff; no executor task needed until
-      a Gate C decision is requested
+  - task_id: TASK-0818
+    label: Prepare a narrow CLAIM-0009 Gate C ratification packet without changing claim status
   required_gates:
   - Train, holdout, and stress metrics must remain separated.
   - No exactness or broad-range wording.
@@ -104,6 +108,11 @@ campaigns:
     coordination_notes: Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics
       task; future work must test a concrete source or aggregation route against the memory-card
       reopen condition.
+  next_validity_gate:
+    type: source_readiness
+    blocker: No independent absolute Yb/Sr row or maintainer-approved Pizzocaro aggregation
+      contract is available beyond the source-limited Beloy/Nemitz memory.
+    target_artifact: TASK-0804
   best_next_actions:
   - task_id: TASK-0804
     label: Package the Yb/Sr consistency negative-memory card as public-safe summary while
@@ -179,6 +188,11 @@ campaigns:
     recommended_parallel_agents: 1
     coordination_notes: Prioritize the RESULT-0020 packaging-contest adjudication brief before
       adding more live challenge examples or claim support.
+  next_validity_gate:
+    type: ratification
+    blocker: RESULT-0020 Gate B packaging contest is unresolved, so CLAIM-0005 cannot lean
+      on RESULT-0020 as validated evidence.
+    target_artifact: TASK-0807
   best_next_actions:
   - task_id: TASK-0807
     label: Prepare the RESULT-0020 Gate B packaging-contest adjudication brief for maintainer
@@ -249,6 +263,11 @@ campaigns:
     coordination_notes: Parallel-safe for metadata-only trigger decisions and evidence packaging;
       do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate
       amendment.
+  next_validity_gate:
+    type: source_readiness
+    blocker: The latest source-version monitor returned NO_NOTIFY; no material snapshot, coverage,
+      or source-version trigger currently justifies residual scoring.
+    target_artifact: docs/reviews/exoplanet-source-version-monitor-check-2.md
   best_next_actions:
   - task_id: TASK-0808
     label: Draft the control-sensitivity negative-memory capsule; keep residual scoring closed
@@ -330,10 +349,18 @@ campaigns:
     recommended_parallel_agents: 2
     coordination_notes: Do not rerun RESULT-0021 Gate B or open a feature factory. The useful
       next lane is dataset-publication metadata closeout and preservation of scope limits.
+  next_validity_gate:
+    type: transfer
+    blocker: MD-0002 metadata packaging is still open and no independent chemistry-family
+      or dataset-transfer route is selected.
+    target_artifact: TASK-0817
   best_next_actions:
   - task_id: TASK-0809
     label: Close MD-0002 release/source-manifest, checksum, citation, uncertainty, README,
       and no-claim metadata blockers
+  - task_id: TASK-0817
+    label: Scout one independent Materials chemistry-family or dataset-transfer route without
+      changing RESULT-0021
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -424,10 +451,18 @@ campaigns:
     coordination_notes: WIGNER-CUSP-001 is now negative sandbox memory. Keep value-blind reveal-source
       preflight separate, and do not launch another broad F2, shell-axis, local-curvature,
       Wigner-shape, or NMD-0002 factory sprint.
+  next_validity_gate:
+    type: external_reveal
+    blocker: Reveal scoring lacks an accepted post-freeze measured-source manifest, no-peek
+      source review, and maintainer source approval.
+    target_artifact: TASK-0821
   best_next_actions:
   - task_id: TASK-0803
     label: Compile validated Nuclear negative/diagnostic memory and the source-manifest reveal
       blocker on existing public/campaign surfaces
+  - task_id: TASK-0821
+    label: Scout exactly one post-freeze nuclear reveal-source route value-blind before any
+      comparison or new factory work
   required_gates:
   - Use the source-gated NMD-0003 measured-row training surface and frozen split manifest
     for the next broad Nuclear factory sprint.
@@ -507,16 +542,22 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: falsification-first quality floor with strict numerology guardrails; CLAIM-0007
-    evidence handoff prepared, and RESULT-0011 needs Gate B replay before stronger negative-memory
-    support
+  current_stage: falsification-first quality floor with strict numerology guardrails; RESULT-0011
+    Gate B replay passed as AGENT_VALIDATED negative memory, while CLAIM-0007 remains DRAFT
+    because mixed quark mass scheme/scale limits constrain any Gate C wording
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use for provenance, uncertainty, replay, or negative-result memory
-      only; keep broad formula search closed.
+    coordination_notes: Use for provenance, uncertainty, scheme/scale cleanup, or negative-result
+      memory only; keep broad formula search closed.
+  next_validity_gate:
+    type: ratification
+    blocker: CLAIM-0007 should stay DRAFT until the mixed quark mass scheme/scale limitation
+      is either preserved in narrow wording or tested by a scheme-consistent follow-up.
+    target_artifact: TASK-0820
   best_next_actions:
-  - task_id: TASK-0811
-    label: Run RESULT-0011 Gate B replay before any CLAIM-0007 Gate C decision
+  - task_id: TASK-0820
+    label: Prepare a common-scale or scheme-consistent particle-mass guardrail preflight before
+      any CLAIM-0007 Gate C decision
   required_gates:
   - Complexity penalty and uncertainty semantics before any relation comparison.
   - No broad particle-mass formula search without a reviewed baseline.
@@ -541,17 +582,18 @@ campaigns:
   - results/EXP-0009/RUN-0001/result.yaml
   - docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md
   open_questions:
-  - Does RESULT-0011 replay cleanly under current tooling, and how should mixed quark mass
-    scheme/scale limitations constrain CLAIM-0007?
+  - What common-scale or scheme-consistent source route would make CLAIM-0007 wording cleaner
+    without opening broad numerology search?
   curator_review:
     status: current
     last_reviewed: '2026-06-17'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 replay routing
+    source: RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 Gate B replay
     notes: Guardrail track stays useful by resisting numerology, preserving falsifications,
-      and strengthening deterministic replay before maintainer-only claim review.
+      and keeping mixed quark mass scheme/scale limitations explicit before any maintainer-only
+      claim review.
   source_docs:
   - docs/campaigns/particle-mass-relations.md
   - docs/results/koide-campaign-summary.md
@@ -582,6 +624,11 @@ campaigns:
     recommended_parallel_agents: 1
     coordination_notes: Use mainly for negative-memory packaging, validation hardening, and
       examples; do not restart broad formula search.
+  next_validity_gate:
+    type: ratification
+    blocker: RESULT-0017 overfit evidence still needs durable public-safe negative-memory
+      packaging alongside the already narrowed CLAIM-0001 wording.
+    target_artifact: TASK-0814
   best_next_actions:
   - task_id: TASK-0814
     label: Publish RESULT-0017 overfit memory on existing negative/campaign surfaces without
@@ -647,18 +694,24 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped
-    sandbox baseline; TASK-0277 is now READY to decide whether autonomous correction search
-    stays blocked or is narrowed
+    sandbox baseline; TASK-0277 kept TASK-0226 blocked for autonomous correction search and
+    allowed only a separate narrowed methodology stress-test path
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: 'Keep work sequential: review the baseline provenance, one-point holdout,
-      controls, and residual surface before any correction-hypothesis pilot.'
+    coordination_notes: Keep TASK-0226 blocked until independent transfer evidence exists;
+      a narrowed LOO methodology stress test may run only as pipeline validation with no discovery
+      or transfer claim.
+  next_validity_gate:
+    type: transfer
+    blocker: The current baseline is single-source Almeida InP with one holdout; independent
+      material/source transfer evidence is absent.
+    target_artifact: TASK-0810
   best_next_actions:
-  - task_id: TASK-0277
-    label: Review the TASK-0225 sandbox baseline before deciding whether TASK-0226 may run
   - task_id: TASK-0810
     label: Scout one independent source/material route for a future transfer holdout without
       running metrics
+  - task_id: TASK-0816
+    label: Run a fixed-model leave-one-out methodology stress test without unblocking TASK-0226
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -690,8 +743,8 @@ campaigns:
   - agent_runs/AGENT-RUN-0076/report.md
   - docs/results/quantum-size-effects-baseline-summary.md
   open_questions:
-  - Is the single-source, one-holdout baseline strong enough to authorize a narrowly bounded
-    correction pilot?
+  - Which fixed-model diagnostics are useful as methodology stress tests without implying
+    transfer or discovery?
   - Which independent material/source can provide a future material-transfer holdout?
   curator_review:
     status: current
@@ -700,10 +753,10 @@ campaigns:
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
     source: TASK-0293 direct-row readiness pass, TASK-0225 source-scoped sandbox baseline,
-      and TASK-0810 transfer-source routing
-    notes: The direct-row blocker is resolved and a deterministic baseline exists. The next
-      gates are baseline-readiness review and independent transfer-source scouting; TASK-0226
-      remains blocked until TASK-0277 explicitly narrows or authorizes the pilot.
+      TASK-0277 pilot-blocked verdict, and TASK-0810/TASK-0816 routing
+    notes: The direct-row blocker is resolved and a deterministic baseline exists, but TASK-0277
+      found it insufficient for open-ended correction search. Next gates are independent transfer-source
+      scouting and a separately scoped methodology stress test, not TASK-0226.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
@@ -729,15 +782,23 @@ campaigns:
     - updated_campaign_profile
   current_stage: exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L RESULT-0022 is
     AGENT_VALIDATED with stable alternate-split support and piecewise-complexity negative
-    memory; TASK-0801 is the next Wien/FIRAS source-curation gate
+    memory; FIRAS rows are pinned and the next Wien/FIRAS blocker is the temperature/Jacobian/control
+    metric contract
   agent_capacity:
     recommended_parallel_agents: 1
     coordination_notes: Use one formula slice at a time. Do not rerun Stellar Gate B or split/complexity
       audits; route validated results toward maintainer-review packets while Wien/FIRAS remains
       source-curation first.
+  next_validity_gate:
+    type: source_readiness
+    blocker: FIRAS spectrum rows are pinned, but the Wien metric still needs a reference-temperature
+      source, wavelength-domain Jacobian contract, and predeclared controls before TASK-0802
+      can run.
+    target_artifact: TASK-0815
   best_next_actions:
-  - task_id: TASK-0801
-    label: Fetch and pin the COBE/FIRAS source artifact before any Wien metric
+  - task_id: TASK-0815
+    label: Pin the Wien/FIRAS temperature and wavelength-domain metric contract before running
+      TASK-0802
   - task_id: TASK-0812
     label: Prepare the Stellar M-L RESULT-0022 maintainer-review packet after Gate B and control
       audits
@@ -804,11 +865,12 @@ campaigns:
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
     source: RESULT-0022 Gate B replay, Stellar split/complexity audits, RESULT-0019 handoff,
-      TASK-0801 Wien/FIRAS routing, and TASK-0812/TASK-0813 review packets
+      TASK-0801 Wien/FIRAS source pinning, and TASK-0812/TASK-0813/TASK-0815 routing
     notes: Public-friendly entry lane has one validated exact-reference result and one validated
       empirical Stellar M-L surface. The Stellar result is scoped to the frozen DEBCat slice;
       alpha=3.5 is inadequate as the sole baseline in scope, not falsified universally. Wien
-      work remains blocked on source pinning.
+      work has pinned FIRAS rows but remains blocked on the temperature/Jacobian/control metric
+      contract.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md

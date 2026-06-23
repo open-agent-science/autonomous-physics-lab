@@ -1,0 +1,58 @@
+id: TASK-0820
+title: "Prepare a common-scheme particle-mass guardrail preflight"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: low
+
+strategy_alignment:
+  - "Preserve RESULT-0011 as useful AGENT_VALIDATED negative memory while keeping CLAIM-0007 conservative."
+  - "Test whether the mixed quark mass scheme/scale limitation can be reduced by a narrow source-policy task before any Gate C wording."
+  - "Avoid broad particle-mass numerology search by constraining the question to source semantics and one fixed falsifier target."
+
+input:
+  mode: planning_only
+  related_domain: particle_mass_relations
+  related_objects:
+    - "results/EXP-0009/RUN-0001/result.yaml"
+    - "claims/CLAIM-0007-particle-mass-falsifier-mvp.md"
+    - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
+    - "docs/reviews/result-0011-particle-mass-falsifier-gate-b-replay.md"
+  planning_context: >
+    RESULT-0011 now replays cleanly and remains INVALID for the encoded fixed
+    standard Koide target, but CLAIM-0007 should stay DRAFT because the quark
+    rows use mixed mass schemes/scales. This task asks whether a common-scale or
+    scheme-consistent source route exists for a narrow future rerun. It does not
+    run the rerun or search formulas.
+
+requirements:
+  - "Assess one common-scale or scheme-consistent source route for up-type and down-type quark masses, including citation, scale/scheme semantics, uncertainties, and compatibility with the fixed standard Koide target."
+  - "State whether charged-lepton rows would remain unchanged or need a parallel provenance note."
+  - "Return one verdict: `COMMON_SCHEME_RERUN_READY_FOR_TASK`, `SOURCE_SCHEME_BLOCKED`, or `NEEDS_MAINTAINER_SOURCE_DECISION`."
+  - "Do NOT run a relation search, fit constants, add particle families, edit CLAIM-0007 status, change RESULT-0011 metrics, or create knowledge artifacts."
+  - "Stop with `PARTICLE_COMMON_SCHEME_BLOCKED` if a source route cannot be defined without ambiguous scheme/scale mixing."
+  - "No explanation of particle mass generation, cross-family generalization, numerology-success, discovery, or stronger-than-falsifier wording."
+
+accepted_outputs:
+  - "`docs/reviews/particle-mass-common-scheme-preflight.md` with source-route assessment, scheme/scale table, blocker or future task recommendation, and no-claim wording."
+  - "Optional patch-style note for future task wording only; no result, claim, or data mutation."
+  - "Output-routing summary: destination source/scheme readiness, no RESULT/PRED/CLAIM/KNOW change, CLAIM-0007 Gate C blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/scheme preflight only; no numerical rerun or result artifact is expected."
+  evidence:
+    - "docs/reviews/particle-mass-common-scheme-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

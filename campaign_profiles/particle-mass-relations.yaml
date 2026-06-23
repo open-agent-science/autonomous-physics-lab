@@ -90,12 +90,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "falsification-first quality floor with strict numerology guardrails; CLAIM-0007 evidence handoff prepared, and RESULT-0011 needs Gate B replay before stronger negative-memory support"
+  current_stage: "falsification-first quality floor with strict numerology guardrails; RESULT-0011 Gate B replay passed as AGENT_VALIDATED negative memory, while CLAIM-0007 remains DRAFT because mixed quark mass scheme/scale limits constrain any Gate C wording"
   recommended_parallel_agents: 1
-  coordination_notes: "Use for provenance, uncertainty, replay, or negative-result memory only; keep broad formula search closed."
+  coordination_notes: "Use for provenance, uncertainty, scheme/scale cleanup, or negative-result memory only; keep broad formula search closed."
+  next_validity_gate:
+    type: ratification
+    blocker: "CLAIM-0007 should stay DRAFT until the mixed quark mass scheme/scale limitation is either preserved in narrow wording or tested by a scheme-consistent follow-up."
+    target_artifact: "TASK-0820"
   best_next_actions:
-    - task_id: TASK-0811
-      label: "Run RESULT-0011 Gate B replay before any CLAIM-0007 Gate C decision"
+    - task_id: TASK-0820
+      label: "Prepare a common-scale or scheme-consistent particle-mass guardrail preflight before any CLAIM-0007 Gate C decision"
   required_gates:
     - "Complexity penalty and uncertainty semantics before any relation comparison."
     - "No broad particle-mass formula search without a reviewed baseline."
@@ -105,12 +109,12 @@ portfolio:
     - "results/EXP-0009/RUN-0001/result.yaml"
     - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
   open_questions:
-    - "Does RESULT-0011 replay cleanly under current tooling, and how should mixed quark mass scheme/scale limitations constrain CLAIM-0007?"
+    - "What common-scale or scheme-consistent source route would make CLAIM-0007 wording cleaner without opening broad numerology search?"
   curator_review:
     status: current
     last_reviewed: "2026-06-17"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 replay routing"
-    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and strengthening deterministic replay before maintainer-only claim review."
+    source: "RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 Gate B replay"
+    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and keeping mixed quark mass scheme/scale limitations explicit before any maintainer-only claim review."

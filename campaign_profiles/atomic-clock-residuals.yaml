@@ -85,6 +85,10 @@ portfolio:
   current_stage: "Beloy/Nemitz Yb/Sr diagnostic is preserved as source-limited consistency memory; TASK-0780 found the checked Pizzocaro route still needs an aggregation contract before any reopen"
   recommended_parallel_agents: 2
   coordination_notes: "Do not rerun the completed Beloy/Nemitz diagnostic as a new metrics task; future work must test a concrete source or aggregation route against the memory-card reopen condition."
+  next_validity_gate:
+    type: source_readiness
+    blocker: "No independent absolute Yb/Sr row or maintainer-approved Pizzocaro aggregation contract is available beyond the source-limited Beloy/Nemitz memory."
+    target_artifact: "TASK-0804"
   best_next_actions:
     - task_id: TASK-0804
       label: "Package the Yb/Sr consistency negative-memory card as public-safe summary while preserving the reopen condition"

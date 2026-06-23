@@ -19,13 +19,17 @@ input:
     - "tasks/TASK-0224-define-quantum-size-effect-holdout-protocol.yaml"
     - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
   planning_context: >
-    This is intentionally blocked until the campaign scaffold, dataset/schema,
-    holdout protocol, and first baseline residual benchmark exist. The pilot
-    should generate and filter compact correction hypotheses, execute only the
-    most reviewable candidates, and preserve failures.
+    This remains intentionally blocked after TASK-0277. The campaign scaffold,
+    dataset/schema, holdout protocol, and first source-scoped baseline now
+    exist, but TASK-0277 found that the six-row single-source Almeida InP
+    surface is not strong enough for open-ended autonomous correction-hypothesis
+    search. A separate narrowed methodology stress-test task may validate the
+    pipeline, but it does not unblock this pilot or authorize discovery wording.
 
 requirements:
-  - "Do not start until TASK-0225 is DONE and the maintainer explicitly accepts the baseline as sufficient for sandbox follow-up."
+  - "Do not start until an independent transfer source/material exists and a later maintainer-reviewed task explicitly unblocks TASK-0226."
+  - "Treat TASK-0277 as a `PILOT_BLOCKED` decision for the current six-row Almeida InP surface."
+  - "Do not treat any narrowed methodology stress test as authorization for this open-ended pilot."
   - "Generate 6 to 10 bounded quantum-size-effect hypothesis proposals."
   - "Reject weak, duplicate, leakage-prone, or overly flexible proposals before execution."
   - "Execute at most 1 to 3 sandbox candidates."

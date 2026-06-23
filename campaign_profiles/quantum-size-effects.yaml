@@ -84,14 +84,18 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; TASK-0277 is now READY to decide whether autonomous correction search stays blocked or is narrowed"
+  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; TASK-0277 kept TASK-0226 blocked for autonomous correction search and allowed only a separate narrowed methodology stress-test path"
   recommended_parallel_agents: 1
-  coordination_notes: "Keep work sequential: review the baseline provenance, one-point holdout, controls, and residual surface before any correction-hypothesis pilot."
+  coordination_notes: "Keep TASK-0226 blocked until independent transfer evidence exists; a narrowed LOO methodology stress test may run only as pipeline validation with no discovery or transfer claim."
+  next_validity_gate:
+    type: transfer
+    blocker: "The current baseline is single-source Almeida InP with one holdout; independent material/source transfer evidence is absent."
+    target_artifact: "TASK-0810"
   best_next_actions:
-    - task_id: TASK-0277
-      label: "Review the TASK-0225 sandbox baseline before deciding whether TASK-0226 may run"
     - task_id: TASK-0810
       label: "Scout one independent source/material route for a future transfer holdout without running metrics"
+    - task_id: TASK-0816
+      label: "Run a fixed-model leave-one-out methodology stress test without unblocking TASK-0226"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -104,7 +108,7 @@ portfolio:
     - "agent_runs/AGENT-RUN-0076/report.md"
     - "docs/results/quantum-size-effects-baseline-summary.md"
   open_questions:
-    - "Is the single-source, one-holdout baseline strong enough to authorize a narrowly bounded correction pilot?"
+    - "Which fixed-model diagnostics are useful as methodology stress tests without implying transfer or discovery?"
     - "Which independent material/source can provide a future material-transfer holdout?"
   curator_review:
     status: current
@@ -112,5 +116,5 @@ portfolio:
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0293 direct-row readiness pass, TASK-0225 source-scoped sandbox baseline, and TASK-0810 transfer-source routing"
-    notes: "The direct-row blocker is resolved and a deterministic baseline exists. The next gates are baseline-readiness review and independent transfer-source scouting; TASK-0226 remains blocked until TASK-0277 explicitly narrows or authorizes the pilot."
+    source: "TASK-0293 direct-row readiness pass, TASK-0225 source-scoped sandbox baseline, TASK-0277 pilot-blocked verdict, and TASK-0810/TASK-0816 routing"
+    notes: "The direct-row blocker is resolved and a deterministic baseline exists, but TASK-0277 found it insufficient for open-ended correction search. Next gates are independent transfer-source scouting and a separately scoped methodology stress test, not TASK-0226."

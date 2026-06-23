@@ -1,0 +1,59 @@
+id: TASK-0819
+title: "Scout one independent Stellar M-L transfer dataset or regime"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Move Stellar M-L beyond the validated frozen DEBCat slice toward external validity without making a universal mass-luminosity claim."
+  - "Separate source/regime transfer planning from RESULT-0022 public wording and replay/control packaging."
+  - "Identify whether an independent dataset or stellar-regime transfer test is feasible before any new metric task."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-result0022-gate-b-replay.md"
+    - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
+    - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
+    - "docs/reviews/stellar-ml-debcat-result-routing.md"
+  planning_context: >
+    RESULT-0022 is AGENT_VALIDATED on a frozen DEBCat main-sequence-compatible
+    slice. It supports an in-scope benchmark statement that alpha=3.5 is
+    inadequate as the sole baseline on that slice, not a universal stellar law.
+    The next transfer question is whether an independent source or disjoint
+    stellar-regime route can be pinned for future validation.
+
+requirements:
+  - "Choose exactly one independent transfer route: a distinct public stellar catalog, a disjoint DEBCat regime, or a separately justified source class."
+  - "Assess source accessibility, license/reuse posture, row identity, mass/luminosity provenance, uncertainty semantics, evolutionary-stage labeling, and whether the route avoids leakage from RESULT-0022."
+  - "Return one verdict: `STELLAR_TRANSFER_ROUTE_READY_FOR_TASK`, `SOURCE_BLOCKED`, or `NEEDS_MAINTAINER_SOURCE_DECISION`."
+  - "Do NOT fetch live row values, run a benchmark, edit RESULT-0022, create or promote claims/knowledge, or change the DEBCat frozen slice."
+  - "Stop with `STELLAR_TRANSFER_ROUTE_BLOCKED` if source provenance, licensing, or row semantics cannot be established without speculation."
+  - "No universal mass-luminosity law, stellar-evolution, Gaia-derived truth, target-priority, discovery, or formula-falsified wording."
+
+accepted_outputs:
+  - "`docs/reviews/stellar-ml-independent-transfer-dataset-scout.md` with the selected route, admissibility table, blockers, and future task recommendation."
+  - "Optional source-manifest blocker note only if it records metadata without adding rows."
+  - "Output-routing summary: destination transfer/source readiness, no RESULT/PRED/CLAIM/KNOW change, RESULT-0022 boundary preserved."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/regime transfer scout only; no metric run or result publication is expected."
+  evidence:
+    - "docs/reviews/stellar-ml-independent-transfer-dataset-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

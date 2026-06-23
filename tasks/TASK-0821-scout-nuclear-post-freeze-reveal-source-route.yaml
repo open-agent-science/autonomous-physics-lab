@@ -1,0 +1,59 @@
+id: TASK-0821
+title: "Scout one post-freeze Nuclear reveal-source route value-blind"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Advance Nuclear through the external-reveal gate rather than another internal residual factory."
+  - "Keep reveal-source work value-blind, source-first, and separate from scoring or candidate generation."
+  - "Preserve blockers when no source-grade post-freeze route exists."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "prediction_registry/nuclear_masses/"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "docs/reviews/nuclear-reveal-source-manifest-preflight.md"
+    - "docs/reviews/nuclear-result0018-diagnostic-negative-memory-and-next-lane.md"
+  planning_context: >
+    The Nuclear campaign has validated diagnostic/negative memory and frozen
+    prospective registry entries, but reveal scoring remains blocked because no
+    accepted post-freeze measured-source manifest has cleared source and no-peek
+    gates. This task scouts exactly one reveal-source route value-blind. It must
+    not inspect measured values for registry targets or score predictions.
+
+requirements:
+  - "Choose exactly one candidate post-freeze nuclear mass source route and justify why it is the best current reveal-source scout."
+  - "Assess publication/release date, source authority, value-blind accessibility, target overlap class without reading target values, checksum/archive feasibility, license/reuse posture, and no-peek compatibility."
+  - "Return one verdict: `REVEAL_SOURCE_ROUTE_READY_FOR_MANIFEST_TASK`, `REVEAL_SOURCE_ROUTE_BLOCKED`, or `NEEDS_MAINTAINER_SOURCE_DECISION`."
+  - "Do NOT fetch or inspect measured values for prediction targets, score any PRED entry, open a new residual factory, create RESULT/PRED/CLAIM/KNOW artifacts, or revise frozen registry entries."
+  - "Stop with `NUCLEAR_REVEAL_SOURCE_ROUTE_BLOCKED` if value-blind source admissibility cannot be established."
+  - "No reveal-success, model-performance, new nuclear-law, or discovery wording."
+
+accepted_outputs:
+  - "`docs/reviews/nuclear-post-freeze-reveal-source-route-scout.md` with the selected route, value-blind admissibility table, blocker/readiness verdict, and future manifest-task recommendation."
+  - "Optional metadata-only update to an existing source/readiness note if it records a blocker without adding values."
+  - "Output-routing summary: destination external-reveal source readiness, no RESULT/PRED/CLAIM/KNOW change, no-peek blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Reveal-source scout only; it must not score predictions or create scientific result artifacts."
+  evidence:
+    - "docs/reviews/nuclear-post-freeze-reveal-source-route-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_nuclear_mass_prediction_registry.py tests/test_nuclear_prediction_reveal.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

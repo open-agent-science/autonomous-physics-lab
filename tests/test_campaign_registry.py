@@ -57,6 +57,10 @@ campaigns:
     agent_capacity:
       recommended_parallel_agents: 1
       coordination_notes: "Use one test agent."
+    next_validity_gate:
+      type: source_readiness
+      blocker: "No pinned source yet."
+      target_artifact: "docs/reviews/example-source-gate.md"
     best_next_actions:
       - task_id: null
         label: "Define source surface"
@@ -103,6 +107,10 @@ portfolio:
   current_stage: "scaffold only"
   recommended_parallel_agents: 1
   coordination_notes: "Use one test agent."
+  next_validity_gate:
+    type: source_readiness
+    blocker: "No pinned source yet."
+    target_artifact: "docs/reviews/example-source-gate.md"
   best_next_actions:
     - task_id: null
       label: "Define source surface"
@@ -203,6 +211,21 @@ def test_campaign_catalog_generator_rejects_invalid_curator_pool(
     (profile_dir / "example-campaign.yaml").write_text(profile_text, encoding="utf-8")
 
     with pytest.raises(ValueError, match="invalid curator.primary_pool"):
+        build_catalog(tmp_path)
+
+
+def test_campaign_catalog_generator_rejects_invalid_next_validity_gate(
+    tmp_path: Path,
+) -> None:
+    profile_dir = tmp_path / "campaign_profiles"
+    profile_dir.mkdir()
+    profile_text = _minimal_profile().replace(
+        "type: source_readiness",
+        "type: more_audits",
+    )
+    (profile_dir / "example-campaign.yaml").write_text(profile_text, encoding="utf-8")
+
+    with pytest.raises(ValueError, match="invalid next_validity_gate.type"):
         build_catalog(tmp_path)
 
 

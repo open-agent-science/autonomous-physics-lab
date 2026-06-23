@@ -132,9 +132,15 @@ portfolio:
   current_stage: "frozen baseline, sandbox diagnostics, RESULT-0018 AGENT_VALIDATED diagnostic memory, WIGNER-CUSP-001 rejected by its controls-first sprint, and reveal scoring still source-manifest blocked after value-blind preflight"
   recommended_parallel_agents: 3
   coordination_notes: "WIGNER-CUSP-001 is now negative sandbox memory. Keep value-blind reveal-source preflight separate, and do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint."
+  next_validity_gate:
+    type: external_reveal
+    blocker: "Reveal scoring lacks an accepted post-freeze measured-source manifest, no-peek source review, and maintainer source approval."
+    target_artifact: "TASK-0821"
   best_next_actions:
     - task_id: TASK-0803
       label: "Compile validated Nuclear negative/diagnostic memory and the source-manifest reveal blocker on existing public/campaign surfaces"
+    - task_id: TASK-0821
+      label: "Scout exactly one post-freeze nuclear reveal-source route value-blind before any comparison or new factory work"
   required_gates:
     - "Use the source-gated NMD-0003 measured-row training surface and frozen split manifest for the next broad Nuclear factory sprint."
     - "No reveal scoring before a source-grade no-peek release passes preflight."
