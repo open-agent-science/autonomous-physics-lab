@@ -1,7 +1,7 @@
 id: TASK-0801
 title: "Fetch and pin the COBE/FIRAS source artifact for the Wien-peak slice"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
