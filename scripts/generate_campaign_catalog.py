@@ -81,6 +81,14 @@ CURATOR_REVIEW_CADENCES = frozenset(
         "weekly",
     }
 )
+NEXT_VALIDITY_GATE_TYPES = frozenset(
+    {
+        "external_reveal",
+        "ratification",
+        "source_readiness",
+        "transfer",
+    }
+)
 ISO_DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -199,6 +207,29 @@ def _validate_curator_metadata(path: Path, campaign_id: str, portfolio: dict[str
                 f"{path}: campaign {campaign_id} curator.transfer_requires entries must be strings"
             )
 
+    next_validity_gate = portfolio.get("next_validity_gate")
+    if not isinstance(next_validity_gate, dict):
+        raise ValueError(
+            f"{path}: campaign {campaign_id} portfolio.next_validity_gate must be a mapping"
+        )
+    for field in ("type", "blocker", "target_artifact"):
+        if field not in next_validity_gate:
+            raise ValueError(
+                f"{path}: campaign {campaign_id} next_validity_gate missing {field}"
+            )
+        if not isinstance(next_validity_gate[field], str) or not next_validity_gate[field]:
+            raise ValueError(
+                f"{path}: campaign {campaign_id} next_validity_gate.{field} "
+                "must be a non-empty string"
+            )
+    _validate_enum(
+        path,
+        campaign_id,
+        "next_validity_gate.type",
+        next_validity_gate["type"],
+        NEXT_VALIDITY_GATE_TYPES,
+    )
+
 
 def _portfolio_profiles(profile_root: Path) -> list[tuple[Path, dict[str, Any]]]:
     profiles: list[tuple[Path, dict[str, Any]]] = []
@@ -249,6 +280,7 @@ def build_catalog(root: Path = REPO_ROOT) -> dict[str, Any]:
                     ],
                     "coordination_notes": portfolio["coordination_notes"],
                 },
+                "next_validity_gate": portfolio["next_validity_gate"],
                 "best_next_actions": portfolio["best_next_actions"],
                 "required_gates": portfolio["required_gates"],
                 "allowed_work": allowed_work,

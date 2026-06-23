@@ -89,9 +89,15 @@ portfolio:
   current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, with family-holdout and descriptor-ablation scope memory plus dataset-publication metadata blockers."
   recommended_parallel_agents: 2
   coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is dataset-publication metadata closeout and preservation of scope limits."
+  next_validity_gate:
+    type: transfer
+    blocker: "MD-0002 metadata packaging is still open and no independent chemistry-family or dataset-transfer route is selected."
+    target_artifact: "TASK-0817"
   best_next_actions:
     - task_id: TASK-0809
       label: "Close MD-0002 release/source-manifest, checksum, citation, uncertainty, README, and no-claim metadata blockers"
+    - task_id: TASK-0817
+      label: "Scout one independent Materials chemistry-family or dataset-transfer route without changing RESULT-0021"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."

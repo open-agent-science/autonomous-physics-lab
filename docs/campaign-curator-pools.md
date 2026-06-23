@@ -25,6 +25,9 @@ Campaign profiles keep separate dimensions:
   sessions;
 - `curator.secondary_pools` — relevant adjacent pools for handoff context, not
   automatic ownership.
+- `next_validity_gate` — the next higher-validity route after the current
+  result or blocker: `transfer`, `ratification`, `external_reveal`, or
+  `source_readiness`.
 
 The primary pool answers: which curator session owns this campaign right now?
 

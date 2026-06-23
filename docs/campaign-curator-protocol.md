@@ -89,6 +89,40 @@ route decision: replay, ablation, result-promotion preflight, or explicit
 do-not-promote memory. Leaving it as "interesting" without a next gate is a
 failure of direction.
 
+## Post-Validation Validity Gate
+
+After a campaign has an `AGENT_VALIDATED` result or an equivalent validated
+negative/scope-memory artifact, the Director must avoid sending agents back
+through another internal audit loop unless the audit opens a higher-validity
+gate. The next recommendation should be one of:
+
+- **Transfer** - test an independent material, source, domain, chemistry
+  family, stellar regime, or other disjoint generalization surface.
+- **Ratification** - prepare a scoped maintainer-reviewed result, claim, or
+  public wording decision without broadening the evidence.
+- **External reveal** - compare a frozen prediction or registry entry against a
+  future source through the no-peek/reveal protocol.
+- **Source readiness** - close a concrete source, row, checksum, license,
+  uncertainty, covariance, or release-metadata blocker.
+
+If none of these paths is available, the Director should move the campaign to
+`MONITOR` or `HOLD` in practice and route agents to other campaigns. Repeated
+audit, packaging, wording, or status-summary tasks are acceptable only when
+they remove a blocker on one of the four gates above. They are not acceptable
+merely because the READY pool is thin.
+
+Campaign profiles expose this as `portfolio.next_validity_gate` with:
+
+```yaml
+next_validity_gate:
+  type: transfer | ratification | external_reveal | source_readiness
+  blocker: "..."
+  target_artifact: "..."
+```
+
+The generated campaign catalog carries the same field so snapshots and focused
+curator sessions can inspect the next validity gate without parsing prose.
+
 ## Input Sources
 
 For a campaign, read the relevant subset of:

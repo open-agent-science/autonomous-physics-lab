@@ -1,0 +1,57 @@
+id: TASK-0818
+title: "Prepare a narrow CLAIM-0009 anharmonic Gate C ratification packet"
+type: scientific_claim_review
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Move the mature anharmonic quality-floor benchmark from indefinite draft status toward a clear maintainer Gate C decision."
+  - "Preserve the weak-regime, configured-potential, range-limited scope instead of starting another candidate-expansion wave."
+  - "Keep claim status transitions maintainer-only while reducing review friction."
+
+input:
+  mode: planning_only
+  related_domain: anharmonic_oscillator
+  related_objects:
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "results/EXP-0011/"
+    - "docs/reviews/first-agent-validated-replay.md"
+    - "docs/reviews/claim-0009-anharmonic-evidence-handoff.md"
+  planning_context: >
+    CLAIM-0009 remains DRAFT even though the anharmonic benchmark is mature
+    quality-floor evidence with an AGENT_VALIDATED replay/handoff trail. This
+    task prepares a maintainer Gate C packet and optional patch text only; it
+    must not change the claim status or broaden the statement.
+
+requirements:
+  - "Summarize the evidence chain, benchmark scope, configured potential, train/holdout/stress boundaries, and remaining range limits."
+  - "Draft the narrowest safe maintainer-reviewed wording for `PARTIALLY_SUPPORTED`, plus the alternative keep-DRAFT wording."
+  - "Explain why the claim is benchmark behavior in the configured weak/nonlinear regime, not a new physical law or universal anharmonic formula."
+  - "Do NOT edit `claims/CLAIM-0009-anharmonic-oscillator-period.md`, knowledge artifacts, result metrics, or generated task views."
+  - "Stop with `CLAIM0009_GATEC_PACKET_BLOCKED` if the evidence chain is missing an independently replayed or reviewable artifact needed for the proposed wording."
+  - "No exactness, broad-range, universal-law, discovery, or strong-theory wording."
+
+accepted_outputs:
+  - "`docs/reviews/claim-0009-anharmonic-gatec-ratification-packet.md` with decision options, recommended wording, evidence table, limitations, and no-claim-overreach language."
+  - "Optional patch-style appendix for a future maintainer-only claim update; no claim status mutation in this task."
+  - "Output-routing summary: destination maintainer ratification readiness, no RESULT/PRED/CLAIM/KNOW mutation, Gate C blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer Gate C packet only; it does not run a benchmark or publish a result."
+  evidence:
+    - "docs/reviews/claim-0009-anharmonic-gatec-ratification-packet.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -17,18 +17,22 @@ input:
   related_objects:
     - "docs/reviews/textbook-wien-firas-source-artifact.md"
     - "tasks/TASK-0801-fetch-pin-cobe-firas-source-artifact.yaml"
+    - "tasks/TASK-0815-pin-wien-firas-temperature-domain-contract.yaml"
     - "data/textbook_formula_audit/"
   planning_context: >
-    BLOCKED until TASK-0801 commits a checksum-pinned COBE/FIRAS source artifact
-    and admissible rows. Once the source is pinned, this task runs the
-    deterministic Wien-peak consistency metric against the frozen textbook
-    Wien-displacement reference using the admissible verdicts declared in
+    BLOCKED until TASK-0801's checksum-pinned COBE/FIRAS rows are paired with a
+    reviewed reference-temperature source, wavelength-domain Jacobian contract,
+    and predeclared metric controls. TASK-0801 pinned the spectrum rows but
+    intentionally produced no Wien metric. TASK-0815 should close or preserve
+    the remaining temperature/domain-contract blocker. Only after that contract
+    lands should this task run the deterministic Wien-peak consistency metric
+    using the admissible verdicts declared in
     docs/reviews/textbook-wien-firas-source-artifact.md
-    (CONSISTENT_IN_SCOPE, DOMAIN_CONVERSION_MISMATCH, etc.). It must not run
-    before TASK-0801 lands, and must not refit or re-pin the source itself.
+    (CONSISTENT_IN_SCOPE, DOMAIN_CONVERSION_MISMATCH, etc.). It must not refit,
+    re-pin the source, or choose a temperature after seeing metric output.
 
 requirements:
-  - "Consume only the committed FIRAS rows pinned by TASK-0801; do not fetch live data or re-pin the source."
+  - "Consume only the committed FIRAS rows pinned by TASK-0801 and the reference-temperature/domain contract pinned by TASK-0815; do not fetch live data or re-pin the source."
   - "Compute the Wien-peak consistency metric deterministically in code against the frozen textbook Wien-displacement reference; handle the wavelength-vs-frequency domain conversion explicitly."
   - "Emit exactly one of the predeclared admissible verdicts from the TASK-0793 note; report the metric and the domain-conversion handling separately."
   - "Stop after one consistency evaluation; do not expand to additional spectra, bins, or fitted free parameters."

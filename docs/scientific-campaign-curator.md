@@ -84,6 +84,14 @@ Strong diagnostic signals must not remain in indefinite sandbox limbo. The
 Director should route them to replay, ablation, promotion/no-go adjudication, or
 explicit do-not-promote memory.
 
+After an `AGENT_VALIDATED` result, the Director should normally require the next
+work to pass through one of four validity gates: transfer, ratification,
+external reveal, or source readiness. If a proposed task only repeats internal
+audit/packaging/status work and does not open one of those gates, reject it or
+fold it into an existing surface. Campaign profiles record the live gate in
+`portfolio.next_validity_gate`; the generated catalog exposes it for snapshots
+and focused curator sessions.
+
 ## Scientific Architecture And Workflow Efficiency
 
 The Director is responsible for evaluating whether the current research

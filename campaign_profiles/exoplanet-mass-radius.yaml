@@ -137,6 +137,10 @@ portfolio:
   current_stage: "pinned PSCompPars snapshots, control-sensitive residual memory, closed EXO-0002 reopen gate, and monitor-only EXO-0003 trigger posture after TASK-0781 NO_NOTIFY"
   recommended_parallel_agents: 2
   coordination_notes: "Parallel-safe for metadata-only trigger decisions and evidence packaging; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
+  next_validity_gate:
+    type: source_readiness
+    blocker: "The latest source-version monitor returned NO_NOTIFY; no material snapshot, coverage, or source-version trigger currently justifies residual scoring."
+    target_artifact: "docs/reviews/exoplanet-source-version-monitor-check-2.md"
   best_next_actions:
     - task_id: TASK-0808
       label: "Draft the control-sensitivity negative-memory capsule; keep residual scoring closed unless a future NOTIFY class appears"

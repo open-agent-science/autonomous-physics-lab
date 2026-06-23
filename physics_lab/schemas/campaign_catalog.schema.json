@@ -59,6 +59,7 @@
           "curator",
           "current_stage",
           "agent_capacity",
+          "next_validity_gate",
           "best_next_actions",
           "required_gates",
           "allowed_work",
@@ -183,6 +184,34 @@
                 "minimum": 0
               },
               "coordination_notes": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "next_validity_gate": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "blocker",
+              "target_artifact"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "transfer",
+                  "ratification",
+                  "external_reveal",
+                  "source_readiness"
+                ]
+              },
+              "blocker": {
+                "type": "string",
+                "minLength": 1
+              },
+              "target_artifact": {
                 "type": "string",
                 "minLength": 1
               }

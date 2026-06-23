@@ -86,9 +86,13 @@ portfolio:
   current_stage: "AGENT_VALIDATED range-limited benchmark with CLAIM-0009 evidence handoff completed; maintainer Gate C decision remains the blocker"
   recommended_parallel_agents: 1
   coordination_notes: "Use as a bounded replay/follow-up benchmark only if maintainer asks; avoid broad candidate expansion or duplicate handoff tasks."
+  next_validity_gate:
+    type: ratification
+    blocker: "CLAIM-0009 remains DRAFT until maintainer Gate C accepts narrow range-limited benchmark wording."
+    target_artifact: "claims/CLAIM-0009-anharmonic-oscillator-period.md"
   best_next_actions:
-    - task_id: null
-      label: "Maintainer review of CLAIM-0009 evidence handoff; no executor task needed until a Gate C decision is requested"
+    - task_id: TASK-0818
+      label: "Prepare a narrow CLAIM-0009 Gate C ratification packet without changing claim status"
   required_gates:
     - "Train, holdout, and stress metrics must remain separated."
     - "No exactness or broad-range wording."

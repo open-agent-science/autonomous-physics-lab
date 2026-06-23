@@ -1,0 +1,62 @@
+id: TASK-0817
+title: "Scout one independent Materials transfer route after MD-0002"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Move Materials beyond the closed RESULT-0021 validation wave toward independent chemistry-family or dataset transfer."
+  - "Avoid another internal audit of the same MD-0002 split unless it opens a transfer surface."
+  - "Keep computed-DFT, measured-property, and material-design boundaries explicit before any new benchmark task."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "TASK-0809"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "data/materials/md-0002/"
+    - "docs/reviews/materials-md0002-family-holdout-stress-preflight.md"
+    - "docs/reviews/materials-md0002-descriptor-ablation-control-audit.md"
+    - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
+  planning_context: >
+    RESULT-0021 is AGENT_VALIDATED but localized: the cation-pair baseline works
+    in the frozen split, fails unseen-pair transfer, and descriptor-ablation
+    confirms a granular local effect. The next useful scientific question is
+    whether an independent chemistry family, property surface, or dataset route
+    can support a transfer test. This task scouts exactly one route and does
+    not run metrics.
+
+requirements:
+  - "Choose exactly one independent transfer route: disjoint chemistry family within the committed Materials source posture, a new source snapshot class, or a separately justified computed-DFT dataset route."
+  - "Assess source accessibility, license/reuse posture, property-kind semantics, computed-vs-measured provenance, row identity, uncertainty semantics, and holdout feasibility."
+  - "State whether the route is compatible with TASK-0809 metadata/release boundaries or blocked until TASK-0809 closes."
+  - "Return one verdict: `TRANSFER_ROUTE_READY_FOR_TASK`, `TRANSFER_ROUTE_BLOCKED`, or `NEEDS_MAINTAINER_SOURCE_DECISION`."
+  - "Do NOT edit MD-0002 rows, RESULT-0021 metrics/review_tier, claims, knowledge artifacts, or run feature/model comparisons."
+  - "Stop with `MATERIALS_TRANSFER_ROUTE_BLOCKED` if no selected route can be described without live-fetch or provenance speculation."
+  - "No material-discovery, synthesis, device, recommendation, biomedical, experimental-validation, or universal-law wording."
+
+accepted_outputs:
+  - "`docs/reviews/materials-independent-transfer-route-scout.md` with the selected route, admissibility table, blockers, future task recommendation, and no-claim wording."
+  - "Optional metadata-only source-manifest note if it records a blocker or ready route without adding rows."
+  - "Output-routing summary: destination transfer/source readiness, no RESULT/PRED/CLAIM/KNOW change, dependency on TASK-0809 stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Transfer-route scout only; no new dataset rows or benchmark metrics are expected."
+  evidence:
+    - "docs/reviews/materials-independent-transfer-route-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_materials_md0002_baseline.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

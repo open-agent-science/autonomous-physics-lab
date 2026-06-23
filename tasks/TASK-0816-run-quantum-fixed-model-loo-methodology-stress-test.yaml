@@ -1,0 +1,63 @@
+id: TASK-0816
+title: "Run a fixed-model LOO methodology stress test on the Quantum Almeida baseline"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Use the TASK-0277 narrowed path to test pipeline behavior without unblocking TASK-0226."
+  - "Stress the six-row Almeida InP baseline with fixed, low-flexibility diagnostics and leave-one-out controls."
+  - "Preserve any overfit or instability outcome as methodology memory, not as quantum-size discovery evidence."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "TASK-0225"
+    - "TASK-0226"
+    - "TASK-0277"
+    - "TASK-0810"
+    - "agent_runs/AGENT-RUN-0076/"
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+    - "docs/reviews/quantum-size-baseline-readiness-for-autonomous-pilot.md"
+  planning_context: >
+    TASK-0277 returned PILOT_BLOCKED for open-ended autonomous correction search
+    on the six-row Almeida InP surface, but allowed a separately scoped
+    methodology stress test if it is strictly pipeline validation. This task
+    runs only fixed/predeclared diagnostics on the existing rows and must not
+    generate formulas or claim transfer/generalization.
+
+requirements:
+  - "Use only the committed Almeida InP rows and the TASK-0225 baseline artifacts; do not add rows or change the holdout protocol."
+  - "Predeclare at most one fixed low-flexibility diagnostic family plus one negative control before execution; allowed complexity is zero or one fitted parameter."
+  - "Run leave-one-out diagnostics across the six rows and compare against the fixed Almeida reference and the existing null/shuffled controls."
+  - "Report train/LOO instability, per-row sensitivity, and whether the diagnostic would have overfit the original one-point holdout."
+  - "Do NOT unblock TASK-0226, create hypothesis proposals for open-ended search, add RESULT/PRED/CLAIM/KNOW artifacts, or state transfer/generalization."
+  - "Stop with `QUANTUM_LOO_STRESS_NOT_INFORMATIVE` if the diagnostic cannot be run without exceeding the complexity cap or changing committed inputs."
+  - "No quantum-dot design-law, material recommendation, device-performance, biomedical, universal size-law, or discovery wording."
+
+accepted_outputs:
+  - "A bounded `agent_runs/AGENT-RUN-*` package or review-only note with code reference, fixed diagnostic definition, LOO metrics, negative-control comparison, limitations, and verdict."
+  - "`docs/reviews/quantum-almeida-fixed-model-loo-methodology-stress-test.md` summarizing whether the methodology is stable enough for future pipeline use."
+  - "Output-routing summary: methodology validation only, no TASK-0226 unblock, no RESULT/PRED/CLAIM/KNOW change."
+
+result_artifact_policy:
+  required: false
+  reason: "Methodology stress test only; the current data surface is too small and single-source for a canonical result."
+  evidence:
+    - "agent_runs/AGENT-RUN-*"
+    - "docs/reviews/quantum-almeida-fixed-model-loo-methodology-stress-test.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

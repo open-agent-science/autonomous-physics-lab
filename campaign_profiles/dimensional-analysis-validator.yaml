@@ -87,6 +87,10 @@ portfolio:
   current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; RESULT-0020 Gate B remains a packaging-contest decision, not validated claim support"
   recommended_parallel_agents: 1
   coordination_notes: "Prioritize the RESULT-0020 packaging-contest adjudication brief before adding more live challenge examples or claim support."
+  next_validity_gate:
+    type: ratification
+    blocker: "RESULT-0020 Gate B packaging contest is unresolved, so CLAIM-0005 cannot lean on RESULT-0020 as validated evidence."
+    target_artifact: "TASK-0807"
   best_next_actions:
     - task_id: TASK-0807
       label: "Prepare the RESULT-0020 Gate B packaging-contest adjudication brief for maintainer decision"
