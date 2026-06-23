@@ -99,6 +99,34 @@ review plus an independent transfer-source scout.
 - [Quantum Almeida deterministic source-artifact package](../reviews/quantum-almeida-2023-deterministic-source-artifact-package.md)
 - [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md)
 
+### Atomic Yb/Sr Consistency Negative Memory
+
+**Short version:** APL pinned two independent direct Yb/Sr frequency-ratio
+rows, Beloy 2021 / BACON and Nemitz 2016 / RIKEN, and ran the single
+authorized exploratory cross-source diagnostic. The two rows agree at
+`|z| = 1.78`, inside the predeclared 2-sigma no-tension threshold.
+
+**Why it is interesting:** this is useful negative/no-tension memory. It says
+the first two committed Yb/Sr source rows are consistent within the declared
+diagonal-only uncertainty model at the probed precision, so agents should not
+rerun the same Beloy/Nemitz two-row metric as a new benchmark task.
+
+**Limitation:** this is a two-row, source-limited diagnostic dominated by the
+Nemitz uncertainty. It is not a constants-drift result, a new-constant result,
+an anomaly, a prediction, a promoted `RESULT-*`, a `CLAIM-*`, or a `KNOW-*`.
+It does not test Beloy's finer precision.
+
+**Reopen condition:** a new independent absolute Yb/Sr source row, or a
+maintainer-approved Pizzocaro aggregation/observable-harmonization contract.
+
+**Evidence trail:**
+
+- [Atomic Yb/Sr source-limited consistency memory card](../reviews/atomic-yb-sr-source-limited-consistency-memory-card.md)
+- [Atomic Yb/Sr cross-source consistency benchmark](../reviews/atomic-yb-sr-cross-source-consistency-benchmark.md)
+- [Atomic Yb/Sr result-path decision](../reviews/atomic-yb-sr-benchmark-result-path-decision.md)
+- [Atomic Yb/Sr reopen source-route scout](../reviews/atomic-ybsr-reopen-source-route-scout.md)
+- [Atomic-Clock Residuals campaign page](./atomic-clock-residuals.md)
+
 ### Textbook Formula Audit Scaffold
 
 **Short version:** APL is preparing a campaign to audit famous textbook

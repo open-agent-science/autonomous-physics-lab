@@ -46,6 +46,15 @@ The campaign is deliberately not fitting constants drift yet.
 **Not a claim:** the Yb/Sr diagnostic is not a promoted residual result,
 constants-drift result, new constant, or anomaly explanation.
 
+**Public-safe memory card:** the dashboard now carries the
+[Atomic Yb/Sr consistency negative-memory card](public-science-dashboard.md#atomic-ybsr-consistency-negative-memory).
+Its role is durable no-tension memory for the completed Beloy/Nemitz
+diagnostic. It does not authorize metric reruns, constants-drift fitting,
+prediction entries, or `RESULT`/`CLAIM`/`KNOW` promotion.
+
+**Reopen condition:** a new independent absolute Yb/Sr source row, or a
+maintainer-approved Pizzocaro aggregation/observable-harmonization contract.
+
 **Active next work:** `TASK-0704`, `TASK-0705`, `TASK-0456`, `TASK-0742`, and
 `TASK-0756` are all routed: the Nemitz `ACR-0002` row was committed, the
 baseline-readiness gate classified Atomic `BASELINE_READY` for one narrow shape,
