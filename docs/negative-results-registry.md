@@ -29,6 +29,7 @@ creating a new result or changing the existing result's verdict or metrics.
 | Evidence | Dataset | Scope boundary | Key metrics | Classification |
 |----------|---------|----------------|-------------|----------------|
 | [TASK-0789 preflight](reviews/materials-md0002-family-holdout-stress-preflight.md) | MD-0002 stable ternary oxides | The cation-pair-mean baseline is useful when cation-pair families are represented in training, but does not establish transfer to fully unseen pairs. | Standard frozen split MAE: 0.201; unseen-pair holdout MAE: 0.637 vs null 0.654 eV/atom | Negative / scope memory |
+| [RESULT-0017](../results/EXP-0001/RUN-0006/result.yaml) | EXP-0001 pendulum gauntlet | The 101-candidate gauntlet overfit result is reproducible negative boundary evidence; it does not contradict the narrowed range-limited `CLAIM-0001` positive support. | Best gauntlet candidate test max relative error 0.021261; Gate B replay drift 6.89e-13 over 878 metrics | AGENT_VALIDATED overfit memory |
 | [RESULT-0018 and Nuclear exhausted-lane capsule](../results/EXP-0012/RUN-0002/result.yaml) | NMD-0003 retrospective measured-row surface and related Nuclear audits | F2 is reproducible but does not clear its controls-first survival margin; shell-axis remains diagnostic-only; local-curvature fails the no-leakage gate; neutron-rich behavior does not transfer specifically beyond matched high-error controls. | F2 margin 0.199260 vs required 0.250000 MeV; local-curvature full-known delta MAE +0.0196 MeV and 0/19 subset wins | Validated negative / diagnostic memory |
 
 ---
@@ -176,6 +177,48 @@ model.
 artifact is created or modified. Overclaim risk is controlled by the
 computed-DFT, slice-limited, lookup-baseline wording. Promotion blocker: none;
 this is memory-only packaging of existing evidence.
+
+---
+
+### Pendulum RESULT-0017 Overfit Boundary Memory
+
+**Existing validated result:** [RESULT-0017](../results/EXP-0001/RUN-0006/result.yaml),
+the `AGENT_VALIDATED`, `OVERFITTED` pendulum gauntlet negative/overfit result.
+
+**What the evidence preserves:** The 101-candidate gauntlet can find fitted
+models with very low train error, but the best negative-memory candidate
+(`model_t2_x4_l2`) still fails the configured verification package:
+small-angle window accuracy, large-angle window accuracy, separatrix
+asymptotic alignment, dimensional consistency, and known small-angle coefficient
+checks are non-passing. Its configured test max relative error is `0.021261`,
+and the verdict remains `OVERFITTED`.
+
+**Gate B replay:** [TASK-0757](reviews/result-0017-pendulum-gate-b-replay.md)
+replayed the committed command and preserved the `OVERFITTED` verdict. The
+replay compared 878 numeric metrics with maximum absolute drift
+`6.892264536872972e-13` under tolerance `1.0e-09`.
+
+**Relationship to `CLAIM-0001`:** This negative memory does not contradict
+the maintainer-reviewed `CLAIM-0001` range-limited positive support.
+`CLAIM-0001` cites verification-passing positive results (`RESULT-0001`,
+`RESULT-0003`, and `RESULT-0013`) and explicitly says the tested approximation
+is not exact, not valid at the separatrix, and not applicable to non-ideal
+pendulums. `RESULT-0017` is kept out of that positive evidence map because its
+verification gate fails; it is boundary evidence about what not to repeat.
+
+**Do-not-repeat boundary:** do not rerun broad pendulum formula search on the
+same configured gauntlet as if it were a fresh positive discovery lane. Future
+pendulum work should predeclare a materially different approximation family,
+symbolic registry check, range boundary, or separatrix diagnostic target.
+
+**Scope:** Ideal mathematical pendulum only. No damping, driving, finite-size,
+elastic, laboratory, exactness, all-amplitude, separatrix-validity, symbolic
+proof, or new-physics statement is supported.
+
+**Output routing:** destination is this negative-results registry and the
+Pendulum campaign page. No `RESULT-*`, `PRED-*`, `CLAIM-*`, `KNOW-*`, or
+golden-result artifact is created or modified. RESULT-0017 remains
+`AGENT_VALIDATED` / `OVERFITTED`; no new Gate A or Gate B is attempted.
 
 ---
 
