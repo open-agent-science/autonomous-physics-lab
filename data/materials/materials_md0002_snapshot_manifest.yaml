@@ -1,0 +1,119 @@
+# Materials Project MD-0002 snapshot/release manifest (TASK-0809).
+manifest_id: MD-SNAPSHOT-MATERIALS-PROJECT-0002
+schema_version: 0.1.0
+dataset_id: MD-0002-materials-project-stable-ternary-oxides
+dataset_version: 0.1.0
+task_id: TASK-0809
+campaign_id: materials-property-residuals
+status: internally_reusable_release_metadata_closed_external_release_not_minted
+source_id: materials-project
+source:
+  provider: "Materials Project (LBNL)"
+  landing_page: https://materialsproject.org
+  api_endpoint: https://api.materialsproject.org
+  access: api_key_required_maintainer_run
+  database_version: 2026.04.13
+  retrieval_timestamp_utc: '2026-06-15T03:56:20.360115+00:00'
+  citation: "A. Jain et al., 'Commentary: The Materials Project: A materials genome approach to accelerating materials innovation', APL Materials 1, 011002 (2013), doi:10.1063/1.4812323."
+  source_doi: 10.1063/1.4812323
+  source_license: CC BY 4.0
+  attribution_text: "Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain et al., APL Materials 1, 011002 (2013)."
+query_scope:
+  predicate_id: md0002_alkali_alkaline_earth_3d_transition_oxide
+  material_scope: stable_ternary_oxides_alkali_or_alkaline_earth_plus_first_row_transition
+  selected_fields:
+    - material_id
+    - formula_pretty
+    - composition
+    - nsites
+    - symmetry
+    - formation_energy_per_atom
+    - band_gap
+    - energy_above_hull
+    - is_stable
+    - elements
+artifacts:
+  raw_snapshot:
+    path: data/materials/snapshots/materials_project_md0002_2026.04.13.json
+    checksum_sha256: 5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567
+  normalized_dataset:
+    path: data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+    checksum_sha256: 516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1
+  holdout_manifest:
+    path: data/materials/md0002_holdout_manifest.yaml
+  license_registry:
+    path: data/DATA_LICENSES.yaml
+counts:
+  normalized_axis_rows: 724
+  included_materials: 362
+  split_counts_per_axis:
+    train: 253
+    validation: 55
+    holdout: 54
+property_axes:
+  - property_kind: formation_energy_per_atom
+    units: eV_per_atom
+    provenance_class: computed_dft
+    result_status: used_by_RESULT-0021
+  - property_kind: band_gap
+    units: eV
+    provenance_class: computed_dft
+    result_status: diagnostic_only_not_promoted
+uncertainty_semantics:
+  policy: absent_in_source_snapshot
+  per_row_uncertainty_fields_present: false
+  interpretation: >
+    MD-0002 rows are Materials Project computed DFT values. The committed
+    source snapshot does not provide per-row experimental uncertainty,
+    covariance, or method-specific uncertainty estimates for these normalized
+    rows. Benchmark limitations must therefore treat residuals as computed-DFT
+    benchmark diagnostics, not experimental measurement errors.
+release_metadata:
+  source_data_license: CC BY 4.0
+  apl_curation_license: repository_license_applies_to_metadata_and_code
+  external_repository_record: not_created
+  external_dataset_doi: not_minted
+  release_tag: not_created
+  recommended_internal_citation: >
+    Autonomous Physics Lab MD-0002 Materials Project stable ternary oxides
+    dataset, version 0.1.0, derived from Materials Project database version
+    2026.04.13 under CC BY 4.0 attribution; cite Jain et al. 2013 and this
+    repository revision.
+  external_publication_status: >
+    Metadata closeout only. A separate maintainer-approved release task is
+    required before upload to an external repository, release tagging, archive
+    checksum freeze, or DOI minting.
+schema_and_validation:
+  loader_contract: physics_lab/datasets/materials_md0002.py
+  schema_fixture: data/materials/fixtures/md0002_schema_fixture.yaml
+  documentation: data/materials/schema.md
+  publication_schema_status: portable_loader_contract_documented_no_standalone_json_schema
+  publication_schema_blocker: >
+    A standalone machine-readable release schema is still optional follow-up
+    work for external publication. Internal reuse is covered by the loader,
+    fixture, checksums, and RESULT-0021 replay tests.
+changelog:
+  - version: 0.1.0
+    date: '2026-06-15'
+    task_id: TASK-0738
+    summary: >
+      Maintainer-gated acquisition committed the MD-0002 stable ternary-oxide
+      source snapshot and normalized combined-axis dataset.
+  - version: 0.1.0-metadata-closeout
+    date: '2026-06-23'
+    task_id: TASK-0809
+    summary: >
+      Added release/source metadata, normalized-file checksum, citation/reuse
+      metadata, uncertainty policy, changelog, and explicit external-release
+      status without changing rows, holdout membership, or RESULT-0021 metrics.
+limitations:
+  - "Computed DFT values only; not experimental measurements."
+  - "Formation energy per atom and band gap are separate axes and must not be pooled."
+  - "Band gap remains diagnostic-only for the current promoted result path."
+  - "RESULT-0021 is AGENT_VALIDATED but not maintainer-reviewed or externally replicated."
+  - "No material-discovery, material recommendation, synthesis, device, biomedical, or universal-law claim is made."
+no_claim_boundary: >
+  MD-0002 is a source-pinned computed-DFT dataset and scoped benchmark input.
+  It does not support material recommendation, synthesis guidance, device
+  performance, biomedical relevance, experimental validation, or a universal
+  materials-law claim.

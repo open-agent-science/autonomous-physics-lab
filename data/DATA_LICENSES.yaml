@@ -116,6 +116,7 @@ datasets:
     provenance: data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
     paths:
       - data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+      - data/materials/materials_md0002_snapshot_manifest.yaml
       - data/materials/snapshots/materials_project_md0002_2026.04.13.json
 
   - id: pizzocaro-2020-yb-sr-zenodo
