@@ -1,0 +1,126 @@
+{
+  "agent_run_id": "AGENT-RUN-0077",
+  "benchmark_id": "quantum-almeida-fixed-model-loo-methodology-stress-test",
+  "dataset_id": "qd-0003-almeida-2023-inp-optical",
+  "diagnostic_family": {
+    "definition": "E = E_Almeida_fixed(L) + b_train",
+    "free_parameters": 1,
+    "model_id": "fixed_almeida_plus_train_mean_residual_offset",
+    "offset_fit_rule": "b_train = mean(E_observed - E_Almeida_fixed) on the training rows for each fold"
+  },
+  "folds": [
+    {
+      "additive_offset_ev": 0.015553811,
+      "constant_abs_error_ev": 0.4138,
+      "constant_mean_ev": 2.2812,
+      "edge_length_nm": 1.498,
+      "fixed_abs_error_ev": 0.068261883,
+      "fixed_prediction_ev": 2.763261883,
+      "heldout_entry_id": "almeida-2023-inp-460nm",
+      "observed_ev": 2.695,
+      "offset_abs_error_ev": 0.083815694,
+      "offset_prediction_ev": 2.778815694
+    },
+    {
+      "additive_offset_ev": -0.01362478,
+      "constant_abs_error_ev": 0.2794,
+      "constant_mean_ev": 2.3036,
+      "edge_length_nm": 2.002,
+      "fixed_abs_error_ev": 0.077631072,
+      "fixed_prediction_ev": 2.505368928,
+      "heldout_entry_id": "almeida-2023-inp-480nm",
+      "observed_ev": 2.583,
+      "offset_abs_error_ev": 0.091255853,
+      "offset_prediction_ev": 2.491744147
+    },
+    {
+      "additive_offset_ev": -0.021810834,
+      "constant_abs_error_ev": 0.097,
+      "constant_mean_ev": 2.334,
+      "edge_length_nm": 2.602,
+      "fixed_abs_error_ev": 0.118561341,
+      "fixed_prediction_ev": 2.312438659,
+      "heldout_entry_id": "almeida-2023-inp-510nm",
+      "observed_ev": 2.431,
+      "offset_abs_error_ev": 0.140372175,
+      "offset_prediction_ev": 2.290627825
+    },
+    {
+      "additive_offset_ev": 0.004571504,
+      "constant_abs_error_ev": 0.1154,
+      "constant_mean_ev": 2.3694,
+      "edge_length_nm": 2.787,
+      "fixed_abs_error_ev": 0.013350348,
+      "fixed_prediction_ev": 2.267350348,
+      "heldout_entry_id": "almeida-2023-inp-550nm",
+      "observed_ev": 2.254,
+      "offset_abs_error_ev": 0.017921851,
+      "offset_prediction_ev": 2.271921851
+    },
+    {
+      "additive_offset_ev": 0.013237035,
+      "constant_abs_error_ev": 0.2546,
+      "constant_mean_ev": 2.3926,
+      "edge_length_nm": 3.136,
+      "fixed_abs_error_ev": 0.056678002,
+      "fixed_prediction_ev": 2.194678002,
+      "heldout_entry_id": "almeida-2023-inp-580nm",
+      "observed_ev": 2.138,
+      "offset_abs_error_ev": 0.069915037,
+      "offset_prediction_ev": 2.207915037
+    },
+    {
+      "additive_offset_ev": 0.011580436,
+      "constant_abs_error_ev": 0.4202,
+      "constant_mean_ev": 2.4202,
+      "edge_length_nm": 4.112,
+      "fixed_abs_error_ev": 0.04839501,
+      "fixed_prediction_ev": 2.04839501,
+      "heldout_entry_id": "almeida-2023-inp-620nm",
+      "observed_ev": 2.0,
+      "offset_abs_error_ev": 0.059975446,
+      "offset_prediction_ev": 2.059975446
+    }
+  ],
+  "input_hashes": {
+    "dataset_sha256": "9501499584735094aba1a3243d4329969e0d9fe09e9bbc156c677c8408189077",
+    "script_sha256": "26c5443e6f43ac4fc3a5cf934b9c18d1fdb984c3b82ab0527b0937c9d3614c9d"
+  },
+  "negative_control": {
+    "definition": "E = mean(E_observed_train)",
+    "free_parameters": 1,
+    "model_id": "constant_train_mean"
+  },
+  "promotion_boundary": {
+    "creates_claim": false,
+    "creates_knowledge": false,
+    "creates_prediction": false,
+    "creates_result": false,
+    "methodology_validation_only": true,
+    "unblocks_task_0226": false
+  },
+  "reference_model": {
+    "definition": "E = 1.33 + 9.128 * L_A^-0.684; L_A = 10 * L_nm",
+    "free_parameters": 0,
+    "model_id": "almeida_fixed_reference"
+  },
+  "row_count": 6,
+  "summary": {
+    "constant_loo_mae_ev": 0.2634,
+    "constant_original_holdout_abs_error_ev": 0.4202,
+    "existing_task0225_constant_null_holdout_mae_ev": 0.4202,
+    "existing_task0225_shuffled_control_holdout_mae_ev": 0.375676,
+    "fixed_loo_mae_ev": 0.063812943,
+    "fixed_original_holdout_abs_error_ev": 0.04839501,
+    "fixed_original_train_mae_ev": 0.066896529,
+    "offset_loo_mae_ev": 0.077209343,
+    "offset_loo_worse_than_fixed_reference": true,
+    "offset_minus_fixed_loo_mae_ev": 0.0133964,
+    "offset_original_holdout_abs_error_ev": 0.059975446,
+    "offset_original_train_mae_ev": 0.069212617,
+    "original_holdout_worse_after_offset": true,
+    "original_train_improved_by_offset": false
+  },
+  "task_id": "TASK-0816",
+  "verdict": "QUANTUM_LOO_STRESS_UNSTABLE"
+}
