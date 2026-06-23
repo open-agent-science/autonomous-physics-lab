@@ -20,8 +20,8 @@ RESULT / PRED / CLAIM / KNOW mutation.
 
 | Input | Role |
 | --- | --- |
-| `tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml` | Baseline benchmark contract (DONE). |
-| `tasks/TASK-0226-run-first-autonomous-quantum-size-effect-hypothesis-pilot.yaml` | Downstream pilot contract (BLOCKED). |
+| `TASK-0225` | Baseline benchmark contract (DONE). |
+| `TASK-0226` | Downstream pilot contract (BLOCKED). |
 | `agent_runs/AGENT-RUN-0076/` | Committed baseline run: metrics, report, limitations, preflight. |
 | `docs/results/quantum-size-effects-baseline-summary.md` | Public baseline summary. |
 | `data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml` | Six direct InP rows (figure-digitised TEM + optical labels). |
