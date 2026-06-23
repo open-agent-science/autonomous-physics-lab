@@ -1,20 +1,18 @@
 default_mode: research
-updated: "2026-06-20"
+updated: "2026-06-23"
 
 curator_cycle:
   decision: updated
-  updated: "2026-06-19"
-  source: "TASK-0788"
+  updated: "2026-06-23"
+  source: "TASK-QUEUE PR #1185"
   note: >
-    Mission guidance now reflects the Materials/Stellar frontier result wave
-    after maintainer closeout. RESULT-0021 (Materials MD-0002) and RESULT-0022
-    (Stellar M-L) have completed their immediate Gate B, bounded control, and
-    public-capsule wave; do not offer those closed tasks as executor work.
-    Nuclear remains the flagship validation challenge, but reveal scoring is
-    externally source-gated and should not be the default executor lane while
-    fresh replayable results exist elsewhere. Exoplanet is monitor/trigger
-    gated, Atomic is row/aggregation gated, and Quantum is blocked on the exact
-    Almeida raster or WebPlotDigitizer export.
+    Mission guidance now reflects the post-validation next-wave queue. Validated
+    or source-limited campaigns should move through explicit next-validity gates:
+    source readiness, transfer, ratification, or external reveal. Materials,
+    Textbook/Wien, Nuclear, Quantum, Atomic, Anharmonic, Dimensional,
+    Particle-Mass, and Pendulum now have READY lanes that advance those gates
+    without reopening closed audit loops. Exoplanet stays monitor/trigger gated
+    until a material source-version or coverage trigger appears.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -66,16 +64,18 @@ missions:
   - id: materials-property-residuals
     title: "Materials Property Residuals"
     rank: 1
-    status: result_wave_closed
+    status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, and public-capsule wave. Treat Materials MD-0002 as reviewed result memory until a maintainer-approved follow-up task queue creates new READY work; do not offer the closed wave again."
+    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, and public-capsule wave. The next useful Materials work is not another RESULT-0021 replay: close MD-0002 dataset-publication metadata blockers, then scout one independent transfer route without changing metrics or claims."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
       - "RESULT-0021 is AGENT_PUBLISHED and replayable from committed commands and hashes"
       - "the cation-pair baseline is promising enough to deserve independent replay and bounded stress tests"
       - "the campaign can demonstrate reusable-dataset science without claiming material discovery or a new materials law"
+      - "TASK-0809 is the immediate source/dataset-publication metadata gate"
+      - "TASK-0817 is the independent transfer-route scout after or alongside metadata closeout"
     forbidden:
       - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
       - "do not mix computed DFT and experimental measurements without explicit provenance"
@@ -83,18 +83,30 @@ missions:
       - "do not edit RESULT-0021 metrics, MD-0002 source rows, or holdout binding outside a task that explicitly authorizes it"
       - "do not promote band-gap diagnostics or materials claims automatically"
     actions:
-      - id: materials-follow-up-task-queue
-        label: "Review Materials MD-0002 follow-up task queue before reopening execution"
-        task_id: null
+      - id: materials-md0002-metadata-closeout
+        label: "Close MD-0002 dataset-publication metadata blockers"
+        task_id: TASK-0809
         mode: research
-        status: configured
+        status: ready
         priority: high
         difficulty: medium
         recommended: true
         expected_outputs:
-          - "use live_task_candidates before assigning new Materials executor work"
-          - "create a bounded follow-up task queue only if a maintainer wants another MD-0002 stress/control wave"
-          - "keep RESULT-0021 metrics and materials claims unchanged without a dedicated task"
+          - "release/source-manifest, checksum, citation, uncertainty, README, and no-claim metadata blockers closed or preserved"
+          - "RESULT-0021 metrics, MD-0002 rows, and holdout binding unchanged"
+          - "clear dataset-publication readiness verdict"
+      - id: materials-independent-transfer-route
+        label: "Scout one independent Materials chemistry-family or dataset-transfer route"
+        task_id: TASK-0817
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one independent route assessed for source/readiness compatibility"
+          - "explicit dependency on TASK-0809 metadata boundaries"
+          - "no RESULT, PRED, CLAIM, KNOW, row, or metric mutation"
       - id: materials-result0021-gate-b
         label: "Run Gate B replay for Materials RESULT-0021"
         task_id: TASK-0775
@@ -146,7 +158,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is now negative sandbox memory; the next executable Nuclear lane is to package validated negative/diagnostic memory without reopening exhausted F2, shell-axis, local-curvature, Wigner-shape, or broad factory loops."
+    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is now negative sandbox memory. TASK-0803 is already in review, so the next executable Nuclear lane is TASK-0821: value-blind scouting for a post-freeze reveal-source route."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -168,6 +180,7 @@ missions:
       - "TASK-0518 confirmed NMD-0002 perturbation survival remains INCONCLUSIVE control evidence, not independent validation"
       - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
       - "TASK-0777 rejected WIGNER-CUSP-001 under the declared controls-first no-leakage sprint, so it is now negative sandbox memory rather than a surviving lane"
+      - "TASK-0821 is the narrow value-blind source route before any future post-freeze reveal comparison"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -185,15 +198,27 @@ missions:
         label: "Compile Nuclear validated-negative-memory capsule"
         task_id: TASK-0803
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "consolidated negative/diagnostic-memory capsule on existing surfaces"
           - "evidence links to RESULT-0018 and exhausted F2, shell-axis, local-curvature, neutron-rich, and Wigner-cusp lanes"
           - "explicit source-blocked prospective reveal wording"
           - "no PRED, CLAIM, KNOW, or RESULT metric mutation"
+      - id: nuclear-post-freeze-reveal-source-route
+        label: "Scout one post-freeze Nuclear reveal-source route value-blind"
+        task_id: TASK-0821
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one candidate source route assessed without measured values or scoring"
+          - "no-peek, checksum, retrieval, and maintainer-approval blockers stated"
+          - "no PRED scoring, RESULT mutation, or broad factory work"
       - id: nuclear-wigner-cusp-no-leakage-sprint
         label: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
         task_id: TASK-0777
@@ -364,20 +389,47 @@ missions:
   - id: quantum-size-effects
     title: "Quantum Size Effects"
     rank: 5
-    status: active_data_readiness
+    status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "Source-readiness campaign with one concrete blocker: do not rerun row curation until the exact Almeida Figure 1b / SI Figure S2b raster or replayable WebPlotDigitizer export is available."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. The useful next work is either one independent transfer-source scout or a fixed-model leave-one-out methodology stress test; neither unblocks TASK-0226 or permits discovery wording."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
       - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
       - "TASK-0491 can decide whether a weaker calibration-consistency path is allowed without unblocking the direct-row benchmark"
+      - "TASK-0225 produced a source-scoped Almeida InP sandbox baseline, but TASK-0277 judged the six-row single-source surface insufficient for open-ended correction search"
+      - "TASK-0810 and TASK-0816 are the only current READY lanes: independent transfer-source scouting and fixed-model methodology stress testing"
     forbidden:
       - "do not run autonomous formula search before a frozen baseline exists"
       - "do not treat calibration-derived rows as direct measurement evidence"
+      - "do not treat the TASK-0816 methodology stress test as a discovery, transfer, or TASK-0226-unblocking result"
       - "do not include synthesis recipes, chemical handling guidance, biomedical claims, or device claims"
     actions:
+      - id: quantum-independent-transfer-source
+        label: "Scout one independent Quantum source or material route for future transfer"
+        task_id: TASK-0810
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one independent source/material route assessed without running residual metrics"
+          - "clear transfer blocker or route summary"
+          - "no correction-hypothesis pilot and no TASK-0226 unblock"
+      - id: quantum-fixed-model-loo-stress-test
+        label: "Run fixed-model Almeida leave-one-out methodology stress test"
+        task_id: TASK-0816
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "fixed-model or 0-1 parameter diagnostic only"
+          - "explicit no-claim, no-transfer, no-discovery wording"
+          - "TASK-0226 remains blocked unless a later transfer gate clears"
       - id: quantum-almeida-raster-export-readiness
         label: "Run Almeida raster/export row-readiness gate only after maintainer supplies the missing artifact"
         task_id: TASK-0797
@@ -487,12 +539,25 @@ missions:
       - "TASK-0452 pinned the correct Nemitz 2016 arXiv source artifact but kept ACR-0002 value rows blocked pending table-level version-drift and campaign-window checks"
       - "TASK-0454 defined the first Atomic holdout/no-peek manifest"
       - "TASK-0486 defined conservative covariance policy states for the first benchmark"
+      - "TASK-0804 is the current public-safe memory route for the source-limited Yb/Sr consistency diagnostic"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
       - "do not mix direct frequency ratios with derived constraints without explicit flags"
       - "do not run the Yb/Sr consistency benchmark before BASELINE_READY is declared"
     actions:
+      - id: atomic-ybsr-negative-memory-card
+        label: "Promote the Yb/Sr consistency negative-memory card to a public-safe summary"
+        task_id: TASK-0804
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "public-safe source-limited Yb/Sr consistency memory"
+          - "reopen condition preserved for an independent row or approved aggregation contract"
+          - "no benchmark metric rerun and no constants-drift claim"
       - id: atomic-source-manifest-template
         label: "Add atomic-clock source manifest template with no numerical values"
         task_id: TASK-0327
@@ -854,21 +919,46 @@ missions:
   - id: textbook-formula-audit
     title: "Textbook Formula Audit"
     rank: 2
-    status: active_result_validation
+    status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022 completed its immediate Gate B replay, split/complexity controls, workflow repackaging, and public-capsule wave. Keep Textbook Formula Audit source-first; the Wien/FIRAS source-artifact task is in maintainer review and should not be offered as executor work."
+    recommendation: "Stellar M-L RESULT-0022 completed its immediate Gate B replay, split/complexity controls, workflow repackaging, and public-capsule wave. Keep Textbook source-first: run the Wien/FIRAS temperature/domain contract before TASK-0802, or scout an independent Stellar M-L transfer dataset without changing RESULT-0022."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
       - "each audit can be bounded by source, range, assumptions, verification gates, and OOD failure map"
       - "Stellar Mass-Luminosity on Gaia DR3 is the best first slice because it is recognizable, public-data-backed, and naturally range-limited"
       - "TASK-0492 and TASK-0493 keep the next famous-formula audits source/baseline-first instead of metric-first"
+      - "TASK-0801 pinned FIRAS spectrum rows, but the Wien metric still needs a reference-temperature source, wavelength-domain Jacobian contract, and predeclared controls"
+      - "TASK-0815 and TASK-0819 are the current READY Textbook next-validity gates"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
       - "do not turn this campaign into broad symbolic-regression or formula-discovery work"
     actions:
+      - id: textbook-wien-firas-temperature-domain-contract
+        label: "Pin the Wien/FIRAS temperature and wavelength-domain metric contract"
+        task_id: TASK-0815
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "reference-temperature source, wavelength-domain/Jacobian contract, and controls"
+          - "clear GO/NO_GO for later TASK-0802 metric execution"
+          - "no Wien metric, fit, RESULT, CLAIM, or KNOW mutation"
+      - id: textbook-stellar-independent-transfer-dataset
+        label: "Scout one independent Stellar M-L transfer dataset or regime"
+        task_id: TASK-0819
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "one independent transfer route assessed without row ingestion or metrics"
+          - "RESULT-0022 scope and no-universal-law wording preserved"
       - id: textbook-stellar-result0022-gate-b
         label: "Run Gate B replay for Stellar M-L RESULT-0022"
         task_id: TASK-0776
@@ -958,54 +1048,59 @@ missions:
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
     rank: 7
-    status: methodology_validation
+    status: ratification_ready
     scientific_value: high
     risk: low
-    recommendation: "Use as the safest nonlinear benchmark for new autonomous hypothesis loops."
+    recommendation: "Use as a range-limited ratification lane, not a fresh hypothesis loop. TASK-0818 prepares CLAIM-0009 for a narrow maintainer Gate C decision without changing claim status."
     why_now:
       - "nonlinear but controlled physics surface"
       - "perturbative baseline and numerical reference are available"
       - "low numerology risk compared with particle-physics formula search"
+      - "CLAIM-0009 remains DRAFT until narrow range-limited wording is explicitly ratified"
     forbidden:
       - "do not call approximation candidates exact or globally valid"
       - "do not skip harmonic-limit or holdout checks"
     actions:
-      - id: anharmonic-replay-and-compare
-        label: "Replay anharmonic benchmark and compare candidate limits"
+      - id: anharmonic-claim0009-ratification-packet
+        label: "Prepare a narrow CLAIM-0009 anharmonic Gate C ratification packet"
+        task_id: TASK-0818
         mode: research
-        priority: high
-        difficulty: medium
-        expected_outputs:
-          - "docs/reviews/anharmonic-replay-comparison.md"
-      - id: anharmonic-autonomous-followup
-        label: "Generate and filter new bounded anharmonic candidate hypotheses"
-        mode: research
+        status: ready
         priority: medium
-        difficulty: high
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "maintainer-facing Gate C ratification packet"
+          - "CLAIM-0009 remains DRAFT unless maintainer later changes it"
+          - "range limits and no-exactness wording preserved"
 
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
     rank: 8
-    status: quality_floor
+    status: gate_b_adjudication_ready
     scientific_value: medium
     risk: low
-    recommendation: "Use as a broad quality-floor track for formula sanity checks and adversarial edge cases."
+    recommendation: "Use as a quality-floor ratification lane. The next useful action is TASK-0807, a Gate B packaging-contest adjudication brief for RESULT-0020, not more challenge generation."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
       - "validator failures improve future research gates"
+      - "RESULT-0020 remains a packaging-contest decision until TASK-0807 frames the maintainer adjudication"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
     actions:
-      - id: dimensional-boundary-cases
-        label: "Generate hard dimensional boundary cases and validator limitations"
+      - id: dimensional-result0020-gateb-adjudication
+        label: "Prepare RESULT-0020 Gate B packaging-contest adjudication brief"
+        task_id: TASK-0807
         mode: research
+        status: ready
         priority: medium
         difficulty: medium
+        recommended: true
         expected_outputs:
-          - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
-          - "docs/notes/dimensional-validator-boundary-cases.md"
+          - "maintainer adjudication brief for RESULT-0020 Gate B"
+          - "no claim support, knowledge promotion, or extra challenge generation"
 
 support_actions:
   - id: release-signoff
