@@ -40,11 +40,11 @@ Almeida reference is the comparator.
 | Existing TASK-0225 constant-null holdout MAE | `0.420200 eV` |
 | Existing TASK-0225 shuffled-control holdout MAE | `0.375676 eV` |
 
-The offset diagnostic improves the original training MAE, but it worsens the
-original 620 nm holdout and the six-fold LOO MAE relative to the fixed Almeida
-reference. That is exactly the failure mode the narrowed `TASK-0277` path was
-meant to detect: even one extra fitted parameter can turn the six-row slice into
-train-side adjustment rather than reusable signal.
+The offset diagnostic does not improve the original training MAE, and it
+worsens the original 620 nm holdout and the six-fold LOO MAE relative to the
+fixed Almeida reference. That is exactly the failure mode the narrowed
+`TASK-0277` path was meant to detect: even one extra fitted parameter can turn
+the six-row slice into train-side adjustment rather than reusable signal.
 
 ## Interpretation
 

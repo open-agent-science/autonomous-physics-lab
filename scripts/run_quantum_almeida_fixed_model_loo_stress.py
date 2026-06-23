@@ -327,10 +327,10 @@ control, the training-set mean energy.
 
 `{metrics["verdict"]}`
 
-The one-parameter offset improves the original training rows but worsens the
-original one-point holdout and the six-fold LOO mean error relative to the
-zero-parameter fixed Almeida reference. This is methodology memory only and
-does not unblock `TASK-0226`.
+The one-parameter offset does not improve the original training rows and
+worsens the original one-point holdout and the six-fold LOO mean error relative
+to the zero-parameter fixed Almeida reference. This is methodology memory only
+and does not unblock `TASK-0226`.
 """
 
 
@@ -342,9 +342,9 @@ The fixed-model Almeida LOO stress test produced
 `{metrics["verdict"]}`. The additive-offset diagnostic is intentionally
 low-flexibility, but it still worsened LOO MAE from
 `{summary["fixed_loo_mae_ev"]:.9f} eV` to `{summary["offset_loo_mae_ev"]:.9f} eV`.
-It also improved the original five training rows while worsening the original
-620 nm holdout. The result should be treated as pipeline/methodology memory,
-not quantum-dot size-law evidence.
+It also does not improve the original five training rows and worsens the
+original 620 nm holdout. The result should be treated as pipeline/methodology
+memory, not quantum-dot size-law evidence.
 """
 
 
@@ -392,11 +392,11 @@ Almeida reference is the comparator.
 | Existing TASK-0225 constant-null holdout MAE | `{summary["existing_task0225_constant_null_holdout_mae_ev"]:.6f} eV` |
 | Existing TASK-0225 shuffled-control holdout MAE | `{summary["existing_task0225_shuffled_control_holdout_mae_ev"]:.6f} eV` |
 
-The offset diagnostic improves the original training MAE, but it worsens the
-original 620 nm holdout and the six-fold LOO MAE relative to the fixed Almeida
-reference. That is exactly the failure mode the narrowed `TASK-0277` path was
-meant to detect: even one extra fitted parameter can turn the six-row slice into
-train-side adjustment rather than reusable signal.
+The offset diagnostic does not improve the original training MAE, and it
+worsens the original 620 nm holdout and the six-fold LOO MAE relative to the
+fixed Almeida reference. That is exactly the failure mode the narrowed
+`TASK-0277` path was meant to detect: even one extra fitted parameter can turn
+the six-row slice into train-side adjustment rather than reusable signal.
 
 ## Interpretation
 

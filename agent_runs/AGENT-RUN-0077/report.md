@@ -35,7 +35,7 @@ control, the training-set mean energy.
 
 `QUANTUM_LOO_STRESS_UNSTABLE`
 
-The one-parameter offset improves the original training rows but worsens the
-original one-point holdout and the six-fold LOO mean error relative to the
-zero-parameter fixed Almeida reference. This is methodology memory only and
-does not unblock `TASK-0226`.
+The one-parameter offset does not improve the original training rows and
+worsens the original one-point holdout and the six-fold LOO mean error relative
+to the zero-parameter fixed Almeida reference. This is methodology memory only
+and does not unblock `TASK-0226`.
