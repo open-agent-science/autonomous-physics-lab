@@ -92,6 +92,26 @@ fold it into an existing surface. Campaign profiles record the live gate in
 `portfolio.next_validity_gate`; the generated catalog exposes it for snapshots
 and focused curator sessions.
 
+After a major validation wave, task-queue PR, or campaign-profile merge batch,
+the Director should run the sync checks before recommending more work:
+
+```bash
+python3 scripts/generate_campaign_catalog.py --check
+python3 scripts/apl_check_mission_drift.py
+python3 scripts/apl_mission.py --mode research --output json
+```
+
+For portfolio-level cycles, also run:
+
+```bash
+python3 scripts/apl_campaign_curator.py --role director --active-only
+```
+
+These commands are advisory. They should not auto-rewrite strategy, roadmap, or
+mission-control prose. Use them to decide whether `missions/current.yaml`,
+`docs/current-missions.md`, existing campaign pages, or `docs/mission-control.md`
+need small curated updates.
+
 ## Scientific Architecture And Workflow Efficiency
 
 The Director is responsible for evaluating whether the current research
