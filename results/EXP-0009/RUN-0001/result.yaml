@@ -56,7 +56,7 @@ agent_proposal_evaluation:
   validation_record:
     replayed_by:
       contributor_id: roman
-      github_username: roman
+      github_username: gladunrv
       agent_tool: Cursor
       model_version: Auto
     replayed_at_utc: '2026-06-21T12:00:00+00:00'
