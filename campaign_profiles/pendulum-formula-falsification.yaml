@@ -88,14 +88,14 @@ portfolio:
       - updated_campaign_profile
   current_stage: "mature deterministic exact-reference benchmark, RESULT-0017 AGENT_VALIDATED overfit/negative memory, and CLAIM-0001 MAINTAINER_REVIEWED as PARTIALLY_SUPPORTED with narrowed range-limited wording"
   recommended_parallel_agents: 1
-  coordination_notes: "Use mainly for negative-memory packaging, validation hardening, and examples; do not restart broad formula search."
+  coordination_notes: "Use mainly for validation hardening and examples; do not restart broad formula search. RESULT-0017 negative-memory packaging is already in review, so no READY pendulum action is advertised here."
   next_validity_gate:
     type: ratification
     blocker: "RESULT-0017 overfit evidence still needs durable public-safe negative-memory packaging alongside the already narrowed CLAIM-0001 wording."
     target_artifact: "TASK-0814"
   best_next_actions:
     - task_id: TASK-0814
-      label: "Publish RESULT-0017 overfit memory on existing negative/campaign surfaces without changing CLAIM-0001"
+      label: "Await maintainer review/merge of the RESULT-0017 negative-memory packet; do not start new formula search"
   required_gates:
     - "Exact-reference and configured-range wording."
     - "No exactness claim without symbolic proof."
@@ -114,4 +114,4 @@ portfolio:
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
     source: "TASK-0757 Gate B replay, TASK-0760 handoff, CLAIM-0001 maintainer Gate C merge, and TASK-0814 negative-memory routing"
-    notes: "Quality-floor track has its first maintainer-reviewed scoped claim plus validated negative/overfit boundary evidence. The next useful action is memory hygiene, not new formula search."
+    notes: "Quality-floor track has its first maintainer-reviewed scoped claim plus validated negative/overfit boundary evidence. The active memory-hygiene packet is already in review; do not advertise new formula search."

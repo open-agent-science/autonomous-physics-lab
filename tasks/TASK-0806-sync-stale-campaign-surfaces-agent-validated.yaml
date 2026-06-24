@@ -1,7 +1,7 @@
 id: TASK-0806
 title: "Sync stale campaign surfaces to the AGENT_VALIDATED tier after the Gate B wave"
 type: docs_drift_removal
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium

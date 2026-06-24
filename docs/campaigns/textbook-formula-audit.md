@@ -251,9 +251,11 @@ See `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
 (M-L) out-of-distribution audit**. Source/baseline, Route 2 local benchmark,
 stage/split/null controls, baseline adequacy, full DEBCat dataset publication,
-and Gate A packaging have landed; the next step is Gate B replay with
-conservative scope and no universal-law wording. The next source-curation-only
-slice after that bottleneck is Wien/FIRAS, not a live metric run.
+Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
+`AGENT_VALIDATED` with conservative scope and no universal-law wording. The
+next work is maintainer-review wording, an external transfer/source route, or
+the still-blocked Wien/FIRAS metric lane after its temperature/domain contract
+lands.
 
 ## Cross-References
 

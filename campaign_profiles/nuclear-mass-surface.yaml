@@ -137,8 +137,6 @@ portfolio:
     blocker: "Reveal scoring lacks an accepted post-freeze measured-source manifest, no-peek source review, and maintainer source approval."
     target_artifact: "TASK-0821"
   best_next_actions:
-    - task_id: TASK-0803
-      label: "Compile validated Nuclear negative/diagnostic memory and the source-manifest reveal blocker on existing public/campaign surfaces"
     - task_id: TASK-0821
       label: "Scout exactly one post-freeze nuclear reveal-source route value-blind before any comparison or new factory work"
   required_gates:
@@ -171,5 +169,5 @@ portfolio:
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "RESULT-0018, TASK-0777 Wigner-cusp negative sprint, TASK-0778 reveal-source preflight, and TASK-0803 negative-memory routing"
-    notes: "Flagship lane remains high-value as validated negative/diagnostic memory plus prediction-reveal discipline. Wigner-cusp is rejected in scope, reveal scoring is source-manifest blocked, and another broad F2/shell/local-curvature burst is not justified."
+    source: "RESULT-0018, TASK-0777 Wigner-cusp negative sprint, completed TASK-0778 reveal-source preflight, completed TASK-0803 negative-memory routing, and TASK-0821 source-route scouting"
+    notes: "Flagship lane remains high-value as validated negative/diagnostic memory plus prediction-reveal discipline. Wigner-cusp is rejected in scope, reveal scoring is source-manifest blocked, and the only advertised READY lane is value-blind post-freeze source scouting."
