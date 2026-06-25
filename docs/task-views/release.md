@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0833` - Scout ThermoML source-readiness and Joback fidelity for a property-estimation transfer audit (boiling-point only) (`scientific_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
+- `TASK-0835` - Scout FRB (CHIME) source-readiness, no-leakage temporal-split feasibility, and reveal channel for a repeater selection-effect audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
