@@ -1,7 +1,7 @@
 id: TASK-0832
 title: "Apply maintainer Gate C ratification to CLAIM-0009 (DRAFT -> PARTIALLY_SUPPORTED)"
 type: claim_promotion
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
