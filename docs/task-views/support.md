@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0828` - Support proposal-drift closeout PRs in maintainer review (`tooling_reliability`, priority `high`, difficulty `medium`, domain `maintainer_review`)
