@@ -14,6 +14,7 @@
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
 - `TASK-0802` - Run the FIRAS Wien-peak consistency metric slice on the pinned source (`scientific_benchmark`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0827` - Compare extrapolation models and freeze the best one's frontier predictions for reveal (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 
 ## Support Blockers
 
