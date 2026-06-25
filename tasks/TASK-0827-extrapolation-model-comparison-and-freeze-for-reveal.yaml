@@ -1,0 +1,64 @@
+id: TASK-0827
+title: "Compare extrapolation models and freeze the best one's frontier predictions for reveal"
+type: scientific_benchmark
+status: BLOCKED
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Converge the wave: turn the stronger models (Duflo-Zuker, calibrated GP) plus the standing reveal pipeline and frontier target set into actual frozen, falsifiable predictions."
+  - "Pick the model that extrapolates best under controls -- not the one that fits in-sample best -- and freeze ITS predictions on the no-peek frontier targets."
+  - "This is the step that creates the breakthrough-grade artifact: a frozen prediction set awaiting an external reveal."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0823-implement-duflo-zuker-stronger-nuclear-baseline.yaml"
+    - "tasks/TASK-0824-calibrated-uncertainty-residual-model-extrapolation.yaml"
+    - "tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml"
+    - "tasks/TASK-0826-define-frontier-prediction-target-set-no-peek.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+  planning_context: >
+    BLOCKED until TASK-0823 (Duflo-Zuker), TASK-0824 (calibrated GP), TASK-0825
+    (standing reveal pipeline), and TASK-0826 (no-peek frontier targets) land.
+    Then: compare the new models and the frozen baseline on the post-AME2020
+    time-split extrapolation under the same controls-first margin, select the
+    best EXTRAPOLATION model (with calibrated uncertainty preferred), and freeze
+    its predictions (central value + uncertainty) for the TASK-0826 frontier
+    nuclide set into PRED-* entries via the reveal protocol -- with no peeking at
+    any post-freeze measured value.
+
+requirements:
+  - "Start only after TASK-0823, 0824, 0825, 0826 are DONE; reuse their committed artifacts (no re-run unless inputs changed)."
+  - "Compare models by EXTRAPOLATION on the post-AME2020 holdout under the predeclared controls-first survival margin; record the comparison as a benchmark result, not a claim."
+  - "Select the best extrapolation model; freeze its (value, uncertainty) predictions for the TASK-0826 no-peek frontier nuclide IDs as PRED-* entries per docs/nuclear-prediction-reveal-protocol.md (registry_status REGISTERED, no-peek, frozen model reference)."
+  - "Do NOT score, reveal, or compare against any post-freeze measured value (none admissible yet); do NOT promote a claim or call the model a discovery."
+  - "Make the freeze Gate-A-compliant for PRED-* (frozen model ref, named target set, reveal conditions explicit, non-claim ceiling)."
+  - "Stop: deliver the model-comparison result + the frozen PRED set; the actual reveal/scoring waits for the TASK-0825 pipeline trigger (an admissible post-freeze source)."
+
+accepted_outputs:
+  - "An extrapolation model-comparison RESULT-* (best_verdict by the comparison) at AGENT_PUBLISHED if Gate A passes, naming the selected best-extrapolation model."
+  - "Frozen PRED-* entries for the frontier target set from the selected model (value + calibrated uncertainty), registry_status REGISTERED, no-peek."
+  - "Output-routing summary: Gate A status for both the RESULT and the PRED set, claim impact none, the selected model + its extrapolation margin, reveal-pending status."
+
+result_artifact_policy:
+  required: false
+  reason: "A comparison RESULT and frozen PRED entries are produced only if their Gate A conditions pass; no claim is promoted and no reveal is scored."
+  evidence:
+    - "results/EXP-0012/"
+    - "prediction_registry/nuclear_masses/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

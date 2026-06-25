@@ -1,0 +1,61 @@
+id: TASK-0826
+title: "Define the neutron-rich frontier prediction target set for prospective reveal (no-peek)"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "A confirmed prediction is most scientifically significant where models diverge most and data is sparse: the neutron-rich / near-drip / r-process frontier with astrophysical relevance."
+  - "Define the prediction targets as a no-peek nuclide-ID set so the standing reveal pipeline has a physically-meaningful, leakage-safe target list."
+  - "Predict where it matters, evaluate by reveal -- not where it is easy to fit."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml"
+  planning_context: >
+    The standing reveal pipeline (TASK-0825) needs a target set. The highest-value
+    target is the neutron-rich / near-drip / r-process region where mass models
+    diverge by many MeV and a confirmed prediction has real astrophysical weight.
+    Earlier neutron-rich work was empirical residual patching (correctly rejected);
+    this task instead DEFINES the prediction-target region as a no-peek nuclide-ID
+    manifest (Z, N only) for future model freezing -- it asserts no measured value
+    and computes no metric.
+
+requirements:
+  - "List candidate prediction targets by nuclide identity (Z, N) only -- neutron-rich / near-drip / r-process-relevant nuclei where current models diverge -- with a short physical rationale per region."
+  - "Record NO measured mass values, NO model predictions, and NO metrics; this is a target-definition manifest, not a dataset of values (no-peek)."
+  - "State the leakage boundary: targets must not overlap the NMD-0003 training rows; flag any that already have a committed measured value."
+  - "Reference the reveal/blind-holdout protocols so the target set plugs into TASK-0825 without weakening no-peek gates."
+  - "Do NOT fetch sources, ingest values, register predictions, or promote claims; no astrophysical or discovery wording -- target definition only."
+  - "Stop: deliver the no-peek target manifest + rationale; if a candidate already has a measured value in-repo, exclude it from the prospective set and note why."
+
+accepted_outputs:
+  - "A no-peek frontier prediction-target manifest under data/nuclear_masses/ (nuclide IDs + region rationale, no values) + a short review note."
+  - "Output-routing summary: source/target definition for prediction-reveal readiness; no PRED/RESULT/CLAIM; no measured values committed; leakage boundary stated."
+
+result_artifact_policy:
+  required: false
+  reason: "No-peek target definition only; no RESULT or PRED artifact and no measured values are created."
+  evidence:
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
