@@ -1,0 +1,239 @@
+manifest_id: NUCLEAR-REVEAL-WATCH-0001
+title: "Standing nuclear prospective-reveal watch manifest"
+status: armed_and_waiting
+task_id: TASK-0825
+artifact_class: apl_authored_planning_manifest
+created_on: "2026-06-25"
+
+purpose: >
+  Value-free watch list for the standing nuclear prospective-reveal pipeline.
+  It enumerates candidate upcoming or recent measurement programs and the
+  nuclide (Z, N) regions to watch so that, whenever an admissible post-freeze
+  measurement source is published, its admissibility lane is already mapped and
+  the existing single-shot reveal workflow can be applied to the frozen
+  prediction set. This manifest is planning metadata only.
+
+specification: "docs/nuclear-prediction-reveal-protocol.md#standing-prospective-reveal-pipeline"
+
+references:
+  reveal_protocol: "docs/nuclear-prediction-reveal-protocol.md"
+  readiness_checklist: "docs/nuclear-reveal-source-readiness-checklist.md"
+  blind_holdout_protocol: "docs/blind-holdout-benchmark-protocol.md"
+  source_class_scout: "docs/reviews/nuclear-post-ame2020-reveal-source-scout.md"
+  concrete_source_scout: "docs/reviews/nuclear-post-ame2020-reveal-source-manifest-scout.md"
+  registry_coverage_audit: "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  prediction_registry_dir: "prediction_registry/nuclear_masses/"
+
+value_free_declaration:
+  contains_measured_values: false
+  contains_predicted_values: false
+  contains_metrics_or_scores: false
+  contains_per_nuclide_measurement_flags: false
+  rationale: >
+    This manifest lists program names, issuing bodies, source classes, stable
+    locator pointers, and (Z, N) regions only. It deliberately omits any
+    measured value, predicted value, uncertainty, metric, reveal score, or
+    per-nuclide measurement flag so it carries no source redistribution and no
+    pre-reveal leakage surface. It is APL-authored planning metadata, not a
+    nuclear-mass dataset, so it is exempt from the dataset entry schema and from
+    the redistribution-declaration registry (data/DATA_LICENSES.yaml).
+
+registry_freeze:
+  freeze_timestamp_utc: "2026-05-20T00:00:00Z"
+  frozen_prediction_count: 61
+  registry_dir: "prediction_registry/nuclear_masses/"
+  note: >
+    The 61 frozen PRED entries are registered no later than the freeze
+    timestamp. A prospective reveal source must be demonstrably available only
+    after this timestamp and after each included entry's registered_at_utc, or
+    the comparison is downgraded to a retrospective diagnostic.
+
+pipeline_state:
+  state: armed_and_waiting
+  blocked: false
+  last_availability_check: "2026-06-25"
+  admissible_post_freeze_source_found: false
+  readiness_decision: BLOCKED_SOURCE_NOT_PINNED
+  reason: >
+    No source class yields an admissible, pinnable artifact postdating the
+    2026-05-20 freeze at design time. The pipeline is armed: trigger condition,
+    scoring step, cadence, and do-not-do list are pre-stated, and the first
+    admissible post-freeze source advances the pipeline to its pin / gate /
+    score stages.
+
+cadence:
+  default: monthly
+  recurring_check: >
+    Once per month, re-run the metadata-only availability check (pipeline stage
+    2) against the watch programs and regions below. Inspect publication
+    metadata (titles, DOIs, release dates, source class, measured-vs-extrapolated
+    posture) only; never inspect target-row values.
+  event_check: >
+    Run on demand when a relevant edition or measurement campaign is announced
+    (for example a new AME/NUBASE edition, or a flagged Penning-trap or
+    storage-ring result in a watched region).
+  normal_output: >
+    When no admissible post-freeze source exists, the check records
+    armed_and_waiting with the check date and produces no scientific artifact.
+
+trigger_condition:
+  summary: >
+    A watched program trips the trigger only when a candidate source satisfies
+    every condition below, evaluated from publication metadata without inspecting
+    target-row values. These are the readiness-checklist admissibility gates
+    restated as the standing trigger; none are added and none are relaxed.
+  gates:
+    - id: post_freeze
+      requirement: >
+        publication_or_release_date is strictly after 2026-05-20T00:00:00Z and
+        after each included entry's registered_at_utc.
+    - id: immutable_pinnable
+      requirement: >
+        Exact immutable locator (DOI, versioned release, or archivable file) and
+        an accepted archive policy so raw and normalized checksums can be
+        recorded before scoring.
+    - id: measured_separable
+      requirement: >
+        Measured rows are separable from evaluated, extrapolated, or derived
+        rows by an explicit row-level flag; only ELIGIBLE_MEASURED targets are
+        scored.
+    - id: no_peek_clean
+      requirement: >
+        No-peek audit returns NO_PEEK_PASS, or NO_PEEK_WEAK only with explicit
+        weaker-evidence limitations. NO_PEEK_FAIL or NO_PEEK_INCONCLUSIVE blocks
+        prospective scoring.
+    - id: target_overlapping
+      requirement: >
+        At least one watched (Z, N) region containing a registered PRED-* target
+        appears in the source with measured semantics; otherwise the readiness
+        decision is INCONCLUSIVE_ZERO_ELIGIBLE_TARGETS and the pipeline stays
+        armed.
+
+scoring_step:
+  workflow: nuclear_prediction_reveal
+  applies_to: "the 61 frozen PRED entries under prediction_registry/nuclear_masses/"
+  runs_only_on_trigger: true
+  description: >
+    On a real trigger, build the readiness-checklist source manifest (all
+    fields, raw and normalized checksums, target-matching rules, no-peek audit),
+    then apply the existing nuclear_prediction_reveal workflow against the frozen
+    registry snapshot using only ELIGIBLE_MEASURED rows. Partial reveal is
+    expected: score only eligible revealed targets, preserve unrevealed targets
+    unchanged, and keep negative or inconclusive outcomes visible. Verdict
+    vocabulary and wording boundary are unchanged from the reveal protocol.
+
+# Candidate measurement programs to watch. Source-class labels follow the
+# source-class scout taxonomy; admissibility posture is for prospective reveal.
+# Locators are stable pointers (DOI roots, portal or edition pages), not fetched
+# artifacts. No measured values, predictions, or metrics appear here.
+watch_programs:
+  - program_id: next_ame_nubase_edition
+    name: "Next AME / NUBASE atomic-mass evaluation edition"
+    facility_or_body: "Atomic Mass Data Center (AMDC); Chinese Physics C"
+    source_class: official_evaluation
+    admissibility_posture: date_version_ambiguous
+    locator_pointer: "https://amdc.impcas.ac.cn/web/masseval.html"
+    watch_note: >
+      Ideal future trigger: a future edition released after the freeze, with an
+      immutable distribution file and row-level measured-vs-extrapolated flags,
+      gives a clean predate check and measured separation. Current
+      AME2020 / NUBASE2020 editions predate the freeze and are baseline/format
+      references only.
+
+  - program_id: penning_trap_primary_tables
+    name: "Primary Penning-trap mass-measurement tables"
+    facility_or_body: "ISOLTRAP (CERN-ISOLDE), JYFLTRAP (Jyvaskyla), TITAN (TRIUMF), LEBIT (FRIB/MSU), SHIPTRAP (GSI), FSU"
+    source_class: peer_reviewed_table
+    admissibility_posture: needs_maintainer_access
+    locator_pointer: "per-article journal DOI (PRL/PRC/PLB) plus arXiv preprint"
+    watch_note: >
+      Most realistic near-term post-freeze lane. Clean per-article publication
+      date gives a per-source predate check; requires per-nuclide verification
+      that each measured nuclide was absent from training and matches a
+      registered PRED-* target before any value inspection.
+
+  - program_id: storage_ring_primary_tables
+    name: "Primary storage-ring mass-measurement tables"
+    facility_or_body: "GSI ESR; IMP Lanzhou CSRe"
+    source_class: peer_reviewed_table
+    admissibility_posture: needs_maintainer_access
+    locator_pointer: "per-article journal DOI plus arXiv preprint"
+    watch_note: >
+      Same admissibility posture as Penning-trap tables; storage-ring programs
+      reach short-lived neutron-rich nuclides relevant to the registered
+      frontier regions.
+
+  - program_id: frib_caribu_isolde_releases
+    name: "FRIB / CARIBU / ISOLDE facility or collaboration data releases"
+    facility_or_body: "FRIB (MSU); CARIBU (ANL); ISOLDE (CERN); IMP Lanzhou portals"
+    source_class: collaboration_release
+    admissibility_posture: date_version_ambiguous
+    locator_pointer: "facility data portals and agency services"
+    watch_note: >
+      Usable only when a specific versioned, archivable release postdates the
+      freeze with explicit measured-row flags. Rolling or interactive query
+      surfaces make the predate proof fragile and are not admissible as such.
+
+# Nuclide regions to watch, as (Z, N) ranges chosen to overlap the registered
+# PRED-* target regions. Region labels are descriptive only. No measured values,
+# predicted values, or measurement flags appear here.
+watch_regions:
+  - region_id: light_neutron_rich_na_mg
+    label: "Light neutron-rich Na-Mg region"
+    z_min: 11
+    z_max: 12
+    n_min: 18
+    n_max: 24
+    rationale: "Overlaps registered light neutron-rich targets near the N=20 region."
+
+  - region_id: calcium_region
+    label: "Calcium region around N=28 shell"
+    z_min: 19
+    z_max: 22
+    n_min: 32
+    n_max: 38
+    rationale: "Overlaps registered Ca-region targets (includes high-reuse Ca-55, Z=20 N=35)."
+
+  - region_id: ni_cu_zn_ga_frontier
+    label: "Ni-Cu-Zn-Ga neutron-rich frontier around N=50"
+    z_min: 27
+    z_max: 36
+    n_min: 46
+    n_max: 60
+    rationale: >
+      Densest registered cluster (Z=28 and N=50 dominate the target set);
+      includes high-reuse nuclides Ni-76 (Z=28 N=48), Zn-80 (Z=30 N=50), and
+      Ga-85 (Z=31 N=54).
+
+  - region_id: ag_sn_sb_n82
+    label: "Ag-Sn-Sb region around the N=82 shell"
+    z_min: 47
+    z_max: 55
+    n_min: 78
+    n_max: 94
+    rationale: "Overlaps registered targets along and beyond the N=82 shell closure."
+
+do_not_do:
+  - "No live fetch of any measurement source from an executor task, and no automatic fetch from the cadence."
+  - "No exposure, transcription, inspection, or commit of any target measured value, predicted value, uncertainty, or reveal metric into this manifest."
+  - "No inspection of target-row values while deciding source admissibility (decide from publication metadata only)."
+  - "No peeking at revealed values before the registry snapshot and no-peek audit are complete; no use of a revealed value to select candidates or edit target batches."
+  - "No edit, reorder, or re-timing of any frozen prediction_registry/nuclear_masses/PRED-*.yaml entry, value, target set, model state, or reveal condition."
+  - "No scoring against a source that predates registration, and no prospective-reveal wording for a predates-registration or NO_PEEK_FAIL comparison."
+  - "No weakening or bypass of any admissibility, checksum, measured-separability, or no-peek gate."
+  - "No promotion of any claim, result, or knowledge entry from a watch check or a reveal wave."
+
+output_routing:
+  destination: "prediction/reveal readiness"
+  artifacts_created: "none (no PRED/RESULT/CLAIM/KNOW; no fetch performed)"
+  trigger: "admissible, immutable, post-2026-05-20T00:00:00Z source per the readiness checklist (metadata-only admissibility decision)"
+  cadence: "monthly availability check plus on-demand event checks"
+  admissibility_gates: "post-freeze, immutable/pinnable, measured-separable, no-peek-clean, target-overlapping"
+  review_tier: none
+  gate_a: not_attempted
+  gate_b: not_attempted
+  limitations: >
+    No live fetch performed; no admissible post-freeze source exists at design
+    time; pipeline armed and waiting. A future reveal wave still requires a
+    separate maintainer-reviewed source manifest, checksum record, no-peek audit,
+    and comparison artifact before any scoring.
