@@ -22,13 +22,13 @@ input_references:
 question: "On the pinned COBE/FIRAS absolute monopole spectrum, does the wavelength-domain spectral-radiance peak obtained after the declared B_nu -> B_lambda Jacobian agree with the frozen textbook reference lambda_peak = b / T at the separately pinned Fixsen 2009 temperature, while a no-Jacobian relabel and a wrong temperature are rejected?"
 
 method:
-  summary: "Read the committed checksum-pinned FIRAS rows and the frozen Wien exact-reference fixture, convert the native wavenumber axis to wavelength with the explicit B_lambda = B_nu * nu^2 / c Jacobian, locate the wavelength-domain peak (raw-bin plus a fixed parabolic refinement), and compare it to lambda_peak = b / T_ref. Report the frequency-domain peak, the no-Jacobian relabel, and a wrong-temperature offset as predeclared controls. Emit exactly one admissible scoped verdict and write metrics.json, report.md, limitations.md, preflight.md, review_summary.md, and agent_run.yaml under AGENT-RUN-0078."
+  summary: "Read the committed checksum-pinned FIRAS rows and the frozen Wien exact-reference fixture, convert the native wavenumber axis to wavelength with the explicit B_lambda = B_nu * nu^2 / c Jacobian, locate the wavelength-domain peak (raw-bin plus a fixed parabolic refinement), and compare it to lambda_peak = b / T_ref. Report the frequency-domain peak, the no-Jacobian relabel, and a wrong-temperature offset as predeclared controls. Emit exactly one admissible scoped verdict and write metrics.json, report.md, limitations.md, preflight.md, review_summary.md, and agent_run.yaml under AGENT-RUN-0079."
   code_references:
     - "physics_lab/engines/textbook_wien_firas_peak.py"
     - "scripts/run_textbook_wien_firas_peak_consistency.py"
     - "tests/test_textbook_wien_firas_peak.py"
   commands:
-    - "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0078"
+    - "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079"
   parameters:
     wien_constant_m_k: 0.002897771955
     reference_temperature_k: 2.72548
@@ -57,7 +57,7 @@ inputs:
 
 outputs:
   sandbox_output_paths:
-    - "agent_runs/AGENT-RUN-0078/"
+    - "agent_runs/AGENT-RUN-0079/"
     - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
   metrics:
     - "reference_wavelength_peak_m"
@@ -72,9 +72,9 @@ outputs:
   plots:
     - "NONE"
   notes:
-    - "agent_runs/AGENT-RUN-0078/report.md"
-    - "agent_runs/AGENT-RUN-0078/limitations.md"
-    - "agent_runs/AGENT-RUN-0078/review_summary.md"
+    - "agent_runs/AGENT-RUN-0079/report.md"
+    - "agent_runs/AGENT-RUN-0079/limitations.md"
+    - "agent_runs/AGENT-RUN-0079/review_summary.md"
     - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
 
 validation:
@@ -104,7 +104,7 @@ limitations:
   - "Sandbox-only; no canonical artifact is created."
 
 verdict: SANDBOX_PASS
-maintainer_decision_requested: "Decide whether this sandbox consistency slice should be preserved as AGENT-RUN-0078 only or followed by a separate Gate A result-packaging task."
+maintainer_decision_requested: "Decide whether this sandbox consistency slice should be preserved as AGENT-RUN-0079 only or followed by a separate Gate A result-packaging task."
 
 promotion_boundary:
   writes_canonical_result: false

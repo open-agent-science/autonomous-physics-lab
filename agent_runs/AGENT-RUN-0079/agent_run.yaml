@@ -1,4 +1,4 @@
-id: AGENT-RUN-0078
+id: AGENT-RUN-0079
 campaign_profile_id: textbook-formula-audit
 task_id: TASK-0802
 status: REVIEW_READY
@@ -10,11 +10,11 @@ proposal_paths:
   hypothesis: hypothesis_proposals/textbook-formula-audit/HYP-PROPOSAL-0062-firas-wien-peak-consistency.yaml
   experiment: experiment_proposals/textbook-formula-audit/EXP-PROPOSAL-0028-firas-wien-peak-consistency.yaml
 artifacts:
-  metrics: agent_runs/AGENT-RUN-0078/metrics.json
-  report: agent_runs/AGENT-RUN-0078/report.md
-  limitations: agent_runs/AGENT-RUN-0078/limitations.md
-  preflight: agent_runs/AGENT-RUN-0078/preflight.md
-  review_summary: agent_runs/AGENT-RUN-0078/review_summary.md
+  metrics: agent_runs/AGENT-RUN-0079/metrics.json
+  report: agent_runs/AGENT-RUN-0079/report.md
+  limitations: agent_runs/AGENT-RUN-0079/limitations.md
+  preflight: agent_runs/AGENT-RUN-0079/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0079/review_summary.md
 preflight:
   passed: true
   checks:

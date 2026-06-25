@@ -13,7 +13,7 @@ No live fetch, no source re-pin, no blackbody fit, no fitted free parameters.
 Example::
 
     python3 scripts/run_textbook_wien_firas_peak_consistency.py \\
-        --out-dir agent_runs/AGENT-RUN-0078
+        --out-dir agent_runs/AGENT-RUN-0079
 """
 
 from __future__ import annotations
@@ -461,7 +461,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--out-dir",
-        default="agent_runs/AGENT-RUN-0078",
+        default="agent_runs/AGENT-RUN-0079",
         help="Sandbox agent-run output directory (repository-relative).",
     )
     args = parser.parse_args(argv)

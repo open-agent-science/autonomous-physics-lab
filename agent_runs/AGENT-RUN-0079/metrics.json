@@ -5,11 +5,11 @@
     "INCONCLUSIVE_PRODUCT_SEMANTICS",
     "INCONCLUSIVE_SAMPLING_RESOLUTION"
   ],
-  "agent_run_id": "AGENT-RUN-0078",
+  "agent_run_id": "AGENT-RUN-0079",
   "benchmark_id": "textbook-firas-wien-peak-consistency-slice",
   "circularity_caveat": "The Fixsen 2009 reference temperature is itself derived by fitting a Planck spectrum to FIRAS, so this is a blackbody self-consistency check in scope, not independent empirical validation of Wien displacement.",
   "code_reference": "physics_lab/engines/textbook_wien_firas_peak.py",
-  "command": "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0078",
+  "command": "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079",
   "constants": {
     "speed_of_light_m_s": 299792458.0,
     "wien_constant_provenance": "CODATA 2022 / NIST",

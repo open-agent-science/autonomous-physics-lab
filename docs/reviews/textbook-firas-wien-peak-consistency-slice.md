@@ -93,17 +93,17 @@ appendix only and was not substituted as the primary reference.
 ## Reproduce
 
 ```text
-python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0078
+python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079
 ```
 
 Deterministic: engine `physics_lab/engines/textbook_wien_firas_peak.py`
 (version `0.1.0`), input sha256 hashes and git commit recorded in
-`agent_runs/AGENT-RUN-0078/metrics.json`. No stochastic step.
+`agent_runs/AGENT-RUN-0079/metrics.json`. No stochastic step.
 
 ## Output routing
 
 - Canonical destination: sandbox agent-run package
-  `agent_runs/AGENT-RUN-0078/` plus this `docs/reviews/` consistency note.
+  `agent_runs/AGENT-RUN-0079/` plus this `docs/reviews/` consistency note.
 - Review tier: none (sandbox-by-default).
 - Gate A: not attempted. The metric passes cleanly and would support a future
   Gate A result-packaging task, but per `TASK-0802` the default destination is

@@ -48,7 +48,7 @@ novelty_check:
   notes: "The audit intentionally runs the bounded consistency metric without creating canonical RESULT, PRED, CLAIM, or KNOW artifacts."
 
 falsification_plan:
-  deterministic_check: "Run scripts/run_textbook_wien_firas_peak_consistency.py against the committed FIRAS rows and exact-reference fixture, then compare recomputed metrics against agent_runs/AGENT-RUN-0078/metrics.json."
+  deterministic_check: "Run scripts/run_textbook_wien_firas_peak_consistency.py against the committed FIRAS rows and exact-reference fixture, then compare recomputed metrics against agent_runs/AGENT-RUN-0079/metrics.json."
   baseline_or_reference: "Frozen textbook wavelength-domain Wien exact reference (exact-reference fixture) lambda_peak = b / T at T_ref = 2.72548 K, used as the baseline, with a no-Jacobian axis-relabel negative control and a wrong-temperature negative control as null comparison baselines."
   pass_condition: "Sandbox consistency-in-scope if the wavelength-domain peak (raw-bin or fixed interpolation) matches the reference within the predeclared tolerance and all predeclared controls pass."
   fail_condition: "Fail if the runner fetches live data, re-pins the source, fits a blackbody spectrum, chooses the temperature after seeing output, omits the Jacobian or any control, or frames the outcome as a universal Wien/blackbody validation or falsification."
@@ -66,7 +66,7 @@ overclaim_risk:
 
 sandbox_evidence:
   commands:
-    - "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0078"
+    - "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079"
   code_references:
     - "physics_lab/engines/textbook_wien_firas_peak.py"
     - "scripts/run_textbook_wien_firas_peak_consistency.py"
@@ -78,8 +78,8 @@ sandbox_evidence:
     - "no_jacobian_relabel_relative_difference"
     - "controls.all_passed"
   output_paths:
-    - "agent_runs/AGENT-RUN-0078/metrics.json"
-    - "agent_runs/AGENT-RUN-0078/report.md"
+    - "agent_runs/AGENT-RUN-0079/metrics.json"
+    - "agent_runs/AGENT-RUN-0079/report.md"
     - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
 
 limitations:
@@ -89,7 +89,7 @@ limitations:
   - "Sandbox-only; no canonical artifact is created."
 
 verdict: SANDBOX_PASS
-maintainer_decision_requested: "Review whether AGENT-RUN-0078 is acceptable sandbox evidence and whether a separate Gate A result-packaging task should be created."
+maintainer_decision_requested: "Review whether AGENT-RUN-0079 is acceptable sandbox evidence and whether a separate Gate A result-packaging task should be created."
 
 promotion_boundary:
   canonical_result_allowed: false
