@@ -1,0 +1,61 @@
+id: TASK-0830
+title: "Add the Significant-Result Path Audit mode to the campaign-curator protocol"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Formalize the deeper, single-campaign 'how do we find a genuinely significant result' audit (demonstrated on nuclear-mass-surface) as an explicit Scientific Campaign Director mode, not a new agent role."
+  - "Keep it inside the existing curator/director mandate (lead campaigns toward genuinely significant results) to avoid role proliferation and duplicated authority."
+  - "Bake in the non-gameable significant-result definition so the audit never becomes overclaim pressure."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/campaign-curator-protocol.md"
+    - "docs/scientific-campaign-curator.md"
+    - "agents/scientific-curator.yaml"
+  planning_context: >
+    A deep per-campaign audit on nuclear-mass-surface diagnosed why the campaign
+    was not producing a significant result (empirical residual patches on a weak
+    baseline, structurally unable to clear the controls-first margin) and named
+    the real levers (stronger model class judged by extrapolation + a standing
+    prospective reveal). This is the Scientific Campaign Director's existing
+    mandate, not a new role. This task adds it as an explicit on-demand/periodic
+    mode in the curator protocol with guardrails, and a pointer in the role doc.
+    It is documentation only: it adds the mode definition and does not run an
+    audit, create campaign tasks, or change any campaign profile.
+
+requirements:
+  - "Add a `significant-result-audit` mode to the Modes section of docs/campaign-curator-protocol.md, with the four required deliverables (treadmill diagnosis; non-gameable significant-result definition; highest-leverage lever; bounded output) and guardrails."
+  - "State the mode is run on demand or periodically (not every cycle, it is more expensive) and is advisory (maintainer decides direction; no claim promotion)."
+  - "Preserve the non-regression rule: the audit must not pressure for in-sample numbers and must keep source/holdout/no-peek/controls/replay/result-promotion/overclaim gates intact."
+  - "Add a short pointer to the new mode in docs/scientific-campaign-curator.md; do NOT create a new doc/dashboard and do NOT define a new agent role (it is the existing director mandate)."
+  - "Documentation only: do not run an audit, create campaign tasks, edit campaign profiles, or promote any claim in this task."
+
+accepted_outputs:
+  - "docs/campaign-curator-protocol.md updated with the `significant-result-audit` mode + guardrails."
+  - "docs/scientific-campaign-curator.md updated with a pointer to the mode."
+  - "Output-routing summary: destination protocol enhancement (no new surface, no role), no scientific artifact created."
+
+result_artifact_policy:
+  required: false
+  reason: "Protocol/role documentation enhancement only; no RESULT, PRED, CLAIM, or KNOWLEDGE artifact is created or modified."
+  evidence:
+    - "docs/campaign-curator-protocol.md"
+    - "docs/scientific-campaign-curator.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

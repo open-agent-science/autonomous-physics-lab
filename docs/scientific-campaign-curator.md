@@ -180,6 +180,15 @@ Use this mode when the maintainer asks questions like:
 - Which campaign pages, status pages, or task queues are stale?
 - Are agents about to run out of useful science tasks?
 - Which new campaign scaffold would most improve the scientific portfolio?
+- Why is this campaign not producing a genuinely significant result, and what is
+  the highest-leverage path to one?
+
+For that last question, use the `significant-result-audit` mode defined in
+[`campaign-curator-protocol.md`](campaign-curator-protocol.md) — a deeper,
+on-demand single-campaign audit (treadmill diagnosis, a non-gameable
+significant-result definition, the highest-leverage lever, and bounded lanes or
+an externally-gated/already-banked verdict). It is this same Scientific Campaign
+Director mandate, not a separate agent role.
 
 The role now applies across the campaign portfolio, not only Nuclear Mass
 Surface. Nuclear remains the flagship, but Exoplanet, Quantum, Atomic, and
