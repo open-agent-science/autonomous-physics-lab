@@ -20,4 +20,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0831` - Make explicit: computed/simulated data is a candidate or control, never the discovery judge (`docs_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_data_discipline`)
+None.
