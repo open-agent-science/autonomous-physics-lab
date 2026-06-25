@@ -170,7 +170,51 @@ merged or reached review.
 `planning` is a lighter mode for deciding whether a campaign needs new task
 proposals, mission updates, or a pause.
 
-Both modes are maintainer-facing and advisory.
+`significant-result-audit` is a deeper, single-campaign mode for when a campaign
+looks stuck — producing process or repeated negatives but not converging on a
+genuinely important result — or when the maintainer wants to push a campaign
+toward a breakthrough. It is run on demand or periodically, not every cycle (it
+is more expensive than `cycle-review`).
+
+These modes are maintainer-facing and advisory.
+
+### Significant-Result Path Audit
+
+This mode answers the harder question `cycle-review` does not: *what would
+actually produce a genuinely significant result here, and why is the current
+approach not getting there?* The audit must deliver:
+
+1. **Treadmill diagnosis.** State whether the campaign is repeating a
+   structurally limited approach (for example, small empirical patches on a weak
+   baseline, or re-running exhausted families) that cannot clear its own
+   controls. Name the structural ceiling with evidence (for example, baseline
+   error vs the controls-first survival margin), not a vague "needs more lanes".
+2. **Non-gameable significant-result definition.** Define what a *genuinely
+   significant* result means for this campaign so it cannot be gamed by
+   in-sample overfitting: controls-surviving AND independently replicated
+   (Gate B) AND externally revealed or transfer/holdout-validated — never an
+   in-sample fit improvement alone. This definition is the safeguard that keeps
+   the audit from becoming overclaim pressure.
+3. **Highest-leverage lever.** Identify the single change most likely to produce
+   that result, grounded in the campaign's actual bottleneck — for example a
+   stronger model class judged by extrapolation, a transfer/generalization test,
+   a standing prospective reveal, reusable-dataset publication, or claim
+   promotion of already-banked evidence — not competitor-envy or new
+   infrastructure for its own sake.
+4. **Bounded output.** Translate the lever into at most a small number of
+   bounded, independent lanes (each with controls, holdout/no-peek, Gate B
+   discipline, an explicit stop condition, and no-claim wording), OR record the
+   honest verdict that the campaign's significant result is externally gated
+   (waiting on new data or a reveal) or already banked (route to promotion), so
+   it stays low-burn rather than absorbing new candidate-generation effort.
+
+Guardrails (in addition to the standing curator guardrails): the audit must not
+pressure agents to manufacture a significant in-sample number; it must preserve
+source provenance, holdout/no-peek boundaries, controls, replay requirements,
+result-promotion gates, and overclaim policy; it remains advisory (the
+maintainer decides direction and all claim promotion); and it must not recommend
+broad open-ended formula search. It is a Scientific Campaign Director mode, not a
+separate agent role.
 
 ## Focused Sessions
 
