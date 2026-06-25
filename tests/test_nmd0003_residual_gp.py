@@ -1,7 +1,7 @@
 """Tests for the TASK-0824 calibrated-uncertainty GP residual extrapolation engine.
 
 The full-surface GP fit takes tens of seconds, so the committed sandbox
-``agent_runs/AGENT-RUN-0078/metrics.json`` artifact (produced by the pinned,
+``agent_runs/AGENT-RUN-0080/metrics.json`` artifact (produced by the pinned,
 deterministic runner) is the fixture for the headline-number, leakage, controls,
 and calibration assertions. The engine's fitting logic and determinism are
 exercised directly on small synthetic inputs that run in well under a second.
@@ -22,12 +22,12 @@ from physics_lab.engines.nmd0003_residual_gp import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-COMMITTED_METRICS_PATH = REPO_ROOT / "agent_runs/AGENT-RUN-0078/metrics.json"
+COMMITTED_METRICS_PATH = REPO_ROOT / "agent_runs/AGENT-RUN-0080/metrics.json"
 
 
 @pytest.fixture(scope="module")
 def metrics() -> dict:
-    """The committed, deterministic sandbox AGENT-RUN-0078 metrics artifact."""
+    """The committed, deterministic sandbox AGENT-RUN-0080 metrics artifact."""
     return json.loads(COMMITTED_METRICS_PATH.read_text(encoding="utf-8"))
 
 

@@ -32,7 +32,7 @@ from physics_lab.engines.nmd0003_residual_gp import (  # noqa: E402
     run_nmd0003_residual_gp,
 )
 
-AGENT_RUN_ID = "AGENT-RUN-0078"
+AGENT_RUN_ID = "AGENT-RUN-0080"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "agent_runs" / AGENT_RUN_ID
 DEFAULT_REVIEW_PATH = (
     REPO_ROOT / "docs" / "reviews" / "nmd0003-calibrated-uncertainty-gp-extrapolation.md"
