@@ -803,6 +803,7 @@ def _recommended_tasks(
     campaign: dict[str, Any],
 ) -> tuple[CampaignTaskRecommendation, ...]:
     recommendations: list[CampaignTaskRecommendation] = []
+    entries_by_task_id = {entry.task_id: entry for entry in entries}
     for entry in entries:
         if entry.status != "READY":
             continue
@@ -828,15 +829,19 @@ def _recommended_tasks(
             continue
         if str(action.get("status", "")).lower() in {"done", "blocked"}:
             continue
-        if action.get("task_id") is not None:
-            continue
+        task_id = action.get("task_id")
+        if task_id is not None:
+            live_entry = entries_by_task_id.get(str(task_id))
+            if live_entry is not None and live_entry.status == "READY":
+                continue
+            task_id = None
         recommendations.append(
             CampaignTaskRecommendation(
-                task_id=action.get("task_id"),
+                task_id=task_id,
                 title=str(action.get("label", action.get("id", "campaign action"))),
                 priority=str(action.get("priority", "medium")),
                 difficulty=str(action.get("difficulty", "medium")),
-                status=str(action.get("status", "configured")),
+                status="configured",
                 reason="configured mission action; confirm against live task board",
             )
         )
