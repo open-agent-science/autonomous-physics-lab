@@ -1,0 +1,70 @@
+id: TASK-0829
+title: "Scout one open-licensed direct-size quantum transfer source (Tier-1/2 tabular)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Significant-result-path audit of quantum-size-effects found the campaign is NOT on an overfit treadmill (correction search is correctly blocked) but is data-acquisition-gated: its significant result (cross-material transfer) needs ONE second material with DIRECT, license-clear, row-level size-energy measurements."
+  - "Execute the open-licensed-first preference (TASK-0751, DONE) that was adopted but never run as an actual open-tabular scout: the prior transfer scout (TASK-0810) blocked on a CLOSED, figure-derived route (Norris-Bawendi CdSe)."
+  - "This is a source_readiness action toward the campaign's transfer validity gate; it advances the source-to-row funnel step, not candidate generation, and does not unblock correction search."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "campaign_profiles/quantum-size-effects.yaml"
+    - "docs/reviews/quantum-independent-transfer-source-scout.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+  planning_context: >
+    The quantum baseline (TASK-0225) beats null and shuffled-size controls on six
+    DIRECT-measured Almeida 2023 InP rows (holdout 0.048 eV vs 0.376/0.420 eV),
+    but it is single-source InP. The two other committed datasets (Yu 2003 CdSe,
+    Moreels 2009 PbS) are CALIBRATION-DERIVED: their diameters are computed by
+    inverting a published sizing curve from the same optical property, so using
+    them as a transfer holdout would be circular. The previous transfer scout
+    (TASK-0810) selected a CLOSED, figure-derived CdSe route (Norris-Bawendi 1996)
+    and returned SOURCE_BLOCKED for lack of a license-cleared/checksum-pinned copy
+    and a deterministic digitization artifact. The adopted open-licensed-first
+    policy (TASK-0751) recommends scouting a Tier-1/2 OPEN tabular route before
+    spending more effort on closed figure digitization. This task runs exactly
+    that open-tabular scout: it assesses one open, machine-readable source with
+    DIRECT size-energy rows for a second material and records a verdict only. It
+    does not curate rows, run metrics, or unblock correction search.
+
+requirements:
+  - "Select exactly ONE candidate that is Tier-1/2 OPEN-licensed and machine-readable (printed table, CSV, or structured supplement -- NOT a closed-access figure), with DIRECT row-level size-energy data for a SECOND material (not InP, not the already-blocked Norris-Bawendi closed route), or clearly justify why no such open route exists."
+  - "Assess: source identity and license/reuse posture; accessibility and redistributability; row-level availability; property-kind semantics (keep absorption_peak / emission_peak / bandgap separate); size-axis semantics (diameter_nm vs radius_nm and units); material/composition identity; and CRITICALLY whether sizes are DIRECT (TEM/XRD/SAXS) versus calibration-derived, figure-derived, or theoretical."
+  - "State the leakage boundary: the candidate must not be mixed with Yu 2003 / Moreels 2009 calibration curves or back-computed sizing equations; transfer rows must be independent direct measurements."
+  - "Return exactly one verdict: `TRANSFER_SOURCE_READY_FOR_ROW_TASK`, `SOURCE_BLOCKED`, or `NEEDS_MAINTAINER_SOURCE_DECISION`, with the blocker class if blocked and the bounded future row-task shape if ready."
+  - "Do NOT run baseline metrics, add or edit any qd-*.yaml rows, modify qd-0003, open or unblock TASK-0226, fetch live external data, or use LLM-estimated coordinates."
+  - "No quantum-dot design-law, material-recommendation, device-performance, biomedical, universal-size-law, transfer-success, or discovery wording (campaign forbidden_claims)."
+  - "If no admissible open direct-size second-material route is found, say so honestly -- a SOURCE_BLOCKED open-tabular result is a valid scientific output that supports an externally-gated, low-burn verdict for the campaign."
+
+accepted_outputs:
+  - "`docs/reviews/quantum-open-tabular-transfer-source-scout.md` with the selected route, admissibility table (with the direct-vs-derived column explicit), the single verdict, blockers, and the bounded future row-task shape if ready."
+  - "Output-routing summary: destination source-readiness gate; no RESULT/PRED/CLAIM/KNOW change; no rows curated; transfer-holdout blocker or readiness stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-admissibility scout only; no rows, benchmark metrics, or result artifact are expected. Maps to the source-to-row funnel step and the transfer validity gate, not result promotion."
+  evidence:
+    - "docs/reviews/quantum-independent-transfer-source-scout.md"
+    - "data/quantum_dots/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
