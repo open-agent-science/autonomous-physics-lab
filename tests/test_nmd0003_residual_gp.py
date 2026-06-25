@@ -124,7 +124,8 @@ def test_calibration_block_present_and_honest(metrics: dict) -> None:
     assert metrics["calibration_verdict"] in {
         "WELL_CALIBRATED",
         "MILDLY_MISCALIBRATED",
-        "UNDERCONFIDENT_HEAVY_TAILED",
+        "HEAVY_TAILED_MISCALIBRATED",
+        "UNDERCONFIDENT",
         "OVERCONFIDENT",
     }
 

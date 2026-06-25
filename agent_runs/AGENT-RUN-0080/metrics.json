@@ -14,7 +14,7 @@
     "median_predictive_sigma_mev": 0.496547,
     "rms_standardized_residual": 2.826769
   },
-  "calibration_verdict": "UNDERCONFIDENT_HEAVY_TAILED",
+  "calibration_verdict": "HEAVY_TAILED_MISCALIBRATED",
   "controls": {
     "null_shuffled_target_gp": {
       "control_id": "null_shuffled_target_gp",
@@ -160,7 +160,7 @@
     "Methodology contribution only: no PRED, CLAIM, KNOW, or discovery artifact is created, and improved fit/calibration is not a discovery."
   ],
   "output_routing": {
-    "calibration_verdict": "UNDERCONFIDENT_HEAVY_TAILED",
+    "calibration_verdict": "HEAVY_TAILED_MISCALIBRATED",
     "canonical_destination": "sandbox_agent_run_plus_review_note",
     "claim_impact": "none",
     "gate_a_status": "mechanical_conditions_met_routed_to_sandbox",

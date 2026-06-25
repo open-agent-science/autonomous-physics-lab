@@ -354,8 +354,12 @@ def _calibration_verdict(calibration: Mapping[str, float | int]) -> str:
     cov1 = float(calibration["empirical_coverage_1sigma"])
     if 0.85 <= rms_z <= 1.20 and abs(cov1 - 0.682689) <= 0.05 and abs(cov2 - 0.9545) <= 0.03:
         return "WELL_CALIBRATED"
-    if rms_z > 1.20 or cov2 < 0.9545 - 0.03:
-        return "UNDERCONFIDENT_HEAVY_TAILED" if cov1 >= 0.682689 else "OVERCONFIDENT"
+    if rms_z > 1.20:
+        return "HEAVY_TAILED_MISCALIBRATED"
+    if cov2 < 0.9545 - 0.03:
+        return "OVERCONFIDENT"
+    if cov1 > 0.682689 + 0.05 or cov2 > 0.9545 + 0.03:
+        return "UNDERCONFIDENT"
     return "MILDLY_MISCALIBRATED"
 
 

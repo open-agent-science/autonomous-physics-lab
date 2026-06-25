@@ -3,7 +3,7 @@
 **Task:** `TASK-0824`
 **Benchmark:** `nmd0003-calibrated-uncertainty-residual-gp`
 **Verdict:** `CONTROL_SURVIVING_GAIN_MISCALIBRATED_UNCERTAINTY`
-**Calibration verdict:** `UNDERCONFIDENT_HEAVY_TAILED`
+**Calibration verdict:** `HEAVY_TAILED_MISCALIBRATED`
 
 ## Summary
 
@@ -55,7 +55,7 @@ GP MAE improvement over baseline: `2.517144` MeV; RMS improvement: `2.38941` MeV
 ## Output-routing summary
 
 - Task verdict: `CONTROL_SURVIVING_GAIN_MISCALIBRATED_UNCERTAINTY`.
-- Calibration verdict: `UNDERCONFIDENT_HEAVY_TAILED`.
+- Calibration verdict: `HEAVY_TAILED_MISCALIBRATED`.
 - Gate A status: mechanical conditions are met (deterministic replay, verification, input hashes, limitations, pinned engine version/commit, schema-valid, no protected rewrite, no overclaim, dataset provenance); the result is routed to SANDBOX (this agent run plus the review note) rather than a published RESULT, because linking the result into hypothesis evidence is outside this benchmark task's authorized change surface.
 - Extrapolation: baseline holdout MAE `2.979273` MeV / RMS `4.028345` MeV vs GP-corrected MAE `0.462129` MeV / RMS `1.638935` MeV (MAE improvement `2.517144` MeV).
 - Calibration coverage: 1 sigma `0.823729` (expected `0.682689`), 2 sigma `0.966102` (expected `0.9545`), RMS standardized residual `2.826769`.
