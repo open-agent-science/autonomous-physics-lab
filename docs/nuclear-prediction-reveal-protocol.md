@@ -312,3 +312,214 @@ After reveal scoring:
 - [ ] Limitations are written in scope-aware language.
 - [ ] No frozen prediction values were rewritten.
 - [ ] Any claim or result promotion is deferred to a separate maintainer task.
+
+## Standing Prospective-Reveal Pipeline
+
+### Why A Standing Pipeline
+
+The single-shot reveal workflow above assumes a maintainer notices a qualifying
+post-freeze measurement source, opens a reveal task, and runs the comparison.
+The post-AME2020 source scouts
+([source-class scout](./reviews/nuclear-post-ame2020-reveal-source-scout.md),
+[concrete-source scout](./reviews/nuclear-post-ame2020-reveal-source-manifest-scout.md))
+both concluded `BLOCKED_SOURCE_NOT_PINNED`: no admissible source postdating the
+`2026-05-20T00:00:00Z` freeze was published in the weeks after the freeze, while
+the admissibility lane for each source class is already mapped. New mass
+measurements (Penning-trap, storage-ring, FRIB / ISOLDE / CARIBU programs) are
+published continuously, so the reveal is not terminally blocked — it is only
+*"no admissible post-freeze source published yet."*
+
+This section converts that externally gated reveal into a standing,
+time-based process: a low-cost recurring check that watches for an admissible
+post-freeze source and, only when one appears, hands it to the existing
+single-shot reveal workflow against the frozen prediction set. The pipeline adds
+**no new scoring authority and no new admissibility relaxation**. It is a
+scheduler and a watch list wrapped around the gates already defined above and in
+the [readiness checklist](./nuclear-reveal-source-readiness-checklist.md).
+
+It does not fetch any source, ingest any measured value, register or score any
+prediction, or promote any claim. At design time it is **armed and waiting, not
+blocked**: every gate is pre-stated, and the first admissible source trips the
+trigger.
+
+### Pipeline Stages
+
+The pipeline has five stages. Stages 1, 2, and 5 are recurring and value-free.
+Stages 3 and 4 run only when stage 2 fires, and they are exactly the
+single-shot reveal workflow and readiness checklist already defined — not a new
+shortcut around them.
+
+1. **Watch (recurring, value-free).** Maintain a reveal-watch manifest of
+   candidate upcoming or recent measurement programs and the nuclide regions to
+   watch. The manifest lists program names, issuing bodies, source classes, and
+   `(Z, N)` regions only. It records **no** measured values, **no** predicted
+   values, and **no** metrics. See "Reveal-Watch Manifest Concept" below.
+
+2. **Trigger (recurring availability check).** On each cadence, check whether an
+   admissible post-freeze source now exists for any watched program. A source is
+   admissible only when it satisfies the trigger condition below. If no source
+   qualifies, record `armed_and_waiting` and stop until the next cadence. This
+   check inspects publication metadata (titles, DOIs, release dates, source
+   class, measured-vs-extrapolated posture) — **never** target-row values.
+
+3. **Pin and gate (single-shot, on trigger only).** When stage 2 fires, open a
+   canonical reveal task and build the source manifest required by the
+   [readiness checklist](./nuclear-reveal-source-readiness-checklist.md): all
+   manifest fields, raw and normalized checksums, target-matching rules, and the
+   no-peek audit (`NO_PEEK_PASS` / `NO_PEEK_WEAK` / `NO_PEEK_FAIL` /
+   `NO_PEEK_INCONCLUSIVE`). This is "Discover Candidate Measurement Sources"
+   through "Perform The No-Peek Audit" above. If the source cannot be pinned or
+   the no-peek audit does not pass, the pipeline returns to
+   `armed_and_waiting`; it does not score.
+
+4. **Score (single-shot, on trigger only).** Apply the existing
+   `nuclear_prediction_reveal` workflow against the frozen prediction set — the
+   **61 frozen PRED entries** under `prediction_registry/nuclear_masses/`
+   (`PRED-0001` … the current registry head; see
+   [registry coverage](./reviews/nuclear-prediction-registry-coverage-audit.md))
+   — using only `ELIGIBLE_MEASURED` rows. This is "Execute Comparison" through
+   "Preserve Negative And Inconclusive Outcomes" above: partial reveal is
+   expected, only eligible revealed targets are scored, unrevealed targets are
+   preserved unchanged, and negative or inconclusive outcomes stay visible.
+   Verdict vocabulary and wording boundary are unchanged from this protocol.
+
+5. **Re-arm (recurring).** After a reveal wave, unscored and not-yet-revealed
+   targets remain eligible for a later reveal unless a no-peek or source-timing
+   failure blocks them. Update the watch manifest's coverage notes (counts and
+   region status only, never values) and return to `armed_and_waiting` for the
+   regions still open.
+
+### Reveal-Watch Manifest Concept
+
+The reveal-watch manifest is a value-free planning surface stored at
+`data/nuclear_masses/reveal_watch_manifest.yaml`. It is APL-authored planning
+metadata, **not** a measurement dataset: it is not validated against the
+nuclear-mass dataset schema and must never carry measured rows, so it is exempt
+from the dataset entry-schema and from redistribution declaration.
+
+The manifest records, for each watched program:
+
+- a stable `program_id`, human-readable name, and facility or collaboration;
+- the `source_class` from the
+  [source-class scout](./reviews/nuclear-post-ame2020-reveal-source-scout.md)
+  taxonomy (`official_evaluation`, `peer_reviewed_table`,
+  `collaboration_release`, `archive_copy`, `secondary_compilation`);
+- the admissibility posture for prospective reveal (`admissible_when_published`,
+  `needs_maintainer_access`, `date_version_ambiguous`, `not_relevant`);
+- a stable locator class (DOI root, portal URL, or edition page) — a *pointer*,
+  not a fetched artifact;
+- the nuclide regions to watch as `(Z, N)` ranges and optional named region
+  labels, chosen to overlap the registered `PRED-*` target regions;
+- value-free coverage and watch notes.
+
+The manifest deliberately omits any measured value, any predicted value, any
+metric, any per-nuclide measurement flag, and any reveal score. Listing only
+program names and `(Z, N)` regions keeps it a planning artifact with no source
+redistribution and no leakage surface.
+
+### Trigger Condition (Admissibility Gate)
+
+A watched program trips the trigger **only** when a candidate source satisfies
+every condition below, evaluated from publication metadata without inspecting
+target-row values. These conditions are the readiness checklist's admissibility
+gate, restated as the standing trigger; the pipeline adds none and relaxes none.
+
+- **Post-freeze.** The source's `publication_or_release_date` is strictly after
+  the registry freeze `2026-05-20T00:00:00Z`, and after each included entry's
+  `registered_at_utc`. A source that predates registration is
+  `SOURCE_PREDATES_REGISTRATION` and is downgraded to a retrospective
+  diagnostic, never prospective reveal evidence.
+- **Immutable and pinnable.** The source has an exact immutable locator (DOI,
+  versioned release, or archivable `.mas`-style file) and an accepted archive
+  policy (`committed_copy`, `external_archive_with_checksum`, or
+  `manifest_only_with_retrieval_instructions`) so raw and normalized checksums
+  can be recorded before scoring.
+- **Measured-separable.** Measured rows are separable from evaluated,
+  extrapolated, or derived rows by an explicit row-level flag, so only
+  `ELIGIBLE_MEASURED` targets are scored.
+- **No-peek-clean.** The no-peek audit returns `NO_PEEK_PASS` (or, with explicit
+  weaker-evidence limitations, `NO_PEEK_WEAK`). `NO_PEEK_FAIL` or
+  `NO_PEEK_INCONCLUSIVE` blocks prospective scoring.
+- **Target-overlapping.** At least one watched `(Z, N)` region containing a
+  registered `PRED-*` target appears in the source with measured semantics;
+  otherwise the readiness decision is
+  `INCONCLUSIVE_ZERO_ELIGIBLE_TARGETS` and the pipeline stays armed.
+
+If any condition fails or is ambiguous, the pipeline stays `armed_and_waiting`
+(or records a blocked readiness decision) and does **not** score. The most
+realistic near-term trigger is source-class B (primary Penning-trap /
+storage-ring tables); source-class A (the next AME / NUBASE edition) would
+supersede it as the cleanest trigger the moment such an edition is released.
+
+### Recurring Cadence
+
+- **Default cadence: monthly.** Once per month a maintainer (or a maintainer-run
+  availability-check task) re-runs stage 2 against the watch manifest: scan for
+  newly published post-freeze sources for the watched programs and regions,
+  using metadata only.
+- **Event cadence.** A maintainer may also run the check on demand when a
+  relevant edition or measurement campaign is announced (for example a new AME /
+  NUBASE edition, or a flagged Penning-trap result in a watched region).
+- **Cheap by construction.** The recurring check is metadata-only and produces
+  no scientific artifact when no admissible source exists; its normal output is
+  `armed_and_waiting` with the date of the check. The expensive stages (pin,
+  gate, score) run only on a real trigger.
+- **No automation of the gated stages.** The cadence may remind and may scan
+  metadata, but pinning, the no-peek audit, and scoring remain maintainer-driven
+  reviewed steps. The cadence never auto-fetches, auto-pins, or auto-scores.
+
+### Do-Not-Do List
+
+The standing pipeline must not, at any cadence or stage:
+
+- perform a live fetch of any measurement source from an executor task, or
+  trigger such a fetch automatically from the cadence;
+- expose, transcribe, inspect, or commit any target measured value, predicted
+  value, uncertainty, or reveal metric into the watch manifest;
+- inspect target-row values while deciding source admissibility (admissibility
+  is decided from publication metadata only);
+- peek at revealed values before the registry snapshot and no-peek audit are
+  complete, or use a revealed value to select candidates or edit target batches;
+- edit, reorder, or re-time any frozen `prediction_registry/nuclear_masses/PRED-*.yaml`
+  entry, its values, target set, model state, or reveal conditions;
+- score against a source that predates registration, or describe a
+  predates-registration or `NO_PEEK_FAIL` comparison as prospective reveal
+  evidence;
+- weaken or bypass any admissibility, checksum, measured-separability, or no-peek
+  gate defined in this protocol or the readiness checklist;
+- promote any claim, result, or knowledge entry from a watch check or a reveal
+  wave; claim and result promotion remain separate maintainer-reviewed tasks.
+
+### Armed-And-Waiting Status
+
+At design time, and whenever stage 2 finds no admissible post-freeze source, the
+pipeline state is **`armed_and_waiting`**, not blocked:
+
+- the watch manifest, trigger condition, scoring step, cadence, and do-not-do
+  list are all pre-stated and reviewed;
+- the 61 frozen PRED entries are fixed and the registry snapshot is reproducible;
+- the first source that satisfies the trigger condition advances the pipeline to
+  the pin / gate / score stages with no further design work.
+
+This mirrors the source scouts' standing conclusion: the reveal is not
+terminally blocked, only waiting for an admissible post-freeze source to be
+published.
+
+### Standing-Pipeline Output Routing
+
+- Destination: prediction / reveal readiness. No `PRED`, `RESULT`, `CLAIM`, or
+  `KNOW` artifact is created by the pipeline design or by a `armed_and_waiting`
+  cadence check.
+- Trigger: an admissible, immutable, post-`2026-05-20T00:00:00Z` source per the
+  readiness checklist, decided from publication metadata only.
+- Cadence: monthly availability check, plus on-demand event checks.
+- Admissibility gates: post-freeze, immutable / pinnable, measured-separable,
+  no-peek-clean, target-overlapping — all inherited unchanged from this protocol
+  and the readiness checklist.
+- Review tier: none for the design and for `armed_and_waiting` checks. A real
+  reveal wave runs the single-shot reveal workflow and its own review.
+- Gate A / Gate B: not attempted; no result or prediction artifact is produced.
+- Limitations: no live fetch performed; no admissible post-freeze source exists
+  at design time; the pipeline is armed and waiting; a future reveal wave still
+  requires a separate maintainer-reviewed source manifest, checksum record,
+  no-peek audit, and comparison artifact before any scoring.
