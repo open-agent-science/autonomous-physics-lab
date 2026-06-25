@@ -32,6 +32,23 @@ material, and does not relax any existing protocol.
 > source artifact or a curated-dataset task. New measurement rows are added only
 > by a bounded row-curation task, never automatically.
 
+### Computed And Simulated Data Are Candidates, Never The Judge
+
+First-principles, DFT, simulated, and fitted-curve values carry `model_only`
+provenance. They may be used as a **candidate** — a theory whose predictions are
+tested against real measurements (for example, the Duflo-Zuker mass baseline
+judged by extrapolation against measured masses) — or as a **control** (for
+example, a synthetic null used to calibrate false positives). They may **never**
+be the ground-truth holdout a benchmark scores against, and **no significant
+result may be validated against computed or simulated data**. Real experimental
+measurement is always the judge.
+
+This is the calibration-derived circularity one level up: a model fit to
+simulated data is validated against another model, not against nature, so it
+cannot support a discovery. Generating data in order to "discover" laws from it
+is therefore out of scope across every campaign. Computation earns its place
+only when real measurement remains the judge.
+
 ## Admissible Source Classes
 
 | Class | Examples | Default handling |
@@ -41,7 +58,7 @@ material, and does not relax any existing protocol.
 | Author-deposited preprint | arXiv preprint PDF under an article-specific license | Metadata and expected checksum by default; commit PDF bytes only with a compatible license or explicit permission. |
 | Open-access journal (verify per article) | APS public-access, PMC OA | Facts extractable; verify per-article reuse before committing tables. |
 | Subscription / copyrighted | ACS, Nature, AIP version-of-record | Metadata-only; rows need an open mirror, permission, or maintainer-held artifact. |
-| Model/theory output | DFT-only or fitted curves | Admissible only as explicitly excluded/labelled context, never as measured rows. |
+| Model/theory output | DFT-only or fitted curves | Labelled `model_only` context only — never measured rows, and never a benchmark holdout/judge (see *Computed And Simulated Data Are Candidates, Never The Judge*). |
 
 ## Published ≠ Redistributable
 

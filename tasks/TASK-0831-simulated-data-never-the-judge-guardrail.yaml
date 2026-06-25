@@ -1,0 +1,64 @@
+id: TASK-0831
+title: "Make explicit: computed/simulated data is a candidate or control, never the discovery judge"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Close a precise loophole in APL's data discipline: the existing standard governs whether computed/simulated values may be committed as rows (model_only, never measured rows), but no single line states the EVALUATION-role rule -- that such data may be a candidate or a control, never the ground-truth holdout a significant result is validated against."
+  - "Preserve APL's core epistemic value: results are validated against reality (real experimental measurement), not against another model. A model fit to simulated data is validated against a model -- the calibration-derived circularity one level up."
+  - "Sharpen, not add: this restates and connects the existing Core Principle (agents do not create data), the Model/theory-output source class, the model_only provenance class, and the holdout protocol's measurement-data requirement. It is not a new policy or surface."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_data_discipline
+  related_objects:
+    - "docs/published-source-dataset-standard.md"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/campaign-curator-protocol.md"
+  planning_context: >
+    A maintainer discussion asked whether APL should run simulations to generate
+    its own datasets or mine ready-made computed datasets (e.g. Materials Project,
+    JARVIS-DFT). The conclusion: generating data and then "discovering" laws from
+    it is circular and out of scope for every campaign, but computation is
+    legitimate as (a) a candidate theory judged against real measurements (already
+    done -- e.g. the Duflo-Zuker baseline judged by extrapolation against measured
+    masses) and (b) a control (synthetic nulls, power analysis). The published-
+    source-dataset standard already implies this (Core Principle; Model/theory
+    output never as measured rows; model_only provenance; holdout requires
+    measurement data) but does not state the evaluation-role rule in one
+    discoverable place. This task adds that one explicit clarification to the
+    existing standard. Documentation only; it does not build any simulation
+    capability, fetch data, or change any campaign profile.
+
+requirements:
+  - "Add ONE short, discoverable clarification to docs/published-source-dataset-standard.md (near the Core Principle) stating that computed/simulated/model_only data may be used as a candidate (theory tested against real measurements) or a control (e.g. synthetic null), but never as the ground-truth holdout a benchmark scores against, and that no significant result may be validated against computed/simulated data -- real experimental measurement is always the judge."
+  - "State the scope is cross-campaign (every campaign) and give the rationale (validation against nature, not another model; the calibration-derived circularity one level up)."
+  - "Cross-reference the existing Model/theory-output source class so the rule is reachable from the source-class table; do NOT restate or weaken any existing rule."
+  - "Do NOT create a new doc/surface, define a new agent role, build or propose simulation infrastructure, authorize live fetching, or change any campaign profile."
+  - "Documentation only: no dataset rows, no metrics, no claim/RESULT/PRED/KNOW change."
+
+accepted_outputs:
+  - "docs/published-source-dataset-standard.md updated with the computed/simulated evaluation-role guardrail (candidate/control yes, holdout/judge no) and a cross-reference from the Model/theory-output class."
+  - "Output-routing summary: destination cross-campaign data standard (existing surface sharpened, no new surface/role/infra), no scientific artifact created."
+
+result_artifact_policy:
+  required: false
+  reason: "Cross-campaign data-standard clarification only; no RESULT, PRED, CLAIM, KNOWLEDGE, or dataset row is created or modified."
+  evidence:
+    - "docs/published-source-dataset-standard.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
