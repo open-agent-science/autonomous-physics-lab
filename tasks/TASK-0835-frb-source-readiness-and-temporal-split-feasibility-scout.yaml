@@ -1,0 +1,72 @@
+id: TASK-0835
+title: "Scout FRB (CHIME) source-readiness, no-leakage temporal-split feasibility, and reveal channel for a repeater selection-effect audit"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Open a high-ceiling flagship direction where APL's discipline is the contribution: an exposure-controlled SELECTION-EFFECT AUDIT of FRB repeaters with a frozen prospective-reveal overlay -- pre-registered, exposure-matched, independently replayed, with public failure memory. This is what professional FRB forecasting papers rarely do."
+  - "Both outcomes are genuinely important: if morphology survives exposure-matched out-of-sample controls it forecasts repetition; if it does NOT, that is strong evidence the apparent two-population (repeater/non-repeater) split is partly an observational selection effect, not source physics."
+  - "Scout-first discipline: verify data redistribution, a VERSION-LOCKED no-leakage temporal split, exposure-model tractability, and the reveal channel BEFORE any model, benchmark, or campaign scaffold."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/published-source-dataset-standard.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml"
+  planning_context: >
+    A maintainer strategist proposed an "FRB Repeater Forecast & Selection-Effect
+    Audit": can first bursts + signal morphology + real telescope exposure predict
+    which apparent one-off FRB sources later repeat? CHIME/FRB Catalog 2 reportedly
+    has 4539 bursts from 3641 sources (981 from 83 repeaters) with exposure/
+    sensitivity, morphology, and dynamic spectra -- enabling control of the main
+    confounder (a source can look non-repeating only because of insufficient
+    exposure). Director analysis ACCEPTS this as a flagship CANDIDATE but flags it
+    higher-risk than the ThermoML lane, with three linchpins this scout must
+    resolve: (1) DATA READINESS -- is Catalog 2 (or Catalog 1 as fallback) publicly
+    redistributable with machine-readable exposure + morphology + first-detection
+    timestamps; (2) the EXPOSURE MODEL is the whole ballgame -- if it is wrong,
+    "morphology predicts repetition" can be pure sky-coverage bias, so exposure
+    must be a first-class separately-validated artifact and the exposure-only
+    baseline is the gate any morphology model must beat out-of-sample; (3) the
+    field is CROWDED (incl. semi-supervised hidden-repeater searches), so novelty
+    must come from the methodology (pre-registered exposure-controlled audit +
+    frozen prospective reveal + independent replay), NOT from "classify FRBs."
+    This task is ONLY a bounded readiness/feasibility scout, not the FRB-001..008
+    pilot and not a campaign scaffold.
+
+requirements:
+  - "Pin the exact public CHIME/FRB data product (Catalog 2 if publicly released and redistributable; otherwise Catalog 1 as fallback) and record its license/reuse/redistribution terms FIRST. Per the published-source-dataset standard, default to source locator + expected SHA-256 + a fetch/verify command; confirm which fields (per-source exposure/sensitivity, morphology, first-detection timestamps, repeater flags, dynamic spectra) are actually machine-readable."
+  - "Assess whether a VERSION-LOCKED, no-leakage retrospective temporal split is constructible: a per-source first-detection time exists; later repeater status is determinable from a strictly later catalog version; and catalog REPROCESSING DRIFT (changed DM/morphology/source associations between versions) does not leak future information into the pre-T view. State explicitly whether date-locking alone is sufficient or version-locking is required."
+  - "Assess EXPOSURE-MODEL tractability: can per-source exposure/sensitivity be reconstructed well enough to build an exposure-only baseline, and is that baseline the primary control any morphology model must beat OUT-OF-SAMPLE? Frame the exposure model as a first-class, separately-validated, frozen artifact."
+  - "Verify the REVEAL CHANNEL for the prospective lane: how and on what cadence does CHIME publish new repeater detections / catalog updates, and is that an admissible external, immutable, post-freeze reveal source per the reveal/blind-holdout protocols?"
+  - "Reframe the intended campaign so the PRIMARY contribution is the exposure-controlled selection-effect audit (both-outcomes-valuable), with the forecast as the prospective-reveal overlay. State the honest novelty position: do NOT claim novelty as 'classifying FRBs'; state whether a directly comparable, pre-registered, exposure-controlled, externally-revealed FRB repeater audit was identified during initial scouting."
+  - "Do NOT build or fit any model, run any benchmark/metric, freeze any PRED, fetch beyond license-cleared scope, or scaffold the full FRB campaign. List the named confounders to control later (selection bias, incomplete exposure model, catalog reprocessing drift, source-association errors, follow-up bias, data/license semantics)."
+  - "Return exactly one verdict: READY, SOURCE_LIMITED, or BLOCKED, with the pinned product + license, the version-lock/no-leakage feasibility finding, the exposure-model tractability finding, the reveal-channel finding, and the bounded pilot shape (FRB-00x) only if READY."
+
+accepted_outputs:
+  - "An FRB source-readiness + temporal-split-feasibility + reveal-channel scout note under docs/reviews/ with: pinned CHIME product and redistribution policy; field availability (exposure, morphology, timestamps, repeater flags); the version-locked no-leakage split feasibility; the exposure-model tractability assessment; the reveal-channel cadence/admissibility; the honest novelty statement; the named confounder list; and the READY/SOURCE_LIMITED/BLOCKED verdict (with the bounded pilot shape only if READY)."
+  - "Output-routing summary: source-readiness + reveal-contract gate for a future FRB Repeater Selection-Effect Audit campaign; no model, no benchmark, no PRED, no claim/result; data redistribution and no-leakage boundaries stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness, split-feasibility, and reveal-channel scout only; no model, benchmark metric, PRED, or result artifact is expected."
+  evidence:
+    - "docs/published-source-dataset-standard.md"
+    - "tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
