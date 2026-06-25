@@ -1,0 +1,68 @@
+id: TASK-0828
+title: "Support proposal-drift closeout PRs in maintainer review"
+type: tooling_reliability
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the proposal-pool closeout path executable by the same review-agent gate that reports proposal drift."
+  - "Remove the need for manual exceptions or fake task-file edits when reconciling already-delivered proposals."
+  - "Keep proposal acceptance governance intact: the lane may only reconcile proposals to already-DONE canonical tasks."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "docs/proposal-pool-triage.md"
+    - "scripts/apl_proposal_triage.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_closeout_pr_helper.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/closeout_pr_helper.py"
+    - "tests/test_maintainer_review.py"
+    - "tests/test_closeout_pr_helper.py"
+  planning_context: >
+    The proposal-pool triage tool can identify proposals whose canonical tasks
+    are already DONE, and the protocol names the review-agent closeout lane as
+    the natural place to reconcile those proposal files. In practice, the
+    maintainer review gate blocks proposal-only TASK-CLOSEOUT PRs because it
+    currently requires at least one changed canonical task file. Add a narrow,
+    deterministic proposal-drift closeout path that accepts only mechanical
+    reconciliation to DONE canonical tasks.
+
+requirements:
+  - "Allow `TASK-CLOSEOUT` PRs that edit only `tasks/proposals/*.yaml` when every changed proposal records `status: ACCEPTED`, `promotion.decision: accepted`, and a DONE `promotion.canonical_task_id`."
+  - "Keep ordinary task closeout behavior unchanged: closeout PRs that edit canonical task files must still validate task statuses as before."
+  - "Reject proposal-drift closeout PRs that mix unrelated files, leave proposals pending, omit the canonical task link, link a missing task, or link a task that is not DONE."
+  - "Use proposal-drift validation commands instead of full repository pytest for this lane: `python3 scripts/apl_proposal_triage.py` and strict repository validation."
+  - "Update the closeout helper/protocol text so future maintainers can scaffold and review this lane without manual exceptions."
+  - "Do not accept new proposal ideas or change proposal status based on scientific/architectural judgment in this lane; it is only for mechanical reconciliation after canonical delivery."
+
+accepted_outputs:
+  - "maintainer-review support for proposal-drift closeout PRs"
+  - "closeout PR helper support or documentation for proposal-drift closeout metadata"
+  - "regression tests for accepted and rejected proposal-drift closeout shapes"
+  - "protocol documentation update"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-review tooling/protocol task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/closeout_pr_helper.py"
+    - "docs/proposal-pool-triage.md"
+    - "tests/test_maintainer_review.py"
+    - "tests/test_closeout_pr_helper.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_closeout_pr_helper.py tests/test_proposal_triage.py"
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py physics_lab/registry/closeout_pr_helper.py scripts/apl_closeout_pr_helper.py tests/test_maintainer_review.py tests/test_closeout_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

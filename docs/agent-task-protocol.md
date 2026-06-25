@@ -269,6 +269,11 @@ For closeout behavior, task YAML may optionally set `closeout: auto` or
 of safe auto-closeout and keeps it on the manual maintainer closeout path.
 `TASK-CLOSEOUT` is separate: it is the PR kind marker for closeout PR titles and
 metadata, not a task id and not a value for the task YAML field.
+`TASK-CLOSEOUT` may also be used for proposal-pool drift reconciliation when
+`scripts/apl_proposal_triage.py` reports suggested closeouts. That variant must
+edit only `tasks/proposals/*.yaml` files and may only mark proposals accepted
+after their linked canonical task is already `DONE`; see
+[`docs/proposal-pool-triage.md`](proposal-pool-triage.md).
 
 ## Canonical Task PR Helper
 

@@ -53,6 +53,29 @@ def test_closeout_pr_body_mentions_closed_task_files_and_metadata() -> None:
     assert "Agent session ID" not in body
 
 
+def test_closeout_pr_body_supports_proposal_drift_closeout() -> None:
+    branch = "agent/roman/codex/closeout-proposal-drift"
+    title = "TASK-CLOSEOUT: reconcile proposal drift"
+    body = closeout_pr_body(
+        task_ids=(),
+        branch=branch,
+        title=title,
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_tool="Codex",
+        human_reviewer="gladunrv",
+        proposal_drift=True,
+        proposal_paths=("tasks/proposals/20260610-roman-delivered-proposal.yaml",),
+    )
+
+    assert "Proposal Drift Closeout Files" in body
+    assert "python3 scripts/apl_proposal_triage.py" in body
+    assert "Closed Task Files" not in body
+    report = preflight_closeout_pr(Path("."), branch=branch, title=title, body_text=body)
+    assert report.ok
+    assert report.warnings == ()
+
+
 def test_preflight_closeout_pr_flags_short_body_and_placeholders(tmp_path: Path) -> None:
     body = "\n".join(
         [
@@ -185,6 +208,40 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
     assert result.returncode == 0
     assert "agent/roman/codex/closeout-task-0244-snapshot-fix" in result.stdout
     assert "TASK-CLOSEOUT: mark task-0244 done" in result.stdout
+
+
+def test_cli_scaffold_supports_proposal_drift_closeout() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_closeout_pr_helper.py",
+            "scaffold",
+            "--proposal-drift",
+            "--proposal-path",
+            "tasks/proposals/20260610-roman-delivered-proposal.yaml",
+            "--contributor-id",
+            "roman",
+            "--github-username",
+            "gladunrv",
+            "--agent-id",
+            "codex",
+            "--human-reviewer",
+            "gladunrv",
+            "--slug",
+            "proposal-drift",
+            "--description",
+            "reconcile proposal drift",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "Proposal Drift Closeout Files" in result.stdout
+    assert "python3 scripts/apl_proposal_triage.py" in result.stdout
 
 
 def test_cli_scaffold_accepts_closed_task_alias() -> None:

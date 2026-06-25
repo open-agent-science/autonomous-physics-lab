@@ -132,9 +132,24 @@ The tool's **Suggested closeouts** section lists proposals whose canonical task
 is `DONE` but whose declared proposal status is still open. The practical file
 change is still `status: ACCEPTED`; `resolved` is a computed effective state,
 not a YAML status. Applying it stays a **maintainer-approved, manual** step —
-there is no automatic post-merge rewrite in this first iteration. The
-review-agent closeout lane is the natural place to apply these in a small
-board-sync-style PR.
+there is no automatic post-merge rewrite in this first iteration.
+
+Use the review-agent closeout lane for this mechanical reconciliation, but keep
+the PR proposal-only:
+
+- branch: `agent/<contributor-id>/<agent-id>/closeout-<short-slug>`;
+- title: `TASK-CLOSEOUT: <short summary>`;
+- changed files: only `tasks/proposals/*.yaml`;
+- each changed proposal must set `status: ACCEPTED`,
+  `promotion.decision: accepted`, and `promotion.canonical_task_id` to an
+  existing canonical task whose status is already `DONE`;
+- validation: `python3 scripts/apl_proposal_triage.py` and
+  `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`.
+
+This closeout lane may not accept new proposals on the merits, reject stale
+ideas, supersede duplicates, promote claims/results, or make a science-scope
+decision. It only reconciles proposal metadata after canonical delivery is
+already recorded elsewhere.
 
 ## Cadence
 

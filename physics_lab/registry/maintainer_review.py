@@ -89,6 +89,9 @@ DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
 PROPOSAL_TRIAGE_BODY_MARKERS = (
     "proposal triage",
     "proposal-pool triage",
+    "proposal-pool reconciliation",
+    "proposal drift",
+    "proposal-drift",
     "proposal superseded",
     "proposal rejected",
     "proposal cleanup",
@@ -98,6 +101,10 @@ DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS = 300
 VALIDATION_OUTPUT_EXCERPT_CHARS = 500
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
+PROPOSAL_DRIFT_CLOSEOUT_VALIDATION_COMMANDS = (
+    "python3 scripts/apl_proposal_triage.py",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
 MICROTASK_VALIDATION_COMMANDS = (
@@ -336,6 +343,54 @@ def body_requests_proposal_triage(body: str | None) -> bool:
     """Return whether the PR body explicitly frames proposal status cleanup."""
     normalized = (body or "").lower()
     return any(marker in normalized for marker in PROPOSAL_TRIAGE_BODY_MARKERS)
+
+
+def proposal_drift_closeout_policy(
+    root: Path,
+    proposal_files: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Validate proposal-only closeout files against already-DONE tasks."""
+    blockers: list[str] = []
+    required_fixes: list[str] = []
+    for proposal_file in proposal_files:
+        try:
+            payload = load_task_proposal(root / proposal_file)
+        except (FileNotFoundError, ValueError) as exc:
+            blockers.append(str(exc))
+            continue
+        proposal_status = str(payload.get("status") or "")
+        if proposal_status != "ACCEPTED":
+            required_fixes.append(
+                f"Proposal-drift closeout should set {proposal_file} status to ACCEPTED; found {proposal_status}."
+            )
+        promotion = payload.get("promotion")
+        if not isinstance(promotion, dict):
+            required_fixes.append(
+                f"Proposal-drift closeout should add promotion metadata to {proposal_file}."
+            )
+            continue
+        decision = str(promotion.get("decision") or "")
+        if decision != "accepted":
+            required_fixes.append(
+                f"Proposal-drift closeout should set {proposal_file} promotion.decision to accepted; found {decision or 'missing'}."
+            )
+        canonical_task_id = promotion.get("canonical_task_id")
+        if not isinstance(canonical_task_id, str) or not canonical_task_id:
+            required_fixes.append(
+                f"Proposal-drift closeout should set {proposal_file} promotion.canonical_task_id to a delivered TASK-XXXX id."
+            )
+            continue
+        try:
+            task_payload = load_task(resolve_task_file(root, canonical_task_id))
+        except (FileNotFoundError, ValueError) as exc:
+            blockers.append(str(exc))
+            continue
+        task_status = str(task_payload.get("status") or "")
+        if task_status != "DONE":
+            required_fixes.append(
+                f"Proposal-drift closeout should link {proposal_file} only to a DONE canonical task; {canonical_task_id} is {task_status}."
+            )
+    return tuple(blockers), tuple(required_fixes)
 
 
 def latest_review_bundle(root: Path, branch: str) -> Path | None:
@@ -1445,8 +1500,37 @@ def _compose_review_report(
             for path in changed_files
             if path.startswith("tasks/TASK-") and path.endswith(".yaml")
         )
+        proposal_files = changed_task_proposal_files(changed_files)
         if not closeout_task_files:
-            blockers.append("Closeout PR requires at least one changed canonical task file.")
+            if not proposal_files:
+                blockers.append("Closeout PR requires at least one changed canonical task file.")
+            else:
+                nonproposal_changes = tuple(
+                    path for path in changed_files if path not in proposal_files
+                )
+                if nonproposal_changes:
+                    blockers.append(
+                        "Proposal-drift closeout PR must only edit tasks/proposals/*.yaml files: "
+                        + ", ".join(nonproposal_changes)
+                        + "."
+                    )
+                if not body_requests_proposal_triage(
+                    pr_metadata.body if pr_metadata is not None else None
+                ):
+                    required_fixes.append(
+                        "Proposal-drift closeout PR body must explicitly describe proposal-pool reconciliation."
+                    )
+                if review_worktree_is_current:
+                    proposal_blockers, proposal_required_fixes = proposal_drift_closeout_policy(
+                        root, proposal_files
+                    )
+                    blockers.extend(proposal_blockers)
+                    required_fixes.extend(proposal_required_fixes)
+                validation_payload = {
+                    "validation": {
+                        "commands": list(PROPOSAL_DRIFT_CLOSEOUT_VALIDATION_COMMANDS),
+                    }
+                }
         elif review_worktree_is_current:
             for task_path in closeout_task_files:
                 payload = load_task(root / task_path)
@@ -1455,11 +1539,12 @@ def _compose_review_report(
                 required_fixes.append(
                     f"Closeout PR should mark {task_path} as DONE, READY, REJECTED, or SUPERSEDED."
                 )
-        validation_payload = {
-            "validation": {
-                "commands": list(CLOSEOUT_VALIDATION_COMMANDS),
+        if closeout_task_files:
+            validation_payload = {
+                "validation": {
+                    "commands": list(CLOSEOUT_VALIDATION_COMMANDS),
+                }
             }
-        }
     elif is_task_queue_review:
         resolved_task_id = "TASK-QUEUE"
         if protocol.task_queue_slug is None:
