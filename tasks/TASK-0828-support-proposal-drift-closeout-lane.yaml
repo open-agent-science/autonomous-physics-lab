@@ -1,7 +1,7 @@
 id: TASK-0828
 title: "Support proposal-drift closeout PRs in maintainer review"
 type: tooling_reliability
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

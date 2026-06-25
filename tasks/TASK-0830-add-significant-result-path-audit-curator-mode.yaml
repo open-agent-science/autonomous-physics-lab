@@ -1,7 +1,7 @@
 id: TASK-0830
 title: "Add the Significant-Result Path Audit mode to the campaign-curator protocol"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
