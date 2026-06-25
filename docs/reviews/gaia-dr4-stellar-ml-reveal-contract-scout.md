@@ -165,7 +165,7 @@ reuses the Blind Holdout Benchmark Protocol
 and the reveal/no-peek structure of the Nuclear Prediction Reveal Protocol
 ([`docs/nuclear-prediction-reveal-protocol.md`](../nuclear-prediction-reveal-protocol.md)),
 and the standing prospective-reveal pipeline design pattern of
-[`tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml`](../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml).
+`TASK-0825`.
 It does NOT weaken the no-peek or admissibility gates of those documents.
 
 ### Trigger (admissibility gate)
@@ -363,5 +363,5 @@ Public source metadata consulted (no values ingested):
 - `docs/reviews/stellar-ml-independent-transfer-dataset-scout.md`
 - `docs/blind-holdout-benchmark-protocol.md`
 - `docs/nuclear-prediction-reveal-protocol.md`
-- `tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml`
-- `tasks/TASK-0834-gaia-dr4-stellar-ml-reveal-contract-scout.yaml`
+- `TASK-0825` — standing prospective-reveal pipeline design
+- `TASK-0834` — this reveal-contract scout task
