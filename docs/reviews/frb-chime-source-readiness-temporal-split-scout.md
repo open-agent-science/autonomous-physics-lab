@@ -23,7 +23,7 @@ It honors the no-leakage / no-peek gates in
 [../blind-holdout-benchmark-protocol.md](../blind-holdout-benchmark-protocol.md),
 [../nuclear-prediction-reveal-protocol.md](../nuclear-prediction-reveal-protocol.md),
 and the standing-reveal design in
-[../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml](../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml).
+`TASK-0825`.
 It does not weaken any of them.
 
 Inputs reviewed (repo):
@@ -31,7 +31,7 @@ Inputs reviewed (repo):
 - [../published-source-dataset-standard.md](../published-source-dataset-standard.md)
 - [../blind-holdout-benchmark-protocol.md](../blind-holdout-benchmark-protocol.md)
 - [../nuclear-prediction-reveal-protocol.md](../nuclear-prediction-reveal-protocol.md)
-- [../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml](../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml)
+- `TASK-0825` — standing prospective-reveal pipeline design
 
 External sources web-verified on `2026-06-25` are listed under **Sources**.
 
@@ -258,7 +258,7 @@ prospective lane must:
    arXiv id / TNS entry) in a reveal record.
 
 This matches the standing prospective-reveal design intent in
-[../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml](../../tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml).
+`TASK-0825`.
 The channel is admissible; it just needs an explicit fixed-cutoff freeze rather
 than treating "any future ATel" as a sealed holdout.
 
