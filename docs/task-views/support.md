@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0836` - Fix campaign-curator fallback when mission actions point at non-READY tasks (`test_infrastructure`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
