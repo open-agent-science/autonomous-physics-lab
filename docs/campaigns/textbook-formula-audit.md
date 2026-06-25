@@ -253,9 +253,10 @@ candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
 stage/split/null controls, baseline adequacy, full DEBCat dataset publication,
 Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
 `AGENT_VALIDATED` with conservative scope and no universal-law wording. The
-next work is maintainer-review wording, an external transfer/source route, or
-the still-blocked Wien/FIRAS metric lane after its temperature/domain contract
-lands.
+latest external transfer/source route scout has landed as review evidence.
+The next work is maintainer-review wording, a follow-up selected from that
+scout, or the still-blocked Wien/FIRAS metric lane after its
+temperature/domain contract closeout updates task state.
 
 ## Cross-References
 
