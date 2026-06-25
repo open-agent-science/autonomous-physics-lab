@@ -1,0 +1,145 @@
+{
+  "benchmark_id": "nmd0003-duflo-zuker-structured-baseline",
+  "best_control_on_post_ame2020_holdout": {
+    "control_id": "nmd0003_train_fitted_liquid_drop",
+    "mae_mev": 3.447464
+  },
+  "coefficients": {
+    "coulomb": 0.687923854858,
+    "dz_asymmetry_surface": 36.659642729559,
+    "dz_asymmetry_volume": 28.21637193522,
+    "ei_deformation_proxy": 63.96611612033,
+    "ei_shell_master": -6.094795076588,
+    "ho_shell_master": -0.223566925163,
+    "intercept": 3.057887096111,
+    "pairing": 10.787347190623,
+    "surface_a_2_3": 17.091435503955,
+    "volume_a": 15.497956564176
+  },
+  "comparison": {
+    "clears_survival_margin": true,
+    "margin_vs_best_control_mev": 2.312951,
+    "post_ame2020_mae_mev": 1.134513,
+    "survival_margin_mev": 0.25
+  },
+  "controls": {
+    "inherited_result0015_frozen": {
+      "fit_policy": "frozen_RESULT_0015_coefficients",
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 4.552569,
+        "max_abs_error_mev": 37.636806,
+        "mean_error_mev": 0.685073,
+        "median_abs_error_mev": 4.201676,
+        "p90_abs_error_mev": 8.213271,
+        "rmse_mev": 5.879637
+      }
+    },
+    "nmd0003_train_fitted_liquid_drop": {
+      "fit_policy": "fit_train_split_only_liquid_drop_ols",
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 3.447464,
+        "max_abs_error_mev": 28.676858,
+        "mean_error_mev": -0.889683,
+        "median_abs_error_mev": 2.332386,
+        "p90_abs_error_mev": 7.554735,
+        "rmse_mev": 5.4995
+      }
+    },
+    "smooth_a_quadratic_control": {
+      "fit_policy": "fit_train_split_only_quadratic_in_A",
+      "post_ame2020_holdout": {
+        "coefficient_count": 5,
+        "count": 295,
+        "mae_mev": 13.645968,
+        "max_abs_error_mev": 52.494406,
+        "mean_error_mev": -10.799003,
+        "median_abs_error_mev": 9.701272,
+        "p90_abs_error_mev": 30.57996,
+        "rmse_mev": 17.8365
+      }
+    }
+  },
+  "dataset_summary": {
+    "nmd0003_row_count": 2309,
+    "post_ame2020_primary_holdout_count": 295,
+    "post_ame2020_rows_used_for_fit": 0,
+    "sorted_validation_holdout_count": 693,
+    "train_count": 1616
+  },
+  "feature_basis_note": "The first six terms follow the liquid-drop / DZ asymptotic form; the remaining terms are deterministic harmonic-oscillator and extruder-intruder shell occupancy proxies plus a midshell deformation proxy.",
+  "feature_names": [
+    "volume_a",
+    "surface_a_2_3",
+    "dz_asymmetry_volume",
+    "dz_asymmetry_surface",
+    "coulomb",
+    "pairing",
+    "ho_shell_master",
+    "ei_shell_master",
+    "ei_deformation_proxy",
+    "intercept"
+  ],
+  "fit_policy": "ordinary_least_squares_on_sorted_train_split_only",
+  "input_references": {
+    "inherited_baseline_result": "results/EXP-0012/RUN-0001/result.yaml",
+    "post_ame2020_holdout": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "training_dataset": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+  },
+  "limitations": [
+    "This is a DZ-structured proxy, not an archival DZ10 reproduction.",
+    "The post-AME2020 surface is retrospective time-split evidence, not a strict blind reveal.",
+    "The model is fitted by ordinary least squares on the committed NMD-0003 train split only.",
+    "No PRED, CLAIM, KNOW, or canonical RESULT artifact is created."
+  ],
+  "model_scope": {
+    "model_id": "dz_structured_10_term_proxy",
+    "not_canonical_dz10_code": true,
+    "primary_sources": [
+      "J. Duflo and A. P. Zuker, Phys. Rev. C 52, R23 (1995).",
+      "J. Mendoza-Temis, J. G. Hirsch, and A. P. Zuker, arXiv:0912.0882."
+    ],
+    "publication_blocker": "The implementation uses DZ10-published term structure and shell occupancy proxies, but it is not the archival Duflo-Zuker code. Any canonical RESULT publication would need maintainer review or a direct published-code parity check."
+  },
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0078/ plus docs/reviews/",
+    "claim_impact": "no claim change",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "knowledge_impact": "no knowledge change",
+    "review_tier": "none",
+    "routing_decision": "RESULT_CANDIDATE_REQUIRES_GATE_A"
+  },
+  "surfaces": {
+    "post_ame2020_holdout": {
+      "count": 295,
+      "mae_mev": 1.134513,
+      "max_abs_error_mev": 26.159009,
+      "mean_error_mev": -0.180745,
+      "median_abs_error_mev": 0.785218,
+      "p90_abs_error_mev": 2.304015,
+      "rmse_mev": 2.063269
+    },
+    "sorted_validation_holdout": {
+      "count": 693,
+      "mae_mev": 3.986128,
+      "max_abs_error_mev": 8.656252,
+      "mean_error_mev": -3.959169,
+      "median_abs_error_mev": 3.786559,
+      "p90_abs_error_mev": 7.320575,
+      "rmse_mev": 4.564872
+    },
+    "train": {
+      "count": 1616,
+      "mae_mev": 1.022981,
+      "max_abs_error_mev": 14.157496,
+      "mean_error_mev": -0.0,
+      "median_abs_error_mev": 0.842396,
+      "p90_abs_error_mev": 2.038382,
+      "rmse_mev": 1.366094
+    }
+  },
+  "task_id": "TASK-0823",
+  "verdict": "VALID_IN_RANGE"
+}

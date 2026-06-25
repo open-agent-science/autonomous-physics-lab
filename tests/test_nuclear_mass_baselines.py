@@ -7,6 +7,11 @@ from typer.testing import CliRunner
 
 from physics_lab.cli import app
 from physics_lab.engines.nmd0003_baseline_family_gate import run_nmd0003_baseline_family_gate
+from physics_lab.engines.nmd0003_duflo_zuker_baseline import (
+    FEATURE_NAMES,
+    duflo_zuker_design_matrix,
+    run_nmd0003_duflo_zuker_baseline,
+)
 from physics_lab.engines.nuclear_mass_baselines import (
     REFERENCE_SEMI_EMPIRICAL_COEFFICIENTS,
     design_matrix,
@@ -144,6 +149,20 @@ def test_baseline_family_gate_is_deterministic() -> None:
     first = run_nmd0003_baseline_family_gate(config)
     second = run_nmd0003_baseline_family_gate(config)
     assert first == second
+
+
+def test_duflo_zuker_structured_design_and_benchmark_are_deterministic() -> None:
+    dataset = load_nuclear_mass_dataset("data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml")
+    matrix = duflo_zuker_design_matrix(dataset.entries[:5])
+
+    assert matrix.shape == (5, len(FEATURE_NAMES))
+
+    first = run_nmd0003_duflo_zuker_baseline()
+    second = run_nmd0003_duflo_zuker_baseline()
+    assert first == second
+    assert first["task_id"] == "TASK-0823"
+    assert first["dataset_summary"]["post_ame2020_rows_used_for_fit"] == 0
+    assert first["model_scope"]["not_canonical_dz10_code"] is True
 
 
 def test_nuclear_mass_registry_files_validate() -> None:
