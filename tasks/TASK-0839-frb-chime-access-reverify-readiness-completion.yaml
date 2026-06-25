@@ -1,0 +1,58 @@
+id: TASK-0839
+title: "Re-verify CHIME/FRB Catalog 2 access and complete the FRB readiness + no-leakage temporal-split feasibility (readiness only)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Resolve the transient block that left the FRB flagship scout at SOURCE_LIMITED: the CANFAR/CADC data-product DOI exists with the catalog table, dynamic spectra, and full-sky exposure maps (the linchpin data), but the landing page returned a server error at scout time."
+  - "Readiness-only: do NOT activate the full FRB campaign until a scout confirms a clean, version-locked, no-leakage temporal benchmark is constructible."
+  - "Keep the discipline of the original scout: redistribution-first, version-locked split, exposure model as a first-class artifact, admissible reveal channel."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-chime-source-readiness-temporal-split-scout.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    The FRB CHIME source-readiness scout (TASK-0835) returned SOURCE_LIMITED: it
+    pinned CHIME/FRB Catalog 2 with a verified data-product DOI (CANFAR/CADC,
+    10.11570/25.0066: catalog table, dynamic spectra, full-sky exposure maps) but
+    the landing page returned a server error at scout time, so access, field
+    machine-readability, the version-locked no-leakage temporal split, and the
+    exposure-model tractability could not all be confirmed. This task re-verifies
+    access and completes the readiness assessment. It does NOT build any model,
+    run any benchmark, freeze any PRED, or activate the full FRB campaign.
+
+requirements:
+  - "Re-verify the pinned CHIME/FRB Catalog 2 data product (CANFAR/CADC DOI 10.11570/25.0066) resolves and is retrievable; record license/reuse/redistribution terms. Apply the 3-question source-rights framework: local analysis allowed by default; source-bytes redistribution default NO; derived-rows publication is source-specific (open_license | explicit_permission | limited_factual_extract | unknown). Default to locator + SHA-256 + fetch/verify, not vendoring."
+  - "Confirm which fields are actually machine-readable: per-source exposure/sensitivity, morphology (width, bandwidth, scattering, DM), first-detection timestamps, and repeater flags. Use Catalog 1 as a fallback only if Catalog 2 remains inaccessible."
+  - "Assess whether a VERSION-LOCKED, no-leakage retrospective temporal split is constructible (per-source first-detection time; later repeater status from a strictly later catalog version; reprocessing drift in DM/morphology/source associations does not leak)."
+  - "Assess exposure-model tractability (can per-source exposure be reconstructed for an exposure-only baseline that any morphology model must beat out-of-sample) and the reveal channel (CHIME update cadence as an admissible external post-freeze reveal)."
+  - "Do NOT build/fit any model, run any benchmark/metric, freeze any PRED, fetch beyond license-cleared scope, or activate the full FRB campaign."
+  - "Return exactly one verdict: READY, SOURCE_LIMITED, or BLOCKED, with the access result, field availability, version-lock/no-leakage feasibility, exposure-model finding, reveal-channel finding, and a bounded FRB-00x pilot shape only if READY."
+
+accepted_outputs:
+  - "An updated FRB readiness note under docs/reviews/ with the re-verified access result, the source-rights determination, field availability, the version-locked no-leakage split feasibility, exposure-model tractability, reveal-channel admissibility, and the READY/SOURCE_LIMITED/BLOCKED verdict."
+  - "Output-routing summary: source-readiness + reveal-contract gate for a future FRB campaign; no model, benchmark, PRED, or claim; redistribution and no-leakage boundaries stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Readiness re-verification scout only; no model, benchmark metric, PRED, or result artifact is expected."
+  evidence:
+    - "docs/reviews/frb-chime-source-readiness-temporal-split-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

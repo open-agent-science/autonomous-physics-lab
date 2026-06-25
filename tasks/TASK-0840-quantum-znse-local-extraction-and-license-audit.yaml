@@ -1,0 +1,64 @@
+id: TASK-0840
+title: "Locally extract the ZnSe direct-size transfer rows and audit the ChemRxiv license (public rows conditional)"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock the strongest available quantum transfer route: Toufanian et al. 2021 ZnSe has DIRECT SAXS sizes in a machine-readable Table 1 (10 samples) for a second material independent of the committed InP / Yu-CdSe / Moreels-PbS sets -- exactly the direct-size second material the size-effect transfer test needs."
+  - "Quantum already has a validated InP baseline, so a ZnSe transfer test is close to a strong new cross-material result; this ranks above slower lanes."
+  - "Respect the per-source rights framework: local analysis is allowed by default, source-bytes redistribution is not, and public derived-row publication is CONDITIONAL on a confirmed redistributable license or explicit author permission."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    The quantum open-tabular transfer-source scout (TASK-0829) pinned Toufanian
+    et al. 2021 (Chem. Mater., VoR DOI 10.1021/acs.chemmater.1c02501; PMC mirror
+    PMC8872037 is NIHPA author-manuscript, free-to-read but NOT CC-BY; ChemRxiv
+    preprint DOI 10.26434/chemrxiv-2021-m8kbg-v4, license UNCONFIRMED because
+    ChemRxiv blocked automated access). Verdict NEEDS_MAINTAINER_SOURCE_DECISION,
+    blocker BLOCKER_NO_CONFIRMED_OPEN_LICENSE_DIRECT_TABULAR_SECOND_MATERIAL_ROUTE.
+    Table 1 lists 10 samples (QD361-QD422) each with a SAXS diameter (direct,
+    e.g. 2.04 +/- 0.57 nm) and a 1S absorption-peak position (encoded in nm in
+    the sample id). The maintainer has approved LOCAL extraction now, with public
+    row publication CONDITIONAL on a confirmed redistributable license or author
+    permission. This task does the local extraction + license audit; it runs no
+    benchmark metrics.
+
+requirements:
+  - "Locally extract the 10 ZnSe rows from Table 1 (per-sample SAXS diameter_nm + per-sample 1S absorption-peak converted to eV via hc/lambda). This is a direct table read, NOT figure digitization; no LLM-estimated coordinates."
+  - "Audit and record the license precisely for each version: ChemRxiv preprint (10.26434/chemrxiv-2021-m8kbg-v4) exact displayed license (CC BY / CC0 / CC BY-NC / CC BY-NC-ND / unknown), the NIHPA PMC posture, and the closed VoR. Record copyright holder and whether redistribution/adaptation is granted."
+  - "Apply the 3-question source-rights framework and record it in the manifest: local_analysis_allowed (yes); source_bytes_redistribution (no, basis none); derived_rows_publication (allowed | conditional | prohibited, with basis open_license | explicit_permission | limited_factual_extract | unknown); substantial_extraction_review_required (yes -- 10 rows is ~the whole table, so do not rely on a bare facts argument); covered_by_repo_license (false)."
+  - "CONDITIONAL public commit: commit the 10 ZnSe qd-* rows to the repo ONLY if the maintainer confirms a redistributable ChemRxiv license (CC BY / CC0) or records explicit author permission. Otherwise keep rows LOCAL-ONLY and commit only the source locator, expected SHA-256, row schema, and a deterministic extraction ledger -- plus a request-author-permission note."
+  - "State the leakage boundary: the ZnSe rows must never be mixed with the Yu-2003 CdSe or Moreels-2009 PbS calibration curves or any back-computed sizing equation; transfer rows are independent direct measurements."
+  - "Do NOT run baseline/transfer metrics, edit qd-0003, open TASK-0226, or assert transfer/discovery. This is source-to-row readiness + license audit only."
+
+accepted_outputs:
+  - "A ZnSe source-artifact package: source manifest entry (locator, DOI, expected SHA-256, license audit, rights framework), deterministic extraction ledger, and row schema; plus the 10 qd-* rows ONLY if a redistributable license/permission is confirmed (else local-only with a permission-request note)."
+  - "Output-routing summary: source-to-row gate for the quantum transfer holdout; rights determination per the 3-question framework; no metrics, no claim/result/PRED."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-to-row extraction and license audit only; conditional dataset rows, no benchmark metric or result artifact."
+  evidence:
+    - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
+    - "data/quantum_dots/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

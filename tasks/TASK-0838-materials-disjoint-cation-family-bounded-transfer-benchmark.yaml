@@ -1,0 +1,64 @@
+id: TASK-0838
+title: "Bounded transfer-benchmark the Materials formation-energy baseline on a disjoint A-site cation family (computed-DFT, bounded)"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Answer the Materials transfer validity gate: the formation-energy baseline (RESULT-0021) is strong within-family but weaker on unseen families; the transfer-route scout (TASK-0817) returned TRANSFER_ROUTE_READY_FOR_TASK for a disjoint A-site cation-family holdout within the committed MD-0002 slice."
+  - "Honor the computed/simulated-is-not-the-judge guardrail (TASK-0831): the MD-0002 judge is computed-DFT, so this is a BOUNDED model-vs-model generalization benchmark, never a discovery or a material-design-law claim."
+  - "Both outcomes are valuable: the model transfers across cation families (stronger bounded benchmark) OR it does not (honest confirmation of the localized, family-specific advantage). Negative result accepted; no refit-to-rescue."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "docs/reviews/materials-independent-transfer-route-scout.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "data/materials/md-0002/"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    RESULT-0021 (MD-0002 formation-energy baseline) is AGENT_VALIDATED but the
+    cation-pair signal is localized -- strong in-split, weaker on unseen pairs.
+    The transfer-route scout selected exactly one route: a disjoint A-site
+    cation-family holdout entirely within the committed MD-0002 rows -- hold out
+    one complete cation-family class (e.g. alkaline-earth + first-row-transition
+    oxides) and train on the disjoint class (alkali + first-row-transition
+    oxides), or the reverse. No live fetch, no new provenance. Because the judge
+    is computed-DFT (Materials Project), this is a bounded generalization
+    benchmark, not a discovery: it answers whether the frozen baseline transfers
+    across chemistry families on DFT data.
+
+requirements:
+  - "Freeze the RESULT-0021 baseline MODEL and its DESCRIPTOR set before any holdout error is read; NO post-hoc feature, descriptor, or hyperparameter changes are allowed after seeing the transfer error."
+  - "Use ONLY the committed MD-0002 rows; define the disjoint A-site cation-family train/test split exactly as the scout selected; declare it before computing any metric."
+  - "Predeclare the pass/fail metric and survival margin; evaluate transfer error on the held-out cation family against null / shuffled / per-class-median controls; report whether the frozen model clears the predeclared margin over the best control."
+  - "State the judge provenance explicitly (computed-DFT, Materials Project, CC BY 4.0). Per the data guardrail this is a BOUNDED benchmark: do NOT use discovery, material-design-law, property-prediction, or device wording."
+  - "Make the run Gate-B-replayable (pinned command, code_reference, input_file_hashes, engine_version, git_commit)."
+  - "Stop: if the model does not transfer across the disjoint family under controls, record the honest negative (the advantage is family-localized) -- do not refit, add features, or change the split to rescue it."
+
+accepted_outputs:
+  - "A bounded disjoint-cation-family transfer benchmark run under the Materials campaign with transfer error vs controls and the predeclared pass/fail verdict, plus a review note."
+  - "A RESULT-* candidate only if Gate A passes, explicitly scoped as a computed-DFT BOUNDED transfer benchmark; otherwise sandbox AGENT-RUN-* + review note."
+  - "Output-routing summary: Gate A status, transfer margin vs controls, claim impact none, limitations (computed-DFT judge -> bounded, single family split, not a discovery)."
+
+result_artifact_policy:
+  required: false
+  reason: "Bounded computed-DFT transfer benchmark; a RESULT candidate is allowed only if Gate A passes, always scoped bounded (never a discovery). Default sandbox + review note."
+  evidence:
+    - "docs/reviews/materials-independent-transfer-route-scout.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
