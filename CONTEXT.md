@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-11 08:23 UTC
+Generated: 2026-06-25 08:50 UTC
 Mode: core
 Repo: open-agent-science/autonomous-physics-lab
 
@@ -123,6 +123,7 @@ Every change must go through the full task lifecycle:
 
 1. `tasks/TASK-XXXX-*.yaml` — create or reference a task file
 2. branch: `agent/<contributor-id>/<agent-id>/task-<number>-<slug>`
+   (`contributor-id` SHOULD be the lowercased GitHub username when available)
 3. PR — open it, do not merge it yourself
 4. maintainer review → merge
 
@@ -815,6 +816,10 @@ emphasis:
   gates);
 - turn high-quality sandbox evidence into `AGENT_PUBLISHED` and
   `AGENT_VALIDATED` scientific memory when explicit result-promotion gates pass;
+- after validation, route campaigns toward the next higher-validity gate
+  instead of another internal audit loop: independent transfer, scoped
+  maintainer ratification, external/no-peek reveal, or concrete source
+  readiness;
 - curate active and preparing campaigns with clear source state, allowed work,
   forbidden work, and honest limitations;
 - keep public-launch work gated behind validation, review discipline, and
@@ -856,13 +861,16 @@ emphasis:
    surfaces.
 11. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-12. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+12. Keep post-validation campaigns pointed at explicit validity gates:
+   transfer, ratification, external reveal, or source readiness. Repeated
+   audits are useful only when they clear one of those gates.
+13. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-13. Distinguish retrospective time-split benchmarks from prospective prediction:
+14. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-14. Prepare public launch only after the explicit gates in
+15. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through
@@ -1014,20 +1022,35 @@ query the on-demand task-to-campaign index
 
 ## Recommended Mission Now
 
-**Exoplanet Mass-Radius Benchmark** remains the default near-term
-public-safe benchmark story, but it is not currently a residual-scoring lane.
-`TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY`, and the later
-`EXO-0002` coverage gate did not reopen scoring. The active path is now
-negative/control result-publication preflight, source-version monitoring, and
-an `EXO-0003` acquisition trigger, not another current-snapshot residual pilot.
+**Materials Property Residuals** is the top-ranked current mission in a
+post-validation next-wave posture. APL now has several validated or
+source-limited campaign surfaces; the highest-leverage near-term work is to
+move them through explicit next-validity gates instead of repeating internal
+audits.
 
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
-science path is the post-gate data-to-benchmark wave: Materials `MD-0002`
-acquisition and validation, Atomic Nemitz `ACR-0002` row curation, Stellar M-L
-DEBCat Route 2 / row curation, and Quantum source-artifact handoff. Exoplanet
-remains monitor-only until a material source-version trigger appears; do not
-run another current-snapshot residual pilot.
+science path is:
+
+1. close Materials `MD-0002` dataset-publication metadata blockers
+   (`TASK-0809`);
+2. pin the Wien/FIRAS temperature-domain metric contract before any Wien metric
+   (`TASK-0815`);
+3. route validated or source-limited campaigns into one of four gates:
+   transfer, ratification, external reveal, or source readiness;
+4. preserve negative/control memory where a campaign has reached a no-go or
+   monitor-only state.
+
+Nuclear Mass Surface remains the flagship ambition, but reveal scoring is still
+externally source-gated and should not be the default executor lane while
+other campaigns have cleaner source-readiness and ratification tasks. Exoplanet
+remains monitor-only until a materially changed pinned snapshot or approved
+`EXO-0003` trigger appears. Quantum has a source-scoped Almeida baseline, but
+`TASK-0277` kept open-ended autonomous correction search blocked; only
+`TASK-0810` transfer-source scouting and `TASK-0816` fixed-model methodology
+stress testing are open. Atomic remains blocked on admitted independent rows or
+an approved aggregation contract, with `TASK-0804` available only as
+public-safe negative-memory packaging.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
@@ -1035,33 +1058,33 @@ verdict, destination, review tier, Gate A/B status, limitations, and blockers.
 Nuclear Mass Surface remains the flagship validation challenge, but the latest
 controls-first lanes landed as negative, inconclusive, diagnostic-only,
 chain-local, or validation-regressing memory. The best Nuclear work now is
-reveal-readiness, F2/factory result routing, and only tightly bounded
-controls-first follow-up. Quantum Size Effects remains source-artifact gated:
-Almeida and Vossmeyer are promising but still need checksum/source-copy
-decisions before row curation. Atomic-Clock Residuals should now prioritize
-Nemitz `ACR-0002`; the Pizzocaro PSD covariance artifact is useful diagnostic
-evidence, but its row-admissibility gate preserved the aggregation blocker. New
-campaign ideas should enter through source/schema/baseline scaffolds first,
-not broad hypothesis batches.
+value-blind reveal-source scouting and negative/control memory preservation.
+Quantum Size Effects remains transfer-gated after a source-scoped Almeida
+baseline: independent source/material scouting and fixed-model methodology
+stress testing are allowed, but open-ended correction search remains blocked.
+Atomic-Clock Residuals should wait for admitted independent rows or an approved
+aggregation contract; the Pizzocaro PSD covariance artifact is useful
+diagnostic evidence, but its row-admissibility gate preserved the aggregation
+blocker. New campaign ideas should enter through source/schema/baseline
+scaffolds first, not broad hypothesis batches.
 
 ## Current Mission Shape
 
-APL currently has one flagship validation campaign, one active secondary
-benchmark surface, two source-readiness surfaces, one public-friendly
-formula-audit scaffold, and one emerging reusable-dataset lane. That mix is
-deliberate:
-some agents can stress the strongest current evidence, others can build
-source/baseline discipline, and curators can prepare new campaign lanes without
+APL currently has one flagship validation ambition, several active
+post-validation gate surfaces, one public-safe monitor surface, and several
+source-gated or quality-floor lanes. That mix is deliberate: some agents should
+close source and dataset blockers, others should prepare ratification packets
+or transfer scouts, and curators should keep blocked campaigns visible without
 turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, reveal-readiness blockers, and several negative/control lanes | reveal-readiness matrix, F2/factory result routing, and new lanes only when controls and stop conditions are predeclared |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and define source-version or `EXO-0003` trigger work before any new residual audit |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark; Vossmeyer and Almeida are promising but source-artifact blocked | Vossmeyer source-copy handoff, Almeida checksum/reuse decision, and direct-row readiness gates |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy rows, real-row loader, synthetic dry-run, Nemitz/Pizzocaro/Lange source surfaces, and covariance policy | Nemitz `ACR-0002` row curation first; Pizzocaro remains diagnostic-only unless an observable-harmonization contract lands |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with exact-reference fixtures and a Gate-B-validated Stefan-Boltzmann software/convention result; empirical audits remain gated | DEBCat Route 2 storage decision, normalized component rows, then Stellar M-L empirical audit |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Emerging reusable-dataset lane with `MD-0001`, independent replay, controls, split sensitivity, and authorized `MD-0002` acquisition | Execute `MD-0002` maintainer-gated acquisition, validate holdout binding, then run the formation-energy benchmark |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer lane: `RESULT-0021` is reviewed memory, while `MD-0002` publication metadata remains open | `TASK-0809` metadata closeout and `TASK-0817` independent transfer-route scout; no metric or claim mutation |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference and Stellar M-L surfaces; Wien/FIRAS is source-contract gated | `TASK-0815` temperature/domain contract before `TASK-0802`; `TASK-0819` transfer dataset scouting; no new metric until source contract clears |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory and source-gated prospective reveal | `TASK-0803` is in review; current executor work is `TASK-0821` value-blind reveal-source scouting, with reveal scoring still blocked |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and monitor source-version triggers before any new residual audit |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, but open-ended correction search remains blocked | `TASK-0810` transfer-source scout or `TASK-0816` fixed-model LOO stress test; neither unblocks `TASK-0226` |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory and covariance policy | `TASK-0804` public-safe memory card only; wait for admitted independent rows or an approved aggregation/harmonization contract before metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -1080,12 +1103,13 @@ Near-term portfolio shape:
 
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
-| Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, mixed shell-axis transfer, factory no-shortlist, and broad-refit validation regression as negative/inconclusive memory unless a later review creates a narrower publication artifact. |
-| Default public benchmark story | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
-| Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting; Vossmeyer and Almeida need source-copy/checksum decisions. |
-| Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Curate Nemitz `ACR-0002` or explicitly preserve the blocker; do not use Pizzocaro as a benchmark row without harmonization. |
-| Public-friendly verifier lane | Textbook Formula Audit | Use exact-reference fixtures and DEBCat source gates first; Route 2 and row curation must land before empirical M-L metrics. |
-| Emerging reusable-dataset lane | Materials Property Residuals | Treat `MD-0001` as source-pinned dataset memory; `MD-0002` is now the strongest near-term data-to-benchmark path. |
+| Dataset/source-readiness gate | Materials Property Residuals | Close `MD-0002` metadata blockers and scout one independent transfer route before reopening metrics or claims. |
+| Source-readiness / transfer gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Use `TASK-0815` before any Wien metric and `TASK-0819` before any broader Stellar transfer claim. |
+| External-reveal gate | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes; `TASK-0821` may scout one source route value-blind. Preserve negative/inconclusive memory. |
+| Monitor / trigger-gated benchmark | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
+| Transfer/methodology gate | Quantum Size Effects | Scout independent transfer evidence or run fixed-model methodology stress only; keep `TASK-0226` blocked. |
+| Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Package source-limited Yb/Sr memory safely; do not use Pizzocaro as a benchmark row without harmonization. |
+| Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, or scheme/source preflights; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
@@ -1174,21 +1198,20 @@ when a suitable READY option exists.
 <!-- source: missions/current.yaml -->
 
 default_mode: research
-updated: "2026-06-02"
+updated: "2026-06-23"
 
 curator_cycle:
   decision: updated
-  updated: "2026-06-02"
-  source: "TASK-0531"
+  updated: "2026-06-23"
+  source: "TASK-QUEUE PR #1185"
   note: >
-    Mission guidance now reflects the latest merged science wave. Nuclear
-    remains the flagship validation challenge, but TASK-0517 found no
-    control-surviving NMD-0003 factory shortlist and TASK-0531 showed that a
-    simple broad-surface NMD-0003 refit regresses on the validation holdout.
-    The next Nuclear path is a baseline-family and split/domain gate before
-    another residual-feature sprint. Exoplanet remains preserved as
-    negative/control memory until a second-snapshot coverage gate and dry-run
-    are reviewed, while Atomic and Quantum continue through source gates.
+    Mission guidance now reflects the post-validation next-wave queue. Validated
+    or source-limited campaigns should move through explicit next-validity gates:
+    source readiness, transfer, ratification, or external reveal. Materials,
+    Textbook/Wien, Nuclear, Quantum, Atomic, Anharmonic, Dimensional,
+    Particle-Mass, and Pendulum now have READY lanes that advance those gates
+    without reopening closed audit loops. Exoplanet stays monitor/trigger gated
+    until a material source-version or coverage trigger appears.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -1237,13 +1260,104 @@ modes:
     description: "Review, merge recommendation, closeout, board sync, and context-refresh assistance. Advisory only."
 
 missions:
+  - id: materials-property-residuals
+    title: "Materials Property Residuals"
+    rank: 1
+    status: post_validation_source_and_transfer
+    scientific_value: high
+    risk: medium
+    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, public-capsule wave, and MD-0002 metadata closeout. The next useful Materials work is one independent transfer-route scout without changing metrics or claims."
+    why_now:
+      - "MD-0001 is reusable source-pinned dataset memory"
+      - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
+      - "RESULT-0021 is AGENT_PUBLISHED and replayable from committed commands and hashes"
+      - "the cation-pair baseline is promising enough to deserve independent replay and bounded stress tests"
+      - "the campaign can demonstrate reusable-dataset science without claiming material discovery or a new materials law"
+      - "TASK-0809 closed the immediate source/dataset-publication metadata gate"
+      - "TASK-0817 is the independent transfer-route scout after metadata closeout"
+    forbidden:
+      - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
+      - "do not mix computed DFT and experimental measurements without explicit provenance"
+      - "do not run a broad feature factory or live Materials Project fetch from executor tasks"
+      - "do not edit RESULT-0021 metrics, MD-0002 source rows, or holdout binding outside a task that explicitly authorizes it"
+      - "do not promote band-gap diagnostics or materials claims automatically"
+    actions:
+      - id: materials-md0002-metadata-closeout
+        label: "Close MD-0002 dataset-publication metadata blockers"
+        task_id: TASK-0809
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "release/source-manifest, checksum, citation, uncertainty, README, and no-claim metadata blockers closed or preserved"
+          - "RESULT-0021 metrics, MD-0002 rows, and holdout binding unchanged"
+          - "clear dataset-publication readiness verdict"
+      - id: materials-independent-transfer-route
+        label: "Scout one independent Materials chemistry-family or dataset-transfer route"
+        task_id: TASK-0817
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one independent route assessed for source/readiness compatibility"
+          - "explicit dependency on TASK-0809 metadata boundaries"
+          - "no RESULT, PRED, CLAIM, KNOW, row, or metric mutation"
+      - id: materials-result0021-gate-b
+        label: "Run Gate B replay for Materials RESULT-0021"
+        task_id: TASK-0775
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "independent replay validation note"
+          - "RESULT-0021 review-tier metadata update only if Gate B passes"
+          - "no materials claim or metric mutation if replay is contested"
+      - id: materials-md0002-family-holdout-stress
+        label: "Preflight one MD-0002 family-holdout stress axis"
+        task_id: TASK-0789
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "split definition, row-count floor, leakage risks, null/cation-pair controls"
+          - "NO_STRESS_SPLIT_READY stop if sparse"
+      - id: materials-md0002-descriptor-ablation
+        label: "Run one MD-0002 descriptor/control ablation"
+        task_id: TASK-0790
+        mode: research
+        status: done
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "bounded ablation/control audit against existing baselines"
+          - "sandbox/control memory only"
+      - id: materials-result0021-public-capsule
+        label: "Draft public capsule for RESULT-0021"
+        task_id: TASK-0794
+        mode: research
+        status: done
+        priority: medium
+        difficulty: low
+        recommended: false
+        expected_outputs:
+          - "public-safe capsule with review tier, Gate B status, and no-claim wording"
+
   - id: nuclear-mass-surface
     title: "Nuclear Mass Surface"
-    rank: 2
+    rank: 3
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. The NMD-0003 large-surface factory sprint produced control-dominated negative memory with no shortlist, and the first broad-surface NMD-0003 refit improved train/full metrics while regressing on the validation holdout. The next positive-result path is a baseline-family and split/domain gate before any more expressive residual families or prediction-freeze work."
+    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is negative sandbox memory and the post-freeze reveal-source route scout is closed. The next executable Nuclear lanes are the significant-result wave: prospective-reveal pipeline design, stronger-baseline extrapolation, calibrated-uncertainty extrapolation, and no-peek frontier target definition."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1264,6 +1378,9 @@ missions:
       - "TASK-0517 ran the first NMD-0003 Research Factory sprint: 73 generated candidates, 72 executed, 0 shortlisted, and the strongest apparent gains rejected by matched random-slice controls"
       - "TASK-0518 confirmed NMD-0002 perturbation survival remains INCONCLUSIVE control evidence, not independent validation"
       - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
+      - "TASK-0777 rejected WIGNER-CUSP-001 under the declared controls-first no-leakage sprint, so it is now negative sandbox memory rather than a surviving lane"
+      - "TASK-0821 completed the narrow value-blind source-route scout before any future post-freeze reveal comparison"
+      - "TASK-0823, TASK-0824, TASK-0825, and TASK-0826 are the current READY significant-result wave"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1277,6 +1394,92 @@ missions:
       - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
       - "do not present LOCAL-CURVATURE-001 as a surviving no-leakage Nuclear candidate after TASK-0394"
     actions:
+      - id: nuclear-validated-negative-memory-capsule
+        label: "Compile Nuclear validated-negative-memory capsule"
+        task_id: TASK-0803
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "consolidated negative/diagnostic-memory capsule on existing surfaces"
+          - "evidence links to RESULT-0018 and exhausted F2, shell-axis, local-curvature, neutron-rich, and Wigner-cusp lanes"
+          - "explicit source-blocked prospective reveal wording"
+          - "no PRED, CLAIM, KNOW, or RESULT metric mutation"
+      - id: nuclear-post-freeze-reveal-source-route
+        label: "Scout one post-freeze Nuclear reveal-source route value-blind"
+        task_id: TASK-0821
+        mode: research
+        status: done
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "one candidate source route assessed without measured values or scoring"
+          - "no-peek, checksum, retrieval, and maintainer-approval blockers stated"
+          - "no PRED scoring, RESULT mutation, or broad factory work"
+      - id: nuclear-standing-prospective-reveal-pipeline
+        label: "Design a standing prospective-reveal pipeline for nuclear mass predictions"
+        task_id: TASK-0825
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "standing reveal workflow design with no-peek, source, checksum, and maintainer approval boundaries"
+          - "clear stop conditions before any future reveal scoring"
+          - "no PRED scoring, RESULT mutation, or claim promotion"
+      - id: nuclear-duflo-zuker-stronger-baseline
+        label: "Implement Duflo-Zuker as a stronger nuclear baseline and benchmark it by extrapolation"
+        task_id: TASK-0823
+        mode: research
+        status: ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "stronger baseline benchmark judged by extrapolation, not in-sample fit"
+          - "controls-first comparison against existing baselines"
+          - "sandbox or result-routing summary without claim promotion"
+      - id: nuclear-calibrated-uncertainty-extrapolation
+        label: "Build a calibrated-uncertainty residual model and test it by extrapolation"
+        task_id: TASK-0824
+        mode: research
+        status: ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "calibrated-uncertainty residual model evaluated by extrapolation"
+          - "uncertainty and control interpretation separated from discovery claims"
+          - "sandbox or result-routing summary without claim promotion"
+      - id: nuclear-frontier-target-set-no-peek
+        label: "Define the neutron-rich frontier prediction target set for prospective reveal"
+        task_id: TASK-0826
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "no-peek frontier target set with source and exclusion boundaries"
+          - "no measured-value scoring before maintainer-approved reveal"
+          - "no PRED scoring, RESULT mutation, or claim promotion"
+      - id: nuclear-wigner-cusp-no-leakage-sprint
+        label: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
+        task_id: TASK-0777
+        mode: research
+        status: done
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "one sandbox WIGNER-CUSP-001 run with no-leakage audit"
+          - "declared asymmetry-only, matched-random, and smooth-A controls"
+          - "negative, diagnostic-only, or inconclusive outcome preserved as Nuclear memory"
+          - "no prediction, claim, knowledge, or RESULT artifact promotion"
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
         task_id: TASK-0196
@@ -1307,7 +1510,7 @@ missions:
         mode: research
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
@@ -1433,21 +1636,72 @@ missions:
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
-    rank: 4
-    status: active_data_readiness
+    rank: 5
+    status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "Active second campaign: prioritize direct-measurement data readiness or an explicit calibration-consistency waiver before any baseline benchmark."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked, and the independent transfer-source plus fixed-model LOO methodology scouts are closed. The useful next work is TASK-0829: one open-licensed, machine-readable, direct-size second-material source scout; it still does not unblock TASK-0226 or permit discovery wording."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
       - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
       - "TASK-0491 can decide whether a weaker calibration-consistency path is allowed without unblocking the direct-row benchmark"
+      - "TASK-0225 produced a source-scoped Almeida InP sandbox baseline, but TASK-0277 judged the six-row single-source surface insufficient for open-ended correction search"
+      - "TASK-0810 and TASK-0816 closed the previous transfer-source and methodology stress-test lanes"
+      - "TASK-0829 is the current READY open-tabular direct-size transfer-source scout"
     forbidden:
       - "do not run autonomous formula search before a frozen baseline exists"
       - "do not treat calibration-derived rows as direct measurement evidence"
+      - "do not treat the TASK-0816 methodology stress test as a discovery, transfer, or TASK-0226-unblocking result"
       - "do not include synthesis recipes, chemical handling guidance, biomedical claims, or device claims"
     actions:
+      - id: quantum-independent-transfer-source
+        label: "Scout one independent Quantum source or material route for future transfer"
+        task_id: TASK-0810
+        mode: research
+        status: done
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "one independent source/material route assessed without running residual metrics"
+          - "clear transfer blocker or route summary"
+          - "no correction-hypothesis pilot and no TASK-0226 unblock"
+      - id: quantum-open-tabular-transfer-source
+        label: "Scout one open-licensed direct-size Quantum transfer source"
+        task_id: TASK-0829
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one Tier-1/2 open, machine-readable second-material route assessed"
+          - "direct-vs-derived size semantics and license posture made explicit"
+          - "single transfer-source readiness or blocker verdict; no rows, metrics, or correction-search unblock"
+      - id: quantum-fixed-model-loo-stress-test
+        label: "Run fixed-model Almeida leave-one-out methodology stress test"
+        task_id: TASK-0816
+        mode: research
+        status: done
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "fixed-model or 0-1 parameter diagnostic only"
+          - "explicit no-claim, no-transfer, no-discovery wording"
+          - "TASK-0226 remains blocked unless a later transfer gate clears"
+      - id: quantum-almeida-raster-export-readiness
+        label: "Run Almeida raster/export row-readiness gate only after maintainer supplies the missing artifact"
+        task_id: TASK-0797
+        mode: research
+        status: blocked
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "direct rows plus TASK-0293 readiness gate only if the raster/export is adequate"
+          - "precise blocker refresh if the supplied artifact is insufficient"
       - id: quantum-direct-digitization-package
         label: "Prepare a quantum direct-measurement digitization or table-value package"
         task_id: TASK-0325
@@ -1531,11 +1785,11 @@ missions:
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
-    rank: 3
+    rank: 6
     status: active_pinned_dataset
     scientific_value: medium
     risk: medium
-    recommendation: "Active third campaign: move from Beloy PINNED_DATASET toward BASELINE_READY by adding the real-row loader, resolving the Nemitz row-level source blocker, separating direct and derived rows, and dry-running cross-source mechanics before any benchmark."
+    recommendation: "Pinned-dataset/source-gated campaign: do not run benchmark metrics until admitted independent rows or an approved aggregation/harmonization contract exists."
     why_now:
       - "fresh-data source policy exists"
       - "atomic-clock campaign scaffold and schema sketch exist"
@@ -1546,12 +1800,25 @@ missions:
       - "TASK-0452 pinned the correct Nemitz 2016 arXiv source artifact but kept ACR-0002 value rows blocked pending table-level version-drift and campaign-window checks"
       - "TASK-0454 defined the first Atomic holdout/no-peek manifest"
       - "TASK-0486 defined conservative covariance policy states for the first benchmark"
+      - "TASK-0804 closed the public-safe memory route for the source-limited Yb/Sr consistency diagnostic"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
       - "do not mix direct frequency ratios with derived constraints without explicit flags"
       - "do not run the Yb/Sr consistency benchmark before BASELINE_READY is declared"
     actions:
+      - id: atomic-ybsr-negative-memory-card
+        label: "Promote the Yb/Sr consistency negative-memory card to a public-safe summary"
+        task_id: TASK-0804
+        mode: research
+        status: done
+        priority: medium
+        difficulty: low
+        recommended: false
+        expected_outputs:
+          - "public-safe source-limited Yb/Sr consistency memory"
+          - "reopen condition preserved for an independent row or approved aggregation contract"
+          - "no benchmark metric rerun and no constants-drift claim"
       - id: atomic-source-manifest-template
         label: "Add atomic-clock source manifest template with no numerical values"
         task_id: TASK-0327
@@ -1705,11 +1972,11 @@ missions:
 
   - id: exoplanet-mass-radius
     title: "Exoplanet Mass-Radius Benchmark"
-    rank: 1
-    status: active_science_output_sprint
+    rank: 4
+    status: active_monitor
     scientific_value: high
     risk: medium
-    recommendation: "Default near-term science-output sprint: preserve the current compact-radius residual surface as negative/control memory and reopen only after a materially changed pinned snapshot or coverage gate is reviewed."
+    recommendation: "Monitor/trigger-gated public-safe benchmark: preserve current negative/control memory and reopen residual audits only after a materially changed pinned snapshot or approved EXO-0003 trigger."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -1912,22 +2179,112 @@ missions:
 
   - id: textbook-formula-audit
     title: "Textbook Formula Audit"
-    rank: 5
-    status: active_scaffold
+    rank: 2
+    status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Use Textbook Formula Audit as a public-friendly planning surface: keep Stellar M-L as landed planning memory, then prepare Wien and Stefan-Boltzmann source/baseline plans before any metrics."
+    recommendation: "Stellar M-L RESULT-0022 completed its immediate Gate B replay, split/complexity controls, workflow repackaging, public-capsule wave, and independent-transfer scout. The Wien/FIRAS temperature/domain contract is pinned, so TASK-0802 is the next Textbook metric slice if the maintainer accepts the committed Fixsen 2009 temperature provenance."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
       - "each audit can be bounded by source, range, assumptions, verification gates, and OOD failure map"
       - "Stellar Mass-Luminosity on Gaia DR3 is the best first slice because it is recognizable, public-data-backed, and naturally range-limited"
       - "TASK-0492 and TASK-0493 keep the next famous-formula audits source/baseline-first instead of metric-first"
+      - "TASK-0801 pinned FIRAS spectrum rows, but the Wien metric still needs a reference-temperature source, wavelength-domain Jacobian contract, and predeclared controls"
+      - "TASK-0815 pinned the Wien/FIRAS temperature/domain contract and made TASK-0802 ready under that contract"
+      - "TASK-0819 closed the independent Stellar M-L transfer-dataset scout"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
       - "do not turn this campaign into broad symbolic-regression or formula-discovery work"
     actions:
+      - id: textbook-wien-firas-temperature-domain-contract
+        label: "Pin the Wien/FIRAS temperature and wavelength-domain metric contract"
+        task_id: TASK-0815
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "reference-temperature source, wavelength-domain/Jacobian contract, and controls"
+          - "clear GO/NO_GO for later TASK-0802 metric execution"
+          - "no Wien metric, fit, RESULT, CLAIM, or KNOW mutation"
+      - id: textbook-wien-firas-consistency-slice
+        label: "Run the FIRAS Wien-peak consistency metric slice on the pinned source"
+        task_id: TASK-0802
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "deterministic wavelength-domain metric under the TASK-0815 contract"
+          - "predeclared domain-conversion and wrong-temperature controls"
+          - "scoped verdict only; no universal Wien, blackbody, or textbook-truth claim"
+      - id: textbook-stellar-independent-transfer-dataset
+        label: "Scout one independent Stellar M-L transfer dataset or regime"
+        task_id: TASK-0819
+        mode: research
+        status: done
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "one independent transfer route assessed without row ingestion or metrics"
+          - "RESULT-0022 scope and no-universal-law wording preserved"
+      - id: textbook-stellar-result0022-gate-b
+        label: "Run Gate B replay for Stellar M-L RESULT-0022"
+        task_id: TASK-0776
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "independent replay validation note"
+          - "RESULT-0022 review-tier metadata update only if Gate B passes"
+          - "no universal formula or stellar-evolution claim"
+      - id: textbook-stellar-alternate-split-stability
+        label: "Audit Stellar M-L alternate value-blind split stability"
+        task_id: TASK-0791
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "split-stability audit with controls and limitations"
+      - id: textbook-stellar-piecewise-complexity
+        label: "Audit one piecewise-vs-single-alpha complexity comparison"
+        task_id: TASK-0792
+        mode: research
+        status: done
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "complexity-control audit or no-go"
+      - id: textbook-wien-firas-source-artifact
+        label: "Curate Wien/FIRAS source artifact before metrics"
+        task_id: TASK-0793
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "source route, license/checksum status, baseline contract, and controls"
+      - id: textbook-stellar-result0022-public-capsule
+        label: "Draft public capsule for RESULT-0022"
+        task_id: TASK-0795
+        mode: research
+        status: done
+        priority: medium
+        difficulty: low
+        recommended: false
+        expected_outputs:
+          - "public-safe capsule with review tier, Gate B status, and no-universal-law wording"
       - id: textbook-stellar-ml-source-baseline-plan
         label: "Stellar Mass-Luminosity OOD source and baseline plan landed"
         task_id: TASK-0444
@@ -1964,55 +2321,60 @@ missions:
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
-    rank: 6
-    status: methodology_validation
+    rank: 7
+    status: ratification_ready
     scientific_value: high
     risk: low
-    recommendation: "Use as the safest nonlinear benchmark for new autonomous hypothesis loops."
+    recommendation: "Use as a range-limited ratification lane, not a fresh hypothesis loop. TASK-0818 prepared the CLAIM-0009 Gate C packet; the next step is maintainer claim review, not another executor task."
     why_now:
       - "nonlinear but controlled physics surface"
       - "perturbative baseline and numerical reference are available"
       - "low numerology risk compared with particle-physics formula search"
+      - "CLAIM-0009 remains DRAFT until narrow range-limited wording is explicitly ratified"
     forbidden:
       - "do not call approximation candidates exact or globally valid"
       - "do not skip harmonic-limit or holdout checks"
     actions:
-      - id: anharmonic-replay-and-compare
-        label: "Replay anharmonic benchmark and compare candidate limits"
+      - id: anharmonic-claim0009-ratification-packet
+        label: "Prepare a narrow CLAIM-0009 anharmonic Gate C ratification packet"
+        task_id: TASK-0818
         mode: research
-        priority: high
-        difficulty: medium
-        expected_outputs:
-          - "docs/reviews/anharmonic-replay-comparison.md"
-      - id: anharmonic-autonomous-followup
-        label: "Generate and filter new bounded anharmonic candidate hypotheses"
-        mode: research
+        status: done
         priority: medium
-        difficulty: high
+        difficulty: low
+        recommended: false
+        expected_outputs:
+          - "maintainer-facing Gate C ratification packet"
+          - "CLAIM-0009 remains DRAFT unless maintainer later changes it"
+          - "range limits and no-exactness wording preserved"
 
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
-    rank: 7
-    status: quality_floor
+    rank: 8
+    status: gate_b_adjudication_ready
     scientific_value: medium
     risk: low
-    recommendation: "Use as a broad quality-floor track for formula sanity checks and adversarial edge cases."
+    recommendation: "Use as a quality-floor ratification lane. TASK-0807 prepared the Gate B packaging-contest adjudication brief for RESULT-0020; the next step is maintainer adjudication, not more challenge generation."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
       - "validator failures improve future research gates"
+      - "RESULT-0020 remains a packaging-contest decision after TASK-0807; maintainer adjudication is the next step"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
     actions:
-      - id: dimensional-boundary-cases
-        label: "Generate hard dimensional boundary cases and validator limitations"
+      - id: dimensional-result0020-gateb-adjudication
+        label: "Prepare RESULT-0020 Gate B packaging-contest adjudication brief"
+        task_id: TASK-0807
         mode: research
+        status: done
         priority: medium
         difficulty: medium
+        recommended: false
         expected_outputs:
-          - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
-          - "docs/notes/dimensional-validator-boundary-cases.md"
+          - "maintainer adjudication brief for RESULT-0020 Gate B"
+          - "no claim support, knowledge promotion, or extra challenge generation"
 
 support_actions:
   - id: release-signoff
@@ -2103,8 +2465,8 @@ Use [Connect Your Agent](./connect-your-agent.md) for the contribution loop and
 ## Active Campaigns
 
 APL currently organizes work around one flagship validation campaign, several
-fresh-data source surfaces, and older benchmark/falsification surfaces that
-still define the project's quality floor:
+post-validation gate surfaces, fresh-data source surfaces, and older
+benchmark/falsification surfaces that still define the project's quality floor:
 
 If you are new, start with the first four rows. They are the current
 public-facing research surfaces. The later rows are still important, but they
@@ -2112,10 +2474,12 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates and prospective predictions | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign | Build a direct-measurement row-level data surface before any baseline benchmark is allowed | [quantum-size-effects-campaign-plan.md](./notes/quantum-size-effects-campaign-plan.md) |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface | Establish manifest, covariance, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface | Test whether mass-radius residual structure survives source, provenance, and holdout discipline | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | Turn `RESULT-0021` and `MD-0002` into reusable, source-citable dataset memory before any broader transfer claim | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier and source-contract gate | Keep famous-formula checks source-first; Stellar M-L is scoped memory, while Wien/FIRAS must clear temperature/domain contracts before metrics | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and source-gated prospective reveal | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Transfer/methodology gate after a source-scoped baseline | Scout independent transfer evidence or run fixed-model methodology tests without unblocking open-ended correction search | [quantum-size-effects-campaign-plan.md](./notes/quantum-size-effects-campaign-plan.md) |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | Establish manifest, covariance, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Preserve current negative/control memory and reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
@@ -2158,6 +2522,10 @@ The clearest current repository-level results are:
    retrospective post-AME2020 checks. `AGENT-RUN-0007` is only an
    `INCONCLUSIVE` source-manifest guard, while `AGENT-RUN-0008` remains
    sandbox-only retrospective time-split evidence.
+10. Materials `RESULT-0021` and Textbook/Stellar `RESULT-0022` are the current
+    strongest post-validation dataset-backed surfaces. They are useful as
+    scoped, review-tiered memory and transfer/source-readiness prompts, not as
+    material-discovery, stellar-law, or universal-formula claims.
 
 The nuclear prediction registry is a prospective forecast surface, not a
 result surface: `PRED-0001` through `PRED-0068` are frozen entries awaiting
@@ -2342,6 +2710,35 @@ actionable, likely to recur, likely to block another agent, or scientifically
 useful enough that losing them would slow the project. If a signal is
 intentionally advisory-only, say that explicitly in the handoff.
 
+## Recurring Structural Bottlenecks
+
+Agents should escalate a recurring structural bottleneck when the same blocker
+class appears in two or more task attempts, PR reviews, validation loops, or
+campaign handoffs and the issue is likely to keep slowing future work unless a
+process, helper, protocol, source-lane, or task-shape change is reviewed.
+
+Examples include repeated source-acquisition stalls, unclear source-to-row
+handoffs, stale READY-pool droughts, recurring CI or review-helper failures,
+validation commands that fail for the same environment reason, or task scopes
+that repeatedly push agents into duplicate audits instead of durable scientific
+outputs.
+
+Escalation means creating or recommending a proposal; it does not grant agents
+authority to assign canonical task ids, change governance, bypass source or
+promotion gates, weaken validation, or create work for its own sake. Prefer a
+task proposal when the fix is repository work, a research/source proposal when
+the fix is scientific intake, and a lightweight issue/comment when ownership is
+unclear or repository edits are not safe.
+
+A structural-bottleneck proposal should include:
+
+- problem;
+- repeated evidence, with task, PR, validation, or campaign references;
+- affected workflows, helpers, or campaigns;
+- proposed process or helper change;
+- risks and non-goals;
+- maintainer decision needed.
+
 Default rule:
 
 - create a proposal under `tasks/proposals/`
@@ -2484,6 +2881,11 @@ For closeout behavior, task YAML may optionally set `closeout: auto` or
 of safe auto-closeout and keeps it on the manual maintainer closeout path.
 `TASK-CLOSEOUT` is separate: it is the PR kind marker for closeout PR titles and
 metadata, not a task id and not a value for the task YAML field.
+`TASK-CLOSEOUT` may also be used for proposal-pool drift reconciliation when
+`scripts/apl_proposal_triage.py` reports suggested closeouts. That variant must
+edit only `tasks/proposals/*.yaml` files and may only mark proposals accepted
+after their linked canonical task is already `DONE`; see
+[`docs/proposal-pool-triage.md`](proposal-pool-triage.md).
 
 ## Canonical Task PR Helper
 
@@ -2506,9 +2908,19 @@ python3 scripts/apl_task_pr_helper.py prepare-current \
   --body-file .apl-pr-body.md
 ```
 
+`.apl-pr-body.md` is ignored local helper state and must not be committed.
+Regenerate it whenever the PR body needs an update.
+
+By default, `prepare-current` compares the current branch against `origin/main`
+when that remote-tracking ref exists, then `upstream/main` if available, and
+finally local `main`. Pass `--base <ref>` when a maintainer explicitly wants a
+different base.
+
 If `prepare-current` reports errors, fix them before creating the PR. In
 particular, do not open a PR from a `feature/...` or other non-canonical branch
-for canonical task work. Use the printed expected branch as the branch target.
+for canonical task work, and do not open a PR when commits ahead of the base
+branch fail the required commit-message format. Use the printed expected branch
+as the branch target.
 
 Then create the draft PR using the helper-generated body:
 
@@ -2567,15 +2979,28 @@ Use exactly this format:
 
 Examples:
 
-- `agent/roman/codex/task-0011-numerical-audit`
-- `agent/roman/claude/task-0017-dimensional-challenge`
-- `agent/ihor/human/task-0032-public-result-package`
+- `agent/gladunrv/codex/task-0011-numerical-audit`
+- `agent/romanhladun24-dot/claude/task-0017-dimensional-challenge`
+- `agent/ihor-github/human/task-0032-public-result-package`
 
 Field meanings:
 
-- `contributor-id`: the human responsible for the PR and review loop.
+- `contributor-id`: SHOULD be the lowercased GitHub username for the human
+  responsible for the PR and review loop when one is available; otherwise use a
+  stable maintainer-approved short id.
 - `agent-id`: the execution mode or tool, such as `codex`, `claude`,
   `cursor`, `human`, or `other`.
+
+Contributor-id source of truth:
+
+- Prefer the authenticated local GitHub identity (`gh auth status` or
+  `gh api user --jq .login`) when it is available.
+- If GitHub auth is unavailable, use local Git configuration only as a clue
+  (`git config user.email` / `git config user.name`) and prefer a previously
+  maintainer-confirmed contributor id for that checkout.
+- Do not infer the current contributor id from unrelated open PR authors,
+  branch history, or task examples. If the local identity signals conflict or
+  only indirect clues exist, ask the maintainer before creating the branch.
 
 Rules:
 
@@ -2584,11 +3009,14 @@ Rules:
 - no underscores
 - include the task number
 - keep the slug short
+- keep `github-username` as separate PR metadata even when it matches
+  `contributor-id`
 - do not invent fantasy agent identities as the canonical id
 
 Historical note:
 
 - older private-pilot branches may still use `agent/<agent-id>/...`
+- older branches and examples may use short contributor ids such as `roman`
 - do not rename old branches or rewrite history just to match the new format
 
 For task proposals, use:
@@ -2633,6 +3061,10 @@ Allowed commit types:
 - `chore`
 
 Keep commits narrow. Do not mix unrelated tasks in one commit.
+
+Run `python3 scripts/apl_task_pr_helper.py prepare-current ...` after committing
+and before `gh pr create`; it checks the commits ahead of the base branch and
+fails if any subject does not follow this task-scoped format.
 
 ## Commit Permission
 
@@ -2717,12 +3149,16 @@ steps:
 
 ```bash
 python3 scripts/apl_agent_doctor.py
+python3 scripts/apl_agent_doctor.py --worktree-runtime-preflight --no-gh-auth-check
 ```
 
 The doctor reports environment diagnostics only. It does not install packages,
 mutate global `PATH`, store credentials, relax validation, or replace the task
-protocol. Use it to identify the next safe troubleshooting step, then continue
-with the standard PR helper flow.
+protocol. The worktree-runtime preflight prints the selected validation Python
+and deterministic discovery order: active repository `.venv`, checkout `.venv`,
+main-checkout `.venv` for git worktrees, then active-interpreter fallback. Use
+it to identify the next safe troubleshooting step, then continue with the
+standard PR helper flow.
 
 Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
 Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
@@ -2863,6 +3299,12 @@ their xdist scheduling order. Put tests with measured xdist resource or path
 sensitivity in the same `xdist_group`, which keeps them on one worker while
 unrelated tests continue in parallel.
 
+Do not freeze the current task board, mission output, task-id set, or public
+status text inside tests. Tests that cover registry, mission, status, or
+generated-board behavior should build small fixture repositories or derive
+expectations from the committed source of truth at runtime, so routine task
+completion, unblock, or board sync changes do not break unrelated tests.
+
 Before opening a PR, agents may optionally generate a review bundle for the
 maintainer. This is no longer a required step and its absence is not flagged by
 the PR preflight:
@@ -2891,6 +3333,40 @@ Examples include replacing `<new-result-path>` with the exact
 specific queue id used by the PR. Placeholders may remain only in task
 templates, future `READY` tasks, or proposal files that are not being handed off
 as completed work.
+
+## Result Artifact Policy
+
+When a task is set to `DONE`, strict scientific-memory validation expects it to
+link a scientific result (`results/.../result.yaml`) or a registered `PRED-*`
+artifact. A task that produces neither will raise the `done_task_without_result`
+warning at closeout (and `--fail-on-warnings` turns that into a failure).
+
+There are two ways a non-result task satisfies this rule:
+
+1. its `type` is on the no-result exemption list in
+   `physics_lab/registry/scientific_memory_integrity.py`
+   (`STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS`) — for example `tooling_fix`,
+   `documentation`, `repository_hardening`, `test_infrastructure`; or
+2. it declares an explicit `result_artifact_policy`.
+
+Prefer the **explicit policy** for tooling, docs, workflow, infrastructure,
+audit, and planning tasks whose `type` is not already exempt. Do not broaden the
+exemption list to dodge the check — a blanket type exemption silently weakens the
+control, while an explicit policy is an auditable per-task decision:
+
+```yaml
+result_artifact_policy:
+  required: false
+  reason: "Tooling/docs/workflow task; no scientific RESULT artifact is expected."
+  evidence:
+    - "path/to/the/code/or/doc/this/task/produced"
+```
+
+Add this block while the task is still `READY`/`IN_PROGRESS` — the closeout
+report (`build_closeout_report`) now warns when a non-exempt task links no
+result/`PRED` artifact and declares no policy, so the gap surfaces before `DONE`
+rather than at closeout strict validation. Tasks that genuinely produce a result
+need no policy block; keep `required: false` only for the no-result case.
 
 ## Cross-Platform Compatibility
 

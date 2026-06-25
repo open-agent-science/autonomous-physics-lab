@@ -67,15 +67,15 @@ missions:
     status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, and public-capsule wave. The next useful Materials work is not another RESULT-0021 replay: close MD-0002 dataset-publication metadata blockers, then scout one independent transfer route without changing metrics or claims."
+    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, public-capsule wave, and MD-0002 metadata closeout. The next useful Materials work is one independent transfer-route scout without changing metrics or claims."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
       - "RESULT-0021 is AGENT_PUBLISHED and replayable from committed commands and hashes"
       - "the cation-pair baseline is promising enough to deserve independent replay and bounded stress tests"
       - "the campaign can demonstrate reusable-dataset science without claiming material discovery or a new materials law"
-      - "TASK-0809 is the immediate source/dataset-publication metadata gate"
-      - "TASK-0817 is the independent transfer-route scout after or alongside metadata closeout"
+      - "TASK-0809 closed the immediate source/dataset-publication metadata gate"
+      - "TASK-0817 is the independent transfer-route scout after metadata closeout"
     forbidden:
       - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
       - "do not mix computed DFT and experimental measurements without explicit provenance"
@@ -87,10 +87,10 @@ missions:
         label: "Close MD-0002 dataset-publication metadata blockers"
         task_id: TASK-0809
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "release/source-manifest, checksum, citation, uncertainty, README, and no-claim metadata blockers closed or preserved"
           - "RESULT-0021 metrics, MD-0002 rows, and holdout binding unchanged"
@@ -100,7 +100,7 @@ missions:
         task_id: TASK-0817
         mode: research
         status: ready
-        priority: medium
+        priority: high
         difficulty: medium
         recommended: true
         expected_outputs:
@@ -158,7 +158,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is now negative sandbox memory. TASK-0803 is already in review, so the next executable Nuclear lane is TASK-0821: value-blind scouting for a post-freeze reveal-source route."
+    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is negative sandbox memory and the post-freeze reveal-source route scout is closed. The next executable Nuclear lanes are the significant-result wave: prospective-reveal pipeline design, stronger-baseline extrapolation, calibrated-uncertainty extrapolation, and no-peek frontier target definition."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -180,7 +180,8 @@ missions:
       - "TASK-0518 confirmed NMD-0002 perturbation survival remains INCONCLUSIVE control evidence, not independent validation"
       - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
       - "TASK-0777 rejected WIGNER-CUSP-001 under the declared controls-first no-leakage sprint, so it is now negative sandbox memory rather than a surviving lane"
-      - "TASK-0821 is the narrow value-blind source route before any future post-freeze reveal comparison"
+      - "TASK-0821 completed the narrow value-blind source-route scout before any future post-freeze reveal comparison"
+      - "TASK-0823, TASK-0824, TASK-0825, and TASK-0826 are the current READY significant-result wave"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -211,14 +212,62 @@ missions:
         label: "Scout one post-freeze Nuclear reveal-source route value-blind"
         task_id: TASK-0821
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "one candidate source route assessed without measured values or scoring"
           - "no-peek, checksum, retrieval, and maintainer-approval blockers stated"
           - "no PRED scoring, RESULT mutation, or broad factory work"
+      - id: nuclear-standing-prospective-reveal-pipeline
+        label: "Design a standing prospective-reveal pipeline for nuclear mass predictions"
+        task_id: TASK-0825
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "standing reveal workflow design with no-peek, source, checksum, and maintainer approval boundaries"
+          - "clear stop conditions before any future reveal scoring"
+          - "no PRED scoring, RESULT mutation, or claim promotion"
+      - id: nuclear-duflo-zuker-stronger-baseline
+        label: "Implement Duflo-Zuker as a stronger nuclear baseline and benchmark it by extrapolation"
+        task_id: TASK-0823
+        mode: research
+        status: ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "stronger baseline benchmark judged by extrapolation, not in-sample fit"
+          - "controls-first comparison against existing baselines"
+          - "sandbox or result-routing summary without claim promotion"
+      - id: nuclear-calibrated-uncertainty-extrapolation
+        label: "Build a calibrated-uncertainty residual model and test it by extrapolation"
+        task_id: TASK-0824
+        mode: research
+        status: ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "calibrated-uncertainty residual model evaluated by extrapolation"
+          - "uncertainty and control interpretation separated from discovery claims"
+          - "sandbox or result-routing summary without claim promotion"
+      - id: nuclear-frontier-target-set-no-peek
+        label: "Define the neutron-rich frontier prediction target set for prospective reveal"
+        task_id: TASK-0826
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "no-peek frontier target set with source and exclusion boundaries"
+          - "no measured-value scoring before maintainer-approved reveal"
+          - "no PRED scoring, RESULT mutation, or claim promotion"
       - id: nuclear-wigner-cusp-no-leakage-sprint
         label: "Run bounded Nuclear Wigner-cusp no-leakage sprint"
         task_id: TASK-0777
@@ -392,14 +441,15 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. The useful next work is either one independent transfer-source scout or a fixed-model leave-one-out methodology stress test; neither unblocks TASK-0226 or permits discovery wording."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked, and the independent transfer-source plus fixed-model LOO methodology scouts are closed. The useful next work is TASK-0829: one open-licensed, machine-readable, direct-size second-material source scout; it still does not unblock TASK-0226 or permit discovery wording."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
       - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
       - "TASK-0491 can decide whether a weaker calibration-consistency path is allowed without unblocking the direct-row benchmark"
       - "TASK-0225 produced a source-scoped Almeida InP sandbox baseline, but TASK-0277 judged the six-row single-source surface insufficient for open-ended correction search"
-      - "TASK-0810 and TASK-0816 are the only current READY lanes: independent transfer-source scouting and fixed-model methodology stress testing"
+      - "TASK-0810 and TASK-0816 closed the previous transfer-source and methodology stress-test lanes"
+      - "TASK-0829 is the current READY open-tabular direct-size transfer-source scout"
     forbidden:
       - "do not run autonomous formula search before a frozen baseline exists"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -410,19 +460,31 @@ missions:
         label: "Scout one independent Quantum source or material route for future transfer"
         task_id: TASK-0810
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "one independent source/material route assessed without running residual metrics"
           - "clear transfer blocker or route summary"
           - "no correction-hypothesis pilot and no TASK-0226 unblock"
+      - id: quantum-open-tabular-transfer-source
+        label: "Scout one open-licensed direct-size Quantum transfer source"
+        task_id: TASK-0829
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one Tier-1/2 open, machine-readable second-material route assessed"
+          - "direct-vs-derived size semantics and license posture made explicit"
+          - "single transfer-source readiness or blocker verdict; no rows, metrics, or correction-search unblock"
       - id: quantum-fixed-model-loo-stress-test
         label: "Run fixed-model Almeida leave-one-out methodology stress test"
         task_id: TASK-0816
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
@@ -539,7 +601,7 @@ missions:
       - "TASK-0452 pinned the correct Nemitz 2016 arXiv source artifact but kept ACR-0002 value rows blocked pending table-level version-drift and campaign-window checks"
       - "TASK-0454 defined the first Atomic holdout/no-peek manifest"
       - "TASK-0486 defined conservative covariance policy states for the first benchmark"
-      - "TASK-0804 is the current public-safe memory route for the source-limited Yb/Sr consistency diagnostic"
+      - "TASK-0804 closed the public-safe memory route for the source-limited Yb/Sr consistency diagnostic"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
@@ -550,10 +612,10 @@ missions:
         label: "Promote the Yb/Sr consistency negative-memory card to a public-safe summary"
         task_id: TASK-0804
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: low
-        recommended: true
+        recommended: false
         expected_outputs:
           - "public-safe source-limited Yb/Sr consistency memory"
           - "reopen condition preserved for an independent row or approved aggregation contract"
@@ -922,7 +984,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022 completed its immediate Gate B replay, split/complexity controls, workflow repackaging, and public-capsule wave. Keep Textbook source-first: run the Wien/FIRAS temperature/domain contract before TASK-0802, or scout an independent Stellar M-L transfer dataset without changing RESULT-0022."
+    recommendation: "Stellar M-L RESULT-0022 completed its immediate Gate B replay, split/complexity controls, workflow repackaging, public-capsule wave, and independent-transfer scout. The Wien/FIRAS temperature/domain contract is pinned, so TASK-0802 is the next Textbook metric slice if the maintainer accepts the committed Fixsen 2009 temperature provenance."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -930,7 +992,8 @@ missions:
       - "Stellar Mass-Luminosity on Gaia DR3 is the best first slice because it is recognizable, public-data-backed, and naturally range-limited"
       - "TASK-0492 and TASK-0493 keep the next famous-formula audits source/baseline-first instead of metric-first"
       - "TASK-0801 pinned FIRAS spectrum rows, but the Wien metric still needs a reference-temperature source, wavelength-domain Jacobian contract, and predeclared controls"
-      - "TASK-0815 and TASK-0819 are the current READY Textbook next-validity gates"
+      - "TASK-0815 pinned the Wien/FIRAS temperature/domain contract and made TASK-0802 ready under that contract"
+      - "TASK-0819 closed the independent Stellar M-L transfer-dataset scout"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -940,19 +1003,31 @@ missions:
         label: "Pin the Wien/FIRAS temperature and wavelength-domain metric contract"
         task_id: TASK-0815
         mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "reference-temperature source, wavelength-domain/Jacobian contract, and controls"
+          - "clear GO/NO_GO for later TASK-0802 metric execution"
+          - "no Wien metric, fit, RESULT, CLAIM, or KNOW mutation"
+      - id: textbook-wien-firas-consistency-slice
+        label: "Run the FIRAS Wien-peak consistency metric slice on the pinned source"
+        task_id: TASK-0802
+        mode: research
         status: ready
         priority: high
         difficulty: medium
         recommended: true
         expected_outputs:
-          - "reference-temperature source, wavelength-domain/Jacobian contract, and controls"
-          - "clear GO/NO_GO for later TASK-0802 metric execution"
-          - "no Wien metric, fit, RESULT, CLAIM, or KNOW mutation"
+          - "deterministic wavelength-domain metric under the TASK-0815 contract"
+          - "predeclared domain-conversion and wrong-temperature controls"
+          - "scoped verdict only; no universal Wien, blackbody, or textbook-truth claim"
       - id: textbook-stellar-independent-transfer-dataset
         label: "Scout one independent Stellar M-L transfer dataset or regime"
         task_id: TASK-0819
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
@@ -1051,7 +1126,7 @@ missions:
     status: ratification_ready
     scientific_value: high
     risk: low
-    recommendation: "Use as a range-limited ratification lane, not a fresh hypothesis loop. TASK-0818 prepares CLAIM-0009 for a narrow maintainer Gate C decision without changing claim status."
+    recommendation: "Use as a range-limited ratification lane, not a fresh hypothesis loop. TASK-0818 prepared the CLAIM-0009 Gate C packet; the next step is maintainer claim review, not another executor task."
     why_now:
       - "nonlinear but controlled physics surface"
       - "perturbative baseline and numerical reference are available"
@@ -1065,10 +1140,10 @@ missions:
         label: "Prepare a narrow CLAIM-0009 anharmonic Gate C ratification packet"
         task_id: TASK-0818
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: low
-        recommended: true
+        recommended: false
         expected_outputs:
           - "maintainer-facing Gate C ratification packet"
           - "CLAIM-0009 remains DRAFT unless maintainer later changes it"
@@ -1080,12 +1155,12 @@ missions:
     status: gate_b_adjudication_ready
     scientific_value: medium
     risk: low
-    recommendation: "Use as a quality-floor ratification lane. The next useful action is TASK-0807, a Gate B packaging-contest adjudication brief for RESULT-0020, not more challenge generation."
+    recommendation: "Use as a quality-floor ratification lane. TASK-0807 prepared the Gate B packaging-contest adjudication brief for RESULT-0020; the next step is maintainer adjudication, not more challenge generation."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
       - "validator failures improve future research gates"
-      - "RESULT-0020 remains a packaging-contest decision until TASK-0807 frames the maintainer adjudication"
+      - "RESULT-0020 remains a packaging-contest decision after TASK-0807; maintainer adjudication is the next step"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
@@ -1094,10 +1169,10 @@ missions:
         label: "Prepare RESULT-0020 Gate B packaging-contest adjudication brief"
         task_id: TASK-0807
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "maintainer adjudication brief for RESULT-0020 Gate B"
           - "no claim support, knowledge promotion, or extra challenge generation"

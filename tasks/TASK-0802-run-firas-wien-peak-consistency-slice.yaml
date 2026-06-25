@@ -1,7 +1,7 @@
 id: TASK-0802
 title: "Run the FIRAS Wien-peak consistency metric slice on the pinned source"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: medium
 priority: medium
