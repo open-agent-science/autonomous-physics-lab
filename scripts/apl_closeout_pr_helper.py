@@ -63,6 +63,17 @@ def build_parser() -> argparse.ArgumentParser:
     scaffold.add_argument("--slug", required=True)
     scaffold.add_argument("--description", required=True)
     scaffold.add_argument("--changed-file", action="append", default=[])
+    scaffold.add_argument(
+        "--proposal-drift",
+        action="store_true",
+        help="Scaffold a proposal-pool drift closeout instead of canonical task-file closeout.",
+    )
+    scaffold.add_argument(
+        "--proposal-path",
+        action="append",
+        default=[],
+        help="Changed tasks/proposals/*.yaml file reconciled by a proposal-drift closeout.",
+    )
     scaffold.add_argument("--include-task-views", action="store_true")
     scaffold.add_argument("--include-context", action="store_true")
     scaffold.add_argument("--body-only", action="store_true")
@@ -91,6 +102,8 @@ def command_scaffold(args: argparse.Namespace) -> int:
             agent_tool=args.agent_tool or infer_agent_tool(args.agent_id),
             human_reviewer=args.human_reviewer,
             changed_files=tuple(args.changed_file),
+            proposal_drift=args.proposal_drift,
+            proposal_paths=tuple(args.proposal_path),
             include_task_views=args.include_task_views,
             include_context=args.include_context,
             model_version=args.model_version,

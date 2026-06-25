@@ -175,6 +175,50 @@ def _write_review_task(
     )
 
 
+def _write_task_proposal(
+    root: Path,
+    proposal_id: str,
+    *,
+    status: str = "ACCEPTED",
+    canonical_task_id: str = "TASK-0027",
+    decision: str = "accepted",
+) -> str:
+    proposal_path = root / "tasks" / "proposals" / f"{proposal_id}.yaml"
+    proposal_path.parent.mkdir(parents=True, exist_ok=True)
+    proposal_path.write_text(
+        "\n".join(
+            [
+                f"proposal_id: {proposal_id}",
+                'title: "Maintainer review proposal fixture"',
+                f"status: {status}",
+                "type: maintainer_workflow",
+                "priority: medium",
+                "proposed_by:",
+                "  contributor_id: roman",
+                "  agent_id: codex",
+                'summary: "Fixture proposal for proposal-drift closeout."',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "maintainer_review"',
+                "  related_objects:",
+                f'    - "{canonical_task_id}"',
+                '  planning_context: "Fixture proposal already delivered by a canonical task."',
+                "requirements:",
+                '  - "Keep reconciliation mechanical"',
+                "accepted_outputs:",
+                '  - "proposal metadata"',
+                "promotion:",
+                f"  canonical_task_id: {canonical_task_id}",
+                f"  decision: {decision}",
+                '  notes: "Delivered by the linked canonical task."',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return proposal_path.relative_to(root).as_posix()
+
+
 def test_run_command_decodes_unicode_output_as_utf8(tmp_path: Path) -> None:
     unicode_diff = "+++ b/docs/Δοκιμή.md\n+перевірено ✓\n"
     captured_kwargs: dict[str, object] = {}
@@ -1977,6 +2021,169 @@ def test_build_review_report_closeout_pr_may_unblock_dependent_task(
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert report.required_fixes == ()
+
+
+def test_build_review_report_allows_proposal_drift_closeout_pr(tmp_path: Path) -> None:
+    _write_review_task(tmp_path, "TASK-0027", status="DONE", slug="units")
+    proposal_path = _write_task_proposal(
+        tmp_path,
+        "20260610-roman-delivered-proposal",
+        canonical_task_id="TASK-0027",
+    )
+    branch = "agent/roman/codex/closeout-proposal-drift"
+    changed = (proposal_path,)
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Reconcile delivered proposal drift",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference=(
+                "- Task ID: `TASK-CLOSEOUT`\n"
+                f"- Proposal Drift Closeout Files: `{proposal_path}`"
+            ),
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+    captured_validation_commands: list[str] = []
+
+    def fake_run_task_validation(
+        _root: Path, payload: dict, **_: object
+    ) -> ValidationSummary:
+        captured_validation_commands.extend(payload["validation"]["commands"])
+        return ValidationSummary(status="pass", failed_commands=())
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            side_effect=fake_run_task_validation,
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+    assert captured_validation_commands == [
+        "python3 scripts/apl_proposal_triage.py",
+        "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+    ]
+
+
+def test_build_review_report_rejects_proposal_drift_closeout_to_non_done_task(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0027", status="READY", slug="units")
+    proposal_path = _write_task_proposal(
+        tmp_path,
+        "20260610-roman-delivered-proposal",
+        canonical_task_id="TASK-0027",
+    )
+    branch = "agent/roman/codex/closeout-proposal-drift"
+    changed = (proposal_path,)
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Reconcile delivered proposal drift",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference=(
+                "- Task ID: `TASK-CLOSEOUT`\n"
+                f"- Proposal Drift Closeout Files: `{proposal_path}`"
+            ),
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("only to a DONE canonical task" in item for item in report.required_fixes)
+
+
+def test_build_review_report_rejects_mixed_proposal_drift_closeout_files(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0027", status="DONE", slug="units")
+    proposal_path = _write_task_proposal(
+        tmp_path,
+        "20260610-roman-delivered-proposal",
+        canonical_task_id="TASK-0027",
+    )
+    branch = "agent/roman/codex/closeout-proposal-drift"
+    changed = (proposal_path, "docs/proposal-pool-triage.md")
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Reconcile delivered proposal drift",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference=(
+                "- Task ID: `TASK-CLOSEOUT`\n"
+                f"- Proposal Drift Closeout Files: `{proposal_path}`"
+            ),
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.verdict == "BLOCKED"
+    assert any("must only edit tasks/proposals/*.yaml" in item for item in report.blockers)
 
 
 def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout(tmp_path: Path) -> None:

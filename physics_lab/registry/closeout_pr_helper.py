@@ -62,6 +62,8 @@ def closeout_pr_body(
     agent_tool: str,
     human_reviewer: str,
     changed_files: tuple[str, ...] = (),
+    proposal_drift: bool = False,
+    proposal_paths: tuple[str, ...] = (),
     include_task_views: bool = False,
     include_context: bool = False,
     model_version: str | None = None,
@@ -69,7 +71,9 @@ def closeout_pr_body(
 ) -> str:
     """Render a repository-native closeout PR body."""
     contributor_id = normalize_contributor_id(contributor_id)
-    if not task_ids:
+    if proposal_drift and not proposal_paths:
+        raise ValueError("Proposal-drift closeout requires at least one --proposal-path value.")
+    if not proposal_drift and not task_ids:
         raise ValueError("At least one --closed-task TASK-XXXX value is required.")
     if any(task_id == "TASK-CLOSEOUT" for task_id in task_ids):
         raise ValueError(
@@ -77,7 +81,7 @@ def closeout_pr_body(
             "Pass real closed task ids with --closed-task TASK-XXXX."
         )
     task_files = tuple(find_task_file(root, task_id).as_posix() for task_id in task_ids)
-    changed = list(task_files)
+    changed = list(proposal_paths if proposal_drift else task_files)
     if include_task_views:
         changed.append("docs/task-views/")
     if include_context:
@@ -85,9 +89,43 @@ def closeout_pr_body(
     changed.extend(item for item in changed_files if item not in changed)
 
     closed_task_files = ", ".join(f"`{item}`" for item in task_files)
+    proposal_closeout_files = ", ".join(f"`{item}`" for item in proposal_paths)
     changed_lines = [f"- `{item}`" for item in changed] or ["- "]
-    task_refs = ", ".join(f"`{task_id}`" for task_id in task_ids)
+    task_refs = ", ".join(f"`{task_id}`" for task_id in task_ids) or "`TASK-CLOSEOUT`"
     model_value = f"`{model_version}`" if model_version else ""
+    primary_reference = (
+        [f"- Proposal Drift Closeout Files: {proposal_closeout_files}"]
+        if proposal_drift
+        else [f"- Closed Task Files: {closed_task_files}"]
+    )
+    summary = (
+        "Mechanically reconcile proposal-pool drift for proposals whose canonical tasks are already DONE."
+        if proposal_drift
+        else "Close out already-merged task work, synchronize generated task state, and keep the repository handoff accurate."
+    )
+    validation_lines = (
+        [
+            "- [x] `python3 scripts/apl_proposal_triage.py`",
+            "- [x] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`",
+        ]
+        if proposal_drift
+        else [
+            f"- {_render_checkbox(include_task_views)} `python3 -m physics_lab.cli sync-active-board .` (normally not needed; the `Sync Active Board` post-merge GitHub Action regenerates `docs/task-views/*.md` on `main` after the closeout merges)",
+            f"- {_render_checkbox(include_context)} `python3 scripts/generate_context_bundle.py`",
+            "- [x] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`",
+        ]
+    )
+    maintainer_notes = (
+        [
+            "- Use this closeout PR only for mechanical proposal-pool reconciliation after canonical task delivery.",
+            "- Do not use this lane to accept new proposal ideas or make science-scope decisions.",
+        ]
+        if proposal_drift
+        else [
+            f"- Closed tasks in this PR: {task_refs}.",
+            "- Use this closeout PR only for task-status updates and generated navigation/context sync.",
+        ]
+    )
 
     return "\n".join(
         [
@@ -103,7 +141,7 @@ def closeout_pr_body(
             "Task closeout PR:",
             "",
             "- Task ID: `TASK-CLOSEOUT`",
-            f"- Closed Task Files: {closed_task_files}",
+            *primary_reference,
             "",
             "## Branch Name",
             "",
@@ -122,7 +160,7 @@ def closeout_pr_body(
             "",
             "## Summary",
             "",
-            "Close out already-merged task work, synchronize generated task state, and keep the repository handoff accurate.",
+            summary,
             "",
             "## Changed Files",
             "",
@@ -138,9 +176,7 @@ def closeout_pr_body(
             "",
             "## Validation Commands",
             "",
-            f"- {_render_checkbox(include_task_views)} `python3 -m physics_lab.cli sync-active-board .` (normally not needed; the `Sync Active Board` post-merge GitHub Action regenerates `docs/task-views/*.md` on `main` after the closeout merges)",
-            f"- {_render_checkbox(include_context)} `python3 scripts/generate_context_bundle.py`",
-            "- [x] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`",
+            *validation_lines,
             "",
             "## Scientific Claim Impact",
             "",
@@ -164,8 +200,7 @@ def closeout_pr_body(
             "",
             "## Maintainer Review Notes",
             "",
-            f"- Closed tasks in this PR: {task_refs}.",
-            "- Use this closeout PR only for task-status updates and generated navigation/context sync.",
+            *maintainer_notes,
             "",
         ]
     )
@@ -226,8 +261,10 @@ def preflight_closeout_pr(
             "PR body still contains placeholder text: " + ", ".join(placeholders) + "."
         )
 
-    if "Closed Task Files:" not in body_text:
-        warnings.append("PR body does not list Closed Task Files under Primary Reference.")
+    if "Closed Task Files:" not in body_text and "Proposal Drift Closeout Files:" not in body_text:
+        warnings.append(
+            "PR body does not list Closed Task Files or Proposal Drift Closeout Files under Primary Reference."
+        )
     if "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings" not in body_text:
         warnings.append("PR body does not mention strict repository validation.")
 
