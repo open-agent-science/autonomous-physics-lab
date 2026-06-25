@@ -28,3 +28,4 @@ None.
 - `TASK-0819` - Scout one independent Stellar M-L transfer dataset or regime (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0820` - Prepare a common-scheme particle-mass guardrail preflight (`scientific_source_curation`, priority `low`, difficulty `medium`, domain `particle_mass_relations`)
 - `TASK-0821` - Scout one post-freeze Nuclear reveal-source route value-blind (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0830` - Add the Significant-Result Path Audit mode to the campaign-curator protocol (`docs_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_quality`)
