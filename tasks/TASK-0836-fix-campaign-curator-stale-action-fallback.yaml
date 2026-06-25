@@ -1,7 +1,7 @@
 id: TASK-0836
 title: "Fix campaign-curator fallback when mission actions point at non-READY tasks"
 type: test_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

@@ -1,7 +1,7 @@
 id: TASK-0835
 title: "Scout FRB (CHIME) source-readiness, no-leakage temporal-split feasibility, and reveal channel for a repeater selection-effect audit"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
