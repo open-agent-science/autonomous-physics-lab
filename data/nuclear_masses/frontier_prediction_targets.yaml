@@ -1,0 +1,167 @@
+schema_version: "1"
+manifest_id: FRONTIER-PRED-TARGETS-0001
+title: "Neutron-rich frontier prediction-target set (no-peek, Z/N identity only)"
+task_id: TASK-0826
+status: review_ready_prediction_target_definition
+claim_ceiling: >
+  Prediction-target definition only. This manifest lists candidate prediction
+  targets by nuclide identity (Z, N) so a future maintainer-approved standing
+  reveal pipeline (TASK-0825) can freeze model predictions over a
+  physically-meaningful, leakage-safe target list. It records NO measured mass
+  values, NO model predictions, and NO metrics. It does not register
+  predictions, reveal measurements, promote claims, or create canonical
+  results.
+
+protocol_references:
+  reveal_protocol: docs/nuclear-prediction-reveal-protocol.md
+  blind_holdout_protocol: docs/blind-holdout-benchmark-protocol.md
+  consuming_task: TASK-0825
+  reveal_protocol_note: >
+    The reveal protocol forbids fetching live measurements, pinning sources,
+    scoring, and claim promotion in target-definition work. This manifest stays
+    inside that boundary: it names targets without exposing any answer, so the
+    no-peek gate in TASK-0825 is not weakened. A future reveal task must supply
+    its own source manifest, checksum record, registry snapshot, and no-peek
+    audit before any comparison.
+
+leakage_boundary:
+  rule: >
+    A candidate target is admissible only if its (Z, N) identity does NOT
+    already have a committed measured value in-repo. Targets must not overlap
+    the NMD-0003 training rows or the post-AME2020 row-level holdout rows.
+  committed_value_screens:
+    - data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+    - data/nuclear_masses/post_ame2020_holdout.yaml
+  screen_method: >
+    Each candidate (Z, N) was checked against the union of (Z, N) identities in
+    the two screened files (2309 training identities + 296 holdout identities).
+    Candidates present in either set were excluded as leakage and are listed
+    under excluded_committed_neighbors with the screen that hit. All targets
+    below passed the screen with no committed-value hit at design time.
+  screen_result:
+    selected_target_count: 37
+    committed_value_hits_among_selected: 0
+  caveats:
+    - "no_exact_row_hit_found means no committed measured value for that (Z, N) in the screened files at design time; it is not a positive claim that the nuclide is unmeasured in the wider literature."
+    - "Source-state (whether a target is genuinely unmeasured at registration time) must be re-checked by the future reveal task under the reveal protocol, not asserted here."
+    - "Identity screening is by (Z, N); isomeric states are out of scope for this identity-only manifest."
+
+excluded_committed_neighbors:
+  note: >
+    Representative neutron-rich neighbors that sit in the same shell regions but
+    were excluded because they already carry a committed measured value. They
+    document the leakage boundary and must NOT be added as prospective targets.
+  in_nmd0003_training:
+    - {nuclide_id: Ni-78, Z: 28, N: 50}
+    - {nuclide_id: Cd-130, Z: 48, N: 82}
+    - {nuclide_id: Sn-132, Z: 50, N: 82}
+    - {nuclide_id: Sn-134, Z: 50, N: 84}
+    - {nuclide_id: Hg-206, Z: 80, N: 126}
+    - {nuclide_id: O-24, Z: 8, N: 16}
+    - {nuclide_id: Ne-30, Z: 10, N: 20}
+    - {nuclide_id: Mg-36, Z: 12, N: 24}
+  in_post_ame2020_holdout:
+    - {nuclide_id: In-131, Z: 49, N: 82}
+  boundary_note_ni78: >
+    Ni-78 (Z=28, N=50) carries a committed measured value in NMD-0003 and is
+    excluded as a target. It is retained here only as the structural anchor that
+    bounds the N=50 region; the N=50 targets below are the neutron-rich isotones
+    around and below that doubly-magic crossing.
+
+regions:
+  - region_id: n50_below_ni78
+    label: "N=50 neutron-rich isotones around and below Ni-78"
+    rationale: >
+      The N=50 shell closure for very neutron-rich Z<28 isotones is a region
+      where smooth liquid-drop extrapolation, shell-quenching assumptions, and
+      neutron-excess terms diverge between mass models. It is an r-process
+      relevant region and the (Z, N) identities below carry no committed
+      measured value in the screened files.
+    targets:
+      - {nuclide_id: V-73, Z: 23, N: 50, A: 73, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Cr-74, Z: 24, N: 50, A: 74, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Mn-75, Z: 25, N: 50, A: 75, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Fe-76, Z: 26, N: 50, A: 76, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Co-77, Z: 27, N: 50, A: 77, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Fe-78, Z: 26, N: 52, A: 78, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Co-79, Z: 27, N: 52, A: 79, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Ni-80, Z: 28, N: 52, A: 80, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Ni-82, Z: 28, N: 54, A: 82, committed_value_screen: no_exact_row_hit_found}
+
+  - region_id: n82_neutron_rich_cd_sn
+    label: "N=82 neutron-rich isotones below the Sn-Cd line"
+    rationale: >
+      The N=82 closed-shell region for neutron-rich Z<50 isotones below Sn and
+      Cd is a classic r-process waiting-point neighborhood where shell-quenching
+      and pairing assumptions split mass-model predictions by several MeV. The
+      committed Sn-132, Sn-134, and Cd-130 rows are screened out as leakage; the
+      targets below extend the isotone line to lighter Z with no committed
+      measured value in the screened files.
+    targets:
+      - {nuclide_id: Ru-126, Z: 44, N: 82, A: 126, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Rh-127, Z: 45, N: 82, A: 127, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Pd-128, Z: 46, N: 82, A: 128, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Ag-129, Z: 47, N: 82, A: 129, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Rh-129, Z: 45, N: 84, A: 129, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Pd-130, Z: 46, N: 84, A: 130, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Ag-131, Z: 47, N: 84, A: 131, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Cd-133, Z: 48, N: 85, A: 133, committed_value_screen: no_exact_row_hit_found}
+
+  - region_id: n126_rprocess_waiting_point
+    label: "N=126 r-process waiting-point region (neutron-rich rare-earth / pre-Pb)"
+    rationale: >
+      The N=126 closed shell for neutron-rich Z<82 nuclei is the third r-process
+      waiting-point region and the most extrapolation-dominated of the four:
+      almost no measured masses exist below the stable line here, so mass-model
+      predictions diverge strongly. The (Z, N) identities below carry no
+      committed measured value in the screened files (the committed Hg-206 N=126
+      row is screened out as leakage).
+    targets:
+      - {nuclide_id: Er-194, Z: 68, N: 126, A: 194, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Yb-196, Z: 70, N: 126, A: 196, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Hf-198, Z: 72, N: 126, A: 198, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: W-200, Z: 74, N: 126, A: 200, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Os-202, Z: 76, N: 126, A: 202, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Pt-204, Z: 78, N: 126, A: 204, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Yb-198, Z: 70, N: 128, A: 198, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Hf-200, Z: 72, N: 128, A: 200, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: W-202, Z: 74, N: 128, A: 202, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Os-204, Z: 76, N: 128, A: 204, committed_value_screen: no_exact_row_hit_found}
+
+  - region_id: light_neutron_rich_drip_o_ne_mg
+    label: "Light neutron-rich O / F / Ne / Na / Mg toward the drip line"
+    rationale: >
+      The light neutron-rich oxygen-to-magnesium chains toward the neutron drip
+      line cross the N=20 closed shell and the "island of inversion", where the
+      ordering of single-particle states and the persistence of N=20 magicity
+      are model-dependent. Mass predictions and even predicted drip-line
+      positions diverge here. The committed O-24, Ne-30, and Mg-36 rows are
+      screened out as leakage; the targets below extend each chain further from
+      stability with no committed measured value in the screened files.
+    targets:
+      - {nuclide_id: O-28, Z: 8, N: 20, A: 28, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: O-30, Z: 8, N: 22, A: 30, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: F-31, Z: 9, N: 22, A: 31, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Ne-32, Z: 10, N: 22, A: 32, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Ne-34, Z: 10, N: 24, A: 34, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Na-35, Z: 11, N: 24, A: 35, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Na-37, Z: 11, N: 26, A: 37, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Mg-38, Z: 12, N: 26, A: 38, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Mg-40, Z: 12, N: 28, A: 40, committed_value_screen: no_exact_row_hit_found}
+      - {nuclide_id: Mg-42, Z: 12, N: 30, A: 42, committed_value_screen: no_exact_row_hit_found}
+
+limitations:
+  - "Target identifiers are design candidates by (Z, N) identity, not source-state claims; no nuclide is asserted to be unmeasured in the wider literature."
+  - "No measured mass values, model predictions, or metrics are stored in this manifest."
+  - "no_exact_row_hit_found is a screen against two committed in-repo files only and is current as of design time; a future reveal task must re-verify source state."
+  - "No live measurements were fetched, no sources were pinned, no predictions were registered, and no claims were promoted."
+  - "Region rationales describe where mass models diverge; they are not astrophysical-significance or discovery claims."
+
+output_routing:
+  destination: prediction-target definition for prediction-reveal readiness (consumed by TASK-0825)
+  registers_predictions: false
+  reveals_measurements: false
+  commits_measured_values: false
+  promotes_claims: false
+  creates_result_artifact: false
+  review_tier: none
