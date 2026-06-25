@@ -1,0 +1,63 @@
+id: TASK-0834
+title: "Scout the Gaia DR4 stellar mass-luminosity reveal contract (no freeze, no date hardcoding)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Set up APL's strongest evidence structure -- a prospective freeze-then-reveal -- by reusing the already-validated stellar mass-luminosity result (RESULT-0022) as a blind prediction against a future authoritative Gaia data release."
+  - "A confirmed pre-registered extrapolation onto independent Gaia dynamical masses would be a genuinely non-gameable result; a documented failure is an equally valuable out-of-sample falsification. Both outcomes are useful."
+  - "Contract-first discipline: verify the official release date, the exact product schema, and the overlap population BEFORE freezing anything -- do not freeze on assumptions."
+
+input:
+  mode: planning_only
+  related_domain: astrophysics
+  related_objects:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml"
+  planning_context: >
+    Strategy scouting proposed a Gaia DR4 stellar mass-luminosity freeze-then-reveal
+    as a low-build, high-evidence-tier parallel lane: freeze the DR3-validated
+    stellar M-L relation (RESULT-0022) now as a blind prediction for the new
+    dynamical binary masses Gaia DR4 will deliver, then score on release. Per the
+    maintainer strategist review, the report oversimplified two things that this
+    scout must resolve before any freeze: (1) the "2 December 2026" DR4 date must
+    NOT be hardcoded as immutable until it is pinned to the official ESA Gaia
+    release page -- treat it as unverified until then; (2) DR4 is not guaranteed
+    to deliver the exact dynamical masses and luminosity semantics that are
+    directly compatible with RESULT-0022. This task is a reveal-CONTRACT scout
+    only: it establishes the contract and returns a verdict. It does NOT freeze a
+    prediction, register a PRED, or fetch any DR4 data (DR4 is unreleased).
+
+requirements:
+  - "Establish the EXACT official Gaia DR4 release source and date from the official ESA Gaia release page; do NOT hardcode a date or treat it as immutable until pinned to that official page. Record the date's verification status."
+  - "Identify the exact DR4 products/fields relevant to dynamical masses and luminosity (e.g. non-single-star orbital solutions), the eligible binary population, and assess -- do NOT assume -- whether they are semantically compatible with RESULT-0022's stellar mass-luminosity domain and units."
+  - "Specify the reveal contract: the crossmatch key and an independent control set (e.g. DEBCat detached eclipsing binaries), the frozen-prediction shape, the no-peek/no-leakage policy, the scoring metric, and an explicit fallback if the required DR4 fields are absent or incompatible."
+  - "Reuse the standing prospective-reveal pipeline design (TASK-0825) and the reveal/blind-holdout protocols; do NOT weaken the no-peek or admissibility gates."
+  - "Do NOT freeze any prediction, create or score a PRED, fetch DR4 data, or promote any claim/result. This is contract readiness only."
+  - "Return exactly one verdict: REVEAL_CONTRACT_READY, NEEDS_FIELDS (compatible fields not yet confirmable), or BLOCKED (no official date / no compatible products), with the verified date status, product/field mapping, overlap-population estimate, and the fallback."
+
+accepted_outputs:
+  - "A Gaia DR4 stellar M-L reveal-contract scout note under docs/reviews/ with: the official release source and date-verification status, the DR4 product/field mapping and RESULT-0022 compatibility assessment, the eligible binary population and crossmatch/control plan, the frozen-prediction + no-peek + scoring spec, the fallback, and the REVEAL_CONTRACT_READY/NEEDS_FIELDS/BLOCKED verdict."
+  - "Output-routing summary: prospective-reveal contract readiness for a future Gaia DR4 M-L freeze; no PRED frozen, no DR4 fetch, no claim/result; the trigger and admissibility gates stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Reveal-contract readiness scout only; no PRED is frozen or scored and no result artifact is created."
+  evidence:
+    - "tasks/TASK-0825-design-standing-prospective-reveal-pipeline.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

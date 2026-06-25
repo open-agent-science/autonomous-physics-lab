@@ -1,0 +1,67 @@
+id: TASK-0833
+title: "Scout ThermoML source-readiness and Joback fidelity for a property-estimation transfer audit (boiling-point only)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Open a new data-rich campaign direction where APL is genuinely useful: audit a FROZEN published empirical method against EXPERIMENTAL measurements under controls -- APL fits nothing, so it structurally cannot fall into the residual-correction overfit pattern that controls have killed 4x (nuclear, materials, exoplanet, quantum)."
+  - "Use an experimental judge (NIST ThermoML), never DFT -- directly honors the computed/simulated-is-not-the-judge guardrail (TASK-0831)."
+  - "Scout-first discipline: verify source-readiness, redistribution terms, and implementation fidelity BEFORE any campaign scaffold or benchmark metric -- the discipline that would have saved the quantum/materials data traps."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/published-source-dataset-standard.md"
+    - "docs/fresh-data-intake-protocol.md"
+    - "data/materials/source_manifest.yaml"
+  planning_context: >
+    Strategy scouting (3 web-grounded research agents + a maintainer strategist
+    review) identified a NIST ThermoML "Property-Estimation Transfer Audit" as the
+    strongest next data-rich campaign for APL (APL-fit 9/10, scientific use 8/10,
+    scalable to many agents 9/10, medium risk). The design: take published
+    group-contribution estimators (Joback-Reid first) as FROZEN candidates and
+    audit their out-of-family transfer against experimental ThermoML measurements
+    under null/per-class/shuffled controls -- APL fits nothing, only selects the
+    holdout. This task is ONLY a bounded source-readiness + implementation-fidelity
+    scout, NOT a campaign scaffold and NOT a benchmark. Per the strategist review,
+    the dominant risk is NOT the XML parser but compound->structure identity,
+    canonical SMILES/InChI, salts/mixtures/stereoisomers/tautomers, unambiguous
+    Joback group assignment, out-of-coverage molecules, duplicate measurements,
+    and the chemical-family taxonomy -- an error in group decomposition can
+    manufacture an artificial "method failure." NIST also states ThermoML files
+    are provided with publisher permission, which is NOT a blanket redistribution
+    license, so reuse terms must be pinned first.
+
+requirements:
+  - "Pin the EXACT official ThermoML archive/product route (NIST TRC), and record its reuse/redistribution policy FIRST. Publisher-permission availability is NOT a blanket open-data license: default to source locator + expected SHA-256 + a local fetch/verify command per the published-source-dataset standard; do NOT vendor the whole archive."
+  - "Select ONLY normal boiling point (Tb) for this first slice. Do NOT include critical temperature (Tc): Joback's Tc estimate depends on Tb, so an experimental-Tb substitution is a different mode and a potential information leak. Record the predicted-Tb-vs-experimental-Tb distinction as a future-design note only."
+  - "For Tb, count and report: unique pure compounds with an experimental value; rows carrying reported uncertainty; compound-identity mapping success to canonical SMILES/InChI; chemical-family distribution; and Joback group coverage. Explicitly flag salts, mixtures, stereoisomers, tautomers, duplicates, and molecules outside Joback's group coverage."
+  - "Build an implementation-fidelity fixture: reproduce 20-30 published/reference Joback Tb example compounds EXACTLY; require zero mismatches before any later benchmark is allowed. Group decomposition correctness is the gating risk."
+  - "Freeze compound-identity rules, Joback group-assignment rules, and the chemical-family taxonomy BEFORE reading any model error. Do NOT compute global/aggregate benchmark performance or per-compound model errors in this scout."
+  - "Do a brief literature check for prior comparable work and state it honestly: do NOT claim a family-held-out ThermoML audit exists nowhere; instead state whether a directly comparable, openly reproducible, family-held-out ThermoML audit was identified during initial scouting."
+  - "Return exactly one verdict: READY, SOURCE_LIMITED, or BLOCKED, with the redistribution policy, counts, fidelity-fixture result, and frozen taxonomy. Do NOT scaffold the full campaign, fetch beyond license-cleared scope, run benchmark metrics, or promote any RESULT/PRED/CLAIM/KNOW."
+
+accepted_outputs:
+  - "A ThermoML source-readiness + Joback-fidelity scout note under docs/reviews/ with: pinned source route, reuse/redistribution policy, Tb-only counts (compounds, uncertainty, identity-mapping success, family distribution, group coverage), the 20-30-compound fidelity-fixture result (must be zero-mismatch to pass), the frozen family taxonomy, the literature-comparability statement, and the READY/SOURCE_LIMITED/BLOCKED verdict."
+  - "Output-routing summary: destination source-readiness gate for a future Thermophysical Property Transfer Audit campaign; no rows committed beyond license-clear scope; no benchmark metric; no claim/result/PRED."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness and implementation-fidelity scout only; no benchmark metric, dataset row beyond license-clear scope, or result artifact is expected."
+  evidence:
+    - "docs/published-source-dataset-standard.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
