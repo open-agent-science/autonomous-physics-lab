@@ -1,0 +1,144 @@
+dataset_id: qd-0004-toufanian-2021-znse-absorption
+title: "Toufanian 2021 ZnSe colloidal quantum dot direct SAXS size - 1S absorption rows (Table 1)"
+status: curated
+description: >
+  Ten direct (SAXS diameter, 1S absorption-peak) rows for ZnSe colloidal quantum
+  dots from Toufanian, R.; Zhong, X.; Kays, J. C.; Saeboe, A. M.; Dennis, A. M.,
+  "Correlating ZnSe Quantum Dot Absorption with Particle Size and Concentration",
+  Chemistry of Materials 2021, 33 (18), 7527-7536
+  (doi:10.1021/acs.chemmater.1c02501; CC BY-NC-ND 4.0). Particle diameter is the
+  per-sample mean +/- SD from small-angle X-ray scattering (SAXS), modelled with
+  a spherical log-normal form factor (Table 1, "Summary of MP-AES Data"); the
+  size axis is a DIRECT structural measurement, not an optical-inversion sizing
+  curve, so these rows are non-circular for a size-energy transfer holdout. The
+  1S absorption-peak position is the sample nomenclature (each sample is named
+  for its 1S peak in nm, 361-422 nm); E1s = 1239.84 / lambda1s. ZnSe is
+  independent of the committed InP (Almeida qd-0003), CdSe (Yu qd-0001), and PbS
+  (Moreels qd-0002) sets; these rows must never be mixed with the Yu/Moreels
+  calibration-curve sizing equations.
+source_policy: >
+  Source metadata is pinned in data/quantum_dots/source_manifest.yaml as
+  toufanian-2021-znse. License CONFIRMED CC BY-NC-ND 4.0 on the ACS open-access
+  version-of-record and the ChemRxiv v4 preprint. Only the factual numeric
+  values (SAXS diameter, 1S peak) are committed, re-expressed in this schema with
+  attribution; the publisher PDF / figures / Supporting Information / Table 1
+  image are NOT vendored (locator + SHA-256 only; VoR PDF SHA-256
+  9963096332e4fc37b389fe72f839e347cba9dc92f402634b30c8a17a30302b51). Per the
+  source-rights framework: local_analysis allowed; source_bytes redistribution
+  not allowed; derived_rows publication basis limited_factual_extract (facts are
+  not copyrightable; non-commercial research use with attribution preserves the
+  BY-NC-ND terms). See
+  docs/reviews/quantum-toufanian-2021-znse-source-artifact-and-extraction.md.
+  These are direct table-derived rows (table_derived tier).
+property_kind_covered: absorption_peak_eV
+entries:
+  - entry_id: toufanian-2021-znse-qd361
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 2.04
+    property_kind: absorption_peak_eV
+    value_eV: 3.435
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1 (Summary of MP-AES Data), sample QD361; SAXS diameter; 1S peak 361 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 2.04 +/- 0.57 nm (mean +/- SD). E1s = 1239.84/361 nm. Direct SAXS size (not optical inversion). Smallest dot."
+  - entry_id: toufanian-2021-znse-qd364
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 2.21
+    property_kind: absorption_peak_eV
+    value_eV: 3.406
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD364; SAXS diameter; 1S peak 364 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 2.21 +/- 0.58 nm. E1s = 1239.84/364 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd375
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 2.48
+    property_kind: absorption_peak_eV
+    value_eV: 3.306
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD375; SAXS diameter; 1S peak 375 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 2.48 +/- 0.62 nm. E1s = 1239.84/375 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd383
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 2.86
+    property_kind: absorption_peak_eV
+    value_eV: 3.237
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD383; SAXS diameter; 1S peak 383 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 2.86 +/- 0.67 nm. E1s = 1239.84/383 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd390
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 3.02
+    property_kind: absorption_peak_eV
+    value_eV: 3.179
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD390; SAXS diameter; 1S peak 390 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 3.02 +/- 0.83 nm. E1s = 1239.84/390 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd397
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 3.46
+    property_kind: absorption_peak_eV
+    value_eV: 3.123
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD397; SAXS diameter; 1S peak 397 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 3.46 +/- 0.48 nm. E1s = 1239.84/397 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd405
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 4.31
+    property_kind: absorption_peak_eV
+    value_eV: 3.061
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD405; SAXS diameter; 1S peak 405 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 4.31 +/- 0.69 nm. E1s = 1239.84/405 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd410
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 4.42
+    property_kind: absorption_peak_eV
+    value_eV: 3.024
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD410; SAXS diameter; 1S peak 410 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 4.42 +/- 0.70 nm. E1s = 1239.84/410 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd419
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 5.36
+    property_kind: absorption_peak_eV
+    value_eV: 2.959
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD419; SAXS diameter; 1S peak 419 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 5.36 +/- 1.00 nm. E1s = 1239.84/419 nm. Direct SAXS size."
+  - entry_id: toufanian-2021-znse-qd422
+    material: ZnSe
+    morphology: spherical
+    diameter_nm: 5.75
+    property_kind: absorption_peak_eV
+    value_eV: 2.938
+    measurement_type: optical_absorption
+    source_id: toufanian-2021-znse
+    source_table_ref: "Table 1, sample QD422; SAXS diameter; 1S peak 422 nm from sample nomenclature."
+    inclusion_status: included
+    notes: "SAXS diameter 5.75 +/- 0.87 nm. E1s = 1239.84/422 nm. Direct SAXS size. Largest dot; matches purified-aliquot SAXS 5.74 +/- 0.98 nm cross-check (Figure S3)."

@@ -359,6 +359,38 @@ sources:
       docs/reviews/quantum-almeida-2023-size-axis-digitization-and-readiness-gate.md
       and data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/.
 
+  - source_id: toufanian-2021-znse
+    title: "Correlating ZnSe Quantum Dot Absorption with Particle Size and Concentration"
+    authors: "Toufanian, R.; Zhong, X.; Kays, J. C.; Saeboe, A. M.; Dennis, A. M."
+    year: 2021
+    doi: "10.1021/acs.chemmater.1c02501"
+    journal: "Chemistry of Materials"
+    volume: "33"
+    pages: "7527-7536"
+    table_reference: "Table 1 (Summary of MP-AES Data): per-sample SAXS diameter (mean +/- SD); 1S absorption peak from sample nomenclature (361-422 nm)"
+    properties:
+      - absorption_peak_eV
+    materials:
+      - ZnSe
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: accepted
+    inclusion_rationale: >
+      Strongest available open second-material transfer route for the size-effect
+      campaign: a DIRECT SAXS size axis (not an optical-inversion sizing curve)
+      in a machine-readable table, for ZnSe (independent of the committed InP,
+      Yu CdSe, and Moreels PbS sets). TASK-0829 pinned it as the candidate and
+      returned NEEDS_MAINTAINER_SOURCE_DECISION on license clarity; TASK-0840
+      resolved the license and curated the rows (qd-0004).
+    license_note: "License CONFIRMED CC BY-NC-ND 4.0 on the ACS open-access version-of-record (pubs.acs.org/doi/10.1021/acs.chemmater.1c02501) and the ChemRxiv v4 preprint (doi:10.26434/chemrxiv-2021-m8kbg-v4); the PMC mirror (PMC8872037) is an NIHPA author manuscript. Only factual numeric values (SAXS diameter, 1S peak) are committed, re-expressed with attribution under the limited_factual_extract basis (facts are not copyrightable; non-commercial research use preserves BY-NC-ND). source_bytes redistribution NOT allowed: the publisher PDF / figures / SI / Table 1 image are not vendored (locator + SHA-256 only; VoR PDF SHA-256 9963096332e4fc37b389fe72f839e347cba9dc92f402634b30c8a17a30302b51)."
+    checksum_policy: doi_pinned
+    notes: >
+      Direct table-derived rows (table_derived tier), not figure digitization.
+      Diameter is the SAXS spherical log-normal mean +/- SD; 1S peak is the
+      sample nomenclature (nm). See
+      docs/reviews/quantum-toufanian-2021-znse-source-artifact-and-extraction.md
+      and data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml.
+
   - source_id: vossmeyer-1994-jpc-cds-absorption
     title: "CdS Nanoclusters: Synthesis, Characterization, Size Dependent Oscillator Strength, Temperature Shift of the Excitonic Transition Energy, and Reversible Absorbance Shift"
     authors: "Vossmeyer, T.; Katsikas, L.; Giersig, M.; Popovic, I. G.; Diesner, K.; Chemseddine, A.; Eychmüller, A.; Weller, H."
