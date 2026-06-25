@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0832` - Apply maintainer Gate C ratification to CLAIM-0009 (DRAFT -> PARTIALLY_SUPPORTED) (`claim_promotion`, priority `medium`, difficulty `low`, domain `classical_mechanics`)
