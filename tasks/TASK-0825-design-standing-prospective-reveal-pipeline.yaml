@@ -1,0 +1,63 @@
+id: TASK-0825
+title: "Design a standing prospective-reveal pipeline for nuclear mass predictions"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The only path to a falsifiable, breakthrough-grade nuclear result is a frozen prediction confirmed by an external reveal -- and the reveal is NOT terminal, only 'no post-freeze source published yet'."
+  - "Convert reveal-blocked into reveal-on-a-timer: a standing process that scores frozen predictions whenever a new post-freeze mass measurement is published."
+  - "Preserve all no-peek / blind-holdout discipline; design and process only -- no fetch, no value ingestion, no scoring until a real admissible source appears."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "docs/reviews/nuclear-post-ame2020-reveal-source-scout.md"
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+    - "prediction_registry/nuclear_masses/"
+  planning_context: >
+    The post-AME2020 reveal scout concluded only that no post-2026-05-20-freeze
+    source was published two weeks after the freeze, while explicitly noting that
+    whenever such a source appears its admissibility lane is already mapped. New
+    mass measurements (Penning-trap, storage-ring, FRIB/ISOLDE/CARIBU programs)
+    are published continuously. This task designs a recurring pipeline so the
+    project can score its 61 frozen PRED entries (and future ones) as soon as an
+    admissible post-freeze measurement is published -- turning the externally
+    gated reveal into a standing, time-based payoff. It writes process + manifest
+    only; it does not fetch or ingest any value.
+
+requirements:
+  - "Specify the standing pipeline: a reveal-watch manifest (candidate upcoming/recent measurement programs and nuclide regions to watch), the trigger condition (an admissible, immutable, post-2026-05-20-freeze source per the readiness checklist), and the scoring step (apply nuclear_prediction_reveal against the frozen PRED set)."
+  - "Reuse and reference the existing reveal protocol, blind-holdout protocol, and readiness checklist; do NOT weaken the no-peek/no-leakage or admissibility gates."
+  - "Define a recurring cadence (e.g. monthly source-availability check) and an explicit do-not-do list (no live fetch from executor tasks, no target-value exposure, no pre-reveal peeking)."
+  - "Do NOT fetch any source, ingest any measured value, register or score any prediction, or promote any claim. This is process/readiness design only."
+  - "Stop: deliver the pipeline design + reveal-watch manifest; if no admissible source exists at design time (expected), record that the pipeline is armed and waiting, not blocked."
+
+accepted_outputs:
+  - "A standing prospective-reveal pipeline spec (extend docs/nuclear-prediction-reveal-protocol.md or a new protocol doc) + a reveal-watch manifest under data/nuclear_masses/."
+  - "Output-routing summary: prediction/reveal readiness, no PRED/RESULT/CLAIM created, no fetch performed, the trigger + cadence + admissibility gates stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Reveal-pipeline design/readiness only; no RESULT or PRED artifact is created or scored."
+  evidence:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

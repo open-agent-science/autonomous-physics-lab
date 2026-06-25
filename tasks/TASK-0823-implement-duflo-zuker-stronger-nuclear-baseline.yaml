@@ -1,0 +1,67 @@
+id: TASK-0823
+title: "Implement the Duflo-Zuker mass model as a stronger nuclear baseline and benchmark it by extrapolation"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Break the residual-patch treadmill: the ~5 MeV-MAE baseline is too weak for small empirical corrections to ever clear the controls-first survival margin, so the path to a significant result is a stronger model class, not another correction term."
+  - "Implement a published, deterministic, reproducible mass model (Duflo-Zuker) -- no LLM-fitted coefficients, no numerology -- and let it compete against the frozen baseline on the honest extrapolation test."
+  - "Judge significance by out-of-domain extrapolation (post-AME2020 time-split + region holdout) under controls, not by in-sample fit (the overfitting trap that RESULT-0018 and the F2/shell/curvature lanes already failed)."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+    - "results/EXP-0012/RUN-0002/result.yaml"
+  planning_context: >
+    Every nuclear lane to date (F2 ablation, shell-axis, local-curvature,
+    neutron-rich, Wigner-cusp) added small empirical residual terms to a weak
+    baseline (post-AME2020 extrapolated-subset MAE ~= 4.95 MeV) and was correctly
+    rejected by the 0.25 MeV controls-first survival margin as overfitting.
+    Published macroscopic-microscopic models (Duflo-Zuker, ~10 parameters,
+    ~0.5 MeV RMS) are an order of magnitude stronger. Implement Duflo-Zuker
+    deterministically, fit its parameters on the frozen NMD-0003 AME2020 training
+    rows only, and benchmark it against the frozen baseline on the post-AME2020
+    time-split extrapolation holdout with the same controls-first discipline used
+    by RESULT-0018.
+
+requirements:
+  - "Implement Duflo-Zuker (or a clearly-cited published variant) deterministically from its published formula; cite the paper; do NOT invent or LLM-fit coefficients beyond fitting the published functional form's parameters on the committed training rows."
+  - "Fit/parameterize ONLY on the frozen NMD-0003 AME2020 training split; never read post_ame2020_holdout rows during fitting (no leakage)."
+  - "Evaluate by EXTRAPOLATION: report MAE/RMS on the post-AME2020 time-split holdout and any region holdout, NOT in-sample, alongside the frozen baseline."
+  - "Apply controls-first: compare against the same null / shuffled / smooth-A controls and report whether Duflo-Zuker clears a predeclared survival margin over the best control on the extrapolation set."
+  - "Make the run Gate-B-replayable: pinned command, code_reference, input_file_hashes, engine_version, git_commit, so a different agent reproduces byte-identically."
+  - "Do NOT promote a claim, prediction, or knowledge entry; do NOT call any improvement a discovery, breakthrough, or new physics. Duflo-Zuker is a known model; this benchmarks a known model on APL's extrapolation surface."
+  - "Stop: if Duflo-Zuker does not beat the baseline on the extrapolation set under controls, record the diagnostic/negative outcome honestly; do not widen into a coefficient search."
+
+accepted_outputs:
+  - "A deterministic Duflo-Zuker baseline in the nuclear engine + a benchmark run under results/EXP-0012 (new RUN) with extrapolation MAE/RMS vs the frozen baseline and controls."
+  - "A RESULT-* (best_verdict by the extrapolation outcome) at review_tier AGENT_PUBLISHED if Gate A passes; otherwise a sandbox AGENT-RUN-* + review note."
+  - "Output-routing summary: Gate A status, claim impact none, the extrapolation margin vs baseline and vs best control, limitations (single model, retrospective time-split, not a blind reveal)."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes on the benchmark; default destination is sandbox + review note. No claim promotion."
+  evidence:
+    - "results/EXP-0012/"
+    - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

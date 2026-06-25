@@ -1,0 +1,64 @@
+id: TASK-0824
+title: "Build a calibrated-uncertainty residual model (Gaussian process) and test it by extrapolation"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "A genuinely important nuclear result must come with honest, calibrated extrapolation uncertainty -- without it, a prediction cannot be scored fairly against a future reveal."
+  - "Replace review-only uncertainty fields with a fit-grade calibrated predictive model (Gaussian process / Bayesian) on the baseline residuals."
+  - "Judge by extrapolation accuracy AND uncertainty calibration (coverage), under controls, not by in-sample fit."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nmd0003_uncertainty_weighted_diagnostic.py"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+  planning_context: >
+    Existing nuclear uncertainty is review-only (not a fit-grade likelihood
+    surface). The literature's strongest mass-model improvements use Gaussian
+    processes / Bayesian neural networks on a physics baseline's residuals to get
+    both lower RMS and calibrated extrapolation uncertainties. This task fits a
+    Gaussian-process (or Bayesian) model on the frozen baseline residuals over
+    NMD-0003 training rows, then evaluates extrapolation accuracy AND calibration
+    on the post-AME2020 holdout. It is independent of TASK-0823 (different model
+    class; both correct the same baseline).
+
+requirements:
+  - "Fit a Gaussian-process (or clearly-described Bayesian) residual model on the frozen baseline residuals over the NMD-0003 training split ONLY; no holdout leakage."
+  - "Report extrapolation MAE/RMS on the post-AME2020 holdout AND an uncertainty-calibration check (e.g. empirical coverage of the predicted 1-sigma/2-sigma bands), alongside the baseline."
+  - "Apply controls-first (null / shuffled / smooth-A) and report whether the model clears a predeclared survival margin over the best control on the extrapolation set."
+  - "Make it Gate-B-replayable (pinned command, hashes, engine_version, git_commit, fixed random seed if any stochastic step exists -- determinism required)."
+  - "Do NOT promote a claim/prediction/knowledge; do NOT call improved fit or calibration a discovery. The deliverable is a calibrated model + its extrapolation/calibration diagnostics."
+  - "Stop: if the model is mis-calibrated (over/under-confident) or shows no control-surviving extrapolation gain, record the diagnostic honestly; do not tune to the holdout."
+
+accepted_outputs:
+  - "A deterministic calibrated-uncertainty residual model + a benchmark run (results/EXP-0012 new RUN) reporting extrapolation accuracy and calibration vs baseline and controls."
+  - "A RESULT-* at AGENT_PUBLISHED if Gate A passes; otherwise sandbox AGENT-RUN-* + review note."
+  - "Output-routing summary: Gate A status, calibration coverage numbers, extrapolation margin, claim impact none, limitations (retrospective, single dataset, model-class choice)."
+
+result_artifact_policy:
+  required: false
+  reason: "RESULT candidate only if Gate A passes; default sandbox + review note. No claim promotion. Calibrated uncertainty is a methodology contribution, not a discovery."
+  evidence:
+    - "results/EXP-0012/"
+    - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
