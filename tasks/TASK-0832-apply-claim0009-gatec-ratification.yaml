@@ -1,0 +1,62 @@
+id: TASK-0832
+title: "Apply maintainer Gate C ratification to CLAIM-0009 (DRAFT -> PARTIALLY_SUPPORTED)"
+type: claim_promotion
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Realize a banked result: CLAIM-0009's anharmonic benchmark is supported by the Gate-B-validated RESULT-0016, and the next validity gate is ratification -- a maintainer Gate C wording decision, not more metrics."
+  - "Apply the already-prepared ratification packet (TASK-0818) exactly: PARTIALLY_SUPPORTED ceiling with range-limited wording; never SUPPORTED, exact, broad-range, or universal-formula wording."
+  - "Maintainer-authorized Gate C: the maintainer makes the decision; this task only edits the claim file to record it, and the maintainer merge is the ratification."
+
+input:
+  mode: planning_only
+  related_domain: classical_mechanics
+  related_objects:
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "docs/reviews/claim-0009-anharmonic-gatec-ratification-packet.md"
+    - "results/EXP-0011/RUN-0002/result.yaml"
+    - "results/EXP-0011/RUN-0001/result.yaml"
+    - "docs/reviews/first-agent-validated-replay.md"
+  planning_context: >
+    The CLAIM-0009 Gate C ratification packet (TASK-0818) recommended moving the
+    claim from DRAFT to PARTIALLY_SUPPORTED at review_tier MAINTAINER_REVIEWED,
+    citing the Gate-B-validated RESULT-0016 (AGENT_VALIDATED, VALID_IN_RANGE,
+    Gate B PASS with max absolute drift 0.0) alongside the legacy RESULT-0014.
+    The packet explicitly left the claim-file update as a separate maintainer-only
+    step. This task applies that decision: it edits the claim frontmatter
+    (status, review_tier, evidence) and body (Statement, Evidence Status, Review
+    Recommendation, Scope, Caution) to the packet's narrow range-limited wording.
+    No result metric, dataset, or knowledge artifact changes; no new evidence is
+    asserted.
+
+requirements:
+  - "Set CLAIM-0009 status to PARTIALLY_SUPPORTED and review_tier to MAINTAINER_REVIEWED; add RESULT-0016 to the evidence results alongside RESULT-0014."
+  - "Use the packet's narrow range-limited wording; do NOT adopt SUPPORTED, discovery, exactness, broad-range, or universal-anharmonic-formula wording (stress-slice degradation forbids it)."
+  - "Record the Review Recommendation as a maintainer Gate C decision following docs/reviews/claim-0009-anharmonic-gatec-ratification-packet.md (TASK-0818), with PARTIALLY_SUPPORTED stated as the ceiling and the reasons (range/model/benchmark-limited; agent validation not external replication; out-of-scope regimes)."
+  - "Keep Evidence Status + Review Recommendation sections present (CI requires them) with an honest result-by-result evidence table."
+  - "Do NOT change result metrics, rerun Gate A/Gate B, edit RESULT-0014/RESULT-0016, create knowledge, or assert external replication."
+
+accepted_outputs:
+  - "claims/CLAIM-0009-anharmonic-oscillator-period.md promoted to PARTIALLY_SUPPORTED @ MAINTAINER_REVIEWED with RESULT-0016 added and packet-aligned range-limited wording."
+  - "Output-routing summary: maintainer Gate C ratification recorded; claim status transition only; no result/knowledge/dataset change."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim Gate C ratification only; cites existing AGENT_VALIDATED RESULT-0016 and legacy RESULT-0014; no result artifact is created or modified."
+  evidence:
+    - "docs/reviews/claim-0009-anharmonic-gatec-ratification-packet.md"
+    - "results/EXP-0011/RUN-0002/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
