@@ -453,16 +453,14 @@ campaigns:
       Wigner-shape, or NMD-0002 factory sprint.
   next_validity_gate:
     type: external_reveal
-    blocker: Reveal scoring lacks an accepted post-freeze measured-source manifest, no-peek
-      source review, and maintainer source approval.
+    blocker: Reveal scoring still lacks an accepted post-freeze measured-source manifest,
+      no-peek source review, and maintainer source approval after the landed value-blind route
+      scout.
     target_artifact: TASK-0821
   best_next_actions:
-  - task_id: TASK-0803
-    label: Compile validated Nuclear negative/diagnostic memory and the source-manifest reveal
-      blocker on existing public/campaign surfaces
   - task_id: TASK-0821
-    label: Scout exactly one post-freeze nuclear reveal-source route value-blind before any
-      comparison or new factory work
+    label: Close out the landed value-blind reveal-source route scout, then decide whether
+      a manifest-pinning task is warranted
   required_gates:
   - Use the source-gated NMD-0003 measured-row training surface and frozen split manifest
     for the next broad Nuclear factory sprint.
@@ -513,11 +511,12 @@ campaigns:
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: RESULT-0018, TASK-0777 Wigner-cusp negative sprint, TASK-0778 reveal-source preflight,
-      and TASK-0803 negative-memory routing
+    source: RESULT-0018, TASK-0777 Wigner-cusp negative sprint, completed TASK-0778 reveal-source
+      preflight, completed TASK-0803 negative-memory routing, and TASK-0821 source-route scouting
     notes: Flagship lane remains high-value as validated negative/diagnostic memory plus prediction-reveal
-      discipline. Wigner-cusp is rejected in scope, reveal scoring is source-manifest blocked,
-      and another broad F2/shell/local-curvature burst is not justified.
+      discipline. Wigner-cusp is rejected in scope, reveal scoring remains source-manifest
+      blocked after the landed value-blind source-route scout, and no new factory sprint is
+      advertised.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
@@ -551,13 +550,14 @@ campaigns:
       memory only; keep broad formula search closed.
   next_validity_gate:
     type: ratification
-    blocker: CLAIM-0007 should stay DRAFT until the mixed quark mass scheme/scale limitation
-      is either preserved in narrow wording or tested by a scheme-consistent follow-up.
+    blocker: CLAIM-0007 should stay DRAFT until the landed common-scheme preflight is closed
+      out and any later maintainer-only Gate C wording preserves the mixed quark mass scheme/scale
+      limitation.
     target_artifact: TASK-0820
   best_next_actions:
   - task_id: TASK-0820
-    label: Prepare a common-scale or scheme-consistent particle-mass guardrail preflight before
-      any CLAIM-0007 Gate C decision
+    label: Close out the landed common-scheme guardrail preflight before any CLAIM-0007 Gate
+      C decision
   required_gates:
   - Complexity penalty and uncertainty semantics before any relation comparison.
   - No broad particle-mass formula search without a reviewed baseline.
@@ -590,10 +590,11 @@ campaigns:
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 Gate B replay
+    source: RESULT-0011, TASK-0784 evidence handoff, TASK-0811 Gate B replay, and TASK-0820
+      common-scheme preflight
     notes: Guardrail track stays useful by resisting numerology, preserving falsifications,
       and keeping mixed quark mass scheme/scale limitations explicit before any maintainer-only
-      claim review.
+      claim review. The common-scheme preflight has landed and awaits closeout.
   source_docs:
   - docs/campaigns/particle-mass-relations.md
   - docs/results/koide-campaign-summary.md
@@ -622,17 +623,19 @@ campaigns:
     narrowed range-limited wording
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use mainly for negative-memory packaging, validation hardening, and
-      examples; do not restart broad formula search.
+    coordination_notes: Use mainly for validation hardening and examples; do not restart broad
+      formula search. RESULT-0017 negative-memory packaging has landed and awaits closeout,
+      so no READY pendulum action is advertised here.
   next_validity_gate:
     type: ratification
-    blocker: RESULT-0017 overfit evidence still needs durable public-safe negative-memory
-      packaging alongside the already narrowed CLAIM-0001 wording.
+    blocker: RESULT-0017 overfit evidence now has public-safe negative-memory packaging alongside
+      the already narrowed CLAIM-0001 wording; keep future work limited to closeout or maintainer-requested
+      follow-up.
     target_artifact: TASK-0814
   best_next_actions:
   - task_id: TASK-0814
-    label: Publish RESULT-0017 overfit memory on existing negative/campaign surfaces without
-      changing CLAIM-0001
+    label: Close out the landed RESULT-0017 negative-memory packet; do not start new formula
+      search
   required_gates:
   - Exact-reference and configured-range wording.
   - No exactness claim without symbolic proof.
@@ -667,8 +670,8 @@ campaigns:
     source: TASK-0757 Gate B replay, TASK-0760 handoff, CLAIM-0001 maintainer Gate C merge,
       and TASK-0814 negative-memory routing
     notes: Quality-floor track has its first maintainer-reviewed scoped claim plus validated
-      negative/overfit boundary evidence. The next useful action is memory hygiene, not new
-      formula search.
+      negative/overfit boundary evidence. The memory-hygiene packet has landed and awaits
+      closeout; do not advertise new formula search.
   source_docs:
   - docs/campaigns/pendulum-formula-falsification.md
   - docs/results/pendulum-gauntlet-100-summary.md
@@ -782,29 +785,24 @@ campaigns:
     - updated_campaign_profile
   current_stage: exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L RESULT-0022 is
     AGENT_VALIDATED with stable alternate-split support and piecewise-complexity negative
-    memory; FIRAS rows are pinned and the next Wien/FIRAS blocker is the temperature/Jacobian/control
-    metric contract
+    memory; maintainer-review packets, the Wien/FIRAS temperature-domain contract, and the
+    independent transfer-route scout have landed and await closeout, while TASK-0802 remains
+    blocked until the contract closeout updates task state
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Use one formula slice at a time. Do not rerun Stellar Gate B or split/complexity
-      audits; route validated results toward maintainer-review packets while Wien/FIRAS remains
-      source-curation first.
+    coordination_notes: Use one formula slice at a time. Do not rerun Stellar Gate B, split/complexity
+      audits, maintainer-review packet assembly, or the landed source/transfer scout; Wien/FIRAS
+      remains blocked until its metric-contract closeout updates task state.
   next_validity_gate:
     type: source_readiness
-    blocker: FIRAS spectrum rows are pinned, but the Wien metric still needs a reference-temperature
-      source, wavelength-domain Jacobian contract, and predeclared controls before TASK-0802
-      can run.
+    blocker: FIRAS spectrum rows are pinned, and the reference-temperature source, wavelength-domain
+      Jacobian contract, and predeclared controls packet have landed; TASK-0802 should stay
+      blocked until closeout records that contract in task state.
     target_artifact: TASK-0815
   best_next_actions:
-  - task_id: TASK-0815
-    label: Pin the Wien/FIRAS temperature and wavelength-domain metric contract before running
-      TASK-0802
-  - task_id: TASK-0812
-    label: Prepare the Stellar M-L RESULT-0022 maintainer-review packet after Gate B and control
-      audits
-  - task_id: TASK-0813
-    label: Prepare the RESULT-0019 exact-reference maintainer-review packet as a software/convention
-      result
+  - task_id: TASK-0819
+    label: Close out the landed Stellar M-L transfer-route scout before selecting any follow-up
+      transfer metric task
   required_gates:
   - Stage policy, source/range assumptions, and baseline adequacy before promotion.
   - Null/shuffle controls and seeded split sensitivity before Gate A packaging.
@@ -853,7 +851,7 @@ campaigns:
   - docs/reviews/stellar-ml-piecewise-complexity-audit.md
   open_questions:
   - Should RESULT-0022 receive maintainer-reviewed public wording, remain AGENT_VALIDATED
-    only, or wait for an external source?
+    only, or wait for an external transfer-source result?
   - Should RESULT-0019 receive maintainer-reviewed wording as a software/convention result
     without any empirical formula implication?
   - After Gate B, are Stellar split-sensitivity and piecewise-complexity outcomes stable enough
@@ -865,12 +863,13 @@ campaigns:
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
     source: RESULT-0022 Gate B replay, Stellar split/complexity audits, RESULT-0019 handoff,
-      TASK-0801 Wien/FIRAS source pinning, and TASK-0812/TASK-0813/TASK-0815 routing
+      TASK-0801 Wien/FIRAS source pinning, TASK-0812/TASK-0813/TASK-0815 review-ready routing,
+      and TASK-0819 transfer-source scouting
     notes: Public-friendly entry lane has one validated exact-reference result and one validated
       empirical Stellar M-L surface. The Stellar result is scoped to the frozen DEBCat slice;
       alpha=3.5 is inadequate as the sole baseline in scope, not falsified universally. Wien
-      work has pinned FIRAS rows but remains blocked on the temperature/Jacobian/control metric
-      contract.
+      work has pinned FIRAS rows and a landed temperature/Jacobian/control metric contract,
+      but TASK-0802 remains blocked until closeout updates the task state.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md

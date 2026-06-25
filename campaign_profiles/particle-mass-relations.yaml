@@ -95,11 +95,11 @@ portfolio:
   coordination_notes: "Use for provenance, uncertainty, scheme/scale cleanup, or negative-result memory only; keep broad formula search closed."
   next_validity_gate:
     type: ratification
-    blocker: "CLAIM-0007 should stay DRAFT until the mixed quark mass scheme/scale limitation is either preserved in narrow wording or tested by a scheme-consistent follow-up."
+    blocker: "CLAIM-0007 should stay DRAFT until the landed common-scheme preflight is closed out and any later maintainer-only Gate C wording preserves the mixed quark mass scheme/scale limitation."
     target_artifact: "TASK-0820"
   best_next_actions:
     - task_id: TASK-0820
-      label: "Prepare a common-scale or scheme-consistent particle-mass guardrail preflight before any CLAIM-0007 Gate C decision"
+      label: "Close out the landed common-scheme guardrail preflight before any CLAIM-0007 Gate C decision"
   required_gates:
     - "Complexity penalty and uncertainty semantics before any relation comparison."
     - "No broad particle-mass formula search without a reviewed baseline."
@@ -116,5 +116,5 @@ portfolio:
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0011, TASK-0784 evidence handoff, and TASK-0811 Gate B replay"
-    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and keeping mixed quark mass scheme/scale limitations explicit before any maintainer-only claim review."
+    source: "RESULT-0011, TASK-0784 evidence handoff, TASK-0811 Gate B replay, and TASK-0820 common-scheme preflight"
+    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and keeping mixed quark mass scheme/scale limitations explicit before any maintainer-only claim review. The common-scheme preflight has landed and awaits closeout."

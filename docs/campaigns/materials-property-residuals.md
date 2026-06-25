@@ -193,7 +193,7 @@ sandbox-pass formation-energy benchmark package at
 `agent_runs/AGENT-RUN-0072/` and
 `docs/reviews/materials-md0002-formation-energy-baseline-benchmark.md`.
 `TASK-0761` selected the result path and `TASK-0765` packaged it as
-`RESULT-0021`, an agent-published benchmark result. It does not promote a
+`RESULT-0021`, an agent-validated benchmark result. It does not promote a
 materials claim.
 The numbered path below is now:
 
