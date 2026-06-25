@@ -6,7 +6,7 @@
 
 ## READY
 
-None.
+- `TASK-0833` - Scout ThermoML source-readiness and Joback fidelity for a property-estimation transfer audit (boiling-point only) (`scientific_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
 

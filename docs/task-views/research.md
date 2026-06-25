@@ -13,6 +13,7 @@
 - `TASK-0825` - Design a standing prospective-reveal pipeline for nuclear mass predictions (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0826` - Define the neutron-rich frontier prediction target set for prospective reveal (no-peek) (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0829` - Scout one open-licensed direct-size quantum transfer source (Tier-1/2 tabular) (`scientific_validation`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0834` - Scout the Gaia DR4 stellar mass-luminosity reveal contract (no freeze, no date hardcoding) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `astrophysics`)
 
 ## IN_PROGRESS
 
