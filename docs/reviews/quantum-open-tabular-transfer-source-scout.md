@@ -6,7 +6,7 @@
 **Pinned candidate route:** Toufanian et al. 2021, "Correlating ZnSe Quantum Dot
 Absorption with Particle Size and Concentration," *Chemistry of Materials*
 33(18), 7527-7536, DOI `10.1021/acs.chemmater.1c02501` (ZnSe).
-**Verdict:** `SOURCE_LIMITED`
+**Verdict:** `NEEDS_MAINTAINER_SOURCE_DECISION`
 
 ## Scope And Non-Goals
 
@@ -125,10 +125,11 @@ The strongest direct, machine-readable, second-material table (ZnSe / Toufanian
 (MDPI CuInS2) are emission/temperature studies or figure-derived rather than a
 clean direct (size, absorption-energy) table. No Tier-1 open dataset
 (Zenodo / Figshare) exists. A confirmable open + tabular + direct route was not
-established in this pass, so a cautious `SOURCE_LIMITED` is the correct verdict
-rather than an unsupported `READY`.
+established in this pass, so a cautious
+`NEEDS_MAINTAINER_SOURCE_DECISION` is the correct verdict rather than an
+unsupported `TRANSFER_SOURCE_READY_FOR_ROW_TASK`.
 
-## Why SOURCE_LIMITED (not READY, not SOURCE_BLOCKED)
+## Why NEEDS_MAINTAINER_SOURCE_DECISION (not READY, not SOURCE_BLOCKED)
 
 - **Not READY:** the task forbids fabricating license text or SHAs, and prefers
   a cautious verdict over an unsupported `READY`. The one direct/tabular route
@@ -171,9 +172,9 @@ rather than an unsupported `READY`.
 
 ## Bounded Future Row-Curation Task Shape (Only If Later Confirmed READY)
 
-This scout returns `SOURCE_LIMITED`, so no row task is unblocked now. If a future
-maintainer-confirmed CC-BY/CC0 version of the ZnSe data is identified, a bounded
-row task should:
+This scout returns `NEEDS_MAINTAINER_SOURCE_DECISION`, so no row task is
+unblocked now. If a future maintainer-confirmed CC-BY/CC0 version of the ZnSe
+data is identified, a bounded row task should:
 
 1. Add a ZnSe `source_manifest.yaml` entry (DOI-pinned; license note recording
    the confirmed CC-BY/CC0 version; `checksum_policy`), keeping
@@ -236,4 +237,4 @@ pass. Absorption, emission, and bandgap remain separate axes.
 
 ## Verdict
 
-`SOURCE_LIMITED`
+`NEEDS_MAINTAINER_SOURCE_DECISION`
