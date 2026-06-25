@@ -1,6 +1,6 @@
 proposal_id: 20260610-roman-promotion-lane-throughput
 title: "Unblock the output side: wire Gate A/B and claim-promotion throughput"
-status: PROPOSED
+status: ACCEPTED
 type: scientific_result_publication
 priority: high
 
@@ -63,6 +63,12 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "From the 2026-06-10 workflow retrospective. Output-side counterpart to the acquisition (input-side) work."
+  canonical_task_id: TASK-0716
+  decision: accepted
+  notes: >
+    Accepted and delivered as TASK-0716 (DONE): "Run promotion-lane throughput
+    audit for result and claim candidates", which lists this proposal in its
+    input.related_objects and produced the promotion-lane audit plus
+    per-candidate routing requested here. Status reconciled from PROPOSED to
+    ACCEPTED during proposal-pool drift closeout; see
+    docs/proposal-pool-triage.md.
