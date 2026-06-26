@@ -1,0 +1,57 @@
+id: TASK-0849
+title: "Package the stellar M-L high-mass transfer as a Gate-A replayable RESULT (promotion preflight)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Promote the cleanest positive of the transfer wave: the frozen RESULT-0022 stellar mass-luminosity relation TRANSFERS to the disjoint high-mass DEBCat regime under controls (TASK-0837, TRANSFERS_TO_HIGH_MASS_UNDER_CONTROLS) -- a validated relation generalizing out-of-domain, the most promotable artifact of the wave."
+  - "Route a strong diagnostic signal to a durable output instead of leaving it in sandbox: make the transfer run Gate-A-compliant (deterministic, replayable) so a different agent can Gate-B replay it toward AGENT_VALIDATED."
+  - "Experimental judge (DEBCat dynamical masses); bounded scope -- a single validated relation generalizing to one disjoint regime, not a new law."
+
+input:
+  mode: workflow
+  related_domain: astrophysics_stellar
+  related_objects:
+    - "docs/reviews/stellar-ml-high-mass-debcat-transfer-benchmark.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    TASK-0837 ran the high-mass DEBCat transfer of the frozen RESULT-0022 stellar
+    M-L relation and returned TRANSFERS_TO_HIGH_MASS_UNDER_CONTROLS: the relation
+    clears the predeclared survival margin over its best control on the disjoint
+    high-mass holdout while degrading gracefully. That run is currently a dated
+    sandbox review note. This task packages it as a Gate-A-compliant RESULT so it
+    can be promoted: deterministic, pinned, replayable. It does NOT refit the
+    relation, edit RESULT-0022, or assert a claim (Gate C / claim promotion is a
+    separate maintainer step).
+
+requirements:
+  - "Package the TASK-0837 transfer run as a Gate-A-compliant RESULT under the textbook/stellar campaign: pinned command, code_reference, input_file_hashes, engine_version, git_commit, and a deterministic byte-reproducible replay. Do NOT refit the relation or change the frozen DEBCat slice."
+  - "Report the predeclared survival margin over the best control and the graceful out-of-range degradation, with the experimental-judge note (DEBCat dynamical masses)."
+  - "Set review_tier_proposed to AGENT_PUBLISHED only if the Gate-A packaging is complete and the run is independently replayable; otherwise keep it sandbox + a packaging-blocker note. Do NOT self-validate (Gate B must be a different agent)."
+  - "Scope the result honestly: a single validated relation transferring to one disjoint high-mass regime under controls; NOT a universal law, discovery, or stellar-structure conclusion. No claim/PRED/KNOW created (Gate C is maintainer-only)."
+  - "Output-routing summary: Gate A status, the transfer margin, the proposed review tier, and the Gate-B-replay handoff for a different agent."
+
+accepted_outputs:
+  - "A Gate-A-compliant stellar M-L high-mass transfer RESULT-* (replayable, pinned) at review_tier_proposed AGENT_PUBLISHED if Gate A passes, plus a review note; otherwise a packaging-blocker note."
+  - "Output-routing summary: promotion preflight for the stellar transfer positive; Gate-B replay handoff to a different agent; claim impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Promotion preflight: a Gate-A RESULT is produced only if the packaging is complete and replayable; Gate B (different agent) and Gate C (maintainer) are separate steps."
+  evidence:
+    - "docs/reviews/stellar-ml-high-mass-debcat-transfer-benchmark.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

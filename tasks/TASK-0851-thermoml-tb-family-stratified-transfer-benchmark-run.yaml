@@ -1,0 +1,57 @@
+id: TASK-0851
+title: "Run the ThermoML Tb family-stratified transfer benchmark with the validated frozen Joback estimator"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Complete the ThermoML property-estimation transfer audit: TASK-0841 delivered the frozen Joback estimator with a clean implementation-fidelity gate (0/25 mismatches) but verdict IMPLEMENTATION_INCONCLUSIVE because the actual ThermoML data was not fetched/run. The implementation is validated; now run the benchmark."
+  - "APL fits nothing: it audits the FROZEN published Joback Tb estimator's out-of-family transfer against experimental ThermoML measurements under controls -- structurally outside the residual-correction pattern."
+  - "Experimental judge (laboratory boiling points), under the maintainer-approved local-fetch posture; no archive vendoring."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-bounded-tb-transfer-benchmark.md"
+    - "docs/reviews/thermoml-joback-source-readiness-scout.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    TASK-0841 froze the Joback Tb estimator, passed the 0/25 implementation-fidelity
+    fixture, and pinned the local-fetch posture, returning IMPLEMENTATION_INCONCLUSIVE
+    because the family-stratified benchmark over actual ThermoML data was not run.
+    This task runs it: local-fetch the ThermoML normal-boiling-point data
+    (locator + SHA-256 + fetch/verify; do NOT vendor the archive or a substantial
+    normalized corpus), then run the family-stratified transfer of the frozen
+    Joback estimator under controls. Tb only (no Tc; Joback Tc depends on Tb).
+
+requirements:
+  - "Use the local-fetch posture from TASK-0841: official locator + expected SHA-256 + fetch/verify; do NOT vendor the raw archive or commit a substantial normalized corpus. The repo may hold the source manifest, selection protocol, compound IDs, schema, the Joback implementation, AGGREGATED results, a limited set of audit examples, and replay instructions only. Apply the 3-question source-rights framework and cite the ThermoML Archive per NIST."
+  - "Tb ONLY. Re-run the implementation-fidelity gate first (must stay 0 mismatches on the reference compounds) before reading any benchmark error; freeze compound-identity, Joback group-assignment, and chemical-family taxonomy before reading transfer error."
+  - "Evaluate the FROZEN Joback Tb estimator by family-stratified transfer (hold out whole chemical families) against controls: global median, molecular-weight-only baseline, nearest-homolog, shuffled group counts, within-family constant. Report compound-level aggregation, uncertainty-aware error, and covered-groups-only vs out-of-coverage separated."
+  - "Use the bounded verdict vocabulary (TRANSFER_SUPPORTED_IN_SCOPE / FAMILY_DEPENDENT / SIZE_DEPENDENT_FAILURE / GROUP_COVERAGE_FAILURE / IMPLEMENTATION_INCONCLUSIVE). Do NOT write 'Joback is wrong'; state whether the frozen estimator transfers under specified family holdouts. APL fits nothing; no discovery wording."
+  - "Make the run Gate-B-replayable (pinned command, code_reference, input_file_hashes, engine_version, git_commit). Stop and return IMPLEMENTATION_INCONCLUSIVE if the fidelity fixture regresses."
+
+accepted_outputs:
+  - "A ThermoML Tb family-stratified transfer benchmark: source manifest + selection protocol + Joback implementation + re-checked fidelity fixture + family-stratified transfer metrics vs controls + the bounded verdict, plus a review note. No raw archive / full normalized corpus committed."
+  - "Output-routing summary: Gate A status, the transfer outcome per family, rights determination, claim impact none, limitations (Tb-only, frozen Joback, family-holdout scope)."
+
+result_artifact_policy:
+  required: false
+  reason: "Bounded transfer audit of a frozen published estimator; a RESULT candidate is allowed only if Gate A passes with a clean fidelity gate. Default sandbox + review note. No claim promotion."
+  evidence:
+    - "docs/reviews/thermoml-bounded-tb-transfer-benchmark.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
