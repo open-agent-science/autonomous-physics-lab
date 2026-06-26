@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0840` - Locally extract the ZnSe direct-size transfer rows and audit the ChemRxiv license (public rows conditional) (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+None.
