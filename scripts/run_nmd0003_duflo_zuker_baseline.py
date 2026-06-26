@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run TASK-0823 Duflo-Zuker-structured NMD-0003 benchmark."""
+"""Run TASK-0823 DZ10 published-equation diagnostic benchmark."""
 
 from __future__ import annotations
 
@@ -58,17 +58,17 @@ def _render_report(metrics: dict[str, object]) -> str:
     surfaces = metrics["surfaces"]
     controls = metrics["controls"]
     routing = metrics["output_routing"]
-    model_scope = metrics["model_scope"]
-    return f"""# TASK-0823 Duflo-Zuker-Structured Baseline Benchmark
+    return f"""# TASK-0823 DZ10 Published-Equation Diagnostic Benchmark
 
-Sandbox benchmark for a deterministic 10-term Duflo-Zuker-structured nuclear
+Sandbox diagnostic for a deterministic 10-term DZ10 published-equation nuclear
 mass baseline on the committed NMD-0003 training surface and the reviewed
 post-AME2020 retrospective holdout.
 
-This is not a canonical DZ10-code reproduction. The feature basis follows the
-published DZ10 anatomy: macroscopic liquid-drop/DZ asymptotic terms plus
-harmonic-oscillator and extruder-intruder shell occupancy proxies. The
-publication blocker is therefore explicit: {model_scope['publication_blocker']}
+This follows the published equations in Mendoza-Temis, Hirsch, and Zuker
+(arXiv:0912.0882), but it is not a parity run of the unavailable AMDC/archival
+DZ10 code. This PR therefore does not complete `TASK-0823`; the task remains
+`READY` for a future true published-code or published-fixture parity
+implementation.
 
 ## Inputs
 
@@ -76,13 +76,15 @@ publication blocker is therefore explicit: {model_scope['publication_blocker']}
 - Retrospective holdout: `data/nuclear_masses/post_ame2020_holdout.yaml`
 - Inherited baseline: `results/EXP-0012/RUN-0001/result.yaml`
 - Post-AME2020 rows used for fitting: `0`
+- Code reference: `{metrics['gate_b_replay']['code_reference']}`
+- Engine version: `{metrics['engine_version']}`
+- Git commit at generation: `{metrics['gate_b_replay']['git_commit_at_generation']}`
 
 ## Metrics
 
 | surface | MAE (MeV) | RMSE (MeV) | count |
 | --- | ---: | ---: | ---: |
-| train | {surfaces['train']['mae_mev']:.6f} | {surfaces['train']['rmse_mev']:.6f} | {surfaces['train']['count']} |
-| sorted validation holdout | {surfaces['sorted_validation_holdout']['mae_mev']:.6f} | {surfaces['sorted_validation_holdout']['rmse_mev']:.6f} | {surfaces['sorted_validation_holdout']['count']} |
+| NMD-0003 fit surface | {surfaces['nmd0003_fit_surface']['mae_mev']:.6f} | {surfaces['nmd0003_fit_surface']['rmse_mev']:.6f} | {surfaces['nmd0003_fit_surface']['count']} |
 | post-AME2020 holdout | {surfaces['post_ame2020_holdout']['mae_mev']:.6f} | {surfaces['post_ame2020_holdout']['rmse_mev']:.6f} | {surfaces['post_ame2020_holdout']['count']} |
 
 ## Controls
@@ -95,13 +97,18 @@ publication blocker is therefore explicit: {model_scope['publication_blocker']}
 
 Best control: `{metrics['best_control_on_post_ame2020_holdout']['control_id']}`
 with MAE `{metrics['best_control_on_post_ame2020_holdout']['mae_mev']:.6f}` MeV.
-The DZ-structured proxy margin vs best control is
+The DZ10 published-equation variant margin vs best control is
 `{comparison['margin_vs_best_control_mev']:.6f}` MeV against the predeclared
 `{comparison['survival_margin_mev']:.6f}` MeV survival margin.
 
 ## Verdict
 
 `{metrics['verdict']}`
+
+Diagnostic outcome: `{comparison['diagnostic_outcome']}`.
+
+Task completion: `{metrics['task_completion']['completes_task']}`. Reason:
+{metrics['task_completion']['reason']}
 
 ## Output Routing
 
@@ -116,11 +123,12 @@ The DZ-structured proxy margin vs best control is
 
 ## Limitations
 
-- This is a DZ-structured proxy, not an archival DZ10 reproduction.
+- This follows published DZ10 equations, but is not an archival DZ10-code parity
+  reproduction.
 - The post-AME2020 surface is retrospective time-split evidence, not a strict
   blind reveal.
 - The model is fitted by ordinary least squares on the committed NMD-0003 train
-  split only.
+  rows in the paper's `N,Z >= 8` domain only.
 - No `PRED`, `CLAIM`, `KNOW`, or canonical `RESULT` artifact is created.
 """
 

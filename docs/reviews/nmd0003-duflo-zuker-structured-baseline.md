@@ -1,13 +1,14 @@
-# TASK-0823 Duflo-Zuker-Structured Baseline Benchmark
+# TASK-0823 DZ10 Published-Equation Diagnostic Benchmark
 
-Sandbox benchmark for a deterministic 10-term Duflo-Zuker-structured nuclear
+Sandbox diagnostic for a deterministic 10-term DZ10 published-equation nuclear
 mass baseline on the committed NMD-0003 training surface and the reviewed
 post-AME2020 retrospective holdout.
 
-This is not a canonical DZ10-code reproduction. The feature basis follows the
-published DZ10 anatomy: macroscopic liquid-drop/DZ asymptotic terms plus
-harmonic-oscillator and extruder-intruder shell occupancy proxies. The
-publication blocker is therefore explicit: The implementation uses DZ10-published term structure and shell occupancy proxies, but it is not the archival Duflo-Zuker code. Any canonical RESULT publication would need maintainer review or a direct published-code parity check.
+This follows the published equations in Mendoza-Temis, Hirsch, and Zuker
+(arXiv:0912.0882), but it is not a parity run of the unavailable AMDC/archival
+DZ10 code. This PR therefore does not complete `TASK-0823`; the task remains
+`READY` for a future true published-code or published-fixture parity
+implementation.
 
 ## Inputs
 
@@ -15,49 +16,57 @@ publication blocker is therefore explicit: The implementation uses DZ10-publishe
 - Retrospective holdout: `data/nuclear_masses/post_ame2020_holdout.yaml`
 - Inherited baseline: `results/EXP-0012/RUN-0001/result.yaml`
 - Post-AME2020 rows used for fitting: `0`
+- Code reference: `physics_lab/engines/nmd0003_duflo_zuker_baseline.py::run_nmd0003_duflo_zuker_baseline`
+- Engine version: `nmd0003_dz10_published_equation_variant_v2`
+- Git commit at generation: `cd8e92c8c8a293247aedd9b61c269f611a905b6a`
 
 ## Metrics
 
 | surface | MAE (MeV) | RMSE (MeV) | count |
 | --- | ---: | ---: | ---: |
-| train | 1.022981 | 1.366094 | 1616 |
-| sorted validation holdout | 3.986128 | 4.564872 | 693 |
-| post-AME2020 holdout | 1.134513 | 2.063269 | 295 |
+| NMD-0003 fit surface | 1.230832 | 1.506930 | 2217 |
+| post-AME2020 holdout | 1.256383 | 2.105379 | 295 |
 
 ## Controls
 
 | control | post-AME2020 MAE (MeV) |
 | --- | ---: |
 | inherited RESULT-0015 frozen | 4.552569 |
-| NMD-0003 train-fitted liquid drop | 3.447464 |
-| smooth-A quadratic control | 13.645968 |
+| NMD-0003 train-fitted liquid drop | 2.923573 |
+| smooth-A quadratic control | 13.610999 |
 
 Best control: `nmd0003_train_fitted_liquid_drop`
-with MAE `3.447464` MeV.
-The DZ-structured proxy margin vs best control is
-`2.312951` MeV against the predeclared
+with MAE `2.923573` MeV.
+The DZ10 published-equation variant margin vs best control is
+`1.667190` MeV against the predeclared
 `0.250000` MeV survival margin.
 
 ## Verdict
 
-`VALID_IN_RANGE`
+`INCONCLUSIVE`
+
+Diagnostic outcome: `CONTROL_SURVIVING_GAIN_UNDER_REVIEWABLE_DZ10_EQUATION_VARIANT`.
+
+Task completion: `False`. Reason:
+The reviewable published-equation variant is useful diagnostic evidence, but it is not an archival DZ10 parity reproduction. TASK-0823 therefore remains READY for a true published-code or published-fixture parity implementation.
 
 ## Output Routing
 
-- Verdict: `VALID_IN_RANGE`
+- Verdict: `INCONCLUSIVE`
 - Canonical destination: agent_runs/AGENT-RUN-0078/ plus docs/reviews/
-- Review tier: `none`
+- Review tier: `sandbox`
 - Gate A status: `not_attempted`
-- Gate B status: `not_applicable`
+- Gate B status: `replayable`
 - Claim impact: no claim change
 - Knowledge impact: no knowledge change
-- Routing decision: `RESULT_CANDIDATE_REQUIRES_GATE_A`
+- Routing decision: `SANDBOX_ONLY_DZ10_PARITY_BLOCKED_TASK_REMAINS_READY`
 
 ## Limitations
 
-- This is a DZ-structured proxy, not an archival DZ10 reproduction.
+- This follows published DZ10 equations, but is not an archival DZ10-code parity
+  reproduction.
 - The post-AME2020 surface is retrospective time-split evidence, not a strict
   blind reveal.
 - The model is fitted by ordinary least squares on the committed NMD-0003 train
-  split only.
+  rows in the paper's `N,Z >= 8` domain only.
 - No `PRED`, `CLAIM`, `KNOW`, or canonical `RESULT` artifact is created.
