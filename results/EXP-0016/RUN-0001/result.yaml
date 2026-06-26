@@ -1,0 +1,152 @@
+result_id: RESULT-0023
+run_id: RUN-0001
+experiment_id: EXP-0016
+title: "FIRAS/Wien Spectral-Domain Peak Consistency Slice (pinned COBE/FIRAS absolute monopole)"
+hypothesis_id: HYP-0016
+task_id: TASK-0845
+generated_at: '2026-06-26T00:00:00Z'
+engine_version: '0.1.0'
+git_commit: 5ca72e2a363607bd73fd53d66b29c016e5cbb05a
+command: python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079
+input_file_hashes:
+  config:
+    path: results/EXP-0016/RUN-0001/inputs/config.yaml
+    sha256: 0b4b9d8477fff8fb6a9241fd8ec11bd7d1059334d463219f6224e695ee0d3116
+  experiment:
+    path: results/EXP-0016/RUN-0001/inputs/experiment.yaml
+    sha256: 5e49005830b4d87f06b5af3575b429cdd70a90091decc287e60153d12c4ce95d
+  hypothesis:
+    path: results/EXP-0016/RUN-0001/inputs/hypothesis.yaml
+    sha256: 21f6309d5761e7dfeea86504572d2f1b711ee5a1de80003ded4c79c44203c7e8
+  task:
+    path: results/EXP-0016/RUN-0001/inputs/task.yaml
+    sha256: b9eda8a0d57809de008bcd63848699f7585e06ec084cbc95fea8d34c2e4dc5d8
+code_reference: physics_lab/engines/textbook_wien_firas_peak.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- This is a FIRAS spectral-domain self-consistency check on one pinned slice, NOT
+  independent empirical validation or falsification of Wien displacement, blackbody
+  physics, CMB physics, or universal textbook truth.
+- The reference temperature (Fixsen 2009, 2.72548 K) is itself obtained by fitting a
+  Planck spectrum to FIRAS, so the peak-vs-(b/T) comparison is partly circular
+  (blackbody self-consistency), not an independent test of the constant.
+- Scope is the pinned 43-row COBE/FIRAS absolute monopole slice; the result inherits
+  the FIRAS bin spacing (~0.45 cm^-1), which limits the raw-bin peak precision.
+- The provenance command is a standalone script, not yet a `physics-lab run` workflow,
+  so independent Gate B replay requires a follow-up engine-workflow repackaging (the
+  TASK-0786 / TASK-0799 pattern) before promotion to AGENT_VALIDATED.
+best_model_id: model_firas_wien_wavelength_peak
+best_verdict: VALID_IN_RANGE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: VALID_IN_RANGE
+  published_by:
+    contributor_id: gladunrv
+    github_username: gladunrv
+    agent_tool: Claude Code
+    model_version: Claude Opus 4.8
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: >
+    On the checksum-pinned COBE/FIRAS absolute monopole spectrum (43 rows), the
+    wavelength-domain spectral-radiance peak after the declared B_nu->B_lambda Jacobian
+    agrees with the textbook Wien reference lambda_peak=b/T (CODATA b; separately-pinned
+    Fixsen 2009 T=2.72548 K): raw-bin relative difference 0.013071 (tol 0.02) and
+    parabolic-refined 0.000917 (tol 0.005). All four predeclared controls pass
+    (absolute-product gate, frequency-vs-wavelength distinctness, no-Jacobian-relabel
+    rejection, wrong-temperature rejection). Verdict CONSISTENT_IN_SCOPE; this is a
+    blackbody self-consistency check, not independent validation.
+  followup_for_maintainer: >
+    Keep the trust qualifier explicit: agent-published, FIRAS spectral-domain
+    self-consistency only, not independent validation of Wien displacement. The
+    reference temperature is FIRAS-derived (circularity). Gate B requires a follow-up
+    engine-workflow repackaging so `physics-lab run` regenerates the artifact, then an
+    independent agent runs the replay. No CLAIM/KNOW promotion is proposed.
+verification:
+  passed: true
+  checks:
+  - name: dataset_loaded_pinned_firas_monopole
+    status: PASS
+    details: Loaded the checksum-pinned COBE/FIRAS absolute monopole rows read-only; no
+      live fetch; reference temperature pinned separately (TASK-0815 contract).
+    metrics:
+      firas_monopole_rows: 43
+      reference_temperature_k: 2.72548
+      live_external_fetch: 0
+      absolute_product_gate_passed: 1
+  - name: wavelength_domain_peak_consistent_with_wien_reference
+    status: PASS
+    details: After the declared B_nu->B_lambda Jacobian, the wavelength-domain peak
+      matches the Wien reference lambda=b/T within the predeclared tolerances (raw-bin
+      and parabolic-refined).
+    metrics:
+      reference_wavelength_peak_m: 0.001063215270337702
+      wavelength_domain_peak_raw_bin_m: 0.001049317943336831
+      wavelength_domain_peak_interpolated_m: 0.0010641903994487105
+      raw_bin_relative_difference: 0.01307103781199158
+      raw_bin_relative_tolerance: 0.02
+      interpolated_relative_difference: 0.000917151152935081
+      interpolated_relative_tolerance: 0.005
+  - name: predeclared_controls_passed
+    status: PASS
+    details: All four predeclared controls passed - absolute-product gate, frequency vs
+      wavelength peak distinctness, no-Jacobian relabel rejection, and wrong-temperature
+      rejection.
+    metrics:
+      controls_all_passed: 1
+      no_jacobian_relabel_relative_difference: 0.7257675247067377
+      wrong_temperature_relative_difference: 0.08562185840680957
+      control_min_relative_miss: 0.05
+  - name: domain_non_invariance_recorded
+    status: PASS
+    details: The native frequency-domain peak is reported separately from the
+      wavelength-domain peak (Wien non-invariance); they differ by more than one bin.
+    metrics:
+      frequency_domain_peak_frequency_ghz: 163.38688961
+      frequency_domain_peak_wavenumber_cm_inverse: 5.45
+      wavelength_domain_peak_raw_bin_wavenumber_cm_inverse: 9.53
+  - name: dataset_provenance_recorded
+    status: PASS
+    details: FIRAS absolute monopole rows are NASA/COBE public domain (Fixsen 1996),
+      checksum-pinned (TASK-0801); reference temperature Fixsen 2009; no live fetch.
+    metrics:
+      license_public_domain_us_gov: 1
+      firas_rows_checksum_present: 1
+      live_external_fetch: 0
+comparison_summary:
+- target_id: target_wien_peak_consistency
+  label: Wavelength-domain FIRAS peak consistent with the Wien reference lambda=b/T
+  reference_value: 0.001063215270337702
+  observed_value: 0.0010641903994487105
+  unit: meter
+  absolute_difference: 0.0000009751291110085
+  relative_difference: 0.000917151152935081
+  notes: Parabolic-refined wavelength-domain peak vs the Wien reference; within tol
+    0.005. Raw-bin relative difference 0.013071 within tol 0.02. Self-consistency only.
+uncertainty_summary:
+  method: firas_bin_spacing_sampling_resolution
+  observed_uncertainty: 0.01307103781199158
+  reference_uncertainty: 0.000917151152935081
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: The raw-bin relative difference reflects the FIRAS bin spacing (~0.45 cm^-1);
+    the parabolic refinement reports the sampling-resolution sensitivity, not a model fit.
+artifacts:
+  report: results/EXP-0016/RUN-0001/report.md
+  metrics: results/EXP-0016/RUN-0001/metrics.json
+  claim_update: results/EXP-0016/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0016/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0016/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0016/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0016/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0016/RUN-0001/review_metadata.yaml

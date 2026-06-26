@@ -1,0 +1,33 @@
+id: EXP-0016
+title: "Textbook FIRAS/Wien Peak Consistency Slice"
+domain: astrophysics
+status: COMPLETED
+
+hypothesis_id: HYP-0016
+
+method:
+  type: dataset_reproduction
+  simulator: textbook_firas_wien_peak_consistency
+  comparator: wavelength_domain_peak_vs_wien_reference_consistency_report
+
+data:
+  dataset_path: ../data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml
+  dataset_kind: textbook_formula_audit_firas_monopole_rows
+  benchmark_scope: "Pinned COBE/FIRAS absolute monopole slice (43 rows); one deterministic wavelength-domain Wien-peak consistency metric, no model fit."
+  expected_item_count: 43
+  sample_axes:
+    - spectral_axis_wavenumber_cm_inverse
+    - monopole_intensity_mjy_sr
+    - uncertainty_kjy_sr
+  notes: "Absolute monopole spectral radiance (B_nu vs wavenumber); CC public-domain NASA/COBE; no live fetch. Reference temperature pinned separately (Fixsen 2009)."
+
+candidate_models:
+  - id: model_firas_wien_wavelength_peak
+    formula: "lambda_peak = b / T after a declared B_nu->B_lambda Jacobian (b CODATA 2022; T separately pinned Fixsen 2009)"
+
+comparison_targets:
+  - id: target_wien_peak_consistency
+    label: "Wavelength-domain FIRAS peak consistent with the Wien reference lambda=b/T"
+    reference_value: 0.001063215270337702
+    unit: meter
+    notes: "Reference wavelength peak b/T = 1.063215 mm. Raw-bin relative difference 0.013071 (tol 0.02); interpolated 0.000917 (tol 0.005). CONSISTENT_IN_SCOPE; self-consistency, not independent validation."

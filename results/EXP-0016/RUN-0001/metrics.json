@@ -1,0 +1,23 @@
+{
+  "result_id": "RESULT-0023",
+  "run_id": "RUN-0001",
+  "experiment_id": "EXP-0016",
+  "hypothesis_id": "HYP-0016",
+  "task_id": "TASK-0845",
+  "benchmark_id": "textbook-firas-wien-peak-consistency-slice",
+  "verdict": "CONSISTENT_IN_SCOPE",
+  "best_verdict": "VALID_IN_RANGE",
+  "review_tier": "AGENT_PUBLISHED",
+  "source_run": "agent_runs/AGENT-RUN-0079/",
+  "primary_metric": {
+    "reference_wavelength_peak_m": 0.001063215270337702,
+    "raw_bin_relative_difference": 0.01307103781199158,
+    "raw_bin_relative_tolerance": 0.02,
+    "interpolated_relative_difference": 0.000917151152935081,
+    "interpolated_relative_tolerance": 0.005
+  },
+  "controls_all_passed": true,
+  "reference_temperature_k": 2.72548,
+  "circularity_caveat": "Reference T is FIRAS-derived; blackbody self-consistency, not independent validation.",
+  "gate_b": "not attempted; requires engine-workflow repackaging before independent replay"
+}

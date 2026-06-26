@@ -1,0 +1,10 @@
+dataset_id: TFA-WIEN-FIRAS-MONOPOLE-V1
+path: data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml
+sha256: 854693059338d0e9b1c3d7595bcc190c6695f99e05670aac9b3ed165fa764185
+firas_rows_sha256_in_run: 854693059338d0e9b1c3d7595bcc190c6695f99e05670aac9b3ed165fa764185
+source: COBE/FIRAS absolute CMB monopole spectrum (NASA LAMBDA)
+license: public_domain_us_gov
+attribution: "Fixsen et al. 1996 (ApJ 473, 576); reference T Fixsen 2009 (ApJ 707, 916). NASA/COBE public domain."
+reference_temperature_k: 2.72548
+reference_temperature_sigma_k: 0.00057
+note: "Pointer/provenance only; absolute monopole rows committed + checksum-pinned by TASK-0801; no live fetch."
