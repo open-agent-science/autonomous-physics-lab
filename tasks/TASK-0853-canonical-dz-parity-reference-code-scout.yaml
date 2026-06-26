@@ -1,0 +1,56 @@
+id: TASK-0853
+title: "Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: low
+
+strategy_alignment:
+  - "TASK-0823 is completed under scope A': a cited DZ10-published-variant stronger baseline (post-AME2020 ~2.92 MeV, controls-surviving) that does NOT claim canonical Duflo-Zuker ~0.5 MeV parity. This task keeps the parity question alive WITHOUT blocking TASK-0823."
+  - "If a canonical DZ reference (AMDC Fortran or a published numeric fixture) can be admissibly obtained, a future task could verify or improve the variant toward canonical DZ quality -- an even stronger nuclear baseline. If not, the variant baseline stands on its own."
+  - "Scout only: find and assess a parity reference; do NOT re-run the benchmark, promote a result, or block TASK-0823."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0823-implement-duflo-zuker-stronger-nuclear-baseline.yaml"
+    - "physics_lab/engines/nmd0003_duflo_zuker_baseline.py"
+    - "docs/reviews/nmd0003-duflo-zuker-structured-baseline.md"
+  planning_context: >
+    The TASK-0823 DZ10-published-variant (Mendoza-Temis/Hirsch/Zuker arXiv:0912.0882)
+    improves post-AME2020 extrapolation over the weak baseline under controls but
+    does not reproduce canonical DZ ~0.5 MeV accuracy; the prior attempt could not
+    reach the AMDC reference Fortran (dz.html endpoint unreachable). This task
+    scouts whether a canonical DZ parity reference is admissibly obtainable -- the
+    archival AMDC code, or a published per-nuclide DZ numeric fixture/table -- with
+    its license/reuse posture. It is explicitly OPTIONAL and must NOT block or
+    reopen TASK-0823, which stands on the A' variant scope.
+
+requirements:
+  - "Scout for a canonical Duflo-Zuker parity reference: the AMDC archival code (e.g. dz.html / DZ10/DZ28 Fortran) and/or a published per-nuclide DZ numeric fixture or table sufficient to validate a parity implementation. Record accessibility, license/reuse posture (per the 3-question source-rights framework), and machine-readability."
+  - "Return a verdict: PARITY_REFERENCE_AVAILABLE (with the bounded future parity-implementation task shape), PARITY_REFERENCE_BLOCKED (no admissible reference found), or NEEDS_MAINTAINER_DECISION."
+  - "Do NOT re-run the DZ10 benchmark, modify the TASK-0823 variant result, promote any result/claim, or treat canonical parity as a blocker for TASK-0823."
+  - "If a reference is found, state explicitly that reaching canonical DZ parity would be a SEPARATE future task, not a reopening of TASK-0823."
+
+accepted_outputs:
+  - "A canonical-DZ-parity reference scout note under docs/reviews/ with the accessibility + license assessment and the PARITY_REFERENCE_AVAILABLE / PARITY_REFERENCE_BLOCKED / NEEDS_MAINTAINER_DECISION verdict."
+  - "Output-routing summary: optional parity-reference readiness; no result/claim change; TASK-0823 not reopened."
+
+result_artifact_policy:
+  required: false
+  reason: "Optional parity-reference scout only; no benchmark, result, or claim is produced or modified."
+  evidence:
+    - "docs/reviews/nmd0003-duflo-zuker-structured-baseline.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
