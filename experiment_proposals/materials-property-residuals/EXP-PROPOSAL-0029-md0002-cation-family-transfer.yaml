@@ -1,0 +1,124 @@
+id: EXP-PROPOSAL-0029
+title: "Sandbox MD-0002 disjoint A-site cation-family transfer benchmark"
+campaign_profile_id: materials-property-residuals
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: >
+  Sandbox transfer evidence on the frozen MD-0002 computed-DFT slice only; a
+  bounded model-vs-model generalization benchmark. No claim, knowledge,
+  measured-property, material-design-law, property-prediction, recommendation,
+  device, or synthesis output.
+
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: claude
+  task_id: TASK-0838
+
+input_references:
+  - "campaign_profiles/materials-property-residuals.yaml"
+  - "hypothesis_proposals/materials-property-residuals/HYP-PROPOSAL-0063-md0002-cation-family-transfer.yaml"
+  - "docs/reviews/materials-independent-transfer-route-scout.md"
+  - "results/EXP-0014/RUN-0001/result.yaml"
+  - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+  - "data/materials/md0002_holdout_manifest.yaml"
+
+question: >
+  Does the frozen RESULT-0021 cation-pair-mean model transfer across a
+  chemically-disjoint A-site cation-family split of the committed MD-0002
+  formation-energy rows, beating null / shuffled / per-class-median controls on
+  the held-out family by a predeclared margin in both directions?
+
+method:
+  summary: >
+    Partition the 362 included MD-0002 formation-energy rows into two disjoint
+    A-site cation-family classes (alkali-transition, 225 rows; alkaline-earth-
+    transition, 137 rows). For each holdout direction, fit the frozen cation-pair
+    mean (global-train-mean fallback) on the disjoint training family and score
+    held-out-family MAE against the null (global train mean), shuffled cation-pair
+    label, and per-class-median controls. The frozen baseline model and descriptor
+    are imported unchanged and fixed before any transfer error is read.
+  code_references:
+    - "physics_lab/engines/materials_md0002_transfer.py"
+    - "scripts/run_materials_md0002_transfer.py"
+    - "tests/test_materials_md0002_transfer.py"
+  commands:
+    - "python scripts/run_materials_md0002_transfer.py --config examples/benchmarks/materials_md0002_formation_energy.yaml --output-dir agent_runs/AGENT-RUN-0081 --write-report"
+  parameters:
+    property_kind: formation_energy_per_atom
+    units: eV_per_atom
+    control_seeds: [0, 1, 2, 7, 11]
+    minimum_transfer_margin_eV_per_atom: 0.05
+    live_fetch: false
+
+inputs:
+  datasets:
+    - "Committed checksum-pinned MD-0002 Materials Project computed-DFT rows."
+  constants:
+    - "Frozen exact unordered non-oxygen cation-pair descriptor."
+    - "Global train mean fallback for unseen cation pairs."
+  prior_results:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/reviews/materials-independent-transfer-route-scout.md"
+  assumptions:
+    - "Computed and measured rows are not mixed."
+    - "Formation energy and band gap are not pooled."
+    - "The frozen baseline model and descriptor remain fixed after scoring."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0081/"
+    - "docs/reviews/materials-md0002-cation-family-transfer-benchmark.md"
+  metrics:
+    - "frozen-model held-out-family holdout MAE per direction"
+    - "null / shuffled / per-class-median control MAE per direction"
+    - "margin over best control vs predeclared 0.05 eV/atom"
+    - "held-out rows falling back to the global train mean"
+  plots: []
+  notes:
+    - "agent_runs/AGENT-RUN-0081/report.md"
+    - "agent_runs/AGENT-RUN-0081/limitations.md"
+    - "agent_runs/AGENT-RUN-0081/review_summary.md"
+
+validation:
+  pass_condition: >
+    Pass only if the frozen cation-pair model beats the best control's held-out
+    MAE by at least 0.05 eV/atom in both disjoint-family directions.
+  fail_condition: >
+    Fail (advantage is family-localized) if either direction does not clear the
+    margin; record the honest negative without refit, feature add, or split change.
+  baseline_or_reference: "Null global train mean, shuffled cation-pair label, and per-class-median controls."
+  expected_failure_modes:
+    - "Disjoint families share no cation pair, forcing the global fallback on every held-out row."
+    - "The frozen model may match or trail the controls on the held-out family."
+    - "The cation-pair advantage may be family-localized."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not state that a universal formation-energy law was discovered."
+    - "Do not describe the source as experimental measurements."
+    - "Do not make a materials-discovery, material-design-law, property-prediction, or device statement."
+  mitigations:
+    - "Use SANDBOX verdicts only for the frozen slice."
+    - "Keep controls and limitations visible in both directions."
+    - "Request no claim or knowledge update."
+
+limitations:
+  - "Computed DFT values only (CC BY 4.0)."
+  - "Bounded model-vs-model transfer benchmark on one frozen slice."
+  - "A single disjoint A-site cation-family split, not a broad transfer study."
+  - "Band gap is neither scored nor pooled."
+
+verdict: SANDBOX_FAIL
+maintainer_decision_requested: >
+  Review the sandbox negative-transfer run and decide whether to keep the
+  family-localized result as a diagnostic under the stated computed-DFT claim
+  ceiling; no Gate A packaging is requested.
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: >
+    A separate publication task must authorize canonical hypothesis, experiment,
+    and result paths before any Gate A packaging.
