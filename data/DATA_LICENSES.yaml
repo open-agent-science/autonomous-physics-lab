@@ -186,6 +186,32 @@ datasets:
       - data/quantum_dots/digitization/almeida-2023-nano-letters-inp-optical/s2b_centers.csv
       - data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml
 
+  - id: toufanian-2021-znse-chemmater-absorption
+    source: "Toufanian et al., Correlating ZnSe Quantum Dot Absorption with Particle Size and Concentration, Chem. Mater. 2021, 33, 7527-7536"
+    source_url: https://doi.org/10.1021/acs.chemmater.1c02501
+    license: "CC BY-NC-ND 4.0 (ACS open-access version-of-record and ChemRxiv v4 preprint doi:10.26434/chemrxiv-2021-m8kbg-v4)"
+    redistribution_status: limited_factual_extract_no_artifact_redistribution_with_attribution
+    citation_or_acknowledgement: >
+      Data adapted from Toufanian, R.; Zhong, X.; Kays, J. C.; Saeboe, A. M.;
+      Dennis, A. M., "Correlating ZnSe Quantum Dot Absorption with Particle Size
+      and Concentration," Chemistry of Materials 2021, 33 (18), 7527-7536
+      (doi:10.1021/acs.chemmater.1c02501), licensed CC BY-NC-ND 4.0. Cite the
+      article; only the factual numeric values are reused.
+    evidence: >
+      License CONFIRMED CC BY-NC-ND 4.0 on the ACS open-access version-of-record
+      and the ChemRxiv v4 preprint (TASK-0840 maintainer manual check). Only the
+      ten factual numeric (SAXS diameter, 1S peak) values from Table 1 are
+      committed, re-expressed in the qd schema with attribution under the
+      limited_factual_extract basis: facts are not copyrightable and APL's use is
+      non-commercial research, preserving the BY-NC-ND terms. source_bytes
+      redistribution is NOT performed: the publisher PDF / figures / Supporting
+      Information / Table 1 image are not vendored (locator + SHA-256
+      9963096332e4fc37b389fe72f839e347cba9dc92f402634b30c8a17a30302b51 only).
+    raw_artifact_vendored: false
+    provenance: docs/reviews/quantum-toufanian-2021-znse-source-artifact-and-extraction.md
+    paths:
+      - data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml
+
   - id: nasa-cobe-firas-monopole-spectrum-v1
     source: "NASA LAMBDA COBE/FIRAS CMB Monopole Spectrum v1"
     source_url: https://lambda.gsfc.nasa.gov/data/cobe/firas/monopole_spec/firas_monopole_spec_v1.txt
