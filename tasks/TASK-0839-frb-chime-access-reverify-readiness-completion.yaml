@@ -1,7 +1,7 @@
 id: TASK-0839
 title: "Re-verify CHIME/FRB Catalog 2 access and complete the FRB readiness + no-leakage temporal-split feasibility (readiness only)"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
