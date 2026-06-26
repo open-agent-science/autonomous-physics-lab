@@ -1,0 +1,63 @@
+id: TASK-0850
+title: "Strengthen the InP-ZnSe confinement transfer with a literature effective-mass prefactor (no holdout fit)"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "The first cross-material confinement transfer (TASK-0842, InP->ZnSe) was borderline INCONCLUSIVE -- it did not clear the predeclared margin. The physically-motivated explanation flagged by that benchmark is a per-material effective-mass prefactor; test it honestly."
+  - "Use LITERATURE effective masses (no free parameter fit to the holdout) so this is a pre-registered physics model, NOT a back-fit onto the borderline ZnSe holdout."
+  - "Both outcomes valuable: effective-mass scaling explains the borderline (confinement is universal once m* is accounted for) OR confinement remains material-specific even after m*. No refit-to-rescue."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-znse-cross-material-transfer-benchmark.md"
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+  planning_context: >
+    TASK-0842 ran the InP->ZnSe size-confinement transfer with the bulk gap as an
+    explicit per-material input and returned INCONCLUSIVE (did not clear the
+    margin). Its output-routing note explicitly named a per-material effective-mass
+    prefactor as a candidate strengthening that "must be a separate task; it must
+    not be back-fitted onto this holdout." Effective-mass theory predicts the
+    confinement energy scales inversely with the reduced effective mass, which
+    differs substantially between InP and ZnSe -- a physically-motivated reason the
+    bulk-gap-only transfer was borderline. This task pre-registers an
+    effective-mass-scaled confinement model using LITERATURE effective masses (no
+    fit to the holdout) and re-runs the transfer under controls.
+
+requirements:
+  - "Use LITERATURE electron/hole effective masses (cite the source) to form the per-material reduced effective mass; pre-register the effective-mass-scaled confinement model and the m* values BEFORE re-reading any transfer error. NO free parameter may be fit to the InP/ZnSe holdout (this is the non-back-fit condition)."
+  - "Compare the effective-mass-scaled confinement transfer against the bulk-gap-only model (TASK-0842) and against null / shuffled-size / per-material-mean controls on the held-out material; report whether it now clears the predeclared survival margin."
+  - "Use ONLY direct-size rows (InP TEM qd-0003, ZnSe SAXS qd-0004); calibration-derived Yu/Moreels excluded. Run both directions (InP->ZnSe and ZnSe->InP) for symmetry."
+  - "Make the run Gate-B-replayable (pinned command, code_reference, input_file_hashes, engine_version, git_commit)."
+  - "Do NOT promote a claim or use universal-size-law / discovery wording; a positive is bounded evidence that confinement transfers once effective mass is included, across two materials -- not a universal law."
+  - "Stop: if even the effective-mass-scaled model does not transfer under controls, record the honest material-specificity negative; do not fit m* or any prefactor to the holdout to rescue it."
+
+accepted_outputs:
+  - "A cross-material effective-mass-scaled confinement transfer benchmark run reporting the margin vs the bulk-gap-only model and controls, both directions, plus a review note."
+  - "A RESULT-* candidate (best_verdict by the outcome) at AGENT_PUBLISHED only if Gate A passes; otherwise sandbox AGENT-RUN-* + review note."
+  - "Output-routing summary: Gate A status, the margin vs TASK-0842 and controls, the literature m* source, claim impact none, limitations (two materials, literature m*, not a universal law)."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes; a positive is bounded (two-material confinement transfer with effective mass), never a discovery. Default sandbox + review note."
+  evidence:
+    - "docs/reviews/quantum-znse-cross-material-transfer-benchmark.md"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

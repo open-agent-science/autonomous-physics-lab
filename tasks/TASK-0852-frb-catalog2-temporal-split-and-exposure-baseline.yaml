@@ -1,0 +1,59 @@
+id: TASK-0852
+title: "FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Access is resolved: the FRB readiness scout (TASK-0839) returned SOURCE_LIMITED only because the CANFAR landing page hit a transient server error; the data products are in fact PUBLIC (maintainer confirmed CANFAR vault /AstroDataCitationDOI/CISTI.CANFAR/25.0066/data, all files Read: Public, owner ssiegel)."
+  - "Advance the FRB selection-effect audit by one bounded step: pin the public locator + checksum, build the VERSION-LOCKED no-leakage temporal split, and build the EXPOSURE-ONLY baseline that any morphology model must beat -- WITHOUT building a morphology model, freezing a PRED, or scaffolding the full campaign."
+  - "Exposure is a first-class, separately-validated artifact; the exposure-only baseline is the gate, so a later morphology model cannot be confounded by sky-coverage bias."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-chime-source-readiness-temporal-split-scout.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    CHIME/FRB Catalog 2 is public on the CANFAR vault (DOI 10.11570/25.0066):
+    data/table/chimefrbcat2.csv (3.87 MB; per-burst morphology, DM, fluence,
+    exposure exp_up/exp_low, repeater flags, timestamps, source associations),
+    plus .fits/.json/.npy of the same table, and data/exposure/ (full-sky exposure
+    maps), data/localizations/, data/dynamic_spectra/. All Read: Public. This task
+    pins the public locator + SHA-256 (no vendoring of the multi-MB files), then
+    builds the version-locked no-leakage temporal split and the exposure-only
+    baseline. It does NOT build any morphology model, run a morphology benchmark,
+    freeze a PRED, or scaffold the full FRB campaign.
+
+requirements:
+  - "Pin the exact public CANFAR locator for data/table/chimefrbcat2.csv (and the data/exposure/ maps if used) plus expected SHA-256 and a fetch/verify command. Do NOT vendor the multi-MB files into the repo. Record the dataset citation (CHIME/FRB Catalog 2; cite the catalog paper / DOI) and the rights basis."
+  - "Build the VERSION-LOCKED, no-leakage retrospective temporal split: per-source first-detection time; later repeater status determined only from a strictly later catalog version; verify that catalog reprocessing drift (DM/morphology/source associations) does not leak future information into the pre-T view. State whether date-locking alone suffices or version-locking is required."
+  - "Build the EXPOSURE-ONLY baseline (from exp_up/exp_low and/or the exposure maps) as a first-class, separately-validated, frozen artifact, and state that any future morphology model must beat it OUT-OF-SAMPLE. Validate that the exposure-only baseline is calibrated (higher exposure -> higher observed repetition, as it must be)."
+  - "Do NOT build or fit any morphology model, run a morphology benchmark/metric, freeze any PRED, or scaffold the full FRB campaign. Keep the primary framing as the exposure-controlled selection-effect audit."
+  - "Make all artifacts replayable (pinned fetch/verify command, code_reference, input hashes, engine_version, git_commit)."
+  - "Return a verdict: SPLIT_AND_EXPOSURE_BASELINE_READY (with the bounded FRB-00x pilot shape) or BLOCKED (with the specific blocker)."
+
+accepted_outputs:
+  - "A pinned FRB source manifest (public locator + SHA-256 + fetch/verify + citation/rights), a version-locked no-leakage temporal-split spec, and a validated exposure-only baseline artifact + review note. No morphology model, no PRED, no full campaign."
+  - "Output-routing summary: source-readiness + exposure-baseline gate for the FRB selection-effect audit; no morphology model/benchmark/PRED; data not vendored; no-leakage boundaries stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-pinning, temporal-split, and exposure-baseline construction only; no morphology model, benchmark metric, PRED, or result artifact."
+  evidence:
+    - "docs/reviews/frb-chime-source-readiness-temporal-split-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
