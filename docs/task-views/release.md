@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0839` - Re-verify CHIME/FRB Catalog 2 access and complete the FRB readiness + no-leakage temporal-split feasibility (readiness only) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-0845` - Package the FIRAS/Wien consistency slice as a scoped Gate A result candidate (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0846` - Package CLAIM-0009 PARTIALLY_SUPPORTED anharmonic evidence as a public-safe campaign capsule (`scientific_result_publication`, priority `medium`, difficulty `low`, domain `classical_mechanics`)
 
@@ -16,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0839` - Re-verify CHIME/FRB Catalog 2 access and complete the FRB readiness + no-leakage temporal-split feasibility (readiness only) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `radio_transients_astrophysics`)
