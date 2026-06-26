@@ -1,0 +1,702 @@
+{
+  "agent_verdict": "REVIEW_NEEDED",
+  "benchmark_id": "quantum-cross-material-confinement-transfer-inp-znse",
+  "bulk_gap_ev": {
+    "InP": 1.34,
+    "ZnSe": 2.7
+  },
+  "bulk_gap_source": {
+    "InP": "room-temperature bulk gap cited in the qd-0004 planning context; standard InP Eg(300 K) ~1.344 eV.",
+    "ZnSe": "room-temperature bulk gap reported by the Toufanian 2021 ZnSe source; standard ZnSe Eg(300 K) ~2.7 eV."
+  },
+  "campaign_profile_id": "quantum-size-effects",
+  "confinement_form": "conf = C * d^(-n)",
+  "framings": {
+    "characteristic_length": {
+      "forward_inp_to_znse": {
+        "calibration_material": "InP",
+        "direction_id": "InP_to_ZnSe",
+        "frozen_model": {
+          "calibration_train_confinement_mae_ev": 0.062004169,
+          "coefficient_C": 1.980917901395,
+          "exponent_n": 0.74942140332,
+          "formula": "conf = C * d^(-n); conf = E1s - E_bulk"
+        },
+        "holdout_material": "ZnSe",
+        "transfer": {
+          "best_control_id": "per_material_mean",
+          "best_control_mae_ev": 0.1458,
+          "clears_predeclared_margin": false,
+          "controls": {
+            "per_material_mean": {
+              "description": "Predict the held-out material's own mean confinement (size-independent null).",
+              "mae_ev": 0.1458,
+              "max_abs_residual_ev": 0.2682,
+              "mean_confinement_ev": 0.4668,
+              "rmse_ev": 0.168117697
+            },
+            "shuffled_size": {
+              "description": "Frozen transferred model applied to a deterministically permuted held-out size axis.",
+              "mae_ev": 0.38356269,
+              "max_abs_residual_ev": 0.855381032,
+              "rmse_ev": 0.47538666,
+              "shuffle_seed": 842,
+              "shuffled_sizes_nm": [
+                4.31,
+                2.86,
+                5.75,
+                3.46,
+                5.36,
+                2.04,
+                3.02,
+                2.48,
+                4.42,
+                2.21
+              ]
+            }
+          },
+          "predictions": [
+            {
+              "abs_confinement_residual_ev": 0.425975359,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.425975359,
+              "entry_id": "toufanian-2021-znse-qd361",
+              "equiv_diameter_nm": 2.04,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.735,
+              "observed_e1s_ev": 3.435,
+              "predicted_confinement_ev": 1.160975359,
+              "predicted_e1s_ev": 3.860975359,
+              "size_nm": 2.04,
+              "transfer_size_nm": 2.04
+            },
+            {
+              "abs_confinement_residual_ev": 0.387381032,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.387381032,
+              "entry_id": "toufanian-2021-znse-qd364",
+              "equiv_diameter_nm": 2.21,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.706,
+              "observed_e1s_ev": 3.406,
+              "predicted_confinement_ev": 1.093381032,
+              "predicted_e1s_ev": 3.793381032,
+              "size_nm": 2.21,
+              "transfer_size_nm": 2.21
+            },
+            {
+              "abs_confinement_residual_ev": 0.396896105,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.396896105,
+              "entry_id": "toufanian-2021-znse-qd375",
+              "equiv_diameter_nm": 2.48,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.606,
+              "observed_e1s_ev": 3.306,
+              "predicted_confinement_ev": 1.002896105,
+              "predicted_e1s_ev": 3.702896105,
+              "size_nm": 2.48,
+              "transfer_size_nm": 2.48
+            },
+            {
+              "abs_confinement_residual_ev": 0.364272259,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.364272259,
+              "entry_id": "toufanian-2021-znse-qd383",
+              "equiv_diameter_nm": 2.86,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.537,
+              "observed_e1s_ev": 3.237,
+              "predicted_confinement_ev": 0.901272259,
+              "predicted_e1s_ev": 3.601272259,
+              "size_nm": 2.86,
+              "transfer_size_nm": 2.86
+            },
+            {
+              "abs_confinement_residual_ev": 0.386244804,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.386244804,
+              "entry_id": "toufanian-2021-znse-qd390",
+              "equiv_diameter_nm": 3.02,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.479,
+              "observed_e1s_ev": 3.179,
+              "predicted_confinement_ev": 0.865244804,
+              "predicted_e1s_ev": 3.565244804,
+              "size_nm": 3.02,
+              "transfer_size_nm": 3.02
+            },
+            {
+              "abs_confinement_residual_ev": 0.358396228,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.358396228,
+              "entry_id": "toufanian-2021-znse-qd397",
+              "equiv_diameter_nm": 3.46,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.423,
+              "observed_e1s_ev": 3.123,
+              "predicted_confinement_ev": 0.781396228,
+              "predicted_e1s_ev": 3.481396228,
+              "size_nm": 3.46,
+              "transfer_size_nm": 3.46
+            },
+            {
+              "abs_confinement_residual_ev": 0.301789517,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.301789517,
+              "entry_id": "toufanian-2021-znse-qd405",
+              "equiv_diameter_nm": 4.31,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.361,
+              "observed_e1s_ev": 3.061,
+              "predicted_confinement_ev": 0.662789517,
+              "predicted_e1s_ev": 3.362789517,
+              "size_nm": 4.31,
+              "transfer_size_nm": 4.31
+            },
+            {
+              "abs_confinement_residual_ev": 0.32638904,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.32638904,
+              "entry_id": "toufanian-2021-znse-qd410",
+              "equiv_diameter_nm": 4.42,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.324,
+              "observed_e1s_ev": 3.024,
+              "predicted_confinement_ev": 0.65038904,
+              "predicted_e1s_ev": 3.35038904,
+              "size_nm": 4.42,
+              "transfer_size_nm": 4.42
+            },
+            {
+              "abs_confinement_residual_ev": 0.303878651,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.303878651,
+              "entry_id": "toufanian-2021-znse-qd419",
+              "equiv_diameter_nm": 5.36,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.259,
+              "observed_e1s_ev": 2.959,
+              "predicted_confinement_ev": 0.562878651,
+              "predicted_e1s_ev": 3.262878651,
+              "size_nm": 5.36,
+              "transfer_size_nm": 5.36
+            },
+            {
+              "abs_confinement_residual_ev": 0.296017064,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.296017064,
+              "entry_id": "toufanian-2021-znse-qd422",
+              "equiv_diameter_nm": 5.75,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.238,
+              "observed_e1s_ev": 2.938,
+              "predicted_confinement_ev": 0.534017064,
+              "predicted_e1s_ev": 3.234017064,
+              "size_nm": 5.75,
+              "transfer_size_nm": 5.75
+            }
+          ],
+          "required_margin_ev": 0.05,
+          "transfer_margin_vs_best_control_ev": -0.208924006,
+          "transferred": {
+            "mae_ev": 0.354724006,
+            "max_abs_residual_ev": 0.425975359,
+            "rmse_ev": 0.357344067
+          }
+        }
+      },
+      "reverse_znse_to_inp": {
+        "calibration_material": "ZnSe",
+        "direction_id": "ZnSe_to_InP",
+        "frozen_model": {
+          "calibration_train_confinement_mae_ev": 0.010852762,
+          "coefficient_C": 1.640705676981,
+          "exponent_n": 1.0879535206,
+          "formula": "conf = C * d^(-n); conf = E1s - E_bulk"
+        },
+        "holdout_material": "InP",
+        "transfer": {
+          "best_control_id": "per_material_mean",
+          "best_control_mae_ev": 0.2195,
+          "clears_predeclared_margin": false,
+          "controls": {
+            "per_material_mean": {
+              "description": "Predict the held-out material's own mean confinement (size-independent null).",
+              "mae_ev": 0.2195,
+              "max_abs_residual_ev": 0.350166667,
+              "mean_confinement_ev": 1.010166667,
+              "rmse_ev": 0.24376725
+            },
+            "shuffled_size": {
+              "description": "Frozen transferred model applied to a deterministically permuted held-out size axis.",
+              "mae_ev": 0.513981279,
+              "max_abs_residual_ev": 0.890653922,
+              "rmse_ev": 0.5885101,
+              "shuffle_seed": 842,
+              "shuffled_sizes_nm": [
+                3.136,
+                4.112,
+                2.602,
+                2.002,
+                2.787,
+                1.498
+              ]
+            }
+          },
+          "predictions": [
+            {
+              "abs_confinement_residual_ev": 0.297982967,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.297982967,
+              "entry_id": "almeida-2023-inp-460nm",
+              "equiv_diameter_nm": 0.911220587,
+              "material": "InP",
+              "observed_confinement_ev": 1.355,
+              "observed_e1s_ev": 2.695,
+              "predicted_confinement_ev": 1.057017033,
+              "predicted_e1s_ev": 2.397017033,
+              "size_nm": 1.498,
+              "transfer_size_nm": 1.498
+            },
+            {
+              "abs_confinement_residual_ev": 0.47200461,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.47200461,
+              "entry_id": "almeida-2023-inp-480nm",
+              "equiv_diameter_nm": 1.217799476,
+              "material": "InP",
+              "observed_confinement_ev": 1.243,
+              "observed_e1s_ev": 2.583,
+              "predicted_confinement_ev": 0.77099539,
+              "predicted_e1s_ev": 2.11099539,
+              "size_nm": 2.002,
+              "transfer_size_nm": 2.002
+            },
+            {
+              "abs_confinement_residual_ev": 0.511310212,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.511310212,
+              "entry_id": "almeida-2023-inp-510nm",
+              "equiv_diameter_nm": 1.582774344,
+              "material": "InP",
+              "observed_confinement_ev": 1.091,
+              "observed_e1s_ev": 2.431,
+              "predicted_confinement_ev": 0.579689788,
+              "predicted_e1s_ev": 1.919689788,
+              "size_nm": 2.602,
+              "transfer_size_nm": 2.602
+            },
+            {
+              "abs_confinement_residual_ev": 0.376049459,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.376049459,
+              "entry_id": "almeida-2023-inp-550nm",
+              "equiv_diameter_nm": 1.695308262,
+              "material": "InP",
+              "observed_confinement_ev": 0.914,
+              "observed_e1s_ev": 2.254,
+              "predicted_confinement_ev": 0.537950541,
+              "predicted_e1s_ev": 1.877950541,
+              "size_nm": 2.787,
+              "transfer_size_nm": 2.787
+            },
+            {
+              "abs_confinement_residual_ev": 0.324852439,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.324852439,
+              "entry_id": "almeida-2023-inp-580nm",
+              "equiv_diameter_nm": 1.907601977,
+              "material": "InP",
+              "observed_confinement_ev": 0.798,
+              "observed_e1s_ev": 2.138,
+              "predicted_confinement_ev": 0.473147561,
+              "predicted_e1s_ev": 1.813147561,
+              "size_nm": 3.136,
+              "transfer_size_nm": 3.136
+            },
+            {
+              "abs_confinement_residual_ev": 0.307653922,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.307653922,
+              "entry_id": "almeida-2023-inp-620nm",
+              "equiv_diameter_nm": 2.501294429,
+              "material": "InP",
+              "observed_confinement_ev": 0.66,
+              "observed_e1s_ev": 2.0,
+              "predicted_confinement_ev": 0.352346078,
+              "predicted_e1s_ev": 1.692346078,
+              "size_nm": 4.112,
+              "transfer_size_nm": 4.112
+            }
+          ],
+          "required_margin_ev": 0.05,
+          "transfer_margin_vs_best_control_ev": -0.162142268,
+          "transferred": {
+            "mae_ev": 0.381642268,
+            "max_abs_residual_ev": 0.511310212,
+            "rmse_ev": 0.390430013
+          }
+        }
+      }
+    },
+    "equivalent_diameter": {
+      "forward_inp_to_znse": {
+        "calibration_material": "InP",
+        "direction_id": "InP_to_ZnSe",
+        "frozen_model": {
+          "calibration_train_confinement_mae_ev": 0.062004168,
+          "coefficient_C": 1.364819350237,
+          "exponent_n": 0.74942140313,
+          "formula": "conf = C * d^(-n); conf = E1s - E_bulk"
+        },
+        "holdout_material": "ZnSe",
+        "transfer": {
+          "best_control_id": "per_material_mean",
+          "best_control_mae_ev": 0.1458,
+          "clears_predeclared_margin": false,
+          "controls": {
+            "per_material_mean": {
+              "description": "Predict the held-out material's own mean confinement (size-independent null).",
+              "mae_ev": 0.1458,
+              "max_abs_residual_ev": 0.2682,
+              "mean_confinement_ev": 0.4668,
+              "rmse_ev": 0.168117697
+            },
+            "shuffled_size": {
+              "description": "Frozen transferred model applied to a deterministically permuted held-out size axis.",
+              "mae_ev": 0.237745266,
+              "max_abs_residual_ev": 0.515321271,
+              "rmse_ev": 0.279827409,
+              "shuffle_seed": 842,
+              "shuffled_sizes_nm": [
+                4.31,
+                2.86,
+                5.75,
+                3.46,
+                5.36,
+                2.04,
+                3.02,
+                2.48,
+                4.42,
+                2.21
+              ]
+            }
+          },
+          "predictions": [
+            {
+              "abs_confinement_residual_ev": 0.064892633,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.064892633,
+              "entry_id": "toufanian-2021-znse-qd361",
+              "equiv_diameter_nm": 2.04,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.735,
+              "observed_e1s_ev": 3.435,
+              "predicted_confinement_ev": 0.799892633,
+              "predicted_e1s_ev": 3.499892633,
+              "size_nm": 2.04,
+              "transfer_size_nm": 2.04
+            },
+            {
+              "abs_confinement_residual_ev": 0.047321271,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.047321271,
+              "entry_id": "toufanian-2021-znse-qd364",
+              "equiv_diameter_nm": 2.21,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.706,
+              "observed_e1s_ev": 3.406,
+              "predicted_confinement_ev": 0.753321271,
+              "predicted_e1s_ev": 3.453321271,
+              "size_nm": 2.21,
+              "transfer_size_nm": 2.21
+            },
+            {
+              "abs_confinement_residual_ev": 0.084978667,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.084978667,
+              "entry_id": "toufanian-2021-znse-qd375",
+              "equiv_diameter_nm": 2.48,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.606,
+              "observed_e1s_ev": 3.306,
+              "predicted_confinement_ev": 0.690978667,
+              "predicted_e1s_ev": 3.390978667,
+              "size_nm": 2.48,
+              "transfer_size_nm": 2.48
+            },
+            {
+              "abs_confinement_residual_ev": 0.083961534,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.083961534,
+              "entry_id": "toufanian-2021-znse-qd383",
+              "equiv_diameter_nm": 2.86,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.537,
+              "observed_e1s_ev": 3.237,
+              "predicted_confinement_ev": 0.620961534,
+              "predicted_e1s_ev": 3.320961534,
+              "size_nm": 2.86,
+              "transfer_size_nm": 2.86
+            },
+            {
+              "abs_confinement_residual_ev": 0.117139219,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.117139219,
+              "entry_id": "toufanian-2021-znse-qd390",
+              "equiv_diameter_nm": 3.02,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.479,
+              "observed_e1s_ev": 3.179,
+              "predicted_confinement_ev": 0.596139219,
+              "predicted_e1s_ev": 3.296139219,
+              "size_nm": 3.02,
+              "transfer_size_nm": 3.02
+            },
+            {
+              "abs_confinement_residual_ev": 0.115368951,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.115368951,
+              "entry_id": "toufanian-2021-znse-qd397",
+              "equiv_diameter_nm": 3.46,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.423,
+              "observed_e1s_ev": 3.123,
+              "predicted_confinement_ev": 0.538368951,
+              "predicted_e1s_ev": 3.238368951,
+              "size_nm": 3.46,
+              "transfer_size_nm": 3.46
+            },
+            {
+              "abs_confinement_residual_ev": 0.095650908,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.095650908,
+              "entry_id": "toufanian-2021-znse-qd405",
+              "equiv_diameter_nm": 4.31,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.361,
+              "observed_e1s_ev": 3.061,
+              "predicted_confinement_ev": 0.456650908,
+              "predicted_e1s_ev": 3.156650908,
+              "size_nm": 4.31,
+              "transfer_size_nm": 4.31
+            },
+            {
+              "abs_confinement_residual_ev": 0.124107186,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.124107186,
+              "entry_id": "toufanian-2021-znse-qd410",
+              "equiv_diameter_nm": 4.42,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.324,
+              "observed_e1s_ev": 3.024,
+              "predicted_confinement_ev": 0.448107186,
+              "predicted_e1s_ev": 3.148107186,
+              "size_nm": 4.42,
+              "transfer_size_nm": 4.42
+            },
+            {
+              "abs_confinement_residual_ev": 0.12881399,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.12881399,
+              "entry_id": "toufanian-2021-znse-qd419",
+              "equiv_diameter_nm": 5.36,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.259,
+              "observed_e1s_ev": 2.959,
+              "predicted_confinement_ev": 0.38781399,
+              "predicted_e1s_ev": 3.08781399,
+              "size_nm": 5.36,
+              "transfer_size_nm": 5.36
+            },
+            {
+              "abs_confinement_residual_ev": 0.129928838,
+              "bulk_gap_ev": 2.7,
+              "confinement_residual_ev": 0.129928838,
+              "entry_id": "toufanian-2021-znse-qd422",
+              "equiv_diameter_nm": 5.75,
+              "material": "ZnSe",
+              "observed_confinement_ev": 0.238,
+              "observed_e1s_ev": 2.938,
+              "predicted_confinement_ev": 0.367928838,
+              "predicted_e1s_ev": 3.067928838,
+              "size_nm": 5.75,
+              "transfer_size_nm": 5.75
+            }
+          ],
+          "required_margin_ev": 0.05,
+          "transfer_margin_vs_best_control_ev": 0.04658368,
+          "transferred": {
+            "mae_ev": 0.09921632,
+            "max_abs_residual_ev": 0.129928838,
+            "rmse_ev": 0.102848966
+          }
+        }
+      },
+      "reverse_znse_to_inp": {
+        "calibration_material": "ZnSe",
+        "direction_id": "ZnSe_to_InP",
+        "frozen_model": {
+          "calibration_train_confinement_mae_ev": 0.010852762,
+          "coefficient_C": 1.640705676981,
+          "exponent_n": 1.0879535206,
+          "formula": "conf = C * d^(-n); conf = E1s - E_bulk"
+        },
+        "holdout_material": "InP",
+        "transfer": {
+          "best_control_id": "per_material_mean",
+          "best_control_mae_ev": 0.2195,
+          "clears_predeclared_margin": true,
+          "controls": {
+            "per_material_mean": {
+              "description": "Predict the held-out material's own mean confinement (size-independent null).",
+              "mae_ev": 0.2195,
+              "max_abs_residual_ev": 0.350166667,
+              "mean_confinement_ev": 1.010166667,
+              "rmse_ev": 0.24376725
+            },
+            "shuffled_size": {
+              "description": "Frozen transferred model applied to a deterministically permuted held-out size axis.",
+              "mae_ev": 0.494510274,
+              "max_abs_residual_ev": 1.155341813,
+              "rmse_ev": 0.609515945,
+              "shuffle_seed": 842,
+              "shuffled_sizes_nm": [
+                1.907601977,
+                2.501294429,
+                1.582774344,
+                1.217799476,
+                1.695308262,
+                0.911220587
+              ]
+            }
+          },
+          "predictions": [
+            {
+              "abs_confinement_residual_ev": 0.460341813,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": 0.460341813,
+              "entry_id": "almeida-2023-inp-460nm",
+              "equiv_diameter_nm": 0.911220587,
+              "material": "InP",
+              "observed_confinement_ev": 1.355,
+              "observed_e1s_ev": 2.695,
+              "predicted_confinement_ev": 1.815341813,
+              "predicted_e1s_ev": 3.155341813,
+              "size_nm": 1.498,
+              "transfer_size_nm": 0.911220587
+            },
+            {
+              "abs_confinement_residual_ev": 0.081122626,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": 0.081122626,
+              "entry_id": "almeida-2023-inp-480nm",
+              "equiv_diameter_nm": 1.217799476,
+              "material": "InP",
+              "observed_confinement_ev": 1.243,
+              "observed_e1s_ev": 2.583,
+              "predicted_confinement_ev": 1.324122626,
+              "predicted_e1s_ev": 2.664122626,
+              "size_nm": 2.002,
+              "transfer_size_nm": 1.217799476
+            },
+            {
+              "abs_confinement_residual_ev": 0.095429371,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.095429371,
+              "entry_id": "almeida-2023-inp-510nm",
+              "equiv_diameter_nm": 1.582774344,
+              "material": "InP",
+              "observed_confinement_ev": 1.091,
+              "observed_e1s_ev": 2.431,
+              "predicted_confinement_ev": 0.995570629,
+              "predicted_e1s_ev": 2.335570629,
+              "size_nm": 2.602,
+              "transfer_size_nm": 1.582774344
+            },
+            {
+              "abs_confinement_residual_ev": 0.009886825,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": 0.009886825,
+              "entry_id": "almeida-2023-inp-550nm",
+              "equiv_diameter_nm": 1.695308262,
+              "material": "InP",
+              "observed_confinement_ev": 0.914,
+              "observed_e1s_ev": 2.254,
+              "predicted_confinement_ev": 0.923886825,
+              "predicted_e1s_ev": 2.263886825,
+              "size_nm": 2.787,
+              "transfer_size_nm": 1.695308262
+            },
+            {
+              "abs_confinement_residual_ev": 0.014592914,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": 0.014592914,
+              "entry_id": "almeida-2023-inp-580nm",
+              "equiv_diameter_nm": 1.907601977,
+              "material": "InP",
+              "observed_confinement_ev": 0.798,
+              "observed_e1s_ev": 2.138,
+              "predicted_confinement_ev": 0.812592914,
+              "predicted_e1s_ev": 2.152592914,
+              "size_nm": 3.136,
+              "transfer_size_nm": 1.907601977
+            },
+            {
+              "abs_confinement_residual_ev": 0.054873924,
+              "bulk_gap_ev": 1.34,
+              "confinement_residual_ev": -0.054873924,
+              "entry_id": "almeida-2023-inp-620nm",
+              "equiv_diameter_nm": 2.501294429,
+              "material": "InP",
+              "observed_confinement_ev": 0.66,
+              "observed_e1s_ev": 2.0,
+              "predicted_confinement_ev": 0.605126076,
+              "predicted_e1s_ev": 1.945126076,
+              "size_nm": 4.112,
+              "transfer_size_nm": 2.501294429
+            }
+          ],
+          "required_margin_ev": 0.05,
+          "transfer_margin_vs_best_control_ev": 0.100125421,
+          "transferred": {
+            "mae_ev": 0.119374579,
+            "max_abs_residual_ev": 0.460341813,
+            "rmse_ev": 0.196181923
+          }
+        }
+      }
+    }
+  },
+  "inp_row_count": 6,
+  "primary_best_control_id": "per_material_mean",
+  "primary_best_control_mae_ev": 0.1458,
+  "primary_clears_predeclared_margin": false,
+  "primary_direction": "forward_inp_to_znse",
+  "primary_framing": "equivalent_diameter",
+  "primary_transfer_mae_ev": 0.09921632,
+  "primary_transfer_margin_vs_best_control_ev": 0.04658368,
+  "property_kind": "absorption_peak_eV",
+  "required_margin_ev": 0.05,
+  "residual_axis": "confinement_ev (E1s - E_bulk)",
+  "run_meta": {
+    "agent_run_id": "AGENT-RUN-0083",
+    "code_reference": "physics_lab/engines/quantum_cross_material_transfer.py",
+    "command": "python scripts/run_quantum_cross_material_transfer.py --write",
+    "deterministic": true,
+    "engine_version": "0.1.0",
+    "git_commit": "fb2c2920701ee1b8ddd9fba69e9c27d45eb40b8a",
+    "input_file_hashes": {
+      "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml": "9501499584735094aba1a3243d4329969e0d9fe09e9bbc156c677c8408189077",
+      "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml": "78332c1cb95f20c18dafd0a2eefd4ae3cd654e8732fb1ff6ec8e546f004cf4e8"
+    },
+    "runner_reference": "scripts/run_quantum_cross_material_transfer.py",
+    "shuffle_seed": 842
+  },
+  "scientific_verdict": "INCONCLUSIVE",
+  "shuffle_seed": 842,
+  "task_id": "TASK-0842",
+  "tetra_edge_to_equiv_diameter_factor": 0.608291447,
+  "znse_row_count": 10
+}
