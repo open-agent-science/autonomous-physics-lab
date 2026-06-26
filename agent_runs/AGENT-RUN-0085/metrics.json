@@ -1,0 +1,221 @@
+{
+  "agent_run_id": "AGENT-RUN-0085",
+  "benchmark_id": "stellar-ml-high-mass-debcat-transfer",
+  "controls": {
+    "mass_matched_high_mass_train_nearest": {
+      "definition": "Nearest high-mass train-lane row by log_mass_solar; predicts that row's observed log_luminosity_solar. This is a local mass control, not a refit of RESULT-0022.",
+      "mae_dex": 0.306352
+    },
+    "null_high_mass_train_massband_median": {
+      "definition": "Per-mass-band median log_luminosity_solar from high-mass train lane, with a global train-median fallback.",
+      "mae_dex": 0.457384
+    },
+    "shuffled_relation_predictions": {
+      "best_mae_dex": 1.317412,
+      "definition": "Frozen RESULT-0022 high-mass holdout predictions shuffled across holdout rows; preserves prediction distribution but breaks row pairing.",
+      "mae_dex_per_seed": [
+        1.400086,
+        1.557859,
+        1.317412,
+        1.433046,
+        1.662684
+      ],
+      "mean_mae_dex": 1.474217,
+      "seeds": [
+        11,
+        23,
+        37,
+        53,
+        71
+      ]
+    }
+  },
+  "engine_version": "0.1.0",
+  "frozen_relation": {
+    "alpha_hat": 4.526004,
+    "best_model_id": "model_train_fitted_alpha",
+    "formula": "log10(L/L_sun) = alpha_hat * log10(M/M_sun), fixed intercept 0",
+    "no_refit_performed": true,
+    "source_result": "RESULT-0022",
+    "source_result_review_tier": "AGENT_VALIDATED",
+    "source_scope": "0.5 <= mass_solar < 2.0, main_sequence_compatible"
+  },
+  "git_commit": "52535ea9ea71a1f60a6bf0cc7fafc5651fb745f9",
+  "high_mass_holdout": {
+    "by_luminosity_provenance": {
+      "derived_luminosity": {
+        "count": 7,
+        "mae_dex": 0.811734,
+        "max_abs_residual_dex": 1.087421,
+        "median_abs_residual_dex": 0.85983,
+        "median_residual_dex": -0.85983,
+        "rmse_dex": 0.882382,
+        "system_count": 4
+      },
+      "direct_observation": {
+        "count": 49,
+        "mae_dex": 0.351797,
+        "max_abs_residual_dex": 1.133555,
+        "median_abs_residual_dex": 0.320004,
+        "median_residual_dex": -0.061667,
+        "rmse_dex": 0.454135,
+        "system_count": 28
+      }
+    },
+    "by_luminosity_uncertainty": {
+      "coarse": {
+        "count": 14,
+        "mae_dex": 0.49277,
+        "max_abs_residual_dex": 1.133555,
+        "median_abs_residual_dex": 0.432585,
+        "median_residual_dex": -0.432585,
+        "rmse_dex": 0.619655,
+        "system_count": 10
+      },
+      "precise": {
+        "count": 2,
+        "mae_dex": 0.581276,
+        "max_abs_residual_dex": 0.595198,
+        "median_abs_residual_dex": 0.581276,
+        "median_residual_dex": -0.581276,
+        "rmse_dex": 0.581443,
+        "system_count": 1
+      },
+      "standard": {
+        "count": 40,
+        "mae_dex": 0.371471,
+        "max_abs_residual_dex": 1.087421,
+        "median_abs_residual_dex": 0.327767,
+        "median_residual_dex": -0.011066,
+        "rmse_dex": 0.487445,
+        "system_count": 25
+      }
+    },
+    "by_stage": {
+      "evolved": {
+        "count": 18,
+        "mae_dex": 0.395773,
+        "max_abs_residual_dex": 0.776632,
+        "median_abs_residual_dex": 0.414241,
+        "median_residual_dex": 0.399606,
+        "rmse_dex": 0.452184,
+        "system_count": 10
+      },
+      "main_sequence_compatible": {
+        "count": 24,
+        "mae_dex": 0.334564,
+        "max_abs_residual_dex": 0.85983,
+        "median_abs_residual_dex": 0.293168,
+        "median_residual_dex": -0.293168,
+        "rmse_dex": 0.423149,
+        "system_count": 15
+      },
+      "subgiant": {
+        "count": 4,
+        "mae_dex": 0.643122,
+        "max_abs_residual_dex": 1.087421,
+        "median_abs_residual_dex": 0.726096,
+        "median_residual_dex": -0.726096,
+        "rmse_dex": 0.786037,
+        "system_count": 3
+      },
+      "unknown": {
+        "count": 10,
+        "mae_dex": 0.519425,
+        "max_abs_residual_dex": 1.133555,
+        "median_abs_residual_dex": 0.337585,
+        "median_residual_dex": -0.328433,
+        "rmse_dex": 0.71461,
+        "system_count": 8
+      }
+    },
+    "frozen_relation": {
+      "count": 56,
+      "mae_dex": 0.409289,
+      "max_abs_residual_dex": 1.133555,
+      "median_abs_residual_dex": 0.37359,
+      "median_residual_dex": -0.084344,
+      "rmse_dex": 0.527052,
+      "system_count": 32
+    }
+  },
+  "judge_and_provenance": {
+    "experimental_judge": "DEBCat detached-eclipsing-binary dynamical masses as inputs; catalogue-reported or Stefan-Boltzmann-derived luminosities as the observed log_luminosity_solar target.",
+    "live_external_fetch": false,
+    "luminosity_provenance_counts_high_mass": {
+      "derived_luminosity": 30,
+      "direct_observation": 187
+    },
+    "mass_provenance_counts_high_mass": {
+      "direct_observation": 217
+    },
+    "uncertainty_handling": "No inverse-uncertainty weighting or row exclusion after metric inspection; uncertainty classes are reported as strata."
+  },
+  "limitations": [
+    "Regime transfer inside the same committed DEBCat source posture, not an external-catalog validation.",
+    "High-mass rows intentionally include mixed stage flags; the all-stage primary transfer is stage-confounded and strata must be reviewed.",
+    "The frozen RESULT-0022 relation is not refit or widened; failure against the best control is recorded as a boundary, not rescued.",
+    "No claim, prediction, knowledge artifact, discovery wording, or universal stellar law is promoted."
+  ],
+  "output_routing": {
+    "canonical_destination": "sandbox_agent_run_plus_review_note",
+    "claim_impact": "none",
+    "gate_a_status": "not_attempted_relation_failed_best_control",
+    "gate_b_status": "replayable_metadata_recorded",
+    "knowledge_impact": "none",
+    "result_artifact_created": false,
+    "review_tier": "none"
+  },
+  "rationale": "Frozen RESULT-0022 relation does not transfer under controls: the best mass-matched control has lower MAE on the high-mass holdout.",
+  "replay": {
+    "code_reference": "scripts/run_stellar_ml_high_mass_transfer.py",
+    "command": "python3 scripts/run_stellar_ml_high_mass_transfer.py --output-dir agent_runs/AGENT-RUN-0085 --review-note docs/reviews/stellar-ml-high-mass-transfer-benchmark.md",
+    "engine_version": "0.1.0",
+    "git_commit": "52535ea9ea71a1f60a6bf0cc7fafc5651fb745f9",
+    "input_file_hashes": {
+      "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml": "sha256:7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08",
+      "docs/reviews/stellar-ml-independent-transfer-dataset-scout.md": "sha256:31763e42d84d685b9abfbdc73ab5b6d891a5bea51636ff9f0a74d00a1bdc8528",
+      "docs/reviews/stellar-ml-result0022-gate-b-replay.md": "sha256:1c6f7bb1ce47174ac4e2f76c05deef10fba1c8698878cdbbdbc9b5c432f3c36d",
+      "results/EXP-0015/RUN-0001/result.yaml": "sha256:2b844f22585098a3e0fa5618747ea683f97646d1eaa1b5f97f0df266e116ca4e",
+      "scripts/run_stellar_ml_high_mass_transfer.py": "sha256:f89d127421c3fb9fe61009a84c2fdd4840ff3c76463ba4a288cbe90f90db364a"
+    }
+  },
+  "survival_margin": {
+    "best_control_id": "mass_matched_high_mass_train_nearest",
+    "best_control_mae_dex": 0.306352,
+    "best_control_minus_relation_mae_dex": -0.102937,
+    "clears_threshold": false,
+    "predeclared_threshold_dex": 0.02,
+    "relation_holdout_mae_dex": 0.409289
+  },
+  "task_id": "TASK-0837",
+  "transfer_slice": {
+    "filter": "admitted rows with mass_solar > 2.0",
+    "holdout_luminosity_provenance_counts": {
+      "derived_luminosity": 7,
+      "direct_observation": 49
+    },
+    "holdout_luminosity_uncertainty_counts": {
+      "coarse": 14,
+      "precise": 2,
+      "standard": 40
+    },
+    "holdout_stage_counts": {
+      "evolved": 18,
+      "main_sequence_compatible": 24,
+      "subgiant": 4,
+      "unknown": 10
+    },
+    "lane_counts": {
+      "holdout": 56,
+      "train": 110,
+      "validation": 51
+    },
+    "mass_min_exclusive": 2.0,
+    "primary_rows_include_all_stage_flags": true,
+    "row_count": 217,
+    "source": "committed DEBCat Route 2 normalized rows",
+    "system_count": 121
+  },
+  "verdict": "TRANSFER_NOT_SUPPORTED_BEST_CONTROL"
+}
