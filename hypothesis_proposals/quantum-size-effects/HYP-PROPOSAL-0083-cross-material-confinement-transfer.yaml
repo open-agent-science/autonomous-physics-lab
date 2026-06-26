@@ -1,0 +1,81 @@
+id: HYP-PROPOSAL-0083
+title: "Cross-material InP<->ZnSe size-confinement transfer under controls"
+campaign_profile_id: quantum-size-effects
+proposal_kind: falsification
+status: REVIEW_READY
+claim_ceiling: "Sandbox two-material transfer benchmark only; no universal size law, quantum-dot design law, material recommendation, result, claim, or knowledge promotion."
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: claude
+  task_id: TASK-0842
+input_references:
+  - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+  - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+  - "docs/results/quantum-size-effects-baseline-summary.md"
+  - "docs/quantum-size-effect-holdout-protocol.md"
+  - "docs/reviews/quantum-toufanian-2021-znse-source-artifact-and-extraction.md"
+hypothesis:
+  statement: "A size-confinement power law conf = C*d^(-n) calibrated and frozen on one material's direct-size rows predicts a held-out second material's direct-size confinement (E1s - E_bulk) better than per-material-mean and shuffled-size controls, by at least a predeclared 0.05 eV margin, without refitting on the holdout."
+  variables:
+    - "d: characteristic confinement length in nm (ZnSe SAXS diameter; InP tetrahedral edge converted to an equal-volume sphere diameter for the primary framing)."
+    - "E1s: first absorption-peak energy in eV."
+    - "E_bulk: explicit per-material bulk gap input (InP 1.34 eV; ZnSe 2.70 eV), never fitted to the holdout."
+    - "conf = E1s - E_bulk: the size-confinement residual axis."
+  assumptions:
+    - "Only the direct-size rows enter the judge: six InP TEM (qd-0003) and ten ZnSe SAXS (qd-0004)."
+    - "The calibration-derived Yu CdSe (qd-0001) and Moreels PbS (qd-0002) sets are excluded."
+    - "Both C and n are frozen from the calibration material and applied to the holdout with no refit."
+    - "Absorption, emission, and bandgap targets remain separate."
+  expected_scope: "One two-material confinement-transfer benchmark on direct-size rows (InP and ZnSe), forward and reverse directions."
+  expected_failure_modes:
+    - "The transferred confinement curve fails to beat the per-material-mean null on the held-out material."
+    - "The shuffled-size control performs as well as the transferred model."
+    - "Confinement scaling is material-specific, so an InP-calibrated curve does not transfer to ZnSe under the predeclared margin."
+    - "The morphology/size-axis convention (tetrahedral edge vs spherical diameter) dominates the transfer error."
+novelty_check:
+  checked_files:
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+    - "docs/reviews/quantum-toufanian-2021-znse-source-artifact-and-extraction.md"
+  possible_overlap: "TASK-0225 (AGENT-RUN-0076) established a within-material source-scoped InP baseline; this proposal is the first genuine cross-material transfer test, made possible by the independent direct-size ZnSe rows (qd-0004)."
+  notes: "No correction term or per-material free parameter is added; the transfer freezes the calibration-material curve as-is."
+falsification_plan:
+  deterministic_check: "Run scripts/run_quantum_cross_material_transfer.py --write twice and require identical metrics."
+  baseline_or_reference: "Frozen confinement power law calibrated on one material; per-material-mean null and deterministic shuffled-size controls on the held-out material."
+  pass_condition: "The transferred-model held-out confinement MAE beats the best control by at least the predeclared 0.05 eV margin."
+  fail_condition: "INVALID if the transferred model does not beat the best control; INCONCLUSIVE if it beats controls but does not clear the 0.05 eV margin; the margin is not relaxed and no absolute-energy fallback or refit is used to rescue a borderline result."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a universal quantum-dot law, design law, discovery, material recommendation, or independent validation."
+    - "A positive transfer is bounded evidence of partial confinement universality across two materials, not a universal law."
+  mitigations:
+    - "Keep output sandbox-only."
+    - "State the two-material, confinement-term, direct-size-only, bulk-gap-input limitations prominently."
+    - "Predeclare the survival margin before inspecting the holdout error and do not relax it."
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_quantum_cross_material_transfer.py --write"
+    - "python3 -m pytest -n0 tests/test_quantum_cross_material_transfer.py"
+  code_references:
+    - "physics_lab/engines/quantum_cross_material_transfer.py"
+    - "scripts/run_quantum_cross_material_transfer.py"
+  metrics:
+    - "transferred-model holdout confinement MAE/RMSE per direction and framing"
+    - "per-material-mean and shuffled-size control MAE"
+    - "transfer margin vs best control and the predeclared-margin verdict"
+    - "frozen confinement coefficient and exponent per calibration material"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0083/"
+    - "docs/reviews/quantum-znse-cross-material-transfer-benchmark.md"
+limitations:
+  - "Two materials only (InP, ZnSe); not a universal size law."
+  - "Confinement-term framing with explicit cited bulk gaps and an equal-volume edge->diameter conversion."
+  - "Direct-size rows only; six InP and ten ZnSe rows; one source and morphology per material."
+  - "Sandbox evidence only; no canonical artifact is created."
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review the frozen cross-material transfer design and the borderline INCONCLUSIVE primary result; decide whether any future strengthening (more materials, effective-mass prefactor) warrants a separate task. Do not back-fit onto this holdout."
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-approved task for any canonical result publication, claim, or model extension."

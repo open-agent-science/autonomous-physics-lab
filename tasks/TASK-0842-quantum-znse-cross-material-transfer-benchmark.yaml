@@ -1,7 +1,7 @@
 id: TASK-0842
 title: "Cross-material transfer benchmark: does the InP-calibrated size-confinement model predict the ZnSe direct-size holdout under controls?"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -57,7 +57,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_task_reference_convention.py tests/test_docs_links.py tests/test_quantum_dot_dataset_schema.py tests/test_quantum_cross_material_transfer.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

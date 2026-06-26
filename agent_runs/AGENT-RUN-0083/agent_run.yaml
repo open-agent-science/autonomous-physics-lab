@@ -1,0 +1,49 @@
+id: AGENT-RUN-0083
+campaign_profile_id: quantum-size-effects
+task_id: TASK-0842
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: gladunrv
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-0083-cross-material-confinement-transfer.yaml
+  experiment: experiment_proposals/quantum-size-effects/EXP-PROPOSAL-0083-cross-material-confinement-transfer.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0083/metrics.json
+  report: agent_runs/AGENT-RUN-0083/report.md
+  limitations: agent_runs/AGENT-RUN-0083/limitations.md
+  preflight: agent_runs/AGENT-RUN-0083/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0083/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: direct_size_rows_only
+    status: PASS
+    notes: Only the direct InP (qd-0003 TEM) and ZnSe (qd-0004 SAXS) rows enter the
+      judge; Yu CdSe / Moreels PbS excluded.
+  - name: confinement_axis_with_explicit_bulk_gap
+    status: PASS
+    notes: Residual axis is E1s - E_bulk; bulk gaps are explicit per-material inputs
+      (InP 1.34 eV, ZnSe 2.70 eV), not fitted.
+  - name: no_refit_on_holdout
+    status: PASS
+    notes: C and n are frozen from the calibration material and applied to the holdout
+      with no refit.
+  - name: controls_first_predeclared_margin
+    status: PASS
+    notes: per_material_mean and shuffled_size controls run; 0.05 eV survival margin
+      predeclared before reveal and not relaxed.
+limitations:
+- Two materials only; not a universal size law or material recommendation.
+- Confinement-term framing with explicit cited bulk gaps and an equal-volume edge->diameter
+  conversion.
+- Direct-size rows only; six InP and ten ZnSe rows; one source and morphology per
+  material.
+- Sandbox evidence only; no canonical scientific artifact is created.
+verdict: REVIEW_NEEDED
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review; any canonical result or claim requires a
+    separate promotion task with protected hypothesis/experiment links.

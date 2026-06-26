@@ -1,0 +1,80 @@
+id: EXP-PROPOSAL-0083
+title: "InP<->ZnSe size-confinement transfer benchmark with controls"
+campaign_profile_id: quantum-size-effects
+proposal_kind: falsification
+status: REVIEW_READY
+claim_ceiling: "Sandbox experiment only; no canonical result, prediction, claim, or knowledge artifact."
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: claude
+  task_id: TASK-0842
+input_references:
+  - "hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-0083-cross-material-confinement-transfer.yaml"
+  - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+  - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+question: "Does a confinement power law conf = C*d^(-n) frozen on one material predict the held-out second material's direct-size confinement (E1s - E_bulk) better than per-material-mean and shuffled-size controls, by at least a predeclared 0.05 eV margin, with no refit on the holdout?"
+method:
+  summary: "Calibrate conf = C*d^(-n) on one material's direct-size rows using the confinement term with an explicit per-material bulk-gap input, freeze C and n, predict the other material's held-out rows on a shared equal-volume diameter axis (primary) and on the raw reported size axis (sensitivity), run per-material-mean and deterministic shuffled-size controls, and report the transfer margin and the predeclared-margin verdict forward and reverse."
+  code_references:
+    - "physics_lab/engines/quantum_cross_material_transfer.py"
+    - "scripts/run_quantum_cross_material_transfer.py"
+  commands:
+    - "python3 scripts/run_quantum_cross_material_transfer.py --write"
+  parameters:
+    primary_direction: forward_inp_to_znse
+    primary_framing: equivalent_diameter
+    required_margin_ev: 0.05
+    shuffle_seed: 842
+    bulk_gap_inp_ev: 1.34
+    bulk_gap_znse_ev: 2.70
+    property_kind: absorption_peak_eV
+inputs:
+  datasets:
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+  constants:
+    - "InP bulk gap 1.34 eV (explicit input)."
+    - "ZnSe bulk gap 2.70 eV (explicit input)."
+    - "Tetrahedron edge -> equal-volume sphere diameter factor 0.608291."
+  prior_results: []
+  assumptions:
+    - "Only direct-size rows enter the judge; calibration-derived CdSe/PbS sets are excluded."
+    - "C and n are frozen from the calibration material; the holdout is never used to fit."
+    - "Bulk gaps are explicit inputs, not fitted to the holdout."
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0083/"
+  metrics:
+    - "transferred-model and control confinement MAE/RMSE per direction and framing"
+    - "transfer margin vs best control and the predeclared-margin verdict"
+    - "frozen confinement coefficient and exponent per calibration material"
+    - "per-row ZnSe holdout residuals"
+  plots: []
+  notes:
+    - "docs/reviews/quantum-znse-cross-material-transfer-benchmark.md"
+validation:
+  pass_condition: "All frozen models, controls, residual tables, and deterministic checks are present, and the predeclared-margin verdict is computed from the frozen 0.05 eV rule."
+  fail_condition: "Any property mixing, holdout leakage, refit-on-holdout, absolute-energy fallback to rescue a borderline result, nondeterminism, calibration-derived-row inclusion, or canonical artifact write fails the experiment."
+  baseline_or_reference: "Per-material-mean null and deterministic shuffled-size control on the held-out material."
+  expected_failure_modes:
+    - "Confinement scaling is material-specific and does not transfer under the margin."
+    - "The morphology/size-axis convention dominates the transfer error."
+    - "Small per-material samples make the borderline margin unstable."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No discovery, universal law, design law, material recommendation, synthesis guidance, device claim, or independent validation wording."
+    - "A positive transfer is bounded two-material evidence, not a universal law."
+  mitigations:
+    - "Sandbox-only routing."
+    - "Two-material, confinement-term, direct-size-only, bulk-gap-input limitations stated in every summary."
+limitations:
+  - "Two materials, one source and morphology per material, six InP and ten ZnSe rows."
+  - "Confinement-term framing with explicit bulk gaps and an equal-volume edge->diameter conversion."
+  - "No claim, result, prediction, or knowledge promotion."
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review the transfer benchmark implementation, the controls-first predeclared-margin design, and the borderline INCONCLUSIVE primary result."
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Separate maintainer-approved task before any result promotion or model extension."
