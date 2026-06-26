@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0839` - Re-verify CHIME/FRB Catalog 2 access and complete the FRB readiness + no-leakage temporal-split feasibility (readiness only) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `radio_transients_astrophysics`)
+None.
