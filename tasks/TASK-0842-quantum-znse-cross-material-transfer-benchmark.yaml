@@ -1,0 +1,66 @@
+id: TASK-0842
+title: "Cross-material transfer benchmark: does the InP-calibrated size-confinement model predict the ZnSe direct-size holdout under controls?"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "This is the quantum campaign's payoff: the first genuine CROSS-MATERIAL transfer test, now that a direct-size, independent second material (ZnSe, qd-0004) exists. The validity gate is transfer, and the data is finally non-circular."
+  - "Both outcomes are scientifically valuable: a size-confinement model calibrated on InP predicts the held-out ZnSe rows under controls (evidence that confinement scaling is partly universal across materials) OR it does not (an honest result that confinement is material-specific) -- no refit-to-rescue."
+  - "Honor the experimental-judge guardrail: both InP (Almeida TEM) and ZnSe (Toufanian SAXS) sizes are DIRECT structural measurements; the calibration-derived Yu CdSe / Moreels PbS sets are excluded from the transfer judge."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "data/quantum_dots/qd-0003-almeida-2023-inp-optical.yaml"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "docs/reviews/quantum-toufanian-2021-znse-source-artifact-and-extraction.md"
+  planning_context: >
+    The frozen InP baseline (TASK-0225, almeida_fixed_reference) beats null and
+    shuffled-size controls on six DIRECT Almeida InP rows (qd-0003; holdout
+    0.048 eV). qd-0004 adds ten DIRECT SAXS-sized ZnSe rows (Toufanian 2021),
+    an independent second material. This task runs the cross-material transfer
+    test. CRITICAL design point: absolute E1s differs between materials because
+    the bulk gap differs (InP ~1.34 eV; ZnSe 2.70 eV per the source), so a naive
+    absolute-energy transfer would fail trivially and uninformatively. The
+    meaningful test is whether the size-CONFINEMENT scaling transfers: calibrate
+    confinement = E1s - E_bulk (or a physically-motivated size form) on one
+    material and predict the other material's held-out direct-size rows, with the
+    per-material bulk gap as an explicit input. No refit on the holdout.
+
+requirements:
+  - "Treat the bulk gap as an explicit per-material input (cite the source bulk gaps; do NOT fit it to the holdout). Frame the transfer on the size-confinement term (E1s - E_bulk) or a clearly-stated physically-motivated size form, so the trivial bulk-gap offset is not what is being tested."
+  - "Freeze the confinement model calibrated on one material (InP qd-0003) and predict the held-out ZnSe rows (qd-0004) WITHOUT refitting on ZnSe. Optionally also report the reverse direction (calibrate on ZnSe, predict InP) for symmetry."
+  - "Use ONLY direct-size rows (InP TEM qd-0003, ZnSe SAXS qd-0004); the calibration-derived Yu CdSe / Moreels PbS sets must NOT enter the transfer judge."
+  - "Apply controls-first: compare the transferred model against null / shuffled-size / per-material-mean controls on the held-out material, and report whether it clears a predeclared survival margin over the best control."
+  - "Make the run Gate-B-replayable (pinned command, code_reference, input_file_hashes, engine_version, git_commit)."
+  - "Do NOT promote a claim or use universal-size-law, quantum-dot-design-law, material-recommendation, or discovery wording. This is a two-material transfer benchmark; a positive result is bounded evidence of partial confinement universality, not a universal law."
+  - "Stop: if the confinement model does not transfer to the held-out material under controls, record the honest material-specificity negative; do not refit, add free parameters, or fall back to absolute-energy fitting to rescue it."
+
+accepted_outputs:
+  - "A cross-material transfer benchmark run under the quantum campaign reporting the transfer error on the held-out material vs controls, the bulk-gap handling, and the survival-margin verdict, plus a review note."
+  - "A RESULT-* candidate (best_verdict by the transfer outcome) at AGENT_PUBLISHED only if Gate A passes; otherwise a sandbox AGENT-RUN-* + review note."
+  - "Output-routing summary: Gate A status, the transfer margin vs best control (both directions if run), claim impact none, limitations (two materials, confinement-term framing, direct-size only, not a universal law)."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes on the transfer benchmark; default destination is sandbox + review note. No claim promotion; a positive transfer is bounded, not a discovery."
+  evidence:
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+    - "docs/results/quantum-size-effects-baseline-summary.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
