@@ -232,3 +232,32 @@ datasets:
     paths:
       - data/textbook_formula_audit/wien_firas/source_artifacts/cobe-firas-monopole/firas_monopole_spec_v1.txt
       - data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml
+
+  - id: nist-trc-thermoml-archive-locator-metadata-only
+    source: "NIST TRC ThermoML / Data Archive (TASK-0841 source locator; metadata-only)"
+    source_url: https://data.nist.gov/od/id/mds2-2422
+    license: "NIST open-data license wrapper + TRC citation request; ThermoML files present under journal-publisher permission with a foreign / non-NIST copyright carve-out"
+    redistribution_status: metadata_only_no_bytes_vendored_no_corpus_facts_extractable_with_attribution
+    citation_or_acknowledgement: >
+      Cite the NIST TRC ThermoML Archive (DOI 10.18434/mds2-2422) per NIST TRC
+      request; NIST does not critically evaluate the deposited values. Numerical
+      facts are extractable with attribution; the file bytes are an aggregation
+      under publisher permission to NIST and are not re-hosted.
+    evidence: >
+      data/thermophysical/source_manifest.yaml is an APL-authored, metadata-only
+      source manifest: it records only the source locator, the official pinned
+      product/version (1.2.6), the NIST-published SHA-256
+      (231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2,
+      cross-verified 2026-06-26 from the PDR component metadata and the
+      authoritative .tgz.sha256 sidecar), the 3-question rights determination
+      (local_analysis yes; source_bytes redistribution no; derived rows
+      conditional; substantial extraction review required; not covered by repo
+      license), and a family-stratified selection protocol. It records NO
+      measurement values, NO normalized corpus, and NO archive bytes. Declared
+      here per the TASK-0841 instruction although it carries no third-party data;
+      see docs/reviews/thermoml-bounded-tb-transfer-benchmark.md and the
+      source-readiness scout docs/reviews/thermoml-joback-source-readiness-scout.md.
+    raw_artifact_vendored: false
+    provenance: data/thermophysical/source_manifest.yaml
+    paths:
+      - data/thermophysical/source_manifest.yaml

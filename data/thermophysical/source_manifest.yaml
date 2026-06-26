@@ -1,0 +1,158 @@
+# Thermophysical-property (boiling-point) source manifest -- metadata-only.
+#
+# Created by TASK-0841 under the maintainer-approved ThermoML local-fetch
+# posture. This manifest records ONLY a source locator, the official pinned
+# product/version, an official published SHA-256, the reuse posture, and a
+# family-stratified selection protocol. It records NO measurement values, NO
+# normalized corpus, and NO archive bytes. The raw ThermoML archive is NOT
+# vendored: facts are extractable with attribution, but the file bytes are
+# present under publisher permission to NIST and are not re-hosted here.
+#
+# See docs/reviews/thermoml-bounded-tb-transfer-benchmark.md for the bounded
+# benchmark and TASK-0833 (docs/reviews/thermoml-joback-source-readiness-scout.md)
+# for the source-readiness scout that pinned this route.
+
+manifest_version: "1"
+campaign_id: thermophysical-property-transfer-audit
+status: route_pinned_metadata_only_no_corpus
+created_by:
+  contributor_id: gladunrv
+  agent_id: claude
+live_external_fetch_allowed: false
+no_values_recorded_here: true
+no_corpus_committed: true
+
+sources:
+  - source_id: nist-trc-thermoml-archive
+    title: "NIST TRC ThermoML / Data Archive"
+    provider: "NIST Thermodynamics Research Center (TRC)"
+    doi: "10.18434/mds2-2422"
+    product_version: "1.2.6"            # PDR record version (modified 2021-03-05)
+    landing_page: "https://data.nist.gov/od/id/mds2-2422"
+    archive_url: "https://data.nist.gov/od/ds/mds2-2422/ThermoML.v2020-09-30.tgz"
+    archive_filename: "ThermoML.v2020-09-30.tgz"
+    archive_size_bytes: 189433115
+    schema_url: "https://data.nist.gov/od/ds/mds2-2422/ThermoML.xsd"
+    human_browse:
+      - "https://trc.nist.gov/ThermoML/"
+      - "https://trc.nist.gov/ThermoML/Browse"
+    format: >
+      gzip-compressed tarball of per-article ThermoML XML + JSON, organized by
+      journal DOI prefix; IUPAC-standard XML store with explicit per-value
+      uncertainty fields.
+    coverage_stated: "Initial cooperation (around 2003) through the 2019 calendar year."
+    partner_journals:
+      - "J. Chem. Eng. Data"
+      - "J. Chem. Thermodynamics"
+      - "Fluid Phase Equilibria"
+      - "Thermochimica Acta"
+      - "Int. J. Thermophysics"
+    properties:
+      - normal_boiling_point_Tb   # Tb ONLY in scope (Tc excluded; Joback leakage)
+    provenance: measured
+    measurement_type: experimental_compilation
+    # --- checksum pinning ---
+    official_published_sha256: "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2"
+    sha256_provenance: >
+      NIST-published checksum, cross-verified 2026-06-26 from the PDR component
+      metadata (https://data.nist.gov/od/id/mds2-2422) AND the authoritative
+      .tgz.sha256 sidecar
+      (https://data.nist.gov/od/ds/mds2-2422/ThermoML.v2020-09-30.tgz.sha256);
+      both agree. This is the source-of-truth published checksum, NOT an
+      APL-computed-from-downloaded-bytes hash.
+    apl_computed_sha256: "PENDING_FIRST_FETCH"  # archive not downloaded by TASK-0841
+    checksum_policy: doi_pinned_official_published_sha256
+    blocker_type: T4_snapshot_approval
+    access: open_download_metadata_only_by_default
+    # --- reuse / redistribution posture (3-question framework) ---
+    license_note: >
+      NIST open-data license wrapper (https://www.nist.gov/open/license) plus a
+      TRC citation request; BUT the ThermoML files are present "with permission
+      of the journal publishers" and the NIST license carries an explicit
+      foreign / non-NIST copyright carve-out. Numerical facts (a boiling point,
+      its uncertainty, the compound identity) are not copyrightable and are
+      extractable with attribution; the file bytes are an aggregation under
+      publisher permission to NIST and are NOT re-hostable by default.
+    rights_framework:
+      local_analysis_allowed: yes
+      source_bytes_redistribution: no
+      derived_rows_publication: conditional   # bounded row-curation task, with attribution
+      substantial_extraction_review_required: yes
+      covered_by_repo_license: false
+    attribution_text: >
+      Data from the NIST TRC ThermoML Archive (DOI 10.18434/mds2-2422), available
+      with permission of the journal publishers; cite the ThermoML Archive per
+      NIST TRC request. NIST does not critically evaluate the deposited values.
+    inclusion_decision: route_pinned_corpus_deferred
+    notes: >
+      Pinned by TASK-0833 (readiness scout, verdict SOURCE_LIMITED) and recorded
+      here by TASK-0841. No corpus is parsed or committed: a faithful Tb corpus
+      extraction (identity resolution to InChI, dedup, family classification,
+      deterministic group decomposition) is the deferred bounded row-curation
+      task. The exact current archive filename should be re-read from the PDR at
+      first license-cleared fetch in case a newer version string is published.
+
+# Local fetch + verify command pattern (DO NOT run inside an agent task PR; this
+# is a maintainer-run, one-time, license-cleared download). The official
+# published SHA-256 above is the expected value to verify against.
+fetch_verify_command_pattern: |
+  # maintainer-run, one time, at license-cleared first fetch
+  import hashlib, pathlib, urllib.request
+  url = "https://data.nist.gov/od/ds/mds2-2422/ThermoML.v2020-09-30.tgz"
+  dest = pathlib.Path("ThermoML.v2020-09-30.tgz")
+  urllib.request.urlretrieve(url, dest)             # ~181 MB
+  digest = hashlib.sha256(dest.read_bytes()).hexdigest()
+  expected = "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2"
+  assert digest == expected, f"checksum mismatch: {digest} != {expected}"
+  print("verified:", digest)   # then record as apl_computed_sha256
+
+# Family-stratified selection protocol for the (deferred) Tb row-curation +
+# transfer benchmark. Frozen here so a later benchmark cannot retrofit it.
+selection_protocol:
+  property: normal_boiling_point_Tb
+  identity_rules:
+    - "Resolve each ThermoML substance to a canonical structure (registry id / name -> InChI primary key, isomeric SMILES secondary); InChIKey is the dedup key."
+    - "Exclude salts, ionic liquids, and any multi-component/charged species (no neutral single-molecule Tb in the Joback sense)."
+    - "Exclude mixtures and binary/multinary systems (a system Tb is not a pure-component Tb)."
+    - "Collapse stereoisomers/tautomers that map to the same connectivity to one identity; keep conflicting Tb values as a flagged disagreement, not averaged."
+    - "Deduplicate repeated measurements of one compound across articles; fix the selection rule before scoring."
+    - "Admit a compound only if it has at least one experimental Tb with reviewable unit and uncertainty semantics."
+  joback_group_rules:
+    - "Group set = canonical Joback & Reid (1987) 41-group table; scoring intercept pinned to 198.2 K."
+    - "Distinguish ring vs non-ring group variants exactly as Joback defines them."
+    - "Assignment must be deterministic and total; an unassignable atom -> molecule is out-of-coverage and excluded (never force-fit)."
+    - "Exclude organometallics/metals, boron/silicon/phosphorus-centred groups, charged centres, and isotopically labelled species (out of Joback coverage)."
+  family_taxonomy_priority:
+    # highest-priority functional group present wins; families partition the set
+    - acids
+    - esters/lactones
+    - aldehydes
+    - ketones
+    - alcohols/phenols
+    - ethers
+    - nitriles
+    - amines
+    - nitro
+    - thiols/sulfides
+    - halocarbons
+    - aromatic hydrocarbons
+    - alkenes/alkynes
+    - alkanes/cycloalkanes
+  split: leave_one_family_out
+  controls:
+    - global_median
+    - molecular_weight_only
+    - nearest_homolog
+    - shuffled_group_counts
+    - within_family_constant
+  reporting:
+    aggregation: compound_level
+    uncertainty_aware_error: true
+    covered_groups_only_subset_separated: true
+    out_of_coverage_excluded: true
+
+global_limitations:
+  - "Metadata-only: this manifest records no measurement values and no corpus; the archive bytes are not vendored."
+  - "Tb only; Tc excluded (Joback Tc depends on Tb -> leakage)."
+  - "Counts (unique pure compounds with Tb, uncertainty coverage, identity-mapping success, family balance, Joback group coverage) are not enumerable without a license-cleared download + parse, which TASK-0841 did not perform."
+  - "Do not live-fetch from this manifest inside an agent task PR; the fetch is a maintainer-run, checksum-pinned, one-time snapshot step."

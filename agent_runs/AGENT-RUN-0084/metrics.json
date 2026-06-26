@@ -1,0 +1,379 @@
+{
+  "agent_run_id": "AGENT-RUN-0084",
+  "benchmark_id": "thermoml-bounded-tb-transfer",
+  "engine_version": "0.1.0",
+  "fetch_executed": "no",
+  "fidelity_gate": {
+    "compound_count": 25,
+    "match_criterion": "computed Tb within tolerance of each compound's published PREDICTED Tb, using that compound's own source intercept (198.2 canonical Joback&Reid or 198.12 molecularknowledge)",
+    "max_abs_error_k": 0.0,
+    "mismatch_count": 0,
+    "passed": true,
+    "rows": [
+      {
+        "abs_error_k": 0.0,
+        "base": 198.2,
+        "computed_tb_k": 322.11,
+        "group_sum_k": 123.91,
+        "match": true,
+        "name": "Acetone",
+        "published_tb_k": 322.11,
+        "smiles": "CC(C)=O"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 358.5,
+        "group_sum_k": 160.38,
+        "match": true,
+        "name": "Benzene",
+        "published_tb_k": 358.5,
+        "smiles": "c1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 386.36,
+        "group_sum_k": 188.24,
+        "match": true,
+        "name": "Toluene",
+        "published_tb_k": 386.36,
+        "smiles": "Cc1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 414.22,
+        "group_sum_k": 216.1,
+        "match": true,
+        "name": "o-Xylene",
+        "published_tb_k": 414.22,
+        "smiles": "Cc1ccccc1C"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 405.92,
+        "group_sum_k": 207.8,
+        "match": true,
+        "name": "Styrene",
+        "published_tb_k": 405.92,
+        "smiles": "C=Cc1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 431.68,
+        "group_sum_k": 233.56,
+        "match": true,
+        "name": "Isopropylbenzene",
+        "published_tb_k": 431.68,
+        "smiles": "CC(C)c1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 429.64,
+        "group_sum_k": 231.52,
+        "match": true,
+        "name": "Bromobenzene",
+        "published_tb_k": 429.64,
+        "smiles": "Brc1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 443.32,
+        "group_sum_k": 245.2,
+        "match": true,
+        "name": "1,2-Dichlorobenzene",
+        "published_tb_k": 443.32,
+        "smiles": "Clc1ccccc1Cl"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 300.04,
+        "group_sum_k": 101.92,
+        "match": true,
+        "name": "2-Butyne",
+        "published_tb_k": 300.04,
+        "smiles": "CC#CC"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 474.74,
+        "group_sum_k": 276.62,
+        "match": true,
+        "name": "1-Octanol",
+        "published_tb_k": 474.74,
+        "smiles": "CCCCCCCCO"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 349.26,
+        "group_sum_k": 151.14,
+        "match": true,
+        "name": "Ethyl acetate",
+        "published_tb_k": 349.26,
+        "smiles": "CCOC(C)=O"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 337.94,
+        "group_sum_k": 139.82,
+        "match": true,
+        "name": "Tetrahydrofuran",
+        "published_tb_k": 337.94,
+        "smiles": "C1CCOC1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 428.84,
+        "group_sum_k": 230.72,
+        "match": true,
+        "name": "Cyclohexanone",
+        "published_tb_k": 428.84,
+        "smiles": "O=C1CCCCC1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 448.53,
+        "group_sum_k": 250.41,
+        "match": true,
+        "name": "Cyclohexanol",
+        "published_tb_k": 448.53,
+        "smiles": "OC1CCCCC1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 308.14,
+        "group_sum_k": 110.02,
+        "match": true,
+        "name": "Ethanethiol",
+        "published_tb_k": 308.14,
+        "smiles": "CCS"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 358.82,
+        "group_sum_k": 160.7,
+        "match": true,
+        "name": "Tetrahydrothiophene",
+        "published_tb_k": 358.82,
+        "smiles": "C1CCSC1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 366.92,
+        "group_sum_k": 168.8,
+        "match": true,
+        "name": "Acrylonitrile",
+        "published_tb_k": 366.92,
+        "smiles": "C=CC#N"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 435.02,
+        "group_sum_k": 236.9,
+        "match": true,
+        "name": "Benzaldehyde",
+        "published_tb_k": 435.02,
+        "smiles": "O=Cc1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 505.19,
+        "group_sum_k": 307.07,
+        "match": true,
+        "name": "n-Heptanoic acid",
+        "published_tb_k": 505.19,
+        "smiles": "CCCCCCC(O)=O"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 573.83,
+        "group_sum_k": 375.71,
+        "match": true,
+        "name": "n-Decanoic acid",
+        "published_tb_k": 573.83,
+        "smiles": "CCCCCCCCCC(O)=O"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 500.98,
+        "group_sum_k": 302.86,
+        "match": true,
+        "name": "(+/-)-1-Phenylethanol",
+        "published_tb_k": 500.98,
+        "smiles": "CC(O)c1ccccc1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 548.08,
+        "group_sum_k": 349.96,
+        "match": true,
+        "name": "Methyl salicylate",
+        "published_tb_k": 548.08,
+        "smiles": "COC(=O)c1ccccc1O"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 582.06,
+        "group_sum_k": 383.94,
+        "match": true,
+        "name": "Succinic acid",
+        "published_tb_k": 582.06,
+        "smiles": "OC(=O)CCC(O)=O"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 405.76,
+        "group_sum_k": 207.64,
+        "match": true,
+        "name": "gamma-Butyrolactone",
+        "published_tb_k": 405.76,
+        "smiles": "O=C1CCCO1"
+      },
+      {
+        "abs_error_k": 0.0,
+        "base": 198.12,
+        "computed_tb_k": 413.69,
+        "group_sum_k": 215.57,
+        "match": true,
+        "name": "Ethyl thioacetate",
+        "published_tb_k": 413.69,
+        "smiles": "CCSC(C)=O"
+      }
+    ],
+    "tolerance_k": 0.05
+  },
+  "frozen_estimator": {
+    "code_reference": "physics_lab/engines/joback_tb.py",
+    "formula": "Tb = base + sum_i n_i * dTb_i (K)",
+    "name": "Joback & Reid (1987) Tb group-contribution estimator",
+    "note": "Frozen published estimator; APL fits nothing. The audit measures whether this frozen estimator transfers under specified family holdouts -- not whether Joback's method is right or wrong.",
+    "scoring_intercept_recommended_k": 198.2
+  },
+  "gate_reason": "fidelity gate clean (0 mismatches); approved local fetch + Tb corpus parse not executed in this bounded slice, so no transfer metric is computed and none is fabricated",
+  "git_commit": "fb2c2920701ee1b8ddd9fba69e9c27d45eb40b8a",
+  "limitations": [
+    "Tb-only; Tc excluded for Joback leakage.",
+    "Frozen published Joback estimator audited; APL fits nothing and no discovery is claimed.",
+    "Fetch not executed in this bounded slice: no ThermoML Tb corpus was parsed and no transfer metric was computed (none fabricated).",
+    "Family-holdout transfer scope is declared (leave-one-family-out vs five controls) but conditional on the deferred license-cleared corpus-parse/row-curation task.",
+    "Fidelity fixture is solvent/hydrocarbon/oxygenate-heavy and does not stress Joback's rare heteroatom-ring/multifunctional groups at scale.",
+    "Two intercept conventions exist (198.2 canonical vs 198.12 in one reference table); a future scoring run must pin one (recommend 198.2)."
+  ],
+  "output_routing": {
+    "canonical_destination": "sandbox_agent_run_plus_review_note",
+    "claim_impact": "none",
+    "fetch_executed": "no",
+    "gate_a_status": "not_attempted_bounded_inconclusive",
+    "gate_b_status": "replayable_metadata_recorded_transfer_not_executed",
+    "knowledge_impact": "none",
+    "review_tier": "none",
+    "task_verdict": "IMPLEMENTATION_INCONCLUSIVE"
+  },
+  "property_in_scope": "normal_boiling_point_Tb_only",
+  "replay": {
+    "code_reference": "scripts/run_thermoml_tb_transfer.py",
+    "command": "python3 scripts/run_thermoml_tb_transfer.py --output-dir agent_runs/AGENT-RUN-0084",
+    "engine_reference": "physics_lab/engines/joback_tb.py",
+    "engine_version": "0.1.0",
+    "git_commit": "fb2c2920701ee1b8ddd9fba69e9c27d45eb40b8a",
+    "input_file_hashes": {
+      "data/thermophysical/source_manifest.yaml": "sha256:756dd0a89f1ea310ddb541f15d9e14a84266c1c1ab62ff7a2fb21db731e2e6d0",
+      "physics_lab/engines/joback_tb.py": "sha256:e40c60fd4b6382ab21de845896eec9809206dfa7dcde134a9a0641b55ae17212"
+    }
+  },
+  "rights_determination": {
+    "citation_required": "Cite the ThermoML Archive per NIST TRC request; facts extractable with attribution, file bytes not re-hosted.",
+    "covered_by_repo_license": "false",
+    "derived_rows_publication": "conditional",
+    "local_analysis_allowed": "yes",
+    "source_bytes_redistribution": "no",
+    "substantial_extraction_review_required": "yes"
+  },
+  "source": {
+    "apl_computed_sha256": "PENDING_FIRST_FETCH",
+    "archive_filename": "ThermoML.v2020-09-30.tgz",
+    "archive_size_bytes": 189433115,
+    "archive_url": "https://data.nist.gov/od/ds/mds2-2422/ThermoML.v2020-09-30.tgz",
+    "doi": "10.18434/mds2-2422",
+    "manifest": "data/thermophysical/source_manifest.yaml",
+    "official_published_sha256": "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2",
+    "pdr_landing": "https://data.nist.gov/od/id/mds2-2422",
+    "product": "NIST TRC ThermoML / Data Archive",
+    "product_version": "1.2.6",
+    "sha256_provenance": "NIST-published checksum, cross-verified 2026-06-26 from the PDR component metadata and the authoritative .tgz.sha256 sidecar. NOT an APL-computed-from-downloaded-bytes hash: archive not fetched."
+  },
+  "task_id": "TASK-0841",
+  "tc_excluded_reason": "Joback Tc depends on Tb (Tc = Tb * [...]); auditing Tc with an experimental Tb substituted is an information-leakage path. Tb has no such upstream dependency in Joback (structure-only), so it is the clean first axis.",
+  "transfer": {
+    "declared_controls": [
+      {
+        "control_id": "global_median",
+        "description": "Predict every held-out compound's Tb as the global median Tb of the training (non-held-out-family) compounds. Null baseline."
+      },
+      {
+        "control_id": "molecular_weight_only",
+        "description": "Predict Tb from a molecular-weight-only regression fit on the training families (size-only baseline; tests whether Joback beats bulk size)."
+      },
+      {
+        "control_id": "nearest_homolog",
+        "description": "Predict Tb as the Tb of the nearest training homolog (closest molecular weight within the nearest compatible series)."
+      },
+      {
+        "control_id": "shuffled_group_counts",
+        "description": "Joback applied to group counts randomly permuted across compounds (seed-controlled); breaks the structure -> Tb link while preserving the group-count marginal. Falsification control."
+      },
+      {
+        "control_id": "within_family_constant",
+        "description": "Predict every held-out compound's Tb as the held-out family's own mean Tb (an oracle-ish within-family constant; upper bound on what a family-label-only predictor achieves)."
+      }
+    ],
+    "declared_family_taxonomy": [
+      "acids",
+      "esters/lactones",
+      "aldehydes",
+      "ketones",
+      "alcohols/phenols",
+      "ethers",
+      "nitriles",
+      "amines",
+      "nitro",
+      "thiols/sulfides",
+      "halocarbons",
+      "aromatic hydrocarbons",
+      "alkenes/alkynes",
+      "alkanes/cycloalkanes"
+    ],
+    "declared_reporting": {
+      "aggregation": "compound_level",
+      "covered_groups_only_subset_separated": true,
+      "out_of_coverage_excluded": true,
+      "uncertainty_aware_error": true
+    },
+    "declared_split": "leave_one_family_out",
+    "executed": false,
+    "per_family_outcome": "inconclusive (transfer not executed)",
+    "reason": "local fetch not executed (archive ~181 MB; faithful Tb corpus extraction with InChI identity resolution, dedup, family classification, and deterministic group decomposition is the deferred bounded row-curation task). Per the local-fetch posture this is a complete, valid IMPLEMENTATION_INCONCLUSIVE outcome."
+  },
+  "verdict": "IMPLEMENTATION_INCONCLUSIVE"
+}
