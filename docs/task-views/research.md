@@ -11,6 +11,9 @@
 - `TASK-0844` - Adjudicate NMD-0003 GP uncertainty calibration without holdout tuning (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0847` - Implement the light-clock consistency benchmark from the reviewed planning note (`scientific_benchmark`, priority `medium`, difficulty `medium`, domain `relativity_thought_experiment`)
 - `TASK-0848` - Record Vossmeyer Table 1 source-access memory without value-bearing extraction (`scientific_source_curation`, priority `medium`, difficulty `low`, domain `quantum_size_effects`)
+- `TASK-0849` - Package the stellar M-L high-mass transfer as a Gate-A replayable RESULT (promotion preflight) (`scientific_validation`, priority `high`, difficulty `medium`, domain `astrophysics_stellar`)
+- `TASK-0850` - Strengthen the InP-ZnSe confinement transfer with a literature effective-mass prefactor (no holdout fit) (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `quantum_size_effects`)
+- `TASK-0851` - Run the ThermoML Tb family-stratified transfer benchmark with the validated frozen Joback estimator (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
 
