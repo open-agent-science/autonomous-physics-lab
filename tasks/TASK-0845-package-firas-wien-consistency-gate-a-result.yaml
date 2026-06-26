@@ -1,0 +1,63 @@
+id: TASK-0845
+title: "Package the FIRAS/Wien consistency slice as a scoped Gate A result candidate"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0802 produced a clean, bounded FIRAS spectral-domain consistency metric but intentionally left it sandbox-only."
+  - "A scoped result package would convert the already-passed consistency slice into public scientific memory while preserving the circularity caveat and avoiding textbook-universality claims."
+  - "This is useful result-promotion work: it tests whether the exact-reference/textbook lane can promote conservative, self-consistency evidence without overclaiming."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0802-run-firas-wien-peak-consistency-slice.yaml"
+    - "tasks/TASK-0815-pin-wien-firas-temperature-domain-contract.yaml"
+    - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
+    - "agent_runs/AGENT-RUN-0079/metrics.json"
+    - "data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0802 found `CONSISTENT_IN_SCOPE`: raw-bin relative difference 0.0131
+    under tolerance 0.02 and interpolated relative difference 0.00092 under
+    tolerance 0.005, with predeclared controls passed. The required caution is
+    that the reference temperature is FIRAS-derived, so the result is a
+    blackbody self-consistency check, not independent empirical validation of
+    Wien displacement. This task packages that narrow result only if Gate A
+    publication checks pass.
+
+requirements:
+  - "Use the existing TASK-0802 command, code, pinned FIRAS rows, exact-reference fixture, and AGENT-RUN-0079 metrics; do not refit temperature or repin sources."
+  - "Create a new scoped RESULT candidate only if Gate A passes, preserving raw-bin and interpolated metrics, controls, input hashes, command, git commit, and limitations."
+  - "The result statement must say FIRAS/Wien spectral self-consistency in the pinned wavelength-domain slice, not independent validation, proof, or universal textbook truth."
+  - "Keep Gate B not attempted and create no claim or knowledge endorsement; a future independent replay task is required before any stronger status."
+  - "If Gate A checks fail or schema/source blockers appear, stop with a review note and do not create a partial RESULT artifact."
+  - "Do NOT create a duplicate digest/status page, rerun live source fetches, or edit unrelated textbook campaign claims."
+
+accepted_outputs:
+  - "A scoped RESULT candidate for the FIRAS/Wien consistency slice if Gate A passes, including populated proposal/evaluation metadata."
+  - "A review note recording Gate A status, circularity caveat, no-claim wording, and any blocker if the RESULT candidate is not created."
+  - "Output-routing summary: canonical destination, Gate A status, Gate B not attempted, claim impact none, knowledge impact none, limitations."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes; otherwise the task produces a result-packaging blocker note."
+  evidence:
+    - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
+    - "agent_runs/AGENT-RUN-0079/metrics.json"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_textbook_wien_firas_peak.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

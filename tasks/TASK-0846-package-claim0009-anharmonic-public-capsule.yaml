@@ -1,0 +1,59 @@
+id: TASK-0846
+title: "Package CLAIM-0009 PARTIALLY_SUPPORTED anharmonic evidence as a public-safe campaign capsule"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "CLAIM-0009 has now crossed a real Gate C milestone: maintainer-reviewed PARTIALLY_SUPPORTED status based on Gate-B-validated RESULT-0016."
+  - "The public/campaign surface should explain that milestone in conservative language so future agents and readers do not infer a universal anharmonic formula."
+  - "This is result-promotion hygiene, not new science: make the validated boundary durable and visible without changing claim status."
+
+input:
+  mode: planning_only
+  related_domain: classical_mechanics
+  related_objects:
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "results/EXP-0011/RUN-0002/result.yaml"
+    - "docs/reviews/claim-0009-anharmonic-gatec-ratification-packet.md"
+    - "docs/campaigns/anharmonic-oscillator.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    CLAIM-0009 is no longer DRAFT; it is PARTIALLY_SUPPORTED at maintainer
+    review tier. The claim is narrow: configured conservative 1D quartic
+    oscillator, non-negative lambda, weak/nonlinear benchmark and predeclared
+    holdout/stress boundaries. This task updates existing public/campaign
+    surfaces with that safe state and leaves all scientific artifacts
+    unchanged.
+
+requirements:
+  - "Write a public-safe capsule on an existing campaign/public surface explaining: RESULT-0016 Gate B support, CLAIM-0009 PARTIALLY_SUPPORTED status, configured weak-regime scope, and stress-slice limitation."
+  - "Preserve the ceiling: do not imply SUPPORTED, exactness, broad-range validity, external replication, or universal anharmonic formula discovery."
+  - "Do NOT edit CLAIM-0009 status, RESULT metrics, hypotheses, experiments, or generated task views."
+  - "Include a clear reopen/strengthen condition: external replay or a new task covering broader potentials/ranges would be required for any stronger wording."
+  - "Stop if the existing public/campaign surfaces already contain the full capsule; in that case write a short review note instead of duplicating text."
+
+accepted_outputs:
+  - "A concise public-safe CLAIM-0009 capsule on an existing campaign/public surface, or a review note explaining why no update was needed."
+  - "Output-routing summary: destination public/campaign capsule, no RESULT/PRED/CLAIM mutation, no knowledge endorsement, limitations preserved."
+
+result_artifact_policy:
+  required: false
+  reason: "Public-safe packaging of an existing maintainer-reviewed claim; no new RESULT or PRED artifact is created."
+  evidence:
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "docs/campaigns/anharmonic-oscillator.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

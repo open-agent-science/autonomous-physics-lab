@@ -1,0 +1,64 @@
+id: TASK-0843
+title: "Independently replay and route the NMD-0003 GP extrapolation signal"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "The strongest current nuclear signal is the TASK-0824 GP residual model: it clears controls on the post-AME2020 extrapolation holdout, but remains sandbox-only and uncertainty-miscalibrated."
+  - "Before the campaign can treat the GP gain as a result candidate, a separate agent must replay the deterministic metrics and make an explicit result-routing decision under the promotion protocol."
+  - "Both outcomes are valuable: replayed control-surviving gain becomes a scoped RESULT candidate, or drift/blockers become negative/adjudication memory before any prediction freeze."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0824-calibrated-uncertainty-residual-model-extrapolation.yaml"
+    - "docs/reviews/nmd0003-calibrated-uncertainty-gp-extrapolation.md"
+    - "agent_runs/AGENT-RUN-0080/metrics.json"
+    - "docs/result-promotion-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+  planning_context: >
+    TASK-0824 produced a deterministic GP correction on the frozen NMD-0003
+    training split and evaluated it on the post-AME2020 time-split holdout. The
+    reported holdout MAE improved from 2.979273 MeV to 0.462129 MeV and cleared
+    the controls-first margin by 1.869312 MeV over the best control, but the run
+    was routed to sandbox because publication was outside that task's authorized
+    surface and predictive uncertainty was heavy-tailed/miscalibrated. This task
+    is the independent replay and result-routing gate. It must not tune the GP,
+    inspect future reveal targets, or create PRED entries.
+
+requirements:
+  - "Replay the TASK-0824 GP benchmark from committed code and pinned inputs, recording command, environment, git commit, input hashes, and metric drift against `agent_runs/AGENT-RUN-0080/metrics.json`."
+  - "Compare at minimum: frozen-baseline MAE/RMS, GP-corrected MAE/RMS, control MAEs, GP-minus-best-control margin, empirical 1-sigma and 2-sigma coverage, RMS standardized residual, and calibration verdict."
+  - "Apply `docs/result-promotion-protocol.md`: decide whether the replayed evidence satisfies Gate A for a scoped result candidate, or must remain sandbox/adjudication memory."
+  - "If Gate A passes, create a narrow RESULT candidate only for the retrospective post-AME2020 GP extrapolation benchmark; keep Gate B not attempted and claim impact `none`."
+  - "If replay drifts, inputs are ambiguous, or promotion gates fail, write a contested replay/adjudication note instead of editing metrics to force a pass."
+  - "Do NOT tune hyperparameters on the holdout, improve calibration in this task, alter TASK-0824 artifacts, create PRED entries, update claims, or use discovery / breakthrough / law wording."
+  - "Stop condition: deliver the replay-routing packet; prediction freeze remains blocked on TASK-0827 and calibrated-uncertainty decisions."
+
+accepted_outputs:
+  - "`docs/reviews/nmd0003-gp-extrapolation-independent-replay.md` with replay command, metric comparison, drift ledger, Gate A routing decision, and no-claim wording."
+  - "Optional scoped RESULT candidate for the retrospective GP extrapolation benchmark only if Gate A passes; otherwise sandbox/adjudication memory only."
+  - "Output-routing summary: canonical destination, Gate A status, Gate B not attempted, claim impact none, knowledge impact none, prediction impact none, publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if independent replay and Gate A routing pass; otherwise the accepted output is an adjudication/replay note."
+  evidence:
+    - "docs/reviews/nmd0003-calibrated-uncertainty-gp-extrapolation.md"
+    - "agent_runs/AGENT-RUN-0080/metrics.json"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
