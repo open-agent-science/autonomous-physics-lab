@@ -1,7 +1,7 @@
 id: TASK-0840
 title: "Locally extract the ZnSe direct-size transfer rows and audit the ChemRxiv license (public rows conditional)"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
