@@ -1,0 +1,97 @@
+id: HYP-PROPOSAL-0062
+title: "FIRAS Wien-peak consistency hypothesis"
+campaign_profile_id: textbook-formula-audit
+proposal_kind: audit
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox spectral-domain consistency audit only; no canonical result, prediction, claim, knowledge update, or universal Wien/blackbody promotion."
+
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: claude
+  task_id: TASK-0802
+
+input_references:
+  - "campaign_profiles/textbook-formula-audit.yaml"
+  - "docs/reviews/textbook-wien-firas-source-artifact.md"
+  - "docs/reviews/textbook-wien-firas-source-pinning.md"
+  - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
+  - "data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
+  - "data/textbook_formula_audit/fixtures/wien_displacement_exact_reference.yaml"
+
+hypothesis:
+  statement: "On the pinned COBE/FIRAS absolute monopole spectrum, the wavelength-domain spectral-radiance peak obtained after the declared B_nu -> B_lambda Jacobian agrees with the frozen textbook reference lambda_peak = b / T at the separately pinned Fixsen 2009 reference temperature within the predeclared tolerance, while a no-Jacobian axis relabel and a wrong temperature are rejected."
+  variables:
+    - "native spectral axis: wavenumber in cm^-1"
+    - "monopole intensity B_nu in MJy/sr (absolute)"
+    - "frequency nu = c * k_m in Hz"
+    - "wavelength lambda = 1 / k_m in m"
+    - "wavelength-domain radiance B_lambda = B_nu * nu^2 / c (arbitrary units)"
+    - "reference wavelength peak lambda_peak = b / T_ref"
+  assumptions:
+    - "The committed FIRAS rows are an absolute monopole spectrum on the native wavenumber axis, not a residual-only or model-normalized product."
+    - "The CODATA 2022 Wien constant b = 2.897771955e-3 m K and the Fixsen 2009 reference temperature T_ref = 2.72548 K are frozen provenance, not fitted parameters."
+    - "Only the committed pinned rows and exact-reference fixture are read; no live fetch or source re-pin occurs."
+    - "No blackbody spectrum is fit and no free parameter is introduced; the parabolic peak refinement is a fixed deterministic interpolation."
+  expected_scope: "One bounded spectral-domain consistency metric with explicit wavelength-vs-frequency domain-conversion handling, emitting exactly one predeclared scoped verdict."
+  expected_failure_modes:
+    - "FIRAS bin spacing may limit the raw-bin peak so only the interpolated peak meets the tight tolerance."
+    - "A residual-only or model-normalized product would force an inconclusive product-semantics verdict."
+    - "A mishandled or omitted Jacobian would collapse the wavelength and frequency peaks and trigger a domain-conversion mismatch."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/textbook-wien-firas-source-artifact.md"
+    - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
+    - "docs/reviews/textbook-wien-firas-source-pinning.md"
+  possible_overlap: "Builds directly on the pinned FIRAS rows (TASK-0801) and the temperature/domain contract (TASK-0815); no prior committed agent run computes this Wien-peak consistency metric."
+  notes: "The audit intentionally runs the bounded consistency metric without creating canonical RESULT, PRED, CLAIM, or KNOW artifacts."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_textbook_wien_firas_peak_consistency.py against the committed FIRAS rows and exact-reference fixture, then compare recomputed metrics against agent_runs/AGENT-RUN-0079/metrics.json."
+  baseline_or_reference: "Frozen textbook wavelength-domain Wien exact reference (exact-reference fixture) lambda_peak = b / T at T_ref = 2.72548 K, used as the baseline, with a no-Jacobian axis-relabel negative control and a wrong-temperature negative control as null comparison baselines."
+  pass_condition: "Sandbox consistency-in-scope if the wavelength-domain peak (raw-bin or fixed interpolation) matches the reference within the predeclared tolerance and all predeclared controls pass."
+  fail_condition: "Fail if the runner fetches live data, re-pins the source, fits a blackbody spectrum, chooses the temperature after seeing output, omits the Jacobian or any control, or frames the outcome as a universal Wien/blackbody validation or falsification."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call the result a universal validation or falsification of Wien displacement or blackbody physics."
+    - "Do not describe it as a CMB-physics or cosmology discovery."
+    - "Do not promote this sandbox evidence to RESULT, PRED, CLAIM, or KNOW artifacts."
+  mitigations:
+    - "Report the wavelength-domain metric and the domain-conversion handling separately."
+    - "State the circularity caveat that the reference temperature is FIRAS-derived."
+    - "Keep outputs under agent_runs and docs/reviews and require maintainer review."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079"
+  code_references:
+    - "physics_lab/engines/textbook_wien_firas_peak.py"
+    - "scripts/run_textbook_wien_firas_peak_consistency.py"
+    - "tests/test_textbook_wien_firas_peak.py"
+  metrics:
+    - "wavelength_domain_peak_interpolated_m"
+    - "interpolated_relative_difference"
+    - "frequency_domain_peak_wavenumber_cm_inverse"
+    - "no_jacobian_relabel_relative_difference"
+    - "controls.all_passed"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0079/metrics.json"
+    - "agent_runs/AGENT-RUN-0079/report.md"
+    - "docs/reviews/textbook-firas-wien-peak-consistency-slice.md"
+
+limitations:
+  - "The audit uses a single pinned FIRAS monopole product and one reference temperature."
+  - "The reference temperature is FIRAS-derived, so this is a blackbody self-consistency check, not independent validation."
+  - "Raw-bin peak precision is limited by FIRAS bin spacing."
+  - "Sandbox-only; no canonical artifact is created."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Review whether AGENT-RUN-0079 is acceptable sandbox evidence and whether a separate Gate A result-packaging task should be created."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer-reviewed Gate A result-packaging task before any RESULT-*, PRED-*, CLAIM, KNOW, or public Wien-verdict promotion."

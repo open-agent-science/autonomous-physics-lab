@@ -1,7 +1,7 @@
 id: TASK-0833
 title: "Scout ThermoML source-readiness and Joback fidelity for a property-estimation transfer audit (boiling-point only)"
 type: scientific_validation
-status: READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

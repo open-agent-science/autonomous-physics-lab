@@ -1,0 +1,95 @@
+{
+  "admissible_verdicts": [
+    "CONSISTENT_IN_SCOPE",
+    "DOMAIN_CONVERSION_MISMATCH",
+    "INCONCLUSIVE_PRODUCT_SEMANTICS",
+    "INCONCLUSIVE_SAMPLING_RESOLUTION"
+  ],
+  "agent_run_id": "AGENT-RUN-0079",
+  "benchmark_id": "textbook-firas-wien-peak-consistency-slice",
+  "circularity_caveat": "The Fixsen 2009 reference temperature is itself derived by fitting a Planck spectrum to FIRAS, so this is a blackbody self-consistency check in scope, not independent empirical validation of Wien displacement.",
+  "code_reference": "physics_lab/engines/textbook_wien_firas_peak.py",
+  "command": "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079",
+  "constants": {
+    "speed_of_light_m_s": 299792458.0,
+    "wien_constant_provenance": "CODATA 2022 / NIST",
+    "wien_wavelength_displacement_constant_m_k": 0.002897771955
+  },
+  "controls": {
+    "all_passed": true,
+    "control_min_relative_miss": 0.05,
+    "definitions": {
+      "absolute_product_gate": "fail if the committed product is residual-only/model-normalized",
+      "frequency_domain_peak_distinct": "the native frequency-domain peak must differ from the wavelength-domain peak by more than one bin",
+      "no_jacobian_relabel_rejected": "relabelling wavenumber as wavelength without the Jacobian must miss the reference by at least the control threshold",
+      "wrong_temperature_rejected": "an intentionally offset reference temperature (+10%) must miss"
+    },
+    "outcomes": {
+      "absolute_product_gate": true,
+      "frequency_domain_peak_distinct": true,
+      "no_jacobian_relabel_rejected": true,
+      "wrong_temperature_rejected": true
+    },
+    "wrong_temperature_k": 2.9980280000000006,
+    "wrong_temperature_relative_difference": 0.08562185840680957
+  },
+  "dataset_id": "TFA-WIEN-FIRAS-MONOPOLE-V1",
+  "domain_conversion": {
+    "jacobian": "B_lambda = B_nu * nu^2 / c (nu = c * k_m, lambda = 1 / k_m)",
+    "native_axis": "wavenumber cm^-1 (FIRAS B_nu)",
+    "note": "Frequency-domain and wavelength-domain peaks differ by the Planck Jacobian (Wien non-invariance); they are reported separately.",
+    "target_domain": "wavelength-domain Wien peak lambda_peak = b / T",
+    "unit_conversion": "k[cm^-1] -> k[m^-1] (x100) -> nu[Hz] (xc) -> lambda[m] (1/k_m)"
+  },
+  "domain_conversion_handling": {
+    "frequency_domain_peak_frequency_ghz": 163.38688961,
+    "frequency_domain_peak_frequency_hz": 163386889610.0,
+    "frequency_domain_peak_wavenumber_cm_inverse": 5.45,
+    "no_jacobian_relabel_relative_difference": 0.7257675247067377,
+    "no_jacobian_relabel_wavelength_m": 0.001834862385321101,
+    "no_jacobian_relabel_wavelength_mm": 1.834862385321101
+  },
+  "engine_version": "0.1.0",
+  "git_commit": "5ca72e2a363607bd73fd53d66b29c016e5cbb05a",
+  "input_hashes": {
+    "engine_sha256": "1303ab685334b5812970479c4071130138bece95e48b737059066635204f0a74",
+    "firas_rows_sha256": "854693059338d0e9b1c3d7595bcc190c6695f99e05670aac9b3ed165fa764185",
+    "script_sha256": "e89fc9b35cc7dca627a3f114ff15a8257e806e5f2103886e4ce0c9702555a2b2",
+    "wien_reference_fixture_sha256": "36776ebf56d39dbb38bd6271a26dc7d23895194c16f34c54f8d6957973a3b6c6"
+  },
+  "primary_metric": {
+    "interpolated_relative_difference": 0.000917151152935081,
+    "interpolated_relative_tolerance": 0.005,
+    "interpolation_method": "fixed parabolic-vertex refinement of the located raw-bin peak; deterministic sampling-resolution diagnostic, not a model fit",
+    "raw_bin_relative_difference": 0.01307103781199158,
+    "raw_bin_relative_tolerance": 0.02,
+    "reference_wavelength_peak_m": 0.001063215270337702,
+    "reference_wavelength_peak_mm": 1.063215270337702,
+    "reference_wavenumber_cm_inverse": 9.40543300965172,
+    "wavelength_domain_peak_interpolated_m": 0.0010641903994487105,
+    "wavelength_domain_peak_interpolated_mm": 1.0641903994487105,
+    "wavelength_domain_peak_raw_bin_m": 0.001049317943336831,
+    "wavelength_domain_peak_raw_bin_mm": 1.0493179433368311,
+    "wavelength_domain_peak_raw_bin_wavenumber_cm_inverse": 9.53
+  },
+  "promotion_boundary": {
+    "consistency_in_scope_only": true,
+    "creates_claim": false,
+    "creates_knowledge": false,
+    "creates_prediction": false,
+    "creates_result": false
+  },
+  "reference_temperature": {
+    "citation": "Fixsen 2009, ApJ 707, 916",
+    "provenance_role": "separately pinned reference temperature (TASK-0815 contract); not a fitted parameter chosen from the FIRAS rows",
+    "sigma_k": 0.00057,
+    "value_k": 2.72548
+  },
+  "sampling_resolution": {
+    "bin_spacing_above_cm_inverse": 0.45000000000000107,
+    "bin_spacing_below_cm_inverse": 0.4499999999999993,
+    "note": "FIRAS bin spacing limits the raw-bin peak precision; the parabolic refinement reports the sampling sensitivity."
+  },
+  "task_id": "TASK-0802",
+  "verdict": "CONSISTENT_IN_SCOPE"
+}

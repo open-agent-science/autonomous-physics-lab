@@ -1,0 +1,64 @@
+id: TASK-0837
+title: "Transfer-benchmark the validated stellar mass-luminosity relation on the disjoint high-mass DEBCat regime"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert a validated result into a real transfer test: the stellar M-L relation (RESULT-0022, Gate-B replayed) is validated in-domain; the next validity gate is TRANSFER, and the transfer-route scout returned STELLAR_TRANSFER_ROUTE_READY_FOR_TASK."
+  - "Experimental judge: DEBCat detached-eclipsing-binary dynamical masses are real measurements, so a disjoint high-mass holdout is a clean, non-circular transfer test (honors the computed/simulated-is-not-the-judge guardrail)."
+  - "Both outcomes are valuable: the M-L transfers to the high-mass regime under controls (a stronger validated relation) OR it does not (an honest regime-limited boundary). No refit-to-rescue."
+
+input:
+  mode: workflow
+  related_domain: astrophysics_stellar
+  related_objects:
+    - "docs/reviews/stellar-ml-independent-transfer-dataset-scout.md"
+    - "docs/reviews/stellar-ml-result0022-gate-b-replay.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    The stellar mass-luminosity relation is AGENT_VALIDATED as RESULT-0022 and
+    Gate-B replayed. Its campaign next_validity_gate is transfer. The independent-
+    transfer-dataset scout (TASK-0817 family) selected exactly one route:
+    the disjoint high-mass DEBCat regime (mass_solar > 2.0) within the already-
+    committed Route-2 DEBCat rows -- no new fetch and no new provenance. DEBCat
+    masses are dynamical (real measurements), so this is a clean experimental-judge
+    transfer test, not a circular one. This task freezes the RESULT-0022 M-L and
+    scores its predictions on the disjoint high-mass holdout under controls. It does
+    NOT refit the relation on the holdout and does NOT edit RESULT-0022 or the
+    frozen DEBCat main-sequence slice.
+
+requirements:
+  - "Freeze the RESULT-0022 stellar M-L relation as the predictor; do NOT refit it on the high-mass holdout, and do NOT edit RESULT-0022 or the committed DEBCat main-sequence slice."
+  - "Use ONLY the committed DEBCat Route-2 rows; evaluate by TRANSFER onto the disjoint high-mass regime (mass_solar > 2.0) selected by the scout. Report transfer error (e.g. MAE in the relation's units) on the high-mass holdout."
+  - "Apply controls-first: compare against null / shuffled / mass-matched controls and report whether the frozen relation clears a predeclared survival margin over the best control on the high-mass holdout."
+  - "State explicitly that the judge is experimental (DEBCat dynamical masses); record provenance and per-row uncertainty handling."
+  - "Make the run Gate-B-replayable (pinned command, code_reference, input_file_hashes, engine_version, git_commit)."
+  - "Do NOT promote a claim or use universal-law / discovery / non-stellar wording. This is a transfer benchmark of a known stellar relation."
+  - "Stop: if the relation does not transfer to the high-mass regime under controls, record the honest regime-limited negative; do not refit, widen, or add free parameters to rescue it."
+
+accepted_outputs:
+  - "A stellar M-L high-mass transfer benchmark run under the textbook/stellar campaign with transfer error vs controls and the survival-margin verdict, plus a review note."
+  - "A RESULT-* candidate (best_verdict by the transfer outcome) at AGENT_PUBLISHED only if Gate A passes; otherwise a sandbox AGENT-RUN-* + review note."
+  - "Output-routing summary: Gate A status, the transfer margin vs baseline and best control, claim impact none, limitations (single relation, disjoint-regime holdout, not a new law)."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes on the transfer benchmark; default destination is sandbox + review note. No claim promotion."
+  evidence:
+    - "docs/reviews/stellar-ml-independent-transfer-dataset-scout.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

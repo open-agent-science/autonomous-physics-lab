@@ -1,0 +1,58 @@
+id: TASK-0836
+title: "Fix campaign-curator fallback when mission actions point at non-READY tasks"
+type: test_infrastructure
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the full-suite main CI lane green after legitimate task merges and board-sync updates."
+  - "Preserve the campaign curator's advisory boundary: stale mission actions must not route agents into REVIEW_READY, DONE, or otherwise non-READY canonical tasks."
+  - "Avoid editing mission files during routine post-merge handoff; curator fallback should remain robust while closeout refreshes mission guidance."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+    - "missions/current.yaml"
+  planning_context: >
+    After a batch of task PR merges, main CI failed in
+    tests/test_campaign_curator.py::test_campaign_curator_defaults_to_top_campaign.
+    The top mission still had a configured action marked ready, but its linked
+    canonical task was no longer live READY. The curator correctly avoided
+    recommending the non-READY task, but then returned no fallback
+    recommendation. The fix should keep the recommendation advisory-only rather
+    than routing executor agents into stale task ids.
+
+requirements:
+  - "When no live READY campaign task is available, preserve configured mission-action fallback recommendations."
+  - "If a configured mission action references a canonical task that is not live READY, emit the fallback as advisory-only with no executable task_id."
+  - "Do not recommend REVIEW_READY, DONE, blocked, or otherwise non-READY canonical tasks as executable work."
+  - "Do not edit missions/current.yaml or generated task views as part of this task."
+  - "Do not change scientific artifacts, task closeout policy, results, claims, or knowledge entries."
+
+accepted_outputs:
+  - "campaign curator fallback fix"
+  - "targeted campaign-curator regression validation"
+  - "strict repository validation"
+
+result_artifact_policy:
+  required: false
+  reason: "Test-infrastructure support task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/campaign_curator.py tests/test_campaign_curator.py"
+    - "python3 -m pytest tests/test_campaign_curator.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

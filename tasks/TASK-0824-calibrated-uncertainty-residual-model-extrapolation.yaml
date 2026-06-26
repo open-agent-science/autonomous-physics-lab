@@ -1,7 +1,7 @@
 id: TASK-0824
 title: "Build a calibrated-uncertainty residual model (Gaussian process) and test it by extrapolation"
 type: scientific_benchmark
-status: READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

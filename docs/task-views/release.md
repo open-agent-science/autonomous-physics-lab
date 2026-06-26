@@ -6,8 +6,8 @@
 
 ## READY
 
-- `TASK-0833` - Scout ThermoML source-readiness and Joback fidelity for a property-estimation transfer audit (boiling-point only) (`scientific_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
-- `TASK-0835` - Scout FRB (CHIME) source-readiness, no-leakage temporal-split feasibility, and reveal channel for a repeater selection-effect audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
+- `TASK-0839` - Re-verify CHIME/FRB Catalog 2 access and complete the FRB readiness + no-leakage temporal-split feasibility (readiness only) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `radio_transients_astrophysics`)
+- `TASK-0840` - Locally extract the ZnSe direct-size transfer rows and audit the ChemRxiv license (public rows conditional) (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 
 ## IN_PROGRESS
 

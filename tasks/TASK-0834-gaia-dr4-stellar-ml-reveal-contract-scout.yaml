@@ -1,7 +1,7 @@
 id: TASK-0834
 title: "Scout the Gaia DR4 stellar mass-luminosity reveal contract (no freeze, no date hardcoding)"
 type: scientific_validation
-status: READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

@@ -65,6 +65,30 @@ candidate_source_classes_for_future_review:
   - "Curated experimental property compilations with explicit primary-source citation."
   - "Reference/model-only descriptors, admissible only as explicitly excluded context."
 
+# Metadata-only transfer-route note (TASK-0817). Records a ready/blocked route
+# without adding any dataset rows or values; see the scout note for full detail.
+transfer_route_notes:
+  - route_id: md0002-disjoint-asite-cation-family
+    status: ready_for_future_task
+    scouted_by_task: TASK-0817
+    scout_note: docs/reviews/materials-independent-transfer-route-scout.md
+    route_class: disjoint_chemistry_family_within_committed_source
+    source_id: materials-project
+    dataset_family: MD-0002
+    property_axis: formation_energy_per_atom
+    provenance_class: computed_dft
+    live_external_fetch_required: false
+    depends_on: TASK-0809
+    depends_on_status: done_compatible_not_blocking
+    summary: >
+      A disjoint A-site cation-family holdout (alkali+3d-transition vs
+      alkaline-earth+3d-transition) is feasible on the committed MD-0002
+      formation-energy slice with no live fetch: the 362 included rows partition
+      exhaustively into 225 alkali-transition and 137 alkaline-earth-transition
+      rows, leakage-free, and the holdout manifest already pre-authorizes that
+      family split vocabulary. No rows, metrics, RESULT, claim, or knowledge are
+      created here.
+
 global_limitations:
   - "One source registered (Materials Project, CC BY 4.0); measurement values live in the md-*.yaml dataset files, not in this manifest."
   - "Computed and measured properties must stay on separate residual axes with explicit provenance."
