@@ -56,24 +56,28 @@ benchmarks and structured theoretical consistency work.
 
 ## Current Results
 
-This campaign is still planning-oriented:
+This campaign is moving from planning-only toward its first executable
+single-scenario benchmark:
 
 - `TASK-0014` created the main suite design and is already `DONE`.
 - The planning note defines candidate scenarios including the light clock,
   relativity of simultaneity, twin paradox, and Einstein elevator.
-- `TASK-0028` is `READY` and scopes the light-clock case into a smaller
-  follow-up planning artifact.
+- `TASK-0028` is `DONE` and produced the reviewed light-clock planning artifact
+  at [Light-Clock Consistency Check](../notes/light-clock-consistency-check.md).
+- `TASK-0847` is the next bounded implementation task: implement only the
+  TE-001 light-clock benchmark and a wrong-candidate regression before any
+  broader thought-experiment suite work.
 - No canonical experiment, no executable validator, and no result artifacts
   exist yet.
 
 Current campaign state in one sentence:
-The scenario inventory exists, but the executable consistency machinery does
-not.
+The scenario inventory and light-clock contract exist, but the executable
+consistency machinery does not.
 
 Start here:
 
 - [Thought-Experiment Consistency Suite](../notes/thought-experiment-consistency-suite.md)
-- TASK-0028
+- TASK-0847 after the task queue PR lands
 
 ## Open Questions
 
@@ -89,10 +93,11 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0028` — plan the light-clock consistency check as a narrow next step.
-- future planning tasks that isolate one scenario at a time before
-  implementation.
-- future implementation tasks only after the first scenario contract is stable.
+- `TASK-0847` — implement the TE-001 light-clock consistency benchmark from the
+  reviewed planning note.
+- future planning or implementation tasks must isolate one scenario at a time.
+- broader suite implementation waits until the first scenario contract has an
+  executable benchmark and review outcome.
 
 ## Recommended Contributor Types
 

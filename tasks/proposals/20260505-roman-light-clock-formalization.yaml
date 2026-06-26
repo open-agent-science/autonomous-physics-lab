@@ -1,6 +1,6 @@
 proposal_id: 20260505-roman-light-clock-formalization
 title: "Formalize light-clock thought-experiment benchmark"
-status: PROPOSED
+status: SUPERSEDED
 type: thought_experiment_formalization
 priority: high
 
@@ -60,8 +60,11 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0847
+  decision: superseded
   notes: >
-    Salvaged from PR #22, but refreshed to depend on the already-merged
-    TASK-0028 planning note instead of the old private-alpha backlog shape.
+    The requested formalization already exists in
+    docs/notes/light-clock-consistency-check.md from DONE TASK-0028. The
+    scientific director next-wave PR supersedes this proposal with TASK-0847,
+    an implementation-ready light-clock benchmark task based on that reviewed
+    planning note.

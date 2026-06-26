@@ -1,0 +1,63 @@
+id: TASK-0844
+title: "Adjudicate NMD-0003 GP uncertainty calibration without holdout tuning"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-0824 found a strong point-prediction gain but a heavy-tailed/miscalibrated predictive uncertainty envelope; prediction freeze must not proceed on attractive MAE alone."
+  - "The campaign needs a bounded uncertainty decision: either a train-only calibration path that can support future PRED intervals, or an explicit blocker that keeps the GP as point-estimator evidence only."
+  - "This separates calibration adequacy from model-comparison enthusiasm and protects the reveal pipeline from overconfident uncertainties."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0824-calibrated-uncertainty-residual-model-extrapolation.yaml"
+    - "docs/reviews/nmd0003-calibrated-uncertainty-gp-extrapolation.md"
+    - "agent_runs/AGENT-RUN-0080/metrics.json"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    The GP residual model's point predictions are strong, but TASK-0824 reports
+    empirical 1-sigma coverage 0.823729 vs expected 0.682689, 2-sigma coverage
+    0.966102 vs expected 0.9545, and RMS standardized residual 2.826769. This
+    task asks whether the uncertainty issue can be adjudicated without tuning on
+    the post-AME2020 holdout. The output is a calibration decision for future
+    nuclear prediction work, not a new point-model benchmark and not a PRED
+    freeze.
+
+requirements:
+  - "Use TASK-0824 artifacts and committed training/holdout splits read-only; do not alter the GP point predictor or the TASK-0824 metrics."
+  - "Diagnose the heavy-tail/miscalibration pattern with deterministic code: standardized residual distribution, per-region coverage, outlier ledger, and sensitivity to training-only cross-validation or predeclared residual-envelope choices."
+  - "Any proposed calibration transform or interval-inflation rule must be justified from training-only or predeclared diagnostics; do NOT choose it by optimizing post-AME2020 holdout coverage after reading that holdout."
+  - "Return one verdict: `CALIBRATION_PATH_READY_FOR_FREEZE`, `POINT_GAIN_ONLY_UNCERTAINTY_BLOCKED`, or `CALIBRATION_CONTESTED_NEEDS_REPLAY`."
+  - "If no train-only defensible calibration exists, preserve the GP as a point-estimator benchmark only and make the blocker explicit for TASK-0827."
+  - "Do NOT create PRED entries, score future frontier targets, update claims, refit the GP to improve MAE, or use discovery / breakthrough / calibrated prediction wording."
+  - "Stop condition: deliver a calibration adjudication note and any future-task wording; the freeze/reveal comparison remains TASK-0827's job."
+
+accepted_outputs:
+  - "`docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md` with diagnostics, train-only calibration rationale or blocker, verdict, and implications for TASK-0827."
+  - "Optional small deterministic diagnostic script or test only if needed to make the calibration decision reproducible."
+  - "Output-routing summary: no RESULT/PRED/CLAIM creation, calibration verdict, prediction-freeze impact, and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Calibration adjudication only; no new scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/nmd0003-calibrated-uncertainty-gp-extrapolation.md"
+    - "agent_runs/AGENT-RUN-0080/metrics.json"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

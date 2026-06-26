@@ -1,6 +1,6 @@
 proposal_id: 20260615-gladunrv-vossmeyer-table-inspection
 title: Record Vossmeyer Table 1 maintainer inspection
-status: PROPOSED
+status: ACCEPTED
 type: dataset_workflow
 priority: medium
 proposed_by:
@@ -42,6 +42,6 @@ accepted_outputs:
   adding rows
 - focused validation of docs links and strict repository validation
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0848
+  decision: accepted
+  notes: Accepted by the scientific director next-wave TASK-QUEUE PR as a metadata-only source-access memory task; no row extraction or benchmark use is authorized.

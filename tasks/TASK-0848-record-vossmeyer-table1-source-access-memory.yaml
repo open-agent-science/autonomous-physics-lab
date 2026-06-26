@@ -1,0 +1,60 @@
+id: TASK-0848
+title: "Record Vossmeyer Table 1 source-access memory without value-bearing extraction"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Preserve maintainer-inspected Vossmeyer 1994 Table 1 source-surface evidence without weakening the open-licensed-first quantum source policy."
+  - "Keep the closed-source CdS source as metadata-only fallback memory, not an active row-curation or benchmark path while ZnSe transfer is already READY."
+  - "This prevents useful source-access context from being lost while avoiding ACS PDF redistribution, screenshots, or table transcription."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/proposals/20260615-gladunrv-vossmeyer-table-inspection.yaml"
+    - "data/acquisition_queue.yaml"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/reviews/quantum-vossmeyer-source-copy-handoff.md"
+    - "docs/reviews/quantum-open-licensed-first-source-selection-application.md"
+  planning_context: >
+    The maintainer inspected the Vossmeyer 1994 CdS Table 1 source surface and
+    recorded DOI 10.1021/j100082a044, page 7667, filename j100082a044.pdf,
+    byte size 1669226, and checksum not recorded. Because TASK-0751 makes
+    open-licensed sources preferred and Vossmeyer is a closed-source Tier 4
+    fallback, this task records metadata-only memory and blocker wording only.
+    It must not curate rows or commit publisher content.
+
+requirements:
+  - "Record the maintainer-inspected Vossmeyer Table 1 metadata in a review note and, if useful, update source_manifest/acquisition_queue blocker wording."
+  - "Include DOI `10.1021/j100082a044`, page `7667`, Table 1 surface, filename `j100082a044.pdf`, byte size `1669226`, and `checksum_sha256: not_recorded`."
+  - "Classify the source as closed-source Tier 4 fallback under the open-licensed-first policy; value-bearing extraction requires explicit future license/ToS or maintainer row-use decision."
+  - "Do NOT commit the ACS PDF, screenshots, page scans, full table image, publisher table text, qd rows, benchmark inputs, metrics, RESULT/PRED artifacts, claims, or knowledge promotions."
+  - "Stop after metadata/source-access memory; do not use this task to compete with or delay the READY ZnSe cross-material transfer benchmark."
+
+accepted_outputs:
+  - "`docs/reviews/quantum-vossmeyer-table1-source-access-memory.md` metadata-only review note."
+  - "Optional `data/quantum_dots/source_manifest.yaml` or `data/acquisition_queue.yaml` wording update preserving the closed-source fallback blocker."
+  - "Output-routing summary: source-access memory only, no row/value extraction, no RESULT/PRED/CLAIM/KNOW creation, future license decision blocker."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-access metadata memory only; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/quantum-vossmeyer-table1-source-access-memory.md"
+    - "data/quantum_dots/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

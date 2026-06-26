@@ -1,0 +1,63 @@
+id: TASK-0847
+title: "Implement the light-clock consistency benchmark from the reviewed planning note"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The thought-experiment consistency track has a completed light-clock planning note but no executable benchmark; this turns a near-active planning surface into a deterministic validator."
+  - "The task is verification-first: it checks explicit Special Relativity invariants and wrong-candidate failure modes, not empirical discovery or new theory."
+  - "A small light-clock benchmark expands APL's science surfaces without adding a speculative campaign or broad formula search."
+
+input:
+  mode: workflow
+  related_domain: relativity_thought_experiment
+  related_objects:
+    - "tasks/archive/0000-0499/TASK-0028-light-clock-consistency-check-planning.yaml"
+    - "docs/notes/light-clock-consistency-check.md"
+    - "docs/notes/thought-experiment-consistency-suite.md"
+    - "docs/campaigns/thought-experiment-consistency.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0028 is DONE and produced `docs/notes/light-clock-consistency-check.md`
+    with explicit assumptions, variables, checks LC-001 through LC-005, known
+    limits, and failure modes. This task implements that single scenario as an
+    executable benchmark with deterministic checks and a deliberately wrong
+    Newtonian candidate regression. It must not implement the whole
+    thought-experiment suite in one PR.
+
+requirements:
+  - "Implement only the TE-001 light-clock scenario from `docs/notes/light-clock-consistency-check.md`; do not implement simultaneity, twin paradox, elevator, or other scenarios."
+  - "Add or select the next repository-valid experiment identity only after checking existing experiment files; do not assume a missing historical id is available without validation."
+  - "Evaluate checks LC-001 through LC-005 for a fixed sweep of beta values including 0, 0.1, 0.5, 0.9, and 0.99; reject `v >= c` as UNDEFINED before numerical checks."
+  - "Add a wrong-candidate regression (for example Newtonian `T_moving = T_rest`) and assert it fails LC-001 rather than returning CONSISTENT."
+  - "Produce a benchmark report with assumptions, exact reference equations, tolerances, per-check metrics, limitations, and verdict vocabulary."
+  - "Create a RESULT candidate only if Gate A passes; otherwise leave benchmark output as an agent run plus review note."
+  - "Do NOT claim empirical validation of Special Relativity, General Relativity support, new physics, or theoretical discovery. This is an internal consistency validator for a named thought experiment."
+
+accepted_outputs:
+  - "Executable light-clock consistency benchmark code and tests covering valid beta values, undefined beta values, and wrong-candidate failure."
+  - "A benchmark run/report with per-check metrics and safe limitations."
+  - "A RESULT candidate at AGENT_PUBLISHED only if Gate A passes; otherwise sandbox run + review note."
+  - "Output-routing summary: Gate A status, Gate B not attempted, claim impact none, knowledge impact none, no empirical-discovery wording."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if the new benchmark passes Gate A; otherwise the task produces code/tests and sandbox evidence."
+  evidence:
+    - "docs/notes/light-clock-consistency-check.md"
+    - "docs/campaigns/thought-experiment-consistency.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
