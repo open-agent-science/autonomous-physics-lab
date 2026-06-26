@@ -1,0 +1,262 @@
+{
+  "task_id": "TASK-0838",
+  "agent_run_id": "AGENT-RUN-0081",
+  "benchmark_id": "materials-md0002-cation-family-transfer-benchmark",
+  "frozen_model_under_test": {
+    "model_id": "model_cation_pair_mean",
+    "descriptor": "exact_unordered_non_oxygen_cation_pair",
+    "source_result": "RESULT-0021",
+    "source_run": "results/EXP-0014/RUN-0001/result.yaml",
+    "definition": "Train-only mean of formation_energy_per_atom grouped by the exact unordered non-oxygen cation pair; unseen pairs fall back to the global train mean. Imported unchanged from the frozen baseline engine.",
+    "frozen_before_reading_transfer_error": true,
+    "post_hoc_descriptor_or_hyperparameter_change": false
+  },
+  "method": "Hold out one complete disjoint A-site cation-family class, fit the frozen RESULT-0021 cation-pair-mean model on the disjoint class, and score holdout MAE on the held-out family against null / shuffled / per-class-median controls. Both holdout directions are evaluated.",
+  "predeclared_split": {
+    "route": "disjoint_a_site_cation_family_holdout",
+    "scout_review_note": "docs/reviews/materials-independent-transfer-route-scout.md",
+    "scout_task": "TASK-0817",
+    "manifest_split_axis": "cation_pair_family",
+    "family_vocabulary": {
+      "alkali_transition": [
+        "Co",
+        "Cr",
+        "Cs",
+        "Cu",
+        "Fe",
+        "Fr",
+        "K",
+        "Li",
+        "Mn",
+        "Na",
+        "Ni",
+        "Rb",
+        "Sc",
+        "Ti",
+        "V",
+        "Zn"
+      ],
+      "alkaline_earth_transition": [
+        "Ba",
+        "Be",
+        "Ca",
+        "Co",
+        "Cr",
+        "Cu",
+        "Fe",
+        "Mg",
+        "Mn",
+        "Ni",
+        "Ra",
+        "Sc",
+        "Sr",
+        "Ti",
+        "V",
+        "Zn"
+      ]
+    },
+    "directions": [
+      {
+        "direction_id": "hold_out_alkaline_earth_transition",
+        "train_family": "alkali_transition",
+        "holdout_family": "alkaline_earth_transition"
+      },
+      {
+        "direction_id": "hold_out_alkali_transition",
+        "train_family": "alkaline_earth_transition",
+        "holdout_family": "alkali_transition"
+      }
+    ],
+    "leakage": "none_by_construction_families_share_no_a_site_cation"
+  },
+  "predeclared_pass_fail": {
+    "metric": "held_out_family_holdout_mae_eV_per_atom",
+    "rule": "Frozen model must beat the BEST control's holdout MAE by at least 0.05 eV/atom on the held-out family in BOTH disjoint-family directions.",
+    "minimum_margin_over_best_control_eV_per_atom": 0.05,
+    "controls": [
+      "null_global_mean",
+      "shuffled_cation_pair",
+      "per_class_median"
+    ],
+    "control_seeds": [
+      0,
+      1,
+      2,
+      7,
+      11
+    ],
+    "declared_before_metric_computation": true
+  },
+  "input_references": {
+    "config": "examples/benchmarks/materials_md0002_formation_energy.yaml",
+    "dataset": "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml",
+    "holdout_manifest": "data/materials/md0002_holdout_manifest.yaml",
+    "transfer_route_scout": "docs/reviews/materials-independent-transfer-route-scout.md",
+    "baseline_result": "results/EXP-0014/RUN-0001/result.yaml"
+  },
+  "input_file_hashes": {
+    "examples/benchmarks/materials_md0002_formation_energy.yaml": "cb18158c21904341d64d22bdea8c4c265badf76297ad1331184d645948467e51",
+    "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml": "516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1",
+    "data/materials/md0002_holdout_manifest.yaml": "c98c6e699d5fd0146f3456c4726bf71adbd5aeea2cff6aada9190671095e5451"
+  },
+  "dataset_summary": {
+    "dataset_family": "MD-0002",
+    "source_id": "materials-project",
+    "source_version": "2026.04.13",
+    "snapshot_checksum_sha256": "5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567",
+    "property_kind": "formation_energy_per_atom",
+    "units": "eV_per_atom",
+    "provenance_class": "computed_dft",
+    "license": "CC_BY_4_0",
+    "row_count": 362,
+    "family_counts": {
+      "alkali_transition": 225,
+      "alkaline_earth_transition": 137
+    },
+    "live_external_fetch": false
+  },
+  "transfer_directions": [
+    {
+      "direction_id": "hold_out_alkaline_earth_transition",
+      "train_family": "alkali_transition",
+      "holdout_family": "alkaline_earth_transition",
+      "train_count": 225,
+      "holdout_count": 137,
+      "shared_cation_pairs_between_families": [],
+      "holdout_rows_falling_back_to_global_mean": 137,
+      "frozen_model_holdout_mae": 0.729781,
+      "controls": {
+        "null_global_mean": {
+          "holdout_mae": 0.729781,
+          "description": "Global train-mean prediction for every held-out row."
+        },
+        "per_class_median": {
+          "holdout_mae": 0.833408,
+          "description": "Train-family median prediction for every held-out row."
+        },
+        "shuffled_cation_pair": {
+          "holdout_mae": 0.729781,
+          "description": "Cation-pair labels permuted on train before grouping; min holdout MAE over fixed seeds (strongest shuffle control).",
+          "seeds": [
+            0,
+            1,
+            2,
+            7,
+            11
+          ],
+          "per_seed": [
+            {
+              "seed": 0,
+              "holdout_mae": 0.729781
+            },
+            {
+              "seed": 1,
+              "holdout_mae": 0.729781
+            },
+            {
+              "seed": 2,
+              "holdout_mae": 0.729781
+            },
+            {
+              "seed": 7,
+              "holdout_mae": 0.729781
+            },
+            {
+              "seed": 11,
+              "holdout_mae": 0.729781
+            }
+          ]
+        }
+      },
+      "best_control_id": "null_global_mean",
+      "best_control_holdout_mae": 0.729781,
+      "margin_over_best_control_eV_per_atom": 0.0,
+      "required_margin_eV_per_atom": 0.05,
+      "clears_margin_over_best_control": false
+    },
+    {
+      "direction_id": "hold_out_alkali_transition",
+      "train_family": "alkaline_earth_transition",
+      "holdout_family": "alkali_transition",
+      "train_count": 137,
+      "holdout_count": 225,
+      "shared_cation_pairs_between_families": [],
+      "holdout_rows_falling_back_to_global_mean": 225,
+      "frozen_model_holdout_mae": 0.791686,
+      "controls": {
+        "null_global_mean": {
+          "holdout_mae": 0.791686,
+          "description": "Global train-mean prediction for every held-out row."
+        },
+        "per_class_median": {
+          "holdout_mae": 0.745149,
+          "description": "Train-family median prediction for every held-out row."
+        },
+        "shuffled_cation_pair": {
+          "holdout_mae": 0.791686,
+          "description": "Cation-pair labels permuted on train before grouping; min holdout MAE over fixed seeds (strongest shuffle control).",
+          "seeds": [
+            0,
+            1,
+            2,
+            7,
+            11
+          ],
+          "per_seed": [
+            {
+              "seed": 0,
+              "holdout_mae": 0.791686
+            },
+            {
+              "seed": 1,
+              "holdout_mae": 0.791686
+            },
+            {
+              "seed": 2,
+              "holdout_mae": 0.791686
+            },
+            {
+              "seed": 7,
+              "holdout_mae": 0.791686
+            },
+            {
+              "seed": 11,
+              "holdout_mae": 0.791686
+            }
+          ]
+        }
+      },
+      "best_control_id": "per_class_median",
+      "best_control_holdout_mae": 0.745149,
+      "margin_over_best_control_eV_per_atom": -0.046537,
+      "required_margin_eV_per_atom": 0.05,
+      "clears_margin_over_best_control": false
+    }
+  ],
+  "transfer_summary": {
+    "transfers_in_all_directions": false,
+    "transfer_outcome": "advantage_is_family_localized",
+    "per_direction_clears_margin": {
+      "hold_out_alkaline_earth_transition": false,
+      "hold_out_alkali_transition": false
+    }
+  },
+  "verdict": "SANDBOX_FAIL",
+  "limitations": [
+    "Computed-DFT Materials Project formation energies only (CC BY 4.0); no experimental measurements, so residuals are computed-DFT benchmark diagnostics, not measurement errors.",
+    "Bounded model-vs-model generalization benchmark on one frozen 362-row MD-0002 slice; not a materials-discovery, material-design-law, property-prediction, synthesis, device, or biomedical claim.",
+    "Exactly one disjoint A-site cation-family split (alkali-transition vs alkaline-earth-transition); a single family axis, not a broad transfer study.",
+    "By construction the two families share no cation pair, so the frozen cation-pair model falls back to the global train mean on every held-out row; the test measures whether that fallback still beats the controls.",
+    "Formation energy is evaluated alone; band gap is neither scored nor pooled.",
+    "The frozen baseline model and descriptor were fixed before any transfer error was read; no refit, feature add, or split change was made to rescue a negative outcome."
+  ],
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0081/ and transfer-benchmark review note",
+    "review_tier": "none",
+    "gate_a_status": "not_eligible_negative_transfer_result",
+    "gate_b_status": "replayable_not_yet_independently_replayed",
+    "claim_impact": "no claim change",
+    "knowledge_impact": "no knowledge change",
+    "publication_blocker": "A published RESULT requires linking into protected hypothesis/experiment artifacts outside this task's scope; default to sandbox."
+  }
+}

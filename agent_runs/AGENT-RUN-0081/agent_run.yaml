@@ -1,0 +1,56 @@
+id: AGENT-RUN-0081
+campaign_profile_id: materials-property-residuals
+task_id: TASK-0838
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: gladunrv
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/materials-property-residuals/HYP-PROPOSAL-0063-md0002-cation-family-transfer.yaml
+  experiment: experiment_proposals/materials-property-residuals/EXP-PROPOSAL-0029-md0002-cation-family-transfer.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0081/metrics.json
+  report: agent_runs/AGENT-RUN-0081/report.md
+  limitations: agent_runs/AGENT-RUN-0081/limitations.md
+  preflight: agent_runs/AGENT-RUN-0081/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0081/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "Materials property residual transfer benchmark is in campaign scope."
+    - name: frozen_model_and_descriptor
+      status: PASS
+      notes: "The RESULT-0021 cation-pair-mean model and descriptor were imported unchanged and fixed before any transfer error was read."
+    - name: frozen_source_binding
+      status: PASS
+      notes: "The committed MD-0002 checksum and frozen split counts were verified; only committed rows are used."
+    - name: predeclared_split_and_margin
+      status: PASS
+      notes: "The disjoint A-site cation-family split, controls, seeds, and 0.05 eV/atom margin were declared before any metric was computed."
+    - name: no_live_fetch
+      status: PASS
+      notes: "The benchmark reads committed computed-DFT rows only."
+    - name: bounded_no_overclaim
+      status: PASS
+      notes: "Computed-DFT judge; no discovery, material-design-law, property-prediction, device, or synthesis wording."
+    - name: promotion_boundary
+      status: PASS
+      notes: "The sandbox record promotes no claim, knowledge, or canonical result artifact."
+limitations:
+  - "Computed DFT Materials Project formation energies only (CC BY 4.0); no experimental measurements."
+  - "Bounded model-vs-model generalization benchmark on one frozen 362-row MD-0002 slice; not a materials-discovery, material-design-law, property-prediction, device, or synthesis claim."
+  - "Exactly one disjoint A-site cation-family split (alkali-transition vs alkaline-earth-transition); a single family axis."
+  - "The two families share no cation pair, so the frozen model falls back to the global train mean on every held-out row."
+  - "Formation energy is evaluated alone; band gap is neither scored nor pooled."
+  - "The honest negative is recorded; no refit, feature add, or split change was made to rescue it."
+verdict: SANDBOX_FAIL
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: >
+    Keep the family-localized negative as a sandbox diagnostic. Any published
+    RESULT would require a separate task with explicit protected hypotheses/,
+    experiments/, and results/ authority.
