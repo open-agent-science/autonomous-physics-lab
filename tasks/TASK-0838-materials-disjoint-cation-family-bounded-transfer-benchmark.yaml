@@ -1,7 +1,7 @@
 id: TASK-0838
 title: "Bounded transfer-benchmark the Materials formation-energy baseline on a disjoint A-site cation family (computed-DFT, bounded)"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

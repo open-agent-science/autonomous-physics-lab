@@ -1,7 +1,7 @@
 id: TASK-0842
 title: "Cross-material transfer benchmark: does the InP-calibrated size-confinement model predict the ZnSe direct-size holdout under controls?"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
