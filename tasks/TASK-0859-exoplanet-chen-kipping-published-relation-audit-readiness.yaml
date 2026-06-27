@@ -1,0 +1,63 @@
+id: TASK-0859
+title: "Exoplanet Chen-Kipping published-relation audit readiness scout (new published-relation-audit lane; residual lane stays monitor-only)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Open a new published-relation-audit lane for Exoplanet WITHOUT reopening the old residual-correction line: the residual lane stays monitor-only (correctly blocked on NO_NOTIFY); this is a different question -- audit a FROZEN published relation, fit nothing."
+  - "Break the residual-on-catalog pattern that controls have killed across campaigns: instead of APL fitting its own correction, take the published Chen-Kipping (2017) / Forecaster mass-radius relation as the hypothesis under test on the already-pinned PSCompPars snapshot. This is the exoplanet analog of the stellar/ThermoML transfer audits."
+  - "Genuine, both-outcomes-valuable tension: Chen-Kipping puts the Terran->Neptunian transition near 2.0 M_earth (arXiv:1603.08614), while later empirical work (Otegi et al. 2020, arXiv:1911.04745) places the rocky/volatile transition near 5-25 M_earth, 2-3 R_earth. Does the published relation hold on a pinned modern snapshot under controls, or do its regime boundaries destabilize?"
+
+input:
+  mode: planning_only
+  related_domain: astrophysics_exoplanets
+  related_objects:
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "docs/exoplanet-mass-radius-holdout-protocol.md"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    The Exoplanet residual-correction lane is monitor-only: its self-fitted
+    residual slices were control-sensitive, and the source monitor returns
+    NO_NOTIFY (no new snapshot justifies rescoring). This task does NOT touch that
+    lane. It scouts readiness for a NEW published-relation-audit lane that uses the
+    ALREADY-PINNED PSCompPars snapshot (exo-0001/exo-0002) -- so it is NOT blocked
+    on the NO_NOTIFY monitor -- to audit the frozen published Chen-Kipping (2017) /
+    Forecaster mass-radius relation. APL fits nothing; it scores a published
+    relation under controls. This is a bounded readiness scout only: no benchmark
+    metric, no refit, no residual correction, no new formula search.
+
+requirements:
+  - "Record a source/citation note for Chen-Kipping (2017) / Forecaster (arXiv:1603.08614) and the contested-transition literature (e.g. Otegi et al. 2020, arXiv:1911.04745); state the published relation is the FROZEN hypothesis under test."
+  - "Determine the implementation route: the official Forecaster package if usable and license-clear, OR a deterministic frozen-equation implementation of the published relation with explicit limitations. Note that Forecaster is probabilistic (mass->radius distribution), so a later audit must test interval CALIBRATION/coverage, not only point error."
+  - "Confirm pinned-snapshot compatibility: which exo-0001/exo-0002 PSCompPars fields map to the relation's inputs; use the PINNED snapshot only, no live fetch."
+  - "Define a clean planet subset and the no-leakage rules per the exoplanet campaign: BOTH mass and radius MEASURED; TRUE mass only (never M sin i / minimum mass; never pool true and minimum mass); exclude upper/lower-limit-only values; record per-row uncertainty requirements; exclude the brown-dwarf / stellar-mass boundary if needed."
+  - "Define the no-refit rule and the control plan: global median, regime median, shuffled mass/radius labels, mass-only / radius-only simple power law, uncertainty-weighted control, and matched controls by discovery method / host / measurement precision."
+  - "Do NOT run any benchmark metric, refit or correct the relation, fit a new residual, freeze a PRED, or assert any planet-composition / habitability conclusion or a 'Chen-Kipping is wrong' headline."
+  - "Return exactly one verdict: READY (with the bounded run-task shape), SOURCE_LIMITED, or BLOCKED, with the implementation route, subset definition, and control plan."
+
+accepted_outputs:
+  - "An exoplanet Chen-Kipping published-relation-audit readiness note under docs/reviews/ with: the Chen-Kipping/Forecaster + contested-transition citations; the implementation route (Forecaster package vs frozen-equation, with the probabilistic-calibration note); pinned-snapshot field compatibility; the clean planet subset + true-mass/uncertainty/limit rules; the no-refit control plan; and the READY/SOURCE_LIMITED/BLOCKED verdict."
+  - "Output-routing summary: readiness for a NEW published-relation-audit lane (residual lane stays monitor-only); no benchmark, no refit, no PRED/RESULT/CLAIM; pinned-snapshot-only and no-composition-claim boundaries stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Readiness scout for a frozen-published-relation audit; no benchmark metric, refit, residual correction, or result artifact is expected."
+  evidence:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
