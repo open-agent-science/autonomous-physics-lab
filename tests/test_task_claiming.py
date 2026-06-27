@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 from scripts.apl_task_occupancy import check_task_occupancy
-from physics_lab.registry.pr_capability import env_with_overrides
+from physics_lab.registry.subprocess_env import env_with_overrides
 from physics_lab.registry.task_occupancy import classify_task_pr_occupancy
 
 

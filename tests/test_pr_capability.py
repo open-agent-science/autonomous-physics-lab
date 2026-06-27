@@ -9,11 +9,14 @@ from textwrap import dedent
 from physics_lab.registry.pr_capability import (
     check_pr_capability,
     env_with_discovered_tool_paths,
-    env_with_overrides,
     find_git_path,
     suspicious_proxy_env_names,
     without_suspicious_proxy_env,
 )
+from physics_lab.registry.pr_capability import (
+    env_with_overrides as pr_capability_env_with_overrides,
+)
+from physics_lab.registry.subprocess_env import env_with_overrides
 
 
 def _write_gh_stub(bin_dir: Path, *, exit_code: int = 0) -> Path:
@@ -199,6 +202,35 @@ def test_env_with_overrides_can_remove_explicit_keys() -> None:
     assert env["PATH"] == "base-path"
     assert "HTTPS_PROXY" not in env
     assert env["HTTP_PROXY"] == "http://proxy.example.test:8080"
+
+
+def test_pr_capability_keeps_backward_compatible_env_with_overrides_alias() -> None:
+    assert pr_capability_env_with_overrides is env_with_overrides
+
+
+def test_env_with_overrides_preserves_dependency_discovery_in_child_process() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    env = env_with_overrides(APL_ENV_GUARDRAIL_SENTINEL="kept")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            (
+                "import os, yaml; "
+                "print(os.environ['APL_ENV_GUARDRAIL_SENTINEL']); "
+                "print(yaml.__name__)"
+            ),
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+
+    assert result.returncode == 0, (result.stdout, result.stderr)
+    assert result.stdout.splitlines() == ["kept", "yaml"]
 
 
 def test_env_with_discovered_tool_paths_prepends_tool_dirs(
