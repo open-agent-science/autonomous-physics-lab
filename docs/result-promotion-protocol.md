@@ -321,6 +321,13 @@ if and only if:
    `validation_record` and bumps `review_tier`; it does not edit
    metrics, verdict, or any other field.
 
+Gate B review metadata is not part of the golden-result material hash.
+Changing `review_tier`, `agent_proposal_evaluation`, or replay bookkeeping
+paths records who replayed the result and how; it does not by itself justify a
+scientific rebaseline. Scores, verification metrics, `best_model_id`,
+`best_verdict`, input file SHA-256 digests, and other interpretation-changing
+result payload fields remain material hash inputs.
+
 **Phase 1 status of Gate B:** the gate definition is final, but the
 agent-side replay tooling (a thin runner that wraps `command` and
 diff-checks metrics) is a separate follow-up task. Until that tooling

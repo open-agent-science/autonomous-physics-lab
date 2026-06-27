@@ -1,7 +1,7 @@
 id: TASK-0855
 title: "Separate result material hashes from review metadata"
 type: repository_hardening
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high

@@ -12,5 +12,7 @@ golden_results:
       - command
       - engine_version
       - artifacts
+      - review_tier
+      - agent_proposal_evaluation
       - input_file_hashes.*.path
     rebaseline_rule: "Only update this hash in a dedicated reviewed task that explains the material scientific drift."
