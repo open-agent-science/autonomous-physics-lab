@@ -1,7 +1,7 @@
 id: TASK-0847
 title: "Implement the light-clock consistency benchmark from the reviewed planning note"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -53,7 +53,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_docs_links.py tests/test_light_clock_consistency.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

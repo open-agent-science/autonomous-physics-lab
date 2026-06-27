@@ -1,0 +1,53 @@
+id: HYP-0017
+title: "APL can reproduce the transverse light-clock consistency relations and reject a Newtonian control"
+domain: relativity_thought_experiment
+status: FORMALIZED
+
+hypothesis:
+  statement: >
+    For the idealized inertial transverse light clock specified by TE-001, the
+    repository implementation should satisfy the declared Special Relativity
+    consistency checks LC-001 through LC-005 over the frozen beta sweep, reject
+    beta greater than or equal to one as undefined, and classify the Newtonian
+    candidate T_moving = T_rest as inconsistent. This is a software and
+    thought-experiment consistency hypothesis, not empirical validation of
+    Special Relativity.
+  formula_candidates:
+    - "T_moving = T_rest / sqrt(1 - beta^2)"
+    - "Newtonian control: T_moving = T_rest"
+
+assumptions:
+  - "The clock moves inertially in flat spacetime with no acceleration or gravity."
+  - "The proper mirror separation is transverse to the direction of motion."
+  - "Light propagates at the configured exact speed c in every inertial frame."
+  - "Only beta values from zero through 0.99 are numerically evaluated."
+  - "Passing the benchmark validates repository consistency, not the empirical truth of a physical theory."
+
+variables:
+  L:
+    unit: meter
+    description: "Proper transverse separation of the light-clock mirrors"
+  c:
+    unit: meter per second
+    description: "Configured speed of light in vacuum"
+  beta:
+    unit: dimensionless
+    description: "Clock speed divided by c"
+  gamma:
+    unit: dimensionless
+    description: "Lorentz factor 1/sqrt(1-beta^2)"
+  T_rest:
+    unit: second
+    description: "Tick period in the clock rest frame"
+  T_moving:
+    unit: second
+    description: "Tick period measured in the observer frame"
+
+evidence:
+  experiments:
+    - EXP-0017
+
+verdict: >
+  Formalized software-consistency hypothesis only. A passing sandbox benchmark
+  may establish that APL implements the named TE-001 checks correctly; it does
+  not create a physics claim or knowledge artifact.
