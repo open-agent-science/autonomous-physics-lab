@@ -1,0 +1,59 @@
+id: TASK-0855
+title: "Separate result material hashes from review metadata"
+type: repository_hardening
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Preserve result-promotion rigor while preventing metadata-only Gate B replay bookkeeping from being treated as scientific drift."
+  - "Keep maintainer review and golden-result rebaseline decisions focused on material metric, verdict, input, and evidence changes."
+
+input:
+  mode: planning_only
+  related_domain: result_promotion_protocol
+  related_objects:
+    - "tasks/proposals/20260619-gladunrv-result-hash-review-metadata.yaml"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "physics_lab/registry/golden_results.py"
+    - "tests/test_golden_results.py"
+    - "tests/test_agent_replay_validation.py"
+  planning_context: >
+    The accepted proposal records a protocol ambiguity: review-tier metadata or
+    validation-record path cleanup can change a result file hash and current
+    material hash even when scores, verification metrics, inputs, and verdict
+    are unchanged. This task hardens the material-result hash policy so
+    metadata-only Gate B bookkeeping does not masquerade as scientific drift,
+    while true metric/verdict/input drift remains hash-sensitive.
+
+requirements:
+  - "Audit `physics_lab/registry/golden_results.py` material fields and decide which review-tier metadata fields are non-material."
+  - "Add regression coverage showing Gate B replay metadata/path changes do not alter `material_result_hash` when scores, verification metrics, inputs, and verdict are unchanged."
+  - "Keep scores, verification metrics, `best_model_id`, `best_verdict`, input file SHA-256 values, and interpretation-changing result payload fields hash-sensitive."
+  - "Update result-promotion or maintainer-review documentation so reviewers know metadata-only Gate B promotion is not a scientific rebaseline."
+  - "Do not weaken golden-result drift detection for material scientific content."
+
+accepted_outputs:
+  - "Hardened material-result hash policy."
+  - "Regression tests for metadata-only versus material result drift."
+  - "Documentation update for review metadata and Gate B hash semantics."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/golden_results.py"
+    - "docs/result-promotion-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_golden_results.py tests/test_agent_replay_validation.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m ruff check ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

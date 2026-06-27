@@ -1,0 +1,61 @@
+id: TASK-0854
+title: "Normalize explicit .venv Python launchers in review validation"
+type: repository_hardening
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the deterministic PR review gate reproducible from clean review worktrees."
+  - "Prevent task validation commands copied from a maintainer checkout from producing false BLOCKED verdicts when `.venv` is absent in a detached review worktree."
+  - "Preserve the existing repository Python resolver instead of adding another validation-runtime policy."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/repo_python.py"
+    - "tests/test_maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+  planning_context: >
+    The review helper already resolves a repository validation interpreter for
+    clean worktrees, but it only rewrote task validation commands that started
+    with `python3` or `python`. Task YAML or PR bodies can contain explicit
+    `.venv/bin/python ...` commands from a local maintainer checkout. In a clean
+    detached PR review worktree that relative `.venv` path does not exist, so
+    validation fails before assertions run. The helper should treat explicit
+    repository-venv launchers as a request for the selected validation
+    interpreter, not as a literal worktree-local path.
+
+requirements:
+  - "Rewrite task validation commands that start with `.venv/bin/python`, `.venv/bin/python3`, or Windows `.venv\\Scripts\\python.exe` to the selected validation interpreter."
+  - "Keep existing `python3` / `python` command rewriting behavior unchanged."
+  - "Keep shell-script handling unchanged."
+  - "Add regression tests for POSIX and Windows-style explicit `.venv` launchers."
+  - "Do not relax validation failures caused by real assertion or command failures."
+
+accepted_outputs:
+  - "Review validation command normalizer handles explicit `.venv` Python launchers."
+  - "Regression tests cover the direct normalizer and task validation path."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_repo_python.py"
+    - "python3 -m pytest tests/test_task_discovery.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m ruff check ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

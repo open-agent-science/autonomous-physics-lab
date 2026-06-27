@@ -1,6 +1,6 @@
 proposal_id: 20260609-sviti-subprocess-env-helper-polish
 title: "Polish subprocess environment helper placement and regression coverage"
-status: PROPOSED
+status: ACCEPTED
 type: developer_infrastructure
 priority: low
 
@@ -65,6 +65,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Follow-up polish proposal for TASK-0623; keep separate from the initial guardrail PR."
+  canonical_task_id: TASK-0856
+  decision: accepted
+  notes: "Accepted by maintainer-directed architect cycle; promoted to TASK-0856."

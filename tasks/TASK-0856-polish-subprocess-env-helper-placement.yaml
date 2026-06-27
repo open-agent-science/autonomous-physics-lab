@@ -1,0 +1,61 @@
+id: TASK-0856
+title: "Polish subprocess environment helper placement and regression coverage"
+type: developer_infrastructure
+status: READY
+closeout: review
+difficulty: medium
+priority: low
+
+strategy_alignment:
+  - "Keep subprocess environment guardrails reusable without making them look GitHub-PR-specific."
+  - "Strengthen regression coverage for dependency discovery without broadening CI requirements."
+  - "Preserve the safe additive shape of the existing subprocess environment guardrail."
+
+input:
+  mode: planning_only
+  related_domain: repository_validation
+  related_objects:
+    - "tasks/proposals/20260609-sviti-subprocess-env-helper-polish.yaml"
+    - "physics_lab/registry/pr_capability.py"
+    - "tests/test_pr_capability.py"
+    - "tests/test_task_claiming.py"
+    - "docs/cross-platform-compatibility.md"
+  planning_context: >
+    The accepted proposal is a follow-up polish item for the subprocess
+    environment guardrail. It should move or alias the inherited-environment
+    override helper into a neutral module and add direct child-process coverage
+    for dependency discovery, while preserving existing behavior and avoiding a
+    broad static scanner.
+
+requirements:
+  - "Move or alias the inherited-environment override helper into a neutral module such as `physics_lab.registry.subprocess_env`, preserving backward compatibility if it is currently exported from `pr_capability`."
+  - "Add a child-process regression test that launches `sys.executable` with env overrides and imports at least one repository dependency expected in CI, such as `yaml`."
+  - "Keep intentional minimal-env tests allowed when the test name or comment says missing dependency, missing tool, or minimal environment behavior is the scenario under test."
+  - "Update documentation references if the helper's canonical import path changes."
+  - "Do not change production helper behavior except for import-path cleanup or compatibility alias."
+  - "Do not add a broad static scanner for `env={...}` unless the allowlist/comment convention is proven low-noise."
+
+accepted_outputs:
+  - "Neutral subprocess environment helper module or documented canonical import path."
+  - "Backward-compatible alias or migration note if needed."
+  - "Direct child-process dependency-import regression test."
+  - "Documentation update for the canonical helper location."
+
+result_artifact_policy:
+  required: false
+  reason: "Developer infrastructure task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/pr_capability.py"
+    - "tests/test_pr_capability.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_pr_capability.py tests/test_task_claiming.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m ruff check ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

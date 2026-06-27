@@ -970,6 +970,24 @@ def test_portable_validation_command_uses_given_python_executable() -> None:
     assert rewritten == '"/repo/.venv/bin/python" -m pytest tests/x.py'
 
 
+def test_portable_validation_command_rewrites_explicit_venv_python() -> None:
+    rewritten = _portable_validation_command(
+        ".venv/bin/python -m pytest tests/x.py",
+        python_executable="/repo/.venv/bin/python",
+    )
+
+    assert rewritten == '"/repo/.venv/bin/python" -m pytest tests/x.py'
+
+
+def test_portable_validation_command_rewrites_windows_venv_python() -> None:
+    rewritten = _portable_validation_command(
+        r".venv\Scripts\python.exe -m pytest tests/x.py",
+        python_executable=r"C:\repo\.venv\Scripts\python.exe",
+    )
+
+    assert rewritten == r'"C:\repo\.venv\Scripts\python.exe" -m pytest tests/x.py'
+
+
 def test_run_task_validation_prefers_repo_venv_python(tmp_path) -> None:
     # A repo venv interpreter exists; validation must run with it, not the bare
     # launcher (TASK-0725: prevents false BLOCKED on an unsupported python).
@@ -993,6 +1011,30 @@ def test_run_task_validation_prefers_repo_venv_python(tmp_path) -> None:
     assert captured
     assert str(venv_python.resolve()) in captured[0]
     assert captured[0].startswith(f'"{venv_python.resolve()}"')
+
+
+def test_run_task_validation_rewrites_task_declared_venv_python(tmp_path) -> None:
+    # Task validation commands are often copied from a maintainer's checkout as
+    # `.venv/bin/python ...`; review worktrees do not have their own `.venv`, so
+    # the helper must map that launcher to the selected repository interpreter.
+    venv_python = tmp_path / ".venv" / "bin" / "python"
+    venv_python.parent.mkdir(parents=True, exist_ok=True)
+    venv_python.write_text("", encoding="utf-8")
+    payload = {"validation": {"commands": [".venv/bin/python -m pytest tests/x.py"]}}
+    captured: list[str] = []
+
+    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ANN001, ANN003
+        captured.append(command)
+        return CommandResult(returncode=0, stdout="", stderr="")
+
+    with patch(
+        "physics_lab.registry.maintainer_review.run_command",
+        side_effect=fake_run_command,
+    ):
+        summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "pass"
+    assert captured == [f'"{venv_python.resolve()}" -m pytest tests/x.py']
 
 
 def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:

@@ -85,6 +85,11 @@ from physics_lab.registry.task_unblock import safe_unblock_candidates
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
 LOCAL_PR_REF_PATTERN = re.compile(r"^(?:refs/remotes/)?origin/pr-[0-9]+$")
+VENV_PYTHON_LAUNCHER_PATTERN = re.compile(
+    r"^(?P<quote>[\"']?)"
+    r"(?:\.venv[\\/](?:bin[\\/]python3?|Scripts[\\/]python(?:\.exe)?))"
+    r"(?P=quote)(?P<rest>\s+.*|$)"
+)
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
 PROPOSAL_TRIAGE_BODY_MARKERS = (
     "proposal triage",
@@ -449,6 +454,12 @@ def _portable_validation_command(
     run on an unsupported launcher (see TASK-0725).
     """
     interpreter = python_executable or sys.executable
+    venv_match = VENV_PYTHON_LAUNCHER_PATTERN.match(command_text)
+    if venv_match is not None:
+        rest = venv_match.group("rest").strip()
+        if rest:
+            return f'"{interpreter}" {rest}'
+        return f'"{interpreter}"'
     for launcher in ("python3 ", "python "):
         if command_text.startswith(launcher):
             return f'"{interpreter}" {command_text.removeprefix(launcher)}'

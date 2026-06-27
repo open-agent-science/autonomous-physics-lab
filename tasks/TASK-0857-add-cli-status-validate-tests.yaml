@@ -1,0 +1,52 @@
+id: TASK-0857
+title: "Add focused tests for apl status and validate CLI commands"
+type: testing
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the CLI regression-safe as the repository grows."
+  - "Give contributors a low-risk way to improve validation coverage without requiring physics-domain changes."
+
+input:
+  mode: workflow
+  related_domain: testing
+  related_objects:
+    - "tasks/proposals/20260503-roman-cli-status-test.yaml"
+    - "physics_lab/cli.py"
+    - "tests/"
+  planning_context: >
+    The accepted proposal asks for focused tests around the `status` and
+    `validate` CLI commands. Existing smoke tests confirm commands do not crash,
+    but this task should add meaningful assertions for output content and error
+    behavior without changing CLI implementation.
+
+requirements:
+  - "Add tests for the `status` CLI command in a new or existing test file."
+  - "Add tests for the `validate` CLI command, including at least a valid file pass and missing file non-zero exit."
+  - "Use the existing CLI runner/subprocess patterns already present in the test suite."
+  - "Do not duplicate existing smoke tests; add coverage that is not already asserted."
+  - "Do not change CLI source code in this task unless a test exposes a genuine bug that the maintainer approves fixing in scope."
+
+accepted_outputs:
+  - "New or extended CLI tests for `status` and `validate`."
+
+result_artifact_policy:
+  required: false
+  reason: "Testing task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "tests/"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_critical_path_script_entrypoints.py tests/test_task_discovery.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m ruff check ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
