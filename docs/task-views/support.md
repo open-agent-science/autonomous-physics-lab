@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0855` - Separate result material hashes from review metadata (`repository_hardening`, priority `high`, difficulty `medium`, domain `result_promotion_protocol`)
 - `TASK-0856` - Polish subprocess environment helper placement and regression coverage (`developer_infrastructure`, priority `low`, difficulty `medium`, domain `repository_validation`)
 - `TASK-0857` - Add focused tests for apl status and validate CLI commands (`testing`, priority `medium`, difficulty `low`, domain `testing`)
 
@@ -16,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0855` - Separate result material hashes from review metadata (`repository_hardening`, priority `high`, difficulty `medium`, domain `result_promotion_protocol`)
