@@ -228,8 +228,12 @@ NOVELTY_CLASSES = (
     "valuable_negative",
     "calibration_known_physics",
 )
-_NOVELTY_CLASSIFICATION_PATTERN = re.compile(
-    r"novelty[ _]classification\s*[:=]\s*`?(" + "|".join(NOVELTY_CLASSES) + r")`?",
+_NOVELTY_CLASSIFICATION_LINE_PATTERN = re.compile(
+    r"^\s*-?\s*novelty[ _]classification\s*[:=]\s*(?P<value>.+?)\s*$",
+    re.IGNORECASE,
+)
+_NOVELTY_CLASSIFICATION_VALUE_PATTERN = re.compile(
+    r"`?(" + "|".join(NOVELTY_CLASSES) + r")`?\s*$",
     re.IGNORECASE,
 )
 
@@ -243,8 +247,15 @@ def novelty_classification(body: str | None) -> str | None:
     """
     if not body:
         return None
-    match = _NOVELTY_CLASSIFICATION_PATTERN.search(body)
-    return match.group(1).lower() if match else None
+    for line in body.splitlines():
+        line_match = _NOVELTY_CLASSIFICATION_LINE_PATTERN.match(line)
+        if line_match is None:
+            continue
+        value = line_match.group("value").strip()
+        value_match = _NOVELTY_CLASSIFICATION_VALUE_PATTERN.fullmatch(value)
+        if value_match is not None:
+            return value_match.group(1).lower()
+    return None
 
 
 def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:

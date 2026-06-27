@@ -18,7 +18,10 @@ def test_novelty_classification_extracts_declared_class() -> None:
 
 
 def test_novelty_classification_accepts_inline_and_backticked() -> None:
-    assert novelty_classification("novelty classification = `frontier_novel`") == "frontier_novel"
+    assert (
+        novelty_classification("novelty classification = `frontier_novel`")
+        == "frontier_novel"
+    )
     assert novelty_classification("Novelty Classification: reusable_dataset") == "reusable_dataset"
 
 
@@ -27,6 +30,19 @@ def test_novelty_classification_returns_none_when_absent_or_unknown() -> None:
     assert novelty_classification("") is None
     assert novelty_classification(None) is None
     assert novelty_classification("Novelty Classification: not_a_real_class") is None
+
+
+def test_novelty_classification_rejects_template_choice_list() -> None:
+    backticked_choice_list = (
+        "- Novelty Classification: `frontier_novel` / `reusable_dataset` / "
+        "`valuable_negative` / `calibration_known_physics` / `n/a`"
+    )
+    angle_bracket_choice_list = (
+        "- Novelty Classification: <frontier_novel | reusable_dataset | "
+        "valuable_negative | calibration_known_physics | n/a>"
+    )
+    assert novelty_classification(backticked_choice_list) is None
+    assert novelty_classification(angle_bracket_choice_list) is None
 
 
 def test_normalize_output_path_returns_bare_path() -> None:

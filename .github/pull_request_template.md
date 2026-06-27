@@ -102,7 +102,7 @@ Broader code/science path when applicable:
 ## Scientific Claim Impact
 
 - Claim files changed: yes/no
-- Novelty Classification: `frontier_novel` / `reusable_dataset` / `valuable_negative` / `calibration_known_physics` / `n/a`
+- Novelty Classification: `<frontier_novel | reusable_dataset | valuable_negative | calibration_known_physics | n/a>`
 - Claim status impact:
 
 `Novelty Classification` is required when creating or editing `claims/*.md`.
