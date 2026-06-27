@@ -1,0 +1,62 @@
+id: TASK-0861
+title: "Add a novelty-classification gate so calibration / known-physics is not promoted as a scientific claim (policy + director + review agent)"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Close the gap that let a known-textbook-physics result (stellar M-L alpha=3.5 adequacy) be queued for claim promotion: APL re-verifies known physics often, and promoting that as a claim is the calibration-as-discovery confusion the project exists to avoid."
+  - "Enforce the rule on three surfaces so it cannot recur: the claim-promotion policy (the instruction), the Scientific Campaign Director protocol (so the director never creates such a task), and the maintainer review agent (a backstop that flags it)."
+  - "Reserve claims for genuine novelty, reusable datasets, or valuable negatives; keep calibration as a validated RESULT + dataset."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/claim-promotion-policy.md"
+    - "docs/campaign-curator-protocol.md"
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - ".github/pull_request_template.md"
+    - "tests/test_review_checks.py"
+  planning_context: >
+    A stellar M-L result (RESULT-0022: textbook alpha=3.5 is a materially
+    suboptimal sole baseline on the DEBCat 0.5-2.0 Msun slice) is validated and
+    honestly scoped, but its scientific novelty is zero -- it re-confirms the
+    century-old, well-characterized mass-dependence of the mass-luminosity
+    relation. It was nonetheless queued for claim promotion (later withdrawn).
+    This task adds a novelty-classification gate so calibration/known-physics is
+    never promoted as a claim again. It implements: (1) the policy rule; (2) the
+    director-protocol rule; (3) a review-agent check + unit test.
+
+requirements:
+  - "Policy (docs/claim-promotion-policy.md): add a Novelty Classification Gate -- every claim declares a class (frontier_novel | reusable_dataset | valuable_negative | calibration_known_physics); calibration/known-physics must NOT be promoted to a claim (keep as validated RESULT + dataset)."
+  - "Director (docs/campaign-curator-protocol.md): the Ratification gate must apply the novelty gate -- the Director must NOT create or recommend a claim-promotion task for calibration/known-physics."
+  - "Review agent (physics_lab/registry/review_checks.py + maintainer_review.py): add a novelty_classification(body) helper and a check that, for claim PRs, requires a declared Novelty Classification in the PR body (required fix if missing) and blocks a calibration_known_physics claim promoted beyond DRAFT; add a unit test in tests/test_review_checks.py."
+  - "PR template (.github/pull_request_template.md): surface the Novelty Classification field so claim PR authors see the required body metadata before the review agent blocks them."
+  - "Keep the change additive: do not alter existing review-agent behaviour beyond the new claim-PR check; rely on CI to verify (the change author may not run the full suite locally)."
+  - "No scientific artifact, RESULT, PRED, or CLAIM is created by this task; it is a protocol + tooling guardrail."
+
+accepted_outputs:
+  - "claim-promotion-policy.md + campaign-curator-protocol.md updated with the novelty gate; pull_request_template.md surfaces the required Novelty Classification field; review_checks.py novelty_classification helper; maintainer_review.py claim-PR novelty check; test_review_checks.py unit test."
+  - "Output-routing summary: cross-campaign quality guardrail across policy, director protocol, and review agent; no scientific artifact; CI verifies the code."
+
+result_artifact_policy:
+  required: false
+  reason: "Protocol + review-tooling guardrail only; no RESULT/PRED/CLAIM/KNOWLEDGE artifact is created or modified."
+  evidence:
+    - "docs/claim-promotion-policy.md"
+    - "physics_lab/registry/review_checks.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_review_checks.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

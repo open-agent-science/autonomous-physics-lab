@@ -38,6 +38,30 @@ Agent-run summaries may justify rejection, retention as sandbox memory, or a
 follow-up canonical task, but they must pass through a later reviewed canonical
 experiment/result path before any `CLAIM-*` status changes.
 
+## Novelty Classification Gate
+
+Every claim (creation or promotion) must declare a **novelty class**, and the
+class decides whether a claim is the right artifact at all:
+
+| Novelty class | Claim allowed? |
+| --- | --- |
+| `frontier_novel` — a genuinely open / contested question | yes |
+| `reusable_dataset` — the artifact is a provenance-rich citable dataset | publish as a **dataset**, not as a discovery claim |
+| `valuable_negative` — a falsification, overfit map, or documented selection effect | yes (as a negative claim / memory) |
+| `calibration_known_physics` — re-verifies established textbook physics | **no** |
+
+A validated result that merely re-confirms known textbook physics (for example,
+the amplitude-dependence of a pendulum period, the mass-dependence of the
+stellar mass-luminosity relation, or a single textbook exponent fitting a slice)
+is **calibration evidence for the platform**, not a scientific claim. Keep it as a
+validated `RESULT-*` (and a reusable dataset where applicable); do **not** promote
+it to a `PARTIALLY_SUPPORTED`/`SUPPORTED` claim. Promoting calibration as a claim
+is the calibration-as-discovery confusion the project exists to avoid, and it
+dilutes the claim ledger. The PR body of any claim PR must state
+`Novelty Classification: <class>`; the maintainer review agent flags a missing
+classification and blocks a `calibration_known_physics` claim promoted beyond
+`DRAFT`.
+
 ## Allowed Claim Statuses
 
 ### `DRAFT`
