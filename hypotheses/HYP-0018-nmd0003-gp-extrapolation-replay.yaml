@@ -1,0 +1,44 @@
+id: HYP-0018
+title: "The frozen NMD-0003 GP residual correction can improve retrospective post-AME2020 extrapolation accuracy under controls while leaving uncertainty calibration unresolved"
+domain: nuclear_physics
+status: TESTING
+
+hypothesis:
+  statement: >
+    On the committed NMD-0003 training split and post-AME2020 retrospective
+    holdout, the frozen TASK-0824 RBF Gaussian-process correction over [Z, N]
+    residuals should reduce holdout MAE relative to the frozen baseline and
+    the best predeclared control by more than the survival margin. This
+    hypothesis is explicitly scoped to retrospective accuracy under controls;
+    it does not assert calibrated predictive uncertainty or authorize a
+    prediction-freeze registry entry.
+  formula_candidates:
+    - "delta_residual(Z, N) = GP_RBF([Z, N]) fitted on frozen training residuals only"
+
+assumptions:
+  - "The post-AME2020 holdout is retrospective and already known to the repository, so the replay is not a strict blind reveal."
+  - "The frozen baseline residual surface from TASK-0824 is the reference surface; changing the baseline would define a new experiment."
+  - "The GP hyperparameters and feature basis are not retuned in this task."
+  - "Heavy-tailed/miscalibrated uncertainty blocks any calibrated prediction claim or prediction freeze."
+
+variables:
+  Z:
+    unit: count
+    description: "Proton number"
+  N:
+    unit: count
+    description: "Neutron number"
+  residual:
+    unit: MeV
+    description: "Model residual on the nuclear mass / binding-energy baseline surface"
+  standardized_residual:
+    unit: dimensionless
+    description: "Holdout residual normalized by the GP predictive sigma"
+
+evidence:
+  experiments:
+    - EXP-0018
+  results:
+    - RESULT-0025
+
+verdict: "Retrospective extrapolation accuracy survives the predeclared controls, but predictive uncertainty remains heavy-tailed/miscalibrated; no claim, knowledge, or prediction-freeze promotion follows from this hypothesis."

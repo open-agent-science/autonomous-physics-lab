@@ -1,0 +1,161 @@
+result_id: RESULT-0025
+run_id: RUN-0001
+experiment_id: EXP-0018
+title: NMD-0003 GP Residual Extrapolation Replay - control-surviving gain with miscalibrated
+  uncertainty
+hypothesis_id: HYP-0018
+task_id: TASK-0843
+generated_at: '2026-06-27T00:00:00Z'
+engine_version: 0.1.0
+git_commit: ed0f54cf22d129892296207c748830951bcacf11
+command: python3 scripts/run_nmd0003_residual_gp.py --skip-sandbox-output --no-review
+  --result-out-dir results/EXP-0018/RUN-0001
+input_file_hashes:
+  config:
+    path: results/EXP-0018/RUN-0001/inputs/config.yaml
+    sha256: faa899ec66b51a1730596be48f558fbda02c95388577b29b30131f85e748a9ec
+  experiment:
+    path: results/EXP-0018/RUN-0001/inputs/experiment.yaml
+    sha256: fc39d43d37ad6f2e55808276547873d6240df2f320eeafb34064e05f030145ee
+  hypothesis:
+    path: results/EXP-0018/RUN-0001/inputs/hypothesis.yaml
+    sha256: d47217c16705e3f1c70a034e82d234b460978e23fd6e41b42bdd43e9a8d9b7dc
+  task:
+    path: results/EXP-0018/RUN-0001/inputs/task.yaml
+    sha256: a0944cdc957afe24a5d07144ddd920b8b0120ec82ca52ae673e3b0ffeca054c2
+  fixture:
+    path: data/nuclear_masses/post_ame2020_holdout.yaml
+    sha256: 47bfe520df8ca4a95c1614192c5da165782b2308ba58110e6832afb1b8151e49
+code_reference: physics_lab/engines/nmd0003_residual_gp.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- This is a retrospective post-AME2020 time-split replay, not a strict blind prediction
+  reveal or PRED registry entry.
+- The GP accuracy gain survives the predeclared controls, but the predictive uncertainty
+  is heavy-tailed and miscalibrated; calibration must not be cited as validated.
+- Scope is one frozen NMD-0003 residual surface and one RBF GP model on [Z, N]; no
+  model-class sweep, hyperparameter retuning, or future-target inspection is performed.
+- No CLAIM, KNOW, or prediction-freeze artifact is proposed; prediction freeze remains
+  blocked on the dedicated follow-up path.
+best_model_id: model_nmd0003_residual_gp_zn_rbf
+best_verdict: PARTIALLY_VALID
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: PARTIALLY_VALID
+  published_by:
+    contributor_id: romanhladun24-dot
+    github_username: romanhladun24-dot
+    agent_tool: Codex
+    model_version: GPT-5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: Independent replay reproduced the TASK-0824 AGENT-RUN-0080 metrics
+    with max absolute drift 0.0e+00. The GP-corrected holdout MAE is 0.462129 MeV
+    versus frozen-baseline 2.979273 MeV and clears the best-control margin by 1.869312
+    MeV against the predeclared 0.25 MeV threshold. The result is PARTIALLY_VALID
+    because extrapolation accuracy survives controls while uncertainty calibration
+    remains heavy-tailed/miscalibrated.
+  followup_for_maintainer: Keep this as a retrospective RESULT only. Gate B replay
+    tooling or a maintainer-mediated replay can later upgrade the tier if metrics
+    match; prediction freeze remains blocked until the dedicated uncertainty and freeze
+    tasks clear.
+verification:
+  passed: true
+  checks:
+  - name: independent_replay_matches_agent_run_0080
+    status: PASS
+    details: The TASK-0843 replay reproduced the committed TASK-0824 metrics and verdicts
+      exactly for the required comparison set.
+    metrics:
+      max_abs_delta: 0.0
+      verdict_unchanged: 1
+      calibration_verdict_unchanged: 1
+  - name: extrapolation_accuracy_survives_controls
+    status: PASS
+    details: The GP-corrected post-AME2020 holdout MAE improves over the frozen baseline
+      and clears the predeclared margin over the best control.
+    metrics:
+      holdout_rows: 295
+      frozen_baseline_mae_mev: 2.979273
+      gp_corrected_mae_mev: 0.462129
+      gp_mae_improvement_mev: 2.517144
+      best_control_id: smooth_a_gp
+      gp_minus_best_control_mae_improvement_mev: 1.869312
+      predeclared_survival_margin_mev: 0.25
+      survival_margin_clears: 1
+  - name: uncertainty_miscalibration_recorded
+    status: PASS
+    details: Calibration diagnostics are recorded as a limitation rather than used
+      to claim calibrated predictive uncertainty.
+    metrics:
+      empirical_coverage_1sigma: 0.823729
+      expected_coverage_1sigma: 0.682689
+      empirical_coverage_2sigma: 0.966102
+      expected_coverage_2sigma: 0.9545
+      rms_standardized_residual: 2.826769
+      calibration_verdict: HEAVY_TAILED_MISCALIBRATED
+  - name: no_tuning_or_future_target_peek
+    status: PASS
+    details: The replay uses committed training, gate, and post-AME2020 holdout inputs
+      only; no GP tuning on holdout, future reveal target access, or prediction registry
+      write is performed.
+    metrics:
+      post_ame2020_rows_used_for_fitting: 0
+      prediction_registry_entries_written: 0
+      hyperparameter_retuned_for_task_0843: 0
+  - name: promotion_scope_bounded
+    status: PASS
+    details: The package creates one retrospective RESULT candidate and does not edit
+      CLAIM, KNOW, PRED, TASK-0824, or golden-result artifacts.
+    metrics:
+      claim_promotion: 0
+      knowledge_promotion: 0
+      prediction_freeze: 0
+      golden_results_modified: 0
+comparison_summary:
+- target_id: target_gp_holdout_mae_vs_frozen_baseline
+  label: GP-corrected holdout MAE compared with the frozen baseline
+  reference_value: 2.979273
+  observed_value: 0.462129
+  unit: MeV
+  absolute_difference: 2.517144
+  relative_difference: 0.844885
+  notes: Lower MAE is better; absolute_difference is the baseline-minus-GP improvement
+    on the retrospective post-AME2020 holdout.
+- target_id: target_gp_minus_best_control_margin
+  label: GP MAE improvement margin over the best predeclared control
+  reference_value: 0.25
+  observed_value: 1.869312
+  unit: MeV
+  absolute_difference: 1.619312
+  relative_difference: 6.477248
+  notes: The observed margin must exceed the predeclared survival margin; best control
+    is smooth_a_gp.
+uncertainty_summary:
+  method: gp_posterior_plus_white_noise_retrospective_holdout_calibration
+  observed_uncertainty: 2.826769
+  reference_uncertainty: 1.0
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: false
+  notes: RMS standardized residual is far from the well-calibrated target of 1.0 despite
+    nominal 1-sigma/2-sigma coverages; the calibration verdict is HEAVY_TAILED_MISCALIBRATED.
+artifacts:
+  report: results/EXP-0018/RUN-0001/report.md
+  metrics: results/EXP-0018/RUN-0001/metrics.json
+  claim_update: results/EXP-0018/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0018/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0018/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0018/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0018/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0018/RUN-0001/review_metadata.yaml
+
