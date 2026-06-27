@@ -6,6 +6,14 @@
 **Scanned ref:** `origin/main` @ `a92f2f4e` (2026-06-13)
 **Verdict:** `REMOVE_TWO_ARXIV_PDFS_AT_FREEZE_TIME; ALL_OTHER_LARGE_ARTIFACTS_KEPT`
 
+**Current status note (2026-06-27 / `TASK-0858`):** follow-up verification of
+current `origin/main` @ `15a9675b097250be88e0cb3fa7a2e3acd59c8373` found no
+reachable `.pdf` blobs, no risky binary/document/archive additions, and no
+default-branch history for the two arXiv PDF paths listed below. The
+freeze-time rewrite blocker recorded by this runbook is closed for the current
+default-branch cut. Keep this document as historical evidence and as the
+repeatable runbook if a future scan finds a new source-artifact history issue.
+
 ## Scope
 
 `TASK-0731` removed two non-redistributable arXiv preprint PDFs from the working

@@ -23,10 +23,10 @@ All of the following must be true:
 - `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings` green
 - no local path leaks
 - no tracked cache, OS, or agent-local files
-- public source/data artifact history has been reviewed: no reachable
-  non-redistributable publisher PDFs, preprint PDFs, restricted third-party raw
-  datasets, or license-ambiguous source payloads remain in the public-launch
-  history
+- public source/data artifact history has been reviewed and the current
+  default-branch scan is clean: no reachable non-redistributable publisher PDFs,
+  preprint PDFs, restricted third-party raw datasets, or license-ambiguous
+  source payloads remain in the public-launch history
 
 Suggested evidence:
 
@@ -34,9 +34,9 @@ Suggested evidence:
 - maintainer validation log
 - release-time validation signoff artifact
 - repository snapshot without local-only files
-- Phase B history scan / cleanup signoff that records scanned refs, candidate
-  removal paths, verification commands, and whether a merge-freeze rewrite was
-  required
+- Phase B history scan / cleanup signoff or release-gate addendum that records
+  scanned refs, candidate removal paths, verification commands, and whether a
+  merge-freeze rewrite was required or has already been verified as complete
 
 ## Gate 2 — Multi-Agent / Open Agent Network Contributor Pilot
 
@@ -114,8 +114,14 @@ All of the following must be true:
 The repository has moved to `open-agent-science/autonomous-physics-lab`. Before
 opening it publicly, all of the following must remain true:
 
-- branch protection, CI, self-hosted runner labels, and repository secrets have
-  been checked after transfer;
+- CI, self-hosted runner labels, and repository secrets have been checked after
+  transfer;
+- branch protection is enabled before public opening when the repository plan
+  supports private-repository protection; when the current GitHub plan only
+  exposes protection for public repositories, the intended `main` protection
+  policy is documented before opening and enabled immediately after the
+  visibility switch, before external contributor invitations or broad
+  announcement;
 - clone URLs, contributor docs, release docs, and citation metadata point at the
   Open Agent Science repository where they are live-current rather than
   historical;
@@ -140,6 +146,13 @@ publication policy:
   and contributor re-clone/rebase instructions;
 - no public launch proceeds while known non-redistributable source artifacts
   remain reachable from the public default branch history.
+
+Current status note: `TASK-0858` verified current `origin/main` at
+`15a9675b097250be88e0cb3fa7a2e3acd59c8373` and found no reachable `.pdf` blobs
+or risky binary/document/archive additions, and the two arXiv PDF paths named by
+`TASK-0732` are no longer present in default-branch history. Treat the old
+freeze-time rewrite blocker as closed for this cut, subject to a final
+exact-SHA release signoff re-running the scan.
 
 ## Release Decision
 
