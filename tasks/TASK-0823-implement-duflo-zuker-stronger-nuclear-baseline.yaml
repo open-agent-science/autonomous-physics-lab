@@ -1,7 +1,7 @@
 id: TASK-0823
 title: "Implement the Duflo-Zuker mass model as a stronger nuclear baseline and benchmark it by extrapolation"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high

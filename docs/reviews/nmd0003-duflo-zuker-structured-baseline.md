@@ -1,14 +1,17 @@
-# TASK-0823 DZ10 Published-Equation Diagnostic Benchmark
+# TASK-0823 DZ10 Published-Variant Stronger-Baseline Benchmark (scope A')
 
-Sandbox diagnostic for a deterministic 10-term DZ10 published-equation nuclear
-mass baseline on the committed NMD-0003 training surface and the reviewed
-post-AME2020 retrospective holdout.
+Deterministic 10-term DZ10 published-equation nuclear mass baseline on the
+committed NMD-0003 training surface and the reviewed post-AME2020 retrospective
+holdout.
 
 This follows the published equations in Mendoza-Temis, Hirsch, and Zuker
-(arXiv:0912.0882), but it is not a parity run of the unavailable AMDC/archival
-DZ10 code. This PR therefore does not complete `TASK-0823`; the task remains
-`READY` for a future true published-code or published-fixture parity
-implementation.
+(arXiv:0912.0882). It is a **clearly-cited published variant** (which TASK-0823
+explicitly allows), NOT a parity run of the unavailable AMDC/archival DZ10 code.
+Per the maintainer **A'** decision (PR #1218), this **completes** `TASK-0823` as a
+DZ10-published-variant **stronger baseline** that beats the weak baseline under
+controls by extrapolation. It does **not** claim canonical DZ ~0.5 MeV parity;
+that higher bar is an optional non-blocking follow-up (`TASK-0853`), not a
+TASK-0823 requirement.
 
 ## Inputs
 
@@ -43,23 +46,29 @@ The DZ10 published-equation variant margin vs best control is
 
 ## Verdict
 
-`INCONCLUSIVE`
+`VALID_IN_SCOPE` (DZ10-published-variant stronger baseline; canonical-DZ parity NOT established).
 
-Diagnostic outcome: `CONTROL_SURVIVING_GAIN_UNDER_REVIEWABLE_DZ10_EQUATION_VARIANT`.
+Outcome: `CONTROL_SURVIVING_GAIN_UNDER_REVIEWABLE_DZ10_EQUATION_VARIANT` — the
+variant's post-AME2020 MAE (`1.256383` MeV) beats the inherited frozen baseline
+(`4.552569` MeV) and the best control (train-fitted liquid drop, `2.923573` MeV)
+by a `1.667190` MeV margin, well above the `0.250000` MeV survival margin.
 
-Task completion: `False`. Reason:
-The reviewable published-equation variant is useful diagnostic evidence, but it is not an archival DZ10 parity reproduction. TASK-0823 therefore remains READY for a true published-code or published-fixture parity implementation.
+Task completion: `True` under the maintainer scope A' (PR #1218). The
+published-equation variant satisfies TASK-0823's allowance for "a clearly-cited
+published variant" and its success criterion (beat the baseline under controls by
+extrapolation). It is explicitly NOT an archival DZ10 parity reproduction;
+canonical-DZ parity is the optional non-blocking follow-up `TASK-0853`.
 
 ## Output Routing
 
-- Verdict: `INCONCLUSIVE`
+- Verdict: `VALID_IN_SCOPE` (DZ10-published-variant stronger baseline)
 - Canonical destination: agent_runs/AGENT-RUN-0078/ plus docs/reviews/
-- Review tier: `sandbox`
-- Gate A status: `not_attempted`
-- Gate B status: `replayable`
-- Claim impact: no claim change
+- Review tier: `sandbox` (an `AGENT_PUBLISHED` RESULT packaging + Gate B by a different agent are the next step, not a TASK-0823 blocker)
+- Gate A status: `not_attempted` (replayable AGENT-RUN; canonical RESULT packaging is a follow-up)
+- Gate B status: `replayable` (independent-agent replay must verify formula implementation, train-fit freeze, post-AME2020 evaluation, controls margin, and no target leakage)
+- Claim impact: no claim change (no `CLAIM`; not a discovery)
 - Knowledge impact: no knowledge change
-- Routing decision: `SANDBOX_ONLY_DZ10_PARITY_BLOCKED_TASK_REMAINS_READY`
+- Routing decision: `DZ10_VARIANT_STRONGER_BASELINE_COMPLETES_TASK_0823_SCOPE_A_PRIME`
 
 ## Limitations
 
