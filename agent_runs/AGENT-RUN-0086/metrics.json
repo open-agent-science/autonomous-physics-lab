@@ -29,7 +29,7 @@
     },
     "task": {
       "path": "tasks/TASK-0847-implement-light-clock-consistency-benchmark.yaml",
-      "sha256": "fbc90a4bafab448ed93b2ae3b3b6da13a6f8b3ef8ba8924848a3054bdc14566d"
+      "sha256": "8c5fa70c9846007df13d646de2f98ce5d012f1541fbb0dcfee4916d471cf8cfe"
     }
   },
   "limitations": [
