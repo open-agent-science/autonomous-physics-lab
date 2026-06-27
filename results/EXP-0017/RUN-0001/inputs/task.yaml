@@ -36,6 +36,9 @@ requirements:
   - "Output-routing summary: Gate A status, the transfer margin, the proposed review tier, and the Gate-B-replay handoff for a different agent."
 
 accepted_outputs:
+  - "hypotheses/HYP-0017-stellar-ml-high-mass-transfer.yaml"
+  - "experiments/EXP-0017-stellar-ml-high-mass-transfer.yaml"
+  - "results/EXP-0017/RUN-0001/"
   - "A Gate-A-compliant stellar M-L high-mass transfer RESULT-* (replayable, pinned) at review_tier_proposed AGENT_PUBLISHED if Gate A passes, plus a review note; otherwise a packaging-blocker note."
   - "Output-routing summary: promotion preflight for the stellar transfer positive; Gate-B replay handoff to a different agent; claim impact none."
 

@@ -7,7 +7,7 @@
   "engine_version": "0.1.0",
   "experiment_id": "EXP-0017",
   "generated_at": "2026-06-27T00:00:00Z",
-  "git_commit": "89cae0252aa3ee2baa40a097494cb93b20244738",
+  "git_commit": "5b27977907041eded2377dcbb96121d1eea39109",
   "hypothesis_id": "HYP-0017",
   "judge": "experimental DEBCat dynamical masses (direct_observation)",
   "publication_boundary": {
