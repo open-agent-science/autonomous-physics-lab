@@ -22,3 +22,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0823` - Implement the Duflo-Zuker mass model as a stronger nuclear baseline and benchmark it by extrapolation (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0861` - Add a novelty-classification gate so calibration / known-physics is not promoted as a scientific claim (policy + director + review agent) (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
