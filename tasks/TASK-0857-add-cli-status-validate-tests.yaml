@@ -1,7 +1,7 @@
 id: TASK-0857
 title: "Add focused tests for apl status and validate CLI commands"
 type: testing
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
@@ -41,7 +41,7 @@ result_artifact_policy:
 
 validation:
   commands:
-    - "python3 -m pytest tests/test_critical_path_script_entrypoints.py tests/test_task_discovery.py"
+    - "python3 -m pytest tests/test_cli_status_validate.py tests/test_critical_path_script_entrypoints.py tests/test_task_discovery.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "python3 -m ruff check ."
 
