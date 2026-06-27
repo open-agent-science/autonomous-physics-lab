@@ -13,6 +13,7 @@
 - `TASK-0849` - Package the stellar M-L high-mass transfer as a Gate-A replayable RESULT (promotion preflight) (`scientific_validation`, priority `high`, difficulty `medium`, domain `astrophysics_stellar`)
 - `TASK-0850` - Strengthen the InP-ZnSe confinement transfer with a literature effective-mass prefactor (no holdout fit) (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0851` - Run the ThermoML Tb family-stratified transfer benchmark with the validated frozen Joback estimator (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `thermophysical_property_estimation`)
+- `TASK-0853` - Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823 (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
