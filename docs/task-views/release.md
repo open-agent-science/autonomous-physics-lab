@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0854` - Normalize explicit .venv Python launchers in review validation (`repository_hardening`, priority `high`, difficulty `low`, domain `maintainer_review`)
