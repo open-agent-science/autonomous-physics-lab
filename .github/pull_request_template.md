@@ -101,7 +101,14 @@ Broader code/science path when applicable:
 
 ## Scientific Claim Impact
 
-- 
+- Claim files changed: yes/no
+- Novelty Classification: `frontier_novel` / `reusable_dataset` / `valuable_negative` / `calibration_known_physics` / `n/a`
+- Claim status impact:
+
+`Novelty Classification` is required when creating or editing `claims/*.md`.
+Use `n/a` only when no claim file changes. A
+`calibration_known_physics` result must stay a validated `RESULT-*` or dataset
+artifact rather than being promoted as a scientific claim.
 
 ## Result Artifact Impact
 

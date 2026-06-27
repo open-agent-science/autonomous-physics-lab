@@ -19,6 +19,7 @@ input:
     - "docs/campaign-curator-protocol.md"
     - "physics_lab/registry/review_checks.py"
     - "physics_lab/registry/maintainer_review.py"
+    - ".github/pull_request_template.md"
     - "tests/test_review_checks.py"
   planning_context: >
     A stellar M-L result (RESULT-0022: textbook alpha=3.5 is a materially
@@ -34,11 +35,12 @@ requirements:
   - "Policy (docs/claim-promotion-policy.md): add a Novelty Classification Gate -- every claim declares a class (frontier_novel | reusable_dataset | valuable_negative | calibration_known_physics); calibration/known-physics must NOT be promoted to a claim (keep as validated RESULT + dataset)."
   - "Director (docs/campaign-curator-protocol.md): the Ratification gate must apply the novelty gate -- the Director must NOT create or recommend a claim-promotion task for calibration/known-physics."
   - "Review agent (physics_lab/registry/review_checks.py + maintainer_review.py): add a novelty_classification(body) helper and a check that, for claim PRs, requires a declared Novelty Classification in the PR body (required fix if missing) and blocks a calibration_known_physics claim promoted beyond DRAFT; add a unit test in tests/test_review_checks.py."
+  - "PR template (.github/pull_request_template.md): surface the Novelty Classification field so claim PR authors see the required body metadata before the review agent blocks them."
   - "Keep the change additive: do not alter existing review-agent behaviour beyond the new claim-PR check; rely on CI to verify (the change author may not run the full suite locally)."
   - "No scientific artifact, RESULT, PRED, or CLAIM is created by this task; it is a protocol + tooling guardrail."
 
 accepted_outputs:
-  - "claim-promotion-policy.md + campaign-curator-protocol.md updated with the novelty gate; review_checks.py novelty_classification helper; maintainer_review.py claim-PR novelty check; test_review_checks.py unit test."
+  - "claim-promotion-policy.md + campaign-curator-protocol.md updated with the novelty gate; pull_request_template.md surfaces the required Novelty Classification field; review_checks.py novelty_classification helper; maintainer_review.py claim-PR novelty check; test_review_checks.py unit test."
   - "Output-routing summary: cross-campaign quality guardrail across policy, director protocol, and review agent; no scientific artifact; CI verifies the code."
 
 result_artifact_policy:
