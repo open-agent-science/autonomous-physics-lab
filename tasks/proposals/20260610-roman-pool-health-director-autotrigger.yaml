@@ -1,6 +1,6 @@
 proposal_id: 20260610-roman-pool-health-director-autotrigger
 title: "Signal a Director refill when the READY science pool drops below minimum"
-status: PROPOSED
+status: REJECTED
 type: maintainer_workflow
 priority: high
 
@@ -58,5 +58,13 @@ validation:
 
 promotion:
   canonical_task_id: null
-  decision: pending
-  notes: "From the 2026-06-10 workflow retrospective."
+  decision: rejected
+  notes: >
+    Rejected during architect/maintainer triage on 2026-06-27. The useful
+    part of this idea is already covered by the warning-only
+    `ready_science_pool_health.task_queue_needed` signal in
+    `apl_mission.py` and `docs/task-queue-health-policy.md`. Do not
+    auto-trigger Scientific Director, create automatic issue/comment noise, or
+    mutate task queues from pool-health checks. Future improvements should stay
+    maintainer-pulled and signal-only: expose clearer local/advisory summaries
+    from existing mission output without invoking a strong agent role.
