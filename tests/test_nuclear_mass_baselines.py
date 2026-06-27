@@ -7,6 +7,13 @@ from typer.testing import CliRunner
 
 from physics_lab.cli import app
 from physics_lab.engines.nmd0003_baseline_family_gate import run_nmd0003_baseline_family_gate
+from physics_lab.engines.nmd0003_duflo_zuker_baseline import (
+    FEATURE_NAMES,
+    PUBLISHED_DZ10_FULL_COEFFICIENTS,
+    duflo_zuker_design_matrix,
+    duflo_zuker_term_breakdown,
+    run_nmd0003_duflo_zuker_baseline,
+)
 from physics_lab.engines.nuclear_mass_baselines import (
     REFERENCE_SEMI_EMPIRICAL_COEFFICIENTS,
     design_matrix,
@@ -144,6 +151,27 @@ def test_baseline_family_gate_is_deterministic() -> None:
     first = run_nmd0003_baseline_family_gate(config)
     second = run_nmd0003_baseline_family_gate(config)
     assert first == second
+
+
+def test_duflo_zuker_published_equation_design_and_benchmark_are_deterministic() -> None:
+    dataset = load_nuclear_mass_dataset("data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml")
+    matrix = duflo_zuker_design_matrix(dataset.entries[:5])
+    terms = duflo_zuker_term_breakdown(82, 126)
+
+    assert matrix.shape == (5, len(FEATURE_NAMES))
+    assert terms.active_sector in {"spherical", "deformed"}
+    assert set(PUBLISHED_DZ10_FULL_COEFFICIENTS) == set(FEATURE_NAMES)
+    assert PUBLISHED_DZ10_FULL_COEFFICIENTS["deformation_d4"] == pytest.approx(41.338)
+
+    first = run_nmd0003_duflo_zuker_baseline()
+    second = run_nmd0003_duflo_zuker_baseline()
+    assert first == second
+    assert first["task_id"] == "TASK-0823"
+    assert first["dataset_summary"]["post_ame2020_rows_used_for_fit"] == 0
+    assert first["model_scope"]["published_variant"] is True
+    assert first["model_scope"]["archival_dz10_code_reproduction"] is False
+    assert first["task_completion"]["completes_task"] is False
+    assert first["output_routing"]["gate_b_status"] == "replayable"
 
 
 def test_nuclear_mass_registry_files_validate() -> None:

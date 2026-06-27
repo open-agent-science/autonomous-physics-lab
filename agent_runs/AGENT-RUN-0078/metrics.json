@@ -1,0 +1,209 @@
+{
+  "agent_run_id": "AGENT-RUN-0078",
+  "benchmark_id": "nmd0003-dz10-published-equation-baseline",
+  "best_control_on_post_ame2020_holdout": {
+    "control_id": "nmd0003_train_fitted_liquid_drop",
+    "mae_mev": 2.923573
+  },
+  "coefficients": {
+    "deformation_d4": 25.828192878142,
+    "m_plus_s": 17.61124231744,
+    "negative_asymmetry": 43.8198149109,
+    "negative_coulomb": 0.680769529904,
+    "negative_m_over_rho": 14.137494904371,
+    "negative_spherical_s3_over_rho": 1.267454976849,
+    "pairing": 5.373109603276,
+    "spherical_s3": 0.278265677068,
+    "spherical_s4": 0.020723269353,
+    "surface_asymmetry": 59.264691451138
+  },
+  "comparison": {
+    "clears_survival_margin": true,
+    "diagnostic_outcome": "CONTROL_SURVIVING_GAIN_UNDER_REVIEWABLE_DZ10_EQUATION_VARIANT",
+    "margin_vs_best_control_mev": 1.66719,
+    "post_ame2020_mae_mev": 1.256383,
+    "survival_margin_mev": 0.25
+  },
+  "controls": {
+    "inherited_result0015_frozen": {
+      "fit_policy": "frozen_RESULT_0015_coefficients",
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 4.552569,
+        "max_abs_error_mev": 37.636806,
+        "mean_error_mev": 0.685073,
+        "median_abs_error_mev": 4.201676,
+        "p90_abs_error_mev": 8.213271,
+        "rmse_mev": 5.879637
+      }
+    },
+    "nmd0003_train_fitted_liquid_drop": {
+      "fit_policy": "fit_nmd0003_training_rows_only_liquid_drop_ols",
+      "post_ame2020_holdout": {
+        "count": 295,
+        "mae_mev": 2.923573,
+        "max_abs_error_mev": 32.135061,
+        "mean_error_mev": 0.962177,
+        "median_abs_error_mev": 2.368516,
+        "p90_abs_error_mev": 5.507634,
+        "rmse_mev": 4.103695
+      }
+    },
+    "smooth_a_quadratic_control": {
+      "fit_policy": "fit_nmd0003_training_rows_only_quadratic_in_A",
+      "post_ame2020_holdout": {
+        "coefficient_count": 5,
+        "count": 295,
+        "mae_mev": 13.610999,
+        "max_abs_error_mev": 53.358852,
+        "mean_error_mev": -11.252704,
+        "median_abs_error_mev": 9.854208,
+        "p90_abs_error_mev": 30.414788,
+        "rmse_mev": 17.877653
+      }
+    }
+  },
+  "dataset_summary": {
+    "dz10_fit_domain": "N >= 8 and Z >= 8, matching the paper's fit domain",
+    "fit_count": 2217,
+    "nmd0003_row_count": 2309,
+    "nmd0003_rows_outside_fit_domain": 92,
+    "post_ame2020_primary_holdout_count": 295,
+    "post_ame2020_primary_holdout_count_in_dz10_domain": 295,
+    "post_ame2020_rows_used_for_fit": 0
+  },
+  "engine_version": "nmd0003_dz10_published_equation_variant_v2",
+  "feature_names": [
+    "m_plus_s",
+    "negative_m_over_rho",
+    "negative_coulomb",
+    "negative_asymmetry",
+    "surface_asymmetry",
+    "pairing",
+    "spherical_s3",
+    "negative_spherical_s3_over_rho",
+    "spherical_s4",
+    "deformation_d4"
+  ],
+  "fit_policy": "ordinary_least_squares_on_committed_nmd0003_training_rows_only",
+  "gate_b_replay": {
+    "code_reference": "physics_lab/engines/nmd0003_duflo_zuker_baseline.py::run_nmd0003_duflo_zuker_baseline",
+    "engine_version": "nmd0003_dz10_published_equation_variant_v2",
+    "git_commit_at_generation": "cd8e92c8c8a293247aedd9b61c269f611a905b6a",
+    "input_file_hashes": {
+      "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml": "f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52",
+      "data/nuclear_masses/post_ame2020_holdout.yaml": "47bfe520df8ca4a95c1614192c5da165782b2308ba58110e6832afb1b8151e49",
+      "results/EXP-0012/RUN-0001/result.yaml": "eb60b6f52ccec796bb68133174480060e95a34b9dfb463b7d70be8fccad8445f"
+    },
+    "pinned_command": "python scripts/run_nmd0003_duflo_zuker_baseline.py --output-dir agent_runs/AGENT-RUN-0078 --review-path docs/reviews/nmd0003-duflo-zuker-structured-baseline.md"
+  },
+  "input_references": {
+    "inherited_baseline_result": "results/EXP-0012/RUN-0001/result.yaml",
+    "post_ame2020_holdout": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "training_dataset": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+  },
+  "limitations": [
+    "This follows the published DZ10 equations, but it is not a parity run of the unavailable AMDC/archival code.",
+    "The occupancy convention is explicit and reviewable; maintainer review is required before any canonical RESULT route.",
+    "The post-AME2020 surface is retrospective time-split evidence, not a strict blind reveal.",
+    "The model is fitted by ordinary least squares on committed NMD-0003 training rows in the paper's N,Z >= 8 domain.",
+    "No PRED, CLAIM, KNOW, or canonical RESULT artifact is created."
+  ],
+  "model_scope": {
+    "archival_code_status": "AMDC dz.html endpoint cited by the paper was unreachable during this run; implementation follows the published equations and records the occupancy convention for review.",
+    "archival_dz10_code_reproduction": false,
+    "model_id": "dz10_published_equation_variant",
+    "paper_equations": [
+      "rho / Eq. (rc)",
+      "master M / Eq. (M)",
+      "spin-orbit S / Eq. (S)",
+      "macroscopic binding / Eq. (dz_macro)",
+      "spherical terms / Eqs. (s3), (s4), (dz_sph)",
+      "deformed term / Eq. (dz_def)",
+      "sector selection / Eq. (dz10)"
+    ],
+    "primary_sources": [
+      "J. Duflo and A. P. Zuker, Phys. Rev. C 52, R23 (1995).",
+      "J. Mendoza-Temis, J. G. Hirsch, and A. P. Zuker, Nucl. Phys. A843:14-36 (2010), arXiv:0912.0882."
+    ],
+    "published_variant": true
+  },
+  "occupancy_convention": {
+    "ei_closures": [
+      0,
+      2,
+      8,
+      14,
+      28,
+      50,
+      82,
+      126,
+      184,
+      258
+    ],
+    "ei_terms": "spherical/deformed valence terms use the explicit EI closure interval containing each species.",
+    "ho_fill_order": "major shells filled by increasing p",
+    "ho_shell_degeneracy": "D_p = (p + 1)(p + 2)",
+    "spin_orbit_split": "within each HO major shell, j(p) capacity 2(p+1) fills before the r(p) partner capacity p(p+1)"
+  },
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0078/ plus docs/reviews/",
+    "claim_impact": "no claim change",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "replayable",
+    "knowledge_impact": "no knowledge change",
+    "review_tier": "sandbox",
+    "routing_decision": "DZ10_VARIANT_STRONGER_BASELINE_COMPLETES_TASK_0823_SCOPE_A_PRIME"
+  },
+  "published_table_reference": {
+    "coefficients": {
+      "deformation_d4": 41.338,
+      "m_plus_s": 17.766,
+      "negative_asymmetry": 37.515,
+      "negative_coulomb": 0.707,
+      "negative_m_over_rho": 16.314,
+      "negative_spherical_s3_over_rho": 2.183,
+      "pairing": 6.199,
+      "spherical_s3": 0.478,
+      "spherical_s4": 0.022,
+      "surface_asymmetry": 53.351
+    },
+    "post_ame2020_holdout_metrics": {
+      "count": 295,
+      "mae_mev": 19.895416,
+      "max_abs_error_mev": 59.991951,
+      "mean_error_mev": 19.630791,
+      "median_abs_error_mev": 13.681536,
+      "p90_abs_error_mev": 51.59234,
+      "rmse_mev": 26.44053
+    },
+    "source": "arXiv:0912.0882 Table II, full 10-term DZ10 fit column"
+  },
+  "surfaces": {
+    "nmd0003_fit_surface": {
+      "count": 2217,
+      "mae_mev": 1.230832,
+      "max_abs_error_mev": 5.524061,
+      "mean_error_mev": -0.030925,
+      "median_abs_error_mev": 1.112204,
+      "p90_abs_error_mev": 2.401937,
+      "rmse_mev": 1.50693
+    },
+    "post_ame2020_holdout": {
+      "count": 295,
+      "mae_mev": 1.256383,
+      "max_abs_error_mev": 25.045161,
+      "mean_error_mev": 0.71982,
+      "median_abs_error_mev": 0.916543,
+      "p90_abs_error_mev": 2.699188,
+      "rmse_mev": 2.105379
+    }
+  },
+  "task_completion": {
+    "completes_task": true,
+    "reason": "The DZ10 published-equation variant is accepted under maintainer scope A' as a clearly-cited published variant that beats the weak baseline and best control by extrapolation, while explicitly not establishing canonical DZ parity.",
+    "task_status_after_pr": "REVIEW_READY"
+  },
+  "task_id": "TASK-0823",
+  "verdict": "VALID_IN_SCOPE"
+}
