@@ -153,7 +153,7 @@
     "gate_b_status": "replayable",
     "knowledge_impact": "no knowledge change",
     "review_tier": "sandbox",
-    "routing_decision": "SANDBOX_ONLY_DZ10_PARITY_BLOCKED_TASK_REMAINS_READY"
+    "routing_decision": "DZ10_VARIANT_STRONGER_BASELINE_COMPLETES_TASK_0823_SCOPE_A_PRIME"
   },
   "published_table_reference": {
     "coefficients": {
@@ -200,10 +200,10 @@
     }
   },
   "task_completion": {
-    "completes_task": false,
-    "reason": "The reviewable published-equation variant is useful diagnostic evidence, but it is not an archival DZ10 parity reproduction. TASK-0823 therefore remains READY for a true published-code or published-fixture parity implementation.",
-    "task_status_after_pr": "READY"
+    "completes_task": true,
+    "reason": "The DZ10 published-equation variant is accepted under maintainer scope A' as a clearly-cited published variant that beats the weak baseline and best control by extrapolation, while explicitly not establishing canonical DZ parity.",
+    "task_status_after_pr": "REVIEW_READY"
   },
   "task_id": "TASK-0823",
-  "verdict": "INCONCLUSIVE"
+  "verdict": "VALID_IN_SCOPE"
 }
