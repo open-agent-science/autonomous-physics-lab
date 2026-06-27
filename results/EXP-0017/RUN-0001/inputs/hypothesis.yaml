@@ -1,0 +1,43 @@
+id: HYP-0017
+title: "The frozen RESULT-0022 stellar mass-luminosity relation transfers to a disjoint high-mass DEBCat regime under predeclared controls"
+domain: astrophysics
+status: TESTING
+
+hypothesis:
+  statement: >
+    The frozen RESULT-0022 train-fitted mass-luminosity relation
+    log L = 4.526004 * log M, with fixed intercept and no high-mass refit,
+    should retain predictive signal on a disjoint high-mass DEBCat
+    main-sequence-compatible holdout (mass_solar > 2.0) by beating the best
+    predeclared null, mass-matched, or shuffled-target control by at least
+    the 0.04 dex split-noise reference. This is a controlled transfer
+    benchmark for one relation and one same-source regime, not a universal
+    stellar mass-luminosity law, discovery, or stellar-structure claim.
+  formula_candidates:
+    - "result0022_frozen_alpha_transfer: log L = 4.526004 * log M (fixed intercept L0=1; no high-mass refit)"
+    - "null_massband_median: per-mass-band train-median log L"
+    - "mass_matched_massband_mean: per-mass-band train-mean log L"
+    - "shuffled_target_best: best deterministic shuffled-luminosity control across predeclared seeds"
+
+assumptions:
+  - "DEBCat component masses are direct dynamical measurements; luminosities are catalogue-reported or Stefan-Boltzmann-derived with provenance flags."
+  - "The source predictor is RESULT-0022 and remains frozen; neither the exponent nor intercept is refit on the high-mass holdout."
+  - "The primary transfer lane is high-mass main-sequence-compatible components; all-stage, by-stage, and luminosity-provenance splits are diagnostics."
+  - "Controls and survival margin are predeclared before scoring the high-mass holdout."
+  - "This benchmark does not promote a CLAIM, PRED, or KNOW artifact."
+
+variables:
+  log_luminosity_solar:
+    unit: dex
+    description: "log10(L/Lsun)"
+  log_mass_solar:
+    unit: dex
+    description: "log10(M/Msun)"
+
+evidence:
+  experiments:
+    - EXP-0017
+  results:
+    - RESULT-0024
+
+verdict: "Benchmark designed to test whether the frozen RESULT-0022 relation survives a controlled high-mass DEBCat transfer; scope-limited, same-source, and not a universal law."

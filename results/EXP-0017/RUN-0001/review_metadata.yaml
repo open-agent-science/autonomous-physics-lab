@@ -1,0 +1,21 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0024
+run_id: RUN-0001
+experiment_id: EXP-0017
+claim_id: null
+knowledge_id: null
+generated_at: '2026-06-27T00:00:00Z'
+proposed_claim_status: null
+required_human_review: false
+evidence_basis:
+- RESULT-0024
+- RESULT-0022
+- agent_runs/AGENT-RUN-0082/metrics.json
+claim_target_file: null
+knowledge_target_file: null
+patch_artifacts:
+  claim_patch: results/EXP-0017/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0017/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0017/RUN-0001/review_summary.md
+
