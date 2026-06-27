@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-cli-status-test
 title: "Add tests for apl status and validate CLI commands"
-status: PROPOSED
+status: ACCEPTED
 type: testing
 priority: medium
 
@@ -59,6 +59,6 @@ validation:
     - "python3 -m ruff check ."
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "pending maintainer review"
+  canonical_task_id: TASK-0857
+  decision: accepted
+  notes: "Accepted by maintainer-directed architect cycle; promoted to TASK-0857."

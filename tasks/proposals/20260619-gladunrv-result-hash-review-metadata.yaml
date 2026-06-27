@@ -1,6 +1,6 @@
 proposal_id: 20260619-gladunrv-result-hash-review-metadata
 title: Separate result material hashes from review metadata
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_workflow
 priority: medium
 proposed_by:
@@ -47,6 +47,6 @@ accepted_outputs:
 - canonical task spec for result hash policy hardening
 - tests and docs update if accepted
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0855
+  decision: accepted
+  notes: Accepted by maintainer-directed architect cycle; promoted to TASK-0855.
