@@ -133,9 +133,16 @@ def write_outputs() -> dict[str, Any]:
         "status": "REVIEW_READY",
         "sandbox_only": True,
         "created_by": {"contributor_id": "akutenyov", "agent_id": "codex"},
+        "proposal_paths": {
+            "hypothesis": "hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-0083-cross-material-confinement-transfer.yaml",
+            "experiment": "experiment_proposals/quantum-size-effects/EXP-PROPOSAL-0083-cross-material-confinement-transfer.yaml",
+        },
         "artifacts": {
-            name: f"agent_runs/{AGENT_RUN_ID}/{name}"
-            for name in ("metrics.json", "report.md", "limitations.md", "preflight.md", "review_summary.md")
+            "metrics": f"agent_runs/{AGENT_RUN_ID}/metrics.json",
+            "report": f"agent_runs/{AGENT_RUN_ID}/report.md",
+            "limitations": f"agent_runs/{AGENT_RUN_ID}/limitations.md",
+            "preflight": f"agent_runs/{AGENT_RUN_ID}/preflight.md",
+            "review_summary": f"agent_runs/{AGENT_RUN_ID}/review_summary.md",
         },
         "preflight": {
             "passed": True,
