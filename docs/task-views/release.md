@@ -17,3 +17,4 @@ None.
 
 - `TASK-0845` - Package the FIRAS/Wien consistency slice as a scoped Gate A result candidate (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0854` - Normalize explicit .venv Python launchers in review validation (`repository_hardening`, priority `high`, difficulty `low`, domain `maintainer_review`)
+- `TASK-0858` - Refresh public-opening release gates after history cleanup and plan-limited branch protection (`repository_hardening`, priority `high`, difficulty `low`, domain `release_readiness`)
