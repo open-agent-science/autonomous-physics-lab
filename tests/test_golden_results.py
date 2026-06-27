@@ -56,11 +56,49 @@ def test_material_result_hash_ignores_metadata_only_fields() -> None:
     assert material_result_hash(changed) == material_result_hash(payload)
 
 
+def test_material_result_hash_ignores_gate_b_review_metadata_only_fields() -> None:
+    root = Path(__file__).resolve().parent.parent
+    payload = load_result(root / "results" / "EXP-0015" / "RUN-0001" / "result.yaml")
+    changed = copy.deepcopy(payload)
+    changed["review_tier"] = "AGENT_PUBLISHED"
+    changed["agent_proposal_evaluation"]["review_tier_proposed"] = "AGENT_PUBLISHED"
+    changed["agent_proposal_evaluation"]["evidence_summary"] = (
+        "Independent replay metadata was rewritten without changing scientific content."
+    )
+    changed["agent_proposal_evaluation"]["validation_record"].update(
+        {
+            "replayed_at_utc": "2099-01-01T00:00:00+00:00",
+            "replay_output_dir": "/tmp/replay-cleanup",
+            "drift_observed": "none",
+        }
+    )
+
+    assert material_result_hash(changed) == material_result_hash(payload)
+
+
 def test_material_result_hash_detects_scientific_result_drift() -> None:
     root = Path(__file__).resolve().parent.parent
     payload = load_result(root / "results" / "EXP-0001" / "RUN-0003" / "result.yaml")
     changed = copy.deepcopy(payload)
     changed["best_model_id"] = "model_drift"
+
+    assert material_result_hash(changed) != material_result_hash(payload)
+
+
+def test_material_result_hash_detects_result_metric_drift_with_review_metadata_present() -> None:
+    root = Path(__file__).resolve().parent.parent
+    payload = load_result(root / "results" / "EXP-0015" / "RUN-0001" / "result.yaml")
+    changed = copy.deepcopy(payload)
+    changed["scores"][0]["test_metrics"]["mean_relative_error"] = 0.999
+
+    assert material_result_hash(changed) != material_result_hash(payload)
+
+
+def test_material_result_hash_detects_input_digest_drift() -> None:
+    root = Path(__file__).resolve().parent.parent
+    payload = load_result(root / "results" / "EXP-0015" / "RUN-0001" / "result.yaml")
+    changed = copy.deepcopy(payload)
+    changed["input_file_hashes"]["config"]["sha256"] = "0" * 64
 
     assert material_result_hash(changed) != material_result_hash(payload)
 

@@ -24,6 +24,8 @@ IGNORED_TOP_LEVEL_FIELDS = frozenset(
         "command",
         "engine_version",
         "artifacts",
+        "review_tier",
+        "agent_proposal_evaluation",
     }
 )
 IGNORED_INPUT_HASH_FIELDS = frozenset({"path"})
