@@ -222,6 +222,31 @@ def overclaim_advisory_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
     return advisory
 
 
+NOVELTY_CLASSES = (
+    "frontier_novel",
+    "reusable_dataset",
+    "valuable_negative",
+    "calibration_known_physics",
+)
+_NOVELTY_CLASSIFICATION_PATTERN = re.compile(
+    r"novelty[ _]classification\s*[:=]\s*`?(" + "|".join(NOVELTY_CLASSES) + r")`?",
+    re.IGNORECASE,
+)
+
+
+def novelty_classification(body: str | None) -> str | None:
+    """Return the novelty class declared in a PR body, or None if absent.
+
+    Claim PRs must declare one of NOVELTY_CLASSES so calibration / known-physics
+    re-verification is not silently promoted as a scientific claim. Claims are
+    reserved for genuine novelty, reusable datasets, or valuable negatives.
+    """
+    if not body:
+        return None
+    match = _NOVELTY_CLASSIFICATION_PATTERN.search(body)
+    return match.group(1).lower() if match else None
+
+
 def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
     """Return dangerous code patterns found in added diff lines."""
     hits: list[str] = []

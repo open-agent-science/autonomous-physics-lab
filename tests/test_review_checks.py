@@ -7,8 +7,26 @@ from physics_lab.registry.review_checks import (
     cross_platform_surface_hits,
     follow_up_task_advisory_hits,
     normalize_output_path,
+    novelty_classification,
     output_paths,
 )
+
+
+def test_novelty_classification_extracts_declared_class() -> None:
+    body = "## Novelty Classification\n\nNovelty Classification: calibration_known_physics\n"
+    assert novelty_classification(body) == "calibration_known_physics"
+
+
+def test_novelty_classification_accepts_inline_and_backticked() -> None:
+    assert novelty_classification("novelty classification = `frontier_novel`") == "frontier_novel"
+    assert novelty_classification("Novelty Classification: reusable_dataset") == "reusable_dataset"
+
+
+def test_novelty_classification_returns_none_when_absent_or_unknown() -> None:
+    assert novelty_classification("no declaration here") is None
+    assert novelty_classification("") is None
+    assert novelty_classification(None) is None
+    assert novelty_classification("Novelty Classification: not_a_real_class") is None
 
 
 def test_normalize_output_path_returns_bare_path() -> None:
