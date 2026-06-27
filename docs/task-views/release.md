@@ -8,6 +8,7 @@
 
 - `TASK-0846` - Package CLAIM-0009 PARTIALLY_SUPPORTED anharmonic evidence as a public-safe campaign capsule (`scientific_result_publication`, priority `medium`, difficulty `low`, domain `classical_mechanics`)
 - `TASK-0852` - FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded) (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
+- `TASK-0859` - Exoplanet Chen-Kipping published-relation audit readiness scout (new published-relation-audit lane; residual lane stays monitor-only) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `astrophysics_exoplanets`)
 
 ## IN_PROGRESS
 
