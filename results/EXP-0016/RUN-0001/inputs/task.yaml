@@ -1,7 +1,7 @@
 id: TASK-0845
 title: "Package the FIRAS/Wien consistency slice as a scoped Gate A result candidate"
 type: scientific_result_publication
-status: REVIEW_READY
+status: READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -39,8 +39,6 @@ requirements:
   - "Do NOT create a duplicate digest/status page, rerun live source fetches, or edit unrelated textbook campaign claims."
 
 accepted_outputs:
-  - "hypotheses/HYP-0016-textbook-firas-wien-peak-consistency.yaml"
-  - "experiments/EXP-0016-textbook-firas-wien-peak-consistency.yaml"
   - "A scoped RESULT candidate for the FIRAS/Wien consistency slice if Gate A passes, including populated proposal/evaluation metadata."
   - "A review note recording Gate A status, circularity caveat, no-claim wording, and any blocker if the RESULT candidate is not created."
   - "Output-routing summary: canonical destination, Gate A status, Gate B not attempted, claim impact none, knowledge impact none, limitations."

@@ -1,0 +1,39 @@
+id: HYP-0016
+title: "Within the pinned COBE/FIRAS absolute monopole slice, the wavelength-domain spectral-radiance peak is consistent with the textbook Wien displacement reference lambda=b/T at the separately-pinned reference temperature"
+domain: astrophysics
+status: TESTING
+
+hypothesis:
+  statement: >
+    On the checksum-pinned COBE/FIRAS absolute CMB monopole spectrum, after a
+    declared deterministic B_nu->B_lambda Jacobian conversion, the wavelength-domain
+    spectral-radiance peak should agree with the frozen textbook Wien displacement
+    reference lambda_peak = b / T (CODATA 2022 b; separately-pinned Fixsen 2009
+    reference temperature) within a pre-registered tolerance. This is a FIRAS
+    spectral-domain self-consistency check in scope, NOT independent empirical
+    validation or falsification of Wien displacement, blackbody physics, CMB physics,
+    or universal textbook truth.
+  formula_candidates:
+    - "wien_wavelength_peak: lambda_peak = b / T (b = 2.897771955e-3 m K, CODATA 2022; T separately pinned)"
+
+assumptions:
+  - "The FIRAS product is an ABSOLUTE monopole spectral radiance (B_nu vs wavenumber), not residual-only or model-normalized."
+  - "The reference temperature (Fixsen 2009, 2.72548 +/- 0.00057 K) is separately pinned provenance, not a parameter fitted from the FIRAS rows."
+  - "The reference T is itself derived by fitting a Planck spectrum to FIRAS, so a raw peak-vs-(b/T) comparison is a blackbody self-consistency check, not independent validation (circularity caveat)."
+  - "The wavelength-domain and frequency-domain peaks are different quantities (Wien non-invariance); the audit targets the wavelength-domain peak only after the declared Jacobian."
+
+variables:
+  wavelength_domain_peak:
+    unit: meter
+    description: "Wavelength of the spectral-radiance (B_lambda) peak after Jacobian conversion"
+  reference_temperature:
+    unit: kelvin
+    description: "Separately-pinned CMB reference temperature"
+
+evidence:
+  experiments:
+    - EXP-0016
+  results:
+    - RESULT-0023
+
+verdict: "Spectral-domain self-consistency check on the pinned FIRAS slice; admissible verdicts are CONSISTENT_IN_SCOPE / DOMAIN_CONVERSION_MISMATCH / INCONCLUSIVE_PRODUCT_SEMANTICS / INCONCLUSIVE_SAMPLING_RESOLUTION. Not a universal Wien-law validation or falsification."

@@ -1,0 +1,13 @@
+experiment_path: ../experiments/EXP-0016-textbook-firas-wien-peak-consistency.yaml
+hypothesis_path: ../hypotheses/HYP-0016-textbook-firas-wien-peak-consistency.yaml
+task_id: TASK-0845
+run_id: RUN-0001
+result_id: RESULT-0023
+result_root: ../results/EXP-0016
+workflow: textbook_firas_wien_peak_consistency
+provenance_command: "python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079"
+code_reference: physics_lab/engines/textbook_wien_firas_peak.py
+source_run: agent_runs/AGENT-RUN-0079/
+source_review: docs/reviews/textbook-firas-wien-peak-consistency-slice.md
+firas_rows: data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml
+reference_temperature_contract: docs/reviews/textbook-wien-firas-temperature-domain-contract.md
