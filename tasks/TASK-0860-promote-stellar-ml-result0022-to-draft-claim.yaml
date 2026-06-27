@@ -1,0 +1,62 @@
+id: TASK-0860
+title: "Promote the validated stellar M-L benchmark (RESULT-0022) to a range-limited DRAFT claim with a Gate C recommendation"
+type: claim_promotion
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Realize the stellar M-L / DEBCat campaign's strongest output: RESULT-0022 is AGENT_VALIDATED (independent Gate B replay) but had no claim. The post-validation validity gate here is ratification -- a maintainer-reviewed claim, not more metrics."
+  - "Bank it honestly: the result itself flags the headline must stay scope-limited ('alpha=3.5 inadequate as the sole frozen baseline on this slice, NOT falsified'); the DRAFT claim and recommendation preserve that exactly."
+  - "Gate C is maintainer-only: this task creates the DRAFT claim and recommends the decision; the maintainer ratifies."
+
+input:
+  mode: planning_only
+  related_domain: astrophysics
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-result0022-gate-b-replay.md"
+    - "hypotheses/HYP-0015-stellar-ml-debcat-baseline-benchmark.yaml"
+    - "docs/claim-promotion-policy.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0022 ("Stellar M-L DEBCat Controlled Baseline Benchmark -- textbook
+    alpha=3.5 inadequate as sole baseline on the frozen main-sequence slice") is
+    AGENT_VALIDATED (VALID_IN_RANGE) with an independent Gate B replay. No stellar
+    M-L claim existed. This task promotes it to a range-limited DRAFT claim
+    (CLAIM-0011) on hypothesis HYP-0015, with the careful scope the result itself
+    prescribes: alpha=3.5 is a controls-surviving but materially suboptimal sole
+    frozen baseline on the DEBCat 0.5-2.0 Msun slice (a train-fitted exponent fits
+    materially better, alpha=3.5 still beats the null), heterogeneous-luminosity,
+    NOT a falsification of alpha=3.5 and NOT a universal/evolution/application claim.
+    It does not run metrics or change RESULT-0022.
+
+requirements:
+  - "Create CLAIM-0011 as `DRAFT` on hypothesis HYP-0015 with evidence EXP-0015 / RESULT-0022; keep the `Evidence Status` and `Review Recommendation` sections (CI requires them)."
+  - "Scope the claim exactly as RESULT-0022 prescribes: alpha=3.5 inadequate as the SOLE frozen baseline on the DEBCat 0.5-2.0 Msun slice (beats null, materially worse than fitted/piecewise); range-limited; heterogeneous luminosity. Do NOT write falsification, universal-law, stellar-evolution, discovery, or application wording."
+  - "Recommend the maintainer Gate C decision in the Review Recommendation: DRAFT -> PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED, with PARTIALLY_SUPPORTED as the ceiling (single-slice, heterogeneous, benchmark-scoped). Note RESULT-0022 is agent-validated by replay, NOT maintainer-reviewed."
+  - "Reference the pending high-mass transfer (TASK-0837 / TASK-0849) as supporting context only; do NOT rely on it as canonical evidence (it is not yet a RESULT)."
+  - "Do NOT apply the Gate C transition (DRAFT stays DRAFT); do NOT run metrics, edit RESULT-0022, or promote knowledge. Gate C is a separate maintainer step."
+
+accepted_outputs:
+  - "claims/CLAIM-0011-stellar-ml-debcat-alpha35-adequacy.md as a range-limited DRAFT claim with the Gate C recommendation."
+  - "Output-routing summary: ratification preflight (DRAFT claim + Gate C recommendation); no metrics, no RESULT change, no knowledge; Gate C remains a maintainer decision."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim promotion preflight only; creates a DRAFT claim citing the existing AGENT_VALIDATED RESULT-0022. No result artifact is created or modified; Gate C is maintainer-only."
+  evidence:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-result0022-gate-b-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
