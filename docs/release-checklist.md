@@ -57,8 +57,17 @@ Expected:
 ## Public Artifact History Checks
 
 Before opening the repository publicly, confirm that the Phase B
-source-artifact history scan has been completed and reviewed. This is a
-release blocker, not a routine validation command.
+source-artifact history scan has been completed and reviewed, or that a current
+release-time scan proves no cleanup remains. This is a release blocker, not a
+routine validation command.
+
+Current status: `TASK-0858` verified `origin/main` at
+`15a9675b097250be88e0cb3fa7a2e3acd59c8373` and found no reachable `.pdf` blobs,
+no risky binary/document/archive additions, and no reachable default-branch
+history for the two arXiv PDF paths named by `TASK-0732`. Treat the old
+freeze-time rewrite blocker as closed for this default-branch cut. Re-run the
+scan during the final exact-SHA release signoff; reopen the history-cleanup gate
+if new risky paths appear.
 
 Minimum evidence:
 
@@ -71,6 +80,33 @@ Minimum evidence:
   re-clone/rebase instructions;
 - if no rewrite was needed, the signoff explains why the public default branch
   history is already clean enough for launch.
+
+Recommended release-time commands:
+
+```bash
+git log --oneline origin/main -- data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.pdf
+git log --oneline origin/main -- data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.pdf
+git rev-list --objects origin/main | rg -i '\.pdf$'
+git log origin/main --diff-filter=A --name-only --pretty=format: \
+  | rg -i '\.(pdf|zip|tar|gz|tgz|7z|rar|xlsx|xls|docx|doc|pptx|ppt|fits|fit|h5|hdf5|parquet|nc|db|sqlite)$' \
+  | sort -u
+```
+
+Expected for the current public-opening cut:
+
+- no output for the two historical PDF path logs;
+- no reachable `.pdf` blobs;
+- no risky binary/document/archive additions on `origin/main`.
+
+## GitHub Visibility And Branch Protection
+
+If GitHub allows `main` branch protection while the repository is still
+private, enable or confirm it before public opening. If the current plan only
+allows branch protection after the repository becomes public, record the
+intended `main` protection policy in the signoff, switch visibility only after
+the other release gates pass, then enable branch protection immediately after
+the public switch and before inviting external contributors or announcing the
+repository broadly.
 
 ## Final Signoff
 

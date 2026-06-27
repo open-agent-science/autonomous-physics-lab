@@ -1,0 +1,63 @@
+id: TASK-0858
+title: "Refresh public-opening release gates after history cleanup and plan-limited branch protection"
+type: repository_hardening
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep public-opening gates accurate after repository history and GitHub plan constraints changed."
+  - "Avoid blocking public visibility on branch protection when the private repository plan cannot enable it yet."
+  - "Preserve the source-artifact redistribution boundary by verifying the current default-branch history directly."
+
+input:
+  mode: workflow
+  related_domain: release_readiness
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+    - "docs/v0.2-launch-pack.md"
+    - "docs/reviews/public-launch-history-source-artifact-scan-plan.md"
+    - "docs/reviews/v0.2-public-alpha-post-transfer-signoff-2026-06.md"
+  planning_context: >
+    The public-opening gate docs still treated disabled branch protection as a
+    pre-public blocker, even though the current GitHub plan may only expose
+    branch protection after the repository becomes public. The docs also still
+    referenced the old TASK-0732 freeze-time source-artifact history cleanup as
+    pending, even though the current default-branch history no longer exposes
+    the two arXiv PDF blobs. Refresh the release-gate wording and record a
+    dated verification addendum without changing scientific artifacts.
+
+requirements:
+  - "Reclassify plan-limited branch protection as an immediate post-public hardening step, not a pre-public blocker, when GitHub does not allow protection while the repository is private."
+  - "Verify the current default-branch history for reachable PDF/source-artifact payloads and record the commands used."
+  - "Mark the old TASK-0732 arXiv PDF history blocker as closed for the current default-branch cut while keeping the historical runbook for traceability."
+  - "Keep exact-SHA release validation, green CI, clean worktree, path-leak scan, and public wording review as active pre-public signoff requirements."
+  - "Do not rewrite scientific results, claims, predictions, knowledge, source rows, or generated task views."
+
+accepted_outputs:
+  - "Updated release gate docs that distinguish pre-public blockers from immediate post-public hardening steps."
+  - "Dated release-gate refresh addendum with history-scan verification evidence."
+  - "Historical review notes annotated rather than silently rewritten."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening and release-readiness documentation task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+    - "docs/reviews/v0.2-public-alpha-release-gate-refresh-2026-06-27.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_public_path_leaks.py"
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
