@@ -1,0 +1,57 @@
+id: TASK-0870
+title: "Verify the Quantum ZnSe direct-size source license route before any row task"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Quantum transfer remains source-gated, not model-gated: the strongest direct ZnSe route is blocked by license uncertainty."
+  - "A narrow license/source-artifact verification task can decide whether Toufanian 2021 can become a row-curation task or must remain blocker memory."
+  - "This avoids spending more effort on metrics or figure digitization before the row source is admissible."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
+    - "docs/reviews/quantum-vossmeyer-table1-source-access-memory.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    TASK-0829 found Toufanian 2021 ZnSe as the strongest direct, tabular
+    second-material route, but its redistributable license is unconfirmed. This
+    task verifies the license/source route only; it does not curate rows or run
+    transfer metrics.
+
+requirements:
+  - "Verify whether a CC-BY/CC0 or otherwise maintainer-acceptable data-bearing version of the Toufanian 2021 ZnSe table exists."
+  - "Record exact locator, license statement, source-byte policy, checksum plan, and whether source bytes or only metadata may be committed."
+  - "If license is admissible, define the bounded future row-curation task shape with direct SAXS diameter and absorption-peak semantics."
+  - "If license is not admissible or cannot be confirmed, preserve SOURCE_BLOCKED / NEEDS_MAINTAINER_SOURCE_DECISION memory."
+  - "Do not transcribe table values, create qd rows, run metrics, unblock correction search, or use estimated coordinates."
+
+accepted_outputs:
+  - "A source-license verification note under docs/reviews/ with READY / BLOCKED / NEEDS_MAINTAINER_SOURCE_DECISION verdict."
+  - "Optional metadata-only source_manifest wording proposal; no value-bearing rows."
+  - "Output-routing summary: source-readiness only, no RESULT/PRED/CLAIM/KNOW change."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/license verification only; no benchmark result or row dataset is produced."
+  evidence:
+    - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

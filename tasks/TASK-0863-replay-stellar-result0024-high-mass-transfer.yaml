@@ -1,0 +1,60 @@
+id: TASK-0863
+title: "Independently replay Stellar RESULT-0024 high-mass transfer"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0024 is the strongest positive transfer artifact from the latest Textbook/Stellar wave: the frozen RESULT-0022 relation transfers to a disjoint high-mass DEBCat regime under controls."
+  - "Gate B replay is the next scientific step before any maintainer-reviewed public wording, claim discussion, or knowledge note."
+  - "Replay must validate the published result package without refitting the stellar relation or changing RESULT-0022/RESULT-0024 metrics."
+
+input:
+  mode: workflow
+  related_domain: astrophysics_stellar
+  related_objects:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "results/EXP-0017/RUN-0001/metrics.json"
+    - "results/EXP-0017/RUN-0001/report.md"
+    - "scripts/run_stellar_ml_high_mass_transfer.py"
+    - "docs/reviews/stellar-ml-high-mass-debcat-transfer-benchmark.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0849 packaged RESULT-0024 as AGENT_PUBLISHED. The result reports
+    frozen-relation MAE 0.334564 dex versus best control 0.483879 dex on the
+    high-mass main-sequence-compatible holdout, clearing the predeclared 0.04 dex
+    survival margin. A different agent should replay the exact command and
+    compare the committed result metrics before any higher-trust public wording.
+
+requirements:
+  - "Run an independent replay of RESULT-0024 using the recorded command and committed inputs."
+  - "Compare core numeric metrics, verdict, input hashes, code reference, engine version, and no-claim limitations against the committed result artifact."
+  - "Do not refit alpha, alter DEBCat rows, change RESULT-0022 or RESULT-0024, or create any CLAIM/KNOW/PRED artifact."
+  - "If metrics differ beyond tolerance, stop with CONTESTED_RESULT and record the exact drift; do not patch metrics to match."
+  - "If replay passes, record Gate B PASS and the proposed review-tier update path without maintainer endorsement or claim promotion."
+
+accepted_outputs:
+  - "A Gate B replay review note under docs/reviews/ with pass/contest verdict, metric drift table, limitations, and output-routing summary."
+  - "A validation record or review metadata update only if the established result-promotion protocol allows it for independent replay."
+  - "No-claim wording preserving the single-source DEBCat, small-holdout, same-source transfer, and non-universal-law limitations."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay of an existing AGENT_PUBLISHED result; no new RESULT should be created."
+  evidence:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_stellar_ml_high_mass_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

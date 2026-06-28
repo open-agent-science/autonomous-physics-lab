@@ -1,0 +1,57 @@
+id: TASK-0874
+title: "Prepare the particle-mass common-scheme source-policy decision packet"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Particle-mass relations remain useful as a numerology guardrail and valuable-negative lane, not a formula-search flagship."
+  - "TASK-0820 found a possible common MS-bar quark-mass route but left a maintainer source-policy decision."
+  - "A source-policy packet can decide whether CLAIM-0007 valuable-negative wording is source-limited or whether a new common-scheme rerun is justified."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "docs/reviews/particle-mass-common-scheme-preflight.md"
+    - "results/EXP-0009/RUN-0001/result.yaml"
+    - "claims/CLAIM-0007-particle-mass-falsifier-mvp.md"
+    - "docs/notes/particle-mass-numerology-guardrails.md"
+  planning_context: >
+    RESULT-0011 is AGENT_VALIDATED negative memory for stored particle-mass
+    inputs. CLAIM-0007 remains DRAFT because quark rows mix schemes/scales.
+    TASK-0820 identified a derived common MS-bar-at-MZ source route but requires
+    maintainer source-policy decision before source pinning or rerun.
+
+requirements:
+  - "Compare acceptable source-policy options: derived running-parameter table, PDG/FLAG-only route, or local deterministic RGE pipeline with pinned software."
+  - "State scheme, scale, uncertainty, top-quark semantics, and citation requirements for any future common-scheme table."
+  - "Do not rerun Koide metrics, edit particle mass datasets, change RESULT-0011, or change CLAIM-0007."
+  - "Return a decision packet with recommended source route, blocker, and exact future task shape if maintainer approves."
+  - "Preserve no-numerology wording: no formula search, no explanation of particle mass generation, no claim promotion."
+
+accepted_outputs:
+  - "A source-policy decision packet under docs/reviews/ with route options, recommendation, and blocker/stop conditions."
+  - "Future task wording for source pinning only if a route is approved; no metric rerun in this task."
+  - "Output-routing summary with claim impact none, result impact none, and Gate C blocker stated."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-policy decision packet only; no result or claim artifact is produced."
+  evidence:
+    - "docs/reviews/particle-mass-common-scheme-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

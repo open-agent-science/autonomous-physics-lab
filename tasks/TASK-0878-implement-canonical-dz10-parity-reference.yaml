@@ -1,0 +1,57 @@
+id: TASK-0878
+title: "Implement a canonical DZ10 parity reference only after the AMDC source scout lands"
+type: scientific_benchmark
+status: BLOCKED
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "TASK-0823 landed a useful published-variant Duflo-Zuker baseline but did not reproduce canonical AMDC parity."
+  - "PR #1269/TASK-0853 appears to find an AMDC mirror and numeric fixture, but the source-rights and review outcome must land before implementation."
+  - "A future parity implementation could materially strengthen the Nuclear baseline, but it must not reopen TASK-0823 or mutate RESULT-0025."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0853-canonical-dz-parity-reference-code-scout.yaml"
+    - "docs/reviews/canonical-dz-parity-reference-scout.md"
+    - "physics_lab/engines/nmd0003_duflo_zuker_baseline.py"
+    - "docs/reviews/nmd0003-duflo-zuker-structured-baseline.md"
+  planning_context: >
+    BLOCKED until TASK-0853/#1269 is merged and accepted with an admissible
+    canonical DZ10 reference route. If that happens, implement or wrap a
+    parity-tested DZ10 reference against the AMDC numeric fixture without
+    vendoring source bytes unless rights approval permits it.
+
+requirements:
+  - "Start only after TASK-0853 is merged/closed with PARITY_REFERENCE_AVAILABLE and the source-rights route is maintainer-accepted."
+  - "Fetch or cache AMDC source/table bytes only according to the accepted rights policy; do not vendor restricted bytes by default."
+  - "Implement or transliterate DZ10 and test generated mass excess values against the AMDC table to the published precision for the supported domain."
+  - "Compare against the existing TASK-0823 published-variant only as a diagnostic; do not mutate TASK-0823 or RESULT-0025."
+  - "If parity cannot be achieved, stop with PARITY_IMPLEMENTATION_BLOCKED and preserve diagnostics."
+
+accepted_outputs:
+  - "A canonical DZ10 parity implementation or wrapper with tests against the accepted numeric fixture, plus a review note."
+  - "No prediction freeze, no reveal scoring, no CLAIM/KNOW/PRED mutation."
+  - "Output-routing summary with source-rights boundary and future benchmark gate."
+
+result_artifact_policy:
+  required: false
+  reason: "Parity implementation/benchmark prerequisite; no RESULT/PRED artifact unless a later task authorizes benchmark packaging."
+  evidence:
+    - "tasks/TASK-0853-canonical-dz-parity-reference-code-scout.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

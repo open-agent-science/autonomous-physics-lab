@@ -1,0 +1,58 @@
+id: TASK-0867
+title: "Cross-tool replay the Exoplanet null-baseline negative/control memory"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The Exoplanet residual-discovery lane is monitor-only, but the control-sensitive negative memory is scientifically valuable."
+  - "A cross-tool replay of the null-baseline family audit strengthens public-safe negative/control memory without reopening residual scoring."
+  - "This directly supports the current blocker: preserve negative memory until a materially changed snapshot or coverage gate exists."
+
+input:
+  mode: workflow
+  related_domain: astrophysics
+  related_objects:
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "docs/reviews/exoplanet-control-aware-go-no-go-synthesis.md"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+  planning_context: >
+    The current exoplanet public-safe result is negative/control memory: nearest
+    radius null baselines match or beat the frozen CK-style baseline across key
+    true-mass slices, and EXO-0002 did not clear the reopen gate. This task
+    replays that negative/control finding, not new residual discovery.
+
+requirements:
+  - "Replay the null-baseline family audit from committed snapshots and runner/code references; do not fetch live rows."
+  - "Compare the replayed compact, sub-Neptune, Jovian-radius, and hot-Jupiter true-mass slice outcomes against the existing review note."
+  - "Do not add new candidate formulas, refit CK-style baselines, or inspect an EXO-0003 value-bearing snapshot."
+  - "If replay passes, write a negative/control memory replay note; if contested, record exact metric drift and keep the lane monitor-only."
+  - "No composition, habitability, atmosphere, target-priority, discovery, RESULT/PRED/CLAIM/KNOW promotion."
+
+accepted_outputs:
+  - "A cross-tool replay note under docs/reviews/ with metric drift, pass/contest verdict, and no-claim wording."
+  - "A result-promotion recommendation only for negative/control memory wording; no new scoring lane."
+  - "Output-routing summary: Gate B-like replay status for memory, claim impact none, knowledge impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay of existing negative/control memory; no new RESULT/PRED artifact is expected unless a later maintainer-approved promotion task authorizes it."
+  evidence:
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

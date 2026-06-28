@@ -1,0 +1,56 @@
+id: TASK-0877
+title: "Construct the FRB Catalog 2 T-truncated exposure split before morphology benchmarking"
+type: scientific_validation
+status: BLOCKED
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "PR #1268/TASK-0852 prepares the FRB source locator, version-lock rule, and exposure-only baseline gate."
+  - "The next FRB step is not a morphology model; it is a T-truncated pre-T exposure reconstruction that removes full-window leakage."
+  - "This task is pre-seeded as blocked so agents do not start it before the source/baseline artifact lands."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "tasks/TASK-0852-frb-catalog2-temporal-split-and-exposure-baseline.yaml"
+    - "docs/reviews/frb-catalog2-temporal-split-exposure-baseline.md"
+    - "data/radio_transients/frb_catalog2_source_manifest.yaml"
+    - "data/radio_transients/frb_catalog2_temporal_split_exposure_baseline.yaml"
+  planning_context: >
+    BLOCKED until TASK-0852/#1268 lands and is reviewed. Its artifact states
+    that full-window exposure is only a selection-effect gate; any future
+    predictive split must construct a T-truncated pre-T feature view before
+    morphology evidence can be interpreted.
+
+requirements:
+  - "Start only after TASK-0852 is merged/closed and the source/baseline artifact is accepted."
+  - "Construct or specify a T-truncated pre-T exposure view with no late Catalog 2 repeater labels, source associations, morphology reprocessing, or full-window exposure leakage."
+  - "Do not build or score a morphology model, freeze PRED entries, create RESULT artifacts, or vendor raw catalog bytes."
+  - "Compare the T-truncated exposure baseline against the full-window exposure gate only as a leakage/readiness diagnostic."
+  - "Stop with BLOCKED if versioned pre-T inputs cannot be reconstructed without leakage."
+
+accepted_outputs:
+  - "A T-truncated exposure split artifact/spec and review note, or a blocker note explaining why no leakage-safe pre-T view exists."
+  - "Output-routing summary: source/split readiness only; no morphology benchmark, PRED, CLAIM, or KNOW output."
+
+result_artifact_policy:
+  required: false
+  reason: "Pre-morphology split-readiness task; no benchmark result or prediction artifact."
+  evidence:
+    - "docs/reviews/frb-catalog2-temporal-split-exposure-baseline.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

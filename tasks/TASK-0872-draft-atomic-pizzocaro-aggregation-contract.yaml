@@ -1,0 +1,58 @@
+id: TASK-0872
+title: "Draft an Atomic Pizzocaro aggregation and observable-harmonization contract"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Atomic Yb/Sr is source-limited negative memory, not a constants-drift result."
+  - "TASK-0780 kept Pizzocaro closed because an aggregation/observable-harmonization contract is missing."
+  - "A value-safe contract draft can decide whether Pizzocaro can ever reduce the two-row blocker without rerunning metrics."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/reviews/atomic-ybsr-reopen-source-route-scout.md"
+    - "docs/reviews/atomic-pizzocaro-per-window-diagnostic-ledger.md"
+    - "docs/reviews/atomic-pizzocaro-row-admissibility-after-psd-covariance.md"
+    - "data/atomic_clocks/"
+  planning_context: >
+    Beloy/Nemitz Yb/Sr no-tension memory is complete. Pizzocaro remains
+    diagnostic-only because per-window rows and covariance approximations do not
+    yet define a maintainer-approved aggregate observable compatible with the
+    Beloy/Nemitz direct-ratio axis. This task drafts the contract only.
+
+requirements:
+  - "Use existing committed Pizzocaro reviews and atomic schema notes; do not inspect or create new value-bearing rows."
+  - "Define candidate aggregation semantics, observable orientation, uncertainty/covariance requirements, campaign-window rules, and direct-vs-derived flags."
+  - "State exactly what would make Pizzocaro admissible as a cross-source target or why it must remain diagnostic-only."
+  - "Do not run Yb/Sr metrics, fit constants drift, create RESULT/PRED/CLAIM/KNOW artifacts, or weaken covariance semantics."
+  - "Return one verdict: AGGREGATION_CONTRACT_READY_FOR_MAINTAINER_DECISION, REMAINS_DIAGNOSTIC_ONLY, or NEEDS_SOURCE_DECISION."
+
+accepted_outputs:
+  - "A contract draft/review note under docs/reviews/ with verdict, required fields, stop conditions, and reopen implications."
+  - "No row, result, prediction, claim, or knowledge mutation."
+  - "Output-routing summary: source-readiness contract only, Gate A/B not applicable."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/aggregation contract draft only; no benchmark metrics or result artifact."
+  evidence:
+    - "docs/reviews/atomic-ybsr-reopen-source-route-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

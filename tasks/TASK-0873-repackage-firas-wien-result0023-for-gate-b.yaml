@@ -1,0 +1,59 @@
+id: TASK-0873
+title: "Repackage FIRAS/Wien RESULT-0023 through a physics-lab workflow for Gate B"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0023 is AGENT_PUBLISHED but Gate B is blocked by packaging: the provenance command is a standalone script rather than a physics-lab workflow."
+  - "Repackaging should make the exact same FIRAS/Wien slice replayable without changing metrics or overclaiming textbook truth."
+  - "This keeps Textbook Formula Audit moving through source/readiness and replay, not claim promotion."
+
+input:
+  mode: workflow
+  related_domain: cross_domain_physics
+  related_objects:
+    - "results/EXP-0016/RUN-0001/result.yaml"
+    - "results/EXP-0016/RUN-0001/report.md"
+    - "scripts/run_textbook_wien_firas_peak_consistency.py"
+    - "physics_lab/engines/textbook_wien_firas_peak.py"
+    - "data/textbook_formula_audit/wien_firas/firas_monopole_rows.yaml"
+    - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
+  planning_context: >
+    RESULT-0023 reports a scoped FIRAS spectral-domain self-consistency check:
+    wavelength-domain peak after Jacobian agrees with b/T within predeclared
+    tolerances. Gate B requires workflow-style deterministic replay. Repackage
+    only; do not alter the scientific result.
+
+requirements:
+  - "Add or adapt the minimal workflow/CLI path needed so physics-lab run can regenerate the RESULT-0023 metrics from committed inputs."
+  - "Keep the exact reference temperature, FIRAS rows, domain/Jacobian contract, controls, tolerances, and limitations unchanged."
+  - "Do not change RESULT-0023 metrics, claim/knowledge artifacts, or public wording beyond packaging/replayability."
+  - "Run the replay helper or provide a clear blocker if full Gate B still cannot run."
+  - "Preserve the self-consistency/no-independent-validation limitation and the temperature circularity caveat."
+
+accepted_outputs:
+  - "Minimal workflow/runner packaging plus tests, or a packaging-blocker note if workflow conversion is unsafe."
+  - "A review note under docs/reviews/ documenting whether RESULT-0023 is now Gate-B-replayable."
+  - "Output-routing summary with no claim/knowledge impact and no metric mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Packaging/replayability work for an existing RESULT; no new result should be created."
+  evidence:
+    - "results/EXP-0016/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_textbook_wien_firas_peak.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
