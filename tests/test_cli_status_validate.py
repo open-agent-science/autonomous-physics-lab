@@ -5,6 +5,7 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
+from physics_lab.registry.task_discovery import find_task_file
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +28,8 @@ def test_status_cli_reports_project_snapshot_fields() -> None:
 
 def test_validate_cli_accepts_valid_task_file() -> None:
     runner = CliRunner()
-    task_path = REPO_ROOT / "tasks" / "TASK-0857-add-cli-status-validate-tests.yaml"
+    task_path = find_task_file(REPO_ROOT, "TASK-0857")
+    assert task_path is not None
 
     result = runner.invoke(app, ["validate", str(task_path)])
 

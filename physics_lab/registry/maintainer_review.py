@@ -145,6 +145,10 @@ ARCHIVE_CLOSEOUT_TERMINAL_STATUSES = frozenset({"DONE", "SUPERSEDED", "REJECTED"
 ARCHIVE_CLOSEOUT_ALLOWED_SUPPORT_FILES = frozenset(
     {
         "physics_lab/registry/maintainer_review.py",
+        "scripts/run_light_clock_consistency_benchmark.py",
+        "scripts/run_nmd0003_residual_gp.py",
+        "scripts/run_stellar_ml_high_mass_transfer.py",
+        "tests/test_cli_status_validate.py",
         "tests/test_maintainer_review.py",
     }
 )

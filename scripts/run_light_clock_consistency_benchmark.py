@@ -14,10 +14,20 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from physics_lab.engines.light_clock import run_light_clock_benchmark  # noqa: E402
+from physics_lab.registry.task_discovery import find_task_file  # noqa: E402
 
 DEFAULT_OUTPUT = ROOT / "agent_runs" / "AGENT-RUN-0086"
+
+
+def _task_path(task_id: str) -> Path:
+    path = find_task_file(ROOT, task_id)
+    if path is None:
+        raise FileNotFoundError(f"No task file found for {task_id}")
+    return path
+
+
 INPUT_PATHS = {
-    "task": ROOT / "tasks" / "TASK-0847-implement-light-clock-consistency-benchmark.yaml",
+    "task": _task_path("TASK-0847"),
     "planning_note": ROOT / "docs" / "notes" / "light-clock-consistency-check.md",
     "hypothesis": ROOT / "hypotheses" / "HYP-0019-light-clock-consistency.yaml",
     "experiment": ROOT / "experiments" / "EXP-0019-light-clock-consistency.yaml",
