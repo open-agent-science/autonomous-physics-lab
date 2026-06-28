@@ -49,7 +49,7 @@ BENCHMARK_ID = "stellar-ml-high-mass-debcat-transfer"
 DEFAULT_OUT_DIR = REPO_ROOT / "agent_runs" / AGENT_RUN_ID
 PINNED_COMMAND = f"python3 scripts/run_stellar_ml_high_mass_transfer.py --out-dir agent_runs/{AGENT_RUN_ID}"
 
-RESULT_AGENT_RUN_ID = "AGENT-RUN-0085"
+RESULT_AGENT_RUN_ID = "AGENT-RUN-0088"
 RESULT_ID = "RESULT-0024"
 RESULT_RUN_ID = "RUN-0001"
 RESULT_EXP_ID = "EXP-0017"

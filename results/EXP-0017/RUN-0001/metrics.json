@@ -1,5 +1,5 @@
 {
-  "agent_run_id": "AGENT-RUN-0085",
+  "agent_run_id": "AGENT-RUN-0088",
   "benchmark_id": "stellar-ml-high-mass-debcat-transfer",
   "best_verdict": "VALID_IN_RANGE",
   "code_reference": "physics_lab/engines/stellar_ml_high_mass_transfer.py",
@@ -7,7 +7,7 @@
   "engine_version": "0.1.0",
   "experiment_id": "EXP-0017",
   "generated_at": "2026-06-27T00:00:00Z",
-  "git_commit": "5b27977907041eded2377dcbb96121d1eea39109",
+  "git_commit": "b0a26f037a55a9eef980c74f7ae73e54e69fbc4d",
   "hypothesis_id": "HYP-0017",
   "judge": "experimental DEBCat dynamical masses (direct_observation)",
   "publication_boundary": {
