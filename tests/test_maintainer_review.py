@@ -1825,6 +1825,136 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     assert report.blockers == ()
 
 
+def test_build_review_report_archive_closeout_pr_is_merge_ok(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "tasks" / "archive" / "0000-0499"
+    archive_dir.mkdir(parents=True)
+    archive_path = archive_dir / "TASK-0027-units.yaml"
+    archive_path.write_text(
+        "\n".join(
+            [
+                "id: TASK-0027",
+                'title: "Archived closeout task"',
+                "status: DONE",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/closeout-archive-terminal-tasks"
+    changed = ("tasks/archive/0000-0499/TASK-0027-units.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Archive terminal task files into buckets",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Archive Closeout Files: `tasks/archive/0000-0499/TASK-0027-units.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+    captured_validation_commands: list[str] = []
+
+    def fake_run_task_validation(
+        _root: Path, payload: dict, **_: object
+    ) -> ValidationSummary:
+        captured_validation_commands.extend(payload["validation"]["commands"])
+        return ValidationSummary(status="pass", failed_commands=())
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            side_effect=fake_run_task_validation,
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+    assert captured_validation_commands == [
+        "python3 scripts/apl_archive_sweep.py --dry-run",
+        "python3 -m pytest tests/test_archive_sweep.py tests/test_repository_archive_aware.py tests/test_task_discovery.py tests/test_repository_validation_scoping.py tests/test_docs_links.py",
+        "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+    ]
+
+
+def test_build_review_report_archive_closeout_requires_terminal_task(
+    tmp_path: Path,
+) -> None:
+    archive_dir = tmp_path / "tasks" / "archive" / "0000-0499"
+    archive_dir.mkdir(parents=True)
+    archive_path = archive_dir / "TASK-0027-units.yaml"
+    archive_path.write_text(
+        "\n".join(
+            [
+                "id: TASK-0027",
+                'title: "Archived closeout task"',
+                "status: READY",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/closeout-archive-terminal-tasks"
+    changed = ("tasks/archive/0000-0499/TASK-0027-units.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Archive terminal task files into buckets",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Archive Closeout Files: `tasks/archive/0000-0499/TASK-0027-units.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "NEEDS_CHANGES"
+    assert report.blockers == ()
+    assert report.required_fixes == (
+        "Archive closeout should only move terminal tasks; "
+        "tasks/archive/0000-0499/TASK-0027-units.yaml is READY.",
+    )
+
+
 def test_build_review_report_requires_agent_tool_to_match_branch_agent(
     tmp_path: Path,
 ) -> None:
