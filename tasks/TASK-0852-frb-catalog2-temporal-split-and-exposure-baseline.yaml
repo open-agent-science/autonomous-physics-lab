@@ -1,7 +1,7 @@
 id: TASK-0852
 title: "FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded)"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: medium

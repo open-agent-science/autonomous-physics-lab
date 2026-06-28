@@ -1,5 +1,5 @@
 default_mode: research
-updated: "2026-06-25"
+updated: "2026-06-28"
 
 curator_cycle:
   decision: updated
@@ -169,7 +169,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is negative sandbox memory, the post-freeze reveal-source route scout is closed, and the pipeline/frontier pieces are done. TASK-0823 landed the Duflo-Zuker published-variant stronger baseline; TASK-0844 keeps prediction-freeze interval work blocked on uncertainty calibration. The next executable Nuclear lane is the optional TASK-0853 canonical DZ parity-reference scout."
+    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is negative sandbox memory, the post-freeze reveal-source route scout is closed, and the pipeline/frontier pieces are done. TASK-0823 landed the Duflo-Zuker published-variant stronger baseline; TASK-0853 found an admissible metadata-only AMDC DZ10 parity route, and TASK-0844 keeps prediction-freeze interval work blocked on uncertainty calibration. The next executable Nuclear lane is TASK-0878 canonical DZ10 parity implementation, without source-byte vendoring unless rights approval permits it."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -259,14 +259,26 @@ missions:
         label: "Scout an admissible canonical Duflo-Zuker parity reference"
         task_id: TASK-0853
         mode: research
-        status: ready
+        status: done
         priority: low
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "accessibility and source-rights assessment for AMDC code or a published DZ numeric fixture"
           - "PARITY_REFERENCE_AVAILABLE / PARITY_REFERENCE_BLOCKED / NEEDS_MAINTAINER_DECISION verdict"
           - "no benchmark rerun, result mutation, claim promotion, or reopening of TASK-0823"
+      - id: nuclear-dz10-parity-implementation
+        label: "Implement a canonical DZ10 parity reference against the accepted metadata-only AMDC route"
+        task_id: TASK-0878
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: high
+        recommended: true
+        expected_outputs:
+          - "metadata-only DZ10 reference manifest or fetch/checksum path unless maintainer rights approval permits vendoring"
+          - "parity-tested implementation or wrapper against the AMDC DZ10 numeric fixture"
+          - "no TASK-0823 or RESULT-0025 mutation, no claim promotion, and no prediction freeze"
       - id: nuclear-calibrated-uncertainty-extrapolation
         label: "Build a calibrated-uncertainty residual model and test it by extrapolation"
         task_id: TASK-0824
