@@ -19,10 +19,10 @@ variant stronger baseline. Canonical AMDC parity is a separate future task.
 
 Inputs reviewed:
 
-- [../../tasks/TASK-0823-implement-duflo-zuker-stronger-nuclear-baseline.yaml](../../tasks/TASK-0823-implement-duflo-zuker-stronger-nuclear-baseline.yaml)
+- `TASK-0823`
 - [../../physics_lab/engines/nmd0003_duflo_zuker_baseline.py](../../physics_lab/engines/nmd0003_duflo_zuker_baseline.py)
 - [nmd0003-duflo-zuker-structured-baseline.md](nmd0003-duflo-zuker-structured-baseline.md)
-- [../../tasks/TASK-0853-canonical-dz-parity-reference-code-scout.yaml](../../tasks/TASK-0853-canonical-dz-parity-reference-code-scout.yaml)
+- `TASK-0853`
 
 ## 1. Accessibility Findings
 
