@@ -62,15 +62,18 @@ release-time scan proves no cleanup remains. This is a release blocker, not a
 routine validation command.
 
 Current status: `TASK-0879` re-verified `origin/main` at
-`a0ddb113aa5ac502a5396db14c9e5d7f89b9d075` (2026-06-28 audit cut, 55 commits after
-the prior scan) and again found no reachable `.pdf` blobs, no risky
-binary/document/archive additions, and no reachable default-branch history for
-the two arXiv PDF paths named by `TASK-0732`, re-confirming the earlier
-`TASK-0858` scan at `15a9675b097250be88e0cb3fa7a2e3acd59c8373`. Treat the old
-freeze-time rewrite blocker as closed for this default-branch cut. Re-run the
-scan during the final exact-SHA release signoff on the exact commit that is
-opened; reopen the history-cleanup gate if new risky paths appear. See
-[reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md](./reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md).
+`a0ddb113aa5ac502a5396db14c9e5d7f89b9d075` (2026-06-28 audit cut, 55 commits
+after the prior scan), then recorded the public opening at
+`8d91f7b2fe8a480326bcabbd3118960f493e549f`. The exact-SHA post-public checks
+again found no public path leaks, no source-artifact redistribution guard
+failures, and no risky payload introduced by the generated opening commit,
+re-confirming the earlier `TASK-0858` scan at
+`15a9675b097250be88e0cb3fa7a2e3acd59c8373`. Treat the old freeze-time rewrite
+blocker as closed for the v0.2 opening; reopen the history-cleanup gate if new
+risky paths appear. See
+[reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md](./reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md)
+and
+[reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md](./reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md).
 
 Minimum evidence:
 
@@ -111,12 +114,22 @@ the other release gates pass, then enable branch protection immediately after
 the public switch and before inviting external contributors or announcing the
 repository broadly.
 
+Current status: the repository is public and `main` branch protection is enabled.
+Required checks are `Python fast tests (3.12)` and `Classify change set`; the
+push-only `Python tests (main matrix)` job is intentionally not required because
+it is skipped on PRs. See
+[reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md](./reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md).
+
 ## Final Signoff
 
 Before opening the repository, add or refresh a dated signoff artifact under
 `docs/reviews/` against the exact default-branch commit that will be opened.
 The signoff should record local validation, default-branch CI, public path leak
 status, public wording review, and any remaining maintainer-only decisions.
+
+Current v0.2 opening status: recorded in
+[reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md](./reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md)
+for public-opening SHA `8d91f7b2fe8a480326bcabbd3118960f493e549f`.
 
 ## Release Artifacts to Review
 

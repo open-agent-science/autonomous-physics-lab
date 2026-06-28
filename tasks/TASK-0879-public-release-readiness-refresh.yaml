@@ -1,7 +1,7 @@
 id: TASK-0879
 title: "Refresh the dated public-release readiness signoff against the current default-branch cut and forward the gate-doc status notes"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
@@ -45,6 +45,7 @@ requirements:
 
 accepted_outputs:
   - "A new dated readiness-refresh signoff at docs/reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md (verdict READINESS_REFRESH_AT_AUDIT_CUT; FINAL_EXACT_SHA_SIGNOFF_STILL_REQUIRED), plus forward-updated Current status notes in docs/public-release-gates.md and docs/release-checklist.md that retain the TASK-0858 reference."
+  - "A post-public opening signoff at docs/reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md records the exact public-opening SHA, public visibility, main branch protection, exact-SHA local validation, and source-artifact/publication guard results."
   - "Output-routing summary: release-readiness documentation refresh; no scientific artifact; intra-repo doc links resolve and CI verifies."
 
 result_artifact_policy:
