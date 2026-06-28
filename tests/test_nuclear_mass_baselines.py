@@ -48,6 +48,16 @@ def _load_nmd0003_gp_runner_module():
     return module
 
 
+def _load_nmd0003_uncertainty_script():
+    script_path = ROOT / "scripts" / "analyze_nmd0003_gp_uncertainty_calibration.py"
+    spec = importlib.util.spec_from_file_location("analyze_nmd0003_gp_uncertainty", script_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
 def test_pairing_helpers_classify_even_odd_structure() -> None:
     assert pairing_sign(8, 8) == 1
     assert pairing_sign(7, 7) == -1
@@ -223,6 +233,41 @@ def test_nmd0003_gp_result_builder_keeps_publication_boundary() -> None:
     assert result["uncertainty_summary"]["within_combined_uncertainty"] is False
     assert packaged_metrics["publication_boundary"]["prediction_freeze_allowed"] is False
     assert packaged_metrics["publication_boundary"]["claim_promotion_allowed"] is False
+
+
+def test_nmd0003_uncertainty_adjudication_verdict_boundaries() -> None:
+    script = _load_nmd0003_uncertainty_script()
+    blocked = {
+        "none": {
+            "empirical_coverage_1sigma": 0.82,
+            "empirical_coverage_2sigma": 0.96,
+            "rms_standardized_residual": 2.8,
+            "scale": 1.0,
+        },
+        "loo_rms_scale": {
+            "empirical_coverage_1sigma": 0.85,
+            "empirical_coverage_2sigma": 0.97,
+            "rms_standardized_residual": 2.5,
+            "scale": 1.09,
+        },
+    }
+    ready = {
+        "none": {
+            "empirical_coverage_1sigma": 0.82,
+            "empirical_coverage_2sigma": 0.96,
+            "rms_standardized_residual": 2.8,
+            "scale": 1.0,
+        },
+        "train_only_scale": {
+            "empirical_coverage_1sigma": 0.69,
+            "empirical_coverage_2sigma": 0.95,
+            "rms_standardized_residual": 1.01,
+            "scale": 1.15,
+        },
+    }
+
+    assert script._adjudication_verdict(blocked) == "POINT_GAIN_ONLY_UNCERTAINTY_BLOCKED"
+    assert script._adjudication_verdict(ready) == "CALIBRATION_PATH_READY_FOR_FREEZE"
 
 
 def test_nuclear_mass_runner_writes_temp_artifacts(tmp_path: Path) -> None:

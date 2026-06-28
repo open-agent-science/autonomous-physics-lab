@@ -14,7 +14,7 @@
 
 manifest_version: "1"
 campaign_id: thermophysical-property-transfer-audit
-status: route_pinned_metadata_only_no_corpus
+status: route_pinned_local_fetch_verified_bounded_fixture
 created_by:
   contributor_id: gladunrv
   agent_id: claude
@@ -60,7 +60,13 @@ sources:
       (https://data.nist.gov/od/ds/mds2-2422/ThermoML.v2020-09-30.tgz.sha256);
       both agree. This is the source-of-truth published checksum, NOT an
       APL-computed-from-downloaded-bytes hash.
-    apl_computed_sha256: "PENDING_FIRST_FETCH"  # archive not downloaded by TASK-0841
+    apl_computed_sha256: "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2"
+    local_fetch_verification:
+      verified_by_task: TASK-0851
+      verification_result: match
+      bounded_fixture: data/thermophysical/thermoml_tb_audit_fixture.yaml
+      archive_committed: false
+      substantial_corpus_committed: false
     checksum_policy: doi_pinned_official_published_sha256
     blocker_type: T4_snapshot_approval
     access: open_download_metadata_only_by_default

@@ -1,7 +1,7 @@
 id: TASK-0851
 title: "Run the ThermoML Tb family-stratified transfer benchmark with the validated frozen Joback estimator"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: medium

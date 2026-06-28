@@ -1,7 +1,7 @@
 id: TASK-0850
 title: "Strengthen the InP-ZnSe confinement transfer with a literature effective-mass prefactor (no holdout fit)"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: medium
