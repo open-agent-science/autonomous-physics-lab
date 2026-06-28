@@ -15,30 +15,37 @@ holdouts.
 ## Orientation Note for New Contributors
 
 This campaign now has six direct Almeida 2023 InP measurement rows and a
-source-scoped sandbox baseline. It is **baseline-review-ready**, but not yet
+source-scoped sandbox baseline. Follow-up transfer work has not produced an
+admissible cross-material claim: the best ZnSe second-material route is
+license-gated, and a fixed effective-mass scaling transfer check failed against
+controls. The campaign is therefore **source/negative-memory gated**, not
 authorized for autonomous correction search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** is the first six-row InP baseline, including its
-one-point size holdout and controls, strong enough to authorize a narrowly
-bounded autonomous pilot?
+**Current question:** can the next second-material source route be made
+license-clear and direct enough to support row curation, or should the recent
+transfer failures be preserved as durable negative/control memory?
 
 **Shareable result:** `TASK-0293` admitted six deterministic figure-derived
 Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
 five-row train / one-row largest-size holdout benchmark. The fixed published
 Almeida relation produced holdout error `0.048395 eV`, versus `0.420200 eV`
 for the constant train-mean null and `0.375676 eV` for a deterministic
-shuffled-size control.
+shuffled-size control. Later source/transfer work found that the strongest
+direct ZnSe route needs a confirmed redistributable license, and that
+literature effective-mass scaling did not transfer cleanly between InP and
+ZnSe under the current surfaces.
 
 **Not a claim:** this is sandbox, source-scoped consistency evidence. The
 published relation and rows share the same InP source series, the holdout has
 one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
-**Active next work:** `TASK-0277` must review provenance, residuals, controls,
-outliers, and leakage risks before `TASK-0226` can be considered. No correction
-search is authorized by the baseline alone.
+**Active next work:** verify the ZnSe/Toufanian license route before any row
+task (`TASK-0870`) and route the effective-mass transfer failure as scoped
+negative memory (`TASK-0871`). No correction search is authorized by the
+baseline or by the failed transfer attempts.
 
 ## Historical Source-Readiness Trail
 
@@ -76,11 +83,11 @@ rows. After the maintainer supplied the needed Almeida figure surfaces, the
 row-curation and readiness path landed six direct InP rows, `TASK-0293` passed,
 and `TASK-0225` produced the first source-scoped sandbox baseline.
 
-**Expected next result (resolved -> review gate):** `TASK-0277` should review
-the `TASK-0225` baseline provenance, one-point holdout, controls, residuals,
-and leakage risks before any correction-hypothesis pilot is authorized. The
-calibration-consistency waiver (option b) and pause (option c) are no longer
-the active path.
+**Baseline review gate (historical):** `TASK-0277` reviewed the `TASK-0225`
+baseline provenance, one-point holdout, controls, residuals, and leakage risks
+and kept open-ended correction search blocked. The current post-review route is
+source/license verification for a second material (`TASK-0870`) and
+negative-memory routing for the failed effective-mass transfer (`TASK-0871`).
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -123,7 +130,9 @@ Current task posture:
   `docs/quantum-direct-measurement-digitization-protocol.md` for the
   WebPlotDigitizer-class workflow, per-point provenance fields, and the
   list of provenance modes that are never acceptable);
-- `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
+- `TASK-0226` — first autonomous sandbox-only hypothesis pilot (SUPERSEDED;
+  archived after later source-gated and negative-memory lanes replaced the
+  broad open-ended pilot route);
 - `TASK-0325` — direct-measurement digitisation/table-value package
   (DONE; Jasieniak 2011 band-edge path selected, but no committed SI/table
   extraction or deterministic digitisation artifact exists, so this pass
@@ -131,7 +140,7 @@ Current task posture:
 - `TASK-0326` — calibration-curve consistency waiver decision (DONE;
   recommends a separate weaker calibration-curve consistency benchmark only
   after maintainer approval, while keeping `TASK-0225` blocked for the
-  original measurement-versus-model benchmark).
+  original measurement-versus-model benchmark);
 - `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
   (DONE; metadata-only source-artifact package records the ACS Supporting
   Information locator and checksum/extraction plan, but no source table or
@@ -142,7 +151,8 @@ Current task posture:
   `docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md`;
   protocol only, no metrics);
 - `TASK-0336` — direct band-edge row curation from an approved source artifact
-  (BLOCKED until `TASK-0334` or an equivalent maintainer-provided artifact).
+  (SUPERSEDED; the Jasieniak path remains metadata-only blocked, while the
+  current second-material source decision is the ZnSe/Toufanian license route);
 - `TASK-0347` — open direct-table source triage (DONE; ranks
   Norris-Bawendi 1996 CdSe and Kang-Wise 1997 PbS as the best first attempts
   because they may expose table-derived direct rows through APS-access paths).
@@ -189,23 +199,35 @@ Current task posture:
 - `TASK-0755` — Almeida 2023 InP size-axis digitization and readiness gate
   (DONE; preserved the first missing-raster blocker and fed the later direct
   Almeida row-curation path).
+- `TASK-0829` — open-tabular transfer-source scout (DONE; identified the
+  ZnSe/Toufanian route as direct and tabular but license-limited, so row
+  curation is not yet authorized).
+- `TASK-0848` — Vossmeyer source memory (DONE; preserves another
+  source-limited direct-table route without authorizing rows).
+- `TASK-0850` — effective-mass scaled confinement transfer check (DONE; fixed
+  literature scaling worsened cross-material transfer on the current InP/ZnSe
+  surfaces and should be treated as negative/control memory, not rescued by
+  ad hoc tuning).
+- `TASK-0870` — verify the Quantum ZnSe direct-size source license route before
+  any row task (READY).
+- `TASK-0871` — route the Quantum effective-mass scaling transfer failure as
+  negative memory (READY).
 
 Safe next contributions are:
 
-- `TASK-0277` review of the first source-scoped baseline before any autonomous
-  pilot;
-- conservative residual visualization or tabular summaries only after the
-  baseline closeout is reflected in task state;
-- independent-source scouting for future material-transfer holdouts, without
-  treating the six-row Almeida baseline as cross-material evidence.
+- `TASK-0870` license/source verification for the ZnSe/Toufanian direct-size
+  route, with no row values or benchmark metrics until reuse terms are clear;
+- `TASK-0871` negative-memory routing for the effective-mass transfer failure;
+- conservative profile/page refresh where the latest source and transfer
+  blockers changed public wording.
 
 ### What not to implement yet
 
 - do not fetch live datasets, scrape publication tables, or store raw vendor
   spec sheets in the repository without source-manifest review;
 - do not treat `data/quantum_dots/source_manifest.yaml` as benchmark data;
-- do not run autonomous-pilot work before `TASK-0277` reviews and narrows the
-  baseline follow-up scope;
+- do not restart the archived autonomous-pilot route or archived Jasieniak row
+  task as current work;
 - do not run autonomous formula search across quantum-dot size data merely
   because `TASK-0225` produced a source-scoped baseline;
 - do not start a public-facing campaign result, claim, or article task before
@@ -282,6 +304,11 @@ Current evidence is source-scoped and sandbox-only:
   published Almeida relation held out the largest-size row with absolute error
   `0.048395 eV`, versus `0.420200 eV` for the train-mean null and
   `0.375676 eV` for the shuffled-size control.
+- `TASK-0829` found a promising direct ZnSe/Toufanian table route but left it
+  blocked on confirmed redistributable license terms.
+- `TASK-0850` found that fixed effective-mass scaling does not rescue the
+  current cross-material transfer path; treat that as negative/control memory
+  unless a later source-gated task changes the surface.
 
 Historical context:
 
@@ -292,10 +319,10 @@ Historical context:
 ## Open Questions
 
 - Is the six-row, one-holdout Almeida InP baseline sufficient for any bounded
-  autonomous follow-up, or should it remain review-only until an independent
+  follow-up, or should it remain review-only until a license-clear independent
   material/source holdout exists?
-- Which independent source could provide the next direct row-level material or
-  publication-source holdout?
+- Can the ZnSe/Toufanian route be confirmed under reuse terms compatible with
+  row curation, or should it remain source-limited memory?
 - Which visualization or tabular summary would help reviewers inspect the
   baseline without implying a design law?
 - How should absorption-versus-emission and bandgap semantics be separated in
@@ -326,8 +353,8 @@ Historical context:
 - `TASK-0298` triaged the direct-measurement source candidates (see
   `docs/reviews/quantum-direct-measurement-source-triage.md`) so row-level
   agents have an explicit first-attempt recommendation per direct-seed task;
-- `TASK-0225` produced the first source-scoped baseline; review it before
-  opening correction search;
+- `TASK-0225` produced the first source-scoped baseline; do not use it to open
+  correction search without a later source/transfer gate;
 - use `TASK-0326` to decide whether a weaker calibration-consistency benchmark
   is worth explicitly authorizing; TASK-0325 has preserved a Jasieniak 2011
   evidence blocker rather than producing measurement-grade rows;
@@ -343,15 +370,12 @@ Historical context:
 - use `TASK-0491` as historical context for the calibration-consistency
   alternative: that weaker sandbox-only path still requires explicit
   maintainer approval, declared labels, and frozen negative controls;
-- keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
-  the maintainer supplies equivalent table/digitisation evidence;
-- run `TASK-0364` against the ranked `TASK-0347` candidates before returning
-  to calibration-polynomial sources;
-- after `TASK-0225`, use `TASK-0277` to review readiness before the autonomous
-  pilot and `TASK-0276` for conservative residual visuals if the review needs
-  them;
-- run `TASK-0226` only after `TASK-0277` explicitly accepts or narrows the
-  pilot scope.
+- treat archived `TASK-0336` as historical Jasieniak context only; use
+  `TASK-0870` for the current ZnSe license/source decision before any row task;
+- treat `TASK-0364` as historical source-scout context; the current
+  second-material source decision is `TASK-0870`;
+- use `TASK-0871` to route the effective-mass transfer failure as durable
+  negative/control memory before opening another quantum transfer lane.
 
 Planning-only microtasks may be picked from
 `tasks/microtasks/quantum-size-effects.yaml`. They must not produce canonical

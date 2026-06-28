@@ -72,11 +72,11 @@ externally source-gated and should not be the default executor lane while
 other campaigns have cleaner source-readiness and ratification tasks. Exoplanet
 remains monitor-only until a materially changed pinned snapshot or approved
 `EXO-0003` trigger appears. Quantum has a source-scoped Almeida baseline, but
-`TASK-0277` kept open-ended autonomous correction search blocked; only
-`TASK-0810` transfer-source scouting and `TASK-0816` fixed-model methodology
-stress testing are open. Atomic remains blocked on admitted independent rows or
-an approved aggregation contract, with `TASK-0804` available only as
-public-safe negative-memory packaging.
+`TASK-0277` kept open-ended autonomous correction search blocked; the current
+useful Quantum work is the ZnSe/Toufanian source-license gate (`TASK-0870`) and
+effective-mass transfer negative-memory routing (`TASK-0871`). Atomic remains
+blocked on admitted independent rows or an approved aggregation contract, with
+`TASK-0804` available only as public-safe negative-memory packaging.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
@@ -86,8 +86,9 @@ controls-first lanes landed as negative, inconclusive, diagnostic-only,
 chain-local, or validation-regressing memory. The best Nuclear work now is
 value-blind reveal-source scouting and negative/control memory preservation.
 Quantum Size Effects remains transfer-gated after a source-scoped Almeida
-baseline: independent source/material scouting and fixed-model methodology
-stress testing are allowed, but open-ended correction search remains blocked.
+baseline: the next source/material route is license-gated, and the failed
+effective-mass transfer should be preserved as negative/control memory before
+another transfer lane is opened.
 Atomic-Clock Residuals should wait for admitted independent rows or an approved
 aggregation contract; the Pizzocaro PSD covariance artifact is useful
 diagnostic evidence, but its row-admissibility gate preserved the aggregation
@@ -109,7 +110,7 @@ turning watchlist topics into formula-search work.
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference and Stellar M-L surfaces; Wien/FIRAS is source-contract gated | `TASK-0815` temperature/domain contract before `TASK-0802`; `TASK-0819` transfer dataset scouting; no new metric until source contract clears |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory and source-gated prospective reveal | `TASK-0803` is in review; current executor work is `TASK-0821` value-blind reveal-source scouting, with reveal scoring still blocked |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and monitor source-version triggers before any new residual audit |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, but open-ended correction search remains blocked | `TASK-0810` transfer-source scout or `TASK-0816` fixed-model LOO stress test; neither unblocks `TASK-0226` |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, but open-ended correction search remains blocked and latest transfer work is source/negative-memory gated | `TASK-0870` ZnSe/Toufanian source-license verification and `TASK-0871` effective-mass transfer negative-memory routing; neither unblocks archived `TASK-0226` |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory and covariance policy | `TASK-0804` public-safe memory card only; wait for admitted independent rows or an approved aggregation/harmonization contract before metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
@@ -133,7 +134,7 @@ Near-term portfolio shape:
 | Source-readiness / transfer gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Use `TASK-0815` before any Wien metric and `TASK-0819` before any broader Stellar transfer claim. |
 | External-reveal gate | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes; `TASK-0821` may scout one source route value-blind. Preserve negative/inconclusive memory. |
 | Monitor / trigger-gated benchmark | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
-| Transfer/methodology gate | Quantum Size Effects | Scout independent transfer evidence or run fixed-model methodology stress only; keep `TASK-0226` blocked. |
+| Transfer/source gate and negative memory | Quantum Size Effects | Verify the ZnSe/Toufanian source-license route and route the effective-mass transfer failure; keep archived `TASK-0226` closed unless a later maintainer-approved pilot task exists. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Package source-limited Yb/Sr memory safely; do not use Pizzocaro as a benchmark row without harmonization. |
 | Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, or scheme/source preflights; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |

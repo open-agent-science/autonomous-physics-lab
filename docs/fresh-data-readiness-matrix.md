@@ -16,7 +16,7 @@ gates are defined in the [Fresh-Data Intake Protocol](fresh-data-intake-protocol
 | Campaign | Current maturity | Next allowed maturity | Next gate |
 | --- | --- | --- | --- |
 | [Nuclear Mass Surface](campaigns/nuclear-mass-surface.md) | `PREDICTION_FREEZE_READY` | `REVEAL_READY` only after source/no-peek approval; otherwise bounded `HYPOTHESIS_PILOT_READY` diagnostics. | `TASK-0305` remains blocked for reveal scoring; `TASK-0367` can stress high-error cluster diagnostics. |
-| [Quantum Size Effects](campaigns/quantum-size-effects.md) | `SOURCE_SURFACE` | `PINNED_DATASET` | `TASK-0364` should attempt one open direct-table source; `TASK-0293` and `TASK-0225` remain blocked until direct rows or an explicit waiver. |
+| [Quantum Size Effects](campaigns/quantum-size-effects.md) | `BASELINE_READY` for the source-scoped Almeida InP surface; transfer remains source-gated | Second-material `PINNED_DATASET` only after source/license approval, otherwise `NEGATIVE_MEMORY` for failed transfer routes | `TASK-0870` verifies the ZnSe/Toufanian source-license route; `TASK-0871` routes the failed effective-mass transfer check as negative/control memory. |
 | [Atomic-Clock Residuals](campaigns/atomic-clock-residuals.md) | `SOURCE_SURFACE` | `PINNED_DATASET` | `TASK-0371` may curate Beloy 2021 rows only if source artifact, covariance, and version-drift gates pass. |
 | [Exoplanet Mass-Radius](campaigns/exoplanet-mass-radius.md) | `FAILURE_MAP_READY` | `HYPOTHESIS_PILOT_READY` | Use the completed failure map and true-mass slice audit to scope a later narrow correction task; do not make habitability or planet-law claims. |
 
@@ -27,13 +27,13 @@ gates are defined in the [Fresh-Data Intake Protocol](fresh-data-intake-protocol
 | Source candidates | `READY` | `READY` | `READY` | `READY` |
 | Source artifact pinned | `PARTIAL` | `PARTIAL` | `PARTIAL` | `READY` |
 | Checksum policy | `PARTIAL` | `PARTIAL` | `PARTIAL` | `READY` |
-| Direct rows | `PARTIAL` | `BLOCKED` | `BLOCKED` | `READY` |
+| Direct rows | `PARTIAL` | `PARTIAL` | `BLOCKED` | `READY` |
 | Row schema | `READY` | `READY` | `PARTIAL` | `READY` |
 | Extraction ledger | `PARTIAL` | `PARTIAL` | `PARTIAL` | `READY` |
 | Covariance/correlation policy | `PARTIAL` | `NOT_APPLICABLE` | `PARTIAL` | `PARTIAL` |
 | Holdout/reveal boundary | `PARTIAL` | `PARTIAL` | `PARTIAL` | `READY` |
-| Baseline readiness | `READY` | `BLOCKED` | `BLOCKED` | `READY` |
-| Benchmark readiness | `READY` | `BLOCKED` | `BLOCKED` | `READY` |
+| Baseline readiness | `READY` | `PARTIAL` | `BLOCKED` | `READY` |
+| Benchmark readiness | `READY` | `PARTIAL` | `BLOCKED` | `READY` |
 
 ## Cell Notes And Unblock Tasks
 
@@ -57,15 +57,15 @@ gates are defined in the [Fresh-Data Intake Protocol](fresh-data-intake-protocol
 | Gate | Status | Evidence | Next unblock task |
 | --- | --- | --- | --- |
 | Source candidates | `READY` | `TASK-0347` ranks open direct-table candidates. | None. |
-| Source artifact pinned | `PARTIAL` | Source manifests and a Jasieniak metadata package exist, but no usable direct-row artifact is pinned. | `TASK-0364`; `TASK-0336` remains blocked until an approved artifact exists. |
-| Checksum policy | `PARTIAL` | Direct source-artifact intake and minimum source-manifest policy exist; target artifacts still need checksums or archive plans. | `TASK-0364`. |
-| Direct rows | `BLOCKED` | Existing `qd-*` seeds are calibration-derived; direct measurement rows are absent. | `TASK-0364`, then `TASK-0293` if direct rows land. |
+| Source artifact pinned | `PARTIAL` | Almeida InP is source-pinned and benchmarked as a source-scoped sandbox surface; Jasieniak remains metadata-only, and the best ZnSe/Toufanian second-material route is license-limited. | `TASK-0870` for ZnSe license/source verification; create a new row-curation task only after an admissible source artifact exists. |
+| Checksum policy | `PARTIAL` | Direct source-artifact intake and minimum source-manifest policy exist; the ZnSe/Toufanian route still needs license and checksum-policy review. | `TASK-0870`. |
+| Direct rows | `PARTIAL` | Six direct Almeida InP rows are admitted, but no license-clear independent second-material rows are admitted. | `TASK-0870` before any ZnSe row task. |
 | Row schema | `READY` | Quantum dot dataset schema and row-level validation exist. | None. |
-| Extraction ledger | `PARTIAL` | Digitisation and intake protocols exist; no deterministic extraction artifact exists for a direct source. | `TASK-0364` or later source-artifact task. |
+| Extraction ledger | `PARTIAL` | Digitisation and intake protocols exist; no deterministic extraction artifact exists for the current second-material route. | `TASK-0870` before any later row-curation task. |
 | Covariance/correlation policy | `NOT_APPLICABLE` | Current blocker is direct measurement/source provenance rather than covariance. | None at current stage. |
-| Holdout/reveal boundary | `PARTIAL` | Holdout protocol exists; direct-row benchmark gate remains blocked. | `TASK-0293` after direct rows or explicit waiver. |
-| Baseline readiness | `BLOCKED` | `TASK-0225` is blocked because calibration-derived rows are not measurement-versus-model evidence. | `TASK-0293` after `TASK-0364` or maintainer waiver. |
-| Benchmark readiness | `BLOCKED` | No admissible direct-row baseline surface exists. | `TASK-0225` only after readiness gate changes. |
+| Holdout/reveal boundary | `PARTIAL` | The Almeida baseline has a one-row largest-size holdout; independent-source holdout remains blocked. | `TASK-0870` before any second-material row or holdout task. |
+| Baseline readiness | `PARTIAL` | `TASK-0225` produced a source-scoped Almeida sandbox baseline, but it is single-source and not a cross-material benchmark. | Use `TASK-0870` and `TASK-0871`; do not open correction search from this baseline alone. |
+| Benchmark readiness | `PARTIAL` | A source-scoped sandbox baseline exists, while transfer/generalization remains source- and negative-memory gated. | `TASK-0870` and `TASK-0871`; no autonomous pilot unblock. |
 
 ### Atomic-Clock Residuals
 
@@ -99,7 +99,9 @@ gates are defined in the [Fresh-Data Intake Protocol](fresh-data-intake-protocol
 
 ## Cross-Campaign Queue Guidance
 
-- Prefer `TASK-0364` when Quantum needs direct rows or source blockers.
+- Prefer `TASK-0870` when Quantum needs a second-material source/license
+  decision; use `TASK-0871` when preserving the failed effective-mass transfer
+  path as negative/control memory.
 - Prefer `TASK-0371` when Atomic needs its first admissible real-row attempt.
 - Prefer `TASK-0367` when Nuclear needs diagnostic stress evidence, not reveal scoring.
 - For Exoplanet, do not start broad formula search from readiness alone; use

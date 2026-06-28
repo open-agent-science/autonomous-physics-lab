@@ -34,7 +34,7 @@ explicitly source- or trigger-gated.
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures plus AGENT_PUBLISHED Stellar M-L `RESULT-0022` on frozen DEBCat rows | Gate B replay, DEBCat scope cleanup, split/complexity audits, and source-only Wien/FIRAS curation before any new empirical metric slice |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; current residual-feature lanes are mostly negative, inconclusive, diagnostic-only, or validation-regressing, so the live path is reveal-readiness reporting and one bounded controls-first sprint rather than broad new fitting |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring and `EXO-0003` trigger discipline, not another residual pilot |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Almeida is license/source-pinned but row curation is blocked until the exact Figure 1b / SI Figure S2b raster or replayable WebPlotDigitizer export is supplied |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Six direct Almeida InP rows and a source-scoped sandbox baseline exist, but the next transfer route is source/license-gated on ZnSe/Toufanian and the failed effective-mass transfer check needs negative-memory routing |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy rows exist and Pizzocaro windows are diagnostic; benchmark metrics wait on admitted independent rows or an approved aggregation/harmonization contract |
 
 Older and mature tracks still define the quality floor:
@@ -125,10 +125,10 @@ Important operating rules:
 
 - Nuclear reveal scoring is blocked until a source-grade post-freeze data
   release exists.
-- Quantum Size Effects remains blocked for baseline benchmarking until direct
-  measurement rows or a maintainer-approved weaker calibration-consistency
-  scope exists; the narrow Almeida blocker is the exact raster/export needed
-  for replayable size-axis digitization.
+- Quantum Size Effects has a source-scoped Almeida InP sandbox baseline, but
+  open-ended correction search remains blocked. The live blockers are the
+  ZnSe/Toufanian source-license route and the need to preserve the failed
+  effective-mass transfer check as scoped negative/control memory.
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
   admitted independent rows or an approved aggregation/harmonization contract
   before any Yb/Sr consistency benchmark.

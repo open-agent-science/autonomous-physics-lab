@@ -476,21 +476,45 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked, and the independent transfer-source, fixed-model LOO methodology, and open-tabular direct-size source scouts are closed. The next Quantum executor task should be a maintainer-approved follow-up from those scouts; this still does not unblock TASK-0226 or permit discovery wording."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. The current Quantum executor path is source/license verification for the ZnSe/Toufanian route (TASK-0870) and negative-memory routing for the failed effective-mass transfer check (TASK-0871); neither unblocks archived TASK-0226 or permits discovery wording."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
-      - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
-      - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
-      - "TASK-0491 can decide whether a weaker calibration-consistency path is allowed without unblocking the direct-row benchmark"
+      - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
+      - "the campaign is visually explainable, but cross-material transfer still depends on source provenance and negative-control discipline"
       - "TASK-0225 produced a source-scoped Almeida InP sandbox baseline, but TASK-0277 judged the six-row single-source surface insufficient for open-ended correction search"
-      - "TASK-0810 and TASK-0816 closed the previous transfer-source and methodology stress-test lanes"
-      - "TASK-0829 closed the open-tabular direct-size transfer-source scout"
+      - "TASK-0829 found the best direct ZnSe route to be license-limited"
+      - "TASK-0850 found that fixed effective-mass scaling worsened transfer against controls"
     forbidden:
-      - "do not run autonomous formula search before a frozen baseline exists"
+      - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
-      - "do not treat the TASK-0816 methodology stress test as a discovery, transfer, or TASK-0226-unblocking result"
+      - "do not treat the TASK-0850 effective-mass transfer failure as a discovery, transfer success, or TASK-0226-unblocking result"
+      - "do not restart archived TASK-0226 or TASK-0336 as executor work"
       - "do not include synthesis recipes, chemical handling guidance, biomedical claims, or device claims"
     actions:
+      - id: quantum-znse-source-license-route
+        label: "Verify the ZnSe/Toufanian direct-size source-license route"
+        task_id: TASK-0870
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "READY / BLOCKED / NEEDS_MAINTAINER_SOURCE_DECISION verdict for the ZnSe route"
+          - "exact locator, license statement, source-byte policy, and checksum plan"
+          - "no qd rows, metrics, correction search, or TASK-0226 unblock"
+      - id: quantum-effective-mass-negative-memory
+        label: "Route the failed effective-mass transfer check as negative memory"
+        task_id: TASK-0871
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "routing/scorecard note for the failed InP/ZnSe effective-mass transfer"
+          - "do-not-repeat guidance for simple reduced-mass prefactor rescue on the current surfaces"
+          - "no fitted rescue term, new metric variant, RESULT, CLAIM, KNOW, or TASK-0226 unblock"
       - id: quantum-independent-transfer-source
         label: "Scout one independent Quantum source or material route for future transfer"
         task_id: TASK-0810
@@ -526,7 +550,7 @@ missions:
         expected_outputs:
           - "fixed-model or 0-1 parameter diagnostic only"
           - "explicit no-claim, no-transfer, no-discovery wording"
-          - "TASK-0226 remains blocked unless a later transfer gate clears"
+          - "historical context only; TASK-0870/TASK-0871 are the current Quantum follow-up route"
       - id: quantum-almeida-raster-export-readiness
         label: "Run Almeida raster/export row-readiness gate only after maintainer supplies the missing artifact"
         task_id: TASK-0797
@@ -559,15 +583,16 @@ missions:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
-        label: "Review TASK-0334 Jasieniak 2011 source-artifact package before unblocking row curation"
+        label: "Preserve TASK-0334 Jasieniak 2011 source-artifact package as historical blocker memory"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
           - "use docs/reviews/quantum-jasieniak-2011-source-artifact-package.md after merge"
-          - "keep TASK-0336, TASK-0293, and TASK-0225 blocked until a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
+          - "do not offer archived TASK-0336 as current work; create a new bounded row-curation task only if a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
       - id: quantum-calibration-consistency-scope
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335

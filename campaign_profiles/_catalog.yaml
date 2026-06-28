@@ -697,24 +697,24 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped
-    sandbox baseline; TASK-0277 kept TASK-0226 blocked for autonomous correction search and
-    allowed only a separate narrowed methodology stress-test path
+    sandbox baseline; follow-up transfer attempts now show source/license and material-specific
+    blockers rather than an admissible correction-search lane
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Keep TASK-0226 blocked until independent transfer evidence exists;
-      a narrowed LOO methodology stress test may run only as pipeline validation with no discovery
-      or transfer claim.
+    coordination_notes: Do not route agents to archived TASK-0226 or TASK-0336. Current work
+      is source/license verification for the ZnSe route and negative-memory routing for the
+      effective-mass transfer failure; no correction search or design-law claim.
   next_validity_gate:
-    type: transfer
-    blocker: The current baseline is single-source Almeida InP with one holdout; independent
-      material/source transfer evidence is absent.
-    target_artifact: TASK-0810
+    type: source_readiness
+    blocker: The current baseline is single-source Almeida InP; the ZnSe second-material route
+      is license-limited, and fixed effective-mass scaling did not transfer cleanly across
+      InP/ZnSe.
+    target_artifact: TASK-0870
   best_next_actions:
-  - task_id: TASK-0810
-    label: Scout one independent source/material route for a future transfer holdout without
-      running metrics
-  - task_id: TASK-0816
-    label: Run a fixed-model leave-one-out methodology stress test without unblocking TASK-0226
+  - task_id: TASK-0870
+    label: Verify the ZnSe direct-size source license route before any row task
+  - task_id: TASK-0871
+    label: Route the effective-mass scaled confinement transfer failure as negative memory
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -722,21 +722,21 @@ campaigns:
   allowed_work:
   - Planning-only notes that define scope, semantics, or limitations for future benchmark
     work.
-  - Conservative size-scaling baseline interpretation or follow-up proposals, only as TASK-0277
-    review inputs or later maintainer-authorized pilot scope.
+  - Conservative size-scaling baseline interpretation, source/license follow-up proposals,
+    or negative-memory routing only after the source-scoped Almeida baseline.
   - Negative-control candidate sketches that intentionally overfit one material or one size
     regime.
   - Holdout, source, or subset-definition proposals that do not claim benchmark improvements.
   - No canonical experiments yet.
-  - Planning notes for baseline review, conservative visualization, independent-source expansion,
-    and gated pilot work after TASK-0225.
+  - Planning notes for conservative visualization, independent-source expansion, source/license
+    review, negative-memory routing, and gated pilot work after explicit maintainer approval.
   forbidden_work:
   - APL has discovered a quantum-dot design law.
   - Baseline residuals imply a new condensed-matter theory.
   - The campaign supports material selection, fabrication, or biomedical applications.
   - Absorption, emission, and bandgap targets may be silently merged under one residual metric.
-  - Autonomous correction search may run before TASK-0277 accepts or narrows the baseline
-    for a pilot.
+  - Autonomous correction search may run before source/license and transfer/negative-memory
+    gates clear a bounded pilot.
   - Sandbox fit improvements are evidence of a broader physical conclusion.
   current_results:
   - data/quantum_dots/source_manifest.yaml
@@ -745,21 +745,25 @@ campaigns:
   - docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md
   - agent_runs/AGENT-RUN-0076/report.md
   - docs/results/quantum-size-effects-baseline-summary.md
+  - docs/reviews/quantum-open-tabular-transfer-source-scout.md
+  - docs/reviews/quantum-effective-mass-scaled-confinement-transfer.md
   open_questions:
-  - Which fixed-model diagnostics are useful as methodology stress tests without implying
-    transfer or discovery?
-  - Which independent material/source can provide a future material-transfer holdout?
+  - Can the ZnSe/Toufanian route be confirmed under a redistributable license, or should it
+    remain source-limited memory?
+  - Should the effective-mass transfer failure be routed as durable negative memory before
+    any new quantum source lane is opened?
   curator_review:
     status: current
-    last_reviewed: '2026-06-19'
+    last_reviewed: '2026-06-28'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
     source: TASK-0293 direct-row readiness pass, TASK-0225 source-scoped sandbox baseline,
-      TASK-0277 pilot-blocked verdict, and TASK-0810/TASK-0816 routing
-    notes: The direct-row blocker is resolved and a deterministic baseline exists, but TASK-0277
-      found it insufficient for open-ended correction search. Next gates are independent transfer-source
-      scouting and a separately scoped methodology stress test, not TASK-0226.
+      TASK-0277 pilot-blocked verdict, TASK-0829 ZnSe source scout, TASK-0848 Vossmeyer source
+      memory, TASK-0850 effective-mass transfer failure, and TASK-0870/TASK-0871 routing
+    notes: The direct-row blocker for Almeida InP is resolved and a deterministic sandbox
+      baseline exists, but transfer remains blocked by source licensing and negative transfer
+      evidence. Archived TASK-0226/TASK-0336 should not be offered as current work.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
