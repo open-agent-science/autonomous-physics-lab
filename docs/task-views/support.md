@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0873` - Repackage FIRAS/Wien RESULT-0023 through a physics-lab workflow for Gate B (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_domain_physics`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0873` - Repackage FIRAS/Wien RESULT-0023 through a physics-lab workflow for Gate B (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_domain_physics`)
