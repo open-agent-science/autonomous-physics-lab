@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0016-textbook-firas-wien-peak-consistency.yaml
+hypothesis_path: ../hypotheses/HYP-0016-textbook-firas-wien-peak-consistency.yaml
+task_id: TASK-0845
+run_id: RUN-0001
+result_id: RESULT-0023
+result_root: ../results/EXP-0016
+workflow: textbook_firas_wien_peak_consistency

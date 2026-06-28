@@ -7,7 +7,7 @@ task_id: TASK-0845
 generated_at: '2026-06-26T00:00:00Z'
 engine_version: '0.1.0'
 git_commit: 5ca72e2a363607bd73fd53d66b29c016e5cbb05a
-command: python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir agent_runs/AGENT-RUN-0079
+command: physics-lab run examples/textbook_firas_wien_peak_consistency.yaml
 input_file_hashes:
   config:
     path: results/EXP-0016/RUN-0001/inputs/config.yaml
@@ -32,9 +32,8 @@ limitations:
   (blackbody self-consistency), not an independent test of the constant.
 - Scope is the pinned 43-row COBE/FIRAS absolute monopole slice; the result inherits
   the FIRAS bin spacing (~0.45 cm^-1), which limits the raw-bin peak precision.
-- The provenance command is a standalone script, not yet a `physics-lab run` workflow,
-  so independent Gate B replay requires a follow-up engine-workflow repackaging (the
-  TASK-0786 / TASK-0799 pattern) before promotion to AGENT_VALIDATED.
+- RESULT-0023 is now packaged behind a safe `physics-lab run` command for independent
+  Gate B replay; this packaging does not promote the result to AGENT_VALIDATED.
 best_model_id: model_firas_wien_wavelength_peak
 best_verdict: VALID_IN_RANGE
 review_tier: AGENT_PUBLISHED
@@ -68,9 +67,9 @@ agent_proposal_evaluation:
   followup_for_maintainer: >
     Keep the trust qualifier explicit: agent-published, FIRAS spectral-domain
     self-consistency only, not independent validation of Wien displacement. The
-    reference temperature is FIRAS-derived (circularity). Gate B requires a follow-up
-    engine-workflow repackaging so `physics-lab run` regenerates the artifact, then an
-    independent agent runs the replay. No CLAIM/KNOW promotion is proposed.
+    reference temperature is FIRAS-derived (circularity). RESULT-0023 is now packaged
+    behind a safe physics-lab workflow command; a different agent should run Gate B
+    before any AGENT_VALIDATED transition. No CLAIM/KNOW promotion is proposed.
 verification:
   passed: true
   checks:

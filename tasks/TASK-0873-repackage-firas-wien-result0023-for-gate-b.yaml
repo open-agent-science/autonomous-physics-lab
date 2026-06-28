@@ -1,7 +1,7 @@
 id: TASK-0873
 title: "Repackage FIRAS/Wien RESULT-0023 through a physics-lab workflow for Gate B"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -56,4 +56,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

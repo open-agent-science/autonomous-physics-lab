@@ -37,6 +37,9 @@ from physics_lab.workflows.materials_md0002_formation_energy import (
 from physics_lab.workflows.stellar_ml_debcat_baseline import (
     run_stellar_ml_debcat_baseline_with_output,
 )
+from physics_lab.workflows.textbook_firas_wien_peak import (
+    run_textbook_firas_wien_peak_with_output,
+)
 
 
 def run_experiment(config_path: str | Path) -> ExperimentOutcome:
@@ -85,6 +88,10 @@ def run_experiment_with_output(
         return run_stellar_ml_debcat_baseline_with_output(
             config_path=config_path, output_dir=output_dir
         )
+    if workflow == "textbook_firas_wien_peak_consistency":
+        return run_textbook_firas_wien_peak_with_output(
+            config_path=config_path, output_dir=output_dir
+        )
     if workflow == "textbook_exact_reference":
         return run_textbook_exact_reference_with_output(
             config_path=config_path,
@@ -130,4 +137,5 @@ __all__ = [
     "run_g2_formula_experiment",
     "run_dimensional_validator_with_output",
     "run_textbook_exact_reference_with_output",
+    "run_textbook_firas_wien_peak_with_output",
 ]
