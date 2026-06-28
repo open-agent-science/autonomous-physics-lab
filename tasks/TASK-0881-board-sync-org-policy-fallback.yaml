@@ -14,7 +14,7 @@ input:
     - ".github/workflows/sync-active-board.yml"
     - "docs/task-views/release.md"
   planning_context: |
-    TASK-0880 proved that branch protection correctly blocks the old
+    TASK-0880 showed that branch protection correctly blocks the old
     github-actions direct push, but generated board-sync PRs create an extra
     lifecycle step for maintainers. The safer no-extra-PR architecture is a
     dedicated APL Board Sync GitHub App with narrow contents-write permission
