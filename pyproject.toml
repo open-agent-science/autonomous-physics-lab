@@ -27,6 +27,10 @@ dev = [
     "pytest-xdist>=3.6",
     "ruff>=0.6",
 ]
+thermoml = [
+    "rdkit==2025.9.3",
+    "thermo==0.6.0",
+]
 
 [project.scripts]
 physics-lab = "physics_lab.cli:app"
