@@ -1,0 +1,47 @@
+id: EXP-0019
+title: "TE-001 Light-Clock Consistency Benchmark"
+domain: relativity_thought_experiment
+status: COMPLETED
+
+hypothesis_id: HYP-0019
+
+method:
+  type: exact_reference_thought_experiment_validation
+  simulator: light_clock_consistency
+  comparator: lc001_through_lc005_and_newtonian_negative_control
+
+data:
+  dataset_path: ../docs/notes/light-clock-consistency-check.md
+  dataset_kind: committed_thought_experiment_specification
+  benchmark_scope: >
+    Idealized transverse inertial light clock under Special Relativity; fixed
+    beta sweep 0, 0.1, 0.5, 0.9, and 0.99, plus undefined-domain guards and one
+    deliberately wrong Newtonian candidate. No empirical observations.
+  expected_item_count: 5
+  sample_axes:
+    - beta
+    - lorentz_factor
+    - period_ratio
+    - diagonal_path_ratio
+    - observed_light_speed
+  notes: >
+    Implements TE-001 only. Simultaneity, twin paradox, elevator, acceleration,
+    gravity, and the remaining thought-experiment suite are outside scope.
+
+candidate_models:
+  - id: model_lorentz_light_clock
+    formula: "T_moving = T_rest / sqrt(1 - beta^2)"
+  - id: model_newtonian_no_dilation_control
+    formula: "T_moving = T_rest"
+
+comparison_targets:
+  - id: target_declared_consistency_checks_pass
+    label: "LC-001 through LC-005 pass on the valid frozen beta sweep"
+    reference_value: 1.0
+    unit: pass_fraction
+    notes: "All valid cases must pass within the predeclared per-check tolerances."
+  - id: target_newtonian_control_rejected
+    label: "Newtonian no-dilation control rejected by LC-001"
+    reference_value: 1.0
+    unit: rejection_fraction
+    notes: "The beta=0.5 Newtonian candidate must be INCONSISTENT and fail LC-001."

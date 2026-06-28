@@ -1,0 +1,373 @@
+{
+  "assumptions": [
+    "Inertial transverse light clock in flat spacetime.",
+    "Mirror separation is the proper transverse length and remains fixed.",
+    "Light propagates at the exact configured speed c in inertial frames.",
+    "Acceleration, gravity, diffraction, and finite mirror effects are excluded."
+  ],
+  "code_reference": "physics_lab/engines/light_clock.py",
+  "command": "python scripts/run_light_clock_consistency_benchmark.py --out-dir agent_runs/AGENT-RUN-0086",
+  "engine_version": "1.0.0",
+  "experiment_id": "EXP-0019",
+  "hypothesis_id": "HYP-0019",
+  "input_file_hashes": {
+    "engine": {
+      "path": "physics_lab/engines/light_clock.py",
+      "sha256": "f8428738da81d9cd8e4763ce66b7f51f1f761dba50957f0e914fc13b381dd638"
+    },
+    "experiment": {
+      "path": "experiments/EXP-0019-light-clock-consistency.yaml",
+      "sha256": "1572a5b034d71b6764144e97a4a826bc42442680a5edbbb848481fb2143bef15"
+    },
+    "hypothesis": {
+      "path": "hypotheses/HYP-0019-light-clock-consistency.yaml",
+      "sha256": "7b50bfa721c3c812b49283645f93a888247740ed66b0185ae9a9e3c70ebb07c1"
+    },
+    "planning_note": {
+      "path": "docs/notes/light-clock-consistency-check.md",
+      "sha256": "7f25a388453948d7ddfdf8ce4841bb3c6f279dd92fcf3565bc32475dc0b9478e"
+    },
+    "task": {
+      "path": "tasks/TASK-0847-implement-light-clock-consistency-benchmark.yaml",
+      "sha256": "a28bfcf88913c4d81295bd471204cf08b253352c4244dc45200632a1a464ee8b"
+    }
+  },
+  "limitations": [
+    "This validates APL's implementation of the named SR thought experiment, not SR empirically.",
+    "Only TE-001 and the declared beta sweep are in scope.",
+    "General Relativity, acceleration, longitudinal clocks, and other thought experiments are excluded.",
+    "No claim, knowledge, or discovery promotion is authorized."
+  ],
+  "low_velocity_check": {
+    "error": 0.0,
+    "expected": 1.0,
+    "id": "LC-004",
+    "observed": 1.0,
+    "status": "PASS",
+    "tolerance": 1e-09,
+    "tolerance_mode": "absolute"
+  },
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0086 plus review note",
+    "claim_impact": "none",
+    "gate_a_status": "not_attempted_sandbox_first",
+    "gate_b_status": "not_attempted",
+    "knowledge_impact": "none",
+    "review_tier": "none"
+  },
+  "reference_equations": {
+    "diagonal_path": "d/2 = sqrt(L^2 + (v T_moving / 2)^2)",
+    "lorentz_factor": "gamma = 1 / sqrt(1 - beta^2)",
+    "moving_period": "T_moving = gamma T_rest",
+    "rest_period": "T_rest = 2 L / c"
+  },
+  "run_id": "AGENT-RUN-0086",
+  "scenario": "TE-001-light-clock",
+  "summary": {
+    "check_max_errors": {
+      "LC-001": 0.0,
+      "LC-002": 1.93573998765325e-16,
+      "LC-003": 1.9881969404110434e-16
+    },
+    "consistent_case_count": 5,
+    "newtonian_lc001_status": "FAIL",
+    "undefined_case_count": 2,
+    "valid_case_count": 5
+  },
+  "task_id": "TASK-0847",
+  "tolerances": {
+    "LC-001_relative": 1e-09,
+    "LC-002_relative": 1e-09,
+    "LC-003_relative": 1e-12,
+    "LC-004_absolute": 1e-09
+  },
+  "undefined_beta_cases": [
+    {
+      "beta": 1.0,
+      "candidate": "lorentz",
+      "checks": [],
+      "reason": "Light-clock benchmark requires 0 <= v/c < 1.",
+      "verdict": "UNDEFINED"
+    },
+    {
+      "beta": 1.01,
+      "candidate": "lorentz",
+      "checks": [],
+      "reason": "Light-clock benchmark requires 0 <= v/c < 1.",
+      "verdict": "UNDEFINED"
+    }
+  ],
+  "valid_beta_sweep": [
+    {
+      "beta": 0.0,
+      "candidate": "lorentz",
+      "checks": [
+        {
+          "error": 0.0,
+          "expected": 1.0,
+          "id": "LC-001",
+          "observed": 1.0,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 1.0,
+          "id": "LC-002",
+          "observed": 1.0,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 299792458.0,
+          "id": "LC-003",
+          "observed": 299792458.0,
+          "status": "PASS",
+          "tolerance": 1e-12,
+          "tolerance_mode": "relative"
+        },
+        {
+          "expected": true,
+          "id": "LC-005",
+          "observed": true,
+          "status": "PASS"
+        }
+      ],
+      "diagonal_path_m": 2.0,
+      "gamma": 1.0,
+      "moving_period_s": 6.671281903963041e-09,
+      "observed_light_speed_m_s": 299792458.0,
+      "rest_period_s": 6.671281903963041e-09,
+      "verdict": "CONSISTENT"
+    },
+    {
+      "beta": 0.1,
+      "candidate": "lorentz",
+      "checks": [
+        {
+          "error": 0.0,
+          "expected": 1.005037815259212,
+          "id": "LC-001",
+          "observed": 1.005037815259212,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 1.005037815259212,
+          "id": "LC-002",
+          "observed": 1.005037815259212,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 299792458.0,
+          "id": "LC-003",
+          "observed": 299792458.0,
+          "status": "PASS",
+          "tolerance": 1e-12,
+          "tolerance_mode": "relative"
+        },
+        {
+          "expected": true,
+          "id": "LC-005",
+          "observed": true,
+          "status": "PASS"
+        }
+      ],
+      "diagonal_path_m": 2.010075630518424,
+      "gamma": 1.005037815259212,
+      "moving_period_s": 6.704890589737332e-09,
+      "observed_light_speed_m_s": 299792458.0,
+      "rest_period_s": 6.671281903963041e-09,
+      "verdict": "CONSISTENT"
+    },
+    {
+      "beta": 0.5,
+      "candidate": "lorentz",
+      "checks": [
+        {
+          "error": 0.0,
+          "expected": 1.1547005383792517,
+          "id": "LC-001",
+          "observed": 1.1547005383792517,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 1.1547005383792517,
+          "id": "LC-002",
+          "observed": 1.1547005383792517,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 299792458.0,
+          "id": "LC-003",
+          "observed": 299792458.0,
+          "status": "PASS",
+          "tolerance": 1e-12,
+          "tolerance_mode": "relative"
+        },
+        {
+          "expected": true,
+          "id": "LC-005",
+          "observed": true,
+          "status": "PASS"
+        }
+      ],
+      "diagonal_path_m": 2.3094010767585034,
+      "gamma": 1.1547005383792517,
+      "moving_period_s": 7.703332806185883e-09,
+      "observed_light_speed_m_s": 299792458.0,
+      "rest_period_s": 6.671281903963041e-09,
+      "verdict": "CONSISTENT"
+    },
+    {
+      "beta": 0.9,
+      "candidate": "lorentz",
+      "checks": [
+        {
+          "error": 0.0,
+          "expected": 2.294157338705618,
+          "id": "LC-001",
+          "observed": 2.294157338705618,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 1.93573998765325e-16,
+          "expected": 2.294157338705618,
+          "id": "LC-002",
+          "observed": 2.2941573387056176,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 1.9881969404110434e-16,
+          "expected": 299792458.0,
+          "id": "LC-003",
+          "observed": 299792457.99999994,
+          "status": "PASS",
+          "tolerance": 1e-12,
+          "tolerance_mode": "relative"
+        },
+        {
+          "expected": true,
+          "id": "LC-005",
+          "observed": true,
+          "status": "PASS"
+        }
+      ],
+      "diagonal_path_m": 4.588314677411235,
+      "gamma": 2.294157338705618,
+      "moving_period_s": 1.5304970338550798e-08,
+      "observed_light_speed_m_s": 299792457.99999994,
+      "rest_period_s": 6.671281903963041e-09,
+      "verdict": "CONSISTENT"
+    },
+    {
+      "beta": 0.99,
+      "candidate": "lorentz",
+      "checks": [
+        {
+          "error": 0.0,
+          "expected": 7.088812050083354,
+          "id": "LC-001",
+          "observed": 7.088812050083354,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 1.2529298469546551e-16,
+          "expected": 7.088812050083354,
+          "id": "LC-002",
+          "observed": 7.088812050083355,
+          "status": "PASS",
+          "tolerance": 1e-09,
+          "tolerance_mode": "relative"
+        },
+        {
+          "error": 0.0,
+          "expected": 299792458.0,
+          "id": "LC-003",
+          "observed": 299792458.0,
+          "status": "PASS",
+          "tolerance": 1e-12,
+          "tolerance_mode": "relative"
+        },
+        {
+          "expected": true,
+          "id": "LC-005",
+          "observed": true,
+          "status": "PASS"
+        }
+      ],
+      "diagonal_path_m": 14.17762410016671,
+      "gamma": 7.088812050083354,
+      "moving_period_s": 4.729146355031623e-08,
+      "observed_light_speed_m_s": 299792458.0,
+      "rest_period_s": 6.671281903963041e-09,
+      "verdict": "CONSISTENT"
+    }
+  ],
+  "verdict": "CONSISTENT",
+  "wrong_candidate_control": {
+    "beta": 0.5,
+    "candidate": "newtonian",
+    "checks": [
+      {
+        "error": 0.13397459621556146,
+        "expected": 1.1547005383792517,
+        "id": "LC-001",
+        "observed": 1.0,
+        "status": "FAIL",
+        "tolerance": 1e-09,
+        "tolerance_mode": "relative"
+      },
+      {
+        "error": 0.03175416344814586,
+        "expected": 1.1547005383792517,
+        "id": "LC-002",
+        "observed": 1.118033988749895,
+        "status": "FAIL",
+        "tolerance": 1e-09,
+        "tolerance_mode": "relative"
+      },
+      {
+        "error": 0.11803398874989503,
+        "expected": 299792458.0,
+        "id": "LC-003",
+        "observed": 335178157.6148754,
+        "status": "FAIL",
+        "tolerance": 1e-12,
+        "tolerance_mode": "relative"
+      },
+      {
+        "expected": true,
+        "id": "LC-005",
+        "observed": true,
+        "status": "PASS"
+      }
+    ],
+    "diagonal_path_m": 2.23606797749979,
+    "gamma": 1.1547005383792517,
+    "moving_period_s": 6.671281903963041e-09,
+    "observed_light_speed_m_s": 335178157.6148754,
+    "rest_period_s": 6.671281903963041e-09,
+    "verdict": "INCONSISTENT"
+  }
+}
