@@ -1,9 +1,9 @@
-id: EXP-0017
+id: EXP-0019
 title: "TE-001 Light-Clock Consistency Benchmark"
 domain: relativity_thought_experiment
 status: COMPLETED
 
-hypothesis_id: HYP-0017
+hypothesis_id: HYP-0019
 
 method:
   type: exact_reference_thought_experiment_validation

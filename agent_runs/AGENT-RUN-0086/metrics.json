@@ -8,20 +8,20 @@
   "code_reference": "physics_lab/engines/light_clock.py",
   "command": "python scripts/run_light_clock_consistency_benchmark.py --out-dir agent_runs/AGENT-RUN-0086",
   "engine_version": "1.0.0",
-  "experiment_id": "EXP-0017",
-  "hypothesis_id": "HYP-0017",
+  "experiment_id": "EXP-0019",
+  "hypothesis_id": "HYP-0019",
   "input_file_hashes": {
     "engine": {
       "path": "physics_lab/engines/light_clock.py",
       "sha256": "f8428738da81d9cd8e4763ce66b7f51f1f761dba50957f0e914fc13b381dd638"
     },
     "experiment": {
-      "path": "experiments/EXP-0017-light-clock-consistency.yaml",
-      "sha256": "69eb73a9febc22562a3ddf69b561e4ed10a45866122121f689737e08ec91e872"
+      "path": "experiments/EXP-0019-light-clock-consistency.yaml",
+      "sha256": "1572a5b034d71b6764144e97a4a826bc42442680a5edbbb848481fb2143bef15"
     },
     "hypothesis": {
-      "path": "hypotheses/HYP-0017-light-clock-consistency.yaml",
-      "sha256": "18a61dfa2677612608c300fac24093116df49c212d7baa24e4525c5b7d3637a6"
+      "path": "hypotheses/HYP-0019-light-clock-consistency.yaml",
+      "sha256": "7b50bfa721c3c812b49283645f93a888247740ed66b0185ae9a9e3c70ebb07c1"
     },
     "planning_note": {
       "path": "docs/notes/light-clock-consistency-check.md",
@@ -29,7 +29,7 @@
     },
     "task": {
       "path": "tasks/TASK-0847-implement-light-clock-consistency-benchmark.yaml",
-      "sha256": "8c5fa70c9846007df13d646de2f98ce5d012f1541fbb0dcfee4916d471cf8cfe"
+      "sha256": "a28bfcf88913c4d81295bd471204cf08b253352c4244dc45200632a1a464ee8b"
     }
   },
   "limitations": [

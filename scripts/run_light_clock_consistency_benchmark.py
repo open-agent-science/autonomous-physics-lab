@@ -6,17 +6,21 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import sys
 from typing import Any
 
-from physics_lab.engines.light_clock import run_light_clock_benchmark
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from physics_lab.engines.light_clock import run_light_clock_benchmark  # noqa: E402
+
 DEFAULT_OUTPUT = ROOT / "agent_runs" / "AGENT-RUN-0086"
 INPUT_PATHS = {
     "task": ROOT / "tasks" / "TASK-0847-implement-light-clock-consistency-benchmark.yaml",
     "planning_note": ROOT / "docs" / "notes" / "light-clock-consistency-check.md",
-    "hypothesis": ROOT / "hypotheses" / "HYP-0017-light-clock-consistency.yaml",
-    "experiment": ROOT / "experiments" / "EXP-0017-light-clock-consistency.yaml",
+    "hypothesis": ROOT / "hypotheses" / "HYP-0019-light-clock-consistency.yaml",
+    "experiment": ROOT / "experiments" / "EXP-0019-light-clock-consistency.yaml",
     "engine": ROOT / "physics_lab" / "engines" / "light_clock.py",
 }
 
@@ -30,8 +34,8 @@ def build_payload() -> dict[str, Any]:
     payload.update(
         {
             "task_id": "TASK-0847",
-            "hypothesis_id": "HYP-0017",
-            "experiment_id": "EXP-0017",
+            "hypothesis_id": "HYP-0019",
+            "experiment_id": "EXP-0019",
             "run_id": "AGENT-RUN-0086",
             "command": (
                 "python scripts/run_light_clock_consistency_benchmark.py "
@@ -77,7 +81,7 @@ def render_report(payload: dict[str, Any]) -> str:
             "# TE-001 Light-Clock Consistency Benchmark",
             "",
             "- Task: `TASK-0847`",
-            "- Experiment: `EXP-0017`",
+            "- Experiment: `EXP-0019`",
             "- Sandbox run: `AGENT-RUN-0086`",
             f"- Verdict: `{payload['verdict']}`",
             "",

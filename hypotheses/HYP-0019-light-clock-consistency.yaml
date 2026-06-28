@@ -1,4 +1,4 @@
-id: HYP-0017
+id: HYP-0019
 title: "APL can reproduce the transverse light-clock consistency relations and reject a Newtonian control"
 domain: relativity_thought_experiment
 status: FORMALIZED
@@ -45,7 +45,7 @@ variables:
 
 evidence:
   experiments:
-    - EXP-0017
+    - EXP-0019
 
 verdict: >
   Formalized software-consistency hypothesis only. A passing sandbox benchmark

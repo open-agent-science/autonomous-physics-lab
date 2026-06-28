@@ -38,7 +38,7 @@ requirements:
   - "Do NOT claim empirical validation of Special Relativity, General Relativity support, new physics, or theoretical discovery. This is an internal consistency validator for a named thought experiment."
 
 accepted_outputs:
-  - "Scoped canonical software-consistency identities at `hypotheses/HYP-0017-light-clock-consistency.yaml` and `experiments/EXP-0017-light-clock-consistency.yaml`; TE-001 only, with no empirical claim."
+  - "Scoped canonical software-consistency identities at `hypotheses/HYP-0019-light-clock-consistency.yaml` and `experiments/EXP-0019-light-clock-consistency.yaml`; TE-001 only, with no empirical claim."
   - "Executable light-clock consistency benchmark code and tests covering valid beta values, undefined beta values, and wrong-candidate failure."
   - "A benchmark run/report with per-check metrics and safe limitations."
   - "A RESULT candidate at AGENT_PUBLISHED only if Gate A passes; otherwise sandbox run + review note."

@@ -1,7 +1,7 @@
 # TE-001 Light-Clock Consistency Benchmark
 
 - Task: `TASK-0847`
-- Experiment: `EXP-0017`
+- Experiment: `EXP-0019`
 - Sandbox run: `AGENT-RUN-0086`
 - Verdict: `CONSISTENT`
 
