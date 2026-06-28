@@ -1,7 +1,7 @@
 id: TASK-0872
 title: "Draft an Atomic Pizzocaro aggregation and observable-harmonization contract"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -42,7 +42,7 @@ result_artifact_policy:
   required: false
   reason: "Source/aggregation contract draft only; no benchmark metrics or result artifact."
   evidence:
-    - "docs/reviews/atomic-ybsr-reopen-source-route-scout.md"
+    - "docs/reviews/atomic-pizzocaro-aggregation-observable-harmonization-contract.md"
 
 validation:
   commands:
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
