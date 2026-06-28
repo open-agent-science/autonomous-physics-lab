@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0852` - FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded) (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
 - `TASK-0869` - Package the ThermoML Tb family-stratified Joback transfer as a bounded Gate A result (`scientific_result_publication`, priority `high`, difficulty `high`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0852` - FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded) (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
