@@ -127,6 +127,37 @@ maintainer-approved Pizzocaro aggregation/observable-harmonization contract.
 - [Atomic Yb/Sr reopen source-route scout](../reviews/atomic-ybsr-reopen-source-route-scout.md)
 - [Atomic-Clock Residuals campaign page](./atomic-clock-residuals.md)
 
+### Anharmonic Oscillator Weak-Regime Evidence
+
+**Short version:** `CLAIM-0009` is maintainer-reviewed as
+`PARTIALLY_SUPPORTED` for the configured conservative one-dimensional quartic
+oscillator `V(x) = 1/2 k x^2 + lambda x^4` with `lambda >= 0`. The strongest
+evidence, `RESULT-0016`, passed an independent Gate B replay with all 36 tracked
+metrics reproduced and maximum absolute drift `0.0` at tolerance `1e-9`.
+
+**What the evidence supports:** on the predeclared weak-regime benchmark, the
+train-fitted empirical quadratic period correction reached holdout mean
+relative error `1.10e-3`, compared with `1.85e-2` for the leading perturbative
+baseline. This is bounded benchmark evidence, not an exact formula.
+
+**Limitation:** support is restricted to the configured potential, non-negative
+`lambda`, and the tested train/holdout range. The stress slice degrades from
+anharmonicity ratio `0.1014`; softening or double-well potentials, damping,
+driving, chaos, strong anharmonicity, broad-range validity, and a universal
+anharmonic formula are outside scope. `PARTIALLY_SUPPORTED` is the current
+ceiling, not `SUPPORTED`.
+
+**Strengthen condition:** stronger wording requires an external replay or a
+separate reviewed benchmark covering broader potentials or ranges. Neither
+condition is satisfied by the current repository evidence.
+
+**Evidence trail:**
+
+- [CLAIM-0009](../../claims/CLAIM-0009-anharmonic-oscillator-period.md)
+- [RESULT-0016 report](../../results/EXP-0011/RUN-0002/report.md)
+- [Gate C ratification packet](../reviews/claim-0009-anharmonic-gatec-ratification-packet.md)
+- [Anharmonic benchmark summary](../results/anharmonic-oscillator-summary.md)
+
 ### Textbook Formula Audit Scaffold
 
 **Short version:** APL is preparing a campaign to audit famous textbook
