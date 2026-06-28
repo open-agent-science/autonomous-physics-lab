@@ -169,7 +169,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is negative sandbox memory, the post-freeze reveal-source route scout is closed, and the pipeline/uncertainty/frontier pieces are done. The next executable Nuclear lane is TASK-0823 Duflo-Zuker stronger-baseline extrapolation; TASK-0827 remains blocked until TASK-0823 lands."
+    recommendation: "Flagship validation challenge. The bounded Wigner-cusp no-leakage sprint is negative sandbox memory, the post-freeze reveal-source route scout is closed, and the pipeline/frontier pieces are done. TASK-0823 landed the Duflo-Zuker published-variant stronger baseline; TASK-0844 keeps prediction-freeze interval work blocked on uncertainty calibration. The next executable Nuclear lane is the optional TASK-0853 canonical DZ parity-reference scout."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -192,7 +192,7 @@ missions:
       - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
       - "TASK-0777 rejected WIGNER-CUSP-001 under the declared controls-first no-leakage sprint, so it is now negative sandbox memory rather than a surviving lane"
       - "TASK-0821 completed the narrow value-blind source-route scout before any future post-freeze reveal comparison"
-      - "TASK-0824, TASK-0825, and TASK-0826 closed their parts of the significant-result wave; TASK-0823 remains READY before TASK-0827 can unblock"
+      - "TASK-0823, TASK-0824, TASK-0825, TASK-0826, TASK-0843, and TASK-0844 closed their parts of the significant-result wave; TASK-0827 remains blocked because the GP residual model is point-estimator evidence only until a defensible uncertainty-calibration route exists"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -247,14 +247,26 @@ missions:
         label: "Implement Duflo-Zuker as a stronger nuclear baseline and benchmark it by extrapolation"
         task_id: TASK-0823
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "stronger baseline benchmark judged by extrapolation, not in-sample fit"
           - "controls-first comparison against existing baselines"
           - "sandbox or result-routing summary without claim promotion"
+      - id: nuclear-dz-parity-reference-scout
+        label: "Scout an admissible canonical Duflo-Zuker parity reference"
+        task_id: TASK-0853
+        mode: research
+        status: ready
+        priority: low
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "accessibility and source-rights assessment for AMDC code or a published DZ numeric fixture"
+          - "PARITY_REFERENCE_AVAILABLE / PARITY_REFERENCE_BLOCKED / NEEDS_MAINTAINER_DECISION verdict"
+          - "no benchmark rerun, result mutation, claim promotion, or reopening of TASK-0823"
       - id: nuclear-calibrated-uncertainty-extrapolation
         label: "Build a calibrated-uncertainty residual model and test it by extrapolation"
         task_id: TASK-0824

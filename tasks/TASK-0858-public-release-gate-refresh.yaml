@@ -1,7 +1,7 @@
 id: TASK-0858
 title: "Refresh public-opening release gates after history cleanup and plan-limited branch protection"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high

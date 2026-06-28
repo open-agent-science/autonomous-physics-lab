@@ -1,7 +1,7 @@
 id: TASK-0849
 title: "Package the stellar M-L high-mass transfer as a Gate-A replayable RESULT (promotion preflight)"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

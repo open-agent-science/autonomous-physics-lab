@@ -1,7 +1,7 @@
 id: TASK-0843
 title: "Independently replay and route the NMD-0003 GP extrapolation signal"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
