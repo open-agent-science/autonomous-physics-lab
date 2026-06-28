@@ -1,0 +1,54 @@
+id: TASK-0880
+title: "Route Sync Active Board through PRs after public branch protection"
+type: infrastructure
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "After the repository became public, `main` branch protection correctly blocks direct pushes."
+  - "The existing Sync Active Board workflow still attempted a direct `[skip-board-sync]` commit to `main`, so generated task navigation failed after protected merges."
+  - "Keep `main` protected while preserving deterministic post-merge task navigation and safe auto-closeout."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - ".github/workflows/sync-active-board.yml"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    PR #1288 closed TASK-0879 after the repository became public and `main`
+    protection was enabled. The subsequent Sync Active Board run failed because
+    the workflow attempted to push directly to protected `main`. A PR-based
+    board-sync route avoids weakening branch protection while keeping generated
+    task navigation serialized.
+
+requirements:
+  - "Update Sync Active Board so generated navigation and safe auto-closeout diffs are pushed to a canonical generated closeout branch, not directly to `main`."
+  - "Have the workflow open or update a `TASK-CLOSEOUT` PR with filled repository-template metadata."
+  - "Include `[skip-board-sync]` in the generated PR title so the squash merge commit keeps the recursion guard."
+  - "Attempt auto-merge when available, but leave the generated PR open with a warning rather than failing if auto-merge is unavailable."
+  - "Update maintainer/protocol documentation that previously described a direct board-sync push."
+  - "Do not relax branch protection, required checks, or claim/result publication gates."
+
+accepted_outputs:
+  - "Sync Active Board no longer fails solely because protected `main` rejects direct pushes."
+  - "Generated board-sync changes flow through a PR under branch protection."
+  - "Documentation reflects the post-public protected-branch behavior."
+
+result_artifact_policy:
+  required: false
+  reason: "Workflow/protocol maintenance only; no scientific result, claim, prediction, or knowledge artifact is produced."
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_validate_repo_board_staleness_severity.py tests/test_validate_repo_auto_sync.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -688,11 +688,10 @@ Default behavior:
 The post-merge `Sync Active Board` GitHub Action also auto-closes the **safe**
 subset of merged tasks: it runs
 `python scripts/apl_closeout_sweep.py --auto-safe`, flips the safe subset
-`REVIEW_READY -> DONE`, and folds those flips into its direct
-`[skip-board-sync]` board-sync commit on `main`. The closeout content was
-already vetted by the pre-merge review agent plus green CI, so this only
-mechanizes the status flip; safety is a tested deterministic guard, not a
-watching period.
+`REVIEW_READY -> DONE`, and folds those flips into a generated
+`TASK-CLOSEOUT` board-sync PR. The closeout content was already vetted by the
+pre-merge review agent plus green CI, so this only mechanizes the status flip;
+safety is a tested deterministic guard, not a watching period.
 
 A task is **auto-safe** only when ALL hold:
 
