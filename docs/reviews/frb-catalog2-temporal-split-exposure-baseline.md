@@ -24,7 +24,7 @@ Inputs reviewed:
 - [frb-chime-access-reverify-readiness.md](frb-chime-access-reverify-readiness.md)
 - [../published-source-dataset-standard.md](../published-source-dataset-standard.md)
 - [../blind-holdout-benchmark-protocol.md](../blind-holdout-benchmark-protocol.md)
-- [../../tasks/TASK-0852-frb-catalog2-temporal-split-and-exposure-baseline.yaml](../../tasks/TASK-0852-frb-catalog2-temporal-split-and-exposure-baseline.yaml)
+- `TASK-0852`
 
 Committed outputs:
 
