@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import copy
+import json
 from pathlib import Path
+import subprocess
+import sys
 
 import pytest
+import yaml
 
 from physics_lab.engines.textbook_wien_firas_peak import (
     ADMISSIBLE_VERDICTS,
@@ -14,10 +18,12 @@ from physics_lab.engines.textbook_wien_firas_peak import (
     load_firas_rows,
     reference_wavelength_peak_m,
 )
+from physics_lab.registry.agent_replay_validation import ReplayIdentity, validate_agent_published_result
 
 
 ROOT = Path(__file__).resolve().parents[1]
 FIRAS_ROWS = ROOT / "data" / "textbook_formula_audit" / "wien_firas" / "firas_monopole_rows.yaml"
+EXAMPLE_PATH = ROOT / "examples" / "textbook_firas_wien_peak_consistency.yaml"
 
 
 @pytest.fixture(scope="module")
@@ -98,3 +104,55 @@ def test_run_is_deterministic(dataset: dict) -> None:
     first = evaluate_wien_firas_peak(dataset)
     second = evaluate_wien_firas_peak(dataset)
     assert first == second
+
+
+def test_cli_run_writes_gate_b_replayable_result0023(tmp_path: Path) -> None:
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "physics_lab.cli",
+            "run",
+            str(EXAMPLE_PATH),
+            "--output-dir",
+            str(tmp_path),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    result_path = tmp_path / "EXP-0016" / "RUN-0001" / "result.yaml"
+    metrics_path = tmp_path / "EXP-0016" / "RUN-0001" / "metrics.json"
+    payload = yaml.safe_load(result_path.read_text(encoding="utf-8"))
+    replay_metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    committed_metrics = json.loads(
+        (ROOT / "results" / "EXP-0016" / "RUN-0001" / "metrics.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert payload["command"] == "physics-lab run examples/textbook_firas_wien_peak_consistency.yaml"
+    assert payload["review_tier"] == "AGENT_PUBLISHED"
+    assert payload["best_verdict"] == "VALID_IN_RANGE"
+    assert payload["best_model_id"] == "model_firas_wien_wavelength_peak"
+    assert payload["agent_proposal_evaluation"]["published_by"]["agent_tool"] == "Claude Code"
+    assert replay_metrics["primary_metric"] == committed_metrics["primary_metric"]
+    assert replay_metrics["controls_all_passed"] == committed_metrics["controls_all_passed"]
+
+
+def test_gate_b_replay_helper_accepts_result0023_packaging(tmp_path: Path) -> None:
+    committed = ROOT / "results" / "EXP-0016" / "RUN-0001" / "result.yaml"
+    replay = validate_agent_published_result(
+        committed,
+        root=ROOT,
+        replayed_by=ReplayIdentity(
+            contributor_id="codex",
+            github_username="gladunrv",
+            agent_tool="Codex",
+            model_version="gpt-5-codex",
+        ),
+        output_dir=tmp_path / "replay",
+    )
+    assert replay.ok, [issue.message for issue in replay.issues]

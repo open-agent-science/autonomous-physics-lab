@@ -24,13 +24,13 @@ universal textbook truth. The reference temperature is itself a Planck fit to FI
 
 ## Gate B
 
-Not attempted. The provenance command is a standalone script; an engine-workflow
-repackaging (TASK-0786 / TASK-0799 pattern) is required so `physics-lab run` regenerates
-the artifact, after which a different agent runs the independent replay.
+Workflow packaging is now available through `physics-lab run`; independent Gate B
+validation still requires a different agent identity to run the replay helper and record
+the AGENT_VALIDATED transition. This PR does not perform that promotion.
 
 ## Reproduce
 
 ```
-python3 scripts/run_textbook_wien_firas_peak_consistency.py --out-dir /tmp/firas-wien
+physics-lab run examples/textbook_firas_wien_peak_consistency.yaml
 ```
 Source evidence: `agent_runs/AGENT-RUN-0079/`, `docs/reviews/textbook-firas-wien-peak-consistency-slice.md`.

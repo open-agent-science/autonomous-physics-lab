@@ -19,5 +19,5 @@
   "controls_all_passed": true,
   "reference_temperature_k": 2.72548,
   "circularity_caveat": "Reference T is FIRAS-derived; blackbody self-consistency, not independent validation.",
-  "gate_b": "not attempted; requires engine-workflow repackaging before independent replay"
+  "gate_b": "workflow-packaged; independent Gate B replay can now run via physics-lab run, but AGENT_VALIDATED promotion has not been applied"
 }
