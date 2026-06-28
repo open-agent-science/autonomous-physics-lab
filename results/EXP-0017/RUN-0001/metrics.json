@@ -1,0 +1,218 @@
+{
+  "agent_run_id": "AGENT-RUN-0088",
+  "benchmark_id": "stellar-ml-high-mass-debcat-transfer",
+  "best_verdict": "VALID_IN_RANGE",
+  "code_reference": "physics_lab/engines/stellar_ml_high_mass_transfer.py",
+  "command": "python3 scripts/run_stellar_ml_high_mass_transfer.py --skip-sandbox-output --result-out-dir results/EXP-0017/RUN-0001",
+  "engine_version": "0.1.0",
+  "experiment_id": "EXP-0017",
+  "generated_at": "2026-06-27T00:00:00Z",
+  "git_commit": "b0a26f037a55a9eef980c74f7ae73e54e69fbc4d",
+  "hypothesis_id": "HYP-0017",
+  "judge": "experimental DEBCat dynamical masses (direct_observation)",
+  "publication_boundary": {
+    "claim_promotion_allowed": false,
+    "edits_result_0022": false,
+    "knowledge_promotion_allowed": false,
+    "prediction_promotion_allowed": false,
+    "refit_on_high_mass_holdout": false,
+    "scope": "Gate-A packaging of one frozen DEBCat transfer benchmark. This is a single-relation, same-source high-mass regime result, not a universal law, discovery, stellar-structure conclusion, or CLAIM/KNOW promotion."
+  },
+  "result_id": "RESULT-0024",
+  "review_tier": "AGENT_PUBLISHED",
+  "run_id": "RUN-0001",
+  "source": "DEBCat Route 2 committed normalized rows (CC BY 4.0, Southworth grant, TASK-0763); direct dynamical masses; raw debs.dat not committed; no live fetch.",
+  "source_agent_run_id": "AGENT-RUN-0082",
+  "source_result_id": "RESULT-0022",
+  "source_task_id": "TASK-0837",
+  "task_id": "TASK-0849",
+  "transfer": {
+    "by_stage_high_mass_holdout_mae_dex": {
+      "evolved": 0.395773,
+      "main_sequence_compatible": 0.334564,
+      "subgiant": 0.643122,
+      "unknown": 0.519425
+    },
+    "frozen_predictor": {
+      "alpha_frozen": 4.526004,
+      "alpha_rederived_from_committed_main_sequence_train": 4.526004,
+      "fixed_intercept_log_l0": 0.0,
+      "formula": "log L = alpha * log M (fixed intercept log L0 = 0)",
+      "refit_on_holdout": false,
+      "source_model_id": "model_train_fitted_alpha",
+      "source_result_id": "RESULT-0022"
+    },
+    "luminosity_provenance_sensitivity_primary_holdout": {
+      "debcat_catalogue_reported_logL": {
+        "frozen_relation_holdout_mae_dex": 0.267489,
+        "holdout_count": 21
+      },
+      "stefan_boltzmann_from_debcat_logR_logT": {
+        "frozen_relation_holdout_mae_dex": 0.804088,
+        "holdout_count": 3
+      }
+    },
+    "predeclared_contract": {
+      "control_seeds": [
+        11,
+        23,
+        37,
+        53,
+        71
+      ],
+      "controls": [
+        "null_massband_median",
+        "mass_matched_massband_mean",
+        "shuffled_target_best"
+      ],
+      "frozen_before_holdout_read": true,
+      "high_mass_threshold_solar": 2.0,
+      "judge": "experimental DEBCat dynamical masses (direct_observation)",
+      "primary_lane_stage": "main_sequence_compatible",
+      "split_key": "system_id",
+      "survival_margin_basis": "RESULT-0022 across-seed split-noise reference (0.04 dex)",
+      "survival_margin_dex": 0.04,
+      "target_field": "log_luminosity_solar"
+    },
+    "primary_high_mass_main_sequence_holdout": {
+      "beats_all_shuffle_seeds": true,
+      "best_control_mae_dex": 0.483879,
+      "best_control_name": "mass_matched_massband_mean",
+      "clears_survival_margin": true,
+      "controls_holdout_mae_dex": {
+        "mass_matched_massband_mean": 0.483879,
+        "null_massband_median": 0.522176,
+        "shuffled_target_best": 1.2947
+      },
+      "frozen_minus_best_control_dex": 0.149315,
+      "frozen_relation_holdout_mae_dex": 0.334564,
+      "frozen_relation_holdout_max_relative_error": 6.241531,
+      "frozen_relation_holdout_mean_relative_error": 1.620626,
+      "frozen_relation_train_max_relative_error": 7.732478,
+      "frozen_relation_train_mean_relative_error": 2.078313,
+      "holdout_count": 24,
+      "holdout_systems": 15,
+      "shuffled_control_detail": {
+        "best_mae_dex": 1.2947,
+        "mean_mae_dex": 1.361891,
+        "per_seed_mae_dex": [
+          1.326067,
+          1.34103,
+          1.2947,
+          1.436365,
+          1.411294
+        ]
+      },
+      "survival_margin_dex": 0.04,
+      "train_count": 43
+    },
+    "regime_composition": {
+      "high_mass_all_stage": {
+        "by_lane": {
+          "holdout": 56,
+          "train": 110,
+          "validation": 51
+        },
+        "by_luminosity_source": {
+          "debcat_catalogue_reported_logL": 187,
+          "stefan_boltzmann_from_debcat_logR_logT": 30
+        },
+        "by_luminosity_uncertainty_class": {
+          "coarse": 42,
+          "precise": 10,
+          "standard": 163,
+          "unknown": 2
+        },
+        "by_mass_band": {
+          "high": 56,
+          "intermediate": 161
+        },
+        "by_mass_uncertainty_class": {
+          "precise": 206,
+          "standard": 11
+        },
+        "by_stage": {
+          "evolved": 73,
+          "main_sequence_compatible": 92,
+          "subgiant": 11,
+          "unknown": 41
+        },
+        "component_rows": 217,
+        "distinct_systems": 121,
+        "mass_provenance_classes": {
+          "direct_observation": 217
+        },
+        "mass_solar_max": 27.2709,
+        "mass_solar_min": 2.0049
+      },
+      "high_mass_primary_main_sequence": {
+        "by_lane": {
+          "holdout": 24,
+          "train": 43,
+          "validation": 25
+        },
+        "by_luminosity_source": {
+          "debcat_catalogue_reported_logL": 75,
+          "stefan_boltzmann_from_debcat_logR_logT": 17
+        },
+        "by_luminosity_uncertainty_class": {
+          "coarse": 28,
+          "precise": 2,
+          "standard": 62
+        },
+        "by_mass_band": {
+          "high": 26,
+          "intermediate": 66
+        },
+        "by_mass_uncertainty_class": {
+          "precise": 87,
+          "standard": 5
+        },
+        "by_stage": {
+          "main_sequence_compatible": 92
+        },
+        "component_rows": 92,
+        "distinct_systems": 56,
+        "mass_provenance_classes": {
+          "direct_observation": 92
+        },
+        "mass_solar_max": 19.62,
+        "mass_solar_min": 2.0049
+      }
+    },
+    "secondary_all_stage_high_mass_holdout": {
+      "beats_all_shuffle_seeds": true,
+      "best_control_mae_dex": 0.449571,
+      "best_control_name": "mass_matched_massband_mean",
+      "clears_survival_margin": true,
+      "controls_holdout_mae_dex": {
+        "mass_matched_massband_mean": 0.449571,
+        "null_massband_median": 0.457384,
+        "shuffled_target_best": 1.324403
+      },
+      "frozen_minus_best_control_dex": 0.040282,
+      "frozen_relation_holdout_mae_dex": 0.409289,
+      "frozen_relation_holdout_max_relative_error": 12.600505,
+      "frozen_relation_holdout_mean_relative_error": 2.191116,
+      "frozen_relation_train_max_relative_error": 24.762259,
+      "frozen_relation_train_mean_relative_error": 2.093301,
+      "holdout_count": 56,
+      "holdout_systems": 32,
+      "shuffled_control_detail": {
+        "best_mae_dex": 1.324403,
+        "mean_mae_dex": 1.447433,
+        "per_seed_mae_dex": [
+          1.324403,
+          1.601804,
+          1.36776,
+          1.362703,
+          1.580494
+        ]
+      },
+      "survival_margin_dex": 0.04,
+      "train_count": 110
+    },
+    "transfers_to_high_mass": true,
+    "verdict": "TRANSFERS_TO_HIGH_MASS_UNDER_CONTROLS"
+  }
+}

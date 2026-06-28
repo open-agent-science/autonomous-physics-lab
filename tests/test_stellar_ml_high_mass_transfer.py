@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 import pytest
+import yaml
 
 from physics_lab.engines import stellar_ml_high_mass_transfer as eng
 from physics_lab.engines.stellar_ml_high_mass_transfer import (
@@ -131,6 +132,56 @@ def test_runner_emits_sandbox_agent_run(tmp_path: Path) -> None:
     assert metrics["promotion_boundary"]["writes_canonical_result"] is False
     assert metrics["promotion_boundary"]["claim_promotion_allowed"] is False
     assert metrics["verdict"] == "TRANSFERS_TO_HIGH_MASS_UNDER_CONTROLS"
+
+
+def test_runner_emits_gate_a_result_package(tmp_path: Path) -> None:
+    out_dir = tmp_path / "AGENT-RUN-0085"
+    result_dir = tmp_path / "RESULT-0024"
+    subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "--skip-sandbox-output",
+            "--out-dir",
+            str(out_dir),
+            "--result-out-dir",
+            str(result_dir),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    result = yaml.safe_load((result_dir / "result.yaml").read_text(encoding="utf-8"))
+    metrics = json.loads((result_dir / "metrics.json").read_text(encoding="utf-8"))
+
+    assert result["result_id"] == "RESULT-0024"
+    assert result["task_id"] == "TASK-0849"
+    assert result["experiment_id"] == "EXP-0017"
+    assert result["hypothesis_id"] == "HYP-0017"
+    assert result["review_tier"] == "AGENT_PUBLISHED"
+    assert result["best_verdict"] == "VALID_IN_RANGE"
+    assert result["verification"]["passed"] is True
+    assert result["verification"]["checks"][0]["status"] == "PASS"
+    assert result["agent_proposal_evaluation"]["gates_checked"]["no_protected_artifact_rewrite"] is True
+    assert result["comparison_summary"][0]["absolute_difference"] == 0.149315
+    assert metrics["publication_boundary"]["refit_on_high_mass_holdout"] is False
+    assert metrics["publication_boundary"]["claim_promotion_allowed"] is False
+
+    for name in (
+        "report.md",
+        "metrics.json",
+        "gate_a_report.md",
+        "claim_update.md",
+        "claim_update.patch.md",
+        "knowledge_update.md",
+        "knowledge_update.patch.md",
+        "review_summary.md",
+        "review_metadata.yaml",
+    ):
+        assert (result_dir / name).exists()
+    for entry in result["input_file_hashes"].values():
+        assert "path" in entry and len(entry["sha256"]) == 64
 
 
 def test_runner_is_deterministic(tmp_path: Path) -> None:

@@ -1,0 +1,16 @@
+result_id: RESULT-0024
+run_id: RUN-0001
+experiment_id: EXP-0017
+hypothesis_id: HYP-0017
+task_id: TASK-0849
+source_result_id: RESULT-0022
+source_task_id: TASK-0837
+source_agent_run_id: AGENT-RUN-0082
+agent_run_id: AGENT-RUN-0088
+command: python3 scripts/run_stellar_ml_high_mass_transfer.py --skip-sandbox-output
+  --result-out-dir results/EXP-0017/RUN-0001
+code_reference: physics_lab/engines/stellar_ml_high_mass_transfer.py
+frozen_predictor: log_luminosity_solar = 4.526004 * log_mass_solar
+no_refit_on_high_mass_holdout: true
+review_tier_proposed: AGENT_PUBLISHED
+
