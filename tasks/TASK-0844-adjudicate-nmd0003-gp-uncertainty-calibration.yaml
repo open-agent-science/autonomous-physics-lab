@@ -1,7 +1,7 @@
 id: TASK-0844
 title: "Adjudicate NMD-0003 GP uncertainty calibration without holdout tuning"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -40,7 +40,9 @@ requirements:
 
 accepted_outputs:
   - "`docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md` with diagnostics, train-only calibration rationale or blocker, verdict, and implications for TASK-0827."
-  - "Optional small deterministic diagnostic script or test only if needed to make the calibration decision reproducible."
+  - "`docs/reviews/nmd0003-gp-uncertainty-calibration-diagnostics.json` with deterministic machine-readable diagnostics."
+  - "`scripts/analyze_nmd0003_gp_uncertainty_calibration.py` as the deterministic diagnostic script."
+  - "Optional small test only if needed to make the calibration decision reproducible."
   - "Output-routing summary: no RESULT/PRED/CLAIM creation, calibration verdict, prediction-freeze impact, and no-claim wording."
 
 result_artifact_policy:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 from pathlib import Path
 
 import pytest
@@ -31,6 +32,19 @@ from physics_lab.registry.task_discovery import find_task_file
 from physics_lab.registry.results import load_result
 from physics_lab.workflows.nuclear_mass_baseline import run_nuclear_mass_baseline_experiment_with_output
 from physics_lab.workflows.runner import run_experiment_with_output
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _load_nmd0003_uncertainty_script():
+    script_path = ROOT / "scripts" / "analyze_nmd0003_gp_uncertainty_calibration.py"
+    spec = importlib.util.spec_from_file_location("analyze_nmd0003_gp_uncertainty", script_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_pairing_helpers_classify_even_odd_structure() -> None:
@@ -180,6 +194,41 @@ def test_nuclear_mass_registry_files_validate() -> None:
     load_task(find_task_file(".", "TASK-0168"))
     load_claim("claims/CLAIM-0010-nuclear-mass-baseline.md")
     load_knowledge("knowledge/nuclear_physics/nuclear_mass_baseline.md")
+
+
+def test_nmd0003_uncertainty_adjudication_verdict_boundaries() -> None:
+    script = _load_nmd0003_uncertainty_script()
+    blocked = {
+        "none": {
+            "empirical_coverage_1sigma": 0.82,
+            "empirical_coverage_2sigma": 0.96,
+            "rms_standardized_residual": 2.8,
+            "scale": 1.0,
+        },
+        "loo_rms_scale": {
+            "empirical_coverage_1sigma": 0.85,
+            "empirical_coverage_2sigma": 0.97,
+            "rms_standardized_residual": 2.5,
+            "scale": 1.09,
+        },
+    }
+    ready = {
+        "none": {
+            "empirical_coverage_1sigma": 0.82,
+            "empirical_coverage_2sigma": 0.96,
+            "rms_standardized_residual": 2.8,
+            "scale": 1.0,
+        },
+        "train_only_scale": {
+            "empirical_coverage_1sigma": 0.69,
+            "empirical_coverage_2sigma": 0.95,
+            "rms_standardized_residual": 1.01,
+            "scale": 1.15,
+        },
+    }
+
+    assert script._adjudication_verdict(blocked) == "POINT_GAIN_ONLY_UNCERTAINTY_BLOCKED"
+    assert script._adjudication_verdict(ready) == "CALIBRATION_PATH_READY_FOR_FREEZE"
 
 
 def test_nuclear_mass_runner_writes_temp_artifacts(tmp_path: Path) -> None:
