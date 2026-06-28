@@ -1,7 +1,7 @@
 # Quantum effective-mass-scaled confinement transfer
 
-Task: `TASK-0850`  
-Sandbox run: `AGENT-RUN-0085`  
+Task: `TASK-0850`
+Sandbox run: `AGENT-RUN-0085`
 Verdict: `MATERIAL_SPECIFIC_AFTER_EFFECTIVE_MASS_SCALING`
 
 ## Question
