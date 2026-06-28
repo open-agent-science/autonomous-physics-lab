@@ -1,5 +1,5 @@
 id: TASK-0862
-title: "Legacy claim novelty audit and calibration-claim migration (propose, do not auto-change statuses)"
+title: "Legacy claim novelty audit and calibration-role migration proposal"
 type: docs_protocol
 status: READY
 closeout: review
@@ -9,6 +9,7 @@ priority: medium
 strategy_alignment:
   - "Apply the now-live novelty gate (TASK-0861) retrospectively as a DELIBERATE migration, not a reactive downgrade: classify every legacy CLAIM-* and propose a disposition for promoted calibration claims."
   - "Two promoted maintainer-reviewed claims are calibration / known-physics, not novelty: CLAIM-0001 (amplitude-dependent pendulum period) and CLAIM-0009 (anharmonic oscillator period). They are honestly scoped but mis-typed -- platform calibration / benchmark memory rather than active scientific claims."
+  - "Separate evidence support/review state from novelty and artifact role: a claim can remain historically PARTIALLY_SUPPORTED and MAINTAINER_REVIEWED while being proposed as calibration memory rather than an active novelty claim."
   - "Do not damage the audit trail: maintainer-reviewed status must not be silently reverted, and historical review notes must not be rewritten."
 
 input:
@@ -26,22 +27,26 @@ input:
     one-off audit found that the only two PROMOTED claims (PARTIALLY_SUPPORTED @
     MAINTAINER_REVIEWED) -- CLAIM-0001 and CLAIM-0009 -- are calibration /
     known-physics. They are not scientifically wrong (honestly scoped, good
-    caveats); the issue is artifact type. The fix is a deliberate migration, NOT a
-    reactive PARTIALLY_SUPPORTED -> DRAFT downgrade (DRAFT means unresolved /
-    unreviewed, which mis-states their reviewed status). This task classifies all
-    claims and PROPOSES a migration; it changes no statuses on its own.
+    caveats); the issue is artifact role and public interpretation. The fix is a
+    deliberate role/classification migration, NOT a reactive PARTIALLY_SUPPORTED ->
+    DRAFT downgrade (DRAFT means unresolved / unreviewed, which mis-states their
+    reviewed status). This task classifies all claims and PROPOSES a migration; it
+    changes no statuses on its own.
 
 requirements:
-  - "Classify every CLAIM-*.md by novelty class (frontier_novel | reusable_dataset | valuable_negative | calibration_known_physics) in a review note; record the evidence basis per claim."
-  - "Design an explicit disposition for promoted legacy calibration claims that is NOT DRAFT and NOT a forced SUPERSEDED: propose adding a status/tag to docs/claim-promotion-policy.md (for example RETIRED_TO_CALIBRATION) meaning 'valid platform-calibration / benchmark memory, no longer an active scientific claim', preserving the referenced RESULT-* and dataset links. Propose the vocabulary; do not adopt it without maintainer approval."
-  - "PROPOSE the migration of CLAIM-0001 and CLAIM-0009 to that disposition; do NOT apply any status change (these are MAINTAINER_REVIEWED; the maintainer decides each)."
+  - "Classify every CLAIM-*.md by novelty class (frontier_novel | reusable_dataset | valuable_negative | calibration_known_physics) and by artifact role in a review note; record the evidence basis per claim."
+  - "Do NOT make RETIRED_TO_CALIBRATION (or any similar retirement phrase) the primary status recommendation. Prefer a separate role/classification model that keeps support/review status distinct from novelty and public role, for example: support_status, review_tier, novelty_class, claim_role, active_scientific_claim."
+  - "Design an explicit disposition for promoted legacy calibration claims that is NOT DRAFT and NOT a forced SUPERSEDED: propose a calibration-memory role/disposition meaning 'valid platform-calibration / benchmark memory, no longer an active scientific claim', preserving the referenced RESULT-* and dataset links. Propose the vocabulary; do not adopt it without maintainer approval."
+  - "If the existing novelty-class vocabulary is insufficient, propose additional classes/tags such as methodology_quality_floor or scope_unclear_high_risk, but keep them as policy proposals unless explicitly adopted by the maintainer."
+  - "PROPOSE the migration of CLAIM-0001 and CLAIM-0009 to that role/disposition; do NOT apply any status change (these are MAINTAINER_REVIEWED; the maintainer decides each)."
   - "Do NOT rewrite historical review notes; record the migration as a new forward disposition with a dated rationale, not a retroactive edit."
-  - "CLAIM-0008 (muon g-2 stress test): keep DRAFT; do NOT promote; flag it for a careful separate scope/overclaim review -- it is the highest overclaim-risk surface."
+  - "CLAIM-0008 (muon g-2 stress test): keep DRAFT; do NOT promote; flag it for a careful separate scope/overclaim review and, if useful, a scope_unclear_high_risk classification proposal -- it is the highest overclaim-risk surface."
   - "CLAIM-0006 / CLAIM-0007 (Koide cross-family failures): note as valuable_negative candidates; keep DRAFT; any promotion is a separate maintainer Gate C, out of scope here."
   - "Do NOT change any claim status, promote any claim, or edit RESULT-* artifacts in this task. Output is a classification + migration proposal only."
 
 accepted_outputs:
-  - "A claim-ledger novelty-audit + migration-proposal note under docs/reviews/ with: a per-claim novelty classification table; the proposed RETIRED_TO_CALIBRATION (or equivalent) disposition + policy-vocabulary proposal; the proposed (not applied) migration of CLAIM-0001 and CLAIM-0009; the CLAIM-0008 g-2 scope flag; and the CLAIM-0006/0007 valuable_negative note."
+  - "A claim-ledger novelty-audit + migration-proposal note under docs/reviews/ with: a per-claim table covering current status, review tier, novelty class, artifact role, active_scientific_claim recommendation, evidence basis, and next action."
+  - "A policy-vocabulary proposal that separates support_status/review_tier from novelty_class/claim_role, including the proposed calibration_memory (or equivalent) role/disposition; the proposed (not applied) migration of CLAIM-0001 and CLAIM-0009; the CLAIM-0008 g-2 scope flag; and the CLAIM-0006/0007 valuable_negative note."
   - "Output-routing summary: cross-campaign ledger hygiene proposal; no claim status changed, no RESULT/PRED/KNOW change, no history rewrite; all migrations remain maintainer decisions."
 
 result_artifact_policy:
