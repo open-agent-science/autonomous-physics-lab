@@ -30,7 +30,7 @@ from physics_lab.registry.review_worktree_gc import (
 from physics_lab.registry.repo_python import resolve_validation_python
 from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.pr_capability import find_gh_path
-from physics_lab.registry.task_discovery import find_task_files
+from physics_lab.registry.task_discovery import find_task_files, task_id_from_path
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
     load_claim_status_from_ref,  # noqa: F401 — re-exported; tests import from here
@@ -75,7 +75,7 @@ from physics_lab.registry.review_policy import (
     validate_pr_title,
 )
 from physics_lab.registry.task_proposals import load_task_proposal
-from physics_lab.registry.tasks import load_task
+from physics_lab.registry.tasks import load_task, load_task_minimal
 from physics_lab.registry.task_closeout import (
     PUBLIC_STATE_CLOSEOUT_DOCS,
     render_public_state_doc_checklist,
@@ -113,6 +113,11 @@ PROPOSAL_DRIFT_CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 scripts/apl_proposal_triage.py",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
+ARCHIVE_CLOSEOUT_VALIDATION_COMMANDS = (
+    "python3 scripts/apl_archive_sweep.py --dry-run",
+    "python3 -m pytest tests/test_archive_sweep.py tests/test_repository_archive_aware.py tests/test_task_discovery.py tests/test_repository_validation_scoping.py tests/test_docs_links.py",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
 MICROTASK_VALIDATION_COMMANDS = (
     "python3 -m physics_lab.cli validate-repo .",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
@@ -135,6 +140,20 @@ TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "hypothesis_proposals/",
     "knowledge/",
     "results/",
+)
+ARCHIVE_CLOSEOUT_TERMINAL_STATUSES = frozenset({"DONE", "SUPERSEDED", "REJECTED"})
+ARCHIVE_CLOSEOUT_ALLOWED_SUPPORT_FILES = frozenset(
+    {
+        "physics_lab/registry/maintainer_review.py",
+        "scripts/run_light_clock_consistency_benchmark.py",
+        "scripts/run_nmd0003_residual_gp.py",
+        "scripts/run_stellar_ml_high_mass_transfer.py",
+        "tests/test_cli_status_validate.py",
+        "tests/test_maintainer_review.py",
+    }
+)
+ARCHIVED_TASK_PATH_PATTERN = re.compile(
+    r"^tasks/archive/(?P<bucket>[0-9]{4}-[0-9]{4})/(?P<task_id>TASK-[0-9]{4,})-.+\.yaml$"
 )
 ALLOWED_PDF_REDISTRIBUTION_STATES = frozenset(
     {
@@ -343,6 +362,60 @@ def changed_task_proposal_files(changed_files: tuple[str, ...]) -> tuple[str, ..
         and path.endswith(".yaml")
         and Path(path).name != "TASK-PROPOSAL-TEMPLATE.yaml"
     )
+
+
+def changed_archived_task_files(changed_files: tuple[str, ...]) -> tuple[str, ...]:
+    """Return changed canonical task files already under archive buckets."""
+    return tuple(path for path in changed_files if ARCHIVED_TASK_PATH_PATTERN.match(path))
+
+
+def _expected_archive_bucket(task_id: str) -> str:
+    number = int(task_id.split("-")[1])
+    lo = (number // 500) * 500
+    return f"{lo:04d}-{lo + 499:04d}"
+
+
+def archive_closeout_policy(
+    root: Path,
+    archived_task_files: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Validate archive-only closeout task files without full schema replay."""
+    blockers: list[str] = []
+    required_fixes: list[str] = []
+    for task_path in archived_task_files:
+        match = ARCHIVED_TASK_PATH_PATTERN.match(task_path)
+        if match is None:
+            blockers.append(f"Archive closeout path is not bucketed correctly: {task_path}.")
+            continue
+        path_task_id = match.group("task_id")
+        extracted_task_id = task_id_from_path(task_path)
+        if extracted_task_id != path_task_id:
+            blockers.append(
+                f"Archive closeout path {task_path} does not contain a parseable canonical task id."
+            )
+            continue
+        expected_bucket = _expected_archive_bucket(path_task_id)
+        if match.group("bucket") != expected_bucket:
+            required_fixes.append(
+                f"Archive closeout should place {path_task_id} in tasks/archive/{expected_bucket}/."
+            )
+        try:
+            payload = load_task_minimal(root / task_path)
+        except (FileNotFoundError, ValueError) as exc:
+            blockers.append(str(exc))
+            continue
+        payload_id = str(payload.get("id") or "").strip()
+        if payload_id != path_task_id:
+            blockers.append(
+                f"Archive closeout file {task_path} declares id={payload_id or 'missing'}, "
+                f"expected {path_task_id}."
+            )
+        status = str(payload.get("status") or "").strip()
+        if status not in ARCHIVE_CLOSEOUT_TERMINAL_STATUSES:
+            required_fixes.append(
+                f"Archive closeout should only move terminal tasks; {task_path} is {status or 'missing'}."
+            )
+    return tuple(blockers), tuple(required_fixes)
 
 
 def body_requests_proposal_triage(body: str | None) -> bool:
@@ -1513,9 +1586,47 @@ def _compose_review_report(
             if path.startswith("tasks/TASK-") and path.endswith(".yaml")
         )
         proposal_files = changed_task_proposal_files(changed_files)
+        archived_task_files = changed_archived_task_files(changed_files)
         if not closeout_task_files:
             if not proposal_files:
-                blockers.append("Closeout PR requires at least one changed canonical task file.")
+                if not archived_task_files:
+                    blockers.append("Closeout PR requires at least one changed canonical task file.")
+                else:
+                    nonarchive_changes = tuple(
+                        path
+                        for path in changed_files
+                        if path not in archived_task_files
+                        and path not in ARCHIVE_CLOSEOUT_ALLOWED_SUPPORT_FILES
+                    )
+                    if nonarchive_changes:
+                        blockers.append(
+                            "Archive closeout PR must only move terminal task files under "
+                            "tasks/archive/<bucket>/; unexpected changes: "
+                            + ", ".join(nonarchive_changes)
+                            + "."
+                        )
+                    support_changes = tuple(
+                        path
+                        for path in changed_files
+                        if path in ARCHIVE_CLOSEOUT_ALLOWED_SUPPORT_FILES
+                    )
+                    if support_changes:
+                        advisory_warnings.append(
+                            "Archive closeout PR includes review-policy support files: "
+                            + ", ".join(support_changes)
+                            + "."
+                        )
+                    if review_worktree_is_current:
+                        archive_blockers, archive_required_fixes = archive_closeout_policy(
+                            root, archived_task_files
+                        )
+                        blockers.extend(archive_blockers)
+                        required_fixes.extend(archive_required_fixes)
+                    validation_payload = {
+                        "validation": {
+                            "commands": list(ARCHIVE_CLOSEOUT_VALIDATION_COMMANDS),
+                        }
+                    }
             else:
                 nonproposal_changes = tuple(
                     path for path in changed_files if path not in proposal_files

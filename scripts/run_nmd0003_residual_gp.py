@@ -33,8 +33,17 @@ from physics_lab.engines.nmd0003_residual_gp import (  # noqa: E402
     TASK_ID,
     run_nmd0003_residual_gp,
 )
+from physics_lab.registry.task_discovery import find_task_file  # noqa: E402
 from physics_lab.workflows.artifacts import git_commit, hash_file  # noqa: E402
 import yaml  # noqa: E402
+
+
+def _task_path(task_id: str) -> Path:
+    path = find_task_file(REPO_ROOT, task_id)
+    if path is None:
+        raise FileNotFoundError(f"No task file found for {task_id}")
+    return path
+
 
 AGENT_RUN_ID = "AGENT-RUN-0080"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "agent_runs" / AGENT_RUN_ID
@@ -58,9 +67,7 @@ RESULT_TITLE = (
 )
 RESULT_EXP_PATH = REPO_ROOT / "experiments" / "EXP-0018-nmd0003-gp-extrapolation-replay.yaml"
 RESULT_HYP_PATH = REPO_ROOT / "hypotheses" / "HYP-0018-nmd0003-gp-extrapolation-replay.yaml"
-RESULT_TASK_PATH = (
-    REPO_ROOT / "tasks" / "TASK-0843-replay-nmd0003-gp-extrapolation-signal.yaml"
-)
+RESULT_TASK_PATH = _task_path(RESULT_TASK_ID)
 SOURCE_METRICS_PATH = REPO_ROOT / "agent_runs" / AGENT_RUN_ID / "metrics.json"
 
 

@@ -37,9 +37,18 @@ from physics_lab.engines.stellar_ml_high_mass_transfer import (  # noqa: E402
     ROWS_PATH,
     compute_transfer_metrics,
 )
+from physics_lab.registry.task_discovery import find_task_file  # noqa: E402
 import yaml  # noqa: E402
 
 from physics_lab.workflows.artifacts import git_commit, hash_file  # noqa: E402
+
+
+def _task_path(task_id: str) -> Path:
+    path = find_task_file(REPO_ROOT, task_id)
+    if path is None:
+        raise FileNotFoundError(f"No task file found for {task_id}")
+    return path
+
 
 ENGINE_PATH = REPO_ROOT / "physics_lab/engines/stellar_ml_high_mass_transfer.py"
 SCRIPT_PATH = REPO_ROOT / "scripts/run_stellar_ml_high_mass_transfer.py"
@@ -67,7 +76,7 @@ RESULT_TITLE = (
 )
 RESULT_EXP_PATH = REPO_ROOT / "experiments" / "EXP-0017-stellar-ml-high-mass-transfer.yaml"
 RESULT_HYP_PATH = REPO_ROOT / "hypotheses" / "HYP-0017-stellar-ml-high-mass-transfer.yaml"
-RESULT_TASK_PATH = REPO_ROOT / "tasks" / "TASK-0849-package-stellar-ml-high-mass-transfer-gate-a-result.yaml"
+RESULT_TASK_PATH = _task_path(RESULT_TASK_ID)
 
 
 def _sha256(path: Path) -> str:
