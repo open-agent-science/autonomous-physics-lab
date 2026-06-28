@@ -99,7 +99,14 @@ gate. The next recommendation should be one of:
 - **Transfer** - test an independent material, source, domain, chemistry
   family, stellar regime, or other disjoint generalization surface.
 - **Ratification** - prepare a scoped maintainer-reviewed result, claim, or
-  public wording decision without broadening the evidence.
+  public wording decision without broadening the evidence. **Novelty gate:**
+  ratify a *claim* only when the result is `frontier_novel` (an open/contested
+  question), a `reusable_dataset`, or a `valuable_negative`. A result that merely
+  re-confirms known textbook physics is `calibration_known_physics` -- it is
+  platform-calibration evidence, NOT a scientific claim. The Director must NOT
+  create or recommend a claim-promotion task for calibration/known-physics; keep
+  it as a validated `RESULT-*` (and a reusable dataset where applicable). See
+  `docs/claim-promotion-policy.md` (Novelty Classification Gate).
 - **External reveal** - compare a frozen prediction or registry entry against a
   future source through the no-peek/reveal protocol.
 - **Source readiness** - close a concrete source, row, checksum, license,

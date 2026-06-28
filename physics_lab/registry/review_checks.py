@@ -222,6 +222,42 @@ def overclaim_advisory_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
     return advisory
 
 
+NOVELTY_CLASSES = (
+    "frontier_novel",
+    "reusable_dataset",
+    "valuable_negative",
+    "calibration_known_physics",
+)
+_NOVELTY_CLASSIFICATION_LINE_PATTERN = re.compile(
+    r"^\s*-?\s*novelty[ _]classification\s*[:=]\s*(?P<value>.+?)\s*$",
+    re.IGNORECASE,
+)
+_NOVELTY_CLASSIFICATION_VALUE_PATTERN = re.compile(
+    r"`?(" + "|".join(NOVELTY_CLASSES) + r")`?\s*$",
+    re.IGNORECASE,
+)
+
+
+def novelty_classification(body: str | None) -> str | None:
+    """Return the novelty class declared in a PR body, or None if absent.
+
+    Claim PRs must declare one of NOVELTY_CLASSES so calibration / known-physics
+    re-verification is not silently promoted as a scientific claim. Claims are
+    reserved for genuine novelty, reusable datasets, or valuable negatives.
+    """
+    if not body:
+        return None
+    for line in body.splitlines():
+        line_match = _NOVELTY_CLASSIFICATION_LINE_PATTERN.match(line)
+        if line_match is None:
+            continue
+        value = line_match.group("value").strip()
+        value_match = _NOVELTY_CLASSIFICATION_VALUE_PATTERN.fullmatch(value)
+        if value_match is not None:
+            return value_match.group(1).lower()
+    return None
+
+
 def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
     """Return dangerous code patterns found in added diff lines."""
     hits: list[str] = []

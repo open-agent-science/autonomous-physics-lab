@@ -36,6 +36,7 @@ from physics_lab.registry.review_checks import (
     load_claim_status_from_ref,  # noqa: F401 — re-exported; tests import from here
     overclaim_advisory_hits,
     overclaim_hits,
+    novelty_classification,
     security_pattern_hits,
     sensitive_surface_hits,
     cross_platform_advisory_hits,
@@ -1785,6 +1786,42 @@ def _compose_review_report(
         promotions = claim_status_promotions(root, review_ref, changed_files)
         if promotions:
             blockers.append("Claim status promotion detected: " + ", ".join(promotions) + ".")
+        changed_claim_files = tuple(
+            path
+            for path in changed_files
+            if path.startswith("claims/") and path.endswith(".md")
+        )
+        if changed_claim_files:
+            declared_novelty = novelty_classification(
+                pr_metadata.body if pr_metadata is not None else None
+            )
+            if declared_novelty is None:
+                required_fixes.append(
+                    "Claim PRs must declare a Novelty Classification in the PR body "
+                    "(frontier_novel | reusable_dataset | valuable_negative | "
+                    "calibration_known_physics). Claims are reserved for genuine novelty, "
+                    "reusable datasets, or valuable negatives; do not promote calibration / "
+                    "known-physics re-verification as a scientific claim."
+                )
+            elif declared_novelty == "calibration_known_physics":
+                advisory_warnings.append(
+                    "Claim declared calibration_known_physics: keep it as a validated RESULT "
+                    "plus a reusable dataset (calibration / negative memory); it is not a "
+                    "publishable scientific claim."
+                )
+                for claim_file in changed_claim_files:
+                    claim_status = load_claim_status_from_ref(root, review_ref, claim_file)
+                    if claim_status and claim_status.strip().upper() not in (
+                        "DRAFT",
+                        "REFUTED",
+                        "SUPERSEDED",
+                    ):
+                        blockers.append(
+                            f"{claim_file}: a calibration_known_physics claim must not be "
+                            f"promoted beyond DRAFT (found {claim_status.strip()}); "
+                            "known-physics re-verification is calibration, not a "
+                            "publishable claim."
+                        )
 
     for signal in artifact_signals:
         if signal.artifact_class == "knowledge_phase1_maintainer_only":

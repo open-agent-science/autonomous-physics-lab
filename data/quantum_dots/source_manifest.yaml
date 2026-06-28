@@ -399,7 +399,7 @@ sources:
     journal: "The Journal of Physical Chemistry"
     volume: "98"
     pages: "7665-7673"
-    table_reference: "Article Table 1 (probable per-sample SAXS diameter and 1s-1s excitonic transition summary; TASK-0687 verified access blocker and pending primary-PDF confirmation)"
+    table_reference: "Article Table 1, page 7667 (maintainer-inspected source surface recorded by TASK-0848; no value-bearing extraction)"
     properties:
       - absorption_peak_eV
     materials:
@@ -423,7 +423,13 @@ sources:
       not polynomial-generated sizing-curve evaluations. Expected future row
       class is table_derived pending primary PDF verification. See
       docs/reviews/quantum-cds-vossmeyer-source-artifact-verification.md and
-      docs/reviews/quantum-vossmeyer-source-copy-handoff.md.
+      docs/reviews/quantum-vossmeyer-source-copy-handoff.md. TASK-0848 records
+      maintainer-inspected metadata only: DOI 10.1021/j100082a044, page 7667,
+      Table 1 surface, local filename j100082a044.pdf, byte_size 1669226, and
+      checksum_sha256 not_recorded. The ACS PDF, screenshots, table text,
+      qd rows, benchmark inputs, metrics, RESULT/PRED artifacts, CLAIM updates,
+      and KNOW promotions remain forbidden without a future license/ToS or
+      maintainer row-use decision.
 
   - source_id: prasad-2017-nanomaterials-cdse-zns-laser
     title: "A High Power, Frequency Tunable Colloidal Quantum Dot (CdSe/ZnS) Laser"
