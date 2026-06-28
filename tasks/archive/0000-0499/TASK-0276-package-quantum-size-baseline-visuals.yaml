@@ -1,7 +1,7 @@
 id: TASK-0276
 title: "Package quantum-size baseline residual visuals"
 type: documentation
-status: BLOCKED
+status: SUPERSEDED
 difficulty: medium
 priority: medium
 
@@ -24,6 +24,7 @@ input:
     property-kind, and holdout behavior without overclaiming.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep as superseded by the committed quantum baseline summary and newer source/license/transfer gates; create a fresh public-summary task only if a new result changes the surface."
   - "Start only after TASK-0225 is DONE and a baseline residual artifact exists."
   - "Create visual or tabular summaries for per-material residuals, size-range residuals, holdout-vs-train behavior, and outliers."
   - "Separate absorption, emission, and bandgap targets according to the benchmark semantics."

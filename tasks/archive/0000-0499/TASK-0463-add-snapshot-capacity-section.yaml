@@ -1,7 +1,7 @@
 id: TASK-0463
 title: "Add capacity summary section to project snapshots"
 type: snapshot_tooling
-status: BLOCKED
+status: SUPERSEDED
 difficulty: medium
 priority: medium
 
@@ -27,6 +27,7 @@ input:
     is due next.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep as superseded by the current curator/mission/snapshot workflow; its dependency TASK-0459 was rejected, so this blocked task no longer has a valid upstream."
   - "Do not start until TASK-0459 or an equivalent registry-driven capacity board exists."
   - "Update the snapshot flow to include a compact campaign capacity summary."
   - "Source the summary from generated campaign/capacity artifacts instead of duplicating lane text."

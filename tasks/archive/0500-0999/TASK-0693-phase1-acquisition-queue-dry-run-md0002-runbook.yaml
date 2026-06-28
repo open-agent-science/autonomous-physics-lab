@@ -1,7 +1,7 @@
 id: TASK-0693
 title: "Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot"
 type: dataset_workflow
-status: BLOCKED
+status: SUPERSEDED
 difficulty: medium
 priority: medium
 
@@ -42,6 +42,7 @@ input:
     archive this mixed task after the narrowed queue task is accepted.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep as superseded by TASK-0699, TASK-0736, TASK-0737, TASK-0738, and TASK-0749; do not restart this mixed umbrella task."
   - "Add data/<campaign>/acquisition_queue.yaml (or a source-manifest acquisition_status field) listing only license-verified, checksum-policy-defined, ready-to-fetch sources, each tagged with the downstream task it unblocks and a public_keyfree vs key_gated flag."
   - "Add a scheduled workflow that in phase 1 produces ONLY a dry-run report/reminder of queued sources (no fetch)."
   - "Pilot MD-0002 stable ternary oxides as a key-gated MAINTAINER-run runbook (uses MP_API_KEY, never committed), not a GitHub Action fetch, executing the TASK-0631 frozen contract."

@@ -1,7 +1,7 @@
 id: TASK-0016
 title: "Plan an electromagnetic invariance mini-benchmark"
 type: benchmark_planning
-status: PROPOSED
+status: REJECTED
 difficulty: medium
 priority: medium
 
@@ -16,6 +16,7 @@ input:
   planning_context: "Electromagnetic invariance mini-benchmark planning"
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep: this broad planning task is no longer a current campaign lane; reopen only through a fresh bounded calibration/quality-floor task if electromagnetic invariance checks become a priority."
   - "Do planning only, with no implementation yet."
   - "Keep the scope small and explicit."
   - "Consider Lorentz force dimensional consistency, gauge-invariance-inspired sanity checks, electromagnetic field invariant checks, and simple transformations."
