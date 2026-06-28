@@ -1,0 +1,44 @@
+manifest_kind: metadata_only_source_manifest
+manifest_id: FRB-CAT2-SOURCE-0001
+task_id: TASK-0852
+status: pinned_public_locator
+generated_at_utc: '2026-06-28T07:45:00Z'
+source:
+  title: The Second CHIME/FRB Catalog of Fast Radio Bursts
+  dataset_doi: 10.11570/25.0066
+  paper_doi: 10.3847/1538-4365/ae3828
+  arxiv: '2601.09399'
+  publisher: CADC
+  publication_year: 2025
+  citation: The CHIME/FRB Collaboration, The Second CHIME/FRB Catalog of Fast Radio
+    Bursts, ApJS, DOI 10.3847/1538-4365/ae3828; dataset DOI 10.11570/25.0066.
+artifact:
+  path_in_vault: /AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+  vospace_uri: vos://cadc.nrc.ca~vault/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+  storage_ui_directory: https://www.canfar.net/storage/vault/list/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table
+  storage_file_endpoint: https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+  filename: chimefrbcat2.csv
+  file_size_bytes: 4057396
+  sha256: 5108ada779d279a2547d9f9e73ae25bfdd40d8496d6ba7255ec29c6629057a48
+  http_digest_md5_base64: 6OhFih4Hv5kP3BS/UaygSA==
+  last_modified: Mon, 05 Jan 2026 23:16:21 GMT
+  value_bearing: true
+  committed_to_repo: false
+rights_and_access:
+  read_access: public
+  canfar_owner: ssiegel
+  datacite_rights_list: []
+  local_analysis: allowed_for_public_source_with_citation
+  source_bytes_redistribution: not_cleared_no_explicit_open_data_license
+  derived_rows_publication: not_cleared_for_bulk_rows_without_maintainer_permission_or_license
+  repo_policy: metadata_only_no_raw_catalog_bytes_vendored
+fetch_verify:
+  download_command: python scripts/run_frb_catalog2_exposure_baseline.py --download-csv
+    C:/tmp/chimefrbcat2.csv --csv C:/tmp/chimefrbcat2.csv
+  verify_command: python scripts/run_frb_catalog2_exposure_baseline.py --csv C:/tmp/chimefrbcat2.csv
+    --output-dir data/radio_transients
+  expected_sha256: 5108ada779d279a2547d9f9e73ae25bfdd40d8496d6ba7255ec29c6629057a48
+  expected_bytes: 4057396
+next_allowed_workflow_step: Use the pinned CSV only as an external input to reconstruct
+  a version-locked, T-truncated exposure split before any morphology benchmark or
+  PRED entry.
