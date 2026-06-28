@@ -1,7 +1,7 @@
 id: TASK-0867
 title: "Cross-tool replay the Exoplanet null-baseline negative/control memory"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
