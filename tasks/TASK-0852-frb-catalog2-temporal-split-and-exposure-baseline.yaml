@@ -1,7 +1,7 @@
 id: TASK-0852
 title: "FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded)"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: medium
@@ -45,7 +45,10 @@ result_artifact_policy:
   required: false
   reason: "Source-pinning, temporal-split, and exposure-baseline construction only; no morphology model, benchmark metric, PRED, or result artifact."
   evidence:
-    - "docs/reviews/frb-chime-source-readiness-temporal-split-scout.md"
+    - "data/radio_transients/frb_catalog2_source_manifest.yaml"
+    - "data/radio_transients/frb_catalog2_temporal_split_exposure_baseline.yaml"
+    - "docs/reviews/frb-catalog2-temporal-split-exposure-baseline.md"
+    - "scripts/run_frb_catalog2_exposure_baseline.py"
 
 validation:
   commands:

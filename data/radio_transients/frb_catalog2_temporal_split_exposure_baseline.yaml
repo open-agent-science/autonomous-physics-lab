@@ -1,0 +1,97 @@
+artifact_kind: frb_catalog2_temporal_split_exposure_baseline
+task_id: TASK-0852
+status: frozen_baseline_artifact
+generated_at_utc: '2026-06-28T07:45:00Z'
+source_manifest: data/radio_transients/frb_catalog2_source_manifest.yaml
+source_csv:
+  vospace_uri: vos://cadc.nrc.ca~vault/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+  storage_file_endpoint: https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+  expected_sha256: 5108ada779d279a2547d9f9e73ae25bfdd40d8496d6ba7255ec29c6629057a48
+  expected_bytes: 4057396
+temporal_split_spec:
+  split_name: frb_catalog2_version_locked_repeater_reveal_split_v0
+  date_locking_alone_suffices: false
+  version_locking_required: true
+  reason: Catalog 2 reprocesses earlier bursts and source associations; a pre-T feature
+    view read from one late table leaks future exposure, morphology, and repeater
+    decisions.
+  pre_t_feature_version: A catalog version or reconstruction that contains only information
+    available at T; for a retrospective pilot, Catalog 1-native fields or a T-reconstructed
+    Catalog 2 view are allowed, but late Catalog 2 morphology/source-association fields
+    are not.
+  label_version: A strictly later catalog version or external reveal record. A source
+    is positive only when repeat evidence is published after T and is not encoded
+    in the pre-T feature view.
+  first_detection_time: minimum finite mjd_inf, falling back to mjd_400, over bursts
+    assigned to a source
+  forbidden_pre_t_features:
+  - late-catalog repeater_name labels
+  - post-T source association updates
+  - post-T morphology reprocessing products
+  - full-window exposure summaries when the pre-T view needs T-truncated exposure
+exposure_only_baseline:
+  baseline_name: log1p_total_exposure_only_v0
+  score: log1p(max(exp_up + exp_low) over population-eligible bursts for the source)
+  eligibility_filter: excluded_flag == '0'; sources require finite exp_up and exp_low
+  label: source has non-empty repeater_name in Catalog 2 population-eligible rows
+  morphology_features_used: []
+  future_gate: Any future morphology model must beat this exposure-only baseline out-of-sample
+    on the version-locked split before morphology evidence is interpreted.
+aggregate_counts:
+  raw_burst_rows: 5045
+  population_eligible_burst_rows: 4636
+  source_rows_with_finite_exposure: 3338
+  repeater_sources_with_finite_exposure: 81
+  nonrepeater_sources_with_finite_exposure: 3257
+calibration:
+  quintile_bins_by_exposure_total:
+  - bin: 1
+    source_count: 667
+    exposure_min: 0.292131
+    exposure_max: 81.969372
+    repeater_sources: 11
+    observed_repeater_rate: 0.016492
+  - bin: 2
+    source_count: 668
+    exposure_min: 81.97825
+    exposure_max: 102.151598
+    repeater_sources: 15
+    observed_repeater_rate: 0.022455
+  - bin: 3
+    source_count: 667
+    exposure_min: 102.288104
+    exposure_max: 139.455247
+    repeater_sources: 15
+    observed_repeater_rate: 0.022489
+  - bin: 4
+    source_count: 668
+    exposure_min: 139.540545
+    exposure_max: 448.059002
+    repeater_sources: 16
+    observed_repeater_rate: 0.023952
+  - bin: 5
+    source_count: 668
+    exposure_min: 449.047941
+    exposure_max: 18611.498
+    repeater_sources: 24
+    observed_repeater_rate: 0.035928
+  top_vs_bottom_quintile_rate_ratio: 2.178511
+  auc_rank_log1p_exposure: 0.581459875596
+  logistic_summary:
+    intercept: -3.745015625576
+    standardized_log_exposure_coefficient: 0.306021899652
+    odds_ratio_per_1sd_log_exposure: 1.358012046214
+  interpretation: Exposure has the expected positive but weak source-level association
+    with observed repetition. The top exposure quintile repeats more often than the
+    bottom quintile; decile-scale calibration remains noisy because only 81 eligible
+    repeater sources are present.
+limitations:
+- The calibration uses Catalog 2 full-window exposure summaries, so it is a selection-effect
+  gate, not a no-leakage morphology benchmark.
+- T-truncated per-source exposure still requires a version-locked reconstruction before
+  any future predictive split is scored.
+- No morphology features, dynamic spectra, PRED entry, RESULT artifact, or claim transition
+  are produced by this task.
+- The upstream dataset has public read access but no explicit redistribution license
+  in DataCite rightsList, so raw rows are not committed.
+verdict: SPLIT_AND_EXPOSURE_BASELINE_READY
