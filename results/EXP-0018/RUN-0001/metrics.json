@@ -1,0 +1,208 @@
+{
+  "benchmark_id": "nmd0003-calibrated-uncertainty-residual-gp",
+  "best_verdict": "PARTIALLY_VALID",
+  "calibration": {
+    "count": 295,
+    "coverage_1sigma_minus_expected": 0.14104,
+    "coverage_2sigma_minus_expected": 0.011602,
+    "empirical_coverage_1sigma": 0.823729,
+    "empirical_coverage_2sigma": 0.966102,
+    "expected_coverage_1sigma": 0.682689,
+    "expected_coverage_2sigma": 0.9545,
+    "fraction_beyond_2sigma": 0.033898,
+    "mean_predictive_sigma_mev": 0.615737,
+    "median_predictive_sigma_mev": 0.496547,
+    "rms_standardized_residual": 2.826769
+  },
+  "calibration_verdict": "HEAVY_TAILED_MISCALIBRATED",
+  "code_reference": "physics_lab/engines/nmd0003_residual_gp.py",
+  "command": "python3 scripts/run_nmd0003_residual_gp.py --skip-sandbox-output --no-review --result-out-dir results/EXP-0018/RUN-0001",
+  "controls": {
+    "null_shuffled_target_gp": {
+      "control_id": "null_shuffled_target_gp",
+      "corrected": {
+        "count": 295,
+        "mae_mev": 4.444398,
+        "max_abs_mev": 30.446106,
+        "median_abs_mev": 3.457772,
+        "p90_abs_mev": 9.218981,
+        "rms_mev": 5.766033
+      },
+      "description": "GP posterior refit on training residuals randomly permuted across nuclides at the real fit's fixed hyperparameters (breaks the (Z, N) -> residual link); seed-controlled.",
+      "seed": 824
+    },
+    "smooth_a_gp": {
+      "control_id": "smooth_a_gp",
+      "corrected": {
+        "count": 295,
+        "mae_mev": 2.331441,
+        "max_abs_mev": 31.247642,
+        "median_abs_mev": 1.811882,
+        "p90_abs_mev": 4.786751,
+        "rms_mev": 3.41831
+      },
+      "description": "1-D GP on a smooth function of mass number A only (no Z, N locality); a structural smoothness control."
+    },
+    "uncorrected_baseline": {
+      "control_id": "uncorrected_baseline",
+      "corrected": {
+        "count": 295,
+        "mae_mev": 2.979273,
+        "max_abs_mev": 30.134672,
+        "median_abs_mev": 2.424405,
+        "p90_abs_mev": 5.917482,
+        "rms_mev": 4.028345
+      },
+      "description": "Frozen NMD-0003 audit baseline with no GP correction."
+    }
+  },
+  "dataset_summary": {
+    "dataset_id": "NMD-0003",
+    "holdout_primary_row_count": 295,
+    "post_ame2020_rows_used_for_fitting": 0,
+    "training_row_count": 2309
+  },
+  "decision": {
+    "best_control_id": "smooth_a_gp",
+    "best_control_mae_improvement_mev": 0.647832,
+    "control_mae_improvements_mev": {
+      "null_shuffled_target_gp": -1.465125,
+      "smooth_a_gp": 0.647832
+    },
+    "gp_mae_improvement_mev": 2.517144,
+    "gp_minus_best_control_mae_improvement_mev": 1.869312,
+    "predeclared_survival_margin_mev": 0.25,
+    "survival_margin_clears": true
+  },
+  "engine_version": "0.1.0",
+  "experiment_id": "EXP-0018",
+  "extrapolation": {
+    "frozen_baseline_holdout": {
+      "count": 295,
+      "mae_mev": 2.979273,
+      "max_abs_mev": 30.134672,
+      "median_abs_mev": 2.424405,
+      "p90_abs_mev": 5.917482,
+      "rms_mev": 4.028345
+    },
+    "gp_corrected_holdout": {
+      "count": 295,
+      "mae_mev": 0.462129,
+      "max_abs_mev": 26.33775,
+      "median_abs_mev": 0.243094,
+      "p90_abs_mev": 0.828671,
+      "rms_mev": 1.638935
+    },
+    "gp_mae_improvement_mev": 2.517144,
+    "gp_rms_improvement_mev": 2.38941
+  },
+  "generated_at": "2026-06-27T00:00:00Z",
+  "git_commit": "ed0f54cf22d129892296207c748830951bcacf11",
+  "gp_model": {
+    "feature_basis": [
+      "Z",
+      "N"
+    ],
+    "feature_standardization": "training-split mean/std on [Z, N]",
+    "fitted_hyperparameters": {
+      "length_scale_standardized": 0.136302,
+      "log_marginal_likelihood": -2458.565811,
+      "sigma_f_mev": 20.742879,
+      "sigma_n_mev": 0.432527
+    },
+    "hyperparameter_fit": "deterministic_marginal_likelihood_lbfgsb_fixed_init",
+    "kernel": "rbf_plus_white_noise",
+    "log_hyperparameter_bounds": {
+      "length_scale_standardized": [
+        0.1,
+        5.0
+      ],
+      "sigma_f_mev": [
+        0.1,
+        50.0
+      ],
+      "sigma_n_mev": [
+        0.05,
+        5.0
+      ]
+    },
+    "model_id": "nmd0003_residual_gp_zn_rbf",
+    "train_corrected_residual_mev": {
+      "count": 2309,
+      "mae_mev": 0.240367,
+      "max_abs_mev": 4.274131,
+      "median_abs_mev": 0.161279,
+      "p90_abs_mev": 0.486494,
+      "rms_mev": 0.395475
+    }
+  },
+  "hypothesis_id": "HYP-0018",
+  "publication_boundary": {
+    "claim_promotion_allowed": false,
+    "knowledge_promotion_allowed": false,
+    "prediction_freeze_allowed": false,
+    "prediction_promotion_allowed": false,
+    "retunes_gp_or_holdout": false,
+    "scope": "Gate-A packaging of an independent replay of the retrospective post-AME2020 NMD-0003 GP residual benchmark. The accuracy gain survives controls, but uncertainty remains heavy-tailed and miscalibrated; no prediction, claim, or knowledge artifact is created."
+  },
+  "replay_drift": {
+    "calibration_verdict_unchanged": true,
+    "compared_metrics": {
+      "coverage_1sigma": {
+        "abs_delta": 0.0,
+        "replay": 0.823729,
+        "source": 0.823729
+      },
+      "coverage_2sigma": {
+        "abs_delta": 0.0,
+        "replay": 0.966102,
+        "source": 0.966102
+      },
+      "frozen_baseline_mae_mev": {
+        "abs_delta": 0.0,
+        "replay": 2.979273,
+        "source": 2.979273
+      },
+      "frozen_baseline_rms_mev": {
+        "abs_delta": 0.0,
+        "replay": 4.028345,
+        "source": 4.028345
+      },
+      "gp_corrected_mae_mev": {
+        "abs_delta": 0.0,
+        "replay": 0.462129,
+        "source": 0.462129
+      },
+      "gp_corrected_rms_mev": {
+        "abs_delta": 0.0,
+        "replay": 1.638935,
+        "source": 1.638935
+      },
+      "gp_mae_improvement_mev": {
+        "abs_delta": 0.0,
+        "replay": 2.517144,
+        "source": 2.517144
+      },
+      "gp_minus_best_control_mae_improvement_mev": {
+        "abs_delta": 0.0,
+        "replay": 1.869312,
+        "source": 1.869312
+      },
+      "rms_standardized_residual": {
+        "abs_delta": 0.0,
+        "replay": 2.826769,
+        "source": 2.826769
+      }
+    },
+    "max_abs_delta": 0.0,
+    "source_agent_run_id": "AGENT-RUN-0080",
+    "source_metrics_path": "C:/tmp/APL-task-0843-nmd0003-gp-replay/agent_runs/AGENT-RUN-0080/metrics.json",
+    "verdict_unchanged": true
+  },
+  "result_id": "RESULT-0025",
+  "review_tier": "AGENT_PUBLISHED",
+  "run_id": "RUN-0001",
+  "source_agent_run_id": "AGENT-RUN-0080",
+  "source_task_id": "TASK-0824",
+  "task_id": "TASK-0843"
+}

@@ -69,7 +69,10 @@ entries:
     license_readiness: >
       ACS publication metadata is DOI-pinned only. Repository redistribution of
       publisher PDFs, tables, or figures is blocked unless a maintainer records
-      an explicit compatible reuse route.
+      an explicit compatible reuse route. TASK-0848 records maintainer-inspected
+      metadata only: DOI 10.1021/j100082a044, page 7667, Table 1 surface,
+      filename j100082a044.pdf, byte_size 1669226, and checksum_sha256
+      not_recorded.
     checksum_policy: "checksum_only_for_maintainer_local_copy_until_reuse_route_is_approved"
     downstream_task: TASK-0741
     blocked_by: []
@@ -80,7 +83,9 @@ entries:
     local_artifact_expectation: >
       Maintainer-local source copy outside git, or metadata-only institutional
       inspection notes. Do not commit the article, table, figure, crop, or
-      screenshot by default.
+      screenshot by default. The TASK-0848 memory note is not a checksum,
+      redistribution permission marker, extraction ledger, or row-readiness
+      approval.
     agent_local_work_allowed: >
       After maintainer access is provided in a separate task, agents may prepare
       checksum-only metadata and a table-structure/extraction ledger allowed by
@@ -93,6 +98,7 @@ entries:
     evidence:
       - "data/quantum_dots/source_manifest.yaml"
       - "docs/reviews/quantum-vossmeyer-source-copy-handoff.md"
+      - "docs/reviews/quantum-vossmeyer-table1-source-access-memory.md"
       - "tasks/TASK-0741-curate-quantum-deterministic-source-artifact.yaml"
 
   - entry_id: ACQ-QUEUE-0003
