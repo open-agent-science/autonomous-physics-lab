@@ -1,0 +1,34 @@
+id: EXP-0018
+title: "NMD-0003 GP Residual Extrapolation Independent Replay"
+domain: nuclear_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0018
+
+method:
+  type: dataset_reproduction
+  simulator: nmd0003_residual_gp_replay
+  comparator: post_ame2020_holdout_control_survival_and_calibration_report
+
+data:
+  dataset_path: ../data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  dataset_kind: nuclear_mass_dataset
+  benchmark_scope: "Retrospective post-AME2020 time-split holdout replay of the frozen TASK-0824 GP residual correction; no future-target reveal, no prediction registry entry."
+  expected_item_count: 2309
+  sample_axes:
+    - Z
+    - N
+    - A
+    - post_AME2020_holdout
+  notes: "Uses committed NMD-0003 training, stratified gate, and post-AME2020 holdout inputs only; no live fetch and no holdout tuning."
+
+candidate_models:
+  - id: model_nmd0003_residual_gp_zn_rbf
+    formula: "RBF Gaussian process correction over standardized [Z, N] frozen-baseline residuals"
+
+comparison_targets:
+  - id: target_gp_minus_best_control_margin
+    label: "GP MAE-improvement margin over the best predeclared control"
+    reference_value: 0.25
+    unit: MeV
+    notes: "Predeclared control-survival margin; replayed margin is 1.869312 MeV over smooth_a_gp."

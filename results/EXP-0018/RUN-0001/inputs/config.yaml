@@ -1,0 +1,17 @@
+result_id: RESULT-0025
+run_id: RUN-0001
+experiment_id: EXP-0018
+hypothesis_id: HYP-0018
+task_id: TASK-0843
+source_task_id: TASK-0824
+source_agent_run_id: AGENT-RUN-0080
+benchmark_id: nmd0003-calibrated-uncertainty-residual-gp
+command: python3 scripts/run_nmd0003_residual_gp.py --skip-sandbox-output --no-review
+  --result-out-dir results/EXP-0018/RUN-0001
+code_reference: physics_lab/engines/nmd0003_residual_gp.py
+dataset_path: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+gate_path: data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml
+holdout_path: data/nuclear_masses/post_ame2020_holdout.yaml
+review_tier_proposed: AGENT_PUBLISHED
+best_verdict_proposed: PARTIALLY_VALID
+
