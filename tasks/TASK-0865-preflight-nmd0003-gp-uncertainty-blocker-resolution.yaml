@@ -1,0 +1,58 @@
+id: TASK-0865
+title: "Preflight a no-peek uncertainty-calibration route for the NMD-0003 GP blocker"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-0844 showed the GP residual model is useful as a point estimator but blocked for prediction intervals by heavy-tailed miscalibration."
+  - "The next Nuclear prediction/reveal step is not to freeze PRED entries; it is to define whether any train-only, no-peek uncertainty route can handle the central/tail mismatch."
+  - "A clean preflight can either open a future calibration task or stop the prediction-freeze path honestly."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "agent_runs/AGENT-RUN-0080/metrics.json"
+    - "tasks/TASK-0827-extrapolation-model-comparison-and-freeze-for-reveal.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+  planning_context: >
+    The holdout GP has strong point accuracy but an interval problem: nominal
+    1-sigma coverage is already high while RMS standardized residual is inflated
+    by tails. Uniform inflation is not enough. This task designs a no-peek route
+    for a future calibration attempt, or records that the route should stop.
+
+requirements:
+  - "Use only training/LOO diagnostics, predeclared region labels, and existing review artifacts; do not optimize on the post-AME2020 holdout or any future target values."
+  - "Compare at least two no-peek uncertainty route families, such as region-stratified calibration, robust tail model, conformal-style train-only residual quantiles, or explicit outlier-exclusion policy."
+  - "State required inputs, leakage risks, stop conditions, and what would count as a calibration success before a future metric task."
+  - "Do not create PRED entries, change RESULT-0025, or claim calibrated prediction intervals."
+  - "If no defensible route exists, return UNCERTAINTY_ROUTE_STOP and keep TASK-0827 blocked."
+
+accepted_outputs:
+  - "A preflight review note under docs/reviews/ with candidate uncertainty routes, leakage analysis, stop/go verdict, and future task shape if any."
+  - "Explicit wording that RESULT-0025 remains point-estimator evidence only until a later task validates uncertainty calibration."
+  - "Output-routing summary: source destination is blocker/preflight memory; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Uncertainty-route preflight only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

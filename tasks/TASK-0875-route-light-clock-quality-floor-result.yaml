@@ -1,0 +1,58 @@
+id: TASK-0875
+title: "Route the light-clock consistency benchmark as quality-floor memory"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "TASK-0847 added a deterministic light-clock consistency benchmark that is useful as verifier-quality-floor memory, not empirical relativity evidence."
+  - "After the novelty gate, calibration/known-physics artifacts need explicit role routing so they are not mistaken for active scientific claims."
+  - "A small routing scorecard can decide whether this stays sandbox-only or becomes a scoped software/convention RESULT."
+
+input:
+  mode: planning_only
+  related_domain: relativity_thought_experiment
+  related_objects:
+    - "agent_runs/AGENT-RUN-0086/report.md"
+    - "docs/reviews/light-clock-consistency-benchmark.md"
+    - "experiments/EXP-0019-light-clock-consistency.yaml"
+    - "hypotheses/HYP-0019-light-clock-consistency.yaml"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    The light-clock benchmark verifies APL's implementation of stipulated SR
+    equations and a wrong Newtonian control. It is not empirical validation of
+    SR. Route it deliberately under quality-floor/calibration memory before any
+    result packaging is considered.
+
+requirements:
+  - "Classify the artifact role: software/convention quality floor, calibration_known_physics, or sandbox-only support."
+  - "Decide whether a scoped RESULT packaging task is warranted or whether the agent-run/review note is sufficient."
+  - "Do not create or promote CLAIM/KNOW, and do not phrase the benchmark as evidence for Special Relativity."
+  - "If proposing a future RESULT task, require no-claim wording, deterministic replay, wrong-control evidence, and calibration-memory classification."
+  - "Record stop conditions that prevent expanding this into broad relativity, GR, acceleration, or constants work."
+
+accepted_outputs:
+  - "A routing scorecard under docs/reviews/ with artifact role, future-task recommendation or hold decision, and no-claim wording."
+  - "No metric rerun unless needed for a small deterministic sanity check."
+  - "Output-routing summary with no claim/knowledge/result mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Routing scorecard only; no RESULT artifact is produced."
+  evidence:
+    - "docs/reviews/light-clock-consistency-benchmark.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_light_clock_consistency.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

@@ -1,0 +1,58 @@
+id: TASK-0868
+title: "Replay and route the Materials MD-0002 disjoint-family transfer failure"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0838 answered the Materials transfer gate negatively: the RESULT-0021 cation-pair advantage is family-localized."
+  - "This negative is valuable because it prevents a feature-factory loop and protects RESULT-0021 from overbroad public wording."
+  - "Independent replay/routing can turn the sandbox failure into durable negative/control memory without claiming material discovery."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "agent_runs/AGENT-RUN-0081/metrics.json"
+    - "agent_runs/AGENT-RUN-0081/report.md"
+    - "docs/reviews/materials-md0002-cation-family-transfer-benchmark.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "scripts/run_materials_md0002_transfer.py"
+  planning_context: >
+    The disjoint A-site family transfer run failed both directions under
+    predeclared controls. The frozen exact-cation-pair model falls back to the
+    global mean on every held-out family row. Replay should confirm this negative
+    and recommend memory routing, not rescue the model.
+
+requirements:
+  - "Replay AGENT-RUN-0081 from committed MD-0002 rows and compare metrics, split counts, controls, and verdict."
+  - "Do not modify MD-0002 rows, RESULT-0021, holdout manifests, or baseline descriptors."
+  - "If metrics match, write a negative/control memory routing note that states the cation-pair advantage is family-localized on this computed-DFT slice."
+  - "If metrics drift, stop with contested replay and do not promote memory."
+  - "No material recommendation, synthesis, device, biomedical, universal materials-law, CLAIM, KNOW, or PRED wording."
+
+accepted_outputs:
+  - "Replay/routing review note under docs/reviews/ with metric drift table, pass/contest verdict, and negative-memory wording."
+  - "Recommendation whether the sandbox negative should stay as agent-run memory or receive a later Gate A negative RESULT task."
+  - "Output-routing summary with computed-DFT limitation, Gate B-like status, and claim impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay/routing of an existing sandbox negative; a new RESULT is not produced in this task."
+  evidence:
+    - "docs/reviews/materials-md0002-cation-family-transfer-benchmark.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0002_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

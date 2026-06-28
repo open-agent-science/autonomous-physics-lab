@@ -1,0 +1,60 @@
+id: TASK-0869
+title: "Package the ThermoML Tb family-stratified Joback transfer as a bounded Gate A result"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-0851 produced a promising bounded ThermoML Tb benchmark: frozen Joback wins against controls overall and in 7 of 8 families."
+  - "Gate A packaging can preserve this as a scoped published-estimator transfer result while keeping rights, extract-size, and no-claim boundaries explicit."
+  - "The task should not turn Joback into a universal physical law or broaden beyond the 40-row Tb audit fixture."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "agent_runs/AGENT-RUN-0087/metrics.json"
+    - "agent_runs/AGENT-RUN-0087/report.md"
+    - "docs/reviews/thermoml-tb-family-stratified-transfer-benchmark.md"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "data/thermophysical/source_manifest.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    AGENT-RUN-0087 reports TRANSFER_SUPPORTED_IN_SCOPE: Joback MAE 14.926 K
+    versus best non-oracle control 43.428 K, with 7 of 8 held-out families
+    clearing the predeclared margin. The source bytes are not redistributable,
+    and only a bounded factual audit fixture is committed. Package only if Gate A
+    and rights/no-claim checks pass.
+
+requirements:
+  - "Create HYP/EXP/RESULT packaging only if the bounded fixture, source rights, input hashes, command, code reference, and limitations satisfy Gate A."
+  - "Do not vendor raw ThermoML archive bytes, expand the normalized corpus, or claim universal Joback accuracy."
+  - "Keep property scope to normal boiling temperature (Tb) and the 40-row family-stratified audit fixture."
+  - "Record implementation-fidelity gate status, aggregate/family metrics, best-control margin, and the failed esters/lactones family explicitly."
+  - "If Gate A or rights review blocks publication, write a packaging-blocker note and leave the run as sandbox memory."
+
+accepted_outputs:
+  - "A Gate-A-compliant RESULT candidate for the bounded ThermoML Tb transfer if gates pass; otherwise a packaging-blocker review."
+  - "Claim impact none, knowledge impact none, no broad property-estimation or chemical-design claim."
+  - "Output-routing summary with Gate A status, source-rights boundary, and Gate B follow-up requirement."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A and source-rights checks pass; otherwise stop with a blocker."
+  evidence:
+    - "agent_runs/AGENT-RUN-0087/metrics.json"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_joback_tb.py tests/test_thermoml_family_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

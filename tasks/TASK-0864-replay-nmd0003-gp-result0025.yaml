@@ -1,0 +1,60 @@
+id: TASK-0864
+title: "Independently replay Nuclear RESULT-0025 GP residual extrapolation"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "RESULT-0025 is a high-value Nuclear point-estimator artifact: the GP residual model strongly improves retrospective post-AME2020 holdout accuracy under controls."
+  - "The result is not prediction-ready because TASK-0844 found uncertainty calibration blocked; Gate B should validate point metrics while preserving the uncertainty blocker."
+  - "Replay strengthens the evidence chain without unblocking prediction freeze, claim promotion, or reveal scoring."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "results/EXP-0018/RUN-0001/metrics.json"
+    - "docs/reviews/nmd0003-gp-extrapolation-independent-replay.md"
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md"
+    - "scripts/run_nmd0003_residual_gp.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0025 reports GP-corrected holdout MAE 0.462129 MeV versus frozen
+    baseline 2.979273 MeV, clearing the best-control margin by 1.869312 MeV.
+    It is PARTIALLY_VALID because the uncertainty envelope is heavy-tailed and
+    miscalibrated. The replay should validate metrics and keep prediction freeze
+    blocked.
+
+requirements:
+  - "Replay the recorded RESULT-0025 command against committed inputs and compare metrics, verdict, hashes, and limitations."
+  - "Preserve the distinction between point-estimator accuracy and uncertainty calibration; do not convert the result into a PRED freeze."
+  - "Do not tune GP hyperparameters, inspect future reveal targets, alter post-AME2020 holdout rows, or edit prediction_registry."
+  - "If the replay contests point metrics or calibration diagnostics, stop with CONTESTED_RESULT and a drift ledger."
+  - "If replay passes, record Gate B status for the RESULT while explicitly leaving TASK-0827 blocked on uncertainty calibration."
+
+accepted_outputs:
+  - "A Gate B replay note under docs/reviews/ with metric drift table, pass/contest verdict, and explicit prediction-freeze blocker."
+  - "No CLAIM, KNOW, or PRED mutation; no uncertainty-calibration upgrade."
+  - "Output-routing summary with Gate A/Gate B status, claim impact none, and prediction impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay of an existing AGENT_PUBLISHED result; no new RESULT/PRED artifact is expected."
+  evidence:
+    - "results/EXP-0018/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

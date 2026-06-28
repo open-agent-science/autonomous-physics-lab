@@ -1,0 +1,59 @@
+id: TASK-0866
+title: "Run the Exoplanet Chen-Kipping published-relation audit on the pinned snapshot"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-0859 opened a published-relation-audit lane without reopening the residual-discovery lane."
+  - "This task tests the frozen Chen-Kipping-style median relation against EXO-0002 with controls and no refit."
+  - "Both outcomes are valuable: a scoped benchmark pass, a control-sensitive negative, or a calibration/coverage blocker."
+
+input:
+  mode: workflow
+  related_domain: astrophysics
+  related_objects:
+    - "docs/reviews/exoplanet-chen-kipping-published-relation-audit-readiness.md"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    The readiness scout classified the deterministic frozen-equation route as
+    ready for a first point-estimate audit, with EXO-0002 as the primary pinned
+    snapshot and EXO-0001 as a dated compatibility snapshot. This is not a
+    residual-discovery restart and must not claim that Chen-Kipping is universally
+    right or wrong.
+
+requirements:
+  - "Use only pinned EXO-0002/EXO-0001 rows; no live NASA Exoplanet Archive fetch."
+  - "Freeze the relation implementation, regime boundaries, clean subset, uncertainty mask, and controls before scoring."
+  - "Separate true-mass/transit-radius rows from minimum-mass rows; exclude brown-dwarf boundary rows from the primary planet audit."
+  - "Compare against required controls: global median, regime median, shuffled labels, simple train-only power-law controls, and uncertainty-aware controls where the row-quality mask allows."
+  - "Report point-error and, if attempted, calibration/coverage limitations separately; do not treat a point-MAE-only result as a full Forecaster probabilistic audit."
+  - "Do not create CLAIM, KNOW, PRED, habitability, composition, atmosphere, target-priority, or discovery wording."
+
+accepted_outputs:
+  - "A benchmark run artifact and review note with subset counts, controls, per-regime metrics, and conservative verdict."
+  - "A RESULT candidate only if Gate A passes; otherwise sandbox artifact plus blocker/negative memory."
+  - "Output-routing summary with Gate A status, no-claim wording, and explicit residual-lane monitor-only boundary."
+
+result_artifact_policy:
+  required: false
+  reason: "A RESULT candidate is allowed only if Gate A passes for this scoped published-relation audit; default is sandbox plus review note."
+  evidence:
+    - "docs/reviews/exoplanet-chen-kipping-published-relation-audit-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_baseline.py tests/test_exoplanet_mass_radius_loader.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

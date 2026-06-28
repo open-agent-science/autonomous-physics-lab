@@ -1,0 +1,57 @@
+id: TASK-0871
+title: "Route the Quantum effective-mass scaling transfer failure as negative memory"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0850 found that a simple literature reduced-mass prefactor worsens InP-ZnSe transfer in both directions."
+  - "This is useful negative/control memory: it prevents a plausible physics-looking rescue from being rerun as a discovery path."
+  - "The next step is a scorecard/routing decision, not another metric variant."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "agent_runs/AGENT-RUN-0085/metrics.json"
+    - "agent_runs/AGENT-RUN-0085/report.md"
+    - "docs/reviews/quantum-effective-mass-scaled-confinement-transfer.md"
+    - "data/quantum_dots/effective_mass_inputs.yaml"
+  planning_context: >
+    The effective-mass scaled confinement transfer failed controls: InP->ZnSe
+    and ZnSe->InP both worsened relative to the prior bulk-gap-only transfer and
+    failed the best control. The source should become bounded negative memory
+    unless a separate source/material route changes the data surface.
+
+requirements:
+  - "Review the TASK-0850 metrics, source limits, controls, and no-claim boundaries."
+  - "Decide whether the failure should remain sandbox-only, receive a negative-memory card, or require independent replay before any public wording."
+  - "Do not add a fitted rescue term, change effective masses, run new transfer metrics, or unblock TASK-0226."
+  - "State do-not-repeat guidance for simple bulk reduced-mass prefactor rescue on the current InP/ZnSe surfaces."
+  - "No quantum-dot design-law, device, biomedical, material recommendation, universal-size-law, RESULT/PRED/CLAIM/KNOW promotion."
+
+accepted_outputs:
+  - "A routing/scorecard note under docs/reviews/ with negative-memory recommendation and blocker/stop conditions."
+  - "Optional future replay task shape if independent replay is required before memory promotion."
+  - "Output-routing summary with claim impact none and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Routing/scorecard for an existing sandbox negative; no new result artifact is produced."
+  evidence:
+    - "docs/reviews/quantum-effective-mass-scaled-confinement-transfer.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_effective_mass_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

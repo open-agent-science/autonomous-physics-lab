@@ -1,0 +1,60 @@
+id: TASK-0876
+title: "Refresh campaign profiles and pages after the latest result wave"
+type: docs_protocol
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Several campaign profiles/pages still point to completed or archived tasks as best_next_actions after the 2026-06-27/28 result wave."
+  - "Refreshing existing campaign surfaces prevents agents from cycling into stale closeout tasks without adding generated digest pages."
+  - "This task supports the Scientific Director loop but must not create filler science tasks or public overclaims."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "campaign_profiles/*.yaml"
+    - "docs/campaigns/*.md"
+    - "missions/current.yaml"
+    - "docs/task-views/research.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Latest merged work includes RESULT-0023/0024/0025, light-clock, quantum,
+    materials, ThermoML, exoplanet readiness, novelty-gate, and closeout. Some
+    generated views may lag by action timing, and several public/campaign pages
+    still reference landed tasks as next work. Update only durable public/science
+    state and campaign profile routing, not generated board views.
+
+requirements:
+  - "Audit the active campaign profiles and public campaign pages for stale current_stage, next_validity_gate, best_next_actions, and safe public wording."
+  - "Update only existing canonical profile/page files where the latest result wave materially changed blockers or next paths."
+  - "Do not commit generated docs/task-views/*.md, new digest/status pages, or agent-only routing dumps."
+  - "Do not add internal agent instructions to public campaign pages; keep public wording conservative and source/result-scoped."
+  - "Preserve no-claim wording for calibration/known-physics artifacts and source-limited negative memory."
+
+accepted_outputs:
+  - "Targeted updates to campaign_profiles/*.yaml and/or docs/campaigns/*.md only where stale."
+  - "A short review note or PR body summary listing which surfaces were refreshed and which were intentionally left alone."
+  - "Output-routing summary: docs/profile synchronization only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Campaign profile/page synchronization only; no scientific result artifact is produced."
+  evidence:
+    - "campaign_profiles/_catalog.yaml"
+    - "docs/campaigns/public-science-dashboard.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
