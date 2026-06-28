@@ -13,12 +13,10 @@
 #   merge conflict whenever two such PRs landed in sequence. The
 #   conflict resolution dance was identical every time and burned
 #   meaningful agent time.
-# - The post-merge action centralizes regeneration on main so agents
-#   stop committing derived files. Branch protection on main should
-#   include the github-actions[bot] account in the bypass list (or
-#   disable required PR review for that account) so this workflow can
-#   push regenerated commits directly. See the maintainer setup note
-#   in the TASK-0358 PR body.
+# - The post-merge action centralizes regeneration so agents stop
+#   committing derived files. After the repository became public and
+#   `main` protection was enabled, the workflow opens a generated
+#   closeout PR instead of pushing directly to `main`.
 #
 # Recursion guard:
 #
@@ -44,7 +42,7 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
+  pull-requests: write
   actions: read
 
 concurrency:
@@ -99,18 +97,121 @@ jobs:
             git --no-pager diff --stat -- docs/task-views/ tasks/
           fi
 
-      - name: Commit and push regenerated navigation
+      - name: Commit regenerated navigation
         if: steps.detect.outputs.changed == 'true'
+        id: commit
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/task-views/ tasks/
-          git commit -m "chore(board-sync): sync task navigation and safe closeouts after $(git rev-parse --short HEAD~1) [skip-board-sync]"
-          # If the push races with a concurrent merge, retry once after a fresh fetch+rebase.
-          if ! git push origin HEAD:main; then
-            echo "Direct push failed; retrying after a rebase on origin/main."
-            git fetch origin main
-            git rebase origin/main
-            git push origin HEAD:main
+          base_short="$(git rev-parse --short HEAD)"
+          branch="agent/github-actions/bot/closeout-board-sync-${GITHUB_RUN_ID}"
+          title="TASK-CLOSEOUT: Sync generated task navigation after ${base_short} [skip-board-sync]"
+          git commit -m "chore(board-sync): sync task navigation and safe closeouts after ${base_short} [skip-board-sync]"
+          git push --force-with-lease origin HEAD:"${branch}"
+          {
+            echo "branch=${branch}"
+            echo "base_short=${base_short}"
+            echo "title=${title}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open board-sync closeout PR
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BOARD_SYNC_BRANCH: ${{ steps.commit.outputs.branch }}
+          BOARD_SYNC_BASE_SHORT: ${{ steps.commit.outputs.base_short }}
+          BOARD_SYNC_TITLE: ${{ steps.commit.outputs.title }}
+        shell: bash
+        run: |
+          body_file="$(mktemp)"
+          cat > "${body_file}" <<EOF
+          ## PR Kind
+
+          - [ ] Canonical task PR
+          - [ ] Task proposal PR
+          - [ ] Microtask PR
+          - [x] Task closeout PR
+
+          ## Primary Reference
+
+          Task closeout PR:
+
+          - Task ID: \`TASK-CLOSEOUT\`
+          - Closed Task Files: generated task navigation and safe auto-closeout task files, if any
+
+          ## Branch Name
+
+          - \`${BOARD_SYNC_BRANCH}\`
+
+          ## PR Title
+
+          - \`${BOARD_SYNC_TITLE}\`
+
+          ## PR Lifecycle
+
+          - [x] Branch pushed
+          - [x] Draft PR opened by agent or manual PR creation commands provided
+          - [ ] Post-PR review command run or manual review command provided if no PR number is available
+          - [ ] Marked ready for review after CI passes and review agent returns \`MERGE_OK\`, or manual ready command provided
+
+          ## Summary
+
+          Regenerates derived task navigation and applies deterministic safe auto-closeout output after \`${BOARD_SYNC_BASE_SHORT}\`.
+
+          ## Changed Files
+
+          - \`docs/task-views/*\`
+          - \`tasks/TASK-*.yaml\` if safe auto-closeout applied
+
+          ## Linked Repository Memory
+
+          - Hypothesis:
+          - Experiment:
+          - Task / Proposal / Queue: \`TASK-CLOSEOUT\`
+          - Result:
+          - Claim / Knowledge:
+
+          ## Validation Commands
+
+          - [x] \`python scripts/apl_closeout_sweep.py --auto-safe\`
+          - [x] \`python -m physics_lab.cli sync-active-board .\`
+
+          ## Scientific Claim Impact
+
+          None. Generated navigation and safe closeout bookkeeping only.
+
+          ## Result Artifact Impact
+
+          - [x] I used \`--output-dir\` for routine validation runs, or no workflow runs were needed.
+          - [x] I intentionally updated committed \`results/\` artifacts, or I left them untouched.
+          - [x] If canonical artifacts changed, the change is scientifically meaningful and explained in this PR.
+
+          ## Agent / Contributor Metadata
+
+          - Contributor ID: \`github-actions\`
+          - GitHub username: \`github-actions[bot]\`
+          - Agent tool: \`GitHub Actions\`
+          - Model/version if known:
+          - Task ID / Proposal / Queue: \`TASK-CLOSEOUT\`
+          - Branch: \`${BOARD_SYNC_BRANCH}\`
+          - Human reviewer: \`romanhladun24-dot\`
+
+          ## Maintainer Review Notes
+
+          - Generated by the post-merge Sync Active Board workflow.
+          - The \`[skip-board-sync]\` marker in the PR title prevents recursion after squash merge.
+          EOF
+
+          pr_number="$(gh pr list --repo "$GITHUB_REPOSITORY" --head "${BOARD_SYNC_BRANCH}" --base main --state open --json number --jq '.[0].number // empty')"
+          if [[ -z "${pr_number}" ]]; then
+            pr_url="$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "${BOARD_SYNC_BRANCH}" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}")"
+            pr_number="${pr_url##*/}"
+          else
+            gh pr edit "${pr_number}" --repo "$GITHUB_REPOSITORY" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}"
+          fi
+
+          if ! gh pr merge "${pr_number}" --repo "$GITHUB_REPOSITORY" --auto --squash --delete-branch; then
+            echo "::warning::Auto-merge was not enabled for board-sync PR #${pr_number}; leaving it open for maintainer review."
           fi

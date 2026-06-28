@@ -887,8 +887,10 @@ After merge, maintainer closeout may also:
     [./task-views/support.md](./task-views/support.md), and
     [./task-views/release.md](./task-views/release.md)). The action runs on
     every push to `main` that touches `tasks/**` or `missions/current.yaml`
-    and pushes a `chore(board-sync): … [skip-board-sync]` commit only when a
-    regeneration diff exists. Maintainers may still run
+    and opens or updates a generated `TASK-CLOSEOUT` PR only when a
+    regeneration diff exists. The generated PR title includes
+    `[skip-board-sync]`, so its squash merge commit does not recursively trigger
+    another board-sync pass. Maintainers may still run
     `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
     board-sync PR when the action is disabled or needs a manual audit;
 15. add a dry-run note when the merged PR belongs to a contributor pilot.

@@ -33,8 +33,8 @@ instruction, may perform closeout after merge.
 - Keep closeout PRs YAML-only. Do not regenerate
   [the task views](../task-views/research.md) or
   `docs/task-views/*.md` in the closeout branch; the post-merge
-  `Sync Active Board` GitHub Action regenerates them on `main` after the
-  closeout merges. Run
+  `Sync Active Board` GitHub Action regenerates them through a generated
+  board-sync PR after the closeout merges. Run
   `python3 -m physics_lab.cli sync-active-board .` by hand only for an
   explicit audit (set `APL_ENFORCE_BOARD_STALENESS=1`) or when the action
   is temporarily disabled.
