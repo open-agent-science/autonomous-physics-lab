@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-28 09:12 UTC
+Generated: 2026-06-28 11:18 UTC
 Mode: core
 Repo: open-agent-science/autonomous-physics-lab
 
@@ -1046,11 +1046,11 @@ externally source-gated and should not be the default executor lane while
 other campaigns have cleaner source-readiness and ratification tasks. Exoplanet
 remains monitor-only until a materially changed pinned snapshot or approved
 `EXO-0003` trigger appears. Quantum has a source-scoped Almeida baseline, but
-`TASK-0277` kept open-ended autonomous correction search blocked; only
-`TASK-0810` transfer-source scouting and `TASK-0816` fixed-model methodology
-stress testing are open. Atomic remains blocked on admitted independent rows or
-an approved aggregation contract, with `TASK-0804` available only as
-public-safe negative-memory packaging.
+`TASK-0277` kept open-ended autonomous correction search blocked; the current
+useful Quantum work is the ZnSe/Toufanian source-license gate (`TASK-0870`) and
+effective-mass transfer negative-memory routing (`TASK-0871`). Atomic remains
+blocked on admitted independent rows or an approved aggregation contract, with
+`TASK-0804` available only as public-safe negative-memory packaging.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
@@ -1060,8 +1060,9 @@ controls-first lanes landed as negative, inconclusive, diagnostic-only,
 chain-local, or validation-regressing memory. The best Nuclear work now is
 value-blind reveal-source scouting and negative/control memory preservation.
 Quantum Size Effects remains transfer-gated after a source-scoped Almeida
-baseline: independent source/material scouting and fixed-model methodology
-stress testing are allowed, but open-ended correction search remains blocked.
+baseline: the next source/material route is license-gated, and the failed
+effective-mass transfer should be preserved as negative/control memory before
+another transfer lane is opened.
 Atomic-Clock Residuals should wait for admitted independent rows or an approved
 aggregation contract; the Pizzocaro PSD covariance artifact is useful
 diagnostic evidence, but its row-admissibility gate preserved the aggregation
@@ -1083,7 +1084,7 @@ turning watchlist topics into formula-search work.
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference and Stellar M-L surfaces; Wien/FIRAS is source-contract gated | `TASK-0815` temperature/domain contract before `TASK-0802`; `TASK-0819` transfer dataset scouting; no new metric until source contract clears |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory and source-gated prospective reveal | `TASK-0803` is in review; current executor work is `TASK-0821` value-blind reveal-source scouting, with reveal scoring still blocked |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and monitor source-version triggers before any new residual audit |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, but open-ended correction search remains blocked | `TASK-0810` transfer-source scout or `TASK-0816` fixed-model LOO stress test; neither unblocks `TASK-0226` |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, but open-ended correction search remains blocked and latest transfer work is source/negative-memory gated | `TASK-0870` ZnSe/Toufanian source-license verification and `TASK-0871` effective-mass transfer negative-memory routing; neither unblocks archived `TASK-0226` |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory and covariance policy | `TASK-0804` public-safe memory card only; wait for admitted independent rows or an approved aggregation/harmonization contract before metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
@@ -1107,7 +1108,7 @@ Near-term portfolio shape:
 | Source-readiness / transfer gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Use `TASK-0815` before any Wien metric and `TASK-0819` before any broader Stellar transfer claim. |
 | External-reveal gate | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes; `TASK-0821` may scout one source route value-blind. Preserve negative/inconclusive memory. |
 | Monitor / trigger-gated benchmark | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
-| Transfer/methodology gate | Quantum Size Effects | Scout independent transfer evidence or run fixed-model methodology stress only; keep `TASK-0226` blocked. |
+| Transfer/source gate and negative memory | Quantum Size Effects | Verify the ZnSe/Toufanian source-license route and route the effective-mass transfer failure; keep archived `TASK-0226` closed unless a later maintainer-approved pilot task exists. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Package source-limited Yb/Sr memory safely; do not use Pizzocaro as a benchmark row without harmonization. |
 | Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, or scheme/source preflights; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
@@ -1675,21 +1676,45 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked, and the independent transfer-source, fixed-model LOO methodology, and open-tabular direct-size source scouts are closed. The next Quantum executor task should be a maintainer-approved follow-up from those scouts; this still does not unblock TASK-0226 or permit discovery wording."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. The current Quantum executor path is source/license verification for the ZnSe/Toufanian route (TASK-0870) and negative-memory routing for the failed effective-mass transfer check (TASK-0871); neither unblocks archived TASK-0226 or permits discovery wording."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
-      - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
-      - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
-      - "TASK-0491 can decide whether a weaker calibration-consistency path is allowed without unblocking the direct-row benchmark"
+      - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
+      - "the campaign is visually explainable, but cross-material transfer still depends on source provenance and negative-control discipline"
       - "TASK-0225 produced a source-scoped Almeida InP sandbox baseline, but TASK-0277 judged the six-row single-source surface insufficient for open-ended correction search"
-      - "TASK-0810 and TASK-0816 closed the previous transfer-source and methodology stress-test lanes"
-      - "TASK-0829 closed the open-tabular direct-size transfer-source scout"
+      - "TASK-0829 found the best direct ZnSe route to be license-limited"
+      - "TASK-0850 found that fixed effective-mass scaling worsened transfer against controls"
     forbidden:
-      - "do not run autonomous formula search before a frozen baseline exists"
+      - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
-      - "do not treat the TASK-0816 methodology stress test as a discovery, transfer, or TASK-0226-unblocking result"
+      - "do not treat the TASK-0850 effective-mass transfer failure as a discovery, transfer success, or TASK-0226-unblocking result"
+      - "do not restart archived TASK-0226 or TASK-0336 as executor work"
       - "do not include synthesis recipes, chemical handling guidance, biomedical claims, or device claims"
     actions:
+      - id: quantum-znse-source-license-route
+        label: "Verify the ZnSe/Toufanian direct-size source-license route"
+        task_id: TASK-0870
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "READY / BLOCKED / NEEDS_MAINTAINER_SOURCE_DECISION verdict for the ZnSe route"
+          - "exact locator, license statement, source-byte policy, and checksum plan"
+          - "no qd rows, metrics, correction search, or TASK-0226 unblock"
+      - id: quantum-effective-mass-negative-memory
+        label: "Route the failed effective-mass transfer check as negative memory"
+        task_id: TASK-0871
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "routing/scorecard note for the failed InP/ZnSe effective-mass transfer"
+          - "do-not-repeat guidance for simple reduced-mass prefactor rescue on the current surfaces"
+          - "no fitted rescue term, new metric variant, RESULT, CLAIM, KNOW, or TASK-0226 unblock"
       - id: quantum-independent-transfer-source
         label: "Scout one independent Quantum source or material route for future transfer"
         task_id: TASK-0810
@@ -1725,7 +1750,7 @@ missions:
         expected_outputs:
           - "fixed-model or 0-1 parameter diagnostic only"
           - "explicit no-claim, no-transfer, no-discovery wording"
-          - "TASK-0226 remains blocked unless a later transfer gate clears"
+          - "historical context only; TASK-0870/TASK-0871 are the current Quantum follow-up route"
       - id: quantum-almeida-raster-export-readiness
         label: "Run Almeida raster/export row-readiness gate only after maintainer supplies the missing artifact"
         task_id: TASK-0797
@@ -1758,15 +1783,16 @@ missions:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
-        label: "Review TASK-0334 Jasieniak 2011 source-artifact package before unblocking row curation"
+        label: "Preserve TASK-0334 Jasieniak 2011 source-artifact package as historical blocker memory"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
           - "use docs/reviews/quantum-jasieniak-2011-source-artifact-package.md after merge"
-          - "keep TASK-0336, TASK-0293, and TASK-0225 blocked until a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
+          - "do not offer archived TASK-0336 as current work; create a new bounded row-curation task only if a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
       - id: quantum-calibration-consistency-scope
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
@@ -2512,7 +2538,7 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 | [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | Turn `RESULT-0021` and `MD-0002` into reusable, source-citable dataset memory before any broader transfer claim | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier and source-contract gate | Keep famous-formula checks source-first; Stellar M-L is scoped memory, while Wien/FIRAS must clear temperature/domain contracts before metrics | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and source-gated prospective reveal | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Transfer/methodology gate after a source-scoped baseline | Scout independent transfer evidence or run fixed-model methodology tests without unblocking open-ended correction search | [quantum-size-effects-campaign-plan.md](./notes/quantum-size-effects-campaign-plan.md) |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Verify the ZnSe/Toufanian source-license route and route the failed effective-mass transfer check without unblocking open-ended correction search | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | Establish manifest, covariance, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Preserve current negative/control memory and reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
