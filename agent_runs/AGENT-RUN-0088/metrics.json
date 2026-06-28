@@ -1,0 +1,1097 @@
+{
+  "agent_run_id": "AGENT-RUN-0088",
+  "artifact_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0088/ plus docs/reviews/exoplanet-chen-kipping-published-relation-audit.md",
+    "claim_impact": "none",
+    "gate_a": "not_passed",
+    "gate_b": "not_attempted",
+    "knowledge_impact": "none",
+    "residual_lane": "monitor_only",
+    "review_tier": "none"
+  },
+  "command": "python scripts/run_exoplanet_chen_kipping_published_relation_audit.py",
+  "frozen_protocol": {
+    "brown_dwarf_cap_mearth": 4131.763999999999,
+    "compatibility_snapshot": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+    "controls": [
+      "global_median",
+      "regime_median",
+      "global_power_law",
+      "regime_power_law",
+      "shuffled_label_power_law"
+    ],
+    "minimum_mass_axis": "diagnostic_only",
+    "primary_axis": "true_mass_with_transit_radius_below_13_mjup",
+    "primary_snapshot": "data/exoplanets/exo-0002-pscomppars-snapshot.yaml",
+    "shuffle_seeds": [
+      1701,
+      1702,
+      1703,
+      1704,
+      1705,
+      1706,
+      1707,
+      1708,
+      1709,
+      1710,
+      1711,
+      1712,
+      1713,
+      1714,
+      1715,
+      1716,
+      1717,
+      1718,
+      1719,
+      1720,
+      1721,
+      1722,
+      1723,
+      1724,
+      1725,
+      1726,
+      1727,
+      1728,
+      1729,
+      1730,
+      1731,
+      1732
+    ],
+    "split": "sha256(casefold(planet_name)) modulo 5; bucket 0 test, buckets 1-4 train"
+  },
+  "promotion_gate": {
+    "best_primary_control": "regime_power_law",
+    "best_primary_control_log10_mae": 0.11176162962908075,
+    "candidate_primary_log10_mae": 0.11553347732229668,
+    "checks": {
+      "compatibility_beats_global_median": true,
+      "compatibility_beats_regime_median": true,
+      "compatibility_beats_shuffled_label_power_law": true,
+      "compatibility_test_count_at_least_200": true,
+      "primary_beats_global_median": true,
+      "primary_beats_global_power_law": true,
+      "primary_beats_regime_median": true,
+      "primary_beats_regime_power_law": false,
+      "primary_beats_shuffled_label_power_law": true,
+      "primary_test_count_at_least_200": true,
+      "primary_uncertainty_test_count_at_least_100": true,
+      "probabilistic_scope_not_overstated": true
+    },
+    "failed_checks": [
+      "primary_beats_regime_power_law"
+    ],
+    "rule": "CK17 must beat every declared control on EXO-0002 and the three non-parametric/shuffled controls on EXO-0001; minimum row-count and scope checks must pass.",
+    "status": "FAIL"
+  },
+  "relation": {
+    "direction": "mass_to_radius",
+    "implementation": "physics_lab/engines/exoplanet_mass_radius.py",
+    "kind": "frozen_piecewise_median",
+    "reference": "Chen and Kipping (2017), ApJ 834, 17, DOI 10.3847/1538-4357/834/1/17",
+    "refit": false,
+    "segments": [
+      {
+        "mass_lower_mearth": 0.0,
+        "mass_upper_mearth": 2.04,
+        "name": "terran",
+        "prefactor": 1.008,
+        "slope": 0.279
+      },
+      {
+        "mass_lower_mearth": 2.04,
+        "mass_upper_mearth": 131.58079199999997,
+        "name": "neptunian",
+        "prefactor": 0.8081187440617414,
+        "slope": 0.589
+      },
+      {
+        "mass_lower_mearth": 131.58079199999997,
+        "mass_upper_mearth": 26635.68,
+        "name": "jovian",
+        "prefactor": 17.73879154771769,
+        "slope": -0.044
+      },
+      {
+        "mass_lower_mearth": 26635.68,
+        "mass_upper_mearth": null,
+        "name": "stellar",
+        "prefactor": 0.001430111917514086,
+        "slope": 0.881
+      }
+    ]
+  },
+  "scientific_outcome": "CONTROL_SENSITIVE_NEGATIVE",
+  "snapshots": {
+    "compatibility_exo_0001": {
+      "counts": {
+        "all_entries": 6291,
+        "boundary_at_or_above_13_mjup": 16,
+        "direct_true_mass_transit_radius": 1448,
+        "minimum_mass_diagnostic_below_13_mjup": 3,
+        "primary_below_13_mjup": 1432,
+        "primary_with_complete_uncertainty": 1294,
+        "test": 296,
+        "test_with_complete_uncertainty": 259,
+        "train": 1136
+      },
+      "dataset_id": "exo-0001-pscomppars-snapshot",
+      "fitted_controls": {
+        "global_median_log10_radius": 0.950045289021823,
+        "global_power_law": {
+          "intercept": 0.06817336392201945,
+          "slope": 0.39764301336749613
+        },
+        "regime_median_log10_radius": {
+          "jovian": 1.1271047983648077,
+          "neptunian": 0.4558887097415492,
+          "terran": 0.045322978786657475
+        },
+        "regime_power_laws": {
+          "jovian": {
+            "intercept": 1.225547424037069,
+            "slope": -0.04085473238033001
+          },
+          "neptunian": {
+            "intercept": -0.05835352818198403,
+            "slope": 0.5026980426164521
+          },
+          "terran": {
+            "intercept": 0.009027179411113157,
+            "slope": 0.2845210257502828
+          }
+        },
+        "shuffled_seed_count": 32
+      },
+      "input_sha256": "bd7c919e4ba1de5acb01e45c78f64aa2b5af859edd62f0e88eaa62a44fb54c2d",
+      "minimum_mass_diagnostic": {
+        "classification": "diagnostic_only_not_primary",
+        "point_metrics": {
+          "count": 3,
+          "fraction_within_factor_2": 1.0,
+          "log10_bias": -0.12543596585423478,
+          "log10_mae": 0.12543596585423478,
+          "log10_rmse": 0.1746121543575713,
+          "median_log10_residual": -0.07187916008562742
+        }
+      },
+      "per_regime_point_metrics": {
+        "jovian": {
+          "chen_kipping_frozen": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9758064516129032,
+            "log10_bias": -0.008827343278564633,
+            "log10_mae": 0.08475969323417468,
+            "log10_rmse": 0.13733048005532109,
+            "median_log10_residual": -0.0074950314373628535
+          },
+          "global_median": {
+            "count": 124,
+            "fraction_within_factor_2": 0.8387096774193549,
+            "log10_bias": 0.17353057131287614,
+            "log10_mae": 0.1972908787245941,
+            "log10_rmse": 0.22115871886544222,
+            "median_log10_residual": 0.18140741491342682
+          },
+          "global_power_law": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9032258064516129,
+            "log10_bias": 0.0023640275731690173,
+            "log10_mae": 0.1410528862090687,
+            "log10_rmse": 0.19611392876812075,
+            "median_log10_residual": 0.037197319283290065
+          },
+          "regime_median": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9758064516129032,
+            "log10_bias": -0.003528938030108636,
+            "log10_mae": 0.08501032729157773,
+            "log10_rmse": 0.13715237203071215,
+            "median_log10_residual": 0.004347905570442068
+          },
+          "regime_power_law": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9758064516129032,
+            "log10_bias": 0.006219963331630125,
+            "log10_mae": 0.08503370016168674,
+            "log10_rmse": 0.13713985083904146,
+            "median_log10_residual": 0.007878718865860335
+          },
+          "shuffled_label_power_law": {
+            "count": 124,
+            "fraction_within_factor_2": 0.24193548387096775,
+            "log10_bias": 0.3526380064414704,
+            "log10_mae": 0.36756386865944757,
+            "log10_rmse": 0.37836199776900437,
+            "median_log10_residual": 0.3604562761508473
+          }
+        },
+        "neptunian": {
+          "chen_kipping_frozen": {
+            "count": 159,
+            "fraction_within_factor_2": 0.89937106918239,
+            "log10_bias": -0.05411328553579873,
+            "log10_mae": 0.13618222501445665,
+            "log10_rmse": 0.2066805604577097,
+            "median_log10_residual": -0.04847271963958638
+          },
+          "global_median": {
+            "count": 159,
+            "fraction_within_factor_2": 0.29559748427672955,
+            "log10_bias": -0.4299788874695698,
+            "log10_mae": 0.4622062448322371,
+            "log10_rmse": 0.5283778515467782,
+            "median_log10_residual": -0.5134056573291623
+          },
+          "global_power_law": {
+            "count": 159,
+            "fraction_within_factor_2": 0.8867924528301887,
+            "log10_bias": 0.0017905093761046615,
+            "log10_mae": 0.14149778277255629,
+            "log10_rmse": 0.19822635207397868,
+            "median_log10_residual": -0.01479701465001726
+          },
+          "regime_median": {
+            "count": 159,
+            "fraction_within_factor_2": 0.6981132075471698,
+            "log10_bias": 0.0641776918107039,
+            "log10_mae": 0.24056463831573277,
+            "log10_rmse": 0.3137197578441146,
+            "median_log10_residual": -0.019249078048888535
+          },
+          "regime_power_law": {
+            "count": 159,
+            "fraction_within_factor_2": 0.89937106918239,
+            "log10_bias": 0.00940286587611922,
+            "log10_mae": 0.12899215875375375,
+            "log10_rmse": 0.19360474925890647,
+            "median_log10_residual": 0.005230109788764703
+          },
+          "shuffled_label_power_law": {
+            "count": 159,
+            "fraction_within_factor_2": 0.36477987421383645,
+            "log10_bias": -0.24920548636583822,
+            "log10_mae": 0.34934322701811094,
+            "log10_rmse": 0.3951562038574494,
+            "median_log10_residual": -0.3326372052427695
+          }
+        },
+        "stellar": {
+          "chen_kipping_frozen": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "global_median": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "global_power_law": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "regime_median": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "regime_power_law": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "shuffled_label_power_law": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          }
+        },
+        "terran": {
+          "chen_kipping_frozen": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": 0.00949302950632236,
+            "log10_mae": 0.1565179653125808,
+            "log10_rmse": 0.2097727455121969,
+            "median_log10_residual": 0.020749570230615973
+          },
+          "global_median": {
+            "count": 13,
+            "fraction_within_factor_2": 0.0,
+            "log10_bias": -0.9022921133625723,
+            "log10_mae": 0.9022921133625723,
+            "log10_rmse": 0.9316812677295957,
+            "median_log10_residual": -0.8942848243340882
+          },
+          "global_power_law": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": -0.07001812156833181,
+            "log10_mae": 0.16489435347421644,
+            "log10_rmse": 0.2144168319229773,
+            "median_log10_residual": -0.07543720761882494
+          },
+          "regime_median": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": 0.0024301968725932146,
+            "log10_mae": 0.17282085630836713,
+            "log10_rmse": 0.23217414295904973,
+            "median_log10_residual": 0.010437485901077306
+          },
+          "regime_power_law": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": 0.0032377457701865445,
+            "log10_mae": 0.15572703758842213,
+            "log10_rmse": 0.20922265481585814,
+            "median_log10_residual": 0.01434213505820256
+          },
+          "shuffled_label_power_law": {
+            "count": 13,
+            "fraction_within_factor_2": 0.0,
+            "log10_bias": -0.7204120822121681,
+            "log10_mae": 0.7204120822121681,
+            "log10_rmse": 0.7568646462727544,
+            "median_log10_residual": -0.7121430343759659
+          }
+        }
+      },
+      "point_metrics": {
+        "chen_kipping_frozen": {
+          "count": 296,
+          "fraction_within_factor_2": 0.9290540540540541,
+          "log10_bias": -0.0323486269701075,
+          "log10_mae": 0.11553347732229668,
+          "log10_rmse": 0.1810502169443762,
+          "median_log10_residual": -0.017881102750076122
+        },
+        "global_median": {
+          "count": 296,
+          "fraction_within_factor_2": 0.5101351351351351,
+          "log10_bias": -0.19790084371141353,
+          "log10_mae": 0.3705562816347595,
+          "log10_rmse": 0.45670491935131025,
+          "median_log10_residual": -0.056669577949042316
+        },
+        "global_power_law": {
+          "count": 296,
+          "fraction_within_factor_2": 0.8918918918918919,
+          "log10_bias": -0.0011229904409280889,
+          "log10_mae": 0.14233895927677628,
+          "log10_rmse": 0.19808619087883772,
+          "median_log10_residual": 0.0018783007067054158
+        },
+        "regime_median": {
+          "count": 296,
+          "fraction_within_factor_2": 0.8209459459459459,
+          "log10_bias": 0.033102220410514055,
+          "log10_mae": 0.17242476083907404,
+          "log10_rmse": 0.25122734160999693,
+          "median_log10_residual": -0.008670871856420709
+        },
+        "regime_power_law": {
+          "count": 296,
+          "fraction_within_factor_2": 0.9290540540540541,
+          "log10_bias": 0.007798722373099717,
+          "log10_mae": 0.1117512957788699,
+          "log10_rmse": 0.17301908364942772,
+          "median_log10_residual": 0.007569224095311355
+        },
+        "shuffled_label_power_law": {
+          "count": 296,
+          "fraction_within_factor_2": 0.2972972972972973,
+          "log10_bias": -0.01777674527764909,
+          "log10_mae": 0.37327314148111257,
+          "log10_rmse": 0.4111048898687355,
+          "median_log10_residual": 0.12381285275981763
+        }
+      },
+      "probabilistic_calibration": {
+        "reason": "The frozen repository implementation returns the published median relation without predictive intervals.",
+        "status": "NOT_ATTEMPTED"
+      },
+      "shuffled_seed_metrics": [
+        {
+          "log10_mae": 0.3682546629338466,
+          "seed": 1701
+        },
+        {
+          "log10_mae": 0.3647238880733383,
+          "seed": 1702
+        },
+        {
+          "log10_mae": 0.3736102761450581,
+          "seed": 1703
+        },
+        {
+          "log10_mae": 0.3740189951340859,
+          "seed": 1704
+        },
+        {
+          "log10_mae": 0.37942432920108593,
+          "seed": 1705
+        },
+        {
+          "log10_mae": 0.38070785302323085,
+          "seed": 1706
+        },
+        {
+          "log10_mae": 0.3786968141838918,
+          "seed": 1707
+        },
+        {
+          "log10_mae": 0.36489593708683016,
+          "seed": 1708
+        },
+        {
+          "log10_mae": 0.3822948680337149,
+          "seed": 1709
+        },
+        {
+          "log10_mae": 0.37209459097437797,
+          "seed": 1710
+        },
+        {
+          "log10_mae": 0.37953716829795725,
+          "seed": 1711
+        },
+        {
+          "log10_mae": 0.38627024097701435,
+          "seed": 1712
+        },
+        {
+          "log10_mae": 0.38724590266959735,
+          "seed": 1713
+        },
+        {
+          "log10_mae": 0.37293600681716704,
+          "seed": 1714
+        },
+        {
+          "log10_mae": 0.3868892943922228,
+          "seed": 1715
+        },
+        {
+          "log10_mae": 0.38057749228947185,
+          "seed": 1716
+        },
+        {
+          "log10_mae": 0.36503850096400137,
+          "seed": 1717
+        },
+        {
+          "log10_mae": 0.36799887800407377,
+          "seed": 1718
+        },
+        {
+          "log10_mae": 0.3619369002902985,
+          "seed": 1719
+        },
+        {
+          "log10_mae": 0.3817772257239262,
+          "seed": 1720
+        },
+        {
+          "log10_mae": 0.3718099471167059,
+          "seed": 1721
+        },
+        {
+          "log10_mae": 0.3641321322123064,
+          "seed": 1722
+        },
+        {
+          "log10_mae": 0.36615892499965613,
+          "seed": 1723
+        },
+        {
+          "log10_mae": 0.3624740199216939,
+          "seed": 1724
+        },
+        {
+          "log10_mae": 0.36650273704463265,
+          "seed": 1725
+        },
+        {
+          "log10_mae": 0.36618453737451234,
+          "seed": 1726
+        },
+        {
+          "log10_mae": 0.38028342296363127,
+          "seed": 1727
+        },
+        {
+          "log10_mae": 0.3695216428464467,
+          "seed": 1728
+        },
+        {
+          "log10_mae": 0.38122874178942573,
+          "seed": 1729
+        },
+        {
+          "log10_mae": 0.3763326225429759,
+          "seed": 1730
+        },
+        {
+          "log10_mae": 0.364222534599063,
+          "seed": 1731
+        },
+        {
+          "log10_mae": 0.3829273996119813,
+          "seed": 1732
+        }
+      ],
+      "snapshot": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+      "test_detection_method_counts": {
+        "transit": 296
+      },
+      "test_regime_counts": {
+        "jovian": 124,
+        "neptunian": 159,
+        "terran": 13
+      },
+      "train_regime_counts": {
+        "jovian": 507,
+        "neptunian": 588,
+        "terran": 41
+      },
+      "uncertainty_aware_metrics": {
+        "chen_kipping_frozen": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.09786536060685855,
+          "reduced_chi_square": 177.04876740879453
+        },
+        "global_median": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.28704131309313285,
+          "reduced_chi_square": 1421.3814689779138
+        },
+        "global_power_law": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.10167225261315721,
+          "reduced_chi_square": 203.58433966533823
+        },
+        "regime_median": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.19045276338485442,
+          "reduced_chi_square": 713.3256111700986
+        },
+        "regime_power_law": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.07417169318673086,
+          "reduced_chi_square": 124.95652148543772
+        },
+        "shuffled_label_power_law": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.31467404598400533,
+          "reduced_chi_square": 1191.991607760689
+        }
+      }
+    },
+    "primary_exo_0002": {
+      "counts": {
+        "all_entries": 6298,
+        "boundary_at_or_above_13_mjup": 16,
+        "direct_true_mass_transit_radius": 1449,
+        "minimum_mass_diagnostic_below_13_mjup": 3,
+        "primary_below_13_mjup": 1433,
+        "primary_with_complete_uncertainty": 1294,
+        "test": 296,
+        "test_with_complete_uncertainty": 259,
+        "train": 1137
+      },
+      "dataset_id": "exo-0002-pscomppars-snapshot",
+      "fitted_controls": {
+        "global_median_log10_radius": 0.952656856156595,
+        "global_power_law": {
+          "intercept": 0.06843481473095603,
+          "slope": 0.39739996472376693
+        },
+        "regime_median_log10_radius": {
+          "jovian": 1.1270197864068079,
+          "neptunian": 0.4558887097415492,
+          "terran": 0.045322978786657475
+        },
+        "regime_power_laws": {
+          "jovian": {
+            "intercept": 1.2265511593897402,
+            "slope": -0.041294960561319476
+          },
+          "neptunian": {
+            "intercept": -0.05835352818198403,
+            "slope": 0.5026980426164521
+          },
+          "terran": {
+            "intercept": 0.009027179411113157,
+            "slope": 0.2845210257502828
+          }
+        },
+        "shuffled_seed_count": 32
+      },
+      "input_sha256": "d519b432acd8ccf58fe20df7a21f33110142b9ad99e98d0189268a377e63e5fe",
+      "minimum_mass_diagnostic": {
+        "classification": "diagnostic_only_not_primary",
+        "point_metrics": {
+          "count": 3,
+          "fraction_within_factor_2": 1.0,
+          "log10_bias": -0.12543596585423478,
+          "log10_mae": 0.12543596585423478,
+          "log10_rmse": 0.1746121543575713,
+          "median_log10_residual": -0.07187916008562742
+        }
+      },
+      "per_regime_point_metrics": {
+        "jovian": {
+          "chen_kipping_frozen": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9758064516129032,
+            "log10_bias": -0.008827343278564633,
+            "log10_mae": 0.08475969323417468,
+            "log10_rmse": 0.13733048005532109,
+            "median_log10_residual": -0.0074950314373628535
+          },
+          "global_median": {
+            "count": 124,
+            "fraction_within_factor_2": 0.8387096774193549,
+            "log10_bias": 0.17091900417810404,
+            "log10_mae": 0.19484779979206543,
+            "log10_rmse": 0.21911555339424282,
+            "median_log10_residual": 0.17879584777865476
+          },
+          "global_power_law": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9032258064516129,
+            "log10_bias": 0.0027462183297629096,
+            "log10_mae": 0.1410702446279276,
+            "log10_rmse": 0.19606091611572,
+            "median_log10_residual": 0.03756130778702438
+          },
+          "regime_median": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9758064516129032,
+            "log10_bias": -0.003443926072108822,
+            "log10_mae": 0.08501444077341642,
+            "log10_rmse": 0.13715021099809027,
+            "median_log10_residual": 0.004432917528441882
+          },
+          "regime_power_law": {
+            "count": 124,
+            "fraction_within_factor_2": 0.9758064516129032,
+            "log10_bias": 0.006382040514487329,
+            "log10_mae": 0.08505836806219008,
+            "log10_rmse": 0.13715349349912495,
+            "median_log10_residual": 0.007950611126297913
+          },
+          "shuffled_label_power_law": {
+            "count": 124,
+            "fraction_within_factor_2": 0.23387096774193547,
+            "log10_bias": 0.3554419988510125,
+            "log10_mae": 0.3701937142053311,
+            "log10_rmse": 0.380953574706166,
+            "median_log10_residual": 0.36333209051184373
+          }
+        },
+        "neptunian": {
+          "chen_kipping_frozen": {
+            "count": 159,
+            "fraction_within_factor_2": 0.89937106918239,
+            "log10_bias": -0.05411328553579873,
+            "log10_mae": 0.13618222501445665,
+            "log10_rmse": 0.2066805604577097,
+            "median_log10_residual": -0.04847271963958638
+          },
+          "global_median": {
+            "count": 159,
+            "fraction_within_factor_2": 0.29559748427672955,
+            "log10_bias": -0.4325904546043419,
+            "log10_mae": 0.4640951141435503,
+            "log10_rmse": 0.5305052419631793,
+            "median_log10_residual": -0.5160172244639343
+          },
+          "global_power_law": {
+            "count": 159,
+            "fraction_within_factor_2": 0.8867924528301887,
+            "log10_bias": 0.0018041716845967298,
+            "log10_mae": 0.1415405947158884,
+            "log10_rmse": 0.19825298648969447,
+            "median_log10_residual": -0.014597919958838301
+          },
+          "regime_median": {
+            "count": 159,
+            "fraction_within_factor_2": 0.6981132075471698,
+            "log10_bias": 0.0641776918107039,
+            "log10_mae": 0.24056463831573277,
+            "log10_rmse": 0.3137197578441146,
+            "median_log10_residual": -0.019249078048888535
+          },
+          "regime_power_law": {
+            "count": 159,
+            "fraction_within_factor_2": 0.89937106918239,
+            "log10_bias": 0.00940286587611922,
+            "log10_mae": 0.12899215875375375,
+            "log10_rmse": 0.19360474925890647,
+            "median_log10_residual": 0.005230109788764703
+          },
+          "shuffled_label_power_law": {
+            "count": 159,
+            "fraction_within_factor_2": 0.36477987421383645,
+            "log10_bias": -0.25161494767739623,
+            "log10_mae": 0.3516092359328837,
+            "log10_rmse": 0.39769208278097923,
+            "median_log10_residual": -0.3355263209094977
+          }
+        },
+        "stellar": {
+          "chen_kipping_frozen": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "global_median": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "global_power_law": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "regime_median": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "regime_power_law": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          },
+          "shuffled_label_power_law": {
+            "count": 0,
+            "fraction_within_factor_2": null,
+            "log10_bias": null,
+            "log10_mae": null,
+            "log10_rmse": null,
+            "median_log10_residual": null
+          }
+        },
+        "terran": {
+          "chen_kipping_frozen": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": 0.00949302950632236,
+            "log10_mae": 0.1565179653125808,
+            "log10_rmse": 0.2097727455121969,
+            "median_log10_residual": 0.020749570230615973
+          },
+          "global_median": {
+            "count": 13,
+            "fraction_within_factor_2": 0.0,
+            "log10_bias": -0.9049036804973443,
+            "log10_mae": 0.9049036804973443,
+            "log10_rmse": 0.9342106816877923,
+            "median_log10_residual": -0.8968963914688602
+          },
+          "global_power_law": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": -0.07024925696868219,
+            "log10_mae": 0.16495445344217918,
+            "log10_rmse": 0.21450399880879026,
+            "median_log10_residual": -0.07563035364900933
+          },
+          "regime_median": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": 0.0024301968725932146,
+            "log10_mae": 0.17282085630836713,
+            "log10_rmse": 0.23217414295904973,
+            "median_log10_residual": 0.010437485901077306
+          },
+          "regime_power_law": {
+            "count": 13,
+            "fraction_within_factor_2": 0.8461538461538461,
+            "log10_bias": 0.0032377457701865445,
+            "log10_mae": 0.15572703758842213,
+            "log10_rmse": 0.20922265481585814,
+            "median_log10_residual": 0.01434213505820256
+          },
+          "shuffled_label_power_law": {
+            "count": 13,
+            "fraction_within_factor_2": 0.0,
+            "log10_bias": -0.7262846181727928,
+            "log10_mae": 0.7262846181727928,
+            "log10_rmse": 0.7625559519093843,
+            "median_log10_residual": -0.718834715175378
+          }
+        }
+      },
+      "point_metrics": {
+        "chen_kipping_frozen": {
+          "count": 296,
+          "fraction_within_factor_2": 0.9290540540540541,
+          "log10_bias": -0.0323486269701075,
+          "log10_mae": 0.11553347732229668,
+          "log10_rmse": 0.1810502169443762,
+          "median_log10_residual": -0.017881102750076122
+        },
+        "global_median": {
+          "count": 296,
+          "fraction_within_factor_2": 0.5101351351351351,
+          "log10_bias": -0.2005124108461856,
+          "log10_mae": 0.37066215597806107,
+          "log10_rmse": 0.4578426217832357,
+          "median_log10_residual": -0.05928114508381438
+        },
+        "global_power_law": {
+          "count": 296,
+          "fraction_within_factor_2": 0.8918918918918919,
+          "log10_bias": -0.0009656958440925255,
+          "log10_mae": 0.14237186752850545,
+          "log10_rmse": 0.19808266974632766,
+          "median_log10_residual": 0.0018280238484219558
+        },
+        "regime_median": {
+          "count": 296,
+          "fraction_within_factor_2": 0.8209459459459459,
+          "log10_bias": 0.03313783352805452,
+          "log10_mae": 0.17242648405443892,
+          "log10_rmse": 0.2512268473849824,
+          "median_log10_residual": -0.008628365877420802
+        },
+        "regime_power_law": {
+          "count": 296,
+          "fraction_within_factor_2": 0.9290540540540541,
+          "log10_bias": 0.007866619571323681,
+          "log10_mae": 0.11176162962908075,
+          "log10_rmse": 0.17302361382061476,
+          "median_log10_residual": 0.007721947024406095
+        },
+        "shuffled_label_power_law": {
+          "count": 296,
+          "fraction_within_factor_2": 0.2939189189189189,
+          "log10_bias": -0.01815428668725258,
+          "log10_mae": 0.375849963212959,
+          "log10_rmse": 0.41387362614462153,
+          "median_log10_residual": 0.12265938712784491
+        }
+      },
+      "probabilistic_calibration": {
+        "reason": "The frozen repository implementation returns the published median relation without predictive intervals.",
+        "status": "NOT_ATTEMPTED"
+      },
+      "shuffled_seed_metrics": [
+        {
+          "log10_mae": 0.3781267893154905,
+          "seed": 1701
+        },
+        {
+          "log10_mae": 0.37478106373691944,
+          "seed": 1702
+        },
+        {
+          "log10_mae": 0.3772243215716216,
+          "seed": 1703
+        },
+        {
+          "log10_mae": 0.39503550595508324,
+          "seed": 1704
+        },
+        {
+          "log10_mae": 0.3650121879458879,
+          "seed": 1705
+        },
+        {
+          "log10_mae": 0.39281123806043394,
+          "seed": 1706
+        },
+        {
+          "log10_mae": 0.36437332007023143,
+          "seed": 1707
+        },
+        {
+          "log10_mae": 0.3530066952861221,
+          "seed": 1708
+        },
+        {
+          "log10_mae": 0.3546887950999638,
+          "seed": 1709
+        },
+        {
+          "log10_mae": 0.3676771595845846,
+          "seed": 1710
+        },
+        {
+          "log10_mae": 0.37610520900660954,
+          "seed": 1711
+        },
+        {
+          "log10_mae": 0.38173014756195284,
+          "seed": 1712
+        },
+        {
+          "log10_mae": 0.36769912292572854,
+          "seed": 1713
+        },
+        {
+          "log10_mae": 0.37732458075706693,
+          "seed": 1714
+        },
+        {
+          "log10_mae": 0.37354922220684206,
+          "seed": 1715
+        },
+        {
+          "log10_mae": 0.3832680597202215,
+          "seed": 1716
+        },
+        {
+          "log10_mae": 0.3755947174193085,
+          "seed": 1717
+        },
+        {
+          "log10_mae": 0.3674171040591863,
+          "seed": 1718
+        },
+        {
+          "log10_mae": 0.3873135527465744,
+          "seed": 1719
+        },
+        {
+          "log10_mae": 0.37853357618636524,
+          "seed": 1720
+        },
+        {
+          "log10_mae": 0.3801601942988764,
+          "seed": 1721
+        },
+        {
+          "log10_mae": 0.35889668149002074,
+          "seed": 1722
+        },
+        {
+          "log10_mae": 0.36082837617622154,
+          "seed": 1723
+        },
+        {
+          "log10_mae": 0.3765688656487596,
+          "seed": 1724
+        },
+        {
+          "log10_mae": 0.3886669853360984,
+          "seed": 1725
+        },
+        {
+          "log10_mae": 0.3825519279260233,
+          "seed": 1726
+        },
+        {
+          "log10_mae": 0.36549261659283006,
+          "seed": 1727
+        },
+        {
+          "log10_mae": 0.37521186837550863,
+          "seed": 1728
+        },
+        {
+          "log10_mae": 0.3636865652907078,
+          "seed": 1729
+        },
+        {
+          "log10_mae": 0.36904413640391115,
+          "seed": 1730
+        },
+        {
+          "log10_mae": 0.3894909441965037,
+          "seed": 1731
+        },
+        {
+          "log10_mae": 0.38964849415014047,
+          "seed": 1732
+        }
+      ],
+      "snapshot": "data/exoplanets/exo-0002-pscomppars-snapshot.yaml",
+      "test_detection_method_counts": {
+        "transit": 296
+      },
+      "test_regime_counts": {
+        "jovian": 124,
+        "neptunian": 159,
+        "terran": 13
+      },
+      "train_regime_counts": {
+        "jovian": 508,
+        "neptunian": 588,
+        "terran": 41
+      },
+      "uncertainty_aware_metrics": {
+        "chen_kipping_frozen": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.09786536060685849,
+          "reduced_chi_square": 177.04876740879445
+        },
+        "global_median": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.28758102941495295,
+          "reduced_chi_square": 1429.5069968330342
+        },
+        "global_power_law": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.10176444105611011,
+          "reduced_chi_square": 203.7638254761435
+        },
+        "regime_median": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.19044916094933761,
+          "reduced_chi_square": 713.3278529707154
+        },
+        "regime_power_law": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.07417144606868287,
+          "reduced_chi_square": 124.96414373107365
+        },
+        "shuffled_label_power_law": {
+          "count": 259,
+          "inverse_variance_log10_mae": 0.31686467313632394,
+          "reduced_chi_square": 1208.9368351204969
+        }
+      }
+    }
+  },
+  "task_id": "TASK-0866"
+}
