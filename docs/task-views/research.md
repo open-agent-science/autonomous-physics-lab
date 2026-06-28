@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0853` - Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823 (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0862` - Legacy claim novelty audit and calibration-role migration proposal (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0863` - Independently replay Stellar RESULT-0024 high-mass transfer (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `astrophysics_stellar`)
 - `TASK-0864` - Independently replay Nuclear RESULT-0025 GP residual extrapolation (`scientific_replay_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
@@ -20,6 +19,8 @@
 - `TASK-0874` - Prepare the particle-mass common-scheme source-policy decision packet (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 - `TASK-0875` - Route the light-clock consistency benchmark as quality-floor memory (`scientific_validation`, priority `medium`, difficulty `low`, domain `relativity_thought_experiment`)
 - `TASK-0876` - Refresh campaign profiles and pages after the latest result wave (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
+- `TASK-0877` - Construct the FRB Catalog 2 T-truncated exposure split before morphology benchmarking (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
+- `TASK-0878` - Implement a canonical DZ10 parity reference only after the AMDC source scout lands (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
