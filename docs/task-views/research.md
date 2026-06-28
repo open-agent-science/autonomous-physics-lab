@@ -28,4 +28,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0853` - Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823 (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
+None.

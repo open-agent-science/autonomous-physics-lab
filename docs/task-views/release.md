@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0852` - FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded) (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
+None.
