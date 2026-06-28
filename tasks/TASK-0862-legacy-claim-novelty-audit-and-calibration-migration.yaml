@@ -1,0 +1,63 @@
+id: TASK-0862
+title: "Legacy claim novelty audit and calibration-claim migration (propose, do not auto-change statuses)"
+type: docs_protocol
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Apply the now-live novelty gate (TASK-0861) retrospectively as a DELIBERATE migration, not a reactive downgrade: classify every legacy CLAIM-* and propose a disposition for promoted calibration claims."
+  - "Two promoted maintainer-reviewed claims are calibration / known-physics, not novelty: CLAIM-0001 (amplitude-dependent pendulum period) and CLAIM-0009 (anharmonic oscillator period). They are honestly scoped but mis-typed -- platform calibration / benchmark memory rather than active scientific claims."
+  - "Do not damage the audit trail: maintainer-reviewed status must not be silently reverted, and historical review notes must not be rewritten."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/claim-promotion-policy.md"
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "claims/"
+  planning_context: >
+    The novelty-classification gate (TASK-0861) is now live: claims are reserved
+    for genuine novelty, reusable datasets, or valuable negatives, and
+    calibration / known-physics must not be promoted as a scientific claim. A
+    one-off audit found that the only two PROMOTED claims (PARTIALLY_SUPPORTED @
+    MAINTAINER_REVIEWED) -- CLAIM-0001 and CLAIM-0009 -- are calibration /
+    known-physics. They are not scientifically wrong (honestly scoped, good
+    caveats); the issue is artifact type. The fix is a deliberate migration, NOT a
+    reactive PARTIALLY_SUPPORTED -> DRAFT downgrade (DRAFT means unresolved /
+    unreviewed, which mis-states their reviewed status). This task classifies all
+    claims and PROPOSES a migration; it changes no statuses on its own.
+
+requirements:
+  - "Classify every CLAIM-*.md by novelty class (frontier_novel | reusable_dataset | valuable_negative | calibration_known_physics) in a review note; record the evidence basis per claim."
+  - "Design an explicit disposition for promoted legacy calibration claims that is NOT DRAFT and NOT a forced SUPERSEDED: propose adding a status/tag to docs/claim-promotion-policy.md (for example RETIRED_TO_CALIBRATION) meaning 'valid platform-calibration / benchmark memory, no longer an active scientific claim', preserving the referenced RESULT-* and dataset links. Propose the vocabulary; do not adopt it without maintainer approval."
+  - "PROPOSE the migration of CLAIM-0001 and CLAIM-0009 to that disposition; do NOT apply any status change (these are MAINTAINER_REVIEWED; the maintainer decides each)."
+  - "Do NOT rewrite historical review notes; record the migration as a new forward disposition with a dated rationale, not a retroactive edit."
+  - "CLAIM-0008 (muon g-2 stress test): keep DRAFT; do NOT promote; flag it for a careful separate scope/overclaim review -- it is the highest overclaim-risk surface."
+  - "CLAIM-0006 / CLAIM-0007 (Koide cross-family failures): note as valuable_negative candidates; keep DRAFT; any promotion is a separate maintainer Gate C, out of scope here."
+  - "Do NOT change any claim status, promote any claim, or edit RESULT-* artifacts in this task. Output is a classification + migration proposal only."
+
+accepted_outputs:
+  - "A claim-ledger novelty-audit + migration-proposal note under docs/reviews/ with: a per-claim novelty classification table; the proposed RETIRED_TO_CALIBRATION (or equivalent) disposition + policy-vocabulary proposal; the proposed (not applied) migration of CLAIM-0001 and CLAIM-0009; the CLAIM-0008 g-2 scope flag; and the CLAIM-0006/0007 valuable_negative note."
+  - "Output-routing summary: cross-campaign ledger hygiene proposal; no claim status changed, no RESULT/PRED/KNOW change, no history rewrite; all migrations remain maintainer decisions."
+
+result_artifact_policy:
+  required: false
+  reason: "Audit + migration proposal only; no claim status change, result, or knowledge artifact is created or modified."
+  evidence:
+    - "docs/claim-promotion-policy.md"
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
