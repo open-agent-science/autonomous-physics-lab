@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0879` - Refresh the dated public-release readiness signoff against the current default-branch cut and forward the gate-doc status notes (`docs_protocol`, priority `medium`, difficulty `low`, domain `release_readiness`)
