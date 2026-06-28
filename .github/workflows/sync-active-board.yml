@@ -29,6 +29,15 @@
 # - The "sync-active-board" group ensures only one regen runs at a
 #   time. cancel-in-progress is false so a long-running install does
 #   not abandon a queued regen.
+#
+# Authentication:
+#
+# - Prefer an installed "APL Board Sync" GitHub App token when
+#   vars.APL_BOARD_SYNC_APP_CLIENT_ID and
+#   secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY are configured. Keep
+#   GITHUB_TOKEN as a degraded fallback so organization policies that
+#   block Actions-created PRs leave a pushed branch and a warning
+#   instead of a red main workflow run.
 
 name: Sync Active Board
 
@@ -116,10 +125,35 @@ jobs:
             echo "title=${title}"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Detect board-sync GitHub App credentials
+        if: steps.detect.outputs.changed == 'true'
+        id: board_sync_app
+        shell: bash
+        env:
+          APP_CLIENT_ID: ${{ vars.APL_BOARD_SYNC_APP_CLIENT_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY }}
+        run: |
+          if [[ -n "${APP_CLIENT_ID}" && -n "${APP_PRIVATE_KEY}" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::APL board-sync GitHub App credentials are not configured; falling back to GITHUB_TOKEN for PR creation."
+          fi
+
+      - name: Create board-sync GitHub App token
+        if: steps.board_sync_app.outputs.configured == 'true'
+        id: board_sync_app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APL_BOARD_SYNC_APP_CLIENT_ID }}
+          private-key: ${{ secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Open board-sync closeout PR
         if: steps.detect.outputs.changed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.board_sync_app_token.outputs.token || secrets.GITHUB_TOKEN }}
           BOARD_SYNC_BRANCH: ${{ steps.commit.outputs.branch }}
           BOARD_SYNC_BASE_SHORT: ${{ steps.commit.outputs.base_short }}
           BOARD_SYNC_TITLE: ${{ steps.commit.outputs.title }}
@@ -206,10 +240,18 @@ jobs:
 
           pr_number="$(gh pr list --repo "$GITHUB_REPOSITORY" --head "${BOARD_SYNC_BRANCH}" --base main --state open --json number --jq '.[0].number // empty')"
           if [[ -z "${pr_number}" ]]; then
-            pr_url="$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "${BOARD_SYNC_BRANCH}" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}")"
+            if ! pr_url="$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "${BOARD_SYNC_BRANCH}" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}" 2>&1)"; then
+              echo "::warning::Could not create board-sync PR for ${BOARD_SYNC_BRANCH}: ${pr_url}"
+              echo "::warning::The generated branch was pushed successfully; create the PR manually or enable organization policy for GitHub Actions pull-request creation."
+              exit 0
+            fi
             pr_number="${pr_url##*/}"
           else
-            gh pr edit "${pr_number}" --repo "$GITHUB_REPOSITORY" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}"
+            if ! edit_output="$(gh pr edit "${pr_number}" --repo "$GITHUB_REPOSITORY" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}" 2>&1)"; then
+              echo "::warning::Could not update board-sync PR #${pr_number}: ${edit_output}"
+              echo "::warning::The generated branch was pushed successfully; update the PR manually or enable organization policy for GitHub Actions pull-request creation."
+              exit 0
+            fi
           fi
 
           if ! gh pr merge "${pr_number}" --repo "$GITHUB_REPOSITORY" --auto --squash --delete-branch; then

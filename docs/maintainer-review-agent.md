@@ -706,6 +706,15 @@ Everything else — result-bearing, follow-up-spawning, unblocking, and
 the **review path** for a maintainer or Scientific Curator decision; the action
 never auto-unblocks. The auto-closeout runs only on `main`, keeps the
 `[skip-board-sync]` recursion guard, and is meaningful only on a green main.
+If organization policy prevents `github-actions[bot]` from creating the
+generated board-sync PR, the workflow should leave the generated branch pushed,
+log a warning, and complete without red-marking `main`; the maintainer can then
+open the PR manually from `agent/github-actions/bot/closeout-board-sync-*`.
+The preferred automated path is a repository-installed "APL Board Sync" GitHub
+App with only contents-write and pull-requests-write permissions, exposed to
+the workflow through `APL_BOARD_SYNC_APP_CLIENT_ID` and
+`APL_BOARD_SYNC_APP_PRIVATE_KEY`. Do not add a branch-protection direct-push
+bypass for generated navigation.
 The `full_repo` signal is load-bearing here: per
 [`docs/ci-full-repo-policy.md`](ci-full-repo-policy.md) a risk-based PR gate plus
 a nightly watchdog keep `full_repo` status honest, and commit-safe auto-closeout

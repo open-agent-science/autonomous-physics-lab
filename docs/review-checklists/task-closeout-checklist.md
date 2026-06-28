@@ -34,7 +34,11 @@ instruction, may perform closeout after merge.
   [the task views](../task-views/research.md) or
   `docs/task-views/*.md` in the closeout branch; the post-merge
   `Sync Active Board` GitHub Action regenerates them through a generated
-  board-sync PR after the closeout merges. Run
+  board-sync PR after the closeout merges. If organization policy blocks
+  GitHub Actions PR creation, use the pushed
+  `agent/github-actions/bot/closeout-board-sync-*` branch to create that PR
+  manually. The preferred unattended path is the narrow APL Board Sync GitHub
+  App token, not a direct-push bypass for protected `main`. Run
   `python3 -m physics_lab.cli sync-active-board .` by hand only for an
   explicit audit (set `APL_ENFORCE_BOARD_STALENESS=1`) or when the action
   is temporarily disabled.

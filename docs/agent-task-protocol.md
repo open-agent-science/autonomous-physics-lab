@@ -890,7 +890,14 @@ After merge, maintainer closeout may also:
     and opens or updates a generated `TASK-CLOSEOUT` PR only when a
     regeneration diff exists. The generated PR title includes
     `[skip-board-sync]`, so its squash merge commit does not recursively trigger
-    another board-sync pass. Maintainers may still run
+    another board-sync pass. If organization policy blocks GitHub Actions from
+    creating pull requests, the workflow leaves the generated branch pushed and
+    logs a warning so a maintainer can create the same board-sync PR manually.
+    Preferred unattended operation uses a repository-installed "APL Board Sync"
+    GitHub App token configured as `APL_BOARD_SYNC_APP_CLIENT_ID` plus
+    `APL_BOARD_SYNC_APP_PRIVATE_KEY`, with only contents-write and
+    pull-requests-write permissions.
+    Maintainers may still run
     `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
     board-sync PR when the action is disabled or needs a manual audit;
 15. add a dry-run note when the merged PR belongs to a contributor pilot.
