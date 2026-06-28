@@ -1,5 +1,5 @@
 id: TASK-0881
-title: "Handle org-blocked board-sync pull-request creation with App fallback"
+title: "Route board-sync direct generated commits through a narrow App identity"
 type: infrastructure
 status: REVIEW_READY
 closeout: review
@@ -12,28 +12,30 @@ input:
   related_domain: "maintainer_automation"
   related_objects:
     - ".github/workflows/sync-active-board.yml"
-    - "physics_lab/registry/maintainer_review.py"
     - "docs/task-views/release.md"
   planning_context: |
-    After TASK-0880 routed Sync Active Board through generated closeout PRs,
-    the first post-merge run pushed the generated branch successfully but failed
-    to create the PR because organization policy disallows GitHub Actions from
-    creating or approving pull requests.
+    TASK-0880 proved that branch protection correctly blocks the old
+    github-actions direct push, but generated board-sync PRs create an extra
+    lifecycle step for maintainers. The safer no-extra-PR architecture is a
+    dedicated APL Board Sync GitHub App with narrow contents-write permission
+    and a branch-protection bypass scoped to generated maintenance commits.
 requirements:
   - "Keep main branch protection intact."
-  - "Prefer a narrow APL Board Sync GitHub App token for unattended PR creation."
+  - "Prefer a narrow APL Board Sync GitHub App token for unattended generated commits."
   - "Do not require broad default workflow token permissions."
-  - "Treat organization-policy PR-creation denial as a warning after the generated branch is safely pushed."
-  - "Allow maintainer-review to accept generated board-sync PRs that only update docs/task-views/*.md under the github-actions board-sync branch and [skip-board-sync] title guard."
+  - "Do not route routine generated board-sync through an extra pull request."
+  - "Keep the [skip-board-sync] recursion guard on generated commits."
+  - "Block unexpected diff paths before the App-token push."
+  - "Keep maintainer-review blocking arbitrary docs/task-views-only closeout PRs."
 accepted_outputs:
   - ".github/workflows/sync-active-board.yml"
   - "docs/agent-task-protocol.md"
   - "docs/maintainer-review-agent.md"
   - "docs/review-checklists/task-closeout-checklist.md"
-  - "physics_lab/registry/maintainer_review.py"
   - "tests/test_maintainer_review.py"
+  - "tests/test_validate_repo_auto_sync.py"
   - "tasks/TASK-0881-board-sync-org-policy-fallback.yaml"
-  - "Optional APL Board Sync GitHub App credential contract documented for maintainers."
+  - "APL Board Sync GitHub App credential and bypass contract documented for maintainers."
 validation:
   commands:
     - "python3 -m pytest tests/test_maintainer_review.py tests/test_docs_links.py tests/test_validate_repo_board_staleness_severity.py tests/test_validate_repo_auto_sync.py"

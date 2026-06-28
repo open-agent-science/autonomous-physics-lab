@@ -109,10 +109,6 @@ CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
-GENERATED_BOARD_SYNC_CLOSEOUT_VALIDATION_COMMANDS = (
-    "python3 -m pytest tests/test_docs_links.py tests/test_validate_repo_board_staleness_severity.py tests/test_validate_repo_auto_sync.py",
-    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
-)
 PROPOSAL_DRIFT_CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 scripts/apl_proposal_triage.py",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
@@ -145,27 +141,6 @@ TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "knowledge/",
     "results/",
 )
-
-
-def is_generated_board_sync_closeout_pr(
-    *,
-    changed_files: tuple[str, ...],
-    pr_metadata: PullRequestMetadata | None,
-    target_branch: str,
-) -> bool:
-    """Return whether a closeout PR is the post-merge generated board-sync PR."""
-    if pr_metadata is None:
-        return False
-    branch = pr_metadata.branch or target_branch
-    if not branch.startswith("agent/github-actions/bot/closeout-board-sync-"):
-        return False
-    if not pr_metadata.title.startswith("TASK-CLOSEOUT: Sync generated task navigation after "):
-        return False
-    if "[skip-board-sync]" not in pr_metadata.title:
-        return False
-    return bool(changed_files) and all(
-        path.startswith("docs/task-views/") for path in changed_files
-    )
 ARCHIVE_CLOSEOUT_TERMINAL_STATUSES = frozenset({"DONE", "SUPERSEDED", "REJECTED"})
 ARCHIVE_CLOSEOUT_ALLOWED_SUPPORT_FILES = frozenset(
     {
@@ -1615,23 +1590,7 @@ def _compose_review_report(
         if not closeout_task_files:
             if not proposal_files:
                 if not archived_task_files:
-                    if is_generated_board_sync_closeout_pr(
-                        changed_files=changed_files,
-                        pr_metadata=pr_metadata,
-                        target_branch=target_branch,
-                    ):
-                        advisory_warnings.append(
-                            "Generated board-sync closeout PR updates only docs/task-views/*.md."
-                        )
-                        validation_payload = {
-                            "validation": {
-                                "commands": list(
-                                    GENERATED_BOARD_SYNC_CLOSEOUT_VALIDATION_COMMANDS
-                                ),
-                            }
-                        }
-                    else:
-                        blockers.append("Closeout PR requires at least one changed canonical task file.")
+                    blockers.append("Closeout PR requires at least one changed canonical task file.")
                 else:
                     nonarchive_changes = tuple(
                         path

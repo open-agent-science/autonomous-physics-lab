@@ -15,8 +15,9 @@
 #   meaningful agent time.
 # - The post-merge action centralizes regeneration so agents stop
 #   committing derived files. After the repository became public and
-#   `main` protection was enabled, the workflow opens a generated
-#   closeout PR instead of pushing directly to `main`.
+#   `main` protection was enabled, direct generated commits require a
+#   narrow repository-installed GitHub App identity instead of the broad
+#   default GITHUB_TOKEN identity.
 #
 # Recursion guard:
 #
@@ -32,12 +33,12 @@
 #
 # Authentication:
 #
-# - Prefer an installed "APL Board Sync" GitHub App token when
-#   vars.APL_BOARD_SYNC_APP_CLIENT_ID and
-#   secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY are configured. Keep
-#   GITHUB_TOKEN as a degraded fallback so organization policies that
-#   block Actions-created PRs leave a pushed branch and a warning
-#   instead of a red main workflow run.
+# - This workflow requires an installed "APL Board Sync" GitHub App
+#   token via vars.APL_BOARD_SYNC_APP_CLIENT_ID and
+#   secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY whenever it needs to push a
+#   generated sync commit. Branch protection should grant that App, and
+#   only that App, the bypass needed for this generated-maintenance
+#   push. Do not grant a broad direct-push bypass to github-actions[bot].
 
 name: Sync Active Board
 
@@ -50,8 +51,8 @@ on:
       - 'missions/current.yaml'
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
   actions: read
 
 concurrency:
@@ -68,7 +69,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
           ref: main
 
       - name: Set up Python
@@ -97,33 +98,29 @@ jobs:
         id: detect
         shell: bash
         run: |
-          if git diff --quiet -- docs/task-views/ tasks/; then
+          if git diff --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No regeneration or safe-closeout diff; board and task statuses are in sync."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Detected regeneration and/or safe-closeout diff."
-            git --no-pager diff --stat -- docs/task-views/ tasks/
+            git --no-pager diff --stat
+            unexpected_paths=()
+            while IFS= read -r path; do
+              case "${path}" in
+                docs/task-views/*.md|tasks/TASK-*.yaml)
+                  ;;
+                *)
+                  unexpected_paths+=("${path}")
+                  ;;
+              esac
+            done < <(git diff --name-only)
+            if (( ${#unexpected_paths[@]} > 0 )); then
+              printf 'Unexpected board-sync diff paths:\n' >&2
+              printf '  %s\n' "${unexpected_paths[@]}" >&2
+              exit 1
+            fi
           fi
-
-      - name: Commit regenerated navigation
-        if: steps.detect.outputs.changed == 'true'
-        id: commit
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/task-views/ tasks/
-          base_short="$(git rev-parse --short HEAD)"
-          branch="agent/github-actions/bot/closeout-board-sync-${GITHUB_RUN_ID}"
-          title="TASK-CLOSEOUT: Sync generated task navigation after ${base_short} [skip-board-sync]"
-          git commit -m "chore(board-sync): sync task navigation and safe closeouts after ${base_short} [skip-board-sync]"
-          git push --force-with-lease origin HEAD:"${branch}"
-          {
-            echo "branch=${branch}"
-            echo "base_short=${base_short}"
-            echo "title=${title}"
-          } >> "$GITHUB_OUTPUT"
 
       - name: Detect board-sync GitHub App credentials
         if: steps.detect.outputs.changed == 'true'
@@ -137,7 +134,9 @@ jobs:
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::APL board-sync GitHub App credentials are not configured; falling back to GITHUB_TOKEN for PR creation."
+            echo "::error::APL board-sync GitHub App credentials are required for protected-main generated sync pushes."
+            echo "::error::Configure vars.APL_BOARD_SYNC_APP_CLIENT_ID and secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY, then allow that App to bypass the pull-request requirement for main."
+            exit 1
           fi
 
       - name: Create board-sync GitHub App token
@@ -148,112 +147,26 @@ jobs:
           client-id: ${{ vars.APL_BOARD_SYNC_APP_CLIENT_ID }}
           private-key: ${{ secrets.APL_BOARD_SYNC_APP_PRIVATE_KEY }}
           permission-contents: write
-          permission-pull-requests: write
 
-      - name: Open board-sync closeout PR
+      - name: Commit regenerated navigation
         if: steps.detect.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ steps.board_sync_app_token.outputs.token || secrets.GITHUB_TOKEN }}
-          BOARD_SYNC_BRANCH: ${{ steps.commit.outputs.branch }}
-          BOARD_SYNC_BASE_SHORT: ${{ steps.commit.outputs.base_short }}
-          BOARD_SYNC_TITLE: ${{ steps.commit.outputs.title }}
         shell: bash
+        env:
+          GH_TOKEN: ${{ steps.board_sync_app_token.outputs.token }}
+          BOARD_SYNC_TOKEN: ${{ steps.board_sync_app_token.outputs.token }}
+          BOARD_SYNC_APP_SLUG: ${{ steps.board_sync_app_token.outputs.app-slug }}
         run: |
-          body_file="$(mktemp)"
-          cat > "${body_file}" <<EOF
-          ## PR Kind
-
-          - [ ] Canonical task PR
-          - [ ] Task proposal PR
-          - [ ] Microtask PR
-          - [x] Task closeout PR
-
-          ## Primary Reference
-
-          Task closeout PR:
-
-          - Task ID: \`TASK-CLOSEOUT\`
-          - Closed Task Files: generated task navigation and safe auto-closeout task files, if any
-
-          ## Branch Name
-
-          - \`${BOARD_SYNC_BRANCH}\`
-
-          ## PR Title
-
-          - \`${BOARD_SYNC_TITLE}\`
-
-          ## PR Lifecycle
-
-          - [x] Branch pushed
-          - [x] Draft PR opened by agent or manual PR creation commands provided
-          - [ ] Post-PR review command run or manual review command provided if no PR number is available
-          - [ ] Marked ready for review after CI passes and review agent returns \`MERGE_OK\`, or manual ready command provided
-
-          ## Summary
-
-          Regenerates derived task navigation and applies deterministic safe auto-closeout output after \`${BOARD_SYNC_BASE_SHORT}\`.
-
-          ## Changed Files
-
-          - \`docs/task-views/*\`
-          - \`tasks/TASK-*.yaml\` if safe auto-closeout applied
-
-          ## Linked Repository Memory
-
-          - Hypothesis:
-          - Experiment:
-          - Task / Proposal / Queue: \`TASK-CLOSEOUT\`
-          - Result:
-          - Claim / Knowledge:
-
-          ## Validation Commands
-
-          - [x] \`python scripts/apl_closeout_sweep.py --auto-safe\`
-          - [x] \`python -m physics_lab.cli sync-active-board .\`
-
-          ## Scientific Claim Impact
-
-          None. Generated navigation and safe closeout bookkeeping only.
-
-          ## Result Artifact Impact
-
-          - [x] I used \`--output-dir\` for routine validation runs, or no workflow runs were needed.
-          - [x] I intentionally updated committed \`results/\` artifacts, or I left them untouched.
-          - [x] If canonical artifacts changed, the change is scientifically meaningful and explained in this PR.
-
-          ## Agent / Contributor Metadata
-
-          - Contributor ID: \`github-actions\`
-          - GitHub username: \`github-actions[bot]\`
-          - Agent tool: \`GitHub Actions\`
-          - Model/version if known:
-          - Task ID / Proposal / Queue: \`TASK-CLOSEOUT\`
-          - Branch: \`${BOARD_SYNC_BRANCH}\`
-          - Human reviewer: \`romanhladun24-dot\`
-
-          ## Maintainer Review Notes
-
-          - Generated by the post-merge Sync Active Board workflow.
-          - The \`[skip-board-sync]\` marker in the PR title prevents recursion after squash merge.
-          EOF
-
-          pr_number="$(gh pr list --repo "$GITHUB_REPOSITORY" --head "${BOARD_SYNC_BRANCH}" --base main --state open --json number --jq '.[0].number // empty')"
-          if [[ -z "${pr_number}" ]]; then
-            if ! pr_url="$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "${BOARD_SYNC_BRANCH}" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}" 2>&1)"; then
-              echo "::warning::Could not create board-sync PR for ${BOARD_SYNC_BRANCH}: ${pr_url}"
-              echo "::warning::The generated branch was pushed successfully; create the PR manually or enable organization policy for GitHub Actions pull-request creation."
-              exit 0
-            fi
-            pr_number="${pr_url##*/}"
-          else
-            if ! edit_output="$(gh pr edit "${pr_number}" --repo "$GITHUB_REPOSITORY" --title "${BOARD_SYNC_TITLE}" --body-file "${body_file}" 2>&1)"; then
-              echo "::warning::Could not update board-sync PR #${pr_number}: ${edit_output}"
-              echo "::warning::The generated branch was pushed successfully; update the PR manually or enable organization policy for GitHub Actions pull-request creation."
-              exit 0
-            fi
-          fi
-
-          if ! gh pr merge "${pr_number}" --repo "$GITHUB_REPOSITORY" --auto --squash --delete-branch; then
-            echo "::warning::Auto-merge was not enabled for board-sync PR #${pr_number}; leaving it open for maintainer review."
-          fi
+          app_bot_id="$(gh api "/users/${BOARD_SYNC_APP_SLUG}[bot]" --jq .id)"
+          git config user.name "${BOARD_SYNC_APP_SLUG}[bot]"
+          git config user.email "${app_bot_id}+${BOARD_SYNC_APP_SLUG}[bot]@users.noreply.github.com"
+          git add docs/task-views/ tasks/
+          {
+            echo "### Sync Active Board"
+            echo "- Source SHA: \`${GITHUB_SHA}\`"
+            echo "- Changed files:"
+            git diff --cached --name-only | sed 's/^/- `/' | sed 's/$/`/'
+          } >> "$GITHUB_STEP_SUMMARY"
+          base_short="$(git rev-parse --short HEAD)"
+          git commit -m "chore(board-sync): sync task navigation and safe closeouts after ${base_short} [skip-board-sync]"
+          git remote set-url origin "https://x-access-token:${BOARD_SYNC_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push origin HEAD:main

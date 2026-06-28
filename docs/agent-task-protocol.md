@@ -887,16 +887,15 @@ After merge, maintainer closeout may also:
     [./task-views/support.md](./task-views/support.md), and
     [./task-views/release.md](./task-views/release.md)). The action runs on
     every push to `main` that touches `tasks/**` or `missions/current.yaml`
-    and opens or updates a generated `TASK-CLOSEOUT` PR only when a
-    regeneration diff exists. The generated PR title includes
-    `[skip-board-sync]`, so its squash merge commit does not recursively trigger
-    another board-sync pass. If organization policy blocks GitHub Actions from
-    creating pull requests, the workflow leaves the generated branch pushed and
-    logs a warning so a maintainer can create the same board-sync PR manually.
-    Preferred unattended operation uses a repository-installed "APL Board Sync"
-    GitHub App token configured as `APL_BOARD_SYNC_APP_CLIENT_ID` plus
-    `APL_BOARD_SYNC_APP_PRIVATE_KEY`, with only contents-write and
-    pull-requests-write permissions.
+    and commits generated navigation with a `[skip-board-sync]` marker only
+    when a regeneration diff exists. Because `main` is protected, unattended
+    operation uses a repository-installed "APL Board Sync" GitHub App token
+    configured as `APL_BOARD_SYNC_APP_CLIENT_ID` plus
+    `APL_BOARD_SYNC_APP_PRIVATE_KEY`, with only contents-write permission and a
+    branch-protection bypass scoped to this App identity. The workflow blocks
+    unexpected paths before pushing and should only write `docs/task-views/*.md`
+    plus deterministic safe-closeout `tasks/TASK-*.yaml` updates. Do not grant
+    a broad direct-push bypass to `github-actions[bot]`.
     Maintainers may still run
     `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
     board-sync PR when the action is disabled or needs a manual audit;
