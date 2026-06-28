@@ -88,7 +88,7 @@ portfolio:
   recommended_parallel_agents: 1
   coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Current work is source/license verification for the ZnSe route and negative-memory routing for the effective-mass transfer failure; no correction search or design-law claim."
   next_validity_gate:
-    type: source_and_negative_memory
+    type: source_readiness
     blocker: "The current baseline is single-source Almeida InP; the ZnSe second-material route is license-limited, and fixed effective-mass scaling did not transfer cleanly across InP/ZnSe."
     target_artifact: "TASK-0870"
   best_next_actions:
