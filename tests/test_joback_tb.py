@@ -107,7 +107,14 @@ def test_source_manifest_is_metadata_only_with_pinned_sha() -> None:
     assert source["official_published_sha256"] == (
         "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2"
     )
-    assert source["apl_computed_sha256"] == "PENDING_FIRST_FETCH"
+    assert source["apl_computed_sha256"] == source["official_published_sha256"]
+    assert source["local_fetch_verification"] == {
+        "verified_by_task": "TASK-0851",
+        "verification_result": "match",
+        "bounded_fixture": "data/thermophysical/thermoml_tb_audit_fixture.yaml",
+        "archive_committed": False,
+        "substantial_corpus_committed": False,
+    }
     rights = source["rights_framework"]
     assert rights["local_analysis_allowed"] is True
     assert rights["source_bytes_redistribution"] is False

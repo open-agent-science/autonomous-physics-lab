@@ -1,0 +1,819 @@
+schema_version: '1'
+task_id: TASK-0851
+dataset_id: thermoml-tb-bounded-family-audit-v1
+source:
+  product: NIST TRC ThermoML Archive
+  doi: 10.18434/mds2-2422
+  archive_filename: ThermoML.v2020-09-30.tgz
+  archive_size_bytes: 189433115
+  archive_sha256: 231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2
+  archive_bytes_committed: false
+  attribution: Data from the NIST TRC ThermoML Archive, available with permission of the journal publishers; NIST does not critically evaluate deposited values.
+extraction:
+  rdkit_version: 2025.09.3
+  thermo_version: 0.6.0
+  property: Normal boiling temperature, K
+  scoring_intercept_k: 198.2
+  selection_is_value_blind_to_joback_error: true
+  dedup_rule: smallest reported expanded uncertainty, then source DOI and value
+  family_selection_rule: 5 molecular-weight quantile rows per predeclared simple family
+  selected_families:
+  - acids
+  - esters/lactones
+  - ketones
+  - alcohols/phenols
+  - ethers
+  - halocarbons
+  - aromatic hydrocarbons
+  - alkanes/cycloalkanes
+  candidate_counts_by_family:
+    acids: 7
+    esters/lactones: 51
+    ketones: 9
+    alcohols/phenols: 31
+    ethers: 13
+    halocarbons: 15
+    aromatic hydrocarbons: 20
+    alkanes/cycloalkanes: 13
+  screening_counts:
+    archive_json_files: 11923
+    charged_or_multifragment_blocks: 2
+    identified_single_component_blocks: 590
+    joback_covered_observations: 501
+    joback_covered_unique_compounds: 184
+    joback_out_of_coverage_blocks: 81
+    normal_boiling_files: 167
+    raw_normal_boiling_observations: 501
+    unclassified_family_blocks: 1
+    unsupported_element_blocks: 5
+rights:
+  local_analysis_allowed: true
+  source_bytes_redistribution: false
+  derived_rows_publication: conditional_bounded_factual_extract
+  substantial_corpus_committed: false
+rows:
+- row_id: TML-TB-0001
+  inchi_key: BDAGIHXWWSANSR-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/CH2O2/c2-1-3/h1H,(H,2,3)
+  common_name: formic acid
+  formula: CH2O2
+  family: acids
+  molecular_weight_g_mol: 46.005479
+  experimental_tb_k: 374.05
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2011.09.014
+  source_member: 10.1016/j.fluid.2011.09.014.json
+  joback_group_counts:
+    -COOH (acid): 1
+  observation_count: 7
+  observed_tb_span_k: 0.8
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0002
+  inchi_key: XBDQKXXYIPTUBI-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C3H6O2/c1-2-3(4)5/h2H2,1H3,(H,4,5)
+  common_name: propanoic acid
+  formula: C3H6O2
+  family: acids
+  molecular_weight_g_mol: 74.036779
+  experimental_tb_k: 414.1
+  expanded_uncertainty_k: 0.02
+  source_doi: 10.1016/j.jct.2008.01.001
+  source_member: 10.1016/j.jct.2008.01.001.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 1
+    -COOH (acid): 1
+  observation_count: 13
+  observed_tb_span_k: 0.45
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0003
+  inchi_key: FERIUCNNQQJTOY-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C4H8O2/c1-2-3-4(5)6/h2-3H2,1H3,(H,5,6)
+  common_name: butanoic acid
+  formula: C4H8O2
+  family: acids
+  molecular_weight_g_mol: 88.052429
+  experimental_tb_k: 436.8
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2014.03.008
+  source_member: 10.1016/j.fluid.2014.03.008.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 2
+    -COOH (acid): 1
+  observation_count: 8
+  observed_tb_span_k: 0.28
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0004
+  inchi_key: JVTAAEKCZFNVCJ-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C3H6O3/c1-2(4)3(5)6/h2,4H,1H3,(H,5,6)
+  common_name: 2-hydroxypropanoic acid
+  formula: C3H6O3
+  family: acids
+  molecular_weight_g_mol: 90.031694
+  experimental_tb_k: 398.2
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2014.06.010
+  source_member: 10.1016/j.fluid.2014.06.010.json
+  joback_group_counts:
+    -CH3: 1
+    '>CH-': 1
+    -OH (alcohol): 1
+    -COOH (acid): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0005
+  inchi_key: JOOXCMJARBKPKM-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C5H8O3/c1-4(6)2-3-5(7)8/h2-3H2,1H3,(H,7,8)
+  common_name: 4-oxopentanoic acid
+  formula: C5H8O3
+  family: acids
+  molecular_weight_g_mol: 116.047344
+  experimental_tb_k: 518.2
+  expanded_uncertainty_k: 0.5
+  source_doi: 10.1016/j.fluid.2008.08.004
+  source_member: 10.1016/j.fluid.2008.08.004.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 2
+    '>C=O (non-ring)': 1
+    -COOH (acid): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0006
+  inchi_key: KXKVLQRXCPHEJC-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C3H6O2/c1-3(4)5-2/h1-2H3
+  common_name: methyl ethanoate
+  formula: C3H6O2
+  family: esters/lactones
+  molecular_weight_g_mol: 74.036779
+  experimental_tb_k: 330.04
+  expanded_uncertainty_k: 0.17
+  source_doi: 10.1016/j.fluid.2007.01.033
+  source_member: 10.1016/j.fluid.2007.01.033.json
+  joback_group_counts:
+    -CH3: 2
+    -COO- (ester): 1
+  observation_count: 6
+  observed_tb_span_k: 1.15
+  conflicting_observations: true
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0007
+  inchi_key: OBNCKNCVKJNDBV-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C6H12O2/c1-3-5-6(7)8-4-2/h3-5H2,1-2H3
+  common_name: ethyl butanoate
+  formula: C6H12O2
+  family: esters/lactones
+  molecular_weight_g_mol: 116.08373
+  experimental_tb_k: 394.17
+  expanded_uncertainty_k: 0.13
+  source_doi: 10.1021/je0202073
+  source_member: 10.1021/je0202073.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 3
+    -COO- (ester): 1
+  observation_count: 2
+  observed_tb_span_k: 0.38
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0008
+  inchi_key: LGTLDEUQCOJGFP-WAYWQWQTSA-N
+  standard_inchi: InChI=1S/C9H16O2/c1-3-5-6-7-8-11-9(10)4-2/h5-6H,3-4,7-8H2,1-2H3/b6-5-
+  common_name: (Z)-3-hexenyl propionate
+  formula: C9H16O2
+  family: esters/lactones
+  molecular_weight_g_mol: 156.11503
+  experimental_tb_k: 461.2
+  expanded_uncertainty_k: 6.2
+  source_doi: 10.1016/j.jct.2015.02.015
+  source_member: 10.1016/j.jct.2015.02.015.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 4
+    =CH-: 2
+    -COO- (ester): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0009
+  inchi_key: HVGZQCSMLUDISR-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C11H14O2/c1-2-11(12)13-9-8-10-6-4-3-5-7-10/h3-7H,2,8-9H2,1H3
+  common_name: 2-phenylethyl propanoate
+  formula: C11H14O2
+  family: esters/lactones
+  molecular_weight_g_mol: 178.09938
+  experimental_tb_k: 517.3
+  expanded_uncertainty_k: 6.2
+  source_doi: 10.1016/j.jct.2015.02.015
+  source_member: 10.1016/j.jct.2015.02.015.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 3
+    ring =CH-: 5
+    ring =C<: 1
+    -COO- (ester): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0010
+  inchi_key: DOIRQSBPFJWKBE-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C16H22O4/c1-3-5-11-19-15(17)13-9-7-8-10-14(13)16(18)20-12-6-4-2/h7-10H,3-6,11-12H2,1-2H3
+  common_name: dibutyl phthalate
+  formula: C16H22O4
+  family: esters/lactones
+  molecular_weight_g_mol: 278.151809
+  experimental_tb_k: 613.2
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.jct.2005.03.003
+  source_member: 10.1016/j.jct.2005.03.003.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 6
+    ring =CH-: 4
+    ring =C<: 2
+    -COO- (ester): 2
+  observation_count: 2
+  observed_tb_span_k: 0.1
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0011
+  inchi_key: CSCPPACGZOOCGX-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C3H6O/c1-3(2)4/h1-2H3
+  common_name: acetone
+  formula: C3H6O
+  family: ketones
+  molecular_weight_g_mol: 58.041865
+  experimental_tb_k: 329.27
+  expanded_uncertainty_k: 0.13
+  source_doi: 10.1021/je0497000
+  source_member: 10.1021/je0497000.json
+  joback_group_counts:
+    -CH3: 2
+    '>C=O (non-ring)': 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0012
+  inchi_key: XNLICIUVMPYHGG-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C5H10O/c1-3-4-5(2)6/h3-4H2,1-2H3
+  common_name: pentan-2-one
+  formula: C5H10O
+  family: ketones
+  molecular_weight_g_mol: 86.073165
+  experimental_tb_k: 375.36
+  expanded_uncertainty_k: 0.13
+  source_doi: 10.1021/je0497000
+  source_member: 10.1021/je0497000.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 2
+    '>C=O (non-ring)': 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0013
+  inchi_key: JHIVVAPYMSGYDF-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C6H10O/c7-6-4-2-1-3-5-6/h1-5H2
+  common_name: cyclohexanone
+  formula: C6H10O
+  family: ketones
+  molecular_weight_g_mol: 98.073165
+  experimental_tb_k: 428.69
+  expanded_uncertainty_k: 0.1
+  source_doi: 10.1016/j.jct.2005.03.017
+  source_member: 10.1016/j.jct.2005.03.017.json
+  joback_group_counts:
+    ring -CH2-: 5
+    ring >C=O: 1
+  observation_count: 2
+  observed_tb_span_k: 0.15
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0014
+  inchi_key: NTIZESTWPVYFNL-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C6H12O/c1-5(2)4-6(3)7/h5H,4H2,1-3H3
+  common_name: 4-methylpentan-2-one
+  formula: C6H12O
+  family: ketones
+  molecular_weight_g_mol: 100.088815
+  experimental_tb_k: 390.75
+  expanded_uncertainty_k: 0.1
+  source_doi: 10.1016/j.fluid.2007.05.026
+  source_member: 10.1016/j.fluid.2007.05.026.json
+  joback_group_counts:
+    -CH3: 3
+    -CH2-: 1
+    '>CH-': 1
+    '>C=O (non-ring)': 1
+  observation_count: 6
+  observed_tb_span_k: 4.95
+  conflicting_observations: true
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0015
+  inchi_key: KWOLFJPFCHCOCG-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C8H8O/c1-7(9)8-5-3-2-4-6-8/h2-6H,1H3
+  common_name: acetophenone
+  formula: C8H8O
+  family: ketones
+  molecular_weight_g_mol: 120.057515
+  experimental_tb_k: 475.1
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2014.03.008
+  source_member: 10.1016/j.fluid.2014.03.008.json
+  joback_group_counts:
+    -CH3: 1
+    ring =CH-: 5
+    ring =C<: 1
+    '>C=O (non-ring)': 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0016
+  inchi_key: OKKJLVBELUTLKV-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/CH4O/c1-2/h2H,1H3
+  common_name: methanol
+  formula: CH4O
+  family: alcohols/phenols
+  molecular_weight_g_mol: 32.026215
+  experimental_tb_k: 337.67
+  expanded_uncertainty_k: 0.03
+  source_doi: 10.1021/je034227w
+  source_member: 10.1021/je034227w.json
+  joback_group_counts:
+    -CH3: 1
+    -OH (alcohol): 1
+  observation_count: 17
+  observed_tb_span_k: 0.91
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0017
+  inchi_key: ZXEKIIBDNHEJCQ-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C4H10O/c1-4(2)3-5/h4-5H,3H2,1-2H3
+  common_name: 2-methyl-1-propanol
+  formula: C4H10O
+  family: alcohols/phenols
+  molecular_weight_g_mol: 74.073165
+  experimental_tb_k: 380.92
+  expanded_uncertainty_k: 0.05
+  source_doi: 10.1021/je7007582
+  source_member: 10.1021/je7007582.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 1
+    '>CH-': 1
+    -OH (alcohol): 1
+  observation_count: 10
+  observed_tb_span_k: 0.9
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0018
+  inchi_key: WERYXYBDKMZEQL-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C4H10O2/c5-3-1-2-4-6/h5-6H,1-4H2
+  common_name: 1,4-butanediol
+  formula: C4H10O2
+  family: alcohols/phenols
+  molecular_weight_g_mol: 90.06808
+  experimental_tb_k: 501.05
+  expanded_uncertainty_k: 4.0
+  source_doi: 10.1021/acs.jced.6b00088
+  source_member: 10.1021/acs.jced.6b00088.json
+  joback_group_counts:
+    -CH2-: 4
+    -OH (alcohol): 2
+  observation_count: 2
+  observed_tb_span_k: 0.03
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0019
+  inchi_key: RLSSMJSEOOYNOY-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C7H8O/c1-6-3-2-4-7(8)5-6/h2-5,8H,1H3
+  common_name: 3-methylphenol
+  formula: C7H8O
+  family: alcohols/phenols
+  molecular_weight_g_mol: 108.057515
+  experimental_tb_k: 475.35
+  expanded_uncertainty_k: 1.0
+  source_doi: 10.1021/acs.jced.7b00827
+  source_member: 10.1021/acs.jced.7b00827.json
+  joback_group_counts:
+    -CH3: 1
+    ring =CH-: 4
+    ring =C<: 2
+    -OH (phenol): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0020
+  inchi_key: LQZZUXJYWNFBMV-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C12H26O/c1-2-3-4-5-6-7-8-9-10-11-12-13/h13H,2-12H2,1H3
+  common_name: dodecan-1-ol
+  formula: C12H26O
+  family: alcohols/phenols
+  molecular_weight_g_mol: 186.198365
+  experimental_tb_k: 532.5
+  expanded_uncertainty_k: 0.5
+  source_doi: 10.1016/j.jct.2006.05.001
+  source_member: 10.1016/j.jct.2006.05.001.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 11
+    -OH (alcohol): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0021
+  inchi_key: WYURNTSHIVDZCO-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C4H8O/c1-2-4-5-3-1/h1-4H2
+  common_name: tetrahydrofuran
+  formula: C4H8O
+  family: ethers
+  molecular_weight_g_mol: 72.057515
+  experimental_tb_k: 339.12
+  expanded_uncertainty_k: 0.02
+  source_doi: 10.1016/j.fluid.2009.01.010
+  source_member: 10.1016/j.fluid.2009.01.010.json
+  joback_group_counts:
+    ring -CH2-: 4
+    ring -O-: 1
+  observation_count: 2
+  observed_tb_span_k: 0.08
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0022
+  inchi_key: DHXVGJBLRPWPCS-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C5H10O/c1-2-4-6-5-3-1/h1-5H2
+  common_name: tetrahydropyran
+  formula: C5H10O
+  family: ethers
+  molecular_weight_g_mol: 86.073165
+  experimental_tb_k: 361.23
+  expanded_uncertainty_k: 0.03
+  source_doi: 10.1016/j.fluid.2009.01.010
+  source_member: 10.1016/j.fluid.2009.01.010.json
+  joback_group_counts:
+    ring -CH2-: 5
+    ring -O-: 1
+  observation_count: 5
+  observed_tb_span_k: 0.13
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0023
+  inchi_key: POLCUAVZOMRGSN-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C6H14O/c1-3-5-7-6-4-2/h3-6H2,1-2H3
+  common_name: dipropyl ether
+  formula: C6H14O
+  family: ethers
+  molecular_weight_g_mol: 102.104465
+  experimental_tb_k: 363.16
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.jct.2008.01.002
+  source_member: 10.1016/j.jct.2008.01.002.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 4
+    -O- (non-ring): 1
+  observation_count: 2
+  observed_tb_span_k: 0.07
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0024
+  inchi_key: KFRVYYGHSPLXSZ-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C7H16O/c1-5-7(3,4)8-6-2/h5-6H2,1-4H3
+  common_name: 1,1-dimethylpropyl ethyl ether
+  formula: C7H16O
+  family: ethers
+  molecular_weight_g_mol: 116.120115
+  experimental_tb_k: 374.57
+  expanded_uncertainty_k: 0.08
+  source_doi: 10.1016/j.fluid.2005.04.003
+  source_member: 10.1016/j.fluid.2005.04.003.json
+  joback_group_counts:
+    -CH3: 4
+    -CH2-: 2
+    '>C<': 1
+    -O- (non-ring): 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0025
+  inchi_key: WEEGYLXZBRQIMU-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C10H18O/c1-9(2)8-4-6-10(3,11-9)7-5-8/h8H,4-7H2,1-3H3
+  common_name: 1,3,3-trimethyl-2-oxabicyclo[2.2.2]octane
+  formula: C10H18O
+  family: ethers
+  molecular_weight_g_mol: 154.135765
+  experimental_tb_k: 449.2
+  expanded_uncertainty_k: 0.4
+  source_doi: 10.1016/j.jct.2016.01.008
+  source_member: 10.1016/j.jct.2016.01.008.json
+  joback_group_counts:
+    -CH3: 3
+    ring -CH2-: 4
+    ring >CH-: 1
+    ring >C<: 2
+    ring -O-: 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0026
+  inchi_key: SNMVRZFUUCLYTO-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C3H7Cl/c1-2-3-4/h2-3H2,1H3
+  common_name: 1-chloropropane
+  formula: C3H7Cl
+  family: halocarbons
+  molecular_weight_g_mol: 78.023628
+  experimental_tb_k: 319.6
+  expanded_uncertainty_k: 0.03
+  source_doi: 10.1016/j.fluid.2009.01.010
+  source_member: 10.1016/j.fluid.2009.01.010.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 2
+    -Cl: 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0027
+  inchi_key: VFWCMGCRMGJXDK-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C4H9Cl/c1-2-3-4-5/h2-4H2,1H3
+  common_name: 1-chlorobutane
+  formula: C4H9Cl
+  family: halocarbons
+  molecular_weight_g_mol: 92.039278
+  experimental_tb_k: 351.52
+  expanded_uncertainty_k: 0.26
+  source_doi: 10.1016/j.fluid.2005.02.014
+  source_member: 10.1016/j.fluid.2005.02.014.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 3
+    -Cl: 1
+  observation_count: 2
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0028
+  inchi_key: XSTXAVWGXDQKEL-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C2HCl3/c3-1-2(4)5/h1H
+  common_name: trichloroethene
+  formula: C2HCl3
+  family: halocarbons
+  molecular_weight_g_mol: 129.914383
+  experimental_tb_k: 360.25
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.tca.2007.08.008
+  source_member: 10.1016/j.tca.2007.08.008.json
+  joback_group_counts:
+    =CH-: 1
+    =C<: 1
+    -Cl: 3
+  observation_count: 3
+  observed_tb_span_k: 0.15
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0029
+  inchi_key: GETTZEONDQJALK-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C7H5F3/c8-7(9,10)6-4-2-1-3-5-6/h1-5H
+  common_name: (trifluoromethyl)benzene
+  formula: C7H5F3
+  family: halocarbons
+  molecular_weight_g_mol: 146.034335
+  experimental_tb_k: 375.7
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.jct.2007.09.002
+  source_member: 10.1016/j.jct.2007.09.002.json
+  joback_group_counts:
+    '>C<': 1
+    ring =CH-: 5
+    ring =C<: 1
+    -F: 3
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0030
+  inchi_key: PAAZPARNPHGIKF-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C2H4Br2/c3-1-2-4/h1-2H2
+  common_name: 1,2-dibromoethane
+  formula: C2H4Br2
+  family: halocarbons
+  molecular_weight_g_mol: 185.867974
+  experimental_tb_k: 404.65
+  expanded_uncertainty_k: 0.21
+  source_doi: 10.1016/j.jct.2004.11.013
+  source_member: 10.1016/j.jct.2004.11.013.json
+  joback_group_counts:
+    -CH2-: 2
+    -Br: 2
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0031
+  inchi_key: UHOVQNZJYSORNB-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C6H6/c1-2-4-6-5-3-1/h1-6H
+  common_name: benzene
+  formula: C6H6
+  family: aromatic hydrocarbons
+  molecular_weight_g_mol: 78.04695
+  experimental_tb_k: 353.15
+  expanded_uncertainty_k: 0.1
+  source_doi: 10.1016/j.tca.2005.10.008
+  source_member: 10.1016/j.tca.2005.10.008.json
+  joback_group_counts:
+    ring =CH-: 6
+  observation_count: 6
+  observed_tb_span_k: 0.3
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0032
+  inchi_key: YNQLUTRBYVCPMQ-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C8H10/c1-2-8-6-4-3-5-7-8/h3-7H,2H2,1H3
+  common_name: ethylbenzene
+  formula: C8H10
+  family: aromatic hydrocarbons
+  molecular_weight_g_mol: 106.07825
+  experimental_tb_k: 409.35
+  expanded_uncertainty_k: 0.21
+  source_doi: 10.1016/j.jct.2012.04.016
+  source_member: 10.1016/j.jct.2012.04.016.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 1
+    ring =CH-: 5
+    ring =C<: 1
+  observation_count: 5
+  observed_tb_span_k: 0.1
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0033
+  inchi_key: OCKPCBLVNKHBMX-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C10H14/c1-2-3-7-10-8-5-4-6-9-10/h4-6,8-9H,2-3,7H2,1H3
+  common_name: butylbenzene
+  formula: C10H14
+  family: aromatic hydrocarbons
+  molecular_weight_g_mol: 134.10955
+  experimental_tb_k: 456.4
+  expanded_uncertainty_k: 0.22
+  source_doi: 10.1016/j.jct.2012.04.016
+  source_member: 10.1016/j.jct.2012.04.016.json
+  joback_group_counts:
+    -CH3: 1
+    -CH2-: 3
+    ring =CH-: 5
+    ring =C<: 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0034
+  inchi_key: QHJMFSMPSZREIF-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C12H12/c1-9-7-10(2)12-6-4-3-5-11(12)8-9/h3-8H,1-2H3
+  common_name: 1,3-dimethylnaphthalene
+  formula: C12H12
+  family: aromatic hydrocarbons
+  molecular_weight_g_mol: 156.0939
+  experimental_tb_k: 538.2
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2013.08.041
+  source_member: 10.1016/j.fluid.2013.08.041.json
+  joback_group_counts:
+    -CH3: 2
+    ring =CH-: 6
+    ring =C<: 4
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0035
+  inchi_key: GBGBXUYACWXKPV-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C16H18/c1-16(2,3)15-11-7-10-14(12-15)13-8-5-4-6-9-13/h4-12H,1-3H3
+  common_name: 3-(1,1-dimethylethyl)-1,1'-biphenyl
+  formula: C16H18
+  family: aromatic hydrocarbons
+  molecular_weight_g_mol: 210.140851
+  experimental_tb_k: 574.487
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2012.08.020
+  source_member: 10.1016/j.fluid.2012.08.020.json
+  joback_group_counts:
+    -CH3: 3
+    '>C<': 1
+    ring =CH-: 9
+    ring =C<: 3
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0036
+  inchi_key: QWTDNUCVQCZILF-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C5H12/c1-4-5(2)3/h5H,4H2,1-3H3
+  common_name: 2-methylbutane
+  formula: C5H12
+  family: alkanes/cycloalkanes
+  molecular_weight_g_mol: 72.0939
+  experimental_tb_k: 301.15
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1016/j.fluid.2011.11.020
+  source_member: 10.1016/j.fluid.2011.11.020.json
+  joback_group_counts:
+    -CH3: 3
+    -CH2-: 1
+    '>CH-': 1
+  observation_count: 2
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0037
+  inchi_key: VLKZOEOYAKHREP-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C6H14/c1-3-5-6-4-2/h3-6H2,1-2H3
+  common_name: hexane
+  formula: C6H14
+  family: alkanes/cycloalkanes
+  molecular_weight_g_mol: 86.10955
+  experimental_tb_k: 341.85
+  expanded_uncertainty_k: 0.1
+  source_doi: 10.1016/j.tca.2005.10.008
+  source_member: 10.1016/j.tca.2005.10.008.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 4
+  observation_count: 5
+  observed_tb_span_k: 0.15
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0038
+  inchi_key: NHTMVDHEPJAVLT-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C8H18/c1-7(2)6-8(3,4)5/h7H,6H2,1-5H3
+  common_name: 2,2,4-trimethylpentane
+  formula: C8H18
+  family: alkanes/cycloalkanes
+  molecular_weight_g_mol: 114.140851
+  experimental_tb_k: 372.33
+  expanded_uncertainty_k: 0.01
+  source_doi: 10.1016/j.fluid.2006.08.004
+  source_member: 10.1016/j.fluid.2006.08.004.json
+  joback_group_counts:
+    -CH3: 5
+    -CH2-: 1
+    '>CH-': 1
+    '>C<': 1
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0039
+  inchi_key: FTOQDVQNXMABKE-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C10H16/c1-2-7(1)10(8-3-4-8)9-5-6-9/h7-10H,1-6H2
+  common_name: tricyclopropylmethane
+  formula: C10H16
+  family: alkanes/cycloalkanes
+  molecular_weight_g_mol: 136.125201
+  experimental_tb_k: 433.0
+  expanded_uncertainty_k: 2.0
+  source_doi: 10.1016/j.jct.2018.12.040
+  source_member: 10.1016/j.jct.2018.12.040.json
+  joback_group_counts:
+    '>CH-': 1
+    ring -CH2-: 6
+    ring >CH-: 3
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
+- row_id: TML-TB-0040
+  inchi_key: DIOQZVSQGTUSAI-UHFFFAOYSA-N
+  standard_inchi: InChI=1S/C10H22/c1-3-5-7-9-10-8-6-4-2/h3-10H2,1-2H3
+  common_name: decane
+  formula: C10H22
+  family: alkanes/cycloalkanes
+  molecular_weight_g_mol: 142.172151
+  experimental_tb_k: 446.9
+  expanded_uncertainty_k: 0.2
+  source_doi: 10.1021/je0301794
+  source_member: 10.1021/je0301794.json
+  joback_group_counts:
+    -CH3: 2
+    -CH2-: 8
+  observation_count: 1
+  observed_tb_span_k: 0.0
+  conflicting_observations: false
+  selection_rule: smallest_reported_expanded_uncertainty_then_source_doi
