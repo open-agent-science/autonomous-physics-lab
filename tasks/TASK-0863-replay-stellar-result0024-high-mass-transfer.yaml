@@ -1,7 +1,7 @@
 id: TASK-0863
 title: "Independently replay Stellar RESULT-0024 high-mass transfer"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

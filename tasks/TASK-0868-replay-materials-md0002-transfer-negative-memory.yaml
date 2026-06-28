@@ -1,7 +1,7 @@
 id: TASK-0868
 title: "Replay and route the Materials MD-0002 disjoint-family transfer failure"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

@@ -22,9 +22,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0862` - Legacy claim novelty audit and calibration-role migration proposal (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0863` - Independently replay Stellar RESULT-0024 high-mass transfer (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `astrophysics_stellar`)
-- `TASK-0864` - Independently replay Nuclear RESULT-0025 GP residual extrapolation (`scientific_replay_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0867` - Cross-tool replay the Exoplanet null-baseline negative/control memory (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `astrophysics`)
-- `TASK-0868` - Replay and route the Materials MD-0002 disjoint-family transfer failure (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `materials_science`)
-- `TASK-0876` - Refresh campaign profiles and pages after the latest result wave (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
+None.
