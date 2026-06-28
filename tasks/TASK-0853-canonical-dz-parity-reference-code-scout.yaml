@@ -1,7 +1,7 @@
 id: TASK-0853
 title: "Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: low
@@ -43,6 +43,7 @@ result_artifact_policy:
   reason: "Optional parity-reference scout only; no benchmark, result, or claim is produced or modified."
   evidence:
     - "docs/reviews/nmd0003-duflo-zuker-structured-baseline.md"
+    - "docs/reviews/canonical-dz-parity-reference-scout.md"
 
 validation:
   commands:
