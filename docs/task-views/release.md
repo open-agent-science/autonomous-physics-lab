@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0846` - Package CLAIM-0009 PARTIALLY_SUPPORTED anharmonic evidence as a public-safe campaign capsule (`scientific_result_publication`, priority `medium`, difficulty `low`, domain `classical_mechanics`)
 - `TASK-0852` - FRB Catalog 2 (public): pin the locator, build the version-locked temporal split and exposure-only baseline (bounded) (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
@@ -16,6 +15,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0845` - Package the FIRAS/Wien consistency slice as a scoped Gate A result candidate (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0846` - Package CLAIM-0009 PARTIALLY_SUPPORTED anharmonic evidence as a public-safe campaign capsule (`scientific_result_publication`, priority `medium`, difficulty `low`, domain `classical_mechanics`)
 - `TASK-0854` - Normalize explicit .venv Python launchers in review validation (`repository_hardening`, priority `high`, difficulty `low`, domain `maintainer_review`)
 - `TASK-0858` - Refresh public-opening release gates after history cleanup and plan-limited branch protection (`repository_hardening`, priority `high`, difficulty `low`, domain `release_readiness`)
 - `TASK-0859` - Exoplanet Chen-Kipping published-relation audit readiness scout (new published-relation-audit lane; residual lane stays monitor-only) (`scientific_validation`, priority `medium`, difficulty `medium`, domain `astrophysics_exoplanets`)
