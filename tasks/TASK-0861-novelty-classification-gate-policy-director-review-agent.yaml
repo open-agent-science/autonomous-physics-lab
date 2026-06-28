@@ -1,7 +1,7 @@
 id: TASK-0861
 title: "Add a novelty-classification gate so calibration / known-physics is not promoted as a scientific claim (policy + director + review agent)"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

@@ -1,7 +1,7 @@
 id: TASK-0854
 title: "Normalize explicit .venv Python launchers in review validation"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high

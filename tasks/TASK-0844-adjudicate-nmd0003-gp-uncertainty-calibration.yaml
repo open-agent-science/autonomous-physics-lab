@@ -1,7 +1,7 @@
 id: TASK-0844
 title: "Adjudicate NMD-0003 GP uncertainty calibration without holdout tuning"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

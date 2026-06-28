@@ -1,7 +1,7 @@
 id: TASK-0857
 title: "Add focused tests for apl status and validate CLI commands"
 type: testing
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
