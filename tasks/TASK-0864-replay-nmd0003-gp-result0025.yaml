@@ -1,7 +1,7 @@
 id: TASK-0864
 title: "Independently replay Nuclear RESULT-0025 GP residual extrapolation"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -57,4 +57,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
