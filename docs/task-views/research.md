@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0853` - Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823 (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0862` - Legacy claim novelty audit and calibration-role migration proposal (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0863` - Independently replay Stellar RESULT-0024 high-mass transfer (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `astrophysics_stellar`)
 - `TASK-0864` - Independently replay Nuclear RESULT-0025 GP residual extrapolation (`scientific_replay_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
@@ -27,4 +26,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0853` - Optional: scout a canonical Duflo-Zuker parity reference (AMDC code or published fixture) -- non-blocking follow-up to TASK-0823 (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
