@@ -48,7 +48,7 @@ Use these cell statuses in campaign matrices:
 | Campaign | Current state | Next allowed state | Boundary |
 | --- | --- | --- | --- |
 | Nuclear Mass Surface | `PREDICTION_FREEZE_READY` | `REVEAL_READY` only after source preflight, no-peek review, and maintainer approval; otherwise `HYPOTHESIS_PILOT_READY` for no-leakage diagnostic tasks. | Frozen `PRED-*` registry entries are not reveal evidence and not claims. |
-| Quantum Size Effects | `SOURCE_SURFACE` | `PINNED_DATASET` after direct-table or digitisation source artifact review. | Calibration-derived rows do not unblock the measurement-versus-model benchmark. |
+| Quantum Size Effects | `BASELINE_READY` for the source-scoped Almeida InP surface; transfer remains source-gated | Second-material `PINNED_DATASET` only after source/license approval, otherwise `NEGATIVE_MEMORY` for failed transfer routes. | The Almeida sandbox baseline does not authorize cross-material claims, correction search, or archived pilot restart. |
 | Atomic-Clock Residuals | `SOURCE_SURFACE` | `PINNED_DATASET` after Beloy 2021 artifact, covariance, and version-drift gates pass. | No real clock rows should be committed before source/covariance gates clear. |
 | Exoplanet Mass-Radius | `FAILURE_MAP_READY` | `HYPOTHESIS_PILOT_READY` for a narrow residual-family task after failure-map review. | Residual maps are benchmark diagnostics, not planet-law or habitability claims. |
 

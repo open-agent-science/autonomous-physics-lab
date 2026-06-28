@@ -23,7 +23,7 @@ Use [future-research-portfolio.md](./future-research-portfolio.md)
 to decide whether a scientific direction belongs in `NOW`, `NEXT`, or
 `WATCHLIST` before starting a new task branch.
 
-## Current Operational Handoff (2026-06-23)
+## Current Operational Handoff (2026-06-28)
 
 Use `python3 scripts/apl_mission.py --output onboarding` and
 `docs/current-missions.md` for live routing. The current next wave is not a
@@ -40,11 +40,12 @@ post-validation gate wave:
   reveal route exists.
 
 The immediate high-signal READY tasks are surfaced by the mission script. As of
-this handoff, the core next-wave anchors are Materials `TASK-0809`, Textbook
-Wien/FIRAS `TASK-0815`, Quantum `TASK-0810` / `TASK-0816`, Nuclear `TASK-0821`,
-Atomic `TASK-0804`, Anharmonic `TASK-0818`, Dimensional `TASK-0807`,
-Pendulum `TASK-0814`, Particle Mass `TASK-0820`, and Stellar transfer
-`TASK-0819`.
+this handoff, the core next-wave anchors are replay/ratification tasks
+(`TASK-0863`, `TASK-0864`, `TASK-0868`, `TASK-0873`), Exoplanet
+`TASK-0866`, Quantum `TASK-0870` / `TASK-0871`, Atomic `TASK-0872`,
+Particle Mass `TASK-0874`, Light Clock `TASK-0875`, FRB `TASK-0877`, and
+Nuclear `TASK-0878`. Treat this paragraph as orientation only; executable
+availability comes from canonical task YAML and `apl_mission.py`.
 
 The detailed sections below are historical planning context and quality-floor
 memory. They are useful for understanding why the repository arrived here, but
@@ -315,32 +316,34 @@ campaign and data foundations rather than formula search:
   needed before figure-derived absorption rows can unblock `TASK-0291`; the
   remaining gate is a committed artifact, primary table values,
   maintainer-provided rows, or an explicit waiver;
-- `TASK-0293` should re-run the readiness gate after a direct-measurement seed
-  lands, or after an explicit maintainer waiver;
+- `TASK-0293` re-ran the readiness gate after the Almeida direct-measurement
+  seed and admitted the six InP rows;
 - `TASK-0298` triaged direct-measurement source candidates, but later
   absorption work should treat Yu 2003 as requiring digitisation or primary
   tables rather than immediate table-row curation;
 - `TASK-0334` has packaged the Jasieniak 2011 source locator and deterministic
   acquisition plan as metadata-only evidence; preserve the blocker until the
   actual SI/table extraction or digitisation artifact is reviewed;
-- `TASK-0347` should look for open alternative direct-table or deterministic
-  digitisation sources in parallel with any maintainer-provided Jasieniak SI
-  path;
+- `TASK-0347` is historical open-source triage context for alternative
+  direct-table or deterministic digitisation sources;
 - `TASK-0356` defines the local intake path for maintainer-provided or open
   direct source artifacts;
-- `TASK-0364` should attempt a single PMC/arXiv direct-table source from the
-  TASK-0347 ranking and either curate a small direct seed or preserve a
-  blocker without relaxing provenance rules;
-- `TASK-0335` should define, not run, the weaker
+- `TASK-0364` is historical PMC/arXiv source-scout context; do not restart it
+  as current work;
+- `TASK-0335` defined, but did not run, the weaker
   `calibration_curve_consistency` benchmark scope;
-- `TASK-0336` should stay blocked until `TASK-0334` or an equivalent
-  maintainer-provided artifact makes direct band-edge rows reproducible;
-- `TASK-0225` is intentionally blocked until reviewed row-level
-  `data/quantum_dots/qd-*.yaml` measurement rows exist, or a maintainer waiver
-  scopes the first benchmark as calibration-curve consistency;
-- `TASK-0276` and `TASK-0277` are queued after `TASK-0225` for visualization
-  and readiness review before the autonomous pilot;
-- `TASK-0226` remains blocked until the baseline is reviewed;
+- `TASK-0336` is historical blocker memory after the Jasieniak path stayed
+  metadata-only; do not offer it as current executor work;
+- `TASK-0225` has produced a source-scoped Almeida InP sandbox baseline, but
+  the baseline does not authorize cross-material claims or correction search;
+- `TASK-0277` reviewed the baseline and kept open-ended autonomous correction
+  search blocked;
+- `TASK-0870` should verify the ZnSe/Toufanian source-license route before any
+  second-material row task;
+- `TASK-0871` should route the failed effective-mass transfer check as scoped
+  negative/control memory;
+- archived `TASK-0226` remains closed unless a later maintainer-approved pilot
+  task is created after source/license and negative-memory gates;
 - `TASK-0227` has landed as a small lepton g-2 cross-observable falsifier and
   remains a guardrail result, not a flagship campaign.
 

@@ -14,10 +14,11 @@ required metadata fields, evidence criteria for each row type, a curator
 acceptance/rejection checklist, and handoff instructions to the row-curation
 task.
 
-It is upstream of `TASK-0336` and any equivalent future row-curation task.
+It is upstream of future row-curation tasks. Historical `TASK-0336` is now
+blocker memory for the archived Jasieniak route, not a current executor target.
 Completing this checklist does not by itself unblock `TASK-0225`, `TASK-0293`,
-or `TASK-0336`; it records the conditions a source artifact must meet before
-those tasks may proceed.
+archived `TASK-0336`, or any correction-search pilot; it records the conditions
+a source artifact must meet before a new row task may proceed.
 
 ---
 
@@ -304,12 +305,12 @@ no row curation may proceed until all items are checked.
         - inclusion_status: included or excluded;
         - exclusion_reason required when inclusion_status is excluded.
 
-[ ] 12. Handoff task created or TASK-0336 referenced. See Section 5.
+[ ] 12. Handoff task created or historical blocker referenced. See Section 5.
 ```
 
 ---
 
-## 5. Handoff to TASK-0336 or a New Row-Curation Task
+## 5. Handoff to a New Row-Curation Task
 
 Once a curator has completed all twelve checklist items and at least one data
 section is classified `table_derived` or `digitization_required` (with the
@@ -318,14 +319,15 @@ as follows.
 
 ### 5.1 If the source is Jasieniak 2011 (band-edge)
 
-Reference `TASK-0336` directly. That task is scoped to curate direct band-edge
-rows from an approved source artifact for Jasieniak 2011 (or a
-maintainer-approved equivalent). The curator who completes this intake
-checklist for Jasieniak 2011 should note in `TASK-0336`'s planning context
-that the artifact is now available, then pick up `TASK-0336` as the
-row-curation task.
+Treat `TASK-0336` as historical blocker memory, not as a current executor task.
+That task was superseded after the Jasieniak route remained metadata-only. A
+curator who completes this intake checklist for Jasieniak 2011 should create a
+new bounded row-curation task or proposal referencing the reviewed artifact,
+the historical `TASK-0334`/`TASK-0336` context, and the exact source-license
+decision.
 
-`TASK-0336` remains `BLOCKED` until at least one of the following exists:
+A future Jasieniak row-curation task must not be opened until at least one of
+the following exists:
 
 - a checksum-pinned `nn201681s_si_001.pdf` or equivalent official SI copy with
   maintainer confirmation that the file may be committed or that metadata-only
@@ -336,7 +338,7 @@ row-curation task.
   including axis calibration, extracted points, tool/version notes, and
   coordinate uncertainty.
 
-### 5.2 If the source is a new candidate (PMC, arXiv, or open database)
+### 5.2 If the source is a new candidate (PMC, arXiv, open database, or ZnSe/Toufanian)
 
 Create a new row-curation task (following `docs/agent-task-protocol.md`) with:
 
@@ -352,6 +354,9 @@ Create a new row-curation task (following `docs/agent-task-protocol.md`) with:
 
 The new task must not attempt to curate rows from sources still classified
 `blocked` or with unchecked checklist items.
+
+For the current ZnSe/Toufanian route, complete `TASK-0870` first. Row curation
+is not authorized until that task records an admissible source/license verdict.
 
 ### 5.3 Ranked candidate sources for the next row-curation task
 
@@ -388,8 +393,9 @@ intake document as its sole authority:
 - **Do not unblock TASK-0225.** `TASK-0225` remains `BLOCKED` for
   measurement-versus-model benchmarking until direct-measurement rows pass the
   readiness gate independently.
-- **Do not unblock TASK-0226.** The autonomous sandbox pilot depends on a
-  frozen baseline that does not yet exist.
+- **Do not unblock archived TASK-0226.** The historical autonomous sandbox
+  pilot route has been superseded. Any future pilot requires a new
+  maintainer-approved task after source/license and negative-memory gates.
 - **Do not commit publisher PDFs, figures, or full tables** unless the
   maintainer explicitly confirms the license and repository policy allow
   redistribution.
@@ -418,4 +424,5 @@ intake document as its sole authority:
 - `physics_lab/schemas/quantum_dot_size_effect.schema.json` — schema that all
   future `qd-*.yaml` files must satisfy
 - `TASK-0336` —
-  the blocked row-curation task that this intake path is designed to unblock
+  historical blocker memory for the archived Jasieniak row-curation route; do
+  not treat it as a current executor task
