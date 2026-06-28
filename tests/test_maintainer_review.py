@@ -1825,6 +1825,49 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     assert report.blockers == ()
 
 
+def test_build_review_report_blocks_non_generated_docs_only_closeout_pr(
+    tmp_path: Path,
+) -> None:
+    branch = "agent/roman/codex/closeout-docs-only"
+    changed = ("docs/task-views/release.md",)
+    pr_metadata = PullRequestMetadata(
+        number=68,
+        title="TASK-CLOSEOUT: Sync generated task navigation after 5946fd27 [skip-board-sync]",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Task ID: `TASK-CLOSEOUT`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=68)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "BLOCKED"
+    assert report.blockers == ("Closeout PR requires at least one changed canonical task file.",)
+
+
 def test_build_review_report_archive_closeout_pr_is_merge_ok(tmp_path: Path) -> None:
     archive_dir = tmp_path / "tasks" / "archive" / "0000-0499"
     archive_dir.mkdir(parents=True)
