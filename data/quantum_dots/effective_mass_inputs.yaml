@@ -1,0 +1,29 @@
+schema_version: "1"
+task_id: TASK-0850
+frozen_before_scoring: true
+model_contract: >
+  Use the literature electron and hole effective masses to compute the reduced
+  mass mu=(1/me+1/mh)^-1. A confinement model calibrated on material A is
+  transferred to material B with C_B=C_A*(mu_A/mu_B). No effective mass,
+  exponent, coefficient, or scaling factor is fit on the held-out material.
+units: free_electron_mass_m0
+materials:
+  InP:
+    electron_effective_mass: 0.08
+    hole_effective_mass: 0.64
+    source:
+      citation: "Wu et al., Surface passivation extends single and biexciton lifetimes of InP quantum dots, Chemical Science 2020"
+      doi: "10.1039/D0SC01039A"
+      locator: "https://doi.org/10.1039/D0SC01039A"
+      source_detail: "Main text explicitly states me=0.08 and mh=0.64 for InP QDs and cites Wu et al., J. Phys. Chem. A 2013, DOI 10.1021/jp402425w."
+  ZnSe:
+    electron_effective_mass: 0.16
+    hole_effective_mass: 0.75
+    source:
+      citation: "Jang et al., Effect of Tellurium Doping on Optoelectronic Properties of Blue ZnTeSe Quantum Dots, Research Square 2022"
+      doi: "10.21203/rs.3.rs-1183117/v1"
+      locator: "https://doi.org/10.21203/rs.3.rs-1183117/v1"
+      source_detail: "Effective-mass approximation section explicitly lists the ZnSe values me=0.16 and mh=0.75. CC BY 4.0 preprint; not peer reviewed."
+limitations:
+  - "Bulk band-edge scalar masses are used as fixed literature inputs; nanocrystal nonparabolicity, anisotropy, dielectric confinement, and finite barriers are not modeled."
+  - "The ZnSe source is a CC BY 4.0 preprint and is treated as a bounded parameter source, not independent validation of this benchmark."
