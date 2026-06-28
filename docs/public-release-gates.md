@@ -147,12 +147,15 @@ publication policy:
 - no public launch proceeds while known non-redistributable source artifacts
   remain reachable from the public default branch history.
 
-Current status note: `TASK-0858` verified current `origin/main` at
-`15a9675b097250be88e0cb3fa7a2e3acd59c8373` and found no reachable `.pdf` blobs
-or risky binary/document/archive additions, and the two arXiv PDF paths named by
-`TASK-0732` are no longer present in default-branch history. Treat the old
-freeze-time rewrite blocker as closed for this cut, subject to a final
-exact-SHA release signoff re-running the scan.
+Current status note: `TASK-0879` re-verified current `origin/main` at
+`a0ddb113aa5ac502a5396db14c9e5d7f89b9d075` (2026-06-28 audit cut, 55 commits after
+the prior scan) and again found no reachable `.pdf` blobs or risky
+binary/document/archive additions, and the two arXiv PDF paths named by
+`TASK-0732` remain absent from default-branch history. This re-confirms the
+earlier `TASK-0858` scan at `15a9675b097250be88e0cb3fa7a2e3acd59c8373`. Treat the
+old freeze-time rewrite blocker as closed for this cut, subject to a final
+exact-SHA release signoff re-running the scan on the exact commit that is opened.
+See [reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md](./reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md).
 
 ## Release Decision
 
