@@ -61,13 +61,16 @@ source-artifact history scan has been completed and reviewed, or that a current
 release-time scan proves no cleanup remains. This is a release blocker, not a
 routine validation command.
 
-Current status: `TASK-0858` verified `origin/main` at
-`15a9675b097250be88e0cb3fa7a2e3acd59c8373` and found no reachable `.pdf` blobs,
-no risky binary/document/archive additions, and no reachable default-branch
-history for the two arXiv PDF paths named by `TASK-0732`. Treat the old
+Current status: `TASK-0879` re-verified `origin/main` at
+`a0ddb113aa5ac502a5396db14c9e5d7f89b9d075` (2026-06-28 audit cut, 55 commits after
+the prior scan) and again found no reachable `.pdf` blobs, no risky
+binary/document/archive additions, and no reachable default-branch history for
+the two arXiv PDF paths named by `TASK-0732`, re-confirming the earlier
+`TASK-0858` scan at `15a9675b097250be88e0cb3fa7a2e3acd59c8373`. Treat the old
 freeze-time rewrite blocker as closed for this default-branch cut. Re-run the
-scan during the final exact-SHA release signoff; reopen the history-cleanup gate
-if new risky paths appear.
+scan during the final exact-SHA release signoff on the exact commit that is
+opened; reopen the history-cleanup gate if new risky paths appear. See
+[reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md](./reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md).
 
 Minimum evidence:
 
