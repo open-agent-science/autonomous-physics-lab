@@ -1,7 +1,7 @@
 id: TASK-0546
 title: "Pilot Fresh Source Scout and add deterministic extraction runner"
 type: research_infrastructure
-status: BLOCKED
+status: SUPERSEDED
 difficulty: high
 priority: medium
 
@@ -28,6 +28,7 @@ input:
     until TASK-0544 (scout role) and TASK-0545 (acquisition lane) merge.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep as superseded by narrower Fresh Source Scout, acquisition-lane, and quantum digitization tasks; propose a fresh extraction-runner task if that remaining need becomes priority."
   - "Run the scout on at least two blocked surfaces (Atomic Yb/Sr second source, Quantum band-edge) and record blocker_type per source."
   - "Add a deterministic extraction/digitization runner (script + tests) producing axis calibration + per-point artifacts, no LLM eyeballing."
   - "Produce source-candidate briefs and follow-up proposals; add no measurement rows and no benchmark metrics."

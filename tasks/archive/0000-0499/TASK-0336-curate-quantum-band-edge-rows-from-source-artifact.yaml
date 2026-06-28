@@ -1,7 +1,7 @@
 id: TASK-0336
 title: "Curate quantum direct band-edge rows from approved source artifact"
 type: scientific_dataset
-status: BLOCKED
+status: SUPERSEDED
 difficulty: high
 priority: high
 
@@ -25,6 +25,7 @@ input:
     source evidence.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep as superseded by the current Quantum ZnSe license/source-decision lane; the Jasieniak path remains metadata-only blocked and should not be revived without a fresh source artifact."
   - "Wait until TASK-0334 is DONE with an approved source artifact, or record an explicit maintainer-provided equivalent artifact."
   - "Curate at least six clean direct band-edge rows if the artifact supports them; otherwise preserve a blocker review and keep TASK-0225 blocked."
   - "Populate required schema fields, including material/composition, diameter or radius, property kind, units, uncertainty semantics, source, and inclusion status."

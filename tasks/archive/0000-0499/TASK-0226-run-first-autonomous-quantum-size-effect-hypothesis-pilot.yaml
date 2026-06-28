@@ -1,7 +1,7 @@
 id: TASK-0226
 title: "Run first autonomous quantum-size-effect hypothesis pilot"
 type: autonomous_research_pilot
-status: BLOCKED
+status: SUPERSEDED
 difficulty: high
 priority: medium
 
@@ -27,6 +27,7 @@ input:
     pipeline, but it does not unblock this pilot or authorize discovery wording.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep as superseded by narrower Quantum Size Effects source-gate, transfer, and negative-memory lanes; create a fresh bounded task if an autonomous pilot becomes admissible later."
   - "Do not start until an independent transfer source/material exists and a later maintainer-reviewed task explicitly unblocks TASK-0226."
   - "Treat TASK-0277 as a `PILOT_BLOCKED` decision for the current six-row Almeida InP surface."
   - "Do not treat any narrowed methodology stress test as authorization for this open-ended pilot."

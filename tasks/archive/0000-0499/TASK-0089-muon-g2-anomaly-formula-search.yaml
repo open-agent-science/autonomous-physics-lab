@@ -1,7 +1,7 @@
 id: TASK-0089
 title: "Search for empirical formula for muon g-2 anomaly using fundamental constants"
 type: benchmark_planning
-status: PROPOSED
+status: REJECTED
 difficulty: high
 priority: medium
 
@@ -34,6 +34,7 @@ input:
     would consider non-embarrassing.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep: speculative muon g-2/constants formula-search is outside the current mission guardrails; any future g-2 work must start from a fresh source/readiness or negative-control task."
   - "Write docs/notes/g2-anomaly-formula-search-design.md with full design."
   - "Define the formula families to test (polynomial in α, mass ratios, etc.)."
   - "Specify the numerology guardrail: how many random dimension-free combinations of 5 constants hit the target accidentally?"

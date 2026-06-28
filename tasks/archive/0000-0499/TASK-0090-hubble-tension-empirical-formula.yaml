@@ -1,7 +1,7 @@
 id: TASK-0090
 title: "Design empirical formula search for Hubble tension reconciliation"
 type: benchmark_planning
-status: PROPOSED
+status: REJECTED
 difficulty: high
 priority: low
 
@@ -38,6 +38,7 @@ input:
     uncertainties, and the parameter space is high-dimensional.
 
 requirements:
+  - "Closed during the 2026-06-28 stale legacy task sweep: speculative Hubble-tension formula-search is outside the current mission guardrails; any future cosmology work needs a fresh source/readiness contract."
   - "Write docs/notes/hubble-tension-formula-search-design.md with feasibility assessment."
   - "Assess tractability: is a formula search over cosmological parameters meaningful?"
   - "Enumerate data inputs needed and assess APL's ability to provide them."
