@@ -1,0 +1,58 @@
+id: TASK-0890
+title: "Prepare a public-safe maintainer-review packet for Nuclear RESULT-0025 point-estimator evidence"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "RESULT-0025 is a high-value Nuclear point-estimator artifact with exact Gate B metric replay, but it remains blocked for prediction freeze by uncertainty calibration."
+  - "The next public/scientific step is to separate what is validated in scope from what remains unusable for PRED freeze."
+  - "A maintainer-review packet can make the result visible without weakening no-peek, uncertainty, or reveal gates."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "docs/reviews/nmd0003-result0025-gp-gate-b-replay.md"
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md"
+    - "tasks/TASK-0865-preflight-nmd0003-gp-uncertainty-blocker-resolution.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+  planning_context: >
+    RESULT-0025 strongly improves retrospective point MAE under controls, but
+    its uncertainty envelope is heavy-tailed and miscalibrated. This task
+    prepares safe public/maintainer wording for the point-estimator evidence
+    while keeping TASK-0827 and PRED freeze blocked until uncertainty calibration
+    is separately cleared.
+
+requirements:
+  - "Review RESULT-0025, the Gate B replay note, and the uncertainty-calibration blocker; keep point accuracy and interval calibration as separate axes."
+  - "State the strongest supported in-scope sentence and the exact forbidden interpretations."
+  - "Present maintainer options: public card as AGENT_PUBLISHED/Gate-B-replayed point-estimator memory, request metadata repair, wait for TASK-0865, or decline stronger public wording."
+  - "Do not create or score PRED entries, change RESULT-0025 metrics, inspect future reveal targets, or claim calibrated prediction intervals."
+  - "No discovery, new nuclear law, broad mass-formula, or reveal-success wording."
+
+accepted_outputs:
+  - "A maintainer-review packet under docs/reviews/ with evidence table, uncertainty blocker, decision options, and safe public wording."
+  - "A stop condition if uncertainty calibration or metadata caveats block any public-card update."
+  - "Output-routing summary: ratification/public-wording packet only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-review/public-wording packet only; no new result or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0018/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

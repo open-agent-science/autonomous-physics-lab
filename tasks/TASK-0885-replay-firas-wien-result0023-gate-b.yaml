@@ -1,0 +1,57 @@
+id: TASK-0885
+title: "Independently replay FIRAS/Wien RESULT-0023 after workflow repackaging"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0873 made RESULT-0023 replayable through a physics-lab workflow without changing the FIRAS/Wien metrics."
+  - "The next Textbook Formula Audit step is independent Gate B replay, not another Wien metric, source repin, or universal-law claim."
+  - "A clean replay can move the FIRAS/Wien self-consistency slice from AGENT_PUBLISHED toward AGENT_VALIDATED while preserving the circularity and scope caveats."
+
+input:
+  mode: workflow
+  related_domain: cross_domain_physics
+  related_objects:
+    - "results/EXP-0016/RUN-0001/result.yaml"
+    - "results/EXP-0016/RUN-0001/metrics.json"
+    - "results/EXP-0016/RUN-0001/report.md"
+    - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
+    - "tasks/TASK-0873-repackage-firas-wien-result0023-for-gate-b.yaml"
+  planning_context: >
+    RESULT-0023 is a scoped FIRAS spectral-domain self-consistency check:
+    the pinned wavelength-domain peak after Jacobian conversion agrees with
+    b/T at the separately pinned, FIRAS-derived reference temperature. TASK-0873
+    added workflow packaging. This task runs the independent replay only.
+
+requirements:
+  - "Replay the committed RESULT-0023 workflow from clean outputs and compare metrics, input hashes, code reference, verdict, and limitations."
+  - "Keep the reference temperature, FIRAS rows, wavelength-domain/Jacobian contract, controls, tolerances, and circularity caveat unchanged."
+  - "Do not refit temperature, repin source rows, change RESULT-0023 metrics, create a CLAIM/KNOW/PRED artifact, or claim independent validation of Wien displacement."
+  - "If metrics drift beyond tolerance or packaging is not actually replayable, stop with CONTESTED_RESULT or GATE_B_BLOCKED and record the blocker."
+  - "If replay passes, record Gate B status and any permitted review metadata update under the result-promotion protocol without maintainer endorsement."
+
+accepted_outputs:
+  - "A Gate B replay review note under docs/reviews/ with metric drift table, pass/contest verdict, and no-claim wording."
+  - "A validation record or review metadata update only if the established result-promotion protocol allows it for independent replay."
+  - "Output-routing summary: Gate A existing, Gate B pass/blocked/contested, claim impact none, knowledge impact none, public wording still self-consistency only."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay of an existing AGENT_PUBLISHED result; no new RESULT should be created."
+  evidence:
+    - "results/EXP-0016/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_textbook_wien_firas_peak.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

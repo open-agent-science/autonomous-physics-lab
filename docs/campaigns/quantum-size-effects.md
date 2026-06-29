@@ -43,9 +43,9 @@ one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
 **Active next work:** verify the ZnSe/Toufanian license route before any row
-task (`TASK-0870`) and route the effective-mass transfer failure as scoped
-negative memory (`TASK-0871`). No correction search is authorized by the
-baseline or by the failed transfer attempts.
+task (`TASK-0870`). The effective-mass transfer failure has already been routed
+as scoped sandbox negative memory (`TASK-0871`). No correction search is
+authorized by the baseline or by the failed transfer attempts.
 
 ## Historical Source-Readiness Trail
 
@@ -86,8 +86,8 @@ and `TASK-0225` produced the first source-scoped sandbox baseline.
 **Baseline review gate (historical):** `TASK-0277` reviewed the `TASK-0225`
 baseline provenance, one-point holdout, controls, residuals, and leakage risks
 and kept open-ended correction search blocked. The current post-review route is
-source/license verification for a second material (`TASK-0870`) and
-negative-memory routing for the failed effective-mass transfer (`TASK-0871`).
+source/license verification for a second material (`TASK-0870`); the failed
+effective-mass transfer has been preserved as negative/control memory.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -211,13 +211,12 @@ Current task posture:
 - `TASK-0870` — verify the Quantum ZnSe direct-size source license route before
   any row task (READY).
 - `TASK-0871` — route the Quantum effective-mass scaling transfer failure as
-  negative memory (READY).
+  negative memory (DONE; preserves sandbox-only negative/control memory).
 
 Safe next contributions are:
 
 - `TASK-0870` license/source verification for the ZnSe/Toufanian direct-size
   route, with no row values or benchmark metrics until reuse terms are clear;
-- `TASK-0871` negative-memory routing for the effective-mass transfer failure;
 - conservative profile/page refresh where the latest source and transfer
   blockers changed public wording.
 
@@ -374,8 +373,8 @@ Historical context:
   `TASK-0870` for the current ZnSe license/source decision before any row task;
 - treat `TASK-0364` as historical source-scout context; the current
   second-material source decision is `TASK-0870`;
-- use `TASK-0871` to route the effective-mass transfer failure as durable
-  negative/control memory before opening another quantum transfer lane.
+- keep the routed effective-mass transfer failure as durable negative/control
+  memory before opening another quantum transfer lane.
 
 Planning-only microtasks may be picked from
 `tasks/microtasks/quantum-size-effects.yaml`. They must not produce canonical
