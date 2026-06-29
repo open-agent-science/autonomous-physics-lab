@@ -1,0 +1,58 @@
+id: TASK-0886
+title: "Prepare a maintainer-review packet for Stellar RESULT-0024 high-mass transfer"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "RESULT-0024 is the strongest recent positive transfer artifact in the Textbook/Stellar lane: the frozen RESULT-0022 relation survives a disjoint high-mass DEBCat holdout under controls."
+  - "TASK-0863 independently replayed the core metrics, but recorded a metadata caveat and did not mutate the result tier."
+  - "Before public wording strengthens, the maintainer needs a compact packet separating supported in-scope transfer evidence from universal mass-luminosity or stellar-evolution claims."
+
+input:
+  mode: planning_only
+  related_domain: astrophysics_stellar
+  related_objects:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0024 reports VALID_IN_RANGE high-mass transfer for the frozen
+    RESULT-0022 Stellar M-L relation on a same-source DEBCat holdout. The
+    next step is not another model search; it is a maintainer-readable
+    ratification/public-wording packet that names the evidence, caveats, and
+    exact non-claim ceiling.
+
+requirements:
+  - "Review RESULT-0024, its Gate A package, and the TASK-0863 replay note; preserve any metadata caveat instead of silently upgrading trust wording."
+  - "Summarize the supported statement, same-source DEBCat boundary, small high-mass holdout, stage/provenance sensitivities, and no universal-law ceiling."
+  - "Present maintainer options: keep AGENT_PUBLISHED with replay note, request metadata repair/replay, allow AGENT_VALIDATED metadata update, or decline stronger public wording."
+  - "Do not edit RESULT-0022, RESULT-0024, claims, knowledge, prediction registry, or DEBCat rows."
+  - "No claim that APL discovered, validated, or falsified a universal stellar mass-luminosity law."
+
+accepted_outputs:
+  - "A maintainer-review packet under docs/reviews/ with evidence table, caveats, decision options, and recommended safe public wording."
+  - "Explicit stop condition if the metadata caveat blocks tier update or public-card wording."
+  - "Output-routing summary: ratification packet only, claim impact none, knowledge impact none, no result metric mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-review packet only; no new result or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

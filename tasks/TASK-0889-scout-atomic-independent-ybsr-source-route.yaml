@@ -1,0 +1,57 @@
+id: TASK-0889
+title: "Scout one independent absolute Yb/Sr source route beyond the current Atomic blockers"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Atomic has durable Beloy/Nemitz no-tension memory, while Pizzocaro remains diagnostic-only after the aggregation contract review."
+  - "The campaign can advance only through a new independent absolute Yb/Sr row source or a maintainer-approved aggregation route."
+  - "A narrow source scout can reduce the current two-row blocker without rerunning metrics or fitting constants drift."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/reviews/atomic-pizzocaro-aggregation-observable-harmonization-contract.md"
+    - "docs/reviews/atomic-second-source-fallback-triage.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    The checked Pizzocaro route does not currently produce an aggregation-
+    permitted absolute Yb/Sr row, and Beloy/Nemitz remains a two-row diagnostic.
+    This task scouts exactly one candidate independent absolute Yb/Sr source
+    route, value-blind when possible, and returns READY/BLOCKED/NEEDS_DECISION.
+
+requirements:
+  - "Scout exactly one candidate source route that is not the already-adjudicated Beloy/Nemitz/Pizzocaro path unless the task explains why a published update materially changes that path."
+  - "Record locator, source class, row type, license/reuse posture, uncertainty semantics, covariance visibility, version-drift risk, and whether value-bearing row curation would be admissible."
+  - "Do not transcribe or ingest values, run Yb/Sr metrics, mix direct rows with derived constraints, fit constants drift, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "Stop with BLOCKED if the source is a review summary, hides combination rules, lacks uncertainty semantics, or requires private access unavailable to agents."
+  - "If a route is plausible, define the next row-curation task shape and the exact remaining maintainer/source decision."
+
+accepted_outputs:
+  - "A source-route scout note under docs/reviews/ with READY, BLOCKED, or NEEDS_MAINTAINER_SOURCE_DECISION verdict."
+  - "A future row-curation task shape only if the route clears source, license, uncertainty, and direct-row gates."
+  - "Output-routing summary: source-readiness only, no metric/result/claim/knowledge change, constants-drift wording forbidden."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-route scout only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

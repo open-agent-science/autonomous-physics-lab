@@ -41,12 +41,13 @@ with MAE `0.646030` eV versus global median holdout MAE `0.967090` eV. The
 band-gap axis is weaker but not empty: `TASK-0579` found the cation-group
 band-gap edge survives deterministic shuffle controls at a modest, borderline
 level (about 9% skill versus global mean; control fractions near 0.04 on a
-33-row holdout). `TASK-0566` still keeps the benchmark as review-note-only:
-there is **no** promoted `RESULT-*`, claim, prediction registry entry,
-external dataset repository, or DOI. `TASK-0600` then showed the formation-
-energy signal survives deterministic null controls, and `TASK-0601` found the
-formation-energy conclusion split-robust while the band-gap ordering is
-split-fragile.
+33-row holdout). `TASK-0566` kept the compact MD-0001 benchmark as
+review-note-only. `TASK-0600` then showed the formation-energy signal survives
+deterministic null controls, and `TASK-0601` found the formation-energy
+conclusion split-robust while the band-gap ordering is split-fragile. The later
+MD-0002 widening path produced the campaign's first canonical benchmark result:
+`RESULT-0021`, now AGENT_VALIDATED after Gate B replay. No claim, prediction,
+external dataset repository, or DOI has been created.
 
 ## Public Monitoring Snapshot
 
@@ -64,13 +65,12 @@ split-robust across seeded holdouts. Band gap is weaker: it survived the first
 null-control audit only at a modest, borderline level and the split-sensitivity
 audit found its baseline ordering split-fragile.
 
-**Not a claim:** `MD-0001` and the first benchmark are not material
+**Not a claim:** `MD-0001`, `MD-0002`, and `RESULT-0021` are not material
 recommendations, material-design results, experimental measurements,
 predictions, or a new-law claim. The rows are computed DFT values only and do
 not support synthesis, device, biomedical, or material-design guidance.
-`TASK-0566` keeps the benchmark review-note-only: there is no promoted
-`RESULT-*`, claim, prediction registry entry, external dataset repository, or
-DOI.
+`RESULT-0021` is a scoped benchmark artifact; no external dataset repository or
+DOI has been minted.
 
 **Active next work:** `TASK-0626` ran the bounded formation-energy Research
 Factory smoke sprint and found no candidate that clears the frozen baseline
@@ -98,10 +98,11 @@ B with zero numeric drift. `RESULT-0021` is now an `AGENT_VALIDATED`,
 `VALID_IN_RANGE` Materials MD-0002 formation-energy benchmark. Later
 control/scope audits found the cation-pair signal is useful on the frozen split
 but does not transfer to fully unseen cation pairs, and a descriptor-ablation
-audit showed the advantage is localized to exact cation-pair granularity. The
-current blocker is dataset-publication metadata (`TASK-0805`): release/source
-manifest, checksum/citation/DOI status, changelog, uncertainty semantics,
-README/schema coverage, and explicit no-claim boundaries.
+audit showed the advantage is localized to exact cation-pair granularity.
+`TASK-0809` closed repository-local release/source metadata blockers. The
+current blocker is external dataset-release posture: archive target, release
+checksum, release tag, DOI minted/declined status, citation text, and explicit
+no-claim boundaries.
 
 ## Admissible Source Classes
 
@@ -197,11 +198,14 @@ sandbox-pass formation-energy benchmark package at
 materials claim.
 The numbered path below is now:
 
-1. **Dataset-publication metadata closeout** — close the MD-0002 release/source
-   manifest, checksum/citation/DOI-status, changelog, uncertainty semantics,
-   README/schema, and no-claim blockers before any external dataset-release
-   wording. Band gap remains diagnostic-only unless its control evidence
+1. **External dataset-release decision** — decide whether and how to package
+   MD-0002 outside the repository, including archive target, release checksum,
+   release tag, DOI minted/declined status, citation text, and no-claim
+   boundary. Band gap remains diagnostic-only unless its control evidence
    improves.
+2. **Post-transfer stop/go memory** — preserve the disjoint-family transfer
+   failure as scope memory; do not rerun broad feature factories or convert the
+   cation-pair advantage into material-design wording.
 
 ## Why It Matters
 

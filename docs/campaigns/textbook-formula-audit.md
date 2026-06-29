@@ -63,9 +63,12 @@ manifest under an explicit CC BY 4.0 permission grant. `TASK-0764` packaged
 that evidence as `RESULT-0022`, and the result has since become
 `AGENT_VALIDATED`. Follow-up control audits found the headline conclusion
 stable across a small value-blind alternate-split slate, while a predeclared
-piecewise baseline is not justified after complexity penalty. The current
-blocker is maintainer-review wording and external-source posture, not another
-Gate B replay or model search.
+piecewise baseline is not justified after complexity penalty. The later
+FIRAS/Wien slice has been packaged as AGENT_PUBLISHED `RESULT-0023` and now
+needs independent Gate B replay. Stellar high-mass transfer `RESULT-0024`
+has independent numeric replay memory with a metadata caveat and needs a
+maintainer-review wording packet before stronger public framing. The current
+blocker is replay/ratification wording, not another model search.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -92,19 +95,15 @@ the committed DEBCat slice under the completed controls.
 
 **Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
 software/convention result and `TASK-0635` replayed it through Gate B. The
-empirical lane is now Stellar M-L: `TASK-0759`, `TASK-0762`, `TASK-0763`, and
-`TASK-0764` closed the control, baseline-adequacy, full-dataset, and Gate A
-packaging blockers. Later work made `RESULT-0022` Gate-B replayable and then
-validated it, reconciled DEBCat scope flags, and ran split-stability and
-piecewise-complexity controls.
-`TASK-0783` selected the next formula slice only as a future source-curation
-route: Wien displacement against a pinned FIRAS source artifact, with no
-metrics until wavelength-domain peak semantics, checksums, license posture, and
-spectral coverage are frozen.
+empirical Stellar M-L lane closed the control, baseline-adequacy, full-dataset,
+Gate A packaging, Gate B replay, split-stability, and piecewise-complexity
+checks for `RESULT-0022`. `RESULT-0023` now packages the FIRAS/Wien
+spectral-domain self-consistency slice through a workflow and should be replayed
+by a different agent. `RESULT-0024` is the high-mass transfer result that needs
+a maintainer-review packet because its replay note preserves a metadata caveat.
 
-**Expected next result:** a pinned FIRAS/Wien source package, or a
-maintainer-review packet clarifying safe public wording for `RESULT-0019` and
-`RESULT-0022`.
+**Expected next result:** a Gate B verdict for FIRAS/Wien `RESULT-0023`, or a
+maintainer-review packet clarifying safe public wording for `RESULT-0024`.
 
 ## Why It Matters
 
@@ -252,11 +251,11 @@ candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
 (M-L) out-of-distribution audit**. Source/baseline, Route 2 local benchmark,
 stage/split/null controls, baseline adequacy, full DEBCat dataset publication,
 Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
-`AGENT_VALIDATED` with conservative scope and no universal-law wording. The
-latest external transfer/source route scout has landed as review evidence.
-The next work is maintainer-review wording, a follow-up selected from that
-scout, or the still-blocked Wien/FIRAS metric lane after its
-temperature/domain contract closeout updates task state.
+`AGENT_VALIDATED` with conservative scope and no universal-law wording. FIRAS
+/Wien `RESULT-0023` is workflow-packaged and awaits Gate B replay. High-mass
+Stellar transfer `RESULT-0024` has replay memory and awaits safe
+maintainer-review wording. The next work is replay/ratification of those
+artifacts, not another formula or model-search lane.
 
 ## Cross-References
 
