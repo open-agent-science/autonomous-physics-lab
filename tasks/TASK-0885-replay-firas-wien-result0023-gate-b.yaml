@@ -1,7 +1,7 @@
 id: TASK-0885
 title: "Independently replay FIRAS/Wien RESULT-0023 after workflow repackaging"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -16,6 +16,7 @@ input:
   related_domain: cross_domain_physics
   related_objects:
     - "results/EXP-0016/RUN-0001/result.yaml"
+    - "docs/reviews/firas-wien-result0023-gate-b-replay.md"
     - "results/EXP-0016/RUN-0001/metrics.json"
     - "results/EXP-0016/RUN-0001/report.md"
     - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
@@ -34,8 +35,8 @@ requirements:
   - "If replay passes, record Gate B status and any permitted review metadata update under the result-promotion protocol without maintainer endorsement."
 
 accepted_outputs:
-  - "A Gate B replay review note under docs/reviews/ with metric drift table, pass/contest verdict, and no-claim wording."
-  - "A validation record or review metadata update only if the established result-promotion protocol allows it for independent replay."
+  - "docs/reviews/firas-wien-result0023-gate-b-replay.md"
+  - "results/EXP-0016/RUN-0001/result.yaml review_tier and validation_record metadata update only; metrics unchanged."
   - "Output-routing summary: Gate A existing, Gate B pass/blocked/contested, claim impact none, knowledge impact none, public wording still self-consistency only."
 
 result_artifact_policy:
@@ -43,6 +44,7 @@ result_artifact_policy:
   reason: "Independent replay of an existing AGENT_PUBLISHED result; no new RESULT should be created."
   evidence:
     - "results/EXP-0016/RUN-0001/result.yaml"
+    - "docs/reviews/firas-wien-result0023-gate-b-replay.md"
 
 validation:
   commands:

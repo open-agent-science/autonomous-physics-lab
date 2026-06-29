@@ -1,7 +1,7 @@
 id: TASK-0891
 title: "Deduplicate CI and review validation for safer maintainer latency"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
