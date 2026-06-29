@@ -1,0 +1,154 @@
+result_id: RESULT-0026
+run_id: RUN-0001
+experiment_id: EXP-0020
+title: ThermoML Tb bounded family-stratified Joback transfer benchmark
+hypothesis_id: HYP-0020
+task_id: TASK-0869
+generated_at: '2026-06-29T00:00:00+00:00'
+engine_version: 0.1.0
+git_commit: fc863667a48a3a50f196ac3a479af699e1975932
+command: python scripts/run_thermoml_tb_family_transfer.py --write
+input_file_hashes:
+  config:
+    path: results/EXP-0020/RUN-0001/inputs/config.yaml
+    sha256: b48bd54a868c17e6cfa029a65958f44c3876f613d49650604b93600dc932c90d
+  fixture:
+    path: results/EXP-0020/RUN-0001/inputs/fixture.yaml
+    sha256: c96b33b60fc07ef78b71a188cb931bff34d443549f0517ce198b0f5049ccdc7c
+  experiment:
+    path: results/EXP-0020/RUN-0001/inputs/experiment.yaml
+    sha256: a9eefd8b0dced283f4a08aefe01cc71a81193948182c7bdc6f331dfb61734278
+  hypothesis:
+    path: results/EXP-0020/RUN-0001/inputs/hypothesis.yaml
+    sha256: 728848b56bc92600404f4575eaa8e0bea51beb3c37435817d6c0ba7397fc6c08
+  task:
+    path: results/EXP-0020/RUN-0001/inputs/task.yaml
+    sha256: 261327413e39d3152e860d5d752128b9fe6973332f5cc04d7ebc4da374fbbdca
+code_reference: physics_lab/engines/thermoml_family_transfer.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- Scope is normal boiling temperature (Tb) only on the committed 40-row ThermoML family-stratified
+  audit fixture.
+- Raw ThermoML archive bytes and any substantial normalized corpus are not committed;
+  source rights permit only a bounded factual extract with attribution.
+- The Joback estimator is frozen before scoring and no Joback coefficient or correction
+  is fit by APL.
+- The esters/lactones family does not clear the 5 K family-survival margin; the aggregate
+  verdict is therefore bounded and family-dependent.
+- No CLAIM, KNOW, chemical-design, material-recommendation, or universal property-estimation
+  claim is proposed.
+best_model_id: model_joback_frozen_tb
+best_verdict: VALID_IN_RANGE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: VALID_IN_RANGE
+  published_by:
+    contributor_id: romanhladun24-dot
+    github_username: romanhladun24-dot
+    agent_tool: Codex
+    model_version: GPT-5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: The checksum-pinned ThermoML Tb audit fixture and frozen Joback
+    runner reproduce TRANSFER_SUPPORTED_IN_SCOPE with Joback aggregate MAE 14.925825
+    K versus 43.427943 K for the best non-oracle control. The result is limited to
+    the 40-row Tb fixture; esters/lactones is the failed held-out family.
+  followup_for_maintainer: 'Keep the trust qualifier explicit: agent-published, not
+    independently validated or maintainer-reviewed. Gate B should replay the same
+    command and compare aggregate and per-family metrics before any tier upgrade.'
+verification:
+  passed: true
+  checks:
+  - name: joback_implementation_fidelity_gate
+    status: PASS
+    details: The pre-score Joback fidelity fixture has zero mismatches across the
+      25-compound reference set.
+    metrics:
+      compound_count: 25
+      mismatch_count: 0
+      max_abs_error_k: 0.0
+  - name: bounded_fixture_and_rights_gate
+    status: PASS
+    details: The committed fixture is a 40-row bounded factual extract; raw archive
+      bytes and a substantial normalized corpus are not committed.
+    metrics:
+      row_count: 40
+      family_count: 8
+      archive_bytes_committed: false
+      substantial_corpus_committed: false
+      derived_rows_publication: conditional_bounded_factual_extract
+  - name: aggregate_transfer_margin
+    status: PASS
+    details: Frozen Joback aggregate MAE beats the best non-oracle control by more
+      than the predeclared 5 K survival margin.
+    metrics:
+      joback_mae_k: 14.925825
+      best_non_oracle_control: molecular_weight_only
+      best_non_oracle_mae_k: 43.427943
+      margin_k: 28.502118
+      required_margin_k: 5.0
+  - name: family_stratified_survival
+    status: PASS
+    details: Seven of eight held-out families clear the 5 K margin, exceeding the
+      required two-thirds rule; esters/lactones is the explicit failure case.
+    metrics:
+      families_clearing_margin: 7
+      families_required_to_clear: 6
+      family_count: 8
+      failed_families: esters/lactones
+  - name: source_provenance_and_no_live_fetch
+    status: PASS
+    details: The source route is pinned to the NIST TRC ThermoML Archive DOI and published
+      SHA-256; no live external fetch or raw archive vendoring occurs in this packaging
+      task.
+    metrics:
+      source_doi: 10.18434/mds2-2422
+      archive_sha256: 231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2
+      archive_size_bytes: 189433115
+      local_analysis_allowed: true
+comparison_summary:
+- target_id: target_joback_beats_best_non_oracle_control
+  label: Frozen Joback aggregate MAE below the best non-oracle control
+  reference_value: 43.427943
+  observed_value: 14.925825
+  unit: K
+  absolute_difference: 28.502118
+  relative_difference: 0.656308
+  notes: Best non-oracle control is molecular_weight_only; lower MAE is better. Scope
+    is the 40-row Tb audit fixture only.
+- target_id: target_family_survival_two_thirds
+  label: Held-out family margins clearing the 5 K survival threshold
+  reference_value: 6.0
+  observed_value: 7.0
+  unit: family_count
+  absolute_difference: 1.0
+  relative_difference: 0.166667
+  notes: Esters/lactones is the only failed held-out family; all other families clear
+    the margin.
+uncertainty_summary:
+  method: family_stratified_leave_one_family_out_controls_and_uncertainty_weighted_mae
+  observed_uncertainty: 9.429732
+  reference_uncertainty: 37.20798
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: Reported values are uncertainty-weighted MAE summaries, not a calibrated
+    predictive interval; interval calibration is not claimed.
+artifacts:
+  report: results/EXP-0020/RUN-0001/report.md
+  metrics: results/EXP-0020/RUN-0001/metrics.json
+  claim_update: results/EXP-0020/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0020/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0020/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0020/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0020/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0020/RUN-0001/review_metadata.yaml
