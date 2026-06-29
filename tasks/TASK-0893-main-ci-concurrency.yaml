@@ -1,0 +1,56 @@
+id: TASK-0893
+title: "Preserve full main CI after board-sync pushes"
+type: maintainer_tooling
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the TASK-0892 docs/task-only main push fast path without losing the merge-commit full main-matrix signal."
+  - "Reduce maintainer ambiguity after merges by preventing board-sync commits from cancelling code-risk post-merge CI runs."
+  - "Keep stale PR commits cheap by preserving pull-request cancellation behavior."
+
+input:
+  mode: workflow
+  related_domain: ci_review_latency
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "docs/ci-full-repo-policy.md"
+  planning_context: >
+    After TASK-0892 landed, the merge-commit full main matrix was cancelled
+    when Sync Active Board pushed a generated docs/task commit. The newer
+    board-sync commit correctly used the lightweight docs/task lane, but the
+    cancellation removed the full main-matrix signal for the code/workflow
+    merge commit. CI should still cancel stale PR runs, but main push runs
+    should be allowed to complete independently.
+
+requirements:
+  - "Use a CI concurrency grouping that keeps pull-request runs grouped by PR while main push runs are grouped by commit SHA."
+  - "Keep cancel-in-progress enabled for pull requests so stale PR commits do not waste runner time."
+  - "Disable effective cancellation for main push runs so a board-sync commit cannot cancel the merge-commit full matrix."
+  - "Document the policy and add a deterministic test guard for the workflow concurrency expression."
+  - "Do not change required PR check names, branch protection assumptions, result-promotion gates, or scientific outputs."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml"
+  - "docs/ci-full-repo-policy.md"
+  - "tests/test_ci_workflow_policy.py"
+
+result_artifact_policy:
+  required: false
+  reason: "CI/review infrastructure maintenance only; no scientific result, prediction, claim, or knowledge artifact is produced."
+  evidence:
+    - ".github/workflows/ci.yml"
+
+validation:
+  commands:
+    - "python3 -m ruff check tests/test_ci_workflow_policy.py"
+    - "python3 -m pytest tests/test_ci_workflow_policy.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - llm_agent
