@@ -1,0 +1,67 @@
+id: TASK-0879
+title: "Refresh the dated public-release readiness signoff against the current default-branch cut and forward the gate-doc status notes"
+type: docs_protocol
+status: DONE
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "The release-checklist Final Signoff requires a dated signoff artifact under docs/reviews/ against the current default-branch commit; the last full readiness picture (TASK-0858 @ 15a9675b, 2026-06-27) is now 55 commits stale because main advanced to a0ddb113."
+  - "Keep the public-opening gate evidence honest and current without overclaiming: record all-gates-green readiness as of the 2026-06-28 audit cut while preserving the exact-SHA final-signoff requirement on whatever commit is actually opened."
+  - "Additive, audit-trail-preserving refresh: do not rewrite historical signoff content and do not erase the prior TASK-0858 reference; add the new cut alongside it."
+
+input:
+  mode: planning_only
+  related_domain: release_readiness
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+    - "docs/reviews/v0.2-public-alpha-release-gate-refresh-2026-06-27.md"
+    - "docs/reviews/v0.2-public-alpha-final-signoff-2026-05-31.md"
+  planning_context: >
+    A fresh full public-release audit on 2026-06-28 found all six gates in
+    docs/public-release-gates.md substantively GREEN at origin/main =
+    a0ddb113aa5ac502a5396db14c9e5d7f89b9d075 (55 commits after the prior
+    TASK-0858 scan at 15a9675b): strict validate-repo PASS (0 ERROR, 0 WARNING),
+    no public path leaks, 0 tracked cache/OS/local files, a clean Gate-6 history
+    scan (0 reachable .pdf blobs, 0 risky additions, the two TASK-0732 arXiv PDF
+    paths absent), green default-branch CI (run 28320814897 on the latest
+    substantive commit 120a2e65; a0ddb113 is a [skip-board-sync] nav commit on
+    top), Gate 2 with 1000+ merged PRs across four contributors, and clean
+    narrative and post-transfer hygiene. The two gate-doc status notes still
+    reference the older TASK-0858 cut. This task adds one dated readiness-refresh
+    signoff and forwards the two status notes, while preserving the requirement
+    that a FINAL exact-SHA signoff re-run the scans on the commit actually opened.
+
+requirements:
+  - "Create docs/reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md with a per-gate recheck (Gates 1-6), a validation-log table (strict validate-repo, public path leak check, tracked-cache check, the Gate-6 history-scan commands), the default-branch CI link (run 28320814897), and a Remaining Maintainer-Only Items section listing the final exact-SHA signoff, branch-protection-after-public-switch, and the explicit visibility decision."
+  - "Include an explicit Moving-HEAD Honesty Note: the signoff records readiness AS OF the 2026-06-28 audit at a0ddb113 and does NOT claim a0ddb113 is the opening commit; the final exact-SHA signoff must re-run validation, path-leak, and Gate-6 scans plus observe green CI on whatever main SHA is opened."
+  - "Use verification-first wording: do not assert the repository IS open or that the maintainer HAS decided to open it; the visibility flip and branch protection remain maintainer actions."
+  - "Forward the Current status note in docs/public-release-gates.md to TASK-0879 @ a0ddb113 while KEEPING the prior TASK-0858 @ 15a9675b reference and the 'subject to a final exact-SHA release signoff re-running the scan' clause; add a relative link to the new signoff doc."
+  - "Forward the Current status line in docs/release-checklist.md the same way: add TASK-0879 @ a0ddb113, keep TASK-0858 @ 15a9675b, keep the final exact-SHA re-run clause, add the new signoff-doc link."
+  - "Do not rewrite historical signoff content; relate to (do not edit) the 2026-06-27 and 2026-05-31 artifacts."
+  - "No scientific artifact, RESULT, PRED, CLAIM, or KNOWLEDGE is created or modified; docs and process only."
+
+accepted_outputs:
+  - "A new dated readiness-refresh signoff at docs/reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md (verdict READINESS_REFRESH_AT_AUDIT_CUT; FINAL_EXACT_SHA_SIGNOFF_STILL_REQUIRED), plus forward-updated Current status notes in docs/public-release-gates.md and docs/release-checklist.md that retain the TASK-0858 reference."
+  - "A post-public opening signoff at docs/reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md records the exact public-opening SHA, public visibility, main branch protection, exact-SHA local validation, and source-artifact/publication guard results."
+  - "Output-routing summary: release-readiness documentation refresh; no scientific artifact; intra-repo doc links resolve and CI verifies."
+
+result_artifact_policy:
+  required: false
+  reason: "Release-readiness documentation refresh only; no RESULT/PRED/CLAIM/KNOWLEDGE artifact is created or modified."
+  evidence:
+    - "docs/reviews/v0.2-public-alpha-readiness-refresh-2026-06-28.md"
+    - "docs/public-release-gates.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 scripts/check_public_path_leaks.py"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

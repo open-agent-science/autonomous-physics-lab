@@ -1,0 +1,47 @@
+id: TASK-0881
+title: "Route board-sync direct generated commits through a narrow App identity"
+type: infrastructure
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+strategy_alignment:
+  - "Keep public protected-branch maintenance automation deterministic and non-red."
+input:
+  mode: workflow
+  related_domain: "maintainer_automation"
+  related_objects:
+    - ".github/workflows/sync-active-board.yml"
+    - "docs/task-views/release.md"
+  planning_context: |
+    TASK-0880 showed that branch protection correctly blocks the old
+    github-actions direct push, but generated board-sync PRs create an extra
+    lifecycle step for maintainers. The safer no-extra-PR architecture is a
+    dedicated APL Board Sync GitHub App with narrow contents-write permission
+    and a branch-protection bypass scoped to generated maintenance commits.
+requirements:
+  - "Keep main branch protection intact."
+  - "Prefer a narrow APL Board Sync GitHub App token for unattended generated commits."
+  - "Do not require broad default workflow token permissions."
+  - "Do not route routine generated board-sync through an extra pull request."
+  - "Keep the [skip-board-sync] recursion guard on generated commits."
+  - "Block unexpected diff paths before the App-token push."
+  - "Keep maintainer-review blocking arbitrary docs/task-views-only closeout PRs."
+accepted_outputs:
+  - ".github/workflows/sync-active-board.yml"
+  - "docs/agent-task-protocol.md"
+  - "docs/maintainer-review-agent.md"
+  - "docs/review-checklists/task-closeout-checklist.md"
+  - "tests/test_maintainer_review.py"
+  - "tests/test_validate_repo_auto_sync.py"
+  - "tasks/TASK-0881-board-sync-org-policy-fallback.yaml"
+  - "APL Board Sync GitHub App credential and bypass contract documented for maintainers."
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_docs_links.py tests/test_validate_repo_board_staleness_severity.py tests/test_validate_repo_auto_sync.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+can_be_done_by:
+  - maintainer
+  - codex
+  - llm_agent

@@ -1,7 +1,7 @@
 id: TASK-0875
 title: "Route the light-clock consistency benchmark as quality-floor memory"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

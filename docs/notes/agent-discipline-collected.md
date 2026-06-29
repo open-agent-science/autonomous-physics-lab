@@ -102,7 +102,8 @@ Generated task navigation is similar:
 `docs/task-views/*.md` are derived files. Normal task PRs should not
 commit regenerated board/view updates unless the maintainer explicitly
 asks for a dedicated board-sync or closeout/audit PR. The post-merge
-`Sync Active Board` action handles routine regeneration on `main`.
+`Sync Active Board` action handles routine regeneration through a generated
+board-sync PR.
 
 ## 5. PR-helper boilerplate is duplication, not a permanent cost
 

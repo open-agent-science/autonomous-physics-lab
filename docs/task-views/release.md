@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0880` - Route Sync Active Board through PRs after public branch protection (`infrastructure`, priority `high`, difficulty `low`, domain `maintainer_automation`)
