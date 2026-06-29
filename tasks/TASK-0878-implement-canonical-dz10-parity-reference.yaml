@@ -1,7 +1,7 @@
 id: TASK-0878
 title: "Implement a canonical DZ10 parity reference only after the AMDC source scout lands"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: medium
@@ -18,6 +18,8 @@ input:
   related_objects:
     - "tasks/TASK-0853-canonical-dz-parity-reference-code-scout.yaml"
     - "docs/reviews/canonical-dz-parity-reference-scout.md"
+    - "docs/reviews/canonical-dz10-reference-wrapper.md"
+    - "physics_lab/engines/nmd0003_canonical_dz10_reference.py"
     - "physics_lab/engines/nmd0003_duflo_zuker_baseline.py"
     - "docs/reviews/nmd0003-duflo-zuker-structured-baseline.md"
   planning_context: >
@@ -34,7 +36,7 @@ requirements:
   - "If parity cannot be achieved, stop with PARITY_IMPLEMENTATION_BLOCKED and preserve diagnostics."
 
 accepted_outputs:
-  - "A canonical DZ10 parity implementation or wrapper with tests against the accepted numeric fixture, plus a review note."
+  - "physics_lab/engines/nmd0003_canonical_dz10_reference.py provides a metadata-only AMDC DZ10 table wrapper/parser with tests against the accepted smoke fixture, plus docs/reviews/canonical-dz10-reference-wrapper.md."
   - "No prediction freeze, no reveal scoring, no CLAIM/KNOW/PRED mutation."
   - "Output-routing summary with source-rights boundary and future benchmark gate."
 
@@ -43,6 +45,8 @@ result_artifact_policy:
   reason: "Parity implementation/benchmark prerequisite; no RESULT/PRED artifact unless a later task authorizes benchmark packaging."
   evidence:
     - "tasks/TASK-0853-canonical-dz-parity-reference-code-scout.yaml"
+    - "docs/reviews/canonical-dz10-reference-wrapper.md"
+    - "physics_lab/engines/nmd0003_canonical_dz10_reference.py"
 
 validation:
   commands:

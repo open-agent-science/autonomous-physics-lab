@@ -1,7 +1,7 @@
 id: TASK-0888
 title: "Package the Exoplanet null-baseline negative/control memory only if Gate A can be made deterministic"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -41,8 +41,9 @@ accepted_outputs:
 
 result_artifact_policy:
   required: false
-  reason: "A negative/control RESULT is allowed only if Gate A can be made deterministic; otherwise this task stops with blocker memory."
+  reason: "A negative/control RESULT is allowed only if Gate A can be made deterministic; otherwise this task stops with blocker memory. Gate A was blocked (no canonical Exoplanet experiment/hypothesis identity), so this task stops with a blocker note and creates no RESULT artifact."
   evidence:
+    - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
     - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
 
 validation:

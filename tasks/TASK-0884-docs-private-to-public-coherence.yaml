@@ -1,7 +1,7 @@
 id: TASK-0884
 title: "Docs coherence: correct now-false 'still private' wording after the v0.2 public opening (strategy + contributor pilot)"
 type: documentation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium

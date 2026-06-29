@@ -113,6 +113,7 @@ turning watchlist topics into formula-search work.
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and monitor source-version triggers before any new residual audit |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, open-ended correction search remains blocked, and effective-mass transfer failure is routed as negative memory | `TASK-0870` ZnSe/Toufanian source-license verification; it does not unblock archived `TASK-0226` |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory, covariance policy, and diagnostic-only Pizzocaro aggregation contract | `TASK-0889` independent absolute Yb/Sr source-route scout, or wait for an approved aggregation/harmonization contract before metrics |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Newly active ThermoML `Tb` benchmark lane with AGENT_PUBLISHED `RESULT-0026`, frozen Joback baseline, source-rights boundary, and failed-family memory to preserve | `TASK-0894` Gate B replay, `TASK-0895` value-free corpus-expansion preflight, or `TASK-0896` failed-family negative memory; no raw archive vendoring or broad property claim |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -137,6 +138,7 @@ Near-term portfolio shape:
 | Monitor / trigger-gated benchmark | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
 | Transfer/source gate and negative memory | Quantum Size Effects | Verify the ZnSe/Toufanian source-license route; keep the routed effective-mass negative memory and archived `TASK-0226` closed unless a later maintainer-approved pilot task exists. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Scout a new independent absolute Yb/Sr route or wait for maintainer aggregation approval; do not use Pizzocaro as a benchmark row without an admissible contract. |
+| Source-pinned thermophysical benchmark | Thermophysical Property Residuals | Replay `RESULT-0026`, preflight value-free ThermoML Tb expansion, and preserve esters/lactones negative memory before any broader property-estimation lane. |
 | Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, or scheme/source preflights; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
