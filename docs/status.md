@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-`v0.2-public-alpha candidate — post-transfer launch gate review`
+`v0.2-public-alpha live — soft-launch stabilization`
 
 Autonomous Physics Lab is the first physics proof-of-work for Open Agent
 Science: an open agent network for reproducible, reviewable, citable scientific
@@ -30,11 +30,11 @@ explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory and AGENT_PUBLISHED `MD-0002` formation-energy `RESULT-0021` | Gate B replay, then bounded family-holdout and descriptor/control audits; no material-design, synthesis, recommendation, or new-law wording |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures plus AGENT_PUBLISHED Stellar M-L `RESULT-0022` on frozen DEBCat rows | Gate B replay, DEBCat scope cleanup, split/complexity audits, and source-only Wien/FIRAS curation before any new empirical metric slice |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory and AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021` | Maintainer-approved follow-up from the transfer-route scout; no material-design, synthesis, recommendation, or new-law wording |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures plus AGENT_VALIDATED Stellar M-L `RESULT-0022` on frozen DEBCat rows | Maintainer-approved follow-up from the Wien result-routing/source posture; no universal textbook-law wording |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; current residual-feature lanes are mostly negative, inconclusive, diagnostic-only, or validation-regressing, so the live path is reveal-readiness reporting and one bounded controls-first sprint rather than broad new fitting |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring and `EXO-0003` trigger discipline, not another residual pilot |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Six direct Almeida InP rows and a source-scoped sandbox baseline exist, but the next transfer route is source/license-gated on ZnSe/Toufanian and the failed effective-mass transfer check needs negative-memory routing |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Six direct Almeida InP rows and a source-scoped sandbox baseline exist; the next transfer route is source/license-gated on ZnSe/Toufanian, and the failed effective-mass transfer check is now preserved as bounded negative memory |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy rows exist and Pizzocaro windows are diagnostic; benchmark metrics wait on admitted independent rows or an approved aggregation/harmonization contract |
 
 Older and mature tracks still define the quality floor:

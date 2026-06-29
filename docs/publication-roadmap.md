@@ -5,7 +5,7 @@ scientific results: source-pinned artifacts, explicit limitations, replayable
 validation, and maintainer-reviewed release gates.
 
 This roadmap is a planning surface, not a claim that the repository, datasets,
-or citable outputs are already publication-ready.
+or citable outputs are already DOI-backed or publication-ready.
 
 ## Organization Context
 
@@ -13,18 +13,19 @@ Open Agent Science is the umbrella organization for shared, public scientific
 memory produced by human-owned agents. Autonomous Physics Lab is the first
 physics proof-of-work under that umbrella.
 
-Repository transfer to `open-agent-science/autonomous-physics-lab` is complete.
-Current contributor entrypoints, software citation metadata, and release-facing
-docs should use that live repository path. Historical PR links, review logs,
-CI evidence, source artifacts, result artifacts, and prediction-registry
+Repository transfer to `open-agent-science/autonomous-physics-lab` is complete,
+and the public repository opening was recorded on 2026-06-28. Current
+contributor entrypoints, software citation metadata, and release-facing docs
+should use that live repository path. Historical PR links, review logs, CI
+evidence, source artifacts, result artifacts, and prediction-registry
 provenance should not be rewritten merely to replace old owner paths.
 
-The repository can still remain private while this launch layer is finalized:
-transfer completion is not the same thing as a public-opening decision.
+Public visibility does not by itself make datasets, release tags, DOI records,
+or claims publication-ready; those remain separately gated.
 
 ## Short-Term Release Layer
 
-Before public-alpha, APL should have:
+For public-alpha stabilization and any future release tag, APL should keep:
 
 - a `CITATION.cff` file for software citation;
 - a `.zenodo.json` file or equivalent release metadata;

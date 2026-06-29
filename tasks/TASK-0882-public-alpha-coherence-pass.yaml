@@ -1,0 +1,64 @@
+id: TASK-0882
+title: "Run a public-alpha coherence pass after the opening signoff"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The repository is already public and the post-public opening signoff has landed, but several public-facing docs still use pre-opening or stale campaign wording."
+  - "A short coherence pass reduces reader confusion without creating a new dashboard, weakening release gates, or changing scientific artifacts."
+  - "This task keeps the public-alpha surface aligned with the actual post-opening repository state before any broader release tag or announcement decision."
+
+input:
+  mode: workflow
+  related_domain: release_readiness
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/roadmap.md"
+    - "docs/publication-roadmap.md"
+    - "docs/v0.2-launch-pack.md"
+    - "docs/releases/v0.2-public-alpha.md"
+    - "docs/reviews/v0.2-public-alpha-opening-signoff-2026-06-28.md"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    A post-public opening signoff records the exact opening SHA and public
+    branch-protection state. A small architecture/support pass should now align
+    the high-level public docs with that fact, update stale Quantum campaign
+    wording, and record what was intentionally deferred.
+
+requirements:
+  - "Audit the top-level public-alpha surfaces for stale pre-opening wording and campaign-summary drift."
+  - "Update only public-facing documentation needed to keep the post-opening state coherent."
+  - "Do not create a new generated dashboard, committed live-task cache, static agent-facing index, or duplicated mission-routing surface."
+  - "Do not modify RESULT, PRED, CLAIM, KNOW, experiment, hypothesis, source-row, or metric artifacts."
+  - "Do not merge, close, or otherwise mutate open GitHub PRs from this task."
+  - "Do not include external article, social-launch, or non-repository publication planning in committed artifacts."
+
+accepted_outputs:
+  - "A dated public-alpha coherence audit note under docs/reviews/."
+  - "Top-level docs updated from pre-opening/candidate wording to post-opening soft-launch wording where appropriate."
+  - "README Quantum campaign wording aligned with the current source-scoped baseline and transfer/negative-memory gates."
+  - "Output-routing summary: documentation/protocol surface only; no scientific artifact or claim impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Public-alpha documentation/protocol coherence pass only; no RESULT/PRED/CLAIM/KNOWLEDGE artifact is produced."
+  evidence:
+    - "docs/reviews/public-alpha-coherence-audit-2026-06-29.md"
+    - "docs/status.md"
+    - "README.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - llm_agent

@@ -61,34 +61,37 @@ Near-term contributor-workflow goals:
 - keep task and proposal surfaces easy to understand for new contributors;
 - collect more evidence from real private-alpha task execution.
 
-## Public Launch Package — Final Gate
+## Public Alpha Live And Release Package
 
-Public launch is intentionally downstream of the current campaign and workflow
+The public repository opening is complete, but release packaging and broad
+announcement decisions remain downstream of the current campaign and workflow
 validation work.
 
 The repository transfer to `open-agent-science/autonomous-physics-lab` is
-complete. The remaining public-launch work is now a final gate: make sure the
-live repository path, citation metadata, campaign summaries, release evidence,
-and current task state all agree before the maintainer changes visibility.
+complete, and the v0.2 public opening was recorded on 2026-06-28. The remaining
+public-alpha work is stabilization: make sure the live repository path,
+citation metadata, campaign summaries, release evidence, and current task state
+continue to agree before any release tag, DOI step, or broad announcement.
 
-Before launch, APL needs:
+Before a release tag or broad announcement, APL needs:
 
-- post-transfer branch protection, CI, self-hosted runner, and secret checks;
+- post-transfer branch protection, CI, self-hosted runner, and secret checks to
+  remain green;
 - stable status, roadmap, and README narrative;
 - campaign-level result packaging that includes both reproductions and clean
   falsifications;
 - honest public-facing result summaries;
 - a citation and publication path for software, reusable datasets, and future
   citable outputs;
-- a final wording audit across public-facing docs;
+- a final wording audit across public-facing docs for the release/tag cut;
 - release-gate evidence across technical stability, contributor workflow, and
   measurable results;
-- confidence that the public story matches the actual repository state.
+- confidence that the public story still matches the actual repository state.
 
-Immediate v0.2 packaging work:
+Immediate v0.2 stabilization work:
 
-- refresh top-level status and roadmap docs to reflect current campaign
-  evidence;
+- keep top-level status and roadmap docs aligned with current campaign
+  evidence after public opening;
 - package the Koide track as a falsification-first campaign rather than as
   disconnected notes;
 - keep `EXP-0010` framed as a guarded stress-test surface rather than as a
@@ -96,7 +99,8 @@ Immediate v0.2 packaging work:
 - reflect `EXP-0011`, `EXP-0012`, Nuclear Mass Surface, and the
   `TASK-0196` before `TASK-0197` post-AME2020 validation sequence without
   promoting sandbox candidates;
-- run one final public overclaim audit before any public-opening decision.
+- run one final public overclaim audit before any release tag or broad
+  announcement.
 
 ## Publication And Citation Track — Planned
 
