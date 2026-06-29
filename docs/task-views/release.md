@@ -14,5 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0880` - Route Sync Active Board through PRs after public branch protection (`infrastructure`, priority `high`, difficulty `low`, domain `maintainer_automation`)
-- `TASK-0882` - Run a public-alpha coherence pass after the opening signoff (`docs_protocol`, priority `high`, difficulty `medium`, domain `release_readiness`)
+None.
