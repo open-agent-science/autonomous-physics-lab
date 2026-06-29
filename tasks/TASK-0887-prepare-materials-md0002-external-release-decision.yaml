@@ -1,0 +1,57 @@
+id: TASK-0887
+title: "Prepare the MD-0002 external dataset release and DOI decision packet"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0809 closed the repository-local MD-0002 release metadata blockers, but external dataset release, archive checksum, release tag, and DOI remain maintainer-gated."
+  - "RESULT-0021 is AGENT_VALIDATED and internally reusable; the next dataset/publication step is a decision packet, not another benchmark replay or materials claim."
+  - "A bounded release packet can turn the Materials lane into citable dataset memory while keeping computed-DFT, no-design, and no-synthesis boundaries explicit."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "docs/reviews/materials-md0002-release-metadata-closeout.md"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/reviews/materials-md0002-transfer-negative-memory-replay.md"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    MD-0002 has repository-local metadata, checksum, and no-claim boundaries.
+    It is not yet an external dataset release. This task prepares the maintainer
+    decision packet for whether to archive/release it externally, mint or
+    decline a DOI, and what package checksum/release tag would be required.
+
+requirements:
+  - "Use only committed MD-0002 rows, manifests, README/license metadata, and RESULT-0021 artifacts; do not change values, holdout membership, or benchmark metrics."
+  - "Compare external release options such as GitHub release artifact, Zenodo/OSF-like archive, no external release yet, or DOI-declined internal citation."
+  - "Specify package contents, archive checksum plan, citation text, license/source attribution, creator/ORCID placeholders, changelog, and no-claim wording."
+  - "State the blocker/gate for each option, including whether a maintainer action outside the repo is required."
+  - "Do not describe MD-0002 as experimental measurement data, a materials-design dataset, a synthesis guide, or support for a universal materials law."
+
+accepted_outputs:
+  - "A decision packet under docs/reviews/ with release options, recommended path, stop conditions, and exact maintainer actions if any."
+  - "A public-safe citation/no-claim wording block for MD-0002 if the maintainer later chooses external release."
+  - "Output-routing summary: dataset-publication readiness only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset release decision packet only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -66,10 +66,10 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
 | [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | Turn `RESULT-0021` and `MD-0002` into reusable, source-citable dataset memory before any broader transfer claim | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier and source-contract gate | Keep famous-formula checks source-first; Stellar M-L is scoped memory, while Wien/FIRAS must clear temperature/domain contracts before metrics | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier, replay, and source-contract gate | Keep famous-formula checks source-first; Stellar M-L is scoped memory, while FIRAS/Wien and high-mass transfer results need replay/review before stronger wording | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and source-gated prospective reveal | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Verify the ZnSe/Toufanian source-license route and route the failed effective-mass transfer check without unblocking open-ended correction search | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | Establish manifest, covariance, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | Establish manifest, covariance, aggregation, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Preserve current negative/control memory and reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
@@ -113,10 +113,12 @@ The clearest current repository-level results are:
    retrospective post-AME2020 checks. `AGENT-RUN-0007` is only an
    `INCONCLUSIVE` source-manifest guard, while `AGENT-RUN-0008` remains
    sandbox-only retrospective time-split evidence.
-10. Materials `RESULT-0021` and Textbook/Stellar `RESULT-0022` are the current
-    strongest post-validation dataset-backed surfaces. They are useful as
-    scoped, review-tiered memory and transfer/source-readiness prompts, not as
-    material-discovery, stellar-law, or universal-formula claims.
+10. Materials `RESULT-0021`, Textbook/Stellar `RESULT-0022`, FIRAS/Wien
+    `RESULT-0023`, Stellar high-mass transfer `RESULT-0024`, and Nuclear
+    `RESULT-0025` are the current strongest post-validation or replay-ready
+    dataset-backed surfaces. They are useful as scoped, review-tiered memory
+    and transfer/source-readiness prompts, not as material-discovery,
+    stellar-law, nuclear-law, or universal-formula claims.
 
 The nuclear prediction registry is a prospective forecast surface, not a
 result surface: `PRED-0001` through `PRED-0068` are frozen entries awaiting
@@ -172,7 +174,8 @@ Low-risk contribution patterns right now:
 ## What Not To Claim
 
 - Do not describe APL as having finalized physics.
-- Do not describe the repository as having produced a validated physical result.
+- Do not describe AGENT_VALIDATED or Gate-B-replayed benchmark artifacts as
+  maintainer-endorsed physical discoveries.
 - Do not call pendulum approximations exact or globally valid.
 - Do not treat charged-lepton or tau-holdout benchmarks as explanations of
   particle masses.

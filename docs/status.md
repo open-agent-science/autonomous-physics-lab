@@ -30,8 +30,8 @@ explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory and AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021` | Maintainer-approved follow-up from the transfer-route scout; no material-design, synthesis, recommendation, or new-law wording |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures plus AGENT_VALIDATED Stellar M-L `RESULT-0022` on frozen DEBCat rows | Maintainer-approved follow-up from the Wien result-routing/source posture; no universal textbook-law wording |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory and AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021` | External release/DOI decision after internal metadata closeout; preserve transfer-negative memory and no material-design, synthesis, recommendation, or new-law wording |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures, AGENT_VALIDATED Stellar M-L `RESULT-0022`, AGENT_PUBLISHED FIRAS/Wien `RESULT-0023`, and high-mass transfer `RESULT-0024` replay memory | Gate B replay for `RESULT-0023` and maintainer-safe wording for `RESULT-0024`; no universal textbook-law wording |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; current residual-feature lanes are mostly negative, inconclusive, diagnostic-only, or validation-regressing, so the live path is reveal-readiness reporting and one bounded controls-first sprint rather than broad new fitting |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring and `EXO-0003` trigger discipline, not another residual pilot |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Six direct Almeida InP rows and a source-scoped sandbox baseline exist; the next transfer route is source/license-gated on ZnSe/Toufanian, and the failed effective-mass transfer check is now preserved as bounded negative memory |
@@ -46,8 +46,8 @@ Use the full [campaign map](./campaigns/README.md) for the complete list.
 
 ## What We Have So Far
 
-The repository currently stores fourteen canonical experiment files and
-twenty-two canonical result artifacts. The strongest evidence is not a single
+The repository currently stores eighteen canonical experiment files and
+twenty-five canonical result artifacts. The strongest evidence is not a single
 spectacular claim; it is a growing public memory of tests, failures, baselines,
 and review artifacts.
 
@@ -89,14 +89,16 @@ Highlights:
   It is still not a benchmark or constants-drift result.
 - Textbook Formula Audit has a scaffold, ranked candidate slate,
   exact-reference fixtures, a Gate-B-validated Stefan-Boltzmann
-  software/convention result, and AGENT_PUBLISHED Stellar M-L `RESULT-0022`.
-  The Stellar result is a controlled DEBCat benchmark surface, not a universal
-  mass-luminosity law or stellar-evolution claim.
+  software/convention result, AGENT_VALIDATED Stellar M-L `RESULT-0022`,
+  AGENT_PUBLISHED FIRAS/Wien self-consistency `RESULT-0023`, and high-mass
+  transfer `RESULT-0024` replay memory with caveats. These are controlled
+  benchmark surfaces, not universal formula or stellar-evolution claims.
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
-  AGENT_PUBLISHED `MD-0002` formation-energy `RESULT-0021`. The new result is a
-  computed-DFT, frozen-slice benchmark candidate, not a material
-  recommendation, synthesis guide, experimental measurement, or materials-law
-  claim.
+  AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`. The result is a
+  computed-DFT, frozen-slice benchmark artifact, not a material recommendation,
+  synthesis guide, experimental measurement, or materials-law claim. Repository
+  release metadata is now closed; external archive/DOI release remains a
+  maintainer-gated decision.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -135,9 +137,10 @@ Important operating rules:
 - Exoplanet residual scoring is closed on the current snapshot; it needs a
   materially changed pinned snapshot or approved `EXO-0003` trigger before
   another residual audit.
-- Materials and Stellar now need independent replay and bounded control audits
-  before broader science-wave expansion; neither supports broad property-law,
-  material-design, universal-formula, or application-domain claims.
+- Materials and Stellar now need external-release or maintainer-review
+  decisions, not broader benchmark expansion. Their validated/replayed
+  artifacts do not support broad property-law, material-design,
+  universal-formula, or application-domain claims.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 

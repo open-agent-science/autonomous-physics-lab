@@ -1,0 +1,58 @@
+id: TASK-0888
+title: "Package the Exoplanet null-baseline negative/control memory only if Gate A can be made deterministic"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The Exoplanet residual lane remains monitor-only, but the nearest-radius null-baseline finding is valuable negative/control memory."
+  - "TASK-0649 found Gate A blocked for a canonical negative RESULT; TASK-0867 later replayed the null-baseline memory with sub-1e-12 drift."
+  - "The next useful step is a strict package-or-stop task that either creates a deterministic negative/control result path or preserves the blocker without reopening residual scoring."
+
+input:
+  mode: workflow
+  related_domain: astrophysics
+  related_objects:
+    - "docs/reviews/exoplanet-negative-control-result-publication-preflight.md"
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "scripts/run_exoplanet_null_baseline_family_audit.py"
+  planning_context: >
+    The existing exoplanet negative/control memory is replayable, but not yet
+    a canonical RESULT because Gate A lacked a result-producing package and
+    experiment identity. This task may package that negative memory only if
+    the deterministic path is complete and conservative; otherwise it must
+    stop with an updated blocker note.
+
+requirements:
+  - "Use only committed EXO-0001/EXO-0002 evidence and existing null-baseline runner logic; no live NASA Exoplanet Archive fetch and no EXO-0003 value-bearing rows."
+  - "If creating a RESULT candidate, define or reuse an experiment identity, command, input hashes, limitations, and schema-valid result metadata that reproduce the existing negative/control finding."
+  - "If any Gate A element is still missing, write a blocker note and do not create a RESULT artifact."
+  - "Do not add candidate formulas, refit CK-style baselines, lower the EXO-0003 trigger gate, or reopen residual scoring."
+  - "No composition, habitability, atmosphere, target-priority, discovery, prediction, or universal mass-radius wording."
+
+accepted_outputs:
+  - "Either a Gate-A-compliant negative/control RESULT candidate for the existing null-baseline memory, or a docs/reviews blocker note explaining the exact missing gate."
+  - "A public-safe result-promotion summary that keeps Exoplanet monitor-only unless a future source-version trigger changes the snapshot."
+  - "Output-routing summary with Gate A pass/blocked, Gate B not attempted unless separately replayed, claim impact none, knowledge impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "A negative/control RESULT is allowed only if Gate A can be made deterministic; otherwise this task stops with blocker memory."
+  evidence:
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_baseline.py tests/test_exoplanet_mass_radius_loader.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

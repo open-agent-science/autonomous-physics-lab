@@ -73,11 +73,15 @@ blocker.
 `TASK-0780` checked the committed Pizzocaro route against that gate and kept the
 lane closed: Pizzocaro still needs a maintainer-approved aggregation or
 observable-harmonization contract before it can reduce the blocker.
+`TASK-0872` then drafted the aggregation/observable-harmonization contract and
+kept the conservative decision: the current committed Pizzocaro evidence
+defines requirements but still does not authorize a Pizzocaro ACR row or
+benchmark.
 
 **Expected next result:** no immediate Atomic benchmark result. The latest
-source-route scout preserved blocker memory for the checked Pizzocaro path.
-The next useful action requires either a new independent absolute Yb/Sr source
-row or a maintainer-approved Pizzocaro aggregation contract. No constants-drift,
+contract review preserved blocker memory for the checked Pizzocaro path. The
+next useful action is either a narrow independent absolute Yb/Sr source-route
+scout or a maintainer-approved aggregation decision. No constants-drift,
 new-constant, anomaly, prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in
 scope.
 
