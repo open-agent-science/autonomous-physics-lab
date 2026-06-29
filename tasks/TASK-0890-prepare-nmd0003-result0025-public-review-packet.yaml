@@ -25,7 +25,7 @@ input:
     its uncertainty envelope is heavy-tailed and miscalibrated. This task
     prepares safe public/maintainer wording for the point-estimator evidence
     while keeping TASK-0827 and PRED freeze blocked until uncertainty calibration
-    is separately solved.
+    is separately cleared.
 
 requirements:
   - "Review RESULT-0025, the Gate B replay note, and the uncertainty-calibration blocker; keep point accuracy and interval calibration as separate axes."
