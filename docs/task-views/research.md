@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0865` - Preflight a no-peek uncertainty-calibration route for the NMD-0003 GP blocker (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0870` - Verify the Quantum ZnSe direct-size source license route before any row task (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0874` - Prepare the particle-mass common-scheme source-policy decision packet (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 - `TASK-0877` - Construct the FRB Catalog 2 T-truncated exposure split before morphology benchmarking (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
@@ -19,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0865` - Preflight a no-peek uncertainty-calibration route for the NMD-0003 GP blocker (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)

@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0891` - Deduplicate CI and review validation for safer maintainer latency (`maintainer_tooling`, priority `high`, difficulty `low`, domain `ci_review_latency`)
