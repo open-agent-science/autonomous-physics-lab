@@ -86,7 +86,7 @@ public card, summary, or campaign surface derived from this result:
 | Canonical result publication | `results/EXP-0018/RUN-0001/result.yaml` (TASK-0843) | `RESULT-0025`, `best_verdict: PARTIALLY_VALID`, `review_tier: AGENT_PUBLISHED`; Gate A conditions recorded as checked. |
 | Uncertainty adjudication | `docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md` (TASK-0844) | Verdict `POINT_GAIN_ONLY_UNCERTAINTY_BLOCKED`; uniform interval inflation cannot fix the central/tail mismatch. |
 | Independent Gate B replay | `docs/reviews/nmd0003-result0025-gp-gate-b-replay.md` (TASK-0864) | Verdict `GATE_B_PASS_POINT_METRICS_UNCERTAINTY_BLOCKED`; point metrics replay at max absolute drift `0.0`; uncertainty blocker reproduced. |
-| No-peek uncertainty-route preflight | `tasks/TASK-0865-preflight-nmd0003-gp-uncertainty-blocker-resolution.yaml` (status `REVIEW_READY`) | A separate in-flight task scoping whether any no-peek calibration route exists; prediction freeze stays blocked until it clears. |
+| No-peek uncertainty-route preflight | `TASK-0865` (status `REVIEW_READY`) | A separate in-flight task scoping whether any no-peek calibration route exists; prediction freeze stays blocked until it clears. |
 
 The chain supports reproducibility of the point-estimator gain. It does **not**
 provide a calibrated uncertainty envelope, a blind reveal, or independent
