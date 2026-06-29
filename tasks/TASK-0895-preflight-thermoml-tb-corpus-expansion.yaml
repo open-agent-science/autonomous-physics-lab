@@ -1,7 +1,7 @@
 id: TASK-0895
 title: "Preflight a value-free ThermoML Tb corpus-expansion manifest"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -43,7 +43,7 @@ result_artifact_policy:
   required: false
   reason: "Source-readiness preflight only; no benchmark result or prediction artifact is produced."
   evidence:
-    - "data/thermophysical/source_manifest.yaml"
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
 
 validation:
   commands:
