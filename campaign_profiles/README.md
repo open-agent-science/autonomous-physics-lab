@@ -38,6 +38,7 @@ contract.
 | `atomic-clock-residuals.yaml` | `SOURCE_READINESS` | Pinned atomic-clock rows, covariance semantics, second-source ingestion, and holdout/no-peek readiness before benchmark metrics |
 | `particle-mass-relations.yaml` | `GUARDRAIL_ONLY` | Falsification-first and provenance-focused proposal work |
 | `textbook-formula-audit.yaml` | `SCAFFOLD` | Per-formula sandbox audits of textbook formulas against pinned public datasets; first slice queued is the Stellar Mass-Luminosity OOD audit |
+| `thermophysical-property-residuals.yaml` | `WHITELISTED_LIMITED` | ThermoML Tb / Joback source-pinned benchmark lane with replay, source-readiness, and negative-memory gates |
 
 Profiles may also include a `portfolio` block. That block is the editable
 source for the generated `campaign_profiles/_catalog.yaml` portfolio index;
