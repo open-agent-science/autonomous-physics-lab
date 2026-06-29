@@ -1,0 +1,43 @@
+id: AGENT-RUN-0088
+campaign_profile_id: exoplanet-mass-radius
+task_id: TASK-0866
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0049-frozen-baseline-benchmark.yaml
+  experiment: experiment_proposals/exoplanet-mass/EXP-PROPOSAL-0015-frozen-baseline-benchmark.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0088/metrics.json
+  report: agent_runs/AGENT-RUN-0088/report.md
+  limitations: agent_runs/AGENT-RUN-0088/limitations.md
+  preflight: agent_runs/AGENT-RUN-0088/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0088/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: pinned_inputs
+    status: PASS
+    notes: EXO-0002 and EXO-0001 only; no live fetch.
+  - name: frozen_relation
+    status: PASS
+    notes: CK17 median segments reused without refit.
+  - name: held_out_controls
+    status: PASS
+    notes: Five declared control families scored on a stable test split.
+  - name: axis_separation
+    status: PASS
+    notes: True-mass primary and minimum-mass diagnostic rows remain separate.
+limitations:
+- Median-equation point audit only; predictive interval calibration was not attempted.
+- Successive composite snapshots are compatibility evidence, not independent replication.
+- 'The all-controls promotion rule failed: primary_beats_regime_power_law.'
+- Sandbox evidence only; no canonical result, claim, or knowledge artifact was created.
+verdict: SANDBOX_FAIL
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review of the scoped negative and decision whether
+    probabilistic Forecaster calibration merits a separate task.
