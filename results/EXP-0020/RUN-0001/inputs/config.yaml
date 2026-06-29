@@ -1,0 +1,14 @@
+result_id: RESULT-0026
+run_id: RUN-0001
+experiment_id: EXP-0020
+hypothesis_id: HYP-0020
+task_id: TASK-0869
+source_task_id: TASK-0851
+source_agent_run: AGENT-RUN-0087
+source_metrics: agent_runs/AGENT-RUN-0087/metrics.json
+source_report: agent_runs/AGENT-RUN-0087/report.md
+command: python scripts/run_thermoml_tb_family_transfer.py --write
+code_reference: physics_lab/engines/thermoml_family_transfer.py
+property_scope: normal_boiling_temperature_Tb_only
+review_tier: AGENT_PUBLISHED
+no_claim_or_knowledge_promotion: true

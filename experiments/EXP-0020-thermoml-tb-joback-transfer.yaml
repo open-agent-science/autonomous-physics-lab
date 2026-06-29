@@ -1,0 +1,51 @@
+id: EXP-0020
+title: "ThermoML Tb bounded family-stratified Joback transfer benchmark"
+domain: thermophysical_property_estimation
+status: COMPLETED
+
+hypothesis_id: HYP-0020
+
+method:
+  type: dataset_reproduction
+  simulator: thermoml_family_transfer
+  comparator: frozen_joback_tb_against_family_stratified_non_oracle_controls
+
+data:
+  dataset_path: ../data/thermophysical/thermoml_tb_audit_fixture.yaml
+  dataset_kind: thermoml_tb_bounded_family_audit_fixture
+  benchmark_scope: "Normal boiling temperature (Tb) only; 40 committed rows, eight families, five rows per family; raw ThermoML archive bytes and substantial corpus not committed."
+  expected_item_count: 40
+  sample_axes:
+    - chemical_family
+    - molecular_weight_g_mol
+    - experimental_tb_k
+    - expanded_uncertainty_k
+    - joback_group_counts
+  notes: "Derived from the checksum-pinned NIST TRC ThermoML Archive route with conditional bounded factual extract rights and no live fetch in this task."
+
+candidate_models:
+  - id: model_joback_frozen_tb
+    formula: "Tb = 198.2 K + sum(Joback and Reid Tb group increments), no fitted coefficients"
+  - id: model_molecular_weight_only
+    formula: "Train-only molecular-weight linear baseline for each leave-one-family-out split"
+  - id: model_global_median
+    formula: "Train-lane global median Tb baseline"
+  - id: model_nearest_homolog
+    formula: "Nearest train molecule by Joback-group-count similarity and molecular-weight tie-breaker"
+  - id: model_shuffled_group_counts
+    formula: "Frozen Joback estimator evaluated on deterministic shuffled group counts, seed 851"
+  - id: model_within_family_constant
+    formula: "Oracle-like held-out-family mean Tb, reported as a non-selection diagnostic only"
+
+comparison_targets:
+  - id: target_joback_beats_best_non_oracle_control
+    label: "Frozen Joback aggregate MAE below the best non-oracle control by at least 5 K"
+    reference_value: 43.427943
+    reference_uncertainty: 5.0
+    unit: K
+    notes: "Best non-oracle control is molecular_weight_only; lower MAE is better."
+  - id: target_family_survival_two_thirds
+    label: "Held-out family margin clears 5 K in at least two thirds of families"
+    reference_value: 6.000000
+    unit: family_count
+    notes: "Observed 7 of 8 families; esters/lactones is the failed family."
