@@ -598,6 +598,27 @@ def ci_aware_validation_command(command_text: str) -> str | None:
     return command_text
 
 
+def _validation_python_args(command_text: str) -> str:
+    """Return normalized Python module/script args for validation commands."""
+    normalized = " ".join(command_text.strip().split())
+    for launcher in ("python3 ", "python "):
+        if normalized.startswith(launcher):
+            return normalized.removeprefix(launcher)
+    venv_match = VENV_PYTHON_LAUNCHER_PATTERN.match(normalized)
+    if venv_match:
+        return venv_match.group("rest").strip()
+    return normalized
+
+
+def _validate_repo_command_kind(command_text: str) -> str | None:
+    python_args = _validation_python_args(command_text)
+    if python_args == "-m physics_lab.cli validate-repo .":
+        return "base"
+    if python_args == "-m physics_lab.cli validate-repo . --strict --fail-on-warnings":
+        return "strict"
+    return None
+
+
 def _validation_excerpt(text: str, *, limit: int = VALIDATION_OUTPUT_EXCERPT_CHARS) -> str:
     """Return a bounded single-line excerpt for review diagnostics."""
     normalized = " ".join(text.strip().split())
@@ -689,9 +710,21 @@ def run_task_validation(
     # Prefer the repository venv interpreter so validation never runs on an
     # unsupported launcher (e.g. a bare system python 3.9) — see TASK-0725.
     validation_python = resolve_validation_python(root)
-    for command in task_payload.get("validation", {}).get("commands", []):
-        command_text = str(command)
+    validation_commands = [
+        str(command) for command in task_payload.get("validation", {}).get("commands", [])
+    ]
+    has_strict_validate_repo = any(
+        _validate_repo_command_kind(command) == "strict"
+        for command in validation_commands
+    )
+    for command_text in validation_commands:
         if any(token in command_text for token in skip_commands_containing):
+            skipped_commands.append(command_text)
+            continue
+        if (
+            has_strict_validate_repo
+            and _validate_repo_command_kind(command_text) == "base"
+        ):
             skipped_commands.append(command_text)
             continue
         local_command = ci_aware_validation_command(command_text) if ci_aware else command_text

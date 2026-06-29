@@ -110,10 +110,6 @@ jobs:
         run: |
           ruff check .
 
-      - name: Validate repository artifacts
-        run: |
-          python -m physics_lab.cli validate-repo .
-
       - name: Strict validate repository artifacts
         run: |
           python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
@@ -193,10 +189,6 @@ jobs:
       - name: Assert example runs are non-dirty
         run: |
           git diff --exit-code
-
-      - name: Validate repository artifacts
-        run: |
-          python -m physics_lab.cli validate-repo .
 
       - name: Strict validate repository artifacts
         run: |
