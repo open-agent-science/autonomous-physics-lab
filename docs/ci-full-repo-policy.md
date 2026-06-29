@@ -43,6 +43,12 @@ docs/task tests. This keeps generated board-sync commits from spending the full
 matrix cost after every merge while preserving validation for generated task
 navigation.
 
+Main push CI runs are not cancelled by newer `main` pushes. The CI concurrency
+group uses the PR number for pull requests and the commit SHA for push runs,
+with `cancel-in-progress` enabled only for pull requests. This lets stale PR
+runs stop quickly while preserving two post-merge signals when both are useful:
+the merge-commit full main matrix and the later board-sync docs/task lane.
+
 ## Interaction with safe auto-closeout
 
 Safe auto-closeout (`docs/maintainer-review-agent.md`) commits `DONE` flips
