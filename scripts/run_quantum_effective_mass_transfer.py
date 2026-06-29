@@ -6,16 +6,22 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
 import yaml
 
-from physics_lab import __version__
-from physics_lab.engines.quantum_effective_mass_transfer import run_effective_mass_transfer
-from physics_lab.workflows.artifacts import git_commit
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from physics_lab import __version__  # noqa: E402
+from physics_lab.engines.quantum_effective_mass_transfer import (  # noqa: E402
+    run_effective_mass_transfer,
+)
+from physics_lab.workflows.artifacts import git_commit  # noqa: E402
+
 AGENT_RUN_ID = "AGENT-RUN-0085"
 ENGINE_REL = "physics_lab/engines/quantum_effective_mass_transfer.py"
 RUNNER_REL = "scripts/run_quantum_effective_mass_transfer.py"
