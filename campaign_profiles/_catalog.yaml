@@ -880,3 +880,103 @@ campaigns:
   - docs/result-promotion-protocol.md
   - docs/research-quality-gate.md
   - docs/strategy.md
+- id: thermophysical-property-residuals
+  title: Thermophysical property residuals
+  status: active_secondary
+  domain: thermophysical_property_estimation
+  surface_type: source_pinned_benchmark
+  lifecycle_stage: active_benchmark
+  activity_status: active
+  curator:
+    primary_pool: source_data_benchmark
+    secondary_pools:
+    - verifier_quality_floor
+    - result_promotion
+    review_cadence: weekly
+    transfer_requires:
+    - scientific_director_or_maintainer_pr
+    - curator_cycle_review
+    - source_readiness_pass
+    - updated_campaign_profile
+  current_stage: ThermoML Tb RESULT-0026 is AGENT_PUBLISHED on a bounded 40-row family-stratified
+    fixture; Gate B replay, source-expansion readiness, and failed-family negative memory
+    are the next safe steps.
+  agent_capacity:
+    recommended_parallel_agents: 2
+    coordination_notes: 'Split work by artifact surface: one agent can replay RESULT-0026,
+      one can preflight source expansion without values, and one can package the esters/lactones
+      failed-family memory. Do not broaden beyond Tb or rerun Gate A packaging.'
+  next_validity_gate:
+    type: ratification
+    blocker: RESULT-0026 is AGENT_PUBLISHED but not independently replayed or maintainer-reviewed;
+      source expansion beyond the bounded fixture is rights and identity-map gated.
+    target_artifact: TASK-0894
+  best_next_actions:
+  - task_id: TASK-0894
+    label: Independently replay ThermoML Tb RESULT-0026 through Gate B
+  - task_id: TASK-0895
+    label: Preflight a value-free ThermoML Tb corpus-expansion manifest
+  - task_id: TASK-0896
+    label: Package the esters/lactones failed-family result as negative/control memory
+  required_gates:
+  - ThermoML archive DOI, checksum, and rights boundary must stay explicit.
+  - No raw archive bytes or substantial normalized corpus may be committed.
+  - Tb-only scope unless a future task separately gates another property.
+  - Implementation-fidelity fixture must pass before benchmark metrics matter.
+  - Aggregate wins must be reported with per-family survival and failed-family memory.
+  allowed_work:
+  - Scoped thermophysical property-estimation baseline audits against pinned public data surfaces.
+  - Frozen baseline, split, control, replay, and negative-memory work for normal boiling temperature
+    (Tb) only unless a later task explicitly admits another property.
+  - Source-readiness and corpus-expansion planning that records rights, identity mapping,
+    row class, and extraction blockers without committing raw archive bytes.
+  - Negative-control candidate sketches that intentionally test family leakage, molecular-weight-only
+    explanations, shuffled groups, or failed chemical families.
+  - Independent replay of RESULT-0026 and its source-limited ThermoML Tb fixture.
+  - Value-blind source and fixture expansion preflights for ThermoML Tb rows.
+  - Bounded family-stratified transfer audits with frozen baselines and predeclared controls.
+  - Result-review packets or negative-memory notes that do not mutate RESULT metrics.
+  forbidden_work:
+  - Campaign outputs may be framed as a new thermophysical law.
+  - Joback may be framed as globally reliable or globally failed.
+  - A bounded 40-row ThermoML fixture supports chemical design, process design, safety guidance,
+    or property prediction in production.
+  - Normal boiling temperature results imply support for critical-temperature, vapor-pressure,
+    heat-capacity, or other property estimates.
+  - Raw ThermoML archive contents or a substantial normalized corpus are covered by the repository
+    license.
+  - A family-stratified aggregate win can hide a failed family without negative-memory routing.
+  current_results:
+  - data/thermophysical/source_manifest.yaml
+  - data/thermophysical/thermoml_tb_audit_fixture.yaml
+  - docs/reviews/thermoml-tb-family-stratified-transfer-benchmark.md
+  - agent_runs/AGENT-RUN-0087/report.md
+  - results/EXP-0020/RUN-0001/result.yaml
+  - results/EXP-0020/RUN-0001/gate_a_report.md
+  - results/EXP-0020/RUN-0001/report.md
+  open_questions:
+  - Does independent Gate B replay reproduce aggregate and per-family RESULT-0026 metrics
+    with no drift?
+  - Can a larger ThermoML Tb corpus be described with enough rights, identity, and row-class
+    discipline before values are committed?
+  - Should the esters/lactones failure be promoted as durable negative/control memory before
+    any expansion?
+  curator_review:
+    status: current
+    last_reviewed: '2026-06-29'
+    review_interval: quarterly_active
+    next_review_due: '2026-09-01'
+    review_reason: benchmark_monitoring
+    source: TASK-0833 source-readiness scout, TASK-0841 local-fetch gate, TASK-0851 bounded
+      transfer run, and TASK-0869 RESULT-0026 Gate A packaging
+    notes: This campaign is newly active as a bounded thermophysical-property benchmark lane.
+      It is public-friendly and parallel-safe only while it stays Tb-only, source-rights aware,
+      and no-claim. The nearest result path is Gate B replay of RESULT-0026, followed by source-expansion
+      readiness and failed-family negative memory.
+  source_docs:
+  - docs/campaigns/thermophysical-property-residuals.md
+  - data/thermophysical/source_manifest.yaml
+  - data/thermophysical/thermoml_tb_audit_fixture.yaml
+  - results/EXP-0020/RUN-0001/result.yaml
+  - docs/result-promotion-protocol.md
+  - docs/research-quality-gate.md

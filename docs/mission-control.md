@@ -59,7 +59,7 @@ APL currently organizes work around one flagship validation campaign, several
 post-validation gate surfaces, fresh-data source surfaces, and older
 benchmark/falsification surfaces that still define the project's quality floor:
 
-If you are new, start with the first four rows. They are the current
+If you are new, start with the first several rows. They are the current
 public-facing research surfaces. The later rows are still important, but they
 are either quality-floor benchmarks or planning/watchlist surfaces.
 
@@ -70,6 +70,7 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and source-gated prospective reveal | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Verify the ZnSe/Toufanian source-license route and route the failed effective-mass transfer check without unblocking open-ended correction search | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | Establish manifest, covariance, aggregation, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Source-pinned thermophysical benchmark lane | Replay ThermoML `Tb` `RESULT-0026`, preflight value-free corpus expansion, and preserve failed-family negative memory without broad property claims | [thermophysical-property-residuals.md](./campaigns/thermophysical-property-residuals.md) |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Preserve current negative/control memory and reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
@@ -114,11 +115,12 @@ The clearest current repository-level results are:
    `INCONCLUSIVE` source-manifest guard, while `AGENT-RUN-0008` remains
    sandbox-only retrospective time-split evidence.
 10. Materials `RESULT-0021`, Textbook/Stellar `RESULT-0022`, FIRAS/Wien
-    `RESULT-0023`, Stellar high-mass transfer `RESULT-0024`, and Nuclear
-    `RESULT-0025` are the current strongest post-validation or replay-ready
-    dataset-backed surfaces. They are useful as scoped, review-tiered memory
-    and transfer/source-readiness prompts, not as material-discovery,
-    stellar-law, nuclear-law, or universal-formula claims.
+    `RESULT-0023`, Stellar high-mass transfer `RESULT-0024`, Nuclear
+    `RESULT-0025`, and ThermoML `Tb` `RESULT-0026` are the current strongest
+    post-validation, replay-ready, or source-pinned dataset-backed surfaces.
+    They are useful as scoped, review-tiered memory and transfer/source-
+    readiness prompts, not as material-discovery, stellar-law, nuclear-law,
+    thermophysical-law, or universal-formula claims.
 
 The nuclear prediction registry is a prospective forecast surface, not a
 result surface: `PRED-0001` through `PRED-0068` are frozen entries awaiting

@@ -9,6 +9,15 @@ from typer.testing import CliRunner
 
 from physics_lab.cli import app
 from physics_lab.engines.nmd0003_baseline_family_gate import run_nmd0003_baseline_family_gate
+from physics_lab.engines.nmd0003_canonical_dz10_reference import (
+    DZ10_AMDC_METADATA,
+    DZ10_SMOKE_FIXTURE,
+    format_dz10_fixture_text,
+    lookup_dz10_mass_excess_mev,
+    parse_dz10_mass_excess_table,
+    published_variant_mass_excess_diagnostic,
+    validate_dz10_smoke_fixture,
+)
 from physics_lab.engines.nmd0003_duflo_zuker_baseline import (
     FEATURE_NAMES,
     PUBLISHED_DZ10_FULL_COEFFICIENTS,
@@ -199,6 +208,24 @@ def test_duflo_zuker_published_equation_design_and_benchmark_are_deterministic()
     assert first["output_routing"]["gate_b_status"] == "replayable"
 
 
+def test_canonical_dz10_reference_parser_smoke_fixture_and_diagnostic() -> None:
+    fixture_text = "# header\n" + format_dz10_fixture_text(DZ10_SMOKE_FIXTURE)
+    rows = parse_dz10_mass_excess_table(fixture_text)
+    validation = validate_dz10_smoke_fixture(rows)
+
+    assert DZ10_AMDC_METADATA["source_bytes_redistribution"] == "not_cleared"
+    assert DZ10_AMDC_METADATA["table_sha256"].startswith("b80d64ca")
+    assert len(rows) == len(DZ10_SMOKE_FIXTURE)
+    assert rows[0].n == 8
+    assert lookup_dz10_mass_excess_mev(rows, z=8, a=16) == pytest.approx(-5.150)
+    assert validation["passed"] is True
+    assert validation["checked_count"] == len(DZ10_SMOKE_FIXTURE)
+    assert validation["max_abs_delta_mev"] == 0.0
+
+    diagnostic = published_variant_mass_excess_diagnostic(rows)
+    assert diagnostic["comparison_count"] == len(DZ10_SMOKE_FIXTURE)
+    assert diagnostic["verdict"] == "diagnostic_only_not_canonical_parity"
+    assert diagnostic["max_abs_delta_mev"] > 1.0
 def test_nuclear_mass_registry_files_validate() -> None:
     load_hypothesis("hypotheses/HYP-0012-nuclear-mass-baseline.yaml")
     load_experiment("experiments/EXP-0012-nuclear-mass-baseline.yaml")
