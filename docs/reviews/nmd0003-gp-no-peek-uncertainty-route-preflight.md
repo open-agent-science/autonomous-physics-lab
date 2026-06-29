@@ -17,7 +17,7 @@ Used inputs:
 - `docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md`
 - `results/EXP-0018/RUN-0001/result.yaml` (`RESULT-0025`)
 - `agent_runs/AGENT-RUN-0080/metrics.json`
-- `tasks/TASK-0827-extrapolation-model-comparison-and-freeze-for-reveal.yaml`
+- `TASK-0827`
 - `docs/nuclear-prediction-reveal-protocol.md`
 
 No post-AME2020 target values or future target values were used to choose a new calibration rule in this task. The post-AME2020 holdout diagnostics are treated only as the already-recorded blocker that motivates a later predeclared route test.
