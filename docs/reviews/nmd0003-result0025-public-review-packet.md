@@ -275,5 +275,3 @@ point-accuracy result above. The evidence does not support calibrated prediction
 intervals, reveal success, a new nuclear law or broad mass formula, a discovery,
 or any claim or knowledge promotion, and the prediction freeze stays blocked
 until the uncertainty-calibration route is independently cleared.
-</content>
-</invoke>
