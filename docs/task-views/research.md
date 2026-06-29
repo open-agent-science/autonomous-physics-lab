@@ -7,7 +7,7 @@
 ## READY
 
 - `TASK-0877` - Construct the FRB Catalog 2 T-truncated exposure split before morphology benchmarking (`scientific_validation`, priority `medium`, difficulty `high`, domain `radio_transients_astrophysics`)
-- `TASK-0894` - Independently replay ThermoML Tb RESULT-0026 through Gate B (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
+- `TASK-0894` - Independently replay (Gate B) the ThermoML Tb Joback transfer RESULT-0026 (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
 
