@@ -1,7 +1,7 @@
 id: TASK-0880
 title: "Route Sync Active Board through PRs after public branch protection"
 type: infrastructure
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
