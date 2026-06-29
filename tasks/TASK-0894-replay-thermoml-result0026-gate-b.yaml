@@ -1,0 +1,60 @@
+id: TASK-0894
+title: "Independently replay ThermoML Tb RESULT-0026 through Gate B"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "ThermoML Tb RESULT-0026 is AGENT_PUBLISHED and Gate-A packaged, but not independently replayed."
+  - "Gate B replay is the cleanest first task for the new Thermophysical Property Residuals campaign."
+  - "A successful replay can make the bounded Joback transfer result more trustworthy while preserving the Tb-only, source-rights, and failed-family limitations."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0001/metrics.json"
+    - "results/EXP-0020/RUN-0001/report.md"
+    - "results/EXP-0020/RUN-0001/gate_a_report.md"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "data/thermophysical/source_manifest.yaml"
+    - "scripts/run_thermoml_tb_family_transfer.py"
+  planning_context: >
+    RESULT-0026 reports VALID_IN_RANGE bounded transfer support for the frozen
+    Joback Tb estimator on the committed 40-row ThermoML family-stratified audit
+    fixture. It is AGENT_PUBLISHED only. This task runs an independent replay
+    and records Gate B pass, contest, or blocker status without changing the
+    result metrics.
+
+requirements:
+  - "Replay the committed RESULT-0026 command and compare input hashes, aggregate metrics, per-family metrics, verification checks, verdict, review tier, and limitations."
+  - "Preserve the Tb-only property scope, 40-row fixture, ThermoML rights boundary, frozen Joback estimator, and no-claim wording."
+  - "Explicitly compare the headline values: Joback MAE 14.925825 K, best non-oracle MAE 43.427943 K, margin 28.502118 K, 7/8 families clearing, and esters/lactones as the failed family."
+  - "Do not rerun source extraction, vendor raw ThermoML archive bytes, expand the fixture, refit Joback coefficients, or create a CLAIM/KNOW/PRED artifact."
+  - "If any metric or metadata drift exceeds tolerance, stop with CONTESTED_RESULT or GATE_B_BLOCKED and record the blocker."
+
+accepted_outputs:
+  - "A Gate B replay review note under docs/reviews/ with metric drift table, pass/contest verdict, limitations, and no-claim wording."
+  - "A review metadata update only if the result-promotion protocol allows it for independent replay."
+  - "Output-routing summary: Gate A existing, Gate B pass/blocked/contested, claim impact none, knowledge impact none, public wording still bounded ThermoML Tb transfer only."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay of an existing AGENT_PUBLISHED result; no new RESULT should be created."
+  evidence:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_joback_tb.py tests/test_thermoml_family_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

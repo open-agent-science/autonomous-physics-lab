@@ -1,7 +1,7 @@
 id: TASK-0870
 title: "Verify the Quantum ZnSe direct-size source license route before any row task"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -16,6 +16,7 @@ input:
   related_domain: quantum_size_effects
   related_objects:
     - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
+    - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
     - "docs/reviews/quantum-vossmeyer-table1-source-access-memory.md"
     - "data/quantum_dots/source_manifest.yaml"
     - "docs/quantum-direct-measurement-digitization-protocol.md"
@@ -33,8 +34,8 @@ requirements:
   - "Do not transcribe table values, create qd rows, run metrics, unblock correction search, or use estimated coordinates."
 
 accepted_outputs:
-  - "A source-license verification note under docs/reviews/ with READY / BLOCKED / NEEDS_MAINTAINER_SOURCE_DECISION verdict."
-  - "Optional metadata-only source_manifest wording proposal; no value-bearing rows."
+  - "docs/reviews/quantum-znse-toufanian-license-route-verification.md records SOURCE_ROUTE_READY_LIMITED_FACTUAL_EXTRACT_SOURCE_BYTES_BLOCKED."
+  - "No metadata wording proposal needed: source_manifest and DATA_LICENSES already record the TASK-0840 route; no value-bearing rows changed."
   - "Output-routing summary: source-readiness only, no RESULT/PRED/CLAIM/KNOW change."
 
 result_artifact_policy:
@@ -42,6 +43,7 @@ result_artifact_policy:
   reason: "Source/license verification only; no benchmark result or row dataset is produced."
   evidence:
     - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
+    - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
 
 validation:
   commands:
