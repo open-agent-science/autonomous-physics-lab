@@ -12,7 +12,6 @@
 - `TASK-0878` - Implement a canonical DZ10 parity reference only after the AMDC source scout lands (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0889` - Scout one independent absolute Yb/Sr source route beyond the current Atomic blockers (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `precision_metrology`)
 - `TASK-0894` - Independently replay ThermoML Tb RESULT-0026 through Gate B (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
-- `TASK-0895` - Preflight a value-free ThermoML Tb corpus-expansion manifest (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
 
@@ -20,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0895` - Preflight a value-free ThermoML Tb corpus-expansion manifest (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
