@@ -28,20 +28,23 @@ as `AGENT_VALIDATED`, and `TASK-0743` records the do-not-repeat boundary.
 `WIGNER-CUSP-001`. `TASK-0777` has now run that bounded sprint and rejected the
 candidate as `NEGATIVE_RESULT`: it failed the 0.25 MeV margin against all three
 declared controls despite passing leakage and coefficient-stability checks.
-The next source-safe Nuclear work is value-blind reveal-source readiness, not a
-new Wigner-shape search, broad prediction wave, or another F2 loop.
+The later NMD-0003 GP point-estimator lane produced `RESULT-0025`, which
+substantially improves point MAE and replays exactly, but its uncertainty model
+is heavy-tailed and miscalibrated. The next source-safe Nuclear work is no-peek
+uncertainty-calibration auditing and source-rights-safe DZ10 parity, not a new
+Wigner-shape search, broad prediction wave, or another F2 loop.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can APL identify a broad-surface `NMD-0003`
-baseline-family and validation policy strong enough to justify any new bounded
-residual-feature family after the first large factory sprint produced no
-control-surviving shortlist and the first simple refit regressed on validation?
+**Current question:** can the replayed `RESULT-0025` point-estimator gain be
+paired with calibrated no-peek uncertainty and admissible stronger baselines
+before any prospective prediction freeze?
 
-**Shareable result:** APL tested `LOCAL-CURVATURE-001`, a promising
-local-curvature residual candidate, under a bounded no-leakage prototype and
-falsified it. This is useful negative scientific memory, not a failure of the
-campaign.
+**Shareable result:** APL has useful negative/control memory from F2,
+local-curvature, Wigner-cusp, and factory lanes, plus `RESULT-0025` as
+point-estimator evidence: GP residual modeling improves the declared point MAE
+against the current baseline and replays exactly, but does not yet support
+prediction intervals or a prediction freeze.
 
 **Not a claim:** APL has not found a nuclear mass formula, has not scored the
 frozen prospective registry against future measurements, and should not
@@ -56,15 +59,18 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 `TASK-0518` preserved the `NMD-0002` uncertainty perturbation lane as
 `INCONCLUSIVE` control evidence only. `TASK-0531` froze a first broad-surface
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
-validation-holdout MAE regressed.
+validation-holdout MAE regressed. More recent work packaged `RESULT-0025`,
+prepared a point-estimator-only public review packet, preflighted a no-peek
+uncertainty-calibration route, and prepared a metadata-only DZ10 parity wrapper.
 
-**Expected next decision:** F2 and Wigner-cusp no longer need another hypothesis burst or
-publication preflight. `TASK-0633` packaged F2 as diagnostic `RESULT-0018`, and
-`TASK-0713` replayed it through Gate B without changing the `INCONCLUSIVE`
-scientific verdict. `TASK-0777` rejected the selected Wigner-cusp lane under
-its controls-first contract. The next useful Nuclear path is to test whether
-any value-blind source manifest can satisfy reveal-readiness without scoring
-frozen predictions. Reveal scoring remains source-gated.
+**Expected next decision:** F2 and Wigner-cusp no longer need another
+hypothesis burst or publication preflight. `TASK-0633` packaged F2 as
+diagnostic `RESULT-0018`, and `TASK-0713` replayed it through Gate B without
+changing the `INCONCLUSIVE` scientific verdict. `TASK-0777` rejected the
+selected Wigner-cusp lane under its controls-first contract. The next useful
+Nuclear path is `TASK-0899`, a no-peek uncertainty-calibration metric audit for
+`RESULT-0025`, plus the rights-safe DZ10 parity path. Reveal scoring and
+prediction freeze remain blocked.
 
 ## Orientation Note for New Contributors
 

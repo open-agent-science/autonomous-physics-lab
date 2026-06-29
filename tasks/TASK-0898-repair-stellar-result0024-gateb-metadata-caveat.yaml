@@ -1,0 +1,59 @@
+id: TASK-0898
+title: "Repair Textbook Formula Audit Stellar RESULT-0024 Gate B metadata caveat"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0024 has zero metric drift on independent replay, but the maintainer packet preserves a task-input hash metadata caveat."
+  - "The next useful Stellar step is a clean Gate B metadata decision, not another mass-luminosity fit or broader stellar-law claim."
+  - "Resolving the caveat can either make RESULT-0024 eligible for an AGENT_VALIDATED metadata update or preserve a clear blocker."
+
+input:
+  mode: workflow
+  related_domain: astrophysics_stellar
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-maintainer-review-packet.md"
+    - "scripts/run_stellar_ml_high_mass_transfer.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0863 replayed the high-mass transfer metrics with zero scientific
+    drift, but recorded a task-input hash lifecycle drift and did not mutate
+    RESULT-0024 to AGENT_VALIDATED. This task should either make the replay path
+    clean enough for a metadata-only validation record or preserve the caveat
+    as a durable blocker.
+
+requirements:
+  - "Reproduce RESULT-0024 from committed inputs and compare metrics, verdict, code reference, source fixture hashes, and limitations."
+  - "Investigate whether the task-input hash caveat is only lifecycle packaging drift, and whether a stable replay package can be generated without changing scientific inputs."
+  - "If a metadata-only validation update is justified by the result-promotion protocol, update only review_tier / validation_record metadata; do not change metrics, verdict, DEBCat rows, RESULT-0022, or RESULT-0024 scientific content."
+  - "If the caveat remains unresolved, write a blocker note and leave RESULT-0024 at AGENT_PUBLISHED."
+  - "No universal stellar law, discovery, stellar-evolution, external-catalogue transfer, claim, knowledge, or prediction wording."
+
+accepted_outputs:
+  - "Either a clean Gate B replay note and permitted metadata-only validation update, or a blocker note explaining why RESULT-0024 remains AGENT_PUBLISHED."
+  - "A metric drift table with explicit zero-drift or contested fields."
+  - "Output-routing summary with Gate B status, result metadata impact, claim impact none, and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay / metadata repair for an existing RESULT; no new RESULT or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_stellar_ml_high_mass_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

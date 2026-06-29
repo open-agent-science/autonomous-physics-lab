@@ -42,10 +42,12 @@ published relation and rows share the same InP source series, the holdout has
 one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
-**Active next work:** verify the ZnSe/Toufanian license route before any row
-task (`TASK-0870`). The effective-mass transfer failure has already been routed
-as scoped sandbox negative memory (`TASK-0871`). No correction search is
-authorized by the baseline or by the failed transfer attempts.
+**Active next work:** the ZnSe/Toufanian source route is usable only as limited
+factual extracts, so the next task is a frozen-row transfer-readiness gate
+(`TASK-0903`) before any second-material benchmark. The effective-mass transfer
+failure has already been routed as scoped sandbox negative memory. No
+correction search is authorized by the baseline or by the failed transfer
+attempts.
 
 ## Historical Source-Readiness Trail
 
@@ -85,9 +87,10 @@ and `TASK-0225` produced the first source-scoped sandbox baseline.
 
 **Baseline review gate (historical):** `TASK-0277` reviewed the `TASK-0225`
 baseline provenance, one-point holdout, controls, residuals, and leakage risks
-and kept open-ended correction search blocked. The current post-review route is
-source/license verification for a second material (`TASK-0870`); the failed
-effective-mass transfer has been preserved as negative/control memory.
+and kept open-ended correction search blocked. The post-review source/license
+route for ZnSe/Toufanian has been checked; the current route is frozen-row
+transfer readiness (`TASK-0903`), and the failed effective-mass transfer has
+been preserved as negative/control memory.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -152,7 +155,7 @@ Current task posture:
   protocol only, no metrics);
 - `TASK-0336` — direct band-edge row curation from an approved source artifact
   (SUPERSEDED; the Jasieniak path remains metadata-only blocked, while the
-  current second-material source decision is the ZnSe/Toufanian license route);
+  current second-material source decision is ZnSe frozen-row readiness);
 - `TASK-0347` — open direct-table source triage (DONE; ranks
   Norris-Bawendi 1996 CdSe and Kang-Wise 1997 PbS as the best first attempts
   because they may expose table-derived direct rows through APS-access paths).
@@ -200,23 +203,22 @@ Current task posture:
   (DONE; preserved the first missing-raster blocker and fed the later direct
   Almeida row-curation path).
 - `TASK-0829` — open-tabular transfer-source scout (DONE; identified the
-  ZnSe/Toufanian route as direct and tabular but license-limited, so row
-  curation is not yet authorized).
+  ZnSe/Toufanian route as direct and tabular but license-limited).
 - `TASK-0848` — Vossmeyer source memory (DONE; preserves another
   source-limited direct-table route without authorizing rows).
 - `TASK-0850` — effective-mass scaled confinement transfer check (DONE; fixed
   literature scaling worsened cross-material transfer on the current InP/ZnSe
   surfaces and should be treated as negative/control memory, not rescued by
   ad hoc tuning).
-- `TASK-0870` — verify the Quantum ZnSe direct-size source license route before
-  any row task (READY).
+- `TASK-0870` — verified the Quantum ZnSe direct-size source route as usable
+  only for limited factual extracts (DONE).
 - `TASK-0871` — route the Quantum effective-mass scaling transfer failure as
   negative memory (DONE; preserves sandbox-only negative/control memory).
 
 Safe next contributions are:
 
-- `TASK-0870` license/source verification for the ZnSe/Toufanian direct-size
-  route, with no row values or benchmark metrics until reuse terms are clear;
+- `TASK-0903` frozen-row transfer-readiness for the ZnSe/Toufanian direct-size
+  route, with no benchmark metrics until the admitted row set is fixed;
 - conservative profile/page refresh where the latest source and transfer
   blockers changed public wording.
 
@@ -303,8 +305,9 @@ Current evidence is source-scoped and sandbox-only:
   published Almeida relation held out the largest-size row with absolute error
   `0.048395 eV`, versus `0.420200 eV` for the train-mean null and
   `0.375676 eV` for the shuffled-size control.
-- `TASK-0829` found a promising direct ZnSe/Toufanian table route but left it
-  blocked on confirmed redistributable license terms.
+- `TASK-0829` found a promising direct ZnSe/Toufanian table route, and
+  `TASK-0870` later narrowed it to limited factual extracts rather than broad
+  source-byte reuse.
 - `TASK-0850` found that fixed effective-mass scaling does not rescue the
   current cross-material transfer path; treat that as negative/control memory
   unless a later source-gated task changes the surface.
@@ -320,8 +323,8 @@ Historical context:
 - Is the six-row, one-holdout Almeida InP baseline sufficient for any bounded
   follow-up, or should it remain review-only until a license-clear independent
   material/source holdout exists?
-- Can the ZnSe/Toufanian route be confirmed under reuse terms compatible with
-  row curation, or should it remain source-limited memory?
+- Which exact ZnSe/Toufanian factual rows are admissible and frozen enough for
+  a future transfer benchmark?
 - Which visualization or tabular summary would help reviewers inspect the
   baseline without implying a design law?
 - How should absorption-versus-emission and bandgap semantics be separated in
@@ -370,9 +373,10 @@ Historical context:
   alternative: that weaker sandbox-only path still requires explicit
   maintainer approval, declared labels, and frozen negative controls;
 - treat archived `TASK-0336` as historical Jasieniak context only; use
-  `TASK-0870` for the current ZnSe license/source decision before any row task;
+  `TASK-0903` for the current ZnSe frozen-row transfer-readiness decision
+  before any benchmark task;
 - treat `TASK-0364` as historical source-scout context; the current
-  second-material source decision is `TASK-0870`;
+  second-material source decision is `TASK-0903`;
 - keep the routed effective-mass transfer failure as durable negative/control
   memory before opening another quantum transfer lane.
 

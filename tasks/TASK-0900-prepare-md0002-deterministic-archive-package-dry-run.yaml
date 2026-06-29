@@ -1,0 +1,58 @@
+id: TASK-0900
+title: "Prepare a deterministic Materials MD-0002 archive-package dry run without external upload"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0887 prepared the external release and DOI decision packet for MD-0002, but no archive checksum or release package exists yet."
+  - "A deterministic dry run can reduce maintainer friction before any Zenodo/GitHub release decision while keeping rows, metrics, and DOI state unchanged."
+  - "This advances dataset/source readiness without claiming material discovery or publishing an external dataset automatically."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "docs/campaigns/materials-property-residuals.md"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    The maintainer has not chosen an external release route or DOI posture.
+    This task should only make the candidate package deterministic and
+    inspectable inside the repository, so a later maintainer action can archive
+    or decline without reconstructing the allowlist.
+
+requirements:
+  - "Implement or document a cross-platform deterministic package dry-run from an explicit allowlist matching the TASK-0887 decision packet."
+  - "Record the package file list, ordering rule, excluded files, checksum plan, and any generated local archive path as non-committed output."
+  - "Do not upload externally, create a release tag, mint or decline a DOI, edit MD-0002 rows, change holdout membership, or mutate RESULT-0021."
+  - "Stop if package contents cannot preserve Materials Project attribution, checksums, computed-DFT boundary, and no-claim wording."
+  - "Do not describe MD-0002 as experimental measurement data, material recommendation, synthesis guidance, device-performance evidence, or a universal materials law."
+
+accepted_outputs:
+  - "A deterministic package dry-run helper, manifest, or review note that lists the exact archive contents and checksum procedure."
+  - "A docs/reviews note with release-route impact, blockers, and maintainer actions still required before any external upload."
+  - "Output-routing summary: dataset-publication readiness only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset packaging dry-run; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

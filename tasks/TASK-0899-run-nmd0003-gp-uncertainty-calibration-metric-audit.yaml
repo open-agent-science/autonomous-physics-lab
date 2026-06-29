@@ -1,0 +1,59 @@
+id: TASK-0899
+title: "Run a no-peek Nuclear NMD-0003 GP uncertainty-calibration metric audit"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-0865 found a conditional GO for a future uncertainty-calibration metric task while keeping TASK-0827 prediction freeze blocked."
+  - "RESULT-0025 is strong point-estimator evidence, but the uncertainty envelope is heavy-tailed and miscalibrated."
+  - "The next Nuclear validity gate is a no-peek calibration audit, not PRED freeze, reveal scoring, or a new residual-feature factory sprint."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nmd0003-gp-no-peek-uncertainty-route-preflight.md"
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "agent_runs/AGENT-RUN-0080/metrics.json"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+  planning_context: >
+    This task freezes a small train-only comparison among the route families
+    authorized by TASK-0865, then scores the already recorded post-AME2020
+    holdout only after the calibration definitions are frozen. It is a
+    calibration audit only. It must not create PRED entries or unblock prediction
+    freeze by implication.
+
+requirements:
+  - "Freeze a config before holdout scoring with exactly the route families from TASK-0865: global robust tail, region-quantile with predeclared minimum counts, and global conformal baseline."
+  - "Use only train/LOO diagnostics to set calibration parameters, region labels, thresholds, fallbacks, and interval-width limits."
+  - "Score the post-AME2020 holdout only after the config is frozen; report central coverage, tail diagnostics, interval-width inflation, and named stop-condition failures."
+  - "Do not create or score PRED entries, change RESULT-0025, inspect future reveal targets, or claim calibrated prediction intervals unless the predeclared success conditions pass."
+  - "If the audit fails, preserve it as blocker/negative memory and keep TASK-0827 blocked."
+
+accepted_outputs:
+  - "A deterministic calibration-audit runner or script/config pair, with tests or a documented stop if existing committed inputs are insufficient."
+  - "A review note under docs/reviews/ with pre-freeze config, metrics, pass/fail verdict, stop conditions, and prediction-freeze impact."
+  - "Output-routing summary: calibration audit only, no RESULT/PRED/CLAIM/KNOW mutation unless a separate result-publication task is later approved."
+
+result_artifact_policy:
+  required: false
+  reason: "Calibration audit / blocker-routing task; no prediction or canonical RESULT artifact is required unless a later publication task is approved."
+  evidence:
+    - "docs/reviews/nmd0003-gp-no-peek-uncertainty-route-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

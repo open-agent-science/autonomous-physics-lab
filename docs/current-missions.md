@@ -48,53 +48,47 @@ query the on-demand task-to-campaign index
 
 ## Recommended Mission Now
 
-**Materials Property Residuals** is the top-ranked current mission in a
-post-validation next-wave posture. APL now has several validated or
-source-limited campaign surfaces; the highest-leverage near-term work is to
-move them through explicit next-validity gates instead of repeating internal
-audits.
+**Materials Property Residuals** is the current flagship validation
+mission.
+
+The current director cycle is a post-agent-wave task-queue refill. Many
+near-term science tasks have landed, leaving the live executor pool too thin
+for parallel research agents. The next wave should move validated,
+source-limited, or blocker-limited surfaces through explicit gates instead of
+reopening broad audits.
 
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
-science path is:
+science paths are:
 
-1. prepare the Materials `MD-0002` external archive/DOI decision after
-   repository-local metadata closeout (`TASK-0887`);
-2. independently replay workflow-packaged FIRAS/Wien `RESULT-0023`
-   (`TASK-0885`);
-3. route validated or source-limited campaigns into one of four gates:
-   transfer, ratification, external reveal, or source readiness;
-4. preserve negative/control memory where a campaign has reached a no-go or
-   monitor-only state.
+1. replay ThermoML `Tb` `RESULT-0026` through Gate B (`TASK-0894`);
+2. run the no-peek Nuclear uncertainty-calibration metric audit for
+   `RESULT-0025` (`TASK-0899`);
+3. repair or explicitly preserve the Stellar high-mass `RESULT-0024` metadata
+   caveat (`TASK-0898`);
+4. adjudicate source routes before new data rows in Atomic, Particle, Quantum,
+   Exoplanet, Materials, and ThermoML (`TASK-0900` through `TASK-0906`);
+5. prepare public/maintainer wording for already validated verifier evidence
+   without promoting calibration-known physics to discovery claims
+   (`TASK-0897`);
+6. resolve mature quality-floor blockers such as the Dimensional
+   `RESULT-0020` packaging contest (`TASK-0782`).
 
-Nuclear Mass Surface remains the flagship ambition, but reveal scoring is still
-externally source-gated and should not be the default executor lane while
-other campaigns have cleaner source-readiness and ratification tasks. Exoplanet
-remains monitor-only until a materially changed pinned snapshot or approved
-`EXO-0003` trigger appears. Quantum has a source-scoped Almeida baseline, but
-`TASK-0277` kept open-ended autonomous correction search blocked; the current
-useful Quantum work is the ZnSe/Toufanian source-license gate (`TASK-0870`) and
-the already-routed effective-mass transfer negative memory. Atomic remains
-blocked on admitted independent rows or an approved aggregation contract, with
-new executor work limited to source-route scouting or explicit maintainer
-aggregation decisions.
+Nuclear Mass Surface remains the flagship ambition, but prediction freeze is
+still blocked by uncertainty calibration and source-grade reveal discipline.
+Exoplanet remains monitor-only until either canonical null-baseline packaging
+is explicitly accepted as a negative/control memory path or a material
+source-version trigger appears. Quantum has a source-scoped Almeida baseline
+and a narrow ZnSe source route, but the next work is frozen-row readiness, not
+correction search. Atomic remains row-admissibility blocked until the
+McGrew/NIST route is adjudicated or a maintainer approves a harmonized
+aggregation contract.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
 
-Nuclear Mass Surface remains the flagship validation challenge, but the latest
-controls-first lanes landed as negative, inconclusive, diagnostic-only,
-chain-local, or validation-regressing memory. The best Nuclear work now is
-value-blind reveal-source scouting and negative/control memory preservation.
-Quantum Size Effects remains transfer-gated after a source-scoped Almeida
-baseline: the next source/material route is license-gated, and the failed
-effective-mass transfer should be preserved as negative/control memory before
-another transfer lane is opened.
-Atomic-Clock Residuals should wait for admitted independent rows or an approved
-aggregation contract; the Pizzocaro PSD covariance artifact is useful
-diagnostic evidence, but its row-admissibility gate preserved the aggregation
-blocker. New campaign ideas should enter through source/schema/baseline
-scaffolds first, not broad hypothesis batches.
+New campaign ideas should enter through source/schema/baseline scaffolds first,
+not broad hypothesis batches.
 
 ## Current Mission Shape
 
@@ -107,13 +101,13 @@ turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer lane: `RESULT-0021` is reviewed memory, repository-local MD-0002 metadata is closed, and the disjoint-family transfer failure is preserved as negative memory | `TASK-0887` external archive/DOI decision; no metric, row, or claim mutation |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference and Stellar M-L surfaces, workflow-packaged FIRAS/Wien `RESULT-0023`, and high-mass transfer `RESULT-0024` replay memory | `TASK-0885` RESULT-0023 Gate B replay and `TASK-0886` RESULT-0024 maintainer-review packet; no universal formula wording |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory, source-gated prospective reveal, and RESULT-0025 point-estimator evidence that remains uncertainty-blocked for PRED freeze | `TASK-0865` uncertainty-route preflight, `TASK-0878` DZ10 parity reference, or `TASK-0890` RESULT-0025 public-safe review packet; reveal scoring still blocked |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and closed current-snapshot residual scoring | preserve negative/control memory and monitor source-version triggers before any new residual audit |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, open-ended correction search remains blocked, and effective-mass transfer failure is routed as negative memory | `TASK-0870` ZnSe/Toufanian source-license verification; it does not unblock archived `TASK-0226` |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory, covariance policy, and diagnostic-only Pizzocaro aggregation contract | `TASK-0889` independent absolute Yb/Sr source-route scout, or wait for an approved aggregation/harmonization contract before metrics |
-| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Newly active ThermoML `Tb` benchmark lane with AGENT_PUBLISHED `RESULT-0026`, frozen Joback baseline, source-rights boundary, and failed-family memory to preserve | `TASK-0894` Gate B replay, `TASK-0895` value-free corpus-expansion preflight, or `TASK-0896` failed-family negative memory; no raw archive vendoring or broad property claim |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer lane: `RESULT-0021` is reviewed memory, repository-local MD-0002 metadata is closed, transfer-negative memory is preserved, and external release is maintainer-gated | `TASK-0900` deterministic archive-package dry run; no upload, DOI minting, row mutation, metric mutation, or claim wording |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference, Stellar M-L, and FIRAS/Wien surfaces; high-mass transfer replay has zero metric drift but a metadata caveat | `TASK-0897` RESULT-0023 public/maintainer wording and `TASK-0898` RESULT-0024 metadata-caveat repair/preservation; no universal formula wording |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory, exact-replayed `RESULT-0025` point-estimator evidence, unresolved interval calibration, and a metadata-only DZ10 route awaiting closeout | `TASK-0899` no-peek uncertainty-calibration audit; no prediction freeze, reveal scoring, or new DZ10 executor work until closeout/follow-up |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, and Gate-A-blocked negative/control packaging | `TASK-0904` canonical null-baseline identity decision or `TASK-0905` source-version monitor check 3; no residual scoring unless a NOTIFY-class trigger appears |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, Toufanian ZnSe has narrow factual-extract source readiness, and effective-mass transfer is negative memory | `TASK-0903` ZnSe frozen-row transfer-readiness gate; it does not unblock archived `TASK-0226` |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory, covariance policy, diagnostic-only Pizzocaro aggregation, and a plausible McGrew/NIST route | `TASK-0901` adjudicate primary-ratio semantics and independence before any row curation or metrics |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Newly active ThermoML `Tb` benchmark lane with AGENT_PUBLISHED `RESULT-0026`, frozen Joback baseline, rights boundary, and esters/lactones negative memory | `TASK-0894` Gate B replay or `TASK-0906` local-only 80-row identity/count preflight; no raw archive vendoring or broad property claim |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -132,14 +126,14 @@ Near-term portfolio shape:
 
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
-| Dataset/source-readiness gate | Materials Property Residuals | Decide external archive/DOI posture for MD-0002 and preserve transfer-negative memory before any broader claim. |
-| Source-readiness / transfer gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Replay `RESULT-0023` and prepare safe `RESULT-0024` review wording before any stronger public framing. |
-| External-reveal gate | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes; `TASK-0821` may scout one source route value-blind. Preserve negative/inconclusive memory. |
-| Monitor / trigger-gated benchmark | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source-version discipline and reopen residual audits only after a materially changed snapshot or approved trigger. |
-| Transfer/source gate and negative memory | Quantum Size Effects | Verify the ZnSe/Toufanian source-license route; keep the routed effective-mass negative memory and archived `TASK-0226` closed unless a later maintainer-approved pilot task exists. |
-| Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Scout a new independent absolute Yb/Sr route or wait for maintainer aggregation approval; do not use Pizzocaro as a benchmark row without an admissible contract. |
-| Source-pinned thermophysical benchmark | Thermophysical Property Residuals | Replay `RESULT-0026`, preflight value-free ThermoML Tb expansion, and preserve esters/lactones negative memory before any broader property-estimation lane. |
-| Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, or scheme/source preflights; do not restart broad formula search. |
+| Dataset/source-readiness gate | Materials Property Residuals | Run a deterministic MD-0002 archive-package dry run before any external upload/DOI decision. |
+| Source-readiness / ratification gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Ratify public wording for `RESULT-0023` and fix or preserve the `RESULT-0024` metadata caveat before stronger tier wording. |
+| External-reveal / uncertainty gate | Nuclear Mass Surface | Keep prediction freeze blocked until no-peek uncertainty calibration passes; preserve point-estimator gains as limited evidence. |
+| Monitor / negative-control gate | Exoplanet Mass-Radius | Decide whether the null-baseline memory gets canonical identities and keep source-version monitoring metadata-only. |
+| Transfer/source gate and negative memory | Quantum Size Effects | Freeze/adjudicate the narrow ZnSe row set before any transfer benchmark; keep archived correction search closed. |
+| Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Adjudicate McGrew/NIST primary-ratio and independence semantics; do not use Pizzocaro as a benchmark row without an admissible contract. |
+| Source-pinned thermophysical benchmark | Thermophysical Property Residuals | Replay `RESULT-0026` and test local-only 80-row expansion feasibility before any corpus or rights decision. |
+| Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | Prepare narrow maintainer packets, negative-memory cards, source pins, or packaging adjudications; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode

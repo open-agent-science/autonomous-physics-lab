@@ -65,20 +65,23 @@ emphasis:
 
 1. Operate APL as a multi-campaign open agent research network, not as a small
    collection of isolated local experiments.
-2. Keep Nuclear Mass Surface as the flagship science track,
-   using baseline residual maps, shell-closure diagnostics, holdout discipline,
-   post-AME2020 time-split validation, and conservative correction-term framing
-   instead of broad discovery claims.
-3. Promote Exoplanet Mass-Radius as the active secondary benchmark surface:
-   pinned snapshots, baseline comparisons, residual failure maps, and
-   selection-effect audits are useful without claiming a new planet law.
-4. Prepare new campaign lanes through source-first scaffolds before hypothesis
-   batches: Textbook Formula Audit, Quantum Size Effects, and Atomic-Clock
+2. Keep Nuclear Mass Surface as the flagship science track, but separate
+   replayed point-estimator gains from prediction-ready uncertainty. `RESULT-0025`
+   is useful evidence; prediction freeze still requires no-peek calibration and
+   source-grade reveal discipline.
+3. Treat Exoplanet Mass-Radius as a public-safe monitor/negative-control
+   surface: pinned snapshots, residual failure maps, and null baselines are
+   useful, but current residual scoring stays closed until a material
+   source-version trigger or accepted canonical identity route appears.
+4. Maintain several active source-first campaign lanes instead of one default
+   secondary track: Textbook Formula Audit, Thermophysical Property Residuals,
+   Materials Property Residuals, Quantum Size Effects, and Atomic-Clock
    Residuals.
-5. Treat Materials Property Residuals as an emerging reusable-dataset and
-   benchmark-readiness lane: `MD-0001` is source-pinned and replayable, but
-   benchmark promotion remains blocked until controls, split sensitivity, and
-   reuse metadata make a narrower result path credible.
+5. Treat Materials Property Residuals and Thermophysical Property Residuals as
+   reusable-dataset/benchmark-readiness lanes: `MD-0002` and ThermoML `Tb`
+   results are source-pinned and useful, but external release, corpus expansion,
+   and stronger wording remain gated by replay, rights, identity, and no-claim
+   discipline.
 6. Validate the contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
    clean review-helper behavior, closeout, gated result publication, and zero
@@ -161,9 +164,13 @@ Current visible evidence includes:
 - the neutrino and quark Koide falsification results from `EXP-0007/RUN-0001`
   and `EXP-0008/RUN-0001`;
 - the negative-results registry as a maintained output surface;
-- the nuclear-mass baseline and sandbox autonomy surface, including split
-  sensitivity replay, as a flagship validation track that still requires
-  stronger time-split evidence before any broader scientific claim.
+- the nuclear-mass baseline, negative/control memory, and `RESULT-0025`
+  point-estimator surface, which still requires uncertainty calibration before
+  prediction freeze;
+- Materials `RESULT-0021`, Textbook/Stellar `RESULT-0022`, FIRAS/Wien
+  `RESULT-0023`, Stellar high-mass transfer `RESULT-0024`, and ThermoML `Tb`
+  `RESULT-0026` as scoped, review-tiered benchmark memory rather than broad
+  physical claims.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.

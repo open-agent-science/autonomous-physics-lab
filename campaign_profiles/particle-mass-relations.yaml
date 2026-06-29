@@ -90,16 +90,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "falsification-first quality floor with strict numerology guardrails; RESULT-0011 Gate B replay passed as AGENT_VALIDATED negative memory, while CLAIM-0007 remains DRAFT because mixed quark mass scheme/scale limits constrain any Gate C wording"
+  current_stage: "falsification-first quality floor with strict numerology guardrails; RESULT-0011 is AGENT_VALIDATED negative memory, CLAIM-0007 remains DRAFT, and TASK-0874 selected a derived common-scheme source route for metadata-only pinning"
   recommended_parallel_agents: 1
   coordination_notes: "Use for provenance, uncertainty, scheme/scale cleanup, or negative-result memory only; keep broad formula search closed."
   next_validity_gate:
-    type: ratification
-    blocker: "CLAIM-0007 should stay DRAFT until the landed common-scheme preflight is closed out and any later maintainer-only Gate C wording preserves the mixed quark mass scheme/scale limitation."
-    target_artifact: "TASK-0820"
+    type: source_readiness
+    blocker: "A common MS-bar-at-MZ derived source route is recommended, but exact publisher DOI/table/representation/top/covariance metadata must be pinned before any rerun."
+    target_artifact: "TASK-0902"
   best_next_actions:
-    - task_id: TASK-0820
-      label: "Close out the landed common-scheme guardrail preflight before any CLAIM-0007 Gate C decision"
+    - task_id: TASK-0902
+      label: "Pin the common-scheme source artifact without running Koide metrics"
   required_gates:
     - "Complexity penalty and uncertainty semantics before any relation comparison."
     - "No broad particle-mass formula search without a reviewed baseline."
@@ -108,13 +108,14 @@ portfolio:
     - "docs/negative-results-registry.md"
     - "results/EXP-0009/RUN-0001/result.yaml"
     - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
+    - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
   open_questions:
-    - "What common-scale or scheme-consistent source route would make CLAIM-0007 wording cleaner without opening broad numerology search?"
+    - "Can the selected common-scheme source artifact be pinned without value transcription, representation mixing, or hidden covariance assumptions?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-17"
+    last_reviewed: "2026-06-30"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0011, TASK-0784 evidence handoff, TASK-0811 Gate B replay, and TASK-0820 common-scheme preflight"
-    notes: "Guardrail track stays useful by resisting numerology, preserving falsifications, and keeping mixed quark mass scheme/scale limitations explicit before any maintainer-only claim review. The common-scheme preflight has landed and awaits closeout."
+    source: "TASK-0874 common-scheme source-policy decision and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "Guardrail track stays useful by resisting numerology. The next work is source-artifact pinning for a derived common-scheme surface; any fixed-target rerun and CLAIM-0007 discussion stay downstream."

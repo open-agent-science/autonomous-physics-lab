@@ -104,16 +104,18 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "exact-reference RESULT-0019 is AGENT_VALIDATED; Stellar M-L RESULT-0022 is AGENT_VALIDATED with stable alternate-split support and piecewise-complexity negative memory; maintainer-review packets, the Wien/FIRAS temperature-domain contract, and the independent transfer-route scout have landed and await closeout, while TASK-0802 remains blocked until the contract closeout updates task state"
+  current_stage: "exact-reference RESULT-0019 and Stellar M-L RESULT-0022 are AGENT_VALIDATED; FIRAS/Wien RESULT-0023 is now AGENT_VALIDATED after Gate B; Stellar high-mass transfer RESULT-0024 has zero metric drift on replay but retains a metadata caveat and maintainer-review packet"
   recommended_parallel_agents: 1
-  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar Gate B, split/complexity audits, maintainer-review packet assembly, or the landed source/transfer scout; Wien/FIRAS remains blocked until its metric-contract closeout updates task state."
+  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar split/complexity audits, source scouts, or FIRAS/Wien metrics; current work is ratification/public wording for RESULT-0023 and clean metadata replay/repair for RESULT-0024."
   next_validity_gate:
-    type: source_readiness
-    blocker: "FIRAS spectrum rows are pinned, and the reference-temperature source, wavelength-domain Jacobian contract, and predeclared controls packet have landed; TASK-0802 should stay blocked until closeout records that contract in task state."
-    target_artifact: "TASK-0815"
+    type: ratification
+    blocker: "RESULT-0023 is AGENT_VALIDATED but still calibration/known-physics verifier evidence, while RESULT-0024 needs either metadata repair or an accepted replay caveat before any stronger public wording."
+    target_artifact: "TASK-0897"
   best_next_actions:
-    - task_id: TASK-0819
-      label: "Close out the landed Stellar M-L transfer-route scout before selecting any follow-up transfer metric task"
+    - task_id: TASK-0897
+      label: "Prepare RESULT-0023 maintainer-review/public wording packet after Gate B"
+    - task_id: TASK-0898
+      label: "Repair or preserve the RESULT-0024 Gate B metadata caveat without changing metrics"
   required_gates:
     - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
     - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
@@ -123,6 +125,10 @@ portfolio:
     - "docs/notes/textbook-formula-audit-candidate-list.md"
     - "results/EXP-0013/RUN-0001/result.yaml"
     - "results/EXP-0015/RUN-0001/result.yaml"
+    - "results/EXP-0016/RUN-0001/result.yaml"
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "docs/reviews/firas-wien-result0023-gate-b-replay.md"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-maintainer-review-packet.md"
     - "docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md"
     - "docs/reviews/stellar-ml-route2-local-benchmark.md"
     - "docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md"
@@ -133,14 +139,14 @@ portfolio:
     - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
     - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
   open_questions:
-    - "Should RESULT-0022 receive maintainer-reviewed public wording, remain AGENT_VALIDATED only, or wait for an external transfer-source result?"
-    - "Should RESULT-0019 receive maintainer-reviewed wording as a software/convention result without any empirical formula implication?"
-    - "After Gate B, are Stellar split-sensitivity and piecewise-complexity outcomes stable enough for a public result capsule?"
+    - "Should RESULT-0023 get maintainer-reviewed public wording as verifier/calibration memory?"
+    - "Should RESULT-0024 be metadata-repaired to AGENT_VALIDATED or kept AGENT_PUBLISHED with a replay caveat?"
+    - "What future external stellar catalogue, if any, could test transfer beyond same-source DEBCat?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-19"
+    last_reviewed: "2026-06-30"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0022 Gate B replay, Stellar split/complexity audits, RESULT-0019 handoff, TASK-0801 Wien/FIRAS source pinning, TASK-0812/TASK-0813/TASK-0815 review-ready routing, and TASK-0819 transfer-source scouting"
-    notes: "Public-friendly entry lane has one validated exact-reference result and one validated empirical Stellar M-L surface. The Stellar result is scoped to the frozen DEBCat slice; alpha=3.5 is inadequate as the sole baseline in scope, not falsified universally. Wien work has pinned FIRAS rows and a landed temperature/Jacobian/control metric contract, but TASK-0802 remains blocked until closeout updates the task state."
+    source: "RESULT-0023 Gate B replay, RESULT-0024 maintainer packet, and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "Public-friendly verifier lane has validated exact-reference, Stellar M-L, and FIRAS/Wien surfaces. RESULT-0023 is AGENT_VALIDATED but calibration/known-physics only; RESULT-0024 is replayed with zero metric drift but still needs metadata caveat adjudication before stronger tier wording."

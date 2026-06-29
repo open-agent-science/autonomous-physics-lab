@@ -84,18 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; follow-up transfer attempts now show source/license and material-specific blockers rather than an admissible correction-search lane"
+  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are source-route ready as limited factual extracts, while effective-mass transfer remains negative memory"
   recommended_parallel_agents: 1
-  coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Current work is source/license verification for the ZnSe route and negative-memory routing for the effective-mass transfer failure; no correction search or design-law claim."
+  coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Current work is frozen-row transfer readiness using existing ZnSe rows, not correction search or design-law claims."
   next_validity_gate:
     type: source_readiness
-    blocker: "The current baseline is single-source Almeida InP; the ZnSe second-material route is license-limited, and fixed effective-mass scaling did not transfer cleanly across InP/ZnSe."
-    target_artifact: "TASK-0870"
+    blocker: "ZnSe source rights are ready only for limited factual rows; the frozen row set and admissible transfer comparison must be gated before any new benchmark."
+    target_artifact: "TASK-0903"
   best_next_actions:
-    - task_id: TASK-0870
-      label: "Verify the ZnSe direct-size source license route before any row task"
-    - task_id: TASK-0871
-      label: "Route the effective-mass scaled confinement transfer failure as negative memory"
+    - task_id: TASK-0903
+      label: "Prepare the ZnSe frozen-row transfer-readiness gate before any benchmark"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -109,14 +107,15 @@ portfolio:
     - "docs/results/quantum-size-effects-baseline-summary.md"
     - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
     - "docs/reviews/quantum-effective-mass-scaled-confinement-transfer.md"
+    - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
   open_questions:
-    - "Can the ZnSe/Toufanian route be confirmed under a redistributable license, or should it remain source-limited memory?"
-    - "Should the effective-mass transfer failure be routed as durable negative memory before any new quantum source lane is opened?"
+    - "Which exact existing ZnSe rows are frozen inputs for a future transfer benchmark?"
+    - "What transfer comparison, if any, can be run without refit, source-byte redistribution, or design-law wording?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-28"
+    last_reviewed: "2026-06-30"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0293 direct-row readiness pass, TASK-0225 source-scoped sandbox baseline, TASK-0277 pilot-blocked verdict, TASK-0829 ZnSe source scout, TASK-0848 Vossmeyer source memory, TASK-0850 effective-mass transfer failure, and TASK-0870/TASK-0871 routing"
-    notes: "The direct-row blocker for Almeida InP is resolved and a deterministic sandbox baseline exists, but transfer remains blocked by source licensing and negative transfer evidence. Archived TASK-0226/TASK-0336 should not be offered as current work."
+    source: "TASK-0870 ZnSe source route verification, effective-mass negative memory, and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "The direct-row blocker for Almeida InP is resolved and ZnSe row rights are narrow but usable. The next step is a frozen-row transfer-readiness gate; open-ended correction search remains blocked."

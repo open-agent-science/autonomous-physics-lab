@@ -1,7 +1,7 @@
 id: TASK-0782
 title: "Adjudicate Dimensional RESULT-0020 Gate B packaging contest"
 type: scientific_replay_validation
-status: BLOCKED
+status: READY
 closeout: review
 difficulty: medium
 priority: high
@@ -23,12 +23,12 @@ input:
   planning_context: >
     A Gate B attempt against RESULT-0020 reported that core numeric metrics
     reproduce, but some committed verification checks appear to be publication
-    packaging checks rather than outputs of the recorded command. This task is
-    blocked until that contested replay is merged or maintainer-accepted as the
-    active blocker.
+    packaging checks rather than outputs of the recorded command. The contested
+    replay and TASK-0807 adjudication brief are now in main, so this task is
+    unblocked for a narrow packaging decision/replay attempt.
 
 requirements:
-  - "Start only after the TASK-0766 contested replay evidence is in main or explicitly accepted by the maintainer."
+  - "Use the merged TASK-0766 contested replay evidence and TASK-0807 adjudication brief; do not reopen the premise that RESULT-0020 core metrics reproduced."
   - "Do not change RESULT-0020 metrics, verdict, challenge-set rows, or CLAIM-0005."
   - "Either make the publication-gate checks deterministically emitted/replayed, or move/relabel them into a packaging section that Gate B intentionally ignores."
   - "Re-run the Gate B helper after the packaging decision and record whether the result remains contested or can be replayed cleanly."

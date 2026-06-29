@@ -1,0 +1,59 @@
+id: TASK-0901
+title: "Adjudicate the Atomic McGrew/NIST Yb-Sr source route before row curation"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0889 identified McGrew et al. 2018 / NIST as a plausible independent Yb/Sr route but left two decisive source questions unresolved."
+  - "Atomic can advance only through admitted independent rows or an approved aggregation/harmonization contract."
+  - "A value-blind adjudication packet can decide whether the route is a real row-curation candidate or should be blocked before any metric work."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-ybsr-independent-source-route-scout.md"
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/reviews/atomic-pizzocaro-aggregation-observable-harmonization-contract.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    The scout selected one route and returned NEEDS_MAINTAINER_SOURCE_DECISION.
+    This task gathers the evidence needed for that decision without transcribing
+    values or creating rows: whether a primary absolute Yb/Sr ratio exists and
+    whether the source is independent enough from Beloy/BACON to reduce the
+    current two-row blocker.
+
+requirements:
+  - "Inspect only locator/source-policy and methodological evidence needed to answer the two TASK-0889 questions; avoid value transcription."
+  - "Determine whether McGrew/NIST publishes a primary absolute 171Yb/87Sr ratio surface with recoverable uncertainty semantics, or only an absolute Yb / ratio-derived surface."
+  - "Assess Beloy/BACON network overlap, shared comb/reference/systematic risks, and whether the route can count as independent for the Atomic reopen condition."
+  - "Return one of READY_FOR_SOURCE_ARTIFACT, BLOCKED_CORRELATED_OR_NOT_DIRECT, or NEEDS_MAINTAINER_DECISION with exact next task shape."
+  - "Do not ingest rows, run Yb/Sr metrics, fit constants drift, aggregate Pizzocaro windows, or create RESULT/PRED/CLAIM/KNOW artifacts."
+
+accepted_outputs:
+  - "A docs/reviews adjudication note with the primary-ratio and independence decisions, source evidence, and stop conditions."
+  - "A future source-artifact task shape only if the route clears direct-row, license, uncertainty, and independence gates."
+  - "Output-routing summary: source-readiness only, no metric/result/claim/knowledge change."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-route adjudication only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/atomic-ybsr-independent-source-route-scout.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

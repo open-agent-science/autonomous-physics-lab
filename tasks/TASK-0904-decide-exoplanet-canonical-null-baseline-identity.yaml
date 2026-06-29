@@ -1,0 +1,60 @@
+id: TASK-0904
+title: "Decide whether Exoplanet null-baseline memory should get canonical experiment identity"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0888 found the Exoplanet negative/control finding replayable but Gate A blocked by missing canonical experiment and hypothesis identities."
+  - "The campaign should not reopen residual scoring by accident, but a conscious identity decision can make the package-or-stop boundary durable."
+  - "This is a stop/go decision for negative-result packaging, not a new exoplanet residual lane."
+
+input:
+  mode: planning_only
+  related_domain: astrophysics
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "hypothesis_proposals/exoplanet-mass/"
+    - "experiment_proposals/exoplanet-mass/"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    The current Exoplanet snapshot stays monitor-only. This task asks whether a
+    minimal canonical experiment/hypothesis identity is warranted solely to
+    preserve the existing null-baseline negative/control memory as a RESULT, or
+    whether the campaign should keep the finding as a review note until a future
+    EXO-0003 trigger.
+
+requirements:
+  - "Review the TASK-0888 blocker and the existing proposal-stage Exoplanet artifacts, without fetching live catalog rows or rerunning metrics."
+  - "Present decision options: create a minimal negative/control identity in a later task, keep review-note-only memory, or wait for a future source-version trigger."
+  - "If recommending canonical identity, define the exact future task shape and no-reopen boundary; do not create the identity in this task."
+  - "Do not lower the EXO-0003 trigger, create a RESULT, refit Chen-Kipping-style baselines, add candidate formulas, or restart residual scoring."
+  - "No composition, habitability, atmosphere, target-priority, discovery, prediction, or universal mass-radius wording."
+
+accepted_outputs:
+  - "A docs/reviews decision packet with options, recommendation, consequences for Gate A, and stop conditions."
+  - "Future task shape only if canonical identity is recommended and maintainer-approved."
+  - "Output-routing summary: package-or-stop decision only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Decision packet only; no canonical result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

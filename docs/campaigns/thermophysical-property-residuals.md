@@ -62,11 +62,12 @@ The campaign should move through three narrow gates:
 
 1. **Gate B replay** - independently replay `RESULT-0026` from committed inputs
    and compare aggregate and per-family metrics without changing the result.
-2. **Source-expansion preflight** - decide whether a larger ThermoML `Tb`
-   corpus can be described with rights, identity mapping, row-class, and
-   extraction discipline before any values or archive bytes are committed.
-3. **Failed-family negative memory** - package the `esters/lactones` failure as
-   reusable negative/control memory so future agents do not overstate aggregate
+2. **Local-only source-expansion preflight** - decide whether a larger
+   ThermoML `Tb` fixture can be described with identity mapping, family counts,
+   row class, and rights blockers before any values or archive bytes are
+   committed.
+3. **Failed-family negative memory** - reuse the landed `esters/lactones`
+   negative/control memory so future agents do not overstate aggregate
    transfer.
 
 ## Admissible Source Classes
@@ -90,9 +91,11 @@ Not currently admitted:
 ## Allowed Task Types
 
 1. **Replay task** - independent Gate B replay of `RESULT-0026`.
-2. **Source-readiness task** - value-free corpus-expansion or extraction
-   preflight, including rights and identity-map blockers.
-3. **Negative-memory task** - failed-family or control-memory packaging.
+2. **Source-readiness task** - local-only corpus-expansion or extraction
+   preflight, including rights, identity-map, and family-count blockers.
+3. **Negative-memory task** - failed-family or control-memory packaging only
+   when a new failed slice appears or a task explicitly asks for public
+   synthesis.
 4. **Maintainer-review packet** - safe public wording after replay.
 
 ## Guardrails
@@ -118,9 +121,8 @@ Not allowed:
 
 1. `TASK-0894` - independently replay ThermoML `Tb` `RESULT-0026` through Gate
    B.
-2. `TASK-0895` - preflight a value-free ThermoML `Tb` corpus-expansion manifest.
-3. `TASK-0896` - package the `esters/lactones` failed-family result as
-   negative/control memory.
+2. `TASK-0906` - preflight local-only identity/count feasibility for an 80-row
+   ThermoML `Tb` fixture.
 
 ## Why It Matters
 

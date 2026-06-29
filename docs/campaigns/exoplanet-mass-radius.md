@@ -65,6 +65,10 @@ explicitly revised coverage gate exists.
 scout or gate amendment. `TASK-0781` repeated the metadata-only monitor and
 again recorded `NO_NOTIFY`, so future work still waits for a later `NOTIFY_*`
 monitor class or explicit maintainer direction.
+`TASK-0888` then replayed the negative/control null-baseline finding and found
+that it remains scientifically useful but Gate-A-blocked for publication as a
+canonical negative result because the campaign lacks explicit experiment and
+hypothesis identities for that memory surface.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -113,7 +117,10 @@ it does not itself authorize scoring.
 **Scope and routing:** this capsule packages existing negative/control memory.
 It does not fetch live rows, add metrics, create or modify
 `RESULT-*`/`PRED-*`/`CLAIM-*`/`KNOW-*`, or make composition, habitability, or
-universal mass-radius statements. The campaign remains monitor-only.
+universal mass-radius statements. The next useful work is a canonical identity
+decision for this null-baseline memory (`TASK-0904`) and a metadata-only
+source-version monitor check (`TASK-0905`), not another residual score. The
+campaign remains monitor-only.
 
 Evidence:
 

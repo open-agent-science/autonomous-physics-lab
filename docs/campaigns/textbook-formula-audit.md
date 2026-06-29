@@ -64,11 +64,13 @@ that evidence as `RESULT-0022`, and the result has since become
 `AGENT_VALIDATED`. Follow-up control audits found the headline conclusion
 stable across a small value-blind alternate-split slate, while a predeclared
 piecewise baseline is not justified after complexity penalty. The later
-FIRAS/Wien slice has been packaged as AGENT_PUBLISHED `RESULT-0023` and now
-needs independent Gate B replay. Stellar high-mass transfer `RESULT-0024`
-has independent numeric replay memory with a metadata caveat and needs a
-maintainer-review wording packet before stronger public framing. The current
-blocker is replay/ratification wording, not another model search.
+FIRAS/Wien slice has been packaged and independently replayed as
+AGENT_VALIDATED `RESULT-0023`; it is calibration/known-physics verifier
+memory, not a discovery claim. Stellar high-mass transfer `RESULT-0024`
+has independent numeric replay memory with zero metric drift but a metadata
+caveat, so it needs metadata repair or an explicit accepted-caveat path before
+stronger public framing. The current blocker is ratification wording and
+metadata caveat adjudication, not another model search.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -85,25 +87,30 @@ software/convention result now exist. `RESULT-0019` replayed with zero numeric
 drift and remains scoped to the Stefan-Boltzmann synthetic fixture. The first
 Stellar M-L empirical lane now has committed DEBCat rows, stage/split/null
 controls, baseline-adequacy evidence, and `RESULT-0022` as an
-`AGENT_VALIDATED` scoped benchmark.
+`AGENT_VALIDATED` scoped benchmark. FIRAS/Wien `RESULT-0023` is also
+`AGENT_VALIDATED` after independent Gate B replay, while `RESULT-0024` remains
+bounded transfer evidence with a metadata caveat.
 
 **Not a claim:** no empirical textbook formula claim has been promoted. This
 campaign does not claim that any formula is globally right or wrong.
-`RESULT-0022` is independently replayed but not maintainer-reviewed. The
-current evidence says only that `M^3.5` is not an adequate sole baseline for
-the committed DEBCat slice under the completed controls.
+`RESULT-0022` and `RESULT-0023` are independently replayed but not
+maintainer-reviewed. The current evidence says only that `M^3.5` is not an
+adequate sole baseline for the committed DEBCat slice under the completed
+controls, and that FIRAS/Wien replay is a verifier/calibration memory surface.
 
 **Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
 software/convention result and `TASK-0635` replayed it through Gate B. The
 empirical Stellar M-L lane closed the control, baseline-adequacy, full-dataset,
 Gate A packaging, Gate B replay, split-stability, and piecewise-complexity
 checks for `RESULT-0022`. `RESULT-0023` now packages the FIRAS/Wien
-spectral-domain self-consistency slice through a workflow and should be replayed
-by a different agent. `RESULT-0024` is the high-mass transfer result that needs
-a maintainer-review packet because its replay note preserves a metadata caveat.
+spectral-domain self-consistency slice through a workflow and has passed Gate B
+with negligible numeric drift. `RESULT-0024` is the high-mass transfer result
+that needs metadata-caveat repair or an explicit accepted-caveat path before
+stronger tier wording.
 
-**Expected next result:** a Gate B verdict for FIRAS/Wien `RESULT-0023`, or a
-maintainer-review packet clarifying safe public wording for `RESULT-0024`.
+**Expected next result:** a maintainer/public wording packet for FIRAS/Wien
+`RESULT-0023` as verifier memory, or a metadata-caveat adjudication packet for
+`RESULT-0024`.
 
 ## Why It Matters
 
@@ -251,11 +258,12 @@ candidate slate. The first empirical slice is the **Stellar Mass-Luminosity
 (M-L) out-of-distribution audit**. Source/baseline, Route 2 local benchmark,
 stage/split/null controls, baseline adequacy, full DEBCat dataset publication,
 Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
-`AGENT_VALIDATED` with conservative scope and no universal-law wording. FIRAS
-/Wien `RESULT-0023` is workflow-packaged and awaits Gate B replay. High-mass
-Stellar transfer `RESULT-0024` has replay memory and awaits safe
-maintainer-review wording. The next work is replay/ratification of those
-artifacts, not another formula or model-search lane.
+`AGENT_VALIDATED` with conservative scope and no universal-law wording.
+FIRAS/Wien `RESULT-0023` is also `AGENT_VALIDATED`, but only as
+calibration/known-physics verifier memory. High-mass Stellar transfer
+`RESULT-0024` has replay memory with zero metric drift and a retained metadata
+caveat. The next work is public wording and metadata-caveat adjudication, not
+another formula or model-search lane.
 
 ## Cross-References
 

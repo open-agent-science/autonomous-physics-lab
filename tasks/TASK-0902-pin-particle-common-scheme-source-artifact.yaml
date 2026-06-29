@@ -1,0 +1,57 @@
+id: TASK-0902
+title: "Pin the particle-mass common-scheme source artifact without running Koide metrics"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0874 recommended the Antusch-Hinze-Saad common MS-bar-at-MZ source route for source pinning before any rerun."
+  - "Particle-mass work should remain falsification-first and source-policy-first, not relation-search-first."
+  - "A pinned derived common-scheme source artifact can enable a later fixed-target rerun while preserving scheme, scale, top, and covariance limitations."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "docs/campaigns/particle-mass-relations.md"
+    - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
+    - "results/EXP-0009/RUN-0001/result.yaml"
+    - "claims/CLAIM-0007-koide-cross-family-failure.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    This task pins source identity, version, table/column semantics, license,
+    and row-class metadata for a future common-scheme quark sensitivity dataset.
+    It must not copy values or rerun the fixed Koide target. The later metric
+    task is separate and remains blocked until the source artifact is reviewed.
+
+requirements:
+  - "Verify the version-of-record citation route, DOI/article metadata if available, accepted-manuscript locator, exact table/column, representation (mass or Yukawa), units, scheme, scale, and branch."
+  - "Record row class as derived_running_parameter / derived_running_mass or derived_running_yukawa, preserving top pole-input conversion provenance and shared-dependence limitations."
+  - "Do not transcribe six-quark values, overwrite existing datasets, run Koide metrics, change RESULT-0011, or edit CLAIM-0007."
+  - "Stop if the exact 2024-PDG Standard Model MZ surface, license/reuse posture, confidence-level semantics, or mass-vs-Yukawa representation cannot be pinned."
+  - "No particle-mass-generation, new-relation, phase-extension, or claim-promotion wording."
+
+accepted_outputs:
+  - "A metadata-only source artifact or docs/reviews source-pinning note with citation, locator, license, table/column, representation, scheme, scale, top semantics, and covariance limitations."
+  - "A future metric-task shape only if the source artifact is unambiguous and value transcription remains separately authorized."
+  - "Output-routing summary: source-readiness only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Source artifact pinning only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

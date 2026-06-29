@@ -1,5 +1,5 @@
 id: TASK-0894
-title: "Independently replay (Gate B) the ThermoML Tb Joback transfer RESULT-0026"
+title: "Independently replay (Gate B) the Thermophysical ThermoML Tb Joback transfer RESULT-0026"
 type: scientific_replay_validation
 status: READY
 closeout: review
@@ -15,6 +15,7 @@ input:
   mode: workflow
   related_domain: thermophysical_property_estimation
   related_objects:
+    - "docs/campaigns/thermophysical-property-residuals.md"
     - "results/EXP-0020/RUN-0001/result.yaml"
     - "results/EXP-0020/RUN-0001/metrics.json"
     - "results/EXP-0020/RUN-0001/report.md"

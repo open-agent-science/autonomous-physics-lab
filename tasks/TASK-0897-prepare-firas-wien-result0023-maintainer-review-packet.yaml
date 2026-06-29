@@ -1,0 +1,60 @@
+id: TASK-0897
+title: "Prepare a Textbook Formula Audit maintainer-review packet for FIRAS/Wien RESULT-0023"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "RESULT-0023 is now AGENT_VALIDATED after TASK-0885 replayed the workflow-packaged FIRAS/Wien self-consistency slice with negligible numeric drift."
+  - "The next Textbook Formula Audit step is ratification/public wording discipline, not another Wien metric or a universal-law claim."
+  - "A compact maintainer packet can separate useful verifier evidence from the circularity caveat and prevent claim promotion of known textbook physics."
+
+input:
+  mode: planning_only
+  related_domain: cross_domain_physics
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "results/EXP-0016/RUN-0001/result.yaml"
+    - "docs/reviews/firas-wien-result0023-gate-b-replay.md"
+    - "docs/reviews/textbook-wien-firas-temperature-domain-contract.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    RESULT-0023 is a scoped FIRAS spectral-domain self-consistency result:
+    the wavelength-domain peak after the declared Jacobian agrees with b/T at
+    the separately pinned FIRAS-derived reference temperature. Gate B now
+    passes and the result is AGENT_VALIDATED, but the result is still calibration
+    / verifier evidence with a circularity caveat, not a claim about independent
+    validation of Wien displacement or blackbody physics.
+
+requirements:
+  - "Summarize RESULT-0023, its Gate A package, the TASK-0885 Gate B replay, the circularity caveat, and the exact public-safe statement."
+  - "Classify the novelty role explicitly as calibration_known_physics / verifier quality-floor memory, not a frontier scientific claim."
+  - "Present maintainer options: keep as AGENT_VALIDATED result memory, add maintainer-reviewed public wording, request stricter circularity wording, or keep it as internal verifier evidence."
+  - "Do not edit RESULT-0023 metrics, review_tier, claims, knowledge, FIRAS rows, source contracts, or generated task views."
+  - "No independent-Wien-validation, universal textbook-law, CMB-physics-discovery, blackbody-proof, or claim-promotion wording."
+
+accepted_outputs:
+  - "A maintainer-review packet under docs/reviews/ with evidence table, circularity caveat, decision options, and safe public wording."
+  - "An output-routing summary: ratification packet only, Gate A existing, Gate B PASS, claim impact none, knowledge impact none."
+  - "A stop condition if the circularity caveat blocks stronger public-card wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-review packet for an existing AGENT_VALIDATED result; no new RESULT or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0016/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
