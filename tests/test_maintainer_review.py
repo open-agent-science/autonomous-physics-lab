@@ -1100,6 +1100,33 @@ def test_run_task_validation_ci_aware_skips_ci_duplicates_but_runs_remainder(
     )
 
 
+def test_run_task_validation_skips_base_validate_when_strict_validate_present(
+    tmp_path: Path,
+) -> None:
+    payload = {
+        "validation": {
+            "commands": [
+                "python3 -m physics_lab.cli validate-repo .",
+                "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+            ]
+        }
+    }
+    seen_commands: list[str] = []
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del kwargs
+        seen_commands.append(command)
+        return CommandResult(returncode=0, stdout="", stderr="")
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "pass"
+    assert len(seen_commands) == 1
+    assert "--strict --fail-on-warnings" in seen_commands[0]
+    assert summary.skipped_commands == ("python3 -m physics_lab.cli validate-repo .",)
+
+
 def test_run_task_validation_classifies_assertion_failure(tmp_path: Path) -> None:
     payload = {"validation": {"commands": ["python3 -m pytest tests/test_example.py"]}}
 

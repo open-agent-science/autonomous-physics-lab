@@ -1,0 +1,59 @@
+id: TASK-0891
+title: "Deduplicate CI and review validation for safer maintainer latency"
+type: maintainer_tooling
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review and post-merge CI responsive without weakening repository validation, scientific publication gates, or legal/source-rights checks."
+  - "Address the recurring CI/review latency bottleneck observed during the post-public PR review wave."
+  - "Make the first infra change narrow and reversible before considering larger push-lane architecture changes."
+
+input:
+  mode: workflow
+  related_domain: ci_review_latency
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - ".github/workflows/sync-active-board.yml"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    Maintainer review identified that CI and review flows repeat base
+    `validate-repo .` immediately before strict
+    `validate-repo . --strict --fail-on-warnings`, and that Sync Active Board
+    installs development dependencies even though it only runs runtime CLI
+    maintenance commands. This task applies the first safe latency reduction:
+    remove redundant validation execution while preserving the strict gate.
+
+requirements:
+  - "Do not weaken strict repository validation, ruff, pytest, result-promotion checks, source-rights checks, branch protection, or maintainer review decisions."
+  - "Remove the duplicate non-strict validate-repo step from CI paths that immediately run strict validate-repo."
+  - "Make maintainer review validation skip an exact base validate-repo command when the same validation list also contains the exact strict validate-repo gate."
+  - "Use only runtime package installation for Sync Active Board because the workflow does not run pytest or ruff."
+  - "Leave larger main-push lane classification changes to a separate reviewed architecture task."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml"
+  - ".github/workflows/sync-active-board.yml"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_maintainer_review.py"
+
+result_artifact_policy:
+  required: false
+  reason: "CI/review infrastructure maintenance only; no scientific result, prediction, claim, or knowledge artifact is produced."
+  evidence:
+    - ".github/workflows/ci.yml"
+    - "physics_lab/registry/maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - llm_agent
