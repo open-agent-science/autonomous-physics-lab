@@ -1,7 +1,7 @@
 id: TASK-0893
 title: "Preserve full main CI after board-sync pushes"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high

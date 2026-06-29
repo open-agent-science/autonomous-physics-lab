@@ -1,7 +1,7 @@
 id: TASK-0865
 title: "Preflight a no-peek uncertainty-calibration route for the NMD-0003 GP blocker"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
