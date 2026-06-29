@@ -1,7 +1,7 @@
 id: TASK-0892
 title: "Add a docs/task-only main push CI fast path without weakening full_repo closeout signals"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

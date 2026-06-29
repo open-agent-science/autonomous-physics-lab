@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0865` - Preflight a no-peek uncertainty-calibration route for the NMD-0003 GP blocker (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+None.
