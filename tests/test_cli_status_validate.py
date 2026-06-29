@@ -4,7 +4,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from physics_lab.cli import app
+from physics_lab.cli import _project_stage, app
 from physics_lab.registry.task_discovery import find_task_file
 
 
@@ -17,7 +17,7 @@ def test_status_cli_reports_project_snapshot_fields() -> None:
     result = runner.invoke(app, ["status", str(REPO_ROOT)])
 
     assert result.exit_code == 0, result.output
-    assert "Stage: v0.2-public-alpha candidate" in result.stdout
+    assert f"Stage: {_project_stage(REPO_ROOT)}" in result.stdout
     assert f"Repository: {REPO_ROOT}" in result.stdout
     assert "Validation: PASS" in result.stdout
     assert "Benchmarks:" in result.stdout
