@@ -16,3 +16,4 @@ None.
 
 - `TASK-0891` - Deduplicate CI and review validation for safer maintainer latency (`maintainer_tooling`, priority `high`, difficulty `low`, domain `ci_review_latency`)
 - `TASK-0892` - Add a docs/task-only main push CI fast path without weakening full_repo closeout signals (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `ci_review_latency`)
+- `TASK-0893` - Preserve full main CI after board-sync pushes (`maintainer_tooling`, priority `high`, difficulty `low`, domain `ci_review_latency`)
