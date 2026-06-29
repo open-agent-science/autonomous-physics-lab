@@ -20,13 +20,17 @@ renormalization scales and top-mass semantics.
 ## Evidence Update Since TASK-0820
 
 The source assessed by `TASK-0820` is no longer only an arXiv candidate.
-Antusch, Hinze, and Saad is now the peer-reviewed version of record:
+Antusch, Hinze, and Saad now has an accepted Physical Review D publication
+route, but this decision packet does not pin a publisher article identifier:
 
 - S. Antusch, K. Hinze, and S. Saad, *Updated running quark and lepton
-  parameters at various scales*, Physical Review D **113**, 095011 (2026);
-- DOI: [10.1103/fdcc-ycph](https://doi.org/10.1103/fdcc-ycph);
-- accepted manuscript: [arXiv:2510.01312v2](https://arxiv.org/abs/2510.01312);
-- reuse posture: open access under CC BY 4.0.
+  parameters at various scales*;
+- accepted manuscript: [arXiv:2510.01312v2](https://arxiv.org/abs/2510.01312),
+  whose arXiv metadata records acceptance for publication in Physical Review D;
+- publisher DOI, article number, and final journal reference: not pinned here;
+  verify from the publisher before committing any source artifact;
+- reuse posture: arXiv distribution license and any publisher open-access
+  license must be recorded by the future source-pinning task.
 
 The paper derives Standard Model running parameters in the
 `MS-bar` scheme at `M_Z` and higher benchmark scales from 2022 and 2024 PDG
@@ -39,7 +43,7 @@ measurements.
 
 | Route | Strength | Load-bearing limitation | Decision |
 | --- | --- | --- | --- |
-| Peer-reviewed Antusch-Hinze-Saad table | Complete six-quark common `MS-bar`, `mu = M_Z` surface; 2024 PDG input branch; one-sigma intervals; version of record and CC BY 4.0 | Values are derived through a specific SM running/matching pipeline; marginal intervals do not establish an independent six-row covariance matrix | **Recommended for a source-pinning task** |
+| Antusch-Hinze-Saad accepted-manuscript table | Complete six-quark common `MS-bar`, `mu = M_Z` surface; 2024 PDG input branch; one-sigma intervals; accepted PRD route | Values are derived through a specific SM running/matching pipeline; marginal intervals do not establish an independent six-row covariance matrix; final publisher DOI/article metadata remain to be pinned | **Recommended for a source-pinning task** |
 | PDG/FLAG-only table | Highest-authority low-energy mass inputs and mature lattice averaging | PDG publishes `u,d,s` at 2 GeV, `c` at `m_c`, `b` at `m_b`, and top with different direct/pole/cross-section semantics; FLAG does not supply the top route needed for a six-quark common-`M_Z` table | **Not sufficient by itself** |
 | Local deterministic RGE pipeline | Maximum repository control and future replayability | Requires pinned software, electroweak/QCD matching choices, threshold order, input covariance, uncertainty propagation, and parity tests against a published table | **Defer as an independent validation lane** |
 
@@ -49,8 +53,8 @@ The next source-pinning task should use exactly one surface:
 
 | Field | Required value |
 | --- | --- |
-| Source | Antusch, Hinze, and Saad, PRD 113, 095011 (2026) |
-| DOI | `10.1103/fdcc-ycph` |
+| Source | Antusch, Hinze, and Saad accepted manuscript; final PRD article metadata to verify from publisher |
+| DOI | not pinned here; source-pinning task must verify publisher DOI before copying values |
 | Accepted manuscript | `arXiv:2510.01312v2` |
 | Input branch | 2024 PDG inputs |
 | Theory branch | Standard Model only |
@@ -121,7 +125,7 @@ Allowed handling is:
 
 A source-pinning task must record:
 
-- full PRD citation and DOI;
+- full PRD citation and DOI, verified from the publisher rather than inferred;
 - arXiv v2 locator as the accepted-manuscript audit surface;
 - exact table, column, theory branch, scheme, and scale;
 - retrieval date and SHA-256 for any committed redistributable text/table
@@ -154,7 +158,8 @@ unchanged `Q = 2/3` falsifier on the frozen common-scale surface.
 
 Stop source pinning or any later rerun if:
 
-1. the exact 2024-PDG SM `M_Z` table cannot be identified;
+1. the exact 2024-PDG SM `M_Z` table or publisher DOI/journal reference cannot
+   be identified;
 2. mass and Yukawa representations are mixed or silently converted;
 3. top pole/direct semantics are retained while the row is labelled
    common-scale `MS-bar`;
