@@ -62,13 +62,16 @@ Live GitHub metadata showed:
 
 - PR #1288, post-public opening signoff, is merged.
 - PR #1287, Quantum effective-mass transfer negative memory, is merged.
-- PR #1285, Exoplanet Chen-Kipping published-relation audit, remains open and
-  ready for maintainer decision.
+- PR #1285, Exoplanet Chen-Kipping published-relation audit, merged during the
+  same maintainer review sweep before this coherence PR was closed.
 
 Action taken:
 
-- This pass updates docs only for merged/default-branch state.
-- PR #1285 is intentionally not summarized as merged work in public docs.
+- This pass updates docs only for merged/default-branch state that changes the
+  public-alpha coherence wording.
+- PR #1285 is intentionally not promoted into the high-level public result
+  narrative here; it remains a separately routed, control-sensitive audit
+  artifact.
 
 ## Deferred
 
