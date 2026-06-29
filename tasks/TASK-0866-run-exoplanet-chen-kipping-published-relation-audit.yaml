@@ -1,7 +1,7 @@
 id: TASK-0866
 title: "Run the Exoplanet Chen-Kipping published-relation audit on the pinned snapshot"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high

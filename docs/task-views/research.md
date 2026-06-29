@@ -18,7 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0866` - Run the Exoplanet Chen-Kipping published-relation audit on the pinned snapshot (`scientific_benchmark`, priority `high`, difficulty `high`, domain `astrophysics`)
-- `TASK-0871` - Route the Quantum effective-mass scaling transfer failure as negative memory (`scientific_validation`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0872` - Draft an Atomic Pizzocaro aggregation and observable-harmonization contract (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `precision_metrology`)
-- `TASK-0875` - Route the light-clock consistency benchmark as quality-floor memory (`scientific_validation`, priority `medium`, difficulty `low`, domain `relativity_thought_experiment`)
+None.
