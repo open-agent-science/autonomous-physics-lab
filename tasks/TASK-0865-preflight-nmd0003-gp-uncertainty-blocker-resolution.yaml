@@ -1,7 +1,7 @@
 id: TASK-0865
 title: "Preflight a no-peek uncertainty-calibration route for the NMD-0003 GP blocker"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -34,7 +34,7 @@ requirements:
   - "If no defensible route exists, return UNCERTAINTY_ROUTE_STOP and keep TASK-0827 blocked."
 
 accepted_outputs:
-  - "A preflight review note under docs/reviews/ with candidate uncertainty routes, leakage analysis, stop/go verdict, and future task shape if any."
+  - "docs/reviews/nmd0003-gp-no-peek-uncertainty-route-preflight.md"
   - "Explicit wording that RESULT-0025 remains point-estimator evidence only until a later task validates uncertainty calibration."
   - "Output-routing summary: source destination is blocker/preflight memory; no RESULT/PRED/CLAIM/KNOW mutation."
 
@@ -42,6 +42,7 @@ result_artifact_policy:
   required: false
   reason: "Uncertainty-route preflight only; no benchmark result or prediction artifact is produced."
   evidence:
+    - "docs/reviews/nmd0003-gp-no-peek-uncertainty-route-preflight.md"
     - "docs/reviews/nmd0003-gp-uncertainty-calibration-adjudication.md"
 
 validation:
