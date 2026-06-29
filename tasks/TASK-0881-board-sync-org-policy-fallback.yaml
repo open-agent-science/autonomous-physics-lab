@@ -1,7 +1,7 @@
 id: TASK-0881
 title: "Route board-sync direct generated commits through a narrow App identity"
 type: infrastructure
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
@@ -36,6 +36,11 @@ accepted_outputs:
   - "tests/test_validate_repo_auto_sync.py"
   - "tasks/TASK-0881-board-sync-org-policy-fallback.yaml"
   - "APL Board Sync GitHub App credential and bypass contract documented for maintainers."
+
+result_artifact_policy:
+  required: false
+  reason: "Workflow/protocol maintenance only; no scientific result, claim, prediction, or knowledge artifact is produced."
+
 validation:
   commands:
     - "python3 -m pytest tests/test_maintainer_review.py tests/test_docs_links.py tests/test_validate_repo_board_staleness_severity.py tests/test_validate_repo_auto_sync.py"
