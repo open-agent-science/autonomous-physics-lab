@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0885` - Independently replay FIRAS/Wien RESULT-0023 after workflow repackaging (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_domain_physics`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0885` - Independently replay FIRAS/Wien RESULT-0023 after workflow repackaging (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_domain_physics`)
