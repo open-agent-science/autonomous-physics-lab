@@ -1,7 +1,7 @@
 id: TASK-0887
 title: "Prepare the MD-0002 external dataset release and DOI decision packet"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -17,6 +17,7 @@ input:
   related_objects:
     - "docs/reviews/materials-md0002-release-metadata-closeout.md"
     - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "docs/reviews/materials-md0002-transfer-negative-memory-replay.md"
     - "docs/published-source-dataset-standard.md"
@@ -34,7 +35,7 @@ requirements:
   - "Do not describe MD-0002 as experimental measurement data, a materials-design dataset, a synthesis guide, or support for a universal materials law."
 
 accepted_outputs:
-  - "A decision packet under docs/reviews/ with release options, recommended path, stop conditions, and exact maintainer actions if any."
+  - "docs/reviews/materials-md0002-external-release-decision-packet.md"
   - "A public-safe citation/no-claim wording block for MD-0002 if the maintainer later chooses external release."
   - "Output-routing summary: dataset-publication readiness only, no RESULT/PRED/CLAIM/KNOW mutation."
 
@@ -43,6 +44,7 @@ result_artifact_policy:
   reason: "Dataset release decision packet only; no benchmark result or prediction artifact is produced."
   evidence:
     - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
 
 validation:
   commands:

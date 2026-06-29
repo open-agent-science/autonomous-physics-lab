@@ -4,11 +4,11 @@ type: scientific_replay_validation
 status: READY
 closeout: review
 difficulty: medium
-priority: medium
+priority: high
 
 strategy_alignment:
   - "TASK-0869 published RESULT-0026 (EXP-0020): a bounded ThermoML Tb family-stratified Joback transfer at AGENT_PUBLISHED, VALID_IN_RANGE but family-dependent (esters/lactones miss the 5 K survival margin; Joback aggregate MAE 14.926 K)."
-  - "The result record itself calls for Gate B: 'replay the same command and compare aggregate and per-family metrics before any tier upgrade'. The next thermophysical-estimation step is that independent replay, not a new Joback metric, a Tc extension, or a transfer-law claim."
+  - "The result record itself calls for Gate B: replay the same command and compare aggregate and per-family metrics before any tier upgrade."
   - "A clean replay can move the ThermoML Tb transfer slice from AGENT_PUBLISHED toward AGENT_VALIDATED while preserving the frozen-estimator, source-rights, and no-claim boundaries."
 
 input:
@@ -17,29 +17,33 @@ input:
   related_objects:
     - "results/EXP-0020/RUN-0001/result.yaml"
     - "results/EXP-0020/RUN-0001/metrics.json"
+    - "results/EXP-0020/RUN-0001/report.md"
     - "results/EXP-0020/RUN-0001/gate_a_report.md"
-    - "tasks/TASK-0869-package-thermoml-tb-transfer-gate-a-result.yaml"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "data/thermophysical/source_manifest.yaml"
+    - "scripts/run_thermoml_tb_family_transfer.py"
     - "docs/reviews/thermoml-joback-source-readiness-scout.md"
   planning_context: >
-    RESULT-0026 is a bounded audit of the FROZEN published Joback Tb estimator's
+    RESULT-0026 is a bounded audit of the frozen published Joback Tb estimator's
     family-stratified out-of-family transfer against experimental ThermoML
     measurements, run under the maintainer-approved local-fetch posture (no
     archive vendoring). EXP-0020/RUN-0001 carries a full physics-lab workflow
-    (experiment.yaml, config.yaml, fixture.yaml) and a PASS implementation-fidelity
-    gate. The aggregate verdict is VALID_IN_RANGE but family-dependent. This task
-    runs the independent Gate B replay only; it does not extend scope.
+    and a PASS implementation-fidelity gate. The aggregate verdict is
+    VALID_IN_RANGE but family-dependent. This task runs the independent Gate B
+    replay only; it does not extend scope.
 
 requirements:
   - "Replay the committed RESULT-0026 / EXP-0020 workflow from clean outputs and compare aggregate AND per-family metrics, input hashes, code reference, verdict vocabulary, and limitations against the published artifact."
   - "Keep the frozen Joback implementation, compound-identity and group-assignment rules, the chemical-family taxonomy, the implementation-fidelity gate, the 5 K family-survival margin, controls, and tolerances unchanged."
   - "Preserve the ThermoML source-rights / local-fetch posture: do NOT re-fetch beyond the cleared scope, vendor the raw archive, or commit a substantial normalized corpus; cite the ThermoML Archive per NIST request."
   - "Run as a DIFFERENT agent than the RESULT-0026 publisher (Gate B independence): do not self-validate the original run."
-  - "Do not refit, change RESULT-0026 metrics, alter the bounded verdict vocabulary, create a CLAIM/KNOW/PRED artifact, or claim the estimator is validated or refuted beyond the in-scope family-holdout transfer (no 'Joback is wrong', no transfer-law claim)."
+  - "Explicitly compare the headline values: Joback MAE 14.925825 K, best non-oracle MAE 43.427943 K, margin 28.502118 K, 7/8 families clearing, and esters/lactones as the failed family."
+  - "Do not refit, change RESULT-0026 metrics, alter the bounded verdict vocabulary, create a CLAIM/KNOW/PRED artifact, or claim the estimator is validated or refuted beyond the in-scope family-holdout transfer."
   - "If aggregate or per-family metrics drift beyond tolerance, the fidelity gate does not reproduce, or the packaging is not actually replayable, stop with CONTESTED_RESULT or GATE_B_BLOCKED and record the blocker."
   - "If replay passes, record Gate B status and any permitted review-metadata update under the result-promotion protocol without maintainer endorsement."
 
 accepted_outputs:
-  - "A Gate B replay review note under docs/reviews/ with an aggregate AND per-family metric-drift table, the pass/contest verdict, and no-claim wording."
+  - "A Gate B replay review note under docs/reviews/ with an aggregate AND per-family metric-drift table, the pass/contest verdict, limitations, and no-claim wording."
   - "A validation record or review-metadata update only if the established result-promotion protocol allows it for independent replay."
   - "Output-routing summary: Gate A existing, Gate B pass/blocked/contested, claim impact none, knowledge impact none, public wording still bounded family-stratified transfer audit only."
 

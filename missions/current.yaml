@@ -1,18 +1,19 @@
 default_mode: research
-updated: "2026-06-28"
+updated: "2026-06-29"
 
 curator_cycle:
   decision: updated
-  updated: "2026-06-25"
-  source: "TASK-CLOSEOUT sweep after reviewed PR batch"
+  updated: "2026-06-29"
+  source: "Scientific Director Thermophysical campaign launch"
   note: >
     Mission guidance now reflects the post-validation next-wave queue. Validated
     or source-limited campaigns should move through explicit next-validity gates:
     source readiness, transfer, ratification, or external reveal. Materials,
     Textbook/Wien, Nuclear, Quantum, Atomic, Anharmonic, Dimensional,
-    Particle-Mass, and Pendulum now have READY lanes that advance those gates
-    without reopening closed audit loops. Exoplanet stays monitor/trigger gated
-    until a material source-version or coverage trigger appears.
+    Particle-Mass, Pendulum, and the newly active Thermophysical Property
+    Residuals lane now have READY tasks that advance those gates without
+    reopening closed audit loops. Exoplanet stays monitor/trigger gated until a
+    material source-version or coverage trigger appears.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
