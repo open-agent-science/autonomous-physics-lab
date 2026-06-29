@@ -29,6 +29,12 @@ CONVENTIONAL_TASK_SUBJECT_PATTERN = re.compile(
 )
 PR_TITLE_TASK_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}):\s+.+$")
 CANONICAL_TASK_ID_PATTERN = re.compile(r"^TASK-[0-9]{4}$")
+FULL_REPO_MAIN_MATRIX_JOB_NAMES = frozenset(
+    {
+        "Python tests (main matrix) (3.11)",
+        "Python tests (main matrix) (3.12)",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -407,6 +413,24 @@ def classify_full_repo_signal(
     return "ok"
 
 
+def ci_run_has_full_repo_signal(jobs: object) -> bool:
+    """Return whether a CI run included the push full-repo main matrix."""
+    if not isinstance(jobs, list):
+        return False
+    seen: set[str] = set()
+    for job in jobs:
+        if not isinstance(job, dict):
+            continue
+        name = str(job.get("name") or "")
+        if name not in FULL_REPO_MAIN_MATRIX_JOB_NAMES:
+            continue
+        conclusion = str(job.get("conclusion") or "").lower()
+        if conclusion in {"", "skipped"}:
+            continue
+        seen.add(name)
+    return seen == FULL_REPO_MAIN_MATRIX_JOB_NAMES
+
+
 def full_repo_signal_status(
     root: Path,
     *,
@@ -414,12 +438,7 @@ def full_repo_signal_status(
     now: datetime | None = None,
     max_age_hours: float = 48.0,
 ) -> str:
-    """Return the latest main full_repo signal (ok|red|stale|unknown) via gh.
-
-    Reads the most recent completed CI run on ``main`` (the main matrix runs
-    full_repo on every push to main). Any gh failure yields ``unknown`` so the
-    caller falls back to report-only.
-    """
+    """Return the latest main full_repo signal (ok|red|stale|unknown) via gh."""
     resolved_gh_path = gh_path or find_gh_path()
     if resolved_gh_path is None:
         return "unknown"
@@ -437,9 +456,9 @@ def full_repo_signal_status(
             "--status",
             "completed",
             "--limit",
-            "1",
+            "50",
             "--json",
-            "conclusion,createdAt",
+            "databaseId,conclusion,createdAt",
         ],
         cwd=root,
         timeout=60,
@@ -452,13 +471,39 @@ def full_repo_signal_status(
         return "unknown"
     if not isinstance(rows, list) or not rows:
         return "unknown"
-    latest = rows[0]
-    return classify_full_repo_signal(
-        latest.get("conclusion"),
-        latest.get("createdAt"),
-        now=now,
-        max_age_hours=max_age_hours,
-    )
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        run_id = row.get("databaseId")
+        if run_id is None:
+            continue
+        jobs_result = run_command(
+            [
+                resolved_gh_path,
+                "run",
+                "view",
+                str(run_id),
+                "--json",
+                "jobs",
+            ],
+            cwd=root,
+            timeout=60,
+        )
+        if jobs_result.returncode != 0:
+            continue
+        try:
+            jobs_payload = json.loads(jobs_result.stdout)
+        except json.JSONDecodeError:
+            continue
+        if not ci_run_has_full_repo_signal(jobs_payload.get("jobs")):
+            continue
+        return classify_full_repo_signal(
+            row.get("conclusion"),
+            row.get("createdAt"),
+            now=now,
+            max_age_hours=max_age_hours,
+        )
+    return "unknown"
 
 
 def _load_merged_task_pull_requests_from_git(

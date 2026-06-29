@@ -33,6 +33,16 @@ A scheduled job runs `full_repo` + strict validation + core example replays on
 main-only interactions) within a day. A failure means **main is not
 full_repo-clean**.
 
+## 3. Main push fast path (`.github/workflows/ci.yml`)
+
+Pushes to `main` are also classified. Code, workflow, schema, result, example,
+mission, README, and other non-doc/task changes still run the full Python
+3.11/3.12 main matrix. Pure docs/task/navigation pushes run a 3.12
+docs/task-focused lane: strict repository validation plus the targeted
+docs/task tests. This keeps generated board-sync commits from spending the full
+matrix cost after every merge while preserving validation for generated task
+navigation.
+
 ## Interaction with safe auto-closeout
 
 Safe auto-closeout (`docs/maintainer-review-agent.md`) commits `DONE` flips
@@ -40,6 +50,10 @@ directly to `main`. It must treat the `full_repo` signal as load-bearing: when
 the latest `full_repo` status (PR gate or nightly) is red, stale, or unknown,
 commit-safe auto-closeout falls back to **report-only**. This policy is the
 prerequisite that makes the "green main" gate honest.
+
+Because docs/task-only pushes no longer always run the full main matrix,
+`full_repo_signal_status` must ignore light push CI runs and look back to the
+most recent completed CI run that actually included both main-matrix jobs.
 
 ## What this is not
 

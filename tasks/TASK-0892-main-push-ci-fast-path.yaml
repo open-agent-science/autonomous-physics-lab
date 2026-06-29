@@ -1,0 +1,58 @@
+id: TASK-0892
+title: "Add a docs/task-only main push CI fast path without weakening full_repo closeout signals"
+type: maintainer_tooling
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce post-merge latency from generated board-sync commits while preserving the load-bearing full_repo signal used by safe auto-closeout."
+  - "Keep workflow and code-risk changes on the full Python 3.11/3.12 main matrix."
+  - "Make the second infra change narrowly scoped after TASK-0891 removed duplicated validation."
+
+input:
+  mode: workflow
+  related_domain: ci_review_latency
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "physics_lab/registry/closeout_sweep.py"
+    - "docs/ci-full-repo-policy.md"
+  planning_context: >
+    After TASK-0891 merged, Sync Active Board succeeded but its generated
+    docs/task-view commit still triggered the full main CI matrix for about
+    five to six minutes. A push fast path can avoid that cost for pure
+    docs/task/navigation commits, but safe auto-closeout must continue to
+    trust only CI runs that actually executed the full main matrix.
+
+requirements:
+  - "Classify push changes as well as PR changes."
+  - "Run a lightweight 3.12 docs/task push lane for pure docs/task/navigation pushes."
+  - "Keep non-doc/task, workflow-risk, code, result, schema, mission, README, and example changes on the full main matrix."
+  - "Update full_repo signal discovery so safe auto-closeout ignores light push CI runs and looks back to a completed full main-matrix CI run."
+  - "Do not weaken PR required checks, strict repository validation, result-promotion checks, source-rights checks, branch protection, or maintainer review decisions."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml"
+  - "physics_lab/registry/closeout_sweep.py"
+  - "tests/test_closeout_sweep.py"
+  - "docs/ci-full-repo-policy.md"
+
+result_artifact_policy:
+  required: false
+  reason: "CI/review infrastructure maintenance only; no scientific result, prediction, claim, or knowledge artifact is produced."
+  evidence:
+    - ".github/workflows/ci.yml"
+    - "physics_lab/registry/closeout_sweep.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py tests/test_closeout_sweep.py"
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - llm_agent

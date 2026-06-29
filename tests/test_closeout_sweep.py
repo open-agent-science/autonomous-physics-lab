@@ -12,6 +12,7 @@ from physics_lab.registry.closeout_sweep import (
     auto_closeout_blockers,
     build_closeout_sweep_report,
     classify_full_repo_signal,
+    ci_run_has_full_repo_signal,
     closeout_pr_binding_blockers,
     closeout_pr_metadata_binding_blockers,
     list_review_ready_tasks,
@@ -21,6 +22,7 @@ from physics_lab.registry.closeout_sweep import (
     render_closeout_sweep_report,
     task_closeout_policy,
     task_unblocks_others,
+    full_repo_signal_status,
 )
 from physics_lab.registry.maintainer_review import CloseoutReport, PullRequestMetadata
 from physics_lab.registry.review_git import CommandResult
@@ -908,3 +910,96 @@ def test_classify_full_repo_signal_unknown_for_missing_or_bad_fields() -> None:
     assert classify_full_repo_signal("", "2026-06-11T10:00:00Z", now=now) == "unknown"
     assert classify_full_repo_signal("success", None, now=now) == "unknown"
     assert classify_full_repo_signal("success", "not-a-date", now=now) == "unknown"
+
+
+def test_ci_run_has_full_repo_signal_requires_non_skipped_main_matrix_jobs() -> None:
+    assert ci_run_has_full_repo_signal(
+        [
+            {"name": "Classify change set", "conclusion": "success"},
+            {"name": "Python tests (main matrix) (3.11)", "conclusion": "success"},
+            {"name": "Python tests (main matrix) (3.12)", "conclusion": "success"},
+        ]
+    )
+    assert not ci_run_has_full_repo_signal(
+        [
+            {"name": "Classify change set", "conclusion": "success"},
+            {"name": "Python tests (main matrix) (3.11)", "conclusion": "skipped"},
+            {"name": "Python tests (main matrix) (3.12)", "conclusion": "skipped"},
+            {"name": "Python docs/task push checks (3.12)", "conclusion": "success"},
+        ]
+    )
+
+
+def test_full_repo_signal_status_skips_light_push_ci_runs(tmp_path: Path) -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+
+    def fake_run_command(command: list[str], **kwargs: object) -> CommandResult:
+        del kwargs
+        if command[:3] == ["gh", "run", "list"]:
+            return CommandResult(
+                returncode=0,
+                stdout=json.dumps(
+                    [
+                        {
+                            "databaseId": 200,
+                            "conclusion": "success",
+                            "createdAt": "2026-06-11T11:00:00Z",
+                        },
+                        {
+                            "databaseId": 100,
+                            "conclusion": "success",
+                            "createdAt": "2026-06-11T10:00:00Z",
+                        },
+                    ]
+                ),
+                stderr="",
+            )
+        if command[:3] == ["gh", "run", "view"] and command[3] == "200":
+            return CommandResult(
+                returncode=0,
+                stdout=json.dumps(
+                    {
+                        "jobs": [
+                            {
+                                "name": "Python tests (main matrix) (3.11)",
+                                "conclusion": "skipped",
+                            },
+                            {
+                                "name": "Python tests (main matrix) (3.12)",
+                                "conclusion": "skipped",
+                            },
+                            {
+                                "name": "Python docs/task push checks (3.12)",
+                                "conclusion": "success",
+                            },
+                        ]
+                    }
+                ),
+                stderr="",
+            )
+        if command[:3] == ["gh", "run", "view"] and command[3] == "100":
+            return CommandResult(
+                returncode=0,
+                stdout=json.dumps(
+                    {
+                        "jobs": [
+                            {
+                                "name": "Python tests (main matrix) (3.11)",
+                                "conclusion": "success",
+                            },
+                            {
+                                "name": "Python tests (main matrix) (3.12)",
+                                "conclusion": "success",
+                            },
+                        ]
+                    }
+                ),
+                stderr="",
+            )
+        raise AssertionError(f"unexpected command: {command}")
+
+    with patch("physics_lab.registry.closeout_sweep.run_command", fake_run_command):
+        assert (
+            full_repo_signal_status(tmp_path, gh_path="gh", now=now, max_age_hours=48)
+            == "ok"
+        )
