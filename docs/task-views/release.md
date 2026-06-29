@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0879` - Refresh the dated public-release readiness signoff against the current default-branch cut and forward the gate-doc status notes (`docs_protocol`, priority `medium`, difficulty `low`, domain `release_readiness`)
+- `TASK-0880` - Route Sync Active Board through PRs after public branch protection (`infrastructure`, priority `high`, difficulty `low`, domain `maintainer_automation`)
