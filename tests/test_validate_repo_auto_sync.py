@@ -190,6 +190,26 @@ def test_fail_on_warnings_still_requires_strict_even_with_auto_sync() -> None:
     validate_mock.assert_not_called()
 
 
+def test_sync_active_board_workflow_uses_app_direct_push_guardrails() -> None:
+    """Post-merge board sync should use the narrow App direct-push architecture."""
+    workflow = (
+        Path(__file__).resolve().parents[1]
+        / ".github"
+        / "workflows"
+        / "sync-active-board.yml"
+    ).read_text(encoding="utf-8")
+
+    assert "actions/create-github-app-token@v3" in workflow
+    assert "permission-contents: write" in workflow
+    assert "permission-pull-requests: write" not in workflow
+    assert "pull-requests: read" in workflow
+    assert "persist-credentials: false" in workflow
+    assert "unexpected_paths" in workflow
+    assert "docs/task-views/*.md|tasks/TASK-*.yaml" in workflow
+    assert "git push origin HEAD:main" in workflow
+    assert "gh pr create" not in workflow
+
+
 # ── Live smoke (real repo, must remain green) ─────────────────────────────
 
 

@@ -688,11 +688,10 @@ Default behavior:
 The post-merge `Sync Active Board` GitHub Action also auto-closes the **safe**
 subset of merged tasks: it runs
 `python scripts/apl_closeout_sweep.py --auto-safe`, flips the safe subset
-`REVIEW_READY -> DONE`, and folds those flips into its direct
-`[skip-board-sync]` board-sync commit on `main`. The closeout content was
-already vetted by the pre-merge review agent plus green CI, so this only
-mechanizes the status flip; safety is a tested deterministic guard, not a
-watching period.
+`REVIEW_READY -> DONE`, and folds those flips into a generated
+`TASK-CLOSEOUT` board-sync PR. The closeout content was already vetted by the
+pre-merge review agent plus green CI, so this only mechanizes the status flip;
+safety is a tested deterministic guard, not a watching period.
 
 A task is **auto-safe** only when ALL hold:
 
@@ -707,6 +706,14 @@ Everything else — result-bearing, follow-up-spawning, unblocking, and
 the **review path** for a maintainer or Scientific Curator decision; the action
 never auto-unblocks. The auto-closeout runs only on `main`, keeps the
 `[skip-board-sync]` recursion guard, and is meaningful only on a green main.
+Because `main` is protected and a second board-sync PR creates extra maintainer
+work, the preferred automated path is a repository-installed "APL Board Sync"
+GitHub App with contents-write permission, exposed to the workflow through
+`APL_BOARD_SYNC_APP_CLIENT_ID` and `APL_BOARD_SYNC_APP_PRIVATE_KEY`, and granted
+the narrow branch-protection bypass needed for generated navigation commits.
+The workflow must block unexpected paths before pushing and should only write
+`docs/task-views/*.md` plus deterministic safe-closeout `tasks/TASK-*.yaml`
+updates. Do not add a broad direct-push bypass for `github-actions[bot]`.
 The `full_repo` signal is load-bearing here: per
 [`docs/ci-full-repo-policy.md`](ci-full-repo-policy.md) a risk-based PR gate plus
 a nightly watchdog keep `full_repo` status honest, and commit-safe auto-closeout

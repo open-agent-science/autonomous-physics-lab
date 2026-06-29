@@ -1,7 +1,7 @@
 id: TASK-0871
 title: "Route the Quantum effective-mass scaling transfer failure as negative memory"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -54,4 +54,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
