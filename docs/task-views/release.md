@@ -15,3 +15,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0883` - Harden CI: fork-guard the self-hosted PR runner so untrusted fork-PR code runs on GitHub-hosted runners (public-repo RCE guard) (`maintainer_tooling`, priority `high`, difficulty `low`, domain `ci_security`)
+- `TASK-0884` - Docs coherence: correct now-false 'still private' wording after the v0.2 public opening (strategy + contributor pilot) (`documentation`, priority `medium`, difficulty `low`, domain `release_readiness`)

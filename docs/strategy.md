@@ -180,8 +180,9 @@ The repository uses a shared task pool with branch-based execution.
 - task files and board state remain the coordination layer;
 - maintainer review stays the decision point for merge and closeout.
 
-The repository remains private until the release gates are satisfied and a
-maintainer decides the v0.2 narrative matches the evidence.
+The repository was private through the contributor pilot and was opened publicly
+on 2026-06-28, after the release gates were satisfied and the maintainer
+confirmed the v0.2 narrative matched the evidence.
 
 ## Non-Goals
 
