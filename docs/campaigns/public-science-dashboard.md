@@ -270,6 +270,44 @@ repository, DOI, or promoted materials claim.
 - [Materials data area](../../data/materials/README.md)
 - [Published-source and reusable-dataset standard](../published-source-dataset-standard.md)
 
+### Thermophysical Property Residuals
+
+**Short version:** APL now has a newly active thermophysical-property benchmark
+lane. The first slice is ThermoML normal boiling temperature (`Tb`) with a
+frozen Joback and Reid group-contribution baseline. `RESULT-0026` is
+AGENT_PUBLISHED on a bounded 40-row family-stratified fixture; it is not yet
+Gate-B replayed or maintainer-reviewed.
+
+**Result capsule - RESULT-0026 (ThermoML Tb / Joback):**
+
+- **Source:** NIST TRC ThermoML Archive, DOI `10.18434/mds2-2422`, with archive
+  checksum and rights boundary recorded in
+  `data/thermophysical/source_manifest.yaml`. Raw archive bytes and a
+  substantial normalized corpus are not committed.
+- **Primary metric:** frozen Joback aggregate MAE **14.925825 K** versus best
+  non-oracle aggregate control **43.427943 K**, a **28.502118 K** margin against
+  the predeclared `5 K` aggregate threshold.
+- **Family survival:** 7 of 8 held-out families clear the survival margin.
+  `esters/lactones` fails the family margin and should be treated as
+  negative/control memory.
+- **Review status:** AGENT_PUBLISHED, Gate A PASS, Gate B not attempted.
+- **No-claim wording:** bounded `Tb` transfer on a 40-row fixture, not universal
+  Joback validation, thermophysical law, chemical design, process design, or
+  support for `Tc` / other property estimates.
+
+**Why it is interesting:** it adds a public-friendly data-and-baseline surface
+outside astronomy and materials DFT, while keeping source rights, identity
+mapping, property leakage, and family failures visible.
+
+**Evidence trail:**
+
+- [Thermophysical Property Residuals campaign page](./thermophysical-property-residuals.md)
+- [ThermoML source manifest](../../data/thermophysical/source_manifest.yaml)
+- [ThermoML bounded Tb audit fixture](../../data/thermophysical/thermoml_tb_audit_fixture.yaml)
+- [ThermoML family-stratified benchmark review](../reviews/thermoml-tb-family-stratified-transfer-benchmark.md)
+- [RESULT-0026 report](../../results/EXP-0020/RUN-0001/report.md)
+- [RESULT-0026 Gate A report](../../results/EXP-0020/RUN-0001/gate_a_report.md)
+
 ## Campaign Snapshot
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
@@ -280,6 +318,7 @@ repository, DOI, or promoted materials claim.
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | How should the current two-row, Nemitz-dominated Yb/Sr blocker be communicated safely? | Beloy 2021 and Nemitz 2016 support a narrow exploratory Yb/Sr diagnostic: `|z| = 1.78`, consistent within a predeclared 2-sigma threshold, but two-row and source-limited; Pizzocaro still needs an aggregation contract. | Public-safe consistency memory packaging; no metric rerun. | A memory-card summary, not constants-drift metrics. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L now has AGENT_VALIDATED `RESULT-0022`, AGENT_PUBLISHED FIRAS/Wien `RESULT-0023`, and replayed high-mass transfer memory for `RESULT-0024`. | RESULT-0023 Gate B replay and safe RESULT-0024 maintainer wording. | A replay verdict or maintainer-review packet, not universal formula wording. |
 | [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; formation energy survives controls and is split-robust; band gap is split-fragile; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021`; family-holdout and descriptor-ablation audits bound the signal, and transfer-negative memory prevents overbroad wording. | External archive/DOI decision for MD-0002 after internal metadata closeout. | A release decision packet, not a material recommendation. |
+| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can a frozen published thermophysical estimator survive source-pinned family-stratified controls? | ThermoML `Tb` `RESULT-0026` is AGENT_PUBLISHED on a bounded 40-row fixture: Joback wins in aggregate and 7/8 families, while esters/lactones fails and must stay visible. | Gate B replay, value-free corpus-expansion preflight, and failed-family negative memory. | A replay verdict or source-readiness/negative-memory note, not a broad property-estimation claim. |
 
 ## What Is Interesting Right Now
 
