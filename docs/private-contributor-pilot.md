@@ -8,7 +8,7 @@ The repository is public as of 2026-06-28 (v0.2 public-alpha). Contributions
 should still optimize for reproducible scientific work, task clarity, and review
 discipline rather than speed or broad visibility.
 
-For the current pre-public validation gates, see
+For the recorded pre-public validation gates, see
 [private-contributor-validation-plan.md](./private-contributor-validation-plan.md),
 [private-agent-test-metrics.md](./private-agent-test-metrics.md), and
 [private-contributor-scorecard.md](./private-contributor-scorecard.md).

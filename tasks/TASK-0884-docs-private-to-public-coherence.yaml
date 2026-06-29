@@ -30,13 +30,13 @@ input:
 
 requirements:
   - "In docs/strategy.md, change the 'repository remains private until...' status sentence to past tense reflecting the recorded 2026-06-28 public opening."
-  - "In docs/private-contributor-pilot.md, correct 'The repository is still private.' to the public state (public as of 2026-06-28); reframe the v0.1-private-alpha intro so it reads as the pilot origin with still-applicable guidance; and retitle the 'Clone the Private Repository' heading."
+  - "In docs/private-contributor-pilot.md, correct 'The repository is still private.' to the public state (public as of 2026-06-28); reframe the v0.1-private-alpha intro so it reads as the pilot origin with still-applicable guidance; retitle the 'Clone the Private Repository' heading; and avoid describing pre-public validation gates as current."
   - "Do NOT restructure or delete the still-valid contributor workflow guidance (branch naming, PR requirements, validation); only correct the false private-state wording."
   - "Do not touch the dated docs/reviews/* signoffs or the other private-* pilot docs in this task; those are historical or separately scoped."
   - "No scientific artifact, RESULT, PRED, CLAIM, or KNOWLEDGE is created or modified; documentation only."
 
 accepted_outputs:
-  - "docs/strategy.md and docs/private-contributor-pilot.md no longer assert the repository is private; the public v0.2 opening is reflected and the contributor workflow guidance is preserved."
+  - "docs/strategy.md and docs/private-contributor-pilot.md no longer assert the repository is private or treat pre-public gates as current; the public v0.2 opening is reflected and the contributor workflow guidance is preserved."
   - "Output-routing summary: post-public documentation coherence fix; no scientific artifact; CI verifies docs links."
 
 result_artifact_policy:
