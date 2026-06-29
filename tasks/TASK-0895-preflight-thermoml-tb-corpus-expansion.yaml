@@ -1,0 +1,58 @@
+id: TASK-0895
+title: "Preflight a value-free ThermoML Tb corpus-expansion manifest"
+type: scientific_source_curation
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "RESULT-0026 is useful but bounded to a 40-row audit fixture; the next expansion must be source-readiness first."
+  - "ThermoML rights, identity mapping, row class, and extraction-size boundaries must be settled before any larger fixture or benchmark is proposed."
+  - "A value-free preflight lets the campaign learn whether expansion is possible without committing raw archive bytes or new values."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "data/thermophysical/source_manifest.yaml"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "docs/reviews/thermoml-tb-family-stratified-transfer-benchmark.md"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "scripts/extract_thermoml_tb_audit_fixture.py"
+  planning_context: >
+    The current source manifest records a ThermoML Archive route and a bounded
+    factual extract. This task does not fetch, parse, or commit additional
+    ThermoML values. It prepares the source-readiness decision for whether a
+    larger Tb-only corpus can later be built under the repository's rights and
+    no-claim constraints.
+
+requirements:
+  - "Use only committed manifests, fixture metadata, existing review notes, and code references; do not run a live archive fetch or commit new ThermoML values."
+  - "Define the expansion contract for Tb-only rows: source locator, archive checksum, local-analysis rights, identity resolution, pure-component filter, row-class exclusions, duplicate/conflict policy, family taxonomy, and bounded-extract limit."
+  - "State which parts require maintainer action outside the repository, such as local archive access or a rights decision."
+  - "Stop with BLOCKED if the campaign cannot define a value-free, rights-aware expansion route."
+  - "Do not authorize Tc, critical-property, vapor-pressure, heat-capacity, mixture, process-design, chemical-design, or safety claims."
+
+accepted_outputs:
+  - "A source-readiness preflight note under docs/reviews/ with READY, BLOCKED, or NEEDS_MAINTAINER_SOURCE_DECISION verdict."
+  - "A future row-curation task shape only if the route clears rights, identity, row-class, and bounded-extract gates."
+  - "Output-routing summary: source-readiness only, no RESULT/PRED/CLAIM/KNOW mutation, no new values committed."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness preflight only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

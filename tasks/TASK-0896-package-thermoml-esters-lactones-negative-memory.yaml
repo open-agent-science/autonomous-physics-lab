@@ -1,0 +1,57 @@
+id: TASK-0896
+title: "Package the ThermoML esters/lactones failed-family result as negative memory"
+type: scientific_result_publication
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "RESULT-0026 is positive in aggregate but explicitly fails the esters/lactones held-out family margin."
+  - "The failed family is valuable negative/control memory that prevents future agents from overstating Joback transfer."
+  - "A bounded memory note can support public wording without creating a broad claim or editing RESULT-0026."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0001/metrics.json"
+    - "results/EXP-0020/RUN-0001/report.md"
+    - "docs/reviews/thermoml-tb-family-stratified-transfer-benchmark.md"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+  planning_context: >
+    RESULT-0026 clears aggregate and two-thirds family-survival gates, but the
+    esters/lactones family margin is negative. This task packages that failed
+    family as durable negative/control memory while keeping the aggregate
+    result and review tier unchanged.
+
+requirements:
+  - "Extract the esters/lactones evidence from committed RESULT-0026 metrics and report it alongside the aggregate win."
+  - "Explain why the failed family blocks universal Joback wording and why it should guide any future corpus expansion or family-specific audit."
+  - "Do not edit RESULT-0026 metrics, fixture rows, Joback coefficients, claims, knowledge, or prediction registry entries."
+  - "Do not create a new RESULT unless a separate maintainer-approved task later requires it."
+  - "No chemical-design, process-design, safety, synthesis, universal-accuracy, or broad property-estimation claim."
+
+accepted_outputs:
+  - "A negative/control memory note under docs/reviews/ with evidence table, scope, public-safe wording, and stop conditions for future agents."
+  - "A campaign-page wording suggestion only if it stays public-safe and cites RESULT-0026 limitations."
+  - "Output-routing summary: negative/control memory only, Gate A existing for RESULT-0026, Gate B not attempted, claim impact none, knowledge impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Negative/control memory note only; no new result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

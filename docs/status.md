@@ -23,10 +23,10 @@ For linkable, public-safe summaries of active campaign results, use the
 
 ## Current Focus
 
-APL is concentrating on six public-facing research surfaces. The current
-center of gravity is the new Materials/Stellar result-validation wave, while
-Nuclear remains the highest-ambition flagship and several other campaigns stay
-explicitly source- or trigger-gated.
+APL is concentrating on seven public-facing research surfaces. The current
+center of gravity is the Materials/Stellar/ThermoML result-validation wave,
+while Nuclear remains the highest-ambition flagship and several other campaigns
+stay explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
@@ -36,6 +36,7 @@ explicitly source- or trigger-gated.
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | The current snapshot is closed as negative/control memory; next useful work is source-version monitoring and `EXO-0003` trigger discipline, not another residual pilot |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Six direct Almeida InP rows and a source-scoped sandbox baseline exist; the next transfer route is source/license-gated on ZnSe/Toufanian, and the failed effective-mass transfer check is now preserved as bounded negative memory |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy rows exist and Pizzocaro windows are diagnostic; benchmark metrics wait on admitted independent rows or an approved aggregation/harmonization contract |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A newly active source-pinned ThermoML `Tb` benchmark lane with AGENT_PUBLISHED `RESULT-0026` and a frozen Joback baseline | Gate B replay, value-free corpus-expansion preflight, and failed-family negative memory; no raw archive vendoring, `Tc` broadening, chemical-design, or process-design wording |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -46,8 +47,8 @@ Use the full [campaign map](./campaigns/README.md) for the complete list.
 
 ## What We Have So Far
 
-The repository currently stores eighteen canonical experiment files and
-twenty-five canonical result artifacts. The strongest evidence is not a single
+The repository currently stores nineteen canonical experiment files and
+twenty-six canonical result artifacts. The strongest evidence is not a single
 spectacular claim; it is a growing public memory of tests, failures, baselines,
 and review artifacts.
 
@@ -99,6 +100,10 @@ Highlights:
   synthesis guide, experimental measurement, or materials-law claim. Repository
   release metadata is now closed; external archive/DOI release remains a
   maintainer-gated decision.
+- Thermophysical Property Residuals starts from ThermoML `Tb` `RESULT-0026`,
+  an AGENT_PUBLISHED bounded Joback transfer benchmark on a 40-row
+  family-stratified fixture. Aggregate transfer is positive in scope, but the
+  esters/lactones family fails its margin; Gate B replay is still required.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -141,6 +146,9 @@ Important operating rules:
   decisions, not broader benchmark expansion. Their validated/replayed
   artifacts do not support broad property-law, material-design,
   universal-formula, or application-domain claims.
+- Thermophysical work is active but narrow: `RESULT-0026` is `Tb`-only,
+  AGENT_PUBLISHED, and not yet independently replayed. Do not broaden to `Tc`
+  or other ThermoML properties before a separate leakage and source gate.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 
