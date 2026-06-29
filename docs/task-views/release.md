@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0883` - Harden CI: fork-guard the self-hosted PR runner so untrusted fork-PR code runs on GitHub-hosted runners (public-repo RCE guard) (`maintainer_tooling`, priority `high`, difficulty `low`, domain `ci_security`)

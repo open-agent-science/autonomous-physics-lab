@@ -1,0 +1,55 @@
+id: TASK-0883
+title: "Harden CI: fork-guard the self-hosted PR runner so untrusted fork-PR code runs on GitHub-hosted runners (public-repo RCE guard)"
+type: maintainer_tooling
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Now that the repository is public (v0.2 opening, 2026-06-28), the required 'Python fast tests (3.12)' PR check runs on self-hosted runners for every pull_request, including forks -- a standard public-repo remote-code-execution exposure (a fork PR can execute arbitrary code on self-hosted infrastructure)."
+  - "Keep self-hosted speed for trusted same-repo PRs while routing untrusted fork PRs to disposable GitHub-hosted runners; the required check NAME is unchanged so branch protection still applies on both paths."
+  - "Minimal, surgical workflow change; no behavioural change for trusted contributors."
+
+input:
+  mode: workflow
+  related_domain: ci_security
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    The CI 'pull-request' job (required check 'Python fast tests (3.12)') is
+    pinned to self-hosted runners (APL_PR_RUNNER_LABELS default
+    ["self-hosted","linux","x64"]) with `if: github.event_name == 'pull_request'`
+    and no fork guard. On the now-public repo this lets fork-PR code run on the
+    maintainer's self-hosted runners (apl-selfhosted-1, ubuntu-8gb-hel1-2). This
+    task adds a fork-guard so the job picks self-hosted only when the PR head repo
+    is the same repository, and falls back to ubuntu-latest for forks. The job
+    name -- and therefore the required status check -- is unchanged. The push-only
+    'main-matrix' job is not fork-exposed and is left as-is.
+
+requirements:
+  - "In .github/workflows/ci.yml, change the 'pull-request' job runs-on to select the self-hosted labels only when github.event.pull_request.head.repo.full_name == github.repository, else ubuntu-latest. Do NOT rename the job (the required check 'Python fast tests (3.12)' must stay identical so branch protection keeps applying to fork PRs)."
+  - "Do not weaken the checks the job runs (ruff, validate-repo, strict validate, targeted/full pytest); only the runner selection changes."
+  - "Leave the push-only 'main-matrix' job unchanged (it does not run on fork PRs)."
+  - "Pair this with the maintainer GitHub setting 'Require approval for all outside collaborators' for fork PR workflows (UI-only; recorded here as the complementary control)."
+  - "No scientific artifact, RESULT, PRED, CLAIM, or KNOWLEDGE is created or modified; CI tooling only."
+
+accepted_outputs:
+  - "ci.yml 'pull-request' job runs-on fork-guarded: self-hosted for same-repo PRs, ubuntu-latest for forks, with the required check name unchanged."
+  - "Output-routing summary: CI security hardening for the public repo; no scientific artifact; CI verifies the change on this PR."
+
+result_artifact_policy:
+  required: false
+  reason: "CI workflow security hardening only; no RESULT/PRED/CLAIM/KNOWLEDGE artifact is created or modified."
+  evidence:
+    - ".github/workflows/ci.yml"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
