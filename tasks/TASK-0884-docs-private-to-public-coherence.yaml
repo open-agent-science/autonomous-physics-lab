@@ -1,0 +1,57 @@
+id: TASK-0884
+title: "Docs coherence: correct now-false 'still private' wording after the v0.2 public opening (strategy + contributor pilot)"
+type: documentation
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "The repository opened publicly on 2026-06-28 (v0.2 public-alpha). The TASK-0882 coherence pass and the TASK-0879 opening signoff already corrected README, roadmap, status, releases, and the gate docs, but two live docs still assert the repository is private."
+  - "Correct only the now-false present-tense statements; do not rewrite the historical contributor-pilot guidance, which still applies."
+  - "No scientific artifact change; documentation coherence only."
+
+input:
+  mode: workflow
+  related_domain: release_readiness
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/private-contributor-pilot.md"
+  planning_context: >
+    After the v0.2 public opening (2026-06-28), a post-opening coherence audit
+    found two live docs still stating the repository is private:
+    docs/strategy.md ("The repository remains private until the release gates are
+    satisfied...") and docs/private-contributor-pilot.md ("The repository is still
+    private."). The gate docs (public-release-gates.md, release-checklist.md) and
+    the README/roadmap/status set were already corrected by TASK-0879 and
+    TASK-0882. This task fixes only the remaining now-false present-tense wording,
+    in past tense / public-state form, without restructuring the still-valid pilot
+    workflow guidance.
+
+requirements:
+  - "In docs/strategy.md, change the 'repository remains private until...' status sentence to past tense reflecting the recorded 2026-06-28 public opening."
+  - "In docs/private-contributor-pilot.md, correct 'The repository is still private.' to the public state (public as of 2026-06-28); reframe the v0.1-private-alpha intro so it reads as the pilot origin with still-applicable guidance; retitle the 'Clone the Private Repository' heading; and avoid describing pre-public validation gates as current."
+  - "Do NOT restructure or delete the still-valid contributor workflow guidance (branch naming, PR requirements, validation); only correct the false private-state wording."
+  - "Do not touch the dated docs/reviews/* signoffs or the other private-* pilot docs in this task; those are historical or separately scoped."
+  - "No scientific artifact, RESULT, PRED, CLAIM, or KNOWLEDGE is created or modified; documentation only."
+
+accepted_outputs:
+  - "docs/strategy.md and docs/private-contributor-pilot.md no longer assert the repository is private or treat pre-public gates as current; the public v0.2 opening is reflected and the contributor workflow guidance is preserved."
+  - "Output-routing summary: post-public documentation coherence fix; no scientific artifact; CI verifies docs links."
+
+result_artifact_policy:
+  required: false
+  reason: "Documentation coherence fix only; no RESULT/PRED/CLAIM/KNOWLEDGE artifact is created or modified."
+  evidence:
+    - "docs/strategy.md"
+    - "docs/private-contributor-pilot.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_docs_links.py"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

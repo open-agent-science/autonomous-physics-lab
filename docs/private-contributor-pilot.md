@@ -1,20 +1,21 @@
 # Private Contributor Pilot
 
-This document explains how invited contributors should work during
-`v0.1-private-alpha`.
+This document explains how invited contributors should work. It originated in the
+`v0.1-private-alpha` contributor pilot; the same workflow discipline applies now
+that the repository is public.
 
-The repository is still private. Contributions should optimize for reproducible
-scientific work, task clarity, and review discipline rather than speed or broad
-visibility.
+The repository is public as of 2026-06-28 (v0.2 public-alpha). Contributions
+should still optimize for reproducible scientific work, task clarity, and review
+discipline rather than speed or broad visibility.
 
-For the current pre-public validation gates, see
+For the recorded pre-public validation gates, see
 [private-contributor-validation-plan.md](./private-contributor-validation-plan.md),
 [private-agent-test-metrics.md](./private-agent-test-metrics.md), and
 [private-contributor-scorecard.md](./private-contributor-scorecard.md).
 For a practical Level 1/2/3 onboarding ladder, use
 [private-agent-challenge-pack.md](./private-agent-challenge-pack.md).
 
-## Clone the Private Repository
+## Clone the Repository
 
 After the maintainer grants access, clone the repository with HTTPS:
 
