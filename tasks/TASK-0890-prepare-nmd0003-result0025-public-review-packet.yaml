@@ -1,7 +1,7 @@
 id: TASK-0890
 title: "Prepare a public-safe maintainer-review packet for Nuclear RESULT-0025 point-estimator evidence"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
