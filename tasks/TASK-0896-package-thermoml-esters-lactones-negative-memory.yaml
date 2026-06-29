@@ -1,7 +1,7 @@
 id: TASK-0896
 title: "Package the ThermoML esters/lactones failed-family result as negative memory"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -42,7 +42,7 @@ result_artifact_policy:
   required: false
   reason: "Negative/control memory note only; no new result or prediction artifact is produced."
   evidence:
-    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
 
 validation:
   commands:

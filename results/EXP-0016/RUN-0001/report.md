@@ -1,7 +1,7 @@
 # RESULT-0023 — FIRAS/Wien Spectral-Domain Peak Consistency Slice
 
 - Experiment: EXP-0016 · Run: RUN-0001 · Hypothesis: HYP-0016 · Task: TASK-0845
-- Review tier: AGENT_PUBLISHED (agent-published; not independently validated)
+- Review tier: AGENT_VALIDATED (agent-validated by independent replay; not maintainer-reviewed)
 - Verdict: VALID_IN_RANGE (maps the run verdict CONSISTENT_IN_SCOPE)
 
 ## Headline
@@ -24,9 +24,7 @@ universal textbook truth. The reference temperature is itself a Planck fit to FI
 
 ## Gate B
 
-Workflow packaging is now available through `physics-lab run`; independent Gate B
-validation still requires a different agent identity to run the replay helper and record
-the AGENT_VALIDATED transition. This PR does not perform that promotion.
+Independent Gate B replay passed through the committed `physics-lab run` workflow. The replay reproduced 27 numeric RESULT fields within tolerance `1e-09`, with maximum absolute drift `9.275010772434589e-20`, and preserved `VALID_IN_RANGE`. This validates deterministic reproduction of `RESULT-0023`; it is still not maintainer endorsement or independent empirical validation of Wien displacement.
 
 ## Reproduce
 
