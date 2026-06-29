@@ -83,7 +83,10 @@ jobs:
 
   pull-request:
     name: Python fast tests (3.12)
-    runs-on: ${{ fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
+    # Fork-guard (public-repo RCE protection): trusted same-repo PRs use the fast
+    # self-hosted runners; PRs from forks run this required check on a disposable
+    # GitHub-hosted runner so untrusted PR code never executes on self-hosted infra.
+    runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') || 'ubuntu-latest' }}
     needs: classify
     if: github.event_name == 'pull_request'
 
