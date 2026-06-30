@@ -1,7 +1,7 @@
 id: TASK-0782
 title: "Adjudicate Dimensional RESULT-0020 Gate B packaging contest"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -50,8 +50,14 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_result_publication_gate.py tests/test_agent_replay_validation.py tests/test_docs_links.py"
-    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+  # The Gate B replay path is exercised by tests/test_agent_replay_validation.py
+  # above (matching the sibling Gate B replay tasks). The parametrized
+  # `apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml`
+  # invocation requires a per-run --output-dir and validator identity, so it is
+  # recorded with its concrete substitution and PASS verdict in
+  # docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md rather
+  # than as a literal machine-run command with unsubstituted placeholders.
 
 can_be_done_by:
   - human
