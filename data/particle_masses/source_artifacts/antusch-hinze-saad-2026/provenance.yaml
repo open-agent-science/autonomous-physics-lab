@@ -1,0 +1,106 @@
+artifact_id: PARTICLE-MASS-SRC-ARTIFACT-2026-AHS
+schema_version: 0.1.0
+task_id: TASK-0902
+artifact_status: METADATA_ONLY_PINNED
+campaign_profile_id: particle-mass-relations
+retrieval_date_utc: 2026-06-30
+
+source:
+  title: "Updated running quark and lepton parameters at various scales"
+  authors: "Stefan Antusch, Kevin Hinze, and Shaikh Saad"
+  publication_of_record:
+    status: not_pinned_public_article_metadata_unverified
+    journal: "Physical Review D"
+    arxiv_comment: "arXiv v2 states that the version was accepted for publication in PRD."
+    blocked_fields:
+      - volume
+      - article_number
+      - publication_date
+      - doi
+      - publisher_locator
+    review_note: >
+      Do not cite a PRD volume, article number, publication date, DOI, or
+      publisher article locator until a public publisher page or Crossref record
+      is independently verified in a separate metadata refresh.
+  accepted_manuscript:
+    identifier: "arXiv:2510.01312v2"
+    revised_date: 2026-03-23
+    abstract_locator: "https://arxiv.org/abs/2510.01312v2"
+    pdf_locator: "https://arxiv.org/pdf/2510.01312v2"
+    arxiv_doi: "10.48550/arXiv.2510.01312"
+  license:
+    identifier: "CC-BY-4.0"
+    locator: "https://creativecommons.org/licenses/by/4.0/"
+    license_surface: "arxiv_abs_page_license_badge"
+    publisher_status: "not_pinned"
+    attribution_required: true
+
+artifact:
+  type: metadata_only_source_pin
+  value_bearing: false
+  source_files_vendored: []
+  checksum_sha256: null
+  checksum_scope: "not_applicable_no_source_bytes_committed"
+  live_fetch_after_pinning: false
+  redistribution_decision: metadata_only_upstream_locators
+
+pinned_surface:
+  input_edition: "2024 Particle Data Group"
+  theory_branch: "Standard Model"
+  representation: running_yukawa
+  row_class: derived_running_yukawa
+  units: dimensionless
+  renormalization_scheme: "MS-bar"
+  renormalization_scale: "M_Z"
+  exact_location: "Equation (2.4), 2024-PDG M_Z results"
+  table_context: >
+    Table 2 is the 2024-PDG SM higher-scale running table. It is not the
+    selected M_Z surface; the M_Z Yukawa values are stated in Equation (2.4).
+  selected_parameter_labels:
+    - y_u
+    - y_d
+    - y_s
+    - y_c
+    - y_b
+    - y_t
+  values_transcribed: false
+
+method_and_uncertainty:
+  low_scale_inputs: "2024 PDG masses and electroweak inputs"
+  mz_matching_and_running: "SMDR with QCD, electroweak, and mixed matching/running contributions"
+  sampling: "100000 input samples with assumed Gaussian errors"
+  interval_semantics: "source-reported one-sigma highest-posterior-density intervals"
+  confidence_conversion_note: >
+    The source states that non-top quark-mass inputs reported by PDG at 90%
+    confidence were rescaled to one-sigma before propagation.
+  covariance_status: "no recoverable six-parameter covariance matrix pinned"
+  dependence_note: >
+    All six Yukawa outputs share PDG and Standard Model matching/running inputs;
+    marginal intervals must not be treated as statistically independent.
+  top_provenance: >
+    The source starts from a top pole-mass input and derives y_t(M_Z) through
+    its documented Standard Model matching and running pipeline.
+
+row_admissibility:
+  inclusion_status: metadata_only_no_rows
+  target_dataset_role: separate_common_scheme_sensitivity_surface
+  existing_dataset_overwrite_allowed: false
+  next_allowed_step: >
+    A separate maintainer-approved task may transcribe and freeze Equation
+    (2.4) values with attribution, source-version checksum, and schema tests,
+    without running Koide metrics in the same task.
+  blocked_actions:
+    - transcribe_six_quark_values
+    - convert_yukawa_to_mass_silently
+    - overwrite_existing_particle_mass_rows
+    - run_koide_metrics
+    - edit_result_0011
+    - edit_claim_0007
+    - assert_independent_output_uncertainties
+
+review:
+  review_status: SOURCE_METADATA_PINNED_VALUES_NOT_CURATED
+  review_doc: docs/reviews/particle-common-scheme-source-artifact.md
+  claim_impact: none
+  result_impact: none
+  knowledge_impact: none
