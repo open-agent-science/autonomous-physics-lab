@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0903` - Prepare the Quantum ZnSe frozen-row transfer-readiness gate (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0904` - Decide whether Exoplanet null-baseline memory should get canonical experiment identity (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `astrophysics`)
 
 ## IN_PROGRESS
 
@@ -21,3 +20,4 @@ None.
 - `TASK-0890` - Prepare a public-safe maintainer-review packet for Nuclear RESULT-0025 point-estimator evidence (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0896` - Package the ThermoML esters/lactones failed-family result as negative memory (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
 - `TASK-0897` - Prepare a Textbook Formula Audit maintainer-review packet for FIRAS/Wien RESULT-0023 (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `cross_domain_physics`)
+- `TASK-0904` - Decide whether Exoplanet null-baseline memory should get canonical experiment identity (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `astrophysics`)
