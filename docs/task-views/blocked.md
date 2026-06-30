@@ -6,7 +6,7 @@
 
 ## Release Blockers
 
-- `TASK-0782` - Adjudicate Dimensional RESULT-0020 Gate B packaging contest (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `dimensional_analysis_validator`)
+None.
 
 ## Research Blockers
 
