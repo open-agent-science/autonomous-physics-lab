@@ -1,0 +1,58 @@
+id: TASK-0903
+title: "Prepare the Quantum ZnSe frozen-row transfer-readiness gate"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0870 resolved the Toufanian ZnSe route as ready for limited factual numeric rows, with source bytes still blocked."
+  - "Quantum already has InP baseline memory and a failed effective-mass transfer; the next step is a frozen-row readiness gate before any new transfer benchmark."
+  - "This prevents agents from using the license decision to restart open-ended correction search."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+    - "docs/reviews/quantum-effective-mass-transfer-negative-memory.md"
+    - "campaign_profiles/quantum-size-effects.yaml"
+  planning_context: >
+    The source-rights route is narrow but usable for the already committed
+    ZnSe rows. Before another benchmark, the campaign needs a frozen input and
+    no-leakage readiness gate that states exactly what a later transfer task may
+    compare and what remains forbidden.
+
+requirements:
+  - "Audit the existing ZnSe row file, source manifest, units, direct SAXS diameter semantics, absorption peak semantics, and source-rights limits without adding rows."
+  - "Define the exact frozen-row input set and admissible comparison axes for a future transfer benchmark, preserving InP/ZnSe separation and failed effective-mass negative memory."
+  - "State whether a later transfer benchmark is READY, BLOCKED, or NEEDS_MAINTAINER_DECISION."
+  - "Do not refit a model, search correction terms, mix ZnSe with calibration-derived sizing curves as truth, vendor source bytes, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No universal quantum-dot size law, material recommendation, biomedical, device-performance, or design wording."
+
+accepted_outputs:
+  - "A docs/reviews readiness note with row freeze, admissible metrics, source-rights boundary, leakage risks, stop conditions, and future task shape."
+  - "Optional metadata-only source manifest clarification if needed, without changing value-bearing rows."
+  - "Output-routing summary: source/transfer readiness only, no benchmark metric or claim mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Transfer-readiness gate only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

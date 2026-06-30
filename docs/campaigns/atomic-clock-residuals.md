@@ -54,6 +54,9 @@ prediction entries, or `RESULT`/`CLAIM`/`KNOW` promotion.
 
 **Reopen condition:** a new independent absolute Yb/Sr source row, or a
 maintainer-approved Pizzocaro aggregation/observable-harmonization contract.
+The current source candidate is the McGrew 2018 / NIST route, but it remains
+unadmitted until primary absolute-ratio semantics and independence from the
+Beloy/BACON network are adjudicated.
 
 **Active next work:** `TASK-0704`, `TASK-0705`, `TASK-0456`, `TASK-0742`, and
 `TASK-0756` are all routed: the Nemitz `ACR-0002` row was committed, the
@@ -78,12 +81,15 @@ kept the conservative decision: the current committed Pizzocaro evidence
 defines requirements but still does not authorize a Pizzocaro ACR row or
 benchmark.
 
-**Expected next result:** no immediate Atomic benchmark result. The latest
-contract review preserved blocker memory for the checked Pizzocaro path. The
-next useful action is either a narrow independent absolute Yb/Sr source-route
-scout or a maintainer-approved aggregation decision. No constants-drift,
-new-constant, anomaly, prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in
-scope.
+`TASK-0889` then identified McGrew 2018 / NIST as a plausible next route but
+left two blockers: whether the source supplies a primary absolute Yb/Sr ratio
+with recoverable uncertainty semantics, and whether it is independent enough
+from the Beloy/BACON network to count as a new row.
+
+**Expected next result:** no immediate Atomic benchmark result. The next useful
+action is `TASK-0901`, a value-blind McGrew/NIST adjudication before row
+curation. No constants-drift, new-constant, anomaly, prediction, `RESULT`,
+`CLAIM`, or `KNOW` framing is in scope.
 
 `TASK-0311` adds:
 

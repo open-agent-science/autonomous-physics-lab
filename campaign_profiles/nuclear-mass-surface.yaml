@@ -129,16 +129,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "frozen baseline, sandbox diagnostics, RESULT-0018 AGENT_VALIDATED diagnostic memory, WIGNER-CUSP-001 rejected by its controls-first sprint, and reveal scoring still source-manifest blocked after value-blind preflight"
+  current_stage: "frozen baseline, RESULT-0018 AGENT_VALIDATED diagnostic memory, RESULT-0025 point-estimator evidence with exact Gate B replay, no-peek uncertainty-route preflight complete, canonical DZ10 wrapper awaiting closeout, and reveal scoring still source/uncertainty blocked"
   recommended_parallel_agents: 3
-  coordination_notes: "WIGNER-CUSP-001 is now negative sandbox memory. Keep value-blind reveal-source preflight separate, and do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint."
+  coordination_notes: "Do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint. Current executable work is no-peek uncertainty calibration for RESULT-0025; DZ10 parity should wait for TASK-0878 closeout or a later source-rights-safe follow-up."
   next_validity_gate:
     type: external_reveal
-    blocker: "Reveal scoring still lacks an accepted post-freeze measured-source manifest, no-peek source review, and maintainer source approval after the landed value-blind route scout."
-    target_artifact: "TASK-0821"
+    blocker: "Prediction freeze remains blocked until a no-peek uncertainty-calibration metric audit passes and a source-grade reveal route is accepted; RESULT-0025 is point-estimator evidence only."
+    target_artifact: "TASK-0899"
   best_next_actions:
-    - task_id: TASK-0821
-      label: "Close out the landed value-blind reveal-source route scout, then decide whether a manifest-pinning task is warranted"
+    - task_id: TASK-0899
+      label: "Run no-peek NMD-0003 GP uncertainty-calibration metric audit"
   required_gates:
     - "Use the source-gated NMD-0003 measured-row training surface and frozen split manifest for the next broad Nuclear factory sprint."
     - "No reveal scoring before a source-grade no-peek release passes preflight."
@@ -156,18 +156,22 @@ portfolio:
     - "docs/reviews/nuclear-next-non-f2-lane-selection.md"
     - "docs/reviews/nuclear-f6-wigner-cusp-no-leakage-sprint.md"
     - "docs/reviews/nuclear-reveal-source-manifest-preflight.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "docs/reviews/nmd0003-result0025-public-review-packet.md"
+    - "docs/reviews/nmd0003-gp-no-peek-uncertainty-route-preflight.md"
+    - "docs/reviews/canonical-dz10-reference-wrapper.md"
     - "agent_runs/AGENT-RUN-0075/report.md"
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
   open_questions:
-    - "What materially different source or baseline change would be required before any new non-F2 lane is justified?"
-    - "Would any future F2 work require a new taxonomy rather than another audit of the same signal?"
-    - "What future source can satisfy the reveal-readiness checklist?"
+    - "Can a predeclared train-only uncertainty route improve both central coverage and tail behavior without holdout leakage?"
+    - "Should RESULT-0025 receive point-estimator-only public-card wording while interval calibration stays blocked?"
+    - "What source-byte/cache route can support full AMDC DZ10 parity without vendoring restricted source bytes?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-17"
+    last_reviewed: "2026-06-30"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "RESULT-0018, TASK-0777 Wigner-cusp negative sprint, completed TASK-0778 reveal-source preflight, completed TASK-0803 negative-memory routing, and TASK-0821 source-route scouting"
-    notes: "Flagship lane remains high-value as validated negative/diagnostic memory plus prediction-reveal discipline. Wigner-cusp is rejected in scope, reveal scoring remains source-manifest blocked after the landed value-blind source-route scout, and no new factory sprint is advertised."
+    source: "RESULT-0025 public packet, TASK-0865 no-peek uncertainty preflight, TASK-0878 DZ10 wrapper, and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "Flagship remains reveal-blocked. RESULT-0025 has a strong replayed point-estimator gain but no calibrated intervals. The next useful work is the no-peek uncertainty metric audit and source-rights-safe DZ10 parity path, not another broad residual factory."

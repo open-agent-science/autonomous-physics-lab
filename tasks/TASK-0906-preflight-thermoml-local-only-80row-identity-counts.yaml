@@ -1,0 +1,58 @@
+id: TASK-0906
+title: "Preflight Thermophysical ThermoML 80-row expansion identity counts as local-only metadata"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0895 defined an 80-row ThermoML Tb expansion contract but left public extraction rights as a maintainer decision."
+  - "A local-only non-value count preflight can test whether the proposed identity/family/coverage gates are feasible before any public row extract is authorized."
+  - "This advances source readiness without committing archive bytes, normalized rows, or benchmark metrics."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/campaigns/thermophysical-property-residuals.md"
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+    - "data/thermophysical/source_manifest.yaml"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+  planning_context: >
+    The proposed 80-row expansion needs to know whether each of the eight
+    existing families can supply ten admissible, non-conflict, Joback-covered
+    identities under the frozen rules. This task may run only against a local,
+    maintainer-provided verified archive and may publish counts/exclusion
+    summaries only, not value-bearing rows.
+
+requirements:
+  - "Use only the verified ThermoML v1.2.6 archive route from the source manifest; if the archive is unavailable locally, stop with SOURCE_ARCHIVE_NOT_AVAILABLE and write a blocker note."
+  - "Apply the TASK-0895 identity, family, duplicate, conflict, Joback coverage, and property filters to produce aggregate counts and exclusion reasons without committing Tb values or selected rows."
+  - "Do not commit archive bytes, extracted XML/JSON, normalized row values, selected compound lists with Tb values, or any benchmark metrics."
+  - "Return 80_ROW_EXPANSION_FEASIBLE, FAMILY_UNDERPOPULATED, RIGHTS_DECISION_STILL_BLOCKS, or SOURCE_ARCHIVE_NOT_AVAILABLE."
+  - "No broad property-estimation, chemical-design, process-design, safety, synthesis, Tc, or universal Joback wording."
+
+accepted_outputs:
+  - "A docs/reviews local-only preflight note with per-family admissible counts, exclusion categories, feasibility verdict, and rights blocker."
+  - "Optional deterministic count helper only if it writes no value-bearing public rows and tests can run without the private archive."
+  - "Output-routing summary: source-readiness only, no RESULT/PRED/CLAIM/KNOW mutation, RESULT-0026 unchanged."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness count preflight; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_joback_tb.py tests/test_thermoml_family_transfer.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

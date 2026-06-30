@@ -84,16 +84,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; RESULT-0020 Gate B remains a packaging-contest decision, not validated claim support"
+  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; contested replay and adjudication brief are in main, so TASK-0782 is ready to resolve the packaging contest"
   recommended_parallel_agents: 1
-  coordination_notes: "Prioritize the RESULT-0020 packaging-contest adjudication brief before adding more live challenge examples or claim support."
+  coordination_notes: "Prioritize TASK-0782 packaging adjudication before adding more live challenge examples or claim support."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0020 Gate B packaging contest is unresolved, so CLAIM-0005 cannot lean on RESULT-0020 as validated evidence."
-    target_artifact: "TASK-0807"
+    blocker: "RESULT-0020 core metrics reproduced but publication packaging checks need adjudication before any AGENT_VALIDATED tier update."
+    target_artifact: "TASK-0782"
   best_next_actions:
-    - task_id: TASK-0807
-      label: "Prepare the RESULT-0020 Gate B packaging-contest adjudication brief for maintainer decision"
+    - task_id: TASK-0782
+      label: "Adjudicate RESULT-0020 packaging and rerun Gate B or preserve blocker"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -101,14 +101,16 @@ portfolio:
     - "results/EXP-0006/RUN-0006/result.yaml"
     - "results/EXP-0006/RUN-0007/result.yaml"
     - "docs/results/dimensional-analysis-validator-summary.md"
+    - "docs/reviews/dimensional-result-0020-gate-b-contested-replay.md"
+    - "docs/reviews/dimensional-result0020-gateb-adjudication-brief.md"
   open_questions:
-    - "Which RESULT-0020 verification checks are code-reproducible versus hand-authored Gate A packaging?"
-    - "What conservative CLAIM-0005 wording is supportable if RESULT-0020 remains AGENT_PUBLISHED?"
+    - "Can RESULT-0020 packaging checks be made reproducible without changing metrics?"
+    - "Should RESULT-0020 remain AGENT_PUBLISHED with a blocker if packaging cannot be cleanly replayed?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-16"
+    last_reviewed: "2026-06-30"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0020 scientific-memory index and TASK-0807 packaging-contest adjudication routing"
-    notes: "Quality-floor track has a high-value live result but the validation tier is blocked by packaging provenance. Do not treat RESULT-0020 as AGENT_VALIDATED or use it for CLAIM-0005 until maintainer adjudication."
+    source: "TASK-0807 adjudication brief and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "Quality-floor track has a high-value live result but the validation tier is blocked by packaging provenance. TASK-0782 is now READY because the contested replay and adjudication brief are in main."

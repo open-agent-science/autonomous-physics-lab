@@ -99,10 +99,11 @@ B with zero numeric drift. `RESULT-0021` is now an `AGENT_VALIDATED`,
 control/scope audits found the cation-pair signal is useful on the frozen split
 but does not transfer to fully unseen cation pairs, and a descriptor-ablation
 audit showed the advantage is localized to exact cation-pair granularity.
-`TASK-0809` closed repository-local release/source metadata blockers. The
-current blocker is external dataset-release posture: archive target, release
-checksum, release tag, DOI minted/declined status, citation text, and explicit
-no-claim boundaries.
+`TASK-0809` closed repository-local release/source metadata blockers, and the
+external-release decision packet kept DOI/archive publication maintainer-gated.
+The current blocker is a deterministic archive-package dry run: what exact
+files, checksums, release tag, citation text, and no-claim boundaries would be
+shipped if the maintainer later approves an upload.
 
 ## Admissible Source Classes
 
@@ -198,11 +199,10 @@ sandbox-pass formation-energy benchmark package at
 materials claim.
 The numbered path below is now:
 
-1. **External dataset-release decision** — decide whether and how to package
-   MD-0002 outside the repository, including archive target, release checksum,
-   release tag, DOI minted/declined status, citation text, and no-claim
-   boundary. Band gap remains diagnostic-only unless its control evidence
-   improves.
+1. **External archive-package dry run** — prepare the deterministic package
+   manifest for MD-0002 without uploading, minting a DOI, changing source rows,
+   or changing benchmark metrics. Band gap remains diagnostic-only unless its
+   control evidence improves.
 2. **Post-transfer stop/go memory** — preserve the disjoint-family transfer
    failure as scope memory; do not rerun broad feature factories or convert the
    cation-pair advantage into material-design wording.

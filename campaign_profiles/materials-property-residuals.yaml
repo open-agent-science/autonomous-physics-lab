@@ -86,18 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, with family-holdout and descriptor-ablation scope memory plus dataset-publication metadata blockers."
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, repository-local metadata blockers are closed, and the external archive/DOI decision packet is maintainer-gated."
   recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is dataset-publication metadata closeout and preservation of scope limits."
+  coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is deterministic archive-package dry-run and maintainer DOI/release decision support."
   next_validity_gate:
-    type: transfer
-    blocker: "MD-0002 metadata packaging is still open and no independent chemistry-family or dataset-transfer route is selected."
-    target_artifact: "TASK-0817"
+    type: source_readiness
+    blocker: "External dataset release, archive checksum, release tag, and DOI remain maintainer-gated even though repository-local MD-0002 metadata is closed."
+    target_artifact: "TASK-0900"
   best_next_actions:
-    - task_id: TASK-0809
-      label: "Close MD-0002 release/source-manifest, checksum, citation, uncertainty, README, and no-claim metadata blockers"
-    - task_id: TASK-0817
-      label: "Scout one independent Materials chemistry-family or dataset-transfer route without changing RESULT-0021"
+    - task_id: TASK-0900
+      label: "Prepare a deterministic MD-0002 archive-package dry run without external upload"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -115,17 +113,18 @@ portfolio:
     - "docs/reviews/materials-md0002-family-holdout-stress-preflight.md"
     - "docs/reviews/materials-md0002-descriptor-ablation-control-audit.md"
     - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Can MD-0002 external-release metadata be completed without changing rows or metrics?"
-    - "Should RESULT-0021 receive maintainer-reviewed public wording after dataset packaging is complete?"
-    - "What future Materials task, if any, can add information beyond the already-recorded family-holdout and descriptor-ablation limits?"
+    - "Should MD-0002 v0.1.0 receive an external archive/DOI, GitHub release only, or DOI-declined internal citation?"
+    - "Can a deterministic package allowlist and archive checksum be prepared without external upload?"
+    - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-19"
+    last_reviewed: "2026-06-30"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0021, TASK-0775 Gate B replay, TASK-0789/TASK-0790 scope audits, TASK-0805 dataset-publication preflight, and TASK-0809 closeout routing"
-    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark. The cation-pair signal is useful in-split but fails unseen-pair transfer; descriptor-ablation reinforces that the advantage is localized. Next useful work is dataset metadata packaging, not new metrics."
+    source: "MD-0002 external release decision packet and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark. External dataset publication is now a maintainer-gated archive/DOI decision; the next useful agent task is deterministic package preparation, not new metrics."

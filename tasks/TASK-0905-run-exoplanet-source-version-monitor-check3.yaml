@@ -1,0 +1,58 @@
+id: TASK-0905
+title: "Run Exoplanet source-version monitor check 3 without value-bearing row updates"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Exoplanet remains monitor-only until a material source-version, coverage, or approved EXO-0003 trigger appears."
+  - "A lightweight monitor check prevents stale assumptions while avoiding another residual pilot on the old snapshot."
+  - "The output is source-readiness memory, not a benchmark or prediction."
+
+input:
+  mode: planning_only
+  related_domain: astrophysics
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/reviews/exoplanet-source-version-monitor-check-2.md"
+    - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  planning_context: >
+    The current profile points at source-version monitoring as the next validity
+    gate. This task performs the next monitor check using metadata/version and
+    coverage signals only, then returns NOTIFY or NO_NOTIFY. It must not ingest
+    new value-bearing planet rows.
+
+requirements:
+  - "Check source-version, schema/column, row-count, and coverage signals needed to decide whether an EXO-0003 planning trigger exists."
+  - "Do not commit new catalog rows, transcribe value-bearing planet data, run residual metrics, or modify EXO-0001/EXO-0002."
+  - "Return NO_NOTIFY unless a material source-version or coverage trigger is documented against the existing threshold."
+  - "If NOTIFY, define a separate value-blind EXO-0003 planning task shape; do not create EXO-0003 rows here."
+  - "No composition, habitability, atmosphere, target-priority, discovery, prediction, or universal mass-radius wording."
+
+accepted_outputs:
+  - "A docs/reviews source-version monitor check with timestamp, metadata signals, NOTIFY/NO_NOTIFY verdict, and exact trigger evidence."
+  - "Optional campaign-profile note only if the monitor target or blocker changes."
+  - "Output-routing summary: source-monitoring only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-version monitoring task; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

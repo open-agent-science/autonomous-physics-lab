@@ -76,6 +76,10 @@ Start here:
 - `TASK-0768` assembles the CLAIM-0005 maintainer evidence handoff while
   recording that there is no `AGENT_VALIDATED` evidence and `RESULT-0020`
   remains replay-needed.
+- `TASK-0807` prepared the adjudication brief, so `TASK-0782` is now the live
+  maintainer-packaging decision task: rerun Gate B only if the hand-authored
+  publication checks are accepted as within scope, otherwise preserve the
+  packaging blocker explicitly.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.
 

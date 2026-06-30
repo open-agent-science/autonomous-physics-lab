@@ -92,20 +92,18 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "ThermoML Tb RESULT-0026 is AGENT_PUBLISHED on a bounded 40-row family-stratified fixture; Gate B replay, source-expansion readiness, and failed-family negative memory are the next safe steps."
+  current_stage: "ThermoML Tb RESULT-0026 is AGENT_PUBLISHED on a bounded 40-row family-stratified fixture; Gate B replay remains READY, while corpus-expansion preflight and esters/lactones negative memory have landed."
   recommended_parallel_agents: 2
-  coordination_notes: "Split work by artifact surface: one agent can replay RESULT-0026, one can preflight source expansion without values, and one can package the esters/lactones failed-family memory. Do not broaden beyond Tb or rerun Gate A packaging."
+  coordination_notes: "Split work by artifact surface: one agent can replay RESULT-0026 and another can run TASK-0906 local-only identity/count preflight after TASK-0895. Do not broaden beyond Tb, commit raw archive bytes, or rerun Gate A packaging."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0026 is AGENT_PUBLISHED but not independently replayed or maintainer-reviewed; source expansion beyond the bounded fixture is rights and identity-map gated."
+    blocker: "RESULT-0026 is AGENT_PUBLISHED but not independently replayed; source expansion beyond the bounded fixture remains rights and identity/count gated."
     target_artifact: "TASK-0894"
   best_next_actions:
     - task_id: TASK-0894
       label: "Independently replay ThermoML Tb RESULT-0026 through Gate B"
-    - task_id: TASK-0895
-      label: "Preflight a value-free ThermoML Tb corpus-expansion manifest"
-    - task_id: TASK-0896
-      label: "Package the esters/lactones failed-family result as negative/control memory"
+    - task_id: TASK-0906
+      label: "Preflight 80-row expansion identity counts as local-only metadata"
   required_gates:
     - "ThermoML archive DOI, checksum, and rights boundary must stay explicit."
     - "No raw archive bytes or substantial normalized corpus may be committed."
@@ -120,15 +118,17 @@ portfolio:
     - "results/EXP-0020/RUN-0001/result.yaml"
     - "results/EXP-0020/RUN-0001/gate_a_report.md"
     - "results/EXP-0020/RUN-0001/report.md"
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+    - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
   open_questions:
     - "Does independent Gate B replay reproduce aggregate and per-family RESULT-0026 metrics with no drift?"
-    - "Can a larger ThermoML Tb corpus be described with enough rights, identity, and row-class discipline before values are committed?"
-    - "Should the esters/lactones failure be promoted as durable negative/control memory before any expansion?"
+    - "Can the proposed 80-row expansion supply ten admissible identities per existing family without publishing values?"
+    - "Will the maintainer approve bounded factual extraction, or should expansion remain local-only?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-29"
+    last_reviewed: "2026-06-30"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0833 source-readiness scout, TASK-0841 local-fetch gate, TASK-0851 bounded transfer run, and TASK-0869 RESULT-0026 Gate A packaging"
-    notes: "This campaign is newly active as a bounded thermophysical-property benchmark lane. It is public-friendly and parallel-safe only while it stays Tb-only, source-rights aware, and no-claim. The nearest result path is Gate B replay of RESULT-0026, followed by source-expansion readiness and failed-family negative memory."
+    source: "TASK-0895 corpus-expansion preflight, TASK-0896 esters/lactones negative memory, TASK-0906 local-only expansion preflight, and Scientific Director 2026-06-30 task-queue cycle"
+    notes: "This bounded thermophysical-property benchmark lane stays Tb-only and no-claim. Gate B replay of RESULT-0026 remains the nearest result path; source expansion now needs local-only identity/count feasibility and a maintainer rights decision."
