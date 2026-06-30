@@ -1,7 +1,7 @@
 id: TASK-0901
 title: "Adjudicate the Atomic McGrew/NIST Yb-Sr source route before row curation"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -44,7 +44,7 @@ result_artifact_policy:
   required: false
   reason: "Source-route adjudication only; no benchmark result or prediction artifact is produced."
   evidence:
-    - "docs/reviews/atomic-ybsr-independent-source-route-scout.md"
+    - "docs/reviews/atomic-mcgrew-ybsr-source-route-adjudication.md"
 
 validation:
   commands:
