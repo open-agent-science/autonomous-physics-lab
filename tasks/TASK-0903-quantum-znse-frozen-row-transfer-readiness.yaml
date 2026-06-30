@@ -19,7 +19,7 @@ input:
     - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
     - "data/quantum_dots/source_manifest.yaml"
     - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
-    - "docs/reviews/quantum-effective-mass-transfer-negative-memory.md"
+    - "docs/reviews/quantum-effective-mass-negative-memory-routing.md"
     - "campaign_profiles/quantum-size-effects.yaml"
   planning_context: >
     The source-rights route is narrow but usable for the already committed

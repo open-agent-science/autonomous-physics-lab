@@ -90,11 +90,9 @@ invitation to tune a rescue:
 - TASK-0871 routed that evidence as sandbox-only negative memory and explicitly
   blocked rerunning the same surface with tuned masses, coefficients, exponents,
   geometry mappings, thresholds, or post-hoc favorable framing.
-- The task YAML references `docs/reviews/quantum-effective-mass-transfer-negative-memory.md`,
-  but the committed artifact is `docs/reviews/quantum-effective-mass-negative-memory-routing.md`.
-  Future task authors should use the committed routing note as the operative
-  negative-memory reference unless the task file is corrected in a separate
-  hygiene pass.
+- The task YAML points to
+  `docs/reviews/quantum-effective-mass-negative-memory-routing.md` as the
+  operative negative-memory reference for future task authors.
 
 ## Readiness Decision
 
