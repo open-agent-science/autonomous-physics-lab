@@ -1,7 +1,7 @@
 id: TASK-0899
 title: "Run a no-peek Nuclear NMD-0003 GP uncertainty-calibration metric audit"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: high
 priority: high
@@ -49,7 +49,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_nmd0003_gp_calibration_audit.py tests/test_nmd0003_residual_gp.py tests/test_task_reference_convention.py tests/test_docs_links.py tests/test_nuclear_mass_baselines.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
