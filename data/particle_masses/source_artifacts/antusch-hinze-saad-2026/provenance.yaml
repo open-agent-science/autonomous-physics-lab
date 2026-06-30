@@ -9,21 +9,30 @@ source:
   title: "Updated running quark and lepton parameters at various scales"
   authors: "Stefan Antusch, Kevin Hinze, and Shaikh Saad"
   publication_of_record:
+    status: not_pinned_public_article_metadata_unverified
     journal: "Physical Review D"
-    volume: 113
-    article_number: "095011"
-    publication_date: 2026-05-06
-    doi: "10.1103/fdcc-ycph"
-    locator: "https://journals.aps.org/prd/abstract/10.1103/fdcc-ycph"
+    arxiv_comment: "arXiv v2 states that the version was accepted for publication in PRD."
+    blocked_fields:
+      - volume
+      - article_number
+      - publication_date
+      - doi
+      - publisher_locator
+    review_note: >
+      Do not cite a PRD volume, article number, publication date, DOI, or
+      publisher article locator until a public publisher page or Crossref record
+      is independently verified in a separate metadata refresh.
   accepted_manuscript:
     identifier: "arXiv:2510.01312v2"
     revised_date: 2026-03-23
     abstract_locator: "https://arxiv.org/abs/2510.01312v2"
     pdf_locator: "https://arxiv.org/pdf/2510.01312v2"
+    arxiv_doi: "10.48550/arXiv.2510.01312"
   license:
     identifier: "CC-BY-4.0"
     locator: "https://creativecommons.org/licenses/by/4.0/"
-    publisher_status: "open_access"
+    license_surface: "arxiv_abs_page_license_badge"
+    publisher_status: "not_pinned"
     attribution_required: true
 
 artifact:

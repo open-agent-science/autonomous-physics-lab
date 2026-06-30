@@ -11,17 +11,22 @@
 ## Decision
 
 The Antusch-Hinze-Saad source is sufficiently unambiguous for a metadata-only
-pin. The version of record is:
+pin. The publicly pinned audit surface is the accepted arXiv manuscript:
 
 - Stefan Antusch, Kevin Hinze, and Shaikh Saad, "Updated running quark and
-  lepton parameters at various scales," *Physical Review D* **113**, 095011
-  (2026), [DOI 10.1103/fdcc-ycph](https://doi.org/10.1103/fdcc-ycph);
-- accepted audit surface: [arXiv:2510.01312v2](https://arxiv.org/abs/2510.01312v2),
-  revised 2026-03-23;
-- reuse posture: publisher and accepted manuscript identify
+  lepton parameters at various scales,"
+  [arXiv:2510.01312v2](https://arxiv.org/abs/2510.01312v2), revised
+  2026-03-23;
+- publication status: the arXiv v2 comment says the version was accepted for
+  publication in *Physical Review D*;
+- reuse posture: the arXiv accepted-manuscript page identifies
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) with attribution.
 
-No source bytes or quark values are committed by this task.
+No source bytes or quark values are committed by this task. PRD volume, article
+number, publication date, DOI, and publisher locator are deliberately not pinned
+here because they were not independently verified during this review; a future
+metadata refresh may add them after a public publisher or Crossref record is
+checked.
 
 ## Exact Surface
 
