@@ -1,7 +1,7 @@
 id: TASK-0900
 title: "Prepare a deterministic Materials MD-0002 archive-package dry run without external upload"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
