@@ -77,6 +77,7 @@ RESULT_TITLE = (
 RESULT_EXP_PATH = REPO_ROOT / "experiments" / "EXP-0017-stellar-ml-high-mass-transfer.yaml"
 RESULT_HYP_PATH = REPO_ROOT / "hypotheses" / "HYP-0017-stellar-ml-high-mass-transfer.yaml"
 RESULT_TASK_PATH = _task_path(RESULT_TASK_ID)
+RESULT_INPUT_SNAPSHOT_DIR = REPO_ROOT / RESULT_REL_DIR / "inputs"
 
 
 def _sha256(path: Path) -> str:
@@ -301,6 +302,15 @@ def _write_yaml(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(yaml.safe_dump(payload, sort_keys=False) + "\n", encoding="utf-8")
 
 
+def _copy_published_snapshot_or_source(snapshot_name: str, fallback_source: Path, destination: Path) -> None:
+    snapshot = RESULT_INPUT_SNAPSHOT_DIR / snapshot_name
+    if snapshot.exists():
+        if snapshot.resolve() != destination.resolve():
+            copyfile(snapshot, destination)
+        return
+    copyfile(fallback_source, destination)
+
+
 def _copy_result_inputs(result_dir: Path) -> dict[str, dict[str, str]]:
     inputs_dir = result_dir / "inputs"
     inputs_dir.mkdir(parents=True, exist_ok=True)
@@ -310,28 +320,33 @@ def _copy_result_inputs(result_dir: Path) -> dict[str, dict[str, str]]:
     hypothesis_path = inputs_dir / "hypothesis.yaml"
     task_path = inputs_dir / "task.yaml"
 
-    _write_yaml(
-        config_path,
-        {
-            "result_id": RESULT_ID,
-            "run_id": RESULT_RUN_ID,
-            "experiment_id": RESULT_EXP_ID,
-            "hypothesis_id": RESULT_HYP_ID,
-            "task_id": RESULT_TASK_ID,
-            "source_result_id": "RESULT-0022",
-            "source_task_id": TASK_ID,
-            "source_agent_run_id": AGENT_RUN_ID,
-            "agent_run_id": RESULT_AGENT_RUN_ID,
-            "command": RESULT_PINNED_COMMAND,
-            "code_reference": "physics_lab/engines/stellar_ml_high_mass_transfer.py",
-            "frozen_predictor": "log_luminosity_solar = 4.526004 * log_mass_solar",
-            "no_refit_on_high_mass_holdout": True,
-            "review_tier_proposed": "AGENT_PUBLISHED",
-        },
-    )
-    copyfile(RESULT_EXP_PATH, experiment_path)
-    copyfile(RESULT_HYP_PATH, hypothesis_path)
-    copyfile(RESULT_TASK_PATH, task_path)
+    config_snapshot = RESULT_INPUT_SNAPSHOT_DIR / "config.yaml"
+    if config_snapshot.exists():
+        if config_snapshot.resolve() != config_path.resolve():
+            copyfile(config_snapshot, config_path)
+    else:
+        _write_yaml(
+            config_path,
+            {
+                "result_id": RESULT_ID,
+                "run_id": RESULT_RUN_ID,
+                "experiment_id": RESULT_EXP_ID,
+                "hypothesis_id": RESULT_HYP_ID,
+                "task_id": RESULT_TASK_ID,
+                "source_result_id": "RESULT-0022",
+                "source_task_id": TASK_ID,
+                "source_agent_run_id": AGENT_RUN_ID,
+                "agent_run_id": RESULT_AGENT_RUN_ID,
+                "command": RESULT_PINNED_COMMAND,
+                "code_reference": "physics_lab/engines/stellar_ml_high_mass_transfer.py",
+                "frozen_predictor": "log_luminosity_solar = 4.526004 * log_mass_solar",
+                "no_refit_on_high_mass_holdout": True,
+                "review_tier_proposed": "AGENT_PUBLISHED",
+            },
+        )
+    _copy_published_snapshot_or_source("experiment.yaml", RESULT_EXP_PATH, experiment_path)
+    _copy_published_snapshot_or_source("hypothesis.yaml", RESULT_HYP_PATH, hypothesis_path)
+    _copy_published_snapshot_or_source("task.yaml", RESULT_TASK_PATH, task_path)
 
     return {
         "config": hash_file(config_path, REPO_ROOT),
