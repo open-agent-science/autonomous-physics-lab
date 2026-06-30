@@ -7,6 +7,7 @@ and the standalone sandbox runner that emits AGENT-RUN-0082.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -167,7 +168,11 @@ def test_runner_emits_gate_a_result_package(tmp_path: Path) -> None:
     assert result["comparison_summary"][0]["absolute_difference"] == 0.149315
     assert metrics["publication_boundary"]["refit_on_high_mass_holdout"] is False
     assert metrics["publication_boundary"]["claim_promotion_allowed"] is False
-
+    canonical_task_input = ROOT / "results" / "EXP-0017" / "RUN-0001" / "inputs" / "task.yaml"
+    emitted_task_input = result_dir / "inputs" / "task.yaml"
+    expected_task_hash = hashlib.sha256(canonical_task_input.read_bytes()).hexdigest()
+    assert emitted_task_input.read_bytes() == canonical_task_input.read_bytes()
+    assert result["input_file_hashes"]["task"]["sha256"] == expected_task_hash
     for name in (
         "report.md",
         "metrics.json",
