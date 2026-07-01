@@ -285,6 +285,8 @@ def test_dimensional_validator_replay_uses_frozen_mvp_scope(tmp_path: Path) -> N
 
     metrics = json.loads(outcome.artifacts.metrics_path.read_text(encoding="utf-8"))
     challenge_snapshot = _load_yaml(tmp_path / "inputs" / "challenge_set.yaml")
+    result_payload = yaml.safe_load(outcome.artifacts.result_path.read_text(encoding="utf-8"))
+    check_names = {check["name"] for check in result_payload["verification"]["checks"]}
 
     assert metrics["benchmark_scope"] == "frozen_mvp_50"
     assert metrics["expected_item_count"] == 50
@@ -293,6 +295,9 @@ def test_dimensional_validator_replay_uses_frozen_mvp_scope(tmp_path: Path) -> N
     assert metrics["agreement_fraction"] == 0.98
     assert challenge_snapshot["total_items"] == 50
     assert len(challenge_snapshot["items"]) == 50
+    assert "zero_disagreement_ledger" not in check_names
+    assert "frozen_input_checksum" not in check_names
+    assert "protected_result_not_rewritten" not in check_names
 
 
 def test_dimensional_validator_replay_accepts_frozen_scope_override(
@@ -305,6 +310,7 @@ def test_dimensional_validator_replay_accepts_frozen_scope_override(
 
     metrics = json.loads(outcome.artifacts.metrics_path.read_text(encoding="utf-8"))
     result_payload = yaml.safe_load(outcome.artifacts.result_path.read_text(encoding="utf-8"))
+    checks = {check["name"]: check for check in result_payload["verification"]["checks"]}
 
     assert metrics["benchmark_scope"] == "frozen_live_74"
     assert metrics["total_items"] == 74
@@ -316,6 +322,14 @@ def test_dimensional_validator_replay_accepts_frozen_scope_override(
     fixture_hash_path = Path(result_payload["input_file_hashes"]["fixture"]["path"])
     assert fixture_hash_path.name == "fixture.yaml"
     assert fixture_hash_path.parent.name == "inputs"
+    assert checks["zero_disagreement_ledger"]["metrics"]["disagreement_count"] == 0
+    assert checks["zero_disagreement_ledger"]["metrics"]["disagreement_ids"] == "none"
+    assert checks["frozen_input_checksum"]["metrics"]["fixture_sha256"] == (
+        checks["frozen_input_checksum"]["metrics"]["source_sha256_at_freeze"]
+    )
+    assert checks["protected_result_not_rewritten"]["metrics"] == {
+        "protected_result_rewrite": False
+    }
 
 
 @pytest.mark.skipif(
