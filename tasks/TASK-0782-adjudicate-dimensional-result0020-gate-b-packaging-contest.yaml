@@ -50,7 +50,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_result_publication_gate.py tests/test_agent_replay_validation.py tests/test_docs_links.py"
-    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --output-dir <tmp-dir> --validator-contributor-id <id> --validator-github-username <login> --validator-agent-tool <tool> --validator-model <model> --json"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0006/RUN-0007/result.yaml --root . --output-dir .pytest-basetemp/task0782-gateb-review --validator-contributor-id svitidaniuk-pixel --validator-github-username svitidaniuk-pixel --validator-agent-tool Codex --validator-model GPT-5 --expect-status PASS --json"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
