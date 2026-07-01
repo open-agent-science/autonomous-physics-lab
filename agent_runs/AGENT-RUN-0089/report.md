@@ -15,7 +15,7 @@ This is a *no-peek* calibration audit of the merged NMD-0003 residual GP predict
 - Pinned command: `python3 scripts/run_nmd0003_gp_calibration_audit.py`.
 - Code reference: `physics_lab/engines/nmd0003_gp_calibration_audit.py`; engine version `0.1.0`; physics_lab `0.1.0`.
 - git commit: `ef12778c67ba349759d97b31611602308503c78e`.
-- Determinism: no random seed consumed; closed-form GP fit and LOO identities. Re-running reproduces identical metrics.
+- Determinism: no random seed consumed; closed-form GP fit and LOO identities. Re-running in the same checkout reproduces identical non-provenance metrics; `git_commit` records the checkout used for the run.
 - Input file hashes (sha256):
   - dataset `f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52`
   - frozen gate `2988c2eb28e0e1bee783bd4824a9680313b5ef81f1e9ae96698893e4525b8cd2`

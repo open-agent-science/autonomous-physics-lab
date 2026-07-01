@@ -232,7 +232,9 @@ def _body_lines(metrics: dict[str, Any]) -> list[str]:
         f"- Code reference: `{provenance['code_reference']}`; engine version "
         f"`{provenance['engine_version']}`; physics_lab `{provenance['physics_lab_version']}`.",
         f"- git commit: `{provenance['git_commit']}`.",
-        f"- Determinism: {provenance['determinism']}. Re-running reproduces identical metrics.",
+        f"- Determinism: {provenance['determinism']}. Re-running in the same checkout "
+        "reproduces identical non-provenance metrics; `git_commit` records the "
+        "checkout used for the run.",
         "- Input file hashes (sha256):",
         f"  - dataset `{provenance['input_file_hashes']['dataset']['sha256']}`",
         f"  - frozen gate `{provenance['input_file_hashes']['frozen_gate']['sha256']}`",
