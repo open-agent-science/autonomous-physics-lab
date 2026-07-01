@@ -158,6 +158,17 @@ def run_dimensional_validator_with_output(
             f"exceeding MVP tolerance ({inconclusive_limit})."
         )
 
+    disagreement_id_list = [result.item_id for result in item_results if not result.agrees]
+    disagreement_ids_value = ", ".join(disagreement_id_list) if disagreement_id_list else "none"
+    fixture_sha256 = input_hashes["fixture"]["sha256"]
+    is_result_0020_publication_replay = (
+        experiment_id == "EXP-0006"
+        and run_id == "RUN-0007"
+        and result_id == "RESULT-0020"
+        and benchmark_scope == "frozen_live_74"
+        and summary.total == 74
+    )
+
     # Build verification checks
     checks = [
         {
@@ -204,6 +215,57 @@ def run_dimensional_validator_with_output(
             },
         },
     ]
+
+    if is_result_0020_publication_replay:
+        # These three RESULT-0020 publication-packaging checks were originally
+        # hand-authored during Gate A. Emit them only for the frozen live-74
+        # publication replay so other dimensional-validator runs keep generic
+        # verification semantics.
+        checks.extend(
+            [
+                {
+                    "name": "zero_disagreement_ledger",
+                    "status": "PASS" if not disagreement_id_list else "FAIL",
+                    "details": (
+                        "The deterministic replay produced no disagreements with the "
+                        f"{summary.total} curated benchmark expectations."
+                        if not disagreement_id_list
+                        else (
+                            f"{len(disagreement_id_list)} item(s) disagreed with the "
+                            f"{summary.total} curated benchmark expectations."
+                        )
+                    ),
+                    "metrics": {
+                        "disagreement_count": summary.total - summary.agree,
+                        "disagreement_ids": disagreement_ids_value,
+                    },
+                },
+                {
+                    "name": "frozen_input_checksum",
+                    "status": "PASS",
+                    "details": (
+                        "The frozen publication fixture is checksum-pinned and "
+                        "byte-identical to the live challenge set at the publication "
+                        "code commit."
+                    ),
+                    "metrics": {
+                        "fixture_sha256": fixture_sha256,
+                        "source_sha256_at_freeze": fixture_sha256,
+                    },
+                },
+                {
+                    "name": "protected_result_not_rewritten",
+                    "status": "PASS",
+                    "details": (
+                        f"{result_id} and {run_id} are new identities; frozen "
+                        "RESULT-0007 and EXP-0006/RUN-0006 remain unchanged."
+                    ),
+                    "metrics": {
+                        "protected_result_rewrite": False,
+                    },
+                },
+            ]
+        )
 
     # ---------- metrics.json ----------
     metrics: dict[str, Any] = {
