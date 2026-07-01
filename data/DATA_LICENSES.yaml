@@ -261,3 +261,32 @@ datasets:
     provenance: data/thermophysical/source_manifest.yaml
     paths:
       - data/thermophysical/source_manifest.yaml
+
+  - id: chime-frb-catalog2-t-truncated-split-spec-metadata-only
+    source: "CHIME/FRB Catalog 2 T-truncated exposure split (TASK-0877 spec; metadata-only)"
+    source_url: https://doi.org/10.11570/25.0066
+    license: "Public read access via CANFAR/CADC; DataCite rightsList empty, no explicit open-data redistribution license on the catalog rows (cite-the-paper courtesy request only)"
+    redistribution_status: metadata_only_no_bytes_vendored_spec_only_no_derived_rows_with_attribution
+    citation_or_acknowledgement: >
+      Cite The CHIME/FRB Collaboration, The Second CHIME/FRB Catalog of Fast Radio
+      Bursts, ApJS, DOI 10.3847/1538-4365/ae3828; dataset DOI 10.11570/25.0066. This
+      APL-authored spec records only a locator + SHA-256 + a leakage-safe split
+      specification; no catalog rows or exposure-map bytes are re-hosted.
+    evidence: >
+      data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml is an
+      APL-authored, metadata/spec-only artifact. It specifies a leakage-safe
+      T-truncated pre-T exposure view on top of the TASK-0852 baseline and records a
+      structural full-window-vs-truncated readiness diagnostic computed from the
+      committed baseline metadata. It contains NO catalog rows, NO exposure-map
+      bytes, NO numeric truncated-exposure values, and NO derived dataset. The only
+      pinned source bytes are the already-declared chimefrbcat2.csv locator + SHA-256
+      (5108ada779d279a2547d9f9e73ae25bfdd40d8496d6ba7255ec29c6629057a48), which is
+      NOT vendored. The time-resolved exposure-map products needed to construct the
+      truncated values are NOT fetched here and remain an additional source-clearance
+      item. Declared here per the metadata-only-source-manifest convention although
+      it carries no third-party data; see TASK-0877 and
+      docs/reviews/frb-catalog2-t-truncated-exposure-split.md.
+    raw_artifact_vendored: false
+    provenance: data/radio_transients/frb_catalog2_source_manifest.yaml
+    paths:
+      - data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml

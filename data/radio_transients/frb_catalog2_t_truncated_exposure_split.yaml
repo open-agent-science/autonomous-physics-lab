@@ -1,0 +1,237 @@
+artifact_kind: frb_catalog2_t_truncated_exposure_split_spec
+spec_id: FRB-CAT2-TTRUNC-0001
+task_id: TASK-0877
+status: t_truncated_split_specified_not_constructed
+generated_at_utc: '2026-06-30T00:00:00Z'
+outcome: SPECIFIED
+outcome_reason: >
+  A leakage-safe T-truncated pre-T exposure view is fully specified here, but its
+  numeric per-source values are NOT constructed in this task. Construction requires
+  the time-resolved / full-sky exposure-map products at dataset DOI 10.11570/25.0066,
+  which TASK-0852 did not pin (it pinned only the chimefrbcat2.csv table). This task
+  is metadata/spec-only and forbids fetching rows, vendoring bytes, or scoring a
+  model, so it stops at a precise, replayable specification plus a structural
+  readiness diagnostic computed from the committed full-window baseline. This is a
+  SPECIFIED outcome, not BLOCKED: the recipe is well-defined and leakage-safe, and
+  it is reconstructible once the exposure-map input is pinned under a separate
+  source-clearance step.
+
+builds_on:
+  task: TASK-0852
+  source_manifest: data/radio_transients/frb_catalog2_source_manifest.yaml
+  full_window_baseline: data/radio_transients/frb_catalog2_temporal_split_exposure_baseline.yaml
+  prior_baseline_verdict: SPLIT_AND_EXPOSURE_BASELINE_READY
+  why_a_truncated_view_is_needed: >
+    The TASK-0852 exposure-only baseline is a selection-effect GATE built from
+    Catalog 2 full-window exposure summaries (exp_up + exp_low integrated over the
+    whole 2018-2023 observing window). Full-window exposure is only knowable after
+    the window closes, so it cannot enter a predictive pre-T feature view without
+    leaking future observing time. A predictive split therefore needs a per-source
+    exposure value truncated at the split time T.
+
+source_rights_boundary:
+  preserve_metadata_only: true
+  vendored_catalog_bytes: false
+  exposure_map_bytes: false
+  derived_rows_committed: false
+  what_is_committed: locator + SHA-256 + fetch/verify command + this APL-authored spec only
+  csv_locator:
+    vospace_uri: vos://cadc.nrc.ca~vault/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+    storage_file_endpoint: https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/table/chimefrbcat2.csv
+    expected_sha256: 5108ada779d279a2547d9f9e73ae25bfdd40d8496d6ba7255ec29c6629057a48
+    expected_bytes: 4057396
+  rights_status_inherited_from_task_0852: >
+    Public read access, citable for analysis, but DataCite rightsList is empty and
+    no explicit open-data redistribution license covers the catalog rows. Raw bytes
+    and bulk derived rows remain not cleared for repository commit.
+
+split_time_definition:
+  split_time_symbol: T
+  first_detection_time_per_source: minimum finite mjd_inf, falling back to mjd_400, over bursts assigned to a source
+  source_key: repeater_name when present, else tns_name (identical to the TASK-0852 baseline grouping)
+  eligibility_filter: excluded_flag == '0'
+  pre_t_membership: a source is in the pre-T cohort iff its first_detection_time <= T
+  note: >
+    T is a design parameter of the predictive split, not a fixed constant. The spec
+    is parameterized in T so a future reviewed pilot can choose T (e.g. a Catalog 1
+    boundary epoch, or a fixed UTC cutoff under the blind-holdout protocol) and
+    reconstruct the truncated view deterministically.
+
+t_truncated_exposure_view:
+  view_name: frb_catalog2_pre_t_truncated_exposure_view_v0
+  per_source_feature: exposure_truncated_at_T
+  definition: >
+    For each pre-T source, the cumulative CHIME transit exposure on that source's
+    sky position accumulated only over observing epochs with timestamp <= T,
+    expressed in the same exp_up/exp_low (upper-/lower-transit) decomposition the
+    catalog uses for full-window exposure. The predictive score mirrors the
+    full-window baseline but on the truncated value:
+    score_pre_t = log1p(exp_up(<=T) + exp_low(<=T)) for the source.
+  required_input_to_construct:
+    product: CHIME/FRB Catalog 2 time-resolved / full-sky exposure maps
+    dataset_doi: 10.11570/25.0066
+    why: >
+      The released chimefrbcat2.csv exposes only full-window per-source exp_up/exp_low.
+      It contains NO per-epoch or time-resolved exposure column, so a truncated-at-T
+      exposure value cannot be derived from the CSV alone. The time-resolved /
+      full-sky exposure-map products at the same dataset DOI are the only released
+      materials that can be integrated up to T at single-source sky granularity.
+    pinned_by_task_0852: false
+    fetch_status_in_this_task: not_fetched_metadata_only
+  construction_recipe_when_input_is_pinned:
+    - "Pin the exposure-map product(s) by locator + SHA-256 under a separate source-clearance step, preserving the metadata-only boundary (no map bytes vendored unless redistribution is cleared)."
+    - "For each pre-T source, take its localized sky position (and 90% confidence region, matching how the catalog computes localization-weighted exposure)."
+    - "Integrate the time-resolved exposure map over that region but only over epochs with timestamp <= T, producing exp_up(<=T) and exp_low(<=T)."
+    - "Set score_pre_t = log1p(exp_up(<=T) + exp_low(<=T)). Use ONLY this truncated value as the exposure feature in the pre-T view; never the full-window exp_up/exp_low."
+    - "Freeze the truncated view and version-lock it (see versioning_against_reprocessing_drift) before any label is read or any model is scored."
+
+leakage_safety_argument:
+  principle: >
+    The pre-T view must contain only information knowable at time T. Every field is
+    screened against four leakage channels; each is closed by construction.
+  closed_channels:
+    no_late_repeater_labels:
+      risk: A source's Catalog 2 repeater_name reflects repeat bursts that may all arrive after T.
+      control: >
+        repeater_name is NEVER a pre-T feature. The repeat / no-repeat label is read
+        only from a strictly later catalog version or external reveal record, and a
+        source is positive only when its repeat evidence is published after T.
+    no_later_source_associations:
+      risk: Catalog 2 re-groups bursts into sources with a later analysis framework; post-T association changes can move bursts between sources.
+      control: >
+        Pre-T source membership uses only bursts with arrival time <= T under the
+        knowledge state fixed at T. Post-T source-association updates are treated as
+        outcomes, never as pre-T inputs.
+    no_morphology_reprocessing:
+      risk: Catalog 2 reprocesses morphology (bc_width, width_fitb, scat_time, sp_idx, sub_num) for earlier bursts with the later pipeline.
+      control: >
+        This spec adds NO morphology feature. Morphology is explicitly out of scope
+        for the exposure view; any future morphology feature must itself be a
+        T-reconstructed (not late-reprocessed) measurement, validated separately.
+    no_full_window_exposure_leak:
+      risk: Full-window exp_up/exp_low integrate observing time accumulated after T, so using them in the pre-T view leaks future exposure.
+      control: >
+        The pre-T view uses exposure_truncated_at_T only. Full-window exp_up/exp_low
+        are forbidden in the pre-T view and appear in this task solely inside the
+        readiness diagnostic, never as a predictive feature.
+  forbidden_pre_t_features:
+    - late-catalog repeater_name labels
+    - post-T source association updates
+    - post-T morphology reprocessing products
+    - full-window exp_up / exp_low (or any full-window exposure summary)
+    - completeness thresholds (low_ft_68, up_ft_68, low_ft_95, up_ft_95) computed over the full window
+  label_source:
+    rule: strictly later catalog version or external reveal record (CHIME repeater-discovery paper, ATel, or TNS) with a publication timestamp strictly after T
+    positive_definition: source is positive only when repeat evidence is published after T and is not already encoded in the pre-T view
+    protocol_refs:
+      - blind-holdout-benchmark-protocol
+      - nuclear-prediction-reveal-protocol
+
+versioning_against_reprocessing_drift:
+  why_date_locking_alone_is_insufficient: >
+    Reading pre-T features from the single late Catalog 2 table embeds post-T
+    reprocessing (DM, morphology, exposure accumulation, source grouping, and
+    repeater classification done with the later framework). Date-locking the rows
+    does not undo the fact that the values themselves are late-framework values.
+  version_lock_rule:
+    pre_t_feature_version: >
+      A catalog version or reconstruction that contains only information available at
+      T. For a retrospective pilot, Catalog 1-native fields or a T-reconstructed
+      Catalog 2 view are allowed; late Catalog 2 morphology / source-association /
+      full-window-exposure fields are not.
+    label_version: a strictly later catalog version or external reveal record (as above)
+    framework_shift_caveat: >
+      A naive 'Catalog 1 as pre-T, Catalog 2 as post-T' split risks a framework-shift
+      confound because the two catalogs use different analysis pipelines; reprocessing
+      artifacts must not be mistaken for physics. The exposure-map integration up to T
+      should use a single consistent exposure pipeline to avoid mixing frameworks.
+  how_versioning_prevents_future_leak: >
+    Pinning the exposure-map product by SHA-256 and recording the pipeline/version used
+    for the truncated integration freezes the pre-T knowledge state. Any later
+    reprocessing produces a new pinned artifact rather than silently changing the
+    frozen pre-T values, so future reprocessing cannot leak backward into an already
+    frozen pre-T view.
+
+full_window_vs_truncated_diagnostic:
+  purpose: >
+    Leakage / readiness diagnostic ONLY. It quantifies how much the committed
+    full-window exposure gate can differ from a truncated pre-T view, using the
+    committed TASK-0852 baseline metadata and structural reasoning - NOT fetched
+    rows and NOT a constructed truncated value (which is unavailable here).
+  computed_from: data/radio_transients/frb_catalog2_temporal_split_exposure_baseline.yaml
+  not_computed_from: fetched catalog rows or exposure-map bytes
+  full_window_reference:
+    source_rows_with_finite_exposure: 3338
+    repeater_sources_with_finite_exposure: 81
+    nonrepeater_sources_with_finite_exposure: 3257
+    exposure_min_observed: 0.292131
+    exposure_max_observed: 18611.498
+    top_vs_bottom_quintile_repeat_rate_ratio: 2.178511
+    auc_rank_log1p_full_window_exposure: 0.581459875596
+    odds_ratio_per_1sd_log_full_window_exposure: 1.358012046214
+  structural_relationship:
+    monotone_bound: >
+      For any source and any T, exposure_truncated_at_T <= full_window_exposure,
+      because truncated exposure integrates a subset of observing epochs (epochs
+      with timestamp <= T) of the same non-negative exposure. Truncation can only
+      remove exposure, never add it.
+    headline: >
+      The full-window gate is an UPPER BOUND on every source's pre-T exposure; the
+      gap (full_window minus truncated) is exactly the post-T exposure that the
+      predictive view must not see. Sources whose exposure accrued mostly after T
+      lose the most, so the full-window quintile ranking is NOT a safe proxy for the
+      pre-T ranking and must be reconstructed, not reused.
+    eligibility_change_direction: >
+      Eligibility / ranking can only move DOWN under truncation: a source can drop
+      out of the high-exposure cohort if much of its exposure is post-T, but cannot
+      rise. The 24 repeater sources in the top full-window quintile are the cohort
+      most at risk of re-ranking, since repeaters often accrue extra targeted
+      follow-up exposure after an interesting first burst (follow-up / monitoring
+      bias), which is precisely the post-T exposure truncation removes.
+    follow_up_bias_note: >
+      Follow-up / monitoring bias couples morphology to LATER exposure: a striking
+      first burst can trigger extra pointing, inflating full-window exposure for
+      exactly the sources later labeled repeaters. Truncating exposure at T is the
+      control that breaks this coupling in the pre-T view.
+  diagnostic_metrics_available_now:
+    - name: full_window_is_upper_bound_on_pre_t_exposure
+      value: true
+      basis: monotone subset-integration of non-negative exposure
+    - name: max_post_t_exposure_gap_is_unbounded_without_maps
+      value: true
+      basis: gap = full_window - truncated is only quantifiable per-source once the time-resolved maps are integrated up to T
+    - name: top_full_window_quintile_repeater_sources_at_rerank_risk
+      value: 24
+      basis: TASK-0852 quintile 5 repeater_sources count; these are most exposed to follow-up-bias-driven post-T exposure
+  diagnostic_metrics_requiring_exposure_maps:
+    - per_source_truncated_vs_full_window_exposure_ratio
+    - count_of_sources_changing_exposure_quintile_under_truncation
+    - count_of_sources_changing_eligibility_under_truncation
+    - recomputed_auc_rank_log1p_truncated_exposure
+    - recomputed_top_vs_bottom_quintile_repeat_rate_ratio_truncated
+  diagnostic_conclusion: >
+    Direction and risk are establishable now from committed metadata: truncation
+    only lowers exposure, the full-window gate is a strict upper bound, and the
+    top-quintile repeater cohort (24 sources) is most at risk of re-ranking due to
+    post-T follow-up exposure. Exact magnitudes (how many sources change
+    quintile/eligibility) are NOT computable without integrating the time-resolved
+    exposure maps up to T, which is out of this metadata-only task's scope.
+
+what_this_task_does_not_do:
+  - does_not_construct_numeric_truncated_exposure_values: true
+  - does_not_fetch_catalog_rows_or_exposure_map_bytes: true
+  - does_not_vendor_raw_bytes_or_bulk_derived_rows: true
+  - does_not_build_or_score_a_morphology_model: true
+  - does_not_freeze_a_pred_entry: true
+  - does_not_create_a_result_artifact: true
+  - does_not_create_an_agent_run: true
+  - does_not_promote_a_claim_or_knowledge_entry: true
+
+limitations:
+  - The T-truncated exposure feature is SPECIFIED, not constructed; numeric pre-T exposure values require the time-resolved / full-sky exposure-map products at DOI 10.11570/25.0066, which TASK-0852 did not pin.
+  - The exposure-map products are an additional source-clearance item (locator + SHA-256 + redistribution decision) not covered by the TASK-0852 CSV manifest; they must be pinned before construction, preserving the metadata-only boundary.
+  - The full-window-vs-truncated diagnostic gives direction and at-risk cohorts (truncation only lowers exposure; full-window is an upper bound; 24 top-quintile repeater sources at re-rank risk) but not exact re-ranking counts, which need the maps.
+  - Catalog 1 vs Catalog 2 framework-shift remains a confound for any version-locked pre-T reconstruction and must be controlled when the truncated view is built.
+  - No morphology features, dynamic spectra, PRED entry, RESULT artifact, AGENT-RUN, or claim transition are produced by this task.
+
+verdict: T_TRUNCATED_SPLIT_SPECIFIED_NO_LEAKAGE_CONSTRUCTION_PENDING_EXPOSURE_MAPS
