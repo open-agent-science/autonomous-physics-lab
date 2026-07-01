@@ -1,0 +1,365 @@
+{
+  "agent_run_id": "AGENT-RUN-0089",
+  "audit_decision": {
+    "any_family_passes": false,
+    "passing_families": [],
+    "stop_condition_definitions": {
+      "excludes_future_targets": "A route excludes future targets based on a known/suspected revealed error.",
+      "interval_width_explodes": "Interval widths inflate beyond the predeclared sharpness limit, so the output is no longer useful for PRED uncertainty semantics.",
+      "needs_holdout_to_select_parameters": "A route parameter would require post-AME2020 holdout values to choose regions, thresholds, exclusions, or tail parameters.",
+      "not_reproducible_from_committed_inputs": "The calibrated route cannot be reproduced from committed inputs without a live external fetch.",
+      "sparse_region_without_fallback": "A region-stratified bin is too sparse for a stable LOO quantile and no global fallback is predeclared.",
+      "tail_fix_overcovers_center": "A route improves the tail only by making central coverage more overcovered than the uncalibrated blocker."
+    },
+    "tripped_stop_conditions": []
+  },
+  "benchmark_id": "nmd0003-gp-uncertainty-calibration-audit",
+  "dataset_summary": {
+    "dataset_id": "NMD-0003",
+    "holdout_primary_row_count": 295,
+    "post_ame2020_rows_used_for_calibration": 0,
+    "training_row_count": 2309
+  },
+  "engine_version": "0.1.0",
+  "family_results": {
+    "conformal_global": {
+      "frozen": {
+        "family": "conformal_global",
+        "interval_multiplier_1sigma": 0.652357,
+        "interval_multiplier_2sigma": 1.814057,
+        "method": "loo_absolute_standardized_empirical_quantiles"
+      },
+      "holdout_metrics": {
+        "count": 295,
+        "coverage_1sigma_minus_nominal": -0.05896,
+        "coverage_2sigma_minus_nominal": 0.004822,
+        "empirical_coverage_1sigma": 0.623729,
+        "empirical_coverage_2sigma": 0.959322,
+        "max_width_inflation": 0.652357,
+        "median_1sigma_halfwidth_mev": 0.323926,
+        "median_width_inflation": 0.652357,
+        "p90_width_inflation": 0.652357,
+        "rms_standardized_residual": 4.333163
+      },
+      "success": {
+        "all_conditions_pass": false,
+        "central_calibration_pass": false,
+        "sharpness_pass": true,
+        "tail_control_pass": false,
+        "tripped_stop_conditions": []
+      }
+    },
+    "global_robust_tail": {
+      "frozen": {
+        "family": "global_robust_tail",
+        "interval_multiplier_1sigma": 0.652357,
+        "interval_multiplier_2sigma": 1.802377,
+        "loo_abs_p68": 0.652357,
+        "loo_abs_p95": 1.814057,
+        "loo_abs_p95_over_p68_ratio": 2.780771,
+        "method": "student_t_loo_tail_shape_match",
+        "scale": 0.545048,
+        "student_t_nu": 3
+      },
+      "holdout_metrics": {
+        "count": 295,
+        "coverage_1sigma_minus_nominal": -0.05896,
+        "coverage_2sigma_minus_nominal": 0.004822,
+        "empirical_coverage_1sigma": 0.623729,
+        "empirical_coverage_2sigma": 0.959322,
+        "max_width_inflation": 0.652357,
+        "median_1sigma_halfwidth_mev": 0.323926,
+        "median_width_inflation": 0.652357,
+        "p90_width_inflation": 0.652357,
+        "rms_standardized_residual": 4.333163
+      },
+      "success": {
+        "all_conditions_pass": false,
+        "central_calibration_pass": false,
+        "sharpness_pass": true,
+        "tail_control_pass": false,
+        "tripped_stop_conditions": []
+      }
+    },
+    "region_quantile_min_count": {
+      "frozen": {
+        "fallback_family": "global_robust_tail",
+        "family": "region_quantile_min_count",
+        "method": "per_a_band_loo_absolute_standardized_quantiles",
+        "min_loo_count": 40,
+        "partition": "a_band",
+        "regions": {
+          "heavy_A_ge_140": {
+            "interval_multiplier_1sigma": 0.45567,
+            "interval_multiplier_2sigma": 1.103774,
+            "loo_count": 1152,
+            "uses_fallback": false
+          },
+          "light_A_lt_60": {
+            "interval_multiplier_1sigma": 1.333223,
+            "interval_multiplier_2sigma": 4.929897,
+            "loo_count": 384,
+            "uses_fallback": false
+          },
+          "medium_60_le_A_lt_140": {
+            "interval_multiplier_1sigma": 0.701762,
+            "interval_multiplier_2sigma": 1.411984,
+            "loo_count": 773,
+            "uses_fallback": false
+          }
+        }
+      },
+      "holdout_metrics": {
+        "count": 295,
+        "coverage_1sigma_minus_nominal": -0.028452,
+        "coverage_2sigma_minus_nominal": -0.005347,
+        "empirical_coverage_1sigma": 0.654237,
+        "empirical_coverage_2sigma": 0.949153,
+        "fallback_regions": [],
+        "holdout_region_counts": {
+          "heavy_A_ge_140": 86,
+          "light_A_lt_60": 47,
+          "medium_60_le_A_lt_140": 162
+        },
+        "max_width_inflation": 1.333223,
+        "median_1sigma_halfwidth_mev": 0.346153,
+        "median_width_inflation": 0.701762,
+        "p90_width_inflation": 1.333223,
+        "rms_standardized_residual": 4.003043
+      },
+      "success": {
+        "all_conditions_pass": false,
+        "central_calibration_pass": true,
+        "sharpness_pass": true,
+        "tail_control_pass": false,
+        "tripped_stop_conditions": []
+      }
+    }
+  },
+  "frozen_config": {
+    "families": {
+      "conformal_global": {
+        "family": "conformal_global",
+        "interval_multiplier_1sigma": 0.652357,
+        "interval_multiplier_2sigma": 1.814057,
+        "method": "loo_absolute_standardized_empirical_quantiles"
+      },
+      "global_robust_tail": {
+        "family": "global_robust_tail",
+        "interval_multiplier_1sigma": 0.652357,
+        "interval_multiplier_2sigma": 1.802377,
+        "loo_abs_p68": 0.652357,
+        "loo_abs_p95": 1.814057,
+        "loo_abs_p95_over_p68_ratio": 2.780771,
+        "method": "student_t_loo_tail_shape_match",
+        "scale": 0.545048,
+        "student_t_nu": 3
+      },
+      "region_quantile_min_count": {
+        "fallback_family": "global_robust_tail",
+        "family": "region_quantile_min_count",
+        "method": "per_a_band_loo_absolute_standardized_quantiles",
+        "min_loo_count": 40,
+        "partition": "a_band",
+        "regions": {
+          "heavy_A_ge_140": {
+            "interval_multiplier_1sigma": 0.45567,
+            "interval_multiplier_2sigma": 1.103774,
+            "loo_count": 1152,
+            "uses_fallback": false
+          },
+          "light_A_lt_60": {
+            "interval_multiplier_1sigma": 1.333223,
+            "interval_multiplier_2sigma": 4.929897,
+            "loo_count": 384,
+            "uses_fallback": false
+          },
+          "medium_60_le_A_lt_140": {
+            "interval_multiplier_1sigma": 0.701762,
+            "interval_multiplier_2sigma": 1.411984,
+            "loo_count": 773,
+            "uses_fallback": false
+          }
+        }
+      }
+    },
+    "frozen_before_holdout_scoring": true,
+    "nominal_coverage": {
+      "central_1sigma": 0.682689,
+      "central_2sigma": 0.9545
+    },
+    "predeclared_success_conditions": {
+      "central_calibration": "abs(empirical_1sigma_coverage - 0.682689) <= 0.05 AND abs(empirical_2sigma_coverage - 0.9545) <= 0.03.",
+      "coverage_surface": "Any abstained/fallback region is reported explicitly; no holdout target is silently dropped.",
+      "no_peek": "All route parameters (Student-t nu/scale, region labels, region quantiles, minimum region LOO count, fallback rule, width-inflation limits, coverage targets) are frozen from training/LOO diagnostics before the post-AME2020 holdout is scored.",
+      "scope": "Output remains a calibration audit; no PRED/RESULT/CLAIM/KNOW artifact is created and TASK-0827 stays blocked unless every condition passes.",
+      "sharpness": "median interval-width inflation <= 3.0 AND p90 interval-width inflation <= 4.0.",
+      "tail_control": "0.85 <= post_calibration_rms_standardized_residual <= 1.2 (uncalibrated holdout is 2.826769)."
+    },
+    "predeclared_success_thresholds": {
+      "coverage_1sigma_tol": 0.05,
+      "coverage_2sigma_tol": 0.03,
+      "max_median_width_inflation": 3.0,
+      "max_p90_width_inflation": 4.0,
+      "rms_z_high": 1.2,
+      "rms_z_low": 0.85
+    },
+    "region_min_loo_count": 40,
+    "region_partition": "a_band",
+    "route_preflight_task": "TASK-0865"
+  },
+  "gp_fitted_hyperparameters": {
+    "length_scale_standardized": 0.136302,
+    "sigma_f_mev": 20.742879,
+    "sigma_n_mev": 0.432527
+  },
+  "holdout_uncalibrated_reference": {
+    "interval_metrics": {
+      "count": 295,
+      "coverage_1sigma_minus_nominal": 0.14104,
+      "coverage_2sigma_minus_nominal": 0.011602,
+      "empirical_coverage_1sigma": 0.823729,
+      "empirical_coverage_2sigma": 0.966102,
+      "max_width_inflation": 1.0,
+      "median_1sigma_halfwidth_mev": 0.496547,
+      "median_width_inflation": 1.0,
+      "p90_width_inflation": 1.0,
+      "rms_standardized_residual": 2.826769
+    },
+    "standardized_summary": {
+      "abs_max": 46.302384,
+      "abs_p68": 0.725497,
+      "abs_p95": 1.734974,
+      "abs_p99": 3.457904,
+      "count": 295,
+      "fraction_beyond_2sigma": 0.033898,
+      "fraction_beyond_3sigma": 0.016949,
+      "rms_standardized_residual": 2.826769
+    }
+  },
+  "input_references": {
+    "dataset": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml",
+    "frozen_gate": "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml",
+    "gp_engine": "physics_lab/engines/nmd0003_residual_gp.py",
+    "post_ame2020_holdout": "data/nuclear_masses/post_ame2020_holdout.yaml"
+  },
+  "limitations": [
+    "Calibration audit only: no PRED/RESULT/CLAIM/KNOW artifact is created and RESULT-0025 is not modified.",
+    "Retrospective post-AME2020 time-split holdout, not a strict blind prediction reveal.",
+    "Single GP model class (RBF on [Z, N] residuals) and one frozen liquid-drop baseline; a different baseline or model would shift the residual surface and the LOO diagnostics.",
+    "Three predeclared TASK-0865 route families only; no broader calibration-method search is performed (by design, to stay no-peek).",
+    "LOO diagnostics use the exact closed-form GP leave-one-out identities on the cached training kernel; they characterize the training surface and need not match the heavier-tailed holdout, which is exactly what this audit measures."
+  ],
+  "outlier_ledger": [
+    {
+      "A": 84,
+      "N": 53,
+      "Z": 31,
+      "a_band": "medium_60_le_A_lt_140",
+      "corrected_residual_mev": 26.33775,
+      "magic_neighborhood": "not_near_magic",
+      "neutron_excess_band": "high_eta_ge_0_25",
+      "nuclide_id": "Ga-84",
+      "raw_sigma_mev": 0.568821,
+      "standardized_residual": 46.302384
+    },
+    {
+      "A": 23,
+      "N": 9,
+      "Z": 14,
+      "a_band": "light_A_lt_60",
+      "corrected_residual_mev": 4.121917,
+      "magic_neighborhood": "near_magic_within_2",
+      "neutron_excess_band": "low_eta_lt_0_15",
+      "nuclide_id": "Si-23",
+      "raw_sigma_mev": 1.019401,
+      "standardized_residual": 4.043471
+    },
+    {
+      "A": 26,
+      "N": 11,
+      "Z": 15,
+      "a_band": "light_A_lt_60",
+      "corrected_residual_mev": 2.722282,
+      "magic_neighborhood": "not_near_magic",
+      "neutron_excess_band": "low_eta_lt_0_15",
+      "nuclide_id": "P-26",
+      "raw_sigma_mev": 0.718036,
+      "standardized_residual": 3.791288
+    },
+    {
+      "A": 24,
+      "N": 10,
+      "Z": 14,
+      "a_band": "light_A_lt_60",
+      "corrected_residual_mev": 2.317138,
+      "magic_neighborhood": "near_magic_within_2",
+      "neutron_excess_band": "low_eta_lt_0_15",
+      "nuclide_id": "Si-24",
+      "raw_sigma_mev": 0.674248,
+      "standardized_residual": 3.436624
+    },
+    {
+      "A": 51,
+      "N": 30,
+      "Z": 21,
+      "a_band": "light_A_lt_60",
+      "corrected_residual_mev": -1.498195,
+      "magic_neighborhood": "near_magic_within_2",
+      "neutron_excess_band": "mid_0_15_le_eta_lt_0_25",
+      "nuclide_id": "Sc-51",
+      "raw_sigma_mev": 0.482504,
+      "standardized_residual": -3.105043
+    }
+  ],
+  "output_routing": {
+    "canonical_destination": "sandbox_agent_run_plus_review_note",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "prediction_impact": "none",
+    "result_impact": "none",
+    "task_verdict": "NO_PEEK_CALIBRATION_FAIL_TASK_0827_STILL_BLOCKED"
+  },
+  "prediction_freeze_impact": "unchanged_task_0827_remains_blocked",
+  "prediction_freeze_task": "TASK-0827",
+  "provenance": {
+    "agent_run_id": "AGENT-RUN-0089",
+    "benchmark_id": "nmd0003-gp-uncertainty-calibration-audit",
+    "code_reference": "physics_lab/engines/nmd0003_gp_calibration_audit.py",
+    "command": "python3 scripts/run_nmd0003_gp_calibration_audit.py",
+    "determinism": "no random seed consumed; closed-form GP fit and LOO identities",
+    "engine_version": "0.1.0",
+    "git_commit": "ef12778c67ba349759d97b31611602308503c78e",
+    "input_file_hashes": {
+      "dataset": {
+        "path": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml",
+        "sha256": "f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52"
+      },
+      "frozen_gate": {
+        "path": "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml",
+        "sha256": "2988c2eb28e0e1bee783bd4824a9680313b5ef81f1e9ae96698893e4525b8cd2"
+      },
+      "post_ame2020_holdout": {
+        "path": "data/nuclear_masses/post_ame2020_holdout.yaml",
+        "sha256": "47bfe520df8ca4a95c1614192c5da165782b2308ba58110e6832afb1b8151e49"
+      }
+    },
+    "physics_lab_version": "0.1.0",
+    "task_id": "TASK-0899"
+  },
+  "route_preflight_task": "TASK-0865",
+  "source_agent_run_id": "AGENT-RUN-0080",
+  "source_task_id": "TASK-0824",
+  "task_id": "TASK-0899",
+  "train_only_loo_diagnostics": {
+    "abs_max": 19.017237,
+    "abs_p68": 0.652357,
+    "abs_p95": 1.814057,
+    "abs_p99": 4.10063,
+    "count": 2309,
+    "fraction_beyond_2sigma": 0.038545,
+    "fraction_beyond_3sigma": 0.018623,
+    "rms_standardized_residual": 1.08951
+  },
+  "verdict": "NO_PEEK_CALIBRATION_FAIL_TASK_0827_STILL_BLOCKED"
+}
