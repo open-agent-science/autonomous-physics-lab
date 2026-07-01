@@ -80,9 +80,11 @@ backed by data the recorded command computes deterministically:
 A single minimal code patch, no metric change:
 
 - `physics_lab/workflows/dimensional_validator.py` now emits the three
-  provenance/packaging-integrity checks from run data, appended after the four
-  pre-existing checks. The values are derived exactly so a fresh run reproduces
-  the committed RESULT-0020 verification block.
+  provenance/packaging-integrity checks from run data for the exact RESULT-0020
+  frozen live-74 publication replay, appended after the four pre-existing
+  checks. The values are derived exactly so a fresh run reproduces the committed
+  RESULT-0020 verification block without assigning RESULT-0020-specific
+  packaging assertions to other dimensional-validator runs.
 
 No schema change, no comparator change, and no edit to
 `results/EXP-0006/RUN-0007/result.yaml` were required. The committed artifact is
@@ -163,7 +165,8 @@ command; it does not strengthen the scientific statement.
 - **Result artifact impact:** none; `results/EXP-0006/RUN-0007/result.yaml` is
   byte-unchanged (metrics, verdict, challenge-set rows untouched).
 - **Tooling impact:** `physics_lab/workflows/dimensional_validator.py` now emits
-  the provenance/packaging-integrity checks deterministically from run data.
+  the provenance/packaging-integrity checks deterministically from run data for
+  the exact RESULT-0020 frozen live-74 publication replay only.
 - **Publication blocker:** none remaining for the packaging contest; tier
   promotion remains a separate maintainer/independent-publisher step.
 
