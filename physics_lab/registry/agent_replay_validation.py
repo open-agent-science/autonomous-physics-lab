@@ -26,6 +26,8 @@ SKIPPED_NUMERIC_PATH_PREFIXES = (
     "git_commit",
     "agent_proposal_evaluation",
 )
+GATE_B_IGNORED_CHECK_SCOPE = "gate_a_packaging"
+GATE_B_IGNORED_CHECK_TREATMENT = "publication_packaging_annotation_not_replay_metric"
 STABLE_STRING_PATHS = (
     "result_id",
     "experiment_id",
@@ -436,6 +438,26 @@ def _replayed_result_path(payload: dict[str, Any], replay_dir: Path) -> Path:
     return nested
 
 
+def _gate_b_ignored_check_prefixes(payload: dict[str, Any]) -> tuple[str, ...]:
+    verification = payload.get("verification")
+    if not isinstance(verification, dict):
+        return ()
+    checks = verification.get("checks")
+    if not isinstance(checks, list):
+        return ()
+
+    ignored_prefixes: list[str] = []
+    for index, check in enumerate(checks):
+        if not isinstance(check, dict):
+            continue
+        if (
+            check.get("gate_b_scope") == GATE_B_IGNORED_CHECK_SCOPE
+            and check.get("gate_b_treatment") == GATE_B_IGNORED_CHECK_TREATMENT
+        ):
+            ignored_prefixes.append(f"verification.checks[{index}]")
+    return tuple(ignored_prefixes)
+
+
 def _compare_results(
     expected: dict[str, Any],
     observed: dict[str, Any],
@@ -452,8 +474,15 @@ def _compare_results(
                 )
             )
 
-    expected_numbers = _flatten_numbers(expected)
-    observed_numbers = _flatten_numbers(observed)
+    skipped_check_prefixes = _gate_b_ignored_check_prefixes(expected)
+    expected_numbers = _flatten_numbers(
+        expected,
+        extra_skipped_prefixes=skipped_check_prefixes,
+    )
+    observed_numbers = _flatten_numbers(
+        observed,
+        extra_skipped_prefixes=skipped_check_prefixes,
+    )
     metric_deltas: list[ReplayMetricDelta] = []
     for path, expected_value in sorted(expected_numbers.items()):
         if path not in observed_numbers:
@@ -479,8 +508,13 @@ def _compare_results(
     return issues, metric_deltas
 
 
-def _flatten_numbers(value: Any, *, prefix: str = "") -> dict[str, float]:
-    if prefix.startswith(SKIPPED_NUMERIC_PATH_PREFIXES):
+def _flatten_numbers(
+    value: Any,
+    *,
+    prefix: str = "",
+    extra_skipped_prefixes: tuple[str, ...] = (),
+) -> dict[str, float]:
+    if prefix.startswith(SKIPPED_NUMERIC_PATH_PREFIXES + extra_skipped_prefixes):
         return {}
     if isinstance(value, bool):
         return {}
@@ -490,13 +524,25 @@ def _flatten_numbers(value: Any, *, prefix: str = "") -> dict[str, float]:
         output: dict[str, float] = {}
         for key, item in value.items():
             child_prefix = f"{prefix}.{key}" if prefix else str(key)
-            output.update(_flatten_numbers(item, prefix=child_prefix))
+            output.update(
+                _flatten_numbers(
+                    item,
+                    prefix=child_prefix,
+                    extra_skipped_prefixes=extra_skipped_prefixes,
+                )
+            )
         return output
     if isinstance(value, list):
         output = {}
         for index, item in enumerate(value):
             child_prefix = f"{prefix}[{index}]" if prefix else f"[{index}]"
-            output.update(_flatten_numbers(item, prefix=child_prefix))
+            output.update(
+                _flatten_numbers(
+                    item,
+                    prefix=child_prefix,
+                    extra_skipped_prefixes=extra_skipped_prefixes,
+                )
+            )
         return output
     return {}
 

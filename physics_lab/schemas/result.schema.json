@@ -506,6 +506,18 @@
           "type": "string",
           "minLength": 1
         },
+        "gate_b_scope": {
+          "type": "string",
+          "enum": [
+            "gate_a_packaging"
+          ]
+        },
+        "gate_b_treatment": {
+          "type": "string",
+          "enum": [
+            "publication_packaging_annotation_not_replay_metric"
+          ]
+        },
         "metrics": {
           "type": "object",
           "additionalProperties": {

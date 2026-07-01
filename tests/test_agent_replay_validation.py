@@ -163,6 +163,45 @@ def test_gate_b_finds_flat_layout_result(tmp_path: Path) -> None:
     assert report.validation_record["review_tier_proposed"] == "AGENT_VALIDATED"
 
 
+def test_gate_b_ignores_explicit_gate_a_packaging_check_metrics(tmp_path: Path) -> None:
+    result = _fixture_result(tmp_path)
+    expected = yaml.safe_load(result.read_text(encoding="utf-8"))
+    expected["verification"]["checks"].append(
+        {
+            "name": "publication_packaging_checksum",
+            "status": "PASS",
+            "gate_b_scope": "gate_a_packaging",
+            "gate_b_treatment": "publication_packaging_annotation_not_replay_metric",
+            "details": "Publication packaging annotation, not a run metric.",
+            "metrics": {"packaging_metric": 1.0},
+        }
+    )
+    _write_yaml(result, expected)
+
+    replay_root = tmp_path / "replay"
+    replay_payload = deepcopy(expected)
+    replay_payload["verification"]["checks"] = replay_payload["verification"]["checks"][
+        :1
+    ]
+    replay_result = replay_root / "EXP-9999" / "RUN-9999" / "result.yaml"
+    _write_yaml(replay_result, replay_payload)
+
+    report = validate_agent_published_result(
+        result,
+        root=tmp_path,
+        output_dir=replay_root,
+        replayed_by=_identity(),
+        dry_run=True,
+    )
+
+    assert report.ok, report.issues
+    assert report.status == "PASS"
+    assert all(
+        not metric.path.startswith("verification.checks[1]")
+        for metric in report.metric_deltas
+    )
+
+
 def test_gate_b_can_recheck_already_validated_result(tmp_path: Path) -> None:
     result = _fixture_result(tmp_path)
     expected = yaml.safe_load(result.read_text(encoding="utf-8"))

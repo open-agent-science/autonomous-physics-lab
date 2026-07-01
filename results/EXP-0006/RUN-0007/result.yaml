@@ -116,6 +116,8 @@ verification:
       agreement_fraction: 1.0
       threshold: 0.9
   - name: zero_disagreement_ledger
+    gate_b_scope: gate_a_packaging
+    gate_b_treatment: publication_packaging_annotation_not_replay_metric
     status: PASS
     details: The deterministic replay produced no disagreements with the 74 curated
       benchmark expectations.
@@ -123,6 +125,8 @@ verification:
       disagreement_count: 0
       disagreement_ids: none
   - name: frozen_input_checksum
+    gate_b_scope: gate_a_packaging
+    gate_b_treatment: publication_packaging_annotation_not_replay_metric
     status: PASS
     details: The frozen publication fixture is checksum-pinned and byte-identical
       to the live challenge set at the publication code commit.
@@ -130,6 +134,8 @@ verification:
       fixture_sha256: 2717de440c8718e24d341be0037bbeda043abca0fe3381a5e2b5842f701d3b42
       source_sha256_at_freeze: 2717de440c8718e24d341be0037bbeda043abca0fe3381a5e2b5842f701d3b42
   - name: protected_result_not_rewritten
+    gate_b_scope: gate_a_packaging
+    gate_b_treatment: publication_packaging_annotation_not_replay_metric
     status: PASS
     details: RESULT-0020 and RUN-0007 are new identities; frozen RESULT-0007 and
       EXP-0006/RUN-0006 remain unchanged.
