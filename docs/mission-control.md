@@ -69,9 +69,9 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier, replay, and source-contract gate | Keep famous-formula checks source-first; FIRAS/Wien is agent-validated calibration memory, while high-mass transfer needs metadata-caveat adjudication before stronger wording | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and uncertainty-gated prospective reveal | Test nuclear residual candidates with frozen baselines and future reveal discipline, while keeping `RESULT-0025` point-estimator gains separate from uncalibrated intervals | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Prepare a frozen ZnSe row-transfer gate from existing narrow factual extracts without unblocking open-ended correction search | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | Adjudicate whether the McGrew/NIST Yb/Sr route provides a primary independent row before any metric rerun | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
-| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Source-pinned thermophysical benchmark lane | Replay ThermoML `Tb` `RESULT-0026` and test local-only expansion feasibility without raw archive vendoring or broad property claims | [thermophysical-property-residuals.md](./campaigns/thermophysical-property-residuals.md) |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Decide whether null-baseline memory should receive canonical identities, and reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | McGrew/NIST is blocked as not a direct independent Yb/Sr route; scout one post-2021 independent primary source before any metric rerun | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Source-pinned thermophysical benchmark lane | Bridge ThermoML `Tb` `RESULT-0026` into formal Gate B and test local-only expansion feasibility without raw archive vendoring or broad property claims | [thermophysical-property-residuals.md](./campaigns/thermophysical-property-residuals.md) |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Create minimal canonical identities for null-baseline memory, and reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
@@ -118,7 +118,11 @@ The clearest current repository-level results are:
     FIRAS/Wien `RESULT-0023`, caveated Stellar high-mass transfer
     `RESULT-0024`, Nuclear point-estimator `RESULT-0025`, and ThermoML `Tb`
     `RESULT-0026` are the current strongest post-validation, replay-ready, or
-    source-pinned dataset-backed surfaces. They are useful as scoped,
+    source-pinned dataset-backed surfaces. The newest agent wave added useful
+    blocker evidence: Nuclear uncertainty calibration failed the approved
+    no-peek routes, Atomic McGrew/NIST is blocked, Exoplanet monitor check 3 is
+    `NO_NOTIFY`, and ThermoML replay is numerically zero-drift but formal
+    Gate-B-helper blocked. These surfaces are useful as scoped,
     review-tiered memory and transfer/source-readiness prompts, not as
     material-discovery, stellar-law, nuclear-law, thermophysical-law, or
     universal-formula claims.

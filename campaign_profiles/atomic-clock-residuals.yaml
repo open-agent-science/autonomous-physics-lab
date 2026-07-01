@@ -82,16 +82,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Beloy/Nemitz Yb/Sr diagnostic is preserved as source-limited consistency memory; Pizzocaro remains diagnostic-only; McGrew 2018 / NIST is the current value-blind candidate route needing primary-ratio and independence adjudication"
+  current_stage: "Beloy/Nemitz Yb/Sr diagnostic is preserved as source-limited consistency memory; Pizzocaro remains diagnostic-only; McGrew 2018 / NIST is blocked as not a direct independent Yb/Sr route"
   recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun Beloy/Nemitz or fit constants drift. Future work must answer a concrete source/admissibility question before any row curation or metric work."
+  coordination_notes: "Do not rerun Beloy/Nemitz, duplicate the Beloy/BACON row under McGrew/NIST, or fit constants drift. Future work should scout one post-2021 independent primary Yb/Sr source route value-blind."
   next_validity_gate:
     type: source_readiness
-    blocker: "McGrew 2018 / NIST may be a plausible route, but primary absolute Yb/Sr ratio semantics and independence from the Beloy/BACON network are unresolved."
-    target_artifact: "TASK-0901"
+    blocker: "The attempted McGrew/NIST route is blocked; the campaign still lacks a third independent primary Yb/Sr source."
+    target_artifact: "TASK-0913"
   best_next_actions:
-    - task_id: TASK-0901
-      label: "Adjudicate the McGrew/NIST Yb-Sr source route before row curation"
+    - task_id: TASK-0913
+      label: "Scout one post-2021 independent primary Yb/Sr source route"
   required_gates:
     - "Second-source provenance review."
     - "Real-row loader and schema validation."
@@ -106,15 +106,15 @@ portfolio:
     - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
     - "docs/reviews/atomic-ybsr-reopen-source-route-scout.md"
     - "docs/reviews/atomic-ybsr-independent-source-route-scout.md"
+    - "docs/reviews/atomic-mcgrew-ybsr-source-route-adjudication.md"
     - "docs/campaigns/atomic-clock-residuals.md"
   open_questions:
-    - "Does McGrew 2018 publish a primary absolute Yb/Sr ratio row with recoverable uncertainty semantics?"
-    - "Can a NIST-network Yb/Sr surface count as independent from Beloy/BACON for the reopen condition?"
+    - "Is there a post-2021 primary absolute Yb/Sr ratio route outside Beloy/Nemitz/Pizzocaro/McGrew that is independent enough to curate later?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-0889 McGrew/NIST source-route scout and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "High-prestige lane with completed source-limited memory. McGrew/NIST is a plausible but not yet admissible route; the next work is value-blind source adjudication, not metrics or constants-drift fitting."
+    source: "TASK-0901 McGrew/NIST source-route adjudication and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "High-prestige lane with completed source-limited memory. McGrew/NIST is not an admissible independent direct Yb/Sr route; the next work is one value-blind post-2021 source scout, not metrics or constants-drift fitting."

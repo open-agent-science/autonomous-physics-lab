@@ -1,0 +1,57 @@
+id: TASK-0918
+title: "Preflight ThermoML esters/lactones failed-family memory for canonical negative RESULT packaging"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0896 preserved esters/lactones as negative/control memory, but the failure is still review-note memory rather than a canonical negative RESULT candidate."
+  - "Because RESULT-0026 is aggregate-positive but family-dependent, a bounded failed-family package can prevent overclaim while preserving the useful aggregate result."
+  - "This task should decide whether canonical negative packaging is warranted without mutating RESULT-0026."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0001/metrics.json"
+    - "docs/reviews/thermoml-result0026-gate-b-replay.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Decide whether the failed esters/lactones family should become a canonical
+    negative/control RESULT candidate, stay as review-note memory, or wait for
+    a larger ThermoML fixture.
+
+requirements:
+  - "Assess Gate A readiness for a narrow negative/control result whose statement is only that the frozen Joback transfer fails the esters/lactones family margin in RESULT-0026's fixture."
+  - "Preserve aggregate RESULT-0026 success, per-family values, source-rights limits, and no-claim wording; do not create contradiction or broad Joback refutation."
+  - "Recommend PACKAGE_AS_NEGATIVE_RESULT, KEEP_REVIEW_NOTE_ONLY, or WAIT_FOR_EXPANDED_FIXTURE with exact next task shape."
+  - "Do not edit RESULT-0026, fixture rows, Joback coefficients, claims, knowledge, or prediction registry entries."
+  - "No chemical-design, safety, synthesis, process-design, universal-accuracy, or broad property-estimation claim."
+
+accepted_outputs:
+  - "A docs/reviews preflight note with Gate A checklist, recommendation, blockers, and safe public wording."
+  - "A future result-packaging task shape only if the package route clears scope and schema gates."
+  - "Output-routing summary: negative-result preflight only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Preflight for possible failed-family negative result; no canonical result is created in this task."
+  evidence:
+    - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_thermoml_family_transfer.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

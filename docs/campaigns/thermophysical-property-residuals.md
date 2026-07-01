@@ -49,6 +49,11 @@ the family-survival margin.
 clear the family margin. That failed family is part of the result, not a detail
 to hide behind the aggregate win.
 
+**Replay state:** an independent numeric replay reproduced aggregate and
+per-family `RESULT-0026` metrics with zero drift. Formal Gate B tier update is
+still blocked because the current helper/workflow path does not yet support the
+result replay command.
+
 **Not a claim:** `RESULT-0026` is not a universal validation of Joback, not a
 new thermophysical law, and not a chemical-design or process-design result. It
 does not say anything about critical temperature, vapor pressure, heat capacity,
@@ -60,8 +65,8 @@ for this first audit.
 
 The campaign should move through three narrow gates:
 
-1. **Gate B replay** - independently replay `RESULT-0026` from committed inputs
-   and compare aggregate and per-family metrics without changing the result.
+1. **Formal Gate B bridge** - connect the zero-drift numeric replay to a
+   protocol-safe workflow/helper path without changing result metrics.
 2. **Local-only source-expansion preflight** - decide whether a larger
    ThermoML `Tb` fixture can be described with identity mapping, family counts,
    row class, and rights blockers before any values or archive bytes are
@@ -90,7 +95,8 @@ Not currently admitted:
 
 ## Allowed Task Types
 
-1. **Replay task** - independent Gate B replay of `RESULT-0026`.
+1. **Replay task** - formal Gate B bridge or independent replay of
+   `RESULT-0026`.
 2. **Source-readiness task** - local-only corpus-expansion or extraction
    preflight, including rights, identity-map, and family-count blockers.
 3. **Negative-memory task** - failed-family or control-memory packaging only
@@ -102,7 +108,7 @@ Not currently admitted:
 
 Allowed current work:
 
-- replay `RESULT-0026`;
+- replay or formally bridge `RESULT-0026`;
 - inspect committed fixture, source manifest, result metadata, and runner code;
 - write source-readiness or negative-memory notes;
 - draft task-queue entries for bounded future work.
@@ -119,10 +125,12 @@ Not allowed:
 
 ## Recommended Next Tasks
 
-1. `TASK-0894` - independently replay ThermoML `Tb` `RESULT-0026` through Gate
+1. `TASK-0907` - bridge ThermoML `Tb` `RESULT-0026` into formal workflow Gate
    B.
 2. `TASK-0906` - preflight local-only identity/count feasibility for an 80-row
    ThermoML `Tb` fixture.
+3. `TASK-0918` - preflight esters/lactones failed-family memory for possible
+   canonical negative/control packaging.
 
 ## Why It Matters
 
@@ -140,4 +148,5 @@ demonstration of verification-first agent science.
 - [ThermoML family-stratified transfer benchmark review](../reviews/thermoml-tb-family-stratified-transfer-benchmark.md)
 - [RESULT-0026 report](../../results/EXP-0020/RUN-0001/report.md)
 - [RESULT-0026 Gate A report](../../results/EXP-0020/RUN-0001/gate_a_report.md)
+- [RESULT-0026 replay note](../reviews/thermoml-result0026-gate-b-replay.md)
 - [RESULT-0026 result metadata](../../results/EXP-0020/RUN-0001/result.yaml)

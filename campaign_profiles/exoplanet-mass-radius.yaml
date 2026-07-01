@@ -134,18 +134,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "pinned PSCompPars snapshots, replayed control-sensitive null-baseline memory, Gate A negative-result packaging blocked by missing canonical experiment/hypothesis identity, and monitor-only EXO-0003 trigger posture"
+  current_stage: "pinned PSCompPars snapshots, replayed control-sensitive null-baseline memory, metadata-only source monitor check 3 returned NO_NOTIFY, and TASK-0904 recommended minimal canonical identity scaffolding before any negative/control result package"
   recommended_parallel_agents: 2
-  coordination_notes: "Parallel-safe for metadata-only trigger decisions and package-or-stop identity review; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
+  coordination_notes: "Parallel-safe for canonical identity scaffolding and metadata-only monitor reviews; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
   next_validity_gate:
     type: source_readiness
-    blocker: "Current snapshot residual scoring stays closed; Gate A negative-result packaging also lacks canonical Exoplanet experiment/hypothesis identity."
-    target_artifact: "TASK-0904"
+    blocker: "Current snapshot residual scoring stays closed; negative/control result packaging lacks minimal canonical experiment/hypothesis identities."
+    target_artifact: "TASK-0909"
   best_next_actions:
-    - task_id: TASK-0904
-      label: "Decide whether null-baseline memory should get canonical experiment identity"
-    - task_id: TASK-0905
-      label: "Run source-version monitor check 3 without value-bearing row updates"
+    - task_id: TASK-0909
+      label: "Create minimal Exoplanet null-baseline negative/control canonical identities"
   required_gates:
     - "Pinned snapshot and checksum state must remain explicit."
     - "Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes."
@@ -160,14 +158,16 @@ portfolio:
     - "docs/reviews/exoplanet-next-snapshot-trigger-decision.md"
     - "docs/reviews/exoplanet-source-version-monitor-check-2.md"
     - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
+    - "docs/reviews/exoplanet-null-baseline-canonical-identity-decision.md"
+    - "docs/reviews/exoplanet-source-version-monitor-check-3.md"
   open_questions:
-    - "Should the replayed null-baseline negative/control memory get a minimal canonical identity, or remain review-note-only?"
-    - "What source-version or coverage signal would justify EXO-0003 planning?"
+    - "Can the replayed null-baseline negative/control memory get minimal canonical identities without rerunning metrics or overclaiming?"
+    - "What future source-version or coverage signal would justify EXO-0003 planning?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0888 Gate A blocker and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "Monitor-only lane with useful replayed negative/control memory. Gate A packaging is blocked by missing canonical identity; next work is an explicit package-or-stop identity decision plus continued metadata-only monitoring, not residual scoring."
+    source: "TASK-0904 canonical identity decision, TASK-0905 source monitor check 3, and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "Monitor-only lane with useful replayed negative/control memory. Gate A packaging is blocked by missing canonical identities; next work is minimal identity scaffolding, not residual scoring."

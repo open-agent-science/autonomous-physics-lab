@@ -1,0 +1,57 @@
+id: TASK-0913
+title: "Scout one post-2021 independent primary Yb/Sr source route after McGrew blockage"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0901 blocked the McGrew/NIST route because it is not a primary Yb/Sr source or collapses into the already represented Beloy/BACON network."
+  - "Atomic can advance only through an independent primary Yb/Sr row or an approved aggregation/harmonization contract."
+  - "The next useful Atomic work is one value-blind source scout outside the exhausted Beloy/Nemitz/Pizzocaro/McGrew surfaces."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/reviews/atomic-mcgrew-ybsr-source-route-adjudication.md"
+    - "docs/reviews/atomic-ybsr-independent-source-route-scout.md"
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/reviews/atomic-pizzocaro-aggregation-observable-harmonization-contract.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+  planning_context: >
+    Scout exactly one candidate source route that is institutionally and
+    experimentally distinct from Beloy/BACON, Nemitz/RIKEN, Pizzocaro/INRIM,
+    and McGrew/NIST Yb/Yb. Stop before values.
+
+requirements:
+  - "Scout exactly one post-2021 candidate primary absolute neutral-clock Yb/Sr publication or source route."
+  - "Record locator, direct-row status, license/reuse posture, uncertainty/covariance visibility, lab/network overlap, campaign epoch, and version-drift risk without transcribing values."
+  - "Return READY_FOR_SOURCE_ARTIFACT, BLOCKED_NO_INDEPENDENT_SOURCE, or NEEDS_MAINTAINER_DECISION."
+  - "Do not ingest rows, run Yb/Sr metrics, derive ratios from external values, fit constants drift, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No constants-drift, anomaly, new-constant, or precision-physics discovery wording."
+
+accepted_outputs:
+  - "A docs/reviews source-route scout note with evidence, independence assessment, and stop conditions."
+  - "A future source-artifact task shape only if source, license, uncertainty, and independence gates clear."
+  - "Output-routing summary: source-readiness only, no row/metric/result/claim/knowledge change."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind source scout only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/atomic-mcgrew-ybsr-source-route-adjudication.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

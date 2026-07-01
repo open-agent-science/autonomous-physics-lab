@@ -117,10 +117,11 @@ it does not itself authorize scoring.
 **Scope and routing:** this capsule packages existing negative/control memory.
 It does not fetch live rows, add metrics, create or modify
 `RESULT-*`/`PRED-*`/`CLAIM-*`/`KNOW-*`, or make composition, habitability, or
-universal mass-radius statements. The next useful work is a canonical identity
-decision for this null-baseline memory (`TASK-0904`) and a metadata-only
-source-version monitor check (`TASK-0905`), not another residual score. The
-campaign remains monitor-only.
+universal mass-radius statements. `TASK-0904` selected a minimal identity path
+for this null-baseline memory, and source-version monitor check 3 returned
+`NO_NOTIFY`. The next useful work is minimal canonical experiment/hypothesis
+identity scaffolding, not another residual score. The campaign remains
+monitor-only.
 
 Evidence:
 
@@ -130,6 +131,8 @@ Evidence:
 - [Compact-radius host-context preflight](../reviews/exoplanet-compact-radius-host-context-preflight.md)
 - [Second-snapshot reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md)
 - [Source-version monitor check 2](../reviews/exoplanet-source-version-monitor-check-2.md)
+- [Null-baseline canonical identity decision](../reviews/exoplanet-null-baseline-canonical-identity-decision.md)
+- [Source-version monitor check 3](../reviews/exoplanet-source-version-monitor-check-3.md)
 
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,

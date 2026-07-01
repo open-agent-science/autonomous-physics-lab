@@ -84,16 +84,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; contested replay and adjudication brief are in main, so TASK-0782 is ready to resolve the packaging contest"
+  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; TASK-0782 resolved the packaging contest on main with clean Gate B replay, leaving only a metadata-only validation update decision"
   recommended_parallel_agents: 1
-  coordination_notes: "Prioritize TASK-0782 packaging adjudication before adding more live challenge examples or claim support."
+  coordination_notes: "Prioritize metadata-only validation hygiene before adding more live challenge examples or claim support; duplicate dirty PRs are not new scientific evidence."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0020 core metrics reproduced but publication packaging checks need adjudication before any AGENT_VALIDATED tier update."
-    target_artifact: "TASK-0782"
+    blocker: "RESULT-0020 packaging contest is resolved, but validation-tier metadata update remains a separate protocol decision."
+    target_artifact: "TASK-0916"
   best_next_actions:
-    - task_id: TASK-0782
-      label: "Adjudicate RESULT-0020 packaging and rerun Gate B or preserve blocker"
+    - task_id: TASK-0916
+      label: "Prepare metadata-only AGENT_VALIDATED update after clean Gate B"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -103,14 +103,14 @@ portfolio:
     - "docs/results/dimensional-analysis-validator-summary.md"
     - "docs/reviews/dimensional-result-0020-gate-b-contested-replay.md"
     - "docs/reviews/dimensional-result0020-gateb-adjudication-brief.md"
+    - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
   open_questions:
-    - "Can RESULT-0020 packaging checks be made reproducible without changing metrics?"
-    - "Should RESULT-0020 remain AGENT_PUBLISHED with a blocker if packaging cannot be cleanly replayed?"
+    - "Can RESULT-0020 receive a metadata-only AGENT_VALIDATED update without changing metrics, challenge sets, or CLAIM-0005?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-0807 adjudication brief and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "Quality-floor track has a high-value live result but the validation tier is blocked by packaging provenance. TASK-0782 is now READY because the contested replay and adjudication brief are in main."
+    source: "TASK-0782 packaging adjudication merge and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "Quality-floor track has a high-value live result with clean Gate B replay. The next work is metadata-only validation hygiene, not challenge expansion or claim support."

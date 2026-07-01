@@ -129,16 +129,18 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "frozen baseline, RESULT-0018 AGENT_VALIDATED diagnostic memory, RESULT-0025 point-estimator evidence with exact Gate B replay, no-peek uncertainty-route preflight complete, canonical DZ10 wrapper awaiting closeout, and reveal scoring still source/uncertainty blocked"
+  current_stage: "frozen baseline, RESULT-0018 AGENT_VALIDATED diagnostic memory, RESULT-0025 point-estimator evidence with exact Gate B replay, failed no-peek uncertainty-calibration audit, canonical DZ10 wrapper, and reveal scoring still source/uncertainty blocked"
   recommended_parallel_agents: 3
-  coordination_notes: "Do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint. Current executable work is no-peek uncertainty calibration for RESULT-0025; DZ10 parity should wait for TASK-0878 closeout or a later source-rights-safe follow-up."
+  coordination_notes: "Do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint. Current executable work is preserving the uncertainty-calibration failure as possible negative/blocker memory and running rights-safe DZ10 parity if local AMDC bytes are available."
   next_validity_gate:
     type: external_reveal
-    blocker: "Prediction freeze remains blocked until a no-peek uncertainty-calibration metric audit passes and a source-grade reveal route is accepted; RESULT-0025 is point-estimator evidence only."
-    target_artifact: "TASK-0899"
+    blocker: "Prediction freeze remains blocked because TASK-0899 found no approved no-peek uncertainty route passed; RESULT-0025 is point-estimator evidence only."
+    target_artifact: "TASK-0912"
   best_next_actions:
-    - task_id: TASK-0899
-      label: "Run no-peek NMD-0003 GP uncertainty-calibration metric audit"
+    - task_id: TASK-0912
+      label: "Preflight the uncertainty-calibration failure as negative/blocker result memory"
+    - task_id: TASK-0911
+      label: "Run rights-safe DZ10 full-table parity if local AMDC bytes are available"
   required_gates:
     - "Use the source-gated NMD-0003 measured-row training surface and frozen split manifest for the next broad Nuclear factory sprint."
     - "No reveal scoring before a source-grade no-peek release passes preflight."
@@ -161,17 +163,18 @@ portfolio:
     - "docs/reviews/nmd0003-gp-no-peek-uncertainty-route-preflight.md"
     - "docs/reviews/canonical-dz10-reference-wrapper.md"
     - "agent_runs/AGENT-RUN-0075/report.md"
+    - "agent_runs/AGENT-RUN-0089/report.md"
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
   open_questions:
-    - "Can a predeclared train-only uncertainty route improve both central coverage and tail behavior without holdout leakage?"
+    - "Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker memory, or remain a review note?"
     - "Should RESULT-0025 receive point-estimator-only public-card wording while interval calibration stays blocked?"
     - "What source-byte/cache route can support full AMDC DZ10 parity without vendoring restricted source bytes?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "RESULT-0025 public packet, TASK-0865 no-peek uncertainty preflight, TASK-0878 DZ10 wrapper, and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "Flagship remains reveal-blocked. RESULT-0025 has a strong replayed point-estimator gain but no calibrated intervals. The next useful work is the no-peek uncertainty metric audit and source-rights-safe DZ10 parity path, not another broad residual factory."
+    source: "TASK-0899 no-peek uncertainty-calibration audit, TASK-0878 DZ10 wrapper, and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "Flagship remains reveal-blocked. RESULT-0025 has a strong replayed point-estimator gain but no calibrated intervals; the calibration failure itself may now be useful negative/blocker memory. Do not start another broad residual factory."

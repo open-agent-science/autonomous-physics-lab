@@ -92,18 +92,20 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "ThermoML Tb RESULT-0026 is AGENT_PUBLISHED on a bounded 40-row family-stratified fixture; Gate B replay remains READY, while corpus-expansion preflight and esters/lactones negative memory have landed."
+  current_stage: "ThermoML Tb RESULT-0026 is AGENT_PUBLISHED on a bounded 40-row family-stratified fixture; independent numeric replay returned zero drift, but formal Gate B is helper-blocked, while corpus-expansion and esters/lactones negative-memory preflights remain separate gates."
   recommended_parallel_agents: 2
-  coordination_notes: "Split work by artifact surface: one agent can replay RESULT-0026 and another can run TASK-0906 local-only identity/count preflight after TASK-0895. Do not broaden beyond Tb, commit raw archive bytes, or rerun Gate A packaging."
+  coordination_notes: "Split work by artifact surface: one agent can bridge RESULT-0026 into formal Gate B, one can run TASK-0906 local-only identity/count preflight, and one can preflight failed-family negative-result packaging. Do not broaden beyond Tb, commit raw archive bytes, or rerun Gate A packaging."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0026 is AGENT_PUBLISHED but not independently replayed; source expansion beyond the bounded fixture remains rights and identity/count gated."
-    target_artifact: "TASK-0894"
+    blocker: "RESULT-0026 numerically replays with zero drift, but the formal helper/workflow path cannot yet promote the validation tier; source expansion remains rights and identity/count gated."
+    target_artifact: "TASK-0907"
   best_next_actions:
-    - task_id: TASK-0894
-      label: "Independently replay ThermoML Tb RESULT-0026 through Gate B"
+    - task_id: TASK-0907
+      label: "Bridge ThermoML Tb RESULT-0026 to formal workflow Gate B"
     - task_id: TASK-0906
       label: "Preflight 80-row expansion identity counts as local-only metadata"
+    - task_id: TASK-0918
+      label: "Preflight esters/lactones failed-family memory for negative RESULT packaging"
   required_gates:
     - "ThermoML archive DOI, checksum, and rights boundary must stay explicit."
     - "No raw archive bytes or substantial normalized corpus may be committed."
@@ -118,17 +120,18 @@ portfolio:
     - "results/EXP-0020/RUN-0001/result.yaml"
     - "results/EXP-0020/RUN-0001/gate_a_report.md"
     - "results/EXP-0020/RUN-0001/report.md"
+    - "docs/reviews/thermoml-result0026-gate-b-replay.md"
     - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
     - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
   open_questions:
-    - "Does independent Gate B replay reproduce aggregate and per-family RESULT-0026 metrics with no drift?"
+    - "Can the zero-drift replay be connected to a formal helper/workflow Gate B path without metric mutation?"
     - "Can the proposed 80-row expansion supply ten admissible identities per existing family without publishing values?"
-    - "Will the maintainer approve bounded factual extraction, or should expansion remain local-only?"
+    - "Should the esters/lactones failed-family memory be packaged as a canonical negative/control result or remain review-note-only?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0895 corpus-expansion preflight, TASK-0896 esters/lactones negative memory, TASK-0906 local-only expansion preflight, and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "This bounded thermophysical-property benchmark lane stays Tb-only and no-claim. Gate B replay of RESULT-0026 remains the nearest result path; source expansion now needs local-only identity/count feasibility and a maintainer rights decision."
+    source: "TASK-0894 RESULT-0026 numeric replay, TASK-0895 corpus-expansion preflight, TASK-0896 esters/lactones negative memory, and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "This bounded thermophysical-property benchmark lane stays Tb-only and no-claim. Numeric replay passed with zero drift, but formal Gate B needs a helper bridge; expansion and failed-family memory remain separate source/negative-result gates."

@@ -30,15 +30,19 @@ candidate as `NEGATIVE_RESULT`: it failed the 0.25 MeV margin against all three
 declared controls despite passing leakage and coefficient-stability checks.
 The later NMD-0003 GP point-estimator lane produced `RESULT-0025`, which
 substantially improves point MAE and replays exactly, but its uncertainty model
-is heavy-tailed and miscalibrated. The next source-safe Nuclear work is no-peek
-uncertainty-calibration auditing and source-rights-safe DZ10 parity, not a new
-Wigner-shape search, broad prediction wave, or another F2 loop.
+is heavy-tailed and miscalibrated. `TASK-0899` has now confirmed that the
+approved no-peek uncertainty-calibration routes do not clear the declared
+freeze conditions. The next source-safe Nuclear work is preserving that
+calibration failure as blocker/negative memory and keeping source-rights-safe
+DZ10 parity auditable, not a new Wigner-shape search, broad prediction wave, or
+another F2 loop.
 
 ## Public Monitoring Snapshot
 
 **Current question:** can the replayed `RESULT-0025` point-estimator gain be
 paired with calibrated no-peek uncertainty and admissible stronger baselines
-before any prospective prediction freeze?
+before any prospective prediction freeze, or should the failed uncertainty
+calibration become durable blocker memory?
 
 **Shareable result:** APL has useful negative/control memory from F2,
 local-curvature, Wigner-cusp, and factory lanes, plus `RESULT-0025` as
@@ -61,16 +65,19 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed. More recent work packaged `RESULT-0025`,
 prepared a point-estimator-only public review packet, preflighted a no-peek
-uncertainty-calibration route, and prepared a metadata-only DZ10 parity wrapper.
+uncertainty-calibration route, prepared a metadata-only DZ10 parity wrapper,
+and then found in `TASK-0899` that no approved no-peek uncertainty route passed
+the declared freeze conditions.
 
 **Expected next decision:** F2 and Wigner-cusp no longer need another
 hypothesis burst or publication preflight. `TASK-0633` packaged F2 as
 diagnostic `RESULT-0018`, and `TASK-0713` replayed it through Gate B without
 changing the `INCONCLUSIVE` scientific verdict. `TASK-0777` rejected the
 selected Wigner-cusp lane under its controls-first contract. The next useful
-Nuclear path is `TASK-0899`, a no-peek uncertainty-calibration metric audit for
-`RESULT-0025`, plus the rights-safe DZ10 parity path. Reveal scoring and
-prediction freeze remain blocked.
+Nuclear paths are a narrow preflight for packaging the failed calibration audit
+as negative/blocker result memory and a rights-safe full-table DZ10 parity
+check if local AMDC bytes are available. Reveal scoring and prediction freeze
+remain blocked.
 
 ## Orientation Note for New Contributors
 

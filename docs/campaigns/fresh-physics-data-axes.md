@@ -22,8 +22,15 @@ Planning scaffold only.
 - WATCHLIST boundaries for PTA releases, gravitational-wave catalogs, and
   event-level collider data.
 
-No dataset has been ingested. No baseline has been run. No claim, result, or
-knowledge entry is promoted.
+Atomic clocks have since graduated into their own source-gated campaign page.
+The CHIME/FRB Catalog 2 selection-effect audit is also near-active as a
+metadata/source gate: the catalog table locator and exposure-only baseline
+exist, and the T-truncated split is specified, but time-resolved exposure-map
+artifacts still need source pinning before any morphology model, prediction, or
+benchmark can run.
+
+No broad fresh-data dataset has been ingested from this scaffold. No claim,
+result, or knowledge entry is promoted.
 
 ## Why This Exists
 
@@ -72,6 +79,17 @@ source locators, license terms, and holdout classification.
 
 This axis must not become cross-domain fitting before the project has a fixed
 source manifest and correlation policy.
+
+### FRB Selection-Effect Audit
+
+CHIME/FRB Catalog 2 is a near-active source-readiness lane, not a public result
+or prediction campaign. Existing artifacts pin the public Catalog 2 table route,
+define a version-locked temporal split, and preserve an exposure-only baseline
+as the control any later morphology model must beat. The current blocker is the
+time-resolved / full-sky exposure-map source artifact needed to construct a
+leakage-safe T-truncated pre-T exposure view. Until that source artifact is
+pinned, do not fit morphology, freeze predictions, or claim repeater
+classification ability.
 
 ## WATCHLIST Axes
 

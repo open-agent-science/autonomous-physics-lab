@@ -1,0 +1,59 @@
+id: TASK-0917
+title: "Bridge Stellar RESULT-0024 to a formal workflow Gate B replay"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0898 repaired the RESULT-0024 task-input hash caveat, but formal Gate B validation remains blocked because the helper cannot execute the standalone published command."
+  - "The next Stellar M-L step is workflow/helper packaging for a clean validation record, not another split audit or high-mass model search."
+  - "Formal replay packaging would let the maintainer decide AGENT_VALIDATED tier wording with no metric change."
+
+input:
+  mode: workflow
+  related_domain: astrophysics_stellar
+  related_objects:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md"
+    - "scripts/run_stellar_ml_high_mass_transfer.py"
+    - "physics_lab/workflows/"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0024 now has zero metric drift and repaired published input snapshot
+    packaging. The remaining blocker is formal helper support for the standalone
+    command shape.
+
+requirements:
+  - "Add a physics-lab workflow wrapper or narrowly supported helper route for RESULT-0024 that replays from published input snapshots and committed DEBCat rows."
+  - "Compare frozen alpha, holdout counts, MAE, control margin, all-stage diagnostic, and provenance subset metrics against the published result."
+  - "Do not refit, edit DEBCat rows, change RESULT-0022, change RESULT-0024 metrics/verdict, or broaden same-source high-mass wording."
+  - "If formal Gate B passes, update only permitted review metadata / validation record according to protocol; otherwise preserve a blocker note."
+  - "No universal stellar mass-luminosity, stellar-evolution, discovery, CLAIM, KNOW, or PRED wording."
+
+accepted_outputs:
+  - "A formal Gate B replay note or amendment with metric-drift and metadata comparison tables."
+  - "Optional RESULT-0024 metadata-only validation update only if the formal Gate B path passes and protocol independence is satisfied."
+  - "Output-routing summary: Gate A existing, Gate B PASS/BLOCKED/CONTESTED, claim impact none, knowledge impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Formal replay bridge for an existing RESULT; no new RESULT or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_stellar_ml_high_mass_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

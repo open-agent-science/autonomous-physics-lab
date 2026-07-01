@@ -1,0 +1,57 @@
+id: TASK-0910
+title: "Pin FRB Catalog 2 time-resolved exposure-map source artifact before T-truncated construction"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0877 specified a leakage-safe T-truncated pre-T exposure view, but numeric construction needs time-resolved exposure-map products that are not yet pinned."
+  - "The next FRB step is source-artifact pinning for maps, not morphology modeling or prediction registration."
+  - "A metadata-only source artifact can decide whether the FRB campaign can proceed to a leakage-safe construction task."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+    - "data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml"
+    - "docs/reviews/frb-catalog2-temporal-split-exposure-baseline.md"
+    - "data/radio_transients/frb_catalog2_source_manifest.yaml"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    TASK-0877 closed the leakage design but did not pin the exposure maps at
+    DOI 10.11570/25.0066. This task pins locator, checksum, rights, and access
+    policy before any truncated exposure values or morphology features exist.
+
+requirements:
+  - "Identify and pin the exact time-resolved / full-sky exposure-map product needed to construct exp_up(<=T) and exp_low(<=T)."
+  - "Record locator, DOI, version, retrieval date, expected file list, checksum plan, rights/reuse posture, and whether bytes or only metadata may be committed."
+  - "Do not fetch or commit catalog rows, exposure-map bytes, numeric truncated exposure values, morphology features, labels, PRED entries, or RESULT artifacts."
+  - "Stop with SOURCE_BLOCKED if rights, access, versioning, or checksum identity cannot be made reviewable."
+  - "No FRB population, morphology, repeater-prediction, discovery, or claim wording."
+
+accepted_outputs:
+  - "A source-artifact review note and, if safe, a metadata-only source manifest update for the exposure maps."
+  - "A future construction task shape only if source identity and rights clear."
+  - "Output-routing summary: source readiness only, no benchmark, prediction, result, claim, or knowledge mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Source artifact pinning before a future FRB split construction; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

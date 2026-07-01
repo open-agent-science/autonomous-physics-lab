@@ -61,9 +61,8 @@ Start here:
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
   the current SI-focused benchmark version?
-- Should the three hand-authored `RESULT-0020` publication checks be generated
-  by the recorded workflow or separated from replayed run metrics before Gate B
-  is retried?
+- Should `RESULT-0020` receive a metadata-only validation-tier update now that
+  the packaging contest has been adjudicated and clean Gate B replay exists?
 - Should `CLAIM-0005` remain `DRAFT`, or should the maintainer accept a
   benchmark-limited transition based solely on `LEGACY_UNTIERED`
   `RESULT-0007`?
@@ -76,10 +75,9 @@ Start here:
 - `TASK-0768` assembles the CLAIM-0005 maintainer evidence handoff while
   recording that there is no `AGENT_VALIDATED` evidence and `RESULT-0020`
   remains replay-needed.
-- `TASK-0807` prepared the adjudication brief, so `TASK-0782` is now the live
-  maintainer-packaging decision task: rerun Gate B only if the hand-authored
-  publication checks are accepted as within scope, otherwise preserve the
-  packaging blocker explicitly.
+- `TASK-0782` has resolved the packaging contest on main with clean Gate B
+  replay. The live follow-up is metadata-only validation hygiene for
+  `RESULT-0020`, not challenge-set expansion or claim support.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.
 
@@ -94,8 +92,8 @@ Start here:
 
 - Do not let live challenge-set additions rewrite the canonical MVP result.
 - Do not report follow-on curation metrics as if they were `RESULT-0007`.
-- Do not treat `RESULT-0020` as `AGENT_VALIDATED` until its packaging blocker
-  is resolved and Gate B passes.
+- Do not change `RESULT-0020` metrics, challenge-set contents, or `CLAIM-0005`
+  while deciding whether a metadata-only validation-tier update is appropriate.
 - Do not treat SI-only validation as support for natural-unit workflows.
 - Do not blur dimensional consistency with full physical correctness.
 - Do not promote any claim automatically from challenge-set curation alone.

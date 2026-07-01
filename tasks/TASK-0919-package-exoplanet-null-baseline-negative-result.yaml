@@ -1,0 +1,55 @@
+id: TASK-0919
+title: "Package Exoplanet null-baseline negative/control memory as a RESULT after identities exist"
+type: scientific_result_publication
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The null-baseline negative/control memory is replayable but cannot pass Gate A until canonical identities exist."
+  - "Packaging should happen only after identity scaffolding, and only without reopening residual scoring."
+  - "This blocked task preserves the next step so agents do not invent a new residual lane."
+
+input:
+  mode: workflow
+  related_domain: astrophysics
+  related_objects:
+    - "docs/reviews/exoplanet-null-baseline-canonical-identity-decision.md"
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Once canonical identities exist, package the already replayed null-baseline
+    control-sensitive finding as a scoped negative/control RESULT candidate if
+    Gate A passes.
+
+requirements:
+  - "Remain BLOCKED until TASK-0909 is DONE."
+  - "Use only committed EXO-0001 evidence and the identities created by TASK-0909."
+  - "Package a deterministic result only if command, inputs, hashes, verification, limitations, and no-claim wording satisfy Gate A."
+  - "Do not fetch live data, create EXO-0003 rows, change trigger thresholds, rerun residual scoring, or create a positive mass-radius law."
+  - "Stop if canonical identity or deterministic command support is still incomplete."
+
+accepted_outputs:
+  - "A Gate A PASS/BLOCKED negative/control RESULT package or a blocker note."
+  - "Output-routing summary with Gate A status, Gate B next step, claim impact none, and monitor-only posture preserved."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists only to package an already replayed negative/control result after identity gates clear."
+  evidence:
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

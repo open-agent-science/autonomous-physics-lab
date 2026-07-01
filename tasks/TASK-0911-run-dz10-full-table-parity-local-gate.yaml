@@ -1,0 +1,57 @@
+id: TASK-0911
+title: "Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "TASK-0878 implemented a metadata-only AMDC DZ10 reference wrapper and smoke fixture, but explicitly did not claim full 9311-row parity."
+  - "A canonical DZ10 parity gate can strengthen the Nuclear baseline architecture without mutating RESULT-0025 or unblocking prediction freeze."
+  - "The task should stop cleanly if AMDC bytes are unavailable or rights do not permit the required local cache."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/canonical-dz10-reference-wrapper.md"
+    - "physics_lab/engines/nmd0003_canonical_dz10_reference.py"
+    - "physics_lab/engines/nmd0003_duflo_zuker_baseline.py"
+    - "docs/reviews/canonical-dz-parity-reference-scout.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+  planning_context: >
+    Use the wrapper from TASK-0878 to validate a local, externally supplied AMDC
+    DZ10 table copy against the recorded checksum. This is a source/parity gate
+    only; it is not a new residual benchmark or prediction-freeze task.
+
+requirements:
+  - "Use only an externally supplied local AMDC DZ10 table/Fortran cache whose SHA-256 matches the TASK-0878 metadata, or stop with SOURCE_BYTES_NOT_AVAILABLE."
+  - "Validate parser coverage and mass-excess lookup against the full table to the printed 0.001 MeV precision where applicable."
+  - "Compare the existing TASK-0823 published-equation variant only as a diagnostic; do not mutate TASK-0823, RESULT-0025, or prediction tasks."
+  - "Do not vendor restricted AMDC bytes unless a maintainer-approved rights decision explicitly permits it."
+  - "No prediction freeze, reveal scoring, nuclear-law wording, CLAIM, KNOW, or PRED mutation."
+
+accepted_outputs:
+  - "A docs/reviews parity-gate note with PASS/BLOCKED/CONTESTED verdict, source hash status, and diagnostic deltas."
+  - "Tests or a deterministic local-only runner that can skip cleanly without private/source bytes."
+  - "Output-routing summary: source/parity readiness only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Canonical source parity gate only; no benchmark result or prediction artifact unless a later task authorizes packaging."
+  evidence:
+    - "docs/reviews/canonical-dz10-reference-wrapper.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

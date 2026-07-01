@@ -1,0 +1,61 @@
+id: TASK-0907
+title: "Bridge ThermoML RESULT-0026 to a formal workflow Gate B replay"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0894 numerically replayed RESULT-0026 with zero drift across aggregate and per-family metrics, but formal tier promotion is blocked because the Gate B helper does not execute the standalone published command."
+  - "The next useful ThermoML result path is helper/workflow packaging for a formal Gate B pass, not another Joback metric or broader property expansion."
+  - "A clean bridge can make the existing 40-row Tb benchmark eligible for AGENT_VALIDATED metadata while preserving esters/lactones negative memory."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0001/metrics.json"
+    - "docs/reviews/thermoml-result0026-gate-b-replay.md"
+    - "scripts/run_thermoml_tb_family_transfer.py"
+    - "physics_lab/workflows/"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    RESULT-0026 is scientifically replayable but protocol-blocked by command
+    packaging. Add the smallest safe workflow/helper bridge that lets Gate B
+    replay the published inputs without changing metrics, fixture rows, source
+    rights, or the family-stratified interpretation.
+
+requirements:
+  - "Add a physics-lab workflow wrapper or a narrowly allowlisted helper path that replays RESULT-0026 from committed inputs and writes clean disposable outputs."
+  - "Compare headline and per-family metrics against RESULT-0026: Joback MAE 14.925825 K, best non-oracle MAE 43.427943 K, margin 28.502118 K, 7/8 families clearing, and esters/lactones failing."
+  - "Do not refit Joback, change chemical-family taxonomy, edit the ThermoML fixture, vendor raw ThermoML archive bytes, or broaden beyond Tb."
+  - "If the formal helper replay passes, update only permitted review metadata / validation record according to the result-promotion protocol; do not edit metrics or verdict."
+  - "If helper support remains unsafe, stop with a blocker note that preserves TASK-0894 numeric replay evidence."
+
+accepted_outputs:
+  - "A formal Gate B replay note or amendment explaining the workflow/helper bridge and metric-drift table."
+  - "Optional RESULT-0026 review-tier / validation-record metadata-only update only if the formal Gate B path passes."
+  - "Output-routing summary: Gate A existing, Gate B PASS/BLOCKED/CONTESTED, claim impact none, knowledge impact none, no broad property wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Formal replay bridge for an existing RESULT; no new RESULT or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "docs/reviews/thermoml-result0026-gate-b-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_joback_tb.py tests/test_thermoml_family_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

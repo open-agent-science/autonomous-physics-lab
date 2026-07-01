@@ -85,6 +85,9 @@ Current narrow evidence:
 - the falsifier MVP preserves the charged-lepton in-scope reproduction while
   falsifying cross-family survival of the fixed standard Koide target across
   the encoded charged-fermion family triplets;
+- `TASK-0902` pinned the Antusch-Hinze-Saad common MS-bar-at-MZ Yukawa source
+  surface as metadata only; values are not yet curated, and no Koide metrics
+  have been rerun on that derived scheme;
 - these are scoped benchmark and falsification outputs, not explanatory claims.
 
 Start here:
@@ -96,6 +99,7 @@ Start here:
 - [Koide Quark Cascade Falsification](../results/koide-quark-cascade-falsification.md)
 - [Particle-Mass Relation Falsifier MVP](../../results/EXP-0009/RUN-0001/report.md)
 - [CLAIM-0007 Falsifier Evidence Handoff](../reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md)
+- [Particle common-scheme source artifact](../reviews/particle-common-scheme-source-artifact.md)
 - [Negative Results Registry](../negative-results-registry.md)
 - [Particle Mass Relation / Koide Track](../notes/particle-mass-relation-track.md)
 - [Particle mass numerology guardrails](../notes/particle-mass-numerology-guardrails.md)
@@ -121,8 +125,9 @@ Start here:
 - maintainer Gate C review of the
   [CLAIM-0007 evidence handoff](../reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md)
   before any claim-status or wording change;
-- an independent replay or common-scale quark follow-up only if the maintainer
-  requires stronger evidence; do not reopen broad formula search.
+- defer common-scheme row curation unless the maintainer explicitly asks for a
+  source-hygiene follow-up with a clear public-science need; do not rerun Koide
+  metrics or reopen broad formula search.
 
 ## Recommended Contributor Types
 

@@ -1,0 +1,57 @@
+id: TASK-0914
+title: "Predeclare the Quantum ZnSe/InP transfer contract before any new benchmark"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0903 froze the ZnSe row surface but left the exact future transfer task shape as a maintainer decision."
+  - "The campaign should not convert source readiness into open-ended correction search or post-hoc favorable framing."
+  - "A predeclared contract can decide whether a no-refit transfer benchmark is safe, blocked, or should remain negative-memory only."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
+    - "docs/reviews/quantum-effective-mass-negative-memory-routing.md"
+    - "docs/reviews/quantum-effective-mass-scaled-confinement-transfer.md"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    Define the exact admissible future transfer task before any metrics are
+    inspected: input rows, size-harmonization rule, fixed model, controls,
+    survival threshold, and output routing.
+
+requirements:
+  - "Choose one of: STRICT_NO_REFIT_TRANSFER_CONTRACT_READY, NEGATIVE_MEMORY_ONLY, or NEEDS_MAINTAINER_DECISION."
+  - "Freeze the row ids, InP/ZnSe separation, size-axis harmonization or sensitivity framing, model family, fixed inputs, controls, and survival threshold before any new benchmark."
+  - "Preserve the failed effective-mass route as negative memory; do not tune masses, exponents, geometry, or correction terms on ZnSe."
+  - "Do not run metrics, add/edit rows, vendor source bytes, create RESULT/PRED/CLAIM/KNOW artifacts, or unblock archived correction-search tasks."
+  - "No material recommendation, biomedical, device-performance, design-law, or universal quantum-size wording."
+
+accepted_outputs:
+  - "A docs/reviews transfer-contract note with READY/BLOCKED/NEEDS_DECISION verdict and exact future task shape."
+  - "Optional campaign/source metadata clarification only if it changes no value-bearing rows."
+  - "Output-routing summary: transfer-readiness only, no benchmark metric or claim mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Pre-metric transfer contract only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

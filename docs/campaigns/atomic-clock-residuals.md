@@ -54,9 +54,9 @@ prediction entries, or `RESULT`/`CLAIM`/`KNOW` promotion.
 
 **Reopen condition:** a new independent absolute Yb/Sr source row, or a
 maintainer-approved Pizzocaro aggregation/observable-harmonization contract.
-The current source candidate is the McGrew 2018 / NIST route, but it remains
-unadmitted until primary absolute-ratio semantics and independence from the
-Beloy/BACON network are adjudicated.
+The McGrew 2018 / NIST route has now been adjudicated as blocked: it does not
+provide a primary direct Yb/Sr row for this campaign and does not reduce the
+Beloy/BACON independence blocker.
 
 **Active next work:** `TASK-0704`, `TASK-0705`, `TASK-0456`, `TASK-0742`, and
 `TASK-0756` are all routed: the Nemitz `ACR-0002` row was committed, the
@@ -81,15 +81,16 @@ kept the conservative decision: the current committed Pizzocaro evidence
 defines requirements but still does not authorize a Pizzocaro ACR row or
 benchmark.
 
-`TASK-0889` then identified McGrew 2018 / NIST as a plausible next route but
-left two blockers: whether the source supplies a primary absolute Yb/Sr ratio
-with recoverable uncertainty semantics, and whether it is independent enough
-from the Beloy/BACON network to count as a new row.
+`TASK-0889` identified McGrew 2018 / NIST as a plausible route to adjudicate,
+and `TASK-0901` then blocked it as `BLOCKED_CORRELATED_OR_NOT_DIRECT`: McGrew
+2018 is Yb/Yb performance/geodesy evidence rather than a primary direct Yb/Sr
+ratio, and the identifiable NIST/JILA Yb/Sr route is the already represented
+Beloy/BACON network.
 
 **Expected next result:** no immediate Atomic benchmark result. The next useful
-action is `TASK-0901`, a value-blind McGrew/NIST adjudication before row
-curation. No constants-drift, new-constant, anomaly, prediction, `RESULT`,
-`CLAIM`, or `KNOW` framing is in scope.
+action is a value-blind scout for exactly one post-2021 independent primary
+Yb/Sr source route before any row curation. No constants-drift, new-constant,
+anomaly, prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in scope.
 
 `TASK-0311` adds:
 

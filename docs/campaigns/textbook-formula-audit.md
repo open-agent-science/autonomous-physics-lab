@@ -67,10 +67,10 @@ piecewise baseline is not justified after complexity penalty. The later
 FIRAS/Wien slice has been packaged and independently replayed as
 AGENT_VALIDATED `RESULT-0023`; it is calibration/known-physics verifier
 memory, not a discovery claim. Stellar high-mass transfer `RESULT-0024`
-has independent numeric replay memory with zero metric drift but a metadata
-caveat, so it needs metadata repair or an explicit accepted-caveat path before
-stronger public framing. The current blocker is ratification wording and
-metadata caveat adjudication, not another model search.
+has independent numeric replay memory with zero metric drift and its task-input
+metadata caveat has been repaired, but formal workflow Gate B remains
+helper-blocked. The current blocker is workflow replay bridging, not another
+model search.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -89,7 +89,8 @@ Stellar M-L empirical lane now has committed DEBCat rows, stage/split/null
 controls, baseline-adequacy evidence, and `RESULT-0022` as an
 `AGENT_VALIDATED` scoped benchmark. FIRAS/Wien `RESULT-0023` is also
 `AGENT_VALIDATED` after independent Gate B replay, while `RESULT-0024` remains
-bounded transfer evidence with a metadata caveat.
+bounded transfer evidence with zero-drift replay and a formal workflow Gate B
+blocker.
 
 **Not a claim:** no empirical textbook formula claim has been promoted. This
 campaign does not claim that any formula is globally right or wrong.
@@ -105,12 +106,11 @@ Gate A packaging, Gate B replay, split-stability, and piecewise-complexity
 checks for `RESULT-0022`. `RESULT-0023` now packages the FIRAS/Wien
 spectral-domain self-consistency slice through a workflow and has passed Gate B
 with negligible numeric drift. `RESULT-0024` is the high-mass transfer result
-that needs metadata-caveat repair or an explicit accepted-caveat path before
-stronger tier wording.
+that now needs a formal workflow/helper Gate B bridge before stronger tier
+wording.
 
-**Expected next result:** a maintainer/public wording packet for FIRAS/Wien
-`RESULT-0023` as verifier memory, or a metadata-caveat adjudication packet for
-`RESULT-0024`.
+**Expected next result:** a formal workflow Gate B verdict for `RESULT-0024`,
+not universal stellar-law wording.
 
 ## Why It Matters
 
