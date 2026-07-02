@@ -1,7 +1,7 @@
 id: TASK-0909
 title: "Create minimal Exoplanet null-baseline negative/control canonical identities"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -36,6 +36,8 @@ requirements:
 
 accepted_outputs:
   - "Minimal canonical experiment/hypothesis identity files for the null-baseline negative/control audit, or a blocker note explaining why identity creation was not safe."
+  - "experiments/EXP-0021-exoplanet-null-baseline-control-sensitivity.yaml — the one canonical experiment identity for the EXO-0001 null-baseline control-sensitivity audit."
+  - "hypotheses/HYP-0021-exoplanet-null-baseline-control-sensitivity.yaml — the one paired canonical hypothesis identity (control-sensitivity, not a positive mass-radius law)."
   - "A short docs/reviews note recording the no-reopen boundary and Gate A impact."
   - "Output-routing summary: identity scaffold only, no metric/result/claim/knowledge mutation."
 
