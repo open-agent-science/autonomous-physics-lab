@@ -1,7 +1,7 @@
 id: TASK-0918
 title: "Preflight ThermoML esters/lactones failed-family memory for canonical negative RESULT packaging"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -42,6 +42,7 @@ result_artifact_policy:
   reason: "Preflight for possible failed-family negative result; no canonical result is created in this task."
   evidence:
     - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
+    - "docs/reviews/thermoml-esters-lactones-negative-result-preflight.md"
 
 validation:
   commands:
