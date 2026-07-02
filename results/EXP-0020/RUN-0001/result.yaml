@@ -26,7 +26,7 @@ input_file_hashes:
     sha256: 261327413e39d3152e860d5d752128b9fe6973332f5cc04d7ebc4da374fbbdca
 code_reference: physics_lab/workflows/thermoml_tb_family_transfer.py
 limitations:
-- Agent-published, not yet independently validated or maintainer-reviewed.
+- Agent-validated by independent replay; not yet maintainer-reviewed.
 - Scope is normal boiling temperature (Tb) only on the committed 40-row ThermoML family-stratified
   audit fixture.
 - Raw ThermoML archive bytes and any substantial normalized corpus are not committed;
