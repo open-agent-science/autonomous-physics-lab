@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0906` - Preflight Thermophysical ThermoML 80-row expansion identity counts as local-only metadata (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
 - `TASK-0908` - Implement an MD-0002 deterministic archive-package helper without upload (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `materials_science`)
 - `TASK-0910` - Pin FRB Catalog 2 time-resolved exposure-map source artifact before T-truncated construction (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-0911` - Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
@@ -33,4 +32,5 @@ None.
 - `TASK-0901` - Adjudicate the Atomic McGrew/NIST Yb-Sr source route before row curation (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `precision_metrology`)
 - `TASK-0902` - Pin the particle-mass common-scheme source artifact without running Koide metrics (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 - `TASK-0905` - Run Exoplanet source-version monitor check 3 without value-bearing row updates (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `astrophysics`)
+- `TASK-0906` - Preflight Thermophysical ThermoML 80-row expansion identity counts as local-only metadata (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
 - `TASK-0916` - Prepare Dimensional RESULT-0020 metadata-only AGENT_VALIDATED update after clean Gate B (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `dimensional_analysis_validator`)
