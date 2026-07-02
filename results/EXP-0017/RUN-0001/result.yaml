@@ -78,12 +78,27 @@ agent_proposal_evaluation:
       model_version: Claude Opus 4.8
     replayed_at_utc: '2026-07-02T00:00:00Z'
     replay_command: physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml
+    gate_b_replay_reference:
+      task_id: TASK-0863
+      review_note: docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md
+      outcome: GATE_B_PASS_WITH_METADATA_CAVEAT
+      numeric_drift: zero_metric_drift
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 25
     drift_observed: none
     independence_assessment: independent_publisher_and_replayer_differ_on_contributor_and_agent_tool
     gate_b_route: physics_lab/workflows/stellar_ml_high_mass_transfer.py
+    task_input_hash_lifecycle_caveat: The original task-input hash caveat was
+      lifecycle packaging drift, and the standalone replay package now preserves
+      the published task-input snapshot.
+    task_input_hash_drift:
+      published_result_task_input_sha256: 5676f0755625ad72d179e6a982b7f5abf4ef6c587b49bec85ccf3fbf11649353
+      original_task0863_replay_task_input_sha256: 28e31cc180b12635e563bf51174268dd574deb344ea94e3b9f953eec2ef85f01
+      repaired_replay_task_input_sha256: 5676f0755625ad72d179e6a982b7f5abf4ef6c587b49bec85ccf3fbf11649353
+      classification: accepted_lifecycle_drift_not_metric_drift
+      repair_note: docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md
+      maintainer_authorization: docs/reviews/maintainer-decision-day-2026-07-02.md D3
 verification:
   passed: true
   checks:
