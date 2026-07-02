@@ -1,7 +1,7 @@
 id: TASK-0913
 title: "Scout one post-2021 independent primary Yb/Sr source route after McGrew blockage"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -41,7 +41,7 @@ result_artifact_policy:
   required: false
   reason: "Value-blind source scout only; no benchmark result or prediction artifact is produced."
   evidence:
-    - "docs/reviews/atomic-mcgrew-ybsr-source-route-adjudication.md"
+    - "docs/reviews/atomic-post2021-independent-ybsr-source-scout.md"
 
 validation:
   commands:
@@ -54,4 +54,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
