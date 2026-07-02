@@ -290,3 +290,36 @@ datasets:
     provenance: data/radio_transients/frb_catalog2_source_manifest.yaml
     paths:
       - data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml
+
+  - id: chime-frb-catalog2-exposure-map-source-pin-metadata-only
+    source: "CHIME/FRB Catalog 2 time-resolved / full-sky exposure-map product (TASK-0910 source pin; metadata-only)"
+    source_url: https://doi.org/10.11570/25.0066
+    license: "Public read access via CANFAR/CADC vault; DataCite rightsList empty, no explicit open-data redistribution license on the deposit (cite-the-paper courtesy request only)"
+    redistribution_status: metadata_only_no_exposure_map_bytes_vendored_checksum_pending_with_attribution
+    citation_or_acknowledgement: >
+      Cite The CHIME/FRB Collaboration, The Second CHIME/FRB Catalog of Fast Radio
+      Bursts, ApJS, DOI 10.3847/1538-4365/ae3828; dataset DOI 10.11570/25.0066. This
+      APL-authored manifest records only a locator + version + expected file list +
+      rights + a SHA-256 checksum plan for chimefrbcat2_exposure.h5; no exposure-map
+      bytes are re-hosted.
+    evidence: >
+      data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml is an
+      APL-authored, metadata-only source manifest pinning the single consolidated
+      HDF5 exposure-map file chimefrbcat2_exposure.h5 (~206.02 MB display size; exact
+      bytes and SHA-256 to be computed at the first license-clear fetch, NOT fabricated
+      here) at CANFAR vault path
+      /AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5
+      (owner ssiegel, Public read, last modified 2026-01-05T23:36:49Z). It contains NO
+      exposure-map bytes, NO catalog rows, NO numeric truncated-exposure values, NO
+      morphology features or labels, and NO derived dataset. File identity was
+      provided by the maintainer from the CANFAR vault storage listing, resolving the
+      TASK-0839 access blocker where the citation-landing page returned 404/500 (still
+      444/500 on 2026-07-02; the vault storage listing is the working access surface).
+      Same publisher-permission caveat as the Catalog 2 rows (empty DataCite
+      rightsList; blocker_type T4_snapshot_approval). Declared here per the
+      metadata-only-source-manifest convention although it carries no third-party data;
+      see TASK-0910 and docs/reviews/frb-catalog2-exposure-map-source-pin.md.
+    raw_artifact_vendored: false
+    provenance: data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml
+    paths:
+      - data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml

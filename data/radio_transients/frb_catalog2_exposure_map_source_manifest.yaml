@@ -1,0 +1,147 @@
+manifest_kind: metadata_only_source_manifest
+manifest_id: FRB-CAT2-EXPMAP-SOURCE-0001
+task_id: TASK-0910
+status: pinned_public_locator_checksum_pending
+generated_at_utc: '2026-07-02T00:00:00Z'
+retrieval_date_utc: '2026-07-02'
+retrieved_by: gladunrv
+builds_on:
+  csv_source_manifest: data/radio_transients/frb_catalog2_source_manifest.yaml
+  t_truncated_split_spec: data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml
+  why_a_separate_source_item: >
+    TASK-0852 pinned only chimefrbcat2.csv, whose per-source exposure is full-window
+    exp_up / exp_low. TASK-0877 specified a leakage-safe T-truncated pre-T exposure
+    view and flagged the time-resolved / full-sky exposure-map product as an
+    additional, un-pinned source-clearance item. This manifest pins that product
+    (locator + version + file list + rights + checksum plan) so the future
+    T-truncated construction has a reviewable source. It records metadata only; no
+    exposure-map bytes are fetched or committed.
+source:
+  title: The Second CHIME/FRB Catalog of Fast Radio Bursts — time-resolved / full-sky exposure-map product
+  dataset_doi: 10.11570/25.0066
+  paper_doi: 10.3847/1538-4365/ae3828
+  arxiv: '2601.09399'
+  publisher: CADC
+  deposit: AstroDataCitationDOI/CISTI.CANFAR/25.0066
+  publication_year: 2025
+  citation: The CHIME/FRB Collaboration, The Second CHIME/FRB Catalog of Fast Radio
+    Bursts, ApJS, DOI 10.3847/1538-4365/ae3828; dataset DOI 10.11570/25.0066.
+  source_identity_provenance: >
+    File identity (name, size, path, owner, last-modified, public read) provided by
+    the maintainer from the CANFAR vault storage listing on 2026-07-02, resolving the
+    TASK-0839 access blocker where the CANFAR citation-landing page returned 404/500.
+artifact:
+  artifact_type: hdf5_exposure_map
+  path_in_vault: /AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5
+  vault_list_url: https://www.canfar.net/storage/vault/list/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure
+  vospace_uri: vos://cadc.nrc.ca~vault/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5
+  storage_file_endpoint_pattern: https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5
+  storage_file_endpoint_note: >
+    Direct file endpoint mirrors the host + /vault/files/<vault-path> pattern of the
+    already-pinned chimefrbcat2.csv endpoint; it is to be confirmed against the vault
+    file service at first license-clear fetch.
+  filename: chimefrbcat2_exposure.h5
+  format: HDF5
+  file_size_display: 206.02 MB
+  file_size_bytes: to_be_confirmed_at_first_fetch
+  file_size_display_source: CANFAR vault UI listing (2026-07-02)
+  sha256: to_be_computed_at_first_license_clear_fetch
+  checksum_scope: raw_artifact_pending_before_construction
+  last_modified: '2026-01-05T23:36:49Z'
+  value_bearing: true
+  committed_to_repo: false
+expected_file_list:
+  - filename: chimefrbcat2_exposure.h5
+    format: HDF5
+    size_display: 206.02 MB
+    role: consolidated time-resolved / full-sky exposure-map product for the Catalog 2 burst window
+    note: >
+      Single consolidated HDF5 file per the maintainer-provided vault listing. If the
+      first license-clear listing reveals additional or renamed exposure files, this
+      list and the checksum plan must be updated before any T-truncated construction.
+checksum_plan:
+  status: pending_not_fabricated
+  algorithm: SHA-256
+  when_computed: at the first license-clear fetch of chimefrbcat2_exposure.h5
+  no_hash_fabricated: true
+  bytes_downloaded_in_this_task: false
+  expected_sha256: TO_BE_PINNED_AT_FIRST_LICENSE_CLEAR_FETCH
+  expected_bytes: TO_BE_CONFIRMED_AT_FIRST_FETCH
+  verify_after_pinning: >
+    Compute sha256 of the fetched chimefrbcat2_exposure.h5, record it and the exact
+    byte count here, and freeze this manifest to status pinned_public_locator before
+    integrating any exposure values. Any later reprocessing produces a new pinned
+    artifact rather than silently changing the frozen values.
+rights_and_access:
+  read_access: public
+  canfar_owner: ssiegel
+  deposit: AstroDataCitationDOI/CISTI.CANFAR/25.0066
+  datacite_rights_list: []
+  local_analysis: allowed_for_public_source_with_citation
+  source_bytes_redistribution: not_cleared_no_explicit_open_data_license
+  derived_rows_publication: not_cleared_for_bulk_rows_without_maintainer_permission_or_license
+  repo_policy: metadata_only_no_exposure_map_bytes_vendored
+  blocker_type: T4_snapshot_approval
+  rights_note: >
+    Same publisher-permission caveat as the Catalog 2 catalog rows: the CANFAR vault
+    grants Public READ, but the DataCite rightsList is empty and there is no explicit
+    open-data redistribution licence on the deposit. Local analysis of a
+    license-clear copy is allowed with citation; re-hosting the exposure-map bytes or
+    publishing bulk derived exposure rows is not cleared without maintainer licence
+    clearance or recorded permission.
+  three_question_source_rights_framework:
+    local_analysis_allowed: >
+      Yes by default. The product is publicly released for analysis; the CHIME/FRB
+      open-data courtesy asks only that the relevant CHIME/FRB papers be cited.
+      Allowed once a license-clear copy is in hand.
+    source_bytes_redistribution_allowed: >
+      No (default). No redistribution licence is recorded on the deposit (empty
+      rightsList; cite-the-paper courtesy only). Do NOT vendor chimefrbcat2_exposure.h5.
+    derived_rows_publication_allowed: >
+      Unknown / not cleared for bulk publication. Individual factual exposure values
+      may be treated as extractable facts with attribution, but a redistributable
+      derived-exposure dataset needs maintainer licence clearance or recorded
+      permission.
+access_policy_note:
+  citation_landing_status: >
+    The CANFAR citation-landing page https://www.canfar.net/citation/landing?doi=25.0066
+    returned a 444/login-or-server error on 2026-07-02 (consistent with the 404/500
+    observed under TASK-0839), so the DOI landing surface is not a reliable retrieval
+    route right now.
+  vault_storage_status: >
+    The CANFAR vault STORAGE listing
+    https://www.canfar.net/storage/vault/list/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure
+    shows chimefrbcat2_exposure.h5 with Public read access (owner ssiegel), which is
+    the reviewable access route the maintainer used to resolve the earlier blocker.
+  reading: >
+    Access is via the vault storage listing / file service, not the citation-landing
+    page. This nuance is recorded so a future fetch targets the working surface and
+    does not re-trip the landing-page failure. It does not change the redistribution
+    posture (still metadata-only, empty rightsList).
+fetch_verify:
+  bytes_fetched_in_this_task: false
+  precondition: license clearance (or explicit metadata-only decision) AND a working vault file endpoint MUST precede any fetch
+  download_command_pattern: >
+    # pattern only — computed at first license-clear fetch, digest never fabricated here.
+    curl -L -o chimefrbcat2_exposure.h5 "https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5"
+  verify_command_pattern: >
+    python3 -c "import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())" chimefrbcat2_exposure.h5
+  expected_sha256: TO_BE_PINNED_AT_FIRST_LICENSE_CLEAR_FETCH
+  expected_bytes: TO_BE_CONFIRMED_AT_FIRST_FETCH
+what_this_manifest_does_not_do:
+  fetches_exposure_map_bytes: false
+  commits_exposure_map_bytes: false
+  fetches_catalog_rows: false
+  records_numeric_truncated_exposure_values: false
+  records_morphology_features_or_labels: false
+  freezes_a_pred_entry: false
+  creates_a_result_artifact: false
+  promotes_a_claim_or_knowledge_entry: false
+next_allowed_workflow_step: >
+  With locator, version, file list, rights, access policy, and a checksum plan now
+  reviewable, a future maintainer-approved step may fetch and SHA-256-pin
+  chimefrbcat2_exposure.h5 under the metadata-only boundary, then construct the
+  leakage-safe T-truncated exp_up(<=T) / exp_low(<=T) view specified in TASK-0877.
+  No morphology model, PRED entry, RESULT artifact, or claim transition is authorized
+  by this pin.
+verdict: EXPOSURE_MAP_SOURCE_PINNED_METADATA_ONLY_CHECKSUM_PENDING
