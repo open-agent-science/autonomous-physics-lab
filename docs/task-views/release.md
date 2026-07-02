@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0918` - Preflight ThermoML esters/lactones failed-family memory for canonical negative RESULT packaging (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0918` - Preflight ThermoML esters/lactones failed-family memory for canonical negative RESULT packaging (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
