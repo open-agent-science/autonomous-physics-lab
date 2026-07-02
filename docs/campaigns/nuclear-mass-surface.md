@@ -50,6 +50,28 @@ point-estimator evidence: GP residual modeling improves the declared point MAE
 against the current baseline and replays exactly, but does not yet support
 prediction intervals or a prediction freeze.
 
+### Maintainer-Approved Point-Estimator Card — RESULT-0025
+
+**Review tier:** `AGENT_PUBLISHED`; Gate B point metrics replayed exactly.
+
+> On one frozen NMD-0003 residual surface, a single RBF Gaussian-process model on
+> `[Z, N]` lowers the retrospective post-AME2020 holdout nuclear-mass MAE from a
+> frozen baseline of `2.979273` MeV to `0.462129` MeV — a `2.517144` MeV
+> improvement — and beats the best predeclared control (`smooth_a_gp`) by
+> `1.869312` MeV against a `0.25` MeV survival margin. An independent Gate B
+> replay reproduced these point metrics exactly (maximum absolute drift `0.0`).
+> This is point-estimator evidence on a retrospective time-split holdout, not a
+> blind prediction reveal. Its predictive uncertainty envelope is heavy-tailed
+> and miscalibrated, so it provides no calibrated prediction intervals and does
+> not unblock the nuclear prediction freeze. It establishes no nuclear-mass law,
+> no broad mass formula, and no discovery; it is an agent-published,
+> independently replayed retrospective point-estimator result only.
+
+**Replay bookkeeping:** the committed `RESULT-0025` package preserves the
+originally published `TASK-0843` input task file, while the Gate B replay
+recorded an expected lifecycle drift in the copied task-YAML hash and replay
+git commit; this is bookkeeping drift, not a scientific input change.
+
 **Not a claim:** APL has not found a nuclear mass formula, has not scored the
 frozen prospective registry against future measurements, and should not
 describe shell-axis or local-curvature evidence as discovery-level physics.
