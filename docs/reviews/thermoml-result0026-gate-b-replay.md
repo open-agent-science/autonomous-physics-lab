@@ -131,3 +131,102 @@ absolute tolerance `1e-9`.
 - Knowledge impact: none.
 - Public wording: bounded family-stratified ThermoML `Tb` transfer audit only;
   preserve the `esters/lactones` failed-family limitation and no-claim wording.
+
+---
+
+# TASK-0907 Amendment: Formal Gate B Replay via Workflow Bridge
+
+Task: `TASK-0907`
+Result: `RESULT-0026`
+Canonical artifact: `results/EXP-0020/RUN-0001/result.yaml`
+Replay contributor / agent: `gladunrv` / `claude` (Claude Code, Claude Opus 4.8)
+Original publisher: `romanhladun24-dot` / Codex (Gate B independent on both the
+contributor and the agent-tool axis).
+
+## Why This Amendment Exists
+
+The `TASK-0894` replay above numerically reproduced `RESULT-0026` with zero drift
+but was `BLOCKED` at the protocol layer: the canonical Gate B helper
+(`physics_lab/registry/agent_replay_validation.py`) only executes safe
+`physics-lab run <config>` commands, while `RESULT-0026` recorded the standalone
+runner command `python scripts/run_thermoml_tb_family_transfer.py --write`. This
+amendment records the smallest safe bridge that removes that packaging blocker and
+lets the canonical helper replay the result from committed inputs.
+
+## The Bridge (Smallest Safe Change)
+
+- Added a physics-lab workflow adapter,
+  `physics_lab/workflows/thermoml_tb_family_transfer.py`, that regenerates the
+  `RESULT-0026` payload from the committed 40-row fixture by calling the frozen
+  deterministic engine (`physics_lab.engines.thermoml_family_transfer.run_fixture`,
+  which reuses the frozen `TASK-0851` Joback estimator). It writes to the caller's
+  `--output-dir` (a disposable temporary directory under Gate B), never over the
+  committed canonical artifact.
+- Added the runnable config `examples/thermoml_tb_family_transfer_benchmark.yaml`
+  (workflow `thermoml_tb_family_transfer_benchmark`) and registered the workflow in
+  the runner dispatch and the `example_config` schema enum.
+- Updated only `RESULT-0026` routing metadata: `command` now reads
+  `physics-lab run examples/thermoml_tb_family_transfer_benchmark.yaml` and
+  `code_reference` points at the workflow module, mirroring the `RESULT-0021` /
+  `RESULT-0022` Gate B workflow bridges.
+
+No Joback coefficient was refit, the chemical-family taxonomy is unchanged, the
+fixture rows are not edited, no raw ThermoML archive bytes are vendored, scope
+stays `Tb`-only, and no committed `agent_runs/AGENT-RUN-*` artifact was created.
+The result `input_file_hashes`, metrics, `best_verdict`, and `best_model_id` are
+unchanged, so the material scientific payload is preserved.
+
+## Formal Gate B Outcome
+
+Canonical helper command:
+
+```bash
+python scripts/apl_validate_agent_published_result.py results/EXP-0020/RUN-0001/result.yaml --root . --output-dir <temp> --validator-contributor-id gladunrv --validator-github-username gladunrv --validator-agent-tool "Claude Code" --validator-model "Claude Opus 4.8" --json
+```
+
+- Helper status: `PASS` (no blocking issues; no independence warnings — the
+  replayer differs from the publisher on both contributor and agent tool).
+- Compared numeric fields: `23`; maximum absolute numeric drift: `0.0` at absolute
+  tolerance `1e-9`.
+- Stable string fields (`result_id`, `experiment_id`, `hypothesis_id`, `task_id`,
+  `run_id`, `best_model_id`, `best_verdict`): all matched.
+- Transfer verdict: `TRANSFER_SUPPORTED_IN_SCOPE` / `VALID_IN_RANGE` unchanged.
+- Tier update applied: `AGENT_PUBLISHED` to `AGENT_VALIDATED` (metadata-only), with
+  a `validation_record` recording the independent replay. No metric or verdict was
+  edited.
+
+## Headline Metric Drift (Formal Replay)
+
+| Metric | Published | Replayed | Drift |
+| --- | ---: | ---: | ---: |
+| Joback aggregate MAE (K) | `14.925825` | `14.925825` | `0.0` |
+| Best non-oracle MAE (K), `molecular_weight_only` | `43.427943` | `43.427943` | `0.0` |
+| Joback margin vs best non-oracle (K) | `28.502118` | `28.502118` | `0.0` |
+| Families clearing 5 K margin | `7/8` | `7/8` | `0` |
+| Failed family | `esters/lactones` | `esters/lactones` | unchanged |
+
+## TASK-0907 Limitations
+
+- The formal Gate B pass certifies deterministic reproduction of the committed
+  bounded 40-row `Tb` transfer metrics only; it is not maintainer review.
+- `RESULT-0026` remains family-dependent: `esters/lactones` still does not clear the
+  5 K survival margin.
+- The source-rights boundary is unchanged: raw ThermoML archive bytes and a
+  substantial normalized corpus are not committed or vendored.
+- The standalone runner `scripts/run_thermoml_tb_family_transfer.py` and its
+  sandbox `AGENT-RUN-0087` output are retained unchanged; the workflow adapter is an
+  additional replay entry point, not a replacement for the sandbox history.
+- No chemical-design, material-recommendation, universal Joback validation, CLAIM,
+  KNOW, or PRED conclusion follows from this amendment.
+
+## TASK-0907 Output Routing
+
+- Task verdict: `VALID_IN_RANGE` formally replayed with zero drift.
+- Canonical destination: this review note plus a metadata-only `RESULT-0026` tier
+  update; no new RESULT, prediction, claim, or knowledge artifact.
+- Gate A status: existing `PASS` from the `RESULT-0026` publication package.
+- Gate B status: `PASS` (formal canonical-helper replay; tier upgraded to
+  `AGENT_VALIDATED`).
+- Claim impact: none. Knowledge impact: none.
+- Public wording: bounded family-stratified ThermoML `Tb` transfer audit only;
+  preserve the `esters/lactones` failed-family limitation and the no-claim wording.
