@@ -1,7 +1,7 @@
 id: TASK-0894
 title: "Independently replay (Gate B) the Thermophysical ThermoML Tb Joback transfer RESULT-0026"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

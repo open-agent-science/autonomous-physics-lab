@@ -1,7 +1,7 @@
 id: TASK-0906
 title: "Preflight Thermophysical ThermoML 80-row expansion identity counts as local-only metadata"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

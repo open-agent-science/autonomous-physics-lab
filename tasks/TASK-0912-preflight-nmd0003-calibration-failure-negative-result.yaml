@@ -1,7 +1,7 @@
 id: TASK-0912
 title: "Preflight Nuclear NMD-0003 uncertainty-calibration failure as negative/blocker result memory"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

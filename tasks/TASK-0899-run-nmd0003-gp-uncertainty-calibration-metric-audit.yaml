@@ -1,7 +1,7 @@
 id: TASK-0899
 title: "Run a no-peek Nuclear NMD-0003 GP uncertainty-calibration metric audit"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
