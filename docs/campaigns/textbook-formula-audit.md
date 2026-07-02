@@ -92,6 +92,22 @@ controls, baseline-adequacy evidence, and `RESULT-0022` as an
 bounded transfer evidence with zero-drift replay and a formal workflow Gate B
 blocker.
 
+### Maintainer-Approved Public Capsule — RESULT-0022
+
+**Review tier:** `AGENT_VALIDATED`. Gate A and independent Gate B both pass.
+
+> On a frozen, CC BY 4.0 DEBCat slice of 223 main-sequence-compatible binary
+> components spanning `0.5-2.0 M_sun`, the fixed `L proportional to M^3.5`
+> baseline beats a per-mass-band median null but has higher holdout error
+> (`0.184954 dex`) than a train-fitted single exponent near `4.53`
+> (`0.119925 dex`). The direction is stable across the committed controls and
+> three additional value-blind system-level splits, although the alternate-
+> split margin is modest. A two-segment fit is not justified after the
+> predeclared complexity penalty. This independently replayed result shows
+> only that `alpha=3.5` is inadequate as the sole baseline on this frozen
+> slice; it does not falsify the textbook relation universally or establish a
+> universal mass-luminosity or stellar-evolution law.
+
 **Not a claim:** no empirical textbook formula claim has been promoted. This
 campaign does not claim that any formula is globally right or wrong.
 `RESULT-0022` and `RESULT-0023` are independently replayed but not
