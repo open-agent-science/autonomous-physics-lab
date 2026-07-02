@@ -47,7 +47,14 @@ commit, not inside the v0.1.0 archive bytes.
 `MD-0002: Frozen benchmark slice of Materials Project stable ternary oxides (v0.1.0)`
 
 **Creators:**
-`Hladun, Roman` — ORCID `0009-0004-4853-5212`
+1. `Hladun, Roman` — ORCID `0009-0004-4853-5212`
+2. `Kutenyov, Andrii` — GitHub `akutenyov` (created the MD-0002 holdout
+   manifest packaged in this archive; confirm his preferred Latin spelling and
+   ORCID, if any, before Publish — Zenodo metadata remains editable after
+   publication without changing the DOI)
+
+Contributor-identity note: `romanhladun24-dot` is a second account of Roman
+Hladun, not a third creator.
 
 **Description:**
 
