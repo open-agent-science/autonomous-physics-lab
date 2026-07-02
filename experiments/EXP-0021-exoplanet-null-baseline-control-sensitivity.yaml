@@ -1,0 +1,45 @@
+id: EXP-0021
+title: "Exoplanet Null-Baseline Control-Sensitivity Audit (committed EXO-0001 PSCompPars snapshot)"
+domain: astrophysics
+status: COMPLETED
+
+hypothesis_id: HYP-0021
+
+method:
+  type: dataset_reproduction
+  simulator: exoplanet_null_baseline_family_audit
+  comparator: nearest_radius_null_versus_frozen_ck17_baseline_control_panel
+
+data:
+  dataset_path: ../data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+  dataset_kind: exoplanet_pscomppars_mass_radius_snapshot
+  benchmark_scope: "Committed EXO-0001 PSCompPars snapshot only; four highlighted true-mass-with-transit-radius slices (compact_radius_lt1p5Re n=92, sub_neptune_radius_1p5_4Re n=340, jovian_radius_8_16Re n=567, hot_jupiter_period_lt10d_radius_ge8Re n=445). Minimum-mass-with-transit-radius slices are underpowered diagnostics only and are not pooled with true-mass rows."
+  expected_item_count: 1444
+  sample_axes:
+    - true_mass_with_transit_radius
+    - minimum_mass_with_transit_radius
+    - radius_slice
+    - nearest_radius_null_control
+  notes: "Binds committed negative/control memory only: docs/reviews/exoplanet-null-baseline-family-audit.md, docs/reviews/exoplanet-null-baseline-negative-memory-replay.md, and docs/reviews/exoplanet-negative-control-gate-a-blocker.md. Deterministic audit produced by scripts/run_exoplanet_null_baseline_family_audit.py against the pinned snapshot (normalized_checksum_sha256 dc4d8df2d0860f87d6384a1a1bebbe8e3e51a400175593f2b48e6c64a33ae5ee); no live NASA Exoplanet Archive fetch. The nearest-radius neighbor uses observed radius and is a diagnostic control, not a deployable predictor. This identity authorizes packaging the existing negative/control memory only; it does not authorize CK17 refits, new residual metrics, EXO-0003 rows, candidate formula search, or a positive mass-radius law. True-mass and minimum-mass rows stay separated."
+
+comparison_targets:
+  - id: target_compact_radius_ck17_rmse
+    label: "Frozen CK17-style baseline RMSE on the compact-radius (R < 1.5 Re) true-mass slice, matched or beaten by the nearest-radius null control per committed evidence"
+    reference_value: 0.263350
+    unit: dex
+    notes: "Committed value from docs/reviews/exoplanet-null-baseline-family-audit.md and the sub-1e-12 replay in docs/reviews/exoplanet-null-baseline-negative-memory-replay.md (92 rows). The nearest-radius null control matches or beats this baseline, so the highlighted residual structure is control-sensitive. Reference value transcribed from committed evidence; this identity does not rerun the metric."
+  - id: target_sub_neptune_radius_ck17_rmse
+    label: "Frozen CK17-style baseline RMSE on the sub-Neptune-radius (1.5-4 Re) true-mass slice, matched or beaten by the nearest-radius null control per committed evidence"
+    reference_value: 0.204175
+    unit: dex
+    notes: "Committed value from docs/reviews/exoplanet-null-baseline-family-audit.md (340 rows); nearest-radius null control classification null_family_matches_or_beats_ck17. Transcribed from committed evidence, not recomputed here."
+  - id: target_jovian_radius_ck17_rmse
+    label: "Frozen CK17-style baseline RMSE on the Jovian-radius (8-16 Re) true-mass slice, matched or beaten by the nearest-radius null control per committed evidence"
+    reference_value: 0.083354
+    unit: dex
+    notes: "Committed value from docs/reviews/exoplanet-null-baseline-family-audit.md (567 rows); nearest-radius null control classification null_family_matches_or_beats_ck17. Transcribed from committed evidence, not recomputed here."
+  - id: target_hot_jupiter_ck17_rmse
+    label: "Frozen CK17-style baseline RMSE on the hot-Jupiter (period < 10 d, R >= 8 Re) true-mass slice, matched or beaten by the nearest-radius null control per committed evidence"
+    reference_value: 0.069788
+    unit: dex
+    notes: "Committed value from docs/reviews/exoplanet-null-baseline-family-audit.md (445 rows); nearest-radius null control classification null_family_matches_or_beats_ck17. Transcribed from committed evidence, not recomputed here."
