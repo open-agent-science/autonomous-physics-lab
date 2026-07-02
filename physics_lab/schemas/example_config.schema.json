@@ -43,7 +43,7 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "stellar_ml_debcat_baseline_benchmark", "textbook_firas_wien_peak_consistency"]
+      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "stellar_ml_debcat_baseline_benchmark", "thermoml_tb_family_transfer_benchmark", "textbook_firas_wien_peak_consistency"]
     },
     "amplitude_range_override": {
       "type": "object",
@@ -107,7 +107,7 @@
         "required": ["workflow"],
         "properties": {
           "workflow": {
-            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "stellar_ml_debcat_baseline_benchmark", "textbook_firas_wien_peak_consistency"]
+            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "stellar_ml_debcat_baseline_benchmark", "thermoml_tb_family_transfer_benchmark", "textbook_firas_wien_peak_consistency"]
           }
         }
       },

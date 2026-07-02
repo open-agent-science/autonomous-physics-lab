@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0020-thermoml-tb-joback-transfer.yaml
+hypothesis_path: ../hypotheses/HYP-0020-thermoml-tb-joback-transfer.yaml
+task_id: TASK-0869
+run_id: RUN-0001
+result_id: RESULT-0026
+result_root: ../results/EXP-0020
+workflow: thermoml_tb_family_transfer_benchmark
