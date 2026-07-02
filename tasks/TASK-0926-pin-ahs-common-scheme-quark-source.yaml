@@ -1,0 +1,55 @@
+id: TASK-0926
+title: "Pin the Antusch-Hinze-Saad common-scheme quark-mass table as the single particle-mass source surface (no Koide run)"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 D6 accepted the AHS route: the accepted-manuscript table (arXiv:2510.01312v2, all six quarks in MS-bar at M_Z, PDG-2024 inputs) becomes the single source surface for a future common-scheme Koide falsifier rerun."
+  - "This removes the mixed-renormalization-scheme blocker that keeps CLAIM-0006/0007 DRAFT; the claims stay DRAFT and any promotion remains a separate maintainer Gate C."
+  - "Source pinning only: the Koide rerun itself is a separate future task; broad formula search stays closed."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
+    - "docs/reviews/particle-common-scheme-source-artifact.md"
+    - "data/particle_masses/source_artifacts/antusch-hinze-saad-2026/provenance.yaml"
+  planning_context: >
+    The source-policy decision and provenance scaffold already exist. This
+    task copies the six-quark common-M_Z central values and uncertainties
+    from the pinned AHS accepted-manuscript table into a versioned,
+    checksummed source-row artifact under the existing provenance directory,
+    with the 3-question source-rights determination recorded and the values
+    marked as published-derived (not APL-computed).
+
+requirements:
+  - "Extract exactly the six-quark MS-bar-at-M_Z central values and uncertainties from the pinned AHS table; record table/page provenance, arXiv version, and extraction method per row."
+  - "Apply the 3-question source-rights framework and keep the extract limited and factual (no bulk manuscript content); update DATA_LICENSES coverage for any new data file."
+  - "Record the SHA-256 of the extracted row artifact and cross-link the provenance.yaml; keep the conservative publication pin from TASK-0902 intact."
+  - "Do NOT run any Koide or mass-relation metric in this task; do NOT touch CLAIM-0006/0007; the rerun is a separate future task."
+  - "If the accepted-manuscript table proves ambiguous (scheme, scale, or uncertainty convention unclear), stop with SOURCE_AMBIGUOUS and record the blocker instead of guessing."
+
+accepted_outputs:
+  - "A checksummed common-scheme quark source-row artifact under data/particle_masses/ with provenance and rights determination, plus a short review note."
+  - "Output-routing summary: source-readiness gate cleared (or SOURCE_AMBIGUOUS blocker); claim impact none; no metric run."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-row pinning only; no benchmark metric, RESULT, or claim change."
+  evidence:
+    - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

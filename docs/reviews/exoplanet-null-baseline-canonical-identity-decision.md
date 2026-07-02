@@ -144,3 +144,7 @@ trigger or policy change.
   task recommended only for negative/control memory packaging.
 - Remaining blocker: maintainer decision on whether to create the minimal
   canonical identity pair before any RESULT packaging task.
+## Maintainer Decision (2026-07-02)
+
+Decision: **Option A** — create the minimal canonical identities (existing `TASK-0909`, green-lit), then package via `TASK-0919`. Campaign remains monitor-only.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

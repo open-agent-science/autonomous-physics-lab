@@ -101,3 +101,7 @@ Stronger public-card wording is blocked if it needs any of these claims:
 - Remaining blocker: maintainer choice is required for any
   `MAINTAINER_REVIEWED` label, public dashboard wording, claim transition, or
   knowledge entry.
+## Maintainer Decision (2026-07-02)
+
+Decision: **Option 1** — keep RESULT-0023 as AGENT_VALIDATED calibration/verifier memory; no public push; circularity caveat stands.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

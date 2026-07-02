@@ -101,3 +101,18 @@ Uncalibrated raw-GP reference: 1-sigma coverage `0.823729` (nominal `0.682689`),
 - Gate A status: not attempted (no RESULT/PRED artifact). Gate B: not attempted; the run is deterministic and replayable from committed inputs.
 - Claim impact: `none`. Knowledge impact: `none`. Result impact: `none` (RESULT-0025 unchanged). Prediction impact: `none`.
 - Prediction-freeze impact: `unchanged_task_0827_remains_blocked`; `TASK-0827` stays blocked unless the predeclared success conditions pass.
+
+## Maintainer Decision (2026-07-02, refined the same day)
+
+Initial decision: commission a second-generation calibration-method lane now.
+**Refined (same day, joint scientific-director + strategist review):** the
+holdout scored above is demoted to diagnostic background — its failure metrics
+are now known, so no second-generation pass on it can be clean no-peek evidence
+or unblock `TASK-0827`; any future run against it must be a separate task
+labeled `post_hoc_methodology_stress_test`. `TASK-0925` becomes a BLOCKED
+protocol-only lane (gen-2 predeclarations + a fresh-surface validation
+contract). The live nuclear path is the two-tier **point-only** freeze
+contract preflight (`TASK-0929`): point predictions, no intervals, explicit
+calibration-failure caveat, MAE/rank scoring at a future reveal. `TASK-0912`
+negative packaging proceeds unchanged.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

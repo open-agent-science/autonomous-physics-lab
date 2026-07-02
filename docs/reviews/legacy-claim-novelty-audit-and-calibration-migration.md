@@ -110,3 +110,8 @@ Adopt the split-axis model in a later maintainer-owned migration PR. The urgent
 public-facing action is to classify `CLAIM-0001` and `CLAIM-0009` as
 `calibration_memory` with `active_scientific_claim: false`, while preserving
 their support and review history.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **adopt the split-axis disposition** — CLAIM-0001/0009 gain novelty_class=calibration_known_physics, claim_role=calibration_memory, active_scientific_claim=false; support/review statuses preserved (execution: `TASK-0927`).
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

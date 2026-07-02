@@ -1,0 +1,58 @@
+id: TASK-0925
+title: "Predeclare a second-generation NMD-0003 calibration protocol and a fresh-surface validation contract (protocol-only; no scoring)"
+type: scientific_validation
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: low
+
+strategy_alignment:
+  - "Refined D10 (Decision Day 2026-07-02, same-day refinement after scientific-director review): the first no-peek audit (TASK-0899) failed all three route families and its holdout failure metrics (1-sigma coverage ~0.62, RMS z ~4.3) are now known, so any gen-2 design is necessarily informed by them — the post-AME2020 holdout is demoted to diagnostic background and can never provide confirmatory evidence again."
+  - "Protocol-only lane: predeclare the second-generation route families and define the FRESH validation surface; no scoring, no metric, no run happens in this task."
+  - "No pass on the seen holdout can ever unblock TASK-0827; the live nuclear path meanwhile is the two-tier point-only freeze contract (TASK-0929)."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+    - "tasks/TASK-0827-compare-extrapolation-models-freeze-frontier-predictions.yaml"
+    - "tasks/TASK-0929-nuclear-point-only-freeze-contract-preflight.yaml"
+  planning_context: >
+    The diagnosed failure mode is heavy-tailed, region-dependent miscalibration
+    under frontier extrapolation — a distribution-shift problem that even
+    conformal methods (coverage-guaranteed on exchangeable data) did not
+    survive. A second generation (for example region-conditional/Mondrian
+    conformal, heteroscedastic GP variants, copula/mixture tails) may only be
+    designed and predeclared here; its confirmatory validation requires a
+    surface no one has seen. This task writes the protocol: route
+    predeclarations plus the fresh-surface contract that makes a future
+    tier-2 interval validation possible without burning prediction scoring.
+
+requirements:
+  - "Predeclare at most three second-generation route families (exact definitions, hyperparameter grids, per-route hard stop conditions at least as strict as TASK-0899's) addressing the diagnosed heavy-tailed region-dependent miscalibration; design may use calibration-set diagnostics and the PUBLISHED gen-1 failure summary only."
+  - "Explicitly demote the post-AME2020 holdout to diagnostic background: no future task may score it for confirmatory evidence; any run against it must carry the verdict label post_hoc_methodology_stress_test and the explicit clause that it cannot unblock TASK-0827."
+  - "Define the fresh-surface validation contract: a predeclared ROLE-DISJOINT split of the next external mass evaluation (nuclide set A scores calibration coverage, disjoint set B scores frozen predictions; role assignment frozen before the release exists) and/or a trickle registry of new independent post-freeze mass measurements accumulated between evaluations."
+  - "No scoring, no metric computation, no PRED/RESULT/CLAIM/KNOW artifact in this task; the output is the protocol + contract documents only."
+  - "Blocked-by: the FRB flagship execution window and the TASK-0929 point-only freeze contract decision; unblocking this lane requires an explicit maintainer decision recorded against this task."
+
+accepted_outputs:
+  - "A predeclaration + fresh-surface-contract note under docs/reviews/ (route families, stop conditions, holdout demotion, role-disjoint reveal split, trickle-registry definition)."
+  - "Output-routing summary: protocol-only; no scoring performed; TASK-0827 remains blocked; any future gen-2 run is a separate stress-test-labeled task."
+
+result_artifact_policy:
+  required: false
+  reason: "Protocol and contract design only; no scoring, no result, no claim."
+  evidence:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

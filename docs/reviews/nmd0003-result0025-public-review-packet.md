@@ -275,3 +275,8 @@ point-accuracy result above. The evidence does not support calibrated prediction
 intervals, reveal success, a new nuclear law or broad mass formula, a discovery,
 or any claim or knowledge promotion, and the prediction freeze stays blocked
 until the uncertainty-calibration route is independently cleared.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **Option (a)** — publish the point-estimator card with the packet's copy-ready wording and inline uncertainty caveat, plus the light option-(b) bookkeeping note (execution: `TASK-0922`).
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

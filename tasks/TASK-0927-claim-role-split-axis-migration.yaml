@@ -1,0 +1,58 @@
+id: TASK-0927
+title: "Apply the approved split-axis claim-role migration (CLAIM-0001/0009 -> calibration_memory) and the policy vocabulary"
+type: maintainer_workflow
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 D11 adopted the legacy-claim audit's split-axis model: support/review status stays exactly as reviewed; novelty and role become separate fields."
+  - "CLAIM-0001 and CLAIM-0009 are honestly scoped but are calibration/known-physics, not active scientific claims; the migration records that without downgrading to DRAFT, without a RETIRED_TO_CALIBRATION status, and without rewriting history."
+  - "The policy vocabulary (novelty_class, claim_role, active_scientific_claim) lands in docs/claim-promotion-policy.md in the same PR so the ledger and the policy stay consistent."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/legacy-claim-novelty-audit-and-calibration-migration.md"
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    Execute the maintainer-approved migration: add novelty_class:
+    calibration_known_physics, claim_role: calibration_memory, and
+    active_scientific_claim: false to CLAIM-0001 and CLAIM-0009 as a
+    forward-dated disposition section (support_status PARTIALLY_SUPPORTED and
+    review_tier MAINTAINER_REVIEWED preserved verbatim); extend the claim
+    promotion policy with the role/novelty field vocabulary and the rule that
+    role classification never mutates support or review status.
+
+requirements:
+  - "Add the three fields to CLAIM-0001 and CLAIM-0009 as a dated forward disposition citing the Decision Day memo; do NOT change status, review tier, evidence links, or historical review notes."
+  - "Extend docs/claim-promotion-policy.md with the split-axis vocabulary (novelty_class | claim_role | active_scientific_claim) and the no-status-mutation rule; keep the existing Novelty Classification Gate intact."
+  - "Declare Novelty Classification: calibration_known_physics in the PR body for the touched claims; this PR performs no promotion (statuses unchanged), so the calibration-promotion blocker must not fire — if the review agent flags it, record the false-positive and adjust the check in a separate task rather than weakening this migration."
+  - "Flag (do not modify) CLAIM-0008 for its separate scope review and note CLAIM-0006/0007 remain DRAFT valuable-negative candidates."
+  - "No other claim file changes; no RESULT/PRED/KNOW change."
+
+accepted_outputs:
+  - "CLAIM-0001/0009 carrying the dated split-axis disposition with statuses preserved, plus the policy-vocabulary section."
+  - "Output-routing summary: approved ledger-role migration; support/review statuses unchanged; audit trail preserved."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim-role metadata migration under explicit maintainer approval; no support-status, result, or knowledge change."
+  evidence:
+    - "docs/reviews/legacy-claim-novelty-audit-and-calibration-migration.md"
+    - "docs/claim-promotion-policy.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

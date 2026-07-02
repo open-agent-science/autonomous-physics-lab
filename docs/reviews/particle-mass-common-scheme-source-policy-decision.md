@@ -186,3 +186,8 @@ Stop source pinning or any later rerun if:
 - Knowledge impact: none.
 - Limitations: derived source surface, shared input dependence, no committed
   covariance, and no local RGE parity replay.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **accept the AHS route** — pin the Antusch-Hinze-Saad accepted-manuscript common-scheme table as the single source surface (execution: `TASK-0926`). CLAIM-0006/0007 remain DRAFT; broad formula search stays closed.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).
