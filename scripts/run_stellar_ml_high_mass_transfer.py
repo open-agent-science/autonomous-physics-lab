@@ -70,6 +70,10 @@ RESULT_PINNED_COMMAND = (
     "python3 scripts/run_stellar_ml_high_mass_transfer.py "
     f"--skip-sandbox-output --result-out-dir {RESULT_REL_DIR.as_posix()}"
 )
+# Default code_reference for the standalone script route (backward compatible).
+# The formal ``physics-lab run`` workflow route (TASK-0917) threads its own
+# command + code_reference into the shared package writer instead.
+DEFAULT_CODE_REFERENCE = "physics_lab/engines/stellar_ml_high_mass_transfer.py"
 RESULT_TITLE = (
     "Stellar M-L High-Mass DEBCat Transfer - frozen RESULT-0022 relation survives "
     "stage-matched controls"
@@ -357,7 +361,12 @@ def _copy_result_inputs(result_dir: Path) -> dict[str, dict[str, str]]:
     }
 
 
-def _result_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
+def _result_metrics(
+    metrics: dict[str, Any],
+    *,
+    command: str = RESULT_PINNED_COMMAND,
+    code_reference: str = DEFAULT_CODE_REFERENCE,
+) -> dict[str, Any]:
     transfer = {
         key: metrics[key]
         for key in (
@@ -385,8 +394,8 @@ def _result_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
         "review_tier": "AGENT_PUBLISHED",
         "best_verdict": "VALID_IN_RANGE",
         "benchmark_id": BENCHMARK_ID,
-        "command": RESULT_PINNED_COMMAND,
-        "code_reference": "physics_lab/engines/stellar_ml_high_mass_transfer.py",
+        "command": command,
+        "code_reference": code_reference,
         "engine_version": __version__,
         "git_commit": git_commit(REPO_ROOT),
         "generated_at": RESULT_GENERATED_AT,
@@ -408,7 +417,13 @@ def _result_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _build_result_yaml(metrics: dict[str, Any], input_hashes: dict[str, dict[str, str]]) -> dict[str, Any]:
+def _build_result_yaml(
+    metrics: dict[str, Any],
+    input_hashes: dict[str, dict[str, str]],
+    *,
+    command: str = RESULT_PINNED_COMMAND,
+    code_reference: str = DEFAULT_CODE_REFERENCE,
+) -> dict[str, Any]:
     prim = metrics["primary_high_mass_main_sequence_holdout"]
     pc = metrics["predeclared_contract"]
     transfer_margin = prim["frozen_minus_best_control_dex"]
@@ -422,9 +437,9 @@ def _build_result_yaml(metrics: dict[str, Any], input_hashes: dict[str, dict[str
         "generated_at": RESULT_GENERATED_AT,
         "engine_version": __version__,
         "git_commit": git_commit(REPO_ROOT),
-        "command": RESULT_PINNED_COMMAND,
+        "command": command,
         "input_file_hashes": input_hashes,
-        "code_reference": "physics_lab/engines/stellar_ml_high_mass_transfer.py",
+        "code_reference": code_reference,
         "limitations": [
             "Agent-published, not yet independently validated or maintainer-reviewed.",
             (
@@ -697,11 +712,29 @@ def _render_gate_a_report(metrics: dict[str, Any]) -> str:
     )
 
 
-def _write_result_package(metrics: dict[str, Any], result_dir: Path) -> None:
+def write_result_package(
+    metrics: dict[str, Any],
+    result_dir: Path,
+    *,
+    command: str = RESULT_PINNED_COMMAND,
+    code_reference: str = DEFAULT_CODE_REFERENCE,
+) -> None:
+    """Write the full RESULT-0024 package (result.yaml + siblings) to ``result_dir``.
+
+    Shared by the standalone script route (default ``command`` /
+    ``code_reference``) and the formal ``physics-lab run`` workflow route
+    (TASK-0917), which threads its own command + code_reference so the published
+    RESULT-0024 replays through the Gate B ``physics-lab run`` helper. The
+    scientific payload (metrics, verdict, controls, provenance) is byte-identical
+    across both routes because both consume the same deterministic engine and the
+    same published input snapshots.
+    """
     result_dir.mkdir(parents=True, exist_ok=True)
     input_hashes = _copy_result_inputs(result_dir)
-    result_metrics = _result_metrics(metrics)
-    result_yaml = _build_result_yaml(metrics, input_hashes)
+    result_metrics = _result_metrics(metrics, command=command, code_reference=code_reference)
+    result_yaml = _build_result_yaml(
+        metrics, input_hashes, command=command, code_reference=code_reference
+    )
 
     (result_dir / "metrics.json").write_text(
         json.dumps(result_metrics, indent=2, sort_keys=True) + "\n",
@@ -795,7 +828,7 @@ def main() -> None:
         metrics_path.write_text(json.dumps(metrics, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         report_path.write_text(_render_report(metrics), encoding="utf-8")
     if args.result_out_dir is not None:
-        _write_result_package(metrics, args.result_out_dir)
+        write_result_package(metrics, args.result_out_dir)
     print(json.dumps(metrics, indent=2, sort_keys=True))
 
 
