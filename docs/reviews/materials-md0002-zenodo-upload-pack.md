@@ -46,7 +46,7 @@ commit, not inside the v0.1.0 archive bytes.
 **Title:**
 `MD-0002: Frozen benchmark slice of Materials Project stable ternary oxides (v0.1.0)`
 
-**Creators:**
+**Creators** (affiliation for both: `Open Agent Science / Autonomous Physics Lab`):
 1. `Hladun, Roman` — ORCID `0009-0004-4853-5212`
 2. `Kutenyov, Andrii` — GitHub `akutenyov` (created the MD-0002 holdout
    manifest packaged in this archive; confirm his preferred Latin spelling and
@@ -81,15 +81,25 @@ Hladun, not a third creator.
 > Please also credit the upstream source: A. Jain et al., "Commentary: The
 > Materials Project: A materials genome approach to accelerating materials
 > innovation", APL Materials 1, 011002 (2013), doi:10.1063/1.4812323.
+>
+> Two provenance notes. (1) The packaged `data/DATA_LICENSES.yaml` is the
+> repository-wide source-license registry, included for provenance context;
+> the entry that applies to this archive is
+> `materials-project-ternary-oxides-md0002` (CC BY 4.0). No files from the
+> other registry entries — including any non-commercial or
+> permission-restricted sources described there — are included in this
+> archive. (2) The packaged snapshot manifest records
+> `external_dataset_doi: not_minted` because the DOI is assigned by this
+> Zenodo record; the repository records the final DOI in a follow-up commit.
 
 **License:** `Creative Commons Attribution 4.0 International (CC BY 4.0)`
 
 **Version:** `0.1.0`
 
 **Keywords:**
-`materials science; formation energy; benchmark dataset; Materials Project;
-ternary oxides; machine learning; reproducibility; holdout evaluation;
-open agent science`
+`materials science; density functional theory; formation energy; band gap;
+benchmark dataset; Materials Project; ternary oxides; machine learning;
+reproducibility; holdout evaluation; open agent science`
 
 **Related identifiers:**
 - `IsDerivedFrom` -> `10.1063/1.4812323` (Materials Project commentary, Jain et al.)
