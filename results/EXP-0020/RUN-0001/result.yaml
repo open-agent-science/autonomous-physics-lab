@@ -7,7 +7,7 @@ task_id: TASK-0869
 generated_at: '2026-06-29T00:00:00+00:00'
 engine_version: 0.1.0
 git_commit: fc863667a48a3a50f196ac3a479af699e1975932
-command: python scripts/run_thermoml_tb_family_transfer.py --write
+command: physics-lab run examples/thermoml_tb_family_transfer_benchmark.yaml
 input_file_hashes:
   config:
     path: results/EXP-0020/RUN-0001/inputs/config.yaml
@@ -24,7 +24,7 @@ input_file_hashes:
   task:
     path: results/EXP-0020/RUN-0001/inputs/task.yaml
     sha256: 261327413e39d3152e860d5d752128b9fe6973332f5cc04d7ebc4da374fbbdca
-code_reference: physics_lab/engines/thermoml_family_transfer.py
+code_reference: physics_lab/workflows/thermoml_tb_family_transfer.py
 limitations:
 - Agent-published, not yet independently validated or maintainer-reviewed.
 - Scope is normal boiling temperature (Tb) only on the committed 40-row ThermoML family-stratified
@@ -39,9 +39,9 @@ limitations:
   claim is proposed.
 best_model_id: model_joback_frozen_tb
 best_verdict: VALID_IN_RANGE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: VALID_IN_RANGE
   published_by:
     contributor_id: romanhladun24-dot
@@ -49,22 +49,33 @@ agent_proposal_evaluation:
     agent_tool: Codex
     model_version: GPT-5
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
-    no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
-  evidence_summary: The checksum-pinned ThermoML Tb audit fixture and frozen Joback
-    runner reproduce TRANSFER_SUPPORTED_IN_SCOPE with Joback aggregate MAE 14.925825
-    K versus 43.427943 K for the best non-oracle control. The result is limited to
-    the 40-row Tb fixture; esters/lactones is the failed held-out family.
-  followup_for_maintainer: 'Keep the trust qualifier explicit: agent-published, not
-    independently validated or maintainer-reviewed. Gate B should replay the same
-    command and compare aggregate and per-family metrics before any tier upgrade.'
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
+  evidence_summary: Independent Gate B replay via the physics-lab run workflow bridge
+    (TASK-0907) reproduced the published RESULT-0026 metrics within 1e-9 absolute
+    tolerance across all 23 numeric fields and preserved the VALID_IN_RANGE verdict.
+    Joback aggregate MAE 14.925825 K versus 43.427943 K for the best non-oracle control;
+    7/8 families clear the 5 K margin; esters/lactones is the failed held-out family.
+  followup_for_maintainer: 'Keep the trust qualifier explicit: agent-validated by
+    independent replay, not maintainer-reviewed. Scope stays the bounded 40-row Tb
+    audit fixture; esters/lactones remains the failed family; no CLAIM, KNOW, or broad
+    property-estimation promotion is proposed.'
+  validation_record:
+    replayed_by:
+      contributor_id: gladunrv
+      github_username: gladunrv
+      agent_tool: Claude Code
+      model_version: Claude Opus 4.8
+    replayed_at_utc: '2026-07-02T06:33:24+00:00'
+    replay_command: physics-lab run examples/thermoml_tb_family_transfer_benchmark.yaml
+    replay_output_dir: _gateb_replay
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 23
+    drift_observed: none
 verification:
   passed: true
   checks:

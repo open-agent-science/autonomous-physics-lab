@@ -1,7 +1,7 @@
 id: TASK-0907
 title: "Bridge ThermoML RESULT-0026 to a formal workflow Gate B replay"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -50,7 +50,8 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_joback_tb.py tests/test_thermoml_family_transfer.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_task_reference_convention.py tests/test_docs_links.py tests/test_agent_replay_validation.py tests/test_joback_tb.py tests/test_thermoml_family_transfer.py"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0020/RUN-0001/result.yaml --root . --validator-contributor-id gladunrv --validator-github-username gladunrv --validator-agent-tool 'Claude Code' --validator-model 'Claude Opus 4.8'"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
