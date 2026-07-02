@@ -1,7 +1,7 @@
 id: TASK-0906
 title: "Preflight Thermophysical ThermoML 80-row expansion identity counts as local-only metadata"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -44,11 +44,12 @@ result_artifact_policy:
   reason: "Source-readiness count preflight; no benchmark result or prediction artifact is produced."
   evidence:
     - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+    - "docs/reviews/thermoml-tb-80row-local-count-preflight.md"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_docs_links.py tests/test_joback_tb.py tests/test_thermoml_family_transfer.py"
+    - "python3 -m pytest tests/test_docs_links.py tests/test_joback_tb.py tests/test_thermoml_family_transfer.py tests/test_thermoml_tb_80row_preflight.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
