@@ -6,9 +6,10 @@
 
 ## READY
 
-- `TASK-0910` - Pin FRB Catalog 2 time-resolved exposure-map source artifact before T-truncated construction (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `radio_transients_astrophysics`)
+- `TASK-0910` - Pin FRB Catalog 2 time-resolved exposure-map source artifact before T-truncated construction (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-0911` - Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0913` - Scout one post-2021 independent primary Yb/Sr source route after McGrew blockage (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `precision_metrology`)
+- `TASK-0926` - Pin the Antusch-Hinze-Saad common-scheme quark-mass table as the single particle-mass source surface (no Koide run) (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 
 ## IN_PROGRESS
 
