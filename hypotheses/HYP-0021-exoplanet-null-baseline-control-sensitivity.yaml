@@ -1,0 +1,47 @@
+id: HYP-0021
+title: "On the committed EXO-0001 snapshot, nearest-radius null controls match or beat the frozen CK17-style baseline in the highlighted true-mass transit-radius slices, so the apparent residual stress is control-sensitive"
+domain: astrophysics
+status: INCONCLUSIVE
+
+hypothesis:
+  statement: >
+    In the highlighted true-mass transit-radius slices of the committed EXO-0001
+    PSCompPars snapshot (compact, sub-Neptune, Jovian-radius, and hot-Jupiter),
+    deterministic nearest-radius null controls match or beat the frozen
+    CK17-style baseline, so the apparent residual stress is control-sensitive and
+    should not reopen a positive residual-scoring lane on this snapshot. The
+    nearest-radius neighbor uses observed radius and is a diagnostic control, not
+    a deployable predictor. This is a bounded negative/control benchmark
+    conclusion about control sensitivity, not a positive mass-radius law, and it
+    makes no composition, habitability, atmosphere, target-priority, discovery,
+    prediction, or universal mass-radius statement. True-mass and minimum-mass
+    rows are kept separate; the minimum-mass transit-radius slices remain
+    underpowered diagnostics only.
+  formula_candidates:
+    - "frozen_ck17_style_baseline: committed Chen-Kipping-style mass-radius baseline evaluated on the pinned EXO-0001 snapshot (no refit)"
+    - "nearest_radius_neighbor_null: predict from the nearest observed-radius neighbor within the slice (diagnostic control using observed radius, not a prospective model)"
+    - "uncertainty_band_median_null: per-uncertainty-band median control (diagnostic only)"
+
+assumptions:
+  - "The EXO-0001 PSCompPars snapshot is the frozen input; no live NASA Exoplanet Archive fetch and no EXO-0003 value-bearing rows are used."
+  - "True-mass and minimum-mass rows are kept separate and are never pooled into a headline metric; minimum-mass transit-radius slices are underpowered diagnostics only."
+  - "The frozen CK17-style baseline is evaluated as committed and is not refit or rerun by this identity."
+  - "The nearest-radius neighbor is a diagnostic control that uses observed radius; it is not a deployable predictor and does not establish a positive mass-radius relation."
+  - "This identity binds already-committed negative/control memory; it does not authorize new residual metrics, candidate formula search, lowered EXO-0003 triggers, or a RESULT in this task."
+
+variables:
+  log_mass_dex:
+    unit: dex
+    description: "log10 planetary mass in Earth masses (true-mass rows only for the highlighted slices)"
+  log_radius_dex:
+    unit: dex
+    description: "log10 planetary radius in Earth radii from transit measurements"
+  baseline_rmse_dex:
+    unit: dex
+    description: "Root-mean-square residual of a mass-radius baseline or null control on a slice, in dex"
+
+evidence:
+  experiments:
+    - EXP-0021
+
+verdict: "Bounded negative/control benchmark conclusion: the highlighted true-mass residual slices are control-sensitive because deterministic nearest-radius null controls match or beat the frozen CK17-style baseline on the committed EXO-0001 snapshot; not a positive mass-radius law and no basis to reopen residual scoring on this snapshot."
