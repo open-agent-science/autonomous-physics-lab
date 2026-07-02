@@ -1,7 +1,7 @@
 id: TASK-0907
 title: "Bridge ThermoML RESULT-0026 to a formal workflow Gate B replay"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

@@ -1,7 +1,7 @@
 id: TASK-0885
 title: "Independently replay FIRAS/Wien RESULT-0023 after workflow repackaging"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

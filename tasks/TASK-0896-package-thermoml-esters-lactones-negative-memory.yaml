@@ -1,7 +1,7 @@
 id: TASK-0896
 title: "Package the ThermoML esters/lactones failed-family result as negative memory"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

@@ -335,10 +335,10 @@ missions:
         label: "Preflight the NMD-0003 uncertainty-calibration failure as negative/blocker result memory"
         task_id: TASK-0912
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "Gate A checklist for packaging TASK-0899 failure as negative/blocker memory"
           - "recommend PACKAGE_AS_NEGATIVE_RESULT / KEEP_REVIEW_NOTE_ONLY / NEEDS_ENGINE_WORK"
@@ -1050,10 +1050,10 @@ missions:
         label: "Create minimal Exoplanet null-baseline negative/control canonical identities"
         task_id: TASK-0909
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "minimal canonical experiment/hypothesis identities for existing EXO-0001 negative/control memory"
           - "no source fetch, EXO-0003, residual rerun, RESULT creation, or positive mass-radius claim"
@@ -1338,10 +1338,10 @@ missions:
         label: "Bridge RESULT-0024 to a formal workflow Gate B replay"
         task_id: TASK-0917
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "formal helper/workflow Gate B replay path after metadata caveat repair"
           - "optional metadata-only validation record only if protocol-safe"
@@ -1415,10 +1415,10 @@ missions:
         label: "Bridge RESULT-0026 to a formal workflow Gate B replay"
         task_id: TASK-0907
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "workflow/helper bridge that lets Gate B formally replay RESULT-0026"
           - "aggregate and per-family metric-drift table with no metric mutation"
@@ -1427,10 +1427,10 @@ missions:
         label: "Preflight local-only ThermoML Tb 80-row identity/count feasibility"
         task_id: TASK-0906
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "value-free identity/count/family feasibility map for a proposed 80-row Tb fixture"
           - "rights, locator, identity-map, and exclusion blockers stated"
@@ -1550,10 +1550,10 @@ missions:
         label: "Prepare metadata-only AGENT_VALIDATED update after clean Gate B"
         task_id: TASK-0916
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "Gate B helper rerun and validation-record decision for RESULT-0020"
           - "metadata-only update or blocker note"

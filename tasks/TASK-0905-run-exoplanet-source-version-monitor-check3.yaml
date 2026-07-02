@@ -1,7 +1,7 @@
 id: TASK-0905
 title: "Run Exoplanet source-version monitor check 3 without value-bearing row updates"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

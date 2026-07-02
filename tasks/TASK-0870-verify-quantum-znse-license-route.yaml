@@ -1,7 +1,7 @@
 id: TASK-0870
 title: "Verify the Quantum ZnSe direct-size source license route before any row task"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

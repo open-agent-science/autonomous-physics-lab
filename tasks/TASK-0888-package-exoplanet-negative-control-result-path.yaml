@@ -1,7 +1,7 @@
 id: TASK-0888
 title: "Package the Exoplanet null-baseline negative/control memory only if Gate A can be made deterministic"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

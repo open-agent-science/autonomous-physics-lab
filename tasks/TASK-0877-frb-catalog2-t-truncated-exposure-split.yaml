@@ -1,7 +1,7 @@
 id: TASK-0877
 title: "Construct the FRB Catalog 2 T-truncated exposure split before morphology benchmarking"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: medium

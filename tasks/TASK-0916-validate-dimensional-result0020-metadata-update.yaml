@@ -1,7 +1,7 @@
 id: TASK-0916
 title: "Prepare Dimensional RESULT-0020 metadata-only AGENT_VALIDATED update after clean Gate B"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

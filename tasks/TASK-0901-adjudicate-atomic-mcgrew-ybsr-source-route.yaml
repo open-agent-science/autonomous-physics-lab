@@ -1,7 +1,7 @@
 id: TASK-0901
 title: "Adjudicate the Atomic McGrew/NIST Yb-Sr source route before row curation"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

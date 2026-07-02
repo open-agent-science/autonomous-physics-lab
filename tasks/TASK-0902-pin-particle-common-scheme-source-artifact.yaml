@@ -1,7 +1,7 @@
 id: TASK-0902
 title: "Pin the particle-mass common-scheme source artifact without running Koide metrics"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
