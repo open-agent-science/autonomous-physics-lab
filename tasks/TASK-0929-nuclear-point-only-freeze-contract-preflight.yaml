@@ -1,0 +1,61 @@
+id: TASK-0929
+title: "Preflight the two-tier NMD-0003 point-only prediction-freeze contract (maintainer amendment decision packet; no freeze here)"
+type: benchmark_protocol
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Refined D10 (Decision Day 2026-07-02): the freeze-calibration deadlock is structural — an interval-bearing freeze (TASK-0827) needs validated calibration, calibration validation now needs a fresh surface, and the fresh surface is the next AME release, at which point freezing is worthless. A point-only tier-1 freeze captures the time-sensitive pre-registration value honestly."
+  - "Honest contract, per the joint scientific-director/strategist review: point predictions only; no calibrated intervals; no uncertainty claim; MAE/rank scoring against frozen baselines at a future reveal; explicit TASK-0899 failure caveat."
+  - "This is a maintainer-approved amendment to the prediction protocol creating an explicitly weaker tier — NOT an unblock or bypass of TASK-0827, which stays blocked for interval-bearing freezes."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "tasks/TASK-0827-compare-extrapolation-models-freeze-frontier-predictions.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Produce the maintainer decision packet for a two-tier prediction-freeze
+    vocabulary: tier-1 point-only freezes (allowed now, explicitly
+    uncertainty-caveated, MAE/rank-scoreable at reveal) and tier-2
+    interval-bearing freezes (still gated on fresh-surface calibration
+    validation per the TASK-0925 contract). The packet specifies the concrete
+    tier-1 candidate: which frontier nuclides from the frozen NMD-0003 GP
+    surface, which frozen baselines (DZ10-published-variant, null/global
+    comparators), which reveal metrics, and which reveal sources are
+    admissible. The freeze itself does NOT happen in this task; it is a
+    separate follow-up only after the maintainer approves an option.
+
+requirements:
+  - "Draft the amendment decision packet with explicit options (approve tier-1 point-only freeze as a follow-up task / decline / defer) and a recommendation; the maintainer decides at Gate C."
+  - "Specify the tier-1 freeze candidate precisely: frontier nuclide set from the frozen GP surface, frozen baseline set (DZ10-published-variant and null/global comparators), reveal metrics (MAE and rank vs baselines), and admissible reveal sources (next AME/NUBASE-class evaluation)."
+  - "Mandatory wording constraints in the packet and any future freeze artifact: the explicit caveat that TASK-0899 uncertainty calibration failed and intervals are unavailable; no interval or uncertainty claim; no strong prediction-readiness wording; no TASK-0827-unblocked framing (TASK-0827 remains blocked for interval-bearing freezes)."
+  - "Define the two-tier vocabulary so tier-2 remains gated on the TASK-0925 fresh-surface validation contract; a tier-1 freeze must be upgradable (intervals added later) without re-freezing points."
+  - "Do NOT freeze any PRED, run any metric, or modify TASK-0827 in this task; output is the decision packet only."
+
+accepted_outputs:
+  - "A two-tier freeze-contract decision packet under docs/reviews/ with the options, the concrete tier-1 candidate specification, the mandatory caveat wording, and the maintainer decision checklist."
+  - "Output-routing summary: protocol amendment preflight; no PRED/RESULT/CLAIM change; maintainer Gate C decides; freeze execution is a separate follow-up task."
+
+result_artifact_policy:
+  required: false
+  reason: "Decision-packet preflight only; no prediction registry, result, or claim artifact is created or modified."
+  evidence:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

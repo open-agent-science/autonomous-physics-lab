@@ -29,7 +29,7 @@ input:
 requirements:
   - "Create docs/reviews/maintainer-decision-day-2026-07-02.md recording decisions D1-D13 with per-decision execution pointers and explicit non-claims."
   - "Append a short Maintainer Decision (2026-07-02) section to each of the ten affected decision packets/audits, pointing back to the memo."
-  - "Queue the execution tasks: TASK-0922 (public wording set), TASK-0923 (RESULT-0024 metadata update), TASK-0924 (MD-0002 Zenodo release), TASK-0925 (second-generation uncertainty calibration), TASK-0926 (AHS source pinning), TASK-0927 (claim-role migration), TASK-0928 (stellar external dataset scout)."
+  - "Queue the execution lanes: TASK-0922 (public wording set), TASK-0923 (RESULT-0024 metadata update), TASK-0924 (MD-0002 Zenodo release), TASK-0925 (gen-2 calibration, demoted per the same-day D10 refinement to a BLOCKED protocol-only lane), TASK-0926 (AHS source pinning), TASK-0927 (claim-role migration), TASK-0928 (stellar external dataset scout), TASK-0929 (two-tier point-only freeze contract preflight — the live nuclear path)."
   - "Raise tasks/TASK-0910 priority to high per the FRB flagship decision; make no other change to existing tasks."
   - "Change no RESULT/CLAIM/PRED/KNOW artifact in this task; all executions flow through the queued tasks."
 

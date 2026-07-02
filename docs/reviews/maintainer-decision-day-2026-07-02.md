@@ -107,14 +107,35 @@ Packet context: [atomic-mcgrew-ybsr-source-route-adjudication.md](./atomic-mcgre
 ### D10. Nuclear uncertainty calibration — commission a second-generation method now
 
 The no-peek calibration audit (TASK-0899) failed all three predeclared route
-families; the prediction freeze (`TASK-0827`) stays blocked. Decision: rather
-than placing the lane on HOLD, commission ONE bounded second-generation
+families; the prediction freeze (`TASK-0827`) stays blocked. Initial decision:
+rather than placing the lane on HOLD, commission ONE bounded second-generation
 calibration-method task with predeclared route families and hard stop
 conditions, run under the same no-peek discipline. The negative/blocker
 packaging of the first failure (`TASK-0912`) proceeds independently; the
-point-estimator card is covered by D4. The prediction freeze remains blocked
-until a route family passes its predeclared gates.
-Execution: `TASK-0925`.
+point-estimator card is covered by D4.
+
+**Refined the same day (2026-07-02, joint scientific-director + strategist
+review, maintainer-approved):** re-scoring any second-generation method on the
+same post-AME2020 holdout is no longer clean no-peek — its failure metrics
+(1-sigma coverage ~0.62, RMS z ~4.3) are known, so gen-2 design is necessarily
+informed by them, and a pass would risk methodology shopping. Refinement:
+
+- `TASK-0925` is demoted to a BLOCKED, low-priority, **protocol-only** lane:
+  predeclare gen-2 route families and define a fresh-surface validation
+  contract (role-disjoint reveal split + trickle measurement registry). The
+  seen holdout is diagnostic background only; **no pass on it can ever unblock
+  `TASK-0827`**, and any future run must be a separate task labeled
+  `post_hoc_methodology_stress_test`.
+- The live nuclear path is the **two-tier point-only freeze contract
+  preflight** (`TASK-0929`, high priority): point predictions only, no
+  calibrated intervals, no uncertainty claim, MAE/rank scoring against frozen
+  baselines at a future reveal, explicit `TASK-0899` failure caveat — a
+  maintainer-approved amendment to the prediction protocol, not a bypass of
+  `TASK-0827`. This captures the time-sensitive pre-registration value before
+  the next AME-class release.
+
+Execution: `TASK-0929` (live path), `TASK-0925` (blocked protocol-only lane),
+`TASK-0912` (unchanged).
 Audit: [nmd0003-gp-uncertainty-calibration-audit.md](./nmd0003-gp-uncertainty-calibration-audit.md).
 
 ### D11. Claim ledger — adopt the split-axis disposition for CLAIM-0001 / CLAIM-0009
