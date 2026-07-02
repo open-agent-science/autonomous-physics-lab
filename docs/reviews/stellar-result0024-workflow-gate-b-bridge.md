@@ -112,8 +112,9 @@ permitted metadata-only upgrade was applied to
   recording the replayer, the supported replay command, the `1.0e-09` tolerance,
   `max_abs_delta: 0.0`, `metric_count: 25`, and `drift_observed: none`.
 
-No scientific metric, verdict, model id, input hash, or limitation text was
-changed. This is not maintainer endorsement; the trust qualifier remains
+No scientific metric, verdict, model id, or input hash was changed. The trust
+qualifier limitation text was updated to reflect the Gate B tier transition.
+This is not maintainer endorsement; the trust qualifier remains
 "agent-validated by independent replay; not yet maintainer-reviewed".
 
 ## Limitations Preserved

@@ -27,7 +27,7 @@ input_file_hashes:
     sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
 code_reference: physics_lab/workflows/stellar_ml_high_mass_transfer.py
 limitations:
-- Agent-published, not yet independently validated or maintainer-reviewed.
+- Agent-validated by independent replay; not yet maintainer-reviewed.
 - Scope is one frozen RESULT-0022 mass-luminosity relation transferred to one disjoint
   high-mass DEBCat regime under controls; this is not a universal stellar mass-luminosity
   law, discovery, or stellar-structure conclusion.
@@ -161,4 +161,3 @@ artifacts:
   knowledge_update_patch: results/EXP-0017/RUN-0001/knowledge_update.patch.md
   review_summary: results/EXP-0017/RUN-0001/review_summary.md
   review_metadata: results/EXP-0017/RUN-0001/review_metadata.yaml
-
