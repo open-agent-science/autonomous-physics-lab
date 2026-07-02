@@ -1,7 +1,7 @@
 id: TASK-0928
 title: "Scout one independently curated stellar mass-luminosity dataset beyond DEBCat (readiness only)"
 type: benchmark_planning
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
