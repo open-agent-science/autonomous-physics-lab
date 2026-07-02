@@ -1,7 +1,7 @@
 id: TASK-0916
 title: "Prepare Dimensional RESULT-0020 metadata-only AGENT_VALIDATED update after clean Gate B"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -39,8 +39,9 @@ accepted_outputs:
 
 result_artifact_policy:
   required: false
-  reason: "Metadata-only validation update for an existing RESULT; no new RESULT is produced."
+  reason: "Validation-routing decision for an existing RESULT; no new RESULT is produced. Gate B replayed cleanly but the AGENT_VALIDATED tier bump is blocked on review-independence, so RESULT-0020 stays AGENT_PUBLISHED and its committed artifact is byte-unchanged."
   evidence:
+    - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
     - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
 
 validation:

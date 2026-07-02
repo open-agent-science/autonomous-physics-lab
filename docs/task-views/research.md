@@ -12,7 +12,6 @@
 - `TASK-0911` - Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0913` - Scout one post-2021 independent primary Yb/Sr source route after McGrew blockage (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `precision_metrology`)
 - `TASK-0914` - Predeclare the Quantum ZnSe/InP transfer contract before any new benchmark (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0916` - Prepare Dimensional RESULT-0020 metadata-only AGENT_VALIDATED update after clean Gate B (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `dimensional_analysis_validator`)
 
 ## IN_PROGRESS
 
@@ -34,3 +33,4 @@ None.
 - `TASK-0901` - Adjudicate the Atomic McGrew/NIST Yb-Sr source route before row curation (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `precision_metrology`)
 - `TASK-0902` - Pin the particle-mass common-scheme source artifact without running Koide metrics (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 - `TASK-0905` - Run Exoplanet source-version monitor check 3 without value-bearing row updates (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `astrophysics`)
+- `TASK-0916` - Prepare Dimensional RESULT-0020 metadata-only AGENT_VALIDATED update after clean Gate B (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `dimensional_analysis_validator`)
