@@ -131,3 +131,8 @@ Stop without release if any of these hold:
 - Prediction impact: none.
 - Dataset impact: decision packet only; no row, holdout, checksum, DOI, release tag, or external archive mutation.
 - Remaining blocker: maintainer decision and external repository action are required before any DOI or external release.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **Zenodo DOI archive route** — release tag + deterministic allowlist archive (`TASK-0908`) + Zenodo upload/publish (maintainer action) + DOI record-back (execution: `TASK-0924`).
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

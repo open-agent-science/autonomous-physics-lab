@@ -95,3 +95,8 @@ condition.
 | Existing diagnostic | Beloy/Nemitz source-limited memory unchanged |
 | Gate A / Gate B | Not attempted / not applicable |
 | Claim and knowledge | No impact |
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **memory card + HOLD** — route the Yb/Sr diagnostic as source-limited consistency memory; no new metric work until a new independent direct row or an approved aggregation contract exists (`TASK-0913` scout continues).
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

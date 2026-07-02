@@ -4,7 +4,7 @@ type: scientific_source_curation
 status: READY
 closeout: review
 difficulty: medium
-priority: medium
+priority: high
 
 strategy_alignment:
   - "TASK-0877 specified a leakage-safe T-truncated pre-T exposure view, but numeric construction needs time-resolved exposure-map products that are not yet pinned."

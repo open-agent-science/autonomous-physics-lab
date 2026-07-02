@@ -261,3 +261,8 @@ a `CLAIM-*`, `KNOW-*`, universal exponent, or stellar-evolution statement.
 statement is that `alpha=3.5` is inadequate as the sole baseline on the frozen
 DEBCat main-sequence-compatible slice. The evidence does not support universal
 falsification, a promoted physical claim, or knowledge promotion.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **Option 2 + Option 3** — the scoped public capsule is approved (execution: `TASK-0922`) and an external stellar-dataset scout is commissioned (`TASK-0928`). No universal-law claim.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

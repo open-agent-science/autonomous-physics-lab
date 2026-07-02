@@ -1,0 +1,59 @@
+id: TASK-0925
+title: "Design and run ONE bounded second-generation NMD-0003 uncertainty-calibration lane (predeclared routes, hard stops, no-peek)"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 D10: rather than placing the nuclear lane on HOLD after the first no-peek calibration audit failed all three predeclared route families (TASK-0899: 1-sigma coverage ~0.62 vs 0.68, RMS z ~4.3), the maintainer commissioned one bounded second-generation method lane."
+  - "The prediction freeze (TASK-0827) stays blocked until a route family passes its predeclared gates; this task cannot unblock it by relaxing the gates."
+  - "The first failure is being preserved independently as negative/blocker memory (TASK-0912); this task must not rewrite or soften that record."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "tasks/TASK-0827-compare-extrapolation-models-freeze-frontier-predictions.yaml"
+  planning_context: >
+    The first-generation routes (global robust tail, region quantile
+    min-count, conformal global) all tripped their stop conditions on the
+    no-peek holdout. This task predeclares a SECOND generation of route
+    families that address the diagnosed failure mode (heavy-tailed,
+    region-dependent residuals) — for example ensemble/jackknife conformal
+    with region-conditional quantiles, heteroscedastic GP variants, or a
+    copula/mixture tail model — freezes their definitions and stop conditions
+    BEFORE scoring, and runs the same no-peek holdout audit once.
+
+requirements:
+  - "Predeclare at most three route families with exact definitions, hyperparameter grids, and per-route hard stop conditions (coverage and RMS-z gates at least as strict as TASK-0899's) BEFORE any holdout scoring; commit the predeclaration first."
+  - "Reuse the TASK-0899 no-peek split and scoring harness unchanged; no peeking at holdout residuals during route design; document the design inputs (calibration-set diagnostics only)."
+  - "Run each predeclared route once against the holdout; report coverage, RMS z, and the control comparators exactly as in the first audit."
+  - "If no route passes: stop, record the second deterministic failure as negative memory, and recommend the lane move to HOLD/MONITOR — do not iterate ad hoc, add routes post hoc, or relax gates."
+  - "If a route passes: record it as the calibration candidate and hand off to a SEPARATE maintainer-gated task before any TASK-0827 unblock; do not unblock the freeze inside this task."
+  - "No PRED, CLAIM, or KNOW artifact; no interval or prediction-readiness wording unless a route passes and the follow-up review confirms it."
+
+accepted_outputs:
+  - "A predeclaration artifact (routes + stops, committed before scoring) and one no-peek audit note under docs/reviews/ with the per-route verdicts."
+  - "Output-routing summary: pass -> calibration-candidate handoff task; fail -> second negative memory + HOLD/MONITOR recommendation; claim impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Calibration-method audit; the default output is a review note (plus negative memory on failure). Any RESULT candidate requires the normal Gate A path in a follow-up."
+  evidence:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

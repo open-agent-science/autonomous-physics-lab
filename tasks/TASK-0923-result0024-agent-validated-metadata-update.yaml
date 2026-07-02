@@ -1,0 +1,54 @@
+id: TASK-0923
+title: "Apply the authorized RESULT-0024 metadata-only AGENT_VALIDATED update with the lifecycle-hash caveat recorded"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 D3 chose packet Option (c): the independent Gate B replay reproduced every RESULT-0024 metric with zero drift; the task-input-hash mismatch is task-file lifecycle bookkeeping, already root-caused (TASK-0898) and being structurally fixed (TASK-0917)."
+  - "The update is metadata-only: review_tier and a validation record; no metric, verdict, holdout, or wording change."
+  - "Public wording stays at the same-source, small-holdout, no-universal-law ceiling per the same decision."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-maintainer-review-packet.md"
+    - "docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md"
+    - "results/EXP-0017/RUN-0001/result.yaml"
+  planning_context: >
+    Execute the maintainer-authorized metadata-only update on RESULT-0024
+    (EXP-0017/RUN-0001): bump review_tier from AGENT_PUBLISHED to
+    AGENT_VALIDATED and append a validation record that cites the TASK-0863
+    zero-metric-drift replay and records the task-input-hash lifecycle caveat
+    verbatim. Nothing else in the artifact changes.
+
+requirements:
+  - "Update review_tier to AGENT_VALIDATED and append the validation record with: the Gate B replay reference, the zero-metric-drift outcome, and the task-input-hash lifecycle caveat quoted from the repair note."
+  - "Change no metric, verdict vocabulary, holdout membership, input hash, or report wording; metadata surfaces only."
+  - "Follow docs/result-promotion-protocol.md for the validation-record shape; the maintainer authorization is D3 in the Decision Day memo."
+  - "Do not touch RESULT-0022 or any other result in this task."
+
+accepted_outputs:
+  - "RESULT-0024 at AGENT_VALIDATED with the caveat-bearing validation record; all metrics byte-identical to before."
+  - "Output-routing summary: authorized metadata-only tier update; no metric change; claim impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only review-tier update on an existing result under explicit maintainer authorization; no new RESULT is created."
+  evidence:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

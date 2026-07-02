@@ -1,0 +1,58 @@
+id: TASK-0924
+title: "Execute the MD-0002 Zenodo release: tag, deterministic archive, upload metadata pack, and DOI record-back"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 D5 approved the Zenodo DOI route for MD-0002 — APL's first citable external dataset and the pipeline precedent for later, higher-value datasets."
+  - "The dataset content is already frozen (362 rows, normalized checksum committed, CC BY 4.0, Materials Project attribution); this task packages and records, it does not alter rows."
+  - "The Zenodo account, upload, and publish click remain maintainer physical actions; everything else is prepared agent-side."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+    - "docs/reviews/materials-md0002-deterministic-archive-dry-run.md"
+    - "tasks/TASK-0908-md0002-deterministic-archive-helper.yaml"
+  planning_context: >
+    Execute the approved release route end-to-end up to the maintainer's
+    upload: create the dataset release tag, build the deterministic archive
+    from the packet's allowlist (using the TASK-0908 helper), record the
+    archive SHA-256, and prepare the complete Zenodo metadata pack (title,
+    creators with ORCID 0009-0004-4853-5212, description, CC BY 4.0 license,
+    version 0.1.0, Materials Project / Jain et al. attribution, keywords).
+    After the maintainer uploads and publishes, record the minted DOI back
+    into the dataset manifest and citation docs.
+
+requirements:
+  - "Depends on TASK-0908 (deterministic archive helper); do not hand-roll the archive."
+  - "Build the archive strictly from the packet allowlist; verify contents against it and record the archive SHA-256 in the repo before upload."
+  - "Prepare a copy-paste Zenodo metadata pack and step-by-step maintainer upload instructions; the upload/publish click is the maintainer's action."
+  - "After DOI minting, record the DOI + archive checksum + external URL in the MD-0002 manifest and the relevant docs (dataset page, CITATION guidance); until then external_dataset_doi stays not_minted."
+  - "Preserve CC BY 4.0 and the Materials Project attribution verbatim; the release description must not present the dataset as experimental data or design guidance."
+  - "Change no dataset rows, holdout membership, RESULT-0021 metrics, or claims."
+
+accepted_outputs:
+  - "Release tag + deterministic archive + recorded SHA-256 + Zenodo metadata pack + maintainer upload instructions; then the DOI record-back commit once minted."
+  - "Output-routing summary: approved external dataset release execution; no row or metric change; rights preserved."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset packaging and citation metadata only; no scientific rows, metrics, or claims change."
+  evidence:
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

@@ -1,0 +1,55 @@
+id: TASK-0922
+title: "Execute the approved Decision Day public wording set (RESULT-0022 capsule + RESULT-0025 point-estimator card)"
+type: documentation
+status: READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 approved two scoped public capsules: D1 (RESULT-0022 stellar baseline-adequacy capsule, packet Option 2) and D4 (RESULT-0025 nuclear point-estimator card, packet Option a)."
+  - "Both capsules use the packets' copy-ready wording verbatim; neither promotes a claim, universal law, interval, or prediction-freeze use."
+  - "D2 (RESULT-0023) was decided as no-public-push and needs no wording work."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+    - "docs/reviews/nmd0003-result0025-public-review-packet.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    Place the two maintainer-approved capsules on the canonical public
+    surfaces (campaign pages and the public science dashboard), using the
+    exact recommended wording from each packet: the RESULT-0022 frozen-DEBCat
+    baseline-adequacy capsule and the RESULT-0025 retrospective point-accuracy
+    card with the inline miscalibrated-uncertainty caveat plus the light
+    option-(b) bookkeeping note about the Gate B lifecycle hash drift.
+
+requirements:
+  - "Copy the approved capsule wording verbatim from each packet; do not strengthen scope, drop caveats, or add discovery/universal-law/interval language."
+  - "Place the capsules on the existing canonical surfaces (stellar and nuclear campaign pages and/or the public science dashboard); do not create any new page or digest surface."
+  - "Add the RESULT-0025 option-(b) bookkeeping note about the Gate B task-YAML lifecycle hash drift where the card cites replay evidence."
+  - "Keep review tiers visible next to each capsule (RESULT-0022 AGENT_VALIDATED; RESULT-0025 AGENT_PUBLISHED, Gate-B point-metrics replayed)."
+  - "Change no RESULT/CLAIM/PRED/KNOW artifact; wording surfaces only."
+
+accepted_outputs:
+  - "The two approved capsules live on the canonical campaign/dashboard surfaces with tiers and caveats intact."
+  - "Output-routing summary: maintainer-approved public wording execution; no artifact change; CI verifies docs links."
+
+result_artifact_policy:
+  required: false
+  reason: "Public wording placement only; no scientific artifact is created or modified."
+  evidence:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

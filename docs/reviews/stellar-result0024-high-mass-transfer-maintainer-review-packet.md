@@ -236,3 +236,8 @@ under controls, with materially larger error and a recorded metadata caveat.
 The evidence does not support a universal mass-luminosity law, a stellar
 evolution result, a discovery, a falsification, or any claim/knowledge
 promotion.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **Option (c)** — metadata-only AGENT_VALIDATED update authorized with the lifecycle-hash caveat recorded verbatim (execution: `TASK-0923`). Public wording stays at the same-source, small-holdout ceiling.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).

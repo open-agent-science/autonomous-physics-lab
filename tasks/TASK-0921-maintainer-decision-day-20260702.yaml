@@ -1,0 +1,54 @@
+id: TASK-0921
+title: "Record the 2026-07-02 maintainer Decision Day (Gate C batch) and queue the execution lanes"
+type: maintainer_workflow
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Seven Gate C decision packets plus three strategic forks (FRB flagship, nuclear calibration fork, claim disposition) were pending; the maintainer rendered all decisions in one interactive session on 2026-07-02."
+  - "Recording the batch as one dated memo plus per-packet decision addenda keeps the audit trail in the canonical packets without creating a new live surface."
+  - "Each decided action executes through its own scoped task under normal gates; this task changes no scientific artifact."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+    - "docs/reviews/nmd0003-result0025-public-review-packet.md"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+  planning_context: >
+    The post-public review wave produced seven maintainer decision packets and
+    three strategic forks. The maintainer decided all of them on 2026-07-02
+    (D1-D13 in the memo). This task records the decisions (memo + addenda in
+    each packet), raises TASK-0910 to high priority per the FRB flagship
+    decision, and queues the execution tasks TASK-0922 through TASK-0928.
+
+requirements:
+  - "Create docs/reviews/maintainer-decision-day-2026-07-02.md recording decisions D1-D13 with per-decision execution pointers and explicit non-claims."
+  - "Append a short Maintainer Decision (2026-07-02) section to each of the ten affected decision packets/audits, pointing back to the memo."
+  - "Queue the execution tasks: TASK-0922 (public wording set), TASK-0923 (RESULT-0024 metadata update), TASK-0924 (MD-0002 Zenodo release), TASK-0925 (second-generation uncertainty calibration), TASK-0926 (AHS source pinning), TASK-0927 (claim-role migration), TASK-0928 (stellar external dataset scout)."
+  - "Raise tasks/TASK-0910 priority to high per the FRB flagship decision; make no other change to existing tasks."
+  - "Change no RESULT/CLAIM/PRED/KNOW artifact in this task; all executions flow through the queued tasks."
+
+accepted_outputs:
+  - "The dated decision memo, ten packet addenda, the seven queued execution tasks, and the TASK-0910 priority bump."
+  - "Output-routing summary: Gate C decision recording only; no scientific artifact changed; CI verifies docs links."
+
+result_artifact_policy:
+  required: false
+  reason: "Decision recording and task queueing only; no scientific artifact is created or modified."
+  evidence:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

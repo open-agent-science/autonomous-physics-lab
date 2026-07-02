@@ -1,0 +1,54 @@
+id: TASK-0928
+title: "Scout one independently curated stellar mass-luminosity dataset beyond DEBCat (readiness only)"
+type: benchmark_planning
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Decision Day 2026-07-02 D1 chose packet Option 3 alongside the public capsule: RESULT-0022/0024 evidence is single-source (DEBCat); generalization beyond the frozen slice needs a second, independently curated dataset."
+  - "Readiness-only scout under the published-source dataset standard: rights first, direct-vs-derived measurement class explicit, no benchmark run."
+  - "A clean second source would open the stellar campaign's transfer gate; a SOURCE_LIMITED verdict is an equally valid outcome."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    Identify and assess one candidate independently curated stellar dataset
+    with direct or independently derived masses and luminosities (for example
+    an interferometric-binary compilation, an asteroseismic sample, or an
+    eclipsing-binary catalog curated independently of DEBCat), suitable as a
+    future transfer/holdout surface for the frozen DEBCat-calibrated
+    baselines. Readiness only: no rows enter the repo and no metric runs.
+
+requirements:
+  - "Apply the 3-question source-rights framework (local analysis, byte redistribution, derived-row publication) and record license evidence; default to locator + SHA-256, not vendoring."
+  - "Record measurement class per column (direct / independently derived / model-derived) and the overlap risk with DEBCat (shared systems or shared upstream calibrations would weaken independence)."
+  - "Assess row counts in the 0.5-2.0 Msun and high-mass regimes against the existing frozen slices' statistical needs."
+  - "Do NOT fetch beyond license-cleared scope, commit rows, run any metric, or modify stellar results."
+  - "Return exactly one verdict: READY, SOURCE_LIMITED, or BLOCKED, with a bounded next-task shape only if READY."
+
+accepted_outputs:
+  - "A stellar external-source readiness note under docs/reviews/ with the rights determination, independence assessment, coverage counts, and the single verdict."
+  - "Output-routing summary: source-readiness gate for the stellar transfer lane; no data, metric, or claim change."
+
+result_artifact_policy:
+  required: false
+  reason: "Readiness scout only; no dataset rows, benchmark, or result artifact."
+  evidence:
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

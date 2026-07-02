@@ -101,3 +101,8 @@ Uncalibrated raw-GP reference: 1-sigma coverage `0.823729` (nominal `0.682689`),
 - Gate A status: not attempted (no RESULT/PRED artifact). Gate B: not attempted; the run is deterministic and replayable from committed inputs.
 - Claim impact: `none`. Knowledge impact: `none`. Result impact: `none` (RESULT-0025 unchanged). Prediction impact: `none`.
 - Prediction-freeze impact: `unchanged_task_0827_remains_blocked`; `TASK-0827` stays blocked unless the predeclared success conditions pass.
+
+## Maintainer Decision (2026-07-02)
+
+Decision: **commission a second-generation calibration-method lane now** (`TASK-0925`, predeclared route families + hard stop conditions, same no-peek discipline). `TASK-0912` negative packaging proceeds; the prediction freeze stays blocked until a route passes.
+Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).
