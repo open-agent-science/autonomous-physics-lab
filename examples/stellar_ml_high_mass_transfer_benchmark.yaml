@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0017-stellar-ml-high-mass-transfer.yaml
+hypothesis_path: ../hypotheses/HYP-0017-stellar-ml-high-mass-transfer.yaml
+task_id: TASK-0849
+run_id: RUN-0001
+result_id: RESULT-0024
+result_root: ../results/EXP-0017
+workflow: stellar_ml_high_mass_transfer_benchmark

@@ -8,8 +8,7 @@ task_id: TASK-0849
 generated_at: '2026-06-27T00:00:00Z'
 engine_version: 0.1.0
 git_commit: b0a26f037a55a9eef980c74f7ae73e54e69fbc4d
-command: python3 scripts/run_stellar_ml_high_mass_transfer.py --skip-sandbox-output
-  --result-out-dir results/EXP-0017/RUN-0001
+command: physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml
 input_file_hashes:
   config:
     path: results/EXP-0017/RUN-0001/inputs/config.yaml
@@ -26,7 +25,7 @@ input_file_hashes:
   fixture:
     path: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
     sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
-code_reference: physics_lab/engines/stellar_ml_high_mass_transfer.py
+code_reference: physics_lab/workflows/stellar_ml_high_mass_transfer.py
 limitations:
 - Agent-published, not yet independently validated or maintainer-reviewed.
 - Scope is one frozen RESULT-0022 mass-luminosity relation transferred to one disjoint
@@ -42,9 +41,9 @@ limitations:
   or KNOW promotion is proposed from this result.
 best_model_id: model_result0022_frozen_alpha_transfer
 best_verdict: VALID_IN_RANGE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: VALID_IN_RANGE
   published_by:
     contributor_id: romanhladun24-dot
@@ -66,9 +65,25 @@ agent_proposal_evaluation:
     It achieved MAE 0.334564 dex versus best control mass_matched_massband_mean at
     0.483879 dex, clearing the predeclared 0.04 dex margin by 0.149315 dex and beating
     every shuffle seed.
-  followup_for_maintainer: 'Gate B should independently replay the pinned command
-    and compare the published result metrics. Keep the trust qualifier explicit: same-source
+  followup_for_maintainer: 'Gate B independently replayed the RESULT-0024 command via
+    the TASK-0917 physics-lab run workflow route and reproduced every published metric
+    with zero drift; a different contributor and agent tool performed the replay, so
+    the AGENT_VALIDATED bump is independent. Keep the trust qualifier explicit: same-source
     DEBCat transfer under controls, not a universal law or CLAIM/KNOW promotion.'
+  validation_record:
+    replayed_by:
+      contributor_id: gladunrv
+      github_username: gladunrv
+      agent_tool: Claude Code
+      model_version: Claude Opus 4.8
+    replayed_at_utc: '2026-07-02T00:00:00Z'
+    replay_command: physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 25
+    drift_observed: none
+    independence_assessment: independent_publisher_and_replayer_differ_on_contributor_and_agent_tool
+    gate_b_route: physics_lab/workflows/stellar_ml_high_mass_transfer.py
 verification:
   passed: true
   checks:

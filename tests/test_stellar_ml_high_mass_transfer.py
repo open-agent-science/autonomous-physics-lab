@@ -23,9 +23,15 @@ from physics_lab.engines.stellar_ml_high_mass_transfer import (
     SURVIVAL_MARGIN_DEX,
     compute_transfer_metrics,
 )
+from physics_lab.registry.agent_replay_validation import (
+    ReplayIdentity,
+    validate_agent_published_result,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "run_stellar_ml_high_mass_transfer.py"
+WORKFLOW_EXAMPLE = ROOT / "examples" / "stellar_ml_high_mass_transfer_benchmark.yaml"
+COMMITTED_RESULT = ROOT / "results" / "EXP-0017" / "RUN-0001" / "result.yaml"
 
 
 def test_frozen_predictor_matches_result_0022_and_is_not_refit() -> None:
@@ -203,3 +209,108 @@ def test_runner_is_deterministic(tmp_path: Path) -> None:
     first = run(tmp_path / "a")
     second = run(tmp_path / "b")
     assert first == second, "runner metrics.json is not reproducible"
+
+
+# --- TASK-0917: formal physics-lab run workflow Gate B bridge -----------------
+
+
+def test_workflow_cli_run_writes_gate_b_replayable_result(tmp_path: Path) -> None:
+    """`physics-lab run` regenerates RESULT-0024 with the supported command shape."""
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "physics_lab.cli",
+            "run",
+            str(WORKFLOW_EXAMPLE),
+            "--output-dir",
+            str(tmp_path),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    result_path = tmp_path / "EXP-0017" / "RUN-0001" / "result.yaml"
+    payload = yaml.safe_load(result_path.read_text(encoding="utf-8"))
+    assert payload["result_id"] == "RESULT-0024"
+    assert payload["command"] == "physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml"
+    assert payload["code_reference"] == "physics_lab/workflows/stellar_ml_high_mass_transfer.py"
+    assert payload["best_verdict"] == "VALID_IN_RANGE"
+    assert payload["best_model_id"] == "model_result0022_frozen_alpha_transfer"
+    # The frozen predictor is not refit by the workflow route.
+    check = next(c for c in payload["verification"]["checks"] if c["name"] == "no_refit_no_protected_artifact_rewrite")
+    assert check["metrics"]["refit_on_holdout"] == 0
+    assert check["metrics"]["edits_result_0022"] == 0
+
+
+def test_workflow_payload_matches_standalone_script_scientific_fields(tmp_path: Path) -> None:
+    """Workflow route and standalone script route agree on every scientific field.
+
+    Only ``command`` and ``code_reference`` (metadata) differ between routes; the
+    scientific payload must be byte-identical because both consume the same frozen
+    engine and the same published input snapshots.
+    """
+    workflow_dir = tmp_path / "workflow"
+    script_dir = tmp_path / "script" / "EXP-0017" / "RUN-0001"
+    subprocess.run(
+        [sys.executable, "-m", "physics_lab.cli", "run", str(WORKFLOW_EXAMPLE), "--output-dir", str(workflow_dir)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        [sys.executable, str(SCRIPT), "--skip-sandbox-output", "--result-out-dir", str(script_dir)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    workflow_payload = yaml.safe_load(
+        (workflow_dir / "EXP-0017" / "RUN-0001" / "result.yaml").read_text(encoding="utf-8")
+    )
+    script_payload = yaml.safe_load((script_dir / "result.yaml").read_text(encoding="utf-8"))
+
+    # Route-specific metadata differs by design; everything else must match.
+    metadata_fields = {"command", "code_reference", "git_commit", "input_file_hashes"}
+    for field in metadata_fields:
+        workflow_payload.pop(field, None)
+        script_payload.pop(field, None)
+    assert workflow_payload == script_payload
+
+    # Input snapshot sha256 digests (scientific inputs) still match across routes.
+    workflow_full = yaml.safe_load(
+        (workflow_dir / "EXP-0017" / "RUN-0001" / "result.yaml").read_text(encoding="utf-8")
+    )
+    script_full = yaml.safe_load((script_dir / "result.yaml").read_text(encoding="utf-8"))
+    for key, entry in workflow_full["input_file_hashes"].items():
+        assert entry["sha256"] == script_full["input_file_hashes"][key]["sha256"]
+
+
+def test_gate_b_passes_for_committed_result_with_independent_agent(tmp_path: Path) -> None:
+    """Committed RESULT-0024 replays through the physics-lab run Gate B helper.
+
+    The published RESULT-0024 was produced by contributor romanhladun24-dot with
+    the Codex tool, so a gladunrv / Claude Code replay is fully independent (no
+    self-validation), and the metrics must reproduce with zero drift.
+    """
+    report = validate_agent_published_result(
+        COMMITTED_RESULT,
+        root=ROOT,
+        replayed_by=ReplayIdentity(
+            contributor_id="gladunrv",
+            github_username="gladunrv",
+            agent_tool="Claude Code",
+            model_version="Claude Opus 4.8",
+        ),
+        output_dir=tmp_path / "replay",
+    )
+    assert report.ok, [issue.message for issue in report.issues]
+    assert report.status == "PASS"
+    # Fully independent: no same-contributor / same-agent-tool advisory warnings.
+    warned = {issue.code for issue in report.issues}
+    assert "self-validation-forbidden" not in warned
+    assert "same-contributor" not in warned
+    assert "same-agent-tool" not in warned
+    assert max((delta.abs_delta for delta in report.metric_deltas), default=0.0) == 0.0

@@ -1,7 +1,7 @@
 id: TASK-0917
 title: "Bridge Stellar RESULT-0024 to a formal workflow Gate B replay"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -48,7 +48,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_stellar_ml_high_mass_transfer.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_stellar_ml_high_mass_transfer.py tests/test_agent_replay_validation.py tests/test_task_reference_convention.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
