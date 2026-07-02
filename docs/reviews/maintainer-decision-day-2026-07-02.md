@@ -158,7 +158,11 @@ prospective prediction. Critical path: `TASK-0910` (pin exposure-map source
 artifact; priority raised to high) -> construct numeric T-truncated exposure
 values -> freeze the repeater model under controls -> register PRED entries.
 Target: PRED registration by end of July 2026 (the T-truncated split ages).
-Later chain tasks are created as their predecessors land, not pre-seeded.
+The date is a steering target conditional on each gate clearing in order
+(source maps first, then T-truncated exposure values, then model/PRED); it is
+not a delivery commitment, and no source, leakage, or control gate may be
+weakened to meet it. Later chain tasks are created as their predecessors land,
+not pre-seeded.
 
 ### D13. Queue/WIP policy — not adopted
 
