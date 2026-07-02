@@ -84,16 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are source-route ready as limited factual extracts, while effective-mass transfer remains negative memory"
+  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts, while effective-mass transfer remains negative memory"
   recommended_parallel_agents: 1
-  coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Current work is frozen-row transfer readiness using existing ZnSe rows, not correction search or design-law claims."
+  coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Current work is a predeclared no-refit ZnSe/InP transfer contract using existing rows, not correction search or design-law claims."
   next_validity_gate:
     type: source_readiness
-    blocker: "ZnSe source rights are ready only for limited factual rows; the frozen row set and admissible transfer comparison must be gated before any new benchmark."
-    target_artifact: "TASK-0903"
+    blocker: "ZnSe source rights are ready only for limited factual rows; the row set is frozen, but the admissible transfer contract must be declared before any benchmark metrics."
+    target_artifact: "TASK-0914"
   best_next_actions:
-    - task_id: TASK-0903
-      label: "Prepare the ZnSe frozen-row transfer-readiness gate before any benchmark"
+    - task_id: TASK-0914
+      label: "Predeclare the ZnSe/InP no-refit transfer contract before any benchmark"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -108,14 +108,14 @@ portfolio:
     - "docs/reviews/quantum-open-tabular-transfer-source-scout.md"
     - "docs/reviews/quantum-effective-mass-scaled-confinement-transfer.md"
     - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
+    - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
   open_questions:
-    - "Which exact existing ZnSe rows are frozen inputs for a future transfer benchmark?"
-    - "What transfer comparison, if any, can be run without refit, source-byte redistribution, or design-law wording?"
+    - "Can a no-refit ZnSe/InP transfer contract be declared with fixed rows, size harmonization, controls, and survival threshold before metrics?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0870 ZnSe source route verification, effective-mass negative memory, and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "The direct-row blocker for Almeida InP is resolved and ZnSe row rights are narrow but usable. The next step is a frozen-row transfer-readiness gate; open-ended correction search remains blocked."
+    source: "TASK-0903 ZnSe frozen-row transfer-readiness and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "The direct-row blocker for Almeida InP is resolved and ZnSe rows are frozen as narrow factual extracts. The next step is a no-refit transfer contract; open-ended correction search remains blocked."

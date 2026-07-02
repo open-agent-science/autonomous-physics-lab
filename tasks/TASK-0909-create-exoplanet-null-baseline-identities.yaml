@@ -1,0 +1,59 @@
+id: TASK-0909
+title: "Create minimal Exoplanet null-baseline negative/control canonical identities"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0904 recommended a maintainer-gated minimal identity path for the replayed Exoplanet null-baseline negative/control memory."
+  - "Gate A packaging is blocked by missing canonical experiment and hypothesis identities, not by metric drift."
+  - "The next useful Exoplanet step is identity scaffolding for existing negative/control memory, not a new residual-scoring lane."
+
+input:
+  mode: planning_only
+  related_domain: astrophysics
+  related_objects:
+    - "docs/reviews/exoplanet-null-baseline-canonical-identity-decision.md"
+    - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  planning_context: >
+    Add only the minimal canonical experiment/hypothesis identities needed to
+    later package the already replayed null-baseline negative/control memory.
+    The identities must not authorize new metrics, new rows, EXO-0003, or a
+    positive mass-radius claim.
+
+requirements:
+  - "Create one canonical experiment identity and one paired hypothesis identity for the existing EXO-0001 null-baseline control-sensitivity audit only."
+  - "Bind the identities to committed evidence only and preserve true-mass / minimum-mass separation and nearest-radius null controls."
+  - "Do not fetch live catalog rows, create EXO-0003 rows, rerun CK17-style residuals, add candidate formulas, lower monitor triggers, or create a RESULT in this task."
+  - "No composition, habitability, atmosphere, target-priority, discovery, prediction, or universal mass-radius wording."
+  - "If canonical identity creation would broaden the campaign beyond negative/control memory, stop with a blocker note."
+
+accepted_outputs:
+  - "Minimal canonical experiment/hypothesis identity files for the null-baseline negative/control audit, or a blocker note explaining why identity creation was not safe."
+  - "A short docs/reviews note recording the no-reopen boundary and Gate A impact."
+  - "Output-routing summary: identity scaffold only, no metric/result/claim/knowledge mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Canonical identity scaffold for a later negative/control RESULT package; no result is produced in this task."
+  evidence:
+    - "docs/reviews/exoplanet-null-baseline-canonical-identity-decision.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

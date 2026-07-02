@@ -16,25 +16,26 @@ holdouts.
 
 This campaign now has six direct Almeida 2023 InP measurement rows and a
 source-scoped sandbox baseline. Follow-up transfer work has not produced an
-admissible cross-material claim: the best ZnSe second-material route is
-license-gated, and a fixed effective-mass scaling transfer check failed against
-controls. The campaign is therefore **source/negative-memory gated**, not
-authorized for autonomous correction search or cross-material claims.
+admissible cross-material claim: ZnSe/Toufanian rows are usable only as limited
+factual extracts, the row surface is now frozen, and a fixed effective-mass
+scaling transfer check failed against controls. The campaign is therefore
+**source/negative-memory gated**, not authorized for autonomous correction
+search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can the next second-material source route be made
-license-clear and direct enough to support row curation, or should the recent
-transfer failures be preserved as durable negative/control memory?
+**Current question:** can the frozen InP/ZnSe factual rows support a
+predeclared no-refit transfer contract before any second-material benchmark,
+or should the current transfer failures remain durable negative/control memory?
 
 **Shareable result:** `TASK-0293` admitted six deterministic figure-derived
 Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
 five-row train / one-row largest-size holdout benchmark. The fixed published
 Almeida relation produced holdout error `0.048395 eV`, versus `0.420200 eV`
 for the constant train-mean null and `0.375676 eV` for a deterministic
-shuffled-size control. Later source/transfer work found that the strongest
-direct ZnSe route needs a confirmed redistributable license, and that
-literature effective-mass scaling did not transfer cleanly between InP and
+shuffled-size control. Later source/transfer work found that the ZnSe route can
+be used only as limited factual extracts, not redistributed source bytes, and
+that literature effective-mass scaling did not transfer cleanly between InP and
 ZnSe under the current surfaces.
 
 **Not a claim:** this is sandbox, source-scoped consistency evidence. The
@@ -42,10 +43,10 @@ published relation and rows share the same InP source series, the holdout has
 one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
-**Active next work:** the ZnSe/Toufanian source route is usable only as limited
-factual extracts, so the next task is a frozen-row transfer-readiness gate
-(`TASK-0903`) before any second-material benchmark. The effective-mass transfer
-failure has already been routed as scoped sandbox negative memory. No
+**Active next work:** the ZnSe/Toufanian factual row surface is frozen. The
+next task is a no-refit transfer contract that fixes rows, size harmonization,
+model, controls, and survival threshold before any metrics. The effective-mass
+transfer failure has already been routed as scoped sandbox negative memory. No
 correction search is authorized by the baseline or by the failed transfer
 attempts.
 
@@ -88,9 +89,10 @@ and `TASK-0225` produced the first source-scoped sandbox baseline.
 **Baseline review gate (historical):** `TASK-0277` reviewed the `TASK-0225`
 baseline provenance, one-point holdout, controls, residuals, and leakage risks
 and kept open-ended correction search blocked. The post-review source/license
-route for ZnSe/Toufanian has been checked; the current route is frozen-row
-transfer readiness (`TASK-0903`), and the failed effective-mass transfer has
-been preserved as negative/control memory.
+route for ZnSe/Toufanian has been checked; `TASK-0903` froze the current row
+surface and requested an explicit transfer contract before any new benchmark,
+and the failed effective-mass transfer has been preserved as negative/control
+memory.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -155,7 +157,8 @@ Current task posture:
   protocol only, no metrics);
 - `TASK-0336` — direct band-edge row curation from an approved source artifact
   (SUPERSEDED; the Jasieniak path remains metadata-only blocked, while the
-  current second-material source decision is ZnSe frozen-row readiness);
+  current second-material path has moved to the ZnSe no-refit transfer-contract
+  gate);
 - `TASK-0347` — open direct-table source triage (DONE; ranks
   Norris-Bawendi 1996 CdSe and Kang-Wise 1997 PbS as the best first attempts
   because they may expose table-derived direct rows through APS-access paths).
@@ -217,8 +220,9 @@ Current task posture:
 
 Safe next contributions are:
 
-- `TASK-0903` frozen-row transfer-readiness for the ZnSe/Toufanian direct-size
-  route, with no benchmark metrics until the admitted row set is fixed;
+- `TASK-0914` no-refit transfer-contract predeclaration for the frozen
+  ZnSe/Toufanian direct-size route, with no benchmark metrics until rows,
+  size harmonization, controls, and survival threshold are fixed;
 - conservative profile/page refresh where the latest source and transfer
   blockers changed public wording.
 
@@ -373,10 +377,10 @@ Historical context:
   alternative: that weaker sandbox-only path still requires explicit
   maintainer approval, declared labels, and frozen negative controls;
 - treat archived `TASK-0336` as historical Jasieniak context only; use
-  `TASK-0903` for the current ZnSe frozen-row transfer-readiness decision
-  before any benchmark task;
+  `TASK-0914` for the current ZnSe no-refit transfer-contract decision before
+  any benchmark task;
 - treat `TASK-0364` as historical source-scout context; the current
-  second-material source decision is `TASK-0903`;
+  second-material source decision is `TASK-0914`;
 - keep the routed effective-mass transfer failure as durable negative/control
   memory before opening another quantum transfer lane.
 

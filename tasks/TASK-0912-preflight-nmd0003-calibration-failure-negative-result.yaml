@@ -1,0 +1,58 @@
+id: TASK-0912
+title: "Preflight Nuclear NMD-0003 uncertainty-calibration failure as negative/blocker result memory"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0899 produced a deterministic no-peek calibration audit failure: no approved route family passed the predeclared success conditions and TASK-0827 remains blocked."
+  - "This is valuable negative/blocker memory that should not remain only as an easy-to-forget review note if it can pass a scoped result-publication path."
+  - "Packaging the failure must not weaken the prediction-freeze blocker or mutate RESULT-0025."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+    - "agent_runs/AGENT-RUN-0089/metrics.json"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Decide whether the no-peek calibration failure should become a canonical
+    negative/blocker RESULT candidate, stay review-note-only memory, or wait for
+    a new calibration method task. Do not create the result in this preflight
+    unless the task is explicitly extended by maintainer review.
+
+requirements:
+  - "Assess whether the TASK-0899 deterministic command, input hashes, limitations, and verification block can satisfy Gate A for a negative/blocker RESULT."
+  - "Preserve the failed success conditions, heavy-tail ledger, and prediction-freeze impact exactly; do not tune or rerun calibration families."
+  - "Recommend PACKAGE_AS_NEGATIVE_RESULT, KEEP_REVIEW_NOTE_ONLY, or NEEDS_ENGINE_WORK with exact next task shape."
+  - "Do not create PRED entries, unblock TASK-0827, edit RESULT-0025, change metrics, or claim calibrated intervals."
+  - "No breakthrough, future prediction, nuclear-law, or discovery wording."
+
+accepted_outputs:
+  - "A docs/reviews preflight note with Gate A checklist, recommendation, blockers, and stop conditions."
+  - "A future result-packaging task shape only if Gate A prerequisites are clear."
+  - "Output-routing summary: negative/blocker result preflight only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Preflight for possible negative/blocker result publication; no canonical result is created in this task."
+  evidence:
+    - "docs/reviews/nmd0003-gp-uncertainty-calibration-audit.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nmd0003_gp_calibration_audit.py tests/test_docs_links.py tests/test_task_reference_convention.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

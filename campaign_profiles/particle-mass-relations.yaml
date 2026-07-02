@@ -90,16 +90,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "falsification-first quality floor with strict numerology guardrails; RESULT-0011 is AGENT_VALIDATED negative memory, CLAIM-0007 remains DRAFT, and TASK-0874 selected a derived common-scheme source route for metadata-only pinning"
+  current_stage: "falsification-first quality floor with strict numerology guardrails; RESULT-0011 is AGENT_VALIDATED negative memory, CLAIM-0007 remains DRAFT, and TASK-0902 pinned a derived common-scheme source route without values; no Particle/Koide-adjacent READY task is opened in the current wave"
   recommended_parallel_agents: 1
-  coordination_notes: "Use for provenance, uncertainty, scheme/scale cleanup, or negative-result memory only; keep broad formula search closed."
+  coordination_notes: "Use for provenance, uncertainty, scheme/scale cleanup, or negative-result memory only when explicitly requested; keep broad formula search closed and do not route default agents here during the public-opening wave."
   next_validity_gate:
-    type: source_readiness
-    blocker: "A common MS-bar-at-MZ derived source route is recommended, but exact publisher DOI/table/representation/top/covariance metadata must be pinned before any rerun."
-    target_artifact: "TASK-0902"
+    type: ratification
+    blocker: "Particle-mass work remains high-overclaim-risk; common-scheme value curation is deferred unless the maintainer explicitly asks for a source-hygiene follow-up."
+    target_artifact: "docs/reviews/particle-common-scheme-source-artifact.md"
   best_next_actions:
     - task_id: TASK-0902
-      label: "Pin the common-scheme source artifact without running Koide metrics"
+      label: "Use the pinned common-scheme source artifact only as guardrail reference; no new Particle READY task in this wave"
   required_gates:
     - "Complexity penalty and uncertainty semantics before any relation comparison."
     - "No broad particle-mass formula search without a reviewed baseline."
@@ -109,13 +109,14 @@ portfolio:
     - "results/EXP-0009/RUN-0001/result.yaml"
     - "docs/reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md"
     - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
+    - "docs/reviews/particle-common-scheme-source-artifact.md"
   open_questions:
-    - "Can the selected common-scheme source artifact be pinned without value transcription, representation mixing, or hidden covariance assumptions?"
+    - "Should common-scheme value curation stay deferred until there is a stronger public-science need beyond guardrail hygiene?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-0874 common-scheme source-policy decision and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "Guardrail track stays useful by resisting numerology. The next work is source-artifact pinning for a derived common-scheme surface; any fixed-target rerun and CLAIM-0007 discussion stay downstream."
+    source: "TASK-0902 common-scheme source-artifact pinning and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "Guardrail track stays useful by resisting numerology. TASK-0902 improved source hygiene, but this wave should not open Particle/Koide-adjacent executor work; any fixed-target rerun and CLAIM-0007 discussion stay downstream."

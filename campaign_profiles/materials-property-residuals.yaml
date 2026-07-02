@@ -86,16 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, repository-local metadata blockers are closed, and the external archive/DOI decision packet is maintainer-gated."
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, repository-local metadata blockers are closed, and TASK-0900 completed a deterministic archive-package dry run; a local helper remains needed before any maintainer DOI/upload decision."
   recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is deterministic archive-package dry-run and maintainer DOI/release decision support."
+  coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is a cross-platform deterministic archive-package helper and maintainer DOI/release decision support."
   next_validity_gate:
     type: source_readiness
-    blocker: "External dataset release, archive checksum, release tag, and DOI remain maintainer-gated even though repository-local MD-0002 metadata is closed."
-    target_artifact: "TASK-0900"
+    blocker: "External dataset release, archive checksum, release tag, and DOI remain maintainer-gated; the package dry run exists, but no reusable deterministic helper is committed yet."
+    target_artifact: "TASK-0908"
   best_next_actions:
-    - task_id: TASK-0900
-      label: "Prepare a deterministic MD-0002 archive-package dry run without external upload"
+    - task_id: TASK-0908
+      label: "Implement a deterministic MD-0002 archive-package helper without upload"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -114,17 +114,18 @@ portfolio:
     - "docs/reviews/materials-md0002-descriptor-ablation-control-audit.md"
     - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
     - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+    - "docs/reviews/materials-md0002-deterministic-archive-dry-run.md"
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
     - "Should MD-0002 v0.1.0 receive an external archive/DOI, GitHub release only, or DOI-declined internal citation?"
-    - "Can a deterministic package allowlist and archive checksum be prepared without external upload?"
+    - "Can the dry-run allowlist be converted into a reusable cross-platform helper without external upload?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "MD-0002 external release decision packet and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark. External dataset publication is now a maintainer-gated archive/DOI decision; the next useful agent task is deterministic package preparation, not new metrics."
+    source: "TASK-0900 deterministic archive dry run and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark. External dataset publication is still a maintainer-gated archive/DOI decision; the next useful agent task is a deterministic helper, not new metrics."

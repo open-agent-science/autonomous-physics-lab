@@ -1,0 +1,57 @@
+id: TASK-0916
+title: "Prepare Dimensional RESULT-0020 metadata-only AGENT_VALIDATED update after clean Gate B"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0782 / PR #1337 resolved the RESULT-0020 Gate B packaging contest on main with clean replay and zero numeric drift."
+  - "The remaining useful quality-floor step is metadata-only validation routing, not another validator challenge or comparator redesign."
+  - "A narrow update can improve public memory while keeping CLAIM-0005 unchanged and avoiding the superseded dirty PR path."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+    - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+  planning_context: >
+    Gate B now replays cleanly after deterministic emission of packaging checks.
+    This task should decide and, if protocol-safe, apply only the validation
+    metadata update. Do not alter science metrics or claim status.
+
+requirements:
+  - "Re-run the canonical Gate B helper against RESULT-0020 from a clean output directory and compare the validation draft to the committed artifact."
+  - "If independent replay conditions and protocol requirements are satisfied, update only review_tier / validation_record metadata; do not change metrics, verdict, fixture rows, or verification values."
+  - "If same-agent or review-independence concerns block the tier update, preserve a blocker note and leave RESULT-0020 at AGENT_PUBLISHED."
+  - "Do not edit CLAIM-0005, create KNOW entries, broaden the benchmark, or rely on PR #1339's superseded conflicting approach."
+  - "No wording that dimensional validity proves physical correctness."
+
+accepted_outputs:
+  - "Either a metadata-only validation update plus replay note, or a blocker note explaining why RESULT-0020 remains AGENT_PUBLISHED."
+  - "A metric-drift table with zero-drift / contested fields."
+  - "Output-routing summary with Gate B status, claim impact none, knowledge impact none, and no-claim wording."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only validation update for an existing RESULT; no new RESULT is produced."
+  evidence:
+    - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_agent_replay_validation.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

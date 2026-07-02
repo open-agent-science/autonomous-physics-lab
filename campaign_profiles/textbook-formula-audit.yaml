@@ -104,18 +104,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "exact-reference RESULT-0019 and Stellar M-L RESULT-0022 are AGENT_VALIDATED; FIRAS/Wien RESULT-0023 is now AGENT_VALIDATED after Gate B; Stellar high-mass transfer RESULT-0024 has zero metric drift on replay but retains a metadata caveat and maintainer-review packet"
+  current_stage: "exact-reference RESULT-0019, Stellar M-L RESULT-0022, and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED calibration/verifier memory; Stellar high-mass transfer RESULT-0024 has zero metric drift and a repaired task-input metadata caveat, but formal workflow Gate B remains helper-blocked"
   recommended_parallel_agents: 1
-  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar split/complexity audits, source scouts, or FIRAS/Wien metrics; current work is ratification/public wording for RESULT-0023 and clean metadata replay/repair for RESULT-0024."
+  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar split/complexity audits, source scouts, or FIRAS/Wien metrics; current work is a formal workflow Gate B bridge for RESULT-0024."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0023 is AGENT_VALIDATED but still calibration/known-physics verifier evidence, while RESULT-0024 needs either metadata repair or an accepted replay caveat before any stronger public wording."
-    target_artifact: "TASK-0897"
+    blocker: "RESULT-0024 has zero-drift replay evidence and metadata repair, but formal workflow/helper Gate B still needs a protocol-safe bridge before stronger tier wording."
+    target_artifact: "TASK-0917"
   best_next_actions:
-    - task_id: TASK-0897
-      label: "Prepare RESULT-0023 maintainer-review/public wording packet after Gate B"
-    - task_id: TASK-0898
-      label: "Repair or preserve the RESULT-0024 Gate B metadata caveat without changing metrics"
+    - task_id: TASK-0917
+      label: "Bridge RESULT-0024 to a formal workflow Gate B replay"
   required_gates:
     - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
     - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
@@ -129,6 +127,8 @@ portfolio:
     - "results/EXP-0017/RUN-0001/result.yaml"
     - "docs/reviews/firas-wien-result0023-gate-b-replay.md"
     - "docs/reviews/stellar-result0024-high-mass-transfer-maintainer-review-packet.md"
+    - "docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md"
     - "docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md"
     - "docs/reviews/stellar-ml-route2-local-benchmark.md"
     - "docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md"
@@ -139,14 +139,13 @@ portfolio:
     - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
     - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
   open_questions:
-    - "Should RESULT-0023 get maintainer-reviewed public wording as verifier/calibration memory?"
-    - "Should RESULT-0024 be metadata-repaired to AGENT_VALIDATED or kept AGENT_PUBLISHED with a replay caveat?"
+    - "Can RESULT-0024 be replayed through a formal helper/workflow path without changing metrics or DEBCat rows?"
     - "What future external stellar catalogue, if any, could test transfer beyond same-source DEBCat?"
   curator_review:
     status: current
-    last_reviewed: "2026-06-30"
+    last_reviewed: "2026-07-01"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0023 Gate B replay, RESULT-0024 maintainer packet, and Scientific Director 2026-06-30 task-queue cycle"
-    notes: "Public-friendly verifier lane has validated exact-reference, Stellar M-L, and FIRAS/Wien surfaces. RESULT-0023 is AGENT_VALIDATED but calibration/known-physics only; RESULT-0024 is replayed with zero metric drift but still needs metadata caveat adjudication before stronger tier wording."
+    source: "TASK-0897 public wording packet, TASK-0898 metadata caveat repair, and Scientific Director 2026-07-01 task-queue cycle"
+    notes: "Public-friendly verifier lane has validated exact-reference, Stellar M-L, and FIRAS/Wien surfaces. RESULT-0024 has zero metric drift but still needs formal workflow Gate B bridging before stronger tier wording."

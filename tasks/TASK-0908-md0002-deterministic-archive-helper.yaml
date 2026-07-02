@@ -1,0 +1,58 @@
+id: TASK-0908
+title: "Implement an MD-0002 deterministic archive-package helper without upload"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0900 produced a maintainer-ready MD-0002 archive dry-run allowlist, but no cross-platform helper exists to build and checksum the package in a clean checkout."
+  - "A deterministic helper reduces maintainer friction before any external release, tag, DOI, or upload decision."
+  - "This advances reusable-dataset readiness without changing MD-0002 rows, holdout membership, or RESULT-0021 metrics."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "docs/reviews/materials-md0002-deterministic-archive-dry-run.md"
+    - "docs/reviews/materials-md0002-external-release-decision-packet.md"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    The dry-run note lists the exact package contents and checksums. This task
+    should turn that allowlist into a deterministic, cross-platform local helper
+    that can be run later by the maintainer at an approved release tag.
+
+requirements:
+  - "Create a cross-platform helper or documented command that consumes the TASK-0900 allowlist, verifies every file hash, preserves deterministic ordering, and writes an archive only to an untracked output path."
+  - "Record archive filename, byte size, SHA-256, and package manifest in a review note or disposable output; do not commit generated archives."
+  - "Do not create a release tag, upload externally, mint or decline DOI, edit MD-0002 rows, change holdout membership, or mutate RESULT-0021."
+  - "Stop if package contents cannot preserve Materials Project attribution, source checksums, computed-DFT boundary, and no-claim wording."
+  - "No material recommendation, synthesis, device-performance, biomedical, experimental-measurement, or universal materials-law wording."
+
+accepted_outputs:
+  - "A deterministic archive-package helper with tests or a documented dry-run command."
+  - "A docs/reviews note updating package-readiness with helper behavior, checksum policy, and remaining maintainer actions."
+  - "Output-routing summary: dataset-publication readiness only, no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset package helper only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/materials-md0002-deterministic-archive-dry-run.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

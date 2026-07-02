@@ -1,0 +1,53 @@
+id: TASK-0920
+title: "Run the Quantum ZnSe no-refit transfer benchmark only after contract approval"
+type: scientific_benchmark
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "ZnSe rows are frozen, but TASK-0903 requires maintainer-approved task shape before any benchmark."
+  - "This blocked task prevents ad hoc correction search by requiring the predeclared contract first."
+  - "The output may be transfer memory or negative memory; it is not a design-law or material-recommendation path."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
+    - "docs/reviews/quantum-effective-mass-negative-memory-routing.md"
+    - "data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    Execute only the contract frozen by TASK-0914. If that contract is not
+    ready, this task must remain blocked.
+
+requirements:
+  - "Remain BLOCKED until TASK-0914 is DONE."
+  - "Use only the exact rows, model family, size harmonization, controls, and survival threshold frozen by TASK-0914."
+  - "Run no refit, no correction search, no post-hoc threshold changes, and no source-byte redistribution."
+  - "Report pass/fail/negative-memory verdict against controls, with limitations and no-claim wording."
+  - "Do not create CLAIM/KNOW/PRED artifacts or make material/device/biomedical recommendations."
+
+accepted_outputs:
+  - "A bounded transfer/negative-memory review note or RESULT candidate only if the task scope explicitly clears Gate A."
+  - "Output-routing summary with source boundary, controls, Gate A status if applicable, claim impact none, and do-not-repeat lanes."
+
+result_artifact_policy:
+  required: false
+  reason: "Benchmark may remain review memory unless the predeclared contract and result-promotion gates authorize RESULT packaging."
+  evidence:
+    - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
