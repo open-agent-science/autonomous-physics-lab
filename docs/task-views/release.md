@@ -6,7 +6,9 @@
 
 ## READY
 
-None.
+- `TASK-0909` - Create minimal Exoplanet null-baseline negative/control canonical identities (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `astrophysics`)
+- `TASK-0912` - Preflight Nuclear NMD-0003 uncertainty-calibration failure as negative/blocker result memory (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0918` - Preflight ThermoML esters/lactones failed-family memory for canonical negative RESULT packaging (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
 
