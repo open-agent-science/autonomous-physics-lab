@@ -102,9 +102,12 @@ PACKAGE_FILES = (
     ),
     PackageFile(
         12,
+        # Pin refreshed after the packet gained its Maintainer Decision
+        # (2026-07-02) addendum in PR #1348 — the archive ships the decided
+        # version of the release packet.
         "docs/reviews/materials-md0002-external-release-decision-packet.md",
-        9_758,
-        "02207f3d956170f6021a145a5c68f2fd093d04e3838ff835ea4ce0f463d1c967",
+        10_081,
+        "3667d519e8204dd3672eac33bdda28cd05f36278b4dfd97cf73e154da565b4e2",
     ),
 )
 
