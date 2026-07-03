@@ -1,7 +1,7 @@
 id: TASK-0922
 title: "Execute the approved Decision Day public wording set (RESULT-0022 capsule + RESULT-0025 point-estimator card)"
 type: documentation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: high
@@ -42,7 +42,9 @@ result_artifact_policy:
   required: false
   reason: "Public wording placement only; no scientific artifact is created or modified."
   evidence:
-    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/public-science-dashboard.md"
 
 validation:
   commands:
