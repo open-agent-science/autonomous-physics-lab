@@ -6,6 +6,7 @@
 
 ## READY
 
+- `TASK-0919` - Package Exoplanet null-baseline negative/control memory as a RESULT after identities exist (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `astrophysics`)
 - `TASK-0924` - Execute the MD-0002 Zenodo release: tag, deterministic archive, upload metadata pack, and DOI record-back (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_science`)
 
 ## IN_PROGRESS
