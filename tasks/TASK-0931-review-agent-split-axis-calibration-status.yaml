@@ -1,0 +1,55 @@
+id: TASK-0931
+title: "Allow split-axis calibration-role claim migrations without false promotion blockers"
+type: infrastructure
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "TASK-0927 applies an approved split-axis role migration for legacy reviewed claims: support/review status stays unchanged while novelty_class, claim_role, and active_scientific_claim record calibration-memory disposition."
+  - "The maintainer review agent must still block new calibration_known_physics claim promotions, but it should not block role-only migrations that preserve an already-reviewed historical status."
+  - "This keeps the anti-overclaim gate intact while unblocking the approved claim-role ledger cleanup."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_checks.py"
+    - "tests/test_review_checks.py"
+    - "tasks/TASK-0927-claim-role-split-axis-migration.yaml"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    PR #1364 exposed a deterministic review-agent false positive: it declared
+    Novelty Classification: calibration_known_physics while preserving
+    CLAIM-0001/0009 status as PARTIALLY_SUPPORTED, exactly as TASK-0927 and the
+    split-axis policy require. The existing gate checked only the head status and
+    therefore blocked unchanged historical statuses as if they were new
+    promotions.
+
+requirements:
+  - "Compare base and head claim statuses for the calibration_known_physics review gate."
+  - "Continue blocking any PR that newly promotes a calibration_known_physics claim beyond DRAFT."
+  - "Allow unchanged historical support statuses during role-only migrations."
+  - "Add focused unit coverage for unchanged reviewed status, new promotion blocker, and demotion/terminal-status allowance."
+  - "Do not weaken overclaim checks, missing novelty-classification checks, or claim-status promotion checks."
+
+accepted_outputs:
+  - "Review-agent calibration claim gate updated to distinguish unchanged historical status from new promotion."
+  - "Focused tests covering the false-positive and the preserved blocker."
+
+result_artifact_policy:
+  required: false
+  reason: "Infrastructure-only review-agent fix; no scientific artifact, claim, result, prediction, or knowledge mutation."
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_review_checks.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

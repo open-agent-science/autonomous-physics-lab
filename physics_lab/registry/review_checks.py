@@ -258,6 +258,29 @@ def novelty_classification(body: str | None) -> str | None:
     return None
 
 
+def calibration_known_physics_status_blocker(
+    path: str,
+    *,
+    before_status: str | None,
+    after_status: str | None,
+) -> str | None:
+    """Return a blocker for calibration claims newly promoted beyond DRAFT."""
+
+    normalized_before = before_status.strip().upper() if before_status else None
+    normalized_after = after_status.strip().upper() if after_status else None
+    if normalized_after is None:
+        return None
+    if normalized_before == normalized_after:
+        return None
+    if normalized_after in ("DRAFT", "REFUTED", "SUPERSEDED"):
+        return None
+    return (
+        f"{path}: a calibration_known_physics claim must not be promoted beyond "
+        f"DRAFT (found {after_status.strip()}); known-physics re-verification is "
+        "calibration, not a publishable claim."
+    )
+
+
 def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
     """Return dangerous code patterns found in added diff lines."""
     hits: list[str] = []
