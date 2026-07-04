@@ -1,0 +1,99 @@
+dataset_id: PARTICLE-MASS-AHS-2024-PDG-MZ-YUKAWAS
+schema_version: 0.1.0
+task_id: TASK-0926
+status: SOURCE_ROWS_PINNED_NO_METRIC
+title: "Antusch-Hinze-Saad 2024-PDG Standard Model Yukawa surface at M_Z"
+description: >
+  Limited factual extract of the six quark Yukawa couplings reported in
+  Equation (2.4). These are dimensionless derived running parameters, not
+  direct measurements and not quark masses.
+
+source:
+  authors:
+    - Stefan Antusch
+    - Kevin Hinze
+    - Shaikh Saad
+  title: "Updated running quark and lepton parameters at various scales"
+  publication: "Physical Review D 113, 095011 (2026)"
+  doi: "10.1103/fdcc-ycph"
+  publisher_locator: "https://journals.aps.org/prd/abstract/10.1103/fdcc-ycph"
+  accepted_manuscript: "arXiv:2510.01312v2"
+  accepted_manuscript_locator: "https://arxiv.org/abs/2510.01312v2"
+  accepted_manuscript_pdf_sha256: "64e1d141cdfb2bcd3f45efe0b16e3ebdfa6130fd27f361d14353ecbb96d2aabd"
+  retrieval_date_utc: 2026-07-04
+  exact_location: "Equation (2.4), PDF page 4 (printed page 3)"
+  extraction_method: "PDF text extraction cross-checked against a rendered source page"
+  license: "CC-BY-4.0"
+
+surface:
+  input_edition: "2024 Particle Data Group"
+  theory_branch: "Standard Model"
+  representation: running_yukawa
+  row_class: derived_running_yukawa
+  units: dimensionless
+  renormalization_scheme: "MS-bar"
+  renormalization_scale: "M_Z"
+  interval_semantics: "source-reported symmetric one-sigma HPD marginal"
+  covariance_status: "no recoverable six-parameter covariance matrix"
+  dependence_note: >
+    All six outputs share PDG inputs and Standard Model matching/running
+    assumptions. The marginal intervals must not be treated as statistically
+    independent or as a complete covariance model.
+
+entries:
+  - parameter: y_u
+    flavor: u
+    central_value: 7.04e-6
+    uncertainty:
+      type: symmetric
+      value: 1.5e-7
+      confidence: one_sigma_hpd
+    source_notation: "(7.04 +/- 0.15) x 10^-6"
+  - parameter: y_d
+    flavor: d
+    central_value: 1.54e-5
+    uncertainty:
+      type: symmetric
+      value: 2.0e-7
+      confidence: one_sigma_hpd
+    source_notation: "(1.54 +/- 0.02) x 10^-5"
+  - parameter: y_s
+    flavor: s
+    central_value: 3.06e-4
+    uncertainty:
+      type: symmetric
+      value: 4.0e-6
+      confidence: one_sigma_hpd
+    source_notation: "(3.06 +/- 0.04) x 10^-4"
+  - parameter: y_c
+    flavor: c
+    central_value: 3.56e-3
+    uncertainty:
+      type: symmetric
+      value: 6.0e-5
+      confidence: one_sigma_hpd
+    source_notation: "(3.56 +/- 0.06) x 10^-3"
+  - parameter: y_b
+    flavor: b
+    central_value: 1.630e-2
+    uncertainty:
+      type: symmetric
+      value: 9.0e-5
+      confidence: one_sigma_hpd
+    source_notation: "(1.630 +/- 0.009) x 10^-2"
+  - parameter: y_t
+    flavor: t
+    central_value: 0.967
+    uncertainty:
+      type: symmetric
+      value: 0.004
+      confidence: one_sigma_hpd
+    source_notation: "0.967 +/- 0.004"
+
+use_constraints:
+  existing_particle_rows_overwritten: false
+  metric_run_authorized: false
+  covariance_aware_claim_authorized: false
+  next_step: >
+    A separate maintainer-approved task may freeze this representation and run
+    the fixed common-scheme sensitivity metric without changing these rows.

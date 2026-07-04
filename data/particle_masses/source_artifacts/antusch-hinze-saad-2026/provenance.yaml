@@ -1,48 +1,50 @@
 artifact_id: PARTICLE-MASS-SRC-ARTIFACT-2026-AHS
 schema_version: 0.1.0
-task_id: TASK-0902
-artifact_status: METADATA_ONLY_PINNED
+task_id: TASK-0926
+artifact_status: SOURCE_ROWS_PINNED_NO_METRIC
 campaign_profile_id: particle-mass-relations
-retrieval_date_utc: 2026-06-30
+retrieval_date_utc: 2026-07-04
 
 source:
   title: "Updated running quark and lepton parameters at various scales"
   authors: "Stefan Antusch, Kevin Hinze, and Shaikh Saad"
   publication_of_record:
-    status: not_pinned_public_article_metadata_unverified
+    status: pinned
     journal: "Physical Review D"
-    arxiv_comment: "arXiv v2 states that the version was accepted for publication in PRD."
-    blocked_fields:
-      - volume
-      - article_number
-      - publication_date
-      - doi
-      - publisher_locator
-    review_note: >
-      Do not cite a PRD volume, article number, publication date, DOI, or
-      publisher article locator until a public publisher page or Crossref record
-      is independently verified in a separate metadata refresh.
+    volume: 113
+    article_number: "095011"
+    publication_date: 2026-05-06
+    doi: "10.1103/fdcc-ycph"
+    publisher_locator: "https://journals.aps.org/prd/abstract/10.1103/fdcc-ycph"
   accepted_manuscript:
     identifier: "arXiv:2510.01312v2"
     revised_date: 2026-03-23
     abstract_locator: "https://arxiv.org/abs/2510.01312v2"
     pdf_locator: "https://arxiv.org/pdf/2510.01312v2"
     arxiv_doi: "10.48550/arXiv.2510.01312"
+    pdf_sha256: "64e1d141cdfb2bcd3f45efe0b16e3ebdfa6130fd27f361d14353ecbb96d2aabd"
   license:
     identifier: "CC-BY-4.0"
     locator: "https://creativecommons.org/licenses/by/4.0/"
     license_surface: "arxiv_abs_page_license_badge"
-    publisher_status: "not_pinned"
+    publisher_status: "CC-BY-4.0 open access"
     attribution_required: true
 
 artifact:
-  type: metadata_only_source_pin
-  value_bearing: false
+  type: limited_factual_extract
+  value_bearing: true
   source_files_vendored: []
-  checksum_sha256: null
-  checksum_scope: "not_applicable_no_source_bytes_committed"
+  checksum_sha256: "b96709627e13542c6c047ca565713028321bba98fcb070d1a016ab774e29b480"
+  checksum_scope: "curated_rows_file"
   live_fetch_after_pinning: false
-  redistribution_decision: metadata_only_upstream_locators
+  redistribution_decision: "CC-BY-4.0 limited factual extract with attribution"
+
+curated_rows:
+  path: "data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml"
+  sha256: "b96709627e13542c6c047ca565713028321bba98fcb070d1a016ab774e29b480"
+  entry_count: 6
+  extraction_location: "Equation (2.4), PDF page 4 (printed page 3)"
+  extraction_method: "PDF text extraction cross-checked against a rendered source page"
 
 pinned_surface:
   input_edition: "2024 Particle Data Group"
@@ -63,7 +65,7 @@ pinned_surface:
     - y_c
     - y_b
     - y_t
-  values_transcribed: false
+  values_transcribed: true
 
 method_and_uncertainty:
   low_scale_inputs: "2024 PDG masses and electroweak inputs"
@@ -82,15 +84,14 @@ method_and_uncertainty:
     its documented Standard Model matching and running pipeline.
 
 row_admissibility:
-  inclusion_status: metadata_only_no_rows
+  inclusion_status: source_rows_curated_no_metric
   target_dataset_role: separate_common_scheme_sensitivity_surface
   existing_dataset_overwrite_allowed: false
   next_allowed_step: >
-    A separate maintainer-approved task may transcribe and freeze Equation
-    (2.4) values with attribution, source-version checksum, and schema tests,
-    without running Koide metrics in the same task.
+    A separate maintainer-approved task may freeze this exact representation
+    and run the fixed common-scheme sensitivity metric without changing these
+    rows.
   blocked_actions:
-    - transcribe_six_quark_values
     - convert_yukawa_to_mass_silently
     - overwrite_existing_particle_mass_rows
     - run_koide_metrics
@@ -99,8 +100,8 @@ row_admissibility:
     - assert_independent_output_uncertainties
 
 review:
-  review_status: SOURCE_METADATA_PINNED_VALUES_NOT_CURATED
-  review_doc: docs/reviews/particle-common-scheme-source-artifact.md
+  review_status: SOURCE_ROWS_PINNED_NO_METRIC
+  review_doc: docs/reviews/particle-ahs-common-scheme-source-row-pin.md
   claim_impact: none
   result_impact: none
   knowledge_impact: none
