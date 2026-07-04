@@ -16,3 +16,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0921` - Record the 2026-07-02 maintainer Decision Day (Gate C batch) and queue the execution lanes (`maintainer_workflow`, priority `high`, difficulty `low`, domain `cross_campaign_quality`)
+- `TASK-0931` - Allow split-axis calibration-role claim migrations without false promotion blockers (`infrastructure`, priority `high`, difficulty `low`, domain `maintainer_review`)
