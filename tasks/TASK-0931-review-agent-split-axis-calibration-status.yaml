@@ -1,7 +1,7 @@
 id: TASK-0931
 title: "Allow split-axis calibration-role claim migrations without false promotion blockers"
 type: infrastructure
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high

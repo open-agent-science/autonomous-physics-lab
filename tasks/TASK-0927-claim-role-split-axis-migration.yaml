@@ -1,7 +1,7 @@
 id: TASK-0927
 title: "Apply the approved split-axis claim-role migration (CLAIM-0001/0009 -> calibration_memory) and the policy vocabulary"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
