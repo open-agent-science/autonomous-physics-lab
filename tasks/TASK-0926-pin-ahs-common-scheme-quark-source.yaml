@@ -1,7 +1,7 @@
 id: TASK-0926
 title: "Pin the Antusch-Hinze-Saad common-scheme quark-mass table as the single particle-mass source surface (no Koide run)"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
