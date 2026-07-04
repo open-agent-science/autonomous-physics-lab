@@ -47,6 +47,7 @@ from physics_lab.registry.review_checks import (
     missing_expected_outputs,
     unexpected_protected_changes,
     claim_status_promotions,
+    calibration_known_physics_status_blocker,
 )
 from physics_lab.registry.result_publication_gate import check_payload
 from physics_lab.registry.review_policy import (
@@ -1954,18 +1955,17 @@ def _compose_review_report(
                     "publishable scientific claim."
                 )
                 for claim_file in changed_claim_files:
-                    claim_status = load_claim_status_from_ref(root, review_ref, claim_file)
-                    if claim_status and claim_status.strip().upper() not in (
-                        "DRAFT",
-                        "REFUTED",
-                        "SUPERSEDED",
-                    ):
-                        blockers.append(
-                            f"{claim_file}: a calibration_known_physics claim must not be "
-                            f"promoted beyond DRAFT (found {claim_status.strip()}); "
-                            "known-physics re-verification is calibration, not a "
-                            "publishable claim."
-                        )
+                    blocker = calibration_known_physics_status_blocker(
+                        claim_file,
+                        before_status=load_claim_status_from_ref(
+                            root, base_ref, claim_file
+                        ),
+                        after_status=load_claim_status_from_ref(
+                            root, review_ref, claim_file
+                        ),
+                    )
+                    if blocker is not None:
+                        blockers.append(blocker)
 
     for signal in artifact_signals:
         if signal.artifact_class == "knowledge_phase1_maintainer_only":
