@@ -73,6 +73,21 @@ exactness, all-amplitude, separatrix-inclusive, or non-ideal wording, unless
 future evidence removes those limitations. An independent `RESULT-0013` replay
 would further strengthen the claim.
 
+## Claim Role Disposition (2026-07-02)
+
+The maintainer Decision Day disposition classifies this reviewed object on a
+separate novelty/role axis without changing its evidence judgment:
+
+- `novelty_class: calibration_known_physics`
+- `claim_role: calibration_memory`
+- `active_scientific_claim: false`
+
+The claim remains `PARTIALLY_SUPPORTED` at `MAINTAINER_REVIEWED`; its evidence,
+scope, and historical review record are unchanged. This disposition records the
+benchmark as platform-calibration memory rather than an active novelty claim.
+It implements `TASK-0927` under the decision recorded in
+`docs/reviews/maintainer-decision-day-2026-07-02.md`.
+
 ## Scope
 
 Ideal mathematical pendulum, undamped and undriven, benchmarked against the

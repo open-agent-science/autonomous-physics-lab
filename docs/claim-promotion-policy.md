@@ -62,6 +62,24 @@ dilutes the claim ledger. The PR body of any claim PR must state
 classification and blocks a `calibration_known_physics` claim promoted beyond
 `DRAFT`.
 
+## Split-Axis Claim Role Vocabulary
+
+Claim evidence status and claim role are independent axes. A dated disposition
+may classify an existing reviewed claim without rewriting its historical
+support decision.
+
+| Field | Allowed value in this migration | Meaning |
+| --- | --- | --- |
+| `novelty_class` | `calibration_known_physics` | The evidence reproduces established physics rather than a frontier novelty. |
+| `claim_role` | `calibration_memory` | The object is retained as durable platform-calibration evidence. |
+| `active_scientific_claim` | `false` | The object is excluded from the active novelty-claim surface. |
+
+Role classification must never mutate `status`, `review_tier`, evidence links,
+scope, or historical review notes. In particular, `calibration_memory` is not a
+claim status, and `RETIRED_TO_CALIBRATION` is not part of the status vocabulary.
+Any later support-status or review-tier change remains a separate maintainer
+decision under the normal promotion protocol.
+
 ## Allowed Claim Statuses
 
 ### `DRAFT`
