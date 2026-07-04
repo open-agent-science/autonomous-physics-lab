@@ -6,7 +6,7 @@ hypothesis_id: HYP-0021
 task_id: TASK-0919
 generated_at: '2026-07-04T00:00:00+00:00'
 engine_version: 0.1.0
-git_commit: 660570a94a5e8874b768f9b2bc29f2d566e0c71f
+git_commit: 2b01ca701e9c425df4982191fce3fe181118da21
 command: python3 scripts/package_exoplanet_null_baseline_result.py --write
 input_file_hashes:
   config:
@@ -23,7 +23,7 @@ input_file_hashes:
     sha256: de65dd2207a0a27f88c5fe9e38010a89bdc820806ffba8a069c3c42da6caf6ee
   task:
     path: results/EXP-0021/RUN-0001/inputs/task.yaml
-    sha256: 669aff99e2d145aa74ef1500b99af1e7a787113f543994ec1e365f0c23e9a3f3
+    sha256: 563487095e46f8bb0cee64587ca4d63cc7165463861b329c05d3719cd1f3ca66
 code_reference: scripts/package_exoplanet_null_baseline_result.py
 limitations:
 - Agent-published packaging of committed evidence; not yet independently validated or maintainer-reviewed.
