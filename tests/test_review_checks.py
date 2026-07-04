@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from physics_lab.registry.review_checks import (
+    calibration_known_physics_status_blocker,
     cross_platform_advisory_hits,
     cross_platform_surface_hits,
     follow_up_task_advisory_hits,
@@ -43,6 +44,46 @@ def test_novelty_classification_rejects_template_choice_list() -> None:
     )
     assert novelty_classification(backticked_choice_list) is None
     assert novelty_classification(angle_bracket_choice_list) is None
+
+
+def test_calibration_known_physics_gate_allows_unchanged_reviewed_status() -> None:
+    assert (
+        calibration_known_physics_status_blocker(
+            "claims/CLAIM-0001.md",
+            before_status="PARTIALLY_SUPPORTED",
+            after_status="PARTIALLY_SUPPORTED",
+        )
+        is None
+    )
+
+
+def test_calibration_known_physics_gate_blocks_new_promotion() -> None:
+    blocker = calibration_known_physics_status_blocker(
+        "claims/CLAIM-0001.md",
+        before_status="DRAFT",
+        after_status="PARTIALLY_SUPPORTED",
+    )
+    assert blocker is not None
+    assert "must not be promoted beyond DRAFT" in blocker
+
+
+def test_calibration_known_physics_gate_allows_demotion_or_terminal_status() -> None:
+    assert (
+        calibration_known_physics_status_blocker(
+            "claims/CLAIM-0001.md",
+            before_status="PARTIALLY_SUPPORTED",
+            after_status="DRAFT",
+        )
+        is None
+    )
+    assert (
+        calibration_known_physics_status_blocker(
+            "claims/CLAIM-0001.md",
+            before_status="PARTIALLY_SUPPORTED",
+            after_status="SUPERSEDED",
+        )
+        is None
+    )
 
 
 def test_normalize_output_path_returns_bare_path() -> None:

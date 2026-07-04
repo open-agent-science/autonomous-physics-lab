@@ -323,3 +323,25 @@ datasets:
     provenance: data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml
     paths:
       - data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml
+
+  - id: antusch-hinze-saad-2026-mz-yukawa-extract
+    source: "Antusch, Hinze, and Saad, Updated running quark and lepton parameters at various scales, Phys. Rev. D 113, 095011 (2026)"
+    source_url: https://doi.org/10.1103/fdcc-ycph
+    license: "CC BY 4.0"
+    redistribution_status: limited_factual_extract_with_attribution_no_source_bytes_vendored
+    citation_or_acknowledgement: >
+      Cite Stefan Antusch, Kevin Hinze, and Shaikh Saad, Physical Review D 113,
+      095011 (2026), DOI 10.1103/fdcc-ycph, and identify the extracted values as
+      the 2024-PDG Standard Model Yukawa surface at M_Z from Equation (2.4).
+    evidence: >
+      The APS version of record and arXiv v2 identify CC BY 4.0. The committed
+      YAML contains only six factual central values and their symmetric
+      one-sigma HPD marginal uncertainties from Equation (2.4), with source
+      notation and provenance. No manuscript PDF, figure, table image, or bulk
+      source content is vendored. Local analysis is allowed; source-byte
+      redistribution is permitted by CC BY 4.0 but intentionally unused;
+      publication of this limited factual extract is allowed with attribution.
+    raw_artifact_vendored: false
+    provenance: data/particle_masses/source_artifacts/antusch-hinze-saad-2026/provenance.yaml
+    paths:
+      - data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml
