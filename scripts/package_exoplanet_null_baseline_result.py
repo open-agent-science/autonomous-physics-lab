@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-import shutil
 import subprocess
 
 import yaml
@@ -32,6 +31,10 @@ SLICES = (
 
 def sha256(path: Path) -> str:
     return hash_file(path, ROOT)["sha256"]
+
+
+def write_text(path: Path, content: str) -> None:
+    path.write_text(content, encoding="utf-8", newline="\n")
 
 
 def git_commit() -> str:
@@ -142,26 +145,28 @@ def _write_text_artifacts(output: Path, metrics: dict) -> None:
             "",
         ]
     )
-    (output / "report.md").write_text(report, encoding="utf-8")
-    (output / "claim_update.md").write_text(
-        "# Claim update\n\nNo claim update is proposed by RESULT-0027.\n", encoding="utf-8"
+    write_text(output / "report.md", report)
+    write_text(
+        output / "claim_update.md",
+        "# Claim update\n\nNo claim update is proposed by RESULT-0027.\n",
     )
-    (output / "claim_update.patch.md").write_text(
-        "# Claim patch\n\nNo claim patch is proposed by RESULT-0027.\n", encoding="utf-8"
+    write_text(
+        output / "claim_update.patch.md",
+        "# Claim patch\n\nNo claim patch is proposed by RESULT-0027.\n",
     )
-    (output / "knowledge_update.md").write_text(
+    write_text(
+        output / "knowledge_update.md",
         "# Knowledge update\n\nNo knowledge update is proposed by RESULT-0027.\n",
-        encoding="utf-8",
     )
-    (output / "knowledge_update.patch.md").write_text(
+    write_text(
+        output / "knowledge_update.patch.md",
         "# Knowledge patch\n\nNo knowledge patch is proposed by RESULT-0027.\n",
-        encoding="utf-8",
     )
-    (output / "review_summary.md").write_text(
+    write_text(
+        output / "review_summary.md",
         "# Review summary\n\n"
         "RESULT-0027 is AGENT_PUBLISHED negative/control memory. Gate A passes; "
         "Gate B remains pending. The campaign stays monitor-only.\n",
-        encoding="utf-8",
     )
 
 
@@ -182,13 +187,11 @@ def write_package(output: Path, *, commit: str) -> None:
         "live_fetch_allowed": False,
         "residual_rescoring_allowed": False,
     }
-    (inputs / "config.yaml").write_text(
-        yaml.safe_dump(config, sort_keys=False), encoding="utf-8"
-    )
-    shutil.copyfile(SOURCE_METRICS, inputs / "fixture.json")
-    shutil.copyfile(EXPERIMENT, inputs / "experiment.yaml")
-    shutil.copyfile(HYPOTHESIS, inputs / "hypothesis.yaml")
-    shutil.copyfile(TASK, inputs / "task.yaml")
+    write_text(inputs / "config.yaml", yaml.safe_dump(config, sort_keys=False))
+    write_text(inputs / "fixture.json", SOURCE_METRICS.read_text(encoding="utf-8"))
+    write_text(inputs / "experiment.yaml", EXPERIMENT.read_text(encoding="utf-8"))
+    write_text(inputs / "hypothesis.yaml", HYPOTHESIS.read_text(encoding="utf-8"))
+    write_text(inputs / "task.yaml", TASK.read_text(encoding="utf-8"))
 
     relative = Path("results/EXP-0021/RUN-0001")
     input_hashes = {
@@ -302,9 +305,7 @@ def write_package(output: Path, *, commit: str) -> None:
             "review_metadata": (relative / "review_metadata.yaml").as_posix(),
         },
     }
-    (output / "metrics.json").write_text(
-        json.dumps(metrics, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    write_text(output / "metrics.json", json.dumps(metrics, indent=2, sort_keys=True) + "\n")
     _write_text_artifacts(output, metrics)
     review_metadata = {
         "schema_version": "1",
@@ -329,12 +330,8 @@ def write_package(output: Path, *, commit: str) -> None:
             "review_summary": (relative / "review_summary.md").as_posix(),
         },
     }
-    (output / "review_metadata.yaml").write_text(
-        yaml.safe_dump(review_metadata, sort_keys=False), encoding="utf-8"
-    )
-    (output / "result.yaml").write_text(
-        yaml.safe_dump(result, sort_keys=False, width=100), encoding="utf-8"
-    )
+    write_text(output / "review_metadata.yaml", yaml.safe_dump(review_metadata, sort_keys=False))
+    write_text(output / "result.yaml", yaml.safe_dump(result, sort_keys=False, width=100))
     gate_report = """# Gate A Report - RESULT-0027
 
 - Artifact: `results/EXP-0021/RUN-0001/result.yaml`
@@ -347,7 +344,7 @@ The deterministic packager uses only committed EXO-0001 evidence, records all
 input hashes, preserves the control-sensitive and underpowered boundaries, and
 creates no claim or knowledge update. Gate B is not attempted.
 """
-    (output / "gate_a_report.md").write_text(gate_report, encoding="utf-8")
+    write_text(output / "gate_a_report.md", gate_report)
 
 
 def main() -> int:

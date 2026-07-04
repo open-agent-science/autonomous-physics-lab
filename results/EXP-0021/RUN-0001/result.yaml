@@ -6,7 +6,7 @@ hypothesis_id: HYP-0021
 task_id: TASK-0919
 generated_at: '2026-07-04T00:00:00+00:00'
 engine_version: 0.1.0
-git_commit: 2b01ca701e9c425df4982191fce3fe181118da21
+git_commit: 7d0be449044f0a693c4e54b81b9c2e1c80c2c1b4
 command: python3 scripts/package_exoplanet_null_baseline_result.py --write
 input_file_hashes:
   config:
