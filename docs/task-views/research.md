@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0911` - Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0930` - Run the FRB Catalog 2 exposure-map checksum and HDF5 schema gate before T-truncated construction (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
