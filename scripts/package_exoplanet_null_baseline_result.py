@@ -4,13 +4,14 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 import shutil
 import subprocess
 
 import yaml
+
+from physics_lab.workflows.artifacts import hash_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,7 +31,7 @@ SLICES = (
 
 
 def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hash_file(path, ROOT)["sha256"]
 
 
 def git_commit() -> str:

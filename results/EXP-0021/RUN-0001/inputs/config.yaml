@@ -1,0 +1,12 @@
+result_id: RESULT-0027
+source_metrics: agent_runs/AGENT-RUN-0050/metrics.json
+source_snapshot: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+selected_axis: true_mass_with_transit_radius
+selected_slices:
+- compact_radius_lt1p5Re
+- sub_neptune_radius_1p5_4Re
+- jovian_radius_8_16Re
+- hot_jupiter_period_lt10d_radius_ge8Re
+minimum_mass_policy: diagnostic_only_no_pooling
+live_fetch_allowed: false
+residual_rescoring_allowed: false

@@ -1,0 +1,148 @@
+result_id: RESULT-0027
+run_id: RUN-0001
+experiment_id: EXP-0021
+title: Exoplanet EXO-0001 null-baseline control-sensitive negative result
+hypothesis_id: HYP-0021
+task_id: TASK-0919
+generated_at: '2026-07-04T00:00:00+00:00'
+engine_version: 0.1.0
+git_commit: 28759df153b015c92710d1eb9957a0f7a3abdcd7
+command: python3 scripts/package_exoplanet_null_baseline_result.py --write
+input_file_hashes:
+  config:
+    path: results/EXP-0021/RUN-0001/inputs/config.yaml
+    sha256: d17da7a9c9c527b6ce9b6f006235b519bea5755b1a5af7ff56b0b5757fe026c0
+  fixture:
+    path: results/EXP-0021/RUN-0001/inputs/fixture.json
+    sha256: d3478e9ec9df18f028910d7bfeb361b60da2531275b2bc3380c6044cbfde9d08
+  experiment:
+    path: results/EXP-0021/RUN-0001/inputs/experiment.yaml
+    sha256: f8eb4ce2c0590687a125e7aa0637243fb979c1a74ab1f38d5896cd625f59df3a
+  hypothesis:
+    path: results/EXP-0021/RUN-0001/inputs/hypothesis.yaml
+    sha256: de65dd2207a0a27f88c5fe9e38010a89bdc820806ffba8a069c3c42da6caf6ee
+  task:
+    path: results/EXP-0021/RUN-0001/inputs/task.yaml
+    sha256: 7f48700f1965e1a387eacf4ad4edd3648fd917f1aede43c490d129eb9b6d333b
+code_reference: scripts/package_exoplanet_null_baseline_result.py
+limitations:
+- Agent-published packaging of committed evidence; not yet independently validated or maintainer-reviewed.
+- The scope is the committed EXO-0001 PSCompPars snapshot and four highlighted true-mass transit-radius
+  slices only.
+- The nearest-radius neighbor uses observed radius and is a diagnostic control, not a prospective or deployable
+  predictor.
+- Minimum-mass transit-radius slices are underpowered diagnostics and are not pooled with true-mass rows.
+- No live fetch, EXO-0003 row, threshold change, CK17 refit, or residual rescoring is part of this package.
+- No composition, habitability, atmosphere, target-priority, prediction, discovery, or universal mass-radius
+  claim is made.
+best_verdict: INCONCLUSIVE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INCONCLUSIVE
+  published_by:
+    contributor_id: akutenyov
+    github_username: akutenyov
+    agent_tool: Codex
+    model_version: GPT-5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: The deterministic packager selected the four committed true-mass slices from AGENT-RUN-0050
+    and preserved their null_family_matches_or_beats_ck17 classifications. It also preserved the underpowered
+    minimum-mass boundary without fetching or rescoring data.
+  followup_for_maintainer: Keep the AGENT_PUBLISHED qualifier and monitor-only campaign posture. A different
+    agent may run Gate B against the same committed inputs.
+verification:
+  passed: true
+  checks:
+  - name: committed_source_identity
+    status: PASS
+    details: Canonical EXP-0021/HYP-0021 identities and TASK-0909 DONE state exist.
+    metrics:
+      experiment_id: EXP-0021
+      hypothesis_id: HYP-0021
+      identity_task_done: true
+  - name: true_mass_control_classification
+    status: PASS
+    details: All four highlighted true-mass slices preserve the committed control-sensitive classification.
+    metrics:
+      slice_count: 4
+      matching_classifications: 4
+      source_agent_run: AGENT-RUN-0050
+  - name: minimum_mass_no_pooling_boundary
+    status: PASS
+    details: All minimum-mass slices remain underpowered diagnostics and are not pooled into headline
+      metrics.
+    metrics:
+      slice_count: 4
+      underpowered_slices: 4
+      pooled_with_true_mass: false
+  - name: no_live_fetch_or_rescoring
+    status: PASS
+    details: Packaging reads committed metrics and snapshot provenance only; no scientific score is recomputed.
+    metrics:
+      live_fetch: false
+      residual_rescoring: false
+      new_rows: false
+comparison_summary:
+- target_id: target_compact_radius_lt1p5re_null_control
+  label: Nearest-radius diagnostic null versus frozen CK17 in compact_radius_lt1p5Re
+  reference_value: 0.2633500276766559
+  observed_value: 0.019904812556798795
+  unit: dex_rmse
+  absolute_difference: 0.2434452151198571
+  relative_difference: 0.9244168958993308
+  notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
+    not a prospective predictor.
+- target_id: target_sub_neptune_radius_1p5_4re_null_control
+  label: Nearest-radius diagnostic null versus frozen CK17 in sub_neptune_radius_1p5_4Re
+  reference_value: 0.20417461029825096
+  observed_value: 0.0008579528808117129
+  unit: dex_rmse
+  absolute_difference: 0.20331665741743923
+  relative_difference: 0.9957979453000623
+  notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
+    not a prospective predictor.
+- target_id: target_jovian_radius_8_16re_null_control
+  label: Nearest-radius diagnostic null versus frozen CK17 in jovian_radius_8_16Re
+  reference_value: 0.08335427705293204
+  observed_value: 0.00043223291469170807
+  unit: dex_rmse
+  absolute_difference: 0.08292204413824034
+  relative_difference: 0.994814508265518
+  notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
+    not a prospective predictor.
+- target_id: target_hot_jupiter_period_lt10d_radius_ge8re_null_control
+  label: Nearest-radius diagnostic null versus frozen CK17 in hot_jupiter_period_lt10d_radius_ge8Re
+  reference_value: 0.06978764121180392
+  observed_value: 0.00034897911607326853
+  unit: dex_rmse
+  absolute_difference: 0.06943866209573064
+  relative_difference: 0.9949994137928501
+  notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
+    not a prospective predictor.
+uncertainty_summary:
+  method: deterministic_null_control_comparison_no_predictive_interval
+  observed_uncertainty: null
+  reference_uncertainty: null
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: This control-panel package does not estimate calibrated predictive intervals.
+artifacts:
+  report: results/EXP-0021/RUN-0001/report.md
+  metrics: results/EXP-0021/RUN-0001/metrics.json
+  claim_update: results/EXP-0021/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0021/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0021/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0021/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0021/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0021/RUN-0001/review_metadata.yaml
