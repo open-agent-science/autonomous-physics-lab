@@ -40,6 +40,18 @@ def write_text(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8", newline="\n")
 
 
+def read_text_at_commit(path: Path, commit: str) -> str:
+    relative = path.relative_to(ROOT).as_posix()
+    result = subprocess.run(
+        ["git", "show", f"{commit}:{relative}"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout
+
+
 def git_commit() -> str:
     result = subprocess.run(
         ["git", "rev-parse", "HEAD"],
@@ -51,13 +63,14 @@ def git_commit() -> str:
     return result.stdout.strip()
 
 
-def load_source_metrics() -> dict:
-    payload = json.loads(SOURCE_METRICS.read_text(encoding="utf-8"))
+def load_source_metrics(commit: str) -> tuple[dict, str]:
+    source_text = read_text_at_commit(SOURCE_METRICS, commit)
+    payload = json.loads(source_text)
     if payload.get("verdict") != "INCONCLUSIVE":
         raise ValueError("source memory verdict drifted from INCONCLUSIVE")
     if payload.get("snapshot") != "data/exoplanets/exo-0001-pscomppars-snapshot.yaml":
         raise ValueError("source memory no longer references the frozen EXO-0001 snapshot")
-    return payload
+    return payload, source_text
 
 
 def build_metrics(source: dict) -> dict:
@@ -174,7 +187,7 @@ def _write_text_artifacts(output: Path, metrics: dict) -> None:
 
 
 def write_package(output: Path, *, commit: str) -> None:
-    source = load_source_metrics()
+    source, source_text = load_source_metrics(commit)
     metrics = build_metrics(source)
     output.mkdir(parents=True, exist_ok=True)
     inputs = output / "inputs"
@@ -191,10 +204,10 @@ def write_package(output: Path, *, commit: str) -> None:
         "residual_rescoring_allowed": False,
     }
     write_text(inputs / "config.yaml", yaml.safe_dump(config, sort_keys=False))
-    write_text(inputs / "fixture.json", SOURCE_METRICS.read_text(encoding="utf-8"))
-    write_text(inputs / "experiment.yaml", EXPERIMENT.read_text(encoding="utf-8"))
-    write_text(inputs / "hypothesis.yaml", HYPOTHESIS.read_text(encoding="utf-8"))
-    write_text(inputs / "task.yaml", TASK.read_text(encoding="utf-8"))
+    write_text(inputs / "fixture.json", source_text)
+    write_text(inputs / "experiment.yaml", read_text_at_commit(EXPERIMENT, commit))
+    write_text(inputs / "hypothesis.yaml", read_text_at_commit(HYPOTHESIS, commit))
+    write_text(inputs / "task.yaml", read_text_at_commit(TASK, commit))
 
     relative = Path("results/EXP-0021/RUN-0001")
     input_hashes = {
