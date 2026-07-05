@@ -1,0 +1,65 @@
+id: TASK-0930
+title: "Run the FRB Catalog 2 exposure-map checksum and HDF5 schema gate before T-truncated construction"
+type: scientific_source_curation
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0910 metadata-pinned the CHIME/FRB Catalog 2 time-resolved exposure-map artifact, but the exact byte count, SHA-256, and HDF5 structure are still pending first license-clear fetch."
+  - "The FRB lane can become a valuable prediction/reveal surface only if the exposure-map source and schema are frozen before any truncated exposure values, morphology model, or repeater-prediction framing exists."
+  - "This task is the next source-readiness gate after TASK-0910: checksum and schema first, numeric construction later."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-catalog2-exposure-map-source-pin.md"
+    - "data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml"
+    - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+    - "data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml"
+    - "docs/reviews/frb-catalog2-temporal-split-exposure-baseline.md"
+    - "data/radio_transients/frb_catalog2_source_manifest.yaml"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    Fetch the pinned `chimefrbcat2_exposure.h5` artifact only to a local,
+    untracked cache or temporary path, using the public-read CANFAR vault route
+    recorded by TASK-0910. Do not vendor source bytes or commit bulk derived
+    exposure rows. The task decides whether the exact artifact identity and HDF5
+    schema are sufficient for a later leakage-safe T-truncated exposure
+    construction task.
+
+requirements:
+  - "Fetch `chimefrbcat2_exposure.h5` only to an untracked local path after confirming the TASK-0910 rights boundary; if the vault file route is unavailable, stop with `SOURCE_FETCH_BLOCKED`."
+  - "Compute and record the exact byte count and SHA-256 of the fetched artifact; update only metadata/review artifacts, never the source bytes."
+  - "Inspect the HDF5 group/dataset structure, coordinate axes, time semantics, sky grid or localization interface, exposure units, and any documentation needed to construct `exp_up(<=T)` and `exp_low(<=T)` without post-T leakage."
+  - "Record whether the schema is construction-ready, construction-blocked, or ambiguous; include the minimal future construction task shape only if the schema clears."
+  - "Do not compute or commit per-source truncated exposure values, morphology features, labels, benchmarks, PRED entries, RESULT artifacts, or CLAIM/knowledge changes."
+  - "Use no FRB population, repeater-classification, discovery, or breakthrough wording."
+
+accepted_outputs:
+  - "A review note under `docs/reviews/` with fetch outcome, exact artifact identity, HDF5 schema summary, construction-readiness verdict, limitations, and output-routing summary."
+  - "A metadata-only update to `data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml` if and only if exact byte count and SHA-256 are successfully computed."
+  - "If schema clears: a precise future task shape for leakage-safe T-truncated exposure construction; if schema blocks: a durable blocker/memory note and no construction task."
+  - "Explicit no-claim wording: source/schema readiness only, no benchmark, no prediction, no result, no claim."
+
+result_artifact_policy:
+  required: false
+  reason: "Checksum and HDF5 schema gate only; no benchmark, prediction, result artifact, or claim is produced."
+  evidence:
+    - "docs/reviews/frb-catalog2-exposure-map-source-pin.md"
+    - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+    - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

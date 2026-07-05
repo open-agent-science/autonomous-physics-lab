@@ -1,7 +1,7 @@
 id: TASK-0926
 title: "Pin the Antusch-Hinze-Saad common-scheme quark-mass table as the single particle-mass source surface (no Koide run)"
 type: scientific_dataset
-status: READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
@@ -43,6 +43,9 @@ result_artifact_policy:
   reason: "Source-row pinning only; no benchmark metric, RESULT, or claim change."
   evidence:
     - "docs/reviews/particle-mass-common-scheme-source-policy-decision.md"
+    - "docs/reviews/particle-ahs-common-scheme-source-row-pin.md"
+    - "data/particle_masses/source_artifacts/antusch-hinze-saad-2026/provenance.yaml"
+    - "data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml"
 
 validation:
   commands:

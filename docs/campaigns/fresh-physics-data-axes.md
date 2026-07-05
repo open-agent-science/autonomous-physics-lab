@@ -25,9 +25,10 @@ Planning scaffold only.
 Atomic clocks have since graduated into their own source-gated campaign page.
 The CHIME/FRB Catalog 2 selection-effect audit is also near-active as a
 metadata/source gate: the catalog table locator and exposure-only baseline
-exist, and the T-truncated split is specified, but time-resolved exposure-map
-artifacts still need source pinning before any morphology model, prediction, or
-benchmark can run.
+exist, the T-truncated split is specified, and the time-resolved exposure-map
+artifact is now metadata-pinned. The remaining blocker is not source discovery;
+it is the first license-clear fetch, exact byte/hash pin, and HDF5 schema gate
+needed before any numeric T-truncated exposure view can be constructed.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -85,11 +86,18 @@ source manifest and correlation policy.
 CHIME/FRB Catalog 2 is a near-active source-readiness lane, not a public result
 or prediction campaign. Existing artifacts pin the public Catalog 2 table route,
 define a version-locked temporal split, and preserve an exposure-only baseline
-as the control any later morphology model must beat. The current blocker is the
-time-resolved / full-sky exposure-map source artifact needed to construct a
-leakage-safe T-truncated pre-T exposure view. Until that source artifact is
-pinned, do not fit morphology, freeze predictions, or claim repeater
-classification ability.
+as the control any later morphology model must beat. `TASK-0910` pinned the
+time-resolved / full-sky exposure-map source artifact as metadata only:
+`chimefrbcat2_exposure.h5`, HDF5, approximately 206 MB, dataset DOI
+`10.11570/25.0066`, Public read on the CANFAR vault, with source bytes not
+redistributable in this repository.
+
+The current blocker is the first license-clear local fetch plus exact SHA-256,
+byte count, and HDF5 schema/axis inspection. Until that gate passes, do not
+construct truncated exposure rows, fit morphology, freeze predictions, or claim
+repeater classification ability. If the schema gate passes, the next scientific
+step is a separate leakage-safe `exp_up(<=T)` / `exp_low(<=T)` construction task
+that still preserves the no-claim posture.
 
 ## WATCHLIST Axes
 
@@ -111,6 +119,8 @@ Allowed next steps, only after maintainer assignment:
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
+- for FRB Catalog 2 only, run the metadata-bound exposure-map checksum/schema
+  gate before proposing any numeric truncated-exposure construction.
 
 ## Not Allowed Yet
 
@@ -118,6 +128,8 @@ Do not:
 
 - ingest atomic-clock or lattice-QCD data;
 - ingest PTA, gravitational-wave, or event-level collider data;
+- commit FRB exposure-map bytes or bulk derived exposure rows without explicit
+  maintainer license clearance;
 - run a real-data benchmark or cross-domain fit;
 - derive broad physical constants;
 - combine fresh axes with anomaly-registry topics;

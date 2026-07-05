@@ -1,7 +1,7 @@
 id: TASK-0910
 title: "Pin FRB Catalog 2 time-resolved exposure-map source artifact before T-truncated construction"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high

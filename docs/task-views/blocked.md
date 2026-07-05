@@ -6,7 +6,7 @@
 
 ## Release Blockers
 
-- `TASK-0919` - Package Exoplanet null-baseline negative/control memory as a RESULT after identities exist (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `astrophysics`)
+None.
 
 ## Research Blockers
 

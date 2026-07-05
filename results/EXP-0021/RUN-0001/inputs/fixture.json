@@ -1,0 +1,385 @@
+{
+  "agent_run_id": "AGENT-RUN-0050",
+  "audit_class": "BENCHMARK_CONTROL_PANEL",
+  "axes": {
+    "minimum_mass_with_transit_radius": {
+      "axis_stats": {
+        "ck17_frozen": {
+          "count": 2,
+          "log10_bias": -0.15221436873853847,
+          "log10_mae": 0.15221436873853847,
+          "log10_rmse": 0.20772770601626744
+        },
+        "nearest_mass_neighbor": {
+          "count": 2,
+          "log10_bias": 0.0,
+          "log10_mae": 0.06383355420647019,
+          "log10_rmse": 0.06383355420647019
+        },
+        "nearest_radius_neighbor": {
+          "count": 2,
+          "log10_bias": 0.0,
+          "log10_mae": 0.06383355420647019,
+          "log10_rmse": 0.06383355420647019
+        },
+        "per_class_median": {
+          "count": 2,
+          "log10_bias": 0.0,
+          "log10_mae": 0.031916777103235094,
+          "log10_rmse": 0.031916777103235094
+        },
+        "uncertainty_band_median": {
+          "count": 2,
+          "log10_bias": 0.0,
+          "log10_mae": 0.0,
+          "log10_rmse": 0.0
+        }
+      },
+      "slices": {
+        "compact_radius_lt1p5Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "nearest_mass_neighbor": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "nearest_radius_neighbor": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "per_class_median": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "uncertainty_band_median": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            }
+          },
+          "best_null_baseline": null,
+          "classification": "underpowered_slice",
+          "count": 0
+        },
+        "hot_jupiter_period_lt10d_radius_ge8Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "nearest_mass_neighbor": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "nearest_radius_neighbor": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "per_class_median": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "uncertainty_band_median": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            }
+          },
+          "best_null_baseline": null,
+          "classification": "underpowered_slice",
+          "count": 0
+        },
+        "jovian_radius_8_16Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "nearest_mass_neighbor": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "nearest_radius_neighbor": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "per_class_median": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            },
+            "uncertainty_band_median": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null
+            }
+          },
+          "best_null_baseline": null,
+          "classification": "underpowered_slice",
+          "count": 0
+        },
+        "sub_neptune_radius_1p5_4Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744
+            },
+            "nearest_mass_neighbor": {
+              "count": 2,
+              "log10_bias": 0.0,
+              "log10_mae": 0.06383355420647019,
+              "log10_rmse": 0.06383355420647019
+            },
+            "nearest_radius_neighbor": {
+              "count": 2,
+              "log10_bias": 0.0,
+              "log10_mae": 0.06383355420647019,
+              "log10_rmse": 0.06383355420647019
+            },
+            "per_class_median": {
+              "count": 2,
+              "log10_bias": 0.0,
+              "log10_mae": 0.031916777103235094,
+              "log10_rmse": 0.031916777103235094
+            },
+            "uncertainty_band_median": {
+              "count": 2,
+              "log10_bias": 0.0,
+              "log10_mae": 0.0,
+              "log10_rmse": 0.0
+            }
+          },
+          "best_null_baseline": "uncertainty_band_median",
+          "classification": "underpowered_slice",
+          "count": 2
+        }
+      }
+    },
+    "true_mass_with_transit_radius": {
+      "axis_stats": {
+        "ck17_frozen": {
+          "count": 1207,
+          "log10_bias": -0.04084365240259168,
+          "log10_mae": 0.10442982096618053,
+          "log10_rmse": 0.15817019267448623
+        },
+        "nearest_mass_neighbor": {
+          "count": 1207,
+          "log10_bias": 0.001616402809728922,
+          "log10_mae": 0.14121699140780392,
+          "log10_rmse": 0.20843280391092858
+        },
+        "nearest_radius_neighbor": {
+          "count": 1207,
+          "log10_bias": -0.0002950976990096432,
+          "log10_mae": 0.0008493234667060963,
+          "log10_rmse": 0.005576630714052958
+        },
+        "per_class_median": {
+          "count": 1207,
+          "log10_bias": 0.03450307095265575,
+          "log10_mae": 0.16263720731641948,
+          "log10_rmse": 0.2427127332813732
+        },
+        "uncertainty_band_median": {
+          "count": 1207,
+          "log10_bias": -0.12804134206640097,
+          "log10_mae": 0.320609621829539,
+          "log10_rmse": 0.42503696929114004
+        }
+      },
+      "slices": {
+        "compact_radius_lt1p5Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 92,
+              "log10_bias": -0.1468365058346739,
+              "log10_mae": 0.16246699197558523,
+              "log10_rmse": 0.2633500276766559
+            },
+            "nearest_mass_neighbor": {
+              "count": 92,
+              "log10_bias": -0.08552424967345224,
+              "log10_mae": 0.1843885734144715,
+              "log10_rmse": 0.28322440879329114
+            },
+            "nearest_radius_neighbor": {
+              "count": 92,
+              "log10_bias": -0.0035214694701561386,
+              "log10_mae": 0.005328457635025327,
+              "log10_rmse": 0.019904812556798795
+            },
+            "per_class_median": {
+              "count": 92,
+              "log10_bias": -0.24758388738102938,
+              "log10_mae": 0.26222991039248933,
+              "log10_rmse": 0.3164920379527955
+            },
+            "uncertainty_band_median": {
+              "count": 92,
+              "log10_bias": -0.9084912890273426,
+              "log10_mae": 0.9084912890273426,
+              "log10_rmse": 0.9314861353031778
+            }
+          },
+          "best_null_baseline": "nearest_radius_neighbor",
+          "classification": "null_family_matches_or_beats_ck17",
+          "count": 92
+        },
+        "hot_jupiter_period_lt10d_radius_ge8Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 445,
+              "log10_bias": -0.013418838104162507,
+              "log10_mae": 0.05283234642373019,
+              "log10_rmse": 0.06978764121180392
+            },
+            "nearest_mass_neighbor": {
+              "count": 445,
+              "log10_bias": 0.017393076257389808,
+              "log10_mae": 0.09657588549453487,
+              "log10_rmse": 0.1538189780208268
+            },
+            "nearest_radius_neighbor": {
+              "count": 445,
+              "log10_bias": -4.478451061437209e-05,
+              "log10_mae": 0.00019094737002859613,
+              "log10_rmse": 0.00034897911607326853
+            },
+            "per_class_median": {
+              "count": 445,
+              "log10_bias": 0.09785298437912571,
+              "log10_mae": 0.14363235319463133,
+              "log10_rmse": 0.25798542599224694
+            },
+            "uncertainty_band_median": {
+              "count": 445,
+              "log10_bias": 0.1465431681284175,
+              "log10_mae": 0.15762670092308478,
+              "log10_rmse": 0.2169709060155707
+            }
+          },
+          "best_null_baseline": "nearest_radius_neighbor",
+          "classification": "null_family_matches_or_beats_ck17",
+          "count": 445
+        },
+        "jovian_radius_8_16Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 567,
+              "log10_bias": -0.02120887610838126,
+              "log10_mae": 0.06125497598946423,
+              "log10_rmse": 0.08335427705293204
+            },
+            "nearest_mass_neighbor": {
+              "count": 567,
+              "log10_bias": 0.008349147450401563,
+              "log10_mae": 0.10318065891650577,
+              "log10_rmse": 0.1587239354391031
+            },
+            "nearest_radius_neighbor": {
+              "count": 567,
+              "log10_bias": -4.3434861959882015e-05,
+              "log10_mae": 0.00022169610373912361,
+              "log10_rmse": 0.00043223291469170807
+            },
+            "per_class_median": {
+              "count": 567,
+              "log10_bias": 0.09613319057438538,
+              "log10_mae": 0.15506322348636778,
+              "log10_rmse": 0.263261855935466
+            },
+            "uncertainty_band_median": {
+              "count": 567,
+              "log10_bias": 0.12271278987828574,
+              "log10_mae": 0.13990865113579345,
+              "log10_rmse": 0.19940093886813354
+            }
+          },
+          "best_null_baseline": "nearest_radius_neighbor",
+          "classification": "null_family_matches_or_beats_ck17",
+          "count": 567
+        },
+        "sub_neptune_radius_1p5_4Re": {
+          "baseline_stats": {
+            "ck17_frozen": {
+              "count": 340,
+              "log10_bias": -0.10008025453376822,
+              "log10_mae": 0.1408351733865413,
+              "log10_rmse": 0.20417461029825096
+            },
+            "nearest_mass_neighbor": {
+              "count": 340,
+              "log10_bias": -0.04663262600872762,
+              "log10_mae": 0.16666743997768232,
+              "log10_rmse": 0.23783674718193082
+            },
+            "nearest_radius_neighbor": {
+              "count": 340,
+              "log10_bias": -7.121221673581564e-05,
+              "log10_mae": 0.0005136158725549258,
+              "log10_rmse": 0.0008579528808117129
+            },
+            "per_class_median": {
+              "count": 340,
+              "log10_bias": -0.08477769628319837,
+              "log10_mae": 0.11748375842950995,
+              "log10_rmse": 0.17317295090168003
+            },
+            "uncertainty_band_median": {
+              "count": 340,
+              "log10_bias": -0.4833911864677307,
+              "log10_mae": 0.48365408781531144,
+              "log10_rmse": 0.5233008170713247
+            }
+          },
+          "best_null_baseline": "nearest_radius_neighbor",
+          "classification": "null_family_matches_or_beats_ck17",
+          "count": 340
+        }
+      }
+    }
+  },
+  "baseline_families": [
+    "ck17_frozen",
+    "per_class_median",
+    "nearest_mass_neighbor",
+    "nearest_radius_neighbor",
+    "uncertainty_band_median"
+  ],
+  "minimum_slice_row_count": 30,
+  "snapshot": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0483",
+  "verdict": "INCONCLUSIVE"
+}

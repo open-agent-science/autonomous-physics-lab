@@ -76,6 +76,34 @@ Reveal scoring remains blocked until a future source-grade no-peek release.
 - [Nuclear residual-law factory sprint review](../reviews/nuclear-residual-factory-sprint.md)
 - [Nuclear Mass Surface campaign page](./nuclear-mass-surface.md)
 
+### NMD-0003 Retrospective Point-Estimator Card
+
+**Review tier:** `RESULT-0025` is `AGENT_PUBLISHED`; Gate B point metrics were
+independently replayed exactly.
+
+> On one frozen NMD-0003 residual surface, a single RBF Gaussian-process model on
+> `[Z, N]` lowers the retrospective post-AME2020 holdout nuclear-mass MAE from a
+> frozen baseline of `2.979273` MeV to `0.462129` MeV — a `2.517144` MeV
+> improvement — and beats the best predeclared control (`smooth_a_gp`) by
+> `1.869312` MeV against a `0.25` MeV survival margin. An independent Gate B
+> replay reproduced these point metrics exactly (maximum absolute drift `0.0`).
+> This is point-estimator evidence on a retrospective time-split holdout, not a
+> blind prediction reveal. Its predictive uncertainty envelope is heavy-tailed
+> and miscalibrated, so it provides no calibrated prediction intervals and does
+> not unblock the nuclear prediction freeze. It establishes no nuclear-mass law,
+> no broad mass formula, and no discovery; it is an agent-published,
+> independently replayed retrospective point-estimator result only.
+
+**Replay bookkeeping:** the committed `RESULT-0025` package preserves the
+originally published `TASK-0843` input task file, while the Gate B replay
+recorded an expected lifecycle drift in the copied task-YAML hash and replay
+git commit; this is bookkeeping drift, not a scientific input change.
+
+**Evidence trail:**
+
+- [NMD-0003 RESULT-0025 public review packet](../reviews/nmd0003-result0025-public-review-packet.md)
+- [Nuclear Mass Surface campaign page](./nuclear-mass-surface.md)
+
 ### Quantum Direct-Measurement Data Gate
 
 **Short version:** APL selected the Almeida 2023 InP CC-BY 4.0 source as the
@@ -171,6 +199,20 @@ replay, and Stellar high-mass transfer `RESULT-0024` has independent replay
 memory with metadata caveats.
 
 **Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
+
+**Review tier:** `AGENT_VALIDATED`; Gate A and independent Gate B both pass.
+
+> On a frozen, CC BY 4.0 DEBCat slice of 223 main-sequence-compatible binary
+> components spanning `0.5-2.0 M_sun`, the fixed `L proportional to M^3.5`
+> baseline beats a per-mass-band median null but has higher holdout error
+> (`0.184954 dex`) than a train-fitted single exponent near `4.53`
+> (`0.119925 dex`). The direction is stable across the committed controls and
+> three additional value-blind system-level splits, although the alternate-
+> split margin is modest. A two-segment fit is not justified after the
+> predeclared complexity penalty. This independently replayed result shows
+> only that `alpha=3.5` is inadequate as the sole baseline on this frozen
+> slice; it does not falsify the textbook relation universally or establish a
+> universal mass-luminosity or stellar-evolution law.
 
 - **Source:** DEBCat detached eclipsing binaries (Southworth 2015), CC BY 4.0 by explicit grant (`data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml`); direct dynamical masses; raw `debs.dat` not committed (Route 2). Frozen main-sequence 0.5–2.0 Msun slice (223 components).
 - **Command:** `python3 -m physics_lab.cli run examples/stellar_ml_debcat_baseline_benchmark.yaml` (quick check: `python3 scripts/replay_stellar_ml_result.py --check`).
