@@ -24,9 +24,9 @@ search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can the frozen InP/ZnSe factual rows support a
-predeclared no-refit transfer contract before any second-material benchmark,
-or should the current transfer failures remain durable negative/control memory?
+**Current question:** what new source evidence or maintainer-approved contract
+change, if any, would add information beyond the completed InP/ZnSe no-refit
+transfer failure?
 
 **Shareable result:** `TASK-0293` admitted six deterministic figure-derived
 Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
@@ -34,22 +34,26 @@ five-row train / one-row largest-size holdout benchmark. The fixed published
 Almeida relation produced holdout error `0.048395 eV`, versus `0.420200 eV`
 for the constant train-mean null and `0.375676 eV` for a deterministic
 shuffled-size control. Later source/transfer work found that the ZnSe route can
-be used only as limited factual extracts, not redistributed source bytes, and
-that literature effective-mass scaling did not transfer cleanly between InP and
-ZnSe under the current surfaces.
+be used only as limited factual extracts, not redistributed source bytes, that
+literature effective-mass scaling did not transfer cleanly between InP and ZnSe
+under the current surfaces, and that the strict predeclared no-refit transfer
+missed its survival margin: the primary InP -> ZnSe equivalent-diameter transfer
+beat the best control by `0.046584 eV`, just below the frozen `0.05 eV`
+requirement.
 
 **Not a claim:** this is sandbox, source-scoped consistency evidence. The
 published relation and rows share the same InP source series, the holdout has
 one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
-**Active next work:** the ZnSe/Toufanian factual row surface is frozen. The
-no-refit transfer contract is now declared: fixed InP/ZnSe rows, equivalent-
-diameter size harmonization, fixed confinement-energy model, controls, and a
-`0.05 eV` survival threshold. The current executable lane is the strict
-`TASK-0920` benchmark under that contract. The effective-mass transfer failure
-has already been routed as scoped sandbox negative memory. No correction search
-is authorized by the baseline or by the failed transfer attempts.
+**Active next work:** the ZnSe/Toufanian factual row surface is frozen, and
+`TASK-0920` executed the strict no-refit contract: fixed InP/ZnSe rows,
+equivalent-diameter size harmonization, fixed confinement-energy model,
+controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
+so the current posture is bounded negative/borderline transfer memory. The
+effective-mass transfer failure has also been routed as scoped sandbox negative
+memory. No correction search or immediate follow-on benchmark is authorized by
+the baseline or by the failed transfer attempts.
 
 ## Historical Source-Readiness Trail
 
@@ -221,11 +225,10 @@ Current task posture:
 
 Safe next contributions are:
 
-- `TASK-0920` execution of the strict no-refit transfer benchmark for the frozen
-  ZnSe/Toufanian direct-size route, using the already declared rows, size
-  harmonization, controls, and survival threshold;
 - conservative profile/page refresh where the latest source and transfer
-  blockers changed public wording.
+  blockers changed public wording;
+- a future source-readiness proposal only if it brings a genuinely new direct
+  row surface or a maintainer-approved contract change.
 
 ### What not to implement yet
 
@@ -377,8 +380,8 @@ Historical context:
 - use `TASK-0491` as historical context for the calibration-consistency
   alternative: that weaker sandbox-only path still requires explicit
   maintainer approval, declared labels, and frozen negative controls;
-- treat archived `TASK-0336` as historical Jasieniak context only; use
-  `TASK-0920` for the current ZnSe no-refit transfer benchmark under the
+- treat archived `TASK-0336` as historical Jasieniak context only; `TASK-0920`
+  has already executed the current ZnSe no-refit transfer benchmark under the
   declared contract;
 - treat `TASK-0364` as historical source-scout context; the current
   second-material source decision is already made by `TASK-0914`;

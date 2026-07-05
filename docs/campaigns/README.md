@@ -7,7 +7,8 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Flagship validation challenge:** Nuclear Mass Surface.
-- **Default near-term science-output sprint:** Nuclear point-only freeze review,
+- **Default near-term science-output sprint:** Nuclear point-only freeze reveal
+  governance,
   Exoplanet `RESULT-0027` Gate B replay, ThermoML esters/lactones bounded
   negative-result packaging, FRB time-indexed exposure source scouting, and
   source/readiness decisions for Atomic, Quantum, Stellar, Dimensional, and
@@ -16,8 +17,9 @@ The short version:
   (source-gated; Atomic has pinned rows and a source-limited `171Yb/87Sr`
   consistency memory card plus source-blocked McGrew and `171Yb/88Sr` routes;
   Quantum has six direct Almeida InP rows, a source-scoped sandbox baseline, a
-  strict ZnSe/InP no-refit transfer contract, and failed effective-mass transfer
-  memory already routed as sandbox-only negative/control evidence).
+  strict ZnSe/InP no-refit transfer that failed to clear its predeclared margin,
+  and failed effective-mass transfer memory already routed as sandbox-only
+  negative/control evidence).
 - **Reusable-dataset buildout:** Materials Property Residuals now has `MD-0001`,
   `MD-0002`, AGENT_VALIDATED `RESULT-0021`, and a citable MD-0002 Zenodo
   release with DOI `10.5281/zenodo.21207072`.
@@ -46,7 +48,7 @@ campaign map or `missions/current.yaml`.
 | --- | --- | --- |
 | see what can be shared publicly today | [Public Science Dashboard](./public-science-dashboard.md) | It has linkable result cards, safe wording, current questions, and expected next results per active campaign. |
 | review the flagship validation challenge | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, explicit negative controls, and several useful negative/control results. |
-| help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 produced six direct InP rows and a source-scoped sandbox baseline; ZnSe rows are frozen and the no-refit contract is declared, so the current blocker is TASK-0920 execution, not another correction-search pilot. |
+| help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 produced six direct InP rows and a source-scoped sandbox baseline; ZnSe rows are frozen and the no-refit transfer missed its predeclared margin, so the current posture is negative/borderline memory, not another correction-search pilot. |
 | work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy and Nemitz `171Yb/87Sr` rows plus a first exploratory cross-source diagnostic; Pizzocaro and McGrew are blocked, and the newest independent post-2021 source is `171Yb/88Sr`, so the live work is blocker memory / multi-species go-no-go. |
 | work on reusable benchmark datasets | [Materials Property Residuals](./materials-property-residuals.md) | It has `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, scope-control memory, and a citable MD-0002 Zenodo dataset release; no new metric/factory task is currently justified. |
 | work on source-pinned thermophysical data | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | It has AGENT_VALIDATED ThermoML `Tb` / Joback `RESULT-0026` on a bounded 40-row fixture; the current blocker is bounded esters/lactones negative-result packaging, not broader chemistry claims. |
@@ -58,9 +60,9 @@ campaign map or `missions/current.yaml`.
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, AGENT_VALIDATED `RESULT-0018`, exact-replayed `RESULT-0025` point-estimator evidence, failed no-peek uncertainty calibration, DZ10 parity readiness, and an authorized point-only freeze lane. | `TASK-0933` and `TASK-0911`: execute point-only freeze / run rights-safe DZ10 parity; no interval claim, broad F2, shell, local-curvature, Wigner, or reveal-scoring. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | `NMD-0003` frozen stratified gate, negative factory memory, AGENT_VALIDATED `RESULT-0018`, exact-replayed `RESULT-0025` point-estimator evidence, failed no-peek uncertainty calibration, DZ10 parity readiness, and frozen point-only prospective PRED entries. | `TASK-0911` / `TASK-0912`: run rights-safe DZ10 parity or package calibration-failure blocker memory; no interval claim, broad F2, shell, local-curvature, Wigner, or early reveal-scoring. |
 | [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshots, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, reviewer capsule, closed `EXO-0002` reopen gate, `NO_NOTIFY` monitor check 3, and AGENT_PUBLISHED `RESULT-0027`. | `TASK-0935`: Gate B replay for `RESULT-0027`; no residual scoring unless a NOTIFY class appears. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 direct InP rows, source-scoped sandbox baseline, controls/holdout summary, frozen factual ZnSe rows, strict no-refit transfer contract, and failed effective-mass transfer check routed as sandbox negative memory. | `TASK-0920`: run the no-refit ZnSe/InP transfer benchmark under the frozen contract; no correction-search unblock. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 direct InP rows, source-scoped sandbox baseline, controls/holdout summary, frozen factual ZnSe rows, strict no-refit transfer execution that missed its margin, and failed effective-mass transfer check routed as sandbox negative memory. | No immediate Quantum READY metric task; preserve negative/borderline transfer memory unless a new source or maintainer-approved contract appears. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz `171Yb/87Sr` rows, real-row loader, covariance policy, Pizzocaro diagnostic blocker/contract, source-limited consistency memory, blocked McGrew/NIST route, and a `171Yb/88Sr` isotope-mismatch blocker. | `TASK-0938` / `TASK-0942`: multi-species go/no-go plus blocker memory; no constants-drift or metric rerun. |
 | [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, family-holdout scope boundary, descriptor-ablation control memory, transfer-negative replay, and a citable Zenodo MD-0002 dataset DOI. | `TASK-0937`: release-integrity/no-claim check; no immediate metric task. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | AGENT_VALIDATED exact-reference `RESULT-0019`, Stellar M-L `RESULT-0022`, FIRAS/Wien `RESULT-0023`, and high-mass transfer `RESULT-0024`; external Stellar route is SOURCE_LIMITED. | `TASK-0939`: CHARA paper-level source pin/de-dup preflight; no universal formula claim. |

@@ -84,16 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; TASK-0914 predeclared the strict no-refit transfer contract and TASK-0920 is the executable benchmark lane."
+  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; TASK-0920 executed the strict no-refit transfer and failed to clear the predeclared 0.05 eV margin."
   recommended_parallel_agents: 1
-  coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Current work is the strict no-refit ZnSe/InP transfer benchmark using existing rows, not correction search or design-law claims."
+  coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Preserve the TASK-0920 borderline/negative transfer memory; no correction search, refit, design-law claim, or immediate follow-on benchmark is authorized without a new maintainer-approved source or contract."
   next_validity_gate:
-    type: source_readiness
-    blocker: "The no-refit transfer contract is declared; the benchmark result still needs execution and routing under TASK-0920."
+    type: transfer
+    blocker: "The declared no-refit transfer ran and did not clear the survival margin; the campaign needs new source evidence or a maintainer-approved contract change before another transfer task."
     target_artifact: "TASK-0920"
   best_next_actions:
     - task_id: TASK-0920
-      label: "Run the ZnSe/InP no-refit transfer benchmark under the frozen contract"
+      label: "Preserve the completed no-refit transfer as bounded negative/borderline memory; no new Quantum READY task in this wave"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -110,13 +110,14 @@ portfolio:
     - "docs/reviews/quantum-znse-toufanian-license-route-verification.md"
     - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
     - "docs/reviews/quantum-znse-no-refit-transfer-contract.md"
+    - "docs/reviews/quantum-znse-contract-transfer-benchmark.md"
   open_questions:
-    - "Does the strict InP -> ZnSe no-refit transfer beat the best control by the predeclared 0.05 eV margin?"
+    - "What new direct source surface or maintainer-approved contract change, if any, would add information beyond the TASK-0920 borderline transfer failure?"
   curator_review:
     status: current
     last_reviewed: "2026-07-05"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0914 no-refit transfer contract and Scientific Director 2026-07-05 task-queue cycle"
-    notes: "The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow factual extracts, and the no-refit contract is ready for TASK-0920 execution. Open-ended correction search remains blocked."
+    source: "TASK-0920 no-refit transfer execution and Scientific Director 2026-07-05 task-queue cycle"
+    notes: "The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow factual extracts, and the strict no-refit transfer failed to clear its predeclared margin. Open-ended correction search remains blocked."

@@ -454,18 +454,20 @@ campaigns:
     - updated_campaign_profile
   current_stage: frozen baseline, RESULT-0018 AGENT_VALIDATED diagnostic memory, RESULT-0025
     point-estimator evidence with exact Gate B replay, failed no-peek uncertainty-calibration
-    audit, canonical DZ10 wrapper, and reveal scoring still source/uncertainty blocked
+    audit, canonical DZ10 wrapper, and a point-only prospective PRED freeze registered without
+    intervals or success wording
   agent_capacity:
     recommended_parallel_agents: 3
     coordination_notes: Do not launch another broad F2, shell-axis, local-curvature, Wigner-shape,
-      or NMD-0002 factory sprint. Current executable work is preserving the uncertainty-calibration
-      failure as possible negative/blocker memory and running rights-safe DZ10 parity if local
-      AMDC bytes are available.
+      or NMD-0002 factory sprint. Do not mutate frozen PRED payloads or score reveal early.
+      Current executable work is preserving the uncertainty-calibration failure as negative/blocker
+      memory and running rights-safe DZ10 parity if local AMDC bytes are available.
   next_validity_gate:
     type: external_reveal
-    blocker: Prediction freeze remains blocked because TASK-0899 found no approved no-peek
-      uncertainty route passed; RESULT-0025 is point-estimator evidence only.
-    target_artifact: TASK-0912
+    blocker: Point-only central-value predictions are frozen, but reveal scoring and any success
+      claim remain blocked until an admissible source is revealed and maintainer-reviewed;
+      calibrated intervals remain blocked by TASK-0899.
+    target_artifact: PRED-0069
   best_next_actions:
   - task_id: TASK-0912
     label: Preflight the uncertainty-calibration failure as negative/blocker result memory
@@ -517,21 +519,22 @@ campaigns:
   open_questions:
   - Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker
     memory, or remain a review note?
-  - Should RESULT-0025 receive point-estimator-only public-card wording while interval calibration
-    stays blocked?
+  - What admissible future source and reveal protocol can score the frozen point-only PRED
+    entries without interval or success overclaiming?
   - What source-byte/cache route can support full AMDC DZ10 parity without vendoring restricted
     source bytes?
   curator_review:
     status: current
-    last_reviewed: '2026-07-01'
+    last_reviewed: '2026-07-05'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: TASK-0899 no-peek uncertainty-calibration audit, TASK-0878 DZ10 wrapper, and Scientific
-      Director 2026-07-01 task-queue cycle
-    notes: Flagship remains reveal-blocked. RESULT-0025 has a strong replayed point-estimator
-      gain but no calibrated intervals; the calibration failure itself may now be useful negative/blocker
-      memory. Do not start another broad residual factory.
+    source: TASK-0933 point-only prospective freeze, TASK-0899 no-peek uncertainty-calibration
+      audit, TASK-0878 DZ10 wrapper, and Scientific Director 2026-07-05 task-queue cycle
+    notes: Flagship has frozen point-only prospective entries but remains reveal/success-claim
+      blocked. RESULT-0025 has a strong replayed point-estimator gain but no calibrated intervals;
+      the calibration failure itself may now be useful negative/blocker memory. Do not start
+      another broad residual factory.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
@@ -715,22 +718,24 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped
-    sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; TASK-0914
-    predeclared the strict no-refit transfer contract and TASK-0920 is the executable benchmark
-    lane.
+    sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; TASK-0920
+    executed the strict no-refit transfer and failed to clear the predeclared 0.05 eV margin.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Do not route agents to archived TASK-0226 or TASK-0336. Current work
-      is the strict no-refit ZnSe/InP transfer benchmark using existing rows, not correction
-      search or design-law claims.
+    coordination_notes: Do not route agents to archived TASK-0226 or TASK-0336. Preserve the
+      TASK-0920 borderline/negative transfer memory; no correction search, refit, design-law
+      claim, or immediate follow-on benchmark is authorized without a new maintainer-approved
+      source or contract.
   next_validity_gate:
-    type: source_readiness
-    blocker: The no-refit transfer contract is declared; the benchmark result still needs
-      execution and routing under TASK-0920.
+    type: transfer
+    blocker: The declared no-refit transfer ran and did not clear the survival margin; the
+      campaign needs new source evidence or a maintainer-approved contract change before another
+      transfer task.
     target_artifact: TASK-0920
   best_next_actions:
   - task_id: TASK-0920
-    label: Run the ZnSe/InP no-refit transfer benchmark under the frozen contract
+    label: Preserve the completed no-refit transfer as bounded negative/borderline memory;
+      no new Quantum READY task in this wave
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -766,20 +771,21 @@ campaigns:
   - docs/reviews/quantum-znse-toufanian-license-route-verification.md
   - docs/reviews/quantum-znse-frozen-row-transfer-readiness.md
   - docs/reviews/quantum-znse-no-refit-transfer-contract.md
+  - docs/reviews/quantum-znse-contract-transfer-benchmark.md
   open_questions:
-  - Does the strict InP -> ZnSe no-refit transfer beat the best control by the predeclared
-    0.05 eV margin?
+  - What new direct source surface or maintainer-approved contract change, if any, would add
+    information beyond the TASK-0920 borderline transfer failure?
   curator_review:
     status: current
     last_reviewed: '2026-07-05'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0914 no-refit transfer contract and Scientific Director 2026-07-05 task-queue
+    source: TASK-0920 no-refit transfer execution and Scientific Director 2026-07-05 task-queue
       cycle
     notes: The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow
-      factual extracts, and the no-refit contract is ready for TASK-0920 execution. Open-ended
-      correction search remains blocked.
+      factual extracts, and the strict no-refit transfer failed to clear its predeclared margin.
+      Open-ended correction search remains blocked.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
