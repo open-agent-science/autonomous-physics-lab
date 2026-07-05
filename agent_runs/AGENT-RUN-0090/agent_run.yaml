@@ -1,0 +1,51 @@
+id: AGENT-RUN-0090
+campaign_profile_id: quantum-size-effects
+task_id: TASK-0920
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: gladunrv
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-0084-znse-contract-no-refit-transfer.yaml
+  experiment: experiment_proposals/quantum-size-effects/EXP-PROPOSAL-0084-znse-contract-no-refit-transfer.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0090/metrics.json
+  report: agent_runs/AGENT-RUN-0090/report.md
+  limitations: agent_runs/AGENT-RUN-0090/limitations.md
+  preflight: agent_runs/AGENT-RUN-0090/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0090/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: frozen_contract_verified_before_run
+    status: PASS
+    notes: TASK-0914 frozen row ids, equal-volume factor 0.608291447, bulk gaps, seed
+      842, and 0.05 eV margin verified against the engine and datasets before any
+      metric was computed.
+  - name: direct_size_rows_only
+    status: PASS
+    notes: Only the direct InP (qd-0003 TEM) and ZnSe (qd-0004 SAXS) rows enter the
+      judge; Yu CdSe / Moreels PbS excluded by the contract.
+  - name: no_refit_on_holdout
+    status: PASS
+    notes: C and n are frozen from the calibration material and applied to the holdout
+      with no refit, no correction search, and no post-hoc threshold change.
+  - name: controls_first_frozen_margin
+    status: PASS
+    notes: per_material_mean and shuffled_size controls run; the frozen 0.05 eV survival
+      margin was predeclared by TASK-0914 and not relaxed.
+limitations:
+- Two materials only; not a universal size law or material recommendation.
+- Confinement-term framing with explicit cited bulk gaps and an equal-volume edge->diameter
+  conversion.
+- Direct-size rows only; six InP and ten ZnSe rows; one source and morphology per
+  material.
+- Sandbox evidence only; no canonical scientific artifact is created.
+verdict: REVIEW_NEEDED
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review of the contract execution; any canonical result
+    or claim requires a separate promotion task with protected hypothesis/experiment
+    links.
