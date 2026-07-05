@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-0936` - Package RESULT-0026 esters/lactones failed-family memory as a bounded ThermoML negative/control RESULT (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
+- `TASK-0937` - Verify MD-0002 Zenodo release integrity and public no-claim readiness (`scientific_dataset`, priority `medium`, difficulty `low`, domain `materials_science`)
 
 ## IN_PROGRESS
 
