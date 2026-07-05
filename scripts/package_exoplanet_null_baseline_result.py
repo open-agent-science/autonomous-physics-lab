@@ -40,16 +40,26 @@ def write_text(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8", newline="\n")
 
 
-def read_text_at_commit(path: Path, commit: str) -> str:
+def read_text_at_commit(
+    path: Path,
+    commit: str,
+    *,
+    fallback_path: Path | None = None,
+) -> str:
     relative = path.relative_to(ROOT).as_posix()
-    result = subprocess.run(
-        ["git", "show", f"{commit}:{relative}"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return result.stdout
+    try:
+        result = subprocess.run(
+            ["git", "show", f"{commit}:{relative}"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout
+    except subprocess.CalledProcessError:
+        if fallback_path is not None and fallback_path.exists():
+            return fallback_path.read_text(encoding="utf-8")
+        return path.read_text(encoding="utf-8")
 
 
 def git_commit() -> str:
@@ -64,7 +74,11 @@ def git_commit() -> str:
 
 
 def load_source_metrics(commit: str) -> tuple[dict, str]:
-    source_text = read_text_at_commit(SOURCE_METRICS, commit)
+    source_text = read_text_at_commit(
+        SOURCE_METRICS,
+        commit,
+        fallback_path=DEFAULT_OUTPUT / "inputs" / "fixture.json",
+    )
     payload = json.loads(source_text)
     if payload.get("verdict") != "INCONCLUSIVE":
         raise ValueError("source memory verdict drifted from INCONCLUSIVE")
@@ -205,9 +219,26 @@ def write_package(output: Path, *, commit: str) -> None:
     }
     write_text(inputs / "config.yaml", yaml.safe_dump(config, sort_keys=False))
     write_text(inputs / "fixture.json", source_text)
-    write_text(inputs / "experiment.yaml", read_text_at_commit(EXPERIMENT, commit))
-    write_text(inputs / "hypothesis.yaml", read_text_at_commit(HYPOTHESIS, commit))
-    write_text(inputs / "task.yaml", read_text_at_commit(TASK, commit))
+    write_text(
+        inputs / "experiment.yaml",
+        read_text_at_commit(
+            EXPERIMENT,
+            commit,
+            fallback_path=DEFAULT_OUTPUT / "inputs" / "experiment.yaml",
+        ),
+    )
+    write_text(
+        inputs / "hypothesis.yaml",
+        read_text_at_commit(
+            HYPOTHESIS,
+            commit,
+            fallback_path=DEFAULT_OUTPUT / "inputs" / "hypothesis.yaml",
+        ),
+    )
+    write_text(
+        inputs / "task.yaml",
+        read_text_at_commit(TASK, commit, fallback_path=DEFAULT_OUTPUT / "inputs" / "task.yaml"),
+    )
 
     relative = Path("results/EXP-0021/RUN-0001")
     input_hashes = {
