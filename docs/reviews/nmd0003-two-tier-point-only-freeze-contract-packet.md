@@ -438,7 +438,7 @@ Before selecting an option, the maintainer should confirm:
 
 Decision: **Option A — approved.** The two-tier prediction-freeze vocabulary is
 adopted as a maintainer amendment. The tier-1 point-only freeze executes as the
-separate follow-up task `TASK-0932`, exactly per the
+separate follow-up task `TASK-0933`, exactly per the
 [Tier-1 Candidate Specification](#tier-1-candidate-specification-precise), with
 the mandatory caveat carried unweakened into every artifact.
 
