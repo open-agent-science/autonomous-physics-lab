@@ -29,12 +29,12 @@ input:
   mode: planning_only
   related_domain: radio_transients_astrophysics
   related_objects:
-  - "tasks/TASK-0930-frb-exposure-map-fetch-schema-gate.yaml"
+  - "TASK-0930"
   - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
   - "data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml"
-  - "tasks/TASK-0910-pin-frb-catalog2-exposure-map-source-artifact.yaml"
+  - "TASK-0910"
   - "docs/reviews/frb-catalog2-exposure-map-source-pin.md"
-  - "tasks/TASK-0877-frb-catalog2-t-truncated-exposure-split.yaml"
+  - "TASK-0877"
   - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
   - "data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml"
   - "data/DATA_LICENSES.yaml"
