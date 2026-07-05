@@ -67,10 +67,10 @@ piecewise baseline is not justified after complexity penalty. The later
 FIRAS/Wien slice has been packaged and independently replayed as
 AGENT_VALIDATED `RESULT-0023`; it is calibration/known-physics verifier
 memory, not a discovery claim. Stellar high-mass transfer `RESULT-0024`
-has independent numeric replay memory with zero metric drift and its task-input
-metadata caveat has been repaired, but formal workflow Gate B remains
-helper-blocked. The current blocker is workflow replay bridging, not another
-model search.
+now has formal workflow Gate B replay with zero metric drift and is
+`AGENT_VALIDATED`; it remains same-source DEBCat transfer evidence with
+small-holdout and stage/provenance caveats. The current blocker is external
+source readiness beyond DEBCat, not another model search.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -88,9 +88,10 @@ drift and remains scoped to the Stefan-Boltzmann synthetic fixture. The first
 Stellar M-L empirical lane now has committed DEBCat rows, stage/split/null
 controls, baseline-adequacy evidence, and `RESULT-0022` as an
 `AGENT_VALIDATED` scoped benchmark. FIRAS/Wien `RESULT-0023` is also
-`AGENT_VALIDATED` after independent Gate B replay, while `RESULT-0024` remains
-bounded transfer evidence with zero-drift replay and a formal workflow Gate B
-blocker.
+`AGENT_VALIDATED` after independent Gate B replay. `RESULT-0024` now also has a
+formal workflow Gate B replay with zero numeric drift and is
+`AGENT_VALIDATED`; it remains bounded same-source DEBCat transfer evidence, not
+a universal stellar law.
 
 ### Maintainer-Approved Public Capsule — RESULT-0022
 
@@ -113,7 +114,9 @@ campaign does not claim that any formula is globally right or wrong.
 `RESULT-0022` and `RESULT-0023` are independently replayed but not
 maintainer-reviewed. The current evidence says only that `M^3.5` is not an
 adequate sole baseline for the committed DEBCat slice under the completed
-controls, and that FIRAS/Wien replay is a verifier/calibration memory surface.
+controls, that FIRAS/Wien replay is a verifier/calibration memory surface, and
+that `RESULT-0024` is a same-source high-mass transfer benchmark with small-
+holdout and stage/provenance caveats.
 
 **Active next work:** `TASK-0634` published the scoped Stefan-Boltzmann
 software/convention result and `TASK-0635` replayed it through Gate B. The
@@ -122,11 +125,14 @@ Gate A packaging, Gate B replay, split-stability, and piecewise-complexity
 checks for `RESULT-0022`. `RESULT-0023` now packages the FIRAS/Wien
 spectral-domain self-consistency slice through a workflow and has passed Gate B
 with negligible numeric drift. `RESULT-0024` is the high-mass transfer result
-that now needs a formal workflow/helper Gate B bridge before stronger tier
-wording.
+and now replays through the formal workflow route as `AGENT_VALIDATED`.
+`TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED: CHARA
+interferometric binaries are promising for a small `0.5-2.0 M_sun` holdout, but
+lack a single pinnable snapshot and need DEBCat system-level de-duplication.
 
-**Expected next result:** a formal workflow Gate B verdict for `RESULT-0024`,
-not universal stellar-law wording.
+**Expected next result:** source-readiness work for an independent Stellar M-L
+holdout beyond DEBCat, not another DEBCat metric or universal stellar-law
+wording.
 
 ## Why It Matters
 

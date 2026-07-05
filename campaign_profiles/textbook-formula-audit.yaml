@@ -104,16 +104,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "exact-reference RESULT-0019, Stellar M-L RESULT-0022, and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED calibration/verifier memory; Stellar high-mass transfer RESULT-0024 has zero metric drift and a repaired task-input metadata caveat, but formal workflow Gate B remains helper-blocked"
+  current_stage: "exact-reference RESULT-0019, Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and Stellar high-mass transfer RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory; TASK-0928 found the best non-DEBCat stellar route SOURCE_LIMITED."
   recommended_parallel_agents: 1
-  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar split/complexity audits, source scouts, or FIRAS/Wien metrics; current work is a formal workflow Gate B bridge for RESULT-0024."
+  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar split/complexity audits, DEBCat metrics, or FIRAS/Wien metrics; current work is external-source pin/de-dup readiness after the CHARA route stayed SOURCE_LIMITED."
   next_validity_gate:
-    type: ratification
-    blocker: "RESULT-0024 has zero-drift replay evidence and metadata repair, but formal workflow/helper Gate B still needs a protocol-safe bridge before stronger tier wording."
-    target_artifact: "TASK-0917"
+    type: source_readiness
+    blocker: "Stellar M-L generalization beyond DEBCat remains source-limited: the CHARA route is promising but lacks a single pinnable snapshot and DEBCat system-level de-dup."
+    target_artifact: "TASK-0939"
   best_next_actions:
-    - task_id: TASK-0917
-      label: "Bridge RESULT-0024 to a formal workflow Gate B replay"
+    - task_id: TASK-0939
+      label: "Preflight CHARA paper-level source pinning and DEBCat de-dup"
   required_gates:
     - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
     - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
@@ -129,6 +129,8 @@ portfolio:
     - "docs/reviews/stellar-result0024-high-mass-transfer-maintainer-review-packet.md"
     - "docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md"
     - "docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md"
+    - "docs/reviews/stellar-result0024-workflow-gate-b-bridge.md"
+    - "docs/reviews/stellar-external-source-readiness-scout.md"
     - "docs/reviews/result-0019-textbook-exact-reference-maintainer-handoff.md"
     - "docs/reviews/stellar-ml-route2-local-benchmark.md"
     - "docs/reviews/stellar-ml-route2-promotion-readiness-scorecard.md"
@@ -139,13 +141,13 @@ portfolio:
     - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
     - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
   open_questions:
-    - "Can RESULT-0024 be replayed through a formal helper/workflow path without changing metrics or DEBCat rows?"
-    - "What future external stellar catalogue, if any, could test transfer beyond same-source DEBCat?"
+    - "Can the CHARA paper-level route be pinned and de-duplicated enough to support a small 0.5-2.0 Msun independent holdout?"
+    - "What future external stellar catalogue, if any, can test the high-mass transfer beyond same-source DEBCat?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-01"
+    last_reviewed: "2026-07-05"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0897 public wording packet, TASK-0898 metadata caveat repair, and Scientific Director 2026-07-01 task-queue cycle"
-    notes: "Public-friendly verifier lane has validated exact-reference, Stellar M-L, and FIRAS/Wien surfaces. RESULT-0024 has zero metric drift but still needs formal workflow Gate B bridging before stronger tier wording."
+    source: "TASK-0917 formal Gate B bridge, TASK-0928 external-source scout, and Scientific Director 2026-07-05 task-queue cycle"
+    notes: "Public-friendly verifier lane has four AGENT_VALIDATED results. The live blocker is external-source readiness beyond DEBCat, not another DEBCat metric or formula audit."

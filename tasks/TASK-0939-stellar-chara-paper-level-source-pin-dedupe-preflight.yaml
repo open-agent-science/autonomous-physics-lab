@@ -1,0 +1,56 @@
+id: TASK-0939
+title: "Preflight a CHARA paper-level source pin and DEBCat de-dup route for an independent Stellar M-L holdout"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0928 found the CHARA interferometric double-lined route scientifically cleaner than second EB catalogues, but SOURCE_LIMITED because there is no single snapshot and DEBCat overlap is unresolved."
+  - "The next useful Stellar M-L source step is paper-level metadata and de-dup readiness, not another DEBCat metric or universal-law claim."
+  - "A bounded preflight can decide whether the route is worth curation without fetching values or scoring a transfer benchmark."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/stellar-external-source-readiness-scout.md"
+    - "docs/reviews/stellar-ml-result0022-maintainer-review-packet.md"
+    - "docs/reviews/stellar-result0024-workflow-gate-b-bridge.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    Use the SOURCE_LIMITED TASK-0928 scout to design a value-blind source-pin
+    and overlap plan for the CHARA SB-series / cluster-orbit route. The task
+    should determine whether a paper-by-paper locator/checksum/de-dup package
+    can become a small independent 0.5-2.0 Msun holdout surface later.
+
+requirements:
+  - "List only paper-level candidate surfaces, DOI/landing locators, machine-readable-table availability, license notes, and expected checksum strategy; do not fetch or transcribe mass, luminosity, parallax, radius, temperature, or orbit values."
+  - "Define a deterministic DEBCat system-level de-dup rule before any future row curation; shared systems must be excluded or explicitly routed as leakage/overlap memory."
+  - "Assess whether the route can plausibly support a small 0.5-2.0 Msun transfer holdout; explicitly preserve that the high-mass RESULT-0024 slice remains unserved by this route."
+  - "Return exactly one verdict: PAPER_LEVEL_PIN_READY, SOURCE_LIMITED_KEEP_MONITOR, or BLOCKED."
+  - "Do not run M-L metrics, refit exponents, edit RESULT-0022 or RESULT-0024, create rows, or promote any stellar-law claim."
+
+accepted_outputs:
+  - "A docs/reviews source-readiness note with candidate-paper table, license/checksum plan, DEBCat de-dup protocol, coverage risk, and one verdict."
+  - "If PAPER_LEVEL_PIN_READY: a future value-blind source-artifact task shape; if not: a durable source-limited blocker."
+  - "Output-routing summary: source-readiness only, no data, metric, RESULT, PRED, CLAIM, or KNOW change."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness and overlap preflight only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/stellar-external-source-readiness-scout.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

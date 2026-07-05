@@ -1,0 +1,53 @@
+id: TASK-0942
+title: "Package the Atomic 2024 Yb/Sr isotope-mismatch scout as a source-blocker memory card"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "TASK-0913 found the Morzynski et al. 2024 route independent but not compatible with the committed 171Yb/87Sr axis because it measures 171Yb/88Sr."
+  - "That blocker is easy for future agents to miss because the source looks prestigious and Yb/Sr-like at first glance."
+  - "A concise blocker memory card can prevent duplicate scouts while keeping the campaign honest and monitor-only."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/reviews/atomic-post2021-independent-ybsr-source-scout.md"
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "campaign_profiles/atomic-clock-residuals.yaml"
+  planning_context: >
+    Preserve the TASK-0913 outcome in a durable source-blocker memory format
+    suitable for campaign/public surfaces: independent source found, but it is
+    171Yb/88Sr and therefore cannot serve as the third 171Yb/87Sr row.
+
+requirements:
+  - "Create or update a concise docs/reviews source-blocker memory card that names the admissible source role, the candidate, the exact blocker, and the reopen condition."
+  - "Update only useful campaign/public wording if needed; do not add internal agent instructions to public pages."
+  - "State that the source is not rejected scientifically; it is blocked only for the current 171Yb/87Sr row role."
+  - "Do not ingest values, derive ratios, fit constants drift, create RESULT/PRED/CLAIM/KNOW artifacts, or reopen Pizzocaro/McGrew routes."
+  - "No constants-drift, new-constant, anomaly, or precision-new-physics wording."
+
+accepted_outputs:
+  - "A source-blocker memory card under docs/reviews/ and any minimal campaign-page/profile wording update needed to stop duplicate third-source attempts."
+  - "Output-routing summary: source-blocker memory only, no row/metric/result/claim/knowledge change."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-blocker memory card only; no benchmark result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/atomic-post2021-independent-ybsr-source-scout.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

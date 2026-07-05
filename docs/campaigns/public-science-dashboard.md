@@ -89,10 +89,12 @@ independently replayed exactly.
 > replay reproduced these point metrics exactly (maximum absolute drift `0.0`).
 > This is point-estimator evidence on a retrospective time-split holdout, not a
 > blind prediction reveal. Its predictive uncertainty envelope is heavy-tailed
-> and miscalibrated, so it provides no calibrated prediction intervals and does
-> not unblock the nuclear prediction freeze. It establishes no nuclear-mass law,
-> no broad mass formula, and no discovery; it is an agent-published,
-> independently replayed retrospective point-estimator result only.
+> and miscalibrated, so it provides no calibrated prediction intervals. The
+> later tier-1 prospective registry freezes point-only central values only; it
+> is not a reveal result, interval claim, or success verdict. It establishes no
+> nuclear-mass law, no broad mass formula, and no discovery; it is an
+> agent-published, independently replayed retrospective point-estimator result
+> plus a guarded point-only prediction-registration follow-up.
 
 **Replay bookkeeping:** the committed `RESULT-0025` package preserves the
 originally published `TASK-0843` input task file, while the Gate B replay
@@ -195,8 +197,8 @@ first Stellar M-L empirical lane with committed DEBCat rows, stage/split/null
 controls, baseline-adequacy evidence, and an `AGENT_VALIDATED` scoped
 benchmark (`RESULT-0022`). FIRAS/Wien `RESULT-0023` is now an
 AGENT_VALIDATED spectral-domain self-consistency slice after independent Gate B
-replay, and Stellar high-mass transfer `RESULT-0024` has independent replay
-memory with metadata caveats.
+replay, and Stellar high-mass transfer `RESULT-0024` is now an AGENT_VALIDATED
+bounded same-source transfer result after formal workflow Gate B replay.
 
 **Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
 
@@ -229,9 +231,10 @@ and a FIRAS/Wien self-consistency slice, not universal validation or
 falsification. `RESULT-0022` and `RESULT-0023` are independently replayed but
 not maintainer-reviewed. `RESULT-0023` remains calibration/known-physics
 verifier memory, not a discovery claim. `RESULT-0024` keeps a same-source
-DEBCat and small-holdout transfer boundary plus a metadata caveat. The current
-Stellar M-L evidence supports only scoped benchmark statements; it is not a
-universal law claim.
+DEBCat and small-holdout transfer boundary; the formal workflow replay removes
+the earlier helper blocker but does not make the evidence external to DEBCat.
+The current Stellar M-L evidence supports only scoped benchmark statements; it
+is not a universal law claim.
 
 **Result capsule — RESULT-0024 (Stellar high-mass transfer):**
 
@@ -241,8 +244,8 @@ universal law claim.
 - **Primary metric:** frozen `RESULT-0022` relation holdout MAE **0.334564
   dex** versus best control **0.483879 dex**, clearing the predeclared `0.04`
   dex margin by **0.149315 dex** on the stage-matched high-mass holdout.
-- **Review status:** AGENT_PUBLISHED result with independent numeric replay
-  memory; a metadata caveat remains before stronger tier wording.
+- **Review status:** `AGENT_VALIDATED` after formal workflow Gate B replay;
+  still not maintainer-reviewed and still same-source DEBCat evidence.
 - **No-claim wording:** same-source transfer under controls, not a universal
   stellar mass-luminosity law, stellar-structure conclusion, or discovery.
 
@@ -356,13 +359,13 @@ mapping, property leakage, and family failures visible.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can point-estimator gains become prediction-ready without calibrated uncertainty or source leakage? | `RESULT-0025` has exact replayed point-estimator improvement, but the approved no-peek uncertainty-calibration routes failed and prediction freeze is blocked. | Negative/blocker memory plus source-rights-safe DZ10 parity. | A blocker-memory or parity verdict, not a reveal score. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot, source-version change, or canonical identity decision would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate, monitor check 3 returned `NO_NOTIFY`, and negative/control packaging is Gate-A-blocked by missing canonical experiment/hypothesis identity. | Minimal null-baseline canonical identities plus metadata-only source-version monitoring. | An identity package or `NO_NOTIFY`/NOTIFY-class monitor decision, not a residual score. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can frozen ZnSe factual rows support a predeclared no-refit transfer benchmark later? | Calibration-derived rows remain excluded; Almeida 2023 yielded six direct InP rows, and ZnSe/Toufanian rows are frozen only as limited factual extracts. | No-refit transfer-contract predeclaration. | A contract verdict, not benchmark metrics or a broad model claim. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Is there a post-2021 independent primary absolute Yb/Sr source route? | Beloy 2021 and Nemitz 2016 support a narrow no-tension memory card; Pizzocaro remains diagnostic-only; McGrew/NIST is blocked as not a direct independent Yb/Sr route. | Value-blind post-2021 source scout; no metric rerun. | A source-route verdict, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L has AGENT_VALIDATED `RESULT-0022`; FIRAS/Wien `RESULT-0023` is AGENT_VALIDATED calibration memory; high-mass `RESULT-0024` has zero metric drift and repaired task-input metadata but still needs formal workflow Gate B. | RESULT-0024 formal Gate B bridge. | A workflow replay verdict, not universal formula wording. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021`; scope controls and transfer-negative memory prevent overbroad wording; archive dry run exists and external DOI remains maintainer-gated. | Deterministic archive-package helper for MD-0002. | A helper/readiness verdict, not a material recommendation. |
-| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can a frozen published thermophysical estimator survive source-pinned family-stratified controls? | ThermoML `Tb` `RESULT-0026` is AGENT_PUBLISHED on a bounded 40-row fixture: Joback wins in aggregate and 7/8 families, esters/lactones fails and is preserved as negative memory, and numeric replay is zero-drift. | Formal Gate B bridge plus local-only identity/count expansion feasibility. | A workflow replay or source-readiness note, not a broad property-estimation claim. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can point-estimator gains become prediction-ready without calibrated uncertainty or source leakage? | `RESULT-0025` has exact replayed point-estimator improvement; no-peek uncertainty calibration failed; tier-1 point-only PRED entries are frozen without interval or success wording. | Negative/blocker memory plus source-rights-safe DZ10 parity; no early reveal scoring. | A blocker-memory, parity verdict, or later maintainer-reviewed reveal score. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_PUBLISHED negative/control memory with Gate A passed. | Gate B replay for `RESULT-0027`. | A replay verdict, not a residual score. |
+| [Quantum Size Effects](./quantum-size-effects.md) | What new source or contract would add information beyond the completed ZnSe/InP transfer failure? | Calibration-derived rows remain excluded; Almeida 2023 yielded six direct InP rows; ZnSe/Toufanian rows are frozen as limited factual extracts; the strict no-refit transfer missed its predeclared margin. | Preserve bounded negative/borderline transfer memory. | A future source-readiness verdict, not a broad model claim. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can an independent source reduce the two-row `171Yb/87Sr` blocker without mixing isotope axes? | Beloy 2021 and Nemitz 2016 support a narrow no-tension memory card; Pizzocaro and McGrew/NIST are blocked; the newest independent source is `171Yb/88Sr`, not the committed `171Yb/87Sr` axis. | Multi-species go/no-go plus source-blocker memory; no metric rerun. | A source-readiness verdict, not constants-drift metrics. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L has AGENT_VALIDATED `RESULT-0022`; FIRAS/Wien `RESULT-0023` is AGENT_VALIDATED calibration memory; high-mass `RESULT-0024` is AGENT_VALIDATED but same-source DEBCat; external Stellar source route is SOURCE_LIMITED. | CHARA source pin/de-dup preflight. | A source-readiness verdict, not universal formula wording. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021`; scope controls and transfer-negative memory prevent overbroad wording; the v0.1.0 Zenodo DOI is minted. | Release-integrity and no-claim verification for the public dataset record. | A release-integrity verdict, not a material recommendation. |
+| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can a frozen published thermophysical estimator survive source-pinned family-stratified controls? | ThermoML `Tb` `RESULT-0026` is AGENT_VALIDATED on a bounded 40-row fixture: Joback wins in aggregate and 7/8 families, while esters/lactones fails and is preserved as negative memory. | Bounded failed-family negative/control packaging plus source-rights decision for any expansion. | A negative/control or source-rights verdict, not a broad property-estimation claim. |
 
 ## What Is Interesting Right Now
 
@@ -425,15 +428,17 @@ Why it matters:
 - Quantum now has Almeida 2023 as the selected source path. The article/SI are
   checksum-pinned and license-confirmed; six direct rows and a source-scoped
   sandbox baseline exist. ZnSe/Toufanian rows are frozen as limited factual
-  extracts, so a no-refit transfer contract is the blocker before any new
-  benchmark.
+  extracts, and the strict no-refit transfer missed its predeclared margin, so
+  the current output is bounded transfer memory rather than a new benchmark
+  claim.
 - Atomic has Beloy and Nemitz Yb/Sr rows and a first exploratory cross-source
   diagnostic preserved as a source-limited consistency-memory card. Pizzocaro
   still needs an aggregation/observable-harmonization contract; McGrew/NIST is
   blocked as not a direct independent Yb/Sr route.
 
-Next visible artifact: a Quantum no-refit transfer contract and an Atomic
-post-2021 independent-source scout.
+Next visible artifact: an Atomic multi-species go/no-go / source-blocker memory
+card, plus only a future Quantum source-readiness proposal if a genuinely new
+direct surface appears.
 
 ### Textbook Formula Audit As A Public Entry Surface
 
@@ -444,17 +449,17 @@ AGENT_PUBLISHED replay-ready FIRAS/Wien result. The first empirical slice is
 Stellar Mass-Luminosity through DEBCat direct dynamical masses; it now has
 stage/split/null controls, baseline-adequacy evidence, the full committed
 DEBCat dataset, AGENT_VALIDATED `RESULT-0022`, AGENT_VALIDATED `RESULT-0023`
-as calibration/known-physics verifier memory, and `RESULT-0024` as a bounded
-high-mass transfer result with zero-drift replay but a formal workflow Gate B
-blocker.
+as calibration/known-physics verifier memory, and AGENT_VALIDATED
+`RESULT-0024` as a bounded high-mass transfer result with same-source DEBCat
+caveats.
 
 Why it matters:
 
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Next visible artifact: a formal workflow Gate B bridge for `RESULT-0024`; no
-universal formula claim.
+Next visible artifact: source-readiness and de-duplication for a possible
+independent Stellar M-L holdout; no universal formula claim.
 
 ### Materials Dataset-To-Benchmark Path
 
@@ -464,19 +469,19 @@ repo, and now has holdout, citation metadata, a first conservative baseline
 benchmark, independent replay, a do-not-promote decision, formation-energy null
 controls, and split-sensitivity evidence. Formation energy is the stronger
 axis; band gap stays diagnostic and split-fragile. `MD-0002` is now acquired,
-validated, holdout-frozen, formation-energy benchmarked, and Gate-B-validated
-as `RESULT-0021`. Family-holdout and descriptor-ablation audits now bound the
-signal. Repository-local release metadata and an archive dry run are closed;
-the next public decision is whether `MD-0002` is useful and stable enough for
-an external archive/DOI release, after a reusable local helper exists. This is
-not a model leaderboard or material recommendation.
+validated, holdout-frozen, formation-energy benchmarked, Gate-B-validated as
+`RESULT-0021`, and externally citable as Zenodo DOI `10.5281/zenodo.21207072`.
+Family-holdout and descriptor-ablation audits now bound the signal. The next
+public step is release-integrity and no-claim verification, not a rebuild,
+metric rerun, or model leaderboard.
 
 Why it matters:
 
 - APL can produce reusable, provenance-rich scientific datasets, not only
   benchmark reports.
-- The dataset can later become externally citable once it has a stable version,
-  citation/DOI plan, and enough usefulness for other projects.
+- The dataset is externally citable now; the repository still needs a durable
+  integrity note tying DOI, release tag, checksum, license, attribution, and
+  no-claim wording together.
 - Keeping axes separate (formation energy vs band gap, computed DFT vs future
   measured rows) makes future residual maps scientifically reviewable.
 

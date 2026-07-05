@@ -1,0 +1,58 @@
+id: TASK-0937
+title: "Verify MD-0002 Zenodo release integrity and public no-claim readiness"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "MD-0002 v0.1.0 is now externally published on Zenodo and is APL's first citable dataset release precedent."
+  - "Before public opening, the repository should preserve a durable integrity note that the DOI, release tag, archive checksum, manifest, citation, rights, and public no-claim wording agree."
+  - "This is a release/readiness verification task only; it must not restart materials modeling or create a new feature-factory lane."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "docs/reviews/materials-md0002-zenodo-upload-pack.md"
+    - "docs/campaigns/materials-property-residuals.md"
+    - "data/materials/README.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "tasks/TASK-0924-md0002-zenodo-release-and-doi-recordback.yaml"
+  planning_context: >
+    Verify the post-publication MD-0002 release record after DOI record-back:
+    version DOI 10.5281/zenodo.21207072, concept DOI 10.5281/zenodo.21207071,
+    Zenodo record URL, release tag dataset-md0002-v0.1.0, deterministic archive
+    SHA-256, manifest metadata, attribution, and public no-claim wording.
+
+requirements:
+  - "Inspect only the public Zenodo record metadata, repository release/tag metadata, committed manifest, committed archive checksum, data README, campaign page, and RESULT-0021 references."
+  - "Confirm that version DOI, concept DOI, record URL, release tag, archive filename/checksum, license, citation, Materials Project attribution, and version markers are mutually consistent."
+  - "Confirm that public wording says this is a computed-DFT, slice-limited benchmark dataset and does not imply material discovery, design guidance, synthesis guidance, or device/biomedical claims."
+  - "If any DOI, checksum, tag, license, attribution, or no-claim wording disagrees, stop with RELEASE_INTEGRITY_BLOCKED and list the minimal metadata corrections; do not silently rewrite science artifacts."
+  - "Do not rebuild the archive, republish Zenodo, change dataset rows, change holdout membership, rerun metrics, alter RESULT-0021, create a new RESULT, or promote any claim."
+
+accepted_outputs:
+  - "A metadata-only review note under docs/reviews/ with an integrity table for DOI/tag/archive/checksum/license/attribution/no-claim wording and one verdict: RELEASE_INTEGRITY_CONFIRMED or RELEASE_INTEGRITY_BLOCKED."
+  - "If blocked, a short correction list limited to metadata/public wording surfaces; if confirmed, a no-further-action recommendation for MD-0002 v0.1.0 until a future versioned source or release reason exists."
+  - "Output-routing summary stating that no dataset rows, benchmark metrics, RESULT, PRED, CLAIM, or KNOW artifact was produced or modified."
+
+result_artifact_policy:
+  required: false
+  reason: "Post-release integrity and public-readiness verification only; no scientific rows, metrics, result artifact, or claim are produced."
+  evidence:
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "docs/reviews/materials-md0002-zenodo-upload-pack.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

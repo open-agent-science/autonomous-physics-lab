@@ -86,16 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021, repository-local metadata blockers are closed, and TASK-0900 completed a deterministic archive-package dry run; a local helper remains needed before any maintainer DOI/upload decision."
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072; no materials claim, prediction, or design guidance is created."
   recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun RESULT-0021 Gate B or open a feature factory. The useful next lane is a cross-platform deterministic archive-package helper and maintainer DOI/release decision support."
+  coordination_notes: "Do not rerun RESULT-0021 Gate B, rebuild the v0.1.0 archive, or open a feature factory. Future work needs a new source/version/release question or a maintainer-approved v0.1.1 reason."
   next_validity_gate:
     type: source_readiness
-    blocker: "External dataset release, archive checksum, release tag, and DOI remain maintainer-gated; the package dry run exists, but no reusable deterministic helper is committed yet."
-    target_artifact: "TASK-0908"
+    blocker: "MD-0002 has an external DOI; before broader public opening, verify DOI/tag/archive/checksum/license/attribution/no-claim consistency without reopening rows or metrics."
+    target_artifact: "TASK-0937"
   best_next_actions:
-    - task_id: TASK-0908
-      label: "Implement a deterministic MD-0002 archive-package helper without upload"
+    - task_id: TASK-0937
+      label: "Verify MD-0002 Zenodo release integrity and public no-claim readiness"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -115,17 +115,19 @@ portfolio:
     - "docs/reviews/materials-md0002-dataset-publication-preflight.md"
     - "docs/reviews/materials-md0002-external-release-decision-packet.md"
     - "docs/reviews/materials-md0002-deterministic-archive-dry-run.md"
+    - "docs/reviews/materials-md0002-zenodo-upload-pack.md"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Should MD-0002 v0.1.0 receive an external archive/DOI, GitHub release only, or DOI-declined internal citation?"
-    - "Can the dry-run allowlist be converted into a reusable cross-platform helper without external upload?"
+    - "Does the public Zenodo record, release tag, archive checksum, manifest, and no-claim wording remain mutually consistent after DOI record-back?"
+    - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-01"
+    last_reviewed: "2026-07-05"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0900 deterministic archive dry run and Scientific Director 2026-07-01 task-queue cycle"
-    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark. External dataset publication is still a maintainer-gated archive/DOI decision; the next useful agent task is a deterministic helper, not new metrics."
+    source: "TASK-0924 Zenodo DOI record-back and Scientific Director 2026-07-05 task-queue cycle"
+    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark and the dataset now has a Zenodo DOI. The next useful action is a release-integrity/public-wording check, not new metrics or a feature factory."

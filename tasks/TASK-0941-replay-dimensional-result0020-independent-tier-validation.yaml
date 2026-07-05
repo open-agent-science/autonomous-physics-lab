@@ -1,0 +1,56 @@
+id: TASK-0941
+title: "Run an independent RESULT-0020 Gate B replay for validation-tier eligibility after the identity blocker"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0916 confirmed RESULT-0020 replays cleanly but intentionally preserved AGENT_PUBLISHED because the same identity performed the packaging and validation-routing work."
+  - "The remaining blocker is validation independence, not science metrics or challenge-set expansion."
+  - "A different contributor/agent identity can resolve whether RESULT-0020 is eligible for a metadata-only AGENT_VALIDATED update."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
+    - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
+    - "docs/result-promotion-protocol.md"
+    - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+  planning_context: >
+    Re-run the canonical Gate B replay for RESULT-0020 from a genuinely
+    independent contributor/agent identity relative to the publisher and the
+    TASK-0916 blocker author. If replay passes and independence clears, apply
+    only the protocol-permitted validation metadata update.
+
+requirements:
+  - "Before running, record the replayer contributor_id, github_username, agent_tool, and model; stop with INDEPENDENCE_BLOCKED if they are not independent enough under the promotion protocol and TASK-0916 blocker."
+  - "Run the canonical Gate B helper or documented supported workflow from committed inputs only; compare RESULT-0020 metrics, verdict, verification checks, input hashes, and limitations."
+  - "If Gate B passes and independence clears, update only review_tier / validation_record metadata; do not change metrics, challenge set, best_verdict, CLAIM-0005, or knowledge artifacts."
+  - "If replay fails or is contested, write a blocker note and leave RESULT-0020 AGENT_PUBLISHED."
+  - "No wording that dimensional validity proves physical correctness or supports a broader scientific claim."
+
+accepted_outputs:
+  - "A Gate B replay note under docs/reviews/ with identity assessment, drift table, helper verdict, limitations, and output-routing summary."
+  - "Optional metadata-only RESULT-0020 validation-record / review-tier update only if replay and independence both pass."
+  - "Claim impact none; knowledge impact none; challenge-set expansion not performed."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent validation routing for an existing RESULT; no new RESULT or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_result_publication_gate.py tests/test_agent_replay_validation.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

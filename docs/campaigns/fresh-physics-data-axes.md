@@ -26,9 +26,11 @@ Atomic clocks have since graduated into their own source-gated campaign page.
 The CHIME/FRB Catalog 2 selection-effect audit is also near-active as a
 metadata/source gate: the catalog table locator and exposure-only baseline
 exist, the T-truncated split is specified, and the time-resolved exposure-map
-artifact is now metadata-pinned. The remaining blocker is not source discovery;
-it is the first license-clear fetch, exact byte/hash pin, and HDF5 schema gate
-needed before any numeric T-truncated exposure view can be constructed.
+artifact has been checksum-pinned and inspected. The blocker is now sharper:
+that HDF5 artifact is a static cumulative full-window map with no time axis, so
+it cannot support leakage-safe pre-T exposure construction. The next allowed
+FRB step is an official time-indexed source scout, not construction from the
+blocked map.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -92,12 +94,16 @@ time-resolved / full-sky exposure-map source artifact as metadata only:
 `10.11570/25.0066`, Public read on the CANFAR vault, with source bytes not
 redistributable in this repository.
 
-The current blocker is the first license-clear local fetch plus exact SHA-256,
-byte count, and HDF5 schema/axis inspection. Until that gate passes, do not
+`TASK-0930` then fetched a local license-clear copy, pinned exact identity
+(`216024090` bytes, SHA-256
+`cd8411f92d0ac31bd05dff47f62797638c354444de27a5c056113ca00470d514`), and
+inspected the HDF5 schema. The current blocker is
+`CONSTRUCTION_BLOCKED_STATIC_FULL_WINDOW_ONLY`: the file contains `/upper` and
+`/lower` cumulative HEALPix maps over the full observing window, with no
+timestamp dataset, interval boundary table, or per-interval exposure axis.
+Until an official time-indexed exposure or operational source is pinned, do not
 construct truncated exposure rows, fit morphology, freeze predictions, or claim
-repeater classification ability. If the schema gate passes, the next scientific
-step is a separate leakage-safe `exp_up(<=T)` / `exp_low(<=T)` construction task
-that still preserves the no-claim posture.
+repeater classification ability.
 
 ## WATCHLIST Axes
 
@@ -119,8 +125,9 @@ Allowed next steps, only after maintainer assignment:
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
-- for FRB Catalog 2 only, run the metadata-bound exposure-map checksum/schema
-  gate before proposing any numeric truncated-exposure construction.
+- for FRB Catalog 2 only, scout an official time-indexed exposure or
+  operational/sensitivity source before proposing any numeric truncated-exposure
+  construction.
 
 ## Not Allowed Yet
 
@@ -138,10 +145,16 @@ Do not:
 
 ## Recommended Next Task Shape
 
-The safest follow-up is a manifest-only task for one axis. It should list
-candidate primary sources, license and citation status, retrieval policy,
+The safest generic follow-up is a manifest-only task for one axis. It should
+list candidate primary sources, license and citation status, retrieval policy,
 checksum plan, unit and uncertainty schema, and blockers. It should still add
 no numerical rows.
+
+For FRB Catalog 2 specifically, the next task shape is a metadata-only
+time-indexed exposure source scout: official source candidates, interval
+semantics, sky-coordinate mapping, rights/access posture, checksum feasibility,
+and an explicit `READY` / `AMBIGUOUS` / `BLOCKED` verdict. It must not fetch
+bulk value-bearing bytes or construct exposure rows.
 
 ## What Not To Claim
 

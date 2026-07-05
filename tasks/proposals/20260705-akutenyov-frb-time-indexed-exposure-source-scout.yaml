@@ -1,6 +1,6 @@
 proposal_id: 20260705-akutenyov-frb-time-indexed-exposure-source-scout
 title: Scout an official time-indexed FRB exposure source after the static-map blocker
-status: PROPOSED
+status: ACCEPTED
 type: scientific_source_curation
 priority: high
 proposed_by:
@@ -64,9 +64,10 @@ validation:
   - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
   - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0934
+  decision: accepted
   notes: >
-    Awaiting maintainer acceptance and canonical task id. Requested priority is
-    high and expected implementation difficulty is medium because the scope is
-    metadata/source adjudication, not data construction or model execution.
+    Accepted by the Scientific Director task-queue cycle on 2026-07-05 as the
+    next source-readiness step after TASK-0930 blocked T-truncated construction
+    from the static full-window exposure map. Canonical task TASK-0934 preserves
+    the same metadata-only, no-construction scope.

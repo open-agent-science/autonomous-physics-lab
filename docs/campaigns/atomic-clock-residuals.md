@@ -52,11 +52,14 @@ Its role is durable no-tension memory for the completed Beloy/Nemitz
 diagnostic. It does not authorize metric reruns, constants-drift fitting,
 prediction entries, or `RESULT`/`CLAIM`/`KNOW` promotion.
 
-**Reopen condition:** a new independent absolute Yb/Sr source row, or a
-maintainer-approved Pizzocaro aggregation/observable-harmonization contract.
-The McGrew 2018 / NIST route has now been adjudicated as blocked: it does not
-provide a primary direct Yb/Sr row for this campaign and does not reduce the
-Beloy/BACON independence blocker.
+**Reopen condition:** a new independent absolute `171Yb/87Sr` source row, or a
+maintainer-approved aggregation/observable-harmonization contract that keeps any
+different isotope/species axis separate. The McGrew 2018 / NIST route has been
+adjudicated as blocked: it does not provide a primary direct Yb/Sr row for this
+campaign and does not reduce the Beloy/BACON independence blocker. The newest
+post-2021 scout found an independent `171Yb/88Sr` route, but that is not the
+same committed `171Yb/87Sr` consistency axis and cannot be appended as a third
+row.
 
 **Active next work:** `TASK-0704`, `TASK-0705`, `TASK-0456`, `TASK-0742`, and
 `TASK-0756` are all routed: the Nemitz `ACR-0002` row was committed, the
@@ -86,11 +89,15 @@ and `TASK-0901` then blocked it as `BLOCKED_CORRELATED_OR_NOT_DIRECT`: McGrew
 2018 is Yb/Yb performance/geodesy evidence rather than a primary direct Yb/Sr
 ratio, and the identifiable NIST/JILA Yb/Sr route is the already represented
 Beloy/BACON network.
+`TASK-0913` then scouted one post-2021 independent primary-looking Yb/Sr route:
+Morzynski et al. 2024 is independent and scientifically valid, but it measures
+`171Yb/88Sr`, not the existing `171Yb/87Sr` diagnostic, so the reopen role
+remains blocked by isotope/transition mismatch.
 
 **Expected next result:** no immediate Atomic benchmark result. The next useful
-action is a value-blind scout for exactly one post-2021 independent primary
-Yb/Sr source route before any row curation. No constants-drift, new-constant,
-anomaly, prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in scope.
+actions are source-blocker memory and a protocol-only multi-species go/no-go
+contract. No constants-drift, new-constant, anomaly, prediction, `RESULT`,
+`CLAIM`, or `KNOW` framing is in scope.
 
 `TASK-0311` adds:
 

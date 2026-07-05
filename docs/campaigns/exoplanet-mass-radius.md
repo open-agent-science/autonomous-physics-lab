@@ -14,11 +14,13 @@ effects kept visible.
 
 ## Current Status
 
-Active benchmark surface with a pinned source snapshot, loader dry-run, first
-baseline comparison, residual/failure-map work, bounded residual audits, and a
-new null-baseline control panel. The campaign has useful reviewable sandbox
-evidence, but no claim, prediction registry entry, RESULT-*, or public article
-artifact yet.
+Active benchmark surface with pinned source snapshots, loader dry-run, baseline
+comparison, residual/failure-map work, bounded residual audits, and a
+null-baseline control panel. The campaign now has one scoped canonical
+negative/control result: `RESULT-0027` is `AGENT_PUBLISHED` with Gate A passed
+for the committed `EXO-0001` snapshot. It remains monitor-only: no claim,
+prediction registry entry, public article artifact, composition, habitability,
+target-priority, or universal mass-radius statement follows from it.
 
 ## Public Monitoring Snapshot
 
@@ -65,10 +67,12 @@ explicitly revised coverage gate exists.
 scout or gate amendment. `TASK-0781` repeated the metadata-only monitor and
 again recorded `NO_NOTIFY`, so future work still waits for a later `NOTIFY_*`
 monitor class or explicit maintainer direction.
-`TASK-0888` then replayed the negative/control null-baseline finding and found
-that it remains scientifically useful but Gate-A-blocked for publication as a
-canonical negative result because the campaign lacks explicit experiment and
-hypothesis identities for that memory surface.
+`TASK-0888` replayed the negative/control null-baseline finding and found that
+it remained scientifically useful but Gate-A-blocked at the time because the
+campaign lacked explicit experiment and hypothesis identities. `TASK-0909` then
+created those identities, and `TASK-0919` packaged the memory as `RESULT-0027`,
+an `AGENT_PUBLISHED` negative/control result with Gate A passed. Gate B replay
+is still pending.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -114,14 +118,12 @@ for any claimed host axis, and the predeclared candidate beats the
 nearest-radius null baseline. A future `NOTIFY_*` monitor class starts review;
 it does not itself authorize scoring.
 
-**Scope and routing:** this capsule packages existing negative/control memory.
-It does not fetch live rows, add metrics, create or modify
-`RESULT-*`/`PRED-*`/`CLAIM-*`/`KNOW-*`, or make composition, habitability, or
-universal mass-radius statements. `TASK-0904` selected a minimal identity path
-for this null-baseline memory, and source-version monitor check 3 returned
-`NO_NOTIFY`. The next useful work is minimal canonical experiment/hypothesis
-identity scaffolding, not another residual score. The campaign remains
-monitor-only.
+**Scope and routing:** `RESULT-0027` packages existing negative/control memory.
+It did not fetch live rows, add new residual metrics, create `PRED-*`,
+`CLAIM-*`, or `KNOW-*`, or make composition, habitability, or universal
+mass-radius statements. Source-version monitor check 3 returned `NO_NOTIFY`.
+The next useful work is independent Gate B replay of `RESULT-0027`, not another
+residual score. The campaign remains monitor-only.
 
 Evidence:
 
@@ -133,6 +135,8 @@ Evidence:
 - [Source-version monitor check 2](../reviews/exoplanet-source-version-monitor-check-2.md)
 - [Null-baseline canonical identity decision](../reviews/exoplanet-null-baseline-canonical-identity-decision.md)
 - [Source-version monitor check 3](../reviews/exoplanet-source-version-monitor-check-3.md)
+- [RESULT-0027 result metadata](../../results/EXP-0021/RUN-0001/result.yaml)
+- [RESULT-0027 review summary](../../results/EXP-0021/RUN-0001/review_summary.md)
 
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,

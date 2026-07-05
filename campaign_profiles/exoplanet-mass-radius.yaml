@@ -134,16 +134,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "pinned PSCompPars snapshots, replayed control-sensitive null-baseline memory, metadata-only source monitor check 3 returned NO_NOTIFY, and TASK-0904 recommended minimal canonical identity scaffolding before any negative/control result package"
+  current_stage: "pinned PSCompPars snapshots, source monitor check 3 returned NO_NOTIFY, and RESULT-0027 now packages the EXO-0001 null-baseline control-sensitive memory as AGENT_PUBLISHED negative/control evidence; Gate B replay remains pending."
   recommended_parallel_agents: 2
-  coordination_notes: "Parallel-safe for canonical identity scaffolding and metadata-only monitor reviews; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
+  coordination_notes: "Parallel-safe for RESULT-0027 Gate B replay and metadata-only monitor reviews; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
   next_validity_gate:
-    type: source_readiness
-    blocker: "Current snapshot residual scoring stays closed; negative/control result packaging lacks minimal canonical experiment/hypothesis identities."
-    target_artifact: "TASK-0909"
+    type: ratification
+    blocker: "RESULT-0027 is AGENT_PUBLISHED and Gate A passed, but independent Gate B replay is still pending."
+    target_artifact: "TASK-0935"
   best_next_actions:
-    - task_id: TASK-0909
-      label: "Create minimal Exoplanet null-baseline negative/control canonical identities"
+    - task_id: TASK-0935
+      label: "Independently replay RESULT-0027 through Gate B without reopening residual scoring"
   required_gates:
     - "Pinned snapshot and checksum state must remain explicit."
     - "Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes."
@@ -160,14 +160,15 @@ portfolio:
     - "docs/reviews/exoplanet-negative-control-gate-a-blocker.md"
     - "docs/reviews/exoplanet-null-baseline-canonical-identity-decision.md"
     - "docs/reviews/exoplanet-source-version-monitor-check-3.md"
+    - "results/EXP-0021/RUN-0001/result.yaml"
   open_questions:
-    - "Can the replayed null-baseline negative/control memory get minimal canonical identities without rerunning metrics or overclaiming?"
+    - "Can RESULT-0027 pass independent Gate B replay without metric mutation?"
     - "What future source-version or coverage signal would justify EXO-0003 planning?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-01"
+    last_reviewed: "2026-07-05"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0904 canonical identity decision, TASK-0905 source monitor check 3, and Scientific Director 2026-07-01 task-queue cycle"
-    notes: "Monitor-only lane with useful replayed negative/control memory. Gate A packaging is blocked by missing canonical identities; next work is minimal identity scaffolding, not residual scoring."
+    source: "TASK-0919 RESULT-0027 packaging and Scientific Director 2026-07-05 task-queue cycle"
+    notes: "Monitor-only lane with an AGENT_PUBLISHED bounded negative/control result. Next work is Gate B replay, not residual scoring or EXO-0003 acquisition."
