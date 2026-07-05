@@ -3,9 +3,10 @@
 - Task: `TASK-0929`
 - Domain: nuclear physics (NMD-0003 GP residual mass extrapolation)
 - Packet mode: `planning_only` (no code, no metric, no freeze in this task)
-- Packet verdict: `MAINTAINER_AMENDMENT_DECISION_READY_POINT_ONLY_TIER_1`
+- Packet verdict: `MAINTAINER_APPROVED_OPTION_A_POINT_ONLY_TIER_1_FOLLOWUP`
 - Decision authority: maintainer (Gate C)
-- Freeze execution: a separate follow-up task, only after the maintainer approves an option here
+- Gate C decision: Option A selected on 2026-07-05
+- Freeze execution: a separate follow-up task; no freeze is performed here
 
 ## Purpose And Boundary
 
@@ -34,10 +35,30 @@ This packet is a **decision preflight only**. It does **not**:
 - assert calibrated prediction intervals, predictive-uncertainty quality,
   reveal success, or a nuclear-mass law.
 
-The maintainer decides at Gate C among the options in
-[Maintainer Decision Options](#maintainer-decision-options); the actual freeze,
-if approved, is a **separate** scoped follow-up task under the normal review
-gates.
+The maintainer selected **Option A** at Gate C on 2026-07-05: adopt the two-tier
+freeze vocabulary and authorize a separate follow-up task for the tier-1
+point-only freeze. The actual freeze remains a **separate** scoped follow-up
+task under the normal review gates.
+
+## Maintainer Gate C Decision
+
+Decision: **Option A — approve the tier-1 point-only freeze as a follow-up task.**
+
+This decision adopts the two-tier freeze vocabulary:
+
+- tier-1 freezes central-value forecasts only, with no calibrated interval or
+  uncertainty claim;
+- tier-2 remains interval-bearing and still requires fresh-surface calibration
+  validation;
+- `TASK-0827` remains blocked for interval-bearing freezes and is not unblocked
+  by this decision.
+
+The approved follow-up direction is narrow: prepare a separate task/PR that
+freezes the NMD-0003 GP point forecasts and frozen comparator baselines over
+the 37 no-peek frontier targets, carrying the mandatory `TASK-0899` calibration
+failure caveat unchanged. This packet itself still creates no `PRED-*`, changes
+no `RESULT-*`, promotes no claim or knowledge entry, and inspects no reveal
+target value.
 
 ## Background: Why A Two-Tier Vocabulary
 
@@ -338,52 +359,51 @@ gated on the `TASK-0925` fresh-surface contract, and tier-1 is upgradable to
 tier-2 later without re-freezing points, so approving Option A forecloses
 nothing.
 
-This recommendation is a **planning recommendation only**. It authorizes no
-freeze by itself; the maintainer's Gate C selection below governs, and any
-approved freeze is a separate follow-up task under the normal review gates.
+This recommendation has been accepted by the maintainer at Gate C. It authorizes
+only a separate follow-up freeze task; it does not freeze, register, or score any
+prediction inside this PR.
 
 ## Maintainer Decision Checklist
 
 Before selecting an option, the maintainer should confirm:
 
-- [ ] The two-tier vocabulary is understood: tier-1 = point-only (no interval,
+- [x] The two-tier vocabulary is understood: tier-1 = point-only (no interval,
       no uncertainty claim); tier-2 = interval-bearing (still gated).
-- [ ] Tier-1 approval is **not** a `TASK-0827` unblock and does **not** modify
+- [x] Tier-1 approval is **not** a `TASK-0827` unblock and does **not** modify
       `TASK-0827`.
-- [ ] The tier-1 target set is the existing no-peek `FRONTIER-PRED-TARGETS-0001`
+- [x] The tier-1 target set is the existing no-peek `FRONTIER-PRED-TARGETS-0001`
       manifest (37 targets, 4 regions, 0 committed-value hits at design time),
       with source-state re-verified by the future freeze task.
-- [ ] The frozen baseline set is agreed: DZ10-published-variant, the frozen
+- [x] The frozen baseline set is agreed: DZ10-published-variant, the frozen
       liquid-drop baseline (`RESULT-0012`), and `smooth_a_gp`.
-- [ ] The reveal metrics are point-only: MAE and rank vs baselines; **no**
+- [x] The reveal metrics are point-only: MAE and rank vs baselines; **no**
       interval coverage/sharpness scoring.
-- [ ] The admissible reveal source is the next AME/NUBASE-class evaluation (with
+- [x] The admissible reveal source is the next AME/NUBASE-class evaluation (with
       qualifying Penning-trap/storage-ring subsets under the reveal protocol).
-- [ ] The mandatory caveat wording (calibration failed → intervals unavailable;
+- [x] The mandatory caveat wording (calibration failed -> intervals unavailable;
       no interval/uncertainty claim; no prediction-readiness wording; no
       `TASK-0827`-unblocked framing) will be carried, unweakened, into the
       follow-up freeze task and every tier-1 artifact.
-- [ ] The upgrade path is acceptable: intervals may be added later as an additive
+- [x] The upgrade path is acceptable: intervals may be added later as an additive
       amendment bound to the already-frozen points, without re-freezing them, and
       only after fresh-surface calibration validation per the `TASK-0925`
       contract.
-- [ ] Tier-2 remains gated on the `TASK-0925` fresh-surface validation contract;
+- [x] Tier-2 remains gated on the `TASK-0925` fresh-surface validation contract;
       no pass on the seen post-AME2020 holdout can substitute.
-- [ ] Selected option: **A (approve)** / **B (decline)** / **C (defer)**.
-- [ ] If A: the follow-up freeze task is a **separate** scoped task, opened under
+- [x] Selected option: **A (approve)** / ~~B (decline)~~ / ~~C (defer)~~.
+- [x] If A: the follow-up freeze task is a **separate** scoped task, opened under
       the normal review gates, Gate-A-compliant for `PRED-*`.
 
 ## Output-Routing Summary
 
-- Task verdict: `MAINTAINER_AMENDMENT_DECISION_READY_POINT_ONLY_TIER_1`.
+- Task verdict: `MAINTAINER_APPROVED_OPTION_A_POINT_ONLY_TIER_1_FOLLOWUP`.
 - Scope: protocol-amendment **preflight** only; no scoring, no freeze, no metric
   run performed in this task.
 - Canonical destination:
   `docs/reviews/nmd0003-two-tier-point-only-freeze-contract-packet.md`
   (this decision packet).
-- Review destination: maintainer Gate C decision on the two-tier freeze
-  vocabulary amendment (approve tier-1 point-only freeze as a follow-up task /
-  decline / defer).
+- Review destination: Gate C decision recorded; maintainer selected Option A
+  (approve tier-1 point-only freeze as a separate follow-up task).
 - Review tier: `none` (planning/decision packet; not a tiered scientific
   artifact).
 - Gate A status: not attempted (no `RESULT-*` / `PRED-*` created).
@@ -401,9 +421,9 @@ Before selecting an option, the maintainer should confirm:
   referenced only as the fresh-surface validation contract that continues to
   gate tier-2.
 - Limitations and blockers:
-  - This is a decision packet; it authorizes no freeze. The maintainer decides
-    at Gate C, and any approved tier-1 freeze is a separate scoped follow-up
-    task under the normal review gates.
+  - This is a decision packet; it authorizes only a separate follow-up freeze
+    task. The tier-1 freeze itself must be executed in a separate scoped PR
+    under the normal review gates.
   - The tier-1 point estimator inherits the `RESULT-0025` scope limits: one
     frozen NMD-0003 residual surface, one RBF GP on `[Z, N]`, one frozen
     liquid-drop baseline; a different baseline or model class would shift the
