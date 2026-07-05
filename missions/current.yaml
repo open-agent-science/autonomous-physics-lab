@@ -1,5 +1,5 @@
 default_mode: research
-updated: "2026-06-30"
+updated: "2026-07-05"
 
 curator_cycle:
   decision: updated
@@ -67,7 +67,7 @@ missions:
     status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, public-capsule wave, MD-0002 metadata closeout, transfer-negative memory, external-release decision packet, and archive-package dry run. The next Materials executor task is a deterministic local archive helper before any maintainer DOI/upload decision, not a metric or claim mutation."
+    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, public-capsule wave, MD-0002 metadata closeout, transfer-negative memory, external-release decision packet, deterministic archive helper, and Zenodo v0.1.0 DOI record-back. Materials has no immediate metric or claim mutation route from this mission entry; use live task candidates before opening a new follow-up."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
@@ -77,7 +77,7 @@ missions:
       - "TASK-0809 closed the immediate source/dataset-publication metadata gate"
       - "TASK-0817 closed the independent transfer-route scout after metadata closeout"
       - "TASK-0900 produced a deterministic package allowlist and checksum dry run"
-      - "external archive/DOI publication remains maintainer-gated and needs a local deterministic helper before any upload"
+      - "MD-0002 v0.1.0 is published on Zenodo with DOI record-back complete"
     forbidden:
       - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
       - "do not mix computed DFT and experimental measurements without explicit provenance"
@@ -136,10 +136,10 @@ missions:
         label: "Implement deterministic MD-0002 archive-package helper without upload"
         task_id: TASK-0908
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "cross-platform local helper or dry-run command that verifies the TASK-0900 allowlist and writes only untracked archive output"
           - "archive filename, byte size, SHA-256, and helper limitations recorded"
@@ -541,7 +541,7 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. TASK-0903 froze the ZnSe row surface and confirmed that another benchmark needs an explicit predeclared transfer contract. The current Quantum executor path is TASK-0914, not a metric run or correction search."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. TASK-0914 froze the strict no-refit ZnSe/InP transfer contract. The current Quantum executor path is TASK-0920 under that contract, not a correction search."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
@@ -550,6 +550,7 @@ missions:
       - "TASK-0829 found the best direct ZnSe route to be license-limited, and TASK-0870 narrowed it to limited factual extracts"
       - "TASK-0850 found that fixed effective-mass scaling worsened transfer against controls"
       - "TASK-0903 froze the existing ZnSe factual rows and returned NEEDS_MAINTAINER_DECISION for any future transfer benchmark"
+      - "TASK-0914 predeclared a strict no-refit transfer contract and cleared TASK-0920 for execution"
     forbidden:
       - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -585,10 +586,10 @@ missions:
         label: "Predeclare the ZnSe/InP transfer contract before any new benchmark"
         task_id: TASK-0914
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "READY / BLOCKED / NEEDS_DECISION contract for a no-refit ZnSe/InP transfer benchmark"
           - "fixed rows, size-harmonization rule, model, controls, and survival threshold before metrics"
@@ -597,12 +598,12 @@ missions:
         label: "Run the ZnSe no-refit transfer benchmark only after contract approval"
         task_id: TASK-0920
         mode: research
-        status: blocked
+        status: ready
         priority: medium
         difficulty: medium
-        recommended: false
+        recommended: true
         expected_outputs:
-          - "bounded transfer or negative-memory output only after TASK-0914 clears"
+          - "bounded transfer or negative-memory output under the frozen TASK-0914 contract"
           - "no refit, correction search, source-byte redistribution, design-law, or material recommendation wording"
       - id: quantum-effective-mass-negative-memory
         label: "Route the failed effective-mass transfer check as negative memory"
@@ -751,7 +752,7 @@ missions:
     status: active_pinned_dataset
     scientific_value: medium
     risk: medium
-    recommendation: "Pinned-dataset/source-gated campaign: TASK-0901 blocked the McGrew/NIST route as not direct Yb/Sr or not independent from Beloy/BACON. The next executor path is exactly one post-2021 independent primary Yb/Sr source scout, not metric work."
+    recommendation: "Pinned-dataset/source-gated campaign: TASK-0901 blocked the McGrew/NIST route as not direct Yb/Sr or not independent from Beloy/BACON. TASK-0913 completed the next value-blind post-2021 independent-source scout; do not run metrics until a new source-artifact task is queued."
     why_now:
       - "fresh-data source policy exists"
       - "atomic-clock campaign scaffold and schema sketch exist"
@@ -765,6 +766,7 @@ missions:
       - "TASK-0804 closed the public-safe memory route for the source-limited Yb/Sr consistency diagnostic"
       - "TASK-0889 found McGrew/NIST plausible but unresolved on primary-ratio semantics and independence from Beloy/BACON"
       - "TASK-0901 adjudicated the route as BLOCKED_CORRELATED_OR_NOT_DIRECT"
+      - "TASK-0913 completed a value-blind post-2021 independent Yb/Sr source-route scout"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
@@ -799,10 +801,10 @@ missions:
         label: "Scout one post-2021 independent primary Yb/Sr source route"
         task_id: TASK-0913
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "one value-blind source route outside Beloy/Nemitz/Pizzocaro/McGrew assessed"
           - "direct-row, uncertainty, covariance, lab/network overlap, and source-rights gates stated"
@@ -1061,13 +1063,13 @@ missions:
         label: "Package null-baseline negative/control memory as RESULT after identities exist"
         task_id: TASK-0919
         mode: research
-        status: blocked
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "blocked until TASK-0909 creates/approves canonical identities"
-          - "Gate A negative/control RESULT package or blocker note only; residual scoring remains closed"
+          - "Gate A negative/control RESULT package landed after canonical identities"
+          - "residual scoring remains closed; no positive mass-radius claim"
       - id: exoplanet-compact-radius-mass-quartile-scout
         label: "Compact-radius mass-quartile scout is underpowered; use only as diagnostic memory"
         task_id: TASK-0480
@@ -1386,13 +1388,14 @@ missions:
     status: active_gate_b_and_source_readiness
     scientific_value: high
     risk: medium
-    recommendation: "ThermoML Tb RESULT-0026 has a zero-drift numeric replay but formal Gate B is helper-blocked; esters/lactones failed-family memory is preserved, and expansion is rights/count gated. The strongest near-term tasks are the RESULT-0026 workflow Gate B bridge, the local-only 80-row count preflight, and a failed-family negative-result preflight."
+    recommendation: "ThermoML Tb RESULT-0026 has a zero-drift numeric replay and workflow bridge; esters/lactones failed-family memory is preserved, and expansion is rights/count gated. TASK-0918 completed the failed-family negative-result preflight, so any next ThermoML execution should follow that recommendation or a newly queued fixture/source task."
     why_now:
       - "ThermoML normal boiling temperature is a source-pinned public benchmark lane outside astronomy and materials DFT"
       - "RESULT-0026 has a bounded 40-row family-stratified fixture and a clear frozen Joback/Reid baseline"
       - "esters/lactones failed-family memory is already preserved and should not be hidden behind aggregate success"
       - "source expansion is rights and identity/count gated before any raw archive bytes or row values"
       - "TASK-0894 numerically replayed RESULT-0026 with zero drift but left formal tier update blocked by unsupported helper command"
+      - "TASK-0918 completed the esters/lactones failed-family negative-result preflight without mutating RESULT-0026"
     forbidden:
       - "do not commit raw ThermoML archive bytes or a substantial normalized corpus"
       - "do not broaden from Tb to Tc or other properties without a separate leakage/source gate"
@@ -1439,10 +1442,10 @@ missions:
         label: "Preflight esters/lactones failed-family memory for canonical negative RESULT packaging"
         task_id: TASK-0918
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "Gate A checklist for a narrow failed-family negative/control result"
           - "recommend package / keep review-note-only / wait for expanded fixture"

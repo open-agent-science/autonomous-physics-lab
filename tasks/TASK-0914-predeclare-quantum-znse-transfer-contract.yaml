@@ -1,7 +1,7 @@
 id: TASK-0914
 title: "Predeclare the Quantum ZnSe/InP transfer contract before any new benchmark"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
