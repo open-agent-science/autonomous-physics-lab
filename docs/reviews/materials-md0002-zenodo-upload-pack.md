@@ -121,11 +121,16 @@ reproducibility; holdout evaluation; open agent science`
 
 ## Record-Back Checklist (after Publish)
 
-- [ ] DOI recorded in `materials_md0002_snapshot_manifest.yaml`
-      (`external_dataset_doi`), record URL in `external_repository_record`,
-      tag in `release_tag`.
-- [ ] Release tag `dataset-md0002-v0.1.0` pushed at the merged release commit.
-- [ ] Dataset docs updated to cite the DOI as the canonical external citation.
-- [ ] Note: the archived snapshot-manifest bytes intentionally predate the
+- [x] DOI recorded in `materials_md0002_snapshot_manifest.yaml`: version DOI
+      `10.5281/zenodo.21207072`, concept DOI `10.5281/zenodo.21207071`, record
+      URL https://zenodo.org/records/21207072, tag `dataset-md0002-v0.1.0`
+      (published 2026-07-05; live-record checksum verified md5
+      `7cb2979574f7d39945793e1874b5d918`).
+- [x] Release tag `dataset-md0002-v0.1.0` pushed at the merged release commit
+      `8be74696`; rebuilding from the tag reproduces the published archive
+      byte-for-byte (verified).
+- [x] Dataset manifest carries the recommended external citation (APA-style,
+      both creators).
+- [x] Note: the archived snapshot-manifest bytes intentionally predate the
       DOI; a future v0.1.1 rebuild would need allowlist pin refreshes and a
       new version DOI.
