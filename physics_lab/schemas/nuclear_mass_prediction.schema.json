@@ -45,6 +45,10 @@
       "type": "string",
       "const": "prospective_prediction_registry"
     },
+    "freeze_tier": {
+      "type": "string",
+      "enum": ["point_only", "interval_bearing"]
+    },
     "claim_ceiling": {
       "type": "string",
       "minLength": 1

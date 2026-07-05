@@ -5,13 +5,13 @@ summary_scope:
   live_external_fetch_performed: false
   scoring_performed: false
   frozen_prediction_values_modified: false
-highest_pred_id: PRED-0068
-actual_entry_count: 60
+highest_pred_id: PRED-0072
+actual_entry_count: 64
 template_count: 1
-blocked_reveal_count: 60
+blocked_reveal_count: 64
 ready_for_reveal_count: 0
-awaiting_source_count: 60
-target_row_count: 261
+awaiting_source_count: 64
+target_row_count: 409
 id_gaps:
 - PRED-0031
 - PRED-0032
@@ -30,6 +30,8 @@ source_task_counts:
   count: 10
 - label: TASK-0297
   count: 6
+- label: TASK-0933
+  count: 4
 - label: TASK-0228
   count: 2
 - label: TASK-0229
@@ -47,6 +49,8 @@ target_batch_counts:
   count: 14
 - label: shell-axis-balanced-001
   count: 6
+- label: frontier-prediction-targets-0001
+  count: 4
 - label: heavy-extension-row
   count: 4
 - label: n50-forward-row
@@ -82,10 +86,10 @@ model_family_counts:
   count: 15
 - label: feature_term_selected
   count: 12
+- label: baseline_or_manual_control
+  count: 11
 - label: factory_coefficient_transform
   count: 10
-- label: baseline_or_manual_control
-  count: 7
 - label: shell_axis
   count: 6
 - label: smooth_or_reference_control
@@ -96,14 +100,14 @@ model_family_counts:
   count: 2
 reveal_state_counts:
 - label: AWAITING_SOURCE_PREFLIGHT
-  count: 60
+  count: 64
 blocker_counts:
 - label: MAINTAINER_APPROVAL_REQUIRED
-  count: 60
+  count: 64
 - label: NO_PEEK_REVIEW_REQUIRED
-  count: 60
+  count: 64
 - label: SOURCE_PREFLIGHT_REQUIRED
-  count: 60
+  count: 64
 entries_must_not_be_scored_before_reveal_gate:
 - prediction_id: PRED-0001
   task_id: TASK-0205
@@ -700,6 +704,46 @@ entries_must_not_be_scored_before_reveal_gate:
   target_batch: shell-axis-balanced-001
   model_family: shell_axis
   target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0069
+  task_id: TASK-0933
+  target_batch: frontier-prediction-targets-0001
+  model_family: baseline_or_manual_control
+  target_row_count: 37
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0070
+  task_id: TASK-0933
+  target_batch: frontier-prediction-targets-0001
+  model_family: baseline_or_manual_control
+  target_row_count: 37
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0071
+  task_id: TASK-0933
+  target_batch: frontier-prediction-targets-0001
+  model_family: baseline_or_manual_control
+  target_row_count: 37
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0072
+  task_id: TASK-0933
+  target_batch: frontier-prediction-targets-0001
+  model_family: baseline_or_manual_control
+  target_row_count: 37
   reveal_state: AWAITING_SOURCE_PREFLIGHT
   blockers:
   - SOURCE_PREFLIGHT_REQUIRED
