@@ -1,7 +1,7 @@
 id: TASK-0930
 title: "Run the FRB Catalog 2 exposure-map checksum and HDF5 schema gate before T-truncated construction"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -50,6 +50,7 @@ result_artifact_policy:
   evidence:
     - "docs/reviews/frb-catalog2-exposure-map-source-pin.md"
     - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+    - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
 
 validation:
   commands:
