@@ -1,0 +1,483 @@
+prediction_id: PRED-0070
+title: 'NMD-0003 tier-1 point-only frontier freeze: DZ10 published-equation variant v2 frozen comparator
+  forecasts'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0933
+evidence_class: prospective_prediction_registry
+freeze_tier: point_only
+claim_ceiling: 'Tier-1 point-only prospective registration under the maintainer-approved two-tier
+  amendment (TASK-0929 packet, Option A, 2026-07-05): frozen central-value forecasts only; no claim,
+  canonical result, accepted knowledge, reveal score, or success verdict before later maintainer-reviewed
+  comparison; no interval or uncertainty claim (TASK-0899 calibration failed); TASK-0827 remains blocked
+  as the interval-bearing freeze.'
+registered_by:
+  contributor_id: gladunrv
+  agent_id: claude
+registered_at_utc: '2026-07-05T19:35:00Z'
+source_state:
+  git_commit: d2ad3d192cce50eaa08d776a39e2ed8c1c712d88
+  model_reference:
+    model_id: AGENT-RUN-0078::dz10_published_equation_variant
+    source_path: agent_runs/AGENT-RUN-0078/metrics.json
+    frozen_parameters_note: 'DZ10 published-equation variant (nmd0003_dz10_published_equation_variant_v2;
+      arXiv:0912.0882 ten-term equations, not an archival AMDC code parity run). The frozen coefficient
+      vector is pinned verbatim from the committed AGENT-RUN-0078 metrics ({''m_plus_s'': 17.61124231744,
+      ''negative_m_over_rho'': 14.137494904371, ''negative_coulomb'': 0.680769529904, ''negative_asymmetry'':
+      43.8198149109, ''surface_asymmetry'': 59.264691451138, ''pairing'': 5.373109603276, ''spherical_s3'':
+      0.278265677068, ''negative_spherical_s3_over_rho'': 1.267454976849, ''spherical_s4'': 0.020723269353,
+      ''deformation_d4'': 25.828192878142}; ordinary-least-squares fit on the committed NMD-0003 training
+      rows in the paper''s N,Z >= 8 domain), so the frozen forecasts depend only on committed bytes
+      and the committed closed-form equation. A freeze-time deterministic refit reproduced the committed
+      vector within 2e-12 per coefficient (last-ulp lstsq variance), and the frozen vector reproduced
+      the committed post-AME2020 holdout MAE 1.256383 MeV exactly. Frozen comparator central values
+      only; no uncertainty field. code_reference: physics_lab/engines/nmd0003_duflo_zuker_baseline.py;
+      engine_version: nmd0003_dz10_published_equation_variant_v2; pinned freeze command: python3 scripts/freeze_nmd0003_tier1_point_only_frontier.py
+      --source-commit d2ad3d192cce50eaa08d776a39e2ed8c1c712d88 --registered-at 2026-07-05T19:35:00Z
+      --output-dir prediction_registry/nuclear_masses; target set: FRONTIER-PRED-TARGETS-0001 (data/nuclear_masses/frontier_prediction_targets.yaml).'
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+  - data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  - data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml
+  holdout_protocol_references:
+  - docs/blind-holdout-benchmark-protocol.md
+  - docs/nuclear-mass-holdout-protocol.md
+  - docs/prediction-registry-policy.md
+  - docs/nuclear-prediction-reveal-protocol.md
+  - docs/nuclear-reveal-source-readiness-checklist.md
+  live_external_fetch_allowed: false
+  source_data_state_note: 'Registered from committed repository state at git commit d2ad3d192cce50eaa08d776a39e2ed8c1c712d88
+    under the maintainer-approved tier-1 point-only freeze (TASK-0929 packet, Option A). Freeze-time
+    no-peek source-state re-verification per docs/nuclear-prediction-reveal-protocol.md screened every
+    FRONTIER-PRED-TARGETS-0001 target identity against the committed training, post-AME2020 holdout,
+    and NMD-0002 slice files: 37 of 37 manifest targets survived freeze-time source-state re-verification;
+    0 dropped. No live external measurement source was fetched, revealed, scored, or compared, and
+    no committed measured value exists in-repo for any surviving target. Input file hashes: sha256(agent_runs/AGENT-RUN-0078/metrics.json)=7bb12460b4489233e988db93520f1c2a059557f53171526d5c24e95e0dda2830;
+    sha256(data/nuclear_masses/frontier_prediction_targets.yaml)=27e624dade2aec22b43d92c8b007348d293e5f2cec1a6a37043a063e1c340307;
+    sha256(data/nuclear_masses/nmd-0002-curated-measured-slice.yaml)=ec2e9917a28120de2cc7914570612b2f581a521aa1b5ff1bbd01549f63f66c68;
+    sha256(data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml)=f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52;
+    sha256(data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml)=2988c2eb28e0e1bee783bd4824a9680313b5ef81f1e9ae96698893e4525b8cd2;
+    sha256(data/nuclear_masses/post_ame2020_holdout.yaml)=47bfe520df8ca4a95c1614192c5da165782b2308ba58110e6832afb1b8151e49;
+    sha256(results/EXP-0018/RUN-0001/metrics.json)=294405890bb90e0079ca34fb950d52738d482fc95dce861df27d04e9f97b7bbc'
+target_set:
+  label: frontier-prediction-targets-0001
+  quantity: binding_energy_mev
+  unit: MeV
+  target_nuclides:
+  - nuclide_id: V-73
+    Z: 23
+    N: 50
+    A: 73
+    predicted_value_mev: 533.693169
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Cr-74
+    Z: 24
+    N: 50
+    A: 74
+    predicted_value_mev: 559.209216
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Mn-75
+    Z: 25
+    N: 50
+    A: 75
+    predicted_value_mev: 580.687734
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Fe-76
+    Z: 26
+    N: 50
+    A: 76
+    predicted_value_mev: 603.945266
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Co-77
+    Z: 27
+    N: 50
+    A: 77
+    predicted_value_mev: 623.360675
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Fe-78
+    Z: 26
+    N: 52
+    A: 78
+    predicted_value_mev: 605.181099
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Co-79
+    Z: 27
+    N: 52
+    A: 79
+    predicted_value_mev: 625.633362
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Ni-80
+    Z: 28
+    N: 52
+    A: 80
+    predicted_value_mev: 647.840686
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Ni-82
+    Z: 28
+    N: 54
+    A: 82
+    predicted_value_mev: 649.883736
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n50_below_ni78). No posterior standard deviation, interval,
+      coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration failure).
+  - nuclide_id: Ru-126
+    Z: 44
+    N: 82
+    A: 126
+    predicted_value_mev: 1005.491819
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Rh-127
+    Z: 45
+    N: 82
+    A: 127
+    predicted_value_mev: 1021.896649
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Pd-128
+    Z: 46
+    N: 82
+    A: 128
+    predicted_value_mev: 1039.925152
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Ag-129
+    Z: 47
+    N: 82
+    A: 129
+    predicted_value_mev: 1054.95139
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Rh-129
+    Z: 45
+    N: 84
+    A: 129
+    predicted_value_mev: 1025.325263
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Pd-130
+    Z: 46
+    N: 84
+    A: 130
+    predicted_value_mev: 1044.025967
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Ag-131
+    Z: 47
+    N: 84
+    A: 131
+    predicted_value_mev: 1059.695603
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Cd-133
+    Z: 48
+    N: 85
+    A: 133
+    predicted_value_mev: 1078.53811
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n82_neutron_rich_cd_sn). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Er-194
+    Z: 68
+    N: 126
+    A: 194
+    predicted_value_mev: 1486.759394
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Yb-196
+    Z: 70
+    N: 126
+    A: 196
+    predicted_value_mev: 1514.905319
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Hf-198
+    Z: 72
+    N: 126
+    A: 198
+    predicted_value_mev: 1539.958867
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: W-200
+    Z: 74
+    N: 126
+    A: 200
+    predicted_value_mev: 1563.0307
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Os-202
+    Z: 76
+    N: 126
+    A: 202
+    predicted_value_mev: 1584.203151
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Pt-204
+    Z: 78
+    N: 126
+    A: 204
+    predicted_value_mev: 1603.553152
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Yb-198
+    Z: 70
+    N: 128
+    A: 198
+    predicted_value_mev: 1516.370074
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Hf-200
+    Z: 72
+    N: 128
+    A: 200
+    predicted_value_mev: 1542.677679
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: W-202
+    Z: 74
+    N: 128
+    A: 202
+    predicted_value_mev: 1566.980327
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: Os-204
+    Z: 76
+    N: 128
+    A: 204
+    predicted_value_mev: 1589.322258
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (n126_rprocess_waiting_point). No posterior standard deviation,
+      interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899 calibration
+      failure).
+  - nuclide_id: O-28
+    Z: 8
+    N: 20
+    A: 28
+    predicted_value_mev: 162.378181
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: O-30
+    Z: 8
+    N: 22
+    A: 30
+    predicted_value_mev: 158.273778
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: F-31
+    Z: 9
+    N: 22
+    A: 31
+    predicted_value_mev: 183.309891
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Ne-32
+    Z: 10
+    N: 22
+    A: 32
+    predicted_value_mev: 210.522142
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Ne-34
+    Z: 10
+    N: 24
+    A: 34
+    predicted_value_mev: 209.771919
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Na-35
+    Z: 11
+    N: 24
+    A: 35
+    predicted_value_mev: 233.158121
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Na-37
+    Z: 11
+    N: 26
+    A: 37
+    predicted_value_mev: 234.165911
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Mg-38
+    Z: 12
+    N: 26
+    A: 38
+    predicted_value_mev: 261.526453
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Mg-40
+    Z: 12
+    N: 28
+    A: 40
+    predicted_value_mev: 264.627663
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+  - nuclide_id: Mg-42
+    Z: 12
+    N: 30
+    A: 42
+    predicted_value_mev: 261.572253
+    uncertainty_mev: null
+    confidence_note: Tier-1 point-only frozen central value (binding energy, MeV) from AGENT-RUN-0078::dz10_published_equation_variant
+      for frontier-prediction-targets-0001 (light_neutron_rich_drip_o_ne_mg). No posterior standard
+      deviation, interval, coverage, or pre-reveal confidence ranking is recorded or claimed (TASK-0899
+      calibration failure).
+uncertainty_semantics:
+  type: point_estimate_only
+  note: 'Tier-1 point-only freeze: every uncertainty_mev is intentionally null. The NMD-0003 predictive-uncertainty
+    calibration failed the TASK-0899 no-peek audit, so no posterior standard deviation, interval multiplier,
+    or derived uncertainty field is frozen, recorded, or claimed anywhere in this payload.'
+reveal_conditions:
+  reveal_trigger: The next AME/NUBASE-class evaluation published after this registration, or a qualifying
+    flagged Penning-trap / storage-ring measurement subset in a watched frontier region, admitted
+    under docs/nuclear-prediction-reveal-protocol.md with its own source manifest, checksum record,
+    registry snapshot, and no-peek audit by a separate maintainer-reviewed reveal task.
+  comparison_data_reference: Future pinned source manifest per docs/nuclear-prediction-reveal-protocol.md
+    and docs/nuclear-reveal-source-readiness-checklist.md. Tier-1 reveal metrics are MAE (MeV) and
+    rank against the frozen baseline set (PRED-0069, PRED-0070, PRED-0071, PRED-0072) ONLY, per region
+    and pooled; no interval coverage, sharpness, or calibration metric is in scope. If the pinned
+    source reports mass excess or atomic mass, the conversion to binding energy must be the deterministic
+    committed convention in physics_lab/engines/nuclear_masses.py and be documented by the reveal
+    task.
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: Do not alter model family, frozen parameters, target nuclides, prediction values,
+    source commit, or reveal rule after later measurements become visible. Later comparison must be
+    a separate reviewed reveal task and may reveal only eligible measured subsets; unrevealed targets
+    stay unchanged under partial reveal. Any future tier-2 upgrade adds intervals as an additive amendment
+    bound to these already-frozen central values, only after fresh-surface calibration validation
+    per the TASK-0925 contract, without re-freezing or re-timing the points.
+limitations:
+- "**Tier-1 point-only freeze \u2014 mandatory caveat.** The NMD-0003 predictive uncertainty calibration\
+  \ **failed** the no-peek audit (`TASK-0899`): all three predeclared route families missed the predeclared\
+  \ coverage and standardized-residual conditions (best family ~`0.62` 1-sigma coverage, RMS standardized\
+  \ residual ~`4.3`). **Calibrated prediction intervals are unavailable.** This freeze registers **point\
+  \ (central-value) forecasts only**. It makes **no interval or uncertainty claim**, **no** statement\
+  \ of trustworthy 1-sigma / 2-sigma predictive coverage, and **no** prediction-readiness or \"prediction-ready\"\
+  \ wording. It is scored at reveal by **MAE and rank against frozen baselines only**. It is **not**\
+  \ a reveal result and **not** a blind-prediction success until an admissible source is revealed\
+  \ and scored. This tier-1 freeze does **not** unblock `TASK-0827`: `TASK-0827` remains the interval-bearing\
+  \ freeze and remains **blocked** for interval-bearing freezes until calibration is validated on\
+  \ a fresh surface per the `TASK-0925` contract. It establishes **no** nuclear-mass law, **no** broad\
+  \ mass formula, and **no** discovery."
+- Prospective registry entry only; not a claim, result package, success verdict, or accepted knowledge;
+  scored at a future reveal by MAE and rank against the frozen baselines only.
+- 'Disjointness requirement (maintainer, Gate C 2026-07-05): any future tier-2 calibration-validation
+  set (set A) under the TASK-0925 fresh-surface contract must be disjoint from these frozen tier-1
+  targets; tier-2 interval coverage is never reported in-sample on them.'
+- 'Freeze-time source-state screen ledger: 37 of 37 manifest targets survived freeze-time source-state
+  re-verification; 0 dropped. The screen covers the committed in-repo files only; it is not a positive
+  claim that any target is unmeasured in the wider literature.'
+- 'Scope inherited from RESULT-0025: one frozen NMD-0003 residual surface over one frozen liquid-drop
+  audit baseline; a different baseline or model class would shift the residual surface. The comparator
+  set is frozen for rank scoring only.'
+- No live external measurement source was fetched, revealed, scored, or compared during registration.
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

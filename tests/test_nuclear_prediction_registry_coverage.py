@@ -14,10 +14,10 @@ def test_nuclear_prediction_registry_coverage_counts_current_registry() -> None:
     coverage = build_nuclear_prediction_registry_coverage(ROOT)
 
     assert coverage["task_id"] == "TASK-0272"
-    assert coverage["audit_scope"]["entry_count"] == 60
-    assert coverage["audit_scope"]["target_row_count"] == 261
+    assert coverage["audit_scope"]["entry_count"] == 64
+    assert coverage["audit_scope"]["target_row_count"] == 409
     assert coverage["audit_scope"]["lowest_prediction_id"] == "PRED-0001"
-    assert coverage["audit_scope"]["highest_prediction_id"] == "PRED-0068"
+    assert coverage["audit_scope"]["highest_prediction_id"] == "PRED-0072"
     assert coverage["audit_scope"]["live_external_fetch_allowed_values"] == [False]
     assert "PRED-0031" in coverage["audit_scope"]["id_gaps"]
     assert "PRED-0040" in coverage["audit_scope"]["id_gaps"]
@@ -36,6 +36,7 @@ def test_nuclear_prediction_registry_coverage_groups_source_and_transform_lanes(
     assert task_counts["TASK-0251"] == 10
     assert task_counts["TASK-0265"] == 12
     assert task_counts["TASK-0297"] == 6
+    assert task_counts["TASK-0933"] == 4
     assert transform_counts["feature_term_selected_registry"] == 12
     assert transform_counts["factory_coefficient_transform_selected_registry"] == 10
 
