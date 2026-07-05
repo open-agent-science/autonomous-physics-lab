@@ -30,10 +30,19 @@ predicate. The normalized file contains 724 axis rows over 362 materials:
 formation energy per atom and band gap, both computed DFT values. The
 formation-energy axis is used by `RESULT-0021`; band gap remains diagnostic-only.
 
-`MD-0002` is internally reusable and content-pinned, but it is not an external
-dataset publication. No DOI, release tag, external archive record, material
-recommendation, synthesis guidance, device-performance statement, biomedical
-claim, or universal materials-law claim is created by these files.
+`MD-0002` is internally reusable, content-pinned, and externally published as
+the Zenodo dataset release `MD-0002: Frozen benchmark slice of Materials Project
+stable ternary oxides (v0.1.0)`:
+
+- version DOI: `10.5281/zenodo.21207072`
+- concept DOI: `10.5281/zenodo.21207071`
+- record URL: `https://zenodo.org/records/21207072`
+- release tag: `dataset-md0002-v0.1.0`
+
+The DOI is a dataset citation for the frozen computed-DFT benchmark slice. It
+does not create a material recommendation, synthesis guidance,
+device-performance statement, biomedical claim, or universal materials-law
+claim.
 
 ## Citation And Reuse Boundary
 
@@ -51,10 +60,11 @@ a separate maintainer-approved publication task.
 
 `materials_md0002_snapshot_manifest.yaml` records the equivalent MD-0002
 release/source metadata: source citation, CC BY 4.0 reuse status, raw and
-normalized checksums, computed-DFT uncertainty semantics, changelog, and
-explicit DOI/external-release status. It preserves the same no-claim boundary:
-MD-0002 supports scoped benchmark reproducibility inside APL, not a standalone
-materials-design or experimental-validation claim.
+normalized checksums, computed-DFT uncertainty semantics, changelog, Zenodo DOI,
+release tag, and external-release status. It preserves the same no-claim
+boundary: MD-0002 supports scoped benchmark reproducibility inside APL and as a
+citable dataset, not a standalone materials-design or experimental-validation
+claim.
 
 ## Source Policy
 

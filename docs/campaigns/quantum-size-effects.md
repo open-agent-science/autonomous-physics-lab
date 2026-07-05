@@ -44,11 +44,12 @@ one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
 **Active next work:** the ZnSe/Toufanian factual row surface is frozen. The
-next task is a no-refit transfer contract that fixes rows, size harmonization,
-model, controls, and survival threshold before any metrics. The effective-mass
-transfer failure has already been routed as scoped sandbox negative memory. No
-correction search is authorized by the baseline or by the failed transfer
-attempts.
+no-refit transfer contract is now declared: fixed InP/ZnSe rows, equivalent-
+diameter size harmonization, fixed confinement-energy model, controls, and a
+`0.05 eV` survival threshold. The current executable lane is the strict
+`TASK-0920` benchmark under that contract. The effective-mass transfer failure
+has already been routed as scoped sandbox negative memory. No correction search
+is authorized by the baseline or by the failed transfer attempts.
 
 ## Historical Source-Readiness Trail
 
@@ -220,9 +221,9 @@ Current task posture:
 
 Safe next contributions are:
 
-- `TASK-0914` no-refit transfer-contract predeclaration for the frozen
-  ZnSe/Toufanian direct-size route, with no benchmark metrics until rows,
-  size harmonization, controls, and survival threshold are fixed;
+- `TASK-0920` execution of the strict no-refit transfer benchmark for the frozen
+  ZnSe/Toufanian direct-size route, using the already declared rows, size
+  harmonization, controls, and survival threshold;
 - conservative profile/page refresh where the latest source and transfer
   blockers changed public wording.
 
@@ -377,10 +378,10 @@ Historical context:
   alternative: that weaker sandbox-only path still requires explicit
   maintainer approval, declared labels, and frozen negative controls;
 - treat archived `TASK-0336` as historical Jasieniak context only; use
-  `TASK-0914` for the current ZnSe no-refit transfer-contract decision before
-  any benchmark task;
+  `TASK-0920` for the current ZnSe no-refit transfer benchmark under the
+  declared contract;
 - treat `TASK-0364` as historical source-scout context; the current
-  second-material source decision is `TASK-0914`;
+  second-material source decision is already made by `TASK-0914`;
 - keep the routed effective-mass transfer failure as durable negative/control
   memory before opening another quantum transfer lane.
 

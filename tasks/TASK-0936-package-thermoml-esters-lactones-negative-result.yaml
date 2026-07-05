@@ -1,0 +1,61 @@
+id: TASK-0936
+title: "Package RESULT-0026 esters/lactones failed-family memory as a bounded ThermoML negative/control RESULT"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0918 recommended packaging the esters/lactones failed-family memory as a bounded negative/control result."
+  - "RESULT-0026 is now AGENT_VALIDATED, aggregate-positive, and family-dependent; the failed family should be preserved as first-class negative memory rather than hidden behind the aggregate win."
+  - "This is result publication from committed evidence only, not a rerun, correction search, or broader ThermoML expansion."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
+    - "docs/reviews/thermoml-esters-lactones-negative-result-preflight.md"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0001/metrics.json"
+    - "docs/reviews/thermoml-result0026-gate-b-replay.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Create a new canonical negative/control result package, expected as
+    RESULT-0028 unless that id is taken by a newer main commit, using only the
+    already committed RESULT-0026 metrics and input hashes. Preserve the
+    aggregate-positive context and the narrow five-row esters/lactones scope.
+
+requirements:
+  - "Create a new canonical negative/control RESULT package; do not rewrite RESULT-0026 metrics, verdict, review tier, fixture rows, Joback coefficients, or source artifacts."
+  - "Use only existing committed RESULT-0026 evidence and the TASK-0918 preflight; do not rerun, refit, fetch, tune, or expand ThermoML data unless only a deterministic packaging check is needed."
+  - "State the negative result as an esters/lactones family-survival failure inside the committed 40-row normal-boiling-temperature fixture only."
+  - "Preserve aggregate-positive context: Joback clears the aggregate margin and seven of eight family margins in RESULT-0026."
+  - "Use schema-safe negative-result wording and verdict fields; stop rather than using misleading status vocabulary."
+  - "Preserve ThermoML attribution, publisher-permission/source-rights limits, raw-archive non-vendoring boundary, and no-claim wording."
+  - "Do not create chemical-design, process-design, safety, synthesis, universal Joback validation/falsification, or broad property-estimation claims."
+
+accepted_outputs:
+  - "A new RESULT package under the maintainer-approved EXP-0020 path, with Gate A report, metrics/source references, limitations, review metadata, and no-claim wording."
+  - "A review note or result report with the bounded public-safe sentence from TASK-0918 and explicit aggregate-positive context."
+  - "Output-routing summary: Gate A PASS/BLOCKED, Gate B next step, claim impact none, knowledge impact none."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to package a bounded negative/control RESULT from already validated committed evidence."
+  evidence:
+    - "docs/reviews/thermoml-esters-lactones-negative-result-preflight.md"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_joback_tb.py tests/test_thermoml_family_transfer.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

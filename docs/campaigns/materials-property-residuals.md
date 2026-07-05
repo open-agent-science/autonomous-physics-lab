@@ -46,8 +46,10 @@ review-note-only. `TASK-0600` then showed the formation-energy signal survives
 deterministic null controls, and `TASK-0601` found the formation-energy
 conclusion split-robust while the band-gap ordering is split-fragile. The later
 MD-0002 widening path produced the campaign's first canonical benchmark result:
-`RESULT-0021`, now AGENT_VALIDATED after Gate B replay. No claim, prediction,
-external dataset repository, or DOI has been created.
+`RESULT-0021`, now AGENT_VALIDATED after Gate B replay. MD-0002 v0.1.0 is also
+externally published on Zenodo with version DOI `10.5281/zenodo.21207072`.
+No claim, prediction, material recommendation, or materials-law statement has
+been created.
 
 ## Public Monitoring Snapshot
 
@@ -69,8 +71,10 @@ audit found its baseline ordering split-fragile.
 recommendations, material-design results, experimental measurements,
 predictions, or a new-law claim. The rows are computed DFT values only and do
 not support synthesis, device, biomedical, or material-design guidance.
-`RESULT-0021` is a scoped benchmark artifact; no external dataset repository or
-DOI has been minted.
+`RESULT-0021` is a scoped benchmark artifact. The MD-0002 dataset archive is
+now externally citable on Zenodo (version DOI `10.5281/zenodo.21207072`,
+concept DOI `10.5281/zenodo.21207071`), but the DOI is a dataset citation, not
+a scientific claim or material-design endorsement.
 
 **Active next work:** `TASK-0626` ran the bounded formation-energy Research
 Factory smoke sprint and found no candidate that clears the frozen baseline
@@ -103,8 +107,12 @@ audit showed the advantage is localized to exact cation-pair granularity.
 external-release decision packet kept DOI/archive publication maintainer-gated,
 and `TASK-0900` completed a deterministic archive-package dry run with the file
 allowlist, checksum posture, release-tag/citation draft, and no-upload/no-DOI
-boundary. The current blocker is a reusable deterministic helper that can
-recreate and verify that local package before any maintainer upload decision.
+boundary. The later release path added a deterministic helper, cleaned the
+standalone archive payload, published MD-0002 v0.1.0 on Zenodo, and recorded
+the DOI back into the dataset manifest. The current scientific blocker is not
+missing publication metadata; it is avoiding another metric/factory loop unless
+a new source or validation question adds information beyond the already
+recorded transfer and descriptor-ablation limits.
 
 ## Admissible Source Classes
 
@@ -200,10 +208,10 @@ sandbox-pass formation-energy benchmark package at
 materials claim.
 The numbered path below is now:
 
-1. **External archive-package helper** — turn the deterministic dry-run
-   manifest into a reusable local helper for MD-0002 without uploading, minting
-   a DOI, changing source rows, or changing benchmark metrics. Band gap remains
-   diagnostic-only unless its control evidence improves.
+1. **TASK-0937: Post-release integrity memory** — verify and preserve the
+   Zenodo DOI, release tag, archive checksum, license/attribution, and no-claim
+   wording; do not rebuild the archive unless a future versioned release
+   explicitly refreshes the allowlist and pins.
 2. **Post-transfer stop/go memory** — preserve the disjoint-family transfer
    failure as scope memory; do not rerun broad feature factories or convert the
    cation-pair advantage into material-design wording.

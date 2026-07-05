@@ -15,8 +15,8 @@ source, identity, family-split, and control gates.
 
 **New active benchmark surface.** The first slice is already stronger than a
 scaffold: `TASK-0869` packaged the bounded ThermoML `Tb` family-stratified
-Joback transfer benchmark as `RESULT-0026`, an `AGENT_PUBLISHED`,
-`VALID_IN_RANGE` result.
+Joback transfer benchmark as `RESULT-0026`, now an `AGENT_VALIDATED`,
+`VALID_IN_RANGE` result after formal Gate B workflow replay.
 
 The evidence is deliberately narrow. The committed fixture contains 40 factual
 audit rows, five rows from each of eight predeclared chemical families. The raw
@@ -49,10 +49,10 @@ the family-survival margin.
 clear the family margin. That failed family is part of the result, not a detail
 to hide behind the aggregate win.
 
-**Replay state:** an independent numeric replay reproduced aggregate and
-per-family `RESULT-0026` metrics with zero drift. Formal Gate B tier update is
-still blocked because the current helper/workflow path does not yet support the
-result replay command.
+**Replay state:** the formal workflow Gate B bridge reproduced the aggregate
+and per-family `RESULT-0026` metrics with zero drift and updated the result tier
+to `AGENT_VALIDATED`. This validates the bounded 40-row `Tb` fixture only; it
+does not remove the esters/lactones failed-family limitation.
 
 **Not a claim:** `RESULT-0026` is not a universal validation of Joback, not a
 new thermophysical law, and not a chemical-design or process-design result. It
@@ -63,17 +63,15 @@ for this first audit.
 
 ## Active Next Work
 
-The campaign should move through three narrow gates:
+The campaign should move through two narrow gates:
 
-1. **Formal Gate B bridge** - connect the zero-drift numeric replay to a
-   protocol-safe workflow/helper path without changing result metrics.
-2. **Local-only source-expansion preflight** - decide whether a larger
+1. **Local-only source-expansion preflight** - decide whether a larger
    ThermoML `Tb` fixture can be described with identity mapping, family counts,
    row class, and rights blockers before any values or archive bytes are
    committed.
-3. **Failed-family negative memory** - reuse the landed `esters/lactones`
-   negative/control memory so future agents do not overstate aggregate
-   transfer.
+2. **Failed-family negative RESULT packaging** - package the landed
+   `esters/lactones` negative/control memory as a bounded result so future
+   agents do not overstate aggregate transfer.
 
 ## Admissible Source Classes
 
@@ -125,12 +123,11 @@ Not allowed:
 
 ## Recommended Next Tasks
 
-1. `TASK-0907` - bridge ThermoML `Tb` `RESULT-0026` into formal workflow Gate
-   B.
-2. `TASK-0906` - preflight local-only identity/count feasibility for an 80-row
-   ThermoML `Tb` fixture.
-3. `TASK-0918` - preflight esters/lactones failed-family memory for possible
-   canonical negative/control packaging.
+1. `TASK-0936` - package the esters/lactones failed-family memory as a bounded
+   negative/control RESULT without mutating `RESULT-0026`.
+2. `TASK-0940` - prepare the maintainer decision packet for any 80-row
+   ThermoML `Tb` expansion route: bounded public extract, local-only analysis,
+   external permission, or no expansion. This happens before any row extraction.
 
 ## Why It Matters
 

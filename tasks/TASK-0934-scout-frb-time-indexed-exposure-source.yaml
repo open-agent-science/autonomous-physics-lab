@@ -1,0 +1,61 @@
+id: TASK-0934
+title: "Scout an official time-indexed FRB exposure source after the static-map blocker"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0930 pinned and inspected the CHIME/FRB Catalog 2 exposure HDF5, but found only cumulative full-window HEALPix maps with no time axis."
+  - "The FRB lane cannot construct leakage-safe exp_up(<=T) or exp_low(<=T) from the static full-window map without post-T leakage."
+  - "The next useful step is official source discovery for time-indexed exposure or operational/sensitivity intervals, not model fitting or prediction work."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "tasks/proposals/20260705-akutenyov-frb-time-indexed-exposure-source-scout.yaml"
+    - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
+    - "data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml"
+    - "docs/reviews/frb-catalog2-exposure-map-source-pin.md"
+    - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+    - "data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    TASK-0930 closed with
+    CHECKSUM_PINNED_CONSTRUCTION_BLOCKED_STATIC_FULL_WINDOW_ONLY. This task
+    searches official CHIME/FRB, CADC/CANFAR, or associated publication
+    surfaces for a genuinely time-indexed exposure or operational/sensitivity
+    route that could support the predeclared no-leakage temporal split.
+
+requirements:
+  - "Search only official or primary CHIME/FRB, CADC/CANFAR, or associated publication/documentation surfaces."
+  - "For each credible candidate, record locator, publisher/owner, version or date coverage, interval boundaries, upper/lower transit semantics, sky-coordinate mapping, exposure units, access method, checksum feasibility, and citation."
+  - "Apply the repository three-question source-rights framework separately for local analysis, source-byte redistribution, and bulk derived-row publication."
+  - "Determine whether the candidate can reconstruct exp_up(<=T) and exp_low(<=T) without using post-T data, inferring missing intervals, or treating the cumulative TASK-0930 map as time-resolved."
+  - "Return exactly one readiness verdict: TIME_INDEXED_SOURCE_READY, TIME_INDEXED_SOURCE_AMBIGUOUS, or TIME_INDEXED_SOURCE_BLOCKED."
+  - "Do not fetch or commit value-bearing bulk bytes, construct truncated exposure rows, join FRB positions, fit or score a model, freeze a prediction, create a RESULT, or modify CLAIM/KNOW artifacts."
+  - "Use source-readiness and leakage-control wording only; no repeater-classification, discovery, population, or breakthrough claim."
+
+accepted_outputs:
+  - "A metadata-only review note under docs/reviews/ with candidate-source table, rights/access audit, interval and coordinate semantics, checksum feasibility, and one readiness verdict."
+  - "If one route clears: the minimal future checksum/schema task shape; if no route clears: a durable blocker note that prevents premature T-truncated construction."
+  - "Output-routing summary stating that no dataset, benchmark, prediction, result, claim, or knowledge artifact was produced."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness scout only; no benchmark, prediction, result artifact, or claim is produced."
+  evidence:
+    - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

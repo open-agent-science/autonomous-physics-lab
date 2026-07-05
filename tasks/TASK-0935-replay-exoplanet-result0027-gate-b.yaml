@@ -1,0 +1,64 @@
+id: TASK-0935
+title: "Independently replay Exoplanet RESULT-0027 through Gate B without reopening residual scoring"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0027 is now AGENT_PUBLISHED negative/control memory for the committed EXO-0001 snapshot; Gate A passes and Gate B remains pending."
+  - "The exoplanet campaign should validate the bounded negative/control result before any public summary treats it as stronger than agent-published memory."
+  - "The replay must preserve monitor-only posture: no live fetch, EXO-0003 rows, residual rescoring, CK17 refit, or positive mass-radius law."
+
+input:
+  mode: workflow
+  related_domain: astrophysics
+  related_objects:
+    - "results/EXP-0021/RUN-0001/result.yaml"
+    - "results/EXP-0021/RUN-0001/metrics.json"
+    - "results/EXP-0021/RUN-0001/gate_a_report.md"
+    - "docs/reviews/exoplanet-null-baseline-negative-memory-replay.md"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "scripts/package_exoplanet_null_baseline_result.py"
+    - "scripts/apl_validate_agent_published_result.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Replay the already packaged RESULT-0027 negative/control artifact from
+    committed inputs only. The goal is a Gate B PASS/BLOCKED/CONTESTED
+    determination and, only if the formal helper path passes, a metadata-only
+    validation-record tier update. The scientific metrics and verdict are not
+    to be edited.
+
+requirements:
+  - "Run the repository Gate B helper or an explicitly justified replay path against results/EXP-0021/RUN-0001/result.yaml from committed inputs."
+  - "Compare the packaged true-mass slice classifications, nearest-radius null-control values, underpowered minimum-mass boundary, result metadata, and input hashes against RESULT-0027."
+  - "If the formal Gate B path passes, update only permitted review-tier / validation-record metadata according to docs/result-promotion-protocol.md; do not edit metrics, best_verdict, comparisons, or no-claim wording."
+  - "If helper support is blocked or contested, preserve a review note with the exact blocker and no tier change."
+  - "Do not fetch live NASA Exoplanet Archive data, create EXO-0003 rows, change source-version triggers, rerun residual scoring, refit Chen-Kipping-style baselines, or create a positive mass-radius law."
+  - "Do not create or promote CLAIM/KNOW/PRED artifacts."
+
+accepted_outputs:
+  - "A Gate B replay note under docs/reviews/ with command, validator identity, drift table, helper status, limitations, and output-routing summary."
+  - "Optional metadata-only RESULT-0027 validation-record / review-tier update only if Gate B formally passes."
+  - "Clear public-safe wording that RESULT-0027 remains bounded negative/control memory over the committed EXO-0001 true-mass transit-radius slices."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation for an existing RESULT; no new result or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0021/RUN-0001/result.yaml"
+    - "results/EXP-0021/RUN-0001/gate_a_report.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_exoplanet_null_baseline_result_package.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0021/RUN-0001/result.yaml --root ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

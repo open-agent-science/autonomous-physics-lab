@@ -1,0 +1,56 @@
+id: TASK-0938
+title: "Draft Atomic Yb/Sr multi-species harmonization go/no-go contract after the 171Yb/88Sr source blocker"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0913 found an independent post-2021 Yb/Sr source route, but it measures 171Yb/88Sr rather than the committed 171Yb/87Sr axis."
+  - "The Atomic campaign should not silently coerce isotope/species-mismatched ratios into the existing two-row Beloy/Nemitz diagnostic."
+  - "A protocol-only go/no-go contract can decide whether a separate multi-species axis is scientifically admissible, or whether Atomic stays monitor-only until a true 171Yb/87Sr source appears."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/reviews/atomic-post2021-independent-ybsr-source-scout.md"
+    - "docs/reviews/atomic-yb-sr-source-limited-consistency-memory-card.md"
+    - "docs/reviews/atomic-pizzocaro-aggregation-observable-harmonization-contract.md"
+    - "docs/reviews/atomic-mcgrew-ybsr-source-route-adjudication.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  planning_context: >
+    Evaluate the narrow protocol question raised by TASK-0913: whether an
+    independent 171Yb/88Sr source can seed a separate, explicitly labeled
+    multi-species Yb/Sr harmonization axis, or whether using it would create
+    a derived-row/covariance/observable mismatch that keeps Atomic monitor-only.
+
+requirements:
+  - "Define the admissible observable families separately: existing 171Yb/87Sr direct-ratio consistency, possible 171Yb/88Sr direct-ratio memory, and any derived/harmonized cross-isotope axis."
+  - "List the exact extra inputs that a harmonized axis would require (recommended frequency values, isotope/transition semantics, covariance propagation, epoch alignment, lab/network independence, and uncertainty-budget visibility)."
+  - "Return exactly one verdict: MULTISPECIES_CONTRACT_READY, KEEP_MONITOR_ONLY, or NEEDS_MAINTAINER_DECISION."
+  - "Do not ingest or transcribe ratio values, derive 87Sr from 88Sr, combine values across sources, fit constants drift, run metrics, create RESULT/PRED/CLAIM/KNOW artifacts, or edit ACR rows."
+  - "Use source-readiness language only; no constants-drift, new-constant, anomaly, precision-new-physics, or discovery wording."
+
+accepted_outputs:
+  - "A docs/reviews go/no-go contract note with observable taxonomy, required inputs, independence/covariance risks, stop conditions, and one verdict."
+  - "If MULTISPECIES_CONTRACT_READY: a bounded future source-artifact task shape that keeps the axis separate from 171Yb/87Sr; if not ready: a durable monitor-only blocker."
+  - "Output-routing summary stating that no row, metric, result, prediction, claim, or knowledge artifact was produced."
+
+result_artifact_policy:
+  required: false
+  reason: "Protocol/source-readiness contract only; no value-bearing rows, benchmark, prediction, result, or claim are produced."
+  evidence:
+    - "docs/reviews/atomic-post2021-independent-ybsr-source-scout.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

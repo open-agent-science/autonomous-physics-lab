@@ -1,0 +1,55 @@
+id: TASK-0940
+title: "Prepare the ThermoML 80-row bounded-extract maintainer decision packet without row extraction"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0895 found the ThermoML Tb route technically ready for local analysis but blocked on a maintainer source-rights decision before any public 80-row fixture."
+  - "The campaign should resolve the rights/publication route before agents parse more ThermoML values."
+  - "A decision packet can unblock or stop the expansion path without fetching archive bytes, committing rows, or rerunning Joback metrics."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+    - "data/thermophysical/source_manifest.yaml"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    Convert the TASK-0895 NEEDS_MAINTAINER_SOURCE_DECISION finding into a
+    clear decision packet: bounded public 80-row factual extract, local-only
+    analysis/no committed rows, or no expansion. This is a decision artifact,
+    not row curation.
+
+requirements:
+  - "Summarize the existing source state, archive DOI/version/checksum, publisher-permission caveat, current 40-row fixture, and proposed 80-row ceiling."
+  - "Present maintainer options with consequences: approve bounded public extract, approve local-only expansion, defer/no expansion, or request external permission."
+  - "For each option, state exactly what future agents may and may not commit: archive bytes, extracted trees, normalized rows, aggregate counts, source manifests, tests, and benchmark metrics."
+  - "Do not fetch ThermoML archive bytes, inspect or transcribe new values, add rows, run Joback metrics, change RESULT-0026, or package new results."
+  - "Use Tb-only and no-claim wording; no chemical design, process design, safety, synthesis, broad Joback, or multi-property claim."
+
+accepted_outputs:
+  - "A maintainer decision packet under docs/reviews/ with option table, recommended route, exact yes/no checkboxes, future task shapes, and stop conditions."
+  - "Output-routing summary: source-rights/maintainer decision only; no data, benchmark, RESULT, PRED, CLAIM, or KNOW change."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer decision packet for source-rights and publication route; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
