@@ -1,0 +1,60 @@
+id: TASK-0932
+title: "Clean the MD-0002 Zenodo archive payload before first publication"
+type: scientific_dataset
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "MD-0002 v0.1.0 has not yet been published to Zenodo, so the archive payload can still be cleaned without breaking an external DOI/SHA record."
+  - "Standalone dataset archives should avoid unrelated repository-governance files, especially repo-wide license registries that mention sources outside the dataset payload."
+  - "The cleanup preserves Materials Project CC BY 4.0 attribution while reducing reader confusion before APL's first citable external dataset release."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "scripts/package_materials_md0002_archive.py"
+    - "docs/reviews/materials-md0002-zenodo-upload-pack.md"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "docs/reviews/materials-md0002-deterministic-archive-helper.md"
+    - "tasks/TASK-0924-md0002-zenodo-release-and-doi-recordback.yaml"
+  planning_context: >
+    TASK-0924 prepared the MD-0002 Zenodo upload pack before publication. A
+    maintainer review found that the archive allowlist still carried internal
+    dry-run/governance artifacts, including the repository-wide DATA_LICENSES
+    registry and review decision packets. Clean the archive payload before the
+    first Zenodo upload so the released dataset is self-contained and lower
+    noise.
+
+requirements:
+  - "Remove unrelated repository-governance files from the MD-0002 archive allowlist before first Zenodo publication."
+  - "Replace the repo-wide DATA_LICENSES.yaml payload with an MD-0002-specific license/provenance record that preserves Materials Project CC BY 4.0 attribution."
+  - "Provide release-facing MD-0002 README/schema files if removing broader repository README/schema or fixture files from the archive."
+  - "Rebuild the deterministic archive and update the upload pack with the new filename, size, SHA-256, contents count, and wording."
+  - "Change no MD-0002 rows, holdout membership, source snapshot values, RESULT-0021 metrics, claims, or knowledge artifacts."
+
+accepted_outputs:
+  - "Updated deterministic archive helper allowlist and tests."
+  - "MD-0002-specific release README/schema/license files included in the archive."
+  - "A cleanup review note explaining retained and removed files."
+  - "Updated TASK-0924 upload pack with the cleaned archive checksum and maintainer upload instructions."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset packaging metadata only; no scientific result artifact changes."
+  evidence:
+    - "docs/reviews/materials-md0002-zenodo-archive-noise-cleanup.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_md0002_archive_package.py tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 scripts/package_materials_md0002_archive.py --output-dir /tmp/apl-md0002-clean --archive-name md0002-v0.1.0.zip --force"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

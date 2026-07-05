@@ -1,0 +1,38 @@
+license_record_id: MD-0002-LICENSE-0001
+dataset_id: MD-0002-materials-project-stable-ternary-oxides
+dataset_version: 0.1.0
+task_id: TASK-0932
+scope: md0002_release_archive_only
+
+source_data:
+  provider: Materials Project
+  provider_url: https://materialsproject.org
+  database_version: 2026.04.13
+  source_license: CC BY 4.0
+  redistribution_status: redistributable_with_attribution
+  source_doi: 10.1063/1.4812323
+  citation: "A. Jain et al., 'Commentary: The Materials Project: A materials genome approach to accelerating materials innovation', APL Materials 1, 011002 (2013), doi:10.1063/1.4812323."
+  attribution_text: "Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain et al., APL Materials 1, 011002 (2013)."
+
+applies_to:
+  - data/materials/md-0002-materials-project-stable-ternary-oxides.yaml
+  - data/materials/snapshots/materials_project_md0002_2026.04.13.json
+  - data/materials/materials_md0002_snapshot_manifest.yaml
+  - data/materials/md0002_holdout_manifest.yaml
+  - data/materials/materials_md0002_schema.md
+  - data/materials/materials_md0002_release_readme.md
+
+repository_reference:
+  canonical_registry: data/DATA_LICENSES.yaml
+  canonical_registry_entry_id: materials-project-ternary-oxides-md0002
+  archive_policy: >
+    The repository-wide license registry is intentionally excluded from the
+    standalone Zenodo archive because it contains unrelated source-license
+    entries. This MD-0002-specific record preserves the applicable CC BY 4.0
+    attribution and redistribution boundary for the release payload.
+
+no_claim_boundary: >
+  This license record does not create a scientific claim, materials-design
+  recommendation, synthesis guide, device-performance statement, biomedical
+  statement, or universal-law claim. It records source rights and attribution
+  for the MD-0002 release archive only.

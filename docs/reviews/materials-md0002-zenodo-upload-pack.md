@@ -1,6 +1,7 @@
 # MD-0002 Zenodo Upload Pack (v0.1.0)
 
 Task: `TASK-0924`
+Cleanup task: `TASK-0932`
 Decision basis: D5 in
 [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md)
 (Zenodo DOI archive route approved).
@@ -14,18 +15,23 @@ actions; the DOI record-back is a follow-up commit under the same task.
 | Field | Value |
 | --- | --- |
 | Filename | `md0002-v0.1.0.zip` |
-| Size | 832,837 bytes |
-| SHA-256 | `fadb8392a8fa166f528aee43e914fb1f4e4fd95d74b08cc11052c0b9290a536e` |
-| Contents | 12 files, exactly the TASK-0900 allowlist (verified per-file hash + size) |
-| Content basis | repository commit `9618770cf98e119bdf9d6317b9be7f16cac3825e` |
+| Size | 795,018 bytes |
+| SHA-256 | `19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22` |
+| Contents | 9 release-facing files, exactly the TASK-0932 cleaned allowlist (verified per-file hash + size) |
+| Content basis | cleaned PR #1353 release tree; create `dataset-md0002-v0.1.0` on the merged content commit before upload |
 | Build command | `python3 scripts/package_materials_md0002_archive.py --output-dir <local-dir> --archive-name md0002-v0.1.0.zip` |
 | Determinism | rebuild produces a byte-identical archive (fixed zip timestamps, stored entries, fixed ordering) |
 
-The packaged release-decision packet is the post-Decision-Day version (the
-allowlist pin for entry 12 was refreshed accordingly in this PR). The packaged
-snapshot manifest honestly reads `external_dataset_doi: not_minted` — the
-minted DOI lives on the Zenodo record and in the repository record-back
-commit, not inside the v0.1.0 archive bytes.
+TASK-0932 intentionally removed repository-governance files from the standalone
+payload before first publication: the repo-wide license registry, generic
+materials README/schema, synthetic schema fixture, and internal review packets
+are not inside the ZIP. Their applicable MD-0002 information is represented by
+release-facing README, schema, license, snapshot manifest, and benchmark
+artifacts.
+
+The packaged snapshot manifest honestly reads
+`external_dataset_doi: not_minted` — the minted DOI lives on the Zenodo record
+and in the repository record-back commit, not inside the v0.1.0 archive bytes.
 
 ## Maintainer Steps (~10 minutes)
 
@@ -38,8 +44,8 @@ commit, not inside the v0.1.0 archive bytes.
    `data/materials/materials_md0002_snapshot_manifest.yaml`
    (`external_repository_record`, `external_dataset_doi`, `release_tag`) and
    the dataset docs.
-6. Create the release tag on the content-basis commit:
-   `git tag -a dataset-md0002-v0.1.0 9618770c -m "MD-0002 v0.1.0 external dataset release" && git push origin dataset-md0002-v0.1.0`
+6. Create the release tag on the merged content commit used for the archive:
+   `git tag -a dataset-md0002-v0.1.0 <merged-release-commit> -m "MD-0002 v0.1.0 external dataset release" && git push origin dataset-md0002-v0.1.0`
 
 ## Copy-Paste Zenodo Metadata
 
@@ -66,7 +72,7 @@ Hladun, not a third creator.
 > holdout contract designed for honest extrapolation testing of
 > formation-energy models. The package includes the normalized dataset
 > (SHA-256 pinned), the raw pinned snapshot, the holdout and release
-> manifests, schema and license declarations, and a validated baseline
+> manifests, release-facing schema and license declarations, and a validated baseline
 > benchmark record (holdout MAE 0.2006 eV/atom versus shuffle controls at
 > 0.474-0.531 eV/atom; independently replayed with zero metric drift).
 >
@@ -74,21 +80,20 @@ Hladun, not a third creator.
 > not experimental measurements, and it is not materials-design guidance. It
 > is published as a reproducible benchmark artifact: a version-frozen slice
 > with a predeclared split and null controls. Built deterministically from the
-> open repository `open-agent-science/autonomous-physics-lab` at commit
-> `9618770c` with `scripts/package_materials_md0002_archive.py`; the archive
-> SHA-256 is recorded in the repository.
+> open repository `open-agent-science/autonomous-physics-lab` at release tag
+> `dataset-md0002-v0.1.0` with `scripts/package_materials_md0002_archive.py`;
+> the archive SHA-256 is recorded in the repository.
 >
 > Please also credit the upstream source: A. Jain et al., "Commentary: The
 > Materials Project: A materials genome approach to accelerating materials
 > innovation", APL Materials 1, 011002 (2013), doi:10.1063/1.4812323.
 >
-> Two provenance notes. (1) The packaged `data/DATA_LICENSES.yaml` is the
-> repository-wide source-license registry, included for provenance context;
-> the entry that applies to this archive is
-> `materials-project-ternary-oxides-md0002` (CC BY 4.0). No files from the
-> other registry entries — including any non-commercial or
-> permission-restricted sources described there — are included in this
-> archive. (2) The packaged snapshot manifest records
+> Two provenance notes. (1) The standalone archive carries an MD-0002-specific
+> license record instead of the repository-wide `data/DATA_LICENSES.yaml`
+> registry, so unrelated source-license entries do not appear in the dataset
+> payload. The applicable source license is Materials Project CC BY 4.0, with
+> Jain et al. attribution preserved in the license record, snapshot manifest,
+> README, and Zenodo metadata. (2) The packaged snapshot manifest records
 > `external_dataset_doi: not_minted` because the DOI is assigned by this
 > Zenodo record; the repository records the final DOI in a follow-up commit.
 
@@ -119,7 +124,7 @@ reproducibility; holdout evaluation; open agent science`
 - [ ] DOI recorded in `materials_md0002_snapshot_manifest.yaml`
       (`external_dataset_doi`), record URL in `external_repository_record`,
       tag in `release_tag`.
-- [ ] Release tag `dataset-md0002-v0.1.0` pushed at commit `9618770c`.
+- [ ] Release tag `dataset-md0002-v0.1.0` pushed at the merged release commit.
 - [ ] Dataset docs updated to cite the DOI as the canonical external citation.
 - [ ] Note: the archived snapshot-manifest bytes intentionally predate the
       DOI; a future v0.1.1 rebuild would need allowlist pin refreshes and a
