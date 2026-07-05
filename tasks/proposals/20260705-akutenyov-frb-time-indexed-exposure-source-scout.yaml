@@ -1,0 +1,72 @@
+proposal_id: 20260705-akutenyov-frb-time-indexed-exposure-source-scout
+title: Scout an official time-indexed FRB exposure source after the static-map blocker
+status: PROPOSED
+type: scientific_source_curation
+priority: high
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+strategy_alignment:
+- "Removes the source-readiness blocker recorded by TASK-0930 before any FRB temporal benchmark or prediction work can begin."
+- "Preserves the TASK-0877 no-leakage contract by requiring explicit interval boundaries rather than reconstructing pre-T exposure from cumulative full-window maps."
+- "Keeps the FRB lane source-first and rights-aware: metadata and access semantics are reviewed before value-bearing bytes, derived rows, models, or scientific outputs."
+summary: >
+  Identify one official, rights-reviewable source that exposes interval-bounded
+  CHIME/FRB operational or exposure data sufficient to construct leakage-safe
+  exp_up(<=T) and exp_low(<=T), without fetching value-bearing bulk data or
+  starting a benchmark.
+rationale: >
+  TASK-0930 pinned and inspected chimefrbcat2_exposure.h5 and found only two
+  cumulative full-window HEALPix maps, /upper and /lower, with no time axis,
+  timestamp dataset, interval boundaries, or per-interval exposure. The root
+  start_date, end_date, and t_res attributes do not preserve the bins required
+  to stop integration at a split time T. Using the static map in a temporal
+  benchmark would leak post-T observing time into pre-T features. The next
+  useful campaign step is therefore a bounded source scout for an official
+  time-indexed product or upstream operational/sensitivity source, not numeric
+  construction from the blocked artifact.
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+  - "TASK-0930"
+  - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
+  - "data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml"
+  - "TASK-0910"
+  - "docs/reviews/frb-catalog2-exposure-map-source-pin.md"
+  - "TASK-0877"
+  - "docs/reviews/frb-catalog2-t-truncated-exposure-split.md"
+  - "data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml"
+  - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    TASK-0930 closed the checksum and HDF5 schema gate with
+    CHECKSUM_PINNED_CONSTRUCTION_BLOCKED_STATIC_FULL_WINDOW_ONLY. The source
+    identity is reliable, but its schema cannot support exp_up(<=T) or
+    exp_low(<=T). A later construction task is justified only if this scout
+    identifies an official source with explicit time intervals, reproducible
+    sky mapping, usable units, and a reviewable rights/access route.
+requirements:
+- "Search only official or primary CHIME/FRB, CADC/CANFAR, or associated publication/documentation surfaces for a genuinely time-indexed exposure product or upstream operational/sensitivity source."
+- "For each credible candidate, record the locator, publisher or owner, version/date coverage, interval boundaries, upper/lower transit semantics, sky-coordinate mapping, exposure units, access method, checksum feasibility, and citation."
+- "Apply the repository three-question source-rights framework: local analysis, source-byte redistribution, and bulk derived-row publication must be decided separately."
+- "Determine whether the candidate can reconstruct exp_up(<=T) and exp_low(<=T) without using any post-T data, inferring missing intervals, or treating the cumulative TASK-0930 map as time-resolved."
+- "Return exactly one readiness verdict: TIME_INDEXED_SOURCE_READY, TIME_INDEXED_SOURCE_AMBIGUOUS, or TIME_INDEXED_SOURCE_BLOCKED, with explicit evidence and stop conditions."
+- "If and only if one route clears, describe the minimal shape of a later checksum/schema task; do not create that canonical task or begin construction in this proposal."
+- "Do not fetch or commit value-bearing bulk bytes, construct truncated exposure rows, join FRB positions, fit or score a model, freeze a prediction, create a RESULT, or modify CLAIM/KNOWLEDGE artifacts."
+- "Preserve the TASK-0930 checksum identity and the HTTP-versus-vault timestamp discrepancy; a different upstream object must receive a separate source-version identity."
+- "Use source-readiness and leakage-control wording only; no repeater-classification, discovery, population, or breakthrough claim."
+accepted_outputs:
+- "A metadata-only review note under docs/reviews/ with the candidate-source table, rights/access audit, interval and coordinate semantics, checksum feasibility, and one readiness verdict."
+- "A preferred official source route with a minimal later checksum/schema task shape, or a durable blocker note that prevents premature T-truncated construction."
+- "An output-routing summary stating that no dataset, benchmark, prediction, result, claim, or knowledge artifact was produced."
+validation:
+  commands:
+  - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Awaiting maintainer acceptance and canonical task id. Requested priority is
+    high and expected implementation difficulty is medium because the scope is
+    metadata/source adjudication, not data construction or model execution.
