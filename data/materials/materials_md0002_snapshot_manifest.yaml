@@ -5,7 +5,7 @@ dataset_id: MD-0002-materials-project-stable-ternary-oxides
 dataset_version: 0.1.0
 task_id: TASK-0809
 campaign_id: materials-property-residuals
-status: internally_reusable_release_metadata_closed_external_release_not_minted
+status: externally_published_zenodo_doi_minted
 source_id: materials-project
 source:
   provider: "Materials Project (LBNL)"
@@ -79,18 +79,30 @@ uncertainty_semantics:
 release_metadata:
   source_data_license: CC BY 4.0
   apl_curation_license: repository_license_applies_to_metadata_and_code
-  external_repository_record: not_created
-  external_dataset_doi: not_minted
-  release_tag: not_created
+  external_repository_record: https://zenodo.org/records/21207072
+  external_dataset_doi: 10.5281/zenodo.21207072
+  external_concept_doi: 10.5281/zenodo.21207071
+  release_tag: dataset-md0002-v0.1.0
   recommended_internal_citation: >
     Autonomous Physics Lab MD-0002 Materials Project stable ternary oxides
     dataset, version 0.1.0, derived from Materials Project database version
     2026.04.13 under CC BY 4.0 attribution; cite Jain et al. 2013 and this
     repository revision.
+  recommended_external_citation: >
+    Hladun, R., & Kutenyov, A. (2026). MD-0002: Frozen benchmark slice of
+    Materials Project stable ternary oxides (0.1.0) [Data set]. Zenodo.
+    https://doi.org/10.5281/zenodo.21207072
   external_publication_status: >
-    Metadata closeout only. A separate maintainer-approved release task is
-    required before upload to an external repository, release tagging, archive
-    checksum freeze, or DOI minting.
+    Published on Zenodo on 2026-07-05 under the maintainer-approved D5 route
+    (TASK-0924): record https://zenodo.org/records/21207072, version DOI
+    10.5281/zenodo.21207072, concept DOI 10.5281/zenodo.21207071, archive
+    md0002-v0.1.0.zip (795,018 bytes, sha256
+    19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22, md5
+    7cb2979574f7d39945793e1874b5d918), release tag dataset-md0002-v0.1.0 at
+    commit 8be74696. The published archive intentionally froze this manifest's
+    pre-DOI state (external_dataset_doi: not_minted at packaging time); the
+    packaging helper's pinned allowlist now records that frozen v0.1.0 state,
+    so a future rebuild is a v0.1.1 with refreshed pins and a new version DOI.
 schema_and_validation:
   loader_contract: physics_lab/datasets/materials_md0002.py
   release_documentation: data/materials/materials_md0002_release_readme.md
