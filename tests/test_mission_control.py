@@ -830,7 +830,7 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
 
     rendered = json.loads(result.stdout)
     assert rendered["default_mode"] == "research"
-    assert rendered["recommended"]["mission"] == "materials-property-residuals"
+    assert rendered["recommended"]["mission"] == "nuclear-mass-surface"
     assert "live_task_candidates" in rendered
 
 

@@ -15,8 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0908` - Implement an MD-0002 deterministic archive-package helper without upload (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `materials_science`)
-- `TASK-0910` - Pin FRB Catalog 2 time-resolved exposure-map source artifact before T-truncated construction (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
-- `TASK-0913` - Scout one post-2021 independent primary Yb/Sr source route after McGrew blockage (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `precision_metrology`)
-- `TASK-0914` - Predeclare the Quantum ZnSe/InP transfer contract before any new benchmark (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0930` - Run the FRB Catalog 2 exposure-map checksum and HDF5 schema gate before T-truncated construction (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
+- `TASK-0920` - Run the Quantum ZnSe no-refit transfer benchmark only after contract approval (`scientific_benchmark`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)

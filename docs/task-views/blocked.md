@@ -11,7 +11,6 @@ None.
 ## Research Blockers
 
 - `TASK-0827` - Compare extrapolation models and freeze the best one's frontier predictions for reveal (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0920` - Run the Quantum ZnSe no-refit transfer benchmark only after contract approval (`scientific_benchmark`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
 
 ## Support Blockers
 
