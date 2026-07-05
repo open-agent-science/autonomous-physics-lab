@@ -1,7 +1,7 @@
 id: TASK-0918
 title: "Preflight ThermoML esters/lactones failed-family memory for canonical negative RESULT packaging"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

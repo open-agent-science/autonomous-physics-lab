@@ -1,7 +1,7 @@
 id: TASK-0932
 title: "Clean the MD-0002 Zenodo archive payload before first publication"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

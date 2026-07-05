@@ -1,7 +1,7 @@
 id: TASK-0921
 title: "Record the 2026-07-02 maintainer Decision Day (Gate C batch) and queue the execution lanes"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
