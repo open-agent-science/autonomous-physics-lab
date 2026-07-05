@@ -433,3 +433,18 @@ Before selecting an option, the maintainer should confirm:
     the `TASK-0925` contract.
   - Frontier target source-state is current-as-of-design-time only; the future
     freeze task must re-verify no-peek source state under the reveal protocol.
+
+## Maintainer Decision (2026-07-05)
+
+Decision: **Option A — approved.** The two-tier prediction-freeze vocabulary is
+adopted as a maintainer amendment. The tier-1 point-only freeze executes as the
+separate follow-up task `TASK-0933`, exactly per the
+[Tier-1 Candidate Specification](#tier-1-candidate-specification-precise), with
+the mandatory caveat carried unweakened into every artifact.
+
+Additional maintainer requirement recorded with the approval: any future
+tier-2 calibration-validation set (set A) under the `TASK-0925` fresh-surface
+contract must be **disjoint from the 37 frozen tier-1 targets** — tier-2
+interval coverage may never be reported in-sample on the frozen prediction
+set. `TASK-0827` remains blocked and unmodified; no CLAIM/KNOW artifact and no
+prediction-readiness wording follow from this approval.
