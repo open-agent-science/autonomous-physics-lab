@@ -1,0 +1,67 @@
+id: TASK-0932
+title: "Execute the approved tier-1 point-only NMD-0003 frontier prediction freeze (37 targets; mandatory caveat; no TASK-0827 unblock)"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Maintainer Gate C decision (2026-07-05, Option A on the TASK-0929 packet): the two-tier freeze vocabulary is adopted and the tier-1 point-only freeze is authorized as this separate follow-up task."
+  - "Time-sensitive pre-registration: the freeze has standing value only while it is timestamped BEFORE the next AME/NUBASE-class release; the point half of the model is honestly strong (RESULT-0025: GP holdout MAE 0.462129 vs baseline 2.979273 MeV, Gate B replay drift 0.0) while the interval half is honestly blocked (TASK-0899 calibration failure)."
+  - "Strictly weaker artifact, not a bypass: point (central-value) forecasts only, mandatory calibration-failure caveat everywhere, MAE/rank-only reveal scoring, and TASK-0827 stays blocked as the interval-bearing freeze."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nmd0003-two-tier-point-only-freeze-contract-packet.md"
+    - "data/nuclear_masses/frontier_prediction_targets.yaml"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+    - "physics_lab/engines/nmd0003_residual_gp.py"
+    - "physics_lab/engines/nmd0003_duflo_zuker_baseline.py"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+  planning_context: >
+    Execute exactly the Tier-1 Candidate Specification approved in the
+    TASK-0929 decision packet (Option A, 2026-07-05): freeze the point
+    (posterior-mean) forecasts of the frozen NMD-0003 residual GP
+    (model_nmd0003_residual_gp_zn_rbf, as published in RESULT-0025) over the 37
+    no-peek frontier targets of FRONTIER-PRED-TARGETS-0001, alongside the
+    frozen central-value forecasts of the three comparator baselines, as
+    tier-1 point-only PRED entries in a REGISTERED / reveal-pending state. The
+    GP posterior standard deviation and every derived interval quantity are
+    excluded from the payload: they are the miscalibrated quantity and must
+    not be frozen or cited.
+
+requirements:
+  - "Freeze the GP point forecasts only (posterior mean; no posterior std, no interval multiplier, no derived uncertainty field) from the committed frozen NMD-0003 surface; no re-fit, no hyperparameter retune, no baseline change."
+  - "Freeze, over the same 37 targets and from committed deterministic engine commands, the central-value forecasts of the three comparators named in the packet: the DZ10-published-variant (nmd0003_dz10_published_equation_variant_v2), the frozen liquid-drop baseline of record (RESULT-0012), and the smooth_a_gp predeclared control. None may read any post-freeze measured value."
+  - "Re-verify the no-peek source-state of every target at freeze time under docs/nuclear-prediction-reveal-protocol.md: a target that has gained a committed measured value since design time is dropped and recorded (not replaced); the excluded committed neighbors (for example Ni-78, Sn-132, Cd-130) must not be added."
+  - "Carry the packet's mandatory caveat block VERBATIM in this task's PR, in the freeze review note, and in every tier-1 PRED artifact: calibration failed (TASK-0899), intervals unavailable, no interval/uncertainty/coverage claim, no prediction-readiness wording, MAE and rank vs frozen baselines only, not a reveal result, TASK-0827 not unblocked."
+  - "Mark every frozen entry freeze_tier: point_only and package Gate-A-compliant PRED entries: frozen model reference, code_reference, named target set (FRONTIER-PRED-TARGETS-0001), pinned commands, input file hashes, engine version, git commit, explicit reveal conditions (next AME/NUBASE-class evaluation; qualifying Penning-trap/storage-ring subsets per the reveal protocol), and the non-claim ceiling."
+  - "Record the maintainer's disjointness requirement in the freeze artifacts: any future tier-2 calibration-validation set (set A) under the TASK-0925 fresh-surface contract must be disjoint from these 37 frozen targets; tier-2 coverage is never reported in-sample on them."
+  - "Do NOT modify TASK-0827 (it stays BLOCKED as the interval-bearing freeze), do NOT create or promote any CLAIM/KNOW artifact, and do NOT use prediction-ready, reveal-success, or discovery wording."
+  - "Stop conditions: if the target manifest fails wholesale source-state re-verification, an engine command is non-deterministic, or Gate A packaging cannot be satisfied, stop with FREEZE_BLOCKED and record the blocker instead of weakening any gate."
+
+accepted_outputs:
+  - "Tier-1 point-only PRED entries (GP + three frozen baseline forecasts over the surviving no-peek targets) in a REGISTERED / reveal-pending state, plus a freeze review note under docs/reviews/ with the mandatory caveat, the dropped-target ledger, and the disjointness requirement."
+  - "Output-routing summary: tier-1 freeze executed under the approved amendment; Gate A status for the PRED packaging; claim impact none; knowledge impact none; TASK-0827 unchanged and still blocked."
+
+result_artifact_policy:
+  required: false
+  reason: "Creates tier-1 point-only PRED registry entries under the approved maintainer amendment; no RESULT, CLAIM, or KNOWLEDGE artifact is created or modified."
+  evidence:
+    - "docs/reviews/nmd0003-two-tier-point-only-freeze-contract-packet.md"
+    - "data/nuclear_masses/frontier_prediction_targets.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
