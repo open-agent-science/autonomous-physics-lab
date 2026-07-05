@@ -54,16 +54,23 @@ Include only committed, license-cleared, provenance-bearing files:
 - `data/materials/md0002_holdout_manifest.yaml`
 - `data/materials/materials_md0002_snapshot_manifest.yaml`
 - `data/materials/snapshots/materials_project_md0002_2026.04.13.json`
-- `data/materials/README.md`
-- `data/materials/schema.md`
-- `data/materials/fixtures/md0002_schema_fixture.yaml`
-- `data/DATA_LICENSES.yaml`
+- `data/materials/materials_md0002_release_readme.md`
+- `data/materials/materials_md0002_schema.md`
+- `data/materials/materials_md0002_license.yaml`
 - `results/EXP-0014/RUN-0001/report.md`
 - `results/EXP-0014/RUN-0001/result.yaml`
-- `docs/reviews/materials-md0002-release-metadata-closeout.md`
-- this decision packet
 
-Exclude generated board views, agent scratch directories, live API credentials, notebooks, cache files, and any uncommitted local replay output.
+TASK-0932 supersedes the earlier internal dry-run package shape before first
+Zenodo publication. The standalone archive intentionally excludes the
+repository-wide `data/DATA_LICENSES.yaml` registry, generic materials
+README/schema, synthetic schema fixture, and internal review packets. The
+canonical repository registry remains in the repository; the archive carries
+only the MD-0002-specific CC BY 4.0 license and attribution record needed for
+the dataset payload.
+
+Exclude generated board views, agent scratch directories, live API credentials,
+notebooks, cache files, internal review/governance documents, and any
+uncommitted local replay output.
 
 ## Archive Checksum Plan
 
@@ -136,3 +143,11 @@ Stop without release if any of these hold:
 
 Decision: **Zenodo DOI archive route** — release tag + deterministic allowlist archive (`TASK-0908`) + Zenodo upload/publish (maintainer action) + DOI record-back (execution: `TASK-0924`).
 Recorded in [maintainer-decision-day-2026-07-02.md](./maintainer-decision-day-2026-07-02.md).
+
+## Pre-Publication Cleanup (TASK-0932)
+
+Before the first Zenodo publication, the deterministic archive allowlist was
+cleaned to a 9-file release-facing payload. This changes only the standalone
+archive package and checksum; it does not change MD-0002 rows, split
+membership, source snapshot values, `RESULT-0021` metrics, claims, or
+knowledge artifacts.

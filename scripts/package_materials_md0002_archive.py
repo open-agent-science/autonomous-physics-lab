@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Build the deterministic local MD-0002 archive package.
 
-This helper verifies the TASK-0900 allowlist, writes a deterministic ZIP archive
-to an explicit local output directory, and records an archive manifest beside it.
-It does not create release tags, upload externally, mint or decline a DOI, or
-modify MD-0002 rows, holdout membership, source snapshots, or RESULT-0021.
+This helper verifies the TASK-0932 release-facing allowlist, writes a
+deterministic ZIP archive to an explicit local output directory, and records an
+archive manifest beside it. It does not create release tags, upload externally,
+mint or decline a DOI, or modify MD-0002 rows, holdout membership, source
+snapshots, or RESULT-0021.
 """
 
 from __future__ import annotations
@@ -49,8 +50,8 @@ PACKAGE_FILES = (
     PackageFile(
         3,
         "data/materials/materials_md0002_snapshot_manifest.yaml",
-        5_392,
-        "a5644ad51128cf94097ffd1f4673346bdf003a7cc6cbbaeea9a2a3d645f9a691",
+        6_109,
+        "0e42fa98f7e9731818217ae8e8db6288c3873f2dbce17ebe206497dd3f21e019",
     ),
     PackageFile(
         4,
@@ -60,51 +61,33 @@ PACKAGE_FILES = (
     ),
     PackageFile(
         5,
-        "data/materials/README.md",
-        4_256,
-        "343880f2cc2971af79758b44dc27c352cee808f7b2d40d8dc48701787db55fe2",
+        "data/materials/materials_md0002_release_readme.md",
+        2_598,
+        "44712b330985d7f251fa79fb9e41c568022cae19dbf9ec7351aca9103344d2f1",
     ),
     PackageFile(
         6,
-        "data/materials/schema.md",
-        5_366,
-        "75031c10aaeece15e1eba569478dbd16c2ccc2b3d17d5cd597fcbea6f715b6ed",
+        "data/materials/materials_md0002_schema.md",
+        2_100,
+        "8ccd7efef9e5c14373bf7302ae7c1f471ac641e01fd666c034ba439011d47c5e",
     ),
     PackageFile(
         7,
-        "data/materials/fixtures/md0002_schema_fixture.yaml",
-        3_678,
-        "a02d19553888ecd65d5e89de295b052580733b4d6830ed930185b305716b50f8",
+        "data/materials/materials_md0002_license.yaml",
+        1_861,
+        "e1e68a7a031760704ec0715740fcc36a225e1848e9caeadfca516d47f168db7f",
     ),
     PackageFile(
         8,
-        "data/DATA_LICENSES.yaml",
-        17_713,
-        "75bbd5230d83c037bb64b39e2b4b35c154c56551bc9b99d48747c81a36da813f",
-    ),
-    PackageFile(
-        9,
         "results/EXP-0014/RUN-0001/report.md",
         603,
         "accf7f33e77a8bf1003e1e086e0b54291b3371aba8e625f8b81de8d220ec5e81",
     ),
     PackageFile(
-        10,
+        9,
         "results/EXP-0014/RUN-0001/result.yaml",
         7_573,
         "9765a4d07792dbcca02267fd59170c6a51ab028a9fdfd499ce721eb1689c1bf2",
-    ),
-    PackageFile(
-        11,
-        "docs/reviews/materials-md0002-release-metadata-closeout.md",
-        3_553,
-        "c02b2676f729771487a97152cbc7fe8f714e769114aebe88b863a14d472e1b1f",
-    ),
-    PackageFile(
-        12,
-        "docs/reviews/materials-md0002-external-release-decision-packet.md",
-        9_758,
-        "02207f3d956170f6021a145a5c68f2fd093d04e3838ff835ea4ce0f463d1c967",
     ),
 )
 

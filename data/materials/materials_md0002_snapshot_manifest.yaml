@@ -43,6 +43,14 @@ artifacts:
     path: data/materials/md0002_holdout_manifest.yaml
   license_registry:
     path: data/DATA_LICENSES.yaml
+    entry_id: materials-project-ternary-oxides-md0002
+    archive_policy: "The standalone release archive carries data/materials/materials_md0002_license.yaml instead of the full repository-wide registry."
+  release_license:
+    path: data/materials/materials_md0002_license.yaml
+  release_readme:
+    path: data/materials/materials_md0002_release_readme.md
+  release_schema:
+    path: data/materials/materials_md0002_schema.md
 counts:
   normalized_axis_rows: 724
   included_materials: 362
@@ -85,13 +93,17 @@ release_metadata:
     checksum freeze, or DOI minting.
 schema_and_validation:
   loader_contract: physics_lab/datasets/materials_md0002.py
-  schema_fixture: data/materials/fixtures/md0002_schema_fixture.yaml
-  documentation: data/materials/schema.md
-  publication_schema_status: portable_loader_contract_documented_no_standalone_json_schema
+  release_documentation: data/materials/materials_md0002_release_readme.md
+  release_schema: data/materials/materials_md0002_schema.md
+  release_license_record: data/materials/materials_md0002_license.yaml
+  repository_schema_fixture: data/materials/fixtures/md0002_schema_fixture.yaml
+  repository_general_schema: data/materials/schema.md
+  publication_schema_status: portable_release_schema_documented_no_standalone_json_schema
   publication_schema_blocker: >
-    A standalone machine-readable release schema is still optional follow-up
-    work for external publication. Internal reuse is covered by the loader,
-    fixture, checksums, and RESULT-0021 replay tests.
+    The standalone release archive carries MD-0002-specific README, schema,
+    and license files for external readers. Exact executable validation remains
+    repository-scoped through the loader, repository-only fixture, checksums,
+    and RESULT-0021 replay tests.
 changelog:
   - version: 0.1.0
     date: '2026-06-15'

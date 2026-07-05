@@ -1,4 +1,4 @@
-"""Tests for the TASK-0908 deterministic MD-0002 archive helper."""
+"""Tests for the deterministic MD-0002 archive helper."""
 
 from __future__ import annotations
 
@@ -31,18 +31,28 @@ def _write_file(repo_root: Path, relative_path: str, text: str) -> PackageFile:
     )
 
 
-def test_default_allowlist_preserves_task0900_order_and_hashes() -> None:
-    assert len(PACKAGE_FILES) == 12
-    assert [entry.order for entry in PACKAGE_FILES] == list(range(1, 13))
+def test_default_allowlist_preserves_release_order_and_hashes() -> None:
+    assert len(PACKAGE_FILES) == 9
+    assert [entry.order for entry in PACKAGE_FILES] == list(range(1, 10))
     assert PACKAGE_FILES[0].path == (
         "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
     )
     assert PACKAGE_FILES[0].sha256 == (
         "516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1"
     )
-    assert PACKAGE_FILES[-1].path == (
-        "docs/reviews/materials-md0002-external-release-decision-packet.md"
-    )
+    assert PACKAGE_FILES[-1].path == "results/EXP-0014/RUN-0001/result.yaml"
+
+
+def test_default_allowlist_is_release_facing_without_repo_governance_noise() -> None:
+    paths = [entry.path for entry in PACKAGE_FILES]
+    assert "data/DATA_LICENSES.yaml" not in paths
+    assert "data/materials/fixtures/md0002_schema_fixture.yaml" not in paths
+    assert "data/materials/README.md" not in paths
+    assert "data/materials/schema.md" not in paths
+    assert not any(path.startswith("docs/reviews/") for path in paths)
+    assert "data/materials/materials_md0002_license.yaml" in paths
+    assert "data/materials/materials_md0002_release_readme.md" in paths
+    assert "data/materials/materials_md0002_schema.md" in paths
 
 
 def test_build_archive_is_deterministic_and_writes_manifest(tmp_path: Path) -> None:
