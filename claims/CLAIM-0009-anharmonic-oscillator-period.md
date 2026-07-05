@@ -73,6 +73,21 @@ exactness, broad-range, or universal-anharmonic-formula wording, unless future
 evidence removes those limitations. An independent external replication of
 `RESULT-0016` would further strengthen the claim.
 
+## Claim Role Disposition (2026-07-02)
+
+The maintainer Decision Day disposition classifies this reviewed object on a
+separate novelty/role axis without changing its evidence judgment:
+
+- `novelty_class: calibration_known_physics`
+- `claim_role: calibration_memory`
+- `active_scientific_claim: false`
+
+The claim remains `PARTIALLY_SUPPORTED` at `MAINTAINER_REVIEWED`; its evidence,
+scope, and historical review record are unchanged. This disposition records the
+benchmark as platform-calibration memory rather than an active novelty claim.
+It implements `TASK-0927` under the decision recorded in
+`docs/reviews/maintainer-decision-day-2026-07-02.md`.
+
 ## Scope
 
 Conservative 1D oscillator with `V(x) = 1/2 k x^2 + lambda x^4`, non-negative

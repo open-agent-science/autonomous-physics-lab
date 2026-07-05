@@ -1,7 +1,7 @@
 id: TASK-0923
 title: "Apply the authorized RESULT-0024 metadata-only AGENT_VALIDATED update with the lifecycle-hash caveat recorded"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium

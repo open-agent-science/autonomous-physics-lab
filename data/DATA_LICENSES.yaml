@@ -290,3 +290,61 @@ datasets:
     provenance: data/radio_transients/frb_catalog2_source_manifest.yaml
     paths:
       - data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml
+
+  - id: chime-frb-catalog2-exposure-map-source-pin-metadata-only
+    source: "CHIME/FRB Catalog 2 time-resolved / full-sky exposure-map product (TASK-0910 source pin; metadata-only)"
+    source_url: https://doi.org/10.11570/25.0066
+    license: "Public read access via CANFAR/CADC vault; DataCite rightsList empty, no explicit open-data redistribution license on the deposit (cite-the-paper courtesy request only)"
+    redistribution_status: metadata_only_no_exposure_map_bytes_vendored_checksum_pinned_schema_blocked_with_attribution
+    citation_or_acknowledgement: >
+      Cite The CHIME/FRB Collaboration, The Second CHIME/FRB Catalog of Fast Radio
+      Bursts, ApJS, DOI 10.3847/1538-4365/ae3828; dataset DOI 10.11570/25.0066. This
+      APL-authored manifest records the locator, version, exact byte count, SHA-256,
+      rights, and schema-gate outcome for chimefrbcat2_exposure.h5; no exposure-map
+      bytes are re-hosted.
+    evidence: >
+      data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml is an
+      APL-authored, metadata-only source manifest pinning the single consolidated
+      HDF5 exposure-map file chimefrbcat2_exposure.h5 (216024090 bytes; SHA-256
+      cd8411f92d0ac31bd05dff47f62797638c354444de27a5c056113ca00470d514)
+      at CANFAR vault path
+      /AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5
+      (owner ssiegel, Public read, last modified 2026-01-05T23:36:49Z). It contains NO
+      exposure-map bytes, NO catalog rows, NO numeric truncated-exposure values, NO
+      morphology features or labels, and NO derived dataset. File identity was
+      provided by the maintainer from the CANFAR vault storage listing, resolving the
+      TASK-0839 access blocker where the citation-landing page returned 404/500 (still
+      444/500 on 2026-07-02; the vault storage listing is the working access surface).
+      Same publisher-permission caveat as the Catalog 2 rows (empty DataCite
+      rightsList; blocker_type T4_snapshot_approval). Declared here per the
+      metadata-only-source-manifest convention although it carries no third-party data.
+      TASK-0930 found only static full-window upper/lower HEALPix maps, so T-truncated
+      construction remains blocked; see TASK-0910, TASK-0930,
+      docs/reviews/frb-catalog2-exposure-map-source-pin.md, and
+      docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md.
+    raw_artifact_vendored: false
+    provenance: data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml
+    paths:
+      - data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml
+
+  - id: antusch-hinze-saad-2026-mz-yukawa-extract
+    source: "Antusch, Hinze, and Saad, Updated running quark and lepton parameters at various scales, Phys. Rev. D 113, 095011 (2026)"
+    source_url: https://doi.org/10.1103/fdcc-ycph
+    license: "CC BY 4.0"
+    redistribution_status: limited_factual_extract_with_attribution_no_source_bytes_vendored
+    citation_or_acknowledgement: >
+      Cite Stefan Antusch, Kevin Hinze, and Shaikh Saad, Physical Review D 113,
+      095011 (2026), DOI 10.1103/fdcc-ycph, and identify the extracted values as
+      the 2024-PDG Standard Model Yukawa surface at M_Z from Equation (2.4).
+    evidence: >
+      The APS version of record and arXiv v2 identify CC BY 4.0. The committed
+      YAML contains only six factual central values and their symmetric
+      one-sigma HPD marginal uncertainties from Equation (2.4), with source
+      notation and provenance. No manuscript PDF, figure, table image, or bulk
+      source content is vendored. Local analysis is allowed; source-byte
+      redistribution is permitted by CC BY 4.0 but intentionally unused;
+      publication of this limited factual extract is allowed with attribution.
+    raw_artifact_vendored: false
+    provenance: data/particle_masses/source_artifacts/antusch-hinze-saad-2026/provenance.yaml
+    paths:
+      - data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml
