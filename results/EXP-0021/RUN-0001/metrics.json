@@ -1,0 +1,64 @@
+{
+  "audit_class": "BENCHMARK_CONTROL_PANEL",
+  "minimum_mass_diagnostics": {
+    "compact_radius_lt1p5Re": {
+      "classification": "underpowered_slice",
+      "row_count": 0
+    },
+    "hot_jupiter_period_lt10d_radius_ge8Re": {
+      "classification": "underpowered_slice",
+      "row_count": 0
+    },
+    "jovian_radius_8_16Re": {
+      "classification": "underpowered_slice",
+      "row_count": 0
+    },
+    "sub_neptune_radius_1p5_4Re": {
+      "classification": "underpowered_slice",
+      "row_count": 2
+    }
+  },
+  "packaging_verdict": "INCONCLUSIVE",
+  "result_id": "RESULT-0027",
+  "snapshot": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "source_agent_run": "AGENT-RUN-0050",
+  "source_verdict": "INCONCLUSIVE",
+  "true_mass_slices": {
+    "compact_radius_lt1p5Re": {
+      "absolute_rmse_advantage_dex": 0.2434452151198571,
+      "best_null_baseline": "nearest_radius_neighbor",
+      "ck17_frozen_rmse_dex": 0.2633500276766559,
+      "classification": "null_family_matches_or_beats_ck17",
+      "nearest_radius_null_rmse_dex": 0.019904812556798795,
+      "relative_rmse_advantage": 0.9244168958993308,
+      "row_count": 92
+    },
+    "hot_jupiter_period_lt10d_radius_ge8Re": {
+      "absolute_rmse_advantage_dex": 0.06943866209573064,
+      "best_null_baseline": "nearest_radius_neighbor",
+      "ck17_frozen_rmse_dex": 0.06978764121180392,
+      "classification": "null_family_matches_or_beats_ck17",
+      "nearest_radius_null_rmse_dex": 0.00034897911607326853,
+      "relative_rmse_advantage": 0.9949994137928501,
+      "row_count": 445
+    },
+    "jovian_radius_8_16Re": {
+      "absolute_rmse_advantage_dex": 0.08292204413824034,
+      "best_null_baseline": "nearest_radius_neighbor",
+      "ck17_frozen_rmse_dex": 0.08335427705293204,
+      "classification": "null_family_matches_or_beats_ck17",
+      "nearest_radius_null_rmse_dex": 0.00043223291469170807,
+      "relative_rmse_advantage": 0.994814508265518,
+      "row_count": 567
+    },
+    "sub_neptune_radius_1p5_4Re": {
+      "absolute_rmse_advantage_dex": 0.20331665741743923,
+      "best_null_baseline": "nearest_radius_neighbor",
+      "ck17_frozen_rmse_dex": 0.20417461029825096,
+      "classification": "null_family_matches_or_beats_ck17",
+      "nearest_radius_null_rmse_dex": 0.0008579528808117129,
+      "relative_rmse_advantage": 0.9957979453000623,
+      "row_count": 340
+    }
+  }
+}
