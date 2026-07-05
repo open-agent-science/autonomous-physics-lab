@@ -1,10 +1,13 @@
 manifest_kind: metadata_only_source_manifest
 manifest_id: FRB-CAT2-EXPMAP-SOURCE-0001
 task_id: TASK-0910
-status: pinned_public_locator_checksum_pending
+status: pinned_public_locator_schema_blocked
 generated_at_utc: '2026-07-02T00:00:00Z'
 retrieval_date_utc: '2026-07-02'
 retrieved_by: gladunrv
+updated_at_utc: '2026-07-04T00:00:00Z'
+updated_by: akutenyov
+update_task_id: TASK-0930
 builds_on:
   csv_source_manifest: data/radio_transients/frb_catalog2_source_manifest.yaml
   t_truncated_split_spec: data/radio_transients/frb_catalog2_t_truncated_exposure_split.yaml
@@ -43,11 +46,13 @@ artifact:
   filename: chimefrbcat2_exposure.h5
   format: HDF5
   file_size_display: 206.02 MB
-  file_size_bytes: to_be_confirmed_at_first_fetch
+  file_size_bytes: 216024090
   file_size_display_source: CANFAR vault UI listing (2026-07-02)
-  sha256: to_be_computed_at_first_license_clear_fetch
-  checksum_scope: raw_artifact_pending_before_construction
+  sha256: cd8411f92d0ac31bd05dff47f62797638c354444de27a5c056113ca00470d514
+  checksum_scope: raw_artifact_pinned_for_schema_gate_only
   last_modified: '2026-01-05T23:36:49Z'
+  http_last_modified: 'Fri, 12 Dec 2025 00:20:43 GMT'
+  http_digest_md5_base64: 07nuxuH01/ftr1AE8Nmocg==
   value_bearing: true
   committed_to_repo: false
 expected_file_list:
@@ -60,18 +65,17 @@ expected_file_list:
       first license-clear listing reveals additional or renamed exposure files, this
       list and the checksum plan must be updated before any T-truncated construction.
 checksum_plan:
-  status: pending_not_fabricated
+  status: complete_verified
   algorithm: SHA-256
-  when_computed: at the first license-clear fetch of chimefrbcat2_exposure.h5
+  when_computed: first license-clear fetch of chimefrbcat2_exposure.h5 on 2026-07-04
   no_hash_fabricated: true
-  bytes_downloaded_in_this_task: false
-  expected_sha256: TO_BE_PINNED_AT_FIRST_LICENSE_CLEAR_FETCH
-  expected_bytes: TO_BE_CONFIRMED_AT_FIRST_FETCH
-  verify_after_pinning: >
-    Compute sha256 of the fetched chimefrbcat2_exposure.h5, record it and the exact
-    byte count here, and freeze this manifest to status pinned_public_locator before
-    integrating any exposure values. Any later reprocessing produces a new pinned
-    artifact rather than silently changing the frozen values.
+  bytes_downloaded_in_this_task: true
+  expected_sha256: cd8411f92d0ac31bd05dff47f62797638c354444de27a5c056113ca00470d514
+  expected_bytes: 216024090
+  verification_policy: >
+    Future fetches must match the pinned SHA-256 and exact byte count. Any changed
+    upstream object requires a new source-version review and checksum identity rather
+    than silent mutation of this frozen artifact.
 rights_and_access:
   read_access: public
   canfar_owner: ssiegel
@@ -119,15 +123,69 @@ access_policy_note:
     does not re-trip the landing-page failure. It does not change the redistribution
     posture (still metadata-only, empty rightsList).
 fetch_verify:
-  bytes_fetched_in_this_task: false
+  bytes_fetched_in_this_task: true
   precondition: license clearance (or explicit metadata-only decision) AND a working vault file endpoint MUST precede any fetch
   download_command_pattern: >
     # pattern only — computed at first license-clear fetch, digest never fabricated here.
     curl -L -o chimefrbcat2_exposure.h5 "https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/25.0066/data/exposure/chimefrbcat2_exposure.h5"
   verify_command_pattern: >
     python3 -c "import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())" chimefrbcat2_exposure.h5
-  expected_sha256: TO_BE_PINNED_AT_FIRST_LICENSE_CLEAR_FETCH
-  expected_bytes: TO_BE_CONFIRMED_AT_FIRST_FETCH
+  expected_sha256: cd8411f92d0ac31bd05dff47f62797638c354444de27a5c056113ca00470d514
+  expected_bytes: 216024090
+  observed_http_digest_md5_base64: 07nuxuH01/ftr1AE8Nmocg==
+  local_md5_matches_http_digest: true
+schema_gate:
+  task_id: TASK-0930
+  inspected_at_utc: '2026-07-04'
+  inspector: h5py 3.16.0
+  verdict: CONSTRUCTION_BLOCKED_STATIC_FULL_WINDOW_ONLY
+  root_attributes:
+    catalog: The Second CHIME/FRB Catalog of Fast Radio Bursts
+    datatype: Exposure
+    doi: 10.11570/25.0066
+    instrument: CHIME/FRB
+    start_date: '2018-09-04'
+    end_date: '2023-09-15'
+    t_res: 12.0
+  datasets:
+    - path: /upper
+      shape: [201326592]
+      dtype: float64
+      chunks: [131072]
+      compression: gzip
+      dimension_labels: [pixel]
+      class: HEALPIX
+      nside: 4096
+      ordering: RING
+      coordinate_system: ICRS
+      unit: s
+      semantics: integrated exposure over the full catalog observing period
+    - path: /lower
+      shape: [201326592]
+      dtype: float64
+      chunks: [131072]
+      compression: gzip
+      dimension_labels: [pixel]
+      class: HEALPIX
+      nside: 4096
+      ordering: RING
+      coordinate_system: ICRS
+      unit: s
+      semantics: integrated exposure over the full catalog observing period
+  structural_checks:
+    expected_healpix_pixel_count: 201326592
+    expected_pixel_count_formula: 12 * nside^2
+    upper_pixel_count_matches: true
+    lower_pixel_count_matches: true
+    time_axis_present: false
+    time_bin_boundaries_present: false
+    per_interval_exposure_present: false
+    sky_localization_interface_present: true
+  construction_readiness: >
+    Blocked. The file is a pair of static full-window HEALPix maps. Root-level
+    start_date, end_date, and t_res describe production context but do not expose
+    time-indexed bins. exp_up(<=T) and exp_low(<=T) cannot be reconstructed without
+    post-T leakage from these cumulative maps.
 what_this_manifest_does_not_do:
   fetches_exposure_map_bytes: false
   commits_exposure_map_bytes: false
@@ -138,10 +196,9 @@ what_this_manifest_does_not_do:
   creates_a_result_artifact: false
   promotes_a_claim_or_knowledge_entry: false
 next_allowed_workflow_step: >
-  With locator, version, file list, rights, access policy, and a checksum plan now
-  reviewable, a future maintainer-approved step may fetch and SHA-256-pin
-  chimefrbcat2_exposure.h5 under the metadata-only boundary, then construct the
-  leakage-safe T-truncated exp_up(<=T) / exp_low(<=T) view specified in TASK-0877.
-  No morphology model, PRED entry, RESULT artifact, or claim transition is authorized
-  by this pin.
-verdict: EXPOSURE_MAP_SOURCE_PINNED_METADATA_ONLY_CHECKSUM_PENDING
+  Do not start T-truncated construction from this artifact. A separate
+  maintainer-approved source scout may look for a genuinely time-indexed exposure
+  product or an upstream per-interval construction source. No morphology model,
+  PRED entry, RESULT artifact, derived exposure rows, or claim transition is
+  authorized by this gate.
+verdict: CHECKSUM_PINNED_CONSTRUCTION_BLOCKED_STATIC_FULL_WINDOW_ONLY
