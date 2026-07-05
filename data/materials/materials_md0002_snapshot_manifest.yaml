@@ -5,7 +5,7 @@ dataset_id: MD-0002-materials-project-stable-ternary-oxides
 dataset_version: 0.1.0
 task_id: TASK-0809
 campaign_id: materials-property-residuals
-status: internally_reusable_release_metadata_closed_external_release_not_minted
+status: externally_published_zenodo_v0_1_0_recorded
 source_id: materials-project
 source:
   provider: "Materials Project (LBNL)"
@@ -79,18 +79,31 @@ uncertainty_semantics:
 release_metadata:
   source_data_license: CC BY 4.0
   apl_curation_license: repository_license_applies_to_metadata_and_code
-  external_repository_record: not_created
-  external_dataset_doi: not_minted
-  release_tag: not_created
+  external_repository_record: https://zenodo.org/records/21207072
+  external_dataset_doi: 10.5281/zenodo.21207072
+  external_concept_doi: 10.5281/zenodo.21207071
+  release_tag: dataset-md0002-v0.1.0
+  release_tag_commit: 8be7469616fb8957d4f967124720ee30db20f6e9
+  publication_date: '2026-07-05'
+  archive_filename: md0002-v0.1.0.zip
+  archive_size_bytes: 795018
+  archive_checksum_sha256: 19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22
+  archive_checksum_md5: 7cb2979574f7d39945793e1874b5d918
   recommended_internal_citation: >
     Autonomous Physics Lab MD-0002 Materials Project stable ternary oxides
-    dataset, version 0.1.0, derived from Materials Project database version
-    2026.04.13 under CC BY 4.0 attribution; cite Jain et al. 2013 and this
-    repository revision.
+    dataset, version 0.1.0, Zenodo doi:10.5281/zenodo.21207072, derived from
+    Materials Project database version 2026.04.13 under CC BY 4.0 attribution;
+    cite Jain et al. 2013 and the release tag dataset-md0002-v0.1.0.
+  recommended_external_citation: >
+    Hladun, R., & Kutenyov, A. (2026). MD-0002: Frozen benchmark slice of
+    Materials Project stable ternary oxides (0.1.0) [Data set]. Zenodo.
+    https://doi.org/10.5281/zenodo.21207072
   external_publication_status: >
-    Metadata closeout only. A separate maintainer-approved release task is
-    required before upload to an external repository, release tagging, archive
-    checksum freeze, or DOI minting.
+    Published on Zenodo as version 0.1.0. The published ZIP was built from
+    release tag dataset-md0002-v0.1.0 before DOI assignment; therefore the
+    archived manifest inside that ZIP intentionally records external_dataset_doi:
+    not_minted, while this live repository manifest records the post-publication
+    DOI and checksum facts.
 schema_and_validation:
   loader_contract: physics_lab/datasets/materials_md0002.py
   release_documentation: data/materials/materials_md0002_release_readme.md
@@ -118,6 +131,13 @@ changelog:
       Added release/source metadata, normalized-file checksum, citation/reuse
       metadata, uncertainty policy, changelog, and explicit external-release
       status without changing rows, holdout membership, or RESULT-0021 metrics.
+  - version: 0.1.0-zenodo-recordback
+    date: '2026-07-05'
+    task_id: TASK-0924
+    summary: >
+      Recorded the minted Zenodo DOI, concept DOI, release tag, archive
+      checksum, and external record URL after maintainer publication, without
+      changing rows, holdout membership, RESULT-0021 metrics, or claims.
 limitations:
   - "Computed DFT values only; not experimental measurements."
   - "Formation energy per atom and band gap are separate axes and must not be pooled."

@@ -53,7 +53,15 @@ Band-gap rows remain diagnostic-only for the current promoted result path.
 
 ## DOI Note
 
-The packaged snapshot manifest may record `external_dataset_doi: not_minted`
-because archive bytes are built before Zenodo assigns the DOI. The final DOI is
-recorded on the Zenodo record and in a repository record-back commit after
-publication.
+The published Zenodo v0.1.0 record is:
+<https://zenodo.org/records/21207072>
+
+Version DOI: `10.5281/zenodo.21207072`
+
+Concept DOI: `10.5281/zenodo.21207071`
+
+The packaged snapshot manifest inside the published v0.1.0 ZIP may record
+`external_dataset_doi: not_minted` because the archive bytes were built before
+Zenodo assigned the DOI. The live repository manifest records the
+post-publication DOI record-back without changing the already published archive
+bytes.

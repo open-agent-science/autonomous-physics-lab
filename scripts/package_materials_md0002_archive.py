@@ -6,6 +6,11 @@ deterministic ZIP archive to an explicit local output directory, and records an
 archive manifest beside it. It does not create release tags, upload externally,
 mint or decline a DOI, or modify MD-0002 rows, holdout membership, source
 snapshots, or RESULT-0021.
+
+The published Zenodo v0.1.0 archive is pinned to release tag
+``dataset-md0002-v0.1.0``. Later repository record-back commits may update live
+metadata files with the minted DOI, so reproduce the published bytes from that
+tag rather than from a post-publication ``main`` checkout.
 """
 
 from __future__ import annotations
@@ -24,6 +29,18 @@ DATASET_VERSION = "0.1.0"
 DEFAULT_ARCHIVE_NAME = "MD-0002-materials-project-stable-ternary-oxides-v0.1.0.zip"
 DEFAULT_MANIFEST_NAME = "MD-0002-materials-project-stable-ternary-oxides-v0.1.0.manifest.json"
 FIXED_ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
+PUBLISHED_RELEASE_TAG = "dataset-md0002-v0.1.0"
+PUBLISHED_RECORD_URL = "https://zenodo.org/records/21207072"
+PUBLISHED_RECORD_DOI = "10.5281/zenodo.21207072"
+PUBLISHED_CONCEPT_DOI = "10.5281/zenodo.21207071"
+PUBLISHED_ARCHIVE_NAME = "md0002-v0.1.0.zip"
+PUBLISHED_ARCHIVE_BYTES = 795_018
+PUBLISHED_ARCHIVE_SHA256 = "19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22"
+PUBLISHED_ARCHIVE_MD5 = "7cb2979574f7d39945793e1874b5d918"
+POST_PUBLICATION_RECORD_BACK_PATHS = {
+    "data/materials/materials_md0002_snapshot_manifest.yaml",
+    "data/materials/materials_md0002_release_readme.md",
+}
 
 
 @dataclass(frozen=True)
@@ -127,9 +144,17 @@ def verify_package_files(
         actual_size = path.stat().st_size
         actual_sha = sha256_file(path)
         if actual_size != entry.bytes or actual_sha != entry.sha256:
+            record_back_hint = ""
+            if entry.path in POST_PUBLICATION_RECORD_BACK_PATHS:
+                record_back_hint = (
+                    f" Published {DATASET_VERSION} archive bytes are pinned to "
+                    f"{PUBLISHED_RELEASE_TAG}; run this helper from that tag to "
+                    "reproduce the Zenodo archive after DOI record-back commits."
+                )
             raise ValueError(
                 "Package file hash/size mismatch for "
-                f"{entry.path}: bytes={actual_size}, sha256={actual_sha}"
+                f"{entry.path}: bytes={actual_size}, sha256={actual_sha}."
+                f"{record_back_hint}"
             )
         verified.append(
             {

@@ -33,6 +33,24 @@ The packaged snapshot manifest honestly reads
 `external_dataset_doi: not_minted` — the minted DOI lives on the Zenodo record
 and in the repository record-back commit, not inside the v0.1.0 archive bytes.
 
+## Post-Publish Record Back (2026-07-05)
+
+| Field | Value |
+| --- | --- |
+| Published record | <https://zenodo.org/records/21207072> |
+| Version DOI | `10.5281/zenodo.21207072` |
+| Concept DOI | `10.5281/zenodo.21207071` |
+| Release tag | `dataset-md0002-v0.1.0` |
+| Release tag commit | `8be7469616fb8957d4f967124720ee30db20f6e9` |
+| Published file | `md0002-v0.1.0.zip` |
+| Published size | 795,018 bytes |
+| Published SHA-256 | `19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22` |
+| Published MD5 | `7cb2979574f7d39945793e1874b5d918` |
+
+Zenodo API and file-download verification on 2026-07-05 matched the release
+pack facts above. The repository manifest now records the DOI and checksums;
+the archived v0.1.0 manifest remains a pre-DOI byte snapshot by design.
+
 ## Maintainer Steps (~10 minutes)
 
 1. Create a Zenodo account at zenodo.org (log in with GitHub or ORCID).
@@ -50,7 +68,7 @@ and in the repository record-back commit, not inside the v0.1.0 archive bytes.
 ## Copy-Paste Zenodo Metadata
 
 **Title:**
-`MD-0002: Frozen benchmark slice of Materials Project stable ternary oxides (v0.1.0)`
+`MD-0002: Frozen benchmark slice of Materials Project stable ternary oxides`
 
 **Creators** (affiliation for both: `Open Agent Science / Autonomous Physics Lab`):
 1. `Hladun, Roman` — ORCID `0009-0004-4853-5212`
@@ -121,11 +139,11 @@ reproducibility; holdout evaluation; open agent science`
 
 ## Record-Back Checklist (after Publish)
 
-- [ ] DOI recorded in `materials_md0002_snapshot_manifest.yaml`
+- [x] DOI recorded in `materials_md0002_snapshot_manifest.yaml`
       (`external_dataset_doi`), record URL in `external_repository_record`,
       tag in `release_tag`.
-- [ ] Release tag `dataset-md0002-v0.1.0` pushed at the merged release commit.
-- [ ] Dataset docs updated to cite the DOI as the canonical external citation.
-- [ ] Note: the archived snapshot-manifest bytes intentionally predate the
+- [x] Release tag `dataset-md0002-v0.1.0` pushed at the merged release commit.
+- [x] Dataset docs updated to cite the DOI as the canonical external citation.
+- [x] Note: the archived snapshot-manifest bytes intentionally predate the
       DOI; a future v0.1.1 rebuild would need allowlist pin refreshes and a
       new version DOI.

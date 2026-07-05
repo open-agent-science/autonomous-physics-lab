@@ -20,6 +20,7 @@ input:
     - "docs/reviews/materials-md0002-deterministic-archive-dry-run.md"
     - "docs/reviews/materials-md0002-deterministic-archive-helper.md"
     - "docs/reviews/materials-md0002-zenodo-archive-noise-cleanup.md"
+    - "docs/reviews/materials-md0002-zenodo-record-back.md"
     - "tasks/TASK-0932-md0002-zenodo-archive-noise-cleanup.yaml"
     - "scripts/package_materials_md0002_archive.py"
   planning_context: >
