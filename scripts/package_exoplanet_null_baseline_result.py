@@ -4,13 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import subprocess
 
 import yaml
-
-from physics_lab.workflows.artifacts import hash_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,10 +26,14 @@ SLICES = (
     "jovian_radius_8_16Re",
     "hot_jupiter_period_lt10d_radius_ge8Re",
 )
+TEXT_HASH_SUFFIXES = {".json", ".md", ".py", ".yaml", ".yml"}
 
 
 def sha256(path: Path) -> str:
-    return hash_file(path, ROOT)["sha256"]
+    payload = path.read_bytes()
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def write_text(path: Path, content: str) -> None:
