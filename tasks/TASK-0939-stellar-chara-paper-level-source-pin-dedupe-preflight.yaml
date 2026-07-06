@@ -1,7 +1,7 @@
 id: TASK-0939
 title: "Preflight a CHARA paper-level source pin and DEBCat de-dup route for an independent Stellar M-L holdout"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
