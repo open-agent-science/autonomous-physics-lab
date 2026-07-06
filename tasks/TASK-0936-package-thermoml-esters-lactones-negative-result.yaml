@@ -21,6 +21,7 @@ input:
     - "results/EXP-0020/RUN-0001/metrics.json"
     - "docs/reviews/thermoml-result0026-gate-b-replay.md"
     - "docs/result-promotion-protocol.md"
+    - "hypotheses/HYP-0020-thermoml-tb-joback-transfer.yaml"
   planning_context: >
     Create a new canonical negative/control result package, expected as
     RESULT-0028 unless that id is taken by a newer main commit, using only the
