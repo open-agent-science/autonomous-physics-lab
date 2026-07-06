@@ -1,7 +1,7 @@
 id: TASK-0935
 title: "Independently replay Exoplanet RESULT-0027 through Gate B without reopening residual scoring"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -54,7 +54,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_docs_links.py tests/test_exoplanet_null_baseline_result_package.py tests/test_exoplanet_mass_radius_loader.py"
-    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0021/RUN-0001/result.yaml --root ."
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0021/RUN-0001/result.yaml --root . --validator-contributor-id gladunrv --validator-github-username gladunrv --validator-agent-tool 'Claude Code' --validator-model 'Claude Fable 5' --expect-status BLOCKED"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
