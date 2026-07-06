@@ -1,0 +1,54 @@
+# Template for decision packets under decisions/DEC-YYYYMMDD-<slug>.yaml.
+# Phase 1 (dry-run): packets are classification artifacts only; nothing
+# auto-applies. See docs/decision-autonomy-policy.md.
+decision_id: DEC-YYYYMMDD-short-slug
+decision_type: campaign_hold_monitor   # must exist in policy/decision-autonomy.yaml; unknown -> class_2
+autonomy_class: class_1_lazy_consensus # must match the matrix mapping
+reversibility: reversible              # reversible | hard_to_reverse | irreversible
+external_exposure: none                # none | internal_public_docs | external
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: short_action_slug
+basis:
+  - evidence pointer one (file/id)
+  - evidence pointer two
+
+agent_quorum:
+  director_agent:
+    vote: approve            # approve | reject | escalate
+    agent_id: ...
+    vendor: ...              # e.g. anthropic | openai
+    agent_tool: ...
+    model_version: ...
+    session_id: ...          # must differ between quorum members
+  critic_agent:
+    vote: approve
+    agent_id: ...
+    vendor: ...
+    agent_tool: ...
+    model_version: ...
+    session_id: ...
+  cross_vendor: false        # true when vendors differ; required for Phase-3 apply
+
+devils_advocate:
+  alternative_considered: ...
+  strongest_objection: ...
+  why_rejected: ...
+  escalation_required: false
+
+veto:
+  window_hours: 48
+  deadline_utc: null         # set when a live veto window starts (Phase 3+)
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: agent_quorum   # policy_auto | agent_quorum | maintainer
+  applied_by: pending        # pending | agent | maintainer
+  status: dry_run_only       # dry_run_only | applied | vetoed | reverted
+  revert_of: null            # decision_id when this packet reverts a prior one
