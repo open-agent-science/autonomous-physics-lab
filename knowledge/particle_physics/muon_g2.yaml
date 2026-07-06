@@ -1,8 +1,15 @@
 id: KNOW-0007
 title: "Muon g-2 discrepancy stress-test target and formula-search constants"
 domain: particle_physics
-status: REVIEW_NEEDED
+status: frozen
 source: "PDG 2024; Muong-2 Collaboration PRL 131 161802 (2023); Aoyama et al. Phys. Rept. 887 (2020)"
+maintainer_disposition: >
+  Parked as stress-test memory per Decision Day #2 D2-4 (2026-07-06,
+  docs/reviews/maintainer-decision-day-2026-07-06.md): the muon g-2 line is
+  not an active scientific lane; CLAIM-0008 carries claim_role
+  stress_test_memory / active_scientific_claim false. Values below stay as
+  frozen stress-test constants. Reopen requires a new external result or an
+  explicit maintainer decision.
 
 # ── Target observable ────────────────────────────────────────────────────────
 target:

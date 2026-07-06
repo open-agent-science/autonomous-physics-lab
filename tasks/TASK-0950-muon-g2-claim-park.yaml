@@ -1,7 +1,7 @@
 id: TASK-0950
 title: "Park the muon g-2 line: move CLAIM-0008 to stress-test memory and settle the knowledge entry"
 type: docs_protocol
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: low
