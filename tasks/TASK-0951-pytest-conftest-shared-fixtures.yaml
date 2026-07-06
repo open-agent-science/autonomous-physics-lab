@@ -1,0 +1,49 @@
+id: TASK-0951
+title: "Extract shared pytest fixtures into tests/conftest.py"
+type: infrastructure
+status: READY
+closeout: review
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Decision Day #2 D2-7 (2026-07-06) accepted proposal 20260503-roman-pytest-conftest-fixtures: cheap test-quality infrastructure that reduces boilerplate for every future contributor."
+  - "No behavior change: the tests must assert exactly what they asserted before."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "tasks/proposals/20260503-roman-pytest-conftest-fixtures.yaml"
+  planning_context: >
+    Implement the accepted proposal: create tests/conftest.py with shared
+    fixtures for the repeated patterns (tmp_path-based repo scaffolds,
+    minimal task/experiment YAML factories) and migrate the duplicated
+    inline setups to the fixtures incrementally.
+
+requirements:
+  - "Create tests/conftest.py with fixtures covering the repeated setup patterns identified in the proposal; migrate existing tests to them without changing any assertion."
+  - "Full test suite must pass before and after; no test may be deleted or weakened."
+  - "No production code changes."
+
+accepted_outputs:
+  - "tests/conftest.py plus migrated test files with unchanged assertions and a green suite."
+  - "Output-routing summary: test infrastructure only."
+
+result_artifact_policy:
+  required: false
+  reason: "Test infrastructure refactor; no scientific artifact is produced."
+  evidence:
+    - "tasks/proposals/20260503-roman-pytest-conftest-fixtures.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent

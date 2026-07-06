@@ -1,0 +1,55 @@
+id: TASK-0945
+title: "Anchor the PRED-0069..0072 tier-1 point-only freeze externally: annotated tag, GitHub Release, Zenodo capsule pack"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decision Day #2 D2-8/R2 (2026-07-06): the sealed tier-1 forecasts are currently sealed only by a self-declared timestamp on an untagged commit of a mutable branch; a skeptic can dismiss that, and the freeze's value decays to zero the moment an AME/NUBASE-class release lands against an unanchored seal."
+  - "A third-party timestamp (Zenodo deposit under the proven TASK-0924/0937 pipeline) turns the freeze into one of the few externally verifiable sealed-forecast artifacts in any public agent-science repo."
+  - "External timestamp beats perfect signing: the annotated tag is required, a GPG signature is optional and must not block this task."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+    - "prediction_registry/nuclear_masses/PRED-0069.yaml"
+    - "docs/reviews/materials-md0002-zenodo-upload-pack.md"
+  planning_context: >
+    The freeze landed in commit f1eba9a2 (re-verify the canonical freeze
+    commit against the freeze review note at execution time). Follow the
+    MD-0002 release discipline: deterministic capsule, checksums recorded
+    before upload, maintainer performs the physical tag push / Release /
+    Zenodo publish, then a record-back commit anchors the DOI and tag into
+    the PRED documentation.
+
+requirements:
+  - "Prepare the annotated tag content for the canonical freeze commit (signed if a key is available; unsigned annotated tag is acceptable and must not block) and the GitHub Release notes; the tag push and Release creation are maintainer actions."
+  - "Build a small deterministic capsule containing PRED-0069..0072, their sha256 manifest, and the freeze review note, using the TASK-0908/TASK-0924 deterministic packaging discipline (fixed timestamps, recorded archive sha256)."
+  - "Prepare the complete Zenodo upload pack (title, creators, description with explicit no-claim and caveated point-forecast wording per R2, CC BY 4.0, keywords); upload/publish is the maintainer's action."
+  - "After publication, record the anchor back: tag name, Release URL, capsule DOI and checksum into the freeze review note and each PRED entry's documentation, so a third party can verify sealing without trusting branch history."
+  - "Change no PRED payloads, no registry entries' scientific content, no RESULT-0025 metrics; the interval-bearing side stays blocked per R2."
+
+accepted_outputs:
+  - "Tag + Release + capsule + Zenodo pack + post-publication record-back; every checksum recorded in the repo before upload."
+  - "Output-routing summary: external anchoring of an existing frozen artifact; no scientific content change."
+
+result_artifact_policy:
+  required: false
+  reason: "External anchoring and release packaging of an already-registered prediction freeze; no new scientific result is produced."
+  evidence:
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

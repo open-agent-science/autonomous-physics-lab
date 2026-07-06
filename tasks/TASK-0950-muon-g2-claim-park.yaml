@@ -1,0 +1,50 @@
+id: TASK-0950
+title: "Park the muon g-2 line: move CLAIM-0008 to stress-test memory and settle the knowledge entry"
+type: docs_protocol
+status: READY
+closeout: review
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Decision Day #2 D2-4 (2026-07-06): the muon g-2 line has been dormant since RESULT-0012 (INCONCLUSIVE, 2026-05-08); CLAIM-0008's 'hit within 1 sigma' framing (z=0.168 sigma) is the ledger's closest overclaim-risk point while no hardening task exists."
+  - "Parking follows the TASK-0927 claim-role precedent: honest reclassification, no history rewrite, explicit reopen conditions."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "claims/CLAIM-0008-muon-g2-lepton-cascade-empirical.md"
+    - "knowledge/particle_physics/muon_g2.yaml"
+  planning_context: >
+    Apply the parked role to CLAIM-0008 following the TASK-0927 migration
+    pattern (claim_role reclassification with active_scientific_claim:
+    false), and settle the muon g-2 knowledge entry out of REVIEW_NEEDED
+    into a parked, honest status that reflects the decision.
+
+requirements:
+  - "Reclassify CLAIM-0008 to a non-active stress-test/calibration-memory role using the exact TASK-0927 field pattern; keep the full evidence trail and caveats; change no metrics or verdicts."
+  - "Update knowledge/particle_physics/muon_g2.yaml from REVIEW_NEEDED to a parked status consistent with the claim role, with the D2-4 decision referenced."
+  - "State reopen conditions verbatim from D2-4: a new external result or an explicit maintainer decision."
+  - "No new analysis, no hardening work, no wording that strengthens or weakens the scientific content of RESULT-0012."
+
+accepted_outputs:
+  - "The reclassified claim, the settled knowledge entry, and a one-paragraph note in the claim referencing the decision memo."
+  - "Output-routing summary: ledger role migration only; no scientific content change."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim-role and knowledge-status migration; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

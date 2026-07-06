@@ -1,7 +1,7 @@
 id: TASK-0305
 title: "Score nuclear shell-axis mini-wave reveal"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -40,6 +40,7 @@ requirements:
   - "Report partial-reveal coverage and do not rewrite PRED entries or target sets after values are visible."
   - "Use conservative verdict vocabulary; do not claim a nuclear mass law or discovery unless a later maintainer-reviewed claim-promotion task separately authorizes it."
 
+  - "Maintainer decision D2-5 (2026-07-06, docs/reviews/maintainer-decision-day-2026-07-06.md): the TASK-0307 source manifest is approved; this task is unblocked."
 accepted_outputs:
   - "data/nuclear_masses/<approved-source>_sources.yaml or source-manifest artifact approved by TASK-0303"
   - "docs/reviews/nuclear-shell-axis-mini-wave-reveal-comparison.md"

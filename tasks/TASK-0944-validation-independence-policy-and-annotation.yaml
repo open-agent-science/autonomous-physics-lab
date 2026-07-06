@@ -1,0 +1,57 @@
+id: TASK-0944
+title: "Add the validation_independence axis: policy, annotation of all AGENT_VALIDATED results, docs and dashboard sync"
+type: docs_protocol
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decision Day #2 R1 (2026-07-06): the repo applies a strict human-level independence standard to RESULT-0020 while most AGENT_VALIDATED results were replayed by the same human via a second account or a different tool; on a public repo this inconsistency is the single largest credibility risk."
+  - "The fix is classification, not demotion: AGENT_VALIDATED keeps meaning 'replayed'; a new validation_independence axis records who replayed relative to the publisher."
+  - "This is the trust multiplier that must land before any DOU/Medium promotion or citation vitrine work."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/status.md"
+  planning_context: >
+    Implement ratified refinement R1. Schema note: the result.yaml top level
+    is strict (additionalProperties false) but validation_record accepts
+    additional keys, so the new fields live inside validation_record and need
+    no schema migration. Identity ground truth: gladunrv and
+    romanhladun24-dot are two accounts of the same person (the maintainer);
+    akutenyov is the only independent second contributor.
+
+requirements:
+  - "Add validation_independence (enum: independent | same_owner_different_account | same_account_different_tool | maintainer_self) and optional validation_independence_note inside validation_record for ALL AGENT_VALIDATED results, including RESULT-0017/RESULT-0018 annotated as independent."
+  - "Independence is human-level: multiple accounts or tools of the same person never combine into independent; same-owner replays raise reproducibility confidence only. Record this rule and the ratified public wording in the result-promotion protocol and the review-tier documentation."
+  - "Document a replays list convention inside validation_record so multiple replayers (including external researchers via PR) can accumulate per result without schema changes."
+  - "Sync the public dashboard / status wording so AGENT_VALIDATED is glossed with the independence axis; do not change any metric, verdict, review_tier value, claim, or history."
+  - "Prepare (do not apply) the calm Zenodo metadata classification note for record 10.5281/zenodo.21207072 per R3: same DOI, no new version, not framed as a correction; the Zenodo edit itself is a maintainer action."
+  - "Legacy results without any review_tier field are out of scope here; note them for a separate tier-semantics task instead of silently annotating them."
+
+accepted_outputs:
+  - "Policy section + annotated validation_record blocks on all AGENT_VALIDATED results + docs/dashboard sync + the Zenodo note pack; a short review memo listing every annotation with its evidence."
+  - "Output-routing summary: metadata classification and docs only; no numeric result, tier value, claim, or knowledge change."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata annotation and policy documentation; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

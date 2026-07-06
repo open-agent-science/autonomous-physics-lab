@@ -35,7 +35,7 @@ requirements:
   - "Explicitly demote the post-AME2020 holdout to diagnostic background: no future task may score it for confirmatory evidence; any run against it must carry the verdict label post_hoc_methodology_stress_test and the explicit clause that it cannot unblock TASK-0827."
   - "Define the fresh-surface validation contract: a predeclared ROLE-DISJOINT split of the next external mass evaluation (nuclide set A scores calibration coverage, disjoint set B scores frozen predictions; role assignment frozen before the release exists) and/or a trickle registry of new independent post-freeze mass measurements accumulated between evaluations."
   - "No scoring, no metric computation, no PRED/RESULT/CLAIM/KNOW artifact in this task; the output is the protocol + contract documents only."
-  - "Blocked-by: the FRB flagship execution window and the TASK-0929 point-only freeze contract decision; unblocking this lane requires an explicit maintainer decision recorded against this task."
+  - "Blocked-by: interval/uncertainty calibration repair and the FRB flagship execution window. The TASK-0929 point-only freeze contract clause was resolved (DONE 2026-07-05) and removed per Decision Day #2 D2-6 (2026-07-06); unblocking still requires an explicit maintainer decision recorded against this task."
 
 accepted_outputs:
   - "A predeclaration + fresh-surface-contract note under docs/reviews/ (route families, stop conditions, holdout demotion, role-disjoint reveal split, trickle-registry definition)."

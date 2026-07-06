@@ -1,6 +1,6 @@
 proposal_id: 20260520-roman-differentiable-eft-residuals
 title: "Scaffold a differentiable effective-field-theory residual track"
-status: PROPOSED
+status: REJECTED
 type: methodology_track
 priority: low
 
@@ -90,7 +90,7 @@ validation:
 
 promotion:
   canonical_task_id: null
-  decision: pending
+  decision: rejected  # Decision Day #2 D2-7 (2026-07-06): pre-consolidation broad science scaffold; contradicts the current consolidation strategy (no new broad searches). Reopen only via a new maintainer decision.
   notes: >
     Higher implementation cost than the anomaly registry and
     fresh-data-axes scaffolds. The proposal is intentionally narrowed
