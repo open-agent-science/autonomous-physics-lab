@@ -70,6 +70,9 @@ agent_proposal_evaluation:
     RESULT, so the replay records validating-agent identity but cannot
     mechanically compare it against the original publisher.
   validation_record:
+    validation_independence: independent
+    validation_independence_note: >-
+      Publisher lane predates the published_by block (roman lane, attributed from task history); replayer akutenyov is a different human, so this replay is independent.
     replayed_by:
       contributor_id: akutenyov
       github_username: akutenyov

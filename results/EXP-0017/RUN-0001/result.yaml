@@ -71,6 +71,9 @@ agent_proposal_evaluation:
     the AGENT_VALIDATED bump is independent. Keep the trust qualifier explicit: same-source
     DEBCat transfer under controls, not a universal law or CLAIM/KNOW promotion.'
   validation_record:
+    validation_independence: same_owner_different_account
+    validation_independence_note: >-
+      Publisher romanhladun24-dot and replayer gladunrv are two accounts of the same person (the maintainer); deterministic reproducibility on a second account/tool path, not an independent-human validation.
     replayed_by:
       contributor_id: gladunrv
       github_username: gladunrv

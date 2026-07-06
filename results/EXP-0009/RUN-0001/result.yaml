@@ -54,6 +54,9 @@ agent_proposal_evaluation:
     Mixed quark scheme/scale limitations remain unchanged. CLAIM-0007 status
     is not updated by this replay; Gate C remains maintainer-only.
   validation_record:
+    validation_independence: same_account_different_tool
+    validation_independence_note: >-
+      Publisher and replayer are the same contributor (roman) via different tools; legacy format without a published_by block, publisher attributed from task history. Reproducibility evidence, not an independent-human validation.
     replayed_by:
       contributor_id: roman
       github_username: gladunrv

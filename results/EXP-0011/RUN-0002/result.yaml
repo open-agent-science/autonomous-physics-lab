@@ -61,6 +61,9 @@ agent_proposal_evaluation:
     stored on this RESULT, so the replay identity is recorded but the helper
     could not mechanically compare original and validating agents.
   validation_record:
+    validation_independence: same_account_different_tool
+    validation_independence_note: >-
+      Publisher and replayer are the same contributor (roman) via different tools; legacy format without a published_by block, publisher attributed from task history. Reproducibility evidence, not an independent-human validation.
     replayed_by:
       contributor_id: roman
       github_username: gladunrv
