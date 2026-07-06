@@ -55,6 +55,9 @@ agent_proposal_evaluation:
     INCONCLUSIVE and CLAIM-0010 stays DRAFT; a maintainer may optionally proceed
     to Gate C, but no claim or nuclear mass formula is promoted by this validation.
   validation_record:
+    validation_independence: independent
+    validation_independence_note: >-
+      Originally published by akutenyov and replayed by roman - different humans, so this replay is independent.
     gate: GATE_B_INDEPENDENT_REPLAY
     replayed_by:
       contributor_id: roman
