@@ -1,0 +1,49 @@
+id: HYP-0020
+title: "Frozen Joback Tb estimator shows bounded transfer support on the 40-row ThermoML family-stratified audit fixture"
+domain: thermophysical_property_estimation
+status: TESTING
+
+hypothesis:
+  statement: >
+    On the checksum-pinned, rights-bounded 40-row ThermoML normal-boiling-temperature
+    audit fixture, the frozen Joback and Reid Tb group-contribution estimator should
+    outperform non-oracle controls overall and in at least two thirds of held-out
+    chemical families. This is a bounded transfer benchmark for the committed audit
+    fixture only; it is not a broad property-estimation, chemical-design, or source-corpus
+    claim.
+  formula_candidates:
+    - "model_joback_frozen_tb: Tb = 198.2 K + sum(Joback and Reid Tb group increments), with no fitted coefficients"
+    - "model_molecular_weight_only: train-only molecular-weight linear baseline"
+    - "model_global_median: train-lane global median Tb baseline"
+    - "model_nearest_homolog: train-lane nearest Joback-group homolog baseline"
+    - "model_shuffled_group_counts: deterministic shuffled-group-count control"
+
+assumptions:
+  - "Scope is normal boiling temperature (Tb) only; Tc is excluded to avoid upstream-property leakage."
+  - "The committed fixture is a 40-row bounded factual extract with five rows per predeclared family and value-blind selection against Joback error."
+  - "Raw ThermoML archive bytes and any substantial normalized corpus are not committed; source rights remain permission-bounded."
+  - "The Joback estimator is frozen before scoring and APL fits no Joback coefficient or correction."
+  - "The family-survival rule requires a 5 K aggregate advantage and at least two thirds of held-out families clearing the same margin."
+
+variables:
+  experimental_tb_k:
+    unit: K
+    description: "Experimental normal boiling temperature recorded in the bounded ThermoML Tb audit fixture."
+  predicted_tb_k:
+    unit: K
+    description: "Normal boiling temperature predicted by the frozen Joback estimator or control baselines."
+  family_margin_k:
+    unit: K
+    description: "Best non-oracle control MAE minus Joback MAE for each held-out family."
+
+evidence:
+  experiments:
+    - EXP-0020
+  results:
+    - RESULT-0026
+
+verdict: >
+  Agent-published bounded evidence indicates transfer support in scope: Joback MAE
+  is 14.925825 K versus 43.427943 K for the best non-oracle aggregate control,
+  and 7 of 8 held-out families clear the predeclared 5 K margin. Esters/lactones
+  is the explicit failed-family limitation, and no CLAIM or KNOW promotion is proposed.
