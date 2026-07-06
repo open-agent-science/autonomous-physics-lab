@@ -8,7 +8,7 @@ priority: high
 
 strategy_alignment:
   - "Decision Day #2 D2-8/R2 (2026-07-06): the sealed tier-1 forecasts are currently sealed only by a self-declared timestamp on an untagged commit of a mutable branch; a skeptic can dismiss that, and the freeze's value decays to zero the moment an AME/NUBASE-class release lands against an unanchored seal."
-  - "A third-party timestamp (Zenodo deposit under the proven TASK-0924/0937 pipeline) turns the freeze into one of the few externally verifiable sealed-forecast artifacts in any public agent-science repo."
+  - "A third-party timestamp (Zenodo deposit under the already-exercised TASK-0924/0937 pipeline) turns the freeze into one of the few externally verifiable sealed-forecast artifacts in any public agent-science repo."
   - "External timestamp beats perfect signing: the annotated tag is required, a GPG signature is optional and must not block this task."
 
 input:

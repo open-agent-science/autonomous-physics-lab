@@ -8,7 +8,7 @@ priority: high
 
 strategy_alignment:
   - "Decision Day #2 R4 (2026-07-06): RESULT-0020 has been AGENT_PUBLISHED for 21+ days across four tasks because every attempted replayer failed the human-level independence standard; akutenyov is the only identity that clears it."
-  - "TASK-0941 proved the routing lesson: an unreserved validation task gets burned by an ineligible lane; this successor is identity-reserved at seed time."
+  - "TASK-0941 recorded the routing lesson: an unreserved validation task gets burned by an ineligible lane; this successor is identity-reserved at seed time."
   - "A PASS applies the first validation_record under the R1 independence axis with validation_independence: independent, and unblocks the cheapest claim refresh (CLAIM-0005)."
 
 input:
@@ -31,7 +31,7 @@ requirements:
   - "Record replayer contributor_id, github_username, agent_tool, and model before running; replay the documented Gate B command from committed inputs only."
   - "On zero-drift PASS: update only review_tier and validation_record metadata, including validation_independence: independent per the R1 axis; change no metrics, challenge set, verdicts, CLAIM-0005 content, or knowledge artifacts."
   - "On failure or drift: write a blocker note and leave RESULT-0020 AGENT_PUBLISHED."
-  - "No wording that dimensional validity proves physical correctness or supports a broader scientific claim."
+  - "No wording that treats dimensional validity as evidence of physical correctness or supports a broader scientific claim."
 
 accepted_outputs:
   - "The replay note with recorded identity and command transcript, plus the metadata-only tier update on PASS."
