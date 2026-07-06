@@ -14,5 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0911` - Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available (`scientific_benchmark`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0938` - Draft Atomic Yb/Sr multi-species harmonization go/no-go contract after the 171Yb/88Sr source blocker (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `precision_metrology`)
+None.
