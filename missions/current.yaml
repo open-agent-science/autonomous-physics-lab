@@ -311,10 +311,10 @@ missions:
         label: "Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available"
         task_id: TASK-0911
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "PASS / BLOCKED / CONTESTED parity-gate note against the checksum-pinned AMDC table"
           - "source-rights boundary preserved; no vendored AMDC bytes unless maintainer-approved"
@@ -1389,7 +1389,7 @@ missions:
     status: active_gate_b_and_source_readiness
     scientific_value: high
     risk: medium
-    recommendation: "ThermoML Tb RESULT-0026 has a zero-drift numeric replay and workflow bridge; esters/lactones failed-family memory is preserved, and expansion is rights/count gated. TASK-0918 completed the failed-family negative-result preflight, so any next ThermoML execution should follow that recommendation or a newly queued fixture/source task."
+    recommendation: "ThermoML Tb RESULT-0026 has a zero-drift numeric replay and workflow bridge; esters/lactones failed-family memory is preserved, and expansion is rights/count gated. TASK-0918 completed the failed-family negative-result preflight, so the next bounded executor step is TASK-0940: a maintainer source-rights decision packet before any 80-row row extraction or metric rerun."
     why_now:
       - "ThermoML normal boiling temperature is a source-pinned public benchmark lane outside astronomy and materials DFT"
       - "RESULT-0026 has a bounded 40-row family-stratified fixture and a clear frozen Joback/Reid baseline"
@@ -1451,6 +1451,18 @@ missions:
           - "Gate A checklist for a narrow failed-family negative/control result"
           - "recommend package / keep review-note-only / wait for expanded fixture"
           - "RESULT-0026 unchanged; aggregate success and failed-family limitation both preserved"
+      - id: thermoml-bounded-extract-decision-packet
+        label: "Prepare the ThermoML 80-row bounded-extract maintainer decision packet"
+        task_id: TASK-0940
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "source-rights and maintainer decision packet before any ThermoML row extraction"
+          - "clear approve / local-only / defer / permission-request options with future task shapes"
+          - "no raw archive bytes, row values, metrics, RESULT mutation, or broad thermophysical claim"
 
   - id: particle-mass-relations
     title: "Particle Mass Relations"

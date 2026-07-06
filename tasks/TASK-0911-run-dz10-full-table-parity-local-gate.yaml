@@ -1,7 +1,7 @@
 id: TASK-0911
 title: "Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: medium
