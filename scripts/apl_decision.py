@@ -15,7 +15,6 @@ an agent cannot invent a permissive category.
 from __future__ import annotations
 
 import argparse
-import sys
 from pathlib import Path
 
 import yaml

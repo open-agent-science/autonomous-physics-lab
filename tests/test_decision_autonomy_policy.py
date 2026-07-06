@@ -1,5 +1,6 @@
 """Invariants for the decision-autonomy policy matrix (TASK-0952, v0 dry-run)."""
 
+import importlib.util
 from pathlib import Path
 
 import yaml
@@ -129,8 +130,6 @@ def test_template_has_required_fields():
 
 
 # --- CLI validator (scripts/apl_decision.py) ---
-
-import importlib.util
 
 _spec = importlib.util.spec_from_file_location(
     "apl_decision", REPO_ROOT / "scripts" / "apl_decision.py"
