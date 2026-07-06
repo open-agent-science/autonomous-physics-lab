@@ -541,7 +541,7 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. TASK-0914 froze the strict no-refit ZnSe/InP transfer contract. The current Quantum executor path is TASK-0920 under that contract, not a correction search."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. TASK-0914 froze the strict no-refit ZnSe/InP transfer contract, and TASK-0920 executed it without clearing the predeclared survival margin. Quantum should now preserve this bounded negative/borderline transfer memory and hold further executor work until a new direct source surface or maintainer-approved contract change exists."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
@@ -551,6 +551,7 @@ missions:
       - "TASK-0850 found that fixed effective-mass scaling worsened transfer against controls"
       - "TASK-0903 froze the existing ZnSe factual rows and returned NEEDS_MAINTAINER_DECISION for any future transfer benchmark"
       - "TASK-0914 predeclared a strict no-refit transfer contract and cleared TASK-0920 for execution"
+      - "TASK-0920 executed that contract and did not clear the predeclared transfer survival margin"
     forbidden:
       - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -574,7 +575,7 @@ missions:
         label: "Prepare the ZnSe frozen-row transfer-readiness gate"
         task_id: TASK-0903
         mode: research
-        status: review_ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
@@ -595,16 +596,16 @@ missions:
           - "fixed rows, size-harmonization rule, model, controls, and survival threshold before metrics"
           - "no benchmark metrics, correction search, source-byte vendoring, RESULT, CLAIM, or KNOW"
       - id: quantum-znse-no-refit-transfer-benchmark
-        label: "Run the ZnSe no-refit transfer benchmark only after contract approval"
+        label: "Preserve the completed ZnSe no-refit transfer as bounded negative/borderline memory"
         task_id: TASK-0920
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "bounded transfer or negative-memory output under the frozen TASK-0914 contract"
-          - "no refit, correction search, source-byte redistribution, design-law, or material recommendation wording"
+          - "bounded negative/borderline transfer memory under the frozen TASK-0914 contract"
+          - "no refit, correction search, source-byte redistribution, design-law, material recommendation wording, or immediate follow-on benchmark"
       - id: quantum-effective-mass-negative-memory
         label: "Route the failed effective-mass transfer check as negative memory"
         task_id: TASK-0871

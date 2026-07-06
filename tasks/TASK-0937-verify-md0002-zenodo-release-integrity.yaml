@@ -1,7 +1,7 @@
 id: TASK-0937
 title: "Verify MD-0002 Zenodo release integrity and public no-claim readiness"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
