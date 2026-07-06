@@ -1,7 +1,7 @@
 id: TASK-0933
 title: "Execute the approved tier-1 point-only NMD-0003 frontier prediction freeze (37 targets; mandatory caveat; no TASK-0827 unblock)"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: high
 priority: high
