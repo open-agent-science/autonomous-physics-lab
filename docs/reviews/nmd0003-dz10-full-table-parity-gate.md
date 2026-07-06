@@ -113,3 +113,6 @@ canonical table itself is now locally verifiable end-to-end.
 - **Publication blocker:** none for this gate. Canonical DZ10 **model** parity
   (Fortran port) remains open as a separate maintainer-approved follow-up;
   bulk redistribution of AMDC bytes remains not cleared.
+- **Follow-up status:** the Fortran-port recommendation is advisory only; this
+  task intentionally files no proposal or queue item, and the maintainer may
+  queue it (or not) at closeout.
