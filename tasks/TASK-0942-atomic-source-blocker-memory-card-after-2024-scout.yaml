@@ -1,7 +1,7 @@
 id: TASK-0942
 title: "Package the Atomic 2024 Yb/Sr isotope-mismatch scout as a source-blocker memory card"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
