@@ -92,7 +92,10 @@ Beloy/BACON network.
 `TASK-0913` then scouted one post-2021 independent primary-looking Yb/Sr route:
 Morzynski et al. 2024 is independent and scientifically valid, but it measures
 `171Yb/88Sr`, not the existing `171Yb/87Sr` diagnostic, so the reopen role
-remains blocked by isotope/transition mismatch.
+remains blocked by isotope/transition mismatch. `TASK-0942` packaged that
+outcome as a durable source-blocker memory card (see
+[atomic-ybsr-2024-isotope-mismatch-source-blocker-card.md](../reviews/atomic-ybsr-2024-isotope-mismatch-source-blocker-card.md))
+so future scouts do not re-evaluate the same candidate for the same role.
 
 **Expected next result:** no immediate Atomic benchmark result. The next useful
 actions are source-blocker memory and a protocol-only multi-species go/no-go
