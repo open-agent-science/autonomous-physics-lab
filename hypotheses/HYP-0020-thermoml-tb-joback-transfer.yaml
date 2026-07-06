@@ -41,6 +41,7 @@ evidence:
     - EXP-0020
   results:
     - RESULT-0026
+    - RESULT-0028
 
 verdict: >
   Agent-published bounded evidence indicates transfer support in scope: Joback MAE
