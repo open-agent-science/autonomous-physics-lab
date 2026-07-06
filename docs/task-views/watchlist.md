@@ -23,6 +23,7 @@ None.
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
 - `TASK-0693` - Phase 1 acquisition lane: acquisition queue + dry-run reminder + MD-0002 key-gated runbook pilot (`dataset_workflow`, priority `medium`, difficulty `medium`, domain `data_acquisition`)
 - `TASK-0709` - Run first Stellar M-L empirical audit on DEBCat rows (`scientific_benchmark`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
+- `TASK-0827` - Compare extrapolation models and freeze the best one's frontier predictions for reveal (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 
 ## REJECTED
 
