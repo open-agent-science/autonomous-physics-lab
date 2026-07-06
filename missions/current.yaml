@@ -311,10 +311,10 @@ missions:
         label: "Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available"
         task_id: TASK-0911
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "PASS / BLOCKED / CONTESTED parity-gate note against the checksum-pinned AMDC table"
           - "source-rights boundary preserved; no vendored AMDC bytes unless maintainer-approved"
