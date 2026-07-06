@@ -1,0 +1,49 @@
+id: TASK-0946
+title: "Define the bounded reveal-source watch for the sealed nuclear prediction registry"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Decision Day #2 (2026-07-06): the registry holds ~64 sealed reveal-blocked entries including PRED-0069..0072, yet no task watches for admissible reveal sources; an AME/NUBASE-class release could land with nobody assigned to notice, exactly when the freeze's value is realized."
+  - "A bounded watch definition converts a passive 'wait for AME' into an active grading trigger without any premature reveal."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+  planning_context: >
+    The freeze note defines admissible reveal sources as the next
+    AME/NUBASE-class evaluation published after 2026-07-05 or qualifying
+    flagged Penning-trap/storage-ring measurement subsets. This task encodes
+    that as a concrete watch procedure with stop conditions.
+
+requirements:
+  - "Enumerate the admissible reveal-source classes verbatim from the freeze note, with the exact qualifying criteria for trap/ring measurement subsets."
+  - "Define the watch procedure (what to check, where, at what cadence, and what evidence to record on a hit) and the stop conditions; a hit produces a maintainer decision packet, never an automatic reveal or scoring run."
+  - "No reveal, no scoring, no PRED or registry content change in this task."
+
+accepted_outputs:
+  - "A bounded watch note under docs/reviews/ with source classes, procedure, cadence, hit protocol, and stop conditions."
+  - "Output-routing summary: monitoring definition only; no scientific artifact changed."
+
+result_artifact_policy:
+  required: false
+  reason: "Watch-procedure definition; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent

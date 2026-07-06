@@ -33,6 +33,7 @@ requirements:
   - "Do not fetch ThermoML archive bytes, inspect or transcribe new values, add rows, run Joback metrics, change RESULT-0026, or package new results."
   - "Use Tb-only and no-claim wording; no chemical design, process design, safety, synthesis, broad Joback, or multi-property claim."
 
+  - "Maintainer pre-approval D2-2 (2026-07-06, docs/reviews/maintainer-decision-day-2026-07-06.md): if the packet confirms a facts-basis redistribution route for the bounded 80-row extract, the extraction lane is pre-approved and may be queued without a second maintainer decision; otherwise the campaign stays metadata-only."
 accepted_outputs:
   - "A maintainer decision packet under docs/reviews/ with option table, recommended route, exact yes/no checkboxes, future task shapes, and stop conditions."
   - "Output-routing summary: source-rights/maintainer decision only; no data, benchmark, RESULT, PRED, CLAIM, or KNOW change."

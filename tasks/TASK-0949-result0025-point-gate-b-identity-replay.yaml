@@ -1,0 +1,52 @@
+id: TASK-0949
+title: "Re-run the RESULT-0025 point-only Gate B replay with a recorded independent identity (reserved: akutenyov)"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Decision Day #2 (2026-07-06): RESULT-0025 is the repo's strongest quantitative asset and now anchors the executed tier-1 point-only freeze, yet its TASK-0864 Gate B note records no replayer identity, which blocks any defensible tier decision."
+  - "The point-only surface is firewalled from the interval calibration failure per R2; this replay covers point metrics only."
+  - "Reserved lane: publisher is the gladunrv lane, so akutenyov is the eligible independent replayer."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/nmd0003-result0025-gp-gate-b-replay.md"
+    - "results/EXP-0018/RUN-0001/result.yaml"
+  planning_context: >
+    Repeat the documented RESULT-0025 Gate B point-metrics replay
+    (holdout MAE 0.462129 vs frozen baseline 2.979273 MeV on 295 rows,
+    margin 1.869312 MeV) with full replayer identity recorded, so the
+    replay evidence becomes attributable. Tier action on PASS follows the
+    R1 axis; the interval-bearing side stays blocked per R2.
+
+requirements:
+  - "Reserved for contributor akutenyov; other identities must stop rather than execute, per the R4 routing rule."
+  - "Record replayer contributor_id, github_username, agent_tool, and model before running; replay from committed inputs only and compare all point metrics at the documented tolerances."
+  - "On PASS: update validation_record metadata with the recorded identity and validation_independence per R1; any review_tier change is limited to the point-only surface and must carry the R2 caveat wording verbatim."
+  - "On failure or drift: write a blocker note and change nothing."
+  - "No interval/uncertainty metrics validation, no PRED changes, no claim wording."
+
+accepted_outputs:
+  - "The identity-recorded replay note and the metadata update on PASS."
+  - "Output-routing summary: Gate B metadata validation only; interval side untouched."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only Gate B validation of an existing result; no new scientific result artifact is produced."
+  evidence:
+    - "results/EXP-0018/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex

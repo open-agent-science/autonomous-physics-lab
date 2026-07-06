@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-pytest-conftest-fixtures
 title: "Extract shared test fixtures into conftest.py"
-status: PROPOSED
+status: ACCEPTED
 type: code_quality_refactor
 priority: medium
 
@@ -60,6 +60,6 @@ validation:
     - "python3 -m ruff check ."
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "pending maintainer review"
+  canonical_task_id: TASK-0951
+  decision: accepted
+  notes: "Accepted at Decision Day #2 D2-7 (2026-07-06); canonical task TASK-0951."

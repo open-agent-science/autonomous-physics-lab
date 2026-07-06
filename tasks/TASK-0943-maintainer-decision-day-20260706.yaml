@@ -1,0 +1,55 @@
+id: TASK-0943
+title: "Record the 2026-07-06 maintainer Decision Day #2 and queue the integrity/anchor execution lanes"
+type: maintainer_workflow
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "The 2026-07-06 strategic audit and two independent agent reviews converged on integrity -> anchor -> decisions -> vitrine -> wave; the maintainer decided all eight open forks in one interactive session on 2026-07-06."
+  - "Recording the batch as one dated memo plus scoped board edits keeps the audit trail canonical without creating a new live surface."
+  - "Each decided action executes through its own scoped task under normal gates; this task changes no scientific artifact."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/maintainer-decision-day-2026-07-02.md"
+    - "docs/reviews/frb-time-indexed-exposure-source-scout.md"
+    - "docs/reviews/dimensional-result-0020-gate-b-independent-replay.md"
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+  planning_context: >
+    The post-audit session produced eight maintainer decisions (D2-1..D2-8)
+    and four ratified engineering refinements (R1..R4). This task records
+    them in the dated memo, applies the approved board-hygiene edits
+    (TASK-0305 unblock, TASK-0827 supersede, TASK-0925 blocker rewrite,
+    TASK-0940 pre-approval clause, five proposal adjudications), and queues
+    the execution lanes TASK-0944 through TASK-0951.
+
+requirements:
+  - "Create docs/reviews/maintainer-decision-day-2026-07-06.md recording decisions D2-1..D2-8 and refinements R1..R4 with execution pointers and explicit non-claims."
+  - "Apply the D2-5/D2-6 board edits: TASK-0305 BLOCKED -> READY with the approval recorded; TASK-0827 -> SUPERSEDED with the D10 pointer; TASK-0925 blocker text rewritten to the two remaining blockers; TASK-0940 gains the D2-2 pre-approval clause."
+  - "Adjudicate the five stale proposals per D2-6/D2-7: one ACCEPTED with canonical task TASK-0951, two REJECTED with reasons, two backlinked to their already-done canonical tasks TASK-0697/TASK-0716."
+  - "Queue the execution lanes TASK-0944..TASK-0951 with identity reservations on the three akutenyov Gate B/gate tasks per R4."
+  - "Change no RESULT/CLAIM/PRED/KNOW artifact in this task; all executions flow through the queued tasks."
+
+accepted_outputs:
+  - "The dated decision memo, the scoped board edits, the five proposal adjudications, and the eight queued execution tasks."
+  - "Output-routing summary: decision recording and task queueing only; no scientific artifact changed; CI verifies docs links and board consistency."
+
+result_artifact_policy:
+  required: false
+  reason: "Decision recording and task queueing only; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code

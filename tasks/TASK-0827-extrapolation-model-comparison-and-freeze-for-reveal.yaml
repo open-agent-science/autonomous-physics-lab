@@ -1,7 +1,7 @@
 id: TASK-0827
 title: "Compare extrapolation models and freeze the best one's frontier predictions for reveal"
 type: scientific_benchmark
-status: BLOCKED
+status: SUPERSEDED
 closeout: review
 difficulty: high
 priority: high
@@ -11,6 +11,7 @@ strategy_alignment:
   - "Pick the model that extrapolates best under controls -- not the one that fits in-sample best -- and freeze ITS predictions on the no-peek frontier targets."
   - "This is the step that creates the breakthrough-grade artifact: a frozen prediction set awaiting an external reveal."
 
+  - "SUPERSEDED per Decision Day #2 D2-6 (2026-07-06): the Decision Day #1 D10 refinement made the seen-holdout unblock path permanently unreachable, and the live lane executed via TASK-0929 (contract) + TASK-0933 (tier-1 point-only freeze). See docs/reviews/maintainer-decision-day-2026-07-06.md."
 input:
   mode: workflow
   related_domain: nuclear_physics
