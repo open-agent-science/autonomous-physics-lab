@@ -1209,7 +1209,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0023 needs public/maintainer wording as calibration-known verifier memory, and RESULT-0024 needs metadata-caveat repair or explicit caveat preservation before stronger tier wording."
+    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0023 needs public/maintainer wording as calibration-known verifier memory, and RESULT-0024 needs metadata-caveat repair or explicit caveat preservation before stronger tier wording. The next executable source-readiness lane is TASK-0939: a value-blind CHARA paper-level source pin and DEBCat de-dup preflight before any independent holdout metrics."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1221,6 +1221,7 @@ missions:
       - "TASK-0819 closed the independent Stellar M-L transfer-dataset scout"
       - "RESULT-0023 passed independent Gate B replay as self-consistency/calibration memory, not discovery evidence"
       - "RESULT-0024 replayed with zero metric drift but retains a metadata caveat"
+      - "TASK-0939 is the next source-pin/de-dup preflight before any CHARA-derived independent holdout metric work"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1349,6 +1350,18 @@ missions:
           - "formal helper/workflow Gate B replay path after metadata caveat repair"
           - "optional metadata-only validation record only if protocol-safe"
           - "no metric mutation, DEBCat row mutation, universal stellar-law wording, or claim promotion"
+      - id: textbook-stellar-chara-source-pin-preflight
+        label: "Preflight a CHARA paper-level source pin and DEBCat de-dup route"
+        task_id: TASK-0939
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "paper-level CHARA source manifest and DEBCat de-dup route before any metric work"
+          - "value-blind source/readiness verdict with rights and overlap blockers stated"
+          - "no CHARA row ingestion, metric mutation, universal stellar-law wording, or claim promotion"
       - id: textbook-stellar-ml-source-baseline-plan
         label: "Stellar Mass-Luminosity OOD source and baseline plan landed"
         task_id: TASK-0444
@@ -1389,7 +1402,7 @@ missions:
     status: active_gate_b_and_source_readiness
     scientific_value: high
     risk: medium
-    recommendation: "ThermoML Tb RESULT-0026 has a zero-drift numeric replay and workflow bridge; esters/lactones failed-family memory is preserved, and expansion is rights/count gated. TASK-0918 completed the failed-family negative-result preflight, so the next bounded executor step is TASK-0940: a maintainer source-rights decision packet before any 80-row row extraction or metric rerun."
+    recommendation: "ThermoML Tb RESULT-0026 has a zero-drift numeric replay and workflow bridge; esters/lactones failed-family memory is preserved, and expansion is rights/count gated. TASK-0940 prepared the bounded-extract maintainer decision packet and remains review/maintainer-selection work; do not extract rows or rerun metrics until that decision is accepted and a separate source-curation task exists."
     why_now:
       - "ThermoML normal boiling temperature is a source-pinned public benchmark lane outside astronomy and materials DFT"
       - "RESULT-0026 has a bounded 40-row family-stratified fixture and a clear frozen Joback/Reid baseline"
@@ -1397,6 +1410,7 @@ missions:
       - "source expansion is rights and identity/count gated before any raw archive bytes or row values"
       - "TASK-0894 numerically replayed RESULT-0026 with zero drift but left formal tier update blocked by unsupported helper command"
       - "TASK-0918 completed the esters/lactones failed-family negative-result preflight without mutating RESULT-0026"
+      - "TASK-0940 is review-ready as a source-rights decision packet and does not itself authorize row extraction"
     forbidden:
       - "do not commit raw ThermoML archive bytes or a substantial normalized corpus"
       - "do not broaden from Tb to Tc or other properties without a separate leakage/source gate"
@@ -1455,10 +1469,10 @@ missions:
         label: "Prepare the ThermoML 80-row bounded-extract maintainer decision packet"
         task_id: TASK-0940
         mode: research
-        status: ready
+        status: review_ready
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "source-rights and maintainer decision packet before any ThermoML row extraction"
           - "clear approve / local-only / defer / permission-request options with future task shapes"
