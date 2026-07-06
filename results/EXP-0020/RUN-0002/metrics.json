@@ -1,0 +1,70 @@
+{
+  "aggregate_context": {
+    "families_clearing_margin": 7,
+    "families_required_to_clear": 6,
+    "family_count": 8,
+    "joback_margin_vs_best_non_oracle_k": 28.502118,
+    "row_count": 40,
+    "survival_margin_k": 5.0,
+    "verdict": "TRANSFER_SUPPORTED_IN_SCOPE"
+  },
+  "best_non_oracle_control": "molecular_weight_only",
+  "failed_family": "esters/lactones",
+  "family_margin_shortfall_k": 10.549755,
+  "family_margin_vs_best_non_oracle_k": -5.549755,
+  "family_row_count": 5,
+  "family_scores": {
+    "global_median": {
+      "mae_k": 96.716,
+      "rmse_k": 121.786295,
+      "row_count": 5,
+      "uncertainty_weighted_mae_k": 66.226697
+    },
+    "joback": {
+      "mae_k": 26.134,
+      "rmse_k": 45.894144,
+      "row_count": 5,
+      "uncertainty_weighted_mae_k": 22.672456
+    },
+    "molecular_weight_only": {
+      "mae_k": 20.584245,
+      "rmse_k": 24.507742,
+      "row_count": 5,
+      "uncertainty_weighted_mae_k": 25.3123
+    },
+    "nearest_homolog": {
+      "mae_k": 78.028,
+      "rmse_k": 95.160336,
+      "row_count": 5,
+      "uncertainty_weighted_mae_k": 59.306956
+    },
+    "shuffled_group_counts": {
+      "mae_k": 146.142,
+      "rmse_k": 207.989384,
+      "row_count": 5,
+      "uncertainty_weighted_mae_k": 193.284172
+    },
+    "within_family_constant": {
+      "mae_k": 81.6544,
+      "rmse_k": 97.905602,
+      "row_count": 5,
+      "uncertainty_weighted_mae_k": 104.711767
+    }
+  },
+  "packaging_verdict": "INVALID",
+  "property": "normal_boiling_temperature_tb",
+  "public_safe_sentence": "On the committed 40-row ThermoML normal-boiling-temperature fixture, the frozen Joback estimator cleared the aggregate and seven of eight held-out family margins, but esters/lactones did not clear the predeclared +5 K family-survival margin: Joback MAE was 26.134 K versus 20.584245 K for the molecular-weight-only control across five rows.",
+  "required_family_survival_margin_k": 5.0,
+  "result_id": "RESULT-0028",
+  "source_metrics": "results/EXP-0020/RUN-0001/metrics.json",
+  "source_provenance": {
+    "archive_bytes_committed": false,
+    "archive_filename": "ThermoML.v2020-09-30.tgz",
+    "archive_sha256": "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2",
+    "archive_size_bytes": 189433115,
+    "attribution": "Data from the NIST TRC ThermoML Archive, available with permission of the journal publishers; NIST does not critically evaluate deposited values.",
+    "doi": "10.18434/mds2-2422",
+    "product": "NIST TRC ThermoML Archive"
+  },
+  "source_result_id": "RESULT-0026"
+}

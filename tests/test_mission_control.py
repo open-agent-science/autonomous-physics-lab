@@ -22,6 +22,8 @@ from physics_lab.registry.mission_control import (
     select_mission,
     task_candidates,
 )
+from physics_lab.registry.task_discovery import find_task_file
+from physics_lab.registry.tasks import load_task
 
 
 FROZEN_REPO_SNAPSHOT_PATTERNS = {
@@ -829,8 +831,21 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
     )
 
     rendered = json.loads(result.stdout)
+    payload = load_current_missions(Path(__file__).resolve().parents[1])
+    selection = select_mission(payload)
+    assert selection.mission is not None
+    assert selection.action is not None
     assert rendered["default_mode"] == "research"
-    assert rendered["recommended"]["mission"] == "nuclear-mass-surface"
+    assert rendered["recommended"]["mission"] == selection.mission["id"]
+    assert rendered["recommended"]["task_id"] == selection.action.get("task_id")
+    if rendered["recommended"]["task_id"]:
+        task_path = find_task_file(
+            Path(__file__).resolve().parents[1],
+            rendered["recommended"]["task_id"],
+        )
+        assert task_path is not None
+        task = load_task(task_path)
+        assert task["status"] == "READY"
     assert "live_task_candidates" in rendered
 
 

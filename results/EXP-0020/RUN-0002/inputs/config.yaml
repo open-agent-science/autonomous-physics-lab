@@ -1,0 +1,9 @@
+result_id: RESULT-0028
+source_metrics: results/EXP-0020/RUN-0001/metrics.json
+source_result: RESULT-0026
+failed_family: esters/lactones
+required_family_survival_margin_k: 5.0
+rerun_allowed: false
+refit_allowed: false
+fetch_allowed: false
+fixture_change_allowed: false
