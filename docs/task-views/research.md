@@ -22,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0952` - Add the Decision Autonomy Policy v0: classes, machine-readable matrix, packet template, dry-run plan, tests (`docs_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
