@@ -74,6 +74,30 @@ python3 scripts/reproduce_core_results.py --only pendulum-gauntlet
 python3 scripts/reproduce_core_results.py --output-dir /tmp/apl-review
 ```
 
+## Replay The Citable Dataset (MD-0002)
+
+The externally published dataset (Zenodo DOI
+[10.5281/zenodo.21207072](https://doi.org/10.5281/zenodo.21207072)) is the
+fastest way to verify that APL's citable artifacts match the repository:
+
+1. Download `md0002-v0.1.0.zip` from the Zenodo record and check
+   `sha256 = 19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22`
+   (795,018 bytes; both values are recorded in-repo in
+   `data/materials/materials_md0002_snapshot_manifest.yaml`,
+   `release_metadata.external_publication_status`).
+2. Compare against the repository at tag `dataset-md0002-v0.1.0`: the
+   archive was built deterministically from that tree, and rebuilding from
+   the tag reproduces it byte-for-byte.
+3. Replay the benchmark result the record cites:
+   `physics-lab run examples/materials_md0002_formation_energy_benchmark.yaml`
+   and compare against `results/EXP-0014/RUN-0001/result.yaml`
+   (`RESULT-0021`; review tier and validation independence are recorded in
+   its `validation_record` per
+   [docs/result-promotion-protocol.md](result-promotion-protocol.md)).
+4. Loader contract and per-file checksums:
+   `physics_lab/datasets/materials_md0002.py` and
+   `data/materials/materials_md0002_snapshot_manifest.yaml`.
+
 ## What To Compare
 
 Compare stable scientific fields first:

@@ -1,0 +1,85 @@
+# First live dry-run decision packet under policy v0 (TASK-0954).
+# The devil's advocate found a real sequencing objection, so this packet is
+# ESCALATED: the decision belongs to the maintainer, and merging the PR (or
+# executing the anchor first) IS that recorded decision.
+decision_id: DEC-20260707-public-vitrine-doi-surfacing
+decision_type: public_wording_change
+autonomy_class: class_1_lazy_consensus
+reversibility: reversible
+external_exposure: internal_public_docs
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: surface_md0002_doi_on_public_vitrine
+basis:
+  - "Decision Day #2 D2-8 (docs/reviews/maintainer-decision-day-2026-07-06.md): DOI surfacing + software DOI v0.2 ratified as the next external artifacts"
+  - "2026-07-06 audit: README/CITATION.cff carry zero DOI mentions; status/missions surfaces contradict the published record"
+  - "Critic fact-check: all MD-0002 facts in the diff match data/materials/materials_md0002_snapshot_manifest.yaml release_metadata"
+
+agent_quorum:
+  director_agent:
+    vote: approve
+    agent_id: scientific-campaign-director
+    vendor: anthropic
+    agent_tool: Claude Code
+    model_version: Fable 5
+    session_id: director-session-b1113fba
+  critic_agent:
+    vote: approve
+    agent_id: critic-subagent
+    vendor: anthropic
+    agent_tool: Claude Code (general-purpose subagent)
+    model_version: Fable 5
+    session_id: critic-session-a0059290
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Split-and-sequence: land the truth-sync half (status/roadmap/missions
+    factual fixes) immediately and hold the promotional half (README badge,
+    How To Cite, 0.2.0 bump) until the maintainer executes the PRED anchor
+    publish and the v0.2.0 tag, so the vitrine lands hours later at zero
+    information cost.
+  strongest_objection: >-
+    Sequencing: the ratified order is integrity -> anchor -> vitrine, and
+    the PRED anchor (TASK-0945 record-back checklist) is still entirely
+    unchecked - no tag, no Release, no anchor Zenodo record. A README badge
+    invites skeptical traffic while the flagship sealed-forecast artifact is
+    anchored only by a self-declared timestamp. Also found and FIXED in the
+    same diff: phantom v0.2.0 in citation metadata while pyproject and
+    __init__ said 0.1.0, and four stale current-missions.md statements one
+    click from the badge that denied the published DOI.
+  why_rejected: >-
+    Not rejected - escalated. The curable defects (version consistency,
+    stale missions lines, byte-size cross-reference) were fixed in this
+    same PR before review. The sequencing point is the maintainer's own
+    ordering to waive or honor: merging this PR after (or together with)
+    executing the anchor tag honors it; merging before is an explicit,
+    recorded waiver. A dry-run autonomy packet must not waive a ratified
+    ordering silently.
+  escalation_required: true
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null
+  maintainer_resolution: >-
+    2026-07-07: the maintainer resolved the escalation by honoring the
+    ratified ordering - NO waiver. The PRED-0069..0072 external anchor
+    (tag + Release + Zenodo per the TASK-0945 upload pack) executes first;
+    this PR merges after it. Recorded here so the first live dry-run
+    escalation has a documented human decision. RESOLVED 2026-07-07: the
+    anchor was published before merge (tag pred-nmd0003-tier1-20260705,
+    Zenodo DOI 10.5281/zenodo.21240451) - the ordering was honored, no
+    waiver consumed.
