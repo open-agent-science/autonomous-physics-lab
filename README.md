@@ -201,7 +201,9 @@ APL's first citable artifact is the `MD-0002` benchmark dataset:
 
 Use the version DOI above for this exact release, or the concept DOI
 [10.5281/zenodo.21207071](https://doi.org/10.5281/zenodo.21207071) to cite
-all versions. To cite the APL software/workflow itself, use the metadata in
+all versions. The sealed tier-1 nuclear mass forecasts (PRED-0069..0072)
+are externally anchored as a citable pre-registration capsule:
+[10.5281/zenodo.21240451](https://doi.org/10.5281/zenodo.21240451). To cite the APL software/workflow itself, use the metadata in
 [CITATION.cff](CITATION.cff). Review-tier semantics for any cited result
 (including validation independence) are defined in
 [docs/result-promotion-protocol.md](docs/result-promotion-protocol.md).

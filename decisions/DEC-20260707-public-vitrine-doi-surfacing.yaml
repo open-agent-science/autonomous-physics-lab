@@ -79,4 +79,7 @@ decision_record:
     ratified ordering - NO waiver. The PRED-0069..0072 external anchor
     (tag + Release + Zenodo per the TASK-0945 upload pack) executes first;
     this PR merges after it. Recorded here so the first live dry-run
-    escalation has a documented human decision.
+    escalation has a documented human decision. RESOLVED 2026-07-07: the
+    anchor was published before merge (tag pred-nmd0003-tier1-20260705,
+    Zenodo DOI 10.5281/zenodo.21240451) - the ordering was honored, no
+    waiver consumed.

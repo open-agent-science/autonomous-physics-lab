@@ -130,7 +130,7 @@ Near-term portfolio shape:
 | --- | --- | --- |
 | Dataset/source-readiness gate | Materials Property Residuals | MD-0002 is published (DOI `10.5281/zenodo.21207072`); the gate now applies to the next dataset candidate (ThermoML bounded extract pending the maintainer rights decision; MD-0001). |
 | Source-readiness / ratification gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Ratify public wording for `RESULT-0023` and fix or preserve the `RESULT-0024` metadata caveat before stronger tier wording. |
-| External-reveal / uncertainty gate | Nuclear Mass Surface | Tier-1 point-only freeze executed and sealed (2026-07-05); keep the interval-bearing freeze blocked until calibration repair; anchor externally and maintain reveal-source watch discipline. |
+| External-reveal / uncertainty gate | Nuclear Mass Surface | Tier-1 point-only freeze executed, sealed (2026-07-05), and externally anchored (Zenodo DOI `10.5281/zenodo.21240451`); keep the interval-bearing freeze blocked until calibration repair; maintain reveal-source watch discipline. |
 | Monitor / negative-control gate | Exoplanet Mass-Radius | Create minimal canonical identities for null-baseline memory and keep source-version monitoring metadata-only. |
 | Transfer/source gate and negative memory | Quantum Size Effects | Predeclare the narrow ZnSe/InP no-refit transfer contract before any benchmark; keep archived correction search closed. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Scout one post-2021 independent primary Yb/Sr source; do not use Pizzocaro or McGrew/NIST as benchmark rows without an admissible contract. |
