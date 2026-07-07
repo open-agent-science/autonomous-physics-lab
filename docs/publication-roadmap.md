@@ -72,10 +72,12 @@ before scoped physics-result packages:
 3. **Scoped result publication package:** only after a result survives
    promotion gates, independent replay, and maintainer/scientific review.
 
-Status (2026-07-07): layer 2 has its first published artifact (`MD-0002`,
-DOI above). Layer 1 is in flight: the v0.2 software release pack is
-prepared (`docs/reviews/software-release-v0.2-pack.md`) and awaits the
-maintainer tag + Zenodo deposit.
+Status (2026-07-07): layer 1 and layer 2 are both live. Layer 1: the APL
+software is archived on Zenodo via the GitHub integration (v0.2.0, version
+DOI `10.5281/zenodo.21249915`, concept DOI `10.5281/zenodo.21249914`;
+future releases archive automatically). Layer 2: `MD-0002` (DOI above)
+plus the sealed tier-1 forecast anchor capsule
+(`10.5281/zenodo.21240451`).
 
 Physics discovery remains upside, not the base plan.
 

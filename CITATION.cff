@@ -17,6 +17,12 @@ repository-code: "https://github.com/open-agent-science/autonomous-physics-lab"
 url: "https://github.com/open-agent-science/autonomous-physics-lab"
 identifiers:
   - type: doi
+    value: 10.5281/zenodo.21249915
+    description: "This software archived at Zenodo (version DOI, v0.2.0)"
+  - type: doi
+    value: 10.5281/zenodo.21249914
+    description: "This software at Zenodo (concept DOI, all versions)"
+  - type: doi
     value: 10.5281/zenodo.21207072
     description: "MD-0002 benchmark dataset released by this project (version DOI, v0.1.0)"
   - type: doi
