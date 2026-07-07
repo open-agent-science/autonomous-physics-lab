@@ -1,7 +1,7 @@
 id: TASK-0948
 title: "Run the RESULT-0020 Gate B replay with a genuinely independent identity (reserved: akutenyov, non-Claude tool)"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: high
