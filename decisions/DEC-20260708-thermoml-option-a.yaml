@@ -1,0 +1,68 @@
+# Class 2 data-rights decision stub. The decision itself belongs to the
+# maintainer; this dedicated one-surface PR exists so the signature cannot
+# hide inside a composite diff (devil's advocate requirement,
+# DEC-20260708-science-wave-topup). The maintainer's merge of this PR is
+# the recorded selection.
+decision_id: DEC-20260708-thermoml-option-a
+decision_type: data_rights_decision
+autonomy_class: class_2_maintainer_only
+reversibility: hard_to_reverse
+external_exposure: external
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: approve_option_a_bounded_80row_public_factual_extract
+basis:
+  - "Decision Day #2 D2-2 (2026-07-06): conditional pre-approval - if the TASK-0940 packet confirms a facts-basis route, extraction is approved without a second decision"
+  - "TASK-0940 packet (docs/reviews/thermoml-80-row-bounded-extract-maintainer-decision-packet.md): recommends Option A on the repository's existing facts-basis policy, 40-row precedent, hard 80-row ceiling, full attribution"
+  - "Execution lane: TASK-0955 (gated on this signature; its executor stops if the box is unticked)"
+
+agent_quorum:
+  director_agent:
+    vote: escalate
+    agent_id: scientific-campaign-director
+    vendor: anthropic
+    agent_tool: Claude Code
+    model_version: Fable 5
+    session_id: director-session-b1113fba
+  critic_agent:
+    vote: escalate
+    agent_id: critic-subagent
+    vendor: anthropic
+    agent_tool: Claude Code (general-purpose subagent)
+    model_version: Fable 5
+    session_id: critic-session-a299fac3
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Option B (local-only extraction, publish only code/metadata/hashes) as
+    the safe fallback if the maintainer does not accept that the
+    facts-basis distinction covers a public 80-row fixture.
+  strongest_objection: >-
+    The rights basis rests on the repository's facts-basis policy over a
+    subscription-published corpus rather than an explicit open-data
+    license; a hostile reviewer would poke this entry first.
+  why_rejected: >-
+    The packet addresses this directly: the route relies on the committed
+    40-row precedent and the post-AME2020 facts-basis entry, a hard 80-row
+    ceiling, full attribution, and per-row provenance; Option B remains
+    documented as the fallback the maintainer can choose instead by NOT
+    merging this PR and ticking Option B in the packet.
+  escalation_required: true
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null

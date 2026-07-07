@@ -96,8 +96,13 @@ rightsholder permission beyond the repository's existing facts-basis policy.
 
 Select exactly one:
 
-- [ ] **YES — Option A.** Approve one public, attributed, maximum 80-row
+- [x] **YES — Option A.** Approve one public, attributed, maximum 80-row
   `Tb` factual fixture under the frozen `TASK-0895` contract.
+  *(Signature 2026-07-08: this checkbox travels in its own dedicated
+  maintainer PR whose only substance is this Class 2 data-rights selection;
+  the maintainer's merge of that PR is the recorded decision, per D2-2
+  pre-approval and the decision stub
+  `decisions/DEC-20260708-thermoml-option-a.yaml`.)*
 - [ ] **NO PUBLIC ROWS — Option B.** Approve local-only extraction and
   analysis; publish only code, metadata, hashes, and aggregate counts.
 - [ ] **NO EXPANSION — Option C.** Retain the current 40-row fixture and stop
