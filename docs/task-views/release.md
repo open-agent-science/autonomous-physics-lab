@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0953` - Resolve public-repo structural hygiene blockers after the agent wave (`repository_hygiene`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
