@@ -54,6 +54,7 @@ Current near-term candidates:
 
 | Dataset surface | Current status | Publication posture |
 | --- | --- | --- |
+| Materials `MD-0002` | **Published**: Zenodo DOI `10.5281/zenodo.21207072` (v0.1.0, 2026-07-05), CC BY 4.0, post-publication integrity confirmed | First citable APL dataset; the release pipeline (allowlist -> deterministic archive -> tag -> DOI -> record-back) is the precedent for the next candidates below |
 | Materials `MD-0001` | Source-pinned, replayed, and useful as an emerging reusable-dataset candidate | Candidate for citation/reuse metadata and public-safe evidence packaging, but benchmark promotion remains blocked |
 | Exoplanet PSCompPars snapshots | Pinned-snapshot benchmark surface with control-sensitive residual evidence | Candidate for replication capsule and no-live-fetch snapshot protocol, not a planet-law claim |
 | Atomic Yb/Sr rows | Beloy rows exist; second-source rows remain blocked | Not publication-ready until second-source, covariance, direct-vs-derived, and holdout semantics clear |
@@ -70,6 +71,11 @@ before scoped physics-result packages:
    with replayable baseline evidence and limitations.
 3. **Scoped result publication package:** only after a result survives
    promotion gates, independent replay, and maintainer/scientific review.
+
+Status (2026-07-07): layer 2 has its first published artifact (`MD-0002`,
+DOI above). Layer 1 is in flight: the v0.2 software release pack is
+prepared (`docs/reviews/software-release-v0.2-pack.md`) and awaits the
+maintainer tag + Zenodo deposit.
 
 Physics discovery remains upside, not the base plan.
 

@@ -30,9 +30,9 @@ stay explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory, AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`, and a deterministic archive-package dry run | External release/DOI remains a maintainer decision; next useful work is a reusable local archive helper, not new Materials metrics |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory, AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`, and the externally published `MD-0002` v0.1.0 dataset (Zenodo DOI `10.5281/zenodo.21207072`, 2026-07-05, post-publication integrity confirmed) | Record-back complete; the next fork is the second external dataset (ThermoML bounded extract pending the maintainer rights decision), not new Materials metrics |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures, AGENT_VALIDATED Stellar M-L `RESULT-0022`, AGENT_VALIDATED FIRAS/Wien `RESULT-0023`, and high-mass transfer `RESULT-0024` zero-drift replay memory | RESULT-0024 needs formal workflow Gate B bridging after metadata repair; no universal textbook-law wording |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, failed uncertainty-calibration routes, and DZ10 parity scaffolding | Prediction freeze is still blocked; next useful work is preserving the uncertainty failure as negative/blocker memory and running source-rights-safe DZ10 parity, not broad new fitting |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, the executed tier-1 point-only prediction freeze (`PRED-0069..0072`, sealed 2026-07-05, anchor pack prepared), preserved uncertainty-calibration failures, and DZ10 full-table parity PASS | Interval-bearing freeze stays blocked until calibration repair; next useful work is external anchoring, reveal-source watch discipline, and the approved TASK-0305 scoring lane, not broad new fitting |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | Current snapshot stays monitor-only; negative RESULT packaging is also blocked by missing canonical experiment/hypothesis identity |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | ZnSe rows are frozen only as limited factual extracts; the next step is a predeclared no-refit transfer contract, not correction search |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy/Nemitz memory exists, Pizzocaro remains diagnostic, and McGrew/NIST is blocked as not a direct independent Yb/Sr route; the next step is one post-2021 source scout |
@@ -98,9 +98,10 @@ Highlights:
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
   AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`. The result is a
   computed-DFT, frozen-slice benchmark artifact, not a material recommendation,
-  synthesis guide, experimental measurement, or materials-law claim. Repository
-  release metadata is now closed; external archive/DOI release remains a
-  maintainer-gated decision.
+  synthesis guide, experimental measurement, or materials-law claim. The dataset
+  is externally published: Zenodo DOI `10.5281/zenodo.21207072` (v0.1.0,
+  2026-07-05), byte-verified after publication
+  (RELEASE_INTEGRITY_CONFIRMED).
 - Thermophysical Property Residuals starts from ThermoML `Tb` `RESULT-0026`,
   an AGENT_PUBLISHED bounded Joback transfer benchmark on a 40-row
   family-stratified fixture. Aggregate transfer is positive in scope, the

@@ -1,0 +1,61 @@
+id: TASK-0954
+title: "Surface the DOI on the public vitrine: README cite section, CITATION.cff identifiers, v0.2 release pack, status/roadmap sync, reviewer-guide replay path"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Decision Day #2 D2-8 and the 2026-07-06 strategic audit: the lab's only DOI is invisible from every surface a stranger lands on (README, CITATION.cff, status), and outward 'current state' pages still contradict merged, maintainer-authorized facts (DOI minted, freeze executed)."
+  - "Ordering honored: this vitrine lands only after the validation-independence layer (TASK-0944) merged, so the surfaced identity is the corrected one."
+  - "Also prepares the layer-1 software release (v0.2 metadata bump + maintainer pack) per the publication roadmap."
+
+input:
+  mode: workflow
+  related_domain: release_readiness
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "README.md"
+    - "CITATION.cff"
+    - "docs/status.md"
+    - "docs/publication-roadmap.md"
+    - "docs/external-reviewer-replication-guide.md"
+    - "docs/reviews/software-release-v0.2-pack.md"
+  planning_context: >
+    Surface the published MD-0002 DOI at the front door (README badge +
+    How To Cite with both DOIs and the APA citation crediting both
+    creators), add dataset identifiers to CITATION.cff, bump software
+    metadata to 0.2.0 with the maintainer release pack, sync the stale
+    status/roadmap rows to merged reality (DOI published 2026-07-05,
+    tier-1 freeze executed), fix the duplicated README link, and give
+    external reviewers a replay path for the citable dataset. Public
+    wording only; classified as a dry-run decision packet under the
+    decision-autonomy policy v0 (public_wording_change, class_1).
+
+requirements:
+  - "README gains the Zenodo badge and a How To Cite section quoting the recorded external citation verbatim (both creators), the concept DOI, and a pointer to CITATION.cff and the review-tier protocol; the Materials campaign row reflects the published dataset."
+  - "CITATION.cff gains the dataset DOIs as identifiers and bumps to version 0.2.0 with date-released; .zenodo.json bumps to 0.2.0 with the dataset related_identifier; the v0.2 tag/Release/Zenodo steps are packaged for the maintainer."
+  - "docs/status.md Materials and Nuclear rows and the Materials bullet stop contradicting merged facts; docs/publication-roadmap.md records MD-0002 as published and the layer-1 status."
+  - "The external-reviewer guide gains a Replay The Citable Dataset section (archive sha256, tag, replay command, loader, validation-independence pointer)."
+  - "No claim-like phrasing strengthened or weakened; no RESULT/PRED/CLAIM/KNOW status change; the wording change is recorded as a dry-run class_1 decision packet with a real two-session quorum and devil's advocate."
+
+accepted_outputs:
+  - "README/CITATION.cff/.zenodo.json/status/roadmap/reviewer-guide edits, the v0.2 release pack, and the dry-run decision packet decisions/DEC-20260707-public-vitrine-doi-surfacing.yaml."
+  - "Output-routing summary: public wording and citation metadata only; no scientific artifact change."
+
+result_artifact_policy:
+  required: false
+  reason: "Public vitrine and citation metadata; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/software-release-v0.2-pack.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_decision_autonomy_policy.py"
+    - "python3 scripts/apl_decision.py validate decisions/DEC-20260707-public-vitrine-doi-surfacing.yaml"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code

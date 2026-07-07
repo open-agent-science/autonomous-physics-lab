@@ -4,7 +4,14 @@
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementedBy",
+      "identifier": "10.5281/zenodo.21207072",
+      "resource_type": "dataset"
+    }
+  ],
   "creators": [
     {
       "name": "Hladun, Roman",
