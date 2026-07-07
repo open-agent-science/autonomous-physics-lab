@@ -14,5 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0940` - Prepare the ThermoML 80-row bounded-extract maintainer decision packet without row extraction (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
-- `TASK-0943` - Record the 2026-07-06 maintainer Decision Day #2 and queue the integrity/anchor execution lanes (`maintainer_workflow`, priority `high`, difficulty `low`, domain `cross_campaign_quality`)
+None.

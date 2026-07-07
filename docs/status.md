@@ -126,6 +126,10 @@ Important operating rules:
 - Agents should normally start with `python3 scripts/apl_mission.py --output onboarding`.
 - Scientific work should prefer bounded hypothesis tests, replay, audit,
   source curation, and negative-result preservation.
+- `AGENT_VALIDATED` means replayed; the `validation_independence` field
+  inside each `validation_record` records whether the replay was performed
+  by an independent contributor, the same owner, or the same account/tool
+  path (see `docs/result-promotion-protocol.md`).
 - Sandbox evidence stays sandbox-only unless a canonical task and maintainer
   review explicitly allow promotion.
 - The post-merge Sync Active Board action owns generated task navigation on
