@@ -103,7 +103,7 @@ APL already has a working scientific memory, not just a pitch.
 
 | Surface | What is stored |
 | --- | --- |
-| Nuclear prediction discipline | Frozen baseline, sandbox audits, negative controls, and `PRED-0001` through `PRED-0068` awaiting future reveal data |
+| Nuclear prediction discipline | Frozen baseline, sandbox audits, negative controls, and sealed predictions through `PRED-0072`, including externally anchored tier-1 point-only frontier forecasts awaiting future reveal data |
 | Fresh-data intake | Quantum-dot, atomic-clock, and exoplanet source surfaces with schema, provenance, and blocker notes before modeling |
 | Benchmark floor | Pendulum, dimensional-analysis, and particle-mass falsification tracks that keep the system honest |
 | Review memory | Agent runs, review notes, negative results, task closeout, and generated task views that prevent repeated weak work |
@@ -162,8 +162,6 @@ Useful entrypoints:
 - [Use Your Agent](docs/use-your-agent.md)
 - [Agent Task Protocol](docs/agent-task-protocol.md)
 - [Current Missions](docs/current-missions.md)
-- [Generated Research Task View](docs/task-views/research.md)
-- [Task views](docs/task-views/research.md)
 
 ## Propose A Hypothesis
 
@@ -210,4 +208,3 @@ Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 | Negative results | [docs/negative-results-registry.md](docs/negative-results-registry.md) |
 | Repository map | [docs/repository-map.md](docs/repository-map.md) |
 | Architecture map | [docs/architecture-index.md](docs/architecture-index.md) |
-| Single-file LLM context | Generate locally with `python3 scripts/generate_context_bundle.py` |
