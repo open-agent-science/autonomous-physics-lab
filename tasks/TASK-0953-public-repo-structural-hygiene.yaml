@@ -1,0 +1,64 @@
+id: TASK-0953
+title: "Resolve public-repo structural hygiene blockers after the agent wave"
+type: repository_hygiene
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "After the 2026-07-06/07 agent wave, several support surfaces are now stale or misleading in the public repository even though canonical closeout is clean."
+  - "Public-root and review-helper hygiene should reduce confusion for external contributors without changing scientific evidence."
+  - "The single-file LLM context remains useful as a generated artifact, but the committed root bundle is a public-repo generated surface that duplicates canonical docs."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "scripts/check_public_path_leaks.py"
+    - "docs/reviews/materials-md0002-deterministic-archive-helper.md"
+    - "docs/reviews/materials-md0002-zenodo-archive-noise-cleanup.md"
+    - "https://github.com/open-agent-science/autonomous-physics-lab/issues/1366"
+    - "CONTEXT.md"
+    - "scripts/generate_context_bundle.py"
+    - "docs/notes/context-bundle-architecture-decision.md"
+  planning_context: >
+    The maintainer requested resolving the current architectural/support issues:
+    public path leaks, stale task-claim issues, the calibration-role review false
+    positive, and the public-root CONTEXT.md generated bundle. Stale task-claim
+    issues were closed with the existing helper before this repository PR; this
+    task handles the durable repository changes.
+
+requirements:
+  - "Sanitize public path leak hits without changing MD-0002 archive facts, rows, metrics, RESULT, PRED, CLAIM, or KNOW artifacts."
+  - "Fix the maintainer review false positive tracked in GitHub issue #1366 while preserving blockers for real calibration_known_physics claim promotions."
+  - "Retire committed root CONTEXT.md as a public-repo generated surface while preserving local single-file context generation."
+  - "Update AGENTS.md, README.md, generator defaults, closeout/review guidance, and snapshot wording so no current workflow tells agents to stage root CONTEXT.md."
+  - "Do not remove AGENTS.md, apl_mission.py onboarding, or scripts/generate_context_bundle.py."
+
+accepted_outputs:
+  - "Root CONTEXT.md removed from the committed tree; generated context now defaults to an ignored local artifact path."
+  - "Docs and helper messages point to command-based/local context generation rather than a committed root bundle."
+  - "Public path leak check passes."
+  - "Regression coverage for the calibration role migration false-positive path and preserved blocking of real calibration claim promotions."
+  - "GitHub issue #1366 is referenced for closure after the PR merges."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hygiene and review-tooling task; no scientific artifact is produced."
+  evidence:
+    - "scripts/check_public_path_leaks.py"
+    - "physics_lab/registry/maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_review_checks.py tests/test_maintainer_review.py tests/test_context_bundle.py tests/test_task_closeout.py tests/test_review_git.py tests/test_docs_links.py"
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 scripts/generate_context_bundle.py --stdout"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

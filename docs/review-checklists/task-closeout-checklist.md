@@ -41,19 +41,20 @@ instruction, may perform closeout after merge.
   `python3 -m physics_lab.cli sync-active-board .` by hand only for an
   explicit audit (set `APL_ENFORCE_BOARD_STALENESS=1`) or when the action
   is temporarily disabled.
-- If the merged PR or a maintainer-side sync step touched files that feed
-  `CONTEXT.md`, rerun `python3 scripts/generate_context_bundle.py` and stage
-  `CONTEXT.md` in a later maintainer branch if it changed.
+- If the merged PR or a maintainer-side sync step touched files that feed the
+  single-file context bundle, run `python3 scripts/generate_context_bundle.py`
+  locally when a handoff artifact is useful. The generated bundle is ignored
+  and should not be staged.
 - If the merged work changes experiments, results, campaign profiles, agent
   runs, mission priorities, or release gates, compare
   [../../README.md](../../README.md), [../status.md](../status.md),
   [../mission-control.md](../mission-control.md), and
   [../next-steps.md](../next-steps.md) against authoritative structured state.
 - Treat public docs sync as check-and-follow-up by default. Routine closeout may
-  update task status, [the task views](../task-views/research.md), and
-  `CONTEXT.md`; it should update public narrative docs only when the current
-  task explicitly includes public-doc sync. Otherwise update an existing
-  docs-sync task or create a follow-up task.
+  update task status and [the task views](../task-views/research.md); it should
+  update public narrative docs only when the current task explicitly includes
+  public-doc sync. Otherwise update an existing docs-sync task or create a
+  follow-up task. Single-file context bundles are local generated artifacts.
 - If the merged work changes what a contributor should do next, review
   [../next-steps.md](../next-steps.md) and update it when its short-handoff
   queue has gone stale.

@@ -668,15 +668,15 @@ Default behavior:
 - `--apply` updates the canonical task YAML to `DONE`
 - `--sync-board` is optional and should usually be reserved for a dedicated or
   serialized board-sync step rather than every per-task closeout PR
-- if the merged PR or the applied board-sync step touched `CONTEXT.md` source
-  files, the helper should suggest rerunning
-  `python3 scripts/generate_context_bundle.py` in a later maintainer branch
+- if the merged PR or the applied board-sync step touched source files for the
+  single-file context bundle, the helper should suggest local regeneration only
+  when a handoff artifact is useful
 - if the merged PR touched scientific state or its task payload references
   experiment/result/campaign/mission changes, the helper should emit a public
   docs drift checklist for `README.md`, `docs/status.md`,
   `docs/mission-control.md`, and `docs/next-steps.md`
-- closeout helpers may automatically update task status, generated task
-  navigation (`docs/task-views/*.md`), and `CONTEXT.md`;
+- closeout helpers may automatically update task status and generated task
+  navigation (`docs/task-views/*.md`);
   they should treat public narrative docs as check-and-follow-up surfaces
   unless an explicit docs-sync task authorizes editing them
 - after applying closeout edits, the helper should remind the operator to
@@ -804,20 +804,17 @@ final snapshot handoff.
 
 ## Context Bundle
 
-After major batches of merges, regenerate the single-file context bundle so
-it stays current for chat-LLM users and agents reading `CONTEXT.md`:
+After major batches of merges, regenerate the single-file context bundle only
+when a chat-LLM or handoff workflow needs a local one-file artifact:
 
 ```bash
 python3 scripts/generate_context_bundle.py
-git add CONTEXT.md && git commit -m "chore: regenerate context bundle"
-git push origin main
 ```
 
-The generator is intentionally idempotent for timestamp-only differences. If
-the only possible change is the `Generated:` line, it leaves `CONTEXT.md`
-untouched so snapshot and review runs do not create a false dirty worktree.
-Treat any remaining `CONTEXT.md` diff after regeneration as meaningful source
-drift that should be reviewed before PR merge or closeout.
+The generator writes `_generated/CONTEXT.md`, which is ignored. It is
+intentionally idempotent for timestamp-only differences, so snapshot and review
+runs do not create a false dirty worktree. Treat source-doc drift as meaningful
+context drift; do not commit the generated bundle itself.
 
 Run this after:
 - merging several tasks in a batch;

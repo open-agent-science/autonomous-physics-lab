@@ -70,7 +70,8 @@ Before opening the network more broadly, maintainers should keep checking:
 - Are negative, inconclusive, and overfitted results preserved?
 - Are prospective predictions clearly separated from measured successes?
 - Are public-facing docs free of validated-result overclaim?
-- Are generated task views and `CONTEXT.md` refreshed after closeout waves?
+- Are generated task views refreshed after closeout waves, and are local
+  context bundles regenerated only when a handoff needs them?
 
 ## What Not To Do
 

@@ -49,8 +49,8 @@ For actual multi-agent work, use separate branches or git worktrees:
 
 - one task branch per agent;
 - disjoint artifact surfaces whenever possible;
-- no shared edits to generated files such as `docs/task-views/*.md` and `CONTEXT.md`
-  until the PR is ready;
+- no shared edits to generated files such as `docs/task-views/*.md`; local
+  context bundles under `_generated/` are ignored handoff artifacts;
 - no guessed canonical task ids during parallel work.
 
 `python3 scripts/apl_mission.py --output json` exposes several live task candidates so

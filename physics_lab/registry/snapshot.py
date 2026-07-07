@@ -224,7 +224,7 @@ def _render_context_file_map(root: Path) -> list[str]:
     file_map = [
         ("README.md", "public landing page and shortest project pitch"),
         ("AGENTS.md", "agent rules, project guardrails, and mandatory workflow expectations"),
-        ("CONTEXT.md", "downloadable single-file context bundle for fresh agents"),
+        ("scripts/generate_context_bundle.py", "local single-file context bundle generator for fresh agents"),
         ("docs/status.md", "human-facing current project status and public-alpha posture"),
         ("docs/current-missions.md", "campaign overview for maintainers and contributors"),
         ("missions/current.yaml", "machine-readable mission priority, campaign recommendations, and guardrails"),

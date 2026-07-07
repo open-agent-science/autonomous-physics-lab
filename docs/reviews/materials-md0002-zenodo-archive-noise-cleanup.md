@@ -65,7 +65,7 @@ to the MD-0002 archive payload.
 Command:
 
 ```bash
-python3 scripts/package_materials_md0002_archive.py --output-dir /private/tmp/apl-md0002-clean --archive-name md0002-v0.1.0.zip --force
+python3 scripts/package_materials_md0002_archive.py --output-dir <local-temp-dir>/apl-md0002-clean --archive-name md0002-v0.1.0.zip --force
 ```
 
 Result:

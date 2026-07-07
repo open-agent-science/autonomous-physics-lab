@@ -326,7 +326,7 @@ def test_apply_closeout_report_suggests_regenerating_context_bundle_for_source_c
             apply=True,
         )
 
-    assert any("Regenerate CONTEXT.md" in item for item in report.suggested_actions)
+    assert any("Context-bundle sources changed" in item for item in report.suggested_actions)
 
 
 def test_apply_closeout_report_suggests_public_state_doc_review_for_result_changes(

@@ -17,8 +17,10 @@ If you prefer to read the full project context in one place, run:
 python3 scripts/generate_context_bundle.py
 ```
 
-This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
-active task board. The file is also committed to the repo root for download.
+This writes `_generated/CONTEXT.md` — a local, ignored bundle of the core
+instructions, strategy, and current mission context. The bundle is not committed
+to the public repository; regenerate it locally when a single-file handoff is
+useful.
 
 For a repository snapshot intended for the maintainer, strategy agents, or
 handoff context, run the snapshot script without overriding its output
@@ -115,7 +117,6 @@ Pushing directly to `main` violates the repository protocol.
 
 The only operations allowed directly on `main` are:
 - post-merge task closeout (`status: DONE`)
-- `CONTEXT.md` regeneration after a batch merge
 - regeneration of `docs/task-views/*.md` by the
   `Sync Active Board` post-merge GitHub Action (the action commits with a
   `[skip-board-sync]` marker and never edits canonical task YAML)

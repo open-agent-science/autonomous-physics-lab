@@ -33,7 +33,7 @@ maintainer context.
 - Were validation commands run and reported?
 - Did local validation pass before review?
 - Did CI pass before merge?
-- Were generated files such as `docs/task-views/*.md` and `CONTEXT.md` synced when
+- Were generated files such as `docs/task-views/*.md` synced when
   needed?
 
 ### Scientific Safety
@@ -75,4 +75,3 @@ Follow-up task needed:
 The private validation phase is healthy when most PRs score `PASS` or
 `PASS_WITH_NOTES`, recurring failures are turned into docs or tooling tasks, and
 scientific PRs remain reviewable without automatic claim promotion.
-

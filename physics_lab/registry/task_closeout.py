@@ -186,8 +186,9 @@ def render_public_state_doc_checklist(
 
     policy = (
         "Closeout docs-sync policy: routine closeout may update task status, "
-        "generated task navigation (docs/task-views/*.md), "
-        "and CONTEXT.md automatically; edit README/status/mission-control/"
+        "and generated task navigation (docs/task-views/*.md) automatically; "
+        "single-file context bundles are generated locally and not committed. "
+        "Edit README/status/mission-control/"
         "next-steps only when the current task explicitly asks for public-doc "
         "sync. Otherwise update an existing docs-sync task or create a "
         "follow-up task."

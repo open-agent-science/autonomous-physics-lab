@@ -45,7 +45,7 @@ Safety and determinism properties:
 
 ## Current Clean Build Result
 
-Disposable output path: `/private/tmp/apl-md0002-clean`.
+Disposable output path: `<local-temp-dir>/apl-md0002-clean`.
 
 | Field | Value |
 | --- | --- |
@@ -53,9 +53,9 @@ Disposable output path: `/private/tmp/apl-md0002-clean`.
 | Archive byte size | `795018` |
 | Archive SHA-256 | `19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22` |
 | Packaged files | `9` |
-| Generated manifest | `/private/tmp/apl-md0002-clean/MD-0002-materials-project-stable-ternary-oxides-v0.1.0.manifest.json` |
+| Generated manifest | `<local-temp-dir>/apl-md0002-clean/MD-0002-materials-project-stable-ternary-oxides-v0.1.0.manifest.json` |
 
-A repeat build to `/private/tmp/apl-md0002-clean-repeat` must produce the same
+A repeat build to `<local-temp-dir>/apl-md0002-clean-repeat` must produce the same
 archive byte size and SHA-256.
 
 ## Current Package Manifest

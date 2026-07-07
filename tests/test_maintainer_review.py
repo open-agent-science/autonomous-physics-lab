@@ -24,6 +24,7 @@ from physics_lab.registry.maintainer_review import (
     ci_aware_validation_command,
     coauthor_trailer_advisory_hits,
     line_is_rule_catalog_line,
+    load_claim_status_from_review_base,
     load_pr_metadata,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
@@ -595,7 +596,7 @@ def test_artifact_review_change_classification_uses_distinct_classes(tmp_path: P
         ),
         patch(
             "physics_lab.registry.maintainer_review.load_claim_status_from_ref",
-            side_effect=[None, "DRAFT"],
+            side_effect=[None, None, "DRAFT"],
         ),
     ):
         signals = classify_artifact_review_changes(
@@ -613,6 +614,41 @@ def test_artifact_review_change_classification_uses_distinct_classes(tmp_path: P
     ]
     assert signals[0].review_tier == "AGENT_PUBLISHED"
     assert signals[1].review_tier == "AGENT_VALIDATED"
+
+
+def test_review_base_claim_status_falls_back_to_main_refs(tmp_path: Path) -> None:
+    with patch(
+        "physics_lab.registry.maintainer_review.load_claim_status_from_ref",
+        side_effect=[None, "PARTIALLY_SUPPORTED"],
+    ) as load_status:
+        status = load_claim_status_from_review_base(
+            tmp_path,
+            "missing-base-ref",
+            "claims/CLAIM-0001-pendulum-period-amplitude.md",
+        )
+
+    assert status == "PARTIALLY_SUPPORTED"
+    assert [call.args[1] for call in load_status.call_args_list] == [
+        "missing-base-ref",
+        "origin/main",
+    ]
+
+
+def test_artifact_review_claim_classification_uses_base_fallback_for_role_migration(
+    tmp_path: Path,
+) -> None:
+    with patch(
+        "physics_lab.registry.maintainer_review.load_claim_status_from_ref",
+        side_effect=[None, "PARTIALLY_SUPPORTED", "PARTIALLY_SUPPORTED"],
+    ):
+        signals = classify_artifact_review_changes(
+            tmp_path,
+            target_branch="agent/akutenyov/codex/task-0927-claim-role-split-axis-migration",
+            base_ref="missing-base-ref",
+            changed_files=("claims/CLAIM-0001-pendulum-period-amplitude.md",),
+        )
+
+    assert [signal.artifact_class for signal in signals] == ["claim_text_update"]
 
 
 def test_build_review_report_requires_agent_published_output_routing(
