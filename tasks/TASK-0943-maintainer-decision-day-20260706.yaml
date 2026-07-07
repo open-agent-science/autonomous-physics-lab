@@ -1,7 +1,7 @@
 id: TASK-0943
 title: "Record the 2026-07-06 maintainer Decision Day #2 and queue the integrity/anchor execution lanes"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high

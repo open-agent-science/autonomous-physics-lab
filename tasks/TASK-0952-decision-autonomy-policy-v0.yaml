@@ -1,7 +1,7 @@
 id: TASK-0952
 title: "Add the Decision Autonomy Policy v0: classes, machine-readable matrix, packet template, dry-run plan, tests"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
