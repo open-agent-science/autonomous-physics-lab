@@ -1,0 +1,55 @@
+id: TASK-0955
+title: "Extract the bounded public 80-row ThermoML Tb factual fixture under the frozen TASK-0895 contract"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decision Day #2 D2-2 pre-approval: once the maintainer records Option A in the TASK-0940 packet, the extraction lane is approved without a second decision; the Option A signature travels in its own dedicated maintainer PR (not this wave), so the Class 2 rights decision has its own reviewable surface."
+  - "The extraction converts the ThermoML campaign from memo output back to dataset artifacts: a public, attributed, replayable 80-row Tb fixture doubling the current 40-row surface."
+  - "Hard ceiling and facts-basis wording come verbatim from the frozen TASK-0895 contract; this task adds rows, not claims."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-80-row-bounded-extract-maintainer-decision-packet.md"
+    - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
+    - "data/thermophysical/source_manifest.yaml"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+  planning_context: >
+    Execute Option A of the decision packet: one public, attributed,
+    maximum 80-row Tb factual fixture extracted deterministically from the
+    pinned ThermoML archive under the TASK-0895 contract (facts-basis
+    redistribution, full attribution, per-row provenance). The Joback
+    transfer benchmark rerun on the widened fixture is a separate follow-up
+    task, not this one.
+
+requirements:
+  - "Before extracting, verify the Option A checkbox is recorded in the decision packet (Exact Maintainer Selection); stop if it is not."
+  - "Deterministic extraction script from the pinned archive (recorded checksums before parsing); hard ceiling of 80 rows; per-row source provenance; byte-stable fixture output with sha256 recorded."
+  - "Update data/DATA_LICENSES.yaml for the widened fixture per the facts-basis precedent (post-AME2020 holdout entry), with citation and redistribution basis verbatim from the contract."
+  - "Tests: fixture schema, row count ceiling, checksum stability; validate-repo strict green."
+  - "Tb-only and no-claim wording; no Joback metric rerun, no RESULT/CLAIM change, no chemical design or safety wording."
+
+accepted_outputs:
+  - "The 80-row public fixture + extraction script + DATA_LICENSES update + tests + a short extraction note with checksums."
+  - "Output-routing summary: reusable dataset artifact; no benchmark metric or claim change."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset curation artifact; the benchmark result on the widened fixture is a separate follow-up task."
+  evidence:
+    - "docs/reviews/thermoml-80-row-bounded-extract-maintainer-decision-packet.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

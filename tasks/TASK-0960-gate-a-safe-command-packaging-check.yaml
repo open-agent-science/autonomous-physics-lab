@@ -1,0 +1,51 @@
+id: TASK-0960
+title: "Enforce Gate-B-replayable commands at Gate A packaging time"
+type: maintainer_tooling
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Three results (RESULT-0024, 0026, 0027) were born with commands the Gate B engine cannot re-execute, each costing a bespoke bridge task; Decision Day #2 R4 committed to killing this failure mode at the source."
+  - "A packaging-time check makes unreplayable results impossible to merge instead of expensive to repair."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/reviews/exoplanet-result-0027-gate-b-replay.md"
+  planning_context: >
+    Add an enforcement check (validate-repo rule and/or test) that any NEW
+    result.yaml records a command the Gate B validation engine can
+    re-execute (SAFE_RESULT_COMMANDS shape or a documented supported
+    workflow). Existing artifacts are grandfathered explicitly by id so the
+    check is green on the current tree and hard-fails only regressions.
+
+requirements:
+  - "Locate the Gate B helper's SAFE_RESULT_COMMANDS/supported-workflow logic and reuse its definition - one source of truth, no duplicated allowlist."
+  - "New-result enforcement with an explicit grandfather list for existing result ids; clear error message pointing to the workflow-bridge recipe."
+  - "Tests cover: compliant command passes, non-compliant new result fails, grandfathered ids pass."
+  - "Document the rule in the result-promotion protocol (Gate A section); no change to existing results."
+  - "Ordering: execute AFTER TASK-0957 and TASK-0959 merge, freezing the grandfather list at execution time - TASK-0957 is then the first result born under enforcement and TASK-0959 removes RESULT-0027 from the would-be grandfather set."
+
+accepted_outputs:
+  - "The enforcement check + tests + protocol note; validate-repo strict stays green on the current tree."
+  - "Output-routing summary: tooling guard; no scientific artifact change."
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling and protocol enforcement; no scientific result artifact."
+  evidence:
+    - "docs/result-promotion-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

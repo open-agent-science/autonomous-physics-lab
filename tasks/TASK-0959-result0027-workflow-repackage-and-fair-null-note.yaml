@@ -1,0 +1,53 @@
+id: TASK-0959
+title: "Repackage RESULT-0027 onto a Gate-B-safe workflow and surface the fair-null comparison honestly"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0027's formal Gate B is blocked only by command shape (packaging script outside SAFE_RESULT_COMMANDS) - the third result born this way; the TASK-0786/0798/RESULT-0023 workflow-bridge recipe fixes it."
+  - "The 2026-07-06 audit found the packaged comparison_summary shows only the circular nearest-radius control while the fair nulls (nearest_mass, per_class_median) lose to the frozen CK17 baseline in 3 of 4 slices; the honest framing must be visible in the artifact, not only in scattered notes."
+  - "Publisher is akutenyov, so the gladunrv lane performing the repackage and formal Gate B replay is independence-clean (R4: this validation must NOT be executed by akutenyov)."
+
+input:
+  mode: workflow
+  related_domain: astrophysics
+  related_objects:
+    - "results/EXP-0021/RUN-0001/result.yaml"
+    - "docs/reviews/exoplanet-result-0027-gate-b-replay.md"
+    - "docs/reviews/firas-wien-result0023-gate-b-workflow-packaging.md"
+  planning_context: >
+    Two bounded fixes to the existing result, no verdict change: (1)
+    repackage the packaging step as a physics-lab engine workflow so the
+    recorded command is Gate-B-replayable, byte-identical outputs verified;
+    (2) extend comparison_summary/report so the fair nulls' numbers against
+    CK17 are present alongside the circular diagnostic control, with the
+    control explicitly labeled non-predictive.
+
+requirements:
+  - "Reserved lane: must NOT be executed by akutenyov (publisher); record executor identity."
+  - "Workflow repackage per the RESULT-0023 recipe; outputs byte-identical to the committed artifact except the command/limitations metadata and the comparison additions."
+  - "comparison_summary and report gain the fair-null vs CK17 numbers (nearest_mass, per_class_median per slice) with wording that nearest_radius is a diagnostic control whose RMSE tracks sample spacing; INCONCLUSIVE verdict and all metrics unchanged."
+  - "Run the formal Gate B helper after repackaging; on PASS apply validation_record with validation_independence per R1 (gladunrv lane vs akutenyov publisher = independent)."
+  - "No claim wording; no 'falsified Chen-Kipping' framing in any direction."
+
+accepted_outputs:
+  - "The repackaged result with honest comparison surface, the Gate B replay record, and a short bridge note."
+  - "Output-routing summary: packaging + transparency fix; verdict and metrics unchanged."
+
+result_artifact_policy:
+  required: false
+  reason: "Modifies packaging/transparency of an existing result; no new result artifact."
+  evidence:
+    - "results/EXP-0021/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code

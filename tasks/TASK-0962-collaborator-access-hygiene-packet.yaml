@@ -1,0 +1,48 @@
+id: TASK-0962
+title: "Prepare the collaborator access hygiene decision packet (outside collaborators with write)"
+type: maintainer_workflow
+status: READY
+closeout: review
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "The repo has several outside collaborators with write access on a public scientific repository; branch protection covers main, but role right-sizing is standard hygiene now that the repo carries citable DOI-backed artifacts."
+  - "Access changes are repo_settings_change (Class 2, maintainer-only); this task prepares the packet, it changes nothing."
+
+input:
+  mode: planning_only
+  related_domain: release_readiness
+  related_objects:
+    - "docs/decision-autonomy-policy.md"
+  planning_context: >
+    Enumerate direct collaborators and their roles (gh api), map each to
+    recent activity (commits, PRs, reviews, task claims), and present
+    right-sizing options per person (keep write / downgrade to triage-read /
+    remove) with a recommended default and the exact maintainer clicks. No
+    access is changed by this task.
+
+requirements:
+  - "Evidence per collaborator: role, last activity, artifacts touched; no speculation about identity or intent."
+  - "Options table with a recommended default per person and explicit maintainer-only execution steps."
+  - "Record the packet as a Class 2 decision awaiting the maintainer (decisions/ entry referencing this packet); no settings change in this task."
+
+accepted_outputs:
+  - "A decision packet under docs/reviews/ plus the Class 2 decision stub."
+  - "Output-routing summary: access review packet only; no repo settings change."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer decision packet; no scientific artifact."
+  evidence:
+    - "docs/decision-autonomy-policy.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
