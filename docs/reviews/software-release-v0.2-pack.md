@@ -35,10 +35,15 @@ Then create the GitHub Release on tag `v0.2.0` (title:
 the software DOI automatically from the Release; otherwise upload the
 Release tarball manually using the `.zenodo.json` metadata.
 
-4. **Record back:** paste the minted software DOI into `CITATION.cff`
-   (`identifiers`), the README How To Cite section, and
-   `docs/publication-roadmap.md` (layer-1 status) via a follow-up PR — say
-   the word and the director lane will do it.
+4. **Record back — DONE (2026-07-07):** Release published
+   2026-07-07T20:38:12Z; Zenodo minted the software DOI automatically via
+   the GitHub integration. Version DOI `10.5281/zenodo.21249915`, concept
+   DOI `10.5281/zenodo.21249914`, archive
+   `open-agent-science/autonomous-physics-lab-v0.2.0.zip` (13,617,960 B),
+   metadata API-verified (software / 0.2.0 / MIT / creators and keywords
+   from .zenodo.json / isSupplementedBy -> 10.5281/zenodo.21207072).
+   Recorded into CITATION.cff, README How To Cite, and the publication
+   roadmap. Future releases archive automatically.
 
 ## Release notes draft (paste into the GitHub Release body)
 
