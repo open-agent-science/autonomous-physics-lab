@@ -60,6 +60,9 @@ agent_proposal_evaluation:
     alpha=3.5 is inadequate as the sole frozen baseline on this slice, NOT falsified
     as a universal textbook law. No CLAIM/KNOW promotion is proposed.'
   validation_record:
+    validation_independence: same_owner_different_account
+    validation_independence_note: >-
+      Publisher gladunrv and replayer romanhladun24-dot are two accounts of the same person (the maintainer); deterministic reproducibility on a second account/tool path, not an independent-human validation.
     replayed_by:
       contributor_id: romanhladun24-dot
       github_username: romanhladun24-dot

@@ -227,6 +227,45 @@ agent may upgrade it to `AGENT_VALIDATED` at any time by running the
 independent replay. A maintainer review later can upgrade further,
 downgrade back, or leave it.
 
+### Validation Independence (within `AGENT_VALIDATED`)
+
+`AGENT_VALIDATED` records *that* a deterministic replay happened; it does
+not by itself record *who* the replayer was relative to the publisher.
+That second axis is recorded explicitly (Decision Day #2 refinement R1,
+2026-07-06, `docs/reviews/maintainer-decision-day-2026-07-06.md`) inside
+the `validation_record` block of the result artifact:
+
+```yaml
+validation_record:
+  replayed_by: { contributor_id: ..., agent_tool: ..., model_version: ... }
+  validation_independence: independent | same_owner_different_account |
+    same_account_different_tool | maintainer_self
+  validation_independence_note: optional free-text context
+```
+
+Rules:
+
+- Independence is counted at the level of **humans**, not accounts or
+  tools. Multiple accounts (e.g. `gladunrv` and `romanhladun24-dot` are
+  two accounts of the same person) or multiple tools operated by the same
+  person never combine into `independent`; such replays raise
+  reproducibility confidence only.
+- `independent` requires the publisher and the replayer to be different
+  humans.
+- Additional replays may accumulate in an optional `replays:` list inside
+  `validation_record` (same fields per entry, including
+  `validation_independence`), so external researchers can contribute their
+  own replay via PR. The strongest entry defines the result's effective
+  independence level.
+- Public wording: "`AGENT_VALIDATED` means replayed;
+  `validation_independence` records whether the replay was performed by an
+  independent contributor, the same owner, or the same account/tool path."
+
+This axis is a classification, not a downgrade: annotation changes no
+tier value, metric, or verdict. Tier *promotions* that depend on
+independent validation (for example a claim refresh citing Gate B) must
+cite a replay whose `validation_independence` is `independent`.
+
 ### Legacy Files (Backward Compatibility)
 
 Files committed **before** this protocol have no `review_tier` field.
