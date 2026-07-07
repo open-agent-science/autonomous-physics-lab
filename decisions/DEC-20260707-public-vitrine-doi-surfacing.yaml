@@ -74,3 +74,9 @@ decision_record:
   applied_by: pending
   status: dry_run_only
   revert_of: null
+  maintainer_resolution: >-
+    2026-07-07: the maintainer resolved the escalation by honoring the
+    ratified ordering - NO waiver. The PRED-0069..0072 external anchor
+    (tag + Release + Zenodo per the TASK-0945 upload pack) executes first;
+    this PR merges after it. Recorded here so the first live dry-run
+    escalation has a documented human decision.
