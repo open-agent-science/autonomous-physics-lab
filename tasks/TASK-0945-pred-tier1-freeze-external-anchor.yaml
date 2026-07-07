@@ -1,7 +1,7 @@
 id: TASK-0945
 title: "Anchor the PRED-0069..0072 tier-1 point-only freeze externally: annotated tag, GitHub Release, Zenodo capsule pack"
 type: scientific_dataset
-status: DONE
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high

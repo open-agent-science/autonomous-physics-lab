@@ -271,3 +271,27 @@ values without re-freezing or re-timing them.
     class would shift the residual surface.
   - The source-state screen covers committed in-repo files only; it is not a
     positive claim that any target is unmeasured in the wider literature.
+
+## External Anchor (2026-07-07, TASK-0945)
+
+The sealing recorded above is now third-party verifiable without trusting
+repository branch history:
+
+- Annotated tag: `pred-nmd0003-tier1-20260705` at freeze commit `f1eba9a2`.
+- GitHub Release (capsule attached):
+  <https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-nmd0003-tier1-20260705>
+- Zenodo deposit (published 2026-07-07, CC BY 4.0): version DOI
+  [10.5281/zenodo.21240451](https://doi.org/10.5281/zenodo.21240451),
+  concept DOI 10.5281/zenodo.21240450, record
+  <https://zenodo.org/records/21240451>.
+- Capsule `nmd0003-tier1-anchor-v1.0.0.zip`: 127,617 bytes, SHA-256
+  `82e3a872ad5e3fb1cd7841d29ed53ef3223945a73ba64e71866f0de209804272`
+  (Zenodo-verified md5 `af2c3234796f0357c6a4263ffc04b1ab`), containing the
+  four sealed PRED entries plus this note byte-identical to `f1eba9a2`.
+- Note on self-reference: the anchored capsule froze this file's pre-anchor
+  bytes; this section postdates the capsule by design. Any capsule rebuild
+  is a v1.0.1 with refreshed pins and a new version DOI — the builder
+  (`scripts/package_nmd0003_tier1_anchor_capsule.py`) fails loudly on the
+  stale pin to prevent silently shadowing the published v1.0.0.
+- Any future reveal grading must cite the anchored capsule checksum above.
+
