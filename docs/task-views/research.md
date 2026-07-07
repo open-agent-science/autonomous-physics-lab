@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0944` - Add the validation_independence axis: policy, annotation of all AGENT_VALIDATED results, docs and dashboard sync (`docs_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0946` - Define the bounded reveal-source watch for the sealed nuclear prediction registry (`scientific_source_curation`, priority `medium`, difficulty `low`, domain `nuclear_physics`)
 - `TASK-0947` - Run the FRB Catalog-1 interval-bounded exposure pair checksum/schema gate at epoch T=2019-07-02 (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-0948` - Run the RESULT-0020 Gate B replay with a genuinely independent identity (reserved: akutenyov, non-Claude tool) (`scientific_replay_validation`, priority `high`, difficulty `low`, domain `dimensional_analysis_validator`)
@@ -21,4 +20,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0944` - Add the validation_independence axis: policy, annotation of all AGENT_VALIDATED results, docs and dashboard sync (`docs_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
