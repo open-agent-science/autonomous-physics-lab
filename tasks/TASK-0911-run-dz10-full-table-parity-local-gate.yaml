@@ -1,7 +1,7 @@
 id: TASK-0911
 title: "Run a local-only canonical DZ10 full-table parity gate if AMDC bytes are available"
 type: scientific_benchmark
-status: READY
+status: DONE
 closeout: review
 difficulty: high
 priority: medium
@@ -46,7 +46,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_dz10_full_table_parity_gate.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

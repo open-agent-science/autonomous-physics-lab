@@ -1,0 +1,54 @@
+id: TASK-0947
+title: "Run the FRB Catalog-1 interval-bounded exposure pair checksum/schema gate at epoch T=2019-07-02"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decision Day #2 D2-1 (2026-07-06): conditional GO for the single leakage-safe route found by TASK-0934 — a feasibility gate only, not campaign activation."
+  - "The gate either formally fixes the five leakage conditions or the July steering target is retired honestly."
+  - "Reserved lane: this task continues the akutenyov FRB source line (TASK-0930 schema gate, TASK-0934 scout proposal)."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/frb-time-indexed-exposure-source-scout.md"
+    - "docs/reviews/frb-catalog2-exposure-map-checksum-schema-gate.md"
+  planning_context: >
+    TASK-0934 identified the CHIME Catalog-1 interval-bounded exposure map
+    pair at single epoch T=2019-07-02 (approx. 186,745,827 and 12,800,403
+    bytes) as the only official leakage-safe route, conditional on
+    cross-catalog semantics (window start 2018-08-28 vs 2018-09-04, 4 s vs
+    12 s resolution, pipeline era). This gate downloads, checksums, and
+    schema-inspects the pair and formally fixes the five conditions from
+    D2-1 before any exposure construction.
+
+requirements:
+  - "Reserved for contributor akutenyov (independent FRB source lane); other identities must stop rather than execute, per the R4 routing rule."
+  - "Pin both files with recorded byte sizes and sha256 checksums into the FRB source manifest before any parsing."
+  - "Formally fix, with file-level evidence: source identity as of T; exposure/sensitivity coverage strictly up to T; absence of post-T leakage into any surface the model would see; repeat-label reveal strictly after T; and the exact scoring rule."
+  - "Verdict is GATE_PASS with the five conditions fixed, or GATE_BLOCKED with the failing condition named; full campaign activation remains a separate maintainer decision either way."
+  - "No exposure construction, no model work, no PRED registration, no claim wording in this task."
+
+accepted_outputs:
+  - "A gate note under docs/reviews/ with pinned checksums, schema findings, the five-condition table with evidence, and the verdict."
+  - "Output-routing summary: source gate only; no scientific artifact changed."
+
+result_artifact_policy:
+  required: false
+  reason: "Source feasibility gate; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/reviews/frb-time-indexed-exposure-source-scout.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex

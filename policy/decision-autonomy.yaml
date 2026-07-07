@@ -1,0 +1,126 @@
+schema_version: "1"
+policy_id: decision-autonomy-v0
+status: dry_run
+policy_doc: docs/decision-autonomy-policy.md
+self_modification: maintainer_only
+unknown_decision_type_default: class_2_maintainer_only
+
+autonomy_classes:
+  class_0_auto:
+    description: "Reversible internal hygiene; agents apply standing policy directly once enabled."
+    can_apply_now: false
+    gates:
+      - ci_green
+      - validate_repo_strict_green
+      - review_agent_merge_ok
+      - no_result_pred_claim_know_status_change
+      - no_external_publication
+      - no_license_ambiguity
+      - no_public_claim_wording_change
+  class_1_lazy_consensus:
+    description: "Reversible internal routing; quorum + devil's advocate + veto window."
+    can_apply_now: false
+    veto_window_hours: 48
+    quorum:
+      min_votes: 2
+      separate_sessions_required: true
+      cross_vendor: preferred_dry_run_mandatory_for_apply
+      devils_advocate_required: true
+      advocate_blocker_forces_escalation: true
+    gates:
+      - decision_packet_committed
+      - no_maintainer_only_artifact_touched
+      - no_result_pred_claim_know_status_change
+  class_2_maintainer_only:
+    description: "Irreversible, external, reputational, or legal decisions; never delegated."
+    can_apply_now: false
+    non_reducible:
+      - claim_support_status_change
+      - knowledge_endorsement
+      - external_publication
+      - data_rights_decision
+      - external_communication
+      - prediction_freeze
+      - repo_settings_change
+      - git_history_rewrite
+      - autonomy_policy_change
+
+decision_types:
+  task_closeout_merged: {class: class_0_auto}
+  board_hygiene: {class: class_0_auto}
+  task_superseded_cleanup:
+    class: class_0_auto
+    allowed_if: [superseding_task_done]
+  proposal_adjudication:
+    class: class_0_auto
+    allowed_if: [older_than_30_days, directive_rubric_applies]
+  docs_drift_fix:
+    class: class_0_auto
+    allowed_if: [typos_links_factual_sync_only]
+  negative_memory_routing:
+    class: class_1_lazy_consensus
+    allowed_if: [verdict_negative_or_inconclusive, no_claim_promotion, limitations_recorded]
+  campaign_hold_monitor:
+    class: class_1_lazy_consensus
+    allowed_if: [explicit_blocker_recorded]
+  no_broad_pilot:
+    class: class_1_lazy_consensus
+  claim_role_classification:
+    class: class_1_lazy_consensus
+    allowed_if: [no_support_status_change]
+  source_readiness_go:
+    class: class_1_lazy_consensus
+    allowed_if: [manifest_already_verified, no_license_ambiguity]
+  bounded_scout_approval:
+    class: class_1_lazy_consensus
+  queue_top_up:
+    class: class_1_lazy_consensus
+    allowed_if: [review_ready_below_8, target_12_to_16_ready]
+  stale_blocker_unblock:
+    class: class_1_lazy_consensus
+    allowed_if: [all_blockers_done_or_superseded]
+  public_wording_change:
+    class: class_1_lazy_consensus
+    allowed_if: [no_claim_like_phrasing_weakening_or_strengthening]
+  claim_support_status_change: {class: class_2_maintainer_only}
+  knowledge_endorsement: {class: class_2_maintainer_only}
+  external_publication: {class: class_2_maintainer_only}
+  data_rights_decision: {class: class_2_maintainer_only}
+  external_communication: {class: class_2_maintainer_only}
+  prediction_freeze: {class: class_2_maintainer_only}
+  repo_settings_change: {class: class_2_maintainer_only}
+  git_history_rewrite: {class: class_2_maintainer_only}
+  autonomy_policy_change: {class: class_2_maintainer_only}
+
+standing_directives:
+  - id: stale-blocker
+    rule: "BLOCKED task with all blockers DONE/superseded -> decision packet; propose SUPERSEDED when the superseding path already executed."
+  - id: proposal-age
+    rule: "Proposals older than 30 days: ACCEPT cheap aligned infra; REJECT broad pre-consolidation scaffolds; BACKLINK already-implemented."
+  - id: high-risk-claim
+    rule: "High-overclaim DRAFT claims with inconclusive evidence -> propose stress-test-memory parking unless new external evidence exists."
+  - id: campaign-no-go
+    rule: "Repeated source scouts with no admissible artifact -> HOLD/MONITOR unless a new source route or maintainer-approved input exists."
+  - id: queue-throttle
+    rule: "No large wave while REVIEW_READY >= 8; top up to 12-16 READY only after the review queue is under control."
+
+metrics:
+  - decision_count_by_class
+  - auto_decision_count
+  - maintainer_escalation_count
+  - veto_count
+  - veto_rate
+  - wrong_classification_count
+  - decision_reversal_count
+  - time_to_decision
+  - review_ready_age
+
+red_lines:
+  - no_automatic_claim_endorsement
+  - no_automatic_external_publication
+  - no_automatic_external_communication
+  - no_automatic_prediction_freeze
+  - no_automatic_legal_rights_decision
+  - no_automatic_repo_settings_change
+  - no_automatic_public_launch_wording
+  - no_automatic_autonomy_expansion

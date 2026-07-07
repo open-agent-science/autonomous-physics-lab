@@ -10,9 +10,8 @@ None.
 
 ## Research Blockers
 
-- `TASK-0827` - Compare extrapolation models and freeze the best one's frontier predictions for reveal (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+None.
 
 ## Support Blockers
 
-- `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0925` - Predeclare a second-generation NMD-0003 calibration protocol and a fresh-surface validation contract (protocol-only; no scoring) (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)

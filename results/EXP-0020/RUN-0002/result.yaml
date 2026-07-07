@@ -1,0 +1,156 @@
+result_id: RESULT-0028
+run_id: RUN-0002
+experiment_id: EXP-0020
+title: ThermoML Tb esters/lactones failed-family negative control
+hypothesis_id: HYP-0020
+task_id: TASK-0936
+generated_at: '2026-07-06T00:00:00+00:00'
+engine_version: 0.1.0
+git_commit: 269aa0276bc2997e5d41709e76501acbd83bb76d
+command: python3 scripts/package_thermoml_esters_lactones_negative_result.py --write
+input_file_hashes:
+  config:
+    path: results/EXP-0020/RUN-0002/inputs/config.yaml
+    sha256: 7bb4f1b20f56def2f6e3d37ff706f0e6d6299bfe56f9a2a93aa4d1a749fd4d21
+  fixture:
+    path: results/EXP-0020/RUN-0002/inputs/fixture.json
+    sha256: 6e728aac38c9b0bdae695c1af02e7fde9543bce431caa61876801b57bdc4a7b1
+  experiment:
+    path: results/EXP-0020/RUN-0002/inputs/experiment.yaml
+    sha256: a9eefd8b0dced283f4a08aefe01cc71a81193948182c7bdc6f331dfb61734278
+  hypothesis:
+    path: results/EXP-0020/RUN-0002/inputs/hypothesis.yaml
+    sha256: 728848b56bc92600404f4575eaa8e0bea51beb3c37435817d6c0ba7397fc6c08
+  task:
+    path: results/EXP-0020/RUN-0002/inputs/task.yaml
+    sha256: 276f5d96b62dff68799affa2affe2ee22e2325197e9bc1b75236d8f001b58799
+code_reference: scripts/package_thermoml_esters_lactones_negative_result.py
+limitations:
+- Agent-published packaging of committed evidence; not yet independently validated or maintainer-reviewed.
+- Scope is the five esters/lactones rows inside the committed 40-row ThermoML Tb audit fixture only.
+- The INVALID verdict records a family-survival failure for the frozen Joback estimator in this family;
+  it does not weaken the aggregate-positive, family-dependent RESULT-0026 verdict (7/8 families clear).
+- The molecular-weight-only control is diagnostic within the fixture; it is not proposed as a deployable
+  estimator.
+- The Joback estimator is frozen; no coefficient, correction, or refit is performed by this packaging.
+- Raw ThermoML archive bytes and any substantial normalized corpus are not committed; source rights permit
+  only a bounded factual extract with attribution.
+- No chemical-design, safety, synthesis, process-design, universal Joback validation/falsification, or
+  broad property-estimation claim is made.
+best_model_id: model_joback_frozen_tb
+best_verdict: INVALID
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INVALID
+  published_by:
+    contributor_id: gladunrv
+    github_username: gladunrv
+    agent_tool: Claude Code
+    model_version: Claude Fable 5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: The deterministic packager reads the committed RESULT-0026 metrics, verifies the aggregate-positive
+    context (7/8 families clear, margin 28.502118 K) and the esters/lactones failure (margin -5.549755
+    K versus the +5 K survival rule; Joback MAE 26.134 K versus 20.584245 K for the molecular-weight-only
+    control across five rows), and packages that failure as bounded negative/control memory without rerunning
+    or refitting anything.
+  followup_for_maintainer: 'Keep the AGENT_PUBLISHED qualifier explicit. Gate B next step: an independent
+    identity can replay the deterministic packager against the same committed inputs (the recorded packaging-script
+    command is not on the Gate B safe-command list, so the formal helper will report BLOCKED unsupported-command;
+    a byte-identical repackage replay or a later physics-lab run workflow bridge are the available validation
+    routes).'
+verification:
+  passed: true
+  checks:
+  - name: committed_source_result_identity
+    status: PASS
+    details: RESULT-0026 exists with Gate A PASS and AGENT_VALIDATED tier; this package reads its committed
+      metrics only.
+    metrics:
+      source_result: RESULT-0026
+      source_gate_a: PASS
+      source_rerun: false
+  - name: aggregate_positive_context_preserved
+    status: PASS
+    details: 'The packaged aggregate context matches RESULT-0026: Joback clears the aggregate margin and
+      seven of eight family margins.'
+    metrics:
+      aggregate_margin_k: 28.502118
+      families_clearing_margin: 7
+      family_count: 8
+      row_count: 40
+  - name: esters_lactones_family_survival_failure
+    status: PASS
+    details: 'The packaged family failure matches the committed values: the margin misses the predeclared
+      +5 K survival rule.'
+    metrics:
+      family_margin_k: -5.549755
+      required_margin_k: 5.0
+      margin_shortfall_k: 10.549755
+      joback_mae_k: 26.134
+      control_mae_k: 20.584245
+      family_row_count: 5
+  - name: no_rerun_refit_or_fetch
+    status: PASS
+    details: Packaging reads committed metrics only; no benchmark rerun, Joback refit, data fetch, or
+      fixture change occurs.
+    metrics:
+      rerun: false
+      refit: false
+      fetch: false
+      fixture_changed: false
+  - name: source_provenance_and_rights_boundary
+    status: PASS
+    details: The ThermoML source DOI, archive SHA-256, attribution, and non-vendoring boundary are preserved
+      from RESULT-0026.
+    metrics:
+      source_doi: 10.18434/mds2-2422
+      archive_sha256: 231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2
+      archive_size_bytes: 189433115
+      archive_bytes_committed: false
+comparison_summary:
+- target_id: target_esters_lactones_family_survival_margin
+  label: Esters/lactones family margin versus the predeclared +5 K survival rule
+  reference_value: 5.0
+  observed_value: -5.549755
+  unit: K
+  absolute_difference: 10.549755
+  relative_difference: 2.109951
+  notes: The observed family margin is negative, so the family misses the survival rule by the full shortfall.
+    Scope is the committed 40-row Tb audit fixture only.
+- target_id: target_joback_vs_mw_control_esters_lactones
+  label: Frozen Joback MAE versus the molecular-weight-only control on esters/lactones
+  reference_value: 20.584245
+  observed_value: 26.134
+  unit: K
+  absolute_difference: 5.549755
+  relative_difference: 0.269612
+  notes: Lower MAE is better; the control beats Joback inside this five-row family. The control is diagnostic
+    within the fixture, not a deployable estimator.
+uncertainty_summary:
+  method: family_control_comparison_uncertainty_weighted_mae_no_predictive_interval
+  observed_uncertainty: 22.672456
+  reference_uncertainty: 25.3123
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: Reported values are uncertainty-weighted MAE summaries from the committed RESULT-0026 metrics,
+    not calibrated predictive intervals.
+artifacts:
+  report: results/EXP-0020/RUN-0002/report.md
+  metrics: results/EXP-0020/RUN-0002/metrics.json
+  claim_update: results/EXP-0020/RUN-0002/claim_update.md
+  claim_update_patch: results/EXP-0020/RUN-0002/claim_update.patch.md
+  knowledge_update: results/EXP-0020/RUN-0002/knowledge_update.md
+  knowledge_update_patch: results/EXP-0020/RUN-0002/knowledge_update.patch.md
+  review_summary: results/EXP-0020/RUN-0002/review_summary.md
+  review_metadata: results/EXP-0020/RUN-0002/review_metadata.yaml

@@ -1,0 +1,6 @@
+# Decision-autonomy governance surfaces are maintainer-only (Class 2:
+# autonomy_policy_change). Agents may not modify these paths; enable
+# "require review from Code Owners" in branch protection to enforce.
+/policy/                             @gladunrv
+/docs/decision-autonomy-policy.md    @gladunrv
+/.github/CODEOWNERS                  @gladunrv

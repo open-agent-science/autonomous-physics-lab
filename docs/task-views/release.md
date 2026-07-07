@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0936` - Package RESULT-0026 esters/lactones failed-family memory as a bounded ThermoML negative/control RESULT (`scientific_result_publication`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0945` - Anchor the PRED-0069..0072 tier-1 point-only freeze externally: annotated tag, GitHub Release, Zenodo capsule pack (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_physics`)

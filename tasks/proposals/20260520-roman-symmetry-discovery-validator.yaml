@@ -1,6 +1,6 @@
 proposal_id: 20260520-roman-symmetry-discovery-validator
 title: "Scaffold a symmetry-discovery validator track using equivariance and Noether-inverse checks"
-status: PROPOSED
+status: REJECTED
 type: methodology_track
 priority: low
 
@@ -91,7 +91,7 @@ validation:
 
 promotion:
   canonical_task_id: null
-  decision: pending
+  decision: rejected  # Decision Day #2 D2-7 (2026-07-06): pre-consolidation broad scaffold with the highest overclaim risk of its sibling set; contradicts the consolidation strategy. Reopen only via a new maintainer decision.
   notes: >
     Highest overclaim risk of the four sibling proposals — symmetry
     discovery on real data can easily slide into numerology. The

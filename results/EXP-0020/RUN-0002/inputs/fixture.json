@@ -1,0 +1,497 @@
+{
+  "experiment_id": "EXP-0020",
+  "gate_a_status": "PASS",
+  "hypothesis_id": "HYP-0020",
+  "metrics": {
+    "benchmark_id": "thermoml-tb-family-stratified-transfer",
+    "fidelity_gate": {
+      "compound_count": 25,
+      "max_abs_error_k": 0.0,
+      "mismatch_count": 0,
+      "passed": true
+    },
+    "rights": {
+      "derived_rows_publication": "conditional_bounded_factual_extract",
+      "local_analysis_allowed": true,
+      "source_bytes_redistribution": false,
+      "substantial_corpus_committed": false
+    },
+    "run_meta": {
+      "agent_run_id": "AGENT-RUN-0087",
+      "code_reference": "physics_lab/engines/thermoml_family_transfer.py",
+      "command": "python scripts/run_thermoml_tb_family_transfer.py --write",
+      "deterministic": true,
+      "engine_version": "0.1.0",
+      "git_commit": "fc863667a48a3a50f196ac3a479af699e1975932",
+      "input_file_hashes": {
+        "data/thermophysical/thermoml_tb_audit_fixture.yaml": "c96b33b60fc07ef78b71a188cb931bff34d443549f0517ce198b0f5049ccdc7c",
+        "physics_lab/engines/joback_tb.py": "e40c60fd4b6382ab21de845896eec9809206dfa7dcde134a9a0641b55ae17212",
+        "physics_lab/engines/thermoml_family_transfer.py": "0d34111c97ff05070bb064fb9da525db69d18610d7643410dc6fbcb6707e4043",
+        "scripts/run_thermoml_tb_family_transfer.py": "6e7f34f59897a4ab58da964594b91a59db75515f39aa3d781a78a307789d8091"
+      },
+      "runner_reference": "scripts/run_thermoml_tb_family_transfer.py",
+      "shuffle_seed": 851
+    },
+    "selection": {
+      "candidate_counts_by_family": {
+        "acids": 7,
+        "alcohols/phenols": 31,
+        "alkanes/cycloalkanes": 13,
+        "aromatic hydrocarbons": 20,
+        "esters/lactones": 51,
+        "ethers": 13,
+        "halocarbons": 15,
+        "ketones": 9
+      },
+      "dedup_rule": "smallest reported expanded uncertainty, then source DOI and value",
+      "family_selection_rule": "5 molecular-weight quantile rows per predeclared simple family",
+      "property": "Normal boiling temperature, K",
+      "rdkit_version": "2025.09.3",
+      "scoring_intercept_k": 198.2,
+      "screening_counts": {
+        "archive_json_files": 11923,
+        "charged_or_multifragment_blocks": 2,
+        "identified_single_component_blocks": 590,
+        "joback_covered_observations": 501,
+        "joback_covered_unique_compounds": 184,
+        "joback_out_of_coverage_blocks": 81,
+        "normal_boiling_files": 167,
+        "raw_normal_boiling_observations": 501,
+        "unclassified_family_blocks": 1,
+        "unsupported_element_blocks": 5
+      },
+      "selected_families": [
+        "acids",
+        "esters/lactones",
+        "ketones",
+        "alcohols/phenols",
+        "ethers",
+        "halocarbons",
+        "aromatic hydrocarbons",
+        "alkanes/cycloalkanes"
+      ],
+      "selection_is_value_blind_to_joback_error": true,
+      "thermo_version": "0.6.0"
+    },
+    "source": {
+      "archive_bytes_committed": false,
+      "archive_filename": "ThermoML.v2020-09-30.tgz",
+      "archive_sha256": "231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2",
+      "archive_size_bytes": 189433115,
+      "attribution": "Data from the NIST TRC ThermoML Archive, available with permission of the journal publishers; NIST does not critically evaluate deposited values.",
+      "doi": "10.18434/mds2-2422",
+      "product": "NIST TRC ThermoML Archive"
+    },
+    "task_id": "TASK-0851",
+    "transfer": {
+      "aggregate": {
+        "global_median": {
+          "mae_k": 62.080925,
+          "rmse_k": 79.098508,
+          "row_count": 40,
+          "uncertainty_weighted_mae_k": 46.528703
+        },
+        "joback": {
+          "mae_k": 14.925825,
+          "rmse_k": 27.344479,
+          "row_count": 40,
+          "uncertainty_weighted_mae_k": 9.429732
+        },
+        "molecular_weight_only": {
+          "mae_k": 43.427943,
+          "rmse_k": 53.299467,
+          "row_count": 40,
+          "uncertainty_weighted_mae_k": 37.20798
+        },
+        "nearest_homolog": {
+          "mae_k": 69.863925,
+          "rmse_k": 83.041774,
+          "row_count": 40,
+          "uncertainty_weighted_mae_k": 67.319639
+        },
+        "shuffled_group_counts": {
+          "mae_k": 86.814675,
+          "rmse_k": 120.770098,
+          "row_count": 40,
+          "uncertainty_weighted_mae_k": 85.833154
+        },
+        "within_family_constant": {
+          "mae_k": 50.41951,
+          "rmse_k": 62.982962,
+          "row_count": 40,
+          "uncertainty_weighted_mae_k": 45.978965
+        }
+      },
+      "best_non_oracle_control": "molecular_weight_only",
+      "families_clearing_margin": 7,
+      "families_required_to_clear": 6,
+      "family_count": 8,
+      "family_counts": {
+        "acids": 5,
+        "alcohols/phenols": 5,
+        "alkanes/cycloalkanes": 5,
+        "aromatic hydrocarbons": 5,
+        "esters/lactones": 5,
+        "ethers": 5,
+        "halocarbons": 5,
+        "ketones": 5
+      },
+      "joback_margin_vs_best_non_oracle_k": 28.502118,
+      "per_family": {
+        "acids": {
+          "best_non_oracle_control": "global_median",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 20.322,
+          "scores": {
+            "global_median": {
+              "mae_k": 44.2,
+              "rmse_k": 62.038246,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 25.697207
+            },
+            "joback": {
+              "mae_k": 23.878,
+              "rmse_k": 48.125306,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 16.255754
+            },
+            "molecular_weight_only": {
+              "mae_k": 61.165872,
+              "rmse_k": 67.114228,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 54.476439
+            },
+            "nearest_homolog": {
+              "mae_k": 83.32,
+              "rmse_k": 95.260907,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 81.021564
+            },
+            "shuffled_group_counts": {
+              "mae_k": 54.924,
+              "rmse_k": 77.707028,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 21.996034
+            },
+            "within_family_constant": {
+              "mae_k": 39.384,
+              "rmse_k": 49.406413,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 22.889497
+            }
+          }
+        },
+        "alcohols/phenols": {
+          "best_non_oracle_control": "molecular_weight_only",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 39.095486,
+          "scores": {
+            "global_median": {
+              "mae_k": 79.228,
+              "rmse_k": 90.018363,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 37.140774
+            },
+            "joback": {
+              "mae_k": 18.53,
+              "rmse_k": 21.913093,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 12.875334
+            },
+            "molecular_weight_only": {
+              "mae_k": 57.625486,
+              "rmse_k": 68.662733,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 28.259799
+            },
+            "nearest_homolog": {
+              "mae_k": 90.22,
+              "rmse_k": 97.010447,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 70.458275
+            },
+            "shuffled_group_counts": {
+              "mae_k": 59.988,
+              "rmse_k": 63.639382,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 56.902027
+            },
+            "within_family_constant": {
+              "mae_k": 68.9624,
+              "rmse_k": 73.950944,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 85.934444
+            }
+          }
+        },
+        "alkanes/cycloalkanes": {
+          "best_non_oracle_control": "molecular_weight_only",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 24.466365,
+          "scores": {
+            "global_median": {
+              "mae_k": 52.554,
+              "rmse_k": 58.044831,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 47.45035
+            },
+            "joback": {
+              "mae_k": 11.54,
+              "rmse_k": 12.613334,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 7.742438
+            },
+            "molecular_weight_only": {
+              "mae_k": 36.006365,
+              "rmse_k": 43.235123,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 44.563886
+            },
+            "nearest_homolog": {
+              "mae_k": 40.612,
+              "rmse_k": 56.272959,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 26.917393
+            },
+            "shuffled_group_counts": {
+              "mae_k": 90.5,
+              "rmse_k": 110.001675,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 101.494835
+            },
+            "within_family_constant": {
+              "mae_k": 48.7232,
+              "rmse_k": 54.793491,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 32.161592
+            }
+          }
+        },
+        "aromatic hydrocarbons": {
+          "best_non_oracle_control": "molecular_weight_only",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 25.358674,
+          "scores": {
+            "global_median": {
+              "mae_k": 90.6074,
+              "rmse_k": 110.968852,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 71.470315
+            },
+            "joback": {
+              "mae_k": 12.3006,
+              "rmse_k": 21.194775,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 10.02927
+            },
+            "molecular_weight_only": {
+              "mae_k": 37.659274,
+              "rmse_k": 46.736497,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 31.105095
+            },
+            "nearest_homolog": {
+              "mae_k": 82.2174,
+              "rmse_k": 85.747374,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 98.306996
+            },
+            "shuffled_group_counts": {
+              "mae_k": 122.0934,
+              "rmse_k": 141.195134,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 120.431085
+            },
+            "within_family_constant": {
+              "mae_k": 72.02088,
+              "rmse_k": 81.26287,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 89.557287
+            }
+          }
+        },
+        "esters/lactones": {
+          "best_non_oracle_control": "molecular_weight_only",
+          "clears_survival_margin": false,
+          "joback_margin_vs_best_non_oracle_k": -5.549755,
+          "scores": {
+            "global_median": {
+              "mae_k": 96.716,
+              "rmse_k": 121.786295,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 66.226697
+            },
+            "joback": {
+              "mae_k": 26.134,
+              "rmse_k": 45.894144,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 22.672456
+            },
+            "molecular_weight_only": {
+              "mae_k": 20.584245,
+              "rmse_k": 24.507742,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 25.3123
+            },
+            "nearest_homolog": {
+              "mae_k": 78.028,
+              "rmse_k": 95.160336,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 59.306956
+            },
+            "shuffled_group_counts": {
+              "mae_k": 146.142,
+              "rmse_k": 207.989384,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 193.284172
+            },
+            "within_family_constant": {
+              "mae_k": 81.6544,
+              "rmse_k": 97.905602,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 104.711767
+            }
+          }
+        },
+        "ethers": {
+          "best_non_oracle_control": "molecular_weight_only",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 24.811501,
+          "scores": {
+            "global_median": {
+              "mae_k": 45.014,
+              "rmse_k": 46.455153,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 45.943208
+            },
+            "joback": {
+              "mae_k": 7.452,
+              "rmse_k": 11.188011,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 3.587547
+            },
+            "molecular_weight_only": {
+              "mae_k": 32.263501,
+              "rmse_k": 34.044217,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 34.309969
+            },
+            "nearest_homolog": {
+              "mae_k": 39.356,
+              "rmse_k": 51.5659,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 49.995472
+            },
+            "shuffled_group_counts": {
+              "mae_k": 80.1,
+              "rmse_k": 118.455613,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 86.742453
+            },
+            "within_family_constant": {
+              "mae_k": 28.6976,
+              "rmse_k": 37.663877,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 19.775396
+            }
+          }
+        },
+        "halocarbons": {
+          "best_non_oracle_control": "global_median",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 32.88,
+          "scores": {
+            "global_median": {
+              "mae_k": 47.006,
+              "rmse_k": 54.707575,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 64.041642
+            },
+            "joback": {
+              "mae_k": 14.126,
+              "rmse_k": 17.201295,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 13.406816
+            },
+            "molecular_weight_only": {
+              "mae_k": 78.681238,
+              "rmse_k": 82.441916,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 71.9183
+            },
+            "nearest_homolog": {
+              "mae_k": 71.874,
+              "rmse_k": 83.58736,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 93.886757
+            },
+            "shuffled_group_counts": {
+              "mae_k": 53.052,
+              "rmse_k": 65.020184,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 48.933795
+            },
+            "within_family_constant": {
+              "mae_k": 22.2648,
+              "rmse_k": 27.988475,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 30.832294
+            }
+          }
+        },
+        "ketones": {
+          "best_non_oracle_control": "molecular_weight_only",
+          "clears_survival_margin": true,
+          "joback_margin_vs_best_non_oracle_k": 17.991562,
+          "scores": {
+            "global_median": {
+              "mae_k": 41.322,
+              "rmse_k": 49.339159,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 32.465118
+            },
+            "joback": {
+              "mae_k": 5.446,
+              "rmse_k": 7.063431,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 3.587122
+            },
+            "molecular_weight_only": {
+              "mae_k": 23.437562,
+              "rmse_k": 29.964832,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 19.585267
+            },
+            "nearest_homolog": {
+              "mae_k": 73.284,
+              "rmse_k": 86.37816,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 75.281478
+            },
+            "shuffled_group_counts": {
+              "mae_k": 87.718,
+              "rmse_k": 114.191087,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 87.579121
+            },
+            "within_family_constant": {
+              "mae_k": 41.6488,
+              "rmse_k": 49.312095,
+              "row_count": 5,
+              "uncertainty_weighted_mae_k": 32.909347
+            }
+          }
+        }
+      },
+      "required_family_pass_fraction": "2/3",
+      "row_count": 40,
+      "survival_margin_k": 5.0,
+      "verdict": "TRANSFER_SUPPORTED_IN_SCOPE"
+    }
+  },
+  "result_id": "RESULT-0026",
+  "source_agent_run": "AGENT-RUN-0087",
+  "source_rights_boundary": "conditional_bounded_factual_extract_no_archive_bytes",
+  "source_task_id": "TASK-0851",
+  "task_id": "TASK-0869"
+}
