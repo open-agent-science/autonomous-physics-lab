@@ -64,3 +64,21 @@ A formula coincidence within a six-family systematic search is not evidence
 for a physical explanation. The lepton cascade combination has no known SM
 loop-diagram motivation. The claim ceiling is "one first-pass stress-test hit"
 — not "explains the anomaly."
+
+## Claim Role Disposition (2026-07-06)
+
+The maintainer Decision Day #2 disposition (D2-4,
+`docs/reviews/maintainer-decision-day-2026-07-06.md`) parks this line on a
+separate novelty/role axis without changing its evidence judgment:
+
+- `novelty_class: stress_test_screen`
+- `claim_role: stress_test_memory`
+- `active_scientific_claim: false`
+
+The claim remains `DRAFT`; its evidence (RESULT-0012, INCONCLUSIVE), scope,
+and caution wording are unchanged. The hardening steps listed above are
+explicitly NOT scheduled: the line is parked as stress-test memory, and no
+new muon g-2 tasks may be seeded from it. Reopen conditions (verbatim from
+D2-4): a new external result or an explicit maintainer decision. This
+disposition follows the `TASK-0927` claim-role pattern and implements
+`TASK-0950`.
