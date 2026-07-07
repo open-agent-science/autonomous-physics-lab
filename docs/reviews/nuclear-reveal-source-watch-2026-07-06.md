@@ -68,6 +68,11 @@
 
 - `prediction_registry/nuclear_masses/` sealed entries, including
   PRED-0069..0072 (tier-1 point-only, frozen 2026-07-05).
+- External anchor (2026-07-07): the sealed set is third-party timestamped -
+  tag `pred-nmd0003-tier1-20260705`, Zenodo DOI
+  [10.5281/zenodo.21240451](https://doi.org/10.5281/zenodo.21240451),
+  capsule sha256 `82e3a872ad5e3fb1cd7841d29ed53ef3223945a73ba64e71866f0de209804272`.
+  Any reveal decision packet and grading MUST cite this anchored checksum.
 - Reveal scoring rule and comparator set: frozen in
   `docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md`; this note
   changes none of it.

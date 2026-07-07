@@ -103,10 +103,15 @@ signature is optional and must not delay the anchor.
 
 ## Record-Back Checklist (after Publish)
 
-- [ ] Tag `pred-nmd0003-tier1-20260705` pushed at `f1eba9a2`.
-- [ ] GitHub Release created with the capsule attached.
-- [ ] Zenodo record published; version DOI + record URL recorded back into
-      the freeze review note and this pack; anchor pointers added to the
-      PRED-0069..0072 documentation trail.
-- [ ] Reveal-source watch note updated to reference the anchor (a revealed
+- [x] Tag `pred-nmd0003-tier1-20260705` pushed at `f1eba9a2` (2026-07-07).
+- [x] GitHub Release created with the capsule attached; re-downloaded asset
+      verified byte-identical (sha256 `82e3a872...`).
+- [x] Zenodo record published 2026-07-07: version DOI
+      `10.5281/zenodo.21240451`, concept DOI `10.5281/zenodo.21240450`,
+      record https://zenodo.org/records/21240451 (md5 verified
+      `af2c3234796f0357c6a4263ffc04b1ab`); recorded back into the freeze
+      review note (External Anchor section - the canonical PRED
+      documentation trail; the sealed PRED payloads themselves are
+      intentionally untouched).
+- [x] Reveal-source watch note updated to reference the anchor (a revealed
       grading must cite the anchored capsule checksum).
