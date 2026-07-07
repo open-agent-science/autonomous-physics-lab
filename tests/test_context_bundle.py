@@ -75,6 +75,16 @@ def test_write_bundle_if_changed_writes_real_content_change(tmp_path: Path) -> N
     assert out_path.read_text(encoding="utf-8") == candidate
 
 
+def test_write_bundle_if_changed_creates_parent_directory(tmp_path: Path) -> None:
+    out_path = tmp_path / "_generated" / "CONTEXT.md"
+    candidate = "# Bundle\n\nGenerated: 2026-05-11 10:52 UTC\nMode: core\n"
+
+    changed = context_bundle.write_bundle_if_changed(out_path, candidate)
+
+    assert changed is True
+    assert out_path.read_text(encoding="utf-8") == candidate
+
+
 def test_bundle_is_current_accepts_timestamp_only_drift(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

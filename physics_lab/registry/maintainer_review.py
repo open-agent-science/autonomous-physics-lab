@@ -93,6 +93,7 @@ VENV_PYTHON_LAUNCHER_PATTERN = re.compile(
     r"(?P=quote)(?P<rest>\s+.*|$)"
 )
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
+CLAIM_BASE_STATUS_FALLBACK_REFS = ("origin/main", "main")
 PROPOSAL_TRIAGE_BODY_MARKERS = (
     "proposal triage",
     "proposal-pool triage",
@@ -1064,16 +1065,17 @@ def context_bundle_followups(
     *,
     sync_board: bool = False,
 ) -> tuple[str, ...]:
-    """Return reminders when merged work touched CONTEXT.md source surfaces."""
+    """Return reminders when merged work touched context-bundle source surfaces."""
     del sync_board  # tasks/ACTIVE.md was retired; the board is no longer a bundle source.
     touched = {path for path in changed_files if path in CONTEXT_BUNDLE_SOURCE_FILES}
     if not touched:
         return ()
     rendered = ", ".join(sorted(touched))
     return (
-        "Regenerate CONTEXT.md after this merge batch because context bundle "
-        f"sources changed: {rendered}. Run python3 scripts/generate_context_bundle.py "
-        "after merge on main; task PR branches need not commit regenerated CONTEXT.md.",
+        "Context-bundle sources changed: "
+        f"{rendered}. Run python3 scripts/generate_context_bundle.py locally if a "
+        "single-file handoff is useful; the generated bundle is ignored and should "
+        "not be committed.",
     )
 
 
@@ -1183,7 +1185,7 @@ def classify_artifact_review_changes(
             )
             continue
         if path.startswith("claims/") and path.endswith(".md"):
-            before = load_claim_status_from_ref(root, base_ref, path)
+            before = load_claim_status_from_review_base(root, base_ref, path)
             after = load_claim_status_from_ref(root, target_branch, path)
             if before is None and after == "DRAFT":
                 artifact_class = "draft_claim_authoring"
@@ -1215,6 +1217,22 @@ def classify_artifact_review_changes(
                 )
             )
     return tuple(signals)
+
+
+def load_claim_status_from_review_base(root: Path, base_ref: str, repo_path: str) -> str | None:
+    """Load claim status from the review base, falling back to main refs.
+
+    Clean PR worktrees may not have the exact symbolic base ref that local
+    review code expects. For existing claim files, fall back to the usual main
+    refs before treating the artifact as new. New claim files still return
+    ``None`` and remain subject to the normal calibration-promotion blocker.
+    """
+    refs = tuple(dict.fromkeys((base_ref, *CLAIM_BASE_STATUS_FALLBACK_REFS)))
+    for ref in refs:
+        status = load_claim_status_from_ref(root, ref, repo_path)
+        if status is not None:
+            return status
+    return None
 
 
 def render_artifact_review_signal(signal: ArtifactReviewSignal) -> str:
@@ -1957,7 +1975,7 @@ def _compose_review_report(
                 for claim_file in changed_claim_files:
                     blocker = calibration_known_physics_status_blocker(
                         claim_file,
-                        before_status=load_claim_status_from_ref(
+                        before_status=load_claim_status_from_review_base(
                             root, base_ref, claim_file
                         ),
                         after_status=load_claim_status_from_ref(

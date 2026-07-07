@@ -20,6 +20,10 @@ examples/reports/*.md
 results/**/plots/
 device-id
 
+# Generated one-file LLM context and other local helper artifacts.
+_generated/
+/CONTEXT.md
+
 # Local PR helper bodies generated for `gh pr create --body-file`.
 .apl-pr-body.md
 

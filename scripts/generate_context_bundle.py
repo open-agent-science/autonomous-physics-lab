@@ -2,14 +2,14 @@
 
 Usage
 -----
-    python3 scripts/generate_context_bundle.py            # writes CONTEXT.md
+    python3 scripts/generate_context_bundle.py            # writes _generated/CONTEXT.md
     python3 scripts/generate_context_bundle.py --full     # includes extended docs
     python3 scripts/generate_context_bundle.py --out FILE # custom output path
     python3 scripts/generate_context_bundle.py --stdout   # print to stdout
 
 The bundle is intended for use with chat-based LLMs or as a quick orientation
-file for agents. It contains the core instructions, strategy, and current task
-board in one place. Extended docs (--full) add contributing workflow, review
+file for agents. It contains the core instructions, strategy, and current
+mission context in one place. Extended docs (--full) add contributing workflow, review
 agent protocol, and micro-task protocol.
 """
 
@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_OUTPUT = "_generated/CONTEXT.md"
 
 CORE_FILES: list[tuple[str, str]] = [
     ("Agent & Contributor Rules", "AGENTS.md"),
@@ -63,7 +64,7 @@ def build_bundle(*, full: bool = False) -> str:
         f"Mode: {'full' if full else 'core'}\n"
         f"Repo: open-agent-science/autonomous-physics-lab\n\n"
         "This file bundles the core project instructions, strategy, and current\n"
-        "task board into one document for use with chat-based LLMs or as a\n"
+        "mission context into one document for use with chat-based LLMs or as a\n"
         "quick agent orientation file.\n\n"
         "For the live repository see: https://github.com/open-agent-science/autonomous-physics-lab\n"
     )
@@ -107,7 +108,7 @@ def differs_only_by_generated_timestamp(existing: str, candidate: str) -> bool:
 def write_bundle_if_changed(out_path: Path, bundle: str) -> bool:
     """Write a bundle unless it would only refresh the timestamp line.
 
-    Review and snapshot workflows often regenerate CONTEXT.md after merges. A
+    Review and snapshot workflows often generate context bundles after merges. A
     timestamp-only rewrite creates a false dirty worktree, so preserve the
     existing file whenever the generated content is otherwise identical.
     """
@@ -115,13 +116,14 @@ def write_bundle_if_changed(out_path: Path, bundle: str) -> bool:
         existing = out_path.read_text(encoding="utf-8")
         if existing == bundle or differs_only_by_generated_timestamp(existing, bundle):
             return False
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(bundle, encoding="utf-8")
     return True
 
 
 def bundle_is_current(*, full: bool = False, out_path: Path | None = None) -> bool:
     """Return whether the on-disk bundle matches a fresh generation."""
-    target = out_path or (REPO_ROOT / "CONTEXT.md")
+    target = out_path or (REPO_ROOT / DEFAULT_OUTPUT)
     candidate = build_bundle(full=full)
     if not target.exists():
         return False
@@ -143,8 +145,8 @@ def main() -> None:
     )
     parser.add_argument(
         "--out",
-        default="CONTEXT.md",
-        help="Output file path relative to repo root (default: CONTEXT.md).",
+        default=DEFAULT_OUTPUT,
+        help=f"Output file path relative to repo root (default: {DEFAULT_OUTPUT}).",
     )
     parser.add_argument(
         "--stdout",
@@ -160,7 +162,7 @@ def main() -> None:
             rel = out_path.relative_to(REPO_ROOT)
             print(
                 f"Stale or missing context bundle: {rel}. "
-                "Run python3 scripts/generate_context_bundle.py to refresh.",
+                "Run python3 scripts/generate_context_bundle.py to refresh the local bundle.",
                 file=sys.stderr,
             )
             raise SystemExit(1)

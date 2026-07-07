@@ -210,4 +210,4 @@ Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 | Negative results | [docs/negative-results-registry.md](docs/negative-results-registry.md) |
 | Repository map | [docs/repository-map.md](docs/repository-map.md) |
 | Architecture map | [docs/architecture-index.md](docs/architecture-index.md) |
-| Single-file LLM context | [CONTEXT.md](CONTEXT.md) |
+| Single-file LLM context | Generate locally with `python3 scripts/generate_context_bundle.py` |

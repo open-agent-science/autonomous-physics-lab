@@ -84,8 +84,6 @@ def closeout_pr_body(
     changed = list(proposal_paths if proposal_drift else task_files)
     if include_task_views:
         changed.append("docs/task-views/")
-    if include_context:
-        changed.append("CONTEXT.md")
     changed.extend(item for item in changed_files if item not in changed)
 
     closed_task_files = ", ".join(f"`{item}`" for item in task_files)
@@ -111,7 +109,7 @@ def closeout_pr_body(
         if proposal_drift
         else [
             f"- {_render_checkbox(include_task_views)} `python3 -m physics_lab.cli sync-active-board .` (normally not needed; the `Sync Active Board` post-merge GitHub Action regenerates `docs/task-views/*.md` on `main` after the closeout merges)",
-            f"- {_render_checkbox(include_context)} `python3 scripts/generate_context_bundle.py`",
+            f"- {_render_checkbox(include_context)} `python3 scripts/generate_context_bundle.py` (local ignored handoff artifact only; do not commit)",
             "- [x] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`",
         ]
     )

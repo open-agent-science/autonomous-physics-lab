@@ -22,7 +22,7 @@ HARNESS_IGNORE_PATHS: tuple[str, ...] = (
 # indicating a task-PR problem. See docs/notes/context-bundle-architecture-decision.md
 # and docs/notes/generated-task-navigation-architecture-decision.md.
 GENERATED_EPHEMERAL_IGNORE_PATHS: tuple[str, ...] = (
-    "CONTEXT.md",
+    "_generated/*",
     "docs/task-views/*",
 )
 

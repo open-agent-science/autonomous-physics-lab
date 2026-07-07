@@ -24,7 +24,7 @@ from physics_lab.registry.task_campaign_index import build_index  # noqa: E402
 
 TASK_ID_PATTERN = re.compile(r"TASK-(?P<number>[0-9]{4})", re.IGNORECASE)
 TASK_BRANCH_PATTERN = re.compile(r"(?:^|/)task-(?P<number>[0-9]{4})(?:-|$)")
-GENERATED_FILE_PREFIXES = ("docs/task-views/", "CONTEXT.md")
+GENERATED_FILE_PREFIXES = ("docs/task-views/", "_generated/")
 
 
 @dataclass(frozen=True)
