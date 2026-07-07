@@ -1,0 +1,60 @@
+id: TASK-0952
+title: "Add the Decision Autonomy Policy v0: classes, machine-readable matrix, packet template, dry-run plan, tests"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Post-Decision-Day #2 analysis (three independent agent reviews converged): maintainer routing decisions are the pipeline's binding constraint, and 6 of the 8 D2 decisions were mechanical applications of already-documented policy/evidence."
+  - "The safe fix is standing-policy autonomy, not smarter agents: the maintainer decides once at the policy level; agents classify situations against an approved matrix and apply pre-approved defaults, with a veto window and a non-reducible maintainer-only list."
+  - "v0 is dry-run only: packets and classification, zero auto-apply, so the policy is calibrated on evidence before any authority moves."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/decision-autonomy-policy.md"
+    - "policy/decision-autonomy.yaml"
+    - "decisions/DECISION-TEMPLATE.yaml"
+    - "docs/reviews/decision-autonomy-dry-run-plan.md"
+    - "docs/reviews/decision-autonomy-retrotest-20260706.md"
+    - "scripts/apl_decision.py"
+  planning_context: >
+    Phase 1 of the autonomy rollout ratified by the maintainer in the
+    2026-07-06 session: policy doc (three classes bounded by reversibility x
+    external exposure, quorum + devil's advocate rules, veto/rollback,
+    standing directives, red lines), machine-readable matrix with
+    default-deny for unknown types and can_apply_now false everywhere,
+    decision-packet template, dry-run plan with the eight D2 decisions as
+    the fixed retro-calibration set, tests enforcing the invariants, and a
+    CODEOWNERS guard making the governance surfaces maintainer-only.
+
+requirements:
+  - "Policy doc establishes: agents apply standing maintainer policy (never 'agents make maintainer decisions'); boundary is reversibility x external exposure; public naming is 'standing-policy autonomy' / 'guarded lazy consensus', never 'default-yes'."
+  - "Machine-readable matrix: three classes with can_apply_now false in v0; class-2 non_reducible list covering claims, knowledge, external publication, data rights, external communications, prediction freezes, repo settings, history rewrite, and autonomy-policy changes; unknown decision types default-deny to class 2."
+  - "Class-1 quorum: K>=2 votes from separate sessions with recorded model/tool, cross-vendor preferred (mandatory for Phase-3 apply), formal devil's-advocate block whose real blocker forces escalation; 48h veto window and revert-packet rollback protocol documented."
+  - "Five standing directives recorded (stale blocker, proposal age, high-risk claim, campaign no-go, queue throttle)."
+  - "Tests enforce the invariants and retro-classify the eight Decision Day #2 decisions to the expected classes (2x class_0, 4x class_1, 2x class_2)."
+  - "CODEOWNERS guards policy/, the policy doc, and itself as maintainer-only; no automation is enabled by this task — Phase 2/3 flips are separate maintainer-only matrix changes."
+
+accepted_outputs:
+  - "docs/decision-autonomy-policy.md, policy/decision-autonomy.yaml, decisions/DECISION-TEMPLATE.yaml, scripts/apl_decision.py, docs/reviews/decision-autonomy-dry-run-plan.md, docs/reviews/decision-autonomy-retrotest-20260706.md, tests/test_decision_autonomy_policy.py, .github/CODEOWNERS."
+  - "Output-routing summary: governance protocol artifacts only; no RESULT/PRED/CLAIM/KNOW change; nothing auto-applies in v0."
+
+result_artifact_policy:
+  required: false
+  reason: "Governance policy and dry-run tooling; no scientific result or prediction artifact is produced."
+  evidence:
+    - "docs/decision-autonomy-policy.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_decision_autonomy_policy.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
