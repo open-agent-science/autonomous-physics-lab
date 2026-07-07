@@ -101,12 +101,26 @@ signature is optional and must not delay the anchor.
 > over revealed targets only) and waits for an admissible post-freeze
 > source.
 
+## Published Anchor Record
+
+- Tag: `pred-nmd0003-tier1-20260705` -> `f1eba9a2`.
+- GitHub Release:
+  <https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-nmd0003-tier1-20260705>.
+- Zenodo record: <https://zenodo.org/records/21240451>.
+- Version DOI: <https://doi.org/10.5281/zenodo.21240451>.
+- Concept DOI: <https://doi.org/10.5281/zenodo.21240450>.
+- Zenodo-reported file MD5: `af2c3234796f0357c6a4263ffc04b1ab`.
+
+The published ZIP remains the byte source of truth for the external anchor.
+Post-publication repository copies of the PRED entries and freeze note may carry
+record-back metadata that is intentionally outside the uploaded capsule bytes.
+
 ## Record-Back Checklist (after Publish)
 
-- [ ] Tag `pred-nmd0003-tier1-20260705` pushed at `f1eba9a2`.
-- [ ] GitHub Release created with the capsule attached.
-- [ ] Zenodo record published; version DOI + record URL recorded back into
+- [x] Tag `pred-nmd0003-tier1-20260705` pushed at `f1eba9a2`.
+- [x] GitHub Release created with the capsule attached.
+- [x] Zenodo record published; version DOI + record URL recorded back into
       the freeze review note and this pack; anchor pointers added to the
       PRED-0069..0072 documentation trail.
-- [ ] Reveal-source watch note updated to reference the anchor (a revealed
-      grading must cite the anchored capsule checksum).
+- [x] Reveal-source watch note / freeze note updated to reference the anchor
+      (a revealed grading must cite the anchored capsule checksum).

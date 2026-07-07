@@ -15,6 +15,20 @@ registered_by:
   contributor_id: gladunrv
   agent_id: claude
 registered_at_utc: '2026-07-05T19:35:00Z'
+external_anchor:
+  record_back_task_id: TASK-0945
+  release_tag: pred-nmd0003-tier1-20260705
+  anchored_freeze_commit: f1eba9a2
+  github_release_url: https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-nmd0003-tier1-20260705
+  zenodo_record_url: https://zenodo.org/records/21240451
+  zenodo_doi: 10.5281/zenodo.21240451
+  zenodo_concept_doi: 10.5281/zenodo.21240450
+  doi_url: https://doi.org/10.5281/zenodo.21240451
+  capsule_filename: nmd0003-tier1-anchor-v1.0.0.zip
+  capsule_bytes: 127617
+  capsule_sha256: 82e3a872ad5e3fb1cd7841d29ed53ef3223945a73ba64e71866f0de209804272
+  capsule_md5: af2c3234796f0357c6a4263ffc04b1ab
+  published_date: '2026-07-07'
 source_state:
   git_commit: d2ad3d192cce50eaa08d776a39e2ed8c1c712d88
   model_reference:

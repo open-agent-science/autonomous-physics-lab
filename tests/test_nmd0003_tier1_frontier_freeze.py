@@ -44,6 +44,26 @@ from scripts.freeze_nmd0003_tier1_point_only_frontier import (
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_NOTE_PATH = ROOT / "docs" / "reviews" / "nmd0003-tier1-point-only-frontier-freeze.md"
+ANCHOR_METADATA = {
+    "record_back_task_id": "TASK-0945",
+    "release_tag": "pred-nmd0003-tier1-20260705",
+    "anchored_freeze_commit": "f1eba9a2",
+    "github_release_url": (
+        "https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/"
+        "pred-nmd0003-tier1-20260705"
+    ),
+    "zenodo_record_url": "https://zenodo.org/records/21240451",
+    "zenodo_doi": "10.5281/zenodo.21240451",
+    "zenodo_concept_doi": "10.5281/zenodo.21240450",
+    "doi_url": "https://doi.org/10.5281/zenodo.21240451",
+    "capsule_filename": "nmd0003-tier1-anchor-v1.0.0.zip",
+    "capsule_bytes": 127_617,
+    "capsule_sha256": (
+        "82e3a872ad5e3fb1cd7841d29ed53ef3223945a73ba64e71866f0de209804272"
+    ),
+    "capsule_md5": "af2c3234796f0357c6a4263ffc04b1ab",
+    "published_date": "2026-07-07",
+}
 
 
 @lru_cache(maxsize=1)
@@ -91,6 +111,11 @@ def test_tier1_freeze_entries_are_point_only_and_registered() -> None:
         for target in targets:
             assert target["uncertainty_mev"] is None
             assert target["A"] == target["Z"] + target["N"]
+
+
+def test_tier1_freeze_entries_record_external_anchor_without_payload_change() -> None:
+    for payload in _entries().values():
+        assert payload["external_anchor"] == ANCHOR_METADATA
 
 
 def test_tier1_freeze_targets_match_reverified_no_peek_survivors() -> None:

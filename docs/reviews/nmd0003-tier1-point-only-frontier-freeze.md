@@ -25,6 +25,32 @@ deviation and every derived interval quantity are excluded from every payload:
 they are the miscalibrated quantity (`TASK-0899`) and are not frozen, recorded,
 or cited anywhere in this freeze.
 
+## External Anchor Record-Back
+
+TASK-0945 published the deterministic anchor capsule for this freeze on
+2026-07-07. The anchor gives the sealed point forecasts a third-party timestamp
+without changing any prediction payload, reveal rule, result, claim, or
+knowledge artifact.
+
+| Field | Value |
+| --- | --- |
+| Anchor tag | `pred-nmd0003-tier1-20260705` |
+| Anchored freeze commit | `f1eba9a2` |
+| GitHub Release | <https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-nmd0003-tier1-20260705> |
+| Zenodo record | <https://zenodo.org/records/21240451> |
+| Version DOI | <https://doi.org/10.5281/zenodo.21240451> |
+| Concept DOI | <https://doi.org/10.5281/zenodo.21240450> |
+| Capsule file | `nmd0003-tier1-anchor-v1.0.0.zip` |
+| Capsule bytes | `127617` |
+| Capsule SHA-256 | `82e3a872ad5e3fb1cd7841d29ed53ef3223945a73ba64e71866f0de209804272` |
+| Zenodo MD5 | `af2c3234796f0357c6a4263ffc04b1ab` |
+
+The published capsule contains the four `PRED-*` entries and this freeze note
+as they existed at the anchored freeze commit. Current repository copies may
+carry this post-publication `external_anchor` record-back metadata, so the
+published capsule checksum above remains the source of truth for the uploaded
+bytes.
+
 ## Mandatory Caveat (verbatim from the approved packet)
 
 > **Tier-1 point-only freeze — mandatory caveat.** The NMD-0003 predictive

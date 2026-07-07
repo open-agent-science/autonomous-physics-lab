@@ -12,6 +12,24 @@
   PRED, registry, RESULT, or CLAIM artifact. A watch hit produces a
   maintainer decision packet, never an automatic reveal.
 
+## External anchor to cite on any hit
+
+The PRED-0069..0072 tier-1 point-only freeze is externally anchored by
+TASK-0945:
+
+- GitHub Release:
+  <https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-nmd0003-tier1-20260705>.
+- Zenodo record: <https://zenodo.org/records/21240451>.
+- Version DOI: <https://doi.org/10.5281/zenodo.21240451>.
+- Concept DOI: <https://doi.org/10.5281/zenodo.21240450>.
+- Capsule SHA-256:
+  `82e3a872ad5e3fb1cd7841d29ed53ef3223945a73ba64e71866f0de209804272`.
+- Zenodo MD5: `af2c3234796f0357c6a4263ffc04b1ab`.
+
+Any future watch hit or reveal decision packet must cite this external anchor
+before scoring, and must preserve the point-only/no-interval/no-success
+boundaries recorded in the freeze note.
+
 ## Admissible source classes (verbatim scope from the freeze note)
 
 - **Class A:** the next AME/NUBASE-class evaluation published after

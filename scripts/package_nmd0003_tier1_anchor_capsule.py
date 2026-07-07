@@ -4,8 +4,10 @@
 This helper verifies the pinned anchor allowlist (the four tier-1 point-only
 PRED entries plus the freeze review note), writes a deterministic ZIP capsule
 to an explicit local output directory, and records a capsule manifest beside
-it. It does not create tags, upload externally, mint a DOI, or modify any
-PRED, registry, RESULT, or CLAIM artifact.
+it. By default, package bytes are read from the frozen Git ref so
+post-publication record-back metadata in the current checkout cannot drift the
+published capsule. It does not create tags, upload externally, mint a DOI, or
+modify any PRED, registry, RESULT, or CLAIM artifact.
 """
 
 from __future__ import annotations
@@ -15,6 +17,7 @@ from dataclasses import dataclass
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 from typing import Any
 import zipfile
 
@@ -22,6 +25,7 @@ import zipfile
 CAPSULE_ID = "NMD-0003-tier1-point-only-freeze-anchor"
 CAPSULE_VERSION = "1.0.0"
 FREEZE_COMMIT = "f1eba9a2"
+WORKTREE_SOURCE_REF = "WORKTREE"
 DEFAULT_ARCHIVE_NAME = "nmd0003-tier1-anchor-v1.0.0.zip"
 DEFAULT_MANIFEST_NAME = "nmd0003-tier1-anchor-v1.0.0.manifest.json"
 FIXED_ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
@@ -77,6 +81,10 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
 def _repo_relative_path(repo_root: Path, relative_path: str) -> Path:
     normalized = relative_path.replace("\\", "/")
     if normalized.startswith("/") or ".." in Path(normalized).parts:
@@ -84,23 +92,61 @@ def _repo_relative_path(repo_root: Path, relative_path: str) -> Path:
     return repo_root / normalized
 
 
+def _normalize_source_ref(source_ref: str | None) -> str | None:
+    if source_ref is None:
+        return None
+    normalized = source_ref.strip()
+    if not normalized or normalized == WORKTREE_SOURCE_REF:
+        return None
+    return normalized
+
+
+def _source_label(source_ref: str | None) -> str:
+    return _normalize_source_ref(source_ref) or WORKTREE_SOURCE_REF
+
+
+def _package_file_bytes(repo_root: Path, relative_path: str, source_ref: str | None) -> bytes:
+    _repo_relative_path(repo_root, relative_path)
+    normalized_ref = _normalize_source_ref(source_ref)
+    if normalized_ref is None:
+        path = _repo_relative_path(repo_root, relative_path)
+        if not path.is_file():
+            raise FileNotFoundError(f"Package file missing: {relative_path}")
+        return path.read_bytes()
+
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), "show", f"{normalized_ref}:{relative_path}"],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode != 0:
+        stderr = result.stderr.decode("utf-8", errors="replace").strip()
+        raise ValueError(
+            f"Unable to read {relative_path} from source ref {normalized_ref}: {stderr}"
+        )
+    return result.stdout
+
+
 def verify_package_files(
-    repo_root: Path, entries: tuple[PackageFile, ...] = PACKAGE_FILES
+    repo_root: Path,
+    entries: tuple[PackageFile, ...] = PACKAGE_FILES,
+    *,
+    source_ref: str | None = FREEZE_COMMIT,
 ) -> list[dict[str, Any]]:
     verified: list[dict[str, Any]] = []
     for entry in entries:
-        path = _repo_relative_path(repo_root, entry.path)
-        if not path.is_file():
-            raise FileNotFoundError(f"Package file missing: {entry.path}")
-        actual_size = path.stat().st_size
-        actual_sha = sha256_file(path)
+        payload = _package_file_bytes(repo_root, entry.path, source_ref)
+        actual_size = len(payload)
+        actual_sha = sha256_bytes(payload)
         if actual_size != entry.bytes or actual_sha != entry.sha256:
             raise ValueError(
                 "Package file hash/size mismatch for "
                 f"{entry.path}: bytes={actual_size}, sha256={actual_sha}. "
                 "The pins freeze the anchored state at commit "
-                f"{FREEZE_COMMIT}; if the repo files moved on, rebuild is a "
-                "new capsule version with refreshed pins, not a silent edit."
+                f"{FREEZE_COMMIT}; checked source ref "
+                f"{_source_label(source_ref)}. A new capsule version needs "
+                "refreshed pins, not a silent edit."
             )
         verified.append(
             {
@@ -138,6 +184,7 @@ def build_capsule(
     entries: tuple[PackageFile, ...] = PACKAGE_FILES,
     force: bool = False,
     allow_repo_output: bool = False,
+    source_ref: str | None = FREEZE_COMMIT,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     output_dir = output_dir.resolve()
@@ -156,11 +203,11 @@ def build_capsule(
             if path.exists():
                 raise FileExistsError(f"Output already exists; pass --force to replace: {path}")
 
-    verified_files = verify_package_files(repo_root, entries)
+    verified_files = verify_package_files(repo_root, entries, source_ref=source_ref)
     with zipfile.ZipFile(archive_path, "w") as archive:
         for item in verified_files:
-            source_path = _repo_relative_path(repo_root, str(item["path"]))
-            archive.writestr(_zip_info(str(item["path"])), source_path.read_bytes())
+            payload = _package_file_bytes(repo_root, str(item["path"]), source_ref)
+            archive.writestr(_zip_info(str(item["path"])), payload)
 
     archive_size = archive_path.stat().st_size
     archive_sha = sha256_file(archive_path)
@@ -170,6 +217,7 @@ def build_capsule(
         "capsule_id": CAPSULE_ID,
         "capsule_version": CAPSULE_VERSION,
         "freeze_commit": FREEZE_COMMIT,
+        "source_ref": _source_label(source_ref),
         "archive": {
             "filename": archive_name,
             "path": str(archive_path),
@@ -199,12 +247,21 @@ def main() -> int:
     parser.add_argument("--repo-root", default=".")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--allow-repo-output", action="store_true")
+    parser.add_argument(
+        "--source-ref",
+        default=FREEZE_COMMIT,
+        help=(
+            "Git ref used to read package bytes. Defaults to the freeze commit; "
+            f"pass {WORKTREE_SOURCE_REF} to package the current checkout."
+        ),
+    )
     args = parser.parse_args()
     manifest = build_capsule(
         Path(args.repo_root),
         Path(args.output_dir),
         force=args.force,
         allow_repo_output=args.allow_repo_output,
+        source_ref=args.source_ref,
     )
     print(json.dumps(manifest["archive"], indent=2, sort_keys=True))
     return 0

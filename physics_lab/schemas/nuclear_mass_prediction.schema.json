@@ -66,6 +66,49 @@
       "type": "string",
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
     },
+    "external_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_back_task_id",
+        "release_tag",
+        "anchored_freeze_commit",
+        "github_release_url",
+        "zenodo_record_url",
+        "zenodo_doi",
+        "zenodo_concept_doi",
+        "doi_url",
+        "capsule_filename",
+        "capsule_bytes",
+        "capsule_sha256",
+        "capsule_md5",
+        "published_date"
+      ],
+      "properties": {
+        "record_back_task_id": {"type": "string", "pattern": "^TASK-[0-9]{4}$"},
+        "release_tag": {"type": "string", "minLength": 1},
+        "anchored_freeze_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,40}$"
+        },
+        "github_release_url": {"type": "string", "format": "uri"},
+        "zenodo_record_url": {"type": "string", "format": "uri"},
+        "zenodo_doi": {"type": "string", "pattern": "^10\\.5281/zenodo\\.[0-9]+$"},
+        "zenodo_concept_doi": {
+          "type": "string",
+          "pattern": "^10\\.5281/zenodo\\.[0-9]+$"
+        },
+        "doi_url": {"type": "string", "format": "uri"},
+        "capsule_filename": {"type": "string", "minLength": 1},
+        "capsule_bytes": {"type": "integer", "minimum": 1},
+        "capsule_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "capsule_md5": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "published_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        }
+      }
+    },
     "source_state": {
       "type": "object",
       "additionalProperties": false,
