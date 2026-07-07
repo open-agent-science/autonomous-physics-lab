@@ -21,5 +21,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0939` - Preflight a CHARA paper-level source pin and DEBCat de-dup route for an independent Stellar M-L holdout (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `stellar_astrophysics`)
-- `TASK-0952` - Add the Decision Autonomy Policy v0: classes, machine-readable matrix, packet template, dry-run plan, tests (`docs_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+None.
