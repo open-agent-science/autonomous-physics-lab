@@ -1,7 +1,7 @@
 id: TASK-0955
 title: "Extract the bounded public 80-row ThermoML Tb factual fixture under the frozen TASK-0895 contract"
 type: scientific_dataset
-status: READY
+status: BLOCKED
 closeout: review
 difficulty: medium
 priority: high
@@ -38,6 +38,7 @@ requirements:
   - "Tests: fixture schema, row count ceiling, checksum stability; validate-repo strict green."
   - "Tb-only and no-claim wording; no Joback metric rerun, no RESULT/CLAIM/KNOW promotion, no chemical design or safety wording."
   - "Do not prepare or publish a Zenodo upload or any other external dataset release for this fixture; any expansion beyond 80 rows, any relaxation of the five-row source-article cap, or any external publication requires a new maintainer-only rights decision."
+  - "Blocked-by (2026-07-08): the required maintainer-provided local archive ThermoML.v2020-09-30.tgz was not present under the checkout or writable temp roots. TASK-0955/TASK-0895 require the pinned local archive and forbid a live agent fetch, so extraction must wait until the checksum-matching archive is supplied locally."
 
 accepted_outputs:
   - "The 80-row public fixture + extraction script + DATA_LICENSES update + tests + a short extraction note with checksums and the limited-factual-extract rights boundary."
