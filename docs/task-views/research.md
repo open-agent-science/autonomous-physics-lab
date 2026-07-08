@@ -8,7 +8,6 @@
 
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0961` - Run the one-shot scientific ledger hygiene batch: hypothesis outcomes, EXP-0019, knowledge entries for four domains (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0963` - Construct the T-truncated FRB exposure feature surface from the gated Catalog-1 pair (`scientific_dataset`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-0964` - Select and freeze the FRB repeater-propensity model on the pre-T feature surface (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
@@ -24,3 +23,4 @@ None.
 - `TASK-0951` - Extract shared pytest fixtures into tests/conftest.py (`infrastructure`, priority `low`, difficulty `low`, domain `cross_campaign_quality`)
 - `TASK-0956` - Refresh CLAIM-0005 evidence to cite RESULT-0020 (74/74, independently Gate-B-validated) (`docs_protocol`, priority `high`, difficulty `low`, domain `dimensional_analysis_validator`)
 - `TASK-0958` - Run the first common-scheme baseline metric on the pinned AHS quark mass table (`scientific_benchmark`, priority `medium`, difficulty `medium`, domain `particle_physics`)
+- `TASK-0963` - Construct the T-truncated FRB exposure feature surface from the gated Catalog-1 pair (`scientific_dataset`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
