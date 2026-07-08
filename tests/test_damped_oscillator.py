@@ -558,6 +558,7 @@ def test_hash_file_preserves_binary_line_ending_bytes(tmp_path) -> None:
 
 
 @pytest.mark.full_repo
+@pytest.mark.timeout(240)
 def test_validate_repository_strict_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
 

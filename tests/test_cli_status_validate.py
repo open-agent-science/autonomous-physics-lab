@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from typer.testing import CliRunner
 
 from physics_lab.cli import _project_stage, app
@@ -11,6 +13,7 @@ from physics_lab.registry.task_discovery import find_task_file
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.full_repo
 def test_status_cli_reports_project_snapshot_fields() -> None:
     runner = CliRunner()
 

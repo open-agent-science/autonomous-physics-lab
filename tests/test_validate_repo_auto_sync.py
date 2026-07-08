@@ -214,6 +214,7 @@ def test_sync_active_board_workflow_uses_app_direct_push_guardrails() -> None:
 
 
 @pytest.mark.full_repo
+@pytest.mark.timeout(240)
 def test_cli_validate_repo_auto_sync_live_smoke() -> None:
     """Real-repo smoke: passing --auto-sync on a healthy state still passes.
 

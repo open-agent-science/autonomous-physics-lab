@@ -1,0 +1,55 @@
+id: TASK-0966
+title: "Cut CI redundancy: single merge leg, draft-gated smoke, silent validated board-sync commits, nightly 3.12 net"
+type: maintainer_tooling
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The 2026-07-08 CI audit (config + 150-run history + durations profile) measured ~2,400 runner-min/week with the full suite executing 3x per merged PR, the repo strict-validated ~15x, and 31% of run count being board-sync bot machinery competing for two self-hosted slots (p90 job queue 6.4 min)."
+  - "Every cut here is a deduplication or a relocation, not a coverage loss: the squash-merged tree is byte-identical to the PR-tested tree, and the nightly watchdog absorbs whole-suite 3.12 coverage."
+  - "Also fixes the real nightly failure (2026-07-08): repo growth pushed the strict-validate smoke past the global 60s pytest timeout on hosted runners."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/ci-pipeline-optimization-20260708.md"
+  planning_context: >
+    Implement the audit's ranked recommendations: main-matrix trimmed to the
+    3.11 floor leg without ruff (PR lane owns 3.12 + lint; nightly gains the
+    whole-suite 3.12 net), the PR full_repo smoke gated to non-draft pushes,
+    board-sync bot commits carry [skip ci] with the generated content
+    validated pre-push inside the sync job (strict validate + the same
+    targeted docs/task tests the CI docs lane ran), timeout bumps on the two
+    repo-wide smokes that outgrew the 60s global limit, one more repo-wide
+    smoke moved under the full_repo marker, and stale config removed
+    (master trigger, dead CONTEXT.md glob, drifted test-count comment).
+
+requirements:
+  - "No coverage loss: every removed execution is either a duplicate of the identical tree (PR vs squash-merge) or relocated to the nightly watchdog; the memo carries the before/after coverage matrix."
+  - "Board-sync commits are validated BEFORE push (strict validate-repo + the 8 targeted docs/task test files) and then silenced with [skip ci]; the [skip-board-sync] recursion guard stays."
+  - "PR full_repo smoke runs on every ready-for-review push and stays covered post-merge and nightly; draft pushes skip it."
+  - "full_repo marker census updated (9 tests) and the two >60s smokes get explicit timeout(240)."
+  - "Job names that back required branch-protection checks are not renamed."
+
+accepted_outputs:
+  - "The three workflow edits, the three test-marker/timeout edits, and the audit memo with measured before/after numbers."
+  - "Output-routing summary: CI tooling only; no scientific artifact, task board, or policy change."
+
+result_artifact_policy:
+  required: false
+  reason: "CI configuration and test-marker maintenance; no scientific result artifact."
+  evidence:
+    - "docs/reviews/ci-pipeline-optimization-20260708.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -m full_repo --collect-only -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

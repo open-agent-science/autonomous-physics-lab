@@ -44,6 +44,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
+      # Full-suite 3.12 safety net: the per-merge 3.12 matrix leg was removed
+      # (the squash-merged tree passes the identical suite at PR time), so the
+      # nightly now owns whole-suite 3.12 coverage of main.
+      - name: Run full test suite (fast-lane scope)
+        run: |
+          python -m pytest --durations=15 -n auto --dist loadgroup -m "not full_repo"
+
       - name: Run full_repo smoke tests
         run: |
           python -m pytest --durations=20 -m full_repo
