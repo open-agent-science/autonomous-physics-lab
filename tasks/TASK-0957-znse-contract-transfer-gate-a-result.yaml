@@ -34,6 +34,7 @@ requirements:
 
 accepted_outputs:
   - "The canonical RESULT artifact + engine workflow + fixture + tests + Gate A note."
+  - "If no matching canonical quantum-size-effects experiment lane exists yet, add the minimal HYP/EXP identity artifacts under hypotheses/ and experiments/ needed to host the RESULT, without promoting a CLAIM or KNOW artifact."
   - "Output-routing summary: canonical negative/control result; honest FAIL preserved; no claim impact."
 
 result_artifact_policy:

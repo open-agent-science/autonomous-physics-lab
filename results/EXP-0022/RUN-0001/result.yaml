@@ -6,7 +6,7 @@ hypothesis_id: HYP-0022
 task_id: TASK-0957
 generated_at: '2026-07-08T00:00:00+00:00'
 engine_version: 0.2.0
-git_commit: 9aeb17675d130476bd3fe2588844b821af1bd861
+git_commit: 1f6a1d0b864f85433bbcea0dfd6fad3bd3cca5ae
 command: python -m physics_lab.cli run examples/quantum_znse_contract_transfer_result.yaml
 input_file_hashes:
   config:
@@ -23,7 +23,7 @@ input_file_hashes:
     sha256: bc83c7f39d904ffe29db226177725d038d504aa915db8351bfb8faa286a22e44
   task:
     path: results/EXP-0022/RUN-0001/inputs/task.yaml
-    sha256: 3c912784888001335b998fc5c521baefa1c25374bb7fb0a43be42dd3cefbcd4b
+    sha256: ac6ecdd0ce194b5ae9355ed6e8cbe04897fd73bb76849926601d3b77e25c1f8a
 code_reference: physics_lab/workflows/quantum_znse_contract_transfer.py
 limitations:
 - Agent-published, not yet independently validated or maintainer-reviewed.
