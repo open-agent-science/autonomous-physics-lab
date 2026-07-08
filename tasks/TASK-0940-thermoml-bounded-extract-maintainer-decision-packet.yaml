@@ -1,7 +1,7 @@
 id: TASK-0940
 title: "Prepare the ThermoML 80-row bounded-extract maintainer decision packet without row extraction"
 type: scientific_source_curation
-status: DONE
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -22,13 +22,14 @@ input:
     - "docs/published-source-dataset-standard.md"
   planning_context: >
     Convert the TASK-0895 NEEDS_MAINTAINER_SOURCE_DECISION finding into a
-    clear decision packet: bounded public 80-row factual extract, local-only
+    clear decision packet: limited public 80-row factual extract, local-only
     analysis/no committed rows, or no expansion. This is a decision artifact,
     not row curation.
 
 requirements:
   - "Summarize the existing source state, archive DOI/version/checksum, publisher-permission caveat, current 40-row fixture, and proposed 80-row ceiling."
-  - "Present maintainer options with consequences: approve bounded public extract, approve local-only expansion, defer/no expansion, or request external permission."
+  - "Present maintainer options with consequences: approve a LIMITED_FACTUAL_EXTRACT, approve local-only expansion, defer/no expansion, or request external permission."
+  - "If the public route is selected, scope it to Tb-only, max 80 rows, max five rows per identifiable source article, no source/archive/XML/JSON bytes, no normalized corpus, no Zenodo/external dataset release, no extraction-task benchmark metric, and covered_by_repo_license: false."
   - "For each option, state exactly what future agents may and may not commit: archive bytes, extracted trees, normalized rows, aggregate counts, source manifests, tests, and benchmark metrics."
   - "Do not fetch ThermoML archive bytes, inspect or transcribe new values, add rows, run Joback metrics, change RESULT-0026, or package new results."
   - "Use Tb-only and no-claim wording; no chemical design, process design, safety, synthesis, broad Joback, or multi-property claim."
