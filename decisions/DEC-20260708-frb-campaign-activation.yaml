@@ -1,0 +1,65 @@
+# Class 2 campaign-activation decision. The maintainer said "активую FRB"
+# in the 2026-07-08 session; this packet and the activation PR (whose
+# headline IS the decision) make that the canonical record. The matrix
+# gains the campaign_activation type in the same PR (policy/ is
+# CODEOWNERS-guarded, so the maintainer's review covers the matrix change).
+decision_id: DEC-20260708-frb-campaign-activation
+decision_type: campaign_activation
+autonomy_class: class_2_maintainer_only
+reversibility: reversible
+external_exposure: none
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: activate_frb_chain_toward_end_of_july_pred_registration
+basis:
+  - "D12 (docs/reviews/maintainer-decision-day-2026-07-02.md): flagship frontier lane, PRED registration by end of July 2026"
+  - "D2-1 conditional GO fulfilled: TASK-0947 gate returned GATE_PASS with all five leakage-safety conditions fixed"
+  - "Time budget: ~2 weeks of work against a ~3-week window; the T-truncated split ages, so activation now preserves ~1 week of buffer"
+
+agent_quorum:
+  director_agent:
+    vote: approve
+    agent_id: scientific-campaign-director
+    vendor: anthropic
+    agent_tool: Claude Code
+    model_version: Fable 5
+    session_id: director-session-b1113fba
+  cross_vendor_vote: >-
+    Open seat: any capable cross-vendor agent may append its vote by commit
+    while the activation PR is open; absence of that vote does not block a
+    Class 2 decision, which the maintainer decides directly.
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Retire the July target now and run the chain without a deadline,
+    trading momentum for zero schedule pressure on the reveal discipline.
+  strongest_objection: >-
+    Deadline pressure is the classic corruptor of no-peek discipline: with
+    ~3 weeks left, a late-July crunch could tempt shortcuts on label
+    isolation or scoring-rule fidelity at the registration step.
+  why_rejected: >-
+    The chain inherits the gate's stop conditions verbatim with
+    stop-not-renegotiate semantics, TASK-0965 carries an explicit
+    escalate-instead-of-compress deadline clause (maintainer-ready by
+    2026-07-28 or an honest deadline decision), and registration itself
+    stays a separate Class 2 approval - the pressure has a designed release
+    valve that does not touch the reveal discipline.
+  escalation_required: true
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null
