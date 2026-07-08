@@ -103,3 +103,68 @@ is `0.462129` MeV versus frozen baseline `2.979273` MeV, clearing the best
 control by `1.869312` MeV. The uncertainty calibration blocker is also
 reproduced unchanged, so the result remains retrospective `PARTIALLY_VALID`
 evidence only.
+
+## TASK-0949 Identity-Recorded Point Replay
+
+- Replayed at: `2026-07-08T05:28:08Z`
+- Contributor / GitHub username: `akutenyov` / `akutenyov`
+- Agent tool / model: `Codex` / `GPT-5`
+- Validation independence: `independent`
+- Verdict: `GATE_B_PASS_POINT_METRICS_UNCERTAINTY_UNTOUCHED`
+
+The identity above was recorded in task-claim issue `#1431` before execution.
+The replayer is a different human from publisher `romanhladun24-dot`. Both runs
+used Codex, so the helper's non-blocking `same-agent-tool` warning is disclosed;
+human-level independence still classifies this replay as `independent` under R1.
+
+### Commands And Input Identity
+
+The canonical helper was attempted first with the recorded identity and
+tolerance `1.0e-9`. It returned `BLOCKED` with `unsupported-command`, because
+the published RESULT command is a direct Python script rather than a permitted
+`physics-lab run` command. This is a protocol/tooling limitation, not metric
+drift.
+
+The documented TASK-0864 replay route was then repeated directly into the
+untracked `.gate-b-replay-task0949` directory:
+
+```text
+python scripts/run_nmd0003_residual_gp.py --skip-sandbox-output --no-review --result-out-dir .gate-b-replay-task0949
+```
+
+Before execution, all five committed input SHA-256 values were recomputed and
+matched the published RESULT: config, experiment, hypothesis, task snapshot,
+and `post_ame2020_holdout.yaml` fixture.
+
+### Point-Only Comparison
+
+| Field | Published | Replay | Absolute drift |
+| --- | ---: | ---: | ---: |
+| holdout rows | `295` | `295` | `0` |
+| frozen baseline MAE (MeV) | `2.979273` | `2.979273` | `0.000000` |
+| GP-corrected MAE (MeV) | `0.462129` | `0.462129` | `0.000000` |
+| GP MAE improvement (MeV) | `2.517144` | `2.517144` | `0.000000` |
+| GP minus best-control margin (MeV) | `1.869312` | `1.869312` | `0.000000` |
+| predeclared survival margin (MeV) | `0.250000` | `0.250000` | `0.000000` |
+
+`best_control_id` remained `smooth_a_gp`, the survival check remained true,
+and `best_verdict` remained `PARTIALLY_VALID`. Maximum absolute numeric drift
+was `0.0` at tolerance `1.0e-9`.
+
+No interval, uncertainty, coverage, or calibration metric was validated by
+TASK-0949. The R2 boundary is carried verbatim:
+
+> Interval-bearing freezes stay blocked until calibration repair.
+
+### Metadata-Only Update And Routing
+
+- `review_tier`: `AGENT_PUBLISHED` -> `AGENT_VALIDATED` for the point-only
+  replay surface; this is replay validation, not maintainer endorsement.
+- Gate A: previously passed; unchanged.
+- Gate B: `PASS` for point metrics with recorded independent identity.
+- Result impact: validation metadata only; no metric, verdict, input hash,
+  command, model, or verification payload changed.
+- Prediction impact: none; no `PRED-*` was created, edited, or scored.
+- Claim / knowledge impact: none.
+- Limitation: calibrated intervals and uncertainty claims remain outside this
+  validation and blocked under R2.
