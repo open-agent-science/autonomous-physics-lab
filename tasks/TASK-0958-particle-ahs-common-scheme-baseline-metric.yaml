@@ -1,7 +1,7 @@
 id: TASK-0958
 title: "Run the first common-scheme baseline metric on the pinned AHS quark mass table"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -39,6 +39,9 @@ result_artifact_policy:
   reason: "Routing (sandbox agent-run vs canonical RESULT) is decided in-task against the quality floor; the note records the decision."
   evidence:
     - "docs/result-promotion-protocol.md"
+    - "agent_runs/AGENT-RUN-0091/agent_run.yaml"
+    - "agent_runs/AGENT-RUN-0091/metrics.json"
+    - "docs/reviews/particle-ahs-common-scheme-baseline.md"
 
 validation:
   commands:

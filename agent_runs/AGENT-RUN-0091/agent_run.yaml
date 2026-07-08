@@ -1,0 +1,55 @@
+id: AGENT-RUN-0091
+campaign_profile_id: particle-mass-relations
+task_id: TASK-0958
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/particle-mass-relations/HYP-PROPOSAL-0085-ahs-geometric-midpoint-baseline.yaml
+  experiment: experiment_proposals/particle-mass-relations/EXP-PROPOSAL-0085-ahs-geometric-midpoint-baseline.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0091/metrics.json
+  report: agent_runs/AGENT-RUN-0091/report.md
+  limitations: agent_runs/AGENT-RUN-0091/limitations.md
+  preflight: agent_runs/AGENT-RUN-0091/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0091/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: pinned_source_identity
+    status: PASS
+    notes: Source SHA-256 matched the frozen fixture before scoring.
+  - name: single_common_scheme_surface
+    status: PASS
+    notes: All six rows are dimensionless running Yukawas in MS-bar at M_Z.
+  - name: metric_contract_predeclared
+    status: PASS
+    notes: Metric, sector order, aggregates, and null quality threshold were frozen
+      before scoring.
+  - name: procedural_not_blind
+    status: PASS
+    notes: The fixture states that committed values were visible and predeclaration
+      is procedural.
+  - name: bounded_sandbox_routing
+    status: PASS
+    notes: No live fetch, fit, Koide metric, formula search, canonical result, claim,
+      knowledge, or prediction write occurred.
+limitations:
+- Exactly six source-derived running Yukawa couplings and two charge sectors on one
+  MS-bar-at-M_Z surface.
+- The geometric-midpoint baseline is descriptive and zero-parameter; it is not a physical
+  mass-generation model.
+- The source does not provide a recoverable six-parameter covariance matrix, so no
+  uncertainty significance is reported.
+- The values were already committed and readable; fixture predeclaration is a procedural
+  convention, not an enforceable blind.
+- Sandbox diagnostic only; no Koide test, formula search, canonical RESULT, CLAIM,
+  KNOW, PRED, or BSM interpretation.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review of the bounded diagnostic; separate approval
+    is required for any RESULT or broader benchmark.
