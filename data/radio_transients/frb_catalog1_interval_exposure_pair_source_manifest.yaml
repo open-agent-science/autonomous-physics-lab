@@ -1,0 +1,185 @@
+manifest_kind: metadata_only_source_manifest
+manifest_id: FRB-CAT1-EXPOSURE-PAIR-SOURCE-0001
+task_id: TASK-0947
+status: checksum_schema_gate_pass_single_epoch_only
+generated_at_utc: '2026-07-08T04:31:00Z'
+generated_by: akutenyov
+
+source:
+  title: The First CHIME/FRB Catalog interval-bounded exposure-map pair
+  dataset_doi: 10.11570/21.0007
+  paper_doi: 10.3847/1538-4365/ac33ab
+  arxiv: '2106.04352'
+  publisher: CADC / CHIME/FRB Collaboration
+  deposit: AstroDataCitationDOI/CISTI.CANFAR/21.0007
+  citation: >
+    The CHIME/FRB Collaboration, The First CHIME/FRB Fast Radio Burst
+    Catalog, ApJS 257, 59 (2021), DOI 10.3847/1538-4365/ac33ab; dataset
+    DOI 10.11570/21.0007.
+  official_schema_tutorial: https://chime-frb-open-data.github.io/exposure/
+  fixed_epoch_t: '2019-07-02'
+  coverage_start: '2018-08-28'
+  coverage_end: '2019-07-02'
+  arbitrary_t_supported: false
+
+artifacts:
+  - artifact_id: catalog1_upper_transit_exposure
+    transit_role: upper
+    filename: exposure_int_20180828_20190702_transit_U_beam_FWHM-600_res_4s_0.86_arcmin.npz
+    storage_file_endpoint: https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/21.0007/data/exposure/exposure_int_20180828_20190702_transit_U_beam_FWHM-600_res_4s_0.86_arcmin.npz
+    file_size_bytes: 186745827
+    sha256: 088a0617104e5400dc12a8bcaf12621f3c61e82cab3eadc3f842cd6da7018536
+    md5: 722ae3618c44730007f25afe386c2e1c
+    http_digest_md5_base64: cirjYYxEcwAH8lr+OGwuHA==
+    local_md5_matches_http_digest: true
+    http_last_modified: 'Thu, 03 Jun 2021 13:13:19 GMT'
+    content_type: application/octet-stream
+    value_bearing: true
+    committed_to_repo: false
+    npz_schema:
+      member_count: 1
+      member: exposure.npy
+      zip_compression: deflate
+      compressed_bytes: 186745685
+      uncompressed_bytes: 945094784
+      crc32: c7eea9ed
+      npy_version: '1.0'
+      dtype: float64
+      shape: [118136832]
+      fortran_order: false
+      finite_count: 118136832
+      nonfinite_count: 0
+      zero_count: 18265927
+      nonzero_count: 99870905
+      first_nonzero_index: 0
+      last_nonzero_index: 117432319
+      fractional_value_count: 0
+  - artifact_id: catalog1_lower_transit_exposure
+    transit_role: lower
+    filename: exposure_int_20180828_20190702_transit_L_beam_FWHM-600_res_4s_0.86_arcmin.npz
+    storage_file_endpoint: https://cadc-west-01.canfar.net/vault/files/AstroDataCitationDOI/CISTI.CANFAR/21.0007/data/exposure/exposure_int_20180828_20190702_transit_L_beam_FWHM-600_res_4s_0.86_arcmin.npz
+    file_size_bytes: 12800403
+    sha256: e8cc1a47b916fc5cb89f6df3ea0f07d57d5b2a1b22262e9ead57937100b5966a
+    md5: 38dd9ad23783f70ffb0c7431124dfa5b
+    http_digest_md5_base64: ON2a0jeD9w/7DHQxEk36Ww==
+    local_md5_matches_http_digest: true
+    http_last_modified: 'Thu, 03 Jun 2021 13:11:42 GMT'
+    content_type: application/octet-stream
+    value_bearing: true
+    committed_to_repo: false
+    npz_schema:
+      member_count: 1
+      member: exposure.npy
+      zip_compression: deflate
+      compressed_bytes: 12800261
+      uncompressed_bytes: 945094784
+      crc32: fc8ec26f
+      npy_version: '1.0'
+      dtype: float64
+      shape: [118136832]
+      fortran_order: false
+      finite_count: 118136832
+      nonfinite_count: 0
+      zero_count: 112950020
+      nonzero_count: 5186812
+      first_nonzero_index: 7
+      last_nonzero_index: 5927123
+      fractional_value_count: 0
+
+companion_schema_contract:
+  evidence_source: https://chime-frb-open-data.github.io/exposure/
+  array_key: exposure
+  nside: 4096
+  full_sky_pixel_count: 201326592
+  map_population_rule: place the exposure array at HEALPix indices 0 through len(exposure)-1 and fill the remaining full-sky pixels with zero / UNSEEN
+  ordering: RING
+  ordering_basis: >
+    The official tutorial uses healpy map arrays and hp.ang2pix without
+    nest=True, so the default RING ordering applies.
+  coordinate_system: ICRS / celestial
+  temporal_resolution_seconds: 4
+  stored_value_semantics: integer-valued counts represented as float64
+  conversion_to_hours: exposure_hours = 4 * exposure_count / 3600
+  embedded_metadata_limit: >
+    The NPZ payload itself contains only exposure.npy. Dates, transit role,
+    NSIDE, ordering, coordinate frame, temporal resolution, and units are
+    supplied by the checksum-pinned filename and official companion tutorial.
+  tutorial_label_caveat: >
+    The official example assigns the _L_ filename to fname_u and the _U_
+    filename to fname_l while the filename suffixes state the opposite.
+    This manifest treats the filename suffix as the role identity. The frozen
+    score sums both maps, so the total is invariant to that tutorial variable
+    naming inconsistency.
+
+rights_and_access:
+  read_access: public
+  datacite_rights_posture: public availability with citation request; no explicit redistribution license recorded
+  local_analysis: allowed_for_public_source_with_citation
+  source_bytes_redistribution: not_cleared
+  derived_rows_publication: not_cleared_for_bulk_rows
+  repo_policy: metadata_only_no_npz_bytes_vendored
+  raw_artifacts_vendored: false
+
+five_condition_gate:
+  source_identity_as_of_t:
+    fixed: true
+    evidence: exact filenames, byte counts, SHA-256, HTTP Digest matches, and NPZ schemas above
+  exposure_strictly_up_to_t:
+    fixed: true
+    evidence: >
+      Both checksum-pinned filenames encode the closed interval
+      2018-08-28 through 2019-07-02. No Catalog 2 exposure map or later
+      interval is admitted.
+  no_post_t_leakage:
+    fixed: true
+    evidence: >
+      Model-visible exposure is restricted to this pair. Full-window Catalog
+      2 exposure, late morphology, and post-T source associations are
+      forbidden pre-T features.
+  repeat_label_reveal_strictly_after_t:
+    fixed: true
+    evidence: >
+      Features are frozen first. Labels are then read only from the pinned
+      later Catalog 2 snapshot in frb_catalog2_source_manifest.yaml. A
+      positive requires repeat evidence after T; later associations remain
+      outcomes, never features.
+  exact_scoring_rule:
+    fixed: true
+    evidence: >
+      For each eligible pre-T source, score_pre_t =
+      log1p(E_upper_hours + E_lower_hours), where each map count is converted
+      by E_hours = 4 * count / 3600. No morphology or full-window exposure
+      enters the score.
+
+cross_catalog_semantics:
+  window_start_decision: >
+    Use the Catalog 1 interval start 2018-08-28 exactly. Do not trim to the
+    Catalog 2 start 2018-09-04 and do not subtract another map.
+  temporal_resolution_decision: >
+    Use the Catalog 1 4-second count conversion only. Do not combine with the
+    Catalog 2 12-second exposure product.
+  pipeline_era_decision: >
+    Catalog 1-native exposure and pre-T coordinates form the feature surface.
+    Catalog 2 is used only after feature freeze as the later reveal surface.
+  single_epoch_only: true
+
+schema_gate:
+  inspected_at_utc: '2026-07-08'
+  inspector: Python 3.12 / zipfile / numpy NPY header parser
+  verdict: GATE_PASS
+  construction_authorized: false
+  campaign_activation_authorized: false
+  next_decision: >
+    Maintainer review is still required before exposure construction, model
+    freeze, or PRED registration.
+
+what_this_manifest_does_not_do:
+  commits_source_bytes: false
+  constructs_per_source_exposure: false
+  joins_catalog_rows: false
+  fits_or_scores_a_model: false
+  registers_a_prediction: false
+  creates_or_changes_a_result: false
+  changes_a_claim_or_knowledge_artifact: false
+
+verdict: GATE_PASS

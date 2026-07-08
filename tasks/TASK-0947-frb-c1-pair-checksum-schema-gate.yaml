@@ -1,7 +1,7 @@
 id: TASK-0947
 title: "Run the FRB Catalog-1 interval-bounded exposure pair checksum/schema gate at epoch T=2019-07-02"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -42,7 +42,8 @@ result_artifact_policy:
   required: false
   reason: "Source feasibility gate; no scientific result or prediction artifact is produced."
   evidence:
-    - "docs/reviews/frb-time-indexed-exposure-source-scout.md"
+    - "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md"
+    - "data/radio_transients/frb_catalog1_interval_exposure_pair_source_manifest.yaml"
 
 validation:
   commands:
