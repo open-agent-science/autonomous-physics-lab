@@ -5,7 +5,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-import yaml
 
 from physics_lab.checksums import sha256_file, sha256_lf_canonical_file
 from physics_lab.datasets.exoplanets import (
@@ -15,6 +14,7 @@ from physics_lab.datasets.exoplanets import (
     summarize,
 )
 from physics_lab.registry.validation import validate_document
+from apl_test_helpers import _load_yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,13 +26,6 @@ MANIFEST_PATH = ROOT / "data" / "exoplanets" / "second_snapshot_manifest.yaml"
 SNAPSHOT_PATH = ROOT / "data" / "exoplanets" / "exo-0002-pscomppars-snapshot.yaml"
 QUERY_PATH = ROOT / "data" / "exoplanets" / "snapshot_plans" / "pscomppars_query.adql"
 EXPECTED_QUERY_SHA256 = "28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8"
-
-
-def _load_yaml(path: Path) -> dict:
-    with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.safe_load(fh)
-    assert isinstance(payload, dict)
-    return payload
 
 
 def test_second_snapshot_query_contract_remains_frozen() -> None:

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pytest
 
@@ -9,10 +8,7 @@ from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.post_ame2020_holdout import (
     build_post_ame2020_time_split_benchmark,
 )
-
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from apl_test_helpers import _repo_root
 
 
 def _build_metrics() -> dict:

@@ -13,10 +13,7 @@ from physics_lab.registry.post_ame2020_holdout import (
     build_post_ame2020_dry_run_metrics,
     calculate_time_split_metrics,
 )
-
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from apl_test_helpers import _repo_root
 
 
 def test_time_split_metric_calculation_supports_uncertainty_normalization() -> None:

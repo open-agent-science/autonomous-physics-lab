@@ -9,10 +9,12 @@ evidence:
     - EXP-0006
   results:
     - RESULT-0007
+    - RESULT-0020
 scope: >
-  Restricted to the 50-item DA-CHALLENGE-001 curated challenge set
-  (TASK-0017). No generalization to unseen formulas or physics domains is
-  claimed.
+  Restricted to two curated challenge sets: the 50-item DA-CHALLENGE-001
+  set (TASK-0017) and the frozen 74-item frozen_live_74 snapshot
+  (RESULT-0020). No generalization to unseen formulas or physics domains
+  is claimed.
 ---
 
 # CLAIM-0005: Dimensional Analysis Validator Correctly Classifies Physics Formulas
@@ -23,22 +25,38 @@ The APL dimensional-analysis validator achieves ≥90% agreement with curated
 expected labels on the 50-item DA-CHALLENGE-001 challenge set. The achieved
 agreement is 98% (49/50 items).
 
+On the larger frozen 74-item `frozen_live_74` challenge set the validator
+achieves 100% agreement (74/74 items, threshold 90%, zero-disagreement
+ledger) — `RESULT-0020`, deterministic replay of
+`examples/dimensional_analysis_live_74.yaml`.
+
 ## Evidence Status
 
-`EXP-0006` produced `RESULT-0007`. The validator is benchmarked at 98%
-agreement against curated labels. This claim remains `DRAFT` until a human
-reviewer explicitly accepts the scope and evidence chain.
+`EXP-0006` produced `RESULT-0007` (50 items, 98%) and `RESULT-0020`
+(74 items, 100%). `RESULT-0020` is `AGENT_VALIDATED` with
+`validation_independence: independent`: the Gate B replay was performed by
+akutenyov (Codex, 2026-07-07) — a different human from both the original
+publisher (romanhladun24-dot) and the packaging-fix author (gladunrv) —
+with zero drift across 17 metrics at tolerance 1e-9. This claim remains
+`DRAFT` until the maintainer explicitly accepts the scope and evidence
+chain at Gate C.
 
 ## Review Recommendation
 
-Keep `DRAFT`. The result is strong (98%), but:
+Keep `DRAFT` until Gate C. The evidence is strong (98% on 50 items, 100%
+on 74 items), and the promotion protocol's independence requirement is now
+satisfied: `RESULT-0020` carries an independently validated Gate B replay
+(different human, zero drift), so Gate C promotion has the required basis
+available. Honest residual limits:
 
-- The challenge set is curated internally (TASK-0017); independent external
-  validation has not been performed.
+- Both challenge sets are curated internally; the labels themselves have no
+  external validation (the independent replay validates reproduction, not
+  label ground truth).
 - One documented scope limit (DA-310 class: semantically-empty dimensionless
-  formulas) means 100% agreement is not achievable by dimension-only check.
-- A formal claim about "catching invalid physics formulas" requires broader
-  domain coverage beyond the 50-item benchmark.
+  formulas) means dimension-only checking has a known ceiling on the 50-item
+  set.
+- A formal claim about "catching invalid physics formulas" in general would
+  require broader domain coverage beyond these two benchmarks.
 
 ## Caution
 

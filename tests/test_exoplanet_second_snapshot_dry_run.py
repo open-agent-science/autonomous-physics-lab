@@ -5,13 +5,13 @@ from __future__ import annotations
 import copy
 from pathlib import Path
 
-import yaml
 
 from physics_lab.datasets.exoplanets import (
     apply_inclusion_filters,
     load_exoplanet_snapshot,
     normalized_snapshot_checksum,
 )
+from apl_test_helpers import _load_yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET_FREEZE_PATH = (
@@ -23,13 +23,6 @@ SECOND_SNAPSHOT_MANIFEST = (
 SYNTHETIC_FIXTURE = (
     ROOT / "tests" / "fixtures" / "exoplanets" / "synthetic_pscomppars_snapshot.yaml"
 )
-
-
-def _load_yaml(path: Path) -> dict:
-    with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.safe_load(fh)
-    assert isinstance(payload, dict)
-    return payload
 
 
 def _single_line(text: str) -> str:

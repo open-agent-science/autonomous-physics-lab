@@ -1,7 +1,7 @@
 id: TASK-0951
 title: "Extract shared pytest fixtures into tests/conftest.py"
 type: infrastructure
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: low

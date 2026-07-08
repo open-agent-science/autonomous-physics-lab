@@ -16,6 +16,7 @@ from physics_lab.datasets.exoplanets import (
     summarize,
 )
 from physics_lab.registry.validation import validate_document
+from apl_test_helpers import _load_yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,13 +35,6 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: fh.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
-
-
-def _load_yaml(path: Path) -> dict:
-    with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.safe_load(fh)
-    assert isinstance(payload, dict)
-    return payload
 
 
 @pytest.fixture(scope="module")
