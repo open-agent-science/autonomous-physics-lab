@@ -16,7 +16,21 @@ artifact_impact:
   knowledge_change: false
   external_publication: false
 
-recommended_action: approve_option_a_bounded_80row_public_factual_extract
+recommended_action: approve_option_a_limited_factual_extract
+approved_scope:
+  reuse_status: limited_factual_extract_with_attribution
+  covered_by_repo_license: false
+  property_scope: normal_boiling_temperature_tb_only
+  max_public_rows_total: 80
+  max_rows_per_source_article: 5
+  raw_archive_bytes_allowed: false
+  extracted_xml_json_allowed: false
+  normalized_corpus_allowed: false
+  external_dataset_release_allowed: false
+  zenodo_release_allowed: false
+  benchmark_metric_in_extraction_task_allowed: false
+  claim_result_knowledge_promotion_allowed: false
+  expansion_beyond_scope_requires_new_maintainer_decision: true
 basis:
   - "Decision Day #2 D2-2 (2026-07-06): conditional pre-approval - if the TASK-0940 packet confirms a facts-basis route, extraction is approved without a second decision"
   - "TASK-0940 packet (docs/reviews/thermoml-80-row-bounded-extract-maintainer-decision-packet.md): recommends Option A on the repository's existing facts-basis policy, 40-row precedent, hard 80-row ceiling, full attribution"
@@ -51,7 +65,10 @@ devils_advocate:
   why_rejected: >-
     The packet addresses this directly: the route relies on the committed
     40-row precedent and the post-AME2020 facts-basis entry, a hard 80-row
-    ceiling, full attribution, and per-row provenance; Option B remains
+    ceiling, a per-source-article cap, full attribution, and per-row
+    provenance. The approved scope is a non-substitutive
+    limited_factual_extract_with_attribution, not a relicensed ThermoML
+    dataset or corpus; Option B remains
     documented as the fallback the maintainer can choose instead by NOT
     merging this PR and ticking Option B in the packet.
   escalation_required: true
