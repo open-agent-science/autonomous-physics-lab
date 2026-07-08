@@ -1,0 +1,46 @@
+id: HYP-0022
+title: "The TASK-0914 InP-to-ZnSe no-refit confinement transfer fails to clear the frozen margin"
+domain: quantum_size_effects
+status: INCONCLUSIVE
+
+hypothesis:
+  statement: >
+    Under the TASK-0914 frozen no-refit transfer contract, a confinement power
+    law `conf = C*d^(-n)` calibrated only on the six direct InP rows predicts
+    the ten held-out direct ZnSe rows better than the best required control, but
+    it does not clear the predeclared 0.05 eV survival margin. The result is
+    therefore bounded inconclusive/control memory, not a positive quantum-dot
+    size law, material recommendation, or design claim.
+  formula_candidates:
+    - "model_inp_no_refit_confinement_power_law: conf = C*d^(-n), C and n fit on InP only and frozen before ZnSe scoring"
+    - "control_per_material_mean: held-out material mean confinement, independent of size"
+    - "control_shuffled_size: frozen transferred model evaluated after deterministic size-axis permutation"
+
+assumptions:
+  - "Only the TASK-0914 contract-frozen direct-size rows enter the judge: six InP TEM rows from qd-0003 and ten ZnSe SAXS rows from qd-0004."
+  - "ZnSe is the primary holdout; the reverse direction and characteristic-length framing are secondary diagnostics and cannot rescue the primary verdict."
+  - "Bulk gaps are fixed inputs, not fitted to either material."
+  - "No target-material coefficient, exponent, intercept, bulk gap, geometry map, threshold, residual correction, or effective-mass rescue is fitted after observing ZnSe errors."
+  - "The 0.05 eV survival margin is frozen and is not relaxed."
+
+variables:
+  d:
+    unit: nm
+    description: "Primary transfer size axis: ZnSe SAXS diameter verbatim; InP tetrahedral edge converted to equal-volume spherical diameter."
+  conf:
+    unit: eV
+    description: "Size-confinement term E1s - E_bulk."
+  mae:
+    unit: eV
+    description: "Mean absolute error on held-out confinement values."
+  margin:
+    unit: eV
+    description: "Best-control MAE minus transferred-model MAE; must be at least 0.05 eV to clear."
+
+evidence:
+  experiments:
+    - EXP-0022
+  results:
+    - RESULT-0029
+
+verdict: "INCONCLUSIVE: the primary InP-to-ZnSe transferred model beats both required controls but its +0.046584 eV margin falls short of the frozen 0.05 eV survival rule."

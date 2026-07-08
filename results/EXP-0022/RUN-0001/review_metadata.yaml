@@ -1,0 +1,20 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0029
+run_id: RUN-0001
+experiment_id: EXP-0022
+claim_id: null
+knowledge_id: null
+generated_at: '2026-07-08T00:00:00+00:00'
+proposed_claim_status: null
+required_human_review: true
+evidence_basis:
+- agent_runs/AGENT-RUN-0090/metrics.json
+- docs/reviews/quantum-znse-contract-transfer-benchmark.md
+- data/quantum_dots/znse_no_refit_transfer_contract_fixture.yaml
+claim_target_file: null
+knowledge_target_file: null
+patch_artifacts:
+  claim_patch: results/EXP-0022/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0022/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0022/RUN-0001/review_summary.md

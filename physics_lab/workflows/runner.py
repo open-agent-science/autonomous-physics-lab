@@ -46,6 +46,9 @@ from physics_lab.workflows.thermoml_tb_family_transfer import (
 from physics_lab.workflows.textbook_firas_wien_peak import (
     run_textbook_firas_wien_peak_with_output,
 )
+from physics_lab.workflows.quantum_znse_contract_transfer import (
+    run_quantum_znse_contract_transfer_with_output,
+)
 
 
 def run_experiment(config_path: str | Path) -> ExperimentOutcome:
@@ -106,6 +109,10 @@ def run_experiment_with_output(
         return run_textbook_firas_wien_peak_with_output(
             config_path=config_path, output_dir=output_dir
         )
+    if workflow == "quantum_znse_contract_transfer_result":
+        return run_quantum_znse_contract_transfer_with_output(
+            config_path=config_path, output_dir=output_dir
+        )
     if workflow == "textbook_exact_reference":
         return run_textbook_exact_reference_with_output(
             config_path=config_path,
@@ -152,6 +159,7 @@ __all__ = [
     "run_dimensional_validator_with_output",
     "run_textbook_exact_reference_with_output",
     "run_textbook_firas_wien_peak_with_output",
+    "run_quantum_znse_contract_transfer_with_output",
     "run_stellar_ml_debcat_baseline_with_output",
     "run_stellar_ml_high_mass_transfer_with_output",
     "run_thermoml_tb_family_transfer_with_output",
