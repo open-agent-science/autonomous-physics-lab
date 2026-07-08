@@ -1,0 +1,57 @@
+id: TASK-0965
+title: "Prepare the FRB sealed-prediction registration pack (maintainer-approved prediction freeze)"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Step 3 of the activated FRB chain and the D12 deliverable: PRED registration by end of July 2026 (the T-truncated split ages; the deadline is real)."
+  - "prediction_freeze is Class 2: this task PREPARES the registration pack and the maintainer's approval is the recorded freeze decision - mirroring the TASK-0929 (contract) -> TASK-0933 (execution) nuclear precedent."
+  - "Any capable contributor lane may prepare; sequenced strictly after TASK-0964 merges."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-campaign-activation-20260708.md"
+    - "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md"
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+  planning_context: >
+    Package the frozen TASK-0964 model's per-source repeater-propensity
+    predictions as sealed registry entries: no-peek reveal design per the
+    gate (labels only from the checksum-pinned later snapshot, repeat
+    evidence strictly after T), registry entries with payload checksums,
+    reveal conditions and the frozen scoring rule verbatim, and an
+    external-anchor plan following the PRED-0069..0072 precedent
+    (annotated tag + Release + archive capsule) so sealing is third-party
+    verifiable from day one.
+
+requirements:
+  - "Sequenced: starts only after TASK-0964 merges; predictions come solely from its frozen surface."
+  - "Registration executes ONLY after an explicit maintainer approval recorded as a Class 2 prediction_freeze decision (dedicated surface, not buried in a composite diff); this task prepares the pack and the decision stub."
+  - "Reveal design verbatim from the gate: labels from the pinned later snapshot only, repeat evidence strictly after T, frozen scoring rule unmodified; registration is not a success verdict and carries the standard no-claim wording."
+  - "External-anchor plan included at registration time (tag + Release + capsule per the NMD-0003 anchor precedent) so the freeze is never anchored only by branch history."
+  - "Deadline: the pack must be maintainer-ready no later than 2026-07-28 to keep the end-of-July registration target; if the chain slips past that, escalate honestly instead of compressing the reveal discipline."
+
+accepted_outputs:
+  - "The registration pack (sealed entries + checksums + reveal conditions + anchor plan) + the Class 2 decision stub for the maintainer."
+  - "Output-routing summary: prediction freeze staged; registration is the maintainer's recorded decision."
+
+result_artifact_policy:
+  required: false
+  reason: "Prepares registry entries and the freeze decision surface; the registered PRED artifacts appear upon maintainer approval."
+  evidence:
+    - "docs/reviews/frb-campaign-activation-20260708.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent

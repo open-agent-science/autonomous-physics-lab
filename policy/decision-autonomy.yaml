@@ -82,6 +82,7 @@ decision_types:
   public_wording_change:
     class: class_1_lazy_consensus
     allowed_if: [no_claim_like_phrasing_weakening_or_strengthening]
+  campaign_activation: {class: class_2_maintainer_only}
   claim_support_status_change: {class: class_2_maintainer_only}
   knowledge_endorsement: {class: class_2_maintainer_only}
   external_publication: {class: class_2_maintainer_only}
