@@ -1,7 +1,7 @@
 id: TASK-0949
 title: "Re-run the RESULT-0025 point-only Gate B replay with a recorded independent identity (reserved: akutenyov)"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
@@ -41,6 +41,7 @@ result_artifact_policy:
   reason: "Metadata-only Gate B validation of an existing result; no new scientific result artifact is produced."
   evidence:
     - "results/EXP-0018/RUN-0001/result.yaml"
+    - "docs/reviews/nmd0003-result0025-gp-gate-b-replay.md"
 
 validation:
   commands:
