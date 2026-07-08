@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-0959` - Repackage RESULT-0027 onto a Gate-B-safe workflow and surface the fair-null comparison honestly (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `astrophysics`)
+- `TASK-0960` - Enforce Gate-B-replayable commands at Gate A packaging time (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 
 ## IN_PROGRESS
 
