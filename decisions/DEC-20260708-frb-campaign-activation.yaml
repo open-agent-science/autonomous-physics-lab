@@ -30,11 +30,20 @@ agent_quorum:
     agent_tool: Claude Code
     model_version: Fable 5
     session_id: director-session-b1113fba
-  cross_vendor_vote: >-
-    Open seat: any capable cross-vendor agent may append its vote by commit
-    while the activation PR is open; absence of that vote does not block a
-    Class 2 decision, which the maintainer decides directly.
-  cross_vendor: false
+  critic_agent:
+    vote: approve
+    agent_id: codex-maintainer-review
+    vendor: openai
+    agent_tool: Codex
+    model_version: GPT-5
+    session_id: codex-session-20260708-pr1438
+    review_notes: >-
+      Approve only as bounded campaign activation and task seeding. The packet
+      creates no PRED, reads no labels, publishes no external artifact, vendors
+      no raw exposure bytes, and keeps prediction registration as a separate
+      maintainer-approved Class 2 surface with an explicit
+      escalate-instead-of-compress deadline clause.
+  cross_vendor: true
 
 devils_advocate:
   alternative_considered: >-
