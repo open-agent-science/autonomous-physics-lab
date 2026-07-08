@@ -1,0 +1,71 @@
+id: HYP-PROPOSAL-0085
+title: "AHS common-scheme geometric-midpoint hierarchy diagnostic"
+campaign_profile_id: particle-mass-relations
+proposal_kind: audit
+status: REVIEW_READY
+claim_ceiling: "Sandbox hierarchy diagnostic on six source-reported running Yukawas; no Koide relation, mass-generation law, BSM interpretation, result, claim, or knowledge promotion."
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+  task_id: TASK-0958
+input_references:
+  - data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml
+  - data/particle_masses/source_artifacts/antusch-hinze-saad-2026/provenance.yaml
+  - examples/benchmarks/particle_ahs_common_scheme_baseline.yaml
+hypothesis:
+  statement: "A zero-parameter geometric-midpoint baseline provides a bounded descriptive reference for the log spacing of each ordered three-flavor quark Yukawa sector on the single AHS MS-bar-at-M_Z surface."
+  variables:
+    - "y_light, y_middle, y_heavy: positive dimensionless running Yukawa couplings in one charge sector."
+    - "r = log10(y_middle / sqrt(y_light * y_heavy)): signed midpoint residual in dex."
+  assumptions:
+    - "All six values are the source-reported 2024-PDG Standard Model running Yukawas at M_Z in MS-bar."
+    - "The up-type order is y_u, y_c, y_t and the down-type order is y_d, y_s, y_b."
+    - "No covariance matrix is available, so the benchmark reports no uncertainty significance."
+    - "The source values are already committed and readable; predeclaration is procedural, not an enforceable blind."
+  expected_scope: "Two sector residuals plus descriptive MAE, RMSE, and maximum absolute residual in dex."
+  expected_failure_modes:
+    - "One or both sectors depart substantially from equal log spacing."
+    - "Two sectors are too few to support a stable quality threshold or generalization claim."
+    - "Shared upstream inputs make marginal uncertainty propagation unsuitable for significance claims."
+novelty_check:
+  checked_files:
+    - docs/reviews/particle-ahs-common-scheme-source-row-pin.md
+    - docs/reviews/particle-mass-common-scheme-preflight.md
+    - docs/campaigns/particle-mass-relations.md
+  possible_overlap: "Earlier particle work tested Koide-family relations or pinned the source. This proposal adds only the first non-Koide common-scheme spacing baseline authorized by TASK-0958."
+  notes: "No formula family, parameter fit, target threshold, or relation search is introduced."
+falsification_plan:
+  deterministic_check: "Run the committed fixture twice and require byte-identical sandbox outputs; independently recompute each sector residual from the pinned source rows."
+  baseline_or_reference: "Null descriptive baseline: the middle Yukawa equals the geometric mean of the light and heavy Yukawas within the same charge sector."
+  pass_condition: "Input identity and surface checks pass and all predeclared descriptive metrics are emitted deterministically."
+  fail_condition: "Any checksum, flavor-set, scheme, scale, unit, positivity, sector-order, or determinism mismatch blocks the run. There is no scientific pass threshold."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe the diagnostic as a quark-mass law, Koide test, Standard Model explanation, BSM evidence, discovery, or prediction."
+    - "Do not interpret residual size as statistical significance or use independent-uncertainty wording."
+  mitigations:
+    - "Keep output sandbox-only with INCONCLUSIVE verdict."
+    - "State the two-sector and missing-covariance limitations beside every interpretation."
+sandbox_evidence:
+  commands:
+    - "python scripts/run_particle_ahs_common_scheme_baseline.py --config examples/benchmarks/particle_ahs_common_scheme_baseline.yaml --output-dir agent_runs/AGENT-RUN-0091"
+  code_references:
+    - physics_lab/engines/particle_common_scheme_baseline.py
+    - scripts/run_particle_ahs_common_scheme_baseline.py
+  metrics:
+    - "Signed geometric-midpoint log10 residual per charge sector."
+    - "Mean absolute, root-mean-square, and maximum absolute residual in dex."
+  output_paths:
+    - agent_runs/AGENT-RUN-0091/
+    - docs/reviews/particle-ahs-common-scheme-baseline.md
+limitations:
+  - "Exactly six source-derived running Yukawas and two three-flavor sectors."
+  - "No quality threshold, holdout, fit, or external transfer surface."
+  - "No covariance-aware uncertainty or significance statement."
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review the bounded metric definition and accept the output as sandbox descriptive memory; do not promote it to a scientific claim."
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "A separate maintainer-approved task would be required for any canonical RESULT, comparison threshold, transfer test, or claim."

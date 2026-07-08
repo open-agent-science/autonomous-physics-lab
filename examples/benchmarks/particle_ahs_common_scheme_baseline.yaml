@@ -1,0 +1,43 @@
+benchmark_id: particle-ahs-common-scheme-geometric-midpoint
+task_id: TASK-0958
+agent_run_id: AGENT-RUN-0091
+campaign_profile_id: particle-mass-relations
+generated_at_utc: '2026-07-08T18:10:00Z'
+source:
+  path: data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml
+  sha256: b96709627e13542c6c047ca565713028321bba98fcb070d1a016ab774e29b480
+  dataset_id: PARTICLE-MASS-AHS-2024-PDG-MZ-YUKAWAS
+  required_surface:
+    representation: running_yukawa
+    renormalization_scheme: MS-bar
+    renormalization_scale: M_Z
+    units: dimensionless
+metric_contract:
+  frozen_before_scoring: true
+  procedural_not_blind: true
+  metric_id: geometric_midpoint_log10_residual_dex
+  baseline: middle_yukawa_predicted_as_sqrt_light_times_heavy
+  signed_residual: log10(observed_middle_yukawa / predicted_middle_yukawa)
+  aggregate_metrics:
+    - mean_absolute_residual_dex
+    - root_mean_square_residual_dex
+    - maximum_absolute_residual_dex
+  success_threshold: null
+  verdict_rule: INCONCLUSIVE_DIAGNOSTIC_WITHOUT_PREDECLARED_QUALITY_THRESHOLD
+sectors:
+  - id: up_type
+    ordered_parameters: [y_u, y_c, y_t]
+  - id: down_type
+    ordered_parameters: [y_d, y_s, y_b]
+output:
+  agent_run_dir: agent_runs/AGENT-RUN-0091
+  hypothesis_proposal: hypothesis_proposals/particle-mass-relations/HYP-PROPOSAL-0085-ahs-geometric-midpoint-baseline.yaml
+  experiment_proposal: experiment_proposals/particle-mass-relations/EXP-PROPOSAL-0085-ahs-geometric-midpoint-baseline.yaml
+boundaries:
+  use_committed_source_only: true
+  convert_yukawa_to_mass: false
+  run_koide_metric: false
+  formula_search: false
+  covariance_significance_claim: false
+  canonical_result: false
+  claim_or_knowledge_change: false

@@ -1,0 +1,77 @@
+{
+  "agent_run_id": "AGENT-RUN-0091",
+  "aggregate": {
+    "maximum_absolute_residual_dex": 0.21413273613863043,
+    "mean_absolute_residual_dex": 0.17454158374947432,
+    "mean_signed_residual_dex": -0.039591152389156115,
+    "root_mean_square_residual_dex": 0.17897548381070558,
+    "sector_count": 2
+  },
+  "benchmark_id": "particle-ahs-common-scheme-geometric-midpoint",
+  "campaign_profile_id": "particle-mass-relations",
+  "generated_at_utc": "2026-07-08T18:10:00Z",
+  "metric_contract": {
+    "aggregate_metrics": [
+      "mean_absolute_residual_dex",
+      "root_mean_square_residual_dex",
+      "maximum_absolute_residual_dex"
+    ],
+    "baseline": "middle_yukawa_predicted_as_sqrt_light_times_heavy",
+    "frozen_before_scoring": true,
+    "metric_id": "geometric_midpoint_log10_residual_dex",
+    "procedural_not_blind": true,
+    "signed_residual": "log10(observed_middle_yukawa / predicted_middle_yukawa)",
+    "success_threshold": null,
+    "verdict_rule": "INCONCLUSIVE_DIAGNOSTIC_WITHOUT_PREDECLARED_QUALITY_THRESHOLD"
+  },
+  "routing": {
+    "canonical_result_created": false,
+    "claim_or_knowledge_changed": false,
+    "reason": "No predeclared quality threshold and only two descriptive sectors.",
+    "sandbox_only": true
+  },
+  "sectors": [
+    {
+      "absolute_residual_dex": 0.1349504313603182,
+      "heavy_yukawa": 0.967,
+      "light_yukawa": 7.04e-06,
+      "multiplicative_deviation_factor": 1.3644273974011878,
+      "observed_middle_yukawa": 0.00356,
+      "ordered_parameters": [
+        "y_u",
+        "y_c",
+        "y_t"
+      ],
+      "predicted_middle_yukawa": 0.002609153119309022,
+      "sector_id": "up_type",
+      "signed_residual_dex": 0.1349504313603182
+    },
+    {
+      "absolute_residual_dex": 0.21413273613863043,
+      "heavy_yukawa": 0.0163,
+      "light_yukawa": 1.54e-05,
+      "multiplicative_deviation_factor": 1.637316868356272,
+      "observed_middle_yukawa": 0.000306,
+      "ordered_parameters": [
+        "y_d",
+        "y_s",
+        "y_b"
+      ],
+      "predicted_middle_yukawa": 0.0005010189617170193,
+      "sector_id": "down_type",
+      "signed_residual_dex": -0.21413273613863043
+    }
+  ],
+  "source": {
+    "dataset_id": "PARTICLE-MASS-AHS-2024-PDG-MZ-YUKAWAS",
+    "entry_count": 6,
+    "path": "data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml",
+    "renormalization_scale": "M_Z",
+    "renormalization_scheme": "MS-bar",
+    "representation": "running_yukawa",
+    "sha256": "b96709627e13542c6c047ca565713028321bba98fcb070d1a016ab774e29b480",
+    "units": "dimensionless"
+  },
+  "task_id": "TASK-0958",
+  "verdict": "INCONCLUSIVE"
+}
