@@ -1,7 +1,7 @@
 id: TASK-0956
 title: "Refresh CLAIM-0005 evidence to cite RESULT-0020 (74/74, independently Gate-B-validated)"
 type: docs_protocol
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: high

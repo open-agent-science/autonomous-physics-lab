@@ -1,7 +1,7 @@
 id: TASK-0949
 title: "Re-run the RESULT-0025 point-only Gate B replay with a recorded independent identity (reserved: akutenyov)"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
