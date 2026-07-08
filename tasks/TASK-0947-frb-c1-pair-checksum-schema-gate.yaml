@@ -1,7 +1,7 @@
 id: TASK-0947
 title: "Run the FRB Catalog-1 interval-bounded exposure pair checksum/schema gate at epoch T=2019-07-02"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
