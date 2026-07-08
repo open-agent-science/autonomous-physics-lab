@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0949` - Re-run the RESULT-0025 point-only Gate B replay with a recorded independent identity (reserved: akutenyov) (`scientific_replay_validation`, priority `medium`, difficulty `low`, domain `nuclear_physics`)
 - `TASK-0951` - Extract shared pytest fixtures into tests/conftest.py (`infrastructure`, priority `low`, difficulty `low`, domain `cross_campaign_quality`)
 
 ## IN_PROGRESS
@@ -20,4 +19,5 @@ None.
 - `TASK-0946` - Define the bounded reveal-source watch for the sealed nuclear prediction registry (`scientific_source_curation`, priority `medium`, difficulty `low`, domain `nuclear_physics`)
 - `TASK-0947` - Run the FRB Catalog-1 interval-bounded exposure pair checksum/schema gate at epoch T=2019-07-02 (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-0948` - Run the RESULT-0020 Gate B replay with a genuinely independent identity (reserved: akutenyov, non-Claude tool) (`scientific_replay_validation`, priority `high`, difficulty `low`, domain `dimensional_analysis_validator`)
+- `TASK-0949` - Re-run the RESULT-0025 point-only Gate B replay with a recorded independent identity (reserved: akutenyov) (`scientific_replay_validation`, priority `medium`, difficulty `low`, domain `nuclear_physics`)
 - `TASK-0950` - Park the muon g-2 line: move CLAIM-0008 to stress-test memory and settle the knowledge entry (`docs_protocol`, priority `low`, difficulty `low`, domain `particle_physics`)
