@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from apl_test_helpers import _stats_from_rmse
 
 pytestmark = [
     pytest.mark.resource_sensitive,
@@ -88,16 +89,6 @@ def test_contiguous_equal_count_bins_handles_exact_quartiles():
 # ---------------------------------------------------------------------------
 # _classify_bin branch coverage
 # ---------------------------------------------------------------------------
-
-
-def _stats_from_rmse(count: int, rmse: float | None) -> dict:
-    return {
-        "count": count,
-        "log10_rmse": rmse,
-        "log10_mae": None if rmse is None else rmse * 0.8,
-        "log10_bias": 0.0,
-        "log10_median": 0.0,
-    }
 
 
 def _control(

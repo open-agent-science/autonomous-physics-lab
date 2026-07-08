@@ -14,6 +14,7 @@ from pathlib import Path
 
 import pytest
 import yaml
+from apl_test_helpers import _stats_from_rmse
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -29,16 +30,6 @@ SYNTHETIC_FIXTURE = (
 # ---------------------------------------------------------------------------
 # Verdict classification
 # ---------------------------------------------------------------------------
-
-
-def _stats_from_rmse(count: int, rmse: float | None) -> dict:
-    return {
-        "count": count,
-        "log10_rmse": rmse,
-        "log10_mae": None if rmse is None else rmse * 0.8,
-        "log10_bias": 0.0,
-        "log10_median": 0.0,
-    }
 
 
 def test_classify_under_minimum_slice_blocks_verdict():

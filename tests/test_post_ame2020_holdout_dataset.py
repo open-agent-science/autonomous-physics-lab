@@ -8,10 +8,7 @@ from jsonschema import Draft202012Validator
 import yaml
 
 from physics_lab.registry.post_ame2020_holdout import load_post_ame2020_holdout_dataset
-
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from apl_test_helpers import _repo_root
 
 
 def _holdout_path() -> Path:
