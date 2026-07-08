@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0940` - Prepare the ThermoML 80-row bounded-extract maintainer decision packet without row extraction (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
