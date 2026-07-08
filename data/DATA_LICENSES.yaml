@@ -327,6 +327,28 @@ datasets:
     paths:
       - data/radio_transients/frb_catalog2_exposure_map_source_manifest.yaml
 
+  - id: chime-frb-catalog1-interval-exposure-pair-metadata-only
+    source: "CHIME/FRB Catalog 1 interval-bounded exposure map pair at T=2019-07-02"
+    source_url: https://doi.org/10.11570/21.0007
+    license: "Public read access via CANFAR/CADC with citation request; no explicit source-byte redistribution license recorded"
+    redistribution_status: metadata_only_no_npz_bytes_vendored_checksum_schema_pinned_single_epoch_with_attribution
+    citation_or_acknowledgement: >
+      Cite The CHIME/FRB Collaboration, The First CHIME/FRB Fast Radio
+      Burst Catalog, ApJS 257, 59 (2021), DOI
+      10.3847/1538-4365/ac33ab; dataset DOI 10.11570/21.0007.
+    evidence: >
+      TASK-0947 downloaded the public upper/lower Catalog 1 interval exposure
+      pair to an untracked local path, matched HTTP Digest against local MD5,
+      pinned exact byte counts and SHA-256 checksums, and inspected the
+      one-member NPZ/NPY schemas. The committed manifest contains metadata,
+      structural counts, and the five-condition leakage contract only. It
+      contains no NPZ bytes, per-source exposure rows, catalog joins, model
+      scores, or prediction labels.
+    raw_artifact_vendored: false
+    provenance: data/radio_transients/frb_catalog1_interval_exposure_pair_source_manifest.yaml
+    paths:
+      - data/radio_transients/frb_catalog1_interval_exposure_pair_source_manifest.yaml
+
   - id: antusch-hinze-saad-2026-mz-yukawa-extract
     source: "Antusch, Hinze, and Saad, Updated running quark and lepton parameters at various scales, Phys. Rev. D 113, 095011 (2026)"
     source_url: https://doi.org/10.1103/fdcc-ycph
