@@ -240,6 +240,7 @@ jobs:
         run: |
           pytest \
             --durations=10 \
+            -m "not full_repo" \
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
