@@ -13,11 +13,15 @@ This packet converts the `TASK-0895` verdict
 does not fetch the ThermoML archive, inspect new values, extract rows, run
 Joback metrics, or change `RESULT-0026`.
 
-The decision is limited to normal boiling temperature (`Tb`) and a maximum
-public fixture of 80 curated factual rows: ten rows in each of the eight
-families already represented by the committed 40-row fixture. It does not
-authorize a normalized ThermoML corpus, another property, or an open-ended
-extraction.
+The decision is limited to a non-substitutive `LIMITED_FACTUAL_EXTRACT`: normal
+boiling temperature (`Tb`) only, a maximum public fixture of 80 curated factual
+rows, ten rows in each of the eight families already represented by the
+committed 40-row fixture, and no more than five public rows from any
+identifiable source article. It does not authorize a normalized ThermoML
+corpus, another property, an external dataset release, a Zenodo upload, or an
+open-ended extraction. The fixture is outside the repository license boundary
+and must carry `covered_by_repo_license: false` plus
+`limited_factual_extract_with_attribution` reuse wording.
 
 ## Frozen Evidence
 
@@ -58,11 +62,13 @@ The proposed route remains bounded because it:
 
 - fixes an 80-row ceiling before extraction;
 - permits only ten rows from each already approved family;
+- caps each identifiable source article at five public fixture rows;
 - carries compound identity, selected source DOI/member, uncertainty, and
   archive attribution on every row;
 - uses deterministic value-blind selection rather than copying a source
   table or exposing an open-ended query;
-- commits neither source files nor a general normalized mirror.
+- commits neither source files nor a general normalized mirror;
+- prohibits Zenodo or any other external dataset release for this fixture.
 
 On the committed evidence, this satisfies APL's facts-basis route for a
 limited factual extract. It does not establish permission to redistribute the
@@ -96,8 +102,16 @@ rightsholder permission beyond the repository's existing facts-basis policy.
 
 Select exactly one:
 
-- [ ] **YES — Option A.** Approve one public, attributed, maximum 80-row
-  `Tb` factual fixture under the frozen `TASK-0895` contract.
+- [x] **YES — Option A.** Approve one public, attributed, maximum 80-row
+  `Tb` factual fixture under the frozen `TASK-0895` contract, scoped as a
+  `LIMITED_FACTUAL_EXTRACT` with `covered_by_repo_license: false`, no external
+  dataset release, and no expansion beyond this scope without a new
+  maintainer-only rights decision.
+  *(Signature 2026-07-08: this checkbox travels in its own dedicated
+  maintainer PR whose only substance is this Class 2 data-rights selection;
+  the maintainer's merge of that PR is the recorded decision, per D2-2
+  pre-approval and the decision stub
+  `decisions/DEC-20260708-thermoml-option-a.yaml`.)*
 - [ ] **NO PUBLIC ROWS — Option B.** Approve local-only extraction and
   analysis; publish only code, metadata, hashes, and aggregate counts.
 - [ ] **NO EXPANSION — Option C.** Retain the current 40-row fixture and stop
@@ -118,12 +132,14 @@ route but does not exercise maintainer authority.
 | Extraction and validation code | commit | commit | no new work | permission-support only |
 | Local normalized candidate table | temporary only | temporary only | do not create | do not create |
 | New normalized factual rows | commit, maximum 80 total | never commit | never commit | never commit |
+| Source-article cap | maximum five rows per identifiable source article | n/a | n/a | set by permission terms |
 | Aggregate candidate/exclusion counts | commit | commit | optional blocker memory | permission metadata only |
 | Source manifest update | required | required | optional decision record | required if rights change |
 | `data/DATA_LICENSES.yaml` declaration | required for the new fixture path | metadata/local-only declaration | no new dataset entry | update only after evidence |
 | Schema and deterministic regeneration tests | required | required for code/metadata outputs | none | none |
 | Joback benchmark metrics | prohibited in extraction task | local-only in a later task if authorized | no run | no run |
 | `RESULT-0026` modification | prohibited | prohibited | prohibited | prohibited |
+| Zenodo or other external dataset release | prohibited; requires new maintainer-only rights decision | prohibited | prohibited | requires explicit permission |
 
 Under Option A, a future extraction PR may commit only APL-authored curated
 rows and their provenance. It must not commit copied table layout, article
@@ -139,10 +155,15 @@ Queue one value-blind source-curation task to:
 2. apply the frozen identity, uncertainty, duplicate, conflict, family, and
    Joback-coverage rules from `TASK-0895`;
 3. freeze candidate counts and identities before any metric is run;
-4. select ten molecular-weight-quantile representatives per family;
+4. select ten molecular-weight-quantile representatives per family while
+   preserving the five-row cap for each identifiable source article;
 5. commit no more than 80 rows, a fixture checksum, provenance, a
-   `DATA_LICENSES.yaml` declaration, and deterministic tests;
-6. stop without running metrics or editing `RESULT-0026`.
+   `DATA_LICENSES.yaml` declaration with `covered_by_repo_license: false` and
+   `reuse_status: limited_factual_extract_with_attribution`, and deterministic
+   tests;
+6. stop without running metrics, editing `RESULT-0026`, promoting any
+   `RESULT`/`CLAIM`/`KNOW` artifact, or preparing any Zenodo/external dataset
+   release.
 
 A separate benchmark task may be proposed only after that fixture is merged
 and frozen.
@@ -168,16 +189,19 @@ Stop before extraction or publication if any of these conditions holds:
 2. the selected maintainer option is absent or ambiguous;
 3. source access occurs through a live agent fetch rather than the approved
    local snapshot;
-4. the output would exceed 80 rows or add a ninth family or another property;
-5. fewer than ten admissible non-conflict representatives exist in any family;
-6. selection depends on Joback error, benchmark residuals, or post-score
+4. the output would exceed 80 rows, exceed five rows from any identifiable
+   source article, or add a ninth family or another property;
+5. the source-article cap cannot be checked for identifiable source articles;
+6. fewer than ten admissible non-conflict representatives exist in any family;
+7. selection depends on Joback error, benchmark residuals, or post-score
    knowledge;
-7. identity, uncertainty, source DOI/member, duplicate, or conflict metadata
+8. identity, uncertainty, source DOI/member, duplicate, or conflict metadata
    cannot be preserved;
-8. archive bytes, extracted trees, source table layout, figures, or article
+9. archive bytes, extracted trees, source table layout, figures, or article
    text would enter Git;
-9. the proposed output resembles a substantial normalized corpus;
-10. `DATA_LICENSES.yaml`, attribution, provenance, regeneration tests, or
+10. the proposed output resembles a substantial normalized corpus;
+11. the task would create a Zenodo upload or other external dataset release;
+12. `DATA_LICENSES.yaml`, attribution, provenance, regeneration tests, or
     fixture checksum are missing.
 
 ## Coordination Note
