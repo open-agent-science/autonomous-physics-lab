@@ -82,7 +82,7 @@ jobs:
       - name: Install package
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e ".[dev]"
 
       - name: Auto-close safe tasks
         env:
@@ -93,6 +93,24 @@ jobs:
       - name: Run sync-active-board
         run: |
           python -m physics_lab.cli sync-active-board .
+
+      # The bot commit carries [skip ci], so the generated content is
+      # validated HERE, before push, instead of by a post-push CI run: strict
+      # repo validation plus the same targeted docs/task tests the CI docs
+      # lane would have run.
+      - name: Validate regenerated board before push
+        run: |
+          python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+          pytest -q \
+            -m "not full_repo" \
+            tests/test_active_board.py \
+            tests/test_task_views.py \
+            tests/test_task_proposals.py \
+            tests/test_task_reference_convention.py \
+            tests/test_docs_links.py \
+            tests/test_mission_control.py \
+            tests/test_mission_freshness.py \
+            tests/test_validate_repo_auto_sync.py
 
       - name: Detect regeneration diff
         id: detect
@@ -167,6 +185,6 @@ jobs:
             git diff --cached --name-only | sed 's/^/- `/' | sed 's/$/`/'
           } >> "$GITHUB_STEP_SUMMARY"
           base_short="$(git rev-parse --short HEAD)"
-          git commit -m "chore(board-sync): sync task navigation and safe closeouts after ${base_short} [skip-board-sync]"
+          git commit -m "chore(board-sync): sync task navigation and safe closeouts after ${base_short} [skip-board-sync] [skip ci]"
           git remote set-url origin "https://x-access-token:${BOARD_SYNC_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push origin HEAD:main

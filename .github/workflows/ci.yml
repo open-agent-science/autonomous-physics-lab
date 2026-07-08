@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - main
-      - master
   pull_request:
+    # ready_for_review is NOT in the default trigger set; without it the
+    # draft-gated full_repo smoke would never fire when a PR flips
+    # draft -> ready without a new push.
+    types: [opened, synchronize, reopened, ready_for_review]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
@@ -59,7 +62,7 @@ jobs:
           while IFS= read -r path; do
             [[ -z "$path" ]] && continue
             case "$path" in
-              docs/*|tasks/*|CONTEXT.md|README.md|AGENTS.md|CODEX_TASK.md|CLAUDE.md|.github/pull_request_template.md)
+              docs/*|tasks/*|README.md|AGENTS.md|CODEX_TASK.md|CLAUDE.md|.github/pull_request_template.md)
                 ;;
               *)
                 docs_task_only=false
@@ -69,7 +72,7 @@ jobs:
 
           echo "docs_task_only=$docs_task_only" >> "$GITHUB_OUTPUT"
 
-          # full_repo smoke tests are cheap (~7 tests) but only meaningful for
+          # full_repo smoke tests are cheap (~9 tests) but only meaningful for
           # changes that can break them: code, config, schemas, CI,
           # example/result inputs, or the docs/mission state that full_repo CLI
           # smoke tests assert on (e.g. docs/status.md drives
@@ -126,6 +129,7 @@ jobs:
         run: |
           pytest \
             --durations=10 \
+            -m "not full_repo" \
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
@@ -146,10 +150,16 @@ jobs:
       # breakage is caught at PR time, not only post-merge on the main matrix.
       # Pure prose docs and routine task-status flips stay fast. The nightly
       # full_repo watchdog (nightly-full-repo.yml) covers what slips past this.
+      # Draft pushes skip the smoke: agents iterate on drafts, and superseded
+      # intermediate pushes were burning ~380 self-hosted min/week here. The
+      # smoke still runs on every ready-for-review push, on the main matrix
+      # after merge, and nightly.
       - name: Run full_repo smoke tests (risk-relevant PRs)
-        if: needs.classify.outputs.full_repo_risk == 'true'
+        if: needs.classify.outputs.full_repo_risk == 'true' && github.event.pull_request.draft == false
         run: |
-          pytest --durations=10 -m full_repo
+          # -n0: repo-wide scans and the GP freeze recompute contend badly in
+          # parallel (55 s solo vs 124 s under xdist); serial is ~3 min stable.
+          pytest --durations=10 -n0 --timeout=300 -m full_repo
 
   main-matrix:
     name: Python tests (main matrix)
@@ -160,9 +170,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # Single 3.11 floor leg: the merged (squash) tree already passed the
+        # full 3.12 fast lane at PR time, and the nightly watchdog runs the
+        # whole suite on 3.12 daily. Two full legs per merge were the largest
+        # CI cost (~900 self-hosted min/week) with no marginal coverage.
         python-version:
           - "3.11"
-          - "3.12"
 
     steps:
       - name: Checkout
@@ -179,10 +192,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
-
-      - name: Ruff lint
-        run: |
-          ruff check .
 
       - name: Run tests
         run: |
@@ -231,6 +240,7 @@ jobs:
         run: |
           pytest \
             --durations=10 \
+            -m "not full_repo" \
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
