@@ -1,0 +1,56 @@
+id: TASK-0963
+title: "Construct the T-truncated FRB exposure feature surface from the gated Catalog-1 pair"
+type: scientific_dataset
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "FRB campaign activation (2026-07-08, DEC-20260708-frb-campaign-activation): the D12 flagship chain toward PRED registration by end of July; this is step 1 of 3."
+  - "The TASK-0947 gate fixed all five leakage-safety conditions (GATE_PASS); construction inherits its stop conditions verbatim - any violation stops the task, it does not renegotiate the gate."
+  - "Any capable contributor lane may execute; no identity constraint applies (this is construction, not validation)."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md"
+    - "docs/reviews/frb-time-indexed-exposure-source-scout.md"
+    - "docs/reviews/frb-campaign-activation-20260708.md"
+    - "decisions/DEC-20260708-frb-campaign-activation.yaml"
+  planning_context: >
+    From the checksum-pinned Catalog-1 interval-bounded exposure pair at
+    epoch T=2019-07-02, build the pre-T exposure feature surface the model
+    stage will consume: per-source derived exposure features only (the
+    frozen rule's E_upper_hours / E_lower_hours inputs), deterministic
+    extraction with recorded checksums, committed as a compact derived
+    fixture - never raw NPZ bytes or bulk rows.
+
+requirements:
+  - "Verify both pinned files' byte counts and SHA-256 against the gate note before parsing; stop on any mismatch (gate stop condition 1)."
+  - "Epoch is exactly T=2019-07-02; features are limited to the gated pair - Catalog-2 full-window exposure, later morphology, and later associations are forbidden features (stop conditions 2-3)."
+  - "No label contact: labels are not read at this stage in any form (stop condition 4)."
+  - "Deterministic construction script + compact derived fixture with sha256 recorded; no raw NPZ bytes or bulk derived rows committed (stop condition 6)."
+  - "Feature definitions recorded in the fixture before values are computed - a procedural convention honestly labeled as such, not an enforceable blind."
+
+accepted_outputs:
+  - "The derived pre-T exposure fixture + construction script + tests + a short construction note with checksums."
+  - "Output-routing summary: leakage-safe feature surface for the freeze stage; no model, PRED, or claim content."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset-construction step of the activated chain; the scored artifact appears at the freeze/registration stages."
+  evidence:
+    - "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent

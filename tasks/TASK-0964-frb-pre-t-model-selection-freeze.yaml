@@ -1,0 +1,55 @@
+id: TASK-0964
+title: "Select and freeze the FRB repeater-propensity model on the pre-T feature surface"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Step 2 of the activated FRB chain (DEC-20260708-frb-campaign-activation): a frozen model over the TASK-0963 surface, scored ONLY by the gate's frozen rule, staged for PRED registration."
+  - "The freeze here is a model/contract freeze (inputs, features, scoring, comparators) - the PRED registration itself is step 3 and remains a maintainer-approved prediction_freeze (Class 2)."
+  - "Any capable contributor lane may execute; sequenced strictly after TASK-0963 merges."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md"
+    - "docs/reviews/frb-campaign-activation-20260708.md"
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+  planning_context: >
+    On the committed TASK-0963 fixture, define the candidate model set and
+    frozen comparators in a predeclared contract, evaluate with the gate's
+    frozen exposure-only scoring rule (score_pre_t = log1p(E_upper_hours +
+    E_lower_hours), E_hours = 4 * count / 3600 - verbatim, stop condition
+    5), select deterministically, and freeze the winning surface with
+    checksums, mirroring the NMD-0003 tier-1 freeze discipline.
+
+requirements:
+  - "Sequenced: starts only after TASK-0963 merges; input is its committed fixture (checksum verified)."
+  - "Contract (candidates, comparators, selection rule, scoring) is committed before any evaluation runs; the scoring rule is the gate's frozen formula verbatim and may not be modified (stop condition 5)."
+  - "No label contact beyond what the gate's repeat-reveal design permits at this stage: features stay pre-T; any label use for selection must match the gate note exactly or the task stops."
+  - "Frozen model surface committed with checksums and a deterministic replay command (Gate-B-safe shape per R4); honest routing if no candidate beats comparators."
+  - "No PRED registration, no claim, no reveal in this task."
+
+accepted_outputs:
+  - "The predeclared contract + frozen model surface + checksums + replay command + a freeze note."
+  - "Output-routing summary: model freeze staged for PRED registration; no prediction registered yet."
+
+result_artifact_policy:
+  required: false
+  reason: "Freeze-stage artifact; the registered predictions are produced in TASK-0965 under maintainer approval."
+  evidence:
+    - "docs/reviews/frb-campaign-activation-20260708.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent
