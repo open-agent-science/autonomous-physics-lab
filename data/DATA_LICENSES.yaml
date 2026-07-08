@@ -349,6 +349,31 @@ datasets:
     paths:
       - data/radio_transients/frb_catalog1_interval_exposure_pair_source_manifest.yaml
 
+  - id: chime-frb-catalog1-pre-t-exposure-feature-surface
+    source: "APL-derived CHIME/FRB Catalog 1 pre-T exposure feature surface at T=2019-07-02"
+    source_url: https://doi.org/10.11570/21.0007
+    license: "Public read access via CANFAR/CADC with citation request; no explicit source-byte redistribution license recorded"
+    redistribution_status: compact_derived_feature_fixture_with_attribution_no_source_bytes_vendored
+    citation_or_acknowledgement: >
+      Cite The CHIME/FRB Collaboration, The First CHIME/FRB Fast Radio
+      Burst Catalog, ApJS 257, 59 (2021), DOI
+      10.3847/1538-4365/ac33ab; dataset DOI 10.11570/21.0007.
+      The fixture also uses the checksum-pinned CHIME/FRB Catalog 2 CSV locator
+      for TNS names and coordinates only; cite The CHIME/FRB Collaboration, The
+      Second CHIME/FRB Catalog of Fast Radio Bursts, ApJS, DOI
+      10.3847/1538-4365/ae3828; dataset DOI 10.11570/25.0066.
+    evidence: >
+      TASK-0963 verifies the pinned Catalog 1 upper/lower NPZ byte counts and
+      SHA-256 checksums before parsing, verifies the pinned Catalog 2 CSV
+      checksum for source coordinates, and commits only a compact APL-derived
+      per-source feature surface. It vendors no NPZ, NPY, CSV, XML, HDF5, or
+      archive source bytes, reads no repeater label column, and registers no
+      prediction, result, claim, or knowledge artifact.
+    raw_artifact_vendored: false
+    provenance: data/radio_transients/frb_catalog1_interval_exposure_pair_source_manifest.yaml
+    paths:
+      - data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
+
   - id: antusch-hinze-saad-2026-mz-yukawa-extract
     source: "Antusch, Hinze, and Saad, Updated running quark and lepton parameters at various scales, Phys. Rev. D 113, 095011 (2026)"
     source_url: https://doi.org/10.1103/fdcc-ycph
