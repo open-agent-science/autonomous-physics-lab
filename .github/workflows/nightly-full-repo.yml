@@ -53,7 +53,9 @@ jobs:
 
       - name: Run full_repo smoke tests
         run: |
-          python -m pytest --durations=20 -m full_repo
+          # Serial on purpose: parallel repo-wide scans contend with the GP
+          # freeze recompute (55 s solo vs 124 s under xdist).
+          python -m pytest --durations=20 -n0 --timeout=300 -m full_repo
 
       - name: Strict validate repository artifacts
         run: |

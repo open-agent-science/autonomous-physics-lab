@@ -5,6 +5,10 @@ on:
     branches:
       - main
   pull_request:
+    # ready_for_review is NOT in the default trigger set; without it the
+    # draft-gated full_repo smoke would never fire when a PR flips
+    # draft -> ready without a new push.
+    types: [opened, synchronize, reopened, ready_for_review]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
@@ -125,6 +129,7 @@ jobs:
         run: |
           pytest \
             --durations=10 \
+            -m "not full_repo" \
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
@@ -152,7 +157,9 @@ jobs:
       - name: Run full_repo smoke tests (risk-relevant PRs)
         if: needs.classify.outputs.full_repo_risk == 'true' && github.event.pull_request.draft == false
         run: |
-          pytest --durations=10 -m full_repo
+          # -n0: repo-wide scans and the GP freeze recompute contend badly in
+          # parallel (55 s solo vs 124 s under xdist); serial is ~3 min stable.
+          pytest --durations=10 -n0 --timeout=300 -m full_repo
 
   main-matrix:
     name: Python tests (main matrix)

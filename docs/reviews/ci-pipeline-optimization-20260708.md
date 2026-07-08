@@ -54,6 +54,28 @@ latency improves without adding a runner (measured utilization was only
   collect; ruff clean.
 - The three touched tests pass locally (25.6 s, incl. both timeout-bumped
   smokes).
+## Refinements from an independent cross-check audit
+
+A second agent audit cross-checked this change and contributed three fixes
+applied in the follow-up commit:
+
+1. `pull_request` trigger gains `types: [opened, synchronize, reopened,
+   ready_for_review]` - without `ready_for_review` (absent from the default
+   set) the draft-gated smoke would never fire on a draft -> ready flip
+   that has no new push. This was a real gap in the first commit.
+2. Path-based pytest invocations ignore markers: the targeted docs/task
+   list includes `tests/test_validate_repo_auto_sync.py`, whose live
+   full_repo smoke was silently running in the docs lane and in the
+   board-sync pre-push step. Both invocations now carry
+   `-m "not full_repo"` (verified: 8/9 collected, live smoke deselected).
+3. Dedicated full_repo invocations (nightly + PR risk step) now run
+   `-n0 --timeout=300`: parallel repo-wide scans contend with the GP freeze
+   recompute (measured 55 s solo vs 124 s under xdist); serial is ~3 min
+   and stable.
+
+The cross-check also independently confirmed the stale findings, the
+nightly root cause, and the caution against `fetch-depth: 2` (kept out).
+
 - Follow-up candidates (not in this PR): uv-based env builds (~6 installs
   per PR), `fetch-depth: 2` in classify, a `ci-full` label to force the
   smoke on a draft.

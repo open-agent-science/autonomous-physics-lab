@@ -102,6 +102,7 @@ jobs:
         run: |
           python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
           pytest -q \
+            -m "not full_repo" \
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
