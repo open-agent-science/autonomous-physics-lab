@@ -21,6 +21,7 @@ basis:
   - "queue-throttle: REVIEW_READY = 7 (< 8), READY 4 -> 12 (12-16 band); evidence commands recorded in docs/reviews/science-wave-20260708.md"
   - "artifact quota: 4 of 8 seeded tasks produce dataset/result artifacts (critic-verified against accepted_outputs)"
   - "standing directives respected: no atomic/muon/interval-freeze/formula-search; R4 identity routing on TASK-0959"
+  - "ThermoML governance: TASK-0955 is gated on the dedicated TASK-0940 Class 2 decision and inherits its LIMITED_FACTUAL_EXTRACT scope; this queue PR does not itself approve rights or external publication"
 
 agent_quorum:
   director_agent:
@@ -54,15 +55,15 @@ devils_advocate:
     ordering; predeclaration vocabulary overstated enforceability.
   why_rejected: >-
     Not rejected - CURED before merge, exactly as the advocate proposed:
-    the Option A tick was reverted out of this PR and travels in its own
-    dedicated maintainer PR with its Class 2 stub; TASK-0961 was rescoped
-    to draft proposals for maintainer adoption; TASK-0960 gained the
-    execute-last ordering; TASK-0957's authorization wording was corrected
-    to the general Gate A rule; TASK-0958's predeclaration wording now
-    names itself a procedural convention; the wave memo gained throttle
-    evidence pointers. The advocate explicitly judged the 8-task top-up
-    itself not blocked (cadence ~10 merges/day, band respected, akutenyov
-    reservations honored).
+    the Option A tick was reverted out of this PR and traveled in its own
+    dedicated maintainer PR with its Class 2 stub; TASK-0955 now inherits
+    that decision's LIMITED_FACTUAL_EXTRACT scope; TASK-0961 was rescoped to
+    draft proposals for maintainer adoption; TASK-0960 gained the execute-last
+    ordering; TASK-0957's authorization wording was corrected to the general
+    Gate A rule; TASK-0958's predeclaration wording now names itself a
+    procedural convention; the wave memo gained throttle evidence pointers.
+    The advocate explicitly judged the 8-task top-up itself not blocked
+    (cadence ~10 merges/day, band respected, akutenyov reservations honored).
   escalation_required: false
 
 veto:

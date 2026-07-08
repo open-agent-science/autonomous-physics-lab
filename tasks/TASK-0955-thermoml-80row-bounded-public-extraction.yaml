@@ -8,8 +8,9 @@ priority: high
 
 strategy_alignment:
   - "Decision Day #2 D2-2 pre-approval: once the maintainer records Option A in the TASK-0940 packet, the extraction lane is approved without a second decision; the Option A signature travels in its own dedicated maintainer PR (not this wave), so the Class 2 rights decision has its own reviewable surface."
-  - "The extraction converts the ThermoML campaign from memo output back to dataset artifacts: a public, attributed, replayable 80-row Tb fixture doubling the current 40-row surface."
-  - "Hard ceiling and facts-basis wording come verbatim from the frozen TASK-0895 contract; this task adds rows, not claims."
+  - "TASK-0940 records Option A only as a LIMITED_FACTUAL_EXTRACT: Tb-only, max 80 public factual rows, max five rows per identifiable source article, no source/archive/XML/JSON bytes, no normalized ThermoML corpus, and no Zenodo or other external dataset release."
+  - "The extraction converts the ThermoML campaign from memo output back to a small dataset artifact: a public, attributed, replayable 80-row Tb fixture doubling the current 40-row surface without becoming a substitute ThermoML corpus."
+  - "Hard ceiling and facts-basis wording come from the frozen TASK-0895 contract and the TASK-0940 maintainer decision; this task adds rows, not claims."
 
 input:
   mode: workflow
@@ -20,23 +21,27 @@ input:
     - "data/thermophysical/source_manifest.yaml"
     - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
   planning_context: >
-    Execute Option A of the decision packet: one public, attributed,
-    maximum 80-row Tb factual fixture extracted deterministically from the
-    pinned ThermoML archive under the TASK-0895 contract (facts-basis
-    redistribution, full attribution, per-row provenance). The Joback
-    transfer benchmark rerun on the widened fixture is a separate follow-up
-    task, not this one.
+    Execute Option A of the decision packet as a LIMITED_FACTUAL_EXTRACT: one
+    public, attributed, maximum 80-row Tb factual fixture extracted
+    deterministically from the pinned ThermoML archive under the TASK-0895
+    contract and TASK-0940 maintainer scope. The fixture is outside the
+    repository license boundary and must not include source/archive/XML/JSON
+    bytes, a normalized ThermoML corpus, benchmark metrics, or any external
+    dataset release. The Joback transfer benchmark rerun on the widened fixture
+    is a separate follow-up task, not this one.
 
 requirements:
-  - "Before extracting, verify the Option A checkbox is recorded in the decision packet (Exact Maintainer Selection); stop if it is not."
-  - "Deterministic extraction script from the pinned archive (recorded checksums before parsing); hard ceiling of 80 rows; per-row source provenance; byte-stable fixture output with sha256 recorded."
-  - "Update data/DATA_LICENSES.yaml for the widened fixture per the facts-basis precedent (post-AME2020 holdout entry), with citation and redistribution basis verbatim from the contract."
+  - "Before extracting, verify the Option A checkbox is recorded in the decision packet (Exact Maintainer Selection) and that the Class 2 decision stub scope is approve_option_a_limited_factual_extract; stop if either condition is absent."
+  - "Deterministic extraction script from the pinned archive (recorded checksums before parsing); hard ceiling of 80 Tb rows; maximum five rows from any identifiable source article; per-row source DOI/member or locator, attribution, uncertainty, duplicate/conflict metadata, and archive provenance; byte-stable fixture output with sha256 recorded."
+  - "Commit no ThermoML archive bytes, extracted XML/JSON/source members, copied source table layout, article text, figures, large normalized candidate table, or normalized ThermoML corpus."
+  - "Update data/DATA_LICENSES.yaml for the widened fixture with covered_by_repo_license: false, reuse_status: limited_factual_extract_with_attribution, source DOI/publication citation, and redistribution boundary wording from the contract."
   - "Tests: fixture schema, row count ceiling, checksum stability; validate-repo strict green."
-  - "Tb-only and no-claim wording; no Joback metric rerun, no RESULT/CLAIM change, no chemical design or safety wording."
+  - "Tb-only and no-claim wording; no Joback metric rerun, no RESULT/CLAIM/KNOW promotion, no chemical design or safety wording."
+  - "Do not prepare or publish a Zenodo upload or any other external dataset release for this fixture; any expansion beyond 80 rows, any relaxation of the five-row source-article cap, or any external publication requires a new maintainer-only rights decision."
 
 accepted_outputs:
-  - "The 80-row public fixture + extraction script + DATA_LICENSES update + tests + a short extraction note with checksums."
-  - "Output-routing summary: reusable dataset artifact; no benchmark metric or claim change."
+  - "The 80-row public fixture + extraction script + DATA_LICENSES update + tests + a short extraction note with checksums and the limited-factual-extract rights boundary."
+  - "Output-routing summary: reusable dataset artifact inside the repository only; no benchmark metric, external dataset release, or claim change."
 
 result_artifact_policy:
   required: false

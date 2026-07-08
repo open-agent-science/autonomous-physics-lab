@@ -11,16 +11,19 @@
   (queue_top_up, class 1, dry-run; quorum + devil's advocate recorded).
 - The ThermoML Option A signature is deliberately NOT in this PR: the
   devil's advocate blocked bundling a Class 2 data-rights decision inside
-  a composite wave diff, so the tick + its decision stub travel in a
-  dedicated one-surface maintainer PR. TASK-0955 stays gated on that
-  signature (its executor stops if the box is unticked).
+  a composite wave diff, so the tick + its decision stub traveled in a
+  dedicated one-surface maintainer PR (#1428). TASK-0955 stays gated on
+  that signature and inherits its `LIMITED_FACTUAL_EXTRACT` scope: Tb-only,
+  max 80 rows, max five rows per identifiable source article, no source
+  bytes/XML/JSON/corpus, no benchmark metric in the extraction task, and no
+  Zenodo or other external dataset release.
 - Non-claims: seeding only; no RESULT/PRED/CLAIM/KNOW change in this PR.
 
 ## Composition (artifact quota: 4 of 8 produce dataset/result artifacts)
 
 | Task | Lane | Output class | Priority |
 | --- | --- | --- | --- |
-| TASK-0955 | ThermoML 80-row bounded public extraction (Option A) | dataset artifact | high |
+| TASK-0955 | ThermoML 80-row limited factual extract (Option A) | dataset artifact | high |
 | TASK-0956 | CLAIM-0005 evidence refresh (RESULT-0020 independent Gate B) | claim layer (no status change) | high |
 | TASK-0957 | ZnSe contract transfer -> canonical Gate A RESULT (honest FAIL) | result artifact | high |
 | TASK-0958 | First common-scheme baseline metric on the pinned AHS table | benchmark artifact | medium |
