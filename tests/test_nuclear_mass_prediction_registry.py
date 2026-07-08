@@ -20,6 +20,7 @@ from physics_lab.engines.nuclear_masses import (
 )
 from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
 from physics_lab.registry.validation import infer_kind_from_path
+from apl_test_helpers import _repo_root
 
 
 FITTED_SEMI_EMPIRICAL_COEFFICIENTS = SemiEmpiricalCoefficients(
@@ -82,10 +83,6 @@ SHELL_AXIS_SIGMA = 2.0
 SHELL_AXIS_BETA_Z = 1.1627358253653952
 SHELL_AXIS_BETA_ZN = 1.754815105523876
 SHELL_AXIS_BETA_N = 1.604907172943232
-
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
 
 
 def _template_path() -> Path:

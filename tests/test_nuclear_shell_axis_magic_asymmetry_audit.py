@@ -6,8 +6,8 @@ import importlib.util
 import json
 from pathlib import Path
 
-import pytest
 import yaml
+from apl_test_helpers import _assert_nested_close
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -24,25 +24,6 @@ def _load_magic_axis_module():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
-
-
-def _assert_nested_close(actual, expected, *, abs_tol: float = 1.0e-12) -> None:
-    if isinstance(expected, dict):
-        assert isinstance(actual, dict)
-        assert set(actual) == set(expected)
-        for key in expected:
-            _assert_nested_close(actual[key], expected[key], abs_tol=abs_tol)
-        return
-    if isinstance(expected, list):
-        assert isinstance(actual, list)
-        assert len(actual) == len(expected)
-        for actual_item, expected_item in zip(actual, expected):
-            _assert_nested_close(actual_item, expected_item, abs_tol=abs_tol)
-        return
-    if isinstance(expected, float):
-        assert actual == pytest.approx(expected, abs=abs_tol, rel=0.0)
-        return
-    assert actual == expected
 
 
 def test_magic_axis_audit_runner_imports_cleanly() -> None:

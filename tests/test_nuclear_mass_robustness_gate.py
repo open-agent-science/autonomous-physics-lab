@@ -1,14 +1,10 @@
 from __future__ import annotations
 
-from pathlib import Path
 
 import yaml
 
 from physics_lab.registry.task_discovery import find_task_file
-
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from apl_test_helpers import _repo_root
 
 
 def test_nuclear_robustness_gate_defines_required_checks() -> None:

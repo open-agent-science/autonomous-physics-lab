@@ -1,0 +1,69 @@
+id: EXP-PROPOSAL-0085
+title: "Run the AHS common-scheme geometric-midpoint baseline"
+campaign_profile_id: particle-mass-relations
+proposal_kind: audit
+status: REVIEW_READY
+claim_ceiling: "Sandbox descriptive benchmark only; no canonical result, formula law, BSM interpretation, claim, or knowledge artifact."
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+  task_id: TASK-0958
+input_references:
+  - hypothesis_proposals/particle-mass-relations/HYP-PROPOSAL-0085-ahs-geometric-midpoint-baseline.yaml
+  - examples/benchmarks/particle_ahs_common_scheme_baseline.yaml
+  - data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml
+question: "What are the two sector-level log-spacing residuals and their descriptive aggregates when the middle Yukawa is compared with the geometric mean of the light and heavy Yukawas on the pinned AHS common-scheme surface?"
+method:
+  summary: "Verify the pinned source checksum and exact running_yukawa/MS-bar/M_Z/dimensionless surface, require the six expected positive entries, then apply the frozen zero-parameter geometric-midpoint baseline separately to u-c-t and d-s-b and aggregate the signed log10 residuals without a quality threshold."
+  code_references:
+    - physics_lab/engines/particle_common_scheme_baseline.py
+    - scripts/run_particle_ahs_common_scheme_baseline.py
+  commands:
+    - "python scripts/run_particle_ahs_common_scheme_baseline.py --config examples/benchmarks/particle_ahs_common_scheme_baseline.yaml --output-dir agent_runs/AGENT-RUN-0091"
+  parameters:
+    metric_id: geometric_midpoint_log10_residual_dex
+    up_type_order: [y_u, y_c, y_t]
+    down_type_order: [y_d, y_s, y_b]
+    success_threshold: null
+inputs:
+  datasets:
+    - data/particle_masses/source_artifacts/antusch-hinze-saad-2026/equation-2.4-2024-pdg-mz-yukawas.yaml
+  constants: []
+  prior_results: []
+  assumptions:
+    - "The committed AHS rows are the only numerical input; no live fetch occurs."
+    - "Predeclaration is a procedural convention because the committed values are visible."
+    - "Missing covariance prevents an uncertainty-significance interpretation."
+outputs:
+  sandbox_output_paths:
+    - agent_runs/AGENT-RUN-0091/
+  metrics:
+    - "Per-sector predicted middle Yukawa and signed/absolute residual in dex."
+    - "Aggregate MAE, RMSE, signed mean, and maximum absolute residual in dex."
+  plots: []
+  notes:
+    - docs/reviews/particle-ahs-common-scheme-baseline.md
+validation:
+  pass_condition: "Source and metric-contract preflight pass, outputs are deterministic, and both sectors plus all aggregates are emitted."
+  fail_condition: "Any input identity, common-scheme surface, expected-flavor, positivity, contract, or deterministic replay mismatch blocks publication."
+  baseline_or_reference: "Null descriptive baseline within each ordered sector: y_middle_baseline = sqrt(y_light * y_heavy)."
+  expected_failure_modes:
+    - "Large or oppositely signed sector residuals show that equal log spacing is not a uniform descriptive approximation."
+    - "The tiny two-sector sample cannot justify a general quality floor."
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No quark-mass law, Koide relation, BSM evidence, discovery, prediction, or statistical-significance wording."
+  mitigations:
+    - "Sandbox-only output and INCONCLUSIVE verdict."
+    - "No fit, threshold, covariance synthesis, or source-row mutation."
+limitations:
+  - "Two charge sectors from one source surface only."
+  - "The baseline is descriptive and zero-parameter, not a physical model."
+  - "No covariance-aware inference."
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review the benchmark as bounded descriptive sandbox evidence and preserve the no-claim ceiling."
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Separate maintainer-approved work is required for any RESULT packaging or broader comparison."
