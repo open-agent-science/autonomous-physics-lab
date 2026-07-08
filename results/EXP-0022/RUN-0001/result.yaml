@@ -1,0 +1,162 @@
+result_id: RESULT-0029
+run_id: RUN-0001
+experiment_id: EXP-0022
+title: Quantum ZnSe no-refit contract transfer inconclusive control result
+hypothesis_id: HYP-0022
+task_id: TASK-0957
+generated_at: '2026-07-08T00:00:00+00:00'
+engine_version: 0.2.0
+git_commit: 9aeb17675d130476bd3fe2588844b821af1bd861
+command: python -m physics_lab.cli run examples/quantum_znse_contract_transfer_result.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0022/RUN-0001/inputs/config.yaml
+    sha256: 35331369732092f359270b89cd21c232e323ffbfc8347ffdc23951b24e35db41
+  fixture:
+    path: results/EXP-0022/RUN-0001/inputs/fixture.yaml
+    sha256: 3616cb981f07b7fe651bb1654cc08a3c93e1baf2959fa969a859590e35279a1f
+  experiment:
+    path: results/EXP-0022/RUN-0001/inputs/experiment.yaml
+    sha256: 601836770b323af355fad3b32a1ad0d9e0974cc718c25f0ed15e2ab867495291
+  hypothesis:
+    path: results/EXP-0022/RUN-0001/inputs/hypothesis.yaml
+    sha256: bc83c7f39d904ffe29db226177725d038d504aa915db8351bfb8faa286a22e44
+  task:
+    path: results/EXP-0022/RUN-0001/inputs/task.yaml
+    sha256: 3c912784888001335b998fc5c521baefa1c25374bb7fb0a43be42dd3cefbcd4b
+code_reference: physics_lab/workflows/quantum_znse_contract_transfer.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- Scope is the TASK-0914 frozen two-material direct-size transfer contract only.
+- Primary judge is InP calibration to ZnSe holdout on equivalent diameter; secondary
+  routes cannot change the verdict.
+- The transferred model beats the best control but misses the frozen 0.05 eV margin
+  by 0.00341632 eV.
+- Bulk gaps and the InP edge-to-equivalent-diameter conversion are fixed inputs, not
+  fitted.
+- No refit, correction search, threshold relaxation, effective-mass rescue, new row,
+  source-byte redistribution, prediction, CLAIM, or KNOW artifact is created.
+- No quantum-dot size law, material recommendation, device-performance guidance, biomedical
+  wording, or design claim is made.
+best_model_id: model_inp_no_refit_confinement_power_law
+best_verdict: INCONCLUSIVE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INCONCLUSIVE
+  published_by:
+    contributor_id: gladunrv
+    github_username: gladunrv
+    agent_tool: Codex
+    model_version: GPT-5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: The workflow verifies the TASK-0914 frozen contract fixture, recomputes
+    the AGENT-RUN-0090 metrics with the committed quantum transfer engine, and preserves
+    the primary +0.04658368 eV margin as FAIL_TO_CLEAR_PREDECLARED_MARGIN under the
+    frozen 0.05 eV rule.
+  followup_for_maintainer: 'Keep the AGENT_PUBLISHED qualifier explicit. Gate B next
+    step: an independent agent can replay the recorded physics_lab.cli run command.'
+verification:
+  passed: true
+  checks:
+  - name: contract_fixture_gate
+    status: PASS
+    details: The TASK-0914 frozen row ids, source dataset hashes, bulk gaps, shuffle
+      seed, and margin are verified before metrics are packaged.
+    metrics:
+      inp_row_count: 6
+      znse_row_count: 10
+      required_margin_ev: 0.05
+      shuffle_seed: 842
+      source_agent_run_id: AGENT-RUN-0090
+  - name: agent_run_0090_metric_reproduction
+    status: PASS
+    details: The workflow reproduces AGENT-RUN-0090 headline metrics exactly within
+      1e-9 tolerance.
+    metrics:
+      primary_transfer_mae_ev: 0.09921632
+      primary_best_control_mae_ev: 0.1458
+      primary_margin_ev: 0.04658368
+      expected_primary_margin_ev: 0.04658368
+  - name: frozen_margin_outcome
+    status: PASS
+    details: The primary model beats both controls but falls short of the frozen 0.05
+      eV margin, preserving FAIL_TO_CLEAR_PREDECLARED_MARGIN.
+    metrics:
+      primary_clears_predeclared_margin: false
+      margin_shortfall_ev: 0.00341632
+      contract_survival_outcome: FAIL_TO_CLEAR_PREDECLARED_MARGIN
+      best_verdict: INCONCLUSIVE
+  - name: no_refit_or_rescue
+    status: PASS
+    details: The engine fits C and n on the calibration material only; no target-material
+      refit, threshold relaxation, correction search, or secondary-route rescue is
+      performed.
+    metrics:
+      no_refit: true
+      no_correction_search: true
+      no_post_hoc_threshold_change: true
+      secondary_reverse_margin_ev: 0.100125421
+  - name: source_boundary
+    status: PASS
+    details: The workflow uses committed curated factual rows only and vendors no
+      publisher source bytes, figures, screenshots, or table images.
+    metrics:
+      source_bytes_committed: false
+      inp_dataset_sha256: 9501499584735094aba1a3243d4329969e0d9fe09e9bbc156c677c8408189077
+      znse_dataset_sha256: 78332c1cb95f20c18dafd0a2eefd4ae3cd654e8732fb1ff6ec8e546f004cf4e8
+comparison_summary:
+- target_id: target_primary_margin_threshold
+  label: Primary InP-to-ZnSe transfer margin versus the predeclared survival threshold
+  reference_value: 0.05
+  observed_value: 0.04658368
+  unit: eV
+  absolute_difference: 0.00341632
+  relative_difference: 0.0683264
+  notes: The primary margin is positive but below the frozen threshold, so the contract
+    fails to clear.
+- target_id: target_primary_transfer_control_mae
+  label: Primary transferred-model MAE versus best required control MAE
+  reference_value: 0.1458
+  observed_value: 0.09921632
+  unit: eV
+  absolute_difference: 0.04658368
+  relative_difference: 0.319503978
+  notes: Lower MAE is better; this margin is not large enough to clear the predeclared
+    rule.
+- target_id: target_secondary_reverse_margin
+  label: Secondary ZnSe-to-InP margin versus the same survival threshold
+  reference_value: 0.05
+  observed_value: 0.100125421
+  unit: eV
+  absolute_difference: 0.050125421
+  relative_difference: 1.00250842
+  notes: The reverse direction clears, but it is secondary and cannot change the primary
+    verdict.
+uncertainty_summary:
+  method: deterministic_contract_control_comparison_no_predictive_interval
+  observed_uncertainty: null
+  reference_uncertainty: null
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: This no-refit transfer contract reports deterministic MAE/control margins,
+    not calibrated predictive intervals.
+artifacts:
+  report: results/EXP-0022/RUN-0001/report.md
+  metrics: results/EXP-0022/RUN-0001/metrics.json
+  claim_update: results/EXP-0022/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0022/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0022/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0022/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0022/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0022/RUN-0001/review_metadata.yaml

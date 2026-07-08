@@ -44,12 +44,17 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import sys
 from typing import Any
 
 import yaml
 
-from physics_lab import __version__
-from physics_lab.engines.quantum_cross_material_transfer import (
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from physics_lab import __version__  # noqa: E402
+from physics_lab.engines.quantum_cross_material_transfer import (  # noqa: E402
     BULK_GAP_EV,
     REQUIRED_MARGIN_EV,
     SHUFFLE_SEED,
@@ -58,9 +63,7 @@ from physics_lab.engines.quantum_cross_material_transfer import (
     load_znse_rows,
     run_cross_material_transfer,
 )
-from physics_lab.workflows.artifacts import git_commit
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
+from physics_lab.workflows.artifacts import git_commit  # noqa: E402
 
 TASK_ID = "TASK-0920"
 CONTRACT_TASK_ID = "TASK-0914"

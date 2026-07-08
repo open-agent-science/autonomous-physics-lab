@@ -1,0 +1,40 @@
+id: EXP-0022
+title: "Quantum ZnSe no-refit contract transfer"
+domain: quantum_size_effects
+status: COMPLETED
+
+hypothesis_id: HYP-0022
+
+method:
+  type: contract_transfer_benchmark
+  simulator: quantum_cross_material_transfer
+  comparator: inp_frozen_power_law_vs_per_material_mean_and_shuffled_size_controls
+
+data:
+  dataset_path: ../data/quantum_dots/znse_no_refit_transfer_contract_fixture.yaml
+  dataset_kind: quantum_dot_no_refit_transfer_contract_fixture
+  benchmark_scope: "TASK-0914 frozen two-material direct-size confinement transfer only: InP calibration rows from qd-0003, ZnSe holdout rows from qd-0004, equivalent-diameter primary framing, fixed bulk gaps, no refit, no correction search."
+  expected_item_count: 16
+  sample_axes:
+    - InP direct TEM edge-length calibration rows
+    - ZnSe direct SAXS diameter holdout rows
+    - equivalent_diameter primary transfer axis
+    - confinement_ev residual axis
+  notes: "This experiment identity exists to package AGENT-RUN-0090 as a canonical Gate A RESULT under TASK-0957. It preserves the FAIL_TO_CLEAR_PREDECLARED_MARGIN outcome exactly; no row, threshold, framing, or model parameter is changed."
+
+comparison_targets:
+  - id: target_primary_margin_threshold
+    label: "Primary InP-to-ZnSe transfer margin versus the predeclared 0.05 eV survival threshold"
+    reference_value: 0.05
+    unit: eV
+    notes: "Committed AGENT-RUN-0090 margin is +0.04658368 eV, below this frozen threshold."
+  - id: target_primary_best_control_mae
+    label: "Primary transferred-model MAE compared with the best required control MAE"
+    reference_value: 0.1458
+    unit: eV
+    notes: "Best control is per_material_mean on the held-out ZnSe confinement values; lower MAE is better."
+  - id: target_secondary_reverse_margin
+    label: "Secondary ZnSe-to-InP margin, reported only as a diagnostic that cannot change the primary verdict"
+    reference_value: 0.05
+    unit: eV
+    notes: "The reverse direction clears, but the TASK-0914 contract makes it secondary only."

@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0022-quantum-znse-no-refit-transfer.yaml
+hypothesis_path: ../hypotheses/HYP-0022-quantum-znse-no-refit-transfer.yaml
+task_id: TASK-0957
+run_id: RUN-0001
+result_id: RESULT-0029
+result_root: ../results/EXP-0022
+workflow: quantum_znse_contract_transfer_result
