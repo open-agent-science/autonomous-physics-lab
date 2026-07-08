@@ -53,9 +53,11 @@ jobs:
 
       - name: Run full_repo smoke tests
         run: |
-          # Serial on purpose: parallel repo-wide scans contend with the GP
-          # freeze recompute (55 s solo vs 124 s under xdist).
-          python -m pytest --durations=20 -n0 --timeout=300 -m full_repo
+          # Parallel: a serial (-n0) attempt was 5-7x slower on CI hardware
+          # than the contended parallel run; the explicit 300 s per-test
+          # timeout (vs the 60 s global default) absorbs contention-inflated
+          # test times, which is what actually broke this job on 2026-07-08.
+          python -m pytest --durations=20 --timeout=300 -m full_repo
 
       - name: Strict validate repository artifacts
         run: |
