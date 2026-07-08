@@ -1,0 +1,55 @@
+id: TASK-0961
+title: "Run the one-shot scientific ledger hygiene batch: hypothesis outcomes, EXP-0019, knowledge entries for four domains"
+type: docs_protocol
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The 2026-07-06 audit: 18 of 20 hypotheses sit at TESTING even where the line is finished (HYP-0007/0008 falsified in May, HYP-0006 has two VALID results), EXP-0019 is COMPLETED with no canonical result, and the knowledge layer has no entries for four of five active domains - a public ledger that misinforms readers about which lines are live."
+  - "This is honest status accounting, not science change: every status flip must cite the existing result that justifies it."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+  planning_context: >
+    One bounded batch: (1) sync hypothesis statuses to outcomes
+    (VALIDATED/FALSIFIED/INCONCLUSIVE) with the supporting RESULT ids cited
+    per flip; (2) resolve the EXP-0019 completed-without-result
+    inconsistency honestly (status note referencing the TASK-0875 quality
+    floor hold); (3) prepare DRAFT knowledge-entry proposals (docs/reviews packet, not
+    KNOW-* files) for materials (MD-0002 incl. the Zenodo DOI), stellar
+    M-L, ThermoML Tb, and exoplanet snapshots - KNOW creation is Class 2 /
+    maintainer-only under the promotion protocol, so this task drafts and
+    the maintainer adopts.
+
+requirements:
+  - "Every hypothesis status change cites the RESULT id(s) and verdicts that justify it; anything ambiguous stays TESTING with a one-line reason."
+  - "EXP-0019 gets an explicit resolution note, not a silent status edit."
+  - "Knowledge content is delivered as a draft-proposals packet under docs/reviews for maintainer adoption (KNOW-* creation is maintainer-only per the promotion protocol Gate C and autonomy policy Class 2); proposals use no-claim wording and correct review-tier qualifiers incl. validation independence."
+  - "If TASK-0955 lands first, the ThermoML draft must describe the 80-row fixture; whichever of the two lands second reconciles the fixture description."
+  - "No metric, verdict, claim-status, or PRED change; knowledge endorsement semantics stay maintainer-only (entries are descriptive, not endorsements)."
+
+accepted_outputs:
+  - "The synced hypothesis ledger, the EXP-0019 resolution, the four-domain draft knowledge-proposals packet, and a hygiene note listing every flip with its evidence."
+  - "Output-routing summary: ledger status accounting; no scientific content change."
+
+result_artifact_policy:
+  required: false
+  reason: "Status hygiene and knowledge documentation; no result or prediction artifact."
+  evidence:
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

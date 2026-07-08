@@ -1,0 +1,51 @@
+id: TASK-0958
+title: "Run the first common-scheme baseline metric on the pinned AHS quark mass table"
+type: scientific_benchmark
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0926 (Decision Day #2 D6) pinned the AHS quark source table with tests precisely so a common-scheme metric could run on committed bytes; no metric has run yet - the pin is unspent value."
+  - "A bounded baseline metric turns the particle lane from source curation into benchmark evidence without any formula search or claim."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Define and compute one bounded, deterministic common-scheme baseline
+    metric over the TASK-0926 pinned AHS table (for example: scheme-consistent
+    mass-ratio residuals against a frozen naive baseline), from committed
+    bytes only, with a fixture and replayable engine workflow. Locate the
+    pinned table and its tests from the TASK-0926 record before starting;
+    the metric definition must be predeclared in the run fixture before
+    values are computed.
+
+requirements:
+  - "Input is the committed pinned AHS table only (no fetches); record its checksum in the run fixture."
+  - "Record the metric and any baseline in the fixture before computing values; note honestly that this is a procedural convention, not an enforceable blind (the input table is committed and readable) - do not borrow reveal-discipline vocabulary."
+  - "Route the outcome honestly (benchmark diagnostic); no BSM, no formula search, no claim or knowledge change."
+  - "Gate A packaging optional in this task: sandbox agent-run output is acceptable if the quality floor is uncertain - state the routing decision explicitly."
+
+accepted_outputs:
+  - "A deterministic run (agent-run or Gate A RESULT, routing stated) with predeclared metric, fixture, checksums, and a short benchmark note."
+  - "Output-routing summary: bounded benchmark diagnostic; no claim impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Routing (sandbox agent-run vs canonical RESULT) is decided in-task against the quality floor; the note records the decision."
+  evidence:
+    - "docs/result-promotion-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

@@ -1,0 +1,51 @@
+id: TASK-0956
+title: "Refresh CLAIM-0005 evidence to cite RESULT-0020 (74/74, independently Gate-B-validated)"
+type: docs_protocol
+status: READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "CLAIM-0005 still cites only the 50-item DA-CHALLENGE-001 evidence (98%, RESULT-0007) while the stronger frozen_live_74 replay (100% agreement, RESULT-0020) has existed since mid-June and is now AGENT_VALIDATED with validation_independence: independent (TASK-0948, akutenyov)."
+  - "Under the promotion protocol's Validation Independence rule, future Gate C promotion must cite an independent replay - RESULT-0020 now satisfies that; this refresh stages the claim for the maintainer's Gate C without changing its status."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Update the claim's evidence list and statement to include RESULT-0020
+    (74-item frozen_live_74 challenge, agreement_fraction 1.0, review_tier
+    AGENT_VALIDATED, validation_independence independent, replayed by
+    akutenyov/Codex). The claim status stays DRAFT: promotion to SUPPORTED
+    is the maintainer's Gate C decision, explicitly out of scope here.
+
+requirements:
+  - "Add RESULT-0020 to the claim evidence with the exact metrics and the independence record; keep RESULT-0007 as historical evidence."
+  - "Statement/scope wording may be tightened to reflect the 74-item evidence but must not strengthen the scientific claim beyond validator-agreement semantics."
+  - "No status change (DRAFT stays DRAFT); no review_tier, metric, or knowledge change; note in the claim that Gate C promotion now has an independent-replay basis available."
+  - "No wording that dimensional validity implies physical correctness."
+
+accepted_outputs:
+  - "The refreshed claim file plus a one-paragraph review note referencing the independence record."
+  - "Output-routing summary: claim evidence refresh only; status unchanged; Gate C remains maintainer-only."
+
+result_artifact_policy:
+  required: false
+  reason: "Claim documentation refresh; no result or prediction artifact is produced."
+  evidence:
+    - "results/EXP-0006/RUN-0007/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

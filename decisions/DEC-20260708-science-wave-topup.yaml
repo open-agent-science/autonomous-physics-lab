@@ -1,0 +1,78 @@
+# Second live dry-run packet under policy v0. The devil's advocate raised a
+# blocking objection to BUNDLING (the ThermoML Option A tick inside this
+# wave PR); the cure was applied before review: the Class 2 signature was
+# unbundled into its own dedicated maintainer PR, and five secondary issues
+# were fixed in the task cards. The top-up itself was judged not blocked.
+decision_id: DEC-20260708-science-wave-topup
+decision_type: queue_top_up
+autonomy_class: class_1_lazy_consensus
+reversibility: reversible
+external_exposure: none
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: seed_eight_task_artifact_weighted_wave
+basis:
+  - "queue-throttle: REVIEW_READY = 7 (< 8), READY 4 -> 12 (12-16 band); evidence commands recorded in docs/reviews/science-wave-20260708.md"
+  - "artifact quota: 4 of 8 seeded tasks produce dataset/result artifacts (critic-verified against accepted_outputs)"
+  - "standing directives respected: no atomic/muon/interval-freeze/formula-search; R4 identity routing on TASK-0959"
+  - "ThermoML governance: TASK-0955 is gated on the dedicated TASK-0940 Class 2 decision and inherits its LIMITED_FACTUAL_EXTRACT scope; this queue PR does not itself approve rights or external publication"
+
+agent_quorum:
+  director_agent:
+    vote: approve
+    agent_id: scientific-campaign-director
+    vendor: anthropic
+    agent_tool: Claude Code
+    model_version: Fable 5
+    session_id: director-session-b1113fba
+  critic_agent:
+    vote: approve
+    agent_id: critic-subagent
+    vendor: anthropic
+    agent_tool: Claude Code (general-purpose subagent)
+    model_version: Fable 5
+    session_id: critic-session-a299fac3
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Split the wave into two PRs: the pure queue top-up, plus a dedicated
+    one-surface maintainer PR carrying the ThermoML Option A tick and its
+    Class 2 decision stub.
+  strongest_objection: >-
+    As originally drafted, the wave PR bundled a Class 2 data-rights
+    decision (agent-ticked Option A checkbox with merge-as-signature)
+    inside a composite 10-file diff, with the decision stub cited but not
+    yet existing - a governance smell the dry-run policy exists to prevent.
+    Secondary: TASK-0961 authorized agent-side KNOW creation
+    (maintainer-only per Gate C); 0957/0959/0960 needed an execution
+    ordering; predeclaration vocabulary overstated enforceability.
+  why_rejected: >-
+    Not rejected - CURED before merge, exactly as the advocate proposed:
+    the Option A tick was reverted out of this PR and traveled in its own
+    dedicated maintainer PR with its Class 2 stub; TASK-0955 now inherits
+    that decision's LIMITED_FACTUAL_EXTRACT scope; TASK-0961 was rescoped to
+    draft proposals for maintainer adoption; TASK-0960 gained the execute-last
+    ordering; TASK-0957's authorization wording was corrected to the general
+    Gate A rule; TASK-0958's predeclaration wording now names itself a
+    procedural convention; the wave memo gained throttle evidence pointers.
+    The advocate explicitly judged the 8-task top-up itself not blocked
+    (cadence ~10 merges/day, band respected, akutenyov reservations honored).
+  escalation_required: false
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: agent_quorum
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null

@@ -1,0 +1,53 @@
+id: TASK-0957
+title: "Package the ZnSe no-refit contract transfer (AGENT-RUN-0090) as a canonical Gate A RESULT"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The D8 arc ended with a pre-registered borderline FAIL (margin +0.046584 eV vs the 0.05 eV predeclared threshold, TASK-0920/AGENT-RUN-0090) that lives only as sandbox memory; canonical negative/control results are exactly the honest-evidence class APL preserves."
+  - "This is the explicit canonical-promotion task that sandbox evidence requires; authorization rests on the promotion protocol general Gate A rule (agent-autonomous result publication), not on D8 - the D8 arc approved the contract run, and this task packages its evidence under normal Gate A discipline."
+  - "Packaging must be Gate-B-safe from birth (R4): the recorded command must be a physics-lab engine workflow, not a bespoke packaging script."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "agent_runs/AGENT-RUN-0090/report.md"
+    - "docs/reviews/quantum-znse-contract-transfer-benchmark.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Package the contract-run evidence as a canonical RESULT under the
+    matching EXP lane: deterministic engine workflow, fixture with the
+    frozen contract thresholds, verdict routed honestly as
+    FAIL_TO_CLEAR_PREDECLARED_MARGIN (negative/control memory), metrics
+    identical to AGENT-RUN-0090. No threshold relaxation, no refit.
+
+requirements:
+  - "The result.yaml command must be a Gate-B-replayable physics-lab run workflow (SAFE_RESULT_COMMANDS shape); byte-stable replay verified twice before publishing."
+  - "Metrics must reproduce AGENT-RUN-0090 exactly; the predeclared 0.05 eV margin and the +0.046584 eV outcome are recorded verbatim - the threshold may not be relaxed or reinterpreted."
+  - "Verdict and wording route the result as negative/control transfer memory; no universal size-law, material-recommendation, or design wording."
+  - "Gate A checklist per the promotion protocol (agent_proposal_evaluation block, published_by identity, limitations); review_tier AGENT_PUBLISHED."
+  - "No change to AGENT-RUN-0083/0090, the TASK-0914 contract, or any claim."
+
+accepted_outputs:
+  - "The canonical RESULT artifact + engine workflow + fixture + tests + Gate A note."
+  - "Output-routing summary: canonical negative/control result; honest FAIL preserved; no claim impact."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to produce the canonical result artifact for the contract transfer run."
+  evidence:
+    - "agent_runs/AGENT-RUN-0090/report.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
