@@ -39,9 +39,9 @@ limitations:
   blocked on the dedicated follow-up path.
 best_model_id: model_nmd0003_residual_gp_zn_rbf
 best_verdict: PARTIALLY_VALID
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: PARTIALLY_VALID
   published_by:
     contributor_id: romanhladun24-dot
@@ -49,25 +49,47 @@ agent_proposal_evaluation:
     agent_tool: Codex
     model_version: GPT-5
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
     no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
-  evidence_summary: Independent replay reproduced the TASK-0824 AGENT-RUN-0080 metrics
-    with max absolute drift 0.0e+00. The GP-corrected holdout MAE is 0.462129 MeV
-    versus frozen-baseline 2.979273 MeV and clears the best-control margin by 1.869312
-    MeV against the predeclared 0.25 MeV threshold. The result is PARTIALLY_VALID
-    because extrapolation accuracy survives controls while uncertainty calibration
-    remains heavy-tailed/miscalibrated.
-  followup_for_maintainer: Keep this as a retrospective RESULT only. Gate B replay
-    tooling or a maintainer-mediated replay can later upgrade the tier if metrics
-    match; prediction freeze remains blocked until the dedicated uncertainty and freeze
-    tasks clear.
+  evidence_summary: Identity-recorded Gate B replay under TASK-0949 reproduced the
+    six numeric point fields with maximum absolute drift 0.0 at tolerance 1.0e-09,
+    preserved best control smooth_a_gp, and left the PARTIALLY_VALID verdict unchanged.
+    The upgrade covers point-estimator evidence only; interval and uncertainty metrics
+    were outside the replay scope and remain blocked under the R2 rule.
+  followup_for_maintainer: Keep this as retrospective point-estimator evidence only.
+    The replay does not validate uncertainty calibration, create or score a prediction,
+    or support any claim or knowledge promotion.
+  validation_record:
+    validation_independence: independent
+    validation_independence_note: >-
+      Replayer akutenyov is a different human from publisher romanhladun24-dot. Both
+      publication and replay used Codex, so this is independent-human, same-tool
+      validation; the same-agent-tool warning is disclosed in the replay note.
+    replayed_by:
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex
+      model_version: GPT-5
+    replayed_at_utc: '2026-07-08T05:28:08Z'
+    replay_command: python3 scripts/run_nmd0003_residual_gp.py --skip-sandbox-output
+      --no-review --result-out-dir .gate-b-replay-task0949
+    replay_output_dir: .gate-b-replay-task0949
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    numeric_point_metric_count: 6
+    categorical_point_fields_checked:
+    - best_control_id
+    - best_verdict
+    drift_observed: none
+    helper_status: BLOCKED_UNSUPPORTED_COMMAND
+    helper_note: The canonical helper rejected the published direct-script command;
+      TASK-0949 therefore repeated the documented TASK-0864 replay command directly
+      against hash-verified committed inputs.
+    r2_caveat: Interval-bearing freezes stay blocked until calibration repair.
 verification:
   passed: true
   checks:
@@ -158,4 +180,3 @@ artifacts:
   knowledge_update_patch: results/EXP-0018/RUN-0001/knowledge_update.patch.md
   review_summary: results/EXP-0018/RUN-0001/review_summary.md
   review_metadata: results/EXP-0018/RUN-0001/review_metadata.yaml
-
