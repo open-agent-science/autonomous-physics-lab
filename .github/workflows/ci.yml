@@ -157,9 +157,11 @@ jobs:
       - name: Run full_repo smoke tests (risk-relevant PRs)
         if: needs.classify.outputs.full_repo_risk == 'true' && github.event.pull_request.draft == false
         run: |
-          # -n0: repo-wide scans and the GP freeze recompute contend badly in
-          # parallel (55 s solo vs 124 s under xdist); serial is ~3 min stable.
-          pytest --durations=10 -n0 --timeout=300 -m full_repo
+          # Parallel on purpose: a serial (-n0) attempt ran 5-7x slower on
+          # self-hosted hardware (~20 min vs the historical ~3.5 min parallel).
+          # Contention between repo-wide scans inflates per-test numbers but
+          # wall-clock wins; the explicit 300 s per-test timeout absorbs it.
+          pytest --durations=10 --timeout=300 -m full_repo
 
   main-matrix:
     name: Python tests (main matrix)

@@ -68,10 +68,13 @@ applied in the follow-up commit:
    full_repo smoke was silently running in the docs lane and in the
    board-sync pre-push step. Both invocations now carry
    `-m "not full_repo"` (verified: 8/9 collected, live smoke deselected).
-3. Dedicated full_repo invocations (nightly + PR risk step) now run
-   `-n0 --timeout=300`: parallel repo-wide scans contend with the GP freeze
-   recompute (measured 55 s solo vs 124 s under xdist); serial is ~3 min
-   and stable.
+3. Dedicated full_repo invocations (nightly + PR risk step) gain
+   `--timeout=300` (vs the 60 s global default) so contention-inflated
+   test times cannot fail the lane. NOTE - corrected after a live CI
+   measurement: the cross-check's `-n0` (serial) suggestion, measured at
+   ~2-3 min locally, ran 5-7x slower (~20 min) on self-hosted hardware, so
+   parallelism was restored; the per-test timeout alone fixes the real
+   failure mode while keeping the historical ~3.5 min wall time.
 
 The cross-check also independently confirmed the stale findings, the
 nightly root cause, and the caution against `fetch-depth: 2` (kept out).
