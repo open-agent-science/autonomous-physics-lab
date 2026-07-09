@@ -53,13 +53,13 @@ diagnostic. It does not authorize metric reruns, constants-drift fitting,
 prediction entries, or `RESULT`/`CLAIM`/`KNOW` promotion.
 
 **Reopen condition:** a new independent absolute `171Yb/87Sr` source row, or a
-maintainer-approved aggregation/observable-harmonization contract that keeps any
-different isotope/species axis separate. The McGrew 2018 / NIST route has been
-adjudicated as blocked: it does not provide a primary direct Yb/Sr row for this
-campaign and does not reduce the Beloy/BACON independence blocker. The newest
-post-2021 scout found an independent `171Yb/88Sr` route, but that is not the
-same committed `171Yb/87Sr` consistency axis and cannot be appended as a third
-row.
+separately approved future `171Yb/88Sr` axis after a second independent primary
+source exists. The McGrew 2018 / NIST route has been adjudicated as blocked: it
+does not provide a primary direct Yb/Sr row for this campaign and does not
+reduce the Beloy/BACON independence blocker. The newest post-2021 scout found an
+independent `171Yb/88Sr` route, but that is not the same committed
+`171Yb/87Sr` consistency axis and cannot be appended as a third row. The
+multi-species contract verdict is `KEEP_MONITOR_ONLY`.
 
 **Active next work:** `TASK-0704`, `TASK-0705`, `TASK-0456`, `TASK-0742`, and
 `TASK-0756` are all routed: the Nemitz `ACR-0002` row was committed, the
@@ -98,9 +98,10 @@ outcome as a durable source-blocker memory card (see
 so future scouts do not re-evaluate the same candidate for the same role.
 
 **Expected next result:** no immediate Atomic benchmark result. The next useful
-actions are source-blocker memory and a protocol-only multi-species go/no-go
-contract. No constants-drift, new-constant, anomaly, prediction, `RESULT`,
-`CLAIM`, or `KNOW` framing is in scope.
+action is a durable reopen-trigger ledger that prevents agents from reusing
+McGrew/NIST, Pizzocaro, or a single `171Yb/88Sr` source as if they reduced the
+committed `171Yb/87Sr` blocker. No constants-drift, new-constant, anomaly,
+prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in scope.
 
 `TASK-0311` adds:
 

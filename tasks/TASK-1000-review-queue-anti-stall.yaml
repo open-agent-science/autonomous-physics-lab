@@ -1,0 +1,68 @@
+id: TASK-1000
+title: "Add maintainer review queue anti-stall guardrails"
+type: maintainer_tooling
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent maintainer review sweeps from stalling on one PR whose required CI rerun is still pending."
+  - "Keep branch protection and required checks intact; the fix changes guidance and helper output, not merge policy."
+  - "Make the safe behavior explicit for future agents: park pending PRs, continue with already-green MERGE_OK PRs, then return."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/pr_finish_gate.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_ci_runner_status.py"
+    - "scripts/apl_review_queue.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    A maintainer review sweep stalled after one draft-to-ready transition
+    retriggered CI on a PR that had already passed the same required checks.
+    The repository should not encourage agents to foreground-watch one pending
+    check during a multi-PR sweep. The finish gate should report the pending
+    check, park the PR, and direct the agent back to other mergeable PRs unless
+    the maintainer explicitly chooses to wait or admin-merge.
+
+requirements:
+  - "Do not weaken CI, branch protection, review-agent verdicts, source-rights checks, or scientific review gates."
+  - "Change the finish-gate pending-CI next step away from `gh pr checks --watch` toward a snapshot command plus explicit park-and-continue guidance."
+  - "Document the anti-stall rule in the maintainer review protocol."
+  - "Expose the same rule in the CI runner status helper so stalled-runner triage and PR queue triage share one operator-facing playbook."
+  - "Add a queue snapshot helper that classifies open PRs without using `gh pr checks --watch`."
+  - "Make the `apl_review_pr.py --pr` metadata-failure fallback explicit enough to switch to a fetched `origin/pr-<number>` review instead of retrying the same failing command."
+  - "Document a concrete pending-CI parking threshold for multi-PR sweeps."
+  - "Add focused regression tests for the pending-CI finish-gate behavior and runner-status payload."
+
+accepted_outputs:
+  - "Updated finish-gate pending-CI output."
+  - "Review queue snapshot helper with deterministic action buckets."
+  - "Explicit PR-head fallback commands for review metadata failures."
+  - "Maintainer review protocol anti-stall guidance."
+  - "CI runner status helper queue anti-stall guidance."
+  - "Focused tests covering the new behavior."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling/process hardening only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is changed."
+  evidence:
+    - "physics_lab/registry/pr_finish_gate.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_ci_runner_status.py"
+    - "scripts/apl_review_queue.py"
+    - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/pr_finish_gate.py physics_lab/registry/maintainer_review.py scripts/apl_ci_runner_status.py scripts/apl_review_queue.py tests/test_maintainer_review.py tests/test_ci_runner_status.py tests/test_review_queue.py tests/test_critical_path_script_entrypoints.py"
+    - "python3 -m pytest tests/test_maintainer_review.py::test_finish_gate_pending_ci_parks_pr_instead_of_watch_loop tests/test_maintainer_review.py::test_build_review_report_pr_metadata_failure_has_fallback_diagnostic tests/test_ci_runner_status.py tests/test_review_queue.py tests/test_critical_path_script_entrypoints.py::test_review_queue_script_help_smoke"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
