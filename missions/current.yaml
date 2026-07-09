@@ -1211,7 +1211,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0024 is AGENT_VALIDATED same-source high-mass transfer memory. TASK-0939 returned PAPER_LEVEL_PIN_READY for the CHARA route, so the next useful Textbook/Stellar work is TASK-0976: a value-blind source-artifact and DEBCat de-dup package before any CHARA row-curation or independent-holdout metric work."
+    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0024 is AGENT_VALIDATED same-source high-mass transfer memory. TASK-0939 returned PAPER_LEVEL_PIN_READY for the CHARA route, so the next useful Textbook/Stellar work is TASK-0989: a value-blind source-artifact and DEBCat de-dup package before any CHARA row-curation or independent-holdout metric work."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1366,7 +1366,7 @@ missions:
           - "no CHARA row ingestion, metric mutation, universal stellar-law wording, or claim promotion"
       - id: textbook-stellar-chara-source-artifact-package
         label: "Build the value-blind CHARA source-artifact and DEBCat de-dup package"
-        task_id: TASK-0976
+        task_id: TASK-0989
         mode: research
         status: ready
         priority: medium
@@ -1385,7 +1385,7 @@ missions:
         difficulty: low
         recommended: true
         expected_outputs:
-          - "do not reopen CHARA metric work before TASK-0976 produces a value-blind source-artifact verdict"
+          - "do not reopen CHARA metric work before TASK-0989 produces a value-blind source-artifact verdict"
           - "choose from the executable READY task candidates generated from the task registry"
       - id: textbook-stellar-ml-source-baseline-plan
         label: "Stellar Mass-Luminosity OOD source and baseline plan landed"
