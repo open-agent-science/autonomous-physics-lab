@@ -113,27 +113,69 @@ def parse_checks_payload(payload: str) -> tuple[CheckState, ...]:
     return tuple(checks)
 
 
-def classify_ci_gate(checks: tuple[CheckState, ...]) -> CiGate:
+def _normalized_check_key(value: str) -> str:
+    """Return a case-insensitive comparison key for check/workflow names."""
+    return value.strip().casefold()
+
+
+def _check_is_ignored(
+    check: CheckState,
+    *,
+    ignored_check_names: tuple[str, ...],
+    ignored_workflows: tuple[str, ...],
+) -> bool:
+    ignored_names = {_normalized_check_key(name) for name in ignored_check_names if name.strip()}
+    ignored_workflow_names = {
+        _normalized_check_key(name) for name in ignored_workflows if name.strip()
+    }
+    return (
+        _normalized_check_key(check.name) in ignored_names
+        or _normalized_check_key(check.workflow) in ignored_workflow_names
+    )
+
+
+def classify_ci_gate(
+    checks: tuple[CheckState, ...],
+    *,
+    ignored_check_names: tuple[str, ...] = (),
+    ignored_workflows: tuple[str, ...] = (),
+) -> CiGate:
     """Classify checks as pass, fail, pending, or unknown."""
-    failures = tuple(check for check in checks if check.bucket in FAIL_BUCKETS)
-    pending = tuple(check for check in checks if check.bucket in PENDING_BUCKETS)
-    unknown = tuple(
+    evaluated_checks = tuple(
         check
         for check in checks
+        if not _check_is_ignored(
+            check,
+            ignored_check_names=ignored_check_names,
+            ignored_workflows=ignored_workflows,
+        )
+    )
+    failures = tuple(check for check in evaluated_checks if check.bucket in FAIL_BUCKETS)
+    pending = tuple(check for check in evaluated_checks if check.bucket in PENDING_BUCKETS)
+    unknown = tuple(
+        check
+        for check in evaluated_checks
         if check.bucket not in PASS_BUCKETS | FAIL_BUCKETS | PENDING_BUCKETS
     )
     if failures:
         status = "fail"
     elif pending:
         status = "pending"
-    elif unknown or not checks:
+    elif unknown or not evaluated_checks:
         status = "unknown"
     else:
         status = "pass"
-    return CiGate(status=status, checks=checks, failures=failures, pending=pending)
+    return CiGate(status=status, checks=evaluated_checks, failures=failures, pending=pending)
 
 
-def load_ci_gate(root: Path, pr_number: int, *, gh_path: str | None = None) -> CiGate:
+def load_ci_gate(
+    root: Path,
+    pr_number: int,
+    *,
+    gh_path: str | None = None,
+    ignored_check_names: tuple[str, ...] = (),
+    ignored_workflows: tuple[str, ...] = (),
+) -> CiGate:
     """Load and classify GitHub PR checks through gh."""
     resolved_gh_path = gh_path or find_gh_path()
     if resolved_gh_path is None:
@@ -174,7 +216,11 @@ def load_ci_gate(root: Path, pr_number: int, *, gh_path: str | None = None) -> C
             pending=(),
             raw_error=str(exc),
         )
-    return classify_ci_gate(checks)
+    return classify_ci_gate(
+        checks,
+        ignored_check_names=ignored_check_names,
+        ignored_workflows=ignored_workflows,
+    )
 
 
 def run_review_gate(
@@ -220,6 +266,8 @@ def finish_pr(
     *,
     dry_run: bool = False,
     gh_path: str | None = None,
+    ignored_check_names: tuple[str, ...] = (),
+    ignored_workflows: tuple[str, ...] = (),
     validation_timeout_seconds: int = DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS,
 ) -> FinishGateReport:
     """Run review and CI gates, then mark the PR ready when both pass."""
@@ -243,7 +291,13 @@ def finish_pr(
             error="Review gate did not return MERGE_OK.",
         )
 
-    ci_gate = load_ci_gate(root, pr_number, gh_path=gh_path)
+    ci_gate = load_ci_gate(
+        root,
+        pr_number,
+        gh_path=gh_path,
+        ignored_check_names=ignored_check_names,
+        ignored_workflows=ignored_workflows,
+    )
     if ci_gate.status == "fail":
         failing = ci_gate.failures[0]
         return FinishGateReport(

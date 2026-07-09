@@ -630,6 +630,14 @@ loaded. For a non-mutating preflight, use:
 python3 scripts/apl_pr_finish_gate.py --pr <number> --dry-run
 ```
 
+If the maintainer wants the ready transition handled asynchronously, add the
+`apl:auto-ready-when-green` label to a same-repository draft PR. The
+`Auto Ready When Green` GitHub Action runs the same finish-gate policy after
+the `CI` workflow completes successfully or when the opt-in label is added. It
+does not merge PRs, does not promote claims, skips cross-repository PRs, and
+keeps the PR draft whenever review or CI is not yet green. The manual finish
+gate remains the fallback and the source of truth for local diagnosis.
+
 When `scripts/apl_agent_doctor.py` reports the known loopback blocker proxy
 (`127.0.0.1:9` or `localhost:9`) and network access is allowed, add
 `--ignore-suspicious-proxy` to `apl_task_pr_helper.py create` or `ready`.

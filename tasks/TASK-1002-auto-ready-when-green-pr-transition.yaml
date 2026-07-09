@@ -1,0 +1,76 @@
+id: TASK-1002
+title: "Add opt-in auto-ready-when-green PR transition"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer queue friction without weakening CI, review-agent, or branch-protection policy."
+  - "Use GitHub Actions as the asynchronous scheduler instead of local background agent processes."
+  - "Keep ready-for-review transition opt-in, auditable, and separate from merge or task closeout."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/pr_finish_gate.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/pr_auto_ready.py"
+    - "scripts/apl_pr_finish_gate.py"
+    - "scripts/apl_auto_ready_pr.py"
+    - ".github/workflows/auto-ready-when-green.yml"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Maintainer feedback after TASK-0994/TASK-0995 asked whether agents can avoid
+    leaving draft PRs unmarked after validation and review. The safest
+    architecture is not a local background watcher, but a repo-native opt-in
+    GitHub Action that reuses the existing deterministic finish gate after CI
+    completes and only marks a same-repository draft PR ready when review returns
+    MERGE_OK and GitHub checks are green.
+
+requirements:
+  - "Do not auto-merge, auto-closeout, promote claims, or change protected main behavior."
+  - "Require an explicit opt-in label before any automatic ready transition."
+  - "Limit automatic ready transitions to same-repository draft PRs; skip fork/cross-repository PRs."
+  - "Reuse the existing finish-gate policy instead of duplicating review or CI logic in YAML."
+  - "Prevent the auto-ready workflow's own pending check from blocking the finish gate forever."
+  - "Do not expose GitHub write tokens to validation subprocesses that execute reviewed PR code."
+  - "Keep manual `scripts/apl_pr_finish_gate.py --pr <number>` as the diagnostic fallback."
+  - "Document the label-based workflow for agents and maintainers."
+
+accepted_outputs:
+  - "Opt-in auto-ready GitHub Action"
+  - "Deterministic auto-ready PR policy helper"
+  - "Finish-gate ignored-check/workflow support"
+  - "Validation subprocess token stripping for GitHub automation safety"
+  - "CLI wrapper for GitHub event-driven auto-ready execution"
+  - "Agent and maintainer protocol documentation"
+  - "Focused tests for eligibility, self-check ignore, workflow policy, and CLI entrypoint"
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling/workflow task; no scientific RESULT, PRED, CLAIM, or KNOW artifact is expected."
+  evidence:
+    - "physics_lab/registry/pr_finish_gate.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/pr_auto_ready.py"
+    - "scripts/apl_pr_finish_gate.py"
+    - "scripts/apl_auto_ready_pr.py"
+    - ".github/workflows/auto-ready-when-green.yml"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "tests/test_pr_auto_ready.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/pr_finish_gate.py physics_lab/registry/maintainer_review.py physics_lab/registry/pr_auto_ready.py scripts/apl_pr_finish_gate.py scripts/apl_auto_ready_pr.py tests/test_pr_auto_ready.py tests/test_maintainer_review.py tests/test_critical_path_script_entrypoints.py"
+    - "python3 -m pytest tests/test_pr_auto_ready.py tests/test_maintainer_review.py::test_validation_subprocess_env_strips_github_tokens tests/test_maintainer_review.py::test_finish_gate_marks_ready_after_merge_ok_and_green_ci tests/test_maintainer_review.py::test_finish_gate_blocks_ready_transition_when_ci_fails tests/test_maintainer_review.py::test_finish_gate_pending_ci_parks_pr_instead_of_watch_loop tests/test_maintainer_review.py::test_finish_gate_leaves_draft_when_review_blocks tests/test_critical_path_script_entrypoints.py::test_pr_finish_gate_script_help_smoke tests/test_critical_path_script_entrypoints.py::test_auto_ready_pr_script_help_smoke"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
