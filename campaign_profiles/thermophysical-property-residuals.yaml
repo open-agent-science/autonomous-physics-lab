@@ -92,18 +92,18 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "ThermoML Tb RESULT-0026 is AGENT_VALIDATED on a bounded 40-row family-stratified fixture; esters/lactones remains the failed held-out family and TASK-0918 recommends bounded negative/control RESULT packaging."
+  current_stage: "ThermoML Tb RESULT-0026 is AGENT_VALIDATED on a bounded 40-row family-stratified fixture; esters/lactones is now packaged as AGENT_PUBLISHED failed-family negative/control RESULT-0028; exact 80-row expansion is source-access and revised-contract gated."
   recommended_parallel_agents: 2
-  coordination_notes: "Split work by artifact surface: one agent can package the esters/lactones negative/control result while another prepares the 80-row source-rights decision packet. Do not broaden beyond Tb, commit raw archive bytes, rerun Gate A packaging, or hide failed-family memory behind aggregate wins."
+  coordination_notes: "Do not broaden beyond Tb, commit raw archive bytes, rerun Gate A packaging, or hide failed-family memory behind aggregate wins. Future expansion must start from source-access/revised-contract work; RESULT-0028 replay is allowed only if it uses a Gate-B-safe route."
   next_validity_gate:
-    type: ratification
-    blocker: "Esters/lactones failed-family memory is preflighted and ready for a bounded negative/control RESULT package; RESULT-0026 itself must stay aggregate-positive and unchanged."
-    target_artifact: "TASK-0936"
+    type: source_readiness
+    blocker: "RESULT-0028 is packaged but Gate B is pending; the exact 80-row public fixture path is blocked unless the checksum-matching local archive is supplied or the source-access contract is changed."
+    target_artifact: "TASK-0955"
   best_next_actions:
-    - task_id: TASK-0936
-      label: "Package esters/lactones failed-family memory as a bounded negative/control RESULT"
-    - task_id: TASK-0940
-      label: "Prepare the 80-row bounded-extract maintainer source-rights decision packet"
+    - task_id: TASK-0955
+      label: "Keep the bounded 80-row extract blocked until the pinned local archive or a revised source-access contract exists"
+    - task_id: null
+      label: "Optionally plan a Gate-B-safe RESULT-0028 replay or a revised expansion contract; do not rerun Joback as a new result"
   required_gates:
     - "ThermoML archive DOI, checksum, and rights boundary must stay explicit."
     - "No raw archive bytes or substantial normalized corpus may be committed."
@@ -122,14 +122,16 @@ portfolio:
     - "docs/reviews/thermoml-tb-corpus-expansion-preflight.md"
     - "docs/reviews/thermoml-esters-lactones-negative-memory.md"
     - "docs/reviews/thermoml-esters-lactones-negative-result-preflight.md"
+    - "results/EXP-0020/RUN-0002/result.yaml"
+    - "docs/reviews/thermoml-80-row-fixture-source-blocker.md"
   open_questions:
-    - "Which maintainer route is approved for any 80-row expansion: bounded public extract, local-only analysis, external permission, or no expansion?"
-    - "Can the esters/lactones negative/control package pass Gate A while preserving aggregate-positive context?"
+    - "Will the checksum-matching ThermoML archive be supplied locally for the bounded extract, or should the source-access contract change?"
+    - "Can RESULT-0028 be replayed through a Gate-B-safe route without mutating RESULT-0026?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-05"
+    last_reviewed: "2026-07-09"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0907 formal Gate B bridge, TASK-0918 negative-result preflight, TASK-0895 source-expansion preflight, and Scientific Director 2026-07-05 task-queue cycle"
-    notes: "This bounded thermophysical-property benchmark lane stays Tb-only and no-claim. RESULT-0026 is AGENT_VALIDATED; next useful work is failed-family negative packaging plus a source-rights decision packet, not another Joback run."
+    source: "TASK-0907 formal Gate B bridge, TASK-0936 RESULT-0028 packaging, TASK-0955 source blocker, and Scientific Director 2026-07-09 docs-sync cycle"
+    notes: "This bounded thermophysical-property benchmark lane stays Tb-only and no-claim. RESULT-0026 is AGENT_VALIDATED, RESULT-0028 preserves failed-family memory, and expansion is source-access/revised-contract gated."

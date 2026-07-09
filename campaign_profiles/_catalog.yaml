@@ -264,7 +264,8 @@ campaigns:
     - updated_campaign_profile
   current_stage: pinned PSCompPars snapshots, source monitor check 3 returned NO_NOTIFY, and
     RESULT-0027 now packages the EXO-0001 null-baseline control-sensitive memory as AGENT_PUBLISHED
-    negative/control evidence; Gate B replay remains pending.
+    negative/control evidence; Gate-B-safe workflow repair and fair-null transparency remain
+    pending.
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Parallel-safe for RESULT-0027 Gate B replay and metadata-only monitor
@@ -272,12 +273,14 @@ campaigns:
       or coverage-gate amendment.
   next_validity_gate:
     type: ratification
-    blocker: RESULT-0027 is AGENT_PUBLISHED and Gate A passed, but independent Gate B replay
-      is still pending.
-    target_artifact: TASK-0935
+    blocker: RESULT-0027 is AGENT_PUBLISHED and Gate A passed, but the recorded packaging
+      command is not Gate-B-safe and the fair-null comparison surface needs to be visible
+      in the artifact.
+    target_artifact: TASK-0959
   best_next_actions:
-  - task_id: TASK-0935
-    label: Independently replay RESULT-0027 through Gate B without reopening residual scoring
+  - task_id: TASK-0959
+    label: Repackage RESULT-0027 onto a Gate-B-safe workflow and surface fair-null comparisons
+      without reopening residual scoring
   required_gates:
   - Pinned snapshot and checksum state must remain explicit.
   - Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes.
@@ -313,18 +316,20 @@ campaigns:
   - docs/reviews/exoplanet-source-version-monitor-check-3.md
   - results/EXP-0021/RUN-0001/result.yaml
   open_questions:
-  - Can RESULT-0027 pass independent Gate B replay without metric mutation?
+  - Can RESULT-0027 pass Gate-B-safe workflow replay without metric mutation after the fair-null
+    comparison surface is made explicit?
   - What future source-version or coverage signal would justify EXO-0003 planning?
   curator_review:
     status: current
-    last_reviewed: '2026-07-05'
+    last_reviewed: '2026-07-09'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0919 RESULT-0027 packaging and Scientific Director 2026-07-05 task-queue
-      cycle
+    source: TASK-0919 RESULT-0027 packaging, TASK-0959 queue entry, and Scientific Director
+      2026-07-09 docs-sync cycle
     notes: Monitor-only lane with an AGENT_PUBLISHED bounded negative/control result. Next
-      work is Gate B replay, not residual scoring or EXO-0003 acquisition.
+      work is Gate-B-safe workflow repair and fair-null transparency, not residual scoring
+      or EXO-0003 acquisition.
   source_docs:
   - docs/campaigns/exoplanet-mass-radius.md
   - docs/exoplanet-mass-radius-baseline-protocol.md
@@ -718,8 +723,8 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped
-    sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; TASK-0920
-    executed the strict no-refit transfer and failed to clear the predeclared 0.05 eV margin.
+    sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; RESULT-0029
+    packages the strict no-refit transfer miss as AGENT_PUBLISHED INCONCLUSIVE control memory.
   agent_capacity:
     recommended_parallel_agents: 1
     coordination_notes: Do not route agents to archived TASK-0226 or TASK-0336. Preserve the
@@ -731,11 +736,11 @@ campaigns:
     blocker: The declared no-refit transfer ran and did not clear the survival margin; the
       campaign needs new source evidence or a maintainer-approved contract change before another
       transfer task.
-    target_artifact: TASK-0920
+    target_artifact: RESULT-0029
   best_next_actions:
-  - task_id: TASK-0920
-    label: Preserve the completed no-refit transfer as bounded negative/borderline memory;
-      no new Quantum READY task in this wave
+  - task_id: null
+    label: Preserve RESULT-0029 as bounded inconclusive/control memory; no new Quantum READY
+      metric task in this wave
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -772,20 +777,20 @@ campaigns:
   - docs/reviews/quantum-znse-frozen-row-transfer-readiness.md
   - docs/reviews/quantum-znse-no-refit-transfer-contract.md
   - docs/reviews/quantum-znse-contract-transfer-benchmark.md
+  - results/EXP-0022/RUN-0001/result.yaml
   open_questions:
   - What new direct source surface or maintainer-approved contract change, if any, would add
     information beyond the TASK-0920 borderline transfer failure?
   curator_review:
     status: current
-    last_reviewed: '2026-07-05'
+    last_reviewed: '2026-07-09'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0920 no-refit transfer execution and Scientific Director 2026-07-05 task-queue
-      cycle
+    source: TASK-0957 RESULT-0029 packaging and Scientific Director 2026-07-09 docs-sync cycle
     notes: The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow
-      factual extracts, and the strict no-refit transfer failed to clear its predeclared margin.
-      Open-ended correction search remains blocked.
+      factual extracts, and RESULT-0029 preserves the strict no-refit transfer miss as inconclusive/control
+      memory. Open-ended correction search remains blocked.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
@@ -919,24 +924,27 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: ThermoML Tb RESULT-0026 is AGENT_VALIDATED on a bounded 40-row family-stratified
-    fixture; esters/lactones remains the failed held-out family and TASK-0918 recommends bounded
-    negative/control RESULT packaging.
+    fixture; esters/lactones is now packaged as AGENT_PUBLISHED failed-family negative/control
+    RESULT-0028; exact 80-row expansion is source-access and revised-contract gated.
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: 'Split work by artifact surface: one agent can package the esters/lactones
-      negative/control result while another prepares the 80-row source-rights decision packet.
-      Do not broaden beyond Tb, commit raw archive bytes, rerun Gate A packaging, or hide
-      failed-family memory behind aggregate wins.'
+    coordination_notes: Do not broaden beyond Tb, commit raw archive bytes, rerun Gate A packaging,
+      or hide failed-family memory behind aggregate wins. Future expansion must start from
+      source-access/revised-contract work; RESULT-0028 replay is allowed only if it uses a
+      Gate-B-safe route.
   next_validity_gate:
-    type: ratification
-    blocker: Esters/lactones failed-family memory is preflighted and ready for a bounded negative/control
-      RESULT package; RESULT-0026 itself must stay aggregate-positive and unchanged.
-    target_artifact: TASK-0936
+    type: source_readiness
+    blocker: RESULT-0028 is packaged but Gate B is pending; the exact 80-row public fixture
+      path is blocked unless the checksum-matching local archive is supplied or the source-access
+      contract is changed.
+    target_artifact: TASK-0955
   best_next_actions:
-  - task_id: TASK-0936
-    label: Package esters/lactones failed-family memory as a bounded negative/control RESULT
-  - task_id: TASK-0940
-    label: Prepare the 80-row bounded-extract maintainer source-rights decision packet
+  - task_id: TASK-0955
+    label: Keep the bounded 80-row extract blocked until the pinned local archive or a revised
+      source-access contract exists
+  - task_id: null
+    label: Optionally plan a Gate-B-safe RESULT-0028 replay or a revised expansion contract;
+      do not rerun Joback as a new result
   required_gates:
   - ThermoML archive DOI, checksum, and rights boundary must stay explicit.
   - No raw archive bytes or substantial normalized corpus may be committed.
@@ -977,22 +985,23 @@ campaigns:
   - docs/reviews/thermoml-tb-corpus-expansion-preflight.md
   - docs/reviews/thermoml-esters-lactones-negative-memory.md
   - docs/reviews/thermoml-esters-lactones-negative-result-preflight.md
+  - results/EXP-0020/RUN-0002/result.yaml
+  - docs/reviews/thermoml-80-row-fixture-source-blocker.md
   open_questions:
-  - 'Which maintainer route is approved for any 80-row expansion: bounded public extract,
-    local-only analysis, external permission, or no expansion?'
-  - Can the esters/lactones negative/control package pass Gate A while preserving aggregate-positive
-    context?
+  - Will the checksum-matching ThermoML archive be supplied locally for the bounded extract,
+    or should the source-access contract change?
+  - Can RESULT-0028 be replayed through a Gate-B-safe route without mutating RESULT-0026?
   curator_review:
     status: current
-    last_reviewed: '2026-07-05'
+    last_reviewed: '2026-07-09'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0907 formal Gate B bridge, TASK-0918 negative-result preflight, TASK-0895
-      source-expansion preflight, and Scientific Director 2026-07-05 task-queue cycle
+    source: TASK-0907 formal Gate B bridge, TASK-0936 RESULT-0028 packaging, TASK-0955 source
+      blocker, and Scientific Director 2026-07-09 docs-sync cycle
     notes: This bounded thermophysical-property benchmark lane stays Tb-only and no-claim.
-      RESULT-0026 is AGENT_VALIDATED; next useful work is failed-family negative packaging
-      plus a source-rights decision packet, not another Joback run.
+      RESULT-0026 is AGENT_VALIDATED, RESULT-0028 preserves failed-family memory, and expansion
+      is source-access/revised-contract gated.
   source_docs:
   - docs/campaigns/thermophysical-property-residuals.md
   - data/thermophysical/source_manifest.yaml

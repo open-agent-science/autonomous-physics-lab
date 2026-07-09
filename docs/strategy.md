@@ -165,12 +165,15 @@ Current visible evidence includes:
   and `EXP-0008/RUN-0001`;
 - the negative-results registry as a maintained output surface;
 - the nuclear-mass baseline, negative/control memory, and `RESULT-0025`
-  point-estimator surface, which still requires uncertainty calibration before
-  prediction freeze;
+  point-estimator surface, whose central values are useful while calibrated
+  intervals remain blocked;
 - Materials `RESULT-0021`, Textbook/Stellar `RESULT-0022`, FIRAS/Wien
-  `RESULT-0023`, Stellar high-mass transfer `RESULT-0024`, and ThermoML `Tb`
-  `RESULT-0026` as scoped, review-tiered benchmark memory rather than broad
-  physical claims.
+  `RESULT-0023`, Stellar high-mass transfer `RESULT-0024`, ThermoML `Tb`
+  `RESULT-0026`, Exoplanet negative/control `RESULT-0027`, ThermoML
+  failed-family `RESULT-0028`, and Quantum ZnSe no-refit `RESULT-0029` as
+  scoped, review-tiered benchmark memory rather than broad physical claims;
+- the FRB pre-T exposure surface as a sealed-prediction preparation lane, not a
+  result or repeater-population claim.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.
