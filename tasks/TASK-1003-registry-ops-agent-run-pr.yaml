@@ -3,7 +3,6 @@ title: "Split registry god-package (slice 2): move agent_run_pr into ops and dro
 type: code_quality_refactor
 status: REVIEW_READY
 closeout: review
-closeout_review_reason: "Package-structure refactor that changes the physics_lab.registry public __init__ surface; maintainer should confirm the re-export removal before closeout."
 difficulty: low
 priority: medium
 
