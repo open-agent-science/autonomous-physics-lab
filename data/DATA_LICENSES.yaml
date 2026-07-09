@@ -368,14 +368,18 @@ datasets:
       checksum for source coordinates, and commits only a compact APL-derived
       per-source feature surface. TASK-0964 consumes that committed feature
       surface and commits only exposure-only model scores with no label contact.
-      It vendors no NPZ, NPY, CSV, XML, HDF5, or archive source bytes, reads no
-      repeater label column, and registers no prediction, result, claim, or
-      knowledge artifact.
+      TASK-0965 derives a staged prediction-registration pack from the frozen
+      TASK-0964 exposure-only score surface: it carries source ids, scores, ranks,
+      checksums, and reveal rules, but no new source bytes, no later snapshot data,
+      no reveal labels, and no registered PRED entry before maintainer approval. It
+      vendors no NPZ, NPY, CSV, XML, HDF5, or archive source bytes, reads no repeater
+      label column, and registers no result, claim, or knowledge artifact.
     raw_artifact_vendored: false
     provenance: data/radio_transients/frb_catalog1_interval_exposure_pair_source_manifest.yaml
     paths:
       - data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
       - data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+      - data/radio_transients/frb_sealed_prediction_registration_pack.yaml
 
   - id: antusch-hinze-saad-2026-mz-yukawa-extract
     source: "Antusch, Hinze, and Saad, Updated running quark and lepton parameters at various scales, Phys. Rev. D 113, 095011 (2026)"
