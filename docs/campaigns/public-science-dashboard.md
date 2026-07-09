@@ -111,22 +111,28 @@ git commit; this is bookkeeping drift, not a scientific input change.
 **Short version:** APL selected the Almeida 2023 InP CC-BY 4.0 source as the
 current Quantum Size Effects row path, pinned the article/SI bytes, and
 digitized six direct `(edge length, E1s)` rows. `TASK-0225` then produced a
-source-scoped sandbox baseline with controls and a one-point holdout.
+source-scoped sandbox baseline with controls and a one-point holdout. The later
+ZnSe/InP no-refit transfer is now packaged as `RESULT-0029`: the transferred
+model beats the best control but misses the frozen `0.05 eV` survival margin by
+`0.00341632 eV`, so the result is `INCONCLUSIVE`, not positive.
 
 **Why it is interesting:** the campaign demonstrates source discipline before
 attractive modeling. A source blocker is treated as useful output, not as a
 failure.
 
-**Limitation:** this is a single-source InP sandbox baseline, not a universal
-size-effect law, material recommendation, device-performance result, or
-validated cross-material model. The current blocker is baseline-readiness
-review plus an independent transfer-source scout.
+**Limitation:** this is a single-source InP sandbox baseline plus one bounded
+two-material transfer-control result, not a universal size-effect law, material
+recommendation, device-performance result, or validated cross-material model.
+The current blocker is new source evidence or a maintainer-approved contract
+change; rerunning the same ZnSe/InP surface would be methodology shopping.
 
 **Evidence trail:**
 
 - [Quantum Size Effects campaign page](./quantum-size-effects.md)
 - [Quantum direct-source candidate brief](../source-candidates/quantum/quantum-direct-source-candidate-brief.md)
 - [Quantum Almeida deterministic source-artifact package](../reviews/quantum-almeida-2023-deterministic-source-artifact-package.md)
+- [RESULT-0029 report](../../results/EXP-0022/RUN-0001/report.md)
+- [RESULT-0029 result metadata](../../results/EXP-0022/RUN-0001/result.yaml)
 - [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md)
 
 ### Atomic Yb/Sr Consistency Negative Memory
@@ -322,8 +328,9 @@ repository, DOI, or promoted materials claim.
 **Short version:** APL now has a newly active thermophysical-property benchmark
 lane. The first slice is ThermoML normal boiling temperature (`Tb`) with a
 frozen Joback and Reid group-contribution baseline. `RESULT-0026` is
-AGENT_PUBLISHED on a bounded 40-row family-stratified fixture; it is not yet
-Gate-B replayed or maintainer-reviewed.
+AGENT_VALIDATED on a bounded 40-row family-stratified fixture. `RESULT-0028`
+separately packages the esters/lactones failed-family slice as AGENT_PUBLISHED
+negative/control memory.
 
 **Result capsule - RESULT-0026 (ThermoML Tb / Joback):**
 
@@ -337,7 +344,8 @@ Gate-B replayed or maintainer-reviewed.
 - **Family survival:** 7 of 8 held-out families clear the survival margin.
   `esters/lactones` fails the family margin and should be treated as
   negative/control memory.
-- **Review status:** AGENT_PUBLISHED, Gate A PASS, Gate B not attempted.
+- **Review status:** `RESULT-0026` is AGENT_VALIDATED after zero-drift formal
+  workflow Gate B replay. `RESULT-0028` is AGENT_PUBLISHED and Gate B pending.
 - **No-claim wording:** bounded `Tb` transfer on a 40-row fixture, not universal
   Joback validation, thermophysical law, chemical design, process design, or
   support for `Tc` / other property estimates.
@@ -354,18 +362,22 @@ mapping, property leakage, and family failures visible.
 - [ThermoML family-stratified benchmark review](../reviews/thermoml-tb-family-stratified-transfer-benchmark.md)
 - [RESULT-0026 report](../../results/EXP-0020/RUN-0001/report.md)
 - [RESULT-0026 Gate A report](../../results/EXP-0020/RUN-0001/gate_a_report.md)
+- [RESULT-0026 result metadata](../../results/EXP-0020/RUN-0001/result.yaml)
+- [RESULT-0028 report](../../results/EXP-0020/RUN-0002/report.md)
+- [RESULT-0028 result metadata](../../results/EXP-0020/RUN-0002/result.yaml)
 
 ## Campaign Snapshot
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can point-estimator gains become prediction-ready without calibrated uncertainty or source leakage? | `RESULT-0025` has exact replayed point-estimator improvement; no-peek uncertainty calibration failed; tier-1 point-only PRED entries are frozen without interval or success wording. | Negative/blocker memory plus source-rights-safe DZ10 parity; no early reveal scoring. | A blocker-memory, parity verdict, or later maintainer-reviewed reveal score. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_PUBLISHED negative/control memory with Gate A passed. | Gate B replay for `RESULT-0027`. | A replay verdict, not a residual score. |
-| [Quantum Size Effects](./quantum-size-effects.md) | What new source or contract would add information beyond the completed ZnSe/InP transfer failure? | Calibration-derived rows remain excluded; Almeida 2023 yielded six direct InP rows; ZnSe/Toufanian rows are frozen as limited factual extracts; the strict no-refit transfer missed its predeclared margin. | Preserve bounded negative/borderline transfer memory. | A future source-readiness verdict, not a broad model claim. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_PUBLISHED negative/control memory with Gate A passed. | Gate-B-safe workflow repair and fair-null transparency for `RESULT-0027`. | A replay/transparency verdict, not a residual score. |
+| FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, and `TASK-0963` built a 479-row pre-T exposure feature surface. No model, PRED entry, or population claim exists yet. | `TASK-0964` model/contract freeze, then `TASK-0965` sealed registration pack under maintainer approval. | A sealed-prediction registration pack, not a success verdict. |
+| [Quantum Size Effects](./quantum-size-effects.md) | What new source or contract would add information beyond the completed ZnSe/InP transfer failure? | Calibration-derived rows remain excluded; Almeida 2023 yielded six direct InP rows; ZnSe/Toufanian rows are frozen as limited factual extracts; `RESULT-0029` records the strict no-refit transfer miss as INCONCLUSIVE control memory. | Preserve bounded negative/borderline transfer memory. | A future source-readiness verdict, not a broad model claim. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can an independent source reduce the two-row `171Yb/87Sr` blocker without mixing isotope axes? | Beloy 2021 and Nemitz 2016 support a narrow no-tension memory card; Pizzocaro and McGrew/NIST are blocked; the newest independent source is `171Yb/88Sr`, not the committed `171Yb/87Sr` axis. | Multi-species go/no-go plus source-blocker memory; no metric rerun. | A source-readiness verdict, not constants-drift metrics. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L has AGENT_VALIDATED `RESULT-0022`; FIRAS/Wien `RESULT-0023` is AGENT_VALIDATED calibration memory; high-mass `RESULT-0024` is AGENT_VALIDATED but same-source DEBCat; external Stellar source route is SOURCE_LIMITED. | CHARA source pin/de-dup preflight. | A source-readiness verdict, not universal formula wording. |
 | [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021`; scope controls and transfer-negative memory prevent overbroad wording; the v0.1.0 Zenodo DOI is minted. | Release-integrity and no-claim verification for the public dataset record. | A release-integrity verdict, not a material recommendation. |
-| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can a frozen published thermophysical estimator survive source-pinned family-stratified controls? | ThermoML `Tb` `RESULT-0026` is AGENT_VALIDATED on a bounded 40-row fixture: Joback wins in aggregate and 7/8 families, while esters/lactones fails and is preserved as negative memory. | Bounded failed-family negative/control packaging plus source-rights decision for any expansion. | A negative/control or source-rights verdict, not a broad property-estimation claim. |
+| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can a frozen published thermophysical estimator survive source-pinned family-stratified controls? | ThermoML `Tb` `RESULT-0026` is AGENT_VALIDATED on a bounded 40-row fixture; `RESULT-0028` preserves the esters/lactones failure as bounded negative/control memory. | Expansion/source-access decisions and possible `RESULT-0028` replay; no broader property work. | A source-access, replay, or revised-contract verdict, not a broad property-estimation claim. |
 
 ## What Is Interesting Right Now
 
@@ -416,6 +428,34 @@ neutron-rich boundary transfer, and magic-distance interaction lanes have all
 landed as non-positive sandbox memory and should not be treated as positive
 near-misses.
 
+### FRB Sealed-Prediction Pipeline
+
+The FRB campaign has moved from source scouting into an activated prediction
+chain. The Catalog-1 interval exposure pair passed checksum/schema gates, and
+`TASK-0963` built a compact pre-T exposure feature surface with 479 source rows.
+The fixture reads only pre-T source coordinates and exposure counts; it does not
+read repeater labels, fit a model, or create a prediction registry entry.
+
+Why it matters:
+
+- It is the current clearest path to a sealed, third-party-verifiable
+  prediction pack outside nuclear masses.
+- The chain has explicit sequencing: model/contract freeze first, then
+  maintainer-approved sealed registration.
+- The deadline pressure is real: the registration pack should be
+  maintainer-ready before the end-of-July target, without compressing the
+  no-peek discipline.
+
+Scope:
+
+No FRB result, claim, population model, or repeater-success verdict exists yet.
+`TASK-0964` and `TASK-0965` are preparation and freeze/registration tasks, not
+post-reveal evidence.
+
+Next visible artifact: a frozen model/contract surface from `TASK-0964`, then a
+sealed-prediction registration pack from `TASK-0965` if the maintainer approves
+the Class 2 prediction freeze.
+
 ### Quantum And Atomic Fresh-Data Gates
 
 Quantum Size Effects and Atomic-Clock Residuals are slower because they are
@@ -428,9 +468,8 @@ Why it matters:
 - Quantum now has Almeida 2023 as the selected source path. The article/SI are
   checksum-pinned and license-confirmed; six direct rows and a source-scoped
   sandbox baseline exist. ZnSe/Toufanian rows are frozen as limited factual
-  extracts, and the strict no-refit transfer missed its predeclared margin, so
-  the current output is bounded transfer memory rather than a new benchmark
-  claim.
+  extracts, and `RESULT-0029` packages the strict no-refit transfer miss as
+  bounded inconclusive/control memory rather than a new benchmark claim.
 - Atomic has Beloy and Nemitz Yb/Sr rows and a first exploratory cross-source
   diagnostic preserved as a source-limited consistency-memory card. Pizzocaro
   still needs an aggregation/observable-harmonization contract; McGrew/NIST is
@@ -471,24 +510,22 @@ controls, and split-sensitivity evidence. Formation energy is the stronger
 axis; band gap stays diagnostic and split-fragile. `MD-0002` is now acquired,
 validated, holdout-frozen, formation-energy benchmarked, Gate-B-validated as
 `RESULT-0021`, and externally citable as Zenodo DOI `10.5281/zenodo.21207072`.
-Family-holdout and descriptor-ablation audits now bound the signal. The next
-public step is release-integrity and no-claim verification, not a rebuild,
-metric rerun, or model leaderboard.
+Family-holdout and descriptor-ablation audits now bound the signal. Release
+integrity and no-claim record-back are complete, so the current posture is fixed
+dataset memory, not a rebuild, metric rerun, or model leaderboard.
 
 Why it matters:
 
 - APL can produce reusable, provenance-rich scientific datasets, not only
   benchmark reports.
-- The dataset is externally citable now; the repository still needs a durable
-  integrity note tying DOI, release tag, checksum, license, attribution, and
-  no-claim wording together.
+- The dataset is externally citable now, with DOI, release tag, checksum,
+  license, attribution, and no-claim wording tied back into the repository.
 - Keeping axes separate (formation energy vs band gap, computed DFT vs future
   measured rows) makes future residual maps scientifically reviewable.
 
 Scope:
 
-External release remains blocked on maintainer choice of archive target,
-version tag/checksum, DOI posture, public citation wording, and no-claim
-dataset caveat. The main repo remains the home for small curated seed datasets,
-schemas, loaders, tests, examples, and benchmark configs until that release
-posture is decided.
+External release is now complete for `MD-0002` v0.1.0, including DOI,
+checksum, release tag, license, attribution, and no-claim wording. Future
+Materials work should not rebuild that archive without a versioned release
+reason; the next dataset question belongs to a separately gated surface.
