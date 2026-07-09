@@ -9,6 +9,11 @@ on:
     # draft-gated full_repo smoke would never fire when a PR flips
     # draft -> ready without a new push.
     types: [opened, synchronize, reopened, ready_for_review]
+  # merge_group makes the required checks ("Classify change set",
+  # "Python fast tests (3.12)") reportable on merge-queue runs so the
+  # maintainer can enable a merge queue on the main ruleset. Queue runs
+  # always execute the full merge-gate suite (see classify below).
+  merge_group:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
@@ -41,6 +46,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          # Merge-queue entries always run the full merge gate: the
+          # merge_group payload carries no pull_request base/head to diff
+          # against, and the queue must never take the docs-only fast lane.
+          # Emit conservative outputs and skip diff-based classification.
+          if [[ "${{ github.event_name }}" == "merge_group" ]]; then
+            echo "docs_task_only=false" >> "$GITHUB_OUTPUT"
+            echo "full_repo_risk=true" >> "$GITHUB_OUTPUT"
+            echo "merge_group event: docs_task_only=false full_repo_risk=true"
+            exit 0
+          fi
 
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             base_sha="${{ github.event.pull_request.base.sha }}"
@@ -104,9 +120,12 @@ jobs:
     # Fork-guard (public-repo RCE protection): trusted same-repo PRs use the fast
     # self-hosted runners; PRs from forks run this required check on a disposable
     # GitHub-hosted runner so untrusted PR code never executes on self-hosted infra.
-    runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') || 'ubuntu-latest' }}
+    # merge_group runs carry same-repo trust: adding a PR to the merge queue
+    # requires write access, and no unprivileged automation enqueues PRs, so
+    # queue runs use the self-hosted labels like same-repo PRs.
+    runs-on: ${{ (github.event_name == 'merge_group' || github.event.pull_request.head.repo.full_name == github.repository) && fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') || 'ubuntu-latest' }}
     needs: classify
-    if: github.event_name == 'pull_request'
+    if: contains(fromJSON('["pull_request","merge_group"]'), github.event_name)
 
     steps:
       - name: Checkout
@@ -153,7 +172,11 @@ jobs:
         # ready_for_review event remains in the trigger set above, so flipping
         # draft -> ready runs this merge-gate suite without requiring a new
         # commit while intermediate draft pushes do not burn the full suite.
-        if: needs.classify.outputs.docs_task_only != 'true' && github.event.pull_request.draft == false
+        # On merge_group github.event.pull_request is null; loose equality
+        # would coerce `null == false` to true anyway, but the explicit
+        # merge_group branch keeps the queue path intentional instead of
+        # coercion-dependent: the merge gate must never silently skip here.
+        if: needs.classify.outputs.docs_task_only != 'true' && (github.event_name == 'merge_group' || github.event.pull_request.draft == false)
         run: |
           pytest --durations=10 -n auto --dist loadgroup -m "not full_repo"
 
@@ -167,8 +190,11 @@ jobs:
       # intermediate pushes were burning ~380 self-hosted min/week here. The
       # smoke still runs on every ready-for-review push, on the main matrix
       # after merge, and nightly.
+      # classify forces full_repo_risk=true on merge_group; the explicit
+      # merge_group branch keeps the queue path independent of how the null
+      # pull_request context coerces in the draft comparison.
       - name: Run full_repo smoke tests (risk-relevant PRs)
-        if: needs.classify.outputs.full_repo_risk == 'true' && github.event.pull_request.draft == false
+        if: needs.classify.outputs.full_repo_risk == 'true' && (github.event_name == 'merge_group' || github.event.pull_request.draft == false)
         run: |
           # Parallel on purpose: a serial (-n0) attempt ran 5-7x slower on
           # self-hosted hardware (~20 min vs the historical ~3.5 min parallel).
