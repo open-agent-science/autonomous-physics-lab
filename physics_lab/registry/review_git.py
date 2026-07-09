@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 import fnmatch
@@ -62,6 +63,7 @@ def run_command(
     cwd: Path,
     shell: bool = False,
     timeout: int = 60,
+    env: Mapping[str, str] | None = None,
 ) -> CommandResult:
     """Run a command and return captured output without raising."""
     started = time.monotonic()
@@ -75,6 +77,7 @@ def run_command(
             errors="replace",
             timeout=timeout,
             check=False,
+            env=dict(env) if env is not None else None,
         )
     except subprocess.TimeoutExpired as exc:
         elapsed = time.monotonic() - started
