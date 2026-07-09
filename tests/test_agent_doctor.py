@@ -208,6 +208,49 @@ def test_worktree_runtime_preflight_finds_common_dir_venv_for_worktree(
     assert any("main checkout for git worktree" in item for item in report.python_discovery_priority)
 
 
+def test_module_import_ok_distinguishes_present_and_absent_modules() -> None:
+    # ``os`` is always importable; the sentinel name never is.
+    assert MODULE._module_import_ok(sys.executable, "os") is True
+    assert (
+        MODULE._module_import_ok(sys.executable, "a_module_that_does_not_exist_xyz")
+        is False
+    )
+
+
+def test_module_import_ok_returns_none_for_unusable_interpreter(tmp_path: Path) -> None:
+    missing_python = tmp_path / "no-such-python"
+    assert MODULE._module_import_ok(str(missing_python), "os") is None
+
+
+def test_worktree_runtime_preflight_flags_broken_physics_lab_install(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(MODULE, "_git_output", lambda root, *args: None)
+    monkeypatch.setattr(MODULE, "_module_import_ok", lambda *a, **k: False)
+
+    report = worktree_runtime_preflight(tmp_path)
+
+    assert report.physics_lab_import_ok is False
+    assert any(
+        "import physics_lab" in item and "pip install -e" in item
+        for item in report.recommendations
+    )
+
+
+def test_worktree_runtime_preflight_healthy_physics_lab_install_adds_no_warning(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(MODULE, "_git_output", lambda root, *args: None)
+    monkeypatch.setattr(MODULE, "_module_import_ok", lambda *a, **k: True)
+
+    report = worktree_runtime_preflight(tmp_path)
+
+    assert report.physics_lab_import_ok is True
+    assert not any("import physics_lab" in item for item in report.recommendations)
+
+
 def test_worktree_runtime_preflight_recommends_repo_local_pytest_basetemp(
     tmp_path: Path,
     monkeypatch,

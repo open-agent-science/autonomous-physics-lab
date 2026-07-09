@@ -100,6 +100,7 @@ Start here:
 - [Particle-Mass Relation Falsifier MVP](../../results/EXP-0009/RUN-0001/report.md)
 - [CLAIM-0007 Falsifier Evidence Handoff](../reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md)
 - [Particle common-scheme source artifact](../reviews/particle-common-scheme-source-artifact.md)
+- [Particle AHS common-scheme baseline diagnostic](../reviews/particle-ahs-common-scheme-baseline.md)
 - [Negative Results Registry](../negative-results-registry.md)
 - [Particle Mass Relation / Koide Track](../notes/particle-mass-relation-track.md)
 - [Particle mass numerology guardrails](../notes/particle-mass-numerology-guardrails.md)
@@ -125,9 +126,9 @@ Start here:
 - maintainer Gate C review of the
   [CLAIM-0007 evidence handoff](../reviews/claim-0007-particle-mass-falsifier-evidence-handoff.md)
   before any claim-status or wording change;
-- defer common-scheme row curation unless the maintainer explicitly asks for a
-  source-hygiene follow-up with a clear public-science need; do not rerun Koide
-  metrics or reopen broad formula search.
+- replay and route the fresh AHS common-scheme diagnostic only as bounded
+  benchmark/negative-control memory if it survives the result-promotion
+  protocol; do not rerun Koide metrics or reopen broad formula search.
 
 ## Recommended Contributor Types
 

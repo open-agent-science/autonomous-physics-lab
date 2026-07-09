@@ -1,0 +1,52 @@
+id: TASK-0985
+title: "Replay ThermoML RESULT-0028 through a Gate-B-safe workflow"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0028 preserves the esters/lactones failed-family memory, but it remains AGENT_PUBLISHED with Gate B pending."
+  - "The replay should validate or block the negative/control memory without mutating RESULT-0026 or hiding the failed family."
+  - "This is a bounded replay task, not a new Joback benchmark."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "results/EXP-0020/RUN-0002/result.yaml"
+    - "docs/reviews/thermoml-esters-lactones-negative-result-packaging.md"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+  planning_context: >
+    Independently replay the RESULT-0028 failed-family negative/control result
+    using a Gate-B-safe command path. Preserve RESULT-0026 and RESULT-0028
+    metrics unless the replay exposes a real reproducibility defect.
+
+requirements:
+  - "Run the recorded RESULT-0028 command path or a formally equivalent Gate-B-safe workflow; do not use a bespoke ad hoc packaging script."
+  - "Compare replay metrics against RESULT-0028 with a drift table and explicit command/helper status."
+  - "If replay passes, update only permitted review metadata; if blocked, write a blocker note without changing metrics."
+  - "Return exactly one verdict: GATE_B_PASS, GATE_B_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+  - "Do not rerun the full ThermoML benchmark as a new result, widen rows, edit RESULT-0026 metrics, or make broad property claims."
+
+accepted_outputs:
+  - "A Gate B replay note under docs/reviews plus any schema-permitted RESULT-0028 review-tier metadata update if and only if replay passes."
+  - "Output-routing summary: replay validation only; claim impact none."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation of an existing result; no new result artifact unless a protocol-compliant metadata update is allowed."
+  evidence:
+    - "results/EXP-0020/RUN-0002/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

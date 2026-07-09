@@ -7,6 +7,14 @@
 ## READY
 
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0986` - Prepare a revised ThermoML source-access contract after the 80-row blocker (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
+- `TASK-0987` - Replay Quantum RESULT-0029 without changing the no-refit transfer contract (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
+- `TASK-0988` - Scout one new direct quantum-size source route after RESULT-0029 (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
+- `TASK-0989` - Build the value-blind CHARA source-artifact and DEBCat de-dup package (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `stellar_astrophysics`)
+- `TASK-0990` - Ratify Atomic monitor-only posture and publish reopen-trigger ledger (`scientific_source_curation`, priority `medium`, difficulty `low`, domain `precision_metrology`)
+- `TASK-0991` - Replay and route the Particle AHS common-scheme diagnostic (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `particle_physics`)
+- `TASK-0992` - Run Nuclear reveal-source watch check 2 without scoring (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0995` - Define the FRB reveal-source admissibility contract without reading labels (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
