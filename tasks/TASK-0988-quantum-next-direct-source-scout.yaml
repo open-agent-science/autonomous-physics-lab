@@ -1,0 +1,52 @@
+id: TASK-0988
+title: "Scout one new direct quantum-size source route after RESULT-0029"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Quantum should not rerun the same ZnSe/InP transfer after RESULT-0029; new information requires a new direct source route."
+  - "The useful next step is source readiness, not metric work."
+  - "A single-route scout can produce a stop/go decision without transcribing values."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "results/EXP-0022/RUN-0001/result.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/fresh-data-intake-protocol.md"
+  planning_context: >
+    Identify exactly one plausible post-RESULT-0029 direct measurement source
+    route that could add information beyond Almeida InP and Toufanian ZnSe.
+    Assess source/artifact/license/readiness only; do not curate values.
+
+requirements:
+  - "Choose one route and document locator, measurement type, material axis, size axis, table/figure availability, license/reuse posture, and likely row count."
+  - "Classify whether rows would be direct measurements, calibration-derived, device-context, or inadmissible for the current campaign."
+  - "Return exactly one verdict: SOURCE_ROUTE_READY, SOURCE_LIMITED_MONITOR, or BLOCKED."
+  - "If ready, propose a future value-blind source-artifact task shape; if blocked, preserve the blocker."
+  - "Do not extract rows, digitize figures, fit size laws, rerun ZnSe/InP, or create results/claims."
+
+accepted_outputs:
+  - "A docs/reviews source-scout note with one route, readiness table, verdict, and future task shape or blocker memory."
+  - "Output-routing summary: source readiness only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness scout only; no data or result artifact is created."
+  evidence:
+    - "results/EXP-0022/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

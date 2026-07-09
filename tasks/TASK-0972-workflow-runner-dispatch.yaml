@@ -1,0 +1,53 @@
+id: TASK-0972
+title: "Replace the workflow runner if-chain with a data-driven dispatch table"
+type: code_quality_refactor
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Acts on the workflow-layer finding of the 2026-07-09 architecture audit: physics_lab/workflows/runner.py dispatched workflows through a hand-edited if/elif chain (14 workflow-string branches + 4 method-type branches)."
+  - "Behavior-preserving structural change only: the if-chain becomes two name->callable dispatch dicts with identical precedence (named workflow before experiment method type). No workflow logic, result, or output changes."
+  - "First slice of the workflow-layer cleanup; the larger shared-base/template extraction for the per-workflow clones is a separate, heavier follow-up."
+
+input:
+  mode: workflow
+  related_domain: repository_architecture
+  related_objects:
+    - "physics_lab/workflows/runner.py"
+  planning_context: >
+    Convert the two-axis if/elif dispatch in run_experiment_with_output into
+    two module-level dispatch tables: WORKFLOW_DISPATCH (config "workflow"
+    key) checked first, then METHOD_TYPE_DISPATCH (experiment method type) as
+    the fallback, mirroring the historical order exactly. Every handler
+    already shares the (config_path, output_dir) signature, so the tables are
+    a mechanical, behavior-preserving replacement. Adding a workflow becomes a
+    single dict entry plus its import instead of a new if branch.
+
+requirements:
+  - "Behavior-preserving: dispatch precedence and every handler mapping are identical to the previous if-chain; the ValueError for an unknown method type is unchanged."
+  - "No change to any workflow module, example config, result artifact, or output; committed artifacts must not drift (git diff --exit-code clean apart from runner.py)."
+  - "Handlers keyed by the same workflow strings and method-type strings as before; the tables are exported for introspection."
+  - "ruff clean; per-workflow tests, full fast suite, full_repo smoke, and strict validation all green."
+
+accepted_outputs:
+  - "The refactored runner.py plus this task file."
+  - "Output-routing summary: structural refactor; no scientific artifact, claim, or result change."
+
+result_artifact_policy:
+  required: false
+  reason: "Code-quality refactor; no scientific RESULT or PRED artifact is expected. Behavior is proven unchanged by the existing per-workflow tests and example replays."
+  evidence:
+    - "physics_lab/workflows/runner.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/workflows/runner.py"
+    - "python3 -m pytest tests/test_pendulum.py tests/test_damped_oscillator.py tests/test_anharmonic_oscillator.py tests/test_particle_mass_falsifier.py tests/test_particle_mass_holdout.py tests/test_particle_mass_reproduction.py tests/test_nuclear_mass_baselines.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

@@ -28,9 +28,10 @@ an activated sealed-prediction preparation lane. The older CHIME/FRB Catalog 2
 HDF5 map remains blocked for pre-T construction because it is a static
 cumulative full-window map with no time axis. The active route is now the
 separate Catalog-1 interval exposure pair: its checksum/schema gate passed, and
-`TASK-0963` constructed a compact 479-row pre-T exposure feature surface, and
-`TASK-0964` froze the exposure-only model surface for the follow-on
-`TASK-0965` sealed-registration pack.
+`TASK-0963` constructed a compact 479-row pre-T exposure feature surface,
+`TASK-0964` froze the exposure-only model surface, and `TASK-0965` prepared the
+sealed-registration pack. The actual PRED registration remains blocked until an
+explicit maintainer Class 2 prediction-freeze decision.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -108,9 +109,10 @@ the checksum/schema gate, and `TASK-0963` wrote
 `data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml` from
 pre-T source coordinates and exposure counts only. It did not read repeater
 labels, register predictions, or make a population claim. `TASK-0964` then
-froze the exposure-only model surface without label contact. The next allowed
-step is the sequenced `TASK-0965` sealed-registration pack under maintainer
-approval.
+froze the exposure-only model surface without label contact, and `TASK-0965`
+prepared the sealed-registration pack without writing a `PRED-*` artifact. The
+next allowed steps are pre-freeze audit, deterministic anchor dry run, and
+reveal-source contract work; registration itself remains maintainer-gated.
 
 ## WATCHLIST Axes
 
@@ -132,10 +134,10 @@ Allowed next steps, only after maintainer assignment:
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
-- for FRB, continue only through the already activated Catalog-1 chain
-  (`TASK-0965` after the frozen `TASK-0964` surface) or through a separate
-  metadata-only source scout for a future Catalog-2-compatible time-indexed
-  exposure source.
+- for FRB, continue only through label-blind pre-freeze audit, deterministic
+  anchor dry-run, reveal-source contract, or maintainer-approved prediction
+  registration from the prepared pack; a future Catalog-2-compatible route
+  would still start as a metadata-only time-indexed exposure source scout.
 
 ## Not Allowed Yet
 
@@ -161,13 +163,13 @@ checksum plan, unit and uncertainty schema, and blockers. It should still add
 no numerical rows.
 
 For FRB specifically, the active next task shape is no longer generic source
-scouting: it is the sequenced Catalog-1 model/contract freeze and sealed
-registration pack. A future Catalog-2-compatible route would still start as a
-metadata-only time-indexed exposure source scout with official source
-candidates, interval semantics, sky-coordinate mapping, rights/access posture,
-checksum feasibility, and an explicit `READY` / `AMBIGUOUS` / `BLOCKED`
-verdict. It must not fetch bulk value-bearing bytes or construct exposure rows
-without a new maintainer-reviewed task.
+scouting: it is audit and registration discipline around the prepared
+Catalog-1 sealed-registration pack. A future Catalog-2-compatible route would
+still start as a metadata-only time-indexed exposure source scout with official
+source candidates, interval semantics, sky-coordinate mapping, rights/access
+posture, checksum feasibility, and an explicit `READY` / `AMBIGUOUS` /
+`BLOCKED` verdict. It must not fetch bulk value-bearing bytes or construct
+exposure rows without a new maintainer-reviewed task.
 
 ## What Not To Claim
 

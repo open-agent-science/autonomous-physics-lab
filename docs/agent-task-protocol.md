@@ -266,7 +266,14 @@ accepted, or whether a PR should merge.
 
 For closeout behavior, task YAML may optionally set `closeout: auto` or
 `closeout: review`. Omitted is equivalent to `auto`; `review` opts the task out
-of safe auto-closeout and keeps it on the manual maintainer closeout path.
+of safe auto-closeout and keeps it on the manual maintainer closeout path. Use
+`closeout: review` only when the task genuinely needs a human closeout
+decision, such as result-bearing work, protected scientific artifacts,
+dependent-unblock decisions, governance/policy calls, or non-mechanical
+follow-up routing. New `TASK-QUEUE` entries that set `closeout: review` must
+also include a short `closeout_review_reason`; otherwise the maintainer review
+helper will request a fix. Do not blanket-stamp queued tasks with
+`closeout: review` just to be conservative.
 `TASK-CLOSEOUT` is separate: it is the PR kind marker for closeout PR titles and
 metadata, not a task id and not a value for the task YAML field.
 `TASK-CLOSEOUT` may also be used for proposal-pool drift reconciliation when

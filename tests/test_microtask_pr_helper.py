@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from physics_lab.registry.microtask_pr_helper import (
+from physics_lab.ops.pr_helpers.microtask_pr_helper import (
     microtask_branch,
     microtask_pr_body,
     microtask_title,

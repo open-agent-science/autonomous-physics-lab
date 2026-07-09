@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -142,9 +143,16 @@ def _write_review_task(
     *,
     status: str = "REVIEW_READY",
     slug: str = "helper",
+    closeout: str | None = None,
+    closeout_review_reason: str | None = None,
 ) -> None:
     tasks_dir = root / "tasks"
     tasks_dir.mkdir(parents=True, exist_ok=True)
+    closeout_lines: list[str] = []
+    if closeout is not None:
+        closeout_lines.append(f"closeout: {closeout}")
+    if closeout_review_reason is not None:
+        closeout_lines.append(f'closeout_review_reason: "{closeout_review_reason}"')
     (tasks_dir / f"{task_id}-{slug}.yaml").write_text(
         "\n".join(
             [
@@ -152,6 +160,7 @@ def _write_review_task(
                 'title: "Maintainer review fixture"',
                 "type: maintainer_workflow",
                 f"status: {status}",
+                *closeout_lines,
                 "difficulty: medium",
                 "priority: high",
                 "strategy_alignment:",
@@ -1033,7 +1042,8 @@ def test_run_task_validation_prefers_repo_venv_python(tmp_path) -> None:
     payload = {"validation": {"commands": ["python3 -m pytest tests/x.py"]}}
     captured: list[str] = []
 
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ANN001, ANN003
+    def fake_run_command(command, *, cwd, shell=False, timeout=60, env=None):  # noqa: ANN001, ANN003
+        del env
         captured.append(command)
         return CommandResult(returncode=0, stdout="", stderr="")
 
@@ -1059,7 +1069,8 @@ def test_run_task_validation_rewrites_task_declared_venv_python(tmp_path) -> Non
     payload = {"validation": {"commands": [".venv/bin/python -m pytest tests/x.py"]}}
     captured: list[str] = []
 
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ANN001, ANN003
+    def fake_run_command(command, *, cwd, shell=False, timeout=60, env=None):  # noqa: ANN001, ANN003
+        del env
         captured.append(command)
         return CommandResult(returncode=0, stdout="", stderr="")
 
@@ -1071,6 +1082,30 @@ def test_run_task_validation_rewrites_task_declared_venv_python(tmp_path) -> Non
 
     assert summary.status == "pass"
     assert captured == [f'"{venv_python.resolve()}" -m pytest tests/x.py']
+
+
+def test_run_task_validation_puts_review_root_first_on_pythonpath(tmp_path) -> None:
+    payload = {"validation": {"commands": ["python3 -m physics_lab.cli validate-repo ."]}}
+    captured_env: list[dict[str, str]] = []
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command
+        env = kwargs.get("env")
+        assert isinstance(env, dict)
+        captured_env.append(env)
+        return CommandResult(returncode=0, stdout="", stderr="")
+
+    with patch.dict(os.environ, {"PYTHONPATH": "/stale/editable/path"}):
+        with patch(
+            "physics_lab.registry.maintainer_review.run_command",
+            side_effect=fake_run_command,
+        ):
+            summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "pass"
+    assert captured_env
+    pythonpath = captured_env[0]["PYTHONPATH"].split(os.pathsep)
+    assert pythonpath[:2] == [str(tmp_path), "/stale/editable/path"]
 
 
 def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
@@ -1557,6 +1592,15 @@ def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
     assert report.changed_files == ()
     assert any("intentionally did not review the current checkout" in item for item in report.blockers)
     assert any("Fallback commands" in item for item in report.blockers)
+    assert any(
+        "git fetch origin pull/104/head:refs/remotes/origin/pr-104" in item
+        for item in report.blockers
+    )
+    assert any(
+        "python3 scripts/apl_review_pr.py --branch origin/pr-104 --task TASK-XXXX --validation-mode strict"
+        in item
+        for item in report.blockers
+    )
 
 
 def test_build_review_report_allows_explicit_local_pr_ref_review(
@@ -2828,6 +2872,115 @@ def test_build_review_report_accepts_task_queue_pr_without_generated_navigation(
     )
 
 
+def test_build_review_report_flags_task_queue_closeout_review_without_reason(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_review_task(
+        tmp_path,
+        "TASK-0999",
+        status="READY",
+        slug="manual-closeout-fixture",
+        closeout="review",
+    )
+
+    branch = "agent/roman/codex/task-queue-closeout-policy"
+    changed = ("tasks/TASK-0999-manual-closeout-fixture.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=177,
+        title="TASK-QUEUE: Add manual closeout fixture task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=177)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("closeout_review_reason" in item for item in report.required_fixes)
+    assert report.blockers == ()
+
+
+def test_build_review_report_accepts_task_queue_closeout_review_with_reason(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_review_task(
+        tmp_path,
+        "TASK-0999",
+        status="READY",
+        slug="manual-closeout-fixture",
+        closeout="review",
+        closeout_review_reason="Result-bearing follow-up; maintainer closeout required.",
+    )
+
+    branch = "agent/roman/codex/task-queue-closeout-policy"
+    changed = ("tasks/TASK-0999-manual-closeout-fixture.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=178,
+        title="TASK-QUEUE: Add manual closeout fixture task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=178)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "MERGE_OK"
+    assert not any("closeout_review_reason" in item for item in report.required_fixes)
+    assert report.blockers == ()
+
+
 def test_build_review_report_blocks_task_queue_pr_that_changes_results(
     tmp_path: Path,
 ) -> None:
@@ -3560,6 +3713,42 @@ def test_finish_gate_blocks_ready_transition_when_ci_fails(tmp_path: Path) -> No
     assert report.next_safe_command == "gh run view 123 --log-failed"
     assert "Python fast tests" in rendered
     assert "https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/123/job/456" in rendered
+    ready.assert_not_called()
+
+
+def test_finish_gate_pending_ci_parks_pr_instead_of_watch_loop(tmp_path: Path) -> None:
+    pending_check = CheckState(
+        name="Python fast tests",
+        bucket="pending",
+        state="IN_PROGRESS",
+        link="https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/456/job/789",
+    )
+    ci_gate = CiGate(
+        status="pending",
+        checks=(pending_check,),
+        failures=(),
+        pending=(pending_check,),
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.pr_finish_gate.run_review_gate",
+            return_value=CommandResult(returncode=0, stdout="Verdict: MERGE_OK\n", stderr=""),
+        ),
+        patch("physics_lab.registry.pr_finish_gate.load_ci_gate", return_value=ci_gate),
+        patch("physics_lab.registry.pr_finish_gate.mark_ready") as ready,
+    ):
+        report = finish_pr(tmp_path, 104)
+
+    rendered = render_finish_gate_report(report, pr_number=104)
+    assert not report.ok
+    assert report.status == "blocked"
+    assert report.ci_status == "pending"
+    assert report.ready_transition == "not_attempted"
+    assert report.next_safe_command == "gh pr checks 104 --json name,state,bucket,link"
+    assert "--watch" not in rendered
+    assert "Park this PR" in rendered
+    assert "continue reviewing other open PRs" in rendered
     ready.assert_not_called()
 
 

@@ -189,6 +189,28 @@ command, including a failing-check inspection command when available.
 Pass `--validation-timeout-seconds <seconds>` here too when the finish gate
 should use a non-default local review-validation budget.
 
+When reviewing a queue of open PRs, do not let one pending CI rerun monopolize
+the maintainer cycle. If the finish gate reports pending checks for more than
+about 5 minutes while other PRs remain available, record the pending check, park
+that PR, and continue with other open PRs that already have green required
+checks and a `MERGE_OK` review verdict. Return to the parked PR after the check
+finishes. Foreground-watching with `gh pr checks --watch` is a manual exception
+for a deliberately selected PR, not the default behavior for a multi-PR review
+sweep. If a ready transition retriggers CI on the same head, follow the same
+rule; either wait only with explicit maintainer choice, request an explicit
+admin-merge decision, or continue the queue.
+
+For a one-command queue snapshot, use:
+
+```bash
+python3 scripts/apl_review_queue.py --merge-ok-pr <number>
+```
+
+Repeat `--merge-ok-pr` for PRs whose maintainer review agent already returned
+`MERGE_OK`. The helper reports `MERGE_NOW`, `READY_AFTER_UPDATE`, `WAIT_CI`,
+`NEEDS_REVIEW`, `DRAFT`, or `RISKY_DEPENDABOT` so a sweep can move to the next
+actionable PR without waiting on one queued check.
+
 ### Clean PR Worktree Review
 
 For PR-number reviews, the helper prefers the caller checkout only when it is
@@ -209,6 +231,11 @@ explicitly:
 git fetch origin pull/<number>/head:refs/remotes/origin/pr-<number>
 python3 scripts/apl_review_pr.py --branch origin/pr-<number> --task TASK-XXXX --validation-mode strict
 ```
+
+If `python3 scripts/apl_review_pr.py --pr <number>` reports `PR-UNRESOLVED`,
+do not retry the same `--pr` command in a loop. Use the two fallback commands
+above, then continue with the queue if that fallback is blocked by local GitHub
+metadata, worktree, or sandbox permissions.
 
 The helper treats that `origin/pr-*` value as a PR review ref, not as a valid
 contributor branch name. It checks the ref out into a clean detached review
@@ -700,6 +727,14 @@ A task is **auto-safe** only when ALL hold:
 - its merged PR touched no protected scientific artifact (`claims/`, `results/`,
   `prediction_registry/`, `experiments/`, `knowledge/`);
 - it does **not** unblock any other task (no `BLOCKED` task references it).
+
+New task-queue PRs that opt a task out with `closeout: review` must include a
+short `closeout_review_reason` explaining the manual closeout need. The reason
+is reviewer context, not an extra auto-closeout gate: existing deterministic
+guards still decide whether an otherwise auto-eligible task is safe. The
+maintainer review helper flags new task-queue entries that set
+`closeout: review` without the reason so broad queue seeding does not disable
+safe auto-closeout by accident.
 
 Everything else — result-bearing, follow-up-spawning, unblocking, and
 `closeout: review` tasks, plus all deterministic dependent-unblocks — stays on

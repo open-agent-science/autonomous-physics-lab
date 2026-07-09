@@ -36,7 +36,9 @@ def _issues_for(tmp_path: Path, payload: dict) -> tuple[repository.ValidationIss
     )
 
 
-def _schema_valid_task_payload(*, closeout: str | None = None) -> dict:
+def _schema_valid_task_payload(
+    *, closeout: str | None = None, closeout_review_reason: str | None = None
+) -> dict:
     payload = {
         "id": "TASK-9999",
         "title": "Closeout policy fixture",
@@ -56,6 +58,8 @@ def _schema_valid_task_payload(*, closeout: str | None = None) -> dict:
     }
     if closeout is not None:
         payload["closeout"] = closeout
+    if closeout_review_reason is not None:
+        payload["closeout_review_reason"] = closeout_review_reason
     return payload
 
 
@@ -73,6 +77,27 @@ def test_task_schema_accepts_closeout_policy_values() -> None:
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(
             instance=_schema_valid_task_payload(closeout="manual"),
+            schema=schema,
+        )
+
+
+def test_task_schema_accepts_closeout_review_reason() -> None:
+    schema = _task_schema()
+
+    jsonschema.validate(
+        instance=_schema_valid_task_payload(
+            closeout="review",
+            closeout_review_reason="Result-bearing task; maintainer closeout required.",
+        ),
+        schema=schema,
+    )
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(
+            instance=_schema_valid_task_payload(
+                closeout="review",
+                closeout_review_reason="",
+            ),
             schema=schema,
         )
 

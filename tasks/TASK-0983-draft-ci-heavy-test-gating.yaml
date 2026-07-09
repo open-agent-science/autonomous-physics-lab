@@ -1,0 +1,53 @@
+id: TASK-0983
+title: "Gate heavy PR tests until draft PRs are ready"
+type: ci_optimization
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduces self-hosted CI churn from intermediate draft pushes without changing branch-protection check names or fork-guard routing."
+  - "Keeps ready_for_review as the event that runs the merge-gate suite when a PR is promoted without a new commit."
+  - "Leaves post-merge main-matrix and nightly watchdog coverage intact."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/workflows/ci.yml"
+  planning_context: >
+    Current PR CI already uses one required check with classify-driven branches,
+    but non-doc draft pushes still run the full non-full_repo pytest suite. Gate
+    that heavy step behind draft == false so draft pushes run only cheap sanity
+    checks, while ready_for_review and ready PR synchronizations still run the
+    merge-gate suite.
+
+requirements:
+  - "Do not rename the required PR check or split it into multiple branch-protection-sensitive jobs."
+  - "Keep ready_for_review in the pull_request trigger set so draft -> ready runs CI without requiring a new commit."
+  - "Keep fork PRs on GitHub-hosted runners and same-repo PRs on the configured PR runner labels."
+  - "Skip the full non-full_repo pytest suite on draft non-doc PR pushes; run it when the PR is not draft."
+  - "Do not change scientific artifacts, tasks unrelated to TASK-0983, results, claims, predictions, or knowledge."
+
+accepted_outputs:
+  - "The PR fast-tests job keeps the same name but gates the heavy non-full_repo pytest step on github.event.pull_request.draft == false."
+  - "Draft PR pushes still run ruff and strict repository validation, plus existing targeted docs/task tests for docs/task-only changes."
+  - "ready_for_review remains a workflow trigger and runs the heavy merge-gate suite for non-doc PRs."
+  - "Output-routing summary: CI optimization; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "CI optimization task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - ".github/workflows/ci.yml"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_task_validation_plan.py"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -333,6 +334,40 @@ def resolve_task_file(root: Path, task_id: str) -> Path:
         rendered = ", ".join(path.name for path in matches)
         raise ValueError(f"Multiple task files found for {task_id}: {rendered}")
     return matches[0]
+
+
+def pr_head_ref_fallback_commands(
+    pull_request: int,
+    *,
+    task_id: str | None = None,
+    validation_mode: str = "strict",
+) -> tuple[str, ...]:
+    """Return explicit fallback commands for PR metadata lookup failures."""
+
+    task = task_id or "TASK-XXXX"
+    return (
+        f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request}",
+        (
+            f"python3 scripts/apl_review_pr.py --branch origin/pr-{pull_request} "
+            f"--task {task} --validation-mode {validation_mode}"
+        ),
+    )
+
+
+def render_pr_head_ref_fallback(
+    pull_request: int,
+    *,
+    task_id: str | None = None,
+    validation_mode: str = "strict",
+) -> str:
+    """Render the PR-head fallback as copy-paste-safe separate commands."""
+
+    commands = pr_head_ref_fallback_commands(
+        pull_request,
+        task_id=task_id,
+        validation_mode=validation_mode,
+    )
+    return "Fallback commands:\n" + "\n".join(f"- {command}" for command in commands)
 
 
 def resolve_microtask_queue_file(root: Path, queue_id: str) -> Path:
@@ -693,6 +728,28 @@ def _validation_summary_status(outcomes: tuple[ValidationCommandOutcome, ...]) -
     return "environment_blocked"
 
 
+def _validation_subprocess_env(root: Path) -> dict[str, str]:
+    """Return an env that makes validation import this checkout first.
+
+    Review PR worktrees commonly reuse the main checkout's shared ``.venv``.
+    If that venv has a stale editable install, ``python -m physics_lab...`` can
+    import a different checkout than the PR being reviewed. Putting the review
+    root first on ``PYTHONPATH`` keeps dependencies from the selected venv while
+    forcing repository modules to resolve from the target worktree.
+    """
+    env = dict(os.environ)
+    root_entry = str(root)
+    current = env.get("PYTHONPATH")
+    if not current:
+        env["PYTHONPATH"] = root_entry
+        return env
+    parts = current.split(os.pathsep)
+    if parts and parts[0] == root_entry:
+        return env
+    env["PYTHONPATH"] = os.pathsep.join([root_entry, *[part for part in parts if part]])
+    return env
+
+
 def run_task_validation(
     root: Path,
     task_payload: dict[str, Any],
@@ -712,6 +769,7 @@ def run_task_validation(
     # Prefer the repository venv interpreter so validation never runs on an
     # unsupported launcher (e.g. a bare system python 3.9) — see TASK-0725.
     validation_python = resolve_validation_python(root)
+    validation_env = _validation_subprocess_env(root)
     validation_commands = [
         str(command) for command in task_payload.get("validation", {}).get("commands", [])
     ]
@@ -739,6 +797,7 @@ def run_task_validation(
             cwd=root,
             shell=True,
             timeout=validation_timeout_seconds,
+            env=validation_env,
         )
         status = "pass"
         reason = ""
@@ -1447,10 +1506,12 @@ def _compose_review_report(
             blockers=(
                 "Could not load PR metadata via gh CLI, so the helper cannot "
                 "prove which PR head to review. It intentionally did not review "
-                "the current checkout. Fallback commands: "
-                f"gh pr view {pull_request} --json headRefName,headRefOid,baseRefName ; "
-                f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request} ; "
-                f"python3 scripts/apl_review_pr.py --branch origin/pr-{pull_request} --task <TASK-XXXX>.",
+                "the current checkout. "
+                + render_pr_head_ref_fallback(
+                    pull_request,
+                    task_id=task_id,
+                    validation_mode=validation_mode,
+                ),
             ),
             required_fixes=(),
             recommended_action="Do not merge. Re-run review against a verified PR head ref.",
@@ -1507,10 +1568,12 @@ def _compose_review_report(
     if pull_request is not None and pr_metadata is None:
         blockers.append(
             "Could not load PR metadata via gh CLI, so the helper could not "
-            "prepare a clean remote PR review worktree. Fallback commands: "
-            f"gh pr view {pull_request} --json headRefName,headRefOid,baseRefName ; "
-            f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request} ; "
-            f"python3 scripts/apl_review_pr.py --branch <local-pr-branch>."
+            "prepare a clean remote PR review worktree. "
+            + render_pr_head_ref_fallback(
+                pull_request,
+                task_id=task_id,
+                validation_mode=validation_mode,
+            )
         )
     if clean_pr_worktree is not None:
         if clean_pr_worktree.ready:
@@ -1743,6 +1806,14 @@ def _compose_review_report(
             if status not in TASK_QUEUE_ALLOWED_STATUSES:
                 required_fixes.append(
                     f"TASK-QUEUE PR should leave {task_path} in PROPOSED, READY, or BLOCKED; found {status}."
+                )
+            if str(payload.get("closeout", "")).strip() == "review" and not str(
+                payload.get("closeout_review_reason", "")
+            ).strip():
+                required_fixes.append(
+                    f"{task_path} sets closeout: review but does not declare "
+                    "closeout_review_reason. Omit closeout for safe auto-closeout "
+                    "eligibility, or add a short reason when manual closeout is required."
                 )
         generated_navigation_changes = tuple(
             path
