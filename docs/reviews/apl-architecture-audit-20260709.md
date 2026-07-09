@@ -1,6 +1,6 @@
 # APL Architecture Audit - 2026-07-09
 
-- Task: TASK-0967 (maintainer-directed architecture and workflow audit,
+- Task: TASK-0968 (maintainer-directed architecture and workflow audit,
   Maintainer/Architect mode).
 - Scope: nine read-only dimensions - core package architecture,
   helper-script sprawl, test-suite health, validation-gate performance,
