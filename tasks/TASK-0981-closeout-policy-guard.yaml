@@ -3,7 +3,6 @@ title: "Closeout policy guard for task-queue seeded tasks"
 type: maintainer_workflow
 status: REVIEW_READY
 closeout: review
-closeout_review_reason: "Policy/helper change that affects future closeout automation; maintainer should confirm before closeout."
 difficulty: low
 priority: high
 
