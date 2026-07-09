@@ -1,7 +1,7 @@
 id: TASK-0962
 title: "Prepare the collaborator access hygiene decision packet (outside collaborators with write)"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: low
@@ -36,11 +36,12 @@ result_artifact_policy:
   reason: "Maintainer decision packet; no scientific artifact."
   evidence:
     - "docs/decision-autonomy-policy.md"
+    - "docs/reviews/collaborator-access-hygiene-decision-packet.md"
+    - "decisions/DEC-20260709-collaborator-access-hygiene.yaml"
 
 validation:
   commands:
-    - "python3 -m pytest tests/test_docs_links.py"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
