@@ -17,7 +17,11 @@ SAFE_LOADER_NAME = _SafeLoader.__name__
 
 def safe_load_yaml(stream: str | TextIO) -> Any:
     """Load YAML using LibYAML's safe loader when available."""
-    return yaml.load(stream, Loader=_SafeLoader)
+    loader = _SafeLoader(stream)
+    try:
+        return loader.get_single_data()
+    finally:
+        loader.dispose()
 
 
 def load_yaml(path: str | Path) -> Any:
