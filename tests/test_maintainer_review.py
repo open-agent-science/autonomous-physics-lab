@@ -34,6 +34,7 @@ from physics_lab.registry.maintainer_review import (
     overclaim_hits,
     parse_added_lines,
     _portable_validation_command,
+    _pull_request_metadata_from_payload,
     output_routing_value,
     prepare_clean_pr_worktree,
     publication_license_blockers,
@@ -1690,6 +1691,109 @@ def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) 
     assert metadata is not None
     assert metadata.number == 104
     assert metadata.merged is True
+    assert metadata.status_checks_passed is True
+
+
+def test_rollup_stale_cancelled_run_superseded_by_success_passes() -> None:
+    """A stale CANCELLED entry from a superseded run must not block a re-run SUCCESS."""
+    payload = {
+        "number": 1,
+        "statusCheckRollup": [
+            {
+                "name": "PR fast tests",
+                "conclusion": "SUCCESS",
+                "status": "COMPLETED",
+                "completedAt": "2026-07-09T11:00:00Z",
+            },
+            {
+                "name": "PR fast tests",
+                "conclusion": "CANCELLED",
+                "status": "COMPLETED",
+                "completedAt": "2026-07-09T10:00:00Z",
+            },
+        ],
+    }
+
+    metadata = _pull_request_metadata_from_payload(payload)
+
+    assert metadata.status_checks_passed is True
+    assert metadata.status_checks_pending is False
+
+
+def test_rollup_sole_cancelled_run_still_fails() -> None:
+    payload = {
+        "number": 1,
+        "statusCheckRollup": [
+            {
+                "name": "PR fast tests",
+                "conclusion": "CANCELLED",
+                "status": "COMPLETED",
+                "completedAt": "2026-07-09T10:00:00Z",
+            },
+        ],
+    }
+
+    metadata = _pull_request_metadata_from_payload(payload)
+
+    assert metadata.status_checks_passed is False
+
+
+def test_rollup_in_progress_check_run_reports_pending() -> None:
+    """CheckRun entries expose status (not state); in-progress runs must stay visible."""
+    payload = {
+        "number": 1,
+        "statusCheckRollup": [
+            {"name": "x", "status": "IN_PROGRESS"},
+            {
+                "name": "PR fast tests",
+                "conclusion": "SUCCESS",
+                "status": "COMPLETED",
+                "completedAt": "2026-07-09T10:00:00Z",
+            },
+        ],
+    }
+
+    metadata = _pull_request_metadata_from_payload(payload)
+
+    assert metadata.status_checks_passed is None
+    assert metadata.status_checks_pending is True
+
+
+def test_rollup_newer_failure_supersedes_older_success() -> None:
+    payload = {
+        "number": 1,
+        "statusCheckRollup": [
+            {
+                "name": "PR fast tests",
+                "conclusion": "SUCCESS",
+                "status": "COMPLETED",
+                "completedAt": "2026-07-09T10:00:00Z",
+            },
+            {
+                "name": "PR fast tests",
+                "conclusion": "FAILURE",
+                "status": "COMPLETED",
+                "completedAt": "2026-07-09T11:00:00Z",
+            },
+        ],
+    }
+
+    metadata = _pull_request_metadata_from_payload(payload)
+
+    assert metadata.status_checks_passed is False
+
+
+def test_rollup_duplicate_without_timestamps_later_list_entry_wins() -> None:
+    payload = {
+        "number": 1,
+        "statusCheckRollup": [
+            {"name": "PR fast tests", "conclusion": "CANCELLED", "status": "COMPLETED"},
+            {"name": "PR fast tests", "conclusion": "SUCCESS", "status": "COMPLETED"},
+        ],
+    }
+
+    metadata = _pull_request_metadata_from_payload(payload)
+
     assert metadata.status_checks_passed is True
 
 
