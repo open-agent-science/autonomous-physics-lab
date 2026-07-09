@@ -335,6 +335,40 @@ def resolve_task_file(root: Path, task_id: str) -> Path:
     return matches[0]
 
 
+def pr_head_ref_fallback_commands(
+    pull_request: int,
+    *,
+    task_id: str | None = None,
+    validation_mode: str = "strict",
+) -> tuple[str, ...]:
+    """Return explicit fallback commands for PR metadata lookup failures."""
+
+    task = task_id or "TASK-XXXX"
+    return (
+        f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request}",
+        (
+            f"python3 scripts/apl_review_pr.py --branch origin/pr-{pull_request} "
+            f"--task {task} --validation-mode {validation_mode}"
+        ),
+    )
+
+
+def render_pr_head_ref_fallback(
+    pull_request: int,
+    *,
+    task_id: str | None = None,
+    validation_mode: str = "strict",
+) -> str:
+    """Render the PR-head fallback as copy-paste-safe separate commands."""
+
+    commands = pr_head_ref_fallback_commands(
+        pull_request,
+        task_id=task_id,
+        validation_mode=validation_mode,
+    )
+    return "Fallback commands:\n" + "\n".join(f"- {command}" for command in commands)
+
+
 def resolve_microtask_queue_file(root: Path, queue_id: str) -> Path:
     """Resolve a microtask queue id to a queue file under tasks/microtasks."""
     path = root / "tasks" / "microtasks" / f"{queue_id}.yaml"
@@ -1447,10 +1481,12 @@ def _compose_review_report(
             blockers=(
                 "Could not load PR metadata via gh CLI, so the helper cannot "
                 "prove which PR head to review. It intentionally did not review "
-                "the current checkout. Fallback commands: "
-                f"gh pr view {pull_request} --json headRefName,headRefOid,baseRefName ; "
-                f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request} ; "
-                f"python3 scripts/apl_review_pr.py --branch origin/pr-{pull_request} --task <TASK-XXXX>.",
+                "the current checkout. "
+                + render_pr_head_ref_fallback(
+                    pull_request,
+                    task_id=task_id,
+                    validation_mode=validation_mode,
+                ),
             ),
             required_fixes=(),
             recommended_action="Do not merge. Re-run review against a verified PR head ref.",
@@ -1507,10 +1543,12 @@ def _compose_review_report(
     if pull_request is not None and pr_metadata is None:
         blockers.append(
             "Could not load PR metadata via gh CLI, so the helper could not "
-            "prepare a clean remote PR review worktree. Fallback commands: "
-            f"gh pr view {pull_request} --json headRefName,headRefOid,baseRefName ; "
-            f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request} ; "
-            f"python3 scripts/apl_review_pr.py --branch <local-pr-branch>."
+            "prepare a clean remote PR review worktree. "
+            + render_pr_head_ref_fallback(
+                pull_request,
+                task_id=task_id,
+                validation_mode=validation_mode,
+            )
         )
     if clean_pr_worktree is not None:
         if clean_pr_worktree.ready:

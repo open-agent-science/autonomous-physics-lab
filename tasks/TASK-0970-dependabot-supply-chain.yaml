@@ -1,0 +1,56 @@
+id: TASK-0970
+title: "Add Dependabot config for GitHub Actions and pip supply-chain updates"
+type: repository_hardening
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Acts on the supply-chain findings from the 2026-07-09 architecture audit: GitHub Actions were pinned to floating tags (fixed in TASK-0969) and Python dependencies float with >= floors and no lockfile."
+  - "Additive configuration only; introduces no lockfile and changes no install or CI behavior. It complements the TASK-0969 SHA pins by giving them an automatic, reviewable bump path so pinning does not cause silent rot."
+  - "Deliberately narrow: a full pip lockfile / constraints-in-CI change is a separate, heavier decision and is not part of this task."
+
+input:
+  mode: workflow
+  related_domain: repository_hardening
+  related_objects:
+    - ".github/dependabot.yml"
+    - ".github/workflows/ci.yml"
+    - "pyproject.toml"
+  planning_context: >
+    Add a single .github/dependabot.yml declaring two weekly update
+    ecosystems: github-actions (keeps the SHA-pinned actions in the three
+    workflow files current) and pip (monitors the direct pyproject.toml
+    dependencies, which are floored with >= and have no lockfile). Updates
+    are grouped so each ecosystem yields one consolidated PR per run. No
+    workflow logic, install command, or dependency version is changed by
+    this task; Dependabot only opens future update PRs the maintainer
+    reviews like any other change. Transitive dependency drift remains a
+    separate lockfile/constraints decision.
+
+requirements:
+  - "Add .github/dependabot.yml only (plus this task file); do not change any workflow, pyproject.toml dependency, or install command."
+  - "Valid Dependabot v2 schema; both ecosystems (github-actions, pip) rooted at the repository, weekly, grouped into one PR each."
+  - "No lockfile or constraints file is introduced; that remains a separate decision."
+  - "YAML parses; strict repo validation stays green."
+
+accepted_outputs:
+  - "The .github/dependabot.yml config plus this task file."
+  - "Output-routing summary: repository hardening; no scientific artifact, claim, or result change."
+
+result_artifact_policy:
+  required: false
+  reason: "CI/repository hardening task; no scientific RESULT or PRED artifact is expected. Evidence is the config file itself."
+  evidence:
+    - ".github/dependabot.yml"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -c \"import yaml; yaml.safe_load(open('.github/dependabot.yml',encoding='utf-8'))\""
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex

@@ -126,13 +126,15 @@ checks for `RESULT-0022`. `RESULT-0023` now packages the FIRAS/Wien
 spectral-domain self-consistency slice through a workflow and has passed Gate B
 with negligible numeric drift. `RESULT-0024` is the high-mass transfer result
 and now replays through the formal workflow route as `AGENT_VALIDATED`.
-`TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED: CHARA
-interferometric binaries are promising for a small `0.5-2.0 M_sun` holdout, but
-lack a single pinnable snapshot and need DEBCat system-level de-duplication.
+`TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED, and
+`TASK-0939` upgraded that route to `PAPER_LEVEL_PIN_READY`: CHARA
+interferometric binaries are promising for a small `0.5-2.0 M_sun` holdout if a
+future value-blind source-artifact task can pin exact paper/table identities and
+apply DEBCat system-level de-duplication before any values or metrics.
 
-**Expected next result:** source-readiness work for an independent Stellar M-L
-holdout beyond DEBCat, not another DEBCat metric or universal stellar-law
-wording.
+**Expected next result:** a value-blind CHARA source-artifact and de-dup package
+for a possible independent Stellar M-L holdout beyond DEBCat, not another
+DEBCat metric or universal stellar-law wording.
 
 ## Why It Matters
 
@@ -284,8 +286,9 @@ Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
 FIRAS/Wien `RESULT-0023` is also `AGENT_VALIDATED`, but only as
 calibration/known-physics verifier memory. High-mass Stellar transfer
 `RESULT-0024` has replay memory with zero metric drift and a retained metadata
-caveat. The next work is public wording and metadata-caveat adjudication, not
-another formula or model-search lane.
+caveat. `TASK-0939` found the CHARA route paper-level-pin-ready, so the next
+work is value-blind source-artifact/de-dup curation before any row or metric
+task, not another formula or model-search lane.
 
 ## Cross-References
 

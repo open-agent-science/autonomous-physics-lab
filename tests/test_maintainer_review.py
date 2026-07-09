@@ -1565,6 +1565,15 @@ def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
     assert report.changed_files == ()
     assert any("intentionally did not review the current checkout" in item for item in report.blockers)
     assert any("Fallback commands" in item for item in report.blockers)
+    assert any(
+        "git fetch origin pull/104/head:refs/remotes/origin/pr-104" in item
+        for item in report.blockers
+    )
+    assert any(
+        "python3 scripts/apl_review_pr.py --branch origin/pr-104 --task TASK-XXXX --validation-mode strict"
+        in item
+        for item in report.blockers
+    )
 
 
 def test_build_review_report_allows_explicit_local_pr_ref_review(
@@ -3677,6 +3686,42 @@ def test_finish_gate_blocks_ready_transition_when_ci_fails(tmp_path: Path) -> No
     assert report.next_safe_command == "gh run view 123 --log-failed"
     assert "Python fast tests" in rendered
     assert "https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/123/job/456" in rendered
+    ready.assert_not_called()
+
+
+def test_finish_gate_pending_ci_parks_pr_instead_of_watch_loop(tmp_path: Path) -> None:
+    pending_check = CheckState(
+        name="Python fast tests",
+        bucket="pending",
+        state="IN_PROGRESS",
+        link="https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/456/job/789",
+    )
+    ci_gate = CiGate(
+        status="pending",
+        checks=(pending_check,),
+        failures=(),
+        pending=(pending_check,),
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.pr_finish_gate.run_review_gate",
+            return_value=CommandResult(returncode=0, stdout="Verdict: MERGE_OK\n", stderr=""),
+        ),
+        patch("physics_lab.registry.pr_finish_gate.load_ci_gate", return_value=ci_gate),
+        patch("physics_lab.registry.pr_finish_gate.mark_ready") as ready,
+    ):
+        report = finish_pr(tmp_path, 104)
+
+    rendered = render_finish_gate_report(report, pr_number=104)
+    assert not report.ok
+    assert report.status == "blocked"
+    assert report.ci_status == "pending"
+    assert report.ready_transition == "not_attempted"
+    assert report.next_safe_command == "gh pr checks 104 --json name,state,bucket,link"
+    assert "--watch" not in rendered
+    assert "Park this PR" in rendered
+    assert "continue reviewing other open PRs" in rendered
     ready.assert_not_called()
 
 

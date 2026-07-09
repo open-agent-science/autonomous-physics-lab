@@ -31,8 +31,14 @@ def test_runner_status_payload_documents_fallback_labels() -> None:
     )
     assert "APL_PR_RUNNER_LABELS" in payload["runner_variables"]
     assert "gh run list --workflow CI --limit 10" in payload["queue_visibility_commands"]
+    assert any(
+        command.startswith("gh pr list --state open")
+        for command in payload["queue_visibility_commands"]
+    )
     assert "./svc.sh status" in payload["vps_health_commands"]
     assert "5 minutes" in payload["fallback_decision_rule"]
+    assert "park the pending PR" in payload["review_queue_anti_stall_rule"]
+    assert "explicit maintainer decision" in payload["review_queue_anti_stall_rule"]
 
 
 def test_runner_status_markdown_is_copy_paste_friendly() -> None:
@@ -46,6 +52,8 @@ def test_runner_status_markdown_is_copy_paste_friendly() -> None:
     assert "`[\"ubuntu-latest\"]`" in markdown
     assert "`ssh root@<runner-host>`" in markdown
     assert "Fallback Decision Rule" in markdown
+    assert "Review Queue Anti-Stall Rule" in markdown
+    assert "do not foreground-watch one pending PR check" in markdown
 
 
 def test_runner_status_cli_json() -> None:
@@ -62,3 +70,4 @@ def test_runner_status_cli_json() -> None:
         "[\"ubuntu-latest\"]"
     )
     assert "gh pr checks <pr-number>" in payload["queue_visibility_commands"]
+    assert "review_queue_anti_stall_rule" in payload
