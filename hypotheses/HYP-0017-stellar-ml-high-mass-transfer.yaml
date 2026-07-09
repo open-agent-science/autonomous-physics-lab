@@ -1,7 +1,7 @@
 id: HYP-0017
 title: "The frozen RESULT-0022 stellar mass-luminosity relation transfers to a disjoint high-mass DEBCat regime under predeclared controls"
 domain: astrophysics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -40,4 +40,4 @@ evidence:
   results:
     - RESULT-0024
 
-verdict: "Benchmark designed to test whether the frozen RESULT-0022 relation survives a controlled high-mass DEBCat transfer; scope-limited, same-source, and not a universal law."
+verdict: "RESULT-0024 is AGENT_VALIDATED and VALID_IN_RANGE: the frozen RESULT-0022 relation survives the controlled high-mass DEBCat transfer in the committed same-source scope. It remains same-source evidence, not a universal law."

@@ -1,7 +1,7 @@
 id: HYP-0014
 title: "Within the frozen MD-0002 stable-ternary-oxide scope, a composition-aware cation-pair baseline improves formation-energy residuals over a global-median null"
 domain: materials_science
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -35,4 +35,4 @@ evidence:
   results:
     - RESULT-0021
 
-verdict: "Benchmark designed to characterize the composition-aware baseline advantage and its robustness on the frozen MD-0002 slice; not a materials-discovery or new-law claim."
+verdict: "RESULT-0021 is AGENT_VALIDATED and VALID_IN_RANGE for the frozen MD-0002 formation-energy benchmark. The outcome is scoped to the committed split and is not a materials-discovery or new-law claim."

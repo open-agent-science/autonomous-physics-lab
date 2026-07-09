@@ -1,7 +1,7 @@
 id: HYP-0013
 title: "APL exact-reference textbook fixtures can validate software conventions without making empirical physics claims"
 domain: textbook_formula_audit
-status: FORMALIZED
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -50,7 +50,6 @@ evidence:
     - RESULT-0019
 
 verdict: >
-  Scoped identity only. Future evidence may support a software/convention
-  RESULT artifact if the fixture metadata boundaries are explicitly updated
-  and the result-promotion gates pass, but this hypothesis does not support
-  empirical formula validation.
+  RESULT-0019 returned VALID_IN_RANGE for the scoped exact-reference software
+  fixtures. The outcome validates repository conventions only and does not
+  support empirical formula validation.

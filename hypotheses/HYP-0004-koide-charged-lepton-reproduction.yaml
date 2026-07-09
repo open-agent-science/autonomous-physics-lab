@@ -1,7 +1,7 @@
 id: HYP-0004
 title: "Charged-lepton Koide quantity is numerically close to 2/3"
 domain: particle_physics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: "Charged-lepton pole masses define a Koide quantity numerically close to 2/3 under explicit PDG-backed inputs."
@@ -33,4 +33,4 @@ evidence:
   results:
     - RESULT-0005
 
-verdict: "Testing the charged-lepton Koide reproduction benchmark under explicit dataset and uncertainty assumptions."
+verdict: "RESULT-0005 reproduces the charged-lepton Koide quantity under explicit dataset and uncertainty assumptions. Ledger status is VALID_IN_RANGE for this scoped numerical reproduction only."

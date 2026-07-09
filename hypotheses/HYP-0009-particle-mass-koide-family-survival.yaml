@@ -1,7 +1,7 @@
 id: HYP-0009
 title: "Standard Koide target Q = 2/3 survives guardrail-compliant charged fermion family tests"
 domain: particle_physics
-status: TESTING
+status: FALSIFIED
 
 hypothesis:
   statement: >
@@ -38,7 +38,7 @@ evidence:
     - RESULT-0011
 
 verdict: >
-  Testing in progress. If any guardrail-compliant charged fermion family
-  misses Q = 2/3 outside propagated uncertainty, the cross-family survival
-  hypothesis is falsified for this fixed standard relation under the encoded
-  assumptions. This does not falsify every possible Koide-like extension.
+  RESULT-0011 returned INVALID and is AGENT_VALIDATED: the standard Koide
+  target does not survive the committed guardrail-compliant charged-fermion
+  family tests. This scoped falsification does not falsify every possible
+  Koide-like extension.
