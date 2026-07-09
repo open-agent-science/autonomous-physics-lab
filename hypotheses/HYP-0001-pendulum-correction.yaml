@@ -1,7 +1,7 @@
 id: HYP-0001
 title: "Pendulum period correction with amplitude terms"
 domain: classical_mechanics
-status: TESTING
+status: PARTIALLY_VALID
 
 hypothesis:
   statement: "The pendulum period ratio can be approximated by low-order amplitude correction formulas."
@@ -40,4 +40,4 @@ evidence:
     - RESULT-0013
     - RESULT-0017
 
-verdict: "Systematic gauntlets confirm range-limited pendulum correction formulas, including a 102-candidate asymptotic-refined follow-up. Evidence remains benchmark-scoped and does not establish a symbolic exact or globally valid formula."
+verdict: "RESULT-0001, RESULT-0003, and RESULT-0013 confirm range-limited pendulum correction formulas, while RESULT-0017 records an overfit boundary. Ledger status is PARTIALLY_VALID: scoped amplitude-range evidence exists, but no symbolic exact or globally valid formula is established."

@@ -48,6 +48,8 @@ evidence:
     - EXP-0019
 
 verdict: >
-  Formalized software-consistency hypothesis only. A passing sandbox benchmark
-  may establish that APL implements the named TE-001 checks correctly; it does
+  Formalized software-consistency hypothesis only. TASK-0875 resolved the
+  completed EXP-0019 lane as software/convention quality-floor memory: the
+  passing AGENT-RUN-0086 benchmark and review note preserve implementation
+  evidence, while canonical RESULT packaging is intentionally held. This does
   not create a physics claim or knowledge artifact.

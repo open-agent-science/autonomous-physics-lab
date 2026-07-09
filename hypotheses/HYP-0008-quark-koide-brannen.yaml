@@ -1,7 +1,7 @@
 id: HYP-0008
 title: "Phase-modified Koide formula Q(δ) = 2/3 is achievable for quark mass triplets"
 domain: particle_physics
-status: TESTING
+status: FALSIFIED
 
 hypothesis:
   statement: >
@@ -39,6 +39,7 @@ evidence:
     - RESULT-0010
 
 verdict: >
-  Testing in progress. The standard Koide formula (δ=0) gives Q > 2/3 for both
-  quark sectors due to extreme mass hierarchies. The phase scan determines whether
-  any δ can bring Q to 2/3.
+  RESULT-0010 returned INVALID: the tested quark-sector phase/Brannen variants
+  do not reach the configured Koide target under the committed mass inputs.
+  This is a scoped falsification, not a universal statement about every
+  possible quark-mass relation.

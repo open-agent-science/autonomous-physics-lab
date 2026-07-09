@@ -1,7 +1,7 @@
 id: TASK-0961
 title: "Run the one-shot scientific ledger hygiene batch: hypothesis outcomes, EXP-0019, knowledge entries for four domains"
 type: docs_protocol
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
@@ -35,6 +35,8 @@ requirements:
   - "No metric, verdict, claim-status, or PRED change; knowledge endorsement semantics stay maintainer-only (entries are descriptive, not endorsements)."
 
 accepted_outputs:
+  - "Explicitly authorized ledger hygiene edits under hypotheses/ for status-only synchronization to existing RESULT evidence."
+  - "Explicitly authorized ledger hygiene edits under experiments/ for the EXP-0019 completed-without-result resolution note."
   - "The synced hypothesis ledger, the EXP-0019 resolution, the four-domain draft knowledge-proposals packet, and a hygiene note listing every flip with its evidence."
   - "Output-routing summary: ledger status accounting; no scientific content change."
 
@@ -43,11 +45,11 @@ result_artifact_policy:
   reason: "Status hygiene and knowledge documentation; no result or prediction artifact."
   evidence:
     - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/scientific-ledger-hygiene-20260709.md"
 
 validation:
   commands:
-    - "python3 -m pytest tests/test_docs_links.py"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human

@@ -27,6 +27,12 @@ data:
   notes: >
     Implements TE-001 only. Simultaneity, twin paradox, elevator, acceleration,
     gravity, and the remaining thought-experiment suite are outside scope.
+    TASK-0875 resolved the completed-without-RESULT ledger mismatch by routing
+    this experiment to software/convention quality-floor memory: AGENT-RUN-0086,
+    docs/reviews/light-clock-quality-floor-routing-scorecard.md, and regression
+    tests preserve the useful evidence, while canonical RESULT packaging is held
+    because it would duplicate an internal consistency check without empirical
+    input, independent replay, or a new operational consumer.
 
 candidate_models:
   - id: model_lorentz_light_clock

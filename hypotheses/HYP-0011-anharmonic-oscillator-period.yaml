@@ -1,7 +1,7 @@
 id: HYP-0011
 title: "Anharmonic oscillator period admits a benchmarkable weak-regime perturbative approximation"
 domain: classical_mechanics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -48,4 +48,4 @@ evidence:
     - RESULT-0014
     - RESULT-0016
 
-verdict: "The benchmark is designed to test weak-regime perturbative accuracy, holdout behavior, and breakdown boundaries for the anharmonic oscillator period."
+verdict: "RESULT-0014 and the Gate-B-validated RESULT-0016 support the configured weak-regime anharmonic oscillator period benchmark as VALID_IN_RANGE. General nonlinear oscillator behavior remains outside this scoped hypothesis."

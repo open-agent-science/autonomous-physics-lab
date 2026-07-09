@@ -1,7 +1,7 @@
 id: HYP-0002
 title: "Damped oscillator regimes can be verified against exact analytic solutions"
 domain: classical_mechanics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: "The damped harmonic oscillator can be verified across underdamped, critically damped, and overdamped regimes using exact analytic solutions and regime-aware checks."
@@ -42,4 +42,4 @@ evidence:
   results:
     - RESULT-0002
 
-verdict: "Initial regime verification completed. The exact linear damped-oscillator benchmark distinguishes underdamped, critically damped, and overdamped cases under the configured assumptions."
+verdict: "RESULT-0002 validates the configured linear damped-oscillator regime checks in range, distinguishing underdamped, critically damped, and overdamped cases under the declared assumptions."

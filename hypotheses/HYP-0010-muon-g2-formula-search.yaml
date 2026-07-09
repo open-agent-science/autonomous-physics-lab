@@ -1,7 +1,7 @@
 id: HYP-0010
 title: "Muon g-2 anomaly Δaμ is expressible as a power-law combination of SM constants"
 domain: particle_physics
-status: TESTING
+status: INCONCLUSIVE
 
 hypothesis:
   statement: >
@@ -42,7 +42,6 @@ evidence:
     - RESULT-0012
 
 verdict: >
-  Testing in progress. A null result would indicate that the g-2 anomaly
-  is not expressible as a simple power-law combination of the listed SM
-  constants. This would be consistent with either exotic BSM physics with
-  new mass scales or a SM calculation artifact (BMW lattice-QCD scenario).
+  RESULT-0012 returned INCONCLUSIVE: the formula-search stress test is kept as
+  calibration/stress-test memory, with dimensional, complexity, and
+  multiple-testing limitations blocking any physics interpretation.

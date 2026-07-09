@@ -1,7 +1,7 @@
 id: HYP-0015
 title: "On the frozen DEBCat main-sequence slice, the textbook single mass-luminosity exponent alpha=3.5 beats a null but is not the adequate sole baseline; a fitted/piecewise exponent is materially better"
 domain: astrophysics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -41,4 +41,4 @@ evidence:
   results:
     - RESULT-0022
 
-verdict: "Benchmark designed to characterize textbook single-exponent adequacy versus fitted/piecewise baselines on the frozen DEBCat main-sequence slice; not a universal mass-luminosity law or stellar-evolution claim."
+verdict: "RESULT-0022 is AGENT_VALIDATED and VALID_IN_RANGE for the frozen DEBCat main-sequence-compatible benchmark. The outcome characterizes the scoped baseline comparison and is not a universal mass-luminosity law or stellar-evolution claim."

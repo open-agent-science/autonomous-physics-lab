@@ -1,7 +1,7 @@
 id: HYP-0016
 title: "Within the pinned COBE/FIRAS absolute monopole slice, the wavelength-domain spectral-radiance peak is consistent with the textbook Wien displacement reference lambda=b/T at the separately-pinned reference temperature"
 domain: astrophysics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -36,4 +36,4 @@ evidence:
   results:
     - RESULT-0023
 
-verdict: "Spectral-domain self-consistency check on the pinned FIRAS slice; admissible verdicts are CONSISTENT_IN_SCOPE / DOMAIN_CONVERSION_MISMATCH / INCONCLUSIVE_PRODUCT_SEMANTICS / INCONCLUSIVE_SAMPLING_RESOLUTION. Not a universal Wien-law validation or falsification."
+verdict: "RESULT-0023 is AGENT_VALIDATED and VALID_IN_RANGE for the pinned FIRAS/reference-temperature Wien consistency slice. The outcome is limited to that spectral-domain input and is not a universal Wien-law validation or falsification."

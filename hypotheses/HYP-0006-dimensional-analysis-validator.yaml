@@ -1,7 +1,7 @@
 id: HYP-0006
 title: "Dimensional analysis validator correctly classifies physics formulas"
 domain: physics_validation
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
@@ -39,6 +39,11 @@ evidence:
   experiments:
     - EXP-0006
   results:
+    - RESULT-0007
     - RESULT-0020
 
-verdict: INCONCLUSIVE
+verdict: >
+  RESULT-0007 and the independently Gate-B-validated RESULT-0020 satisfy the
+  configured dimensional-validator benchmark scope; RESULT-0020 records 74/74
+  correct classifications. Ledger status is VALID_IN_RANGE for the curated
+  challenge sets, with no generalization beyond those sets.

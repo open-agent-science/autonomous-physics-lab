@@ -1,7 +1,7 @@
 id: HYP-0007
 title: "Koide relation Q = 2/3 is consistent with neutrino mass-squared differences"
 domain: particle_physics
-status: TESTING
+status: FALSIFIED
 
 hypothesis:
   statement: >
@@ -47,7 +47,7 @@ evidence:
     - RESULT-0009
 
 verdict: >
-  Falsification test in progress. If no physical solution exists for Q = 2/3
-  under either hierarchy, the Koide relation in its original form is
-  inconsistent with neutrino oscillation data. This is a meaningful negative
-  result, not a null result.
+  RESULT-0009 returned INVALID: no physically admissible neutrino mass triplet
+  satisfying the configured oscillation and mass-bound constraints reaches the
+  original Koide target Q = 2/3. This is a scoped falsification, not a claim
+  about all neutrino mass models.
