@@ -223,6 +223,22 @@ PUBLIC_STATE_TASK_MARKERS = (
     "scientific",
     "status",
 )
+DEPENDABOT_AUTHOR_MARKERS = ("dependabot",)
+DEPENDABOT_TITLE_PREFIXES = ("chore(deps):", "chore(ci):")
+DEPENDABOT_ALLOWED_FILES = frozenset(
+    {
+        ".github/dependabot.yml",
+        "pyproject.toml",
+        "requirements.txt",
+        "requirements-dev.txt",
+        "constraints.txt",
+        "uv.lock",
+        "poetry.lock",
+    }
+)
+DEPENDABOT_ALLOWED_PREFIXES = (".github/workflows/",)
+HEAVY_SCIENCE_DEPENDENCY_MARKERS = ("rdkit",)
+SHA_PIN_RE = re.compile(r"^[0-9a-f]{40}$", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -240,6 +256,7 @@ class PullRequestMetadata:
     status_checks_pending: bool
     changed_files: tuple[str, ...]
     head_sha: str = ""
+    author_login: str = ""
 
 
 @dataclass(frozen=True)
@@ -846,7 +863,7 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
             "view",
             str(number),
             "--json",
-            "number,title,body,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup,files",
+            "number,title,body,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup,files,author",
         ],
         cwd=root,
         timeout=30,
@@ -880,7 +897,7 @@ def _load_pr_metadata_from_list(
             "--limit",
             "200",
             "--json",
-            "number,title,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup",
+            "number,title,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup,author",
         ],
         cwd=root,
         timeout=60,
@@ -901,6 +918,8 @@ def _load_pr_metadata_from_list(
 
 def _pull_request_metadata_from_payload(payload: dict[str, Any]) -> PullRequestMetadata:
     """Normalize a GitHub CLI PR payload into internal metadata."""
+    author = payload.get("author")
+    author_login = str(author.get("login") or "") if isinstance(author, dict) else ""
     changed_files = tuple(
         str(item.get("path") or "").strip()
         for item in (payload.get("files") or [])
@@ -938,6 +957,7 @@ def _pull_request_metadata_from_payload(payload: dict[str, Any]) -> PullRequestM
         status_checks_pending=has_pending,
         changed_files=changed_files,
         head_sha=str(payload.get("headRefOid") or ""),
+        author_login=author_login,
     )
 
 
@@ -1193,6 +1213,175 @@ def load_yaml_payload_from_ref(root: Path, ref: str, repo_path: str) -> dict[str
         return None
     payload = yaml.safe_load(text)
     return payload if isinstance(payload, dict) else None
+
+
+def load_text_from_ref(root: Path, ref: str, repo_path: str) -> str | None:
+    """Load a text file from a git ref, or from the worktree for the current branch."""
+    result = run_git_command(["show", f"{ref}:{repo_path}"], cwd=root, timeout=30)
+    if result.returncode == 0:
+        return result.stdout
+    if ref == current_branch(root):
+        path = root / repo_path
+        if path.exists():
+            return path.read_text(encoding="utf-8")
+    return None
+
+
+def is_dependabot_maintenance_pr(pr_metadata: PullRequestMetadata | None) -> bool:
+    """Return whether PR metadata identifies the narrow Dependabot maintenance lane."""
+    if pr_metadata is None:
+        return False
+    title = pr_metadata.title.strip().lower()
+    author = pr_metadata.author_login.strip().lower()
+    return any(marker in author for marker in DEPENDABOT_AUTHOR_MARKERS) and title.startswith(
+        DEPENDABOT_TITLE_PREFIXES
+    )
+
+
+def _dependabot_path_allowed(path: str) -> bool:
+    return path in DEPENDABOT_ALLOWED_FILES or path.startswith(DEPENDABOT_ALLOWED_PREFIXES)
+
+
+def _workflow_file_dependency_issues(
+    root: Path,
+    review_ref: str,
+    workflow_files: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Return blockers and required fixes for changed workflow dependency bumps."""
+    blockers: list[str] = []
+    required_fixes: list[str] = []
+    for workflow_file in workflow_files:
+        text = load_text_from_ref(root, review_ref, workflow_file)
+        if text is None:
+            blockers.append(f"Could not read changed workflow file {workflow_file}.")
+            continue
+        for trigger in ("pull_request_target", "workflow_run"):
+            if re.search(rf"^\s*{re.escape(trigger)}\s*:", text, flags=re.MULTILINE):
+                blockers.append(
+                    f"Dependabot workflow bump must not introduce `{trigger}` in {workflow_file}."
+                )
+        if re.search(r"^\s*permissions\s*:\s*write-all\s*$", text, flags=re.MULTILINE):
+            blockers.append(
+                f"Dependabot workflow bump must not grant `permissions: write-all` in {workflow_file}."
+            )
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            code = line.split("#", 1)[0].strip()
+            if not code.startswith("uses:"):
+                continue
+            value = code.split(":", 1)[1].strip().strip("'\"")
+            if value.startswith("./"):
+                continue
+            if "@" not in value:
+                blockers.append(
+                    f"{workflow_file}:{line_number} uses an external action without an `@` ref."
+                )
+                continue
+            ref = value.rsplit("@", 1)[1]
+            if not SHA_PIN_RE.match(ref):
+                blockers.append(
+                    f"{workflow_file}:{line_number} must keep external actions pinned to a 40-character commit SHA."
+                )
+            elif "#" not in line or "v" not in line.split("#", 1)[1].lower():
+                required_fixes.append(
+                    f"{workflow_file}:{line_number} should keep a version-comment next to the SHA pin."
+                )
+    return tuple(blockers), tuple(required_fixes)
+
+
+def _dependabot_dependency_required_fixes(
+    root: Path,
+    base_ref: str,
+    review_ref: str,
+    pr_metadata: PullRequestMetadata,
+    dependency_files: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Return required fixes and advisories for dependency-manifest bumps."""
+    if not dependency_files:
+        return (), ()
+    advisories = [
+        "Python Dependabot PRs cover declared manifest updates; without a committed lockfile or constraints policy, do not treat them as proof that transitive or yanked releases are fully controlled."
+    ]
+    diff = run_git_command(
+        ["diff", "--unified=0", f"{base_ref}...{review_ref}", "--", *dependency_files],
+        cwd=root,
+        timeout=120,
+    )
+    haystack = "\n".join(
+        (
+            pr_metadata.title,
+            pr_metadata.body,
+            diff.stdout if diff.returncode == 0 else "",
+        )
+    ).lower()
+    required_fixes: list[str] = []
+    if any(marker in haystack for marker in HEAVY_SCIENCE_DEPENDENCY_MARKERS):
+        validation_text = pr_metadata.body.lower()
+        has_extra_smoke = ".[thermoml]" in validation_text and "import rdkit" in validation_text
+        if not has_extra_smoke:
+            required_fixes.append(
+                "RDKit or another heavy scientific dependency bump is not auto-mergeable from fast CI alone. "
+                "Record an optional-extra install/import smoke in the PR body, for example "
+                "`python3 -m pip install -e \".[thermoml]\"` plus `python3 -c \"import rdkit\"`, "
+                "or keep the PR for explicit maintainer dependency review."
+            )
+    return tuple(required_fixes), tuple(advisories)
+
+
+def dependabot_maintenance_policy(
+    root: Path,
+    *,
+    base_ref: str,
+    review_ref: str,
+    pr_metadata: PullRequestMetadata,
+    changed_files: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...], dict[str, Any]]:
+    """Return blockers, required fixes, advisories, and validation for Dependabot PRs."""
+    blockers: list[str] = []
+    required_fixes: list[str] = []
+    advisories: list[str] = [
+        "Dependabot maintenance lane: this bypasses the agent task-branch/template requirement only for real Dependabot `chore(deps)` or `chore(ci)` PRs with tightly whitelisted files."
+    ]
+    unexpected_paths = tuple(path for path in changed_files if not _dependabot_path_allowed(path))
+    if unexpected_paths:
+        blockers.append(
+            "Dependabot maintenance PR changed files outside the allowed dependency/CI surfaces: "
+            + ", ".join(unexpected_paths)
+            + "."
+        )
+
+    workflow_files = tuple(path for path in changed_files if path.startswith(".github/workflows/"))
+    dependency_files = tuple(path for path in changed_files if path in DEPENDABOT_ALLOWED_FILES)
+    title = pr_metadata.title.strip().lower()
+    if workflow_files and not title.startswith("chore(ci):"):
+        required_fixes.append("Workflow action bumps should use a `chore(ci): ...` Dependabot title.")
+    if any(path in dependency_files for path in ("pyproject.toml", "requirements.txt", "requirements-dev.txt", "constraints.txt", "uv.lock", "poetry.lock")) and not title.startswith("chore(deps):"):
+        required_fixes.append("Python dependency bumps should use a `chore(deps): ...` Dependabot title.")
+
+    workflow_blockers, workflow_required = _workflow_file_dependency_issues(
+        root,
+        review_ref,
+        workflow_files,
+    )
+    blockers.extend(workflow_blockers)
+    required_fixes.extend(workflow_required)
+    dependency_required, dependency_advisories = _dependabot_dependency_required_fixes(
+        root,
+        base_ref,
+        review_ref,
+        pr_metadata,
+        dependency_files,
+    )
+    required_fixes.extend(dependency_required)
+    advisories.extend(dependency_advisories)
+
+    validation_payload = {
+        "validation": {
+            "commands": [
+                "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+            ]
+        }
+    }
+    return tuple(blockers), tuple(required_fixes), tuple(advisories), validation_payload
 
 
 def output_routing_value(body: str, field: str) -> str | None:
@@ -1598,15 +1787,16 @@ def _compose_review_report(
     is_closeout_review = protocol.kind == "closeout"
     is_task_queue_review = protocol.kind == "task_queue"
     is_microtask_review = protocol.kind == "microtask"
+    is_dependabot_review = is_dependabot_maintenance_pr(pr_metadata)
     if local_pr_ref_review:
         advisory_warnings.append(
             "Review target is a fetched local PR ref, not the contributor's "
             "canonical branch name. This is allowed only because an explicit "
             "task id was supplied; prefer --pr <number> when GitHub metadata is available."
         )
-    if not protocol.is_supported and not local_pr_ref_review:
+    if not protocol.is_supported and not local_pr_ref_review and not is_dependabot_review:
         blockers.append(
-            "Branch does not follow a canonical task, task-proposal, task-queue, closeout, or microtask branch format."
+            "Branch does not follow a canonical task, task-proposal, task-queue, closeout, microtask, or Dependabot maintenance branch format."
         )
     elif (
         not local_pr_ref_review
@@ -1638,7 +1828,24 @@ def _compose_review_report(
     branch_microtask_queue = protocol.microtask_queue_id
     task_payload: dict[str, Any] | None = None
     validation_payload: dict[str, Any] = {}
-    if is_proposal_review:
+    if is_dependabot_review and pr_metadata is not None:
+        resolved_task_id = "DEPENDABOT"
+        (
+            dependabot_blockers,
+            dependabot_required_fixes,
+            dependabot_advisories,
+            validation_payload,
+        ) = dependabot_maintenance_policy(
+            root,
+            base_ref=base_ref,
+            review_ref=review_ref,
+            pr_metadata=pr_metadata,
+            changed_files=changed_files,
+        )
+        blockers.extend(dependabot_blockers)
+        required_fixes.extend(dependabot_required_fixes)
+        advisory_warnings.extend(dependabot_advisories)
+    elif is_proposal_review:
         resolved_task_id = "TASK-PROPOSAL"
         proposal_triage_review = body_requests_proposal_triage(
             pr_metadata.body if pr_metadata is not None else None
@@ -1877,7 +2084,8 @@ def _compose_review_report(
 
     looks_like_task_queue_pr = False
     if (
-        not is_proposal_review
+        not is_dependabot_review
+        and not is_proposal_review
         and not is_closeout_review
         and not is_task_queue_review
         and not is_microtask_review
@@ -1947,35 +2155,37 @@ def _compose_review_report(
         )
 
     if pr_metadata is not None:
-        title_policy = validate_pr_title(
-            review_kind=protocol.kind,
-            title=pr_metadata.title,
-            resolved_task_id=resolved_task_id,
-        )
-        blockers.extend(title_policy.blockers)
-        required_fixes.extend(title_policy.required_fixes)
+        if not is_dependabot_review:
+            title_policy = validate_pr_title(
+                review_kind=protocol.kind,
+                title=pr_metadata.title,
+                resolved_task_id=resolved_task_id,
+            )
+            blockers.extend(title_policy.blockers)
+            required_fixes.extend(title_policy.required_fixes)
         if pr_metadata.branch and pr_metadata.branch != target_branch:
             blockers.append(
                 f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."
             )
-        missing_sections = missing_pr_template_sections(pr_metadata.body)
-        if missing_sections:
-            required_fixes.append(
-                "PR body is missing required repository-template sections: "
-                + ", ".join(missing_sections)
-                + ". Use .github/pull_request_template.md or a filled --body-file before requesting review."
-            )
-        missing_fields = missing_pr_metadata_fields(pr_metadata.body)
-        if missing_fields:
-            required_fixes.append(
-                "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
-            )
-        agent_tool_mismatch = agent_tool_metadata_mismatch(target_branch, pr_metadata.body)
-        if agent_tool_mismatch is not None:
-            required_fixes.append(agent_tool_mismatch)
-        contributor_mismatch = contributor_metadata_mismatch(target_branch, pr_metadata.body)
-        if contributor_mismatch is not None:
-            required_fixes.append(contributor_mismatch)
+        if not is_dependabot_review:
+            missing_sections = missing_pr_template_sections(pr_metadata.body)
+            if missing_sections:
+                required_fixes.append(
+                    "PR body is missing required repository-template sections: "
+                    + ", ".join(missing_sections)
+                    + ". Use .github/pull_request_template.md or a filled --body-file before requesting review."
+                )
+            missing_fields = missing_pr_metadata_fields(pr_metadata.body)
+            if missing_fields:
+                required_fixes.append(
+                    "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
+                )
+            agent_tool_mismatch = agent_tool_metadata_mismatch(target_branch, pr_metadata.body)
+            if agent_tool_mismatch is not None:
+                required_fixes.append(agent_tool_mismatch)
+            contributor_mismatch = contributor_metadata_mismatch(target_branch, pr_metadata.body)
+            if contributor_mismatch is not None:
+                required_fixes.append(contributor_mismatch)
         for signal in artifact_signals:
             if signal.review_tier in AGENT_PUBLICATION_TIERS:
                 required_fixes.extend(

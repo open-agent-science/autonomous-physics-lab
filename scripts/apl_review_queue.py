@@ -15,14 +15,15 @@ PASS_CONCLUSIONS = frozenset({"SUCCESS", "SKIPPED", "NEUTRAL"})
 FAIL_CONCLUSIONS = frozenset({"FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED"})
 PENDING_STATUSES = frozenset({"QUEUED", "IN_PROGRESS", "PENDING", "WAITING", "REQUESTED"})
 MERGE_OK_DECISIONS = frozenset({"APPROVED"})
-DEPENDABOT_MARKERS = ("dependabot", "chore(deps):")
+DEPENDABOT_MARKERS = ("dependabot", "chore(deps):", "chore(ci):")
 DECISION_ORDER = {
     "MERGE_NOW": 0,
     "READY_AFTER_UPDATE": 1,
-    "NEEDS_REVIEW": 2,
-    "RISKY_DEPENDABOT": 3,
-    "WAIT_CI": 4,
-    "DRAFT": 5,
+    "DEPENDABOT_READY": 2,
+    "NEEDS_REVIEW": 3,
+    "RISKY_DEPENDABOT": 4,
+    "WAIT_CI": 5,
+    "DRAFT": 6,
 }
 
 
@@ -151,12 +152,69 @@ def classify_pr(pr: dict[str, Any], *, merge_ok_prs: set[int] | None = None) -> 
             url=url,
         )
     if is_dependabot_pr(pr):
+        if check_summary.status == "pending":
+            pending = ", ".join(check_summary.pending) or "required checks"
+            return QueueEntry(
+                number=number,
+                title=title,
+                decision="WAIT_CI",
+                reason=f"pending Dependabot checks: {pending}",
+                action="park this PR; do not foreground-watch unless maintainer explicitly chooses it",
+                merge_state=merge_state,
+                check_status=check_summary.status,
+                url=url,
+            )
+        if check_summary.status == "fail":
+            failing = ", ".join(check_summary.failing) or "required checks"
+            return QueueEntry(
+                number=number,
+                title=title,
+                decision="NEEDS_REVIEW",
+                reason=f"failing Dependabot checks: {failing}",
+                action="inspect failing check logs before any dependency merge",
+                merge_state=merge_state,
+                check_status=check_summary.status,
+                url=url,
+            )
+        if check_summary.status != "pass":
+            return QueueEntry(
+                number=number,
+                title=title,
+                decision="NEEDS_REVIEW",
+                reason="unknown or empty Dependabot check rollup",
+                action="refresh GitHub checks or inspect PR metadata before merge",
+                merge_state=merge_state,
+                check_status=check_summary.status,
+                url=url,
+            )
+        if has_review_ok and merge_state == "CLEAN":
+            return QueueEntry(
+                number=number,
+                title=title,
+                decision="MERGE_NOW",
+                reason="green Dependabot checks, clean merge state, and review recorded",
+                action="maintainer skim, then merge the dependency maintenance PR",
+                merge_state=merge_state,
+                check_status=check_summary.status,
+                url=url,
+            )
+        if has_review_ok and merge_state == "BEHIND":
+            return QueueEntry(
+                number=number,
+                title=title,
+                decision="READY_AFTER_UPDATE",
+                reason="green Dependabot checks and review recorded, but branch is behind main",
+                action="update branch, then rerun the Dependabot maintenance review if the head changes",
+                merge_state=merge_state,
+                check_status=check_summary.status,
+                url=url,
+            )
         return QueueEntry(
             number=number,
             title=title,
-            decision="RISKY_DEPENDABOT",
-            reason="dependency or Actions bump needs supply-chain review before queue merge",
-            action="review changelog, pinning, and compatibility before merge",
+            decision="DEPENDABOT_READY",
+            reason="green Dependabot PR needs the maintenance review lane before merge",
+            action="run apl_review_pr.py; merge only after MERGE_OK and supply-chain skim",
             merge_state=merge_state,
             check_status=check_summary.status,
             url=url,

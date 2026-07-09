@@ -139,6 +139,25 @@ validation, limitations, and review tier. Result promotion, prediction reveal
 scoring, claim edits, mixed-campaign artifacts, and conflicting write surfaces
 are never batched — they get individual deep review.
 
+### Dependabot Maintenance Lane
+
+Dependabot PRs are not canonical task PRs, so they may bypass the agent
+branch/title/template checks only when all of the following are true:
+
+- the PR author is Dependabot;
+- the title starts with `chore(deps):` or `chore(ci):`;
+- changed files are limited to dependency manifests, lock/constraint files,
+  `.github/dependabot.yml`, or `.github/workflows/**`.
+
+This lane is still a supply-chain review, not a blanket approval. Workflow
+action bumps must keep external actions pinned to 40-character commit SHAs,
+retain a nearby version comment, and must not introduce `pull_request_target`,
+`workflow_run`, or `permissions: write-all`. Python dependency bumps cover
+declared manifest updates only; without a committed lockfile or constraints
+policy they do not prove that transitive or yanked releases are controlled.
+Heavy scientific dependencies such as RDKit require an optional-extra
+install/import smoke or explicit maintainer dependency review before merge.
+
 ### Validation Mode
 
 The pre-merge helper defaults to `ci-aware` validation for PR-number reviews.
@@ -207,9 +226,10 @@ python3 scripts/apl_review_queue.py --merge-ok-pr <number>
 ```
 
 Repeat `--merge-ok-pr` for PRs whose maintainer review agent already returned
-`MERGE_OK`. The helper reports `MERGE_NOW`, `READY_AFTER_UPDATE`, `WAIT_CI`,
-`NEEDS_REVIEW`, `DRAFT`, or `RISKY_DEPENDABOT` so a sweep can move to the next
-actionable PR without waiting on one queued check.
+`MERGE_OK`. The helper reports `MERGE_NOW`, `READY_AFTER_UPDATE`,
+`DEPENDABOT_READY`, `WAIT_CI`, `NEEDS_REVIEW`, `DRAFT`, or
+`RISKY_DEPENDABOT` so a sweep can move to the next actionable PR without
+waiting on one queued check.
 
 ### Clean PR Worktree Review
 
@@ -316,6 +336,7 @@ This mode supports:
 - canonical task PRs
 - task-queue PRs
 - task proposal PRs
+- narrow Dependabot maintenance PRs
 
 ### Inputs
 

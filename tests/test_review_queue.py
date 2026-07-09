@@ -87,6 +87,7 @@ def test_review_queue_classifies_actionable_prs_without_waiting() -> None:
             "reviewDecision": "",
             "statusCheckRollup": [_check("Python fast tests")],
             "url": "https://example.test/13",
+            "author": {"login": "app/dependabot"},
         },
         {
             "number": 14,
@@ -106,9 +107,28 @@ def test_review_queue_classifies_actionable_prs_without_waiting() -> None:
     assert by_number[11].decision == "READY_AFTER_UPDATE"
     assert by_number[12].decision == "WAIT_CI"
     assert "do not foreground-watch" in by_number[12].action
-    assert by_number[13].decision == "RISKY_DEPENDABOT"
+    assert by_number[13].decision == "DEPENDABOT_READY"
     assert by_number[14].decision == "DRAFT"
-    assert [entry.number for entry in entries][:2] == [10, 11]
+    assert [entry.number for entry in entries][:3] == [10, 11, 13]
+
+
+def test_review_queue_promotes_reviewed_dependabot_to_merge_now() -> None:
+    module = _load_module()
+    pr = {
+        "number": 13,
+        "title": "chore(ci): bump actions/checkout",
+        "isDraft": False,
+        "mergeStateStatus": "CLEAN",
+        "reviewDecision": "",
+        "statusCheckRollup": [_check("Python fast tests")],
+        "url": "https://example.test/13",
+        "author": {"login": "app/dependabot"},
+    }
+
+    entry = module.classify_pr(pr, merge_ok_prs={13})
+
+    assert entry.decision == "MERGE_NOW"
+    assert "Dependabot" in entry.reason
 
 
 def test_review_queue_requires_review_marker_before_merge_now() -> None:

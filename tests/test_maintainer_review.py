@@ -1563,6 +1563,163 @@ def test_build_review_report_pr_uses_clean_remote_worktree_from_dirty_caller(
     assert any("Review bundle generation was skipped" in item for item in report.advisory_warnings)
 
 
+def test_build_review_report_allows_sha_pinned_dependabot_actions_bump(
+    tmp_path: Path,
+) -> None:
+    caller_root = tmp_path / "caller"
+    clean_root = tmp_path / "clean-pr"
+    caller_root.mkdir()
+    clean_root.mkdir()
+    branch = "dependabot/github_actions/actions-checkout-7.0.0"
+    workflow_path = ".github/workflows/ci.yml"
+    pr_metadata = PullRequestMetadata(
+        number=1466,
+        title="chore(ci): bump actions/checkout from 5.0.1 to 7.0.0 in the github-actions group",
+        body="Dependabot workflow bump.",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=(workflow_path,),
+        head_sha="abcdef1234567890",
+        author_login="app/dependabot",
+    )
+
+    def fake_run_git_command(
+        args: list[str],
+        *,
+        cwd: Path,
+        extra_safe_directories: tuple[Path, ...] = (),
+        timeout: int = 60,
+    ) -> CommandResult:
+        del cwd, extra_safe_directories, timeout
+        if args == ["show", f"HEAD:{workflow_path}"]:
+            return CommandResult(
+                returncode=0,
+                stdout=(
+                    "name: CI\n"
+                    "on: [pull_request]\n"
+                    "jobs:\n"
+                    "  test:\n"
+                    "    steps:\n"
+                    "      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0\n"
+                ),
+                stderr="",
+            )
+        if args and args[0] == "diff":
+            return _EMPTY_DIFF
+        return _EMPTY_DIFF
+
+    with (
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch(
+            "physics_lab.registry.maintainer_review.prepare_clean_pr_worktree",
+            return_value=CleanPrWorktree(
+                root=clean_root,
+                review_ref="HEAD",
+                ready=True,
+                message="Reviewing Dependabot PR from clean fixture worktree.",
+            ),
+        ),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch(
+            "physics_lab.registry.maintainer_review.local_branch_exists",
+            side_effect=AssertionError("Dependabot PRs should not require a local canonical branch"),
+        ),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=(workflow_path,)),
+        patch("physics_lab.registry.maintainer_review.classify_artifact_review_changes", return_value=()),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.run_git_command", side_effect=fake_run_git_command),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(caller_root, pull_request=1466)
+
+    assert report.verdict == "MERGE_OK"
+    assert report.task_id == "DEPENDABOT"
+    assert not any("canonical task" in item for item in report.blockers)
+    assert not any("PR body is missing" in item for item in report.required_fixes)
+    assert any("Dependabot maintenance lane" in item for item in report.advisory_warnings)
+
+
+def test_build_review_report_blocks_rdkit_dependabot_without_extra_smoke(
+    tmp_path: Path,
+) -> None:
+    caller_root = tmp_path / "caller"
+    clean_root = tmp_path / "clean-pr"
+    caller_root.mkdir()
+    clean_root.mkdir()
+    branch = "dependabot/pip/rdkit-2026.3.3"
+    pr_metadata = PullRequestMetadata(
+        number=1467,
+        title="chore(deps): bump rdkit from 2025.9.3 to 2026.3.3 in the python-dependencies group",
+        body="Dependabot dependency bump.",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("pyproject.toml",),
+        head_sha="abcdef1234567890",
+        author_login="app/dependabot",
+    )
+
+    def fake_run_git_command(
+        args: list[str],
+        *,
+        cwd: Path,
+        extra_safe_directories: tuple[Path, ...] = (),
+        timeout: int = 60,
+    ) -> CommandResult:
+        del cwd, extra_safe_directories, timeout
+        if args[:2] == ["diff", "--unified=0"] and "pyproject.toml" in args:
+            return CommandResult(returncode=0, stdout='+    "rdkit==2026.3.3",\n', stderr="")
+        if args and args[0] == "diff":
+            return _EMPTY_DIFF
+        return _EMPTY_DIFF
+
+    with (
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch(
+            "physics_lab.registry.maintainer_review.prepare_clean_pr_worktree",
+            return_value=CleanPrWorktree(
+                root=clean_root,
+                review_ref="HEAD",
+                ready=True,
+                message="Reviewing Dependabot PR from clean fixture worktree.",
+            ),
+        ),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch(
+            "physics_lab.registry.maintainer_review.local_branch_exists",
+            side_effect=AssertionError("Dependabot PRs should not require a local canonical branch"),
+        ),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("pyproject.toml",)),
+        patch("physics_lab.registry.maintainer_review.classify_artifact_review_changes", return_value=()),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.run_git_command", side_effect=fake_run_git_command),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(caller_root, pull_request=1467)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert report.task_id == "DEPENDABOT"
+    assert any("RDKit" in item for item in report.required_fixes)
+    assert not any("PR body is missing" in item for item in report.required_fixes)
+
+
 def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
     tmp_path: Path,
 ) -> None:

@@ -1,0 +1,62 @@
+id: TASK-1003
+title: "Add Dependabot maintenance review lane"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer review false blockers without weakening supply-chain review."
+  - "Keep bot-created dependency updates reviewable through deterministic policy."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "PR-1466"
+    - "PR-1467"
+    - "TASK-0970"
+    - "TASK-1000"
+  planning_context: >
+    Dependabot PRs use bot-owned branches and titles, so the canonical
+    agent-task review path blocks them before supply-chain checks can run.
+    Add a narrow maintenance lane that allows genuine Dependabot dependency
+    and GitHub Actions bumps through review-agent triage while preserving
+    SHA-pin, workflow-trigger, and heavy scientific dependency gates.
+
+requirements:
+  - "Only allow the Dependabot lane for PR metadata whose author is Dependabot and whose title starts with chore(deps): or chore(ci):."
+  - "Whitelist changed paths to dependency manifests, lock/constraint files, .github/dependabot.yml, and .github/workflows/**."
+  - "For GitHub Actions bumps, require external actions to remain pinned to 40-character SHAs and block pull_request_target, workflow_run, or permissions: write-all introductions."
+  - "For heavy scientific dependency bumps such as RDKit, require an optional-extra install/import smoke or explicit maintainer dependency review before merge."
+  - "Update queue triage so green Dependabot PRs become DEPENDABOT_READY instead of a generic risky bucket, and only become MERGE_NOW after review is recorded."
+  - "Document the lane and add regression tests for both safe Actions bumps and gated RDKit bumps."
+
+accepted_outputs:
+  - "physics_lab/registry/maintainer_review.py"
+  - "scripts/apl_review_queue.py"
+  - "docs/maintainer-review-agent.md"
+  - "tests/test_maintainer_review.py"
+  - "tests/test_review_queue.py"
+  - "tasks/TASK-1003-dependabot-maintenance-review-lane.yaml"
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling/review-policy task; no scientific RESULT, PRED, CLAIM, or KNOW artifact is expected."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_queue.py"
+    - "docs/maintainer-review-agent.md"
+    - "tests/test_maintainer_review.py"
+    - "tests/test_review_queue.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py scripts/apl_review_queue.py tests/test_maintainer_review.py tests/test_review_queue.py docs/maintainer-review-agent.md"
+    - "python3 -m pytest tests/test_review_queue.py tests/test_maintainer_review.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - llm_agent
