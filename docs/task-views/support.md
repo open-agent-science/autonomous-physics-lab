@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0969` - Harden CI: least-privilege GITHUB_TOKEN on ci.yml and SHA-pin all GitHub Actions (`repository_hardening`, priority `high`, difficulty `low`, domain `repository_hardening`)
