@@ -1,0 +1,54 @@
+id: TASK-0984
+title: "Audit the FRB sealed-registration pack before maintainer prediction freeze"
+type: scientific_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0965 prepared a sealed FRB registration pack but correctly stopped before maintainer prediction-freeze approval."
+  - "A label-blind independent audit reduces the chance of registering a malformed or leaky PRED artifact."
+  - "This is prediction-readiness work, not reveal scoring or population inference."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml"
+    - "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml"
+  planning_context: >
+    Before any Class 2 maintainer prediction-freeze approval, independently
+    audit the TASK-0965 pack for checksum consistency, no-label boundary,
+    frozen scoring rule fidelity, registry-entry shape, and reveal-condition
+    clarity. Do not execute the prediction freeze.
+
+requirements:
+  - "Recompute and compare the recorded pack, decision-stub, source-surface, contract, feature-surface, and target-payload SHA-256 values."
+  - "Verify that the staged entry reads only pre-T exposure fields and does not include repeater labels, Catalog 2 full-window exposure, morphology, or post-T associations."
+  - "Validate the staged registry-entry schema in a dry-run path without writing prediction_registry/radio_transients/PRED-0001.yaml."
+  - "Return exactly one verdict: FREEZE_PACK_AUDIT_PASS, FREEZE_PACK_NEEDS_REPAIR, or FREEZE_PACK_BLOCKED."
+  - "Do not create PRED artifacts, reveal labels, external tags, releases, archives, results, claims, or success wording."
+
+accepted_outputs:
+  - "A docs/reviews audit note with checksum table, boundary check, registry dry-run result, reveal-condition check, verdict, and exact repair instructions if needed."
+  - "Output-routing summary: pre-freeze audit only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Prediction-freeze audit only; no result or prediction artifact is created."
+  evidence:
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

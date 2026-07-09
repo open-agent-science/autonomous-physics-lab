@@ -1,0 +1,53 @@
+id: TASK-0994
+title: "Prepare a deterministic FRB prediction-freeze anchor capsule dry run"
+type: scientific_result_publication
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The FRB prediction pack should not be anchored only by branch history after maintainer approval."
+  - "TASK-0965 names the external-anchor plan; a deterministic dry run can make the future tag/release/upload step mechanical and auditable."
+  - "The dry run must not publish, tag, upload, or register predictions."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "docs/reviews/nmd0003-tier1-anchor-upload-pack.md"
+  planning_context: >
+    Build the local deterministic allowlist and archive recipe that would be
+    used after a maintainer-approved FRB prediction freeze. Mirror the
+    NMD-0003 tier-1 anchor discipline, but stop before creating a tag,
+    GitHub Release, DOI, or registered PRED entry.
+
+requirements:
+  - "Define the exact anchor allowlist: decision, staged PRED payload, TASK-0965 pack, TASK-0964 surface and contract, TASK-0963 input surface, and review notes."
+  - "Produce a deterministic dry-run archive or manifest in an untracked output directory, recording byte size and SHA-256 in a review note."
+  - "Document the maintainer-only post-approval steps for annotated tag, Release, archive attachment, and optional DOI record-back."
+  - "Return exactly one verdict: ANCHOR_DRY_RUN_READY, ANCHOR_DRY_RUN_REVISE, or ANCHOR_DRY_RUN_BLOCKED."
+  - "Do not commit archive bytes, create tags, upload releases, mint DOI records, register predictions, or claim FRB predictive success."
+
+accepted_outputs:
+  - "A docs/reviews anchor dry-run note with allowlist, dry-run command, size/hash, replay instructions, and maintainer-only execution checklist."
+  - "Output-routing summary: external-anchor readiness only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Anchor dry-run only; no scientific result or prediction artifact is created."
+  evidence:
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
