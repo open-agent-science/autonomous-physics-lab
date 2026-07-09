@@ -15,7 +15,7 @@ if str(REPO_ROOT) not in sys.path:
 
 
 def _load_helper():
-    from physics_lab.registry.task_pr_helper import (
+    from physics_lab.ops.pr_helpers.task_pr_helper import (
         prepare_current_task_pr,
         preflight_task_pr,
         task_branch,
