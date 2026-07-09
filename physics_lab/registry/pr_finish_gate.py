@@ -19,6 +19,12 @@ ACTION_RUN_PATTERN = re.compile(r"/actions/runs/(?P<run_id>[0-9]+)")
 PASS_BUCKETS = frozenset({"pass", "skipping"})
 FAIL_BUCKETS = frozenset({"fail", "cancel"})
 PENDING_BUCKETS = frozenset({"pending"})
+PENDING_QUEUE_ANTI_STALL_NOTE = (
+    "CI checks are still pending. Park this PR, record the pending check, and "
+    "continue reviewing other open PRs that already have green CI and MERGE_OK; "
+    "return to this PR after the check finishes unless the maintainer explicitly "
+    "chooses to wait or admin-merge."
+)
 
 
 @dataclass(frozen=True)
@@ -257,11 +263,11 @@ def finish_pr(
             review_verdict=review_verdict,
             ci_status=ci_gate.status,
             ready_transition="not_attempted",
-            next_safe_command=f"gh pr checks {pr_number} --watch",
+            next_safe_command=f"gh pr checks {pr_number} --json name,state,bucket,link",
             review_output=review_output,
             check_failures=ci_gate.failures,
             check_pending=ci_gate.pending,
-            error="CI checks are still pending.",
+            error=PENDING_QUEUE_ANTI_STALL_NOTE,
         )
     if ci_gate.status != "pass":
         return FinishGateReport(
