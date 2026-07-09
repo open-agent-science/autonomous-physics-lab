@@ -1,0 +1,66 @@
+id: TASK-0981
+title: "Closeout policy guard for task-queue seeded tasks"
+type: maintainer_workflow
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "Policy/helper change that affects future closeout automation; maintainer should confirm before closeout."
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Addresses the architecture-audit finding that broad closeout: review use can defeat safe auto-closeout and keep routine task closeouts on the manual path."
+  - "Keeps the implementation narrow: document the policy, add schema support for a reason field, and make TASK-QUEUE review catch new manual-closeout opt-outs without reasons."
+  - "Avoids mass-editing existing task files; historical cleanup remains a separate maintainer-reviewed batch."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+    - "physics_lab/schemas/task.schema.json"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    Convert the closeout-policy audit from a proposal into a narrow
+    implementation PR: new task-queue entries that opt out of safe
+    auto-closeout with closeout: review must declare why, while omitted
+    closeout remains the default safe auto-closeout-eligible policy.
+
+requirements:
+  - "Do not change scientific artifacts, task statuses unrelated to TASK-0981, predictions, results, claims, or knowledge."
+  - "Document that closeout: review is a deliberate manual-closeout opt-out, not the default for routine queued tasks."
+  - "Allow a closeout_review_reason field in task schema and template guidance."
+  - "Make the maintainer review helper request changes when a TASK-QUEUE PR adds or edits a task with closeout: review but no closeout_review_reason."
+  - "Cover the guard and schema field with regression tests."
+
+accepted_outputs:
+  - "Policy docs and task template clarify closeout: auto/review semantics and the reason requirement for queued tasks."
+  - "Task schema accepts closeout_review_reason."
+  - "Maintainer review helper flags TASK-QUEUE closeout: review entries without closeout_review_reason and accepts them with a reason."
+  - "Output-routing summary: maintainer workflow hardening; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer workflow/policy guard task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+    - "physics_lab/schemas/task.schema.json"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "tests/test_registry_validation.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py tests/test_registry_validation.py"
+    - "python3 -m pytest tests/test_maintainer_review.py -k task_queue"
+    - "python3 -m pytest tests/test_registry_validation.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

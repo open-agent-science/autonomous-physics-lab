@@ -701,6 +701,14 @@ A task is **auto-safe** only when ALL hold:
   `prediction_registry/`, `experiments/`, `knowledge/`);
 - it does **not** unblock any other task (no `BLOCKED` task references it).
 
+New task-queue PRs that opt a task out with `closeout: review` must include a
+short `closeout_review_reason` explaining the manual closeout need. The reason
+is reviewer context, not an extra auto-closeout gate: existing deterministic
+guards still decide whether an otherwise auto-eligible task is safe. The
+maintainer review helper flags new task-queue entries that set
+`closeout: review` without the reason so broad queue seeding does not disable
+safe auto-closeout by accident.
+
 Everything else — result-bearing, follow-up-spawning, unblocking, and
 `closeout: review` tasks, plus all deterministic dependent-unblocks — stays on
 the **review path** for a maintainer or Scientific Curator decision; the action

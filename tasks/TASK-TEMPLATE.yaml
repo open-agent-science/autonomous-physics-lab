@@ -9,10 +9,15 @@ status: PROPOSED
 difficulty: medium
 priority: medium
 
-# Optional closeout policy. Omit (default) to allow safe auto-closeout, or set
-# `closeout: review` to force a manual closeout decision even when otherwise safe
-# (use for tasks that produce a result, spawn follow-ups, or need a human call).
+# Optional closeout policy. Omit (default) or set `closeout: auto` to allow
+# safe auto-closeout when all deterministic guards pass. Use `closeout: review`
+# only when this task genuinely needs a manual maintainer closeout decision
+# (for example result-bearing work, protected scientific artifacts, dependent
+# unblock decisions, governance/policy calls, or non-mechanical follow-up
+# routing). New TASK-QUEUE entries that set `closeout: review` must also include
+# a short `closeout_review_reason`.
 # closeout: review
+# closeout_review_reason: "Why this task must stay on manual closeout."
 
 strategy_alignment:
   - ""
