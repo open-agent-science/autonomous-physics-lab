@@ -1,7 +1,7 @@
 id: TASK-0966
 title: "Cut CI redundancy: single merge leg, draft-gated smoke, silent validated board-sync commits, nightly 3.12 net"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

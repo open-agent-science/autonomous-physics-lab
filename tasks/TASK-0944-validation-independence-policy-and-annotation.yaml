@@ -1,7 +1,7 @@
 id: TASK-0944
 title: "Add the validation_independence axis: policy, annotation of all AGENT_VALIDATED results, docs and dashboard sync"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

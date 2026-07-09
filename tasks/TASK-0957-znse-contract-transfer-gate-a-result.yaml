@@ -1,7 +1,7 @@
 id: TASK-0957
 title: "Package the ZnSe no-refit contract transfer (AGENT-RUN-0090) as a canonical Gate A RESULT"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high
