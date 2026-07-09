@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 
-from physics_lab.registry.agent_run_pr import build_agent_run_pr_context
+from physics_lab.ops.pr_helpers.agent_run_pr import build_agent_run_pr_context
 
 
 def _ensure_repo_root_on_sys_path(repo_root: Path) -> None:
