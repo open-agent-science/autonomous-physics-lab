@@ -199,7 +199,10 @@ def test_sync_active_board_workflow_uses_app_direct_push_guardrails() -> None:
         / "sync-active-board.yml"
     ).read_text(encoding="utf-8")
 
-    assert "actions/create-github-app-token@v3" in workflow
+    # Ref-agnostic: the App-token action must be used, whether pinned to a
+    # version tag or (post TASK-0969 hardening) to a commit SHA with a
+    # trailing version comment.
+    assert "actions/create-github-app-token@" in workflow
     assert "permission-contents: write" in workflow
     assert "permission-pull-requests: write" not in workflow
     assert "pull-requests: read" in workflow
