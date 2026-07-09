@@ -172,8 +172,9 @@ Current visible evidence includes:
   `RESULT-0026`, Exoplanet negative/control `RESULT-0027`, ThermoML
   failed-family `RESULT-0028`, and Quantum ZnSe no-refit `RESULT-0029` as
   scoped, review-tiered benchmark memory rather than broad physical claims;
-- the FRB pre-T exposure surface as a sealed-prediction preparation lane, not a
-  result or repeater-population claim.
+- the FRB pre-T exposure surface, frozen exposure-only model, and prepared
+  sealed-registration pack as a prediction-readiness lane, not a result or
+  repeater-population claim.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.

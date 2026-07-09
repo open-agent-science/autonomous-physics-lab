@@ -1,0 +1,53 @@
+id: TASK-0995
+title: "Define the FRB reveal-source admissibility contract without reading labels"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The FRB pack is useful only if the future reveal source is checksum-pinned and cannot silently drift."
+  - "A reveal-source contract can be prepared without looking at post-T labels or scoring the frozen ranks."
+  - "This task protects the no-peek value of the sealed prediction line."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+    - "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md"
+    - "docs/reviews/frb-catalog1-pre-t-exposure-feature-surface.md"
+  planning_context: >
+    Draft a future reveal-source manifest contract for the FRB PRED line:
+    admissible later snapshot classes, required checksums, repeat-evidence
+    timing, source-id matching policy, missing-row handling, and stop
+    conditions. Do not fetch or inspect a later label surface.
+
+requirements:
+  - "List admissible and inadmissible reveal-source classes, including snapshot version, publication date, checksum, access route, and license/reuse expectations."
+  - "Define source-id matching, row-loss handling, duplicate handling, and post-T repeat evidence semantics before any reveal labels are visible."
+  - "Define the frozen reveal comparison outputs and comparators without changing the TASK-0964 scoring rule."
+  - "Return exactly one verdict: REVEAL_CONTRACT_READY, REVEAL_CONTRACT_NEEDS_DECISION, or REVEAL_CONTRACT_BLOCKED."
+  - "Do not fetch later labels, read repeat status, score predictions, register PRED entries, or create a result."
+
+accepted_outputs:
+  - "A docs/reviews reveal-source contract note with manifest template fields, admissibility table, stop conditions, and no-label statement."
+  - "Output-routing summary: reveal-source readiness only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-readiness contract only; no result or prediction artifact is created."
+  evidence:
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
