@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
 
 from physics_lab.registry.examples import load_example_config
@@ -51,6 +52,52 @@ from physics_lab.workflows.quantum_znse_contract_transfer import (
 )
 
 
+# Every workflow handler shares the signature
+# ``(config_path, output_dir) -> ExperimentOutcome``. Registering handlers in a
+# dispatch table (instead of a hand-edited if/elif chain) means adding a
+# workflow is a single dict entry plus its import, and the dispatch order is
+# explicit and data-driven.
+ExperimentHandler = Callable[..., ExperimentOutcome]
+
+# Primary dispatch: the config's explicit ``workflow`` key. Checked before the
+# experiment file is loaded, preserving the historical precedence in which a
+# named workflow wins over the experiment method type.
+WORKFLOW_DISPATCH: dict[str, ExperimentHandler] = {
+    "gauntlet": run_gauntlet_experiment_with_output,
+    "dimensional_validation": run_dimensional_validator_with_output,
+    "neutrino_koide": run_neutrino_koide_experiment,
+    "quark_koide": run_quark_koide_experiment,
+    "particle_mass_falsifier": run_particle_mass_falsifier_with_output,
+    "g2_formula_search": run_g2_formula_experiment,
+    "anharmonic_oscillator": run_anharmonic_oscillator_experiment_with_output,
+    "nuclear_mass_baseline": run_nuclear_mass_baseline_experiment_with_output,
+    "materials_md0002_formation_energy_benchmark": (
+        run_materials_md0002_formation_energy_with_output
+    ),
+    "stellar_ml_debcat_baseline_benchmark": run_stellar_ml_debcat_baseline_with_output,
+    "stellar_ml_high_mass_transfer_benchmark": (
+        run_stellar_ml_high_mass_transfer_with_output
+    ),
+    "thermoml_tb_family_transfer_benchmark": (
+        run_thermoml_tb_family_transfer_with_output
+    ),
+    "textbook_firas_wien_peak_consistency": run_textbook_firas_wien_peak_with_output,
+    "quantum_znse_contract_transfer_result": (
+        run_quantum_znse_contract_transfer_with_output
+    ),
+    "textbook_exact_reference": run_textbook_exact_reference_with_output,
+}
+
+# Fallback dispatch: the experiment method type, used when the config does not
+# name a recognized workflow (typically ``workflow == "standard"``).
+METHOD_TYPE_DISPATCH: dict[str, ExperimentHandler] = {
+    "formula_discovery": run_pendulum_experiment_with_output,
+    "regime_verification": run_damped_oscillator_experiment_with_output,
+    "dataset_reproduction": run_particle_mass_reproduction_with_output,
+    "holdout_prediction": run_particle_mass_holdout_with_output,
+}
+
+
 def run_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute a configured experiment by dispatching on experiment method type."""
     return run_experiment_with_output(config_path=config_path)
@@ -64,86 +111,24 @@ def run_experiment_with_output(
     config_path = Path(config_path).resolve()
     config = load_example_config(config_path)
     workflow = config.get("workflow", "standard")
-    if workflow == "gauntlet":
-        return run_gauntlet_experiment_with_output(config_path=config_path, output_dir=output_dir)
-    if workflow == "dimensional_validation":
-        return run_dimensional_validator_with_output(config_path=config_path, output_dir=output_dir)
-    if workflow == "neutrino_koide":
-        return run_neutrino_koide_experiment(config_path=config_path, output_dir=output_dir)
-    if workflow == "quark_koide":
-        return run_quark_koide_experiment(config_path=config_path, output_dir=output_dir)
-    if workflow == "particle_mass_falsifier":
-        return run_particle_mass_falsifier_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
-    if workflow == "g2_formula_search":
-        return run_g2_formula_experiment(config_path=config_path, output_dir=output_dir)
-    if workflow == "anharmonic_oscillator":
-        return run_anharmonic_oscillator_experiment_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
-    if workflow == "nuclear_mass_baseline":
-        return run_nuclear_mass_baseline_experiment_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
-    if workflow == "materials_md0002_formation_energy_benchmark":
-        return run_materials_md0002_formation_energy_with_output(
-            config_path=config_path, output_dir=output_dir
-        )
-    if workflow == "stellar_ml_debcat_baseline_benchmark":
-        return run_stellar_ml_debcat_baseline_with_output(
-            config_path=config_path, output_dir=output_dir
-        )
-    if workflow == "stellar_ml_high_mass_transfer_benchmark":
-        return run_stellar_ml_high_mass_transfer_with_output(
-            config_path=config_path, output_dir=output_dir
-        )
-    if workflow == "thermoml_tb_family_transfer_benchmark":
-        return run_thermoml_tb_family_transfer_with_output(
-            config_path=config_path, output_dir=output_dir
-        )
-    if workflow == "textbook_firas_wien_peak_consistency":
-        return run_textbook_firas_wien_peak_with_output(
-            config_path=config_path, output_dir=output_dir
-        )
-    if workflow == "quantum_znse_contract_transfer_result":
-        return run_quantum_znse_contract_transfer_with_output(
-            config_path=config_path, output_dir=output_dir
-        )
-    if workflow == "textbook_exact_reference":
-        return run_textbook_exact_reference_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
+    handler = WORKFLOW_DISPATCH.get(workflow)
+    if handler is not None:
+        return handler(config_path=config_path, output_dir=output_dir)
+
     experiment_path = resolve_path(config_path, config["experiment_path"])
     experiment = load_experiment(experiment_path)
     method_type = str(experiment["method"]["type"])
-    if method_type == "formula_discovery":
-        return run_pendulum_experiment_with_output(config_path=config_path, output_dir=output_dir)
-    if method_type == "regime_verification":
-        return run_damped_oscillator_experiment_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
-    if method_type == "dataset_reproduction":
-        return run_particle_mass_reproduction_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
-    if method_type == "holdout_prediction":
-        return run_particle_mass_holdout_with_output(
-            config_path=config_path,
-            output_dir=output_dir,
-        )
+    handler = METHOD_TYPE_DISPATCH.get(method_type)
+    if handler is not None:
+        return handler(config_path=config_path, output_dir=output_dir)
     raise ValueError(f"Unsupported experiment method type: {method_type}")
 
 
 __all__ = [
     "run_experiment",
     "run_experiment_with_output",
+    "WORKFLOW_DISPATCH",
+    "METHOD_TYPE_DISPATCH",
     "run_pendulum_experiment",
     "run_pendulum_experiment_with_output",
     "run_anharmonic_oscillator_experiment_with_output",
