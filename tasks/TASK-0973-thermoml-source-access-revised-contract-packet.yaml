@@ -1,0 +1,53 @@
+id: TASK-0973
+title: "Prepare a revised ThermoML source-access contract after the 80-row blocker"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0955 established that the 80-row fixture cannot proceed without a checksum-matching local archive or a changed source-access contract."
+  - "The next useful work is a decision packet, not another extraction attempt."
+  - "This protects the ThermoML lane from raw archive vendoring and from pretending the blocker is solved."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-80-row-fixture-source-blocker.md"
+    - "docs/reviews/thermoml-80-row-bounded-extract-maintainer-decision-packet.md"
+    - "data/thermophysical/source_manifest.yaml"
+  planning_context: >
+    Draft maintainer options for unblocking or formally deferring the ThermoML
+    80-row fixture after TASK-0955: provide the local archive, amend the source
+    contract, keep blocked, or replace the expansion route with a different
+    public source surface. Do not fetch or extract rows.
+
+requirements:
+  - "Summarize the exact blocker, required archive identity, rights boundary, and why live fetches are forbidden under the current task contract."
+  - "Present maintainer options with risks: provide local archive, revise source-access contract, keep blocker, or choose a different source family."
+  - "Define what a future executable extraction task may and may not do under each option."
+  - "Return exactly one recommendation: PROVIDE_ARCHIVE, REVISE_CONTRACT, KEEP_BLOCKED, or SELECT_NEW_SOURCE."
+  - "Do not fetch ThermoML bytes, extract rows, run Joback metrics, alter fixtures, or create results/claims."
+
+accepted_outputs:
+  - "A docs/reviews decision packet with option table, recommended default, unblock checklist, and no-claim/source-rights wording."
+  - "Output-routing summary: source-access decision packet only; no data/result mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer decision packet only; no result or dataset artifact is created."
+  evidence:
+    - "docs/reviews/thermoml-80-row-fixture-source-blocker.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

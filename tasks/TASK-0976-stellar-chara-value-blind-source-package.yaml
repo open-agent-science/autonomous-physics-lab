@@ -1,0 +1,52 @@
+id: TASK-0976
+title: "Build the value-blind CHARA source-artifact and DEBCat de-dup package"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0939 returned PAPER_LEVEL_PIN_READY for the CHARA route, but did not authorize rows or metrics."
+  - "A value-blind source package is the next honest Stellar M-L step before any independent holdout benchmark."
+  - "This keeps textbook formula audit source-first and avoids universal-law wording."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/stellar-chara-paper-level-source-pin-dedupe-preflight.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+  planning_context: >
+    Convert the TASK-0939 PAPER_LEVEL_PIN_READY verdict into a value-blind
+    source-artifact package: exact locators, byte identities where allowed,
+    licenses, citations, and identifier-only DEBCat de-dup ledger. Stop before
+    scientific row extraction.
+
+requirements:
+  - "Pin exact article/table/supplement locators, retrieval dates, byte counts, SHA-256 hashes where access and license allow."
+  - "Build an identifier-only alias/de-dup ledger against the committed DEBCat surface, treating ambiguity as exclusion."
+  - "Report paper-level and post-de-dup system counts without mass, luminosity, radius, temperature, orbit, residual, or model-performance values."
+  - "Return exactly one verdict: SOURCE_ARTIFACT_READY, SOURCE_LIMITED, or BLOCKED."
+  - "Do not extract values, construct luminosities, score M-L, fit exponents, edit RESULT-0022/0024, or promote a stellar-law claim."
+
+accepted_outputs:
+  - "A docs/reviews source-artifact package note with pinned source table, de-dup ledger, counts, verdict, and future row-curation task shape if ready."
+  - "Output-routing summary: source artifact only; no data/result/claim mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind source-artifact curation only; no benchmark result is produced."
+  evidence:
+    - "docs/reviews/stellar-chara-paper-level-source-pin-dedupe-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -4,17 +4,17 @@ updated: "2026-07-09"
 curator_cycle:
   decision: updated
   updated: "2026-07-09"
-  source: "Scientific Director campaign-page sync after merged result wave"
+  source: "Scientific Director task-queue refill after FRB registration-pack wave"
   note: >
-    Mission guidance now reflects the July 8-9 result wave: FRB has an
-    activated sealed-prediction chain after TASK-0963 and a frozen TASK-0964
-    exposure-only model surface, Exoplanet RESULT-0027 needs a Gate-B-safe
-    workflow bridge, Quantum RESULT-0029 preserves the
-    ZnSe/InP transfer miss, and ThermoML now has RESULT-0026 plus failed-family
-    RESULT-0028. The next wave should prioritize FRB sealed registration,
-    Exoplanet replay repair, Nuclear source-approved reveal scoring, and
-    source/replay blockers without reopening closed audit loops or promoting
-    calibration-known physics as discovery.
+    Mission guidance now reflects the July 9 post-FRB wave: TASK-0965 prepared
+    the FRB sealed-registration pack but actual PRED registration remains
+    maintainer-gated, Exoplanet RESULT-0027 still needs a Gate-B-safe workflow
+    bridge, Quantum RESULT-0029 and ThermoML RESULT-0028 need replay/source
+    follow-through, Stellar CHARA is paper-level-pin-ready, Atomic is
+    KEEP_MONITOR_ONLY, and Particle AHS has a bounded sandbox diagnostic. The
+    next wave should refill READY science tasks around audit, source readiness,
+    replay, prediction-readiness, and stop/go packets without reopening closed
+    audit loops or promoting calibration-known physics as discovery.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -1211,7 +1211,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0023 needs public/maintainer wording as calibration-known verifier memory, and RESULT-0024 needs metadata-caveat repair or explicit caveat preservation before stronger tier wording. TASK-0939 has handed off the value-blind CHARA paper-level source pin and DEBCat de-dup preflight for maintainer review; wait for closeout before opening any CHARA row-curation or independent-holdout metric work."
+    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0024 is AGENT_VALIDATED same-source high-mass transfer memory. TASK-0939 returned PAPER_LEVEL_PIN_READY for the CHARA route, so the next useful Textbook/Stellar work is TASK-0976: a value-blind source-artifact and DEBCat de-dup package before any CHARA row-curation or independent-holdout metric work."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1223,7 +1223,7 @@ missions:
       - "TASK-0819 closed the independent Stellar M-L transfer-dataset scout"
       - "RESULT-0023 passed independent Gate B replay as self-consistency/calibration memory, not discovery evidence"
       - "RESULT-0024 replayed with zero metric drift but retains a metadata caveat"
-      - "TASK-0939 is review-ready as the source-pin/de-dup preflight before any CHARA-derived independent holdout metric work"
+      - "TASK-0939 returned PAPER_LEVEL_PIN_READY as the source-pin/de-dup preflight before any CHARA-derived independent holdout metric work"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1356,7 +1356,7 @@ missions:
         label: "Preflight a CHARA paper-level source pin and DEBCat de-dup route"
         task_id: TASK-0939
         mode: research
-        status: review_ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
@@ -1364,8 +1364,20 @@ missions:
           - "paper-level CHARA source manifest and DEBCat de-dup route before any metric work"
           - "value-blind source/readiness verdict with rights and overlap blockers stated"
           - "no CHARA row ingestion, metric mutation, universal stellar-law wording, or claim promotion"
+      - id: textbook-stellar-chara-source-artifact-package
+        label: "Build the value-blind CHARA source-artifact and DEBCat de-dup package"
+        task_id: TASK-0976
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "exact article/table/supplement locators, checksums, licences, citations, and identifier-only de-dup ledger"
+          - "SOURCE_ARTIFACT_READY, SOURCE_LIMITED, or BLOCKED verdict before any row extraction"
+          - "no CHARA values, M-L scoring, exponent fitting, or universal stellar-law wording"
       - id: textbook-review-ready-handoff
-        label: "Treat Textbook formula audit as review-gated and choose a live READY science task"
+        label: "Treat Textbook formula audit as source-gated and choose a live READY science task"
         task_id: null
         mode: research
         status: guidance
@@ -1373,7 +1385,7 @@ missions:
         difficulty: low
         recommended: true
         expected_outputs:
-          - "do not reopen CHARA metric work until TASK-0939 is reviewed and closed out"
+          - "do not reopen CHARA metric work before TASK-0976 produces a value-blind source-artifact verdict"
           - "choose from the executable READY task candidates generated from the task registry"
       - id: textbook-stellar-ml-source-baseline-plan
         label: "Stellar Mass-Luminosity OOD source and baseline plan landed"

@@ -1,0 +1,52 @@
+id: TASK-0977
+title: "Ratify Atomic monitor-only posture and publish reopen-trigger ledger"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Atomic has repeated source blockers, and TASK-0938 returned KEEP_MONITOR_ONLY for the multi-species route."
+  - "A compact trigger ledger can prevent agents from reopening atomic metrics on isotope-mismatched or derived rows."
+  - "This preserves source readiness without pretending a third row exists."
+
+input:
+  mode: planning_only
+  related_domain: precision_metrology
+  related_objects:
+    - "docs/reviews/atomic-ybsr-multispecies-harmonization-go-no-go-contract.md"
+    - "docs/reviews/atomic-ybsr-2024-isotope-mismatch-source-blocker-card.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  planning_context: >
+    Consolidate the current Atomic reopen rules into a small source-trigger
+    ledger: F1 direct 171Yb/87Sr, F2 separate 171Yb/88Sr only after a second
+    independent source, and forbidden derived/harmonized shortcuts. No values.
+
+requirements:
+  - "Create or update a docs/reviews ledger that lists admissible triggers, inadmissible shortcuts, and exact evidence needed before any row curation."
+  - "Preserve KEEP_MONITOR_ONLY and the two-row 171Yb/87Sr memory boundary."
+  - "State which future task shapes would be allowed after each trigger and which remain forbidden."
+  - "Return exactly one verdict: MONITOR_LEDGER_RATIFIED, LEDGER_NEEDS_DECISION, or LEDGER_BLOCKED."
+  - "Do not fetch or transcribe values, derive ratios, combine isotope axes, run metrics, or create RESULT/PRED/CLAIM/KNOW artifacts."
+
+accepted_outputs:
+  - "A concise docs/reviews trigger ledger and optional campaign-page pointer if public wording is stale."
+  - "Output-routing summary: source-trigger memory only; no data/result/claim mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-trigger ledger only; no result or data artifact is produced."
+  evidence:
+    - "docs/reviews/atomic-ybsr-multispecies-harmonization-go-no-go-contract.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

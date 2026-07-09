@@ -1,0 +1,51 @@
+id: TASK-0980
+title: "Prepare a Materials second-dataset stop/go packet after MD-0002 publication"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "MD-0002 is now fixed, validated, and externally citable; rebuilding it without a versioned reason would be churn."
+  - "The next Materials question is whether a second dataset surface is worth opening, not another cation-pair leaderboard."
+  - "A stop/go packet can compare candidate directions while preserving no-claim wording."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "docs/campaigns/materials-property-residuals.md"
+    - "docs/reviews/materials-md0002-zenodo-release-integrity.md"
+    - "docs/reviews/materials-md0001-result-or-dataset-publication-decision.md"
+  planning_context: >
+    After MD-0002 v0.1.0 publication, decide whether Materials should open a
+    second source-pinned dataset lane, reuse MD-0001 as a small evidence card,
+    or hold until a stronger source surface appears. No rows or metrics.
+
+requirements:
+  - "List at most three candidate second-dataset directions and compare source availability, license/reuse, row-count plausibility, benchmark target, leakage risks, and public value."
+  - "Include MD-0001 and at least one non-Materials-Project direction if evidence supports it; explicitly allow HOLD if none are strong."
+  - "Return exactly one recommendation: OPEN_SOURCE_TASK, ROUTE_MD0001_MEMORY, HOLD_MATERIALS_DATASET_EXPANSION, or NEEDS_MAINTAINER_DECISION."
+  - "Do not fetch data, mutate MD-0002, rerun metrics, create datasets, or claim material discovery."
+
+accepted_outputs:
+  - "A docs/reviews stop/go packet with candidate comparison, recommendation, and future task shape if warranted."
+  - "Output-routing summary: planning/source decision only; no data/result/claim mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Dataset direction decision packet only; no result or dataset artifact is created."
+  evidence:
+    - "docs/reviews/materials-md0002-zenodo-release-integrity.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

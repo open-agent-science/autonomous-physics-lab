@@ -1,0 +1,53 @@
+id: TASK-0979
+title: "Run Nuclear reveal-source watch check 2 without scoring"
+type: scientific_source_curation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The tier-1 point-only nuclear predictions are externally anchored, but reveal value depends on noticing an admissible post-freeze source."
+  - "A metadata-only source watch is useful even while TASK-0305 remains the only scoring lane."
+  - "This task must not inspect target values or perform reveal scoring."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-reveal-source-watch-2026-07-06.md"
+    - "docs/reviews/nmd0003-tier1-point-only-frontier-freeze.md"
+    - "tasks/TASK-0305-score-nuclear-shell-axis-mini-wave-reveal.yaml"
+  planning_context: >
+    Repeat the reveal-source watch at the metadata level: look for admissible
+    post-freeze AME/NUBASE-class release signals or trap/ring subset notices
+    without reading target values. Record NO_NOTIFY, CANDIDATE_NOTIFY, or
+    BLOCKED.
+
+requirements:
+  - "Check only source metadata, release/version dates, landing pages, and admissibility signals; do not inspect target nuclide values."
+  - "Compare candidates to the frozen source-watch criteria and TASK-0305 no-peek requirements."
+  - "Return exactly one verdict: NO_NOTIFY, CANDIDATE_NOTIFY, or WATCH_BLOCKED."
+  - "If CANDIDATE_NOTIFY, provide the next source-manifest task shape without scoring."
+  - "Do not edit PRED entries, run reveal metrics, fetch restricted tables, or claim prediction success."
+
+accepted_outputs:
+  - "A docs/reviews source-watch note with metadata checked, verdict, and next action."
+  - "Output-routing summary: source watch only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only source watch; no result or prediction artifact is created."
+  evidence:
+    - "docs/reviews/nuclear-reveal-source-watch-2026-07-06.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -55,8 +55,9 @@ rows, equivalent-diameter size harmonization, fixed confinement-energy model,
 controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
-memory. No correction search or immediate follow-on benchmark is authorized by
-the baseline or by the failed transfer attempts.
+memory. Useful work is replaying `RESULT-0029` without changing the contract or
+scouting one genuinely new direct source route. No correction search or repeat
+transfer on the same ZnSe/InP surface is authorized.
 
 ## Historical Source-Readiness Trail
 

@@ -1,0 +1,52 @@
+id: TASK-0974
+title: "Replay Quantum RESULT-0029 without changing the no-refit transfer contract"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0029 is useful bounded negative/control memory, but a replay can harden it without reopening the ZnSe/InP benchmark."
+  - "The replay must preserve the failed strict no-refit margin exactly."
+  - "This is validation of an existing result, not a new correction search."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "results/EXP-0022/RUN-0001/result.yaml"
+    - "docs/reviews/quantum-znse-contract-transfer-benchmark.md"
+    - "docs/reviews/quantum-znse-no-refit-transfer-contract.md"
+  planning_context: >
+    Replay RESULT-0029 through the recorded workflow and confirm the fixed
+    contract outcome: fixed InP/ZnSe model beats the best control but misses
+    the predeclared 0.05 eV survival margin. Do not relax thresholds or refit.
+
+requirements:
+  - "Run the recorded workflow or a documented Gate-B-safe equivalent and report metric drift against RESULT-0029."
+  - "Preserve the exact no-refit coefficients, threshold, controls, and INCONCLUSIVE/negative-control interpretation."
+  - "If replay passes, update only schema-permitted review metadata; if blocked, write a blocker note."
+  - "Return exactly one verdict: GATE_B_PASS, GATE_B_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+  - "Do not rerun the transfer with altered thresholds, add correction terms, change rows, or claim a quantum-size law."
+
+accepted_outputs:
+  - "A docs/reviews Gate B replay note and any permitted RESULT-0029 metadata update only if replay passes."
+  - "Output-routing summary: replay validation only; no claim impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation of an existing result; no new result artifact is expected."
+  evidence:
+    - "results/EXP-0022/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
