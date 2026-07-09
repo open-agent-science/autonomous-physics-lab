@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from physics_lab.registry.proposal_pr_helper import (
+from physics_lab.ops.pr_helpers.proposal_pr_helper import (
     preflight_proposal_pr,
     proposal_branch,
     proposal_filename,

@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from physics_lab.registry.closeout_pr_helper import (
+from physics_lab.ops.pr_helpers.closeout_pr_helper import (
     closeout_branch,
     closeout_pr_body,
     closeout_title,
