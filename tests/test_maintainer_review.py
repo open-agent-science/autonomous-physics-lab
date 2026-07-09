@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -1033,7 +1034,8 @@ def test_run_task_validation_prefers_repo_venv_python(tmp_path) -> None:
     payload = {"validation": {"commands": ["python3 -m pytest tests/x.py"]}}
     captured: list[str] = []
 
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ANN001, ANN003
+    def fake_run_command(command, *, cwd, shell=False, timeout=60, env=None):  # noqa: ANN001, ANN003
+        del env
         captured.append(command)
         return CommandResult(returncode=0, stdout="", stderr="")
 
@@ -1059,7 +1061,8 @@ def test_run_task_validation_rewrites_task_declared_venv_python(tmp_path) -> Non
     payload = {"validation": {"commands": [".venv/bin/python -m pytest tests/x.py"]}}
     captured: list[str] = []
 
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ANN001, ANN003
+    def fake_run_command(command, *, cwd, shell=False, timeout=60, env=None):  # noqa: ANN001, ANN003
+        del env
         captured.append(command)
         return CommandResult(returncode=0, stdout="", stderr="")
 
@@ -1071,6 +1074,30 @@ def test_run_task_validation_rewrites_task_declared_venv_python(tmp_path) -> Non
 
     assert summary.status == "pass"
     assert captured == [f'"{venv_python.resolve()}" -m pytest tests/x.py']
+
+
+def test_run_task_validation_puts_review_root_first_on_pythonpath(tmp_path) -> None:
+    payload = {"validation": {"commands": ["python3 -m physics_lab.cli validate-repo ."]}}
+    captured_env: list[dict[str, str]] = []
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del command
+        env = kwargs.get("env")
+        assert isinstance(env, dict)
+        captured_env.append(env)
+        return CommandResult(returncode=0, stdout="", stderr="")
+
+    with patch.dict(os.environ, {"PYTHONPATH": "/stale/editable/path"}):
+        with patch(
+            "physics_lab.registry.maintainer_review.run_command",
+            side_effect=fake_run_command,
+        ):
+            summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "pass"
+    assert captured_env
+    pythonpath = captured_env[0]["PYTHONPATH"].split(os.pathsep)
+    assert pythonpath[:2] == [str(tmp_path), "/stale/editable/path"]
 
 
 def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:

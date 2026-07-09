@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -693,6 +694,28 @@ def _validation_summary_status(outcomes: tuple[ValidationCommandOutcome, ...]) -
     return "environment_blocked"
 
 
+def _validation_subprocess_env(root: Path) -> dict[str, str]:
+    """Return an env that makes validation import this checkout first.
+
+    Review PR worktrees commonly reuse the main checkout's shared ``.venv``.
+    If that venv has a stale editable install, ``python -m physics_lab...`` can
+    import a different checkout than the PR being reviewed. Putting the review
+    root first on ``PYTHONPATH`` keeps dependencies from the selected venv while
+    forcing repository modules to resolve from the target worktree.
+    """
+    env = dict(os.environ)
+    root_entry = str(root)
+    current = env.get("PYTHONPATH")
+    if not current:
+        env["PYTHONPATH"] = root_entry
+        return env
+    parts = current.split(os.pathsep)
+    if parts and parts[0] == root_entry:
+        return env
+    env["PYTHONPATH"] = os.pathsep.join([root_entry, *[part for part in parts if part]])
+    return env
+
+
 def run_task_validation(
     root: Path,
     task_payload: dict[str, Any],
@@ -712,6 +735,7 @@ def run_task_validation(
     # Prefer the repository venv interpreter so validation never runs on an
     # unsupported launcher (e.g. a bare system python 3.9) — see TASK-0725.
     validation_python = resolve_validation_python(root)
+    validation_env = _validation_subprocess_env(root)
     validation_commands = [
         str(command) for command in task_payload.get("validation", {}).get("commands", [])
     ]
@@ -739,6 +763,7 @@ def run_task_validation(
             cwd=root,
             shell=True,
             timeout=validation_timeout_seconds,
+            env=validation_env,
         )
         status = "pass"
         reason = ""
