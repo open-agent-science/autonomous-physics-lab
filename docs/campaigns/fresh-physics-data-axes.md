@@ -23,14 +23,14 @@ Planning scaffold only.
   event-level collider data.
 
 Atomic clocks have since graduated into their own source-gated campaign page.
-The CHIME/FRB Catalog 2 selection-effect audit is also near-active as a
-metadata/source gate: the catalog table locator and exposure-only baseline
-exist, the T-truncated split is specified, and the time-resolved exposure-map
-artifact has been checksum-pinned and inspected. The blocker is now sharper:
-that HDF5 artifact is a static cumulative full-window map with no time axis, so
-it cannot support leakage-safe pre-T exposure construction. The next allowed
-FRB step is an official time-indexed source scout, not construction from the
-blocked map.
+FRB / radio transients has also graduated from generic fresh-data scouting into
+an activated sealed-prediction preparation lane. The older CHIME/FRB Catalog 2
+HDF5 map remains blocked for pre-T construction because it is a static
+cumulative full-window map with no time axis. The active route is now the
+separate Catalog-1 interval exposure pair: its checksum/schema gate passed, and
+`TASK-0963` constructed a compact 479-row pre-T exposure feature surface, and
+`TASK-0964` froze the exposure-only model surface for the follow-on
+`TASK-0965` sealed-registration pack.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -85,11 +85,12 @@ source manifest and correlation policy.
 
 ### FRB Selection-Effect Audit
 
-CHIME/FRB Catalog 2 is a near-active source-readiness lane, not a public result
-or prediction campaign. Existing artifacts pin the public Catalog 2 table route,
-define a version-locked temporal split, and preserve an exposure-only baseline
-as the control any later morphology model must beat. `TASK-0910` pinned the
-time-resolved / full-sky exposure-map source artifact as metadata only:
+CHIME/FRB remains a source-readiness and prediction-preparation lane, not a
+public result or repeater-population claim. Existing artifacts pin the public
+Catalog 2 table route, define a version-locked temporal split, and preserve an
+exposure-only baseline as the control any later morphology model must beat.
+`TASK-0910` pinned the time-resolved / full-sky exposure-map source artifact as
+metadata only:
 `chimefrbcat2_exposure.h5`, HDF5, approximately 206 MB, dataset DOI
 `10.11570/25.0066`, Public read on the CANFAR vault, with source bytes not
 redistributable in this repository.
@@ -101,9 +102,15 @@ inspected the HDF5 schema. The current blocker is
 `CONSTRUCTION_BLOCKED_STATIC_FULL_WINDOW_ONLY`: the file contains `/upper` and
 `/lower` cumulative HEALPix maps over the full observing window, with no
 timestamp dataset, interval boundary table, or per-interval exposure axis.
-Until an official time-indexed exposure or operational source is pinned, do not
-construct truncated exposure rows, fit morphology, freeze predictions, or claim
-repeater classification ability.
+That Catalog 2 map remains blocked for pre-T construction. The active FRB path
+therefore uses the Catalog-1 interval exposure pair instead: `TASK-0947` passed
+the checksum/schema gate, and `TASK-0963` wrote
+`data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml` from
+pre-T source coordinates and exposure counts only. It did not read repeater
+labels, register predictions, or make a population claim. `TASK-0964` then
+froze the exposure-only model surface without label contact. The next allowed
+step is the sequenced `TASK-0965` sealed-registration pack under maintainer
+approval.
 
 ## WATCHLIST Axes
 
@@ -125,9 +132,10 @@ Allowed next steps, only after maintainer assignment:
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
-- for FRB Catalog 2 only, scout an official time-indexed exposure or
-  operational/sensitivity source before proposing any numeric truncated-exposure
-  construction.
+- for FRB, continue only through the already activated Catalog-1 chain
+  (`TASK-0965` after the frozen `TASK-0964` surface) or through a separate
+  metadata-only source scout for a future Catalog-2-compatible time-indexed
+  exposure source.
 
 ## Not Allowed Yet
 
@@ -137,6 +145,8 @@ Do not:
 - ingest PTA, gravitational-wave, or event-level collider data;
 - commit FRB exposure-map bytes or bulk derived exposure rows without explicit
   maintainer license clearance;
+- treat the Catalog-1 pre-T feature surface as a repeater model, prediction
+  registry, reveal result, or source of population claims;
 - run a real-data benchmark or cross-domain fit;
 - derive broad physical constants;
 - combine fresh axes with anomaly-registry topics;
@@ -150,11 +160,14 @@ list candidate primary sources, license and citation status, retrieval policy,
 checksum plan, unit and uncertainty schema, and blockers. It should still add
 no numerical rows.
 
-For FRB Catalog 2 specifically, the next task shape is a metadata-only
-time-indexed exposure source scout: official source candidates, interval
-semantics, sky-coordinate mapping, rights/access posture, checksum feasibility,
-and an explicit `READY` / `AMBIGUOUS` / `BLOCKED` verdict. It must not fetch
-bulk value-bearing bytes or construct exposure rows.
+For FRB specifically, the active next task shape is no longer generic source
+scouting: it is the sequenced Catalog-1 model/contract freeze and sealed
+registration pack. A future Catalog-2-compatible route would still start as a
+metadata-only time-indexed exposure source scout with official source
+candidates, interval semantics, sky-coordinate mapping, rights/access posture,
+checksum feasibility, and an explicit `READY` / `AMBIGUOUS` / `BLOCKED`
+verdict. It must not fetch bulk value-bearing bytes or construct exposure rows
+without a new maintainer-reviewed task.
 
 ## What Not To Claim
 

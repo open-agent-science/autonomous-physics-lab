@@ -13,10 +13,13 @@ source, identity, family-split, and control gates.
 
 ## Current Status
 
-**New active benchmark surface.** The first slice is already stronger than a
-scaffold: `TASK-0869` packaged the bounded ThermoML `Tb` family-stratified
-Joback transfer benchmark as `RESULT-0026`, now an `AGENT_VALIDATED`,
-`VALID_IN_RANGE` result after formal Gate B workflow replay.
+**Active benchmark surface with preserved failed-family memory.** The first
+slice is already stronger than a scaffold: `TASK-0869` packaged the bounded
+ThermoML `Tb` family-stratified Joback transfer benchmark as `RESULT-0026`, now
+an `AGENT_VALIDATED`, `VALID_IN_RANGE` result after formal Gate B workflow
+replay. `TASK-0936` then packaged the esters/lactones failed-family slice as
+`RESULT-0028`, an `AGENT_PUBLISHED` bounded negative/control result that keeps
+the aggregate-positive context visible.
 
 The evidence is deliberately narrow. The committed fixture contains 40 factual
 audit rows, five rows from each of eight predeclared chemical families. The raw
@@ -46,13 +49,17 @@ the predeclared `5 K` survival threshold. Seven of eight held-out families clear
 the family-survival margin.
 
 **Important negative/control memory:** the `esters/lactones` family does not
-clear the family margin. That failed family is part of the result, not a detail
-to hide behind the aggregate win.
+clear the family margin. That failed family is now first-class result memory:
+`RESULT-0028` records Joback MAE `26.134 K` versus `20.584245 K` for the
+molecular-weight-only control across the five committed esters/lactones rows.
+This does not weaken `RESULT-0026`; it prevents the aggregate win from hiding a
+failed family.
 
 **Replay state:** the formal workflow Gate B bridge reproduced the aggregate
 and per-family `RESULT-0026` metrics with zero drift and updated the result tier
-to `AGENT_VALIDATED`. This validates the bounded 40-row `Tb` fixture only; it
-does not remove the esters/lactones failed-family limitation.
+to `AGENT_VALIDATED`. `RESULT-0028` is still AGENT_PUBLISHED and Gate B pending.
+Both artifacts validate or package only the bounded 40-row `Tb` fixture; they do
+not remove the esters/lactones failed-family limitation.
 
 **Not a claim:** `RESULT-0026` is not a universal validation of Joback, not a
 new thermophysical law, and not a chemical-design or process-design result. It
@@ -63,15 +70,20 @@ for this first audit.
 
 ## Active Next Work
 
-The campaign should move through two narrow gates:
+The campaign should now move through source-access and expansion gates rather
+than another Joback metric rerun:
 
-1. **Local-only source-expansion preflight** - decide whether a larger
-   ThermoML `Tb` fixture can be described with identity mapping, family counts,
-   row class, and rights blockers before any values or archive bytes are
-   committed.
-2. **Failed-family negative RESULT packaging** - package the landed
-   `esters/lactones` negative/control memory as a bounded result so future
-   agents do not overstate aggregate transfer.
+1. **Expansion source-access decision** - the exact 80-row public fixture path
+   is blocked unless the checksum-matching local archive is supplied under the
+   frozen source contract, or the contract is changed in a separate
+   maintainer-reviewed task.
+2. **Revised expansion design, if any** - the earlier local-only count preflight
+   found the exact ten-per-family 80-row target underpopulated for acids and
+   ketones, so any larger fixture needs a revised, explicit contract before
+   rows or values are extracted.
+3. **Independent replay of `RESULT-0028`** - useful only if the replay surface
+   is Gate-B-safe; it must not mutate `RESULT-0026`, tune Joback, or broaden the
+   property scope.
 
 ## Admissible Source Classes
 
@@ -93,20 +105,21 @@ Not currently admitted:
 
 ## Allowed Task Types
 
-1. **Replay task** - formal Gate B bridge or independent replay of
-   `RESULT-0026`.
+1. **Replay task** - independent replay of `RESULT-0028`, or narrow checks that
+   do not rewrite the already Gate-B-validated `RESULT-0026`.
 2. **Source-readiness task** - local-only corpus-expansion or extraction
    preflight, including rights, identity-map, and family-count blockers.
 3. **Negative-memory task** - failed-family or control-memory packaging only
    when a new failed slice appears or a task explicitly asks for public
-   synthesis.
+   synthesis; the existing esters/lactones memory is already packaged as
+   `RESULT-0028`.
 4. **Maintainer-review packet** - safe public wording after replay.
 
 ## Guardrails
 
 Allowed current work:
 
-- replay or formally bridge `RESULT-0026`;
+- independently replay `RESULT-0028` if a Gate-B-safe route is available;
 - inspect committed fixture, source manifest, result metadata, and runner code;
 - write source-readiness or negative-memory notes;
 - draft task-queue entries for bounded future work.
@@ -121,13 +134,16 @@ Not allowed:
 - claim Joback is universally right, universally wrong, or physically
   explanatory.
 
-## Recommended Next Tasks
+## Recommended Next Work
 
-1. `TASK-0936` - package the esters/lactones failed-family memory as a bounded
-   negative/control RESULT without mutating `RESULT-0026`.
-2. `TASK-0940` - prepare the maintainer decision packet for any 80-row
-   ThermoML `Tb` expansion route: bounded public extract, local-only analysis,
-   external permission, or no expansion. This happens before any row extraction.
+- Keep `RESULT-0026` and `RESULT-0028` paired in public wording: aggregate win
+  plus explicit failed-family memory.
+- Do not treat `TASK-0955` as available execution work until the pinned
+  `ThermoML.v2020-09-30.tgz` archive is provided locally or the source-access
+  contract changes.
+- Any future 80-row or larger fixture should start from a revised
+  maintainer-approved contract because the exact ten-per-family count target
+  already failed under the frozen preflight.
 
 ## Why It Matters
 
@@ -147,3 +163,7 @@ demonstration of verification-first agent science.
 - [RESULT-0026 Gate A report](../../results/EXP-0020/RUN-0001/gate_a_report.md)
 - [RESULT-0026 replay note](../reviews/thermoml-result0026-gate-b-replay.md)
 - [RESULT-0026 result metadata](../../results/EXP-0020/RUN-0001/result.yaml)
+- [RESULT-0028 report](../../results/EXP-0020/RUN-0002/report.md)
+- [RESULT-0028 result metadata](../../results/EXP-0020/RUN-0002/result.yaml)
+- [ThermoML 80-row local count preflight](../reviews/thermoml-tb-80row-local-count-preflight.md)
+- [ThermoML 80-row source blocker](../reviews/thermoml-80-row-fixture-source-blocker.md)
