@@ -1,7 +1,7 @@
 id: TASK-0982
 title: "Isolate maintainer-review validation from stale editable installs"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
