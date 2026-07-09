@@ -1,0 +1,61 @@
+id: TASK-0967
+title: "Maintainer-directed architecture and workflow audit of the APL repository"
+type: repo_architecture
+status: IN_PROGRESS
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Maintainer-directed (2026-07-09) full architectural + workflow audit in Maintainer/Architect mode; output is a review memo, not a scientific claim or a code change."
+  - "Feeds the follow-up decision on which structural fixes (registry/ops split, workflow templating, Gate-B creation-time preflight, memory archiving policy) become their own scoped tasks or a maintainer-approved TASK-QUEUE wave."
+  - "Read-only audit: no runtime code, engine, or gate behavior is modified by this task; every recommendation is advisory and routes through its own task/proposal before execution."
+
+input:
+  mode: workflow
+  related_domain: repository_architecture
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "physics_lab/registry/scientific_memory_integrity.py"
+    - "physics_lab/workflows/runner.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    A nine-dimension read-only architectural audit run as a multi-agent
+    workflow (one auditor per dimension, one adversarial verifier per
+    high/medium finding, one completeness critic). Dimensions: core package
+    architecture, helper-script sprawl, test-suite health, validation-gate
+    performance, agent task-workflow bottlenecks, scientific-memory
+    scalability, integrity gates (Gate A/B and the promotion funnel),
+    external-contributor experience, and CI/CD repository safety. The single
+    accepted output is a dated review memo under docs/reviews/ recording the
+    findings, their verification verdicts, and advisory structural
+    recommendations. No repository behavior is changed; follow-up fixes are
+    separate scoped tasks.
+
+requirements:
+  - "Read-only audit: no changes to physics_lab/ runtime code, engines, gates, CI workflows, or task/result artifacts other than adding this task file and the review memo."
+  - "Every finding cites concrete in-repo evidence (file paths, commands, numeric outputs); high/medium findings carry an adversarial verification verdict where one was produced."
+  - "Recommendations are advisory only; the memo must not promote claims, weaken any integrity gate, or assert that any fix has been executed."
+  - "Findings that could not be independently re-checked are labeled UNVERIFIED honestly rather than presented as confirmed."
+
+accepted_outputs:
+  - "docs/reviews/apl-architecture-audit-20260709.md: the audit memo with per-dimension findings, verification verdicts, a high-severity index, and an advisory structural-fix shortlist."
+  - "Output-routing summary: review note only; no result/claim/knowledge artifact and no scientific verdict."
+
+result_artifact_policy:
+  required: false
+  reason: "Architecture/workflow audit; the output is a review memo, not a scientific RESULT or PRED artifact. Any code or process change surfaced by the audit is a separate scoped task."
+  evidence:
+    - "docs/reviews/apl-architecture-audit-20260709.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent
