@@ -1,0 +1,114 @@
+artifact_kind: frb_pre_t_model_selection_contract
+contract_id: FRB-PRET-MODEL-CONTRACT-0001
+task_id: TASK-0964
+status: predeclared_contract
+declared_at_utc: '2026-07-09T00:00:00Z'
+
+input_surface:
+  path: data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
+  artifact_id: FRB-CAT1-PRET-EXPOSURE-0001
+  task_id: TASK-0963
+  file_sha256: 8fc57714013a62b51710d48402e23b76eb8f7fa79c17b4e6b0875f06d3374b26
+  feature_table_sha256: 3e564bc58452b34db133b72d1177bd99eb7fc8ac76036641edb9aa513a65d139
+  required_status: constructed_feature_surface
+  required_verdict: PRE_T_EXPOSURE_FEATURE_SURFACE_CONSTRUCTED
+
+fixed_epoch:
+  t_utc: '2019-07-02'
+  t_mjd: 58666.0
+
+feature_boundary:
+  allowed_features:
+    - source_id
+    - E_upper_hours
+    - E_lower_hours
+    - score_pre_t
+  forbidden_features:
+    - repeater_name
+    - Catalog 2 full-window exp_up / exp_low
+    - Catalog 2 full-window morphology columns
+    - post-T source associations
+    - any later repeat label or reveal field
+  label_contact_allowed: false
+  label_columns_read: []
+  label_use_for_selection: none
+  rationale: >
+    TASK-0964 freezes a model surface for later sealed prediction registration.
+    It does not score against repeat labels and does not read reveal labels. The
+    selected surface is an exposure-only propensity ordering fixed by the gate
+    formula and by label-free coverage/ranking checks.
+
+frozen_scoring_rule:
+  score_pre_t: score_pre_t = log1p(E_upper_hours + E_lower_hours)
+  count_to_hours: E_hours = 4 * exposure_count / 3600
+  stop_condition_reference: docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md#stop-conditions-for-the-next-stage
+  modification_allowed: false
+
+candidate_models:
+  - model_id: gate_total_exposure_log1p
+    role: candidate
+    formula: log1p(E_upper_hours + E_lower_hours)
+    must_equal_fixture_field: score_pre_t
+    uses_upper_transit: true
+    uses_lower_transit: true
+    selection_priority: 1
+  - model_id: upper_transit_only_log1p
+    role: comparator
+    formula: log1p(E_upper_hours)
+    uses_upper_transit: true
+    uses_lower_transit: false
+    selection_priority: 2
+  - model_id: lower_transit_only_log1p
+    role: comparator
+    formula: log1p(E_lower_hours)
+    uses_upper_transit: false
+    uses_lower_transit: true
+    selection_priority: 3
+  - model_id: constant_zero_null
+    role: null_comparator
+    formula: '0.0'
+    uses_upper_transit: false
+    uses_lower_transit: false
+    selection_priority: 4
+
+selection_rule:
+  type: label_free_pre_t_coverage_then_rank_resolution
+  admissible_candidates:
+    - gate_total_exposure_log1p
+    - upper_transit_only_log1p
+    - lower_transit_only_log1p
+    - constant_zero_null
+  sort_key_descending:
+    - uses_both_transits
+    - nonzero_score_rows
+    - unique_score_values
+  tie_breaker:
+    - lowest selection_priority
+    - lexicographic model_id
+  comparator_requirement: >
+    The selected model must have strictly more nonzero scored rows and strictly
+    more unique score values than constant_zero_null. If no candidate beats that
+    null comparator, the freeze is blocked and no surface may be registered.
+  label_performance_metric: none
+
+freeze_outputs:
+  frozen_surface_path: data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+  review_note_path: docs/reviews/frb-pre-t-model-selection-freeze.md
+  replay_command: >
+    python3 scripts/run_frb_pre_t_model_selection_freeze.py
+    --contract data/radio_transients/frb_pre_t_model_selection_contract.yaml
+    --output data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+    --review-note docs/reviews/frb-pre-t-model-selection-freeze.md
+    --generated-at-utc 2026-07-09T00:00:00Z
+
+output_routing:
+  result_artifact: none
+  prediction_registry_entry: none
+  claim_impact: none
+  knowledge_impact: none
+  next_stage: TASK-0965 prepares the maintainer-approved sealed prediction registration pack.
+
+limitations:
+  - This contract freezes an exposure-only model surface, not a repeat-label performance result.
+  - No label, Catalog 2 full-window exposure, morphology, or post-T association field may enter the pre-T surface.
+  - Registration of sealed prediction entries is out of scope and requires TASK-0965 plus maintainer approval.
