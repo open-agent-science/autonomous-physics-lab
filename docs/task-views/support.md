@@ -24,3 +24,4 @@ None.
 - `TASK-0973` - Split registry god-package (slice 1): extract PR helpers into physics_lab/ops/pr_helpers (`code_quality_refactor`, priority `medium`, difficulty `medium`, domain `repository_architecture`)
 - `TASK-0981` - Closeout policy guard for task-queue seeded tasks (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-1000` - Add maintainer review queue anti-stall guardrails (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_review`)
+- `TASK-1003` - Split registry god-package (slice 2): move agent_run_pr into ops and drop its registry re-export (`code_quality_refactor`, priority `medium`, difficulty `low`, domain `repository_architecture`)
