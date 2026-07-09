@@ -1,0 +1,55 @@
+id: TASK-0971
+title: "Doctor: detect a stale physics_lab editable install that breaks the validation gate"
+type: tooling_fix
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Acts on the highest contributor-facing finding of the 2026-07-09 architecture audit: the required pytest/validate-repo gate fails out of the box in a fresh worktree when a shared .venv's editable install maps physics_lab to a since-deleted worktree."
+  - "Read-only diagnostic only: apl_agent_doctor.py gains a check that surfaces the broken install and the exact reinstall command. It does not modify any environment, install anything, or change validation behavior."
+  - "Complements TASK-0969/TASK-0970 (CI hardening) by targeting the local-runtime slice the audit flagged; the doctor already owns worktree/venv runtime diagnostics."
+
+input:
+  mode: workflow
+  related_domain: repository_hardening
+  related_objects:
+    - "scripts/apl_agent_doctor.py"
+    - "tests/test_agent_doctor.py"
+  planning_context: >
+    Add a `_module_import_ok` helper that runs `import physics_lab` under the
+    selected validation interpreter from a neutral working directory (so a
+    stale editable install is detected instead of being masked by the repo
+    root on sys.path), and surface the result on the worktree-runtime
+    preflight report as a new `physics_lab_import_ok` field plus a targeted
+    remediation recommendation when the import fails. The check runs only
+    under `--worktree-runtime-preflight`, is read-only, and installs nothing.
+
+requirements:
+  - "Diagnostic only: no environment mutation, no install, no change to validation/gate behavior; the check runs under the existing --worktree-runtime-preflight path."
+  - "New helper probes the import from a neutral CWD via the selected interpreter and returns True/False/None (None when the interpreter is unusable)."
+  - "Report gains a physics_lab_import_ok field; a remediation recommendation with the exact `pip install -e .` command is added only when the import is broken."
+  - "Deterministic tests for the helper and the preflight recommendation; ruff clean; strict repo validation green."
+
+accepted_outputs:
+  - "The doctor helper + field + recommendation, and the tests."
+  - "Output-routing summary: repository/tooling hardening; no scientific artifact, claim, or result change."
+
+result_artifact_policy:
+  required: false
+  reason: "Diagnostic tooling task; no scientific RESULT or PRED artifact is expected. Evidence is the doctor code and its tests."
+  evidence:
+    - "scripts/apl_agent_doctor.py"
+    - "tests/test_agent_doctor.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check scripts/apl_agent_doctor.py tests/test_agent_doctor.py"
+    - "python3 -m pytest tests/test_agent_doctor.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
