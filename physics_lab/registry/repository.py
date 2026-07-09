@@ -9,8 +9,6 @@ import subprocess
 import shlex
 from typing import Any, Callable, Union
 
-import yaml
-
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.campaigns import load_campaign_catalog
@@ -41,6 +39,7 @@ from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.task_views import TASK_VIEW_PATHS, render_task_views
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task, load_task_minimal, task_input_mode
+from physics_lab.registry.yaml_io import load_yaml_mapping
 from physics_lab.workflows.artifacts import hash_file
 
 
@@ -505,10 +504,7 @@ def _validate_microtask_queue_consistency(root_path: Path) -> None:
         return
 
     for path in sorted(microtask_root.glob("*.yaml")):
-        with path.open("r", encoding="utf-8") as handle:
-            payload = yaml.safe_load(handle)
-        if not isinstance(payload, dict):
-            raise ValueError(f"{path} must contain a YAML mapping")
+        payload = load_yaml_mapping(path, expected="microtask queue file")
 
         expected_queue_id = path.stem
         declared_queue_id = str(payload.get("queue_id") or "").strip()

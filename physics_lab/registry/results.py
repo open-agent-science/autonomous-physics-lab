@@ -6,9 +6,9 @@ from pathlib import Path
 from typing import Any
 
 import json
-import yaml
 
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import safe_load_yaml
 
 
 def validate_result_payload(payload: dict[str, Any], source: str | Path) -> dict[str, Any]:
@@ -21,7 +21,7 @@ def load_result(path: str | Path) -> dict[str, Any]:
     path = Path(path)
     with path.open("r", encoding="utf-8") as handle:
         if path.suffix in {".yaml", ".yml"}:
-            data = yaml.safe_load(handle)
+            data = safe_load_yaml(handle)
         else:
             data = json.load(handle)
     if not isinstance(data, dict):

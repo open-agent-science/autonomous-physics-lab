@@ -10,9 +10,8 @@ from pathlib import Path
 import string
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.results import load_result
+from physics_lab.registry.yaml_io import load_yaml_mapping
 
 
 GOLDEN_RESULTS_MANIFEST = Path("results") / "golden-results.yaml"
@@ -82,10 +81,7 @@ def load_golden_result_entries(root: Path) -> tuple[GoldenResultEntry, ...]:
     manifest_path = root / GOLDEN_RESULTS_MANIFEST
     if not manifest_path.exists():
         return ()
-    with manifest_path.open("r", encoding="utf-8") as handle:
-        payload = yaml.safe_load(handle)
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected mapping in {manifest_path}")
+    payload = load_yaml_mapping(manifest_path, expected=str(manifest_path))
     entries = payload.get("golden_results")
     if not isinstance(entries, list):
         raise ValueError(f"{manifest_path} must declare golden_results as a list")

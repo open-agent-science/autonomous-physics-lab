@@ -1,0 +1,59 @@
+id: TASK-1002
+title: "Speed up validate-repo YAML loading"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce required validation latency without weakening repository checks."
+  - "Keep strict validate-repo semantics unchanged while making YAML parsing faster."
+  - "Make future validation-performance work build on a shared loader instead of scattered yaml.safe_load calls."
+
+input:
+  mode: workflow
+  related_domain: validation_performance
+  related_objects:
+    - "physics_lab/registry/yaml_io.py"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/tasks.py"
+    - "tests/test_yaml_io.py"
+  planning_context: >
+    The architecture audit found that validate-repo spends avoidable time
+    repeatedly parsing YAML registry artifacts. Add a small shared safe YAML
+    loader that uses PyYAML's C-backed safe loader when available, and route
+    the repository validation hot-path loaders through it as the first
+    low-risk performance slice.
+
+requirements:
+  - "Do not change schema validation semantics, artifact schemas, task status behavior, or scientific-memory gates."
+  - "Use CSafeLoader when available and fall back to SafeLoader when not."
+  - "Keep loader error messages useful for non-mapping artifacts."
+  - "Restrict this PR to YAML loading performance, not broader validation caching."
+  - "Record a before/after validate-repo timing in the PR description or final handoff."
+
+accepted_outputs:
+  - "Shared registry YAML loading helper with safe C-loader fallback."
+  - "Repository validation hot-path loaders migrated to the helper."
+  - "Focused tests for the helper contract."
+  - "Strict validate-repo remains green."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling performance task; no scientific RESULT, PRED, CLAIM, or KNOW artifact is expected."
+  evidence:
+    - "physics_lab/registry/yaml_io.py"
+    - "physics_lab/registry/repository.py"
+    - "tests/test_yaml_io.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry tests/test_yaml_io.py"
+    - "python3 -m pytest tests/test_yaml_io.py tests/test_repository_validation_scoping.py tests/test_task_proposals.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

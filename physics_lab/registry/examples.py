@@ -5,9 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml_mapping
 
 
 TEXTBOOK_WIEN_FIXTURE_CONFIG_KIND = "textbook_wien_exact_reference_fixture"
@@ -17,10 +16,7 @@ QUANTUM_SIZE_EFFECTS_BASELINE_CONFIG_KIND = "quantum_size_effects_baseline"
 def load_example_config(path: str | Path) -> dict[str, Any]:
     """Load and validate an example config."""
     config_path = Path(path)
-    with config_path.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in example config file: {path}")
+    data = load_yaml_mapping(config_path, expected="example config file")
     if _is_textbook_wien_fixture_config(data):
         # TASK-0537 allows an exact-reference fixture/config. The repository
         # also stores a copy under examples/ for discoverability, but it is not

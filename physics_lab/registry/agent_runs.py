@@ -5,13 +5,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.research_proposals import (
     load_experiment_proposal,
     load_hypothesis_proposal,
 )
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml_mapping
 
 CANONICAL_MEMORY_ROOTS = {
     "claims",
@@ -23,11 +22,7 @@ CANONICAL_MEMORY_ROOTS = {
 
 
 def _load_yaml_mapping(path: str | Path) -> dict[str, Any]:
-    with Path(path).open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in agent run file: {path}")
-    return data
+    return load_yaml_mapping(path, expected="agent run file")
 
 
 def _resolve_repo_path(root: Path, path_value: str) -> Path:

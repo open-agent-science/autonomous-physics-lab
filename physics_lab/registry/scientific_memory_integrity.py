@@ -6,9 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml
 
 
 RANGE_LANGUAGE_MARKERS = (
@@ -332,9 +331,7 @@ def _required_run_artifact_issues(
     review_metadata_path = run_dir / "review_metadata.yaml"
     if review_metadata_path.exists():
         try:
-            review_metadata_data = yaml.safe_load(
-                review_metadata_path.read_text(encoding="utf-8")
-            )
+            review_metadata_data = load_yaml(review_metadata_path)
             validate_document(review_metadata_data, "review_metadata", review_metadata_path)
         except Exception as exc:
             issues.append(

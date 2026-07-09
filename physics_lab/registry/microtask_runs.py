@@ -5,27 +5,19 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml_mapping
 
 
 def _load_yaml_mapping(path: str | Path) -> dict[str, Any]:
-    with Path(path).open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in microtask run file: {path}")
-    return data
+    return load_yaml_mapping(path, expected="microtask run file")
 
 
 def _load_queue_payload(root: Path, queue_id: str) -> dict[str, Any]:
     queue_path = root / "tasks" / "microtasks" / f"{queue_id}.yaml"
     if not queue_path.exists():
         raise ValueError(f"Microtask run references missing queue file: {queue_path}")
-    with queue_path.open("r", encoding="utf-8") as handle:
-        payload = yaml.safe_load(handle)
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected mapping in microtask queue file: {queue_path}")
+    payload = load_yaml_mapping(queue_path, expected="microtask queue file")
     if str(payload.get("queue_id") or "").strip() != queue_id:
         raise ValueError(f"Microtask queue file {queue_path} declares a mismatched queue_id")
     return payload
