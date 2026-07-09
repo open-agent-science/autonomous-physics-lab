@@ -131,10 +131,12 @@ the Joback transfer as aggregate-positive but family-dependent: 7/8 families
 clear the 5 K margin and esters/lactones is an explicit failed-family boundary
 captured by `RESULT-0028`.
 
-TASK-0955 is still a review-ready extraction lane in the current tree, so this
-draft does not treat an 80-row fixture as adopted canonical knowledge. If
-TASK-0955 merges first, this draft should be reconciled to include its final
-rights and fixture description before any `KNOW-*` file is created.
+TASK-0955 is closed in the current tree as a source-gated extraction lane with
+the required local ThermoML archive still absent, so this draft does not treat
+an 80-row fixture as adopted canonical knowledge. If a future maintainer-supplied
+archive reopens and lands the widened fixture, this draft should be reconciled
+to include its final rights and fixture description before any `KNOW-*` file is
+created.
 
 Required no-claim wording:
 
