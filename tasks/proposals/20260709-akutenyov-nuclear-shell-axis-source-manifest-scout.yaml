@@ -23,7 +23,7 @@ input:
   mode: planning_only
   related_domain: nuclear_physics
   related_objects:
-  - tasks/TASK-0305-score-nuclear-shell-axis-mini-wave-reveal.yaml
+  - TASK-0305
   - docs/reviews/maintainer-decision-day-2026-07-06.md
   - docs/reviews/nuclear-shell-axis-reveal-source-manifest-review.md
   - data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml
