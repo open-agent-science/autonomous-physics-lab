@@ -148,7 +148,12 @@ jobs:
             tests/test_validate_repo_auto_sync.py
 
       - name: Run full tests
-        if: needs.classify.outputs.docs_task_only != 'true'
+        # Draft PR pushes stay on the cheap sanity gate (ruff + strict
+        # validate, plus targeted docs/task tests when applicable). The
+        # ready_for_review event remains in the trigger set above, so flipping
+        # draft -> ready runs this merge-gate suite without requiring a new
+        # commit while intermediate draft pushes do not burn the full suite.
+        if: needs.classify.outputs.docs_task_only != 'true' && github.event.pull_request.draft == false
         run: |
           pytest --durations=10 -n auto --dist loadgroup -m "not full_repo"
 
