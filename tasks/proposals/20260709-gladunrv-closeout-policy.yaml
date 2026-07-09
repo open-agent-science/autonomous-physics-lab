@@ -1,0 +1,55 @@
+proposal_id: 20260709-gladunrv-closeout-policy
+title: Define closeout policy and stop blanket review opt-outs
+status: PROPOSED
+type: maintainer_workflow
+priority: high
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: codex
+strategy_alignment:
+- Reduces maintainer toil in the task tail while preserving the existing safe auto-closeout
+  blockers for protected scientific artifacts and dependent unblock decisions.
+- Keeps canonical task id assignment separate from proposal review; this proposal does not
+  implement the policy or change existing task statuses.
+summary: 'Define a narrow closeout-policy task to stop blanket closeout: review propagation
+  while preserving manual review for science, protected-artifact, unblock, and governance
+  decisions.'
+rationale: 'The 2026-07-09 architecture audit found that safe auto-closeout is effectively
+  bypassed because nearly every flat task file carries closeout: review. A fresh main
+  snapshot on 2026-07-09 still shows 110 task files with closeout: review and only two
+  flat task files without a closeout field, so the issue is a recurring workflow
+  bottleneck rather than a one-off closeout lag.'
+input:
+  mode: planning_only
+  related_domain: task_closeout_policy
+  related_objects:
+  - docs/agent-task-protocol.md
+  - docs/maintainer-review-agent.md
+  - tasks/TASK-TEMPLATE.yaml
+  - scripts/apl_closeout_sweep.py
+  planning_context: 'Create a future canonical task that codifies when closeout: review is
+    appropriate, adds helper/review checks so task queues do not stamp it by default, and
+    performs a conservative cleanup only for clearly safe non-scientific tasks. Do not mass-flip
+    result-bearing, prediction, claim, knowledge, unblock, governance, or protected-artifact
+    tasks.'
+requirements:
+- 'Specify the closeout-policy default: omitted/auto for safe docs, tooling, repository-hygiene,
+  and support tasks; closeout: review only when a human decision is still needed.'
+- 'Add a helper or review-agent lint that flags new task-queue entries carrying closeout:
+  review without a policy-compatible reason.'
+- Audit current flat task files and prepare a conservative cleanup plan for only clearly safe
+  non-scientific tasks; do not mass-edit science, result, prediction, claim, knowledge, unblock,
+  or governance tasks.
+- Preserve the existing auto-closeout blockers for protected scientific artifacts and
+  dependent unblock decisions; this proposal must not weaken result-promotion,
+  no-peek, prediction, or claim-review gates.
+accepted_outputs:
+- A future canonical task spec for closeout policy and helper/review linting.
+- 'Updated protocol/template wording defining closeout: review as an explicit opt-out with
+  examples.'
+- A conservative migration plan for eligible existing tasks that leaves protected or
+  science-bearing tasks on manual review.
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
