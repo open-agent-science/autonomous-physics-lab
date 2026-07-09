@@ -20,6 +20,7 @@ def build_runner_status_payload(*, include_ssh: bool = False) -> dict[str, Any]:
         "gh run view <run-id> --jobs",
         "gh run view <run-id> --log-failed",
         "gh pr checks <pr-number>",
+        "gh pr list --state open --limit 30 --json number,title,isDraft,mergeStateStatus,statusCheckRollup,updatedAt",
     ]
     repository_variable_values = {
         "self_hosted": json.dumps(SELF_HOSTED_LABELS),
@@ -46,6 +47,13 @@ def build_runner_status_payload(*, include_ssh: bool = False) -> dict[str, Any]:
             "5 minutes and the VPS service cannot be confirmed healthy, set "
             "APL_PR_RUNNER_LABELS to [\"ubuntu-latest\"], rerun the failed or "
             "queued job, and restore self-hosted labels after the runner is healthy."
+        ),
+        "review_queue_anti_stall_rule": (
+            "During a multi-PR review sweep, do not foreground-watch one pending "
+            "PR check. Park the pending PR, record the pending check, continue "
+            "with another open PR that already has green required checks and "
+            "MERGE_OK, then return when the parked check completes. Admin-merge "
+            "or deliberate waiting requires an explicit maintainer decision."
         ),
     }
 
@@ -74,6 +82,14 @@ def render_markdown(payload: dict[str, Any]) -> str:
         ]
     )
     lines.extend(f"- `{command}`" for command in payload["queue_visibility_commands"])
+    lines.extend(
+        [
+            "",
+            "## Review Queue Anti-Stall Rule",
+            "",
+            payload["review_queue_anti_stall_rule"],
+        ]
+    )
     lines.extend(["", "## VPS Health Checks", ""])
     lines.extend(f"- `{command}`" for command in payload["vps_health_commands"])
     lines.extend(

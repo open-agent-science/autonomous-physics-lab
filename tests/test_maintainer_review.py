@@ -3563,6 +3563,42 @@ def test_finish_gate_blocks_ready_transition_when_ci_fails(tmp_path: Path) -> No
     ready.assert_not_called()
 
 
+def test_finish_gate_pending_ci_parks_pr_instead_of_watch_loop(tmp_path: Path) -> None:
+    pending_check = CheckState(
+        name="Python fast tests",
+        bucket="pending",
+        state="IN_PROGRESS",
+        link="https://github.com/open-agent-science/autonomous-physics-lab/actions/runs/456/job/789",
+    )
+    ci_gate = CiGate(
+        status="pending",
+        checks=(pending_check,),
+        failures=(),
+        pending=(pending_check,),
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.pr_finish_gate.run_review_gate",
+            return_value=CommandResult(returncode=0, stdout="Verdict: MERGE_OK\n", stderr=""),
+        ),
+        patch("physics_lab.registry.pr_finish_gate.load_ci_gate", return_value=ci_gate),
+        patch("physics_lab.registry.pr_finish_gate.mark_ready") as ready,
+    ):
+        report = finish_pr(tmp_path, 104)
+
+    rendered = render_finish_gate_report(report, pr_number=104)
+    assert not report.ok
+    assert report.status == "blocked"
+    assert report.ci_status == "pending"
+    assert report.ready_transition == "not_attempted"
+    assert report.next_safe_command == "gh pr checks 104 --json name,state,bucket,link"
+    assert "--watch" not in rendered
+    assert "Park this PR" in rendered
+    assert "continue reviewing other open PRs" in rendered
+    ready.assert_not_called()
+
+
 def test_finish_gate_leaves_draft_when_review_blocks(tmp_path: Path) -> None:
     with (
         patch(

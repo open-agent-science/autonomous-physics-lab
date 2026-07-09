@@ -189,6 +189,16 @@ command, including a failing-check inspection command when available.
 Pass `--validation-timeout-seconds <seconds>` here too when the finish gate
 should use a non-default local review-validation budget.
 
+When reviewing a queue of open PRs, do not let one pending CI rerun monopolize
+the maintainer cycle. If the finish gate reports pending checks, record the
+pending check, park that PR, and continue with other open PRs that already have
+green required checks and a `MERGE_OK` review verdict. Return to the parked PR
+after the check finishes. Foreground-watching with `gh pr checks --watch` is a
+manual exception for a deliberately selected PR, not the default behavior for a
+multi-PR review sweep. If a ready transition retriggers CI on the same head,
+follow the same rule; either wait only with explicit maintainer choice, request
+an explicit admin-merge decision, or continue the queue.
+
 ### Clean PR Worktree Review
 
 For PR-number reviews, the helper prefers the caller checkout only when it is
