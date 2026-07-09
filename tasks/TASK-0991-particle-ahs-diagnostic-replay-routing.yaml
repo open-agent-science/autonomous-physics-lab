@@ -1,0 +1,52 @@
+id: TASK-0991
+title: "Replay and route the Particle AHS common-scheme diagnostic"
+type: scientific_replay_validation
+status: READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0958 spent the pinned AHS common-scheme source on a bounded non-Koide diagnostic and routed it as sandbox memory."
+  - "A replay/routing check can decide whether to preserve it as durable negative/control memory or keep it sandbox-only."
+  - "This must not reopen particle formula search."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "agent_runs/AGENT-RUN-0091/agent_run.yaml"
+    - "docs/reviews/particle-ahs-common-scheme-baseline.md"
+    - "examples/benchmarks/particle_ahs_common_scheme_baseline.yaml"
+  planning_context: >
+    Reproduce the AHS common-scheme geometric-midpoint diagnostic and decide
+    whether it merits a minimal canonical result/negative-memory artifact or
+    should remain sandbox diagnostic memory. Preserve the no-claim boundary.
+
+requirements:
+  - "Replay AGENT-RUN-0091 from committed bytes and report metric drift and fixture checksum."
+  - "Evaluate result-promotion fit against docs/result-promotion-protocol.md: canonical RESULT, review note only, or keep sandbox."
+  - "If packaging is justified, use schema-safe diagnostic wording and no claim impact; if not, write a durable routing note."
+  - "Return exactly one verdict: ROUTE_CANONICAL_DIAGNOSTIC, KEEP_SANDBOX_MEMORY, or REPLAY_BLOCKED."
+  - "Do not search formulas, fit relations, mix schemes, convert Yukawas to masses, or promote Koide/particle claims."
+
+accepted_outputs:
+  - "A docs/reviews replay/routing note and, only if justified by the protocol, a minimal canonical diagnostic RESULT artifact."
+  - "Output-routing summary with claim impact none and no BSM/formula-search wording."
+
+result_artifact_policy:
+  required: false
+  reason: "The task decides whether the sandbox diagnostic merits canonical routing."
+  evidence:
+    - "agent_runs/AGENT-RUN-0091/agent_run.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,51 @@
+id: TASK-0996
+title: "Execute the FRB prediction freeze after explicit maintainer approval"
+type: scientific_result_publication
+status: BLOCKED
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "FRB prediction registration is a Class 2 maintainer decision, not an autonomous agent action."
+  - "The execution task should exist so the post-approval work is exact, bounded, and not improvised."
+  - "Until approval is recorded, this task must remain unavailable to executor agents."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml"
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+  planning_context: >
+    Once the maintainer explicitly approves the Class 2 FRB prediction freeze,
+    write the registered PRED artifact exactly from the approved pack and record
+    the external anchor. This task is blocked until that approval exists.
+
+requirements:
+  - "Blocked until an explicit maintainer decision approves the FRB prediction freeze using the dedicated decision surface."
+  - "After approval, write only the registered PRED artifact(s), decision record update, and anchor record-back specified by the approved pack."
+  - "Verify the PRED payload SHA-256 equals the approved target payload and that the frozen source set, scores, ranks, and scoring rule are unchanged."
+  - "Return exactly one verdict: PRED_REGISTERED_AND_ANCHORED, REGISTRATION_REPAIR_REQUIRED, or REGISTRATION_BLOCKED."
+  - "Do not inspect reveal labels, score outcomes, alter predictions, create claims, or describe success."
+
+accepted_outputs:
+  - "Registered FRB PRED artifact(s), approval record-back, anchor note, checksum table, and no-claim output-routing summary."
+  - "If approval is absent or mismatched, a blocker note only."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to register the maintainer-approved FRB prediction artifact."
+  evidence:
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
