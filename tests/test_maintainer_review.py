@@ -1557,6 +1557,15 @@ def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
     assert report.changed_files == ()
     assert any("intentionally did not review the current checkout" in item for item in report.blockers)
     assert any("Fallback commands" in item for item in report.blockers)
+    assert any(
+        "git fetch origin pull/104/head:refs/remotes/origin/pr-104" in item
+        for item in report.blockers
+    )
+    assert any(
+        "python3 scripts/apl_review_pr.py --branch origin/pr-104 --task TASK-XXXX --validation-mode strict"
+        in item
+        for item in report.blockers
+    )
 
 
 def test_build_review_report_allows_explicit_local_pr_ref_review(

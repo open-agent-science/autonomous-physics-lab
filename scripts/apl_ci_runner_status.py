@@ -50,10 +50,12 @@ def build_runner_status_payload(*, include_ssh: bool = False) -> dict[str, Any]:
         ),
         "review_queue_anti_stall_rule": (
             "During a multi-PR review sweep, do not foreground-watch one pending "
-            "PR check. Park the pending PR, record the pending check, continue "
-            "with another open PR that already has green required checks and "
-            "MERGE_OK, then return when the parked check completes. Admin-merge "
-            "or deliberate waiting requires an explicit maintainer decision."
+            "PR check. If a required check remains queued or in progress for "
+            "more than 5 minutes while other PRs are available, park the pending "
+            "PR, record the pending check, continue with another open PR that "
+            "already has green required checks and MERGE_OK, then return when "
+            "the parked check completes. Admin-merge or deliberate waiting "
+            "requires an explicit maintainer decision."
         ),
     }
 

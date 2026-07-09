@@ -37,7 +37,7 @@ def test_runner_status_payload_documents_fallback_labels() -> None:
     )
     assert "./svc.sh status" in payload["vps_health_commands"]
     assert "5 minutes" in payload["fallback_decision_rule"]
-    assert "Park the pending PR" in payload["review_queue_anti_stall_rule"]
+    assert "park the pending PR" in payload["review_queue_anti_stall_rule"]
     assert "explicit maintainer decision" in payload["review_queue_anti_stall_rule"]
 
 
