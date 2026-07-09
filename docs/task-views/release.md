@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-0993` - Prepare a Materials second-dataset stop/go packet after MD-0002 publication (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `materials_science`)
+- `TASK-0994` - Prepare a deterministic FRB prediction-freeze anchor capsule dry run (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
