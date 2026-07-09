@@ -22,4 +22,5 @@ None.
 - `TASK-0971` - Doctor: detect a stale physics_lab editable install that breaks the validation gate (`tooling_fix`, priority `high`, difficulty `low`, domain `repository_hardening`)
 - `TASK-0972` - Replace the workflow runner if-chain with a data-driven dispatch table (`code_quality_refactor`, priority `medium`, difficulty `low`, domain `repository_architecture`)
 - `TASK-0973` - Split registry god-package (slice 1): extract PR helpers into physics_lab/ops/pr_helpers (`code_quality_refactor`, priority `medium`, difficulty `medium`, domain `repository_architecture`)
+- `TASK-0981` - Closeout policy guard for task-queue seeded tasks (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-1000` - Add maintainer review queue anti-stall guardrails (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_review`)
