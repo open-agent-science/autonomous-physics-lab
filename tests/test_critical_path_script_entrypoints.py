@@ -36,6 +36,15 @@ def test_pr_finish_gate_script_help_smoke() -> None:
     assert "--dry-run" in result.stdout
 
 
+def test_review_queue_script_help_smoke() -> None:
+    result = _run_help("scripts/apl_review_queue.py")
+
+    assert result.returncode == 0
+    assert "Snapshot the open PR review queue" in result.stdout
+    assert "--merge-ok-pr" in result.stdout
+    assert "--input-json" in result.stdout
+
+
 def test_closeout_task_script_help_smoke() -> None:
     result = _run_help("scripts/apl_closeout_task.py")
 

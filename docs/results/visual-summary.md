@@ -123,6 +123,9 @@ row-level post-AME2020 sequence is `TASK-0196` holdout data before `TASK-0197`
 retrospective time-split scoring, and it does not promote claims automatically.
 The `PRED-0001` through `PRED-0068` registry entries are prospective forecasts
 for future reveal comparison, not current result figures or success metrics.
+`TASK-0305` now records a review-ready no-score source-gate outcome for the
+shell-axis mini-wave: no pinned source manifest exists, so no real MAE/RMSE is
+computed and no figure should be generated from this gate.
 The post-`PRED-0062` registry state and later shell-axis mini-wave are
 summarized in
 [`nuclear-prediction-registry-status-after-pred-0062.md`](../reviews/nuclear-prediction-registry-status-after-pred-0062.md)
