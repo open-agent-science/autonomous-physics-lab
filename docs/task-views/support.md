@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0966` - Cut CI redundancy: single merge leg, draft-gated smoke, silent validated board-sync commits, nightly 3.12 net (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+None.
