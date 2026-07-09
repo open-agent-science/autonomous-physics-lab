@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-from physics_lab.registry.task_pr_helper import (
+from physics_lab.ops.pr_helpers.task_pr_helper import (
     commit_subject_errors_for_task,
     default_prepare_current_base,
     prepare_current_task_pr,
@@ -87,7 +87,7 @@ def test_default_prepare_current_base_prefers_available_remote(
         return ref == "origin/main"
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.branch_exists",
+        "physics_lab.ops.pr_helpers.task_pr_helper.branch_exists",
         fake_branch_exists,
     )
 
@@ -100,7 +100,7 @@ def test_default_prepare_current_base_falls_back_to_main(
     tmp_path: Path,
 ) -> None:
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.branch_exists",
+        "physics_lab.ops.pr_helpers.task_pr_helper.branch_exists",
         lambda root, ref: False,
     )
 
@@ -191,11 +191,11 @@ def test_prepare_current_task_pr_generates_body_from_task_and_current_branch(
     repo_root = Path(__file__).resolve().parents[1]
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.current_branch",
+        "physics_lab.ops.pr_helpers.task_pr_helper.current_branch",
         lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        "physics_lab.ops.pr_helpers.task_pr_helper.changed_files_vs_main",
         lambda root, branch, base_ref="main": (
             "scripts/apl_task_pr_helper.py",
             "tests/test_task_pr_helper.py",
@@ -230,11 +230,11 @@ def test_prepare_current_task_pr_uses_remote_base_by_default(
     observed_base_refs: dict[str, str] = {}
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.current_branch",
+        "physics_lab.ops.pr_helpers.task_pr_helper.current_branch",
         lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.branch_exists",
+        "physics_lab.ops.pr_helpers.task_pr_helper.branch_exists",
         lambda root, ref: ref == "origin/main",
     )
 
@@ -247,11 +247,11 @@ def test_prepare_current_task_pr_uses_remote_base_by_default(
         return ()
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        "physics_lab.ops.pr_helpers.task_pr_helper.changed_files_vs_main",
         fake_changed_files,
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.commit_subjects_vs_base",
+        "physics_lab.ops.pr_helpers.task_pr_helper.commit_subjects_vs_base",
         fake_commit_subjects,
     )
 
@@ -276,11 +276,11 @@ def test_prepare_current_task_pr_respects_explicit_base_ref(
     observed_base_refs: dict[str, str] = {}
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.current_branch",
+        "physics_lab.ops.pr_helpers.task_pr_helper.current_branch",
         lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.branch_exists",
+        "physics_lab.ops.pr_helpers.task_pr_helper.branch_exists",
         lambda root, ref: ref == "origin/main",
     )
 
@@ -293,11 +293,11 @@ def test_prepare_current_task_pr_respects_explicit_base_ref(
         return ()
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        "physics_lab.ops.pr_helpers.task_pr_helper.changed_files_vs_main",
         fake_changed_files,
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.commit_subjects_vs_base",
+        "physics_lab.ops.pr_helpers.task_pr_helper.commit_subjects_vs_base",
         fake_commit_subjects,
     )
 
@@ -322,11 +322,11 @@ def test_prepare_current_task_pr_omits_local_body_file_artifact(
     repo_root = Path(__file__).resolve().parents[1]
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.current_branch",
+        "physics_lab.ops.pr_helpers.task_pr_helper.current_branch",
         lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        "physics_lab.ops.pr_helpers.task_pr_helper.changed_files_vs_main",
         lambda root, branch, base_ref="main": (
             "scripts/apl_task_pr_helper.py",
             ".apl-pr-body.md",
@@ -355,11 +355,11 @@ def test_prepare_current_task_pr_rejects_wrong_current_branch(
     repo_root = Path(__file__).resolve().parents[1]
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.current_branch",
+        "physics_lab.ops.pr_helpers.task_pr_helper.current_branch",
         lambda root: "feature/task-0247-pr-lifecycle-guardrails",
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        "physics_lab.ops.pr_helpers.task_pr_helper.changed_files_vs_main",
         lambda root, branch, base_ref="main": ("scripts/apl_task_pr_helper.py",),
     )
 
@@ -384,15 +384,15 @@ def test_prepare_current_task_pr_rejects_bad_commit_subject_before_pr_creation(
     repo_root = Path(__file__).resolve().parents[1]
 
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.current_branch",
+        "physics_lab.ops.pr_helpers.task_pr_helper.current_branch",
         lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        "physics_lab.ops.pr_helpers.task_pr_helper.changed_files_vs_main",
         lambda root, branch, base_ref="main": ("scripts/apl_task_pr_helper.py",),
     )
     monkeypatch.setattr(
-        "physics_lab.registry.task_pr_helper.commit_subjects_vs_base",
+        "physics_lab.ops.pr_helpers.task_pr_helper.commit_subjects_vs_base",
         lambda root, branch, base_ref="main": ("fix: add PR lifecycle guardrails",),
     )
 

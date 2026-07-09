@@ -1,0 +1,57 @@
+id: TASK-0973
+title: "Split registry god-package (slice 1): extract PR helpers into physics_lab/ops/pr_helpers"
+type: code_quality_refactor
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "First slice of the registry/ split from the 2026-07-09 architecture audit: registry/ is ~64 modules / ~19.7k LOC, ~75% of which is PR/review/mission/closeout OPS automation rather than scientific-memory artifact load/validate/index (AGENTS.md still documents registry/ as only 4 modules)."
+  - "Introduces physics_lab/ops/ as a fresh ops layer, starting with its lowest-blast-radius tenant: the four pure PR-helper modules, which no SCIENCE module and no other registry module imports. Dependency direction stays one-way (ops -> registry)."
+  - "Deliberately minimal: only the 4 leaf PR helpers move; agent_run_pr (re-exported in registry/__init__) and the larger review/mission/campaign clusters are later slices, each its own PR. AGENTS.md is updated only after the final slice."
+
+input:
+  mode: workflow
+  related_domain: repository_architecture
+  related_objects:
+    - "physics_lab/ops/__init__.py"
+    - "physics_lab/ops/pr_helpers/__init__.py"
+    - "physics_lab/registry/task_pr_helper.py"
+  planning_context: >
+    Move physics_lab/registry/{closeout,microtask,proposal,task}_pr_helper.py
+    to physics_lab/ops/pr_helpers/ (basenames preserved for searchability) and
+    update the eight importer files: the four scripts/apl_*_pr_helper.py lazy
+    imports and the four tests/test_*_pr_helper.py, including 19 monkeypatch
+    string targets in test_task_pr_helper.py. Clean move, no back-compat shim
+    (importer count is small and all first-party; a shim would re-introduce the
+    registry bloat being removed and silently mis-point the patched call sites).
+    Behavior-preserving: no helper logic changes; git tracks the four moves as
+    renames.
+
+requirements:
+  - "Move exactly the 4 leaf PR-helper modules; do not move agent_run_pr (it is re-exported through registry/__init__ and straddles the artifact surface; it is a separate slice)."
+  - "Update all 8 importer files so no stale physics_lab.registry.<moved> path or monkeypatch string remains; ops -> registry direction only, no registry -> ops back-edge, no import cycle."
+  - "No back-compat shim; behavior is unchanged; committed artifacts do not drift."
+  - "ruff clean; the 4 moved modules' tests, the full fast suite, and strict validation all green; the 4 relocated scripts still resolve via --help."
+
+accepted_outputs:
+  - "The physics_lab/ops/ package (2 fresh __init__ files), the 4 moved modules, and the 8 updated importer files, plus this task file."
+  - "Output-routing summary: structural refactor slice; no scientific artifact, claim, or result change; staged follow-up slices sketched for the maintainer."
+
+result_artifact_policy:
+  required: false
+  reason: "Code-quality/package-structure refactor; no scientific RESULT or PRED artifact. Behavior is proven unchanged by the moved modules' existing tests and the full fast suite."
+  evidence:
+    - "physics_lab/ops/pr_helpers/task_pr_helper.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/ops scripts tests"
+    - "python3 -m pytest tests/test_closeout_pr_helper.py tests/test_microtask_pr_helper.py tests/test_proposal_pr_helper.py tests/test_task_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
