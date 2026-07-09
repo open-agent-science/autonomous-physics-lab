@@ -71,8 +71,10 @@ monitor class or explicit maintainer direction.
 it remained scientifically useful but Gate-A-blocked at the time because the
 campaign lacked explicit experiment and hypothesis identities. `TASK-0909` then
 created those identities, and `TASK-0919` packaged the memory as `RESULT-0027`,
-an `AGENT_PUBLISHED` negative/control result with Gate A passed. Gate B replay
-is still pending.
+an `AGENT_PUBLISHED` negative/control result with Gate A passed. The next
+useful work is `TASK-0959`: repackage the result onto a Gate-B-safe workflow and
+surface the fair-null comparisons honestly, without changing the verdict or
+reopening residual scoring.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -122,8 +124,9 @@ it does not itself authorize scoring.
 It did not fetch live rows, add new residual metrics, create `PRED-*`,
 `CLAIM-*`, or `KNOW-*`, or make composition, habitability, or universal
 mass-radius statements. Source-version monitor check 3 returned `NO_NOTIFY`.
-The next useful work is independent Gate B replay of `RESULT-0027`, not another
-residual score. The campaign remains monitor-only.
+The next useful work is the Gate-B-safe workflow bridge and fair-null
+transparency for `RESULT-0027`, not another residual score. The campaign
+remains monitor-only.
 
 Evidence:
 

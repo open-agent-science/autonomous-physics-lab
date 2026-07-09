@@ -23,20 +23,22 @@ For linkable, public-safe summaries of active campaign results, use the
 
 ## Current Focus
 
-APL is concentrating on seven public-facing research surfaces. The current
-center of gravity is the Materials/Stellar/ThermoML result-validation wave,
-while Nuclear remains the highest-ambition flagship and several other campaigns
-stay explicitly source- or trigger-gated.
+APL is concentrating on several public-facing research surfaces. The current
+center of gravity has shifted from the Materials/Stellar/ThermoML
+result-validation wave to FRB sealed-prediction preparation, Exoplanet replay
+repair, and Nuclear reveal governance, while several other campaigns stay
+explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory, AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`, and the externally published `MD-0002` v0.1.0 dataset (Zenodo DOI `10.5281/zenodo.21207072`, 2026-07-05, post-publication integrity confirmed) | Record-back complete; the next fork is the second external dataset (ThermoML bounded extract pending the maintainer rights decision), not new Materials metrics |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures, AGENT_VALIDATED Stellar M-L `RESULT-0022`, AGENT_VALIDATED FIRAS/Wien `RESULT-0023`, and high-mass transfer `RESULT-0024` zero-drift replay memory | RESULT-0024 needs formal workflow Gate B bridging after metadata repair; no universal textbook-law wording |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory, AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`, and the externally published `MD-0002` v0.1.0 dataset (Zenodo DOI `10.5281/zenodo.21207072`, 2026-07-05, post-publication integrity confirmed) | Record-back complete; the next external-dataset question is a separately gated ThermoML/source-access contract, not new Materials metrics |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures, AGENT_VALIDATED Stellar M-L `RESULT-0022`, AGENT_VALIDATED FIRAS/Wien `RESULT-0023`, and AGENT_VALIDATED high-mass transfer `RESULT-0024` | Keep same-source and source-limited wording explicit; no universal textbook-law wording |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, the executed tier-1 point-only prediction freeze (`PRED-0069..0072`, sealed 2026-07-05 and externally anchored: tag `pred-nmd0003-tier1-20260705`, Zenodo DOI `10.5281/zenodo.21240451`), preserved uncertainty-calibration failures, and DZ10 full-table parity PASS | Interval-bearing freeze stays blocked until calibration repair; next useful work is reveal-source watch discipline and the approved TASK-0305 scoring lane, not broad new fitting |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, and no-go decisions on pinned snapshots | Current snapshot stays monitor-only; negative RESULT packaging is also blocked by missing canonical experiment/hypothesis identity |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | ZnSe rows are frozen only as limited factual extracts; the next step is a predeclared no-refit transfer contract, not correction search |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_PUBLISHED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is Gate-B-safe workflow repair plus fair-null transparency, not residual rescoring |
+| FRB / Radio Transients | A time-truncated, source-pinned path toward a sealed repeater-propensity prediction pack | `TASK-0963` built the 479-row pre-T exposure feature surface; `TASK-0964` froze the exposure-only model surface without label contact; `TASK-0965` is sealed-registration preparation, not a result or success verdict |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | `RESULT-0029` preserves the ZnSe/InP no-refit transfer miss as inconclusive/control memory; no correction search or repeat transfer on the same surfaces |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy/Nemitz memory exists, Pizzocaro remains diagnostic, and McGrew/NIST is blocked as not a direct independent Yb/Sr route; the next step is one post-2021 source scout |
-| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A source-pinned ThermoML `Tb` benchmark lane with AGENT_PUBLISHED `RESULT-0026`, zero-drift numeric replay, frozen Joback baseline, and bounded failed-family memory | Formal Gate B is helper-blocked; expansion is gated by rights plus local-only identity/count feasibility, not broad property claims |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A source-pinned ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026`, frozen Joback baseline, and AGENT_PUBLISHED failed-family `RESULT-0028` | Expansion is source-access and revised-contract gated; no raw archive vendoring, broad property claims, or Joback rerun as a new result |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -47,8 +49,8 @@ Use the full [campaign map](./campaigns/README.md) for the complete list.
 
 ## What We Have So Far
 
-The repository currently stores nineteen canonical experiment files and
-twenty-six canonical result artifacts. The strongest evidence is not a single
+The repository currently stores 21 canonical experiment files and 29 canonical
+result artifacts. The strongest evidence is not a single
 spectacular claim; it is a growing public memory of tests, failures, baselines,
 and review artifacts.
 
@@ -67,7 +69,7 @@ Highlights:
   [Nuclear Mass Pilot Summary](./results/nuclear-mass-pilot-summary.md) form
   the current flagship evidence surface, but follow-up candidates remain
   sandbox-only unless reviewed and promoted by a maintainer.
-- `PRED-0001` through `PRED-0068` are frozen prospective nuclear predictions
+- `PRED-0001` through `PRED-0072` are frozen prospective nuclear predictions
   awaiting future maintainer-reviewed reveal data. They are forecasts, not
   current scientific wins.
 - The newest Nuclear controls-first lanes are useful sandbox memory, but not
@@ -91,8 +93,8 @@ Highlights:
 - Textbook Formula Audit has a scaffold, ranked candidate slate,
   exact-reference fixtures, a Gate-B-validated Stefan-Boltzmann
   software/convention result, AGENT_VALIDATED Stellar M-L `RESULT-0022`,
-  AGENT_VALIDATED FIRAS/Wien self-consistency `RESULT-0023`, and high-mass
-  transfer `RESULT-0024` replay memory with a metadata caveat. These are
+  AGENT_VALIDATED FIRAS/Wien self-consistency `RESULT-0023`, and AGENT_VALIDATED
+  high-mass transfer `RESULT-0024` memory with a same-source caveat. These are
   controlled benchmark surfaces, not universal formula or stellar-evolution
   claims.
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
@@ -103,11 +105,14 @@ Highlights:
   2026-07-05), byte-verified after publication
   (RELEASE_INTEGRITY_CONFIRMED).
 - Thermophysical Property Residuals starts from ThermoML `Tb` `RESULT-0026`,
-  an AGENT_PUBLISHED bounded Joback transfer benchmark on a 40-row
-  family-stratified fixture. Aggregate transfer is positive in scope, the
-  esters/lactones family fails its margin and is preserved as negative memory,
-  and an independent numeric replay returned zero drift; formal Gate B remains
-  helper-blocked.
+  an AGENT_VALIDATED bounded Joback transfer benchmark on a 40-row
+  family-stratified fixture. Aggregate transfer is positive in scope, and
+  `RESULT-0028` separately preserves the esters/lactones family failure as
+  AGENT_PUBLISHED negative/control memory.
+- FRB / Radio Transients now has a checksum-pinned Catalog-1 interval exposure
+  pair, a committed 479-row pre-T exposure feature surface, and a frozen
+  exposure-only model surface. It is a live sealed-prediction preparation lane,
+  not a replayed result or population claim.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -138,12 +143,13 @@ Important operating rules:
 
 ## What Is Not Ready Yet
 
-- Nuclear reveal scoring is blocked until a source-grade post-freeze data
-  release exists.
+- Nuclear interval-bearing prediction remains blocked until calibration repair;
+  the point-only reveal-scoring lane must still follow the approved source
+  manifest and no-peek protocol.
 - Quantum Size Effects has a source-scoped Almeida InP sandbox baseline, but
-  open-ended correction search remains blocked. ZnSe/Toufanian rows are frozen
-  only as limited factual extracts; a no-refit transfer contract is required
-  before any new benchmark.
+  open-ended correction search remains blocked. `RESULT-0029` already packages
+  the current ZnSe/InP no-refit transfer miss; new work needs new source
+  evidence or a maintainer-approved contract change.
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
   admitted independent rows or an approved aggregation/harmonization contract
   before any Yb/Sr consistency benchmark.
@@ -154,10 +160,10 @@ Important operating rules:
   decisions, not broader benchmark expansion. Their validated/replayed
   artifacts do not support broad property-law, material-design,
   universal-formula, or application-domain claims.
-- Thermophysical work is active but narrow: `RESULT-0026` is `Tb`-only,
-  AGENT_PUBLISHED, and numerically replayed with zero drift, but not formally
-  tier-updated. Do not broaden to `Tc` or other ThermoML properties before a
-  separate leakage and source gate.
+- Thermophysical work is active but narrow: `RESULT-0026` is `Tb`-only and
+  AGENT_VALIDATED; `RESULT-0028` is failed-family negative/control memory. Do
+  not broaden to `Tc` or other ThermoML properties before a separate leakage
+  and source gate.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 
