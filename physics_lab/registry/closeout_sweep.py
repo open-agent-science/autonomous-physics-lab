@@ -308,11 +308,11 @@ def auto_closeout_blockers(
 
 def load_pr_changed_files(
     root: Path, pull_request: int, *, gh_path: str | None = None
-) -> tuple[str, ...]:
-    """Return the file paths changed by a PR via gh; empty tuple if unavailable."""
+) -> tuple[str, ...] | None:
+    """Return PR changed paths via gh, or None when the lookup is unavailable."""
     resolved_gh_path = gh_path or find_gh_path()
     if resolved_gh_path is None:
-        return ()
+        return None
     result = run_command(
         [
             resolved_gh_path,
@@ -328,7 +328,7 @@ def load_pr_changed_files(
         timeout=60,
     )
     if result.returncode != 0:
-        return ()
+        return None
     return tuple(line.strip() for line in result.stdout.splitlines() if line.strip())
 
 
@@ -345,13 +345,21 @@ def auto_safe_closeout_candidates(
         task_file = _task_file_by_id(root, candidate.task_id)
         payload = load_task(task_file) if task_file is not None else {}
         pr_files = files_by_number.get(candidate.pull_request or -1)
+        lookup_failed = False
         if pr_files is None and candidate.pull_request is not None:
             pr_files = load_pr_changed_files(root, candidate.pull_request)
+            lookup_failed = pr_files is None
         blockers = auto_closeout_blockers(
             payload,
             pr_changed_files=pr_files or (),
             unblocks_others=task_unblocks_others(root, candidate.task_id),
         )
+        if lookup_failed:
+            blockers = (
+                *blockers,
+                "Could not determine merged PR changed files; auto-closeout "
+                "requires a successful PR file lookup.",
+            )
         classified.append((candidate, blockers))
     return tuple(classified)
 

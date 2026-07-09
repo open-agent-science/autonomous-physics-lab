@@ -1,0 +1,59 @@
+id: TASK-1001
+title: "Harden board-sync auto-closeout safety"
+type: repository_hardening
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep protected-main generated maintenance commits narrow and auditable."
+  - "Make auto-closeout fail closed when merged PR changed files cannot be determined."
+  - "Avoid staging unrelated task YAML during board-sync pushes."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - ".github/workflows/sync-active-board.yml"
+    - "tests/test_closeout_sweep.py"
+  planning_context: >
+    The architecture audit found that auto-safe closeout treated an unavailable
+    PR changed-file lookup as an empty changed-file list, and the board-sync
+    workflow staged the whole tasks/ tree after generated updates. Tighten the
+    behavior so unknown PR file state blocks auto-closeout and the privileged
+    board-sync commit can only stage the expected generated task-view files and
+    semantic REVIEW_READY -> DONE task status flips.
+
+requirements:
+  - "Do not weaken branch protection, CI, closeout review policy, or scientific artifact protections."
+  - "Treat failed or unavailable PR changed-file lookup as a closeout blocker, not as an empty file list."
+  - "Keep empty changed-file tuples available for real successful lookups that return no paths."
+  - "Stage only the files that the board-sync workflow actually changed."
+  - "Reject unexpected TASK yaml semantic changes in the board-sync workflow."
+
+accepted_outputs:
+  - "Fail-closed PR changed-file lookup behavior in auto-safe closeout."
+  - "Board-sync workflow semantic diff guard for task status flips."
+  - "Board-sync workflow staging narrowed to the detected changed files."
+  - "Focused regression tests for closeout fail-closed behavior."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening task; no scientific RESULT, PRED, CLAIM, or KNOW artifact is expected."
+  evidence:
+    - "physics_lab/registry/closeout_sweep.py"
+    - ".github/workflows/sync-active-board.yml"
+    - "tests/test_closeout_sweep.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py tests/test_closeout_sweep.py"
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

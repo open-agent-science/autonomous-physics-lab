@@ -10,12 +10,14 @@ from physics_lab.registry.closeout_sweep import (
     apply_closeout_sweep_report,
     CloseoutSweepReport,
     auto_closeout_blockers,
+    auto_safe_closeout_candidates,
     build_closeout_sweep_report,
     classify_full_repo_signal,
     ci_run_has_full_repo_signal,
     closeout_pr_binding_blockers,
     closeout_pr_metadata_binding_blockers,
     list_review_ready_tasks,
+    load_pr_changed_files,
     load_merged_task_pull_requests,
     merged_task_pr_metadata,
     render_closeout_sweep_apply_report,
@@ -845,6 +847,49 @@ def test_auto_closeout_blockers_flags_unblocking_task() -> None:
         unblocks_others=True,
     )
     assert any("BLOCKED task" in reason for reason in blockers)
+
+
+def test_load_pr_changed_files_returns_none_when_gh_is_unavailable(tmp_path: Path) -> None:
+    with patch("physics_lab.registry.closeout_sweep.find_gh_path", return_value=None):
+        assert load_pr_changed_files(tmp_path, 123) is None
+
+
+def test_load_pr_changed_files_returns_none_when_gh_lookup_fails(tmp_path: Path) -> None:
+    def fake_run_command(command: list[str], **kwargs: object) -> CommandResult:  # noqa: ARG001
+        return CommandResult(returncode=1, stdout="", stderr="network unavailable")
+
+    with patch("physics_lab.registry.closeout_sweep.run_command", fake_run_command):
+        assert load_pr_changed_files(tmp_path, 123, gh_path="/usr/bin/gh") is None
+
+
+def test_auto_safe_closeout_blocks_when_pr_file_lookup_is_unknown(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_task(
+        tasks_dir / "TASK-2000-safe.yaml",
+        task_id="TASK-2000",
+        title="Safe",
+        status="REVIEW_READY",
+    )
+    candidate = CloseoutSweepCandidate(
+        task_id="TASK-2000",
+        task_title="Safe",
+        pull_request=2000,
+        pr_title="TASK-2000: Safe",
+        pr_url="https://example/2000",
+        outcome="READY_TO_APPLY",
+        blockers=(),
+        required_actions=(),
+        recommended_apply_command=None,
+    )
+    report = CloseoutSweepReport(branch="main", ready=(candidate,), blocked=(), skipped=())
+
+    with patch("physics_lab.registry.closeout_sweep.load_pr_changed_files", return_value=None):
+        classified = auto_safe_closeout_candidates(tmp_path, report)
+
+    assert len(classified) == 1
+    _, blockers = classified[0]
+    assert any("Could not determine merged PR changed files" in reason for reason in blockers)
 
 
 def test_task_unblocks_others_detects_a_blocked_dependent(tmp_path: Path) -> None:
