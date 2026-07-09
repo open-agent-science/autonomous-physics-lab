@@ -1,0 +1,52 @@
+decision_id: DEC-20260709-frb-prediction-freeze-stub
+decision_type: prediction_freeze
+autonomy_class: class_2_maintainer_only
+reversibility: hard_to_reverse
+external_exposure: planned_after_approval
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+recommended_action: approve_frb_sealed_prediction_registration_after_maintainer_review
+prepared_at_utc: '2026-07-09T00:00:00Z'
+prepared_registration_pack:
+  path: data/radio_transients/frb_sealed_prediction_registration_pack.yaml
+  sha256: 0839eba264f312752a82161ea184a4ee3f94f94cf4198fe9e0b591f52bd36f6d
+  pack_id: FRB-PRET-PRED-REGPACK-0001
+  status: prepared_pending_maintainer_prediction_freeze
+basis:
+- TASK-0965 prepares the registration pack after TASK-0964 merged.
+- TASK-0964 froze an exposure-only model surface with label_contact=false and no reveal labels read.
+- The FRB campaign activation record requires PRED registration by end of July 2026 without compressing
+  reveal discipline.
+- The NMD-0003 tier-1 precedent requires explicit maintainer approval plus an external anchor plan.
+approval_boundary:
+  approval_required_before_prediction_registry_write: true
+  approval_required_before_external_anchor: true
+  registration_not_executed_by_this_stub: true
+  no_claim_or_success_verdict: true
+agent_quorum:
+  executor_agent:
+    vote: prepare_only
+    agent_id: codex
+    model_version: GPT-5
+    review_notes: Prepared a maintainer-facing registration pack and checksums only. No prediction registry
+      file, reveal score, claim, or external anchor is applied.
+  cross_vendor: false
+devils_advocate:
+  strongest_objection: A staged pack can be mistaken for an active prediction registration if the boundary
+    is weak.
+  control: The pack status is prepared_pending_maintainer_prediction_freeze, the registry write flag is
+    false, and the future PRED path is only a proposed on-approval path.
+  escalation_required: true
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null

@@ -1,0 +1,3530 @@
+artifact_kind: frb_sealed_prediction_registration_pack
+pack_id: FRB-PRET-PRED-REGPACK-0001
+task_id: TASK-0965
+status: prepared_pending_maintainer_prediction_freeze
+generated_at_utc: '2026-07-09T00:00:00Z'
+registration_boundary:
+  registration_executed: false
+  prediction_registry_written: false
+  required_decision_type: prediction_freeze
+  required_autonomy_class: class_2_maintainer_only
+  decision_stub_path: decisions/DEC-20260709-frb-prediction-freeze-stub.yaml
+  maintainer_approval_required: true
+  no_claim_wording_required: true
+source_freeze:
+  source_task_id: TASK-0964
+  source_merge_commit: 3d1da6d0a6278c1d0755adfe8ea27b15ec1e74ea
+  frozen_surface:
+    path: data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+    sha256: 978049b9c7360091f812ee451dae36a5ca81ccea403725a61b36c01a42f562ab
+    surface_id: FRB-PRET-MODEL-SURFACE-0001
+    status: frozen_model_surface
+    per_source_score_count: 479
+    per_source_scores_sha256: 00404c62efb1edc300f008f53961e691cb1c06208ef5a032ff83b0bf8ddb60d7
+  contract:
+    path: data/radio_transients/frb_pre_t_model_selection_contract.yaml
+    sha256: 5d3db1fceaafa88a0fd7c68b2c6987e96fa6cf0cd82a3a156cd5be35275ca7df
+    contract_id: FRB-PRET-MODEL-CONTRACT-0001
+  input_surface:
+    path: data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
+    sha256: 8fc57714013a62b51710d48402e23b76eb8f7fa79c17b4e6b0875f06d3374b26
+    feature_table_sha256: 3e564bc58452b34db133b72d1177bd99eb7fc8ac76036641edb9aa513a65d139
+    row_count: 479
+  selected_model:
+    model_id: gate_total_exposure_log1p
+    formula: log1p(E_upper_hours + E_lower_hours)
+    rule: label_free_pre_t_coverage_then_rank_resolution
+  frozen_scoring_rule:
+    score_pre_t: score_pre_t = log1p(E_upper_hours + E_lower_hours)
+    count_to_hours: E_hours = 4 * exposure_count / 3600
+    modification_allowed: false
+  feature_boundary:
+    label_contact: false
+    columns_read:
+    - source_id
+    - E_upper_hours
+    - E_lower_hours
+    - score_pre_t
+    forbidden_features_excluded:
+    - repeater_name
+    - Catalog 2 full-window exp_up / exp_low
+    - Catalog 2 full-window morphology columns
+    - post-T source associations
+    - any later repeat label or reveal field
+sealed_registry_entries:
+- draft_entry_id: FRB-PRET-PRED-DRAFT-0001
+  proposed_registry_path_on_approval: prediction_registry/radio_transients/PRED-0001.yaml
+  registration_status: staged_not_registered
+  would_register_on_maintainer_approval:
+    prediction_id: PRED-0001
+    title: FRB Catalog-1 pre-T exposure-only repeater-propensity scores
+    registry_status: REGISTERED
+    campaign_profile_id: radio-transients-frb-pre-t-repeater-propensity
+    task_id: TASK-0965
+    evidence_class: prospective_prediction_registry
+    freeze_tier: point_score_only
+    claim_ceiling: Registered prospective repeater-propensity score surface only; no success verdict,
+      FRB population claim, repeater discovery claim, or knowledge promotion before a separate maintainer-reviewed
+      reveal comparison.
+    registered_by:
+      contributor_id: gladunrv
+      agent_id: codex
+    registered_at_utc: SET_BY_MAINTAINER_PREDICTION_FREEZE_DECISION
+    source_state:
+      git_commit: SET_TO_APPROVED_FREEZE_COMMIT
+      source_merge_commit: 3d1da6d0a6278c1d0755adfe8ea27b15ec1e74ea
+      model_reference:
+        model_id: FRB-PRET-MODEL-SURFACE-0001::gate_total_exposure_log1p
+        source_path: data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+        source_sha256: 978049b9c7360091f812ee451dae36a5ca81ccea403725a61b36c01a42f562ab
+        selected_formula: log1p(E_upper_hours + E_lower_hours)
+        frozen_parameters_note: 'The prediction surface is exactly the TASK-0964 frozen label-free exposure
+          score: score_pre_t = log1p(E_upper_hours + E_lower_hours).'
+      baseline_reference:
+        baseline_id: constant_zero_null
+        source_path: data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+        note: TASK-0964 retained the constant zero null as a comparator, not as a selected model.
+      training_data_references:
+      - data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
+      - data/radio_transients/frb_pre_t_model_selection_contract.yaml
+      - data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+      holdout_protocol_references:
+      - docs/blind-holdout-benchmark-protocol.md
+      - docs/prediction-registry-policy.md
+      - docs/result-promotion-protocol.md
+      - docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md
+      live_external_fetch_allowed: false
+      source_data_state_note: Pack preparation used only committed repository files. It did not fetch
+        a later catalog, inspect repeat labels, compare outcomes, or score reveal performance.
+    target_set:
+      label: frb-catalog1-pre-t-exposure-score-surface-v1
+      quantity: pre_t_repeater_propensity_score
+      unit: dimensionless_log1p_exposure_hours
+      target_count: 479
+      targets:
+      - target_id: FRB20190405B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.787323933511
+        rank_descending: 1
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190210C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.784643378935
+        rank_descending: 2
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190224D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.77662683978
+        rank_descending: 3
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190518D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.760988348262
+        rank_descending: 4
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190320E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.591150620099
+        rank_descending: 5
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180907D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.387410101935
+        rank_descending: 6
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190425B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 7.060100520462
+        rank_descending: 7
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181225B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.794505701657
+        rank_descending: 8
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190609B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.732957348598
+        rank_descending: 9
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190223A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.521806809567
+        rank_descending: 10
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180910A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.401766088941
+        rank_descending: 11
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519H
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.276411632891
+        rank_descending: 12
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519J
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.251908164895
+        rank_descending: 13
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.208156218624
+        rank_descending: 14
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190622A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.194793071049
+        rank_descending: 15
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190606B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.160067431761
+        rank_descending: 16
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190623C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.139431863571
+        rank_descending: 17
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181230E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.127172388992
+        rank_descending: 18
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190430A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.027611631243
+        rank_descending: 19
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181220B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.020958622336
+        rank_descending: 20
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190423D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.012853605988
+        rank_descending: 21
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190201A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 6.010692390511
+        rank_descending: 22
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181222E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.969074074226
+        rank_descending: 23
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190423C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.967857525606
+        rank_descending: 24
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.862228677406
+        rank_descending: 25
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190419B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.847581346224
+        rank_descending: 26
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190210E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.846419507049
+        rank_descending: 27
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190328B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.838834469838
+        rank_descending: 28
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190308B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.658695998913
+        rank_descending: 29
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190224B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.653619145905
+        rank_descending: 30
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190325A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.614894590653
+        rank_descending: 31
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190115B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.557329866276
+        rank_descending: 32
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181119C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.552709769052
+        rank_descending: 33
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190411A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.550143392336
+        rank_descending: 34
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190228B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.536971121474
+        rank_descending: 35
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190328C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.520660597691
+        rank_descending: 36
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.399147636119
+        rank_descending: 37
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190701B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.347112821709
+        rank_descending: 38
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180904A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.330800690792
+        rank_descending: 39
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190213B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.326715841069
+        rank_descending: 40
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181221B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.317918448481
+        rank_descending: 41
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190131E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.284021217402
+        rank_descending: 42
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190107B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.264059429536
+        rank_descending: 43
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181122B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.257072829065
+        rank_descending: 44
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190208C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.232444622397
+        rank_descending: 45
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181015A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.22878268164
+        rank_descending: 46
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181022C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.214144381752
+        rank_descending: 47
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190127B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.206841493054
+        rank_descending: 48
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181230A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.205659776626
+        rank_descending: 49
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181020A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.205397660616
+        rank_descending: 50
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190212A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.200067313994
+        rank_descending: 51
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190205A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.199564601173
+        rank_descending: 52
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190128C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.198226890423
+        rank_descending: 53
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190701C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.161861065626
+        rank_descending: 54
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190124D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.134765223731
+        rank_descending: 55
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181017B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.132649694109
+        rank_descending: 56
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190531A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.119728833343
+        rank_descending: 57
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181227A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.105918537511
+        rank_descending: 58
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190224A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.067897406263
+        rank_descending: 59
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190628B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.063122320147
+        rank_descending: 60
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190210A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.058522052081
+        rank_descending: 61
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190209A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.04944994191
+        rank_descending: 62
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180907C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.041207606295
+        rank_descending: 63
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190323B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.040424202907
+        rank_descending: 64
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519F
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.037334924702
+        rank_descending: 65
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181126A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.019484909373
+        rank_descending: 66
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181230B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 5.006099095159
+        rank_descending: 67
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190601D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.981473450093
+        rank_descending: 68
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190401A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.957547017372
+        rank_descending: 69
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190208B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.913822504458
+        rank_descending: 70
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190204B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.859269621423
+        rank_descending: 71
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190116F
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.833800877597
+        rank_descending: 72
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190630C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.821266743241
+        rank_descending: 73
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181129B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.818757106717
+        rank_descending: 74
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190626A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.757242517068
+        rank_descending: 75
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181028A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.755532747566
+        rank_descending: 76
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181118C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.751125470352
+        rank_descending: 77
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190329A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.750433874179
+        rank_descending: 78
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181120C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.75001099649
+        rank_descending: 79
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180919A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.750001383554
+        rank_descending: 80
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190517B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.749530236495
+        rank_descending: 81
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190625E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.749270529962
+        rank_descending: 82
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180917A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.748712413686
+        rank_descending: 83
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181226E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.747585609597
+        rank_descending: 84
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190304A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.718945200247
+        rank_descending: 85
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180917B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.713815301437
+        rank_descending: 86
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181030A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.711100539258
+        rank_descending: 87
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181030B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.709760405044
+        rank_descending: 88
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181203C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.682162090845
+        rank_descending: 89
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190318A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.679215457763
+        rank_descending: 90
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190117C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.672589968968
+        rank_descending: 91
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190502C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.641716385646
+        rank_descending: 92
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190313B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.608852287613
+        rank_descending: 93
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190624B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.600827436554
+        rank_descending: 94
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190627C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.599498577223
+        rank_descending: 95
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190408A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.597429190533
+        rank_descending: 96
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190409C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.590270851215
+        rank_descending: 97
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190322C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.583708182689
+        rank_descending: 98
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190218C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.581310004608
+        rank_descending: 99
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190303D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.568886488911
+        rank_descending: 100
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190518G
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.561752232287
+        rank_descending: 101
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190220A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.561647789403
+        rank_descending: 102
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190326A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.558590909338
+        rank_descending: 103
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519G
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.555069163019
+        rank_descending: 104
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190206B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.553631247397
+        rank_descending: 105
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181213A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.546304433121
+        rank_descending: 106
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181018B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.541129318778
+        rank_descending: 107
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190203A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.511835830734
+        rank_descending: 108
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180908B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.503408126386
+        rank_descending: 109
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180925A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.502915951949
+        rank_descending: 110
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181218A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.417889687274
+        rank_descending: 111
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190415A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.356993686398
+        rank_descending: 112
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190116C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.342159045675
+        rank_descending: 113
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181219B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.33612811899
+        rank_descending: 114
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190206C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.224348908793
+        rank_descending: 115
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180916A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.217757808987
+        rank_descending: 116
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181117B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.187666234268
+        rank_descending: 117
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190322B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.164561375744
+        rank_descending: 118
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190417C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 4.00858492673
+        rank_descending: 119
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181218B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.980885498046
+        rank_descending: 120
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181013E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.963286299366
+        rank_descending: 121
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190603B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.959881518815
+        rank_descending: 122
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181019B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.95026032923
+        rank_descending: 123
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190116D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.949639868999
+        rank_descending: 124
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190216A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.948054878949
+        rank_descending: 125
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181017A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.947883378101
+        rank_descending: 126
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181231C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.945500763612
+        rank_descending: 127
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190211A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.942767727705
+        rank_descending: 128
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181222C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.921555207073
+        rank_descending: 129
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190701D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.875289862372
+        rank_descending: 130
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190214A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.86126757806
+        rank_descending: 131
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190604F
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.855899350158
+        rank_descending: 132
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181223A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.855405621676
+        rank_descending: 133
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181226A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.855405621676
+        rank_descending: 134
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181225A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.855311550511
+        rank_descending: 135
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181222A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.855099858029
+        rank_descending: 136
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190605B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.854864591588
+        rank_descending: 137
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190603A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.854558662444
+        rank_descending: 138
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181019C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.854535125556
+        rank_descending: 139
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181120B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.854182005738
+        rank_descending: 140
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.853899420078
+        rank_descending: 141
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181019A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.853805207109
+        rank_descending: 142
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181104B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.853805207109
+        rank_descending: 143
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190518A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.853239742824
+        rank_descending: 144
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.853216174872
+        rank_descending: 145
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.851919081358
+        rank_descending: 146
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190518E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.851801080296
+        rank_descending: 147
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190605A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.850691189164
+        rank_descending: 148
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190126A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.850573043112
+        rank_descending: 149
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181104A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.850265798034
+        rank_descending: 150
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190212D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.845788231652
+        rank_descending: 151
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180918A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.78701392468
+        rank_descending: 152
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190103A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.771534132236
+        rank_descending: 153
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181025A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.771022518596
+        rank_descending: 154
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181119A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.770638636519
+        rank_descending: 155
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190313A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.770382633241
+        rank_descending: 156
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181202B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.760243586013
+        rank_descending: 157
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190105A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.758690509316
+        rank_descending: 158
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190417B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.755291219633
+        rank_descending: 159
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181228B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.753548175108
+        rank_descending: 160
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181014A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.743025619636
+        rank_descending: 161
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190409B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.739757384472
+        rank_descending: 162
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181128A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.736187038323
+        rank_descending: 163
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190527B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.735550973423
+        rank_descending: 164
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181219A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.735444923261
+        rank_descending: 165
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190320A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.729354721865
+        rank_descending: 166
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180920B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.712216134293
+        rank_descending: 167
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190226B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.711618941083
+        rank_descending: 168
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181124A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.711184394634
+        rank_descending: 169
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190302A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.700149046372
+        rank_descending: 170
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190412A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.695661956411
+        rank_descending: 171
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190430B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.69314810821
+        rank_descending: 172
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190203B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.688462700618
+        rank_descending: 173
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190211B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.687656484369
+        rank_descending: 174
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190601A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.687628672212
+        rank_descending: 175
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190221D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.686877451443
+        rank_descending: 176
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190112A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.685038754728
+        rank_descending: 177
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190204A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.675991200678
+        rank_descending: 178
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190530A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.663846505838
+        rank_descending: 179
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190224E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.66341918584
+        rank_descending: 180
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181119E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.659622273047
+        rank_descending: 181
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190223B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.654374272014
+        rank_descending: 182
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190325C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.651956100009
+        rank_descending: 183
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181224C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.651639001173
+        rank_descending: 184
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181217A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.640126789241
+        rank_descending: 185
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190429A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.63881347644
+        rank_descending: 186
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190103D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.636825636684
+        rank_descending: 187
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190417A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.627653957364
+        rank_descending: 188
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190320D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.627476751894
+        rank_descending: 189
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190502A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.625850903508
+        rank_descending: 190
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190701A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.625525416384
+        rank_descending: 191
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181128D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.624844509864
+        rank_descending: 192
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190328A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.617890544248
+        rank_descending: 193
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190426A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.612208370936
+        rank_descending: 194
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.607126952242
+        rank_descending: 195
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181218C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.598498771018
+        rank_descending: 196
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190604G
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.593774808742
+        rank_descending: 197
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190219B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.582469004753
+        rank_descending: 198
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190414B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.572751298388
+        rank_descending: 199
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190527C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.561992604208
+        rank_descending: 200
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181202C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.561109211924
+        rank_descending: 201
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180909A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.555824138623
+        rank_descending: 202
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181201B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.553568701589
+        rank_descending: 203
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190227A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.547763818131
+        rank_descending: 204
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181214C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.545041159136
+        rank_descending: 205
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190420A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.540121614158
+        rank_descending: 206
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181123A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.527568944509
+        rank_descending: 207
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190201B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.522726478482
+        rank_descending: 208
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180906B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.519836018266
+        rank_descending: 209
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190515A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.518782866943
+        rank_descending: 210
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190218A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.518091133134
+        rank_descending: 211
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181115A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.516640232661
+        rank_descending: 212
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181122A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.512109127358
+        rank_descending: 213
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181231B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.511114168401
+        rank_descending: 214
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190115A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.502817577704
+        rank_descending: 215
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181228C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.501511854098
+        rank_descending: 216
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190501B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.501042716632
+        rank_descending: 217
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190423A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.491782611738
+        rank_descending: 218
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181101A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.488088381036
+        rank_descending: 219
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190221C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.484141858036
+        rank_descending: 220
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181224D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.481513556214
+        rank_descending: 221
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181216A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.475548710446
+        rank_descending: 222
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190330B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.468821415484
+        rank_descending: 223
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190606A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.459291571519
+        rank_descending: 224
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181213B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.454632824455
+        rank_descending: 225
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190309A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.451503151571
+        rank_descending: 226
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190421B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.44517882431
+        rank_descending: 227
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190116E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.441628188567
+        rank_descending: 228
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181013B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.438314744724
+        rank_descending: 229
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190213D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.434345563206
+        rank_descending: 230
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190609D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.430504444201
+        rank_descending: 231
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190124A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.430072742932
+        rank_descending: 232
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190322A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.42556473811
+        rank_descending: 233
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181117A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.420854755127
+        rank_descending: 234
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181018A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.417034276377
+        rank_descending: 235
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190212B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.413711346954
+        rank_descending: 236
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181230D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.408025866256
+        rank_descending: 237
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190628A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.404894243543
+        rank_descending: 238
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181230C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.397486802266
+        rank_descending: 239
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190607B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.394396530432
+        rank_descending: 240
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181128C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.392717080896
+        rank_descending: 241
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190317B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.391670664776
+        rank_descending: 242
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190110B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.379519664149
+        rank_descending: 243
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190604C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.357361590958
+        rank_descending: 244
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190219C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.333513177306
+        rank_descending: 245
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181224B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.324996051872
+        rank_descending: 246
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190106A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.324396327727
+        rank_descending: 247
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190421A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.322434718579
+        rank_descending: 248
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190303A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.321753260232
+        rank_descending: 249
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190103E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.321673058123
+        rank_descending: 250
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190208A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.318902138935
+        rank_descending: 251
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190406A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.318902138935
+        rank_descending: 252
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181220A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.313903136386
+        rank_descending: 253
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180916C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.308066307363
+        rank_descending: 254
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190317D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.307944343749
+        rank_descending: 255
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181213C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.306316739223
+        rank_descending: 256
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190323D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.301704392019
+        rank_descending: 257
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190502B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.298836477893
+        rank_descending: 258
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190106B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.297687005292
+        rank_descending: 259
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190623B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.297235065023
+        rank_descending: 260
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180907E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.296124890365
+        rank_descending: 261
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190317A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.295548758662
+        rank_descending: 262
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190402A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.291837108079
+        rank_descending: 263
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190213C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.288318965339
+        rank_descending: 264
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181214D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.28582809723
+        rank_descending: 265
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190604A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.284663565406
+        rank_descending: 266
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181226G
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.280785894652
+        rank_descending: 267
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190627D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.280117249886
+        rank_descending: 268
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181129A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.279280814724
+        rank_descending: 269
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190424A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.274037184193
+        rank_descending: 270
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190219A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.271088696315
+        rank_descending: 271
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181224A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.26939993462
+        rank_descending: 272
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190308C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.269315421626
+        rank_descending: 273
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190217A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.267623660099
+        rank_descending: 274
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181214A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.258737358293
+        rank_descending: 275
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190630B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.245842273098
+        rank_descending: 276
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190531C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.239854231253
+        rank_descending: 277
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181014C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.239070532154
+        rank_descending: 278
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190627B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.235230248141
+        rank_descending: 279
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190404B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.234442915409
+        rank_descending: 280
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190222A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.23369875376
+        rank_descending: 281
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190222C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.2236643416
+        rank_descending: 282
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181129C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.222026412107
+        rank_descending: 283
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190320B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.221450285876
+        rank_descending: 284
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190529A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.218342349262
+        rank_descending: 285
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181229A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.218253408985
+        rank_descending: 286
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.217185508199
+        rank_descending: 287
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190307B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.213349471557
+        rank_descending: 288
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190517D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.213349471557
+        rank_descending: 289
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181013A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.21308129116
+        rank_descending: 290
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190323C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.212723605383
+        rank_descending: 291
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181201A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.204867047428
+        rank_descending: 292
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180924A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.201571407778
+        rank_descending: 293
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181018C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.191161986301
+        rank_descending: 294
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190414A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.190887788328
+        rank_descending: 295
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190420C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.190018998406
+        rank_descending: 296
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190303B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.176432145758
+        rank_descending: 297
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190122A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.176200261699
+        rank_descending: 298
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190422A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.165943761531
+        rank_descending: 299
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190215B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.164020638914
+        rank_descending: 300
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190104A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.161387944996
+        rank_descending: 301
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190404A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.159786135551
+        rank_descending: 302
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190415C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.15671669296
+        rank_descending: 303
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181022D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.155202114859
+        rank_descending: 304
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190323A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.154728338378
+        rank_descending: 305
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190121A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.14592274113
+        rank_descending: 306
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190122B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.136894201675
+        rank_descending: 307
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181013C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.130263166512
+        rank_descending: 308
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190217B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.096381709482
+        rank_descending: 309
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190517C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.088210163381
+        rank_descending: 310
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181022E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.086791004501
+        rank_descending: 311
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190304C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.081909969795
+        rank_descending: 312
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190430C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.081757052905
+        rank_descending: 313
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190623A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.078489243002
+        rank_descending: 314
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403G
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.076851324839
+        rank_descending: 315
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181203A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.076800096643
+        rank_descending: 316
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181117C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.076133891171
+        rank_descending: 317
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181116B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.074183972655
+        rank_descending: 318
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180915B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.073156170519
+        rank_descending: 319
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190118B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.071354970948
+        rank_descending: 320
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181127A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.069860086781
+        rank_descending: 321
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190222D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.069860086781
+        rank_descending: 322
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190423B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.067897884354
+        rank_descending: 323
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181221A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.067173996008
+        rank_descending: 324
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190116B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.064480670715
+        rank_descending: 325
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190609C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.064480670715
+        rank_descending: 326
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190128B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.063909998084
+        rank_descending: 327
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190210B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.063131282925
+        rank_descending: 328
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190116A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.062455905597
+        rank_descending: 329
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190409D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.062455905597
+        rank_descending: 330
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190303C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.061884075987
+        rank_descending: 331
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181231A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.060427032486
+        rank_descending: 332
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190320C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.059176446111
+        rank_descending: 333
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190129A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.056566023828
+        rank_descending: 334
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190425A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.054944133186
+        rank_descending: 335
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190102B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.053372053
+        rank_descending: 336
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190515C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.050956719718
+        rank_descending: 337
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190304B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.050746414775
+        rank_descending: 338
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190213A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.049694226126
+        rank_descending: 339
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190607A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.04932569839
+        rank_descending: 340
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190531B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.048851677366
+        rank_descending: 341
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190124E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.040705639197
+        rank_descending: 342
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190103B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.040546289344
+        rank_descending: 343
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190224C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.03948330758
+        rank_descending: 344
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190412B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.038152989438
+        rank_descending: 345
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190428A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.03447210187
+        rank_descending: 346
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190218B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.032278473211
+        rank_descending: 347
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181229B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.031957050377
+        rank_descending: 348
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190411C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.031421115962
+        rank_descending: 349
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190128D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.030938529289
+        rank_descending: 350
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190316A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.029811587207
+        rank_descending: 351
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181223B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.024427704276
+        rank_descending: 352
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190107A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.024427704276
+        rank_descending: 353
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190214C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.022103692961
+        rank_descending: 354
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190114A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.020533281353
+        rank_descending: 355
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181104C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.020316479185
+        rank_descending: 356
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190110A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.019503052172
+        rank_descending: 357
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190405A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.016678038069
+        rank_descending: 358
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180907B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.016079414885
+        rank_descending: 359
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190111A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.015099076045
+        rank_descending: 360
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190228A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.01166030188
+        rank_descending: 361
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190518B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.011441567259
+        rank_descending: 362
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181030D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.010675619087
+        rank_descending: 363
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190410B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.009141960464
+        rank_descending: 364
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181102A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.006946931322
+        rank_descending: 365
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190130A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.006562305366
+        rank_descending: 366
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190317E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.005407539077
+        rank_descending: 367
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190418A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.003645327046
+        rank_descending: 368
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190307A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.002652716399
+        rank_descending: 369
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181014B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.002156041352
+        rank_descending: 370
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190122C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.001935217679
+        rank_descending: 371
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190117A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.000609250633
+        rank_descending: 372
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190630A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.00038808509
+        rank_descending: 373
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181202A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 3.000166870622
+        rank_descending: 374
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181219C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.99845079724
+        rank_descending: 375
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190629A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.992058868188
+        rank_descending: 376
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180921A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.991891574168
+        rank_descending: 377
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190113A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.991054684003
+        rank_descending: 378
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181118A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.98926697403
+        rank_descending: 379
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190604D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.987195942532
+        rank_descending: 380
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190206A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.987027832924
+        rank_descending: 381
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190109A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.98629903121
+        rank_descending: 382
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190427A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.984727498081
+        rank_descending: 383
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181228A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.982872157824
+        rank_descending: 384
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190409A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.982815881621
+        rank_descending: 385
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181118B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.98225294533
+        rank_descending: 386
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190410A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.981295225756
+        rank_descending: 387
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190319A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.979772253975
+        rank_descending: 388
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190515D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.979659348928
+        rank_descending: 389
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190131B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.977907688641
+        rank_descending: 390
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181224E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.977624875212
+        rank_descending: 391
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190221A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.977059008288
+        rank_descending: 392
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180906A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.976662710834
+        rank_descending: 393
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190131C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.976379545038
+        rank_descending: 394
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190104B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.975132662084
+        rank_descending: 395
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181027A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.968189770548
+        rank_descending: 396
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190101B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.966360676011
+        rank_descending: 397
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181014D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.964757469255
+        rank_descending: 398
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190605D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.963725477419
+        rank_descending: 399
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403F
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.962232939828
+        rank_descending: 400
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181030E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.961773248962
+        rank_descending: 401
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181226B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.961543324262
+        rank_descending: 402
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190516B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.959586826918
+        rank_descending: 403
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190630D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.95952922489
+        rank_descending: 404
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181222D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.955951403542
+        rank_descending: 405
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181119D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.953346557058
+        rank_descending: 406
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181214F
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.952534774571
+        rank_descending: 407
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190125A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.95189648285
+        rank_descending: 408
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181124B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.951838436122
+        rank_descending: 409
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190221B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.951490084981
+        rank_descending: 410
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180907A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.949804674998
+        rank_descending: 411
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181116A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.949513799752
+        rank_descending: 412
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190317C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.94864066602
+        rank_descending: 413
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180920A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.948116419612
+        rank_descending: 414
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190625A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.947825052809
+        rank_descending: 415
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190109B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.944380497924
+        rank_descending: 416
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181203B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.943093044563
+        rank_descending: 417
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190411B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.93910313139
+        rank_descending: 418
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190518C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.935215284834
+        rank_descending: 419
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181030C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.934979171262
+        rank_descending: 420
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190124B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.934683950878
+        rank_descending: 421
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190416A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.933265678568
+        rank_descending: 422
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190604E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.930423085158
+        rank_descending: 423
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190124C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.929889198152
+        rank_descending: 424
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190226A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.929592471049
+        rank_descending: 425
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190531E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.928048069198
+        rank_descending: 426
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190429B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.923400500802
+        rank_descending: 427
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190117D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.923101841778
+        rank_descending: 428
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181119B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.922145533057
+        rank_descending: 429
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181223C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.921786681378
+        rank_descending: 430
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190101A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.92064946743
+        rank_descending: 431
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190515B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.915184808882
+        rank_descending: 432
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190627A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.913919481687
+        rank_descending: 433
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190203C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.912471430269
+        rank_descending: 434
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190520A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.894437555402
+        rank_descending: 435
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181130A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.847103357727
+        rank_descending: 436
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190131D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.806184671668
+        rank_descending: 437
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190130B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.70990034039
+        rank_descending: 438
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190422B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.696801991331
+        rank_descending: 439
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190330A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.667305364099
+        rank_descending: 440
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190403B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.663672509862
+        rank_descending: 441
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180919B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.641356272322
+        rank_descending: 442
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190628C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.573714252105
+        rank_descending: 443
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180925B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.557227311368
+        rank_descending: 444
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190227B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.538710678531
+        rank_descending: 445
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190212C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.425589043824
+        rank_descending: 446
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181215A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.338488343637
+        rank_descending: 447
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181214B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.334083760053
+        rank_descending: 448
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190601B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.274642761337
+        rank_descending: 449
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190325B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.263382157461
+        rank_descending: 450
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181222B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.209860456678
+        rank_descending: 451
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190527A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 2.133113948179
+        rank_descending: 452
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190625C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.995455885607
+        rank_descending: 453
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190128A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.978546350248
+        rank_descending: 454
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190110C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.742024414346
+        rank_descending: 455
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181215B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.475779527619
+        rank_descending: 456
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190416B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.467362184209
+        rank_descending: 457
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190625D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.418815330601
+        rank_descending: 458
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190419A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.405552177724
+        rank_descending: 459
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181012B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.191562784249
+        rank_descending: 460
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190601C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.164191934314
+        rank_descending: 461
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190202A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 1.024846138429
+        rank_descending: 462
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190118A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.544260399852
+        rank_descending: 463
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20180922A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.542970077093
+        rank_descending: 464
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181128B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.542970077093
+        rank_descending: 465
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181125A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 466
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20181226D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 467
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190102A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 468
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190103C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 469
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190111B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 470
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190124F
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 471
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190222B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 472
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190226C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 473
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190415B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 474
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190420B
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 475
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190519D
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 476
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190605C
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 477
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190624A
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 478
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+      - target_id: FRB20190701E
+        prediction_quantity: pre_t_repeater_propensity_score
+        predicted_score: 0.0
+        rank_descending: 479
+        uncertainty: null
+        confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
+          interval, success verdict, or astrophysical claim is registered.
+    uncertainty_semantics:
+      type: point_score_only
+      note: Scores are deterministic exposure-only ranks, not calibrated probabilities or prediction intervals.
+    reveal_conditions:
+      comparison_source_class: Checksum-pinned later CHIME/FRB catalog snapshot or external reveal record
+        approved by a maintainer for the reveal task.
+      reveal_controlled_by: maintainer
+      label_rule: Labels come only from the pinned later snapshot or external reveal record; positive
+        repeat status requires repeat evidence published strictly after T=2019-07-02.
+      no_peek_rule: Do not alter the source set, frozen model surface, scoring rule, target values, target
+        ranks, or source-state references after reveal-relevant labels become visible.
+      partial_reveal_allowed: true
+      expected_reveal_window: unknown
+      reveal_task_required: true
+    limitations:
+    - Prepared registration pack only; no prediction registry entry is written by TASK-0965.
+    - No later repeat label, Catalog 2 full-window exposure, morphology field, or post-T source association
+      is read.
+    - The score is an exposure-propensity ranking, not an FRB population law or discovery claim.
+    - Any reveal score, success verdict, result, claim, or knowledge update requires a separate reviewed
+      task.
+    review_tier: MAINTAINER_REVIEW_REQUIRED
+  payload_checksums:
+    source_surface_sha256: 978049b9c7360091f812ee451dae36a5ca81ccea403725a61b36c01a42f562ab
+    surface_per_source_scores_sha256: 00404c62efb1edc300f008f53961e691cb1c06208ef5a032ff83b0bf8ddb60d7
+    draft_entry_targets_sha256: b4b26d63b53866644332a7ffb325db30ba5f9ec5ced90833e9a4dc4d393ae2bf
+    draft_entry_sha256: ad8d4224864293ce314ac189fbea41224f336eeeac50d2ad95d15148d1663567
+reveal_conditions:
+  comparison_source_class: Checksum-pinned later CHIME/FRB catalog snapshot or external reveal record
+    approved by a maintainer for the reveal task.
+  reveal_controlled_by: maintainer
+  label_rule: Labels come only from the pinned later snapshot or external reveal record; positive repeat
+    status requires repeat evidence published strictly after T=2019-07-02.
+  no_peek_rule: Do not alter the source set, frozen model surface, scoring rule, target values, target
+    ranks, or source-state references after reveal-relevant labels become visible.
+  partial_reveal_allowed: true
+  expected_reveal_window: unknown
+  reveal_task_required: true
+external_anchor_plan:
+  anchor_status: planned_not_executed
+  registration_time_actions:
+  - Create an annotated tag at the maintainer-approved freeze commit.
+  - Create a GitHub Release for that tag and attach the deterministic archive capsule.
+  - Record capsule byte size, SHA-256, and any archival DOI in a follow-up anchor note.
+  suggested_tag_template: pred-frb-pret-repeater-propensity-YYYYMMDD
+  suggested_release_title: FRB pre-T repeater-propensity prediction freeze
+  capsule_manifest:
+  - data/radio_transients/frb_sealed_prediction_registration_pack.yaml
+  - decisions/DEC-20260709-frb-prediction-freeze-stub.yaml
+  - prediction_registry/radio_transients/PRED-0001.yaml
+  - data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
+  - data/radio_transients/frb_pre_t_model_selection_contract.yaml
+  - data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
+  - docs/reviews/frb-sealed-prediction-registration-pack.md
+  - docs/reviews/frb-campaign-activation-20260708.md
+  - docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md
+  archive_capsule_rule: Build the capsule only after maintainer approval so the approved decision, final
+    registered PRED entry, and exact freeze commit are all inside the archived bytes.
+limitations:
+- This pack is not a registration, reveal result, success verdict, claim, or knowledge artifact.
+- Registration must stop unless the maintainer records an explicit Class 2 prediction_freeze decision.
+- Scores are deterministic exposure-only ranks; they are not calibrated probabilities.
+- Labels for later comparison must come only from a pinned later snapshot or external reveal record with
+  repeat evidence strictly after T.
+output_routing:
+  canonical_destination: data/radio_transients/frb_sealed_prediction_registration_pack.yaml
+  review_tier: maintainer_decision_required_before_registration
+  gate_a_status: not_applicable
+  gate_b_status: not_applicable
+  prediction_impact: prediction freeze staged; no registered PRED artifact written
+  claim_impact: none
+  knowledge_impact: none
+  publication_blocker: Class 2 maintainer prediction_freeze decision still required
