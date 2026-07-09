@@ -7,10 +7,9 @@
 #   version comment) so a repointed upstream tag cannot inject code; Dependabot
 #   is what then bumps those pins to new upstream releases, so pinning does not
 #   mean the actions silently rot.
-# - pip: monitors the Python dependencies declared in pyproject.toml (the
-#   project floors its deps with >= and ships no lockfile) so a drifted or
-#   yanked transitive release surfaces as a reviewable PR rather than only
-#   appearing on the next CI install.
+# - pip: monitors the direct Python dependencies declared in pyproject.toml.
+#   The project floors its deps with >= and ships no lockfile, so transitive
+#   dependency drift still belongs to a future lockfile/constraints decision.
 #
 # Grouped so each ecosystem produces one consolidated PR per weekly run
 # instead of one PR per dependency.

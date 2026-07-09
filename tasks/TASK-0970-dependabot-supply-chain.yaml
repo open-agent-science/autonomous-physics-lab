@@ -21,12 +21,13 @@ input:
   planning_context: >
     Add a single .github/dependabot.yml declaring two weekly update
     ecosystems: github-actions (keeps the SHA-pinned actions in the three
-    workflow files current) and pip (monitors the pyproject.toml
+    workflow files current) and pip (monitors the direct pyproject.toml
     dependencies, which are floored with >= and have no lockfile). Updates
     are grouped so each ecosystem yields one consolidated PR per run. No
     workflow logic, install command, or dependency version is changed by
     this task; Dependabot only opens future update PRs the maintainer
-    reviews like any other change.
+    reviews like any other change. Transitive dependency drift remains a
+    separate lockfile/constraints decision.
 
 requirements:
   - "Add .github/dependabot.yml only (plus this task file); do not change any workflow, pyproject.toml dependency, or install command."
