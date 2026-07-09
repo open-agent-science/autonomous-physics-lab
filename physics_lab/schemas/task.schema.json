@@ -158,6 +158,11 @@
         "review"
       ]
     },
+    "closeout_review_reason": {
+      "description": "Short explanation required by task-queue review when closeout is set to review.",
+      "type": "string",
+      "minLength": 1
+    },
     "strategy_alignment": {
       "type": "array",
       "items": {

@@ -143,9 +143,16 @@ def _write_review_task(
     *,
     status: str = "REVIEW_READY",
     slug: str = "helper",
+    closeout: str | None = None,
+    closeout_review_reason: str | None = None,
 ) -> None:
     tasks_dir = root / "tasks"
     tasks_dir.mkdir(parents=True, exist_ok=True)
+    closeout_lines: list[str] = []
+    if closeout is not None:
+        closeout_lines.append(f"closeout: {closeout}")
+    if closeout_review_reason is not None:
+        closeout_lines.append(f'closeout_review_reason: "{closeout_review_reason}"')
     (tasks_dir / f"{task_id}-{slug}.yaml").write_text(
         "\n".join(
             [
@@ -153,6 +160,7 @@ def _write_review_task(
                 'title: "Maintainer review fixture"',
                 "type: maintainer_workflow",
                 f"status: {status}",
+                *closeout_lines,
                 "difficulty: medium",
                 "priority: high",
                 "strategy_alignment:",
@@ -2862,6 +2870,115 @@ def test_build_review_report_accepts_task_queue_pr_without_generated_navigation(
     assert not any(
         "generated task navigation" in item for item in report.advisory_warnings
     )
+
+
+def test_build_review_report_flags_task_queue_closeout_review_without_reason(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_review_task(
+        tmp_path,
+        "TASK-0999",
+        status="READY",
+        slug="manual-closeout-fixture",
+        closeout="review",
+    )
+
+    branch = "agent/roman/codex/task-queue-closeout-policy"
+    changed = ("tasks/TASK-0999-manual-closeout-fixture.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=177,
+        title="TASK-QUEUE: Add manual closeout fixture task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=177)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("closeout_review_reason" in item for item in report.required_fixes)
+    assert report.blockers == ()
+
+
+def test_build_review_report_accepts_task_queue_closeout_review_with_reason(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_review_task(
+        tmp_path,
+        "TASK-0999",
+        status="READY",
+        slug="manual-closeout-fixture",
+        closeout="review",
+        closeout_review_reason="Result-bearing follow-up; maintainer closeout required.",
+    )
+
+    branch = "agent/roman/codex/task-queue-closeout-policy"
+    changed = ("tasks/TASK-0999-manual-closeout-fixture.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=178,
+        title="TASK-QUEUE: Add manual closeout fixture task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=178)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "MERGE_OK"
+    assert not any("closeout_review_reason" in item for item in report.required_fixes)
+    assert report.blockers == ()
 
 
 def test_build_review_report_blocks_task_queue_pr_that_changes_results(
