@@ -233,6 +233,9 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0307` reviewed the first concrete source-manifest attempt and found no
   acceptable pinned post-registration source; this is a useful negative
   readiness result and keeps `TASK-0305` blocked.
+- `TASK-0305` was attempted after maintainer D2-5 approval and stopped at the
+  same source gate: no non-template pinned source manifest exists, so no real
+  reveal score, result, claim, or knowledge artifact was produced.
 - `TASK-0310` adds a sandbox-only full-known retrospective audit for the
   shell-axis family: the three primary shell-axis candidates keep small
   full-known and primary-holdout MAE improvements, while the sign-inverted,
@@ -594,9 +597,10 @@ Start here:
   directionality note: the committed retrospective signal is magic-N dominant
   across the three primary shell-axis candidates, but the relevant magic
   subsets remain sparse.
-- `TASK-0305` should stay blocked until source preflight, dry-run review, a
-  reviewed `TASK-0307` source manifest, and explicit maintainer approval make
-  a real reveal comparison legitimate.
+- `TASK-0305` now preserves a no-score source-gate outcome. A future real
+  reveal still needs a pinned post-registration source manifest, checksum
+  record, no-peek audit, and deterministic measured-row eligibility labels
+  before any MAE/RMSE can be computed.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
