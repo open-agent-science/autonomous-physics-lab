@@ -1,7 +1,7 @@
 id: TASK-0967
 title: "Maintainer-directed architecture and workflow audit of the APL repository"
 type: repo_architecture
-status: IN_PROGRESS
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
