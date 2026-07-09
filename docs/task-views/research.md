@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0986` - Prepare a revised ThermoML source-access contract after the 80-row blocker (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
 - `TASK-0987` - Replay Quantum RESULT-0029 without changing the no-refit transfer contract (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0988` - Scout one new direct quantum-size source route after RESULT-0029 (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
