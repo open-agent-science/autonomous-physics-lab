@@ -66,6 +66,7 @@ class WorktreeRuntimePreflightReport:
     active_python_matches_repository_venv: bool | None
     selected_validation_python: str
     selected_validation_python_source: str
+    physics_lab_import_ok: bool | None
     python_discovery_priority: tuple[str, ...]
     system_temp_dir: str
     system_temp_accessible: bool
@@ -298,6 +299,32 @@ def _default_pytest_basetemp_root(root: Path) -> Path:
     return root / ".pytest-basetemp"
 
 
+def _module_import_ok(
+    python_executable: str,
+    module_name: str = "physics_lab",
+) -> bool | None:
+    """Return whether ``import <module_name>`` succeeds under ``python_executable``.
+
+    The probe runs from the system temp directory rather than the repository
+    root so a stale editable install is detected instead of being masked by the
+    repository root happening to be on ``sys.path``: a shared ``.venv`` whose
+    editable mapping points at a since-deleted worktree resolves ``physics_lab``
+    only when the current directory already contains it. Returns ``None`` when
+    the check itself could not run (interpreter missing or not executable).
+    """
+    try:
+        completed = subprocess.run(
+            [python_executable, "-c", f"import {module_name}"],
+            cwd=tempfile.gettempdir(),
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return completed.returncode == 0
+
+
 def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
     """Collect read-only diagnostics for task worktree runtime health."""
     root = root.resolve()
@@ -312,6 +339,7 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
         and git_dir.resolve() != git_common_dir.resolve()
     )
     python_selection = select_validation_python(root, git_common_dir=git_common_dir)
+    physics_lab_import_ok = _module_import_ok(python_selection.selected_executable)
 
     system_temp_dir = Path(tempfile.gettempdir())
     system_temp_accessible = os.access(system_temp_dir, os.R_OK | os.W_OK | os.X_OK)
@@ -334,6 +362,16 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
 
     recommendations: list[str] = []
     recommendations.extend(python_selection.recommendations)
+    if physics_lab_import_ok is False:
+        recommendations.append(
+            "`import physics_lab` fails under the selected validation interpreter "
+            f"({python_selection.selected_executable}) from a neutral directory. "
+            "The editable install is likely stale - a shared .venv installed from "
+            "a since-deleted worktree maps physics_lab to a missing path, so the "
+            "required pytest/validate-repo gate fails out of the box. Reinstall "
+            "with `<python> -m pip install -e .` from the repository root (or the "
+            "main checkout that owns the shared .venv)."
+        )
     if not system_temp_accessible:
         recommendations.append(
             "System temp is not fully accessible; run pytest with "
@@ -366,6 +404,7 @@ def worktree_runtime_preflight(root: Path) -> WorktreeRuntimePreflightReport:
         ),
         selected_validation_python=python_selection.selected_executable,
         selected_validation_python_source=python_selection.selected_source,
+        physics_lab_import_ok=physics_lab_import_ok,
         python_discovery_priority=python_selection.priority_order,
         system_temp_dir=str(system_temp_dir),
         system_temp_accessible=system_temp_accessible,
@@ -488,6 +527,7 @@ def _print_human(report: AgentDoctorReport) -> None:
         )
         print(f"- selected validation python: {probe.selected_validation_python}")
         print(f"- selected validation python source: {probe.selected_validation_python_source}")
+        print(f"- physics_lab import ok: {probe.physics_lab_import_ok}")
         print("- python discovery priority:")
         for item in probe.python_discovery_priority:
             print(f"  - {item}")
