@@ -16,3 +16,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0964` - Select and freeze the FRB repeater-propensity model on the pre-T feature surface (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
+- `TASK-0967` - Sync campaign pages after the July result wave (`docs_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_quality`)
