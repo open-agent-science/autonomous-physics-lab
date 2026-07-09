@@ -1,0 +1,63 @@
+id: TASK-0969
+title: "Harden CI: least-privilege GITHUB_TOKEN on ci.yml and SHA-pin all GitHub Actions"
+type: repository_hardening
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Acts on two verified findings from the 2026-07-09 architecture audit (security-cicd dimension): ci.yml has no explicit permissions block, and all three workflows pin GitHub Actions to floating major-version tags."
+  - "Smallest safe, reversible slice of CI hardening: token-scope reduction plus supply-chain pinning, with no change to runner selection, the fork-guard, or the board-sync App-token path."
+  - "Deliberately excludes the larger items (dependency lockfile, board-sync path-guard tightening, self-hosted fork-guard redesign); those are separate scoped decisions."
+
+input:
+  mode: workflow
+  related_domain: repository_hardening
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - ".github/workflows/sync-active-board.yml"
+    - ".github/workflows/nightly-full-repo.yml"
+  planning_context: >
+    Two bounded, behavior-preserving CI hardening changes. (1) Add a
+    top-level least-privilege `permissions: contents: read` block to
+    ci.yml; every job in that workflow only checks out, installs, tests,
+    and validates - none push, comment, or otherwise need write scope, so
+    read-only is correct and reduces the blast radius of the audited
+    self-hosted branch-PR execution path. sync-active-board.yml and
+    nightly-full-repo.yml already declare permissions and are left as-is
+    except for action pinning. (2) Pin every `uses:` GitHub Action across
+    all three workflows to the exact commit SHA its current major tag
+    resolves to (with the tag kept as a trailing comment), so a repointed
+    or compromised upstream tag cannot silently inject code - most
+    important for actions/create-github-app-token, which handles the
+    board-sync App private key. No runner labels, triggers, job logic,
+    fork-guard, or App-token mechanism are changed.
+
+requirements:
+  - "ci.yml gains a top-level `permissions: contents: read` block; no job in ci.yml is granted write scope (verified: all steps are read-only checkout/install/test/validate)."
+  - "Every `uses:` action in all three workflow files is pinned to the full 40-hex commit SHA the current tag resolves to, with the human-readable tag preserved as a trailing comment; the resolved SHA must match the tag at pin time."
+  - "No change to runner selection, the fork-guard expression, concurrency, triggers, the board-sync path-guard, or the App-token step other than pinning its action version."
+  - "Workflow YAML still parses; strict repo validation stays green."
+
+accepted_outputs:
+  - "The three hardened workflow files plus this task file."
+  - "Output-routing summary: repository hardening; no scientific artifact, claim, or result change."
+
+result_artifact_policy:
+  required: false
+  reason: "CI/repository hardening task; no scientific RESULT or PRED artifact is expected. Evidence is the workflow diff itself."
+  evidence:
+    - ".github/workflows/ci.yml"
+    - ".github/workflows/sync-active-board.yml"
+    - ".github/workflows/nightly-full-repo.yml"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -c \"import yaml,glob; [yaml.safe_load(open(f,encoding='utf-8')) for f in glob.glob('.github/workflows/*.yml')]\""
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
