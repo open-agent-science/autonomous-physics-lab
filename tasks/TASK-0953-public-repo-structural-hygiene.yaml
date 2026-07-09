@@ -1,7 +1,7 @@
 id: TASK-0953
 title: "Resolve public-repo structural hygiene blockers after the agent wave"
 type: repository_hygiene
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: high

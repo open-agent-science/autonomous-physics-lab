@@ -1,7 +1,7 @@
 id: TASK-0958
 title: "Run the first common-scheme baseline metric on the pinned AHS quark mass table"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

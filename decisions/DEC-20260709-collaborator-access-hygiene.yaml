@@ -1,0 +1,60 @@
+# Class 2 repo-settings decision stub for TASK-0962.
+# The decision itself belongs to the maintainer. This packet records the
+# evidence-command surface and defaults to no access change until the private
+# collaborator API evidence is filled by a maintainer-authorized account.
+decision_id: DEC-20260709-collaborator-access-hygiene
+decision_type: repo_settings_change
+autonomy_class: class_2_maintainer_only
+reversibility: hard_to_reverse
+external_exposure: internal_public_docs
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: no_access_change_until_maintainer_fills_collaborator_evidence
+basis:
+  - "TASK-0962: Prepare the collaborator access hygiene decision packet (outside collaborators with write)"
+  - "docs/decision-autonomy-policy.md: repo_settings_change is class_2_maintainer_only"
+  - "docs/reviews/collaborator-access-hygiene-decision-packet.md: read-only evidence commands and maintainer click path"
+  - "Executor environment: gh auth status reported an invalid token, so private collaborator-role evidence was not available to the agent"
+
+agent_quorum:
+  executor_agent:
+    vote: escalate
+    agent_id: codex
+    vendor: openai
+    agent_tool: Codex
+    model_version: GPT-5
+    session_id: task-0962-akutenyov-20260709
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Apply a default downgrade or removal for collaborators inferred from old
+    PR authorship, branch names, or visible public activity.
+  strongest_objection: >-
+    Direct collaborator roles are private repo-settings evidence. Inferring
+    permissions or intent from public activity would risk removing useful
+    access, misidentifying a contributor, or documenting false role data in a
+    public scientific repository.
+  why_rejected: >-
+    The safe packet records read-only maintainer commands and a no-change
+    default until the private collaborator API evidence is collected by an
+    authorized maintainer. That preserves least-privilege review without
+    inventing data.
+  escalation_required: true
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null

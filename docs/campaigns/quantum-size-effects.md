@@ -14,11 +14,13 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign now has six direct Almeida 2023 InP measurement rows and a
-source-scoped sandbox baseline. Follow-up transfer work has not produced an
-admissible cross-material claim: ZnSe/Toufanian rows are usable only as limited
-factual extracts, the row surface is now frozen, and a fixed effective-mass
-scaling transfer check failed against controls. The campaign is therefore
+This campaign now has six direct Almeida 2023 InP measurement rows, a
+source-scoped sandbox baseline, and `RESULT-0029`, an AGENT_PUBLISHED
+ZnSe/InP no-refit transfer-control result. Follow-up transfer work has not
+produced an admissible cross-material claim: ZnSe/Toufanian rows are usable only
+as limited factual extracts, the row surface is frozen, the strict no-refit
+transfer missed its predeclared margin, and a fixed effective-mass scaling
+transfer check failed against controls. The campaign is therefore
 **source/negative-memory gated**, not authorized for autonomous correction
 search or cross-material claims.
 
@@ -37,9 +39,10 @@ shuffled-size control. Later source/transfer work found that the ZnSe route can
 be used only as limited factual extracts, not redistributed source bytes, that
 literature effective-mass scaling did not transfer cleanly between InP and ZnSe
 under the current surfaces, and that the strict predeclared no-refit transfer
-missed its survival margin: the primary InP -> ZnSe equivalent-diameter transfer
-beat the best control by `0.046584 eV`, just below the frozen `0.05 eV`
-requirement.
+missed its survival margin. `RESULT-0029` packages that outcome: the primary
+InP -> ZnSe equivalent-diameter transfer beat the best control by
+`0.04658368 eV`, just below the frozen `0.05 eV` requirement, so the verdict is
+`INCONCLUSIVE`.
 
 **Not a claim:** this is sandbox, source-scoped consistency evidence. The
 published relation and rows share the same InP source series, the holdout has
@@ -47,10 +50,10 @@ one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
 **Active next work:** the ZnSe/Toufanian factual row surface is frozen, and
-`TASK-0920` executed the strict no-refit contract: fixed InP/ZnSe rows,
-equivalent-diameter size harmonization, fixed confinement-energy model,
+`RESULT-0029` records the strict no-refit contract outcome: fixed InP/ZnSe
+rows, equivalent-diameter size harmonization, fixed confinement-energy model,
 controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
-so the current posture is bounded negative/borderline transfer memory. The
+so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. No correction search or immediate follow-on benchmark is authorized by
 the baseline or by the failed transfer attempts.
@@ -380,13 +383,15 @@ Historical context:
 - use `TASK-0491` as historical context for the calibration-consistency
   alternative: that weaker sandbox-only path still requires explicit
   maintainer approval, declared labels, and frozen negative controls;
-- treat archived `TASK-0336` as historical Jasieniak context only; `TASK-0920`
-  has already executed the current ZnSe no-refit transfer benchmark under the
-  declared contract;
+- treat archived `TASK-0336` as historical Jasieniak context only; `RESULT-0029`
+  now packages the current ZnSe no-refit transfer miss under the declared
+  contract;
 - treat `TASK-0364` as historical source-scout context; the current
   second-material source decision is already made by `TASK-0914`;
 - keep the routed effective-mass transfer failure as durable negative/control
   memory before opening another quantum transfer lane.
+- pair `RESULT-0029` with its limitation line: AGENT_PUBLISHED,
+  `INCONCLUSIVE`, no cross-material law, no design guidance, and Gate B pending.
 
 Planning-only microtasks may be picked from
 `tasks/microtasks/quantum-size-effects.yaml`. They must not produce canonical
