@@ -1807,6 +1807,14 @@ def _compose_review_report(
                 required_fixes.append(
                     f"TASK-QUEUE PR should leave {task_path} in PROPOSED, READY, or BLOCKED; found {status}."
                 )
+            if str(payload.get("closeout", "")).strip() == "review" and not str(
+                payload.get("closeout_review_reason", "")
+            ).strip():
+                required_fixes.append(
+                    f"{task_path} sets closeout: review but does not declare "
+                    "closeout_review_reason. Omit closeout for safe auto-closeout "
+                    "eligibility, or add a short reason when manual closeout is required."
+                )
         generated_navigation_changes = tuple(
             path
             for path in changed_files
