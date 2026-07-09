@@ -28,9 +28,9 @@ an activated sealed-prediction preparation lane. The older CHIME/FRB Catalog 2
 HDF5 map remains blocked for pre-T construction because it is a static
 cumulative full-window map with no time axis. The active route is now the
 separate Catalog-1 interval exposure pair: its checksum/schema gate passed, and
-`TASK-0963` constructed a compact 479-row pre-T exposure feature surface for
-the follow-on `TASK-0964` model freeze and `TASK-0965` sealed-registration
-pack.
+`TASK-0963` constructed a compact 479-row pre-T exposure feature surface, and
+`TASK-0964` froze the exposure-only model surface for the follow-on
+`TASK-0965` sealed-registration pack.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -107,9 +107,10 @@ therefore uses the Catalog-1 interval exposure pair instead: `TASK-0947` passed
 the checksum/schema gate, and `TASK-0963` wrote
 `data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml` from
 pre-T source coordinates and exposure counts only. It did not read repeater
-labels, fit a model, register predictions, or make a population claim. The next
-allowed steps are the sequenced `TASK-0964` model/contract freeze and
-`TASK-0965` sealed-registration pack under maintainer approval.
+labels, register predictions, or make a population claim. `TASK-0964` then
+froze the exposure-only model surface without label contact. The next allowed
+step is the sequenced `TASK-0965` sealed-registration pack under maintainer
+approval.
 
 ## WATCHLIST Axes
 
@@ -132,8 +133,9 @@ Allowed next steps, only after maintainer assignment:
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
 - for FRB, continue only through the already activated Catalog-1 chain
-  (`TASK-0964` then `TASK-0965`) or through a separate metadata-only source
-  scout for a future Catalog-2-compatible time-indexed exposure source.
+  (`TASK-0965` after the frozen `TASK-0964` surface) or through a separate
+  metadata-only source scout for a future Catalog-2-compatible time-indexed
+  exposure source.
 
 ## Not Allowed Yet
 

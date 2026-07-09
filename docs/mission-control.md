@@ -72,7 +72,7 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | McGrew/NIST is blocked as not a direct independent Yb/Sr route; scout one post-2021 independent primary source before any metric rerun | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
 | [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Source-pinned thermophysical benchmark lane | Keep `RESULT-0026` and failed-family `RESULT-0028` paired; expansion remains source-access/revised-contract gated without raw archive vendoring or broad property claims | [thermophysical-property-residuals.md](./campaigns/thermophysical-property-residuals.md) |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Repair `RESULT-0027` for Gate-B-safe replay and fair-null transparency; reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
-| FRB / Radio Transients | Activated sealed-prediction preparation lane | Use the committed pre-T exposure surface for model/contract freeze and a maintainer-approved sealed registration pack; no repeater-success wording before reveal | [fresh-physics-data-axes.md](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) |
+| FRB / Radio Transients | Activated sealed-prediction preparation lane | Use the frozen exposure-only model surface for a maintainer-approved sealed registration pack; no repeater-success wording before reveal | [fresh-physics-data-axes.md](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
@@ -122,7 +122,8 @@ The clearest current repository-level results are:
     failed-family `RESULT-0028`, and Quantum ZnSe no-refit `RESULT-0029` are
     the current strongest post-validation, replay-ready, or source-pinned
     dataset-backed surfaces. The newest agent wave also moved FRB from source
-    scouting into sealed-prediction preparation. These surfaces are useful as
+    scouting into sealed-prediction preparation with the exposure-only model
+    surface frozen. These surfaces are useful as
     scoped, review-tiered memory and transfer/source-readiness prompts, not as
     material-discovery, stellar-law, nuclear-law, thermophysical-law,
     repeater-population, quantum-design, or universal-formula claims.

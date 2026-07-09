@@ -64,9 +64,9 @@ Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
 science paths are:
 
-1. complete the activated FRB chain: `TASK-0964` model/contract freeze on the
-   committed pre-T exposure surface, then `TASK-0965` sealed-prediction
-   registration pack under explicit maintainer approval;
+1. complete the activated FRB chain: use the `TASK-0964` frozen exposure-only
+   model surface for the `TASK-0965` sealed-prediction registration pack under
+   explicit maintainer approval;
 2. repair Exoplanet `RESULT-0027` for Gate-B-safe replay and fair-null
    transparency (`TASK-0959`), without reopening residual scoring;
 3. score the approved Nuclear shell-axis mini-wave reveal only through the
@@ -109,7 +109,7 @@ turning watchlist topics into formula-search work.
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference, Stellar M-L, FIRAS/Wien surfaces, and AGENT_VALIDATED same-source `RESULT-0024` high-mass transfer memory | Keep same-source/source-limited wording; no universal formula wording |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory, exact-replayed `RESULT-0025` point-estimator evidence, failed uncertainty calibration, DZ10 full-table parity PASS, and the executed tier-1 point-only freeze (`PRED-0069..0072`, sealed 2026-07-05) | External anchoring (`TASK-0945` pack), reveal-source watch discipline, approved `TASK-0305` scoring lane; no interval-bearing freeze until calibration repair |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, `NO_NOTIFY` monitor check, and AGENT_PUBLISHED `RESULT-0027` negative/control packaging | `TASK-0959` Gate-B-safe workflow repair and fair-null transparency; no residual scoring unless a NOTIFY-class trigger appears |
-| [FRB / Radio Transients](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) | Activated sealed-prediction chain with checksum/schema-gated Catalog-1 interval exposure pair and committed 479-row pre-T exposure feature surface | `TASK-0964` model/contract freeze, then `TASK-0965` registration pack; no FRB result or claim before reveal |
+| [FRB / Radio Transients](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) | Activated sealed-prediction chain with checksum/schema-gated Catalog-1 interval exposure pair, committed 479-row pre-T exposure feature surface, and frozen exposure-only model surface | `TASK-0965` registration pack; no FRB result or claim before reveal |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, Toufanian ZnSe rows are frozen as limited factual extracts, and `RESULT-0029` preserves the strict no-refit transfer miss as inconclusive/control memory | No immediate metric task; new work needs new source evidence or a maintainer-approved contract change |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory, covariance policy, diagnostic-only Pizzocaro aggregation, and blocked McGrew/NIST route | `TASK-0913` scout one post-2021 independent primary Yb/Sr source before row curation or metrics |
 | [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026`, frozen Joback baseline, rights boundary, and AGENT_PUBLISHED esters/lactones negative/control `RESULT-0028` | Expansion/source-access decisions or `RESULT-0028` replay only; no broader property claims |
@@ -135,7 +135,7 @@ Near-term portfolio shape:
 | Source-readiness / ratification gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | Ratify public wording for `RESULT-0023` and fix or preserve the `RESULT-0024` metadata caveat before stronger tier wording. |
 | External-reveal / uncertainty gate | Nuclear Mass Surface | Tier-1 point-only freeze executed, sealed (2026-07-05), and externally anchored (Zenodo DOI `10.5281/zenodo.21240451`); keep the interval-bearing freeze blocked until calibration repair; maintain reveal-source watch discipline. |
 | Monitor / negative-control gate | Exoplanet Mass-Radius | `RESULT-0027` is AGENT_PUBLISHED; bridge it to a Gate-B-safe workflow and keep source-version monitoring metadata-only. |
-| Sealed-prediction preparation | FRB / radio transients | `TASK-0963` built the pre-T feature surface; execute `TASK-0964` and `TASK-0965` without label leakage or success wording. |
+| Sealed-prediction preparation | FRB / radio transients | `TASK-0963` built the pre-T feature surface and `TASK-0964` froze the exposure-only model surface; execute `TASK-0965` without label leakage or success wording. |
 | Transfer/source gate and negative memory | Quantum Size Effects | Preserve `RESULT-0029` as inconclusive/control transfer memory; keep archived correction search closed. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | Scout one post-2021 independent primary Yb/Sr source; do not use Pizzocaro or McGrew/NIST as benchmark rows without an admissible contract. |
 | Source-pinned thermophysical benchmark | Thermophysical Property Residuals | `RESULT-0026` is AGENT_VALIDATED and `RESULT-0028` preserves the failed family; expansion remains source-access/revised-contract gated. |

@@ -7,10 +7,11 @@ curator_cycle:
   source: "Scientific Director campaign-page sync after merged result wave"
   note: >
     Mission guidance now reflects the July 8-9 result wave: FRB has an
-    activated sealed-prediction chain after TASK-0963, Exoplanet RESULT-0027
-    needs a Gate-B-safe workflow bridge, Quantum RESULT-0029 preserves the
+    activated sealed-prediction chain after TASK-0963 and a frozen TASK-0964
+    exposure-only model surface, Exoplanet RESULT-0027 needs a Gate-B-safe
+    workflow bridge, Quantum RESULT-0029 preserves the
     ZnSe/InP transfer miss, and ThermoML now has RESULT-0026 plus failed-family
-    RESULT-0028. The next wave should prioritize FRB freeze/registration,
+    RESULT-0028. The next wave should prioritize FRB sealed registration,
     Exoplanet replay repair, Nuclear source-approved reveal scoring, and
     source/replay blockers without reopening closed audit loops or promoting
     calibration-known physics as discovery.

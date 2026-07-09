@@ -35,7 +35,7 @@ explicitly source- or trigger-gated.
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures, AGENT_VALIDATED Stellar M-L `RESULT-0022`, AGENT_VALIDATED FIRAS/Wien `RESULT-0023`, and AGENT_VALIDATED high-mass transfer `RESULT-0024` | Keep same-source and source-limited wording explicit; no universal textbook-law wording |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, the executed tier-1 point-only prediction freeze (`PRED-0069..0072`, sealed 2026-07-05 and externally anchored: tag `pred-nmd0003-tier1-20260705`, Zenodo DOI `10.5281/zenodo.21240451`), preserved uncertainty-calibration failures, and DZ10 full-table parity PASS | Interval-bearing freeze stays blocked until calibration repair; next useful work is reveal-source watch discipline and the approved TASK-0305 scoring lane, not broad new fitting |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_PUBLISHED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is Gate-B-safe workflow repair plus fair-null transparency, not residual rescoring |
-| FRB / Radio Transients | A time-truncated, source-pinned path toward a sealed repeater-propensity prediction pack | `TASK-0963` built the 479-row pre-T exposure feature surface; `TASK-0964`/`TASK-0965` are model-freeze and sealed-registration preparation, not a result or success verdict |
+| FRB / Radio Transients | A time-truncated, source-pinned path toward a sealed repeater-propensity prediction pack | `TASK-0963` built the 479-row pre-T exposure feature surface; `TASK-0964` froze the exposure-only model surface without label contact; `TASK-0965` is sealed-registration preparation, not a result or success verdict |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | `RESULT-0029` preserves the ZnSe/InP no-refit transfer miss as inconclusive/control memory; no correction search or repeat transfer on the same surfaces |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy/Nemitz memory exists, Pizzocaro remains diagnostic, and McGrew/NIST is blocked as not a direct independent Yb/Sr route; the next step is one post-2021 source scout |
 | [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A source-pinned ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026`, frozen Joback baseline, and AGENT_PUBLISHED failed-family `RESULT-0028` | Expansion is source-access and revised-contract gated; no raw archive vendoring, broad property claims, or Joback rerun as a new result |
@@ -110,9 +110,9 @@ Highlights:
   `RESULT-0028` separately preserves the esters/lactones family failure as
   AGENT_PUBLISHED negative/control memory.
 - FRB / Radio Transients now has a checksum-pinned Catalog-1 interval exposure
-  pair and a committed 479-row pre-T exposure feature surface. It is a live
-  sealed-prediction preparation lane, not a replayed result or population
-  claim.
+  pair, a committed 479-row pre-T exposure feature surface, and a frozen
+  exposure-only model surface. It is a live sealed-prediction preparation lane,
+  not a replayed result or population claim.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete

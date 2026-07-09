@@ -27,13 +27,14 @@ input:
     Exoplanet RESULT-0027 is AGENT_PUBLISHED negative/control memory, Quantum
     RESULT-0029 packages the strict ZnSe/InP no-refit transfer miss,
     ThermoML has AGENT_VALIDATED RESULT-0026 plus failed-family RESULT-0028,
-    Materials MD-0002 release-integrity wording is settled, and FRB has an
-    activated TASK-0964 -> TASK-0965 freeze/registration chain after TASK-0963.
+    Materials MD-0002 release-integrity wording is settled, and FRB has a
+    frozen TASK-0964 exposure-only model surface after TASK-0963, leaving
+    TASK-0965 as the next sealed-registration step.
     Sync the durable pages without changing task views or scientific artifacts.
 
 requirements:
   - "Update only durable public or human-facing campaign/status/mission/profile wording that is stale after the result wave."
-  - "Represent TASK-0964 and TASK-0965 as FRB freeze/registration preparation only, with no result, claim, or success wording before reveal."
+  - "Represent TASK-0964 as a frozen exposure-only model surface and TASK-0965 as sealed-registration preparation, with no result, claim, prediction entry, or success wording before reveal."
   - "Keep Exoplanet on Gate-B-safe workflow repair/fair-null transparency; do not reopen residual scoring without a source-version or coverage trigger."
   - "Keep Quantum RESULT-0029 as bounded inconclusive/control memory; do not invite reruns on the same ZnSe/InP surface."
   - "Keep ThermoML RESULT-0026 and RESULT-0028 paired; expansion remains source-access/revised-contract gated."
