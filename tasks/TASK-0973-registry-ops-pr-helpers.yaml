@@ -8,7 +8,7 @@ priority: medium
 
 strategy_alignment:
   - "First slice of the registry/ split from the 2026-07-09 architecture audit: registry/ is ~64 modules / ~19.7k LOC, ~75% of which is PR/review/mission/closeout OPS automation rather than scientific-memory artifact load/validate/index (AGENTS.md still documents registry/ as only 4 modules)."
-  - "Introduces the new physics_lab/ops/ layer with its lowest-blast-radius tenant: the four pure PR-helper modules, which no SCIENCE module and no other registry module imports. Dependency direction stays one-way (ops -> registry)."
+  - "Introduces physics_lab/ops/ as a fresh ops layer, starting with its lowest-blast-radius tenant: the four pure PR-helper modules, which no SCIENCE module and no other registry module imports. Dependency direction stays one-way (ops -> registry)."
   - "Deliberately minimal: only the 4 leaf PR helpers move; agent_run_pr (re-exported in registry/__init__) and the larger review/mission/campaign clusters are later slices, each its own PR. AGENTS.md is updated only after the final slice."
 
 input:
@@ -36,7 +36,7 @@ requirements:
   - "ruff clean; the 4 moved modules' tests, the full fast suite, and strict validation all green; the 4 relocated scripts still resolve via --help."
 
 accepted_outputs:
-  - "The new physics_lab/ops/ package (2 __init__ files), the 4 moved modules, and the 8 updated importer files, plus this task file."
+  - "The physics_lab/ops/ package (2 fresh __init__ files), the 4 moved modules, and the 8 updated importer files, plus this task file."
   - "Output-routing summary: structural refactor slice; no scientific artifact, claim, or result change; staged follow-up slices sketched for the maintainer."
 
 result_artifact_policy:
