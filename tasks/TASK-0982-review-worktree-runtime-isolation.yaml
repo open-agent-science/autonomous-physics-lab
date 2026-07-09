@@ -1,0 +1,56 @@
+id: TASK-0982
+title: "Isolate maintainer-review validation from stale editable installs"
+type: tooling_fix
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Addresses the follow-up from the closeout-policy guard review: review PR worktrees can reuse a shared repository .venv whose editable install resolves physics_lab from another checkout."
+  - "Prevents false BLOCKED maintainer-review verdicts for PRs that change schema or repository runtime code."
+  - "Keeps the fix non-mutating: validation imports the PR worktree first without reinstalling or rewriting the shared .venv."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_git.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    Make maintainer-review validation subprocesses resolve repository modules
+    from the worktree being reviewed, even when the selected interpreter comes
+    from a shared main-checkout .venv with a stale editable install.
+
+requirements:
+  - "Do not mutate the selected shared .venv or run pip install during review."
+  - "Keep dependency resolution through the selected validation interpreter."
+  - "Force repository imports in validation subprocesses to prefer the reviewed worktree over stale editable-install paths."
+  - "Cover the behavior with a regression test that proves the review root is first on PYTHONPATH."
+  - "Do not change scientific artifacts, claims, results, predictions, or knowledge."
+
+accepted_outputs:
+  - "Maintainer-review validation subprocesses receive an environment that puts the review root first on PYTHONPATH."
+  - "Subprocess helper supports a caller-provided environment mapping."
+  - "Regression test for PYTHONPATH ordering in task validation."
+  - "Output-routing summary: maintainer-review tooling hardening; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer-review tooling fix; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_git.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py physics_lab/registry/review_git.py tests/test_maintainer_review.py"
+    - "python3 -m pytest tests/test_maintainer_review.py -k run_task_validation"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
