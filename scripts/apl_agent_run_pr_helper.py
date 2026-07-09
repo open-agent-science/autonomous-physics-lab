@@ -13,7 +13,7 @@ if str(REPO_ROOT) not in sys.path:
 
 
 def _load_helper():
-    from physics_lab.registry.agent_run_pr import build_agent_run_pr_context
+    from physics_lab.ops.pr_helpers.agent_run_pr import build_agent_run_pr_context
 
     return build_agent_run_pr_context
 

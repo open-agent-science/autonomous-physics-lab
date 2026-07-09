@@ -1,0 +1,58 @@
+id: TASK-1003
+title: "Split registry god-package (slice 2): move agent_run_pr into ops and drop its registry re-export"
+type: code_quality_refactor
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Second slice of the registry/ split from the 2026-07-09 architecture audit (slice 1 = TASK-0973, merged: PR helpers -> physics_lab/ops/pr_helpers)."
+  - "Moves the remaining PR-context helper (agent_run_pr) into physics_lab/ops/pr_helpers and removes its build_agent_run_pr_context re-export from registry/__init__, so the registry public surface stops advertising an OPS symbol alongside the scientific-memory loaders."
+  - "Kept deliberately narrow and separate from slice 1 because it touches the public registry/__init__ __all__; the review/mission/campaign clusters remain later slices, each its own PR."
+
+input:
+  mode: workflow
+  related_domain: repository_architecture
+  related_objects:
+    - "physics_lab/ops/pr_helpers/agent_run_pr.py"
+    - "physics_lab/registry/__init__.py"
+    - "scripts/apl_agent_run_pr_helper.py"
+  planning_context: >
+    Move physics_lab/registry/agent_run_pr.py to
+    physics_lab/ops/pr_helpers/agent_run_pr.py (basename preserved), remove the
+    build_agent_run_pr_context import and __all__ entry from
+    physics_lab/registry/__init__.py, and update the two direct importers
+    (scripts/apl_agent_run_pr_helper.py, tests/test_agent_run_pr_helper.py).
+    No code in the repo imported the re-exported symbol via
+    `from physics_lab.registry import build_agent_run_pr_context` (verified by
+    grep), so dropping the re-export breaks nothing. The moved module keeps its
+    downward imports of registry loaders (agent_runs, research_proposals),
+    preserving the one-way ops -> registry direction.
+
+requirements:
+  - "Move only agent_run_pr; keep its downward registry imports (ops -> registry direction, no back-edge, no cycle)."
+  - "Remove build_agent_run_pr_context from registry/__init__ import block and __all__; confirm no code imports it via the registry re-export form."
+  - "Update the 2 direct importers so no stale physics_lab.registry.agent_run_pr path remains; no back-compat shim."
+  - "ruff clean; the agent_run_pr test, the full fast suite, and strict validation green; the relocated script resolves via --help."
+
+accepted_outputs:
+  - "The moved module, the trimmed registry/__init__, the 2 updated importers, and this task file."
+  - "Output-routing summary: structural refactor slice 2; no scientific artifact, claim, or result change; remaining slices sketched for the maintainer."
+
+result_artifact_policy:
+  required: false
+  reason: "Code-quality/package-structure refactor; no scientific RESULT or PRED artifact. Behavior is proven unchanged by the moved module's existing tests and the full fast suite."
+  evidence:
+    - "physics_lab/ops/pr_helpers/agent_run_pr.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/ops/pr_helpers/agent_run_pr.py physics_lab/registry/__init__.py scripts/apl_agent_run_pr_helper.py tests/test_agent_run_pr_helper.py"
+    - "python3 -m pytest tests/test_agent_run_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
