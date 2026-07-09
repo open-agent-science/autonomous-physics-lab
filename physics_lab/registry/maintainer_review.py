@@ -738,6 +738,10 @@ def _validation_subprocess_env(root: Path) -> dict[str, str]:
     forcing repository modules to resolve from the target worktree.
     """
     env = dict(os.environ)
+    # Validation commands execute code from the reviewed PR. They should not
+    # inherit GitHub write tokens from automation that only need them for gh.
+    env.pop("GH_TOKEN", None)
+    env.pop("GITHUB_TOKEN", None)
     root_entry = str(root)
     current = env.get("PYTHONPATH")
     if not current:
