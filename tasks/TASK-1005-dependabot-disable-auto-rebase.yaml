@@ -1,0 +1,53 @@
+id: TASK-1005
+title: "Disable Dependabot auto-rebase to cut CI churn"
+type: ci_optimization
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Cuts self-hosted CI churn: with strict required status checks on main, every push to main made Dependabot auto-rebase all open dependency PRs and re-run full CI (2026-07-09 audit: 118 PR CI runs in one day, 30 cancelled)."
+  - "Keeps dependency PRs mergeable: the branch is updated once, right before its merge slot, via gh pr update-branch or an @dependabot rebase comment."
+  - "Leaves the weekly grouped update schedule, SHA-pin bumping, and branch-protection check names untouched."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/dependabot.yml"
+  planning_context: >
+    The main ruleset uses strict required status checks, so open PRs must be
+    up to date with main before merging. Dependabot's default rebase-strategy
+    is auto, meaning every push to main (merges plus post-merge board-sync
+    commits) triggered an automatic rebase of all open Dependabot PRs and a
+    fresh full CI run for each. Setting rebase-strategy to disabled on both
+    update blocks stops the automatic rebases; the branch is brought up to
+    date once, deliberately, right before merge.
+
+requirements:
+  - "Add rebase-strategy: disabled to both the github-actions and pip update blocks in .github/dependabot.yml."
+  - "Extend the header comment to explain why auto-rebase is disabled and how a branch gets updated before merge."
+  - "Do not change the weekly schedule, PR grouping, commit-message prefixes, or any workflow files."
+  - "Do not change scientific artifacts, tasks unrelated to TASK-1005, results, claims, predictions, or knowledge."
+
+accepted_outputs:
+  - ".github/dependabot.yml sets rebase-strategy: disabled on both update blocks and documents the rationale in the header comment."
+  - "Dependabot no longer auto-rebases open PRs on every push to main; branches are updated on demand via gh pr update-branch or an @dependabot rebase comment."
+  - "Output-routing summary: CI optimization; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "CI optimization task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - ".github/dependabot.yml"
+
+validation:
+  commands:
+    - "python3 -c \"import yaml,io; yaml.safe_load(io.open('.github/dependabot.yml', encoding='utf-8'))\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

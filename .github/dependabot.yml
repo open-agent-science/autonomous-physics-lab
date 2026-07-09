@@ -13,6 +13,13 @@
 #
 # Grouped so each ecosystem produces one consolidated PR per weekly run
 # instead of one PR per dependency.
+#
+# rebase-strategy is "disabled" because the main ruleset uses strict required
+# status checks: every push to main (merges plus post-merge board-sync commits)
+# made Dependabot auto-rebase all its open PRs, re-running full CI each time
+# (2026-07-09 audit: 118 PR CI runs in one day, 30 cancelled). With "disabled",
+# the branch is updated once, right before its merge slot, via
+# `gh pr update-branch` or an "@dependabot rebase" comment.
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -25,6 +32,7 @@ updates:
           - "*"
     commit-message:
       prefix: "chore(ci)"
+    rebase-strategy: "disabled"
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -36,3 +44,4 @@ updates:
           - "*"
     commit-message:
       prefix: "chore(deps)"
+    rebase-strategy: "disabled"
