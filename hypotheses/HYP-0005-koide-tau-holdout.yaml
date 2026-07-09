@@ -1,7 +1,7 @@
 id: HYP-0005
 title: "Exact Koide assumption predicts tau mass close to the measured charged-lepton value"
 domain: particle_physics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: "Using only electron and muon pole masses plus the exact Koide assumption predicts a tau mass numerically close to the measured charged-lepton value."
@@ -31,4 +31,4 @@ evidence:
   results:
     - RESULT-0006
 
-verdict: "Testing a charged-lepton tau holdout benchmark under the exact Koide assumption."
+verdict: "RESULT-0006 records the charged-lepton tau holdout as valid in the configured benchmark range under the exact Koide assumption. This is a scoped numerical holdout, not a mass-generation claim."

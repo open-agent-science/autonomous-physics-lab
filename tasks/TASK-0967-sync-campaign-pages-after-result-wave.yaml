@@ -1,0 +1,70 @@
+id: TASK-0967
+title: "Sync campaign pages after the July result wave"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "After the July 8-9 agent result wave and closeout sweep, several durable public and human-facing campaign surfaces lagged the canonical result/task state."
+  - "Keeping existing campaign pages, mission pages, and campaign profiles current prevents agents from cycling into closed audits or overstating preparation work as results."
+  - "This is a documentation/profile synchronization task only; it must not create filler tasks, new generated boards, or scientific claims."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "campaign_profiles/*.yaml"
+    - "docs/campaigns/*.md"
+    - "docs/current-missions.md"
+    - "docs/mission-control.md"
+    - "docs/status.md"
+    - "docs/strategy.md"
+    - "missions/current.yaml"
+  planning_context: >
+    The latest merged work changed the durable posture of several campaigns:
+    Exoplanet RESULT-0027 is AGENT_PUBLISHED negative/control memory, Quantum
+    RESULT-0029 packages the strict ZnSe/InP no-refit transfer miss,
+    ThermoML has AGENT_VALIDATED RESULT-0026 plus failed-family RESULT-0028,
+    Materials MD-0002 release-integrity wording is settled, and FRB has a
+    frozen TASK-0964 exposure-only model surface after TASK-0963, leaving
+    TASK-0965 as the next sealed-registration step.
+    Sync the durable pages without changing task views or scientific artifacts.
+
+requirements:
+  - "Update only durable public or human-facing campaign/status/mission/profile wording that is stale after the result wave."
+  - "Represent TASK-0964 as a frozen exposure-only model surface and TASK-0965 as sealed-registration preparation, with no result, claim, prediction entry, or success wording before reveal."
+  - "Keep Exoplanet on Gate-B-safe workflow repair/fair-null transparency; do not reopen residual scoring without a source-version or coverage trigger."
+  - "Keep Quantum RESULT-0029 as bounded inconclusive/control memory; do not invite reruns on the same ZnSe/InP surface."
+  - "Keep ThermoML RESULT-0026 and RESULT-0028 paired; expansion remains source-access/revised-contract gated."
+  - "Do not edit RESULT/PRED/CLAIM/KNOW artifacts, task views, generated digest/status pages, or internal agent-only routing dumps."
+  - "Stop rather than update a page if the change would require deciding a maintainer-gated scientific status, claim promotion, prediction registration, or result mutation."
+  - "Stop rather than create a new task if the only purpose is queue size or generic status bookkeeping."
+
+accepted_outputs:
+  - "Targeted updates to campaign profiles and durable campaign/status/mission/strategy pages that reflect the latest canonical result wave."
+  - "Regenerated campaign_profiles/_catalog.yaml if campaign profile YAML changes."
+  - "PR summary that names the surfaces refreshed and states that no scientific artifacts, task views, or task-status transitions were changed outside this task."
+  - "Output-routing summary: docs/profile synchronization only; no RESULT/PRED/CLAIM/KNOW mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Campaign page/profile synchronization only; no scientific result artifact is produced."
+  evidence:
+    - "campaign_profiles/_catalog.yaml"
+    - "docs/campaigns/public-science-dashboard.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 scripts/apl_check_mission_drift.py"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

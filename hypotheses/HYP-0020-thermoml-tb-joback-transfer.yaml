@@ -1,7 +1,7 @@
 id: HYP-0020
 title: "Frozen Joback Tb estimator shows bounded transfer support on the 40-row ThermoML family-stratified audit fixture"
 domain: thermophysical_property_estimation
-status: TESTING
+status: PARTIALLY_VALID
 
 hypothesis:
   statement: >
@@ -44,7 +44,7 @@ evidence:
     - RESULT-0028
 
 verdict: >
-  Agent-published bounded evidence indicates transfer support in scope: Joback MAE
-  is 14.925825 K versus 43.427943 K for the best non-oracle aggregate control,
-  and 7 of 8 held-out families clear the predeclared 5 K margin. Esters/lactones
-  is the explicit failed-family limitation, and no CLAIM or KNOW promotion is proposed.
+  RESULT-0026 is AGENT_VALIDATED and VALID_IN_RANGE for the bounded 40-row
+  ThermoML Tb transfer, while RESULT-0028 records an INVALID esters/lactones
+  failed-family negative/control memory. Ledger status is PARTIALLY_VALID:
+  aggregate transfer support with a visible family-dependent limitation.

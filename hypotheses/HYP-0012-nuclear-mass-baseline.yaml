@@ -1,7 +1,7 @@
 id: HYP-0012
 title: "A simple semi-empirical nuclear-mass baseline can capture coarse binding-energy structure while leaving interpretable shell residuals"
 domain: nuclear_physics
-status: TESTING
+status: PARTIALLY_VALID
 
 hypothesis:
   statement: >
@@ -44,4 +44,4 @@ evidence:
     - RESULT-0015
     - RESULT-0018
 
-verdict: "The benchmark is designed to characterize coarse baseline fit quality, shell-closure residual concentration, and pairing-sensitive subset diagnostics on the pinned slice."
+verdict: "RESULT-0015 returned PARTIALLY_VALID for the coarse nuclear-mass baseline, while RESULT-0018 preserves an INCONCLUSIVE diagnostic boundary. Ledger status is PARTIALLY_VALID: useful coarse structure exists, but prediction-grade uncertainty remains unresolved."

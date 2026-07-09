@@ -8,7 +8,6 @@
 
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0961` - Run the one-shot scientific ledger hygiene batch: hypothesis outcomes, EXP-0019, knowledge entries for four domains (`docs_protocol`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0964` - Select and freeze the FRB repeater-propensity model on the pre-T feature surface (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
@@ -16,4 +15,5 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0964` - Select and freeze the FRB repeater-propensity model on the pre-T feature surface (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
+- `TASK-0967` - Sync campaign pages after the July result wave (`docs_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_quality`)

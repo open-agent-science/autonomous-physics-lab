@@ -1,7 +1,7 @@
 id: HYP-0018
 title: "The frozen NMD-0003 GP residual correction can improve retrospective post-AME2020 extrapolation accuracy under controls while leaving uncertainty calibration unresolved"
 domain: nuclear_physics
-status: TESTING
+status: PARTIALLY_VALID
 
 hypothesis:
   statement: >
@@ -41,4 +41,4 @@ evidence:
   results:
     - RESULT-0025
 
-verdict: "Retrospective extrapolation accuracy survives the predeclared controls, but predictive uncertainty remains heavy-tailed/miscalibrated; no claim, knowledge, or prediction-freeze promotion follows from this hypothesis."
+verdict: "RESULT-0025 is AGENT_VALIDATED and PARTIALLY_VALID: retrospective extrapolation accuracy survives the predeclared controls, but predictive uncertainty remains heavy-tailed/miscalibrated. No claim, knowledge, or prediction-freeze promotion follows from this hypothesis."
