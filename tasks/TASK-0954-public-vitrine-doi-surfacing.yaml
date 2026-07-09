@@ -1,7 +1,7 @@
 id: TASK-0954
 title: "Surface the DOI on the public vitrine: README cite section, CITATION.cff identifiers, v0.2 release pack, status/roadmap sync, reviewer-guide replay path"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
