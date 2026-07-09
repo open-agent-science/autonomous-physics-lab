@@ -1,0 +1,61 @@
+proposal_id: 20260709-akutenyov-nuclear-shell-axis-source-manifest-scout
+title: Nuclear shell-axis post-registration source manifest scout
+status: PROPOSED
+type: scientific_dataset
+priority: high
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+strategy_alignment:
+- Resolve the source-gate blocker that prevents honest reveal scoring of the frozen shell-axis
+  mini-wave.
+- Keep source acquisition, no-peek audit, and reveal scoring separated so the prospective
+  registry remains clean.
+- Preserve negative/no-score outcomes as useful campaign memory rather than filling gaps from
+  unpinned sources.
+summary: Propose a source-manifest scout to find and pin a post-registration nuclear-mass
+  source for the shell-axis mini-wave after TASK-0305 stopped at BLOCKED_SOURCE_NOT_PINNED.
+rationale: 'TASK-0305 PR #1463 preserved a protocol-safe no-score outcome: D2-5 allowed the
+  reveal attempt, but the repository still has only a source-manifest template and the TASK-0307
+  negative source-manifest review. A future reveal needs a separate source-manifest lane before
+  any MAE/RMSE scoring is legitimate.'
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+  - TASK-0305
+  - docs/reviews/maintainer-decision-day-2026-07-06.md
+  - docs/reviews/nuclear-shell-axis-reveal-source-manifest-review.md
+  - data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml
+  - docs/nuclear-prediction-reveal-protocol.md
+  - docs/nuclear-reveal-source-readiness-checklist.md
+  planning_context: 'This is proposal-only follow-up to TASK-0305 / PR #1463. The future canonical
+    task should perform metadata-only source scouting and source pinning for PRED-0063..PRED-0068
+    without reading, copying, or scoring target mass values before source manifest and no-peek
+    gates are satisfied.'
+requirements:
+- 'Search only for source-level metadata first: source title, issuing body, release date,
+  DOI/URL/archive locator, license/reuse terms, and source class.'
+- Source must postdate the PRED-0063..PRED-0068 registration boundary of 2026-05-20T00:00:00Z
+  or explicitly report SOURCE_PREDATES_REGISTRATION.
+- Do not inspect, transcribe, normalize, or commit target mass_excess values for V-70, Mn-75,
+  Co-77, Cu-81, Ag-129, Cd-130, Sb-135, or Cs-139 before the source manifest and no-peek gates
+  are reviewed.
+- Prepare a concrete source manifest only if source pinning can be done without weakening
+  the no-peek boundary; otherwise write a blocker review.
+- Record archive policy, checksum plan or checksum values, measured/non-measured row semantics,
+  target matching rules, and no-peek audit requirements before any reveal scoring task is
+  opened.
+- Do not modify PRED-0063..PRED-0068, do not compute MAE/RMSE, and do not create RESULT/CLAIM/KNOW
+  artifacts in the source-manifest scout.
+accepted_outputs:
+- tasks/TASK-XXXX-<slug>.yaml if maintainer accepts the proposal
+- future source-manifest scout review note under docs/reviews/
+- data/nuclear_masses/shell_axis_reveal_source_manifest_<source-id>.yaml only if a source
+  can be pinned without target-value exposure
+- explicit readiness verdict such as READY_FOR_REVEAL_TASK, BLOCKED_SOURCE_NOT_PINNED, BLOCKED_VALUE_SEMANTICS,
+  BLOCKED_NO_PEEK_AUDIT, or INCONCLUSIVE_ZERO_ELIGIBLE_TARGETS
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
