@@ -71,6 +71,13 @@ def test_closeout_sweep_script_help_smoke() -> None:
     assert "--merged-limit" in result.stdout
 
 
+def test_closeout_sweep_script_has_runtime_guard() -> None:
+    text = (REPO_ROOT / "scripts" / "apl_closeout_sweep.py").read_text(encoding="utf-8")
+
+    assert "from physics_lab._runtime import enforce as _enforce_python_runtime" in text
+    assert "_enforce_python_runtime()" in text
+
+
 def test_coverage_report_script_help_smoke() -> None:
     result = _run_help("scripts/apl_coverage_report.py")
 
