@@ -1,7 +1,7 @@
 id: TASK-0987
 title: "Replay Quantum RESULT-0029 without changing the no-refit transfer contract"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -31,7 +31,7 @@ requirements:
   - "Do not rerun the transfer with altered thresholds, add correction terms, change rows, or claim a quantum-size law."
 
 accepted_outputs:
-  - "A docs/reviews Gate B replay note and any permitted RESULT-0029 metadata update only if replay passes."
+  - "A docs/reviews/quantum/ Gate B replay note and any permitted RESULT-0029 metadata update only if replay passes."
   - "Output-routing summary: replay validation only; no claim impact."
 
 result_artifact_policy:
