@@ -1,7 +1,7 @@
 id: TASK-0985
 title: "Replay ThermoML RESULT-0028 through a Gate-B-safe workflow"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
