@@ -1,0 +1,50 @@
+id: TASK-1017
+title: "Fail fast when closeout sweep runs on unsupported Python"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "The closeout sweep helper mutates task status during maintainer closeout, so it must fail before applying changes when invoked with an unsupported local Python."
+  - "A local macOS `python3` 3.9 run reached apply mode and crashed only after status edits; the helper should use the repository-wide Python 3.11+ runtime guard instead."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "scripts/apl_closeout_sweep.py"
+    - "physics_lab/_runtime.py"
+    - "tests/test_critical_path_script_entrypoints.py"
+  planning_context: >
+    Add the central APL runtime guard to the closeout sweep CLI so unsupported
+    interpreters stop before report/apply logic runs. Preserve the existing
+    closeout sweep behavior under supported Python.
+
+requirements:
+  - "Import and call the central runtime guard before the closeout sweep helper builds reports or applies task-status mutations."
+  - "Add a regression test that the closeout sweep script remains guarded."
+  - "Do not change closeout candidate selection, task status semantics, merge-queue behavior, or scientific artifacts."
+
+accepted_outputs:
+  - "Runtime guard in `scripts/apl_closeout_sweep.py`."
+  - "Regression test coverage in `tests/test_critical_path_script_entrypoints.py`."
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling fix only; no scientific RESULT or PRED artifact is produced."
+  evidence:
+    - "scripts/apl_closeout_sweep.py"
+    - "tests/test_critical_path_script_entrypoints.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_critical_path_script_entrypoints.py tests/test_runtime_guard.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
