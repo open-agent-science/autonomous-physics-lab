@@ -49,7 +49,7 @@ def _stable_digest(payload: Any) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def test_frb_pack_is_staged_not_registered_and_decision_stub_is_class_2() -> None:
+def test_frb_pack_is_staged_and_decision_record_is_class_2_go_register() -> None:
     pack = _load_yaml(PACK_FILE)
     decision = _load_yaml(DECISION_FILE)
 
@@ -68,10 +68,15 @@ def test_frb_pack_is_staged_not_registered_and_decision_stub_is_class_2() -> Non
     assert decision["decision_type"] == "prediction_freeze"
     assert decision["autonomy_class"] == "class_2_maintainer_only"
     assert decision["prepared_registration_pack"]["sha256"] == _sha256_file(PACK_FILE)
-    assert decision["approval_boundary"]["registration_not_executed_by_this_stub"] is True
-    assert decision["artifact_impact"]["prediction_change"] is False
+    assert decision["approval_boundary"]["registration_not_executed_by_this_stub"] is False
+    assert decision["approval_boundary"]["approval_satisfied_for_task_0996"] is True
+    assert decision["artifact_impact"]["prediction_change"] is True
     assert decision["artifact_impact"]["external_publication"] is False
-    assert decision["decision_record"]["status"] == "dry_run_only"
+    assert decision["decision_record"]["status"] == "go_register_approved"
+    assert decision["decision_record"]["selected_option"] == "GO_REGISTER"
+    assert decision["decision_record"]["registered_prediction_path"] == (
+        "prediction_registry/radio_transients/PRED-0001.yaml"
+    )
 
 
 def test_frb_pack_source_freeze_matches_task_0964_surface() -> None:
@@ -174,5 +179,9 @@ def test_frb_pack_helper_reproduces_committed_artifacts(tmp_path: Path) -> None:
     )
 
     assert tmp_pack.read_bytes() == PACK_FILE.read_bytes()
-    assert tmp_decision.read_bytes() == DECISION_FILE.read_bytes()
+    generated_decision = _load_yaml(tmp_decision)
+    committed_decision = _load_yaml(DECISION_FILE)
+    assert generated_decision["decision_record"]["status"] == "dry_run_only"
+    assert committed_decision["decision_record"]["status"] == "go_register_approved"
+    assert committed_decision["prepared_registration_pack"]["sha256"] == _sha256_file(PACK_FILE)
     assert tmp_note.read_bytes() == (ROOT / "docs/reviews/frb-sealed-prediction-registration-pack.md").read_bytes()

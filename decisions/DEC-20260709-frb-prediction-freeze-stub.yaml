@@ -6,7 +6,7 @@ external_exposure: planned_after_approval
 artifact_impact:
   result_status_change: false
   claim_status_change: false
-  prediction_change: false
+  prediction_change: true
   knowledge_change: false
   external_publication: false
 recommended_action: approve_frb_sealed_prediction_registration_after_maintainer_review
@@ -15,7 +15,7 @@ prepared_registration_pack:
   path: data/radio_transients/frb_sealed_prediction_registration_pack.yaml
   sha256: 0b64202b9bf8ccd37bf23bd4304e374bc10baf17f09498ad5635725eccca75e5
   pack_id: FRB-PRET-PRED-REGPACK-0001
-  status: prepared_pending_maintainer_prediction_freeze
+  status: approved_go_register
 basis:
 - TASK-0965 prepares the registration pack after TASK-0964 merged.
 - TASK-0964 froze an exposure-only model surface with label_contact=false and no reveal labels read.
@@ -25,8 +25,9 @@ basis:
 approval_boundary:
   approval_required_before_prediction_registry_write: true
   approval_required_before_external_anchor: true
-  registration_not_executed_by_this_stub: true
+  registration_not_executed_by_this_stub: false
   no_claim_or_success_verdict: true
+  approval_satisfied_for_task_0996: true
 agent_quorum:
   executor_agent:
     vote: prepare_only
@@ -47,6 +48,24 @@ veto:
   maintainer_vetoed: false
 decision_record:
   decided_by: maintainer
-  applied_by: pending
-  status: dry_run_only
+  applied_by: codex
+  status: go_register_approved
+  selected_option: GO_REGISTER
+  approved_at_utc: '2026-07-10T21:00:36Z'
+  approval_context: 'Codex conversation, 2026-07-10: maintainer selected GO_REGISTER for FRB.'
+  decision_packet: docs/reviews/frb/frb-register-or-hold-decision-packet.md
+  approved_freeze_commit: 83eca7501aea3e4f9869324b5ec2cd722fd7e676
+  approved_pack_sha256: 0b64202b9bf8ccd37bf23bd4304e374bc10baf17f09498ad5635725eccca75e5
+  approved_target_payload_sha256: b4b26d63b53866644332a7ffb325db30ba5f9ec5ced90833e9a4dc4d393ae2bf
+  frozen_source_count: 479
+  prediction_scope: point_score_and_rank_only
+  no_uncertainty_claim: true
+  no_frb_population_claim: true
+  no_morphology_claim: true
+  registered_prediction_path: prediction_registry/radio_transients/PRED-0001.yaml
+  registered_prediction_sha256: 442323fe63c1170fecae042e3f5612c1177069e74a39632e92c37fa04f7f3c80
+  external_anchor_status: planned_after_merge
+  final_capsule_manifest_members: 9
+  final_capsule_manifest_source: approved_registration_pack_capsule_manifest
+  historical_dry_run_capsule_members: 11
   revert_of: null

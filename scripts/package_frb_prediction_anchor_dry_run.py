@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """Build the deterministic FRB prediction-freeze anchor dry-run capsule.
 
-This TASK-0994 helper prepares the local archive shape that a maintainer could
-reuse after a Class 2 FRB prediction-freeze approval. It writes only to an
-explicit output directory, verifies committed allowlist pins, generates a staged
-draft PRED payload from the TASK-0965 pack, and does not create tags, releases,
-DOIs, registry entries, results, claims, or knowledge artifacts.
+This TASK-0994 helper prepares the pre-approval local archive shape that a
+maintainer could audit before a Class 2 FRB prediction-freeze approval. It
+writes only to an explicit output directory, verifies committed allowlist pins,
+generates a staged draft PRED payload from the TASK-0965 pack, and does not
+create tags, releases, DOIs, registry entries, results, claims, or knowledge
+artifacts.
+
+After TASK-0996 records a real GO_REGISTER decision, this dry-run helper is
+historical and is expected to refuse rebuilding against the approved decision
+record. Use scripts/register_frb_prediction_freeze.py for the registered
+non-dry-run anchor checksum path.
 """
 
 from __future__ import annotations
@@ -160,6 +166,15 @@ def verify_package_files(
         actual_size = path.stat().st_size
         actual_sha = sha256_file(path)
         if actual_size != entry.bytes or actual_sha != entry.sha256:
+            if entry.path == "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml":
+                decision = load_yaml(path)
+                record = decision.get("decision_record") or {}
+                if record.get("status") == "go_register_approved":
+                    raise ValueError(
+                        "TASK-0994 dry-run capsule is retired after TASK-0996 GO_REGISTER "
+                        "approval. Use scripts/register_frb_prediction_freeze.py for the "
+                        "registered non-dry-run anchor checksum path."
+                    )
             raise ValueError(
                 "Package file hash/size mismatch for "
                 f"{entry.path}: bytes={actual_size}, sha256={actual_sha}. "
