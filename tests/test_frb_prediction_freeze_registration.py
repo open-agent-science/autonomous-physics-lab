@@ -104,7 +104,9 @@ def test_frb_registration_note_records_final_nine_member_capsule() -> None:
     assert "Task verdict: `PRED_REGISTERED_AND_ANCHORED`" in note
     assert "approved registration pack's nine-path" in note
     assert "TASK-0994 dry-run capsule had eleven members" in note
-    assert "did not create a git tag" in note
+    assert "completed the GitHub Release" in note
+    assert "DOI status | `not_minted`" in note
+    assert "The external anchor does not change the registered PRED payload" in note
     for member in FINAL_CAPSULE_MEMBERS:
         assert f"`{member.path}`" in note
 
