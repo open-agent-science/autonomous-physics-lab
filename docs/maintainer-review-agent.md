@@ -421,6 +421,16 @@ This mode supports:
     publication; route the PR to metadata-only handling, explicit maintainer
     permission, or source-artifact correction. See
     `docs/published-source-dataset-standard.md`.
+    If a PR creates or records a git tag, GitHub Release, archive capsule,
+    Zenodo upload, DOI, or external citation surface, verify that it does not
+    conflate checksum anchoring with external publication rights. A GitHub
+    Release anchor does not by itself authorize Zenodo deposit, `Dataset`
+    framing, or blanket CC BY over mixed-source archives. For capsules with
+    source-derived rows, feature surfaces, model surfaces, scores/ranks, or
+    other value-bearing data, require either a per-file rights-reviewed full
+    capsule or a reduced metadata/pre-registration capsule with checksums for
+    excluded sealed members. Otherwise report `HOLD_FOR_RIGHTS_REVIEW` or an
+    equivalent publication blocker.
 21. Cross-platform compatibility (advisory): the PR does not introduce
     portability regressions for Linux/macOS/Windows agents — hardcoded `/tmp`,
     hardcoded `python3`, `HOME` reads, hardcoded `/` paths, `shell=True`, or a
