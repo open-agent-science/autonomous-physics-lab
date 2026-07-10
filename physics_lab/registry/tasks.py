@@ -5,9 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Literal
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml, load_yaml_mapping
 
 
 TaskInputMode = Literal["science_execution", "planning_only", "workflow"]
@@ -15,10 +14,7 @@ TaskInputMode = Literal["science_execution", "planning_only", "workflow"]
 
 def load_task(path: str | Path) -> dict[str, Any]:
     """Load and validate a task file."""
-    with Path(path).open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in task file: {path}")
+    data = load_yaml_mapping(path, expected="task file")
     return validate_document(data, kind="task", source=path)
 
 
@@ -31,8 +27,7 @@ def load_task_minimal(path: str | Path) -> dict[str, Any]:
     a non-empty string ``id``. All other fields are read as-is. Active tasks
     still go through the full :func:`load_task` schema validation.
     """
-    with Path(path).open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
+    data = load_yaml(path)
     task_id = data.get("id") if isinstance(data, dict) else None
     if not isinstance(task_id, str) or not task_id.strip():
         raise ValueError(

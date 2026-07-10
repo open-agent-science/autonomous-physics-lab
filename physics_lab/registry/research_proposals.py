@@ -5,9 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml_mapping
 
 SANDBOX_VERDICTS = {
     "SANDBOX_PASS",
@@ -22,11 +21,7 @@ BASELINE_MARKERS = ("baseline", "null", "random", "exact reference", "negative c
 
 
 def _load_yaml_mapping(path: str | Path) -> dict[str, Any]:
-    with Path(path).open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in research proposal file: {path}")
-    return data
+    return load_yaml_mapping(path, expected="research proposal file")
 
 
 def _as_text(value: Any) -> str:

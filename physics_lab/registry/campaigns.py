@@ -5,9 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import load_yaml_mapping
 
 
 CAMPAIGN_PORTFOLIO_INDEX_PATH = Path("campaign_profiles") / "_catalog.yaml"
@@ -21,10 +20,7 @@ def campaign_catalog_path(root: str | Path) -> Path:
 def load_campaign_catalog(path: str | Path) -> dict[str, Any]:
     """Load and validate the generated campaign portfolio index."""
     source = Path(path)
-    with source.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in campaign catalog: {path}")
+    data = load_yaml_mapping(source, expected="campaign catalog")
     catalog = validate_document(data, kind="campaign_catalog", source=source)
     _validate_unique_campaign_ids(catalog, source)
     return catalog

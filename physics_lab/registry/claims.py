@@ -5,9 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from physics_lab.registry.validation import validate_document
+from physics_lab.registry.yaml_io import safe_load_yaml
 
 
 def load_claim(path: str | Path) -> dict[str, Any]:
@@ -21,7 +20,7 @@ def load_claim(path: str | Path) -> dict[str, Any]:
     except ValueError as exc:
         raise ValueError(f"Claim file has invalid front matter delimiters: {path}") from exc
 
-    data = yaml.safe_load(front_matter)
+    data = safe_load_yaml(front_matter)
     if not isinstance(data, dict):
         raise ValueError(f"Expected mapping in claim front matter: {path}")
 
