@@ -1,0 +1,70 @@
+name: Auto Ready When Green
+
+"on":
+  workflow_run:
+    # Keep this value aligned with the top-level `name:` in ci.yml; GitHub
+    # silently stops emitting this trigger if the upstream workflow is renamed.
+    workflows: ["CI"]
+    types: [completed]
+  pull_request_target:
+    types: [labeled, reopened]
+
+permissions:
+  contents: read
+  checks: read
+  statuses: read
+  pull-requests: write
+
+jobs:
+  auto-ready:
+    name: Auto-ready finish gate
+    if: >-
+      ${{
+        (
+          github.event_name == 'workflow_run' &&
+          github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.pull_requests[0].number != null
+        ) ||
+        (
+          github.event_name == 'pull_request_target' &&
+          github.event.action == 'labeled' &&
+          github.event.label.name == 'apl:auto-ready-when-green' &&
+          github.event.pull_request.draft == true &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        ) ||
+        (
+          github.event_name == 'pull_request_target' &&
+          github.event.action == 'reopened' &&
+          contains(github.event.pull_request.labels.*.name, 'apl:auto-ready-when-green') &&
+          github.event.pull_request.draft == true &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        )
+      }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout trusted base
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run opt-in auto-ready gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/apl_auto_ready_pr.py \
+            --event-path "$GITHUB_EVENT_PATH" \
+            --validation-timeout-seconds 300

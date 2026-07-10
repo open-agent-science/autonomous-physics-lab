@@ -42,6 +42,7 @@ from physics_lab.registry.maintainer_review import (
     run_task_validation,
     security_pattern_hits,
     sensitive_surface_hits,
+    _validation_subprocess_env,
 )
 from physics_lab.registry.review_checks import (
     load_claim_status_from_ref,
@@ -267,6 +268,20 @@ def test_run_command_normalizes_missing_output_before_diff_parsing(
     assert result.stdout == ""
     assert result.stderr == ""
     assert parse_added_lines(result.stdout) == ()
+
+
+def test_validation_subprocess_env_strips_github_tokens(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setenv("GH_TOKEN", "secret")
+    monkeypatch.setenv("GITHUB_TOKEN", "secret")
+
+    env = _validation_subprocess_env(tmp_path)
+
+    assert "GH_TOKEN" not in env
+    assert "GITHUB_TOKEN" not in env
+    assert env["PYTHONPATH"].split(os.pathsep)[0] == str(tmp_path)
 
 
 def test_branch_task_id_extracts_task_number() -> None:
