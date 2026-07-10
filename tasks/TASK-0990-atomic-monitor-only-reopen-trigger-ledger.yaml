@@ -1,7 +1,7 @@
 id: TASK-0990
 title: "Ratify Atomic monitor-only posture and publish reopen-trigger ledger"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: low
 priority: medium
@@ -31,7 +31,7 @@ requirements:
   - "Do not fetch or transcribe values, derive ratios, combine isotope axes, run metrics, or create RESULT/PRED/CLAIM/KNOW artifacts."
 
 accepted_outputs:
-  - "A concise docs/reviews trigger ledger and optional campaign-page pointer if public wording is stale."
+  - "A concise docs/reviews/atomic/ trigger ledger and optional campaign-page pointer if public wording is stale."
   - "Output-routing summary: source-trigger memory only; no data/result/claim mutation."
 
 result_artifact_policy:
