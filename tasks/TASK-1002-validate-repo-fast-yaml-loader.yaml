@@ -1,7 +1,7 @@
 id: TASK-1002
 title: "Speed up validate-repo YAML loading"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
