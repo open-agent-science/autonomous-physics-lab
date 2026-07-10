@@ -1,7 +1,7 @@
 id: TASK-1000
 title: "Add maintainer review queue anti-stall guardrails"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
