@@ -206,7 +206,12 @@ jobs:
 
   main-matrix:
     name: Python tests (main matrix)
-    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
+    # Post-merge redundancy net, not the merge gate: the merge queue already
+    # ran the full suite on this exact tree before it reached main. Default to
+    # free GitHub-hosted runners so per-merge main jobs stop consuming the two
+    # self-hosted slots that PR feedback depends on (2026-07-09: ~8 min of
+    # self-hosted time per merge). Set APL_MAIN_RUNNER_LABELS to opt back in.
+    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["ubuntu-latest"]') }}
     needs: classify
     if: github.event_name == 'push' && needs.classify.outputs.docs_task_only != 'true'
 
@@ -255,7 +260,9 @@ jobs:
 
   main-docs-task:
     name: Python docs/task push checks (3.12)
-    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
+    # Same reasoning as main-matrix: post-merge net on the docs/task fast
+    # lane; keep it off the self-hosted PR-feedback slots by default.
+    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["ubuntu-latest"]') }}
     needs: classify
     if: github.event_name == 'push' && needs.classify.outputs.docs_task_only == 'true'
 
