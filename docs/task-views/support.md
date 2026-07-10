@@ -7,6 +7,8 @@
 ## READY
 
 - `TASK-0960` - Enforce Gate-B-replayable commands at Gate A packaging time (`maintainer_tooling`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+- `TASK-1015` - Replay Quantum RESULT-0029 with an independent human contributor (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
+- `TASK-1016` - Bridge ThermoML RESULT-0028 onto a Gate-B-safe workflow (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
 
 ## IN_PROGRESS
 
