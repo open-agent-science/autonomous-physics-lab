@@ -1,0 +1,68 @@
+id: TASK-1007
+title: "Make CI merge_group-ready so a merge queue can be enabled"
+type: ci_optimization
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblocks enabling a GitHub merge queue on main, removing the merge-race window where squash merges silently drop un-synced commits."
+  - "Keeps the two required check contexts (Classify change set, Python fast tests (3.12)) byte-identical so branch protection needs no renaming."
+  - "Queue runs always execute the full merge-gate suite, and they run on disposable GitHub-hosted runners so a hypothetically enqueued fork PR can never put untrusted code on self-hosted infra."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/workflows/ci.yml"
+  planning_context: >
+    Branch protection requires the "Classify change set" and "Python fast
+    tests (3.12)" checks, but ci.yml only triggered on push and pull_request,
+    so a merge queue could never see those checks report and every queue
+    entry would time out. This task adds the merge_group trigger and routes
+    queue runs through the existing jobs: classify emits conservative
+    outputs (docs_task_only=false, full_repo_risk=true) because the
+    merge_group payload has no pull_request base/head to diff, and the
+    pull-request job's draft gates get an explicit merge_group branch:
+    github.event.pull_request is null on queue runs, and although GitHub
+    expression loose equality coerces null == false to true, the queue path
+    must stay intentional rather than coercion-dependent. The
+    workflow-level concurrency group
+    falls back to github.sha (unique per queue entry) and cancel-in-progress
+    is pull_request-only, so both are already merge_group-safe and unchanged.
+    Actually enabling the merge queue is a maintainer ruleset action on
+    github.com and is OUT of scope for this task.
+
+requirements:
+  - "Add merge_group to the workflow trigger set without altering push or pull_request behavior."
+  - "Keep the required check names/contexts exactly unchanged: job names, step names, and the single pull-request fast-tests job must not be renamed or split."
+  - "On merge_group events classify must emit docs_task_only=false and full_repo_risk=true so the queue never takes the docs-only fast lane."
+  - "The heavy merge-gate suite (Run full tests) and the full_repo smoke step must RUN on merge_group via an explicit event branch, not via null-coercion of the draft comparison."
+  - "merge_group runs execute on GitHub-hosted runners (the fork-guard expression's null pull_request context falls through to ubuntu-latest): even a maintainer-enqueued fork PR must never reach self-hosted infra; same-repo pull_request routing is unchanged."
+  - "Do not change the workflow concurrency group or cancel-in-progress unless broken; verify they are merge_group-safe (unique group per queue entry, no cancellation of queue runs)."
+  - "Enabling the merge queue itself is a maintainer-only ruleset action and is not part of this change."
+  - "Do not change scientific artifacts, results, claims, predictions, knowledge, or tasks unrelated to TASK-1007."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml triggers on merge_group and produces the two required checks (Classify change set, Python fast tests (3.12)) on queue runs."
+  - "classify short-circuits on merge_group with docs_task_only=false and full_repo_risk=true; pull_request and push diff-based classification is unchanged."
+  - "The pull-request job admits merge_group via contains(fromJSON(...), github.event_name), keeps queue runs on GitHub-hosted runners through the unchanged fork-guard expression, and its Run full tests plus full_repo smoke steps use the (merge_group || draft == false) pattern so the full merge gate runs in the queue."
+  - "Maintainer enablement note (out of scope for this PR): on the main ruleset enable 'Require merge queue', set merge method to merge commit, keep batches small (e.g. max 2), and keep the two existing required checks; no check renames are needed."
+  - "Output-routing summary: CI workflow change only; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "CI readiness task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - ".github/workflows/ci.yml"
+
+validation:
+  commands:
+    - "python3 -c \"import yaml,io; yaml.safe_load(io.open('.github/workflows/ci.yml', encoding='utf-8'))\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
