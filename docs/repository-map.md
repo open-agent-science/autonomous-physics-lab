@@ -34,6 +34,7 @@ artifact classes. Not every visible directory is an active work lane.
 | `experiments/` | Reviewed experiment definitions. |
 | `experiment_proposals/` | Campaign-scoped experiment proposal artifacts. |
 | `results/` | Canonical result packages and review-tier artifacts. |
+| `docs/reviews/` | Durable review memory: campaign decisions, source gates, result-promotion preflights, publication packets, and architecture reviews. Legacy flat-root files stay in place; new review notes should use `docs/reviews/<domain>/`. |
 | `claims/` | Claim records; claim promotion remains review-gated. |
 | `knowledge/` | Reusable reviewed knowledge notes. |
 | `prediction_registry/` | Pre-registered prediction artifacts awaiting reveal or scoring. |

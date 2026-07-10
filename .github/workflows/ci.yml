@@ -67,13 +67,21 @@ jobs:
           fi
           if git rev-parse --verify "$base_sha^{commit}" >/dev/null 2>&1 \
             && git rev-parse --verify "$head_sha^{commit}" >/dev/null 2>&1; then
+            diff_base="$base_sha"
+            diff_head="$head_sha"
             changed_files="$(git diff --name-only "$base_sha" "$head_sha")"
           else
+            diff_base="HEAD^"
+            diff_head="HEAD"
             changed_files="$(git diff --name-only HEAD^ HEAD)"
           fi
 
           echo "Changed files:"
           printf '%s\n' "$changed_files"
+
+          python3 scripts/check_docs_reviews_shard_policy.py \
+            --base "$diff_base" \
+            --head "$diff_head"
 
           if [[ -z "$changed_files" ]]; then
             echo "docs_task_only=false" >> "$GITHUB_OUTPUT"

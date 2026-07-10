@@ -12,6 +12,7 @@ from physics_lab.registry.campaign_curator import (
     build_campaign_scope_brief,
     campaign_brief_json,
     campaign_scope_brief_json,
+    _review_evidence,
     render_campaign_agent_prompt,
     render_campaign_brief,
 )
@@ -76,6 +77,19 @@ def test_campaign_curator_json_is_agent_readable() -> None:
         evidence["identifier"].startswith("AGENT-RUN-")
         for evidence in payload["recent_evidence"]
     )
+
+
+def test_campaign_curator_review_evidence_recurses_into_review_shards(
+    tmp_path: Path,
+) -> None:
+    review_dir = tmp_path / "docs" / "reviews" / "nuclear"
+    review_dir.mkdir(parents=True)
+    (review_dir / "nuclear-test-review.md").write_text("# Nuclear Review\n", encoding="utf-8")
+
+    evidence = _review_evidence(tmp_path, "nuclear-mass-surface")
+
+    assert evidence
+    assert evidence[0].path == "docs/reviews/nuclear/nuclear-test-review.md"
 
 
 def test_campaign_curator_scope_filters_by_primary_pool() -> None:

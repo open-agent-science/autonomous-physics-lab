@@ -42,7 +42,10 @@ context, not as competing protocol definitions.
    [./agent-task-claiming.md](./agent-task-claiming.md). The lightweight,
    GitHub-native claiming ledger prevents two agents from implementing the same
    `TASK-XXXX` or writing the same `agent_runs/`, `results/`, or
-   `docs/reviews/` path.
+   `docs/reviews/` path. Existing flat-root review files are grandfathered, but
+   new review notes should use a shard such as `docs/reviews/nuclear/`,
+   `docs/reviews/exoplanet/`, `docs/reviews/workflow/`, or another
+   topic-specific subfolder.
 
 When an executor agent reports "available tasks", it should list only
 `READY` tasks. `REVIEW_READY` tasks are not available executor work; they belong

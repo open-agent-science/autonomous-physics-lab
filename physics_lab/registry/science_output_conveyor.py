@@ -376,7 +376,7 @@ def _review_items(
     limit: int,
 ) -> tuple[ConveyorReviewItem, ...]:
     items: list[ConveyorReviewItem] = []
-    for path in sorted((root / "docs" / "reviews").glob("*.md")):
+    for path in sorted((root / "docs" / "reviews").rglob("*.md")):
         text = path.read_text(encoding="utf-8")
         matches = tuple(term for term in terms if term in text)
         if not matches:
