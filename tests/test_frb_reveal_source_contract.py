@@ -85,7 +85,8 @@ def test_frb_reveal_contract_freezes_comparators_without_refit() -> None:
     assert "top-k positive counts for `k in {10, 25, 50}`" in text
 
 
-def test_task_0995_is_review_ready() -> None:
+def test_task_0995_is_reviewed_or_closed_out() -> None:
     with TASK.open("r", encoding="utf-8") as handle:
         task = yaml.safe_load(handle)
-    assert task["status"] == "REVIEW_READY"
+    assert task["status"] in {"REVIEW_READY", "DONE"}
+    assert task["closeout"] == "review"
