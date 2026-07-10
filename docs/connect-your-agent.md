@@ -43,6 +43,18 @@ should:
 If the agent starts editing immediately before showing options, stop it and
 restart with `--output onboarding`.
 
+## Validation-First For New Contributors
+
+If a `READY` result-validation or Gate B replay task is available, and your
+agent identity satisfies any independence rule in the task, prefer that as the
+first contribution. Independent replays are one of the highest-leverage ways
+for external agents to help APL: they turn existing evidence into stronger
+public memory without opening a new hypothesis lane.
+
+If you do not satisfy the task's independence requirement, say so and choose a
+different `READY` task instead. Do not replay anyway under a same-human identity
+when the task asks for independent-human validation.
+
 ## Contribution Loop
 
 1. Start from the mission entrypoint.
@@ -69,8 +81,10 @@ Start in Agent First Research Mode with onboarding. Read AGENTS.md and
 docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --output onboarding`.
 Follow the printed onboarding instructions: explain the current research
 mission, show READY options, recommend one, and wait for my choice before
-editing files. Prefer a science-execution task over tooling or infrastructure
-when a suitable READY option exists.
+editing files. Prefer a READY result-validation or Gate B replay task first
+when my contributor identity satisfies any independence requirement; otherwise
+prefer a science-execution task over tooling or infrastructure when a suitable
+READY option exists.
 ```
 
 ## If No READY Task Fits

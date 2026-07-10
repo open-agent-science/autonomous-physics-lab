@@ -210,7 +210,7 @@ above). An artifact's verdict describes the evidence strength; its
 | Tier | Who set it | What it means | Trust qualifier required when citing |
 | --- | --- | --- | --- |
 | `AGENT_PUBLISHED` | An agent, on its own, after passing the **Result Publication Gate** (Gate A) | The agent assembled a canonical artifact, has populated the required `agent_proposal_evaluation` block, and has not bypassed any global forbidden rule. No second agent or maintainer has reviewed yet. | "Agent-published, not yet independently validated." |
-| `AGENT_VALIDATED` | A *different* agent that ran an independent replay and passed the **Independent Replay Gate** (Gate B). | The artifact has been deterministically reproduced by a second agent and the metrics match within tolerance (or any drift is explicitly documented). | "Agent-validated by independent replay; not yet maintainer-reviewed." |
+| `AGENT_VALIDATED` | A replaying agent passed the **Independent Replay Gate** / replay-validation Gate B, with the human-level relationship recorded in `validation_independence`. | The artifact has been deterministically reproduced and the metrics match within tolerance (or any drift is explicitly documented). | "Agent-validated by replay; validation_independence records whether this was independent-human, same-owner, same-account, or maintainer-self; not yet maintainer-reviewed." |
 | `MAINTAINER_REVIEWED` | The maintainer, after passing the **Claim Endorsement Gate** (Gate C) for the artifact. | Maintainer has signed off on both the status/verdict and the scope wording. For a CLAIM-* this is the only way to move beyond `DRAFT` in Phase 1. | None required beyond normal scope wording. |
 | `EXTERNAL_REPLICATED` | The maintainer, after recording an independent external replication (another lab, another contributor outside the standing agent pool, or a successful external reveal of a pre-registered prediction). | At least one independent party has re-derived the same result from primary sources. The replication record is committed. | None required beyond normal scope wording. |
 
@@ -338,12 +338,10 @@ maintainer still merges (see "PR Discipline" below), but the maintainer
 is no longer reviewing the scientific content; they are confirming the
 gates were applied.
 
-### Gate B — Independent Replay Gate (agent-to-agent, Phase 2)
+### Gate B — Independent Replay Gate / Replay Validation Gate (agent-to-agent, Phase 2)
 
-An *independent* agent (a different `agent_id`, or the same `agent_id`
-in a different session with no access to the original's intermediate
-state) may upgrade an `AGENT_PUBLISHED` artifact to `AGENT_VALIDATED`
-if and only if:
+A replaying agent may upgrade an `AGENT_PUBLISHED` artifact to
+`AGENT_VALIDATED` if and only if:
 
 1. **Same inputs** — the replay uses the exact `input_file_hashes` from
    the published artifact.
@@ -359,6 +357,16 @@ if and only if:
 5. **No protected-artifact rewrite** — the upgrade PR adds a
    `validation_record` and bumps `review_tier`; it does not edit
    metrics, verdict, or any other field.
+
+`AGENT_VALIDATED` means a deterministic replay gate passed. It does not by
+itself mean the replay was performed by an independent human. The
+`validation_independence` axis above records whether the replayer is
+`independent`, `same_owner_different_account`, `same_account_different_tool`,
+or `maintainer_self`. Public wording and any later claim/knowledge use must
+carry that qualifier. Only a replay whose strongest recorded
+`validation_independence` is `independent` should be described as an
+independent replay or used to satisfy a task that explicitly requires
+independent-human validation.
 
 Gate B review metadata is not part of the golden-result material hash.
 Changing `review_tier`, `agent_proposal_evaluation`, or replay bookkeeping

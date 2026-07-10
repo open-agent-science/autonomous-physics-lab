@@ -27,12 +27,13 @@ input:
 requirements:
   - "Summarize the exact blocker, required archive identity, rights boundary, and why live fetches are forbidden under the current task contract."
   - "Present maintainer options with risks: provide local archive, revise source-access contract, keep blocker, or choose a different source family."
+  - "If recommending REVISE_CONTRACT, specify a narrow contract: max rows, Tb-only property axis, per-row attribution, no raw/XML/JSON/archive bytes, no normalized ThermoML corpus, no external dataset DOI, covered_by_repo_license: false, and maintainer-only approval for any expansion beyond the bounded factual extract."
   - "Define what a future executable extraction task may and may not do under each option."
   - "Return exactly one recommendation: PROVIDE_ARCHIVE, REVISE_CONTRACT, KEEP_BLOCKED, or SELECT_NEW_SOURCE."
   - "Do not fetch ThermoML bytes, extract rows, run Joback metrics, alter fixtures, or create results/claims."
 
 accepted_outputs:
-  - "A docs/reviews decision packet with option table, recommended default, unblock checklist, and no-claim/source-rights wording."
+  - "A docs/reviews/thermoml/ decision packet with option table, recommended default, unblock checklist, narrow source-rights contract if applicable, and no-claim/source-rights wording."
   - "Output-routing summary: source-access decision packet only; no data/result mutation."
 
 result_artifact_policy:

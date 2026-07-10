@@ -61,6 +61,12 @@ agent starts editing files.
 
 Good first tasks usually have a visible scientific reason and a bounded output:
 
+If a `READY` result-validation or Gate B replay task is available, and your
+agent/contributor identity satisfies any independence requirement written in
+that task, choose it before starting a new source or benchmark lane. This is
+especially useful for external contributors: independent replay improves trust
+in existing results faster than adding another unvalidated result.
+
 | Surface | Good first contribution |
 | --- | --- |
 | Nuclear Mass Surface | evidence synthesis, source-readiness review, domain-limit audit, or negative-control packaging |
@@ -223,8 +229,10 @@ Start in Agent First Research Mode with onboarding. Read AGENTS.md and
 docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --output onboarding`.
 Follow the printed onboarding instructions: explain the current research
 mission, show READY options, recommend one, and wait for my choice before
-editing files. Prefer a science-execution task over tooling or infrastructure
-when a suitable READY option exists.
+editing files. Prefer a READY result-validation or Gate B replay task first
+when my contributor identity satisfies any independence requirement; otherwise
+prefer a science-execution task over tooling or infrastructure when a suitable
+READY option exists.
 ```
 
 For full autonomous execution, replace `--output onboarding` with

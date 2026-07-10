@@ -1029,11 +1029,13 @@ Start in Agent First Research Mode with onboarding.
 5. Recommended mission now: {mission_title}.
 6. Recommended action now: {action_label}{action_suffix}.
 7. Show 3-5 executable READY options with estimated time and difficulty.
-8. For onboarding, prefer recommending a simpler science-execution option first
-   when one is available: hypothesis testing, validation, sandbox runs, replay,
-   or audit. Prefer science-execution work over tooling, infrastructure, or
-   support tasks when a suitable READY science option exists. Treat this as
-   guidance, not a hard rule; the user may choose any listed option.
+8. For onboarding, prefer recommending result-validation work first when a
+   suitable READY replay/Gate-B task exists and the contributor satisfies any
+   independence requirement. Otherwise prefer a simpler science-execution
+   option: hypothesis testing, validation, sandbox runs, replay, or audit.
+   Prefer science-execution work over tooling, infrastructure, or support tasks
+   when a suitable READY science option exists. Treat this as guidance, not a
+   hard rule; the user may choose any listed option.
 9. Recommend one option, ask whether to start it, and wait for the user's choice.
 10. After the user chooses, follow `docs/agent-task-protocol.md` end-to-end:
     create the task branch or worktree, implement, validate, generate a review
