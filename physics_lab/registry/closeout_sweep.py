@@ -29,6 +29,10 @@ CONVENTIONAL_TASK_SUBJECT_PATTERN = re.compile(
 )
 PR_TITLE_TASK_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}):\s+.+$")
 CANONICAL_TASK_ID_PATTERN = re.compile(r"^TASK-[0-9]{4}$")
+# Keep this version-agnostic. The main push matrix is intentionally allowed to
+# be a single 3.11 floor leg because the 3.12 coverage lives in PR,
+# merge-queue, and nightly lanes. Closeout sweep only needs proof that the
+# main-matrix full-repo lane ran; do not restore a hard-coded 3.11+3.12 set.
 FULL_REPO_MAIN_MATRIX_JOB_PREFIX = "Python tests (main matrix) ("
 
 
@@ -429,6 +433,10 @@ def ci_run_has_full_repo_signal(jobs: object) -> bool:
         conclusion = str(job.get("conclusion") or "").lower()
         if conclusion in {"", "skipped"}:
             continue
+        # Any completed non-skipped matrix leg is a full-repo signal, including
+        # failure. The surrounding workflow conclusion is classified separately
+        # so a failed main-matrix run still blocks closeout as red instead of
+        # being skipped and hidden behind an older green run.
         return True
     return False
 
