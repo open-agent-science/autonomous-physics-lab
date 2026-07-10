@@ -345,6 +345,10 @@ def pr_head_ref_fallback_commands(
     """Return explicit fallback commands for PR metadata lookup failures."""
 
     task = task_id or "TASK-XXXX"
+    # Do not silently review the caller's current checkout when PR metadata is
+    # unavailable. The safe fallback is a pinned PR-head ref plus an explicit
+    # task id, so local uncommitted files or the wrong branch cannot masquerade
+    # as a reviewed PR.
     return (
         f"git fetch origin pull/{pull_request}/head:refs/remotes/origin/pr-{pull_request}",
         (
@@ -889,6 +893,10 @@ def _load_pr_metadata_from_list(
         cwd=root,
         timeout=60,
     )
+    # This fallback intentionally keeps a smaller field set than `gh pr view`:
+    # it can recover branch/head/check state when GraphQL `pr view` flakes, but
+    # it must not pretend to have full PR body/template or changed-file context.
+    # The review path below still requires a clean worktree before validation.
     if result.returncode != 0:
         return None
     try:
@@ -1008,6 +1016,9 @@ def prepare_clean_local_ref_worktree(root: Path, ref: str) -> CleanPrWorktree:
         )
     head_sha = rev_parse.stdout.strip().splitlines()[0].strip()
     worktree = _clean_local_ref_worktree_path(root, ref, head_sha)
+    # Even an already-fetched origin/pr-N ref is reviewed in a detached clean
+    # worktree. Reviewing it from the current checkout was a source of loops and
+    # false confidence because sandbox dirt or the wrong branch could leak in.
     if worktree.exists():
         remove = run_git_command(
             ["worktree", "remove", "--force", str(worktree)],
@@ -1103,6 +1114,9 @@ def prepare_clean_pr_worktree(root: Path, metadata: PullRequestMetadata) -> Clea
         )
 
     worktree = _clean_pr_worktree_path(root, metadata)
+    # The review worktree is keyed by PR number + head SHA and checked out by
+    # SHA, not by a moving branch name. This makes the review auditable: if the
+    # contributor pushes again, the old review result no longer applies.
     if worktree.exists():
         remove = run_git_command(
             ["worktree", "remove", "--force", str(worktree)],

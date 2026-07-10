@@ -312,6 +312,11 @@ def finish_pr(
             error=f"CI check failed: {failing.name}.",
         )
     if ci_gate.status == "pending":
+        # Do not return `gh pr checks --watch` here. The finish gate is often
+        # called during queue sweeps; blocking on one pending run caused long
+        # maintainer stalls and GitHub API churn. Return a one-shot status
+        # command and let the caller park this PR while reviewing other green
+        # PRs.
         return FinishGateReport(
             status="blocked",
             review_verdict=review_verdict,

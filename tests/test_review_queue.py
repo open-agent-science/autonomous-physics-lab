@@ -106,6 +106,7 @@ def test_review_queue_classifies_actionable_prs_without_waiting() -> None:
     assert by_number[11].decision == "READY_AFTER_UPDATE"
     assert by_number[12].decision == "WAIT_CI"
     assert "do not foreground-watch" in by_number[12].action
+    assert "--watch" not in by_number[12].action
     assert by_number[13].decision == "RISKY_DEPENDABOT"
     assert by_number[14].decision == "DRAFT"
     assert [entry.number for entry in entries][:2] == [10, 11]
@@ -162,3 +163,4 @@ def test_review_queue_cli_reads_saved_json(tmp_path: Path) -> None:
 
     assert "APL Review Queue Snapshot" in result.stdout
     assert "`MERGE_NOW`" in result.stdout
+    assert "--watch" not in result.stdout
