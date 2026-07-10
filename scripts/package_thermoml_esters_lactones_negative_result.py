@@ -21,6 +21,8 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "results" / "EXP-0020" / "RUN-0002"
+DEFAULT_COMMAND = "python3 scripts/package_thermoml_esters_lactones_negative_result.py --write"
+DEFAULT_CODE_REFERENCE = "scripts/package_thermoml_esters_lactones_negative_result.py"
 SOURCE_METRICS = ROOT / "results" / "EXP-0020" / "RUN-0001" / "metrics.json"
 EXPERIMENT = ROOT / "experiments" / "EXP-0020-thermoml-tb-joback-transfer.yaml"
 HYPOTHESIS = ROOT / "hypotheses" / "HYP-0020-thermoml-tb-joback-transfer.yaml"
@@ -270,7 +272,13 @@ def _write_text_artifacts(output: Path, metrics: dict) -> None:
     )
 
 
-def write_package(output: Path, *, commit: str) -> None:
+def write_package(
+    output: Path,
+    *,
+    commit: str,
+    command: str = DEFAULT_COMMAND,
+    code_reference: str = DEFAULT_CODE_REFERENCE,
+) -> None:
     source, source_text = load_source_metrics(commit)
     metrics = build_metrics(source)
     output.mkdir(parents=True, exist_ok=True)
@@ -330,9 +338,9 @@ def write_package(output: Path, *, commit: str) -> None:
         "generated_at": GENERATED_AT,
         "engine_version": "0.1.0",
         "git_commit": commit,
-        "command": "python3 scripts/package_thermoml_esters_lactones_negative_result.py --write",
+        "command": command,
         "input_file_hashes": input_hashes,
-        "code_reference": "scripts/package_thermoml_esters_lactones_negative_result.py",
+        "code_reference": code_reference,
         "limitations": [
             "Agent-published packaging of committed evidence; not yet independently validated or maintainer-reviewed.",
             "Scope is the five esters/lactones rows inside the committed 40-row ThermoML Tb audit fixture only.",

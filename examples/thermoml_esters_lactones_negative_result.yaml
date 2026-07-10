@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0020-thermoml-tb-joback-transfer.yaml
+hypothesis_path: ../hypotheses/HYP-0020-thermoml-tb-joback-transfer.yaml
+task_id: TASK-0936
+run_id: RUN-0002
+result_id: RESULT-0028
+result_root: ../results/EXP-0020
+workflow: thermoml_esters_lactones_negative_result

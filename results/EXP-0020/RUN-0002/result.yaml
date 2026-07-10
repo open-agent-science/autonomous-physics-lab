@@ -7,7 +7,7 @@ task_id: TASK-0936
 generated_at: '2026-07-06T00:00:00+00:00'
 engine_version: 0.1.0
 git_commit: 269aa0276bc2997e5d41709e76501acbd83bb76d
-command: python3 scripts/package_thermoml_esters_lactones_negative_result.py --write
+command: physics-lab run examples/thermoml_esters_lactones_negative_result.yaml
 input_file_hashes:
   config:
     path: results/EXP-0020/RUN-0002/inputs/config.yaml
@@ -24,9 +24,9 @@ input_file_hashes:
   task:
     path: results/EXP-0020/RUN-0002/inputs/task.yaml
     sha256: 276f5d96b62dff68799affa2affe2ee22e2325197e9bc1b75236d8f001b58799
-code_reference: scripts/package_thermoml_esters_lactones_negative_result.py
+code_reference: physics_lab/workflows/thermoml_esters_lactones_negative_result.py
 limitations:
-- Agent-published packaging of committed evidence; not yet independently validated or maintainer-reviewed.
+- Agent-validated by independent Gate B replay of committed evidence; not yet maintainer-reviewed.
 - Scope is the five esters/lactones rows inside the committed 40-row ThermoML Tb audit fixture only.
 - The INVALID verdict records a family-survival failure for the frozen Joback estimator in this family;
   it does not weaken the aggregate-positive, family-dependent RESULT-0026 verdict (7/8 families clear).
@@ -39,9 +39,9 @@ limitations:
   broad property-estimation claim is made.
 best_model_id: model_joback_frozen_tb
 best_verdict: INVALID
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: INVALID
   published_by:
     contributor_id: gladunrv
@@ -58,16 +58,39 @@ agent_proposal_evaluation:
     no_protected_artifact_rewrite: true
     no_forbidden_overclaim_wording: true
     dataset_provenance_valid: true
-  evidence_summary: The deterministic packager reads the committed RESULT-0026 metrics, verifies the aggregate-positive
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
+  evidence_summary: Independent Gate B replay through the new physics-lab workflow reproduced all 21
+    compared RESULT-0028 numeric metrics with maximum absolute drift 0.0 and preserved the INVALID verdict.
+    The deterministic packager reads the committed RESULT-0026 metrics, verifies the aggregate-positive
     context (7/8 families clear, margin 28.502118 K) and the esters/lactones failure (margin -5.549755
     K versus the +5 K survival rule; Joback MAE 26.134 K versus 20.584245 K for the molecular-weight-only
     control across five rows), and packages that failure as bounded negative/control memory without rerunning
     or refitting anything.
-  followup_for_maintainer: 'Keep the AGENT_PUBLISHED qualifier explicit. Gate B next step: an independent
-    identity can replay the deterministic packager against the same committed inputs (the recorded packaging-script
-    command is not on the Gate B safe-command list, so the formal helper will report BLOCKED unsupported-command;
-    a byte-identical repackage replay or a later physics-lab run workflow bridge are the available validation
-    routes).'
+  followup_for_maintainer: 'Keep the AGENT_VALIDATED qualifier explicit: the independent replay confirms deterministic
+    reproduction of the bounded negative/control package, not a universal Joback conclusion. The INVALID verdict is
+    limited to the five esters/lactones rows in the committed 40-row fixture. Do not promote a claim or knowledge
+    artifact, expand rows, fetch ThermoML bytes, refit Joback, or change the +5 K survival rule.'
+  validation_record:
+    validation_independence: independent
+    validation_independence_note: >-
+      Publisher gladunrv and replayer akutenyov are different human contributors;
+      this Gate B replay is independent-human validation.
+    replayed_by:
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex Desktop
+      model_version: GPT-5
+    replayed_at_utc: '2026-07-10T18:43:14+00:00'
+    replay_command: physics-lab run examples/thermoml_esters_lactones_negative_result.yaml
+    replay_output_dir: C:\Users\Master\Documents\APL\.task-1016-gateb-final
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 21
+    drift_observed: none
 verification:
   passed: true
   checks:

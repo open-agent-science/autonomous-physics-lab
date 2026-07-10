@@ -1,7 +1,7 @@
 id: TASK-1016
 title: "Bridge ThermoML RESULT-0028 onto a Gate-B-safe workflow"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "May update canonical RESULT-0028 review metadata after formal Gate B; maintainer closeout must verify no metric/verdict mutation."
 difficulty: medium

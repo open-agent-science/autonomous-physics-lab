@@ -53,6 +53,9 @@ from physics_lab.workflows.textbook_firas_wien_peak import (
 from physics_lab.workflows.quantum_znse_contract_transfer import (
     run_quantum_znse_contract_transfer_with_output,
 )
+from physics_lab.workflows.thermoml_esters_lactones_negative_result import (
+    run_thermoml_esters_lactones_negative_result_with_output,
+)
 
 
 # Every workflow handler shares the signature
@@ -87,6 +90,9 @@ WORKFLOW_DISPATCH: dict[str, ExperimentHandler] = {
     "textbook_firas_wien_peak_consistency": run_textbook_firas_wien_peak_with_output,
     "quantum_znse_contract_transfer_result": (
         run_quantum_znse_contract_transfer_with_output
+    ),
+    "thermoml_esters_lactones_negative_result": (
+        run_thermoml_esters_lactones_negative_result_with_output
     ),
     "exoplanet_null_baseline_result": run_exoplanet_null_baseline_result_with_output,
     "textbook_exact_reference": run_textbook_exact_reference_with_output,
