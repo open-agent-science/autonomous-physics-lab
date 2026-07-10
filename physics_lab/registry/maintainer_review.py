@@ -899,6 +899,37 @@ def _load_pr_metadata_from_list(
     return None
 
 
+def _latest_status_check_entries(status_checks: list[Any]) -> list[Any]:
+    """Keep only the latest rollup entry per named check.
+
+    GitHub keeps statusCheckRollup entries from superseded runs, so a check
+    that was CANCELLED by concurrency cancel-in-progress and then re-ran to
+    SUCCESS still exposes a stale CANCELLED entry. Dedupe by check identity
+    (CheckRun "name" or StatusContext "context") and keep the entry with the
+    latest timestamp; ISO-8601 timestamps compare lexicographically, and on
+    ties or missing timestamps the later list entry wins. Entries without a
+    name/context key are kept as-is.
+    """
+    deduped: list[Any] = []
+    latest_by_key: dict[str, tuple[str, int]] = {}
+    for item in status_checks:
+        key = str(item.get("name") or item.get("context") or "").strip()
+        if not key:
+            deduped.append(item)
+            continue
+        timestamp = str(
+            item.get("completedAt") or item.get("startedAt") or item.get("createdAt") or ""
+        )
+        existing = latest_by_key.get(key)
+        if existing is None:
+            latest_by_key[key] = (timestamp, len(deduped))
+            deduped.append(item)
+        elif timestamp >= existing[0]:
+            deduped[existing[1]] = item
+            latest_by_key[key] = (timestamp, existing[1])
+    return deduped
+
+
 def _pull_request_metadata_from_payload(payload: dict[str, Any]) -> PullRequestMetadata:
     """Normalize a GitHub CLI PR payload into internal metadata."""
     changed_files = tuple(
@@ -906,13 +937,13 @@ def _pull_request_metadata_from_payload(payload: dict[str, Any]) -> PullRequestM
         for item in (payload.get("files") or [])
         if str(item.get("path") or "").strip()
     )
-    status_checks = payload.get("statusCheckRollup") or []
+    status_checks = _latest_status_check_entries(payload.get("statusCheckRollup") or [])
     has_failure = False
     has_pending = False
     has_success = False
     for item in status_checks:
         conclusion = str(item.get("conclusion") or "").upper()
-        state = str(item.get("state") or "").upper()
+        state = str(item.get("state") or item.get("status") or "").upper()
         if conclusion in {"FAILURE", "TIMED_OUT", "CANCELLED", "ACTION_REQUIRED"}:
             has_failure = True
         elif conclusion == "SUCCESS":

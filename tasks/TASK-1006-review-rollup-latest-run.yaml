@@ -1,0 +1,62 @@
+id: TASK-1006
+title: "Evaluate PR status checks on the latest run per check"
+type: tooling_fix
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Removes false BLOCKED verdicts in maintainer review when a cancelled superseded CI run leaves a stale CANCELLED rollup entry next to the re-run SUCCESS."
+  - "Makes in-progress CheckRun entries visible to pending detection so reviews wait for CI instead of passing or blocking on incomplete data."
+  - "Keeps the maintainer review gate deterministic and byte-compatible for single-run rollups."
+
+input:
+  mode: workflow
+  related_domain: tooling
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    Observed live on 2026-07-09 on PR #1465 and #1477:
+    _pull_request_metadata_from_payload evaluates every statusCheckRollup
+    entry, but GitHub keeps entries from superseded runs. A check cancelled by
+    concurrency cancel-in-progress and re-run to SUCCESS still exposes a stale
+    CANCELLED entry, so has_failure flips True and the review reports a false
+    "GitHub status checks are failing" BLOCKED verdict. Second defect in the
+    same loop: pending detection reads only item state, but CheckRun entries
+    expose status (QUEUED/IN_PROGRESS/COMPLETED) rather than state, so
+    in-progress check runs are invisible.
+
+requirements:
+  - "Dedupe statusCheckRollup entries by check identity (CheckRun name or StatusContext context) before evaluation; entries with an empty key are kept as-is."
+  - "For duplicate keys keep the latest entry by str(completedAt or startedAt or createdAt or ''); ISO-8601 strings compare lexicographically and on ties or empty timestamps the later list entry wins (>=)."
+  - "Pending detection must read str(item.get('state') or item.get('status') or '').upper() so CheckRun status values are considered, keeping the existing COMPLETED/SUCCESS allowlist."
+  - "Keep the failure-conclusion set, success handling, and status_passed ternary byte-compatible for single-run rollups."
+  - "Add regression tests covering stale-cancelled-then-success, sole cancelled, in-progress CheckRun pending, newer failure superseding older success, and timestamp-less duplicates."
+  - "Do not change scientific artifacts, tasks unrelated to TASK-1006, results, claims, predictions, or knowledge."
+
+accepted_outputs:
+  - "_pull_request_metadata_from_payload evaluates only the latest rollup entry per named check via a small pure helper."
+  - "A stale CANCELLED entry with an older timestamp no longer blocks a PR whose same-name check re-ran to SUCCESS, while a sole CANCELLED or newer FAILURE entry still fails."
+  - "An IN_PROGRESS CheckRun entry marks status checks as pending (status_checks_passed None) instead of being invisible."
+  - "tests/test_maintainer_review.py covers the dedupe and pending-detection scenarios directly against _pull_request_metadata_from_payload."
+  - "Output-routing summary: maintainer review tooling fix; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling fix for maintainer review status-check evaluation; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
