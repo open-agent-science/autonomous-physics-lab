@@ -957,7 +957,16 @@ def test_classify_full_repo_signal_unknown_for_missing_or_bad_fields() -> None:
     assert classify_full_repo_signal("success", "not-a-date", now=now) == "unknown"
 
 
-def test_ci_run_has_full_repo_signal_requires_non_skipped_main_matrix_jobs() -> None:
+def test_ci_run_has_full_repo_signal_accepts_current_single_main_matrix_leg() -> None:
+    assert ci_run_has_full_repo_signal(
+        [
+            {"name": "Classify change set", "conclusion": "success"},
+            {"name": "Python tests (main matrix) (3.11)", "conclusion": "success"},
+        ]
+    )
+
+
+def test_ci_run_has_full_repo_signal_accepts_future_multi_leg_main_matrix() -> None:
     assert ci_run_has_full_repo_signal(
         [
             {"name": "Classify change set", "conclusion": "success"},
@@ -965,6 +974,18 @@ def test_ci_run_has_full_repo_signal_requires_non_skipped_main_matrix_jobs() -> 
             {"name": "Python tests (main matrix) (3.12)", "conclusion": "success"},
         ]
     )
+
+
+def test_ci_run_has_full_repo_signal_detects_failed_main_matrix_leg() -> None:
+    assert ci_run_has_full_repo_signal(
+        [
+            {"name": "Classify change set", "conclusion": "success"},
+            {"name": "Python tests (main matrix) (3.11)", "conclusion": "failure"},
+        ]
+    )
+
+
+def test_ci_run_has_full_repo_signal_rejects_skipped_only_main_matrix_jobs() -> None:
     assert not ci_run_has_full_repo_signal(
         [
             {"name": "Classify change set", "conclusion": "success"},
@@ -973,6 +994,51 @@ def test_ci_run_has_full_repo_signal_requires_non_skipped_main_matrix_jobs() -> 
             {"name": "Python docs/task push checks (3.12)", "conclusion": "success"},
         ]
     )
+
+
+def test_full_repo_signal_status_reports_red_for_failed_main_matrix_run(
+    tmp_path: Path,
+) -> None:
+    now = datetime(2026, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
+
+    def fake_run_command(command: list[str], **kwargs: object) -> CommandResult:
+        del kwargs
+        if command[:3] == ["gh", "run", "list"]:
+            return CommandResult(
+                returncode=0,
+                stdout=json.dumps(
+                    [
+                        {
+                            "databaseId": 300,
+                            "conclusion": "failure",
+                            "createdAt": "2026-06-11T11:00:00Z",
+                        }
+                    ]
+                ),
+                stderr="",
+            )
+        if command[:3] == ["gh", "run", "view"] and command[3] == "300":
+            return CommandResult(
+                returncode=0,
+                stdout=json.dumps(
+                    {
+                        "jobs": [
+                            {
+                                "name": "Python tests (main matrix) (3.11)",
+                                "conclusion": "failure",
+                            }
+                        ]
+                    }
+                ),
+                stderr="",
+            )
+        raise AssertionError(f"unexpected command: {command}")
+
+    with patch("physics_lab.registry.closeout_sweep.run_command", fake_run_command):
+        assert (
+            full_repo_signal_status(tmp_path, gh_path="gh", now=now, max_age_hours=48)
+            == "red"
+        )
 
 
 def test_full_repo_signal_status_skips_light_push_ci_runs(tmp_path: Path) -> None:
@@ -1030,10 +1096,6 @@ def test_full_repo_signal_status_skips_light_push_ci_runs(tmp_path: Path) -> Non
                         "jobs": [
                             {
                                 "name": "Python tests (main matrix) (3.11)",
-                                "conclusion": "success",
-                            },
-                            {
-                                "name": "Python tests (main matrix) (3.12)",
                                 "conclusion": "success",
                             },
                         ]

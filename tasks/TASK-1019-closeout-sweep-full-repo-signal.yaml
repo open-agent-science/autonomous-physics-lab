@@ -1,0 +1,57 @@
+id: TASK-1019
+title: "Fix closeout sweep full-repo signal detection after main-matrix single-leg CI"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Restore maintainer closeout automation after the main push CI matrix was intentionally reduced to a single Python 3.11 floor leg."
+  - "Prevent closeout sweep from masking a red full-repo run by treating failed main-matrix jobs as an absent signal."
+  - "Keep CI-cost reductions independent from closeout safety semantics."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "tests/test_closeout_sweep.py"
+  planning_context: >
+    The closeout sweep previously required both `Python tests (main matrix)
+    (3.11)` and `Python tests (main matrix) (3.12)` jobs before accepting a
+    main-push CI run as a full-repo signal. Current CI intentionally keeps only
+    the 3.11 main-matrix leg after the PR/merge-queue/nightly split, so the
+    sweep can no longer observe a valid full-repo signal and leaves otherwise
+    safe closeout candidates blocked. Detect main-matrix signal by stable job
+    prefix instead of an exact version set, while preserving red-run detection.
+
+requirements:
+  - "Treat at least one completed non-skipped `Python tests (main matrix) (` job as evidence that a main full-repo signal exists."
+  - "Do not require a hard-coded Python-version set for the main matrix."
+  - "Do not treat skipped-only matrix jobs as a full-repo signal."
+  - "Do not mask failed main-matrix runs; a failed leg must still let the enclosing workflow conclusion classify the signal as red."
+  - "Do not change closeout candidate selection, task-status mutation, or scientific artifacts."
+
+accepted_outputs:
+  - "Version-agnostic main-matrix signal detection in `physics_lab/registry/closeout_sweep.py`."
+  - "Regression tests for current single-leg 3.11, future multi-leg matrix, failed-leg red status, and skipped-only signal rejection."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling fix only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/closeout_sweep.py"
+    - "tests/test_closeout_sweep.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/closeout_sweep.py tests/test_closeout_sweep.py"
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

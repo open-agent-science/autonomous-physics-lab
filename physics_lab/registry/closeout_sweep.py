@@ -29,12 +29,11 @@ CONVENTIONAL_TASK_SUBJECT_PATTERN = re.compile(
 )
 PR_TITLE_TASK_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}):\s+.+$")
 CANONICAL_TASK_ID_PATTERN = re.compile(r"^TASK-[0-9]{4}$")
-FULL_REPO_MAIN_MATRIX_JOB_NAMES = frozenset(
-    {
-        "Python tests (main matrix) (3.11)",
-        "Python tests (main matrix) (3.12)",
-    }
-)
+# Keep this version-agnostic. The main push matrix is intentionally allowed to
+# be a single 3.11 floor leg because the 3.12 coverage lives in PR,
+# merge-queue, and nightly lanes. Closeout sweep only needs proof that the
+# main-matrix full-repo lane ran; do not restore a hard-coded 3.11+3.12 set.
+FULL_REPO_MAIN_MATRIX_JOB_PREFIX = "Python tests (main matrix) ("
 
 
 @dataclass(frozen=True)
@@ -425,18 +424,21 @@ def ci_run_has_full_repo_signal(jobs: object) -> bool:
     """Return whether a CI run included the push full-repo main matrix."""
     if not isinstance(jobs, list):
         return False
-    seen: set[str] = set()
     for job in jobs:
         if not isinstance(job, dict):
             continue
         name = str(job.get("name") or "")
-        if name not in FULL_REPO_MAIN_MATRIX_JOB_NAMES:
+        if not name.startswith(FULL_REPO_MAIN_MATRIX_JOB_PREFIX):
             continue
         conclusion = str(job.get("conclusion") or "").lower()
         if conclusion in {"", "skipped"}:
             continue
-        seen.add(name)
-    return seen == FULL_REPO_MAIN_MATRIX_JOB_NAMES
+        # Any completed non-skipped matrix leg is a full-repo signal, including
+        # failure. The surrounding workflow conclusion is classified separately
+        # so a failed main-matrix run still blocks closeout as red instead of
+        # being skipped and hidden behind an older green run.
+        return True
+    return False
 
 
 def full_repo_signal_status(
