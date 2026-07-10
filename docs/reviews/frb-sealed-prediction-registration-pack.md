@@ -2,9 +2,9 @@
 
 - Task: `TASK-0965`
 - Pack: `data/radio_transients/frb_sealed_prediction_registration_pack.yaml`
-- Pack SHA-256: `0839eba264f312752a82161ea184a4ee3f94f94cf4198fe9e0b591f52bd36f6d`
+- Pack SHA-256: `0b64202b9bf8ccd37bf23bd4304e374bc10baf17f09498ad5635725eccca75e5`
 - Decision stub: `decisions/DEC-20260709-frb-prediction-freeze-stub.yaml`
-- Decision stub SHA-256: `e11ceb7e54cdaa86e3b42e79d352f7d2fbdabca239bcf0da4c7fb2363818bc5e`
+- Decision stub SHA-256: `2554cc15eda2e12ec08dcc5ba44e240d135fd915c8f8ebbdb67c7c2c6ea725b5`
 - Status: `PREPARED_PENDING_MAINTAINER_PREDICTION_FREEZE`
 
 ## Boundary

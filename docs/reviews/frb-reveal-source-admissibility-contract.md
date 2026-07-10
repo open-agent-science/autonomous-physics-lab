@@ -25,7 +25,7 @@ TASK-0965 staged pack:
 - fixed split epoch: `T=2019-07-02`;
 - target key: pre-label `source_id` / TNS name;
 - pack SHA-256:
-  `0839eba264f312752a82161ea184a4ee3f94f94cf4198fe9e0b591f52bd36f6d`;
+  `0b64202b9bf8ccd37bf23bd4304e374bc10baf17f09498ad5635725eccca75e5`;
 - target payload SHA-256:
   `b4b26d63b53866644332a7ffb325db30ba5f9ec5ced90833e9a4dc4d393ae2bf`.
 

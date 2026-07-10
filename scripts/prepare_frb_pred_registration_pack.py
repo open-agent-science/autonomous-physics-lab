@@ -163,8 +163,21 @@ def build_targets(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def build_reveal_conditions() -> dict[str, Any]:
     return {
         "comparison_source_class": (
-            "Checksum-pinned later CHIME/FRB catalog snapshot or external reveal record "
-            "approved by a maintainer for the reveal task."
+            "One of the three admissible classes in the TASK-0995 reveal-source "
+            "admissibility contract: an official checksum-pinned CHIME/FRB catalog "
+            "snapshot released after T, an official CHIME/FRB repeat-source or "
+            "source-association table with an immutable checksummed reference, or a "
+            "maintainer-approved frozen manifest of citable external reveal records."
+        ),
+        "reveal_source_admissibility_contract": (
+            "docs/reviews/frb-reveal-source-admissibility-contract.md"
+        ),
+        "reveal_source_admissibility_rule": (
+            "Any future reveal is governed by the TASK-0995 contract: its admissible "
+            "and inadmissible source classes, required manifest fields, source-id "
+            "matching policy, label-status enum, one-row-per-frozen-target "
+            "eligibility table, frozen comparators, and stop conditions apply before "
+            "any label is read."
         ),
         "reveal_controlled_by": "maintainer",
         "label_rule": (
@@ -176,7 +189,7 @@ def build_reveal_conditions() -> dict[str, Any]:
             "Do not alter the source set, frozen model surface, scoring rule, target values, "
             "target ranks, or source-state references after reveal-relevant labels become visible."
         ),
-        "partial_reveal_allowed": True,
+        "partial_reveal_allowed": False,
         "expected_reveal_window": "unknown",
         "reveal_task_required": True,
     }
@@ -242,6 +255,7 @@ def build_registration_pack(
                     "docs/prediction-registry-policy.md",
                     "docs/result-promotion-protocol.md",
                     "docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md",
+                    "docs/reviews/frb-reveal-source-admissibility-contract.md",
                 ],
                 "live_external_fetch_allowed": False,
                 "source_data_state_note": (
@@ -256,13 +270,10 @@ def build_registration_pack(
                 "target_count": len(targets),
                 "targets": targets,
             },
-            "uncertainty_semantics": {
-                "type": "point_score_only",
-                "note": (
-                    "Scores are deterministic exposure-only ranks, not calibrated probabilities or "
-                    "prediction intervals."
-                ),
-            },
+            "uncertainty_semantics": (
+                "point_score_only: scores are deterministic exposure-only ranks, not "
+                "calibrated probabilities or prediction intervals."
+            ),
             "reveal_conditions": build_reveal_conditions(),
             "limitations": [
                 "Prepared registration pack only; no prediction registry entry is written by TASK-0965.",
@@ -270,7 +281,7 @@ def build_registration_pack(
                 "The score is an exposure-propensity ranking, not an FRB population law or discovery claim.",
                 "Any reveal score, success verdict, result, claim, or knowledge update requires a separate reviewed task.",
             ],
-            "review_tier": "MAINTAINER_REVIEW_REQUIRED",
+            "review_tier": "MAINTAINER_REVIEWED",
         },
         "payload_checksums": {
             "source_surface_sha256": SOURCE_SURFACE_SHA256,

@@ -45,14 +45,14 @@ PACKAGE_FILES = (
         1,
         "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml",
         2_181,
-        "e11ceb7e54cdaa86e3b42e79d352f7d2fbdabca239bcf0da4c7fb2363818bc5e",
+        "2554cc15eda2e12ec08dcc5ba44e240d135fd915c8f8ebbdb67c7c2c6ea725b5",
         "class_2_prediction_freeze_decision_stub",
     ),
     PackageFile(
         3,
         "data/radio_transients/frb_sealed_prediction_registration_pack.yaml",
-        189_435,
-        "0839eba264f312752a82161ea184a4ee3f94f94cf4198fe9e0b591f52bd36f6d",
+        190_860,
+        "0b64202b9bf8ccd37bf23bd4304e374bc10baf17f09498ad5635725eccca75e5",
         "task_0965_registration_pack",
     ),
     PackageFile(
@@ -80,7 +80,7 @@ PACKAGE_FILES = (
         7,
         "docs/reviews/frb-sealed-prediction-registration-pack.md",
         3_876,
-        "b00e17cdc7c0e9c6822be26c48404d59610ed3e5679fc60b90bd1881cd049dbf",
+        "9f38ae2aa7b5de6950af367b02de188fc7850a7b7fa942624c9c4c4716f9ad63",
         "task_0965_pack_review_note",
     ),
     PackageFile(

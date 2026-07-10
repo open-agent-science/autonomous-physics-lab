@@ -22,8 +22,8 @@ def test_frb_anchor_dry_run_capsule_is_deterministic(tmp_path: Path) -> None:
     first = build_capsule(ROOT, tmp_path / "first")
     second = build_capsule(ROOT, tmp_path / "second")
 
-    assert first["archive"]["bytes"] == 610063
-    assert first["archive"]["sha256"] == "fb0343894b26211b1b0c38723f79d2009a9840e51986bd25a87b823e30a5487f"
+    assert first["archive"]["bytes"] == 612208
+    assert first["archive"]["sha256"] == "6657398e88e080862d9195d4a18f891a904716df2901654310b3dfc27d3a8165"
     assert second["archive"]["sha256"] == first["archive"]["sha256"]
     assert (tmp_path / "first" / DEFAULT_ARCHIVE_NAME).read_bytes() == (
         tmp_path / "second" / DEFAULT_ARCHIVE_NAME
