@@ -1,7 +1,7 @@
 id: TASK-1014
 title: "Prepare the FRB register-or-hold decision packet after pack/schema repairs"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task prepares a Class 2 maintainer prediction-freeze decision surface; closeout must verify that it did not execute or imply approval."
 difficulty: medium
