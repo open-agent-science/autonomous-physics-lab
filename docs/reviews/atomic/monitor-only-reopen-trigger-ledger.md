@@ -72,7 +72,7 @@ authorize values-first curation.
 ## Output-Routing Summary
 
 - **Canonical destination:** this source-trigger ledger,
-  `docs/reviews/atomic-monitor-only-reopen-trigger-ledger.md`, plus the
+  `docs/reviews/atomic/monitor-only-reopen-trigger-ledger.md`, plus the
   campaign-page pointer.
 - **Review tier:** none.
 - **Gate A / Gate B:** not applicable.

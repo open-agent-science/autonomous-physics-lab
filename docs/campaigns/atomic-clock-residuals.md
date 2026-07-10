@@ -98,7 +98,7 @@ outcome as a durable source-blocker memory card (see
 so future scouts do not re-evaluate the same candidate for the same role.
 
 **Expected next result:** no immediate Atomic benchmark result. The durable
-[Atomic monitor-only reopen-trigger ledger](../reviews/atomic-monitor-only-reopen-trigger-ledger.md)
+[Atomic monitor-only reopen-trigger ledger](../reviews/atomic/monitor-only-reopen-trigger-ledger.md)
 records admissible source triggers and the shortcuts that remain closed:
 McGrew/NIST, Pizzocaro, and a single `171Yb/88Sr` source still do not reduce the
 committed `171Yb/87Sr` blocker. No constants-drift, new-constant, anomaly,
