@@ -1,7 +1,7 @@
 id: TASK-1013
 title: "Implement docs/reviews shard-forward guardrails"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
