@@ -14,10 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0969` - Harden CI: least-privilege GITHUB_TOKEN on ci.yml and SHA-pin all GitHub Actions (`repository_hardening`, priority `high`, difficulty `low`, domain `repository_hardening`)
-- `TASK-0970` - Add Dependabot config for GitHub Actions and pip supply-chain updates (`repository_hardening`, priority `medium`, difficulty `low`, domain `repository_hardening`)
-- `TASK-0971` - Doctor: detect a stale physics_lab editable install that breaks the validation gate (`tooling_fix`, priority `high`, difficulty `low`, domain `repository_hardening`)
-- `TASK-0972` - Replace the workflow runner if-chain with a data-driven dispatch table (`code_quality_refactor`, priority `medium`, difficulty `low`, domain `repository_architecture`)
-- `TASK-1015` - Replay Quantum RESULT-0029 with an independent human contributor (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-1016` - Bridge ThermoML RESULT-0028 onto a Gate-B-safe workflow (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
-- `TASK-1018` - Document review-loop guardrail decisions in code (`tooling_fix`, priority `medium`, difficulty `low`, domain `maintainer_tooling`)
+None.
