@@ -138,6 +138,25 @@ jobs:
               printf '  %s\n' "${unexpected_paths[@]}" >&2
               exit 1
             fi
+            task_diff="$(git diff --unified=0 -- ':(glob)tasks/TASK-*.yaml' || true)"
+            if [[ -n "${task_diff}" ]]; then
+              invalid_task_diff="$(
+                printf '%s\n' "${task_diff}" | awk '
+                  /^diff --git / { next }
+                  /^index / { next }
+                  /^--- / { next }
+                  /^\+\+\+ / { next }
+                  /^@@ / { next }
+                  /^-status: REVIEW_READY$/ { next }
+                  /^\+status: DONE$/ { next }
+                  /^[+-]/ { print }
+                '
+              )"
+              if [[ -n "${invalid_task_diff}" ]]; then
+                printf 'Unexpected TASK yaml semantic diff:\n%s\n' "${invalid_task_diff}" >&2
+                exit 1
+              fi
+            fi
           fi
 
       - name: Detect board-sync GitHub App credentials
@@ -177,7 +196,14 @@ jobs:
           app_bot_id="$(gh api "/users/${BOARD_SYNC_APP_SLUG}[bot]" --jq .id)"
           git config user.name "${BOARD_SYNC_APP_SLUG}[bot]"
           git config user.email "${app_bot_id}+${BOARD_SYNC_APP_SLUG}[bot]@users.noreply.github.com"
-          git add docs/task-views/ tasks/
+          mapfile -d '' changed_paths < <(
+            git diff --name-only -z -- docs/task-views/ ':(glob)tasks/TASK-*.yaml'
+          )
+          if (( ${#changed_paths[@]} == 0 )); then
+            echo "No changed board-sync paths to stage."
+            exit 0
+          fi
+          git add -- "${changed_paths[@]}"
           {
             echo "### Sync Active Board"
             echo "- Source SHA: \`${GITHUB_SHA}\`"
