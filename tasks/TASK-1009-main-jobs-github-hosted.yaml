@@ -1,0 +1,54 @@
+id: TASK-1009
+title: "Move post-merge main CI jobs off self-hosted runners"
+type: ci_optimization
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Frees the two self-hosted runners for PR and review feedback: on 2026-07-09 every merge consumed ~8 minutes of a self-hosted slot on post-merge main jobs, and queue waits (not test time) became the review bottleneck."
+  - "Safe after TASK-1007 plus the enabled merge queue: the queue already runs the full merge-gate suite on the exact tree that lands on main, so post-merge main jobs are redundancy nets, not the merge gate."
+  - "Keeps APL_MAIN_RUNNER_LABELS as an explicit opt-back-in for self-hosted routing; no job names, triggers, or test content change."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/workflows/ci.yml"
+  planning_context: >
+    The main-matrix and main-docs-task jobs run on every push to main and
+    defaulted to the self-hosted runner labels. With only two self-hosted
+    runners, each merge blocked one runner for roughly eight minutes, which
+    starved pull-request required checks during merge waves (measured
+    2026-07-09: ~15-minute queue waits against ~8.5-minute executions). Now
+    that the merge queue runs the full suite pre-merge on GitHub-hosted
+    runners, the post-merge jobs are a redundancy net and can default to
+    ubuntu-latest, which is free for public repositories.
+
+requirements:
+  - "Change only the runs-on defaults of main-matrix and main-docs-task from self-hosted labels to ubuntu-latest; keep the vars.APL_MAIN_RUNNER_LABELS override."
+  - "Do not rename jobs, change triggers, conditions, matrix legs, or test commands."
+  - "Do not touch the pull-request job's fork-guard routing or merge_group behavior."
+  - "Do not change scientific artifacts, results, claims, predictions, knowledge, or tasks unrelated to TASK-1009."
+
+accepted_outputs:
+  - "main-matrix and main-docs-task default to ubuntu-latest with explanatory comments; APL_MAIN_RUNNER_LABELS still overrides."
+  - "Self-hosted runners serve only same-repo pull_request feedback; post-merge main pushes no longer compete for those slots."
+  - "Output-routing summary: CI capacity change only; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "CI capacity/routing task; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - ".github/workflows/ci.yml"
+
+validation:
+  commands:
+    - "python3 -c \"import yaml,io; yaml.safe_load(io.open('.github/workflows/ci.yml', encoding='utf-8'))\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

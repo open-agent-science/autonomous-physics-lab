@@ -169,34 +169,22 @@ jobs:
             tests/test_validate_repo_auto_sync.py
 
       - name: Run full tests
-        # Draft PR pushes stay on the cheap sanity gate (ruff + strict
-        # validate, plus targeted docs/task tests when applicable). The
-        # ready_for_review event remains in the trigger set above, so flipping
-        # draft -> ready runs this merge-gate suite without requiring a new
-        # commit while intermediate draft pushes do not burn the full suite.
-        # On merge_group github.event.pull_request is null; loose equality
-        # would coerce `null == false` to true anyway, but the explicit
-        # merge_group branch keeps the queue path intentional instead of
-        # coercion-dependent: the merge gate must never silently skip here.
-        if: needs.classify.outputs.docs_task_only != 'true' && (github.event_name == 'merge_group' || github.event.pull_request.draft == false)
+        # Pull-request pushes stay on the cheap feedback gate (ruff + strict
+        # validate, plus targeted docs/task tests when applicable). The required
+        # merge queue is the heavy gate: it runs this suite once on the exact
+        # merge-group tree that can land on main, avoiding duplicate full-suite
+        # runs on every ready PR push without weakening branch protection.
+        if: github.event_name == 'merge_group'
         run: |
           pytest --durations=10 -n auto --dist loadgroup -m "not full_repo"
 
-      # full_repo smoke tests are skipped by the steps above (fast lane). Run them
-      # here only for risk-relevant PRs (code/config/schemas/CI/example-result
-      # inputs, or docs/mission state that full_repo CLI smoke tests assert on) so
-      # breakage is caught at PR time, not only post-merge on the main matrix.
-      # Pure prose docs and routine task-status flips stay fast. The nightly
-      # full_repo watchdog (nightly-full-repo.yml) covers what slips past this.
-      # Draft pushes skip the smoke: agents iterate on drafts, and superseded
-      # intermediate pushes were burning ~380 self-hosted min/week here. The
-      # smoke still runs on every ready-for-review push, on the main matrix
-      # after merge, and nightly.
-      # classify forces full_repo_risk=true on merge_group; the explicit
-      # merge_group branch keeps the queue path independent of how the null
-      # pull_request context coerces in the draft comparison.
+      # full_repo smoke tests are skipped on pull_request pushes. Run them in
+      # the required merge queue for risk-relevant trees (classify forces
+      # full_repo_risk=true on merge_group), so breakage is caught before merge
+      # on the exact queued tree without making every PR push pay the slow
+      # smoke cost. The nightly watchdog remains the redundancy net for drift.
       - name: Run full_repo smoke tests (risk-relevant PRs)
-        if: needs.classify.outputs.full_repo_risk == 'true' && (github.event_name == 'merge_group' || github.event.pull_request.draft == false)
+        if: needs.classify.outputs.full_repo_risk == 'true' && github.event_name == 'merge_group'
         run: |
           # Parallel on purpose: a serial (-n0) attempt ran 5-7x slower on
           # self-hosted hardware (~20 min vs the historical ~3.5 min parallel).
@@ -206,7 +194,12 @@ jobs:
 
   main-matrix:
     name: Python tests (main matrix)
-    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
+    # Post-merge redundancy net, not the merge gate: the merge queue already
+    # ran the full suite on this exact tree before it reached main. Default to
+    # free GitHub-hosted runners so per-merge main jobs stop consuming the two
+    # self-hosted slots that PR feedback depends on (2026-07-09: ~8 min of
+    # self-hosted time per merge). Set APL_MAIN_RUNNER_LABELS to opt back in.
+    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["ubuntu-latest"]') }}
     needs: classify
     if: github.event_name == 'push' && needs.classify.outputs.docs_task_only != 'true'
 
@@ -255,7 +248,9 @@ jobs:
 
   main-docs-task:
     name: Python docs/task push checks (3.12)
-    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
+    # Same reasoning as main-matrix: post-merge net on the docs/task fast
+    # lane; keep it off the self-hosted PR-feedback slots by default.
+    runs-on: ${{ fromJSON(vars.APL_MAIN_RUNNER_LABELS || '["ubuntu-latest"]') }}
     needs: classify
     if: github.event_name == 'push' && needs.classify.outputs.docs_task_only == 'true'
 

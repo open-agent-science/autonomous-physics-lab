@@ -1,0 +1,66 @@
+id: TASK-1010
+title: "Repair the FRB registration-pack payload for schema-clean registration"
+type: scientific_result_publication
+status: READY
+closeout: review
+closeout_review_reason: "Repairs the staged prediction payload feeding a Class 2 maintainer freeze decision; closeout needs a human check that the re-pinned pack matches the decision surface before TASK-0996 can run."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Implements repair R1 from the TASK-0984 pre-freeze audit (verdict FREEZE_PACK_NEEDS_REPAIR): the staged payload fails the generic prediction schema on two fields and under-specifies its reveal conditions."
+  - "Unblocks the Class 2 prediction-freeze decision: after this repair plus TASK-1011, the registered PRED entry validates cleanly and cross-links its reveal contract."
+  - "The scientific content is untouched: targets, scores, ranks, and the frozen scoring rule must remain byte-identical."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "scripts/prepare_frb_pred_registration_pack.py"
+    - "scripts/package_frb_prediction_anchor_dry_run.py"
+    - "docs/reviews/frb-registration-pack-pre-freeze-audit.md"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+  planning_context: >
+    The TASK-0984 audit confirmed the pack's checksums, no-peek boundary, and
+    score fidelity, but found the staged registry payload schema-invalid and
+    reveal-underspecified. Regenerate the pack through its builder script (no
+    hand edits), fixing only the registration-machinery fields, and refresh the
+    TASK-0994 anchor capsule pins that intentionally tripwire on any pack
+    change.
+
+requirements:
+  - "Modify scripts/prepare_frb_pred_registration_pack.py and regenerate the pack; do not hand-edit the pack YAML."
+  - "Emit uncertainty_semantics as a non-empty string (fold the current note into it)."
+  - "Emit a review_tier value from the prediction schema enum; record the chosen value and its rationale in the PR body."
+  - "Add an explicit reference to docs/reviews/frb-reveal-source-admissibility-contract.md (stop conditions and label-status enum included) to the staged entry's reveal fields."
+  - "Set partial_reveal_allowed to false, or define its exact semantics in the entry itself; an undefined true is not acceptable."
+  - "Align comparison_source_class wording with the three admissible source classes of the TASK-0995 contract."
+  - "Invariant: draft_entry_targets_sha256 must remain b4b26d63b53866644332a7ffb325db30ba5f9ec5ced90833e9a4dc4d393ae2bf (targets, scores, and ranks byte-unchanged); re-pin draft_entry_sha256 and the pack SHA-256 everywhere they are recorded."
+  - "Refresh the TASK-0994 capsule in the same PR: PACKAGE_FILES pins, test hashes in tests/test_frb_anchor_capsule_dry_run.py, and the recorded size/SHA in docs/reviews/frb-prediction-freeze-anchor-dry-run.md."
+  - "Prove the repaired payload validates cleanly against the generic prediction schema in a dry-run path (placeholders substituted) without writing prediction_registry/ files."
+  - "Do not read reveal labels, register predictions, create tags/releases, or change any score, rank, target, or scoring-rule field."
+  - "Return exactly one verdict: PACK_REPAIRED or PACK_REPAIR_BLOCKED."
+
+accepted_outputs:
+  - "Regenerated pack with schema-clean staged payload, updated builder script, refreshed capsule pins/tests/note, and a short repair note citing the audit."
+  - "Output-routing summary: registration-machinery repair only; no RESULT/PRED/CLAIM/KNOW mutation; freeze decision remains maintainer-only."
+
+result_artifact_policy:
+  required: false
+  reason: "Repairs a staged pre-registration artifact; no scientific RESULT or PRED artifact is created."
+  evidence:
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "docs/reviews/frb-registration-pack-pre-freeze-audit.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_frb_anchor_capsule_dry_run.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0993` - Prepare a Materials second-dataset stop/go packet after MD-0002 publication (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `materials_science`)
+- `TASK-1010` - Repair the FRB registration-pack payload for schema-clean registration (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
@@ -16,4 +17,3 @@ None.
 
 - `TASK-0962` - Prepare the collaborator access hygiene decision packet (outside collaborators with write) (`maintainer_workflow`, priority `low`, difficulty `low`, domain `release_readiness`)
 - `TASK-0965` - Prepare the FRB sealed-prediction registration pack (maintainer-approved prediction freeze) (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
-- `TASK-0994` - Prepare a deterministic FRB prediction-freeze anchor capsule dry run (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)

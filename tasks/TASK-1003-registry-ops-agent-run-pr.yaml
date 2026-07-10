@@ -1,7 +1,7 @@
 id: TASK-1003
 title: "Split registry god-package (slice 2): move agent_run_pr into ops and drop its registry re-export"
 type: code_quality_refactor
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium

@@ -1,7 +1,7 @@
 id: TASK-0973
 title: "Split registry god-package (slice 1): extract PR helpers into physics_lab/ops/pr_helpers"
 type: code_quality_refactor
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: medium
 priority: medium

@@ -1,7 +1,7 @@
 id: TASK-0981
 title: "Closeout policy guard for task-queue seeded tasks"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
