@@ -102,7 +102,9 @@ permission to publish the same archive to Zenodo, call it a dataset, or apply a
 blanket license. If an archive capsule contains source-derived rows, feature
 surfaces, scores/ranks, or other value-bearing data, the decision packet must
 choose between a per-file rights-reviewed full capsule and a reduced
-APL-authored metadata/pre-registration capsule. If neither route is ready, the
+APL-authored metadata/pre-registration capsule. Reduced capsules must preserve
+hashes for excluded sealed members so the external timestamp still anchors the
+full state without redistributing uncleared data. If neither route is ready, the
 recommendation is `HOLD_FOR_RIGHTS_REVIEW`, not "upload now".
 
 A decision packet must present the maintainer with a small explicit option set

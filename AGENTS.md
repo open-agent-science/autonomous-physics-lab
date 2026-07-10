@@ -218,7 +218,8 @@ value-bearing data. If it does, the task must either:
 - cite a separate maintainer-approved rights/publication decision with per-file
   redistribution and license scope; or
 - build a reduced APL-authored metadata/pre-registration capsule that excludes
-  uncleared source-derived data.
+  uncleared source-derived data while preserving a checksum manifest for any
+  excluded sealed members.
 
 Do not describe an anchor capsule as an open reusable dataset, and do not apply
 CC BY or any other blanket license to a mixed-source archive unless the rights

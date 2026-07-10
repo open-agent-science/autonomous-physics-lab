@@ -175,7 +175,11 @@ other value-bearing data, the publication task must choose one of two routes:
 2. **Reduced metadata/pre-registration capsule:** publish only APL-authored or
    rights-clear metadata, such as the registered prediction entry, decision
    record, review note, checksum manifest, tag/release metadata, and README
-   with no-claim wording. Exclude uncleared source-derived data.
+   with no-claim wording. Exclude uncleared source-derived data, but include a
+   manifest of excluded sealed members with path, role, bytes, SHA-256, source
+   commit or tag, and the reason each member is excluded from redistribution.
+   This lets the DOI timestamp cover the full sealed state by checksum without
+   republishing uncleared data-bearing files.
 
 If neither route is complete, the correct status is `publication_blocked` or
 `doi_deferred`, even when a GitHub Release anchor exists. External DOI wording
