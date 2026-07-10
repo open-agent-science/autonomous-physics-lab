@@ -1,7 +1,7 @@
 id: TASK-1006
 title: "Evaluate PR status checks on the latest run per check"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
