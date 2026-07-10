@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0993` - Prepare a Materials second-dataset stop/go packet after MD-0002 publication (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `materials_science`)
+- `TASK-1010` - Repair the FRB registration-pack payload for schema-clean registration (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 
 ## IN_PROGRESS
 
