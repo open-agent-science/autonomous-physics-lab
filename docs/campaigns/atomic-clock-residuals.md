@@ -97,9 +97,10 @@ outcome as a durable source-blocker memory card (see
 [atomic-ybsr-2024-isotope-mismatch-source-blocker-card.md](../reviews/atomic-ybsr-2024-isotope-mismatch-source-blocker-card.md))
 so future scouts do not re-evaluate the same candidate for the same role.
 
-**Expected next result:** no immediate Atomic benchmark result. The next useful
-action is a durable reopen-trigger ledger that prevents agents from reusing
-McGrew/NIST, Pizzocaro, or a single `171Yb/88Sr` source as if they reduced the
+**Expected next result:** no immediate Atomic benchmark result. The durable
+[Atomic monitor-only reopen-trigger ledger](../reviews/atomic-monitor-only-reopen-trigger-ledger.md)
+records admissible source triggers and the shortcuts that remain closed:
+McGrew/NIST, Pizzocaro, and a single `171Yb/88Sr` source still do not reduce the
 committed `171Yb/87Sr` blocker. No constants-drift, new-constant, anomaly,
 prediction, `RESULT`, `CLAIM`, or `KNOW` framing is in scope.
 
