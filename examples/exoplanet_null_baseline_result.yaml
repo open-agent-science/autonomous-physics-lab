@@ -1,0 +1,8 @@
+experiment_path: ../experiments/EXP-0021-exoplanet-null-baseline-control-sensitivity.yaml
+hypothesis_path: ../hypotheses/HYP-0021-exoplanet-null-baseline-control-sensitivity.yaml
+task_id: TASK-0919
+run_id: RUN-0001
+result_id: RESULT-0027
+result_root: ../results/EXP-0021
+result_title: Exoplanet EXO-0001 null-baseline control-sensitive negative result
+workflow: exoplanet_null_baseline_result

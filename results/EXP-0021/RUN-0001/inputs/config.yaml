@@ -1,6 +1,8 @@
 result_id: RESULT-0027
+workflow_config: examples/exoplanet_null_baseline_result.yaml
 source_metrics: agent_runs/AGENT-RUN-0050/metrics.json
 source_snapshot: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+source_git_commit: 7d0be449044f0a693c4e54b81b9c2e1c80c2c1b4
 selected_axis: true_mass_with_transit_radius
 selected_slices:
 - compact_radius_lt1p5Re
