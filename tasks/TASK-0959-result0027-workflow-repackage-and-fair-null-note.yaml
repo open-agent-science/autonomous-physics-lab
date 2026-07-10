@@ -1,7 +1,7 @@
 id: TASK-0959
 title: "Repackage RESULT-0027 onto a Gate-B-safe workflow and surface the fair-null comparison honestly"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "Gate-B tier upgrade and existing RESULT artifact mutation need maintainer closeout review to confirm the validation record, fair-null wording, and no-claim posture."
 difficulty: medium

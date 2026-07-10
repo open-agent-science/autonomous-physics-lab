@@ -1,7 +1,7 @@
 id: TASK-0990
 title: "Ratify Atomic monitor-only posture and publish reopen-trigger ledger"
 type: scientific_source_curation
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium

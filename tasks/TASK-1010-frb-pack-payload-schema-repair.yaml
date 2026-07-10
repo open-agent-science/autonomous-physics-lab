@@ -1,7 +1,7 @@
 id: TASK-1010
 title: "Repair the FRB registration-pack payload for schema-clean registration"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "Repairs the staged prediction payload feeding a Class 2 maintainer freeze decision; closeout needs a human check that the re-pinned pack matches the decision surface before TASK-0996 can run."
 difficulty: medium
