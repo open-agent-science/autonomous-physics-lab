@@ -1,7 +1,7 @@
 id: TASK-1019
 title: "Fix closeout sweep full-repo signal detection after main-matrix single-leg CI"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
