@@ -207,6 +207,12 @@ claim impact, knowledge impact, and any publication blocker. Missing tooling or
 source provenance blocks publication; it does not authorize unsupported prose
 claims.
 
+External publication guardrail: a git tag or GitHub Release may anchor
+checksums, but it does not authorize a Zenodo DOI, public dataset framing, or
+blanket license for mixed-source artifacts. Before recommending or executing an
+external DOI/deposit, follow `docs/published-source-dataset-standard.md`,
+including the anchor-capsule DOI publication gate.
+
 No anonymous unverifiable scientific claim should be accepted as a result.
 
 ## Shared Task Pool
