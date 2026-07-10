@@ -63,7 +63,7 @@ agent_proposal_evaluation:
     metrics_match_within_tolerance: true
     verdict_unchanged: true
     independent_replay_metadata_recorded: true
-  evidence_summary: Independent Gate B replay through the new physics-lab workflow reproduced all 21
+  evidence_summary: Independent Gate B replay through the supported physics-lab workflow reproduced all 21
     compared RESULT-0028 numeric metrics with maximum absolute drift 0.0 and preserved the INVALID verdict.
     The deterministic packager reads the committed RESULT-0026 metrics, verifies the aggregate-positive
     context (7/8 families clear, margin 28.502118 K) and the esters/lactones failure (margin -5.549755
