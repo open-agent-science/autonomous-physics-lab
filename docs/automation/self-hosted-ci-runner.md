@@ -12,10 +12,16 @@ infrastructure:
 
 - `Classify change set` runs on `ubuntu-latest`.
 
-The heavier jobs default to the self-hosted Linux x64 runner:
+The PR feedback job defaults to the self-hosted Linux x64 runner for trusted
+same-repository pull requests:
 
-- `Python fast tests (3.12)` for pull requests;
-- `Python tests (main matrix)` for pushes to `main` or `master`.
+- `Python fast tests (3.12)` for same-repository `pull_request` feedback.
+
+Fork pull requests and `merge_group` runs use `ubuntu-latest` through the
+workflow fork guard, so untrusted or queued merge code does not execute on the
+self-hosted runner. Post-merge `main` jobs also default to `ubuntu-latest`
+after TASK-1009; set `APL_MAIN_RUNNER_LABELS` only when explicitly opting main
+jobs back onto self-hosted hardware.
 
 The workflow reads runner labels from repository variables and falls back to
 the built-in self-hosted labels:
@@ -59,22 +65,28 @@ The CI workflow uses Node 24-compatible GitHub actions, `actions/setup-python`,
 `pip install -e ".[dev]"`, `ruff`, `pytest`, example workflows, and
 `physics_lab.cli validate-repo`.
 
-Pull requests use a faster gate on the self-hosted runner:
+Pull requests use a fast feedback gate on the self-hosted runner:
 
+- every PR runs ruff and strict repository validation;
 - docs/task-only PRs run the targeted docs/task test list;
-- code PRs run `pytest -n auto --dist loadfile -m "not full_repo"`;
-- `validate-repo . --strict --fail-on-warnings` still runs on every PR.
+- heavy pytest layers are intentionally deferred to the required merge queue.
 
-Pushes to `main` or `master` remain the full safety net and run:
+The merge queue is the heavy gate and runs on GitHub-hosted runners:
+
+- `pytest -n auto --dist loadgroup -m "not full_repo"`;
+- `pytest --timeout=300 -m full_repo` for risk-relevant queued trees.
+
+Pushes to `main` remain a post-merge redundancy net on GitHub-hosted runners and
+run the 3.11 matrix for non-doc/task changes:
 
 ```bash
-pytest -n auto --dist loadfile
+pytest -n auto --dist loadgroup
 ```
 
 Tests marked `full_repo` are slow full-repository smoke checks. Keep them
-covered by the main-matrix/full-validation path, but avoid making every PR pay
-for duplicate live `validate-repo` smoke tests when the workflow already runs
-strict repository validation as a separate CI step.
+covered by the required merge queue and nightly watchdog, but avoid making
+every PR push pay for duplicate heavy smoke tests when the workflow already
+runs strict repository validation as a separate CI step.
 
 The host should have at least:
 
