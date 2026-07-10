@@ -1,7 +1,7 @@
 id: TASK-1012
 title: "Run heavy Python tests only in the merge queue"
 type: ci_optimization
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
