@@ -1,5 +1,5 @@
 proposal_id: 20260710-gladunrv-docs-reviews-shard-policy
-title: "docs/reviews/ shard + archive policy (by-domain subfolders, reference-safe migration)"
+title: "docs/reviews/ shard-forward policy (freeze legacy flat root, new reviews into by-domain subfolders)"
 status: PROPOSED
 type: repository_hardening
 priority: medium
@@ -14,35 +14,45 @@ strategy_alignment:
   - "Reference-safe and merge-queue-aware: sequenced so no single PR breaks CI or the live merge queue (main merge queue active since 2026-07-10)."
 
 summary: >
-  Shard docs/reviews/ into by-domain subfolders (nuclear/, atomic/, quantum/,
+  RECOMMENDED = shard-forward: FREEZE the legacy flat root (leave all ~483
+  existing docs/reviews/*.md files exactly where they are - they are public
+  provenance surface referenced by ~1160 files) and route only NEW review notes
+  into by-domain subfolders (docs/reviews/<domain>/: nuclear/, atomic/, quantum/,
   exoplanet/, materials/, stellar/, textbook/, frb/, thermoml/, dimensional/,
-  particle/, workflow/, plus a misc/ bucket), matching the filename prefixes
-  and the README's own prescription, with a documented (not-yet-executed)
-  archive cadence so no subfolder re-hits the GitHub listing ceiling. Add an
-  on-demand grouped-listing CLI helper for navigation. Do NOT commit any
-  static/generated index. The move is a scripted, reference-safe, staged
-  migration; this proposal records the link audit and the exact constraints so
-  any executor lands it without breaking CI or silently dropping files.
+  particle/, workflow/, release/, cross-campaign/). This fixes the actual
+  problem (the frozen root stays well under GitHub's ~1000-file listing ceiling
+  forever) with ZERO reference churn and zero provenance risk. Two things are
+  mandatory even for shard-forward: flip the two NON-recursive review
+  enumerators to rglob (else new sharded reviews silently vanish from
+  conveyor/curator reports), and make navigation tooling recursive. Do NOT
+  commit any static/generated index; do NOT bulk-move the legacy files (that
+  physical migration is optional, later, and only via a separate audited PR
+  using the link-audit constraints recorded below). Convergent recommendation of
+  two independent architect reviews (claude + codex).
 
 rationale: >
   SEVERITY: hygiene, not urgent. The "~1000 files" ceiling is purely a
   github.com web-UI / contents-API listing truncation; git clone, checkout,
   grep, and CI read the flat directory fine today and would at 2000 files. Be
-  honest about what this does NOT fix: validate-repo --strict already reads
-  every review file's contents on every PR (~15s, scales with file COUNT, not
-  directory structure), so sharding is not a CI-perf win. What is real: (1)
-  github.com browsability - docs/reviews touches ~30% of recent commits and
-  dominates listing noise; at ~5/day the flat listing truncates on github.com
-  in ~3.4 months; (2) the migration only gets more expensive and more
-  merge-queue-collision-prone the longer it waits (more inbound refs, more files
-  to rename). So: not an emergency, but the cheap window is now, and the README
-  precondition (a proven-safe link audit) is now satisfied. RECOMMENDED = Option
-  B (by-domain shard now + a written, deferred archive cadence) plus the Option
-  C read-only CLI helper as the sanctioned dynamic navigation view. Do NOT
-  introduce a REVIEW-XXXX id registry now - all ~1160 inbound references are
-  path-based and effectively zero id-refs exist; an id scheme + resolver +
-  convention test + mass rewrite is over-engineering for a one-time hygiene
-  move (propose it separately only if review churn later proves painful).
+  honest about what NO reorg fixes: validate-repo --strict already reads every
+  review file's contents on every PR (~15s, scales with file COUNT, not folder
+  layout), so this is a github.com-browsability + commit-log-noise fix, not a
+  CI-perf win. WHY SHARD-FORWARD (not move-now): the flat root is a public
+  provenance surface with a large path-based reference graph (~551 task YAMLs,
+  ~66 CI-checked campaign/result links, 166 intra-review links - see the link
+  audit below). Physically moving ~483 files would force an atomic rewrite of
+  all of that against a live merge queue - high churn and real provenance risk -
+  to solve a hygiene problem. FREEZING the root instead caps it below the
+  ceiling forever (new files go into subdirs) with zero reference churn, and it
+  is exactly docs/reviews/README.md's stated preference plus the safest option
+  from the link audit. Two independent architect reviews (claude + codex)
+  converged on this. The ONLY mandatory code change is flipping the two
+  non-recursive review enumerators to rglob (freeze-forward still breaks them,
+  since new reviews land in subdirs). Do NOT commit a generated index; do NOT
+  introduce a REVIEW-XXXX id registry (over-engineering; refs are 100%
+  path-based). The physical bulk migration remains available later as an
+  optional, separately-audited PR governed by the link-audit constraints, but is
+  NOT recommended as the default.
 
 input:
   mode: planning_only
@@ -94,16 +104,20 @@ input:
     class (AGENTS.md 253-258 + static-agent-facing-generated-index-postmortem).
 
 requirements:
-  - "Reference-safe and atomic per step: the file-move PR MUST, in the same commit, rewrite the ~66 ../reviews/X.md links in docs/campaigns + docs/results to ../reviews/<domain>/X.md (source-relative, not root-absolute) and flip the two non-recursive globs (science_output_conveyor.py:379, campaign_curator.py:786) to rglob; partial moves are forbidden (they turn CI red or silently drop files)."
-  - "Use a scripted SEMANTIC classifier (committed in the PR for auditability), not a naive prefix `git mv`; apply fold rules for the ~52 secondary-token files and split nuclear/ + nuclear/nmd0003/."
-  - "Keep same-dir intra-review clusters together; pin the maintainer-decision-day 12-file cross-domain hub and its linkers to workflow/ and verify no ./X.md link crosses a shard boundary."
-  - "Pure `git mv` only - no content edits or deletions during the move (preserve git log --follow / blame; archival MOVES, never deletes)."
-  - "Do NOT commit a static/generated review index; do NOT introduce a REVIEW-XXXX id registry now; do NOT justify the reorg as a CI/scan-cost win (it is a github.com-browsability + commit-log-noise fix)."
-  - "Keep the atomic move PR separate from the ~551 stale task-yaml ref rewrite (a later, non-CI-gating PR) so the reviewable diff stays sane and does not race the merge queue."
+  # --- RECOMMENDED path: shard-forward (freeze legacy, shard new) ---
+  - "FREEZE the legacy flat root: do NOT move, rename, or delete any existing docs/reviews/*.md; they stay at their current paths so the ~1160 inbound references and CI link checks keep resolving. Only NEW review notes are created under docs/reviews/<domain>/."
+  - "MANDATORY rglob: flip the two non-recursive review enumerators (science_output_conveyor.py:379, campaign_curator.py:786) from glob('*.md') to rglob('*.md') (behavior-preserving on the still-flat tree). Without this, new sharded reviews silently vanish from conveyor/curator reports. Any inventory/navigation/link-check tooling that enumerates reviews must likewise be recursive."
+  - "Enforcement guard is DIFF-BASED, not a frozen list: a check fails when a NEW file is added to the docs/reviews/ root (vs the merge-base); existing root files are grandfathered by their presence. Do NOT commit an allowlist/manifest of the ~483 legacy filenames (that recreates the forbidden frozen-state / committed-index artifact)."
+  - "Navigation = directory structure + hand-written per-subfolder README topic stubs + an on-demand read-only CLI that prints inventory to stdout. Do NOT commit any generated/rolling INDEX.md or manifest (AGENTS.md 253-258 + static-agent-facing-generated-index postmortem)."
+  - "Archive is LOGICAL, not physical: when a legacy note is superseded, add a short 'Status: superseded by docs/reviews/...' header in place; do NOT move it into an archive/ subdir as routine (that breaks the provenance trail). Physical archival is reserved for clearly deprecated workflow/infra docs and only via a separate audited PR."
+  - "Do NOT introduce a REVIEW-XXXX id registry now (refs are 100% path-based; over-engineering); do NOT justify the change as a CI/scan-cost win (it is a github.com-browsability + commit-log-noise fix)."
+  # --- OPTIONAL later: physical bulk migration (only if a maintainer decides) ---
+  - "IF a physical bulk move is ever done (optional, later, separate audited PR): it must be atomic - in the same commit rewrite the ~66 ../reviews/X.md links in docs/campaigns + docs/results to ../reviews/<domain>/X.md (source-relative, not root-absolute), use a scripted SEMANTIC classifier (fold rules for the ~52 secondary-token files; split nuclear/ + nuclear/nmd0003/), pin the maintainer-decision-day 12-file cross-domain hub + its linkers together, pure git mv (no content edits), and keep the ~551 stale task-yaml ref rewrite in a separate follow-up PR. Partial moves turn CI red or silently drop files."
 
 accepted_outputs:
-  - "Canonical task(s) for the staged rollout: PR-0 (prep, behavior-preserving) flip the two enumerators to rglob on the still-flat tree; PR-1 (atomic) scripted by-domain move + the ~66 campaign/result link rewrites + ~10 script-constant updates + per-subfolder README stubs, verified green on tests/test_docs_links.py and validate-repo --strict; PR-2 scripted sed rewrite of the ~551 stale task-yaml refs; PR-3 update docs/reviews/README.md with the executed shard + archive cadence (trigger ~800/subdir, archivable = linked task DONE and superseded-or-6-months-old, MOVE never delete) + a CI count-guard threshold check; PR-4 (optional) extend find_docs_link_issues DOCS_LINK_SURFACES to include docs/reviews so intra-review ./X.md links become CI-validated, plus the on-demand grouped-listing CLI helper."
-  - "Maintainer decision on the shard scheme (Option A move-now vs B move-now+archive-cadence vs C CLI-only stopgap); this proposal recommends B + the C helper."
+  - "RECOMMENDED immediate work (one small, low-risk canonical task): (a) flip the two enumerators glob->rglob; (b) update docs/reviews/README.md with the shard-forward cutover policy + shard map + logical-archive rule; (c) update docs/repository-map.md and docs/agent-task-protocol.md to permit docs/reviews/<shard>/ paths; (d) add a read-only inventory CLI (stdout, no committed output); (e) add the diff-based root-guard check + test (new flat-root reviews rejected, existing grandfathered). Verify green on tests/test_docs_links.py and validate-repo --strict."
+  - "OPTIONAL later work (only on explicit maintainer decision): a separately-audited physical bulk migration of the legacy files, governed verbatim by the link-audit constraints in planning_context/requirements. Not recommended as default."
+  - "Maintainer decision on scheme: shard-forward (RECOMMENDED, this proposal) vs physical move-now vs CLI-only stopgap. Both independent architect reviews (claude + codex) recommend shard-forward."
 
 validation:
   commands:
@@ -113,4 +127,4 @@ validation:
 promotion:
   canonical_task_id: null
   decision: pending
-  notes: "Maintainer to accept the scheme (recommended: Option B + CLI helper) and assign canonical task ids for the staged rollout. PR-0 (rglob flip) is safe to land anytime and de-risks the later move."
+  notes: "Recommended: shard-forward (freeze legacy, shard new). The immediate small PR (rglob flip + README/repository-map/agent-task-protocol policy updates + read-only inventory CLI + diff-based root-guard) is low-risk and ready to assign a canonical task id. Physical bulk migration is optional/later and NOT recommended as default. Convergent recommendation of two independent architect reviews (claude + codex)."
