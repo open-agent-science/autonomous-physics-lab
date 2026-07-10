@@ -1,7 +1,7 @@
 id: TASK-1007
 title: "Make CI merge_group-ready so a merge queue can be enabled"
 type: ci_optimization
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
