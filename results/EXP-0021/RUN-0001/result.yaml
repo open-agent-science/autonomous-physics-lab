@@ -7,11 +7,11 @@ task_id: TASK-0919
 generated_at: '2026-07-04T00:00:00+00:00'
 engine_version: 0.1.0
 git_commit: 7d0be449044f0a693c4e54b81b9c2e1c80c2c1b4
-command: python3 scripts/package_exoplanet_null_baseline_result.py --write
+command: physics-lab run examples/exoplanet_null_baseline_result.yaml
 input_file_hashes:
   config:
     path: results/EXP-0021/RUN-0001/inputs/config.yaml
-    sha256: d17da7a9c9c527b6ce9b6f006235b519bea5755b1a5af7ff56b0b5757fe026c0
+    sha256: a13d090cb656f57d6f2312726af01bf2c7c6e787894de7b75ccf05ce632f04df
   fixture:
     path: results/EXP-0021/RUN-0001/inputs/fixture.json
     sha256: d3478e9ec9df18f028910d7bfeb361b60da2531275b2bc3380c6044cbfde9d08
@@ -24,21 +24,23 @@ input_file_hashes:
   task:
     path: results/EXP-0021/RUN-0001/inputs/task.yaml
     sha256: 563487095e46f8bb0cee64587ca4d63cc7165463861b329c05d3719cd1f3ca66
-code_reference: scripts/package_exoplanet_null_baseline_result.py
+code_reference: physics_lab/workflows/exoplanet_null_baseline_result.py
 limitations:
-- Agent-published packaging of committed evidence; not yet independently validated or maintainer-reviewed.
+- Agent-validated packaging of committed evidence; not yet maintainer-reviewed.
 - The scope is the committed EXO-0001 PSCompPars snapshot and four highlighted true-mass transit-radius
   slices only.
 - The nearest-radius neighbor uses observed radius and is a diagnostic control, not a prospective or deployable
   predictor.
+- 'Fair-null comparator rows are surfaced explicitly: nearest-mass and per-class-median controls trail
+  the frozen CK17 baseline in three of four highlighted true-mass slices.'
 - Minimum-mass transit-radius slices are underpowered diagnostics and are not pooled with true-mass rows.
 - No live fetch, EXO-0003 row, threshold change, CK17 refit, or residual rescoring is part of this package.
 - No composition, habitability, atmosphere, target-priority, prediction, discovery, or universal mass-radius
   claim is made.
 best_verdict: INCONCLUSIVE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: INCONCLUSIVE
   published_by:
     contributor_id: akutenyov
@@ -46,20 +48,38 @@ agent_proposal_evaluation:
     agent_tool: Codex
     model_version: GPT-5
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
     no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
-  evidence_summary: The deterministic packager selected the four committed true-mass slices from AGENT-RUN-0050
-    and preserved their null_family_matches_or_beats_ck17 classifications. It also preserved the underpowered
-    minimum-mass boundary without fetching or rescoring data.
-  followup_for_maintainer: Keep the AGENT_PUBLISHED qualifier and monitor-only campaign posture. A different
-    agent may run Gate B against the same committed inputs.
+  evidence_summary: Independent Gate B replay via the safe physics-lab workflow reproduced RESULT-0027
+    numeric fields with max absolute drift 0.0 and preserved the INCONCLUSIVE verdict. The artifact now
+    surfaces fair-null comparator rows next to the nearest-radius diagnostic control without changing
+    the packaged metrics.
+  followup_for_maintainer: 'Keep the AGENT_VALIDATED qualifier explicit: independently replayed, not maintainer-reviewed.
+    Preserve the monitor-only campaign posture and no-claim wording.'
+  validation_record:
+    validation_independence: independent
+    validation_independence_note: Publisher akutenyov and replayer gladunrv are different contributors.
+      Both publication and replay used Codex/GPT-5, so this is independent-human, same-tool validation.
+    replayed_by:
+      contributor_id: gladunrv
+      github_username: gladunrv
+      agent_tool: Codex
+      model_version: GPT-5
+    replayed_at_utc: '2026-07-10T10:55:30Z'
+    replay_command: physics-lab run examples/exoplanet_null_baseline_result.yaml
+    replay_output_dir: /private/tmp/apl-task0959-gateb-final
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 52
+    drift_observed: none
+    helper_status: PASS
+    helper_note: TASK-0959 repackaged RESULT-0027 onto a Gate-B-safe physics-lab workflow command, then
+      ran the formal Gate B helper successfully. The helper emitted a non-blocking same-agent-tool warning
+      because publisher and replayer both used Codex, while contributor identity differs.
 verification:
   passed: true
   checks:
@@ -102,6 +122,24 @@ comparison_summary:
   relative_difference: 0.9244168958993308
   notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
     not a prospective predictor.
+- target_id: target_compact_radius_lt1p5re_nearest_mass_neighbor
+  label: Nearest-mass fair null versus frozen CK17 in compact_radius_lt1p5Re
+  reference_value: 0.2633500276766559
+  observed_value: 0.28322440879329114
+  unit: dex_rmse
+  absolute_difference: 0.019874381116635254
+  relative_difference: 0.07546754899542764
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
+- target_id: target_compact_radius_lt1p5re_per_class_median
+  label: Per-class-median fair null versus frozen CK17 in compact_radius_lt1p5Re
+  reference_value: 0.2633500276766559
+  observed_value: 0.3164920379527955
+  unit: dex_rmse
+  absolute_difference: 0.05314201027613963
+  relative_difference: 0.2017923094406809
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
 - target_id: target_sub_neptune_radius_1p5_4re_null_control
   label: Nearest-radius diagnostic null versus frozen CK17 in sub_neptune_radius_1p5_4Re
   reference_value: 0.20417461029825096
@@ -111,6 +149,24 @@ comparison_summary:
   relative_difference: 0.9957979453000623
   notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
     not a prospective predictor.
+- target_id: target_sub_neptune_radius_1p5_4re_nearest_mass_neighbor
+  label: Nearest-mass fair null versus frozen CK17 in sub_neptune_radius_1p5_4Re
+  reference_value: 0.20417461029825096
+  observed_value: 0.23783674718193082
+  unit: dex_rmse
+  absolute_difference: 0.03366213688367986
+  relative_difference: 0.164869357823225
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
+- target_id: target_sub_neptune_radius_1p5_4re_per_class_median
+  label: Per-class-median fair null versus frozen CK17 in sub_neptune_radius_1p5_4Re
+  reference_value: 0.20417461029825096
+  observed_value: 0.17317295090168003
+  unit: dex_rmse
+  absolute_difference: 0.03100165939657093
+  relative_difference: 0.15183895466377928
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
 - target_id: target_jovian_radius_8_16re_null_control
   label: Nearest-radius diagnostic null versus frozen CK17 in jovian_radius_8_16Re
   reference_value: 0.08335427705293204
@@ -120,6 +176,24 @@ comparison_summary:
   relative_difference: 0.994814508265518
   notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
     not a prospective predictor.
+- target_id: target_jovian_radius_8_16re_nearest_mass_neighbor
+  label: Nearest-mass fair null versus frozen CK17 in jovian_radius_8_16Re
+  reference_value: 0.08335427705293204
+  observed_value: 0.1587239354391031
+  unit: dex_rmse
+  absolute_difference: 0.07536965838617106
+  relative_difference: 0.9042086507247786
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
+- target_id: target_jovian_radius_8_16re_per_class_median
+  label: Per-class-median fair null versus frozen CK17 in jovian_radius_8_16Re
+  reference_value: 0.08335427705293204
+  observed_value: 0.263261855935466
+  unit: dex_rmse
+  absolute_difference: 0.179907578882534
+  relative_difference: 2.1583485004409337
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
 - target_id: target_hot_jupiter_period_lt10d_radius_ge8re_null_control
   label: Nearest-radius diagnostic null versus frozen CK17 in hot_jupiter_period_lt10d_radius_ge8Re
   reference_value: 0.06978764121180392
@@ -129,6 +203,24 @@ comparison_summary:
   relative_difference: 0.9949994137928501
   notes: Lower RMSE is better. The nearest-radius baseline uses observed radius and is a diagnostic control,
     not a prospective predictor.
+- target_id: target_hot_jupiter_period_lt10d_radius_ge8re_nearest_mass_neighbor
+  label: Nearest-mass fair null versus frozen CK17 in hot_jupiter_period_lt10d_radius_ge8Re
+  reference_value: 0.06978764121180392
+  observed_value: 0.1538189780208268
+  unit: dex_rmse
+  absolute_difference: 0.08403133680902289
+  relative_difference: 1.2041005448799977
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
+- target_id: target_hot_jupiter_period_lt10d_radius_ge8re_per_class_median
+  label: Per-class-median fair null versus frozen CK17 in hot_jupiter_period_lt10d_radius_ge8Re
+  reference_value: 0.06978764121180392
+  observed_value: 0.25798542599224694
+  unit: dex_rmse
+  absolute_difference: 0.18819778478044302
+  relative_difference: 2.6967208163586873
+  notes: Lower RMSE is better. This fair-null row is listed separately from the nearest-radius diagnostic
+    control; it does not change the INCONCLUSIVE verdict or create a mass-radius claim.
 uncertainty_summary:
   method: deterministic_null_control_comparison_no_predictive_interval
   observed_uncertainty: null

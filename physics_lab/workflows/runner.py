@@ -11,6 +11,9 @@ from physics_lab.workflows.artifacts import ExperimentOutcome, resolve_path
 from physics_lab.workflows.anharmonic_oscillator import run_anharmonic_oscillator_experiment_with_output
 from physics_lab.workflows.damped_oscillator import run_damped_oscillator_experiment_with_output
 from physics_lab.workflows.dimensional_validator import run_dimensional_validator_with_output
+from physics_lab.workflows.exoplanet_null_baseline_result import (
+    run_exoplanet_null_baseline_result_with_output,
+)
 from physics_lab.workflows.gauntlet import run_gauntlet_experiment_with_output
 from physics_lab.workflows.koide_neutrino import run_neutrino_koide_experiment
 from physics_lab.workflows.koide_quark import run_quark_koide_experiment
@@ -85,6 +88,7 @@ WORKFLOW_DISPATCH: dict[str, ExperimentHandler] = {
     "quantum_znse_contract_transfer_result": (
         run_quantum_znse_contract_transfer_with_output
     ),
+    "exoplanet_null_baseline_result": run_exoplanet_null_baseline_result_with_output,
     "textbook_exact_reference": run_textbook_exact_reference_with_output,
 }
 
@@ -142,6 +146,7 @@ __all__ = [
     "run_particle_mass_falsifier_with_output",
     "run_g2_formula_experiment",
     "run_dimensional_validator_with_output",
+    "run_exoplanet_null_baseline_result_with_output",
     "run_textbook_exact_reference_with_output",
     "run_textbook_firas_wien_peak_with_output",
     "run_quantum_znse_contract_transfer_with_output",

@@ -1,5 +1,12 @@
 # RESULT-0027 Exoplanet Null-Baseline Gate B Replay
 
+> TASK-0959 follow-up: the command-shape blocker recorded in this note has
+> been repaired by the workflow bridge in
+> `docs/reviews/exoplanet-result-0027-gate-b-workflow-repackage.md`. RESULT-0027
+> now records `physics-lab run examples/exoplanet_null_baseline_result.yaml` and
+> the formal Gate B helper passes with zero numeric drift. This note remains as
+> the historical blocked replay record.
+
 - Task: `TASK-0935`
 - Result: `RESULT-0027`
 - Artifact: `results/EXP-0021/RUN-0001/result.yaml`

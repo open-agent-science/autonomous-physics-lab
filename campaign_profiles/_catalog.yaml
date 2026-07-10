@@ -263,9 +263,9 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: pinned PSCompPars snapshots, source monitor check 3 returned NO_NOTIFY, and
-    RESULT-0027 now packages the EXO-0001 null-baseline control-sensitive memory as AGENT_PUBLISHED
-    negative/control evidence; Gate-B-safe workflow repair and fair-null transparency remain
-    pending.
+    RESULT-0027 now packages the EXO-0001 null-baseline control-sensitive memory as AGENT_VALIDATED
+    negative/control evidence with a Gate-B-safe workflow route and fair-null transparency
+    surfaced in the artifact.
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Parallel-safe for RESULT-0027 Gate B replay and metadata-only monitor
@@ -273,14 +273,14 @@ campaigns:
       or coverage-gate amendment.
   next_validity_gate:
     type: ratification
-    blocker: RESULT-0027 is AGENT_PUBLISHED and Gate A passed, but the recorded packaging
-      command is not Gate-B-safe and the fair-null comparison surface needs to be visible
-      in the artifact.
+    blocker: RESULT-0027 has a Gate-B-safe workflow route and independent replay record after
+      TASK-0959, but the task still needs maintainer review/closeout; residual scoring remains
+      closed unless a future reviewed source-version or coverage trigger appears.
     target_artifact: TASK-0959
   best_next_actions:
   - task_id: TASK-0959
-    label: Repackage RESULT-0027 onto a Gate-B-safe workflow and surface fair-null comparisons
-      without reopening residual scoring
+    label: Review and close out the RESULT-0027 Gate-B workflow bridge; keep monitor-only
+      posture explicit
   required_gates:
   - Pinned snapshot and checksum state must remain explicit.
   - Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes.
@@ -316,8 +316,8 @@ campaigns:
   - docs/reviews/exoplanet-source-version-monitor-check-3.md
   - results/EXP-0021/RUN-0001/result.yaml
   open_questions:
-  - Can RESULT-0027 pass Gate-B-safe workflow replay without metric mutation after the fair-null
-    comparison surface is made explicit?
+  - What future source-version or coverage signal would justify reopening residual scoring
+    after RESULT-0027's Gate-B-safe replay?
   - What future source-version or coverage signal would justify EXO-0003 planning?
   curator_review:
     status: current
@@ -325,11 +325,11 @@ campaigns:
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0919 RESULT-0027 packaging, TASK-0959 queue entry, and Scientific Director
-      2026-07-09 docs-sync cycle
-    notes: Monitor-only lane with an AGENT_PUBLISHED bounded negative/control result. Next
-      work is Gate-B-safe workflow repair and fair-null transparency, not residual scoring
-      or EXO-0003 acquisition.
+    source: TASK-0919 RESULT-0027 packaging, TASK-0959 Gate-B workflow bridge, and Scientific
+      Director 2026-07-09 docs-sync cycle
+    notes: Monitor-only lane with an AGENT_VALIDATED bounded negative/control result. Gate-B-safe
+      workflow repair and fair-null transparency are complete; next work is trigger discipline,
+      not residual scoring or EXO-0003 acquisition.
   source_docs:
   - docs/campaigns/exoplanet-mass-radius.md
   - docs/exoplanet-mass-radius-baseline-protocol.md
