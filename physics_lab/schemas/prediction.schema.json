@@ -95,7 +95,7 @@
       "properties": {
         "git_commit": {
           "type": "string",
-          "pattern": "^[0-9a-f]{7,40}$"
+          "pattern": "^[0-9a-f]{7,40}$|^REPLACE_WITH_GIT_COMMIT_SHA$"
         },
         "model_reference": {
           "type": "object",

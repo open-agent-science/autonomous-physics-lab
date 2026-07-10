@@ -239,3 +239,15 @@ def test_repository_pattern_covers_all_prediction_registry_domains() -> None:
 
     assert "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml" in matched
     assert any(entry.startswith("prediction_registry/nuclear_masses/") for entry in matched)
+
+
+def test_generic_prediction_schema_keeps_template_placeholder_valid() -> None:
+    import yaml
+
+    template_path = (
+        _repo_root() / "prediction_registry" / "PRED-TEMPLATE.agent-published.yaml"
+    )
+    template = yaml.safe_load(template_path.read_text(encoding="utf-8"))
+    validator = jsonschema.Draft202012Validator(_prediction_schema())
+
+    assert list(validator.iter_errors(template)) == []
