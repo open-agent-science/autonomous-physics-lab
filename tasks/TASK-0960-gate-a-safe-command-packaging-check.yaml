@@ -3,6 +3,7 @@ title: "Enforce Gate-B-replayable commands at Gate A packaging time"
 type: maintainer_tooling
 status: READY
 closeout: review
+closeout_review_reason: "Adds Gate-B replay enforcement to result-publication tooling; closeout must confirm the grandfather list and no-regression policy before marking done."
 difficulty: medium
 priority: high
 
