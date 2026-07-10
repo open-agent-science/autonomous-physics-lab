@@ -1,0 +1,116 @@
+proposal_id: 20260710-gladunrv-docs-reviews-shard-policy
+title: "docs/reviews/ shard + archive policy (by-domain subfolders, reference-safe migration)"
+status: PROPOSED
+type: repository_hardening
+priority: medium
+
+proposed_by:
+  contributor_id: gladunrv
+  agent_id: claude
+
+strategy_alignment:
+  - "Acts on the 2026-07-09 architecture-audit finding that docs/reviews/ is a flat append-forever directory (~5 files/day) with no grouping or archival policy."
+  - "Executes the design docs/reviews/README.md already pre-blessed ('preferred future grouping is by topic subfolder ... do not start a bulk migration until a link audit proves it is safe'); the required link audit is done and is recorded in this proposal."
+  - "Reference-safe and merge-queue-aware: sequenced so no single PR breaks CI or the live merge queue (main merge queue active since 2026-07-10)."
+
+summary: >
+  Shard docs/reviews/ into by-domain subfolders (nuclear/, atomic/, quantum/,
+  exoplanet/, materials/, stellar/, textbook/, frb/, thermoml/, dimensional/,
+  particle/, workflow/, plus a misc/ bucket), matching the filename prefixes
+  and the README's own prescription, with a documented (not-yet-executed)
+  archive cadence so no subfolder re-hits the GitHub listing ceiling. Add an
+  on-demand grouped-listing CLI helper for navigation. Do NOT commit any
+  static/generated index. The move is a scripted, reference-safe, staged
+  migration; this proposal records the link audit and the exact constraints so
+  any executor lands it without breaking CI or silently dropping files.
+
+rationale: >
+  SEVERITY: hygiene, not urgent. The "~1000 files" ceiling is purely a
+  github.com web-UI / contents-API listing truncation; git clone, checkout,
+  grep, and CI read the flat directory fine today and would at 2000 files. Be
+  honest about what this does NOT fix: validate-repo --strict already reads
+  every review file's contents on every PR (~15s, scales with file COUNT, not
+  directory structure), so sharding is not a CI-perf win. What is real: (1)
+  github.com browsability - docs/reviews touches ~30% of recent commits and
+  dominates listing noise; at ~5/day the flat listing truncates on github.com
+  in ~3.4 months; (2) the migration only gets more expensive and more
+  merge-queue-collision-prone the longer it waits (more inbound refs, more files
+  to rename). So: not an emergency, but the cheap window is now, and the README
+  precondition (a proven-safe link audit) is now satisfied. RECOMMENDED = Option
+  B (by-domain shard now + a written, deferred archive cadence) plus the Option
+  C read-only CLI helper as the sanctioned dynamic navigation view. Do NOT
+  introduce a REVIEW-XXXX id registry now - all ~1160 inbound references are
+  path-based and effectively zero id-refs exist; an id scheme + resolver +
+  convention test + mass rewrite is over-engineering for a one-time hygiene
+  move (propose it separately only if review churn later proves painful).
+
+input:
+  mode: planning_only
+  related_domain: repository_architecture
+  related_objects:
+    - "docs/reviews/README.md"
+    - "docs/reviews/static-agent-facing-generated-index-postmortem.md"
+    - "physics_lab/registry/docs_links.py"
+    - "physics_lab/registry/science_output_conveyor.py"
+    - "physics_lab/registry/campaign_curator.py"
+    - "AGENTS.md"
+  planning_context: >
+    LINK AUDIT (the reason this can proceed safely). Reviews have NO stable id;
+    every inbound reference is a raw path. ~1160 files repo-wide mention
+    docs/reviews; ~495 distinct review paths are referenced. The reference graph
+    splits into three break classes an executor MUST handle:
+    (1) CI-HARD-FAIL - exactly ~66 distinct review targets are linked from 10
+    files under docs/campaigns/ and docs/results/ via the ../reviews/X.md form.
+    Those two dirs are the only surfaces find_docs_link_issues scans
+    (DOCS_LINK_SURFACES in docs_links.py), and it resolves links relative to the
+    SOURCE file's parent. Moving any of these 66 without rewriting the link in
+    the SAME commit turns validate-repo --strict RED. The correct rewrite is
+    ../reviews/<domain>/X.md (still source-relative; NOT root-absolute).
+    (2) SILENT breakage (no CI error) - science_output_conveyor.py:379 and
+    campaign_curator.py:786 enumerate reviews with a NON-recursive glob('*.md');
+    sharded files vanish from conveyor/curator reports with no error unless both
+    are flipped to rglob. ~10 scripts also carry hardcoded review-path
+    constants. Intra-review cross-links are 166 same-dir occurrences (57 ./X.md
+    + 109 bare, ZERO parent-form); domain sharding co-locates same-domain
+    linkers automatically, but the cross-domain maintainer-decision-day hub
+    (12-file fan-in) must be pinned to workflow/ with its linkers, or its ./X.md
+    links dangle (and today those are NOT CI-checked, so it breaks silently).
+    (3) STALE-but-not-CI-failing - ~551 task YAMLs reference review paths under
+    input.related_objects / result_artifact_policy.evidence / accepted_outputs.
+    No validator stats these, so they do not fail CI; they go stale and should
+    be fixed by a scripted sed pass in a SEPARATE follow-up PR so the move diff
+    stays reviewable.
+    TAXONOMY: filenames already carry clean domain prefixes (nuclear 87, atomic
+    51, quantum 51, exoplanet 48, materials 43, stellar 25, nmd0003 24 = nuclear
+    mass, textbook 20, frb 15, thermoml 11, dimensional 11, particle 5). Use a
+    SEMANTIC classifier with fold rules (~52 files carry a secondary token:
+    autonomous-nuclear-*, claim-0007-particle-*, post-ame2020-nuclear-*,
+    nmd0003=nuclear-mass) - a naive `git mv <prefix>*` misfiles them. Split the
+    biggest bucket at migration time (nuclear/ + nuclear/nmd0003/) to keep it
+    scannable. Handle the 3 non-.md files too.
+    POLICY: navigation = directory structure + hand-written per-subfolder README
+    topic stubs + on-demand CLI stdout. Do NOT commit an INDEX.md / manifest /
+    generated listing - that is the forbidden volatile agent-facing second-board
+    class (AGENTS.md 253-258 + static-agent-facing-generated-index-postmortem).
+
+requirements:
+  - "Reference-safe and atomic per step: the file-move PR MUST, in the same commit, rewrite the ~66 ../reviews/X.md links in docs/campaigns + docs/results to ../reviews/<domain>/X.md (source-relative, not root-absolute) and flip the two non-recursive globs (science_output_conveyor.py:379, campaign_curator.py:786) to rglob; partial moves are forbidden (they turn CI red or silently drop files)."
+  - "Use a scripted SEMANTIC classifier (committed in the PR for auditability), not a naive prefix `git mv`; apply fold rules for the ~52 secondary-token files and split nuclear/ + nuclear/nmd0003/."
+  - "Keep same-dir intra-review clusters together; pin the maintainer-decision-day 12-file cross-domain hub and its linkers to workflow/ and verify no ./X.md link crosses a shard boundary."
+  - "Pure `git mv` only - no content edits or deletions during the move (preserve git log --follow / blame; archival MOVES, never deletes)."
+  - "Do NOT commit a static/generated review index; do NOT introduce a REVIEW-XXXX id registry now; do NOT justify the reorg as a CI/scan-cost win (it is a github.com-browsability + commit-log-noise fix)."
+  - "Keep the atomic move PR separate from the ~551 stale task-yaml ref rewrite (a later, non-CI-gating PR) so the reviewable diff stays sane and does not race the merge queue."
+
+accepted_outputs:
+  - "Canonical task(s) for the staged rollout: PR-0 (prep, behavior-preserving) flip the two enumerators to rglob on the still-flat tree; PR-1 (atomic) scripted by-domain move + the ~66 campaign/result link rewrites + ~10 script-constant updates + per-subfolder README stubs, verified green on tests/test_docs_links.py and validate-repo --strict; PR-2 scripted sed rewrite of the ~551 stale task-yaml refs; PR-3 update docs/reviews/README.md with the executed shard + archive cadence (trigger ~800/subdir, archivable = linked task DONE and superseded-or-6-months-old, MOVE never delete) + a CI count-guard threshold check; PR-4 (optional) extend find_docs_link_issues DOCS_LINK_SURFACES to include docs/reviews so intra-review ./X.md links become CI-validated, plus the on-demand grouped-listing CLI helper."
+  - "Maintainer decision on the shard scheme (Option A move-now vs B move-now+archive-cadence vs C CLI-only stopgap); this proposal recommends B + the C helper."
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Maintainer to accept the scheme (recommended: Option B + CLI helper) and assign canonical task ids for the staged rollout. PR-0 (rglob flip) is safe to land anytime and de-risks the later move."
