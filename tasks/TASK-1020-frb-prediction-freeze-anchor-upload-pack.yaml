@@ -1,0 +1,56 @@
+id: TASK-1020
+title: "Prepare the FRB prediction freeze external-anchor upload pack"
+type: scientific_result_publication
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "Post-merge anchor preparation for a registered prediction; closeout must confirm that no tag, release, DOI, reveal score, or claim was created by the agent."
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "TASK-0996 registered the FRB point-score/rank prediction; the remaining public-readiness step is a third-party-verifiable external anchor."
+  - "Agents must not create repository tags or releases, so this task prepares the deterministic upload pack and maintainer command surface without executing the external publication."
+  - "The package should preserve the approved nine-path capsule manifest from the TASK-0965 registration pack and keep the no-reveal/no-claim boundary visible."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml"
+    - "docs/reviews/frb/frb-prediction-freeze-registration.md"
+  planning_context: >
+    Prepare a deterministic post-merge anchor upload pack for the registered
+    FRB pre-T repeater-propensity prediction. The maintainer can use this
+    pack to create the external annotated tag and GitHub Release without any
+    prediction-payload mutation or reveal-label contact.
+
+requirements:
+  - "Build a deterministic local ZIP helper for the approved nine-path capsule manifest; output must stay outside the repository unless explicitly using disposable local testing."
+  - "Record the archive filename, byte size, SHA-256, optional MD5, member checksums, tag target recommendation, and maintainer-only upload commands in docs/reviews/frb/."
+  - "Distinguish the approved source/model freeze commit from the registration merge commit that first contains PRED-0001; recommend tagging the registration merge commit for the external anchor."
+  - "Do not create a git tag, GitHub Release, external upload, DOI, RESULT, CLAIM, KNOW, reveal score, or edited prediction payload."
+  - "Return exactly one verdict: ANCHOR_UPLOAD_PACK_READY, ANCHOR_PACK_REPAIR_REQUIRED, or ANCHOR_BLOCKED."
+
+accepted_outputs:
+  - "A deterministic FRB anchor capsule helper, regression tests, and a review note with maintainer-only tag/release/upload commands."
+  - "No committed capsule ZIP bytes and no external publication side effects."
+
+result_artifact_policy:
+  required: false
+  reason: "This task prepares an external anchor upload pack for an already registered prediction; it does not create a new RESULT or alter the PRED payload."
+  evidence:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb/frb-prediction-freeze-registration.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_frb_prediction_freeze_anchor_upload_pack.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code

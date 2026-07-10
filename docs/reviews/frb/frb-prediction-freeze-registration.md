@@ -81,6 +81,12 @@ and GitHub Release using the recorded capsule bytes/checksum above. Any external
 release URL or DOI should be recorded in a follow-up record-back PR. The
 external anchor must not change the registered PRED payload.
 
+Post-merge upload-pack note: `TASK-1020` prepared the maintainer-only external
+anchor command surface and deterministic capsule helper in
+`docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md`. The upload pack
+does not change `PRED-0001` and does not create the tag, Release, or DOI by
+itself.
+
 ## Output Routing
 
 - Canonical destination: registered `PRED-0001` plus this registration note.
