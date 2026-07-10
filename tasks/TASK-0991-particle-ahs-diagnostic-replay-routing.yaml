@@ -31,7 +31,7 @@ requirements:
   - "Do not search formulas, fit relations, mix schemes, convert Yukawas to masses, or promote Koide/particle claims."
 
 accepted_outputs:
-  - "A docs/reviews replay/routing note and, only if justified by the protocol, a minimal canonical diagnostic RESULT artifact."
+  - "A docs/reviews/particle/ replay/routing note and, only if justified by the protocol, a minimal canonical diagnostic RESULT artifact."
   - "Output-routing summary with claim impact none and no BSM/formula-search wording."
 
 result_artifact_policy:
