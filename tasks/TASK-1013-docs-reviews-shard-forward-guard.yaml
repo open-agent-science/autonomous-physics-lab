@@ -1,0 +1,66 @@
+id: TASK-1013
+title: "Implement docs/reviews shard-forward guardrails"
+type: repository_hardening
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Accept the shard-forward architecture for docs/reviews: freeze legacy flat files and route new review notes into topic subfolders."
+  - "Prevent future sharded review notes from silently disappearing from campaign/conveyor reports."
+  - "Keep review-memory navigation dynamic and script-driven rather than adding a committed generated index."
+
+input:
+  mode: workflow
+  related_domain: repository_architecture
+  related_objects:
+    - "docs/reviews/README.md"
+    - "physics_lab/registry/science_output_conveyor.py"
+    - "physics_lab/registry/campaign_curator.py"
+  planning_context: >
+    The accepted architecture direction is shard-forward: existing
+    docs/reviews/*.md files remain at their current public provenance paths, but
+    new review notes should be created under docs/reviews/<domain>/. The
+    implementation needs recursive review enumeration, policy docs, a read-only
+    inventory command, and a diff-based guard that rejects new flat-root review
+    files without committing a frozen allowlist of legacy filenames. This task
+    implements the maintainer-accepted direction from PR #1496 while that
+    proposal PR waits in the merge queue.
+
+requirements:
+  - "Do not move, rename, delete, or rewrite existing docs/reviews/* legacy files."
+  - "Switch review enumeration from non-recursive glob('*.md') to recursive discovery where campaign/conveyor reports collect review notes."
+  - "Add a read-only inventory helper/CLI that prints current review-memory grouping to stdout and commits no generated output."
+  - "Add a diff-based guard for new files added directly under docs/reviews/ root; grandfather existing root files by presence rather than by a committed allowlist."
+  - "Document shard-forward policy, shard names, logical archive guidance, and the no-committed-index rule."
+  - "Do not change scientific artifacts, result metrics, claims, predictions, or knowledge."
+
+accepted_outputs:
+  - "Recursive docs/reviews enumeration in science output conveyor and campaign curator."
+  - "Read-only docs/reviews inventory CLI."
+  - "CI-integrated diff-based guard against new root-level docs/reviews files."
+  - "Policy documentation in docs/reviews/README.md, docs/repository-map.md, and docs/agent-task-protocol.md."
+  - "Focused regression tests for recursive review discovery and root-guard parsing."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening task; no scientific RESULT, PRED, CLAIM, or KNOW artifact is expected."
+  evidence:
+    - "physics_lab/registry/reviews_policy.py"
+    - "scripts/apl_reviews_inventory.py"
+    - "scripts/check_docs_reviews_shard_policy.py"
+    - ".github/workflows/ci.yml"
+    - "docs/reviews/README.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/reviews_policy.py scripts/apl_reviews_inventory.py scripts/check_docs_reviews_shard_policy.py tests/test_reviews_policy.py"
+    - "python3 -m pytest tests/test_reviews_policy.py tests/test_science_output_conveyor.py tests/test_campaign_curator.py tests/test_docs_links.py"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -783,7 +783,7 @@ def _result_evidence(root: Path, campaign_id: str) -> list[CampaignEvidence]:
 
 def _review_evidence(root: Path, campaign_id: str) -> list[CampaignEvidence]:
     evidence: list[CampaignEvidence] = []
-    for path in sorted((root / "docs" / "reviews").glob("*.md")):
+    for path in sorted((root / "docs" / "reviews").rglob("*.md")):
         if not _matches_campaign(path.name, campaign_id):
             continue
         evidence.append(

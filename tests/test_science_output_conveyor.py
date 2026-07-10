@@ -141,6 +141,12 @@ def _write_review(root: Path) -> None:
         "# Test Blocker Review\n\n## Decision\n\nBLOCKED by source blocker.\n",
         encoding="utf-8",
     )
+    sharded_review_dir = review_dir / "workflow"
+    sharded_review_dir.mkdir(parents=True, exist_ok=True)
+    (sharded_review_dir / "test-sharded-blocker-review.md").write_text(
+        "# Test Sharded Blocker Review\n\n## Decision\n\nBLOCKED by source blocker.\n",
+        encoding="utf-8",
+    )
 
 
 def test_conveyor_reports_ready_and_blocked_task_health(tmp_path: Path) -> None:
@@ -171,7 +177,9 @@ def test_conveyor_detects_result_candidates_and_reviews(tmp_path: Path) -> None:
 
     assert "RESULT-9999 / TASK-9001" in report.result_candidates[0]
     assert any("AGENT-RUN-9999" in item for item in report.result_candidates)
-    assert report.blocker_reviews[0].path == "docs/reviews/test-blocker-review.md"
+    blocker_review_paths = {item.path for item in report.blocker_reviews}
+    assert "docs/reviews/test-blocker-review.md" in blocker_review_paths
+    assert "docs/reviews/workflow/test-sharded-blocker-review.md" in blocker_review_paths
     assert '"task_queue_needed": true' in json_report
     assert "## Overclaim Risk" in markdown
     assert "Advisory only" in markdown
