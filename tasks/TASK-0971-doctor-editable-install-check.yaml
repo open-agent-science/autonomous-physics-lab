@@ -1,7 +1,7 @@
 id: TASK-0971
 title: "Doctor: detect a stale physics_lab editable install that breaks the validation gate"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high

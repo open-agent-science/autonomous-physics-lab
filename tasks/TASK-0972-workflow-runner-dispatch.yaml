@@ -1,7 +1,7 @@
 id: TASK-0972
 title: "Replace the workflow runner if-chain with a data-driven dispatch table"
 type: code_quality_refactor
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium
