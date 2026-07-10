@@ -93,6 +93,7 @@ sealed_registry_entries:
       - docs/prediction-registry-policy.md
       - docs/result-promotion-protocol.md
       - docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md
+      - docs/reviews/frb-reveal-source-admissibility-contract.md
       live_external_fetch_allowed: false
       source_data_state_note: Pack preparation used only committed repository files. It did not fetch
         a later catalog, inspect repeat labels, compare outcomes, or score reveal performance.
@@ -3455,18 +3456,24 @@ sealed_registry_entries:
         uncertainty: null
         confidence_note: Point score only from the TASK-0964 frozen exposure surface; no calibrated probability,
           interval, success verdict, or astrophysical claim is registered.
-    uncertainty_semantics:
-      type: point_score_only
-      note: Scores are deterministic exposure-only ranks, not calibrated probabilities or prediction intervals.
+    uncertainty_semantics: 'point_score_only: scores are deterministic exposure-only ranks, not calibrated
+      probabilities or prediction intervals.'
     reveal_conditions:
-      comparison_source_class: Checksum-pinned later CHIME/FRB catalog snapshot or external reveal record
-        approved by a maintainer for the reveal task.
+      comparison_source_class: 'One of the three admissible classes in the TASK-0995 reveal-source admissibility
+        contract: an official checksum-pinned CHIME/FRB catalog snapshot released after T, an official
+        CHIME/FRB repeat-source or source-association table with an immutable checksummed reference, or
+        a maintainer-approved frozen manifest of citable external reveal records.'
+      reveal_source_admissibility_contract: docs/reviews/frb-reveal-source-admissibility-contract.md
+      reveal_source_admissibility_rule: 'Any future reveal is governed by the TASK-0995 contract: its
+        admissible and inadmissible source classes, required manifest fields, source-id matching policy,
+        label-status enum, one-row-per-frozen-target eligibility table, frozen comparators, and stop conditions
+        apply before any label is read.'
       reveal_controlled_by: maintainer
       label_rule: Labels come only from the pinned later snapshot or external reveal record; positive
         repeat status requires repeat evidence published strictly after T=2019-07-02.
       no_peek_rule: Do not alter the source set, frozen model surface, scoring rule, target values, target
         ranks, or source-state references after reveal-relevant labels become visible.
-      partial_reveal_allowed: true
+      partial_reveal_allowed: false
       expected_reveal_window: unknown
       reveal_task_required: true
     limitations:
@@ -3476,21 +3483,28 @@ sealed_registry_entries:
     - The score is an exposure-propensity ranking, not an FRB population law or discovery claim.
     - Any reveal score, success verdict, result, claim, or knowledge update requires a separate reviewed
       task.
-    review_tier: MAINTAINER_REVIEW_REQUIRED
+    review_tier: MAINTAINER_REVIEWED
   payload_checksums:
     source_surface_sha256: 978049b9c7360091f812ee451dae36a5ca81ccea403725a61b36c01a42f562ab
     surface_per_source_scores_sha256: 00404c62efb1edc300f008f53961e691cb1c06208ef5a032ff83b0bf8ddb60d7
     draft_entry_targets_sha256: b4b26d63b53866644332a7ffb325db30ba5f9ec5ced90833e9a4dc4d393ae2bf
-    draft_entry_sha256: ad8d4224864293ce314ac189fbea41224f336eeeac50d2ad95d15148d1663567
+    draft_entry_sha256: 23c2a685fef0b141d3605fb9a89e38f5409cc78a6b5b1e0efd841a9d8cd67014
 reveal_conditions:
-  comparison_source_class: Checksum-pinned later CHIME/FRB catalog snapshot or external reveal record
-    approved by a maintainer for the reveal task.
+  comparison_source_class: 'One of the three admissible classes in the TASK-0995 reveal-source admissibility
+    contract: an official checksum-pinned CHIME/FRB catalog snapshot released after T, an official CHIME/FRB
+    repeat-source or source-association table with an immutable checksummed reference, or a maintainer-approved
+    frozen manifest of citable external reveal records.'
+  reveal_source_admissibility_contract: docs/reviews/frb-reveal-source-admissibility-contract.md
+  reveal_source_admissibility_rule: 'Any future reveal is governed by the TASK-0995 contract: its admissible
+    and inadmissible source classes, required manifest fields, source-id matching policy, label-status
+    enum, one-row-per-frozen-target eligibility table, frozen comparators, and stop conditions apply before
+    any label is read.'
   reveal_controlled_by: maintainer
   label_rule: Labels come only from the pinned later snapshot or external reveal record; positive repeat
     status requires repeat evidence published strictly after T=2019-07-02.
   no_peek_rule: Do not alter the source set, frozen model surface, scoring rule, target values, target
     ranks, or source-state references after reveal-relevant labels become visible.
-  partial_reveal_allowed: true
+  partial_reveal_allowed: false
   expected_reveal_window: unknown
   reveal_task_required: true
 external_anchor_plan:
