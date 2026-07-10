@@ -112,7 +112,7 @@ def test_frb_pack_targets_are_exactly_the_frozen_per_source_scores() -> None:
     assert would_register["registered_at_utc"] == "SET_BY_MAINTAINER_PREDICTION_FREEZE_DECISION"
     assert would_register["source_state"]["git_commit"] == "SET_TO_APPROVED_FREEZE_COMMIT"
     assert would_register["source_state"]["live_external_fetch_allowed"] is False
-    assert would_register["review_tier"] == "MAINTAINER_REVIEW_REQUIRED"
+    assert would_register["review_tier"] == "MAINTAINER_REVIEWED"
 
     targets = would_register["target_set"]["targets"]
     score_rows = surface["per_source_scores"]
