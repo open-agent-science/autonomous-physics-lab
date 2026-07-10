@@ -73,7 +73,7 @@ PATTERNS: dict[str, str] = {
     "hypotheses": "*.yaml",
     "knowledge": "*.md",
     "microtask_runs": "**/*.yaml",
-    "prediction_registry": "nuclear_masses/*.yaml",
+    "prediction_registry": "*/*.yaml",
     "results": "result.yaml",
     "tasks": "*.yaml",
     "task_proposals": "*.yaml",

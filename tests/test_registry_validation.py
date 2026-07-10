@@ -173,3 +173,81 @@ def test_task_validation_command_paths_ignore_non_paths_and_accepted_outputs(
     )
 
     assert issues == ()
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def _prediction_schema() -> dict:
+    schema_path = (
+        _repo_root() / "physics_lab" / "schemas" / "prediction.schema.json"
+    )
+    return json.loads(schema_path.read_text(encoding="utf-8"))
+
+
+def test_prediction_registry_kind_routing_per_domain() -> None:
+    from physics_lab.registry import infer_kind_from_path
+
+    assert (
+        infer_kind_from_path("prediction_registry/nuclear_masses/PRED-0001.yaml")
+        == "nuclear_mass_prediction"
+    )
+    assert (
+        infer_kind_from_path("prediction_registry/radio_transients/PRED-0001.yaml")
+        == "prediction"
+    )
+    assert (
+        infer_kind_from_path("prediction_registry/exoplanet_mass_radius/PRED-0001.yaml")
+        == "prediction"
+    )
+    assert (
+        infer_kind_from_path("prediction_registry/some_future_domain/PRED-0002.yaml")
+        == "prediction"
+    )
+    assert infer_kind_from_path("prediction_registry/PRED-0009.yaml") == "prediction"
+
+
+def test_generic_prediction_schema_rejects_maintainer_placeholders() -> None:
+    import yaml
+
+    entry_path = (
+        _repo_root() / "prediction_registry" / "exoplanet_mass_radius" / "PRED-0001.yaml"
+    )
+    entry = yaml.safe_load(entry_path.read_text(encoding="utf-8"))
+    validator = jsonschema.Draft202012Validator(_prediction_schema())
+
+    assert list(validator.iter_errors(entry)) == []
+
+    staged = json.loads(json.dumps(entry))
+    staged["registered_at_utc"] = "SET_BY_MAINTAINER_PREDICTION_FREEZE_DECISION"
+    staged["source_state"]["git_commit"] = "SET_TO_APPROVED_FREEZE_COMMIT"
+    failing_paths = {
+        "/".join(str(part) for part in error.path)
+        for error in validator.iter_errors(staged)
+    }
+    assert "registered_at_utc" in failing_paths
+    assert "source_state/git_commit" in failing_paths
+
+
+def test_repository_pattern_covers_all_prediction_registry_domains() -> None:
+    registry_dir = _repo_root() / "prediction_registry"
+    matched = sorted(
+        path.relative_to(_repo_root()).as_posix()
+        for path in registry_dir.glob(repository.PATTERNS["prediction_registry"])
+    )
+
+    assert "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml" in matched
+    assert any(entry.startswith("prediction_registry/nuclear_masses/") for entry in matched)
+
+
+def test_generic_prediction_schema_keeps_template_placeholder_valid() -> None:
+    import yaml
+
+    template_path = (
+        _repo_root() / "prediction_registry" / "PRED-TEMPLATE.agent-published.yaml"
+    )
+    template = yaml.safe_load(template_path.read_text(encoding="utf-8"))
+    validator = jsonschema.Draft202012Validator(_prediction_schema())
+
+    assert list(validator.iter_errors(template)) == []

@@ -189,7 +189,16 @@ def infer_kind_from_path(path: str | Path) -> str:
     if resolved.name in FILENAME_KIND_MAP:
         return FILENAME_KIND_MAP[resolved.name]
     if "prediction_registry" in resolved.parts:
-        return "nuclear_mass_prediction"
+        # Per-domain routing: only the nuclear lane uses the campaign-specific
+        # schema; every other registry domain (radio_transients,
+        # exoplanet_mass_radius, future lanes) validates against the generic
+        # prediction schema, which is also the safe default for unknown
+        # subdirectories and files placed directly under prediction_registry/.
+        registry_index = resolved.parts.index("prediction_registry")
+        domain_parts = resolved.parts[registry_index + 1 : -1]
+        if domain_parts and domain_parts[0] == "nuclear_masses":
+            return "nuclear_mass_prediction"
+        return "prediction"
     for part in reversed(resolved.parts):
         if part in KIND_BY_DIRECTORY:
             return KIND_BY_DIRECTORY[part]
