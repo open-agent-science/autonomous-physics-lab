@@ -1,7 +1,7 @@
 id: TASK-0969
 title: "Harden CI: least-privilege GITHUB_TOKEN on ci.yml and SHA-pin all GitHub Actions"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
