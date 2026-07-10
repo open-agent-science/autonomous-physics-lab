@@ -1,7 +1,7 @@
 id: TASK-1017
 title: "Fail fast when closeout sweep runs on unsupported Python"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
