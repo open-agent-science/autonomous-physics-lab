@@ -189,6 +189,18 @@ command, including a failing-check inspection command when available.
 Pass `--validation-timeout-seconds <seconds>` here too when the finish gate
 should use a non-default local review-validation budget.
 
+For same-repository draft PRs, maintainers may opt into asynchronous ready
+transition by adding the `apl:auto-ready-when-green` label. The
+`Auto Ready When Green` workflow reuses the finish gate after the `CI` workflow
+completes successfully or when that label is added. It is deliberately limited
+to marking draft PRs ready for review; it skips fork/cross-repository PRs, does
+not merge, and leaves the PR draft when review or CI is pending, failing, or
+unknown. If the workflow cannot run, use
+`scripts/apl_pr_finish_gate.py --pr <number>` manually. Create the repository
+label before first use. Treat auto-ready as a review-request transition, not as
+a merge signal: code or workflow PRs can start broader post-ready checks only
+after the draft flips, and branch protection must still wait for those checks.
+
 When reviewing a queue of open PRs, do not let one pending CI rerun monopolize
 the maintainer cycle. If the finish gate reports pending checks for more than
 about 5 minutes while other PRs remain available, record the pending check, park

@@ -27,6 +27,18 @@ def build_parser() -> argparse.ArgumentParser:
         default=300,
         help="Per-command local validation budget passed to apl_review_pr.py.",
     )
+    parser.add_argument(
+        "--ignore-check-name",
+        action="append",
+        default=[],
+        help="Check name to ignore while classifying CI status; may be repeated.",
+    )
+    parser.add_argument(
+        "--ignore-workflow",
+        action="append",
+        default=[],
+        help="Workflow name to ignore while classifying CI status; may be repeated.",
+    )
     return parser
 
 
@@ -39,6 +51,8 @@ def main() -> int:
         REPO_ROOT,
         args.pr,
         dry_run=args.dry_run,
+        ignored_check_names=tuple(args.ignore_check_name),
+        ignored_workflows=tuple(args.ignore_workflow),
         validation_timeout_seconds=args.validation_timeout_seconds,
     )
     print(render_finish_gate_report(report, pr_number=args.pr))

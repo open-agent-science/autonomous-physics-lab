@@ -36,6 +36,15 @@ def test_pr_finish_gate_script_help_smoke() -> None:
     assert "--dry-run" in result.stdout
 
 
+def test_auto_ready_pr_script_help_smoke() -> None:
+    result = _run_help("scripts/apl_auto_ready_pr.py")
+
+    assert result.returncode == 0
+    assert "Run the opt-in PR auto-ready gate" in result.stdout
+    assert "--event-path" in result.stdout
+    assert "--fail-on-blocked" in result.stdout
+
+
 def test_review_queue_script_help_smoke() -> None:
     result = _run_help("scripts/apl_review_queue.py")
 
