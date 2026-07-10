@@ -207,6 +207,23 @@ claim impact, knowledge impact, and any publication blocker. Missing tooling or
 source provenance blocks publication; it does not authorize unsupported prose
 claims.
 
+External anchors and external publications are separate decisions. A git tag or
+GitHub Release may be used as a checksum/timestamp anchor for already-approved
+artifacts, but it does **not** authorize a Zenodo DOI, public dataset framing,
+or blanket license statement. Before any agent recommends, prepares, or executes
+an external DOI/deposit for an archive capsule, it must check whether the capsule
+contains source-derived rows, feature surfaces, model surfaces, or other
+value-bearing data. If it does, the task must either:
+
+- cite a separate maintainer-approved rights/publication decision with per-file
+  redistribution and license scope; or
+- build a reduced APL-authored metadata/pre-registration capsule that excludes
+  uncleared source-derived data.
+
+Do not describe an anchor capsule as an open reusable dataset, and do not apply
+CC BY or any other blanket license to a mixed-source archive unless the rights
+review explicitly confirms that scope.
+
 No anonymous unverifiable scientific claim should be accepted as a result.
 
 ## Shared Task Pool

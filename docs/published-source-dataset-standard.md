@@ -150,6 +150,39 @@ or external citation) only when it carries all of:
 Datasets that meet this bar are APL's second public output class (alongside
 results): provenance-rich benchmark datasets others can verify, cite, and reuse.
 
+## Anchor Capsules And DOI Publication Gate
+
+APL often uses deterministic archive capsules to make a prediction freeze,
+release, or review packet byte-verifiable. These capsules are not automatically
+reusable datasets.
+
+A tag or GitHub Release may close a checksum/timestamp anchor, but it does not
+by itself authorize:
+
+- a Zenodo DOI or other external deposit;
+- `Dataset` framing;
+- a public reusable-data claim;
+- CC BY or any other blanket license over the whole archive.
+
+Before minting a DOI or publishing a capsule externally, inspect the capsule
+manifest. If any member contains source-derived rows, feature surfaces, model
+surfaces, prediction target tables, scores/ranks derived from upstream data, or
+other value-bearing data, the publication task must choose one of two routes:
+
+1. **Rights-reviewed full capsule:** record per-file source, upstream license
+   or terms, redistribution status, attribution, and whether the APL-authored
+   layer can be licensed separately from the upstream-derived content.
+2. **Reduced metadata/pre-registration capsule:** publish only APL-authored or
+   rights-clear metadata, such as the registered prediction entry, decision
+   record, review note, checksum manifest, tag/release metadata, and README
+   with no-claim wording. Exclude uncleared source-derived data.
+
+If neither route is complete, the correct status is `publication_blocked` or
+`doi_deferred`, even when a GitHub Release anchor exists. External DOI wording
+must say "sealed prediction", "pre-registration anchor", "checksum capsule", or
+similar when that is the artifact's actual role; it must not say "open reusable
+dataset" unless the reusable-dataset standard above is satisfied.
+
 ## Current Repository Boundary
 
 For the current private-repository phase, APL keeps reusable dataset candidates
@@ -182,6 +215,8 @@ and citation text for every reusable artifact.
 - adding measurement rows without a bounded row-curation task;
 - moving a dataset into an external repository or minting a DOI without a
   separate maintainer-approved publication task;
+- minting a DOI for a mixed-source archive capsule without the anchor-capsule
+  DOI publication gate above;
 - auto-unblocking a benchmark task from a source verdict;
 - promoting any claim, knowledge entry, or canonical result.
 
