@@ -89,6 +89,28 @@ route decision: replay, ablation, result-promotion preflight, or explicit
 do-not-promote memory. Leaving it as "interesting" without a next gate is a
 failure of direction.
 
+## Strategic Decision Packet Rule
+
+When a campaign reaches a maintainer-gated decision point, the Director should
+prefer a bounded decision packet over another audit loop or a broad task wave.
+This applies especially to sealed prediction lanes, external-release decisions,
+source-rights decisions, and campaign stop/go calls.
+
+A decision packet must present the maintainer with a small explicit option set
+such as `GO`, `HOLD`, or `STOP`, and it must name:
+
+- the exact artifacts and hashes the decision would approve or reject;
+- the blockers already cleared and the blockers still standing;
+- the minimum evidence that would change a `HOLD` or `STOP`;
+- the task, if any, that remains blocked until the maintainer decides;
+- no-claim wording and the actions the packet must not perform.
+
+The packet is not the decision. It must not register predictions, promote
+claims, endorse knowledge, weaken reveal/source gates, or imply approval before
+the maintainer records it. If the decision cannot be reduced to a bounded
+option set, the Director should keep the campaign in source readiness or
+monitor mode rather than creating filler tasks.
+
 ## Post-Validation Validity Gate
 
 After a campaign has an `AGENT_VALIDATED` result or an equivalent validated

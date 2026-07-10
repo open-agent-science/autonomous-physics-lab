@@ -64,7 +64,12 @@ typical_activities:
       aliases.
   - title: "Pick one READY task"
     description: |
-      Choose exactly one task from the current READY pool.
+      Choose exactly one task from the current READY pool. For new or
+      external contributors, prefer a result-validation or Gate B replay task
+      first when one is READY and the contributor satisfies any independence
+      requirement written in the task. If the contributor does not satisfy the
+      independence requirement, stop that task and choose a different READY
+      option instead of weakening the validation standard.
   - title: "Create the canonical branch"
     description: |
       `agent/<contributor-id>/<agent-id>/task-<XXXX>-<short-slug>`,

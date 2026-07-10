@@ -1,0 +1,60 @@
+id: TASK-1016
+title: "Bridge ThermoML RESULT-0028 onto a Gate-B-safe workflow"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "May update canonical RESULT-0028 review metadata after formal Gate B; maintainer closeout must verify no metric/verdict mutation."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0985 showed RESULT-0028 recorded-path metrics replay with zero drift, but formal Gate B remains blocked by unsupported command shape."
+  - "The next useful ThermoML replay work is a workflow bridge, not a broader Joback rerun or source expansion."
+  - "This converts a known blocker into a deterministic replay path while preserving the failed-family negative/control memory."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "results/EXP-0020/RUN-0002/result.yaml"
+    - "results/EXP-0020/RUN-0002/report.md"
+    - "docs/reviews/thermoml/result0028-gate-b-safe-replay.md"
+    - "docs/reviews/thermoml-esters-lactones-negative-result-packaging.md"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "tasks/TASK-0985-replay-thermoml-result0028-gate-b.yaml"
+    - "tasks/TASK-0960-gate-a-safe-command-packaging-check.yaml"
+  planning_context: >
+    Add or reuse a physics-lab workflow command that deterministically packages
+    the committed RESULT-0028 esters/lactones failed-family memory and is
+    accepted by the Gate B replay helper. Preserve RESULT-0026 and RESULT-0028
+    scientific metrics exactly.
+
+requirements:
+  - "Implement a Gate-B-safe workflow or supported command path for RESULT-0028 using committed inputs only."
+  - "Update RESULT-0028 command/code_reference metadata only if the new command reproduces the existing metrics byte-for-byte or within the documented tolerance."
+  - "Run the formal Gate B helper against RESULT-0028 and record metric count, tolerance, max drift, and helper status."
+  - "If formal Gate B passes, update only schema-permitted review metadata; if blocked or drifted, write a blocker note and leave RESULT-0028 AGENT_PUBLISHED."
+  - "Do not rerun the full ThermoML benchmark as a new result, edit RESULT-0026 metrics, expand rows, fetch ThermoML bytes, refit Joback, or create broad property-estimation claims."
+  - "Return exactly one verdict: GATE_B_PASS, GATE_B_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+
+accepted_outputs:
+  - "A workflow bridge and regression tests, a replay note under docs/reviews/thermoml/, and a minimal RESULT-0028 metadata update if and only if formal Gate B passes."
+  - "Output-routing summary: replay bridge only; no claim/knowledge promotion and no metric/verdict mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay bridge for an existing result; no new scientific result artifact is produced."
+  evidence:
+    - "results/EXP-0020/RUN-0002/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

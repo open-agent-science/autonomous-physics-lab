@@ -3,6 +3,7 @@ title: "Execute the FRB prediction freeze after explicit maintainer approval"
 type: scientific_result_publication
 status: BLOCKED
 closeout: review
+closeout_review_reason: "Executes a Class 2 prediction registration only after explicit maintainer approval; closeout must verify approval, hashes, and no reveal-label leakage."
 difficulty: medium
 priority: high
 
@@ -10,6 +11,7 @@ strategy_alignment:
   - "FRB prediction registration is a Class 2 maintainer decision, not an autonomous agent action."
   - "The execution task should exist so the post-approval work is exact, bounded, and not improvised."
   - "Until approval is recorded, this task must remain unavailable to executor agents."
+  - "After TASK-1010 and TASK-1011 repaired the pack and registry validation path, TASK-1014 is the bounded GO/HOLD/STOP decision packet that should precede any unblock."
 
 input:
   mode: workflow
@@ -18,13 +20,15 @@ input:
     - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
     - "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml"
     - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+    - "tasks/TASK-1014-frb-register-or-hold-decision-packet.yaml"
   planning_context: >
     Once the maintainer explicitly approves the Class 2 FRB prediction freeze,
     write the registered PRED artifact exactly from the approved pack and record
-    the external anchor. This task is blocked until that approval exists.
+    the external anchor. This task is blocked until that approval exists, and
+    the approval should reference the repaired pack plus the GO/HOLD/STOP packet.
 
 requirements:
-  - "Blocked until an explicit maintainer decision approves the FRB prediction freeze using the dedicated decision surface."
+  - "Blocked until TASK-1014 has produced a current GO/HOLD/STOP packet and an explicit maintainer decision approves the FRB prediction freeze using the dedicated decision surface."
   - "After approval, write only the registered PRED artifact(s), decision record update, and anchor record-back specified by the approved pack."
   - "Verify the PRED payload SHA-256 equals the approved target payload and that the frozen source set, scores, ranks, and scoring rule are unchanged."
   - "Return exactly one verdict: PRED_REGISTERED_AND_ANCHORED, REGISTRATION_REPAIR_REQUIRED, or REGISTRATION_BLOCKED."
@@ -32,7 +36,7 @@ requirements:
 
 accepted_outputs:
   - "Registered FRB PRED artifact(s), approval record-back, anchor note, checksum table, and no-claim output-routing summary."
-  - "If approval is absent or mismatched, a blocker note only."
+  - "If TASK-1014 is absent, approval is absent, or the approval selects HOLD/STOP, a blocker note only."
 
 result_artifact_policy:
   required: true

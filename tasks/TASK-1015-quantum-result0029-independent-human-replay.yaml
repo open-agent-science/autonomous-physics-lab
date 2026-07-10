@@ -1,0 +1,59 @@
+id: TASK-1015
+title: "Replay Quantum RESULT-0029 with an independent human contributor"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "Updates validation-independence evidence for a canonical result and must be checked for no metric/verdict drift."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0987 made RESULT-0029 AGENT_VALIDATED, but the recorded validation_independence is same_account_different_tool."
+  - "The strategic trust-layer improvement is independent-human replay, not another ZnSe/InP transfer attempt."
+  - "A pass strengthens reproducibility wording while preserving the INCONCLUSIVE/control-memory verdict."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "results/EXP-0022/RUN-0001/result.yaml"
+    - "results/EXP-0022/RUN-0001/review_summary.md"
+    - "docs/reviews/quantum/result0029-gate-b-replay.md"
+    - "docs/reviews/quantum-next-direct-source-scout.md"
+    - "tasks/TASK-0987-replay-quantum-result0029-gate-b.yaml"
+  planning_context: >
+    Re-run the formal Gate B replay for RESULT-0029 using a contributor identity
+    controlled by a different human from the publisher/current replayer. The
+    aim is to append independent-human replay evidence, not to change the
+    no-refit contract or reopen the borderline transfer.
+
+requirements:
+  - "Reserved for a contributor controlled by a different human from gladunrv; any same-human lane must stop with INDEPENDENCE_BLOCKED instead of replaying."
+  - "Record contributor_id, github_username, agent_tool, model/version, replay command, output directory, tolerance, compared metric count, and max absolute drift."
+  - "Run the same committed Gate B replay command against RESULT-0029; do not change inputs, code reference, threshold, margin, metrics, best_verdict, or best_model_id."
+  - "On zero-drift PASS, append or update review metadata only in a schema-permitted way so the strongest recorded validation_independence becomes independent."
+  - "On drift or failed replay, write a blocker note and leave RESULT-0029 metrics/verdict/tier unchanged."
+  - "Do not create a claim, promote knowledge, rerun the same ZnSe/InP surface as a new benchmark, alter the 0.05 eV margin, or introduce correction-search wording."
+  - "Return exactly one verdict: INDEPENDENT_GATE_B_PASS, INDEPENDENCE_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+
+accepted_outputs:
+  - "A replay note under docs/reviews/quantum/ plus the minimal RESULT-0029 review-metadata update if and only if the independent-human replay passes."
+  - "Output-routing summary: replay-validation evidence only; no scientific metric, verdict, claim, or knowledge change."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation of an existing result; no new result artifact is produced."
+  evidence:
+    - "results/EXP-0022/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_quantum_znse_gate_a_result.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

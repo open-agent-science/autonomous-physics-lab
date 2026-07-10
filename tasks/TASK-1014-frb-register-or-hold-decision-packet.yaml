@@ -1,0 +1,67 @@
+id: TASK-1014
+title: "Prepare the FRB register-or-hold decision packet after pack/schema repairs"
+type: scientific_result_publication
+status: READY
+closeout: review
+closeout_review_reason: "This task prepares a Class 2 maintainer prediction-freeze decision surface; closeout must verify that it did not execute or imply approval."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "After TASK-0984, TASK-1010, and TASK-1011, the FRB sealed-registration pack is no longer merely scaffolding: it is a near-ready prediction-registration surface."
+  - "The strategic next step is not another model or status summary; it is a bounded GO/HOLD/STOP packet for the maintainer decision that blocks TASK-0996."
+  - "A decision packet preserves the distinction between schema-clean preparation and actual prediction registration."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "decisions/DEC-20260709-frb-prediction-freeze-stub.yaml"
+    - "docs/reviews/frb-registration-pack-pre-freeze-audit.md"
+    - "docs/reviews/frb-sealed-prediction-registration-pack.md"
+    - "docs/reviews/frb-prediction-freeze-anchor-dry-run.md"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+    - "tasks/TASK-0996-frb-execute-prediction-freeze-after-maintainer-approval.yaml"
+    - "tasks/TASK-1010-frb-pack-payload-schema-repair.yaml"
+    - "tasks/TASK-1011-prediction-registry-validation-routing.yaml"
+  planning_context: >
+    Build a maintainer-facing decision packet after the FRB pack payload and
+    prediction-registry validation repairs have landed. The packet should
+    decide whether the repaired sealed pack is ready for explicit maintainer
+    approval, should remain on hold for one more independent review, or should
+    stop because the source/exposure semantics are too weak.
+
+requirements:
+  - "Recompute or cite the current pack, staged payload, target-payload, decision-stub, and anchor-capsule hashes from the repaired main-branch state."
+  - "Verify that the registered-entry dry run validates under the intended radio-transients/generic prediction schema and rejects placeholder values."
+  - "Summarize the no-label boundary, fixed split epoch T, fixed feature set, fixed score/rank payload, and reveal-source admissibility contract."
+  - "Present exactly three maintainer options: GO_REGISTER, HOLD_FOR_INDEPENDENT_REVIEW, or STOP_SOURCE_OR_EXPOSURE_WEAK."
+  - "For GO_REGISTER, list the exact TASK-0996 unblock conditions and the artifacts that must remain byte-identical."
+  - "For HOLD or STOP, state the minimum future evidence that would change the decision."
+  - "Do not write prediction_registry/radio_transients/PRED-0001.yaml, create tags/releases, inspect reveal labels, score outcomes, change any FRB target/score/rank/scoring-rule field, or use success/discovery wording."
+  - "Return exactly one packet verdict: READY_FOR_MAINTAINER_DECISION, HOLD_RECOMMENDED, or STOP_RECOMMENDED."
+
+accepted_outputs:
+  - "A decision packet under docs/reviews/frb/ with a GO/HOLD/STOP table, hash checklist, no-label boundary summary, reveal-contract summary, and TASK-0996 unblock checklist."
+  - "If needed, a decision-stub note that remains unapproved and clearly says the maintainer has not yet authorized registration."
+  - "Output-routing summary: decision packet only; no RESULT/PRED/CLAIM/KNOW mutation and no prediction registration."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer decision packet only; no prediction artifact is registered by this task."
+  evidence:
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "docs/reviews/frb-registration-pack-pre-freeze-audit.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
