@@ -77,9 +77,21 @@ gh release create pred-frb-pret-repeater-propensity-20260710 \
   --notes "Registered prospective FRB pre-T exposure-only point-score/rank prediction freeze. No reveal result, success verdict, uncertainty, morphology, population, discovery, RESULT, CLAIM, or KNOW artifact is implied. Capsule SHA-256: 7f7f44e83dca50b84ba5f2ce310b305172140c04fcf7ae9484fbab0dfa8e1039."
 ```
 
-If a Zenodo or other archival DOI is minted later, record only the release URL,
-DOI, archive byte size, SHA-256, and any platform MD5 in a follow-up record-back
-PR. That follow-up must not change `PRED-0001`.
+## Executed External Anchor Record-Back
+
+After this upload-pack PR merged, the external GitHub Release anchor was created
+for the same capsule bytes:
+
+- Tag: `pred-frb-pret-repeater-propensity-20260710`
+- Tag target: `059227ba0fcb6c0601bd4c70cf312c6f094aee48`
+- Release: <https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-frb-pret-repeater-propensity-20260710>
+- Asset:
+  <https://github.com/open-agent-science/autonomous-physics-lab/releases/download/pred-frb-pret-repeater-propensity-20260710/frb-pret-repeater-propensity-freeze-anchor-v1.0.0.zip>
+- Asset SHA-256:
+  `7f7f44e83dca50b84ba5f2ce310b305172140c04fcf7ae9484fbab0dfa8e1039`
+
+No Zenodo or other archival DOI has been minted. The follow-up record-back does
+not change `PRED-0001`.
 
 ## Output Routing
 
@@ -91,5 +103,5 @@ PR. That follow-up must not change `PRED-0001`.
 - Prediction impact: none; `PRED-0001` is unchanged.
 - Claim impact: none.
 - Knowledge impact: none.
-- Publication blocker: external tag/release/DOI are still maintainer-only
-  actions after merge.
+- Publication blocker: GitHub tag/release anchor is complete; no reveal result
+  exists, and any archival DOI remains a separate maintainer decision.

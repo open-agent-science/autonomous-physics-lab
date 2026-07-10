@@ -59,6 +59,7 @@ Current near-term candidates:
 | Exoplanet PSCompPars snapshots | Pinned-snapshot benchmark surface with control-sensitive residual evidence | Candidate for replication capsule and no-live-fetch snapshot protocol, not a planet-law claim |
 | Atomic Yb/Sr rows | Beloy rows exist; second-source rows remain blocked | Not publication-ready until second-source, covariance, direct-vs-derived, and holdout semantics clear |
 | Nuclear prediction registry | Frozen predictions await future source-grade reveal | Prediction artifacts are citable as pre-registered forecasts only if reveal-source discipline is maintained |
+| FRB prediction registry | `PRED-0001` is registered and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710` | Citable as a pre-reveal prediction freeze only; no success verdict, population claim, or reveal result exists |
 
 ## Citable Output Path
 
@@ -72,12 +73,12 @@ before scoped physics-result packages:
 3. **Scoped result publication package:** only after a result survives
    promotion gates, independent replay, and maintainer/scientific review.
 
-Status (2026-07-07): layer 1 and layer 2 are both live. Layer 1: the APL
+Status (2026-07-10): layer 1 and layer 2 are both live. Layer 1: the APL
 software is archived on Zenodo via the GitHub integration (v0.2.0, version
 DOI `10.5281/zenodo.21249915`, concept DOI `10.5281/zenodo.21249914`;
 future releases archive automatically). Layer 2: `MD-0002` (DOI above)
 plus the sealed tier-1 forecast anchor capsule
-(`10.5281/zenodo.21240451`).
+(`10.5281/zenodo.21240451`) and the GitHub-anchored FRB `PRED-0001` freeze.
 
 Physics discovery remains upside, not the base plan.
 

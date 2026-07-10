@@ -24,14 +24,15 @@ Planning scaffold only.
 
 Atomic clocks have since graduated into their own source-gated campaign page.
 FRB / radio transients has also graduated from generic fresh-data scouting into
-an activated sealed-prediction preparation lane. The older CHIME/FRB Catalog 2
+an activated sealed-prediction lane. The older CHIME/FRB Catalog 2
 HDF5 map remains blocked for pre-T construction because it is a static
 cumulative full-window map with no time axis. The active route is now the
 separate Catalog-1 interval exposure pair: its checksum/schema gate passed, and
 `TASK-0963` constructed a compact 479-row pre-T exposure feature surface,
 `TASK-0964` froze the exposure-only model surface, and `TASK-0965` prepared the
-sealed-registration pack. The actual PRED registration remains blocked until an
-explicit maintainer Class 2 prediction-freeze decision.
+sealed-registration pack. The maintainer then approved `PRED-0001` as a
+point-score/rank-only prediction, and the capsule is externally anchored by
+GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -109,10 +110,12 @@ the checksum/schema gate, and `TASK-0963` wrote
 `data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml` from
 pre-T source coordinates and exposure counts only. It did not read repeater
 labels, register predictions, or make a population claim. `TASK-0964` then
-froze the exposure-only model surface without label contact, and `TASK-0965`
-prepared the sealed-registration pack without writing a `PRED-*` artifact. The
-next allowed steps are pre-freeze audit, deterministic anchor dry run, and
-reveal-source contract work; registration itself remains maintainer-gated.
+froze the exposure-only model surface without label contact, `TASK-0965`
+prepared the sealed-registration pack, and the maintainer approved registered
+`PRED-0001`. The deterministic nine-member capsule is anchored by GitHub
+Release tag `pred-frb-pret-repeater-propensity-20260710`. The next allowed
+work is reveal-source contract discipline and future maintainer-reviewed reveal
+scoring, not new model fitting or label inspection.
 
 ## WATCHLIST Axes
 
@@ -134,9 +137,9 @@ Allowed next steps, only after maintainer assignment:
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
-- for FRB, continue only through label-blind pre-freeze audit, deterministic
-  anchor dry-run, reveal-source contract, or maintainer-approved prediction
-  registration from the prepared pack; a future Catalog-2-compatible route
+- for FRB, continue only through TASK-0995-compliant reveal-source manifest
+  work, anchor record-back/citation hygiene, or maintainer-approved reveal
+  scoring from the registered `PRED-0001`; a future Catalog-2-compatible route
   would still start as a metadata-only time-indexed exposure source scout.
 
 ## Not Allowed Yet
@@ -147,8 +150,8 @@ Do not:
 - ingest PTA, gravitational-wave, or event-level collider data;
 - commit FRB exposure-map bytes or bulk derived exposure rows without explicit
   maintainer license clearance;
-- treat the Catalog-1 pre-T feature surface as a repeater model, prediction
-  registry, reveal result, or source of population claims;
+- treat the Catalog-1 pre-T feature surface or registered `PRED-0001` as a
+  reveal result, repeater-success verdict, or source of population claims;
 - run a real-data benchmark or cross-domain fit;
 - derive broad physical constants;
 - combine fresh axes with anomaly-registry topics;
@@ -163,11 +166,12 @@ checksum plan, unit and uncertainty schema, and blockers. It should still add
 no numerical rows.
 
 For FRB specifically, the active next task shape is no longer generic source
-scouting: it is audit and registration discipline around the prepared
-Catalog-1 sealed-registration pack. A future Catalog-2-compatible route would
-still start as a metadata-only time-indexed exposure source scout with official
-source candidates, interval semantics, sky-coordinate mapping, rights/access
-posture, checksum feasibility, and an explicit `READY` / `AMBIGUOUS` /
+scouting or registration preparation: it is reveal-source admissibility and
+future scoring discipline around the registered Catalog-1 `PRED-0001`. A future
+Catalog-2-compatible route would still start as a metadata-only time-indexed
+exposure source scout with official source candidates, interval semantics,
+sky-coordinate mapping, rights/access posture, checksum feasibility, and an
+explicit `READY` / `AMBIGUOUS` /
 `BLOCKED` verdict. It must not fetch bulk value-bearing bytes or construct
 exposure rows without a new maintainer-reviewed task.
 

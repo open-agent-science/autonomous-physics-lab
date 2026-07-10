@@ -7,8 +7,8 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Flagship validation challenge:** Nuclear Mass Surface.
-- **Default near-term science-output sprint:** FRB pre-freeze audit / anchor /
-  reveal-source preparation after the sealed-registration pack, Exoplanet
+- **Default near-term science-output sprint:** FRB reveal-source discipline
+  after the registered and GitHub-anchored `PRED-0001`, Exoplanet
   `RESULT-0027` Gate-B-safe workflow repair, Nuclear point-only reveal
   governance, and source/readiness decisions for Atomic, Quantum, Stellar,
   Particle, Materials, and ThermoML.

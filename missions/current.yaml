@@ -1,20 +1,23 @@
 default_mode: research
-updated: "2026-07-09"
+updated: "2026-07-10"
 
 curator_cycle:
   decision: updated
-  updated: "2026-07-09"
-  source: "Scientific Director task-queue refill after FRB registration-pack wave"
+  updated: "2026-07-10"
+  source: "Scientific Director update after FRB PRED-0001 registration and anchor"
   note: >
-    Mission guidance now reflects the July 9 post-FRB wave: TASK-0965 prepared
-    the FRB sealed-registration pack but actual PRED registration remains
-    maintainer-gated, Exoplanet RESULT-0027 still needs a Gate-B-safe workflow
-    bridge, Quantum RESULT-0029 and ThermoML RESULT-0028 need replay/source
-    follow-through, Stellar CHARA is paper-level-pin-ready, Atomic is
-    KEEP_MONITOR_ONLY, and Particle AHS has a bounded sandbox diagnostic. The
-    next wave should refill READY science tasks around audit, source readiness,
-    replay, prediction-readiness, and stop/go packets without reopening closed
-    audit loops or promoting calibration-known physics as discovery.
+    Mission guidance now reflects the FRB registration/anchor closeout:
+    PRED-0001 is registered as a point-score/rank-only pre-reveal prediction
+    and externally anchored by GitHub Release tag
+    pred-frb-pret-repeater-propensity-20260710. FRB should now stay in
+    reveal-source discipline, not pre-freeze fitting. Exoplanet RESULT-0027
+    still needs a Gate-B-safe workflow bridge, Quantum RESULT-0029 and ThermoML
+    RESULT-0028 need replay/source follow-through, Stellar CHARA is
+    paper-level-pin-ready, Atomic is KEEP_MONITOR_ONLY, and Particle AHS has a
+    bounded sandbox diagnostic. The next wave should refill READY science tasks
+    around audit, source readiness, replay, reveal discipline, and stop/go
+    packets without reopening closed audit loops or promoting
+    calibration-known physics as discovery.
 
 policy:
   name: "Agent First, Research First, Parallel Work"

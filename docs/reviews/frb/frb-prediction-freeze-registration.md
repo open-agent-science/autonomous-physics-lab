@@ -51,8 +51,9 @@ it included a generated staged PRED draft plus two extra pre-approval review
 notes for audit context. This registration follows the approved pack manifest as
 the governing non-dry-run anchor contract.
 
-The deterministic capsule was built locally for checksum record-back only. This
-agent did not create a git tag, GitHub Release, external upload, or DOI.
+The deterministic capsule was built locally for checksum record-back during
+registration. After `TASK-1020`, the maintainer completed the GitHub Release
+anchor for the same capsule bytes. No DOI has been minted.
 
 | Capsule Field | Value |
 | --- | --- |
@@ -61,6 +62,16 @@ agent did not create a git tag, GitHub Release, external upload, or DOI.
 | Archive SHA-256 | `7f7f44e83dca50b84ba5f2ce310b305172140c04fcf7ae9484fbab0dfa8e1039` |
 | Compression | `zip_stored` |
 | Fixed ZIP timestamp | `1980-01-01T00:00:00` |
+
+| External Anchor Field | Value |
+| --- | --- |
+| External tag | `pred-frb-pret-repeater-propensity-20260710` |
+| Tag target commit | `059227ba0fcb6c0601bd4c70cf312c6f094aee48` |
+| GitHub Release URL | <https://github.com/open-agent-science/autonomous-physics-lab/releases/tag/pred-frb-pret-repeater-propensity-20260710> |
+| Release asset URL | <https://github.com/open-agent-science/autonomous-physics-lab/releases/download/pred-frb-pret-repeater-propensity-20260710/frb-pret-repeater-propensity-freeze-anchor-v1.0.0.zip> |
+| Release published UTC | `2026-07-10T22:36:40Z` |
+| GitHub asset digest | `sha256:7f7f44e83dca50b84ba5f2ce310b305172140c04fcf7ae9484fbab0dfa8e1039` |
+| DOI status | `not_minted` |
 
 | Order | Path | Bytes | SHA-256 | Role |
 | ---: | --- | ---: | --- | --- |
@@ -74,18 +85,15 @@ agent did not create a git tag, GitHub Release, external upload, or DOI.
 | 8 | `docs/reviews/frb-campaign-activation-20260708.md` | 2045 | `c4deb4e4182fefa218ec7e101c8ed8006bc806f5480ce5b55d71e0013d72a5b7` | campaign_activation_note |
 | 9 | `docs/reviews/frb-catalog1-interval-exposure-pair-checksum-schema-gate.md` | 6181 | `81cd0fbc983c6160a52ff80fd85985a06dd395bdc5f5c8d831839b9db4dda4f2` | catalog1_pair_gate_note |
 
-## Post-Merge Maintainer Actions
+## External Anchor Completion
 
-After this PR is merged, the maintainer may create the external annotated tag
-and GitHub Release using the recorded capsule bytes/checksum above. Any external
-release URL or DOI should be recorded in a follow-up record-back PR. The
-external anchor must not change the registered PRED payload.
+`TASK-1020` prepared the maintainer-only external anchor command surface and
+deterministic capsule helper in
+`docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md`. The completed
+GitHub Release anchor is recorded in
+`docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md`.
 
-Post-merge upload-pack note: `TASK-1020` prepared the maintainer-only external
-anchor command surface and deterministic capsule helper in
-`docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md`. The upload pack
-does not change `PRED-0001` and does not create the tag, Release, or DOI by
-itself.
+The external anchor does not change the registered PRED payload.
 
 ## Output Routing
 

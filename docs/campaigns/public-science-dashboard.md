@@ -372,7 +372,7 @@ mapping, property leakage, and family failures visible.
 | --- | --- | --- | --- | --- |
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can point-estimator gains become prediction-ready without calibrated uncertainty or source leakage? | `RESULT-0025` has exact replayed point-estimator improvement; no-peek uncertainty calibration failed; tier-1 point-only PRED entries are frozen without interval or success wording. | Negative/blocker memory plus source-rights-safe DZ10 parity; no early reveal scoring. | A blocker-memory, parity verdict, or later maintainer-reviewed reveal score. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_PUBLISHED negative/control memory with Gate A passed. | Gate-B-safe workflow repair and fair-null transparency for `RESULT-0027`. | A replay/transparency verdict, not a residual score. |
-| FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, and `TASK-0965` prepared the sealed-registration pack. No PRED entry or population claim exists yet. | Pre-freeze audit, anchor dry-run, reveal-source contract, and maintainer-gated registration. | A prediction-freeze decision and sealed registry artifact, not a success verdict. |
+| FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, `PRED-0001` was registered as a 479-source point-score/rank prediction, and the anchor capsule is sealed by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`. | Preserve reveal-source discipline under TASK-0995; no label reading or success wording before a maintainer-reviewed reveal task. | A future reveal-source manifest and label-blind scoring packet, not a current success verdict. |
 | [Quantum Size Effects](./quantum-size-effects.md) | What new source or contract would add information beyond the completed ZnSe/InP transfer failure? | Calibration-derived rows remain excluded; Almeida 2023 yielded six direct InP rows; ZnSe/Toufanian rows are frozen as limited factual extracts; `RESULT-0029` records the strict no-refit transfer miss as INCONCLUSIVE control memory. | Preserve bounded negative/borderline transfer memory. | A future source-readiness verdict, not a broad model claim. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can an independent source reduce the two-row `171Yb/87Sr` blocker without mixing isotope axes? | Beloy 2021 and Nemitz 2016 support a narrow no-tension memory card; Pizzocaro and McGrew/NIST are blocked; the newest independent source is `171Yb/88Sr`, not the committed `171Yb/87Sr` axis. | Multi-species go/no-go plus source-blocker memory; no metric rerun. | A source-readiness verdict, not constants-drift metrics. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Stefan-Boltzmann has a Gate-B-validated exact-reference software/convention result; Stellar M-L has AGENT_VALIDATED `RESULT-0022`; FIRAS/Wien `RESULT-0023` is AGENT_VALIDATED calibration memory; high-mass `RESULT-0024` is AGENT_VALIDATED but same-source DEBCat; external Stellar source route is SOURCE_LIMITED. | CHARA source pin/de-dup preflight. | A source-readiness verdict, not universal formula wording. |
@@ -433,30 +433,27 @@ near-misses.
 The FRB campaign has moved from source scouting into an activated prediction
 chain. The Catalog-1 interval exposure pair passed checksum/schema gates,
 `TASK-0963` built a compact pre-T exposure feature surface with 479 source rows,
-`TASK-0964` froze the exposure-only model surface without label contact, and
-`TASK-0965` prepared a sealed-registration pack. The pack still does not create
-a prediction registry entry; registration is maintainer-gated.
+`TASK-0964` froze the exposure-only model surface without label contact, and the
+maintainer approved registration of `PRED-0001` as a point-score/rank-only
+prediction. The deterministic nine-member anchor capsule is sealed by GitHub
+Release tag `pred-frb-pret-repeater-propensity-20260710`.
 
 Why it matters:
 
-- It is the current clearest path to a sealed, third-party-verifiable
-  prediction pack outside nuclear masses.
+- It is now a sealed, third-party-verifiable prediction pack outside nuclear
+  masses.
 - The chain has explicit sequencing: frozen exposure-only model surface,
-  prepared registration pack, pre-freeze audit/anchor/reveal-source checks, then
-  maintainer-approved sealed registration.
-- The deadline pressure is real: the registration pack should be
-  maintainer-ready before the end-of-July target, without compressing the
-  no-peek discipline.
+  registration pack, maintainer-approved PRED entry, GitHub Release anchor, and
+  a separate reveal-source contract before any scoring.
 
 Scope:
 
 No FRB result, claim, population model, or repeater-success verdict exists yet.
-`TASK-0964` is a frozen model-surface preparation artifact and `TASK-0965` is a
-prepared registration pack, not post-reveal evidence.
+`PRED-0001` is a pre-reveal prediction registry artifact, not post-reveal
+evidence.
 
-Next visible artifacts: label-blind pack audit, deterministic anchor dry run,
-reveal-source contract, and only then a maintainer-approved prediction freeze if
-the Class 2 decision is recorded.
+Next visible artifacts: a reveal-source manifest and maintainer-reviewed reveal
+scoring packet if an admissible post-T source appears.
 
 ### Quantum And Atomic Fresh-Data Gates
 
