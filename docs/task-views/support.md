@@ -21,8 +21,4 @@ None.
 - `TASK-0970` - Add Dependabot config for GitHub Actions and pip supply-chain updates (`repository_hardening`, priority `medium`, difficulty `low`, domain `repository_hardening`)
 - `TASK-0971` - Doctor: detect a stale physics_lab editable install that breaks the validation gate (`tooling_fix`, priority `high`, difficulty `low`, domain `repository_hardening`)
 - `TASK-0972` - Replace the workflow runner if-chain with a data-driven dispatch table (`code_quality_refactor`, priority `medium`, difficulty `low`, domain `repository_architecture`)
-- `TASK-0973` - Split registry god-package (slice 1): extract PR helpers into physics_lab/ops/pr_helpers (`code_quality_refactor`, priority `medium`, difficulty `medium`, domain `repository_architecture`)
-- `TASK-0981` - Closeout policy guard for task-queue seeded tasks (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-0984` - Audit the FRB sealed-registration pack before maintainer prediction freeze (`scientific_validation`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
-- `TASK-1000` - Add maintainer review queue anti-stall guardrails (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_review`)
-- `TASK-1003` - Split registry god-package (slice 2): move agent_run_pr into ops and drop its registry re-export (`code_quality_refactor`, priority `medium`, difficulty `low`, domain `repository_architecture`)
