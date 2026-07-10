@@ -30,8 +30,8 @@ ROOT_FOR_IMPORTS = Path(__file__).resolve().parents[1]
 if str(ROOT_FOR_IMPORTS) not in sys.path:
     sys.path.insert(0, str(ROOT_FOR_IMPORTS))
 
-from physics_lab.registry.validation import validate_document
-from scripts.prepare_frb_pred_registration_pack import (
+from physics_lab.registry.validation import validate_document  # noqa: E402
+from scripts.prepare_frb_pred_registration_pack import (  # noqa: E402
     DECISION_STUB_PATH,
     PACK_ID,
     PACK_PATH,
