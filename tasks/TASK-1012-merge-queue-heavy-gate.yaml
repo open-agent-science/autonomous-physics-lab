@@ -1,0 +1,63 @@
+id: TASK-1012
+title: "Run heavy Python tests only in the merge queue"
+type: ci_optimization
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Shrink pull-request feedback latency after the merge queue is enabled: PR pushes should report cheap deterministic feedback quickly instead of occupying runners with duplicate heavy suites."
+  - "Keep the actual merge gate strong: the merge queue remains required by branch protection and runs heavy pytest/full_repo coverage on the exact merge-group tree before anything reaches main."
+  - "Avoid another CI bottleneck loop by documenting that PR green means ready for queue, while merge_group green means merge-gate green."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "docs/ci-full-repo-policy.md"
+    - "docs/automation/self-hosted-ci-runner.md"
+  planning_context: >
+    After TASK-1007 enabled merge_group support, TASK-1008 added opt-in
+    auto-ready, and TASK-1009 moved post-merge main jobs off self-hosted
+    runners, the remaining latency source is duplicate heavy PR-push suites.
+    Required branch protection now routes merges through a queue that can run
+    the full suite once on the exact tree that lands on main. PR pushes should
+    therefore stay cheap and deterministic, while merge_group remains the
+    load-bearing gate.
+
+requirements:
+  - "Restrict `Run full tests` in `.github/workflows/ci.yml` to `merge_group` events only."
+  - "Restrict `Run full_repo smoke tests (risk-relevant PRs)` to `merge_group` events while preserving the `full_repo_risk` guard."
+  - "Keep `Classify change set`, ruff, strict repository validation, and targeted docs/task tests on pull_request events."
+  - "Do not change required check names, branch-protection expectations, runner fork guards, or main-matrix routing."
+  - "Update CI policy/runbook documentation so maintainers understand that heavy coverage is enforced by the required merge queue, not by every PR push."
+  - "Do not change scientific artifacts, results, claims, predictions, knowledge, or tasks unrelated to TASK-1012."
+
+accepted_outputs:
+  - "CI workflow runs heavy non-full_repo pytest only on merge_group."
+  - "CI workflow runs full_repo smoke tests only on merge_group when the classifier marks the merge group risk-relevant."
+  - "Pull-request feedback remains lint/strict-validation/targeted-docs-task fast lane."
+  - "Documentation and focused workflow-policy tests capture the merge_queue-heavy-gate contract."
+  - "Output-routing summary: CI optimization only; no scientific result, claim, prediction, or knowledge artifact is changed."
+
+result_artifact_policy:
+  required: false
+  reason: "CI optimization task; no scientific RESULT, PRED, CLAIM, or KNOW artifact is expected."
+  evidence:
+    - ".github/workflows/ci.yml"
+    - "docs/ci-full-repo-policy.md"
+    - "docs/automation/self-hosted-ci-runner.md"
+    - "tests/test_ci_workflow_policy.py"
+
+validation:
+  commands:
+    - "python3 -c \"import yaml,io; yaml.safe_load(io.open('.github/workflows/ci.yml', encoding='utf-8'))\""
+    - "python3 -m pytest tests/test_ci_workflow_policy.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -9,22 +9,29 @@ honest about `full_repo`.
 
 This policy makes `full_repo` status visible through two complementary layers.
 
-## 1. Risk-based PR gate (`.github/workflows/ci.yml`)
+## 1. Required merge-queue gate (`.github/workflows/ci.yml`)
 
 The `classify` job computes `full_repo_risk` from the PR's changed paths. The
-`Run full_repo smoke tests (risk-relevant PRs)` step runs `pytest -m full_repo`
-only when `full_repo_risk == true`:
+merge queue forces `docs_task_only=false` and `full_repo_risk=true`, then the
+required `Python fast tests (3.12)` check runs the heavy suite on the exact
+merge-group tree that can land on `main`:
 
-- **Risk-relevant** (run full_repo): `physics_lab/**`, `scripts/**`, `tests/**`,
+- `pytest -m "not full_repo"` runs on every merge-group entry.
+- `pytest -m full_repo` runs on merge-group entries whose classified tree is
+  risk-relevant. The queue path is conservatively risk-relevant by default.
+
+Risk-relevant paths are:
+
+- `physics_lab/**`, `scripts/**`, `tests/**`,
   `examples/**`, `results/**`, `.github/workflows/**`, `pyproject.toml`,
   `missions/**`, `campaign_profiles/**`, `docs/status.md`,
   `docs/mission-control.md`, `README.md`.
-- **Fast lane** (skip full_repo): pure prose docs (`docs/reviews/**`,
-  `docs/notes/**`, …) and routine task-status flips (`tasks/**`).
 
-The `Python fast tests` job is the stable required check for branch protection;
-the full_repo step lives inside it and is conditional, so docs/task-only PRs stay
-fast while risk-relevant PRs catch `full_repo` breakage **before** merge.
+Pull-request pushes no longer run the heavy pytest layers. They stay on the
+cheap deterministic feedback path: ruff, strict repository validation, and the
+targeted docs/task tests when `docs_task_only == true`. This keeps review
+latency low while preserving the merge gate, because branch protection requires
+the merge queue and the queue reports the same required check names.
 
 ## 2. Nightly watchdog (`.github/workflows/nightly-full-repo.yml`)
 
@@ -33,13 +40,13 @@ A scheduled job runs `full_repo` + strict validation + core example replays on
 main-only interactions) within a day. A failure means **main is not
 full_repo-clean**.
 
-## 3. Main push fast path (`.github/workflows/ci.yml`)
+## 3. Main push redundancy path (`.github/workflows/ci.yml`)
 
 Pushes to `main` are also classified. Code, workflow, schema, result, example,
-mission, README, and other non-doc/task changes still run the full Python
-3.11/3.12 main matrix. Pure docs/task/navigation pushes run a 3.12
-docs/task-focused lane: strict repository validation plus the targeted
-docs/task tests. This keeps generated board-sync commits from spending the full
+mission, README, and other non-doc/task changes run a 3.11 post-merge
+redundancy matrix on GitHub-hosted runners. Pure docs/task/navigation pushes
+run only the cheap path and rely on the merge-queue gate plus board-sync
+validation. This keeps generated board-sync commits from spending the full
 matrix cost after every merge while preserving validation for generated task
 navigation.
 
@@ -57,13 +64,14 @@ the latest `full_repo` status (PR gate or nightly) is red, stale, or unknown,
 commit-safe auto-closeout falls back to **report-only**. This policy is the
 prerequisite that makes the "green main" gate honest.
 
-Because docs/task-only pushes no longer always run the full main matrix,
+Because docs/task-only pushes and PR fast-lane runs no longer always run the
+full main matrix,
 `full_repo_signal_status` must ignore light push CI runs and look back to the
-most recent completed CI run that actually included both main-matrix jobs.
+most recent completed CI run that actually included a full_repo signal.
 
 ## What this is not
 
-- Not "run full_repo on every PR" — that would slow the common docs/task lane
-  for no benefit; risk classification keeps it targeted.
-- Not "rely on nightly alone" — a risk-relevant PR can break `main` before the
-  nightly runs, so the PR gate catches those pre-merge.
+- Not "run full_repo on every PR push" — that would slow review feedback and
+  duplicate the required merge-queue gate.
+- Not "rely on nightly alone" — the required merge queue catches heavy-suite and
+  `full_repo` breakage before merge, and nightly remains the drift watchdog.
