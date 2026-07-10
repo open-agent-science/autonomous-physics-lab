@@ -81,10 +81,15 @@ def test_committed_result_records_gate_b_validation() -> None:
     assert evaluation["review_tier_proposed"] == "AGENT_VALIDATED"
     assert evaluation["best_verdict_proposed"] == "INCONCLUSIVE"
     record = evaluation["validation_record"]
-    assert record["validation_independence"] == "same_account_different_tool"
+    assert record["validation_independence"] == "independent"
+    assert record["replayed_by"]["contributor_id"] == "akutenyov"
     assert record["max_abs_delta"] == 0.0
     assert record["metric_count"] == 22
     assert record["drift_observed"] == "none"
+    assert [replay["validation_independence"] for replay in record["replays"]] == [
+        "same_account_different_tool",
+        "independent",
+    ]
 
 
 def test_gate_b_replay_helper_accepts_committed_result(tmp_path: Path) -> None:

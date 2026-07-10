@@ -1,7 +1,7 @@
 id: TASK-1015
 title: "Replay Quantum RESULT-0029 with an independent human contributor"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Updates validation-independence evidence for a canonical result and must be checked for no metric/verdict drift."
 difficulty: medium
