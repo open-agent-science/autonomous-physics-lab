@@ -1,0 +1,62 @@
+id: TASK-1011
+title: "Route prediction-registry validation per domain and guard placeholders"
+type: tooling_fix
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Implements repair R2 from the TASK-0984 pre-freeze audit: any path under prediction_registry/ is currently inferred as a nuclear_mass_prediction, validate-repo only covers nuclear_masses/*, and the generic prediction schema cannot reject maintainer placeholders."
+  - "Closes an existing blind spot: prediction_registry/exoplanet_mass_radius/PRED-0001.yaml is not schema-checked by any default tool today."
+  - "Prerequisite (with TASK-1010) for the FRB Class 2 prediction-freeze decision and TASK-0996 execution."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - "physics_lab/registry/validation.py"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/schemas/prediction.schema.json"
+    - "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml"
+    - "docs/reviews/frb-registration-pack-pre-freeze-audit.md"
+  planning_context: >
+    Kind inference must route each prediction_registry subdirectory to its
+    intended schema (nuclear_masses to nuclear_mass_prediction; radio_transients
+    and exoplanet_mass_radius to the generic prediction schema), repository
+    validation patterns must cover every registry subdirectory so
+    validate-repo --strict actually checks registered entries, and the generic
+    prediction schema needs placeholder-rejecting formats mirroring the nuclear
+    schema so an accidental registration with maintainer placeholders cannot
+    pass validation.
+
+requirements:
+  - "Route prediction_registry/<domain>/ paths to their intended schema kinds in physics_lab/registry/validation.py; keep nuclear_masses on nuclear_mass_prediction."
+  - "Extend the repository validation patterns so validate-repo --strict schema-checks every prediction_registry subdirectory."
+  - "Add placeholder-rejecting constraints to prediction.schema.json: registered_at_utc as an explicit Z-timestamp pattern and source_state.git_commit as ^[0-9a-f]{7,40}$, mirroring nuclear_mass_prediction.schema.json."
+  - "Add regression tests: a staged-shape FRB payload fixture validates under the generic schema with substituted values and fails with placeholders; the committed exoplanet entry is schema-checked by validate-repo."
+  - "If the new routing exposes schema-shape violations in the committed exoplanet entry, repair only metadata shape (this task explicitly authorizes that bounded edit); do not change any scientific value, score, interval, or verdict, and list every touched field in the PR body."
+  - "validate-repo --strict --fail-on-warnings must be green repo-wide after the change."
+  - "Do not create, rename, or register any prediction entry."
+
+accepted_outputs:
+  - "Per-domain schema routing, full registry coverage in validate-repo, placeholder guards in the generic prediction schema, and regression tests."
+  - "Output-routing summary: validation tooling repair; no scientific result, claim, prediction, or knowledge artifact is changed beyond explicitly listed schema-shape metadata."
+
+result_artifact_policy:
+  required: false
+  reason: "Validation tooling repair; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "physics_lab/registry/validation.py"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/schemas/prediction.schema.json"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_registry_validation.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
