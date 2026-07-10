@@ -1,7 +1,7 @@
 id: TASK-0985
 title: "Replay ThermoML RESULT-0028 through a Gate-B-safe workflow"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: high
@@ -31,7 +31,7 @@ requirements:
   - "Do not rerun the full ThermoML benchmark as a new result, widen rows, edit RESULT-0026 metrics, or make broad property claims."
 
 accepted_outputs:
-  - "A Gate B replay note under docs/reviews plus any schema-permitted RESULT-0028 review-tier metadata update if and only if replay passes."
+  - "A Gate B replay note under docs/reviews/thermoml/ plus any schema-permitted RESULT-0028 review-tier metadata update if and only if replay passes."
   - "Output-routing summary: replay validation only; claim impact none."
 
 result_artifact_policy:
