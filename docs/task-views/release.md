@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0996` - Execute the FRB prediction freeze after explicit maintainer approval (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
