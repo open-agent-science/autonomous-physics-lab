@@ -8,7 +8,7 @@ priority: high
 strategy_alignment:
   - "Unblocks enabling a GitHub merge queue on main, removing the merge-race window where squash merges silently drop un-synced commits."
   - "Keeps the two required check contexts (Classify change set, Python fast tests (3.12)) byte-identical so branch protection needs no renaming."
-  - "Queue runs always execute the full merge-gate suite on trusted self-hosted runners, so nothing merges through the queue on the docs-only fast lane."
+  - "Queue runs always execute the full merge-gate suite, and they run on disposable GitHub-hosted runners so a hypothetically enqueued fork PR can never put untrusted code on self-hosted infra."
 
 input:
   mode: workflow
@@ -38,7 +38,7 @@ requirements:
   - "Keep the required check names/contexts exactly unchanged: job names, step names, and the single pull-request fast-tests job must not be renamed or split."
   - "On merge_group events classify must emit docs_task_only=false and full_repo_risk=true so the queue never takes the docs-only fast lane."
   - "The heavy merge-gate suite (Run full tests) and the full_repo smoke step must RUN on merge_group via an explicit event branch, not via null-coercion of the draft comparison."
-  - "merge_group runs carry same-repo trust (enqueueing a PR requires write access; no unprivileged automation enqueues PRs) and use the self-hosted PR runner labels; fork PRs stay on GitHub-hosted runners."
+  - "merge_group runs execute on GitHub-hosted runners (the fork-guard expression's null pull_request context falls through to ubuntu-latest): even a maintainer-enqueued fork PR must never reach self-hosted infra; same-repo pull_request routing is unchanged."
   - "Do not change the workflow concurrency group or cancel-in-progress unless broken; verify they are merge_group-safe (unique group per queue entry, no cancellation of queue runs)."
   - "Enabling the merge queue itself is a maintainer-only ruleset action and is not part of this change."
   - "Do not change scientific artifacts, results, claims, predictions, knowledge, or tasks unrelated to TASK-1007."
@@ -46,7 +46,7 @@ requirements:
 accepted_outputs:
   - ".github/workflows/ci.yml triggers on merge_group and produces the two required checks (Classify change set, Python fast tests (3.12)) on queue runs."
   - "classify short-circuits on merge_group with docs_task_only=false and full_repo_risk=true; pull_request and push diff-based classification is unchanged."
-  - "The pull-request job admits merge_group via contains(fromJSON(...), github.event_name), routes queue runs to self-hosted labels, and its Run full tests plus full_repo smoke steps use the (merge_group || draft == false) pattern so the full merge gate runs in the queue."
+  - "The pull-request job admits merge_group via contains(fromJSON(...), github.event_name), keeps queue runs on GitHub-hosted runners through the unchanged fork-guard expression, and its Run full tests plus full_repo smoke steps use the (merge_group || draft == false) pattern so the full merge gate runs in the queue."
   - "Maintainer enablement note (out of scope for this PR): on the main ruleset enable 'Require merge queue', set merge method to merge commit, keep batches small (e.g. max 2), and keep the two existing required checks; no check renames are needed."
   - "Output-routing summary: CI workflow change only; no scientific result, claim, prediction, or knowledge artifact is changed."
 

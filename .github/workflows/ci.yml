@@ -120,10 +120,12 @@ jobs:
     # Fork-guard (public-repo RCE protection): trusted same-repo PRs use the fast
     # self-hosted runners; PRs from forks run this required check on a disposable
     # GitHub-hosted runner so untrusted PR code never executes on self-hosted infra.
-    # merge_group runs carry same-repo trust: adding a PR to the merge queue
-    # requires write access, and no unprivileged automation enqueues PRs, so
-    # queue runs use the self-hosted labels like same-repo PRs.
-    runs-on: ${{ (github.event_name == 'merge_group' || github.event.pull_request.head.repo.full_name == github.repository) && fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') || 'ubuntu-latest' }}
+    # merge_group runs stay on disposable GitHub-hosted runners: a maintainer
+    # could legitimately enqueue a fork PR one day, and queue entries must
+    # never put not-yet-trusted code on self-hosted infra. The null
+    # pull_request context on merge_group falls through to ubuntu-latest via
+    # the same fork-guard expression.
+    runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') || 'ubuntu-latest' }}
     needs: classify
     if: contains(fromJSON('["pull_request","merge_group"]'), github.event_name)
 
