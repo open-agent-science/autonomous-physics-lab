@@ -1,0 +1,56 @@
+id: TASK-1018
+title: "Document review-loop guardrail decisions in code"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Maintainer review throughput is now limited more by CI/review-loop mechanics than by code edits."
+  - "The durable fix is to preserve the existing snapshot, PR-head fallback, and clean-worktree decisions where future agents will see them while editing the scripts."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "scripts/apl_review_queue.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/pr_finish_gate.py"
+    - "tests/test_review_queue.py"
+  planning_context: >
+    A review/merge session burned time and tokens by foreground-watching CI,
+    falling through PR metadata failures, and repeatedly polling GitHub status.
+    The code already has most of the right mechanics, but the reasons must be
+    recorded near the relevant branches so agents do not regress them later.
+
+requirements:
+  - "Add concise code comments documenting why review queue snapshots park pending CI instead of foreground-watching."
+  - "Add concise code comments documenting why the PR finish gate returns one-shot status commands for pending CI instead of watch-loop commands."
+  - "Add concise code comments documenting why PR metadata fallbacks must use pinned PR refs and clean detached worktrees instead of the current checkout."
+  - "Add lightweight regression assertions that pending-CI queue output does not reintroduce watch-loop commands."
+  - "Do not change maintainer-review verdict semantics, merge gates, CI policy, or scientific artifacts."
+
+accepted_outputs:
+  - "Code comments in the review queue and maintainer-review fallback paths."
+  - "Regression assertions in review queue tests."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling guardrail only; no scientific RESULT or PRED artifact is produced."
+  evidence:
+    - "scripts/apl_review_queue.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/pr_finish_gate.py"
+    - "tests/test_review_queue.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_review_queue.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

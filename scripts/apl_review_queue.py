@@ -56,6 +56,10 @@ def _check_name(row: dict[str, Any]) -> str:
 def _latest_check_rows(status_check_rollup: list[object]) -> tuple[dict[str, Any], ...]:
     """Return the newest row per check name from a possibly stale GH rollup."""
 
+    # Keep this as a bounded snapshot operation. During merge waves GitHub may
+    # leave cancelled rows from superseded runs in statusCheckRollup; streaming
+    # `gh pr checks --watch` per PR burns maintainer time/API budget and can
+    # hide other merge-ready PRs behind one slow queue run.
     latest: dict[str, tuple[tuple[str, int], dict[str, Any]]] = {}
     for index, row in enumerate(status_check_rollup):
         if not isinstance(row, dict):
@@ -163,6 +167,10 @@ def classify_pr(pr: dict[str, Any], *, merge_ok_prs: set[int] | None = None) -> 
         )
     if check_summary.status == "pending":
         pending = ", ".join(check_summary.pending) or "required checks"
+        # Architecture decision: pending CI parks the PR. A review sweep should
+        # advance other green PRs instead of foreground-watching one run; a
+        # deliberately selected PR can still be watched manually outside this
+        # queue snapshot.
         return QueueEntry(
             number=number,
             title=title,
@@ -277,6 +285,9 @@ def render_markdown(entries: list[QueueEntry]) -> str:
 
 
 def _load_prs_from_gh(limit: int) -> list[dict[str, Any]]:
+    # Ask GitHub for one compact rollup, then classify locally. Avoid per-PR
+    # follow-up calls here; those caused rate-limit and token churn during
+    # maintainer review sessions.
     command = [
         "gh",
         "pr",
