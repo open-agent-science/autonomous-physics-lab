@@ -15,6 +15,11 @@ Release, external upload, DOI, registered `PRED-*` entry, result, claim, or
 knowledge artifact. The dry-run archive was built in an untracked local output
 directory and is not committed.
 
+Post-approval note, 2026-07-10: after `TASK-0996` records `GO_REGISTER`, this
+dry-run capsule is historical. The helper is expected to refuse rebuilding
+against the approved decision record; use the `TASK-0996` registration note for
+the current non-dry-run anchor checksum path.
+
 The staged `PRED-0001` member inside the dry-run archive is generated from the
 TASK-0965 pack and keeps the maintainer placeholders for
 `registered_at_utc` and `source_state.git_commit`. It is a dry-run payload, not

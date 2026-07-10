@@ -1,7 +1,7 @@
 id: TASK-0996
 title: "Execute the FRB prediction freeze after explicit maintainer approval"
 type: scientific_result_publication
-status: BLOCKED
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Executes a Class 2 prediction registration only after explicit maintainer approval; closeout must verify approval, hashes, and no reveal-label leakage."
 difficulty: medium
