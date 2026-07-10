@@ -1,7 +1,7 @@
 id: TASK-0970
 title: "Add Dependabot config for GitHub Actions and pip supply-chain updates"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: medium

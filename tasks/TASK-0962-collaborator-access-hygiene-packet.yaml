@@ -1,7 +1,7 @@
 id: TASK-0962
 title: "Prepare the collaborator access hygiene decision packet (outside collaborators with write)"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: low
