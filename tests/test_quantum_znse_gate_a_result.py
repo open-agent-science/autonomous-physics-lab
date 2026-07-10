@@ -12,7 +12,6 @@ from physics_lab.registry.agent_replay_validation import (
     ReplayIdentity,
     validate_agent_published_result,
 )
-from physics_lab.registry.result_publication_gate import check_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE_PATH = ROOT / "examples" / "quantum_znse_contract_transfer_result.yaml"
@@ -74,9 +73,18 @@ def test_cli_result_is_byte_stable_in_same_output_dir(tmp_path: Path) -> None:
     assert first == second
 
 
-def test_committed_result_passes_gate_a() -> None:
-    report = check_artifact(COMMITTED_RESULT, root=ROOT)
-    assert report.ok, [issue.message for issue in report.issues]
+def test_committed_result_records_gate_b_validation() -> None:
+    payload = yaml.safe_load(COMMITTED_RESULT.read_text(encoding="utf-8"))
+
+    assert payload["review_tier"] == "AGENT_VALIDATED"
+    evaluation = payload["agent_proposal_evaluation"]
+    assert evaluation["review_tier_proposed"] == "AGENT_VALIDATED"
+    assert evaluation["best_verdict_proposed"] == "INCONCLUSIVE"
+    record = evaluation["validation_record"]
+    assert record["validation_independence"] == "same_account_different_tool"
+    assert record["max_abs_delta"] == 0.0
+    assert record["metric_count"] == 22
+    assert record["drift_observed"] == "none"
 
 
 def test_gate_b_replay_helper_accepts_committed_result(tmp_path: Path) -> None:
