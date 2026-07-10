@@ -1,7 +1,7 @@
 id: TASK-1018
 title: "Document review-loop guardrail decisions in code"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
