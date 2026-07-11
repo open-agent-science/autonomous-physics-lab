@@ -1,0 +1,58 @@
+id: TASK-1022
+title: "Clarify Zenodo software-record license boundary metadata"
+type: repository_hygiene
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep public software-release metadata precise without changing the v0.2.0 archive, DOI, or scientific artifacts."
+  - "Prevent the Zenodo software record's MIT metadata from being read as a blanket relicensing of bundled datasets, documentation, prediction artifacts, or third-party-derived factual extracts."
+  - "Reuse the repository's existing per-dataset rights registry instead of duplicating license decisions in release prose."
+
+input:
+  mode: workflow
+  related_domain: release_metadata
+  related_objects:
+    - ".zenodo.json"
+    - "data/DATA_LICENSES.yaml"
+    - "docs/reviews/software-release-v0.2-pack.md"
+  planning_context: >
+    The APL v0.2.0 Zenodo software record correctly uses resource type
+    Software, version 0.2.0, creator metadata, and MIT as the software-layer
+    license. Because the Zenodo software archive is a full repository snapshot,
+    it also contains data files, source-derived factual extracts, documentation,
+    prediction artifacts, and third-party materials with their own
+    dataset-specific or file-specific terms. Clarify this boundary in the
+    repository's Zenodo metadata so future software releases inherit it.
+
+requirements:
+  - "Add a license-boundary paragraph to `.zenodo.json` explaining that MIT applies to APL software code and repository-authored software components."
+  - "State that data, source-derived factual extracts, documentation, prediction artifacts, and third-party materials retain their file-specific or dataset-specific licensing and attribution terms."
+  - "Point to `data/DATA_LICENSES.yaml` and provenance records as the canonical rights registry."
+  - "Do not change the v0.2.0 archive, version, DOI, license field, software code, datasets, predictions, results, claims, or knowledge artifacts."
+  - "Do not assert that already-published Zenodo metadata was edited; the published-record metadata edit is a maintainer action outside the repository diff."
+
+accepted_outputs:
+  - "Updated `.zenodo.json` description with software license-boundary wording."
+  - "Updated v0.2 release pack wording that treats MIT as a software-layer licence, not blanket relicensing."
+  - "JSON and repository validation pass."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository metadata hygiene only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - ".zenodo.json"
+    - "docs/reviews/software-release-v0.2-pack.md"
+
+validation:
+  commands:
+    - "python3 -c \"import json; json.load(open('.zenodo.json', encoding='utf-8'))\""
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

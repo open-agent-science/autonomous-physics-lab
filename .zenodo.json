@@ -1,6 +1,6 @@
 {
   "title": "Autonomous Physics Lab",
-  "description": "Autonomous Physics Lab is a verification-first scientific engine for generating, testing, simulating, falsifying, scoring, and reusing physics hypotheses through deterministic code and version-controlled scientific memory. It is a hypothesis-testing and benchmarking system rather than a source of automatic discoveries.",
+  "description": "Autonomous Physics Lab is a verification-first scientific engine for generating, testing, simulating, falsifying, scoring, and reusing physics hypotheses through deterministic code and version-controlled scientific memory. It is a hypothesis-testing and benchmarking system rather than a source of automatic discoveries.\n\nLicense boundary: The MIT license applies to the APL software code and repository-authored software components. Data, source-derived factual extracts, documentation, prediction artifacts, and third-party materials included in the repository snapshot retain their file-specific or dataset-specific licensing and attribution terms. See data/DATA_LICENSES.yaml and the provenance records in the repository. This software record does not relicense third-party content under MIT.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
