@@ -15,4 +15,3 @@ None.
 ## REVIEW_READY
 
 - `TASK-0996` - Execute the FRB prediction freeze after explicit maintainer approval (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
-- `TASK-1020` - Prepare the FRB prediction freeze external-anchor upload pack (`scientific_result_publication`, priority `high`, difficulty `low`, domain `radio_transients_astrophysics`)
