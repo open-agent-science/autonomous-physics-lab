@@ -42,6 +42,12 @@ contains the registered `PRED-0001` artifact. The approved source/model freeze
 commit remains `83eca7501aea3e4f9869324b5ec2cd722fd7e676` inside the
 prediction payload.
 
+The GitHub Release anchor is a checksum/timestamp surface, not an external DOI
+or reusable-dataset license decision. The current nine-file capsule remains
+`doi_deferred`; see
+`docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md` for the
+recommended reduced-capsule route.
+
 ## Output Routing
 
 - Canonical destination: this record-back note plus the existing registration
@@ -53,4 +59,6 @@ prediction payload.
 - Knowledge impact: none.
 - Publication blocker: no reveal result exists. Any future reveal comparison
   must use the TASK-0995 reveal-source contract and cite this anchored capsule
-  checksum.
+  checksum. Any Zenodo or other archival DOI requires the reduced-capsule or
+  full-capsule rights route described in
+  `docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md`.

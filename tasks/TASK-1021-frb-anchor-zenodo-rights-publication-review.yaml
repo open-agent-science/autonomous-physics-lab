@@ -1,0 +1,61 @@
+id: TASK-1021
+title: "Review FRB anchor Zenodo rights and reduced-capsule publication route"
+type: scientific_dataset
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "Prepares a Class 2 data-rights/publication decision surface for a registered prediction; closeout must confirm that no DOI, upload, or blanket-license assertion was made."
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "TASK-1020 and PR #1513 completed the GitHub tag/release checksum anchor for FRB PRED-0001, but did not authorize an archival DOI."
+  - "The nine-member FRB anchor capsule contains source-derived, value-bearing prediction, feature, and model surfaces, so Zenodo publication needs an explicit rights gate before any reusable-dataset or blanket-license framing."
+  - "The useful next step is a narrow publication decision packet: choose a reduced metadata/checksum capsule by default, or block the full capsule until per-file redistribution rights are cleared."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "data/radio_transients/frb_sealed_prediction_registration_pack.yaml"
+    - "docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md"
+    - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
+    - "docs/published-source-dataset-standard.md"
+    - "data/DATA_LICENSES.yaml"
+  planning_context: >
+    Decide whether the completed FRB GitHub Release anchor can be extended to
+    a Zenodo DOI, and under what capsule boundary. The review should preserve
+    the no-reveal/no-claim boundary and avoid turning source-derived FRB
+    score/feature/model surfaces into a blanket-licensed reusable dataset.
+
+requirements:
+  - "Inspect the TASK-1020 nine-member capsule manifest and classify each member as APL-authored metadata, source-derived value-bearing data, or mixed/needs maintainer rights review."
+  - "Record whether the current nine-file ZIP may be uploaded to Zenodo as-is; if not, state the exact blocker and safe alternative."
+  - "Define a reduced metadata/pre-registration capsule route with a checksum manifest for excluded sealed members, including path, role, bytes, SHA-256, source commit/tag, and exclusion reason."
+  - "Present maintainer options for GO_REDUCED_CAPSULE, HOLD_FULL_CAPSULE_RIGHTS_REVIEW, or STOP_ZENODO_FOR_NOW."
+  - "Do not upload to Zenodo, mint a DOI, create a new archive, change the GitHub Release asset, edit PRED-0001, inspect reveal labels, create RESULT/CLAIM/KNOW artifacts, or apply a blanket license to source-derived sealed members."
+  - "Return exactly one verdict: REDUCED_CAPSULE_RECOMMENDED, FULL_CAPSULE_RIGHTS_REVIEW_REQUIRED, or DOI_NOT_RECOMMENDED."
+
+accepted_outputs:
+  - "A docs/reviews/frb/ rights/publication review note with per-file capsule classification, current-ZIP verdict, recommended reduced-capsule route, excluded-member checksum manifest requirements, maintainer option table, no-claim wording, and output-routing summary."
+  - "Pointer updates from the existing FRB anchor notes to the rights/publication review, without changing sealed prediction payloads or release bytes."
+  - "No external upload, DOI, new capsule bytes, prediction payload mutation, reveal scoring, RESULT, CLAIM, or KNOW artifact."
+
+result_artifact_policy:
+  required: false
+  reason: "Rights/publication decision-prep only; it does not create a reusable dataset, prediction, result, claim, or knowledge artifact."
+  evidence:
+    - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
+    - "docs/published-source-dataset-standard.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
