@@ -104,4 +104,7 @@ not change `PRED-0001`.
 - Claim impact: none.
 - Knowledge impact: none.
 - Publication blocker: GitHub tag/release anchor is complete; no reveal result
-  exists, and any archival DOI remains a separate maintainer decision.
+  exists, and any archival DOI remains a separate maintainer decision. The
+  current nine-file capsule is not automatically DOI-ready; see
+  `docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md` for the
+  recommended reduced-capsule publication route.
