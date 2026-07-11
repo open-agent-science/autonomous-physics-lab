@@ -40,8 +40,12 @@ Release tarball manually using the `.zenodo.json` metadata.
    the GitHub integration. Version DOI `10.5281/zenodo.21249915`, concept
    DOI `10.5281/zenodo.21249914`, archive
    `open-agent-science/autonomous-physics-lab-v0.2.0.zip` (13,617,960 B),
-   metadata API-verified (software / 0.2.0 / MIT / creators and keywords
-   from .zenodo.json / isSupplementedBy -> 10.5281/zenodo.21207072).
+   metadata API-verified (software / 0.2.0 / MIT software-layer licence /
+   creators and keywords from .zenodo.json / isSupplementedBy ->
+   10.5281/zenodo.21207072). `MIT` is not a blanket relicensing of every
+   archived data, documentation, prediction, or third-party-derived artifact;
+   those retain file-specific or dataset-specific terms recorded in
+   `data/DATA_LICENSES.yaml` and provenance records.
    Recorded into CITATION.cff, README How To Cite, and the publication
    roadmap. Future releases archive automatically.
 
