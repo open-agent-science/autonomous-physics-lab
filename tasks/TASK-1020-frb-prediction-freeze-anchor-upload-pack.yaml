@@ -1,7 +1,7 @@
 id: TASK-1020
 title: "Prepare the FRB prediction freeze external-anchor upload pack"
 type: scientific_result_publication
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "Post-merge anchor preparation for a registered prediction; closeout must confirm that no tag, release, DOI, reveal score, or claim was created by the agent."
 difficulty: low
