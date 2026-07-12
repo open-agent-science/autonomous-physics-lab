@@ -84,16 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; RESULT-0029 packages the strict no-refit transfer miss as AGENT_PUBLISHED INCONCLUSIVE control memory."
+  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; RESULT-0029 packages the strict no-refit transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory with independent-human replay."
   recommended_parallel_agents: 1
   coordination_notes: "Do not route agents to archived TASK-0226 or TASK-0336. Preserve the TASK-0920 borderline/negative transfer memory; no correction search, refit, design-law claim, or immediate follow-on benchmark is authorized without a new maintainer-approved source or contract."
   next_validity_gate:
     type: transfer
-    blocker: "The declared no-refit transfer ran and did not clear the survival margin; the campaign needs new source evidence or a maintainer-approved contract change before another transfer task."
-    target_artifact: "RESULT-0029"
+    blocker: "The declared no-refit transfer ran and did not clear the survival margin; TASK-0988 found a CdSe route but returned SOURCE_LIMITED_MONITOR until a value-blind source-artifact/digitization package exists."
+    target_artifact: "future CdSe source-artifact task"
   best_next_actions:
     - task_id: null
-      label: "Preserve RESULT-0029 as bounded inconclusive/control memory; no new Quantum READY metric task in this wave"
+      label: "Preserve RESULT-0029 as bounded AGENT_VALIDATED inconclusive/control memory; only open a CdSe source-artifact task if the maintainer wants to pursue the TASK-0988 SOURCE_LIMITED_MONITOR route"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -111,14 +111,16 @@ portfolio:
     - "docs/reviews/quantum-znse-frozen-row-transfer-readiness.md"
     - "docs/reviews/quantum-znse-no-refit-transfer-contract.md"
     - "docs/reviews/quantum-znse-contract-transfer-benchmark.md"
+    - "docs/reviews/quantum/result0029-independent-human-replay.md"
+    - "docs/reviews/quantum-next-direct-source-scout.md"
     - "results/EXP-0022/RUN-0001/result.yaml"
   open_questions:
     - "What new direct source surface or maintainer-approved contract change, if any, would add information beyond the TASK-0920 borderline transfer failure?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-09"
+    last_reviewed: "2026-07-12"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0957 RESULT-0029 packaging and Scientific Director 2026-07-09 docs-sync cycle"
-    notes: "The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow factual extracts, and RESULT-0029 preserves the strict no-refit transfer miss as inconclusive/control memory. Open-ended correction search remains blocked."
+    source: "TASK-0957 RESULT-0029 packaging, TASK-1015 independent-human replay, TASK-0988 next-source scout, and Scientific Director 2026-07-12 cycle"
+    notes: "The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow factual extracts, and RESULT-0029 is AGENT_VALIDATED inconclusive/control memory. TASK-0988 found only a SOURCE_LIMITED_MONITOR CdSe route; open-ended correction search remains blocked."

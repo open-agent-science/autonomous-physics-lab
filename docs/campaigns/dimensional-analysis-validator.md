@@ -24,11 +24,10 @@ challenge surface:
 
 - `EXP-0006/RUN-0006` produced `RESULT-0007`, a frozen 50-item MVP benchmark
   with **49/50 agreement (98%)**.
-- `EXP-0006/RUN-0007` produced `RESULT-0020`, an `AGENT_PUBLISHED` live
-  74-item replay with **74/74 agreement**. The packaging contest has since been
-  repaired enough for clean replay, but `TASK-0916` preserved
-  `AGENT_PUBLISHED` because the validation-tier bump still needs a genuinely
-  independent replayer identity.
+- `EXP-0006/RUN-0007` produced `RESULT-0020`, an `AGENT_VALIDATED` live
+  74-item replay with **74/74 agreement**. `TASK-0948` supplied the genuinely
+  independent Gate B replay identity and reproduced all 17 tracked metrics with
+  zero drift at tolerance `1e-9`.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
   stores the frozen canonical replay input.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml` stores the
@@ -41,10 +40,9 @@ challenge surface:
 Current campaign state in one sentence:
 
 The validator has a frozen `LEGACY_UNTIERED` MVP result and a newer live
-74-item `AGENT_PUBLISHED` result whose scientific replay is clean but whose
-validation tier is blocked on independent replay identity; the next step is
-independent Gate B validation, not silent challenge-set drift or automatic
-claim promotion.
+74-item `AGENT_VALIDATED` result. The next step is a maintainer Gate C wording
+decision for `CLAIM-0005`, not silent challenge-set drift or automatic claim
+promotion.
 
 Start here:
 
@@ -62,24 +60,20 @@ Start here:
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
   the current SI-focused benchmark version?
-- Can a truly independent replayer clear `RESULT-0020` for a metadata-only
-  validation-tier update without changing metrics or `CLAIM-0005`?
 - Should `CLAIM-0005` remain `DRAFT`, or should the maintainer accept a
-  benchmark-limited transition based solely on `LEGACY_UNTIERED`
-  `RESULT-0007`?
+  benchmark-limited transition based on `RESULT-0007` plus independently
+  Gate-B-validated `RESULT-0020`?
 
 ## Recommended Tasks
 
 - `TASK-0766` completed the independent replay with
   `GATE_B_CONTESTED_RESULT`; see the
   [contested replay note](../reviews/dimensional-result-0020-gate-b-contested-replay.md).
-- `TASK-0768` assembles the CLAIM-0005 maintainer evidence handoff while
-  recording that there is no `AGENT_VALIDATED` evidence and `RESULT-0020`
-  remains replay-needed.
-- `TASK-0782` and `TASK-0916` resolved the packaging mechanics but preserved the
-  validation-independence blocker. The live follow-up is `TASK-0941`, an
-  independent Gate B replay for `RESULT-0020`, not challenge-set expansion or
-  claim support.
+- `TASK-0948` resolved the validation-independence blocker: `RESULT-0020` is
+  now `AGENT_VALIDATED` with `validation_independence: independent`.
+- `TASK-0956` refreshed `CLAIM-0005` evidence to cite `RESULT-0020` while
+  keeping the claim in `DRAFT`; any status change remains a maintainer Gate C
+  decision.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.
 
@@ -95,7 +89,7 @@ Start here:
 - Do not let live challenge-set additions rewrite the canonical MVP result.
 - Do not report follow-on curation metrics as if they were `RESULT-0007`.
 - Do not change `RESULT-0020` metrics, challenge-set contents, or `CLAIM-0005`
-  while deciding whether a metadata-only validation-tier update is appropriate.
+  wording/status outside an explicit maintainer Gate C task.
 - Do not treat SI-only validation as support for natural-unit workflows.
 - Do not blur dimensional consistency with full physical correctness.
 - Do not promote any claim automatically from challenge-set curation alone.

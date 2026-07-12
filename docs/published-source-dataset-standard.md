@@ -181,6 +181,14 @@ other value-bearing data, the publication task must choose one of two routes:
    This lets the DOI timestamp cover the full sealed state by checksum without
    republishing uncleared data-bearing files.
 
+Any task that prepares a deterministic archive, upload pack, or external
+anchor command set must record a DOI-readiness verdict in the same PR, even
+when upload and publication remain maintainer-only. Use one of:
+`FULL_CAPSULE_DOI_READY`, `REDUCED_CAPSULE_REQUIRED`, or `DOI_HOLD`. If the
+verdict is `REDUCED_CAPSULE_REQUIRED`, include the proposed reduced allowlist
+and excluded-member manifest shape; do not leave the rights boundary for a
+second archive loop unless the task explicitly stops at `DOI_HOLD`.
+
 If neither route is complete, the correct status is `publication_blocked` or
 `doi_deferred`, even when a GitHub Release anchor exists. External DOI wording
 must say "sealed prediction", "pre-registration anchor", "checksum capsule", or

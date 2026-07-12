@@ -1,0 +1,64 @@
+id: TASK-1024
+title: "Build the FRB reduced pre-registration anchor capsule after rights approval"
+type: scientific_dataset
+status: BLOCKED
+closeout: review
+closeout_review_reason: "External-anchor packaging for a registered prediction; closeout must confirm no upload, DOI, reveal scoring, or blanket-license assertion occurred."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1021 determined that the current nine-member FRB anchor capsule should not be uploaded to Zenodo as a blanket-licensed dataset because it contains source-derived value-bearing surfaces."
+  - "The safe next route is a reduced APL-authored metadata/pre-registration capsule with checksums for excluded sealed members, but only after the maintainer explicitly chooses GO_REDUCED_CAPSULE."
+  - "This task turns the rights review into a deterministic package path without weakening the no-reveal/no-claim boundary."
+
+input:
+  mode: workflow
+  related_domain: radio_transients_astrophysics
+  related_objects:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md"
+    - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
+    - "docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    Implement the reduced-capsule route recommended by TASK-1021 only after an
+    explicit maintainer GO_REDUCED_CAPSULE decision. The implementation should
+    build deterministic local bytes and copy-paste metadata for maintainer
+    upload, but must stop before external publication or DOI minting.
+
+requirements:
+  - "Blocked-by: maintainer has not yet recorded GO_REDUCED_CAPSULE for the TASK-1021 route. Before any packaging work, verify that the decision is recorded; otherwise stop without editing package bytes."
+  - "Build only the reduced metadata/pre-registration capsule: registered PRED entry or redacted copy, approved decision context, freeze/anchor record, tag/commit/release metadata, checksum manifest, excluded-member manifest, README, and no-claim wording."
+  - "Exclude source-derived feature surfaces, model surfaces, target payloads, ranks/scores tables, or mixed narrative notes unless TASK-1021 explicitly classified them rights-clear for the reduced capsule."
+  - "For each excluded sealed member, record path, role, byte size, SHA-256, source commit or tag, and exclusion reason so the external timestamp can anchor the full sealed state by checksum."
+  - "Add regression tests or deterministic checks for the allowlist, excluded-member manifest, archive SHA-256, and no source-derived value-bearing member leakage."
+  - "Prepare copy-paste Zenodo metadata that frames the artifact as a sealed prediction pre-registration/checksum anchor, not an open reusable FRB dataset."
+  - "Record the publication-route DOI-readiness verdict as REDUCED_CAPSULE_REQUIRED, distinct from the implementation verdict, and preserve the reduced allowlist plus excluded-member manifest as the rights boundary."
+  - "Do not upload to Zenodo, mint a DOI, alter the existing GitHub Release asset, read reveal labels, compute reveal scores, change PRED-0001 payloads, or create RESULT/CLAIM/KNOW artifacts."
+  - "Return exactly one verdict: REDUCED_CAPSULE_READY_FOR_MAINTAINER_UPLOAD, REDUCED_CAPSULE_BLOCKED, or GO_REDUCED_CAPSULE_NOT_RECORDED."
+
+accepted_outputs:
+  - "A deterministic reduced-capsule builder or package manifest with tests, writing archive bytes only to ignored local output such as _generated/."
+  - "A docs/reviews/frb/ reduced-capsule implementation note with allowlist, excluded-member checksum manifest, archive filename/bytes/SHA-256, copy-paste external metadata, no-claim wording, and maintainer upload/record-back stop line."
+  - "An explicit DOI-readiness verdict of REDUCED_CAPSULE_REQUIRED alongside the separate implementation verdict."
+  - "No external upload, DOI, existing release-byte mutation, reveal scoring, prediction payload mutation, result, claim, or knowledge artifact."
+
+result_artifact_policy:
+  required: false
+  reason: "Packaging helper and external-publication prep only; no new scientific prediction or result is created."
+  evidence:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

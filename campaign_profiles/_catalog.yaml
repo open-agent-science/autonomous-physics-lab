@@ -186,21 +186,23 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay;
-    TASK-0916 confirmed clean replay but preserved AGENT_PUBLISHED because a truly independent
-    validation identity is still needed.
+  current_stage: RESULT-0007 frozen MVP plus AGENT_VALIDATED RESULT-0020 live 74-item replay;
+    TASK-0948 supplied a genuinely independent Gate B replay identity with zero drift across
+    17 tracked metrics.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Prioritize one independent Gate B replay identity before adding live
-      challenge examples or claim support; duplicate dirty PRs are not new scientific evidence.
+    coordination_notes: Do not add live challenge examples as a substitute for Gate C. The
+      next useful step is maintainer review of CLAIM-0005 wording/status, while keeping dimensional
+      consistency separate from full physical correctness.
   next_validity_gate:
     type: ratification
-    blocker: RESULT-0020 cleanly replays, but the AGENT_VALIDATED tier bump needs an independent
-      replayer after the TASK-0916 identity blocker.
-    target_artifact: TASK-0941
+    blocker: CLAIM-0005 remains DRAFT until the maintainer explicitly accepts a narrowed challenge-set
+      agreement statement at Gate C, or chooses to keep it DRAFT/PARTIALLY_SUPPORTED.
+    target_artifact: CLAIM-0005
   best_next_actions:
-  - task_id: TASK-0941
-    label: Run an independent RESULT-0020 Gate B replay for validation-tier eligibility
+  - task_id: null
+    label: 'Maintainer Gate C decision for CLAIM-0005: keep DRAFT, apply narrowed PARTIALLY_SUPPORTED,
+      or apply narrowed SUPPORTED wording'
   required_gates:
   - Do not change frozen RESULT-0007 replay scope.
   - Separate live curation from canonical MVP metrics.
@@ -226,18 +228,18 @@ campaigns:
   - docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md
   - docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md
   open_questions:
-  - Can a truly independent replayer clear RESULT-0020 for metadata-only AGENT_VALIDATED without
-    changing metrics, challenge sets, or CLAIM-0005?
+  - What exact narrowed title/status should CLAIM-0005 use if the maintainer accepts Gate
+    C?
   curator_review:
     status: current
-    last_reviewed: '2026-07-05'
+    last_reviewed: '2026-07-12'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: TASK-0916 validation-independence blocker and Scientific Director 2026-07-05 task-queue
-      cycle
-    notes: Quality-floor track has a high-value live result with clean replay. The next work
-      is independent validation-tier replay, not challenge expansion or claim support.
+    source: TASK-0948 independent Gate B replay, TASK-0956 evidence refresh, and Scientific
+      Director 2026-07-12 cycle
+    notes: Quality-floor track now has AGENT_VALIDATED RESULT-0020 with independent replay.
+      The next work is maintainer Gate C wording/status for CLAIM-0005, not challenge expansion.
   source_docs:
   - docs/campaigns/dimensional-analysis-validator.md
   - docs/results/dimensional-analysis-validator-summary.md
@@ -268,19 +270,18 @@ campaigns:
     surfaced in the artifact.
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: Parallel-safe for RESULT-0027 Gate B replay and metadata-only monitor
-      reviews; do not reopen residual scoring without a materially changed reviewed snapshot
-      or coverage-gate amendment.
+    coordination_notes: RESULT-0027 Gate-B-safe replay and fair-null transparency are complete.
+      Metadata-only monitor reviews remain safe; do not reopen residual scoring without a
+      materially changed reviewed snapshot or coverage-gate amendment.
   next_validity_gate:
-    type: ratification
-    blocker: RESULT-0027 has a Gate-B-safe workflow route and independent replay record after
-      TASK-0959, but the task still needs maintainer review/closeout; residual scoring remains
-      closed unless a future reviewed source-version or coverage trigger appears.
-    target_artifact: TASK-0959
+    type: source_readiness
+    blocker: Residual scoring remains closed on the current snapshot; only a future reviewed
+      source-version or coverage trigger can justify reopening.
+    target_artifact: future EXO monitor task
   best_next_actions:
-  - task_id: TASK-0959
-    label: Review and close out the RESULT-0027 Gate-B workflow bridge; keep monitor-only
-      posture explicit
+  - task_id: null
+    label: Keep monitor-only posture; open a metadata-only source-version watch only when
+      a NOTIFY-class trigger or maintainer request appears
   required_gates:
   - Pinned snapshot and checksum state must remain explicit.
   - Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes.
@@ -321,12 +322,12 @@ campaigns:
   - What future source-version or coverage signal would justify EXO-0003 planning?
   curator_review:
     status: current
-    last_reviewed: '2026-07-09'
+    last_reviewed: '2026-07-12'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
     source: TASK-0919 RESULT-0027 packaging, TASK-0959 Gate-B workflow bridge, and Scientific
-      Director 2026-07-09 docs-sync cycle
+      Director 2026-07-12 cycle
     notes: Monitor-only lane with an AGENT_VALIDATED bounded negative/control result. Gate-B-safe
       workflow repair and fair-null transparency are complete; next work is trigger discipline,
       not residual scoring or EXO-0003 acquisition.
@@ -366,12 +367,13 @@ campaigns:
       v0.1.1 reason.
   next_validity_gate:
     type: source_readiness
-    blocker: MD-0002 has an external DOI; before broader public opening, verify DOI/tag/archive/checksum/license/attribution/no-claim
-      consistency without reopening rows or metrics.
-    target_artifact: TASK-0937
+    blocker: MD-0002 release integrity is confirmed and no metric/archive rebuild is justified;
+      the next decision is whether a second dataset surface is worth opening, or whether Materials
+      should hold.
+    target_artifact: TASK-0993
   best_next_actions:
-  - task_id: TASK-0937
-    label: Verify MD-0002 Zenodo release integrity and public no-claim readiness
+  - task_id: TASK-0993
+    label: Prepare a Materials second-dataset stop/go packet after MD-0002 publication
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -419,22 +421,22 @@ campaigns:
   - results/EXP-0014/RUN-0001/result.yaml
   - agent_runs/AGENT-RUN-0072/
   open_questions:
-  - Does the public Zenodo record, release tag, archive checksum, manifest, and no-claim wording
-    remain mutually consistent after DOI record-back?
+  - Should Materials open a second source-pinned dataset surface, route MD-0001 as memory,
+    or hold dataset expansion?
   - What future release-version signal would justify rebuilding MD-0002 as v0.1.1?
   - What future Materials task, if any, can add information beyond the already-recorded transfer-negative
     and descriptor-ablation limits?
   curator_review:
     status: current
-    last_reviewed: '2026-07-05'
+    last_reviewed: '2026-07-12'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0924 Zenodo DOI record-back and Scientific Director 2026-07-05 task-queue
-      cycle
+    source: TASK-0937 MD-0002 release-integrity verification, TASK-0993 stop/go queue, and
+      Scientific Director 2026-07-12 cycle
     notes: MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark
-      and the dataset now has a Zenodo DOI. The next useful action is a release-integrity/public-wording
-      check, not new metrics or a feature factory.
+      and release integrity is confirmed. The next useful action is a second-dataset stop/go
+      packet, not new metrics or a feature factory.
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -724,7 +726,8 @@ campaigns:
     - updated_campaign_profile
   current_stage: Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped
     sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; RESULT-0029
-    packages the strict no-refit transfer miss as AGENT_PUBLISHED INCONCLUSIVE control memory.
+    packages the strict no-refit transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory
+    with independent-human replay.
   agent_capacity:
     recommended_parallel_agents: 1
     coordination_notes: Do not route agents to archived TASK-0226 or TASK-0336. Preserve the
@@ -733,14 +736,15 @@ campaigns:
       source or contract.
   next_validity_gate:
     type: transfer
-    blocker: The declared no-refit transfer ran and did not clear the survival margin; the
-      campaign needs new source evidence or a maintainer-approved contract change before another
-      transfer task.
-    target_artifact: RESULT-0029
+    blocker: The declared no-refit transfer ran and did not clear the survival margin; TASK-0988
+      found a CdSe route but returned SOURCE_LIMITED_MONITOR until a value-blind source-artifact/digitization
+      package exists.
+    target_artifact: future CdSe source-artifact task
   best_next_actions:
   - task_id: null
-    label: Preserve RESULT-0029 as bounded inconclusive/control memory; no new Quantum READY
-      metric task in this wave
+    label: Preserve RESULT-0029 as bounded AGENT_VALIDATED inconclusive/control memory; only
+      open a CdSe source-artifact task if the maintainer wants to pursue the TASK-0988 SOURCE_LIMITED_MONITOR
+      route
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -777,20 +781,24 @@ campaigns:
   - docs/reviews/quantum-znse-frozen-row-transfer-readiness.md
   - docs/reviews/quantum-znse-no-refit-transfer-contract.md
   - docs/reviews/quantum-znse-contract-transfer-benchmark.md
+  - docs/reviews/quantum/result0029-independent-human-replay.md
+  - docs/reviews/quantum-next-direct-source-scout.md
   - results/EXP-0022/RUN-0001/result.yaml
   open_questions:
   - What new direct source surface or maintainer-approved contract change, if any, would add
     information beyond the TASK-0920 borderline transfer failure?
   curator_review:
     status: current
-    last_reviewed: '2026-07-09'
+    last_reviewed: '2026-07-12'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0957 RESULT-0029 packaging and Scientific Director 2026-07-09 docs-sync cycle
+    source: TASK-0957 RESULT-0029 packaging, TASK-1015 independent-human replay, TASK-0988
+      next-source scout, and Scientific Director 2026-07-12 cycle
     notes: The direct-row blocker for Almeida InP is resolved, ZnSe rows are frozen as narrow
-      factual extracts, and RESULT-0029 preserves the strict no-refit transfer miss as inconclusive/control
-      memory. Open-ended correction search remains blocked.
+      factual extracts, and RESULT-0029 is AGENT_VALIDATED inconclusive/control memory. TASK-0988
+      found only a SOURCE_LIMITED_MONITOR CdSe route; open-ended correction search remains
+      blocked.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
@@ -924,27 +932,22 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: ThermoML Tb RESULT-0026 is AGENT_VALIDATED on a bounded 40-row family-stratified
-    fixture; esters/lactones is now packaged as AGENT_PUBLISHED failed-family negative/control
-    RESULT-0028; exact 80-row expansion is source-access and revised-contract gated.
+    fixture; esters/lactones RESULT-0028 is now AGENT_VALIDATED failed-family negative/control
+    memory; exact 80-row expansion is source-access and revised-contract gated.
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Do not broaden beyond Tb, commit raw archive bytes, rerun Gate A packaging,
       or hide failed-family memory behind aggregate wins. Future expansion must start from
-      source-access/revised-contract work; RESULT-0028 replay is allowed only if it uses a
-      Gate-B-safe route.
+      source-access/revised-contract work; do not schedule another RESULT-0028 replay loop.
   next_validity_gate:
     type: source_readiness
-    blocker: RESULT-0028 is packaged but Gate B is pending; the exact 80-row public fixture
-      path is blocked unless the checksum-matching local archive is supplied or the source-access
-      contract is changed.
-    target_artifact: TASK-0955
+    blocker: The exact 80-row public fixture path is blocked unless the checksum-matching
+      local archive is supplied or the source-access contract is changed; RESULT-0028 replay
+      is already complete.
+    target_artifact: TASK-0986
   best_next_actions:
-  - task_id: TASK-0955
-    label: Keep the bounded 80-row extract blocked until the pinned local archive or a revised
-      source-access contract exists
-  - task_id: null
-    label: Optionally plan a Gate-B-safe RESULT-0028 replay or a revised expansion contract;
-      do not rerun Joback as a new result
+  - task_id: TASK-0986
+    label: Decide the revised ThermoML source-access contract after the 80-row blocker
   required_gates:
   - ThermoML archive DOI, checksum, and rights boundary must stay explicit.
   - No raw archive bytes or substantial normalized corpus may be committed.
@@ -986,22 +989,24 @@ campaigns:
   - docs/reviews/thermoml-esters-lactones-negative-memory.md
   - docs/reviews/thermoml-esters-lactones-negative-result-preflight.md
   - results/EXP-0020/RUN-0002/result.yaml
+  - docs/reviews/thermoml/result0028-gate-b-workflow-bridge.md
   - docs/reviews/thermoml-80-row-fixture-source-blocker.md
   open_questions:
   - Will the checksum-matching ThermoML archive be supplied locally for the bounded extract,
     or should the source-access contract change?
-  - Can RESULT-0028 be replayed through a Gate-B-safe route without mutating RESULT-0026?
+  - If the source-access contract changes, what bounded factual-extract route avoids raw archive
+    vendoring and broader ThermoML corpus claims?
   curator_review:
     status: current
-    last_reviewed: '2026-07-09'
+    last_reviewed: '2026-07-12'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0907 formal Gate B bridge, TASK-0936 RESULT-0028 packaging, TASK-0955 source
-      blocker, and Scientific Director 2026-07-09 docs-sync cycle
+    source: TASK-0907 formal Gate B bridge, TASK-0936 RESULT-0028 packaging, TASK-1016 RESULT-0028
+      Gate B bridge, and Scientific Director 2026-07-12 cycle
     notes: This bounded thermophysical-property benchmark lane stays Tb-only and no-claim.
-      RESULT-0026 is AGENT_VALIDATED, RESULT-0028 preserves failed-family memory, and expansion
-      is source-access/revised-contract gated.
+      RESULT-0026 and RESULT-0028 are AGENT_VALIDATED; expansion is source-access/revised-contract
+      gated.
   source_docs:
   - docs/campaigns/thermophysical-property-residuals.md
   - data/thermophysical/source_manifest.yaml

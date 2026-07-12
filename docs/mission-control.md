@@ -65,14 +65,14 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | Dry-run a deterministic `MD-0002` archive package before any external upload, DOI, or broader transfer wording | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | `MD-0002` v0.1.0 is published and integrity-confirmed; next useful work is a second-dataset stop/go decision, not archive rebuild or new metrics | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier, replay, and source-contract gate | Keep famous-formula checks source-first; FIRAS/Wien is agent-validated calibration memory, while high-mass transfer needs metadata-caveat adjudication before stronger wording | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and uncertainty-gated prospective reveal | Test nuclear residual candidates with frozen baselines and future reveal discipline, while keeping `RESULT-0025` point-estimator gains separate from uncalibrated intervals | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Preserve `RESULT-0029` as bounded inconclusive/control transfer memory; new work needs new source evidence or a maintainer-approved contract change | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | McGrew/NIST is blocked as not a direct independent Yb/Sr route; scout one post-2021 independent primary source before any metric rerun | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
 | [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Source-pinned thermophysical benchmark lane | Keep `RESULT-0026` and failed-family `RESULT-0028` paired; expansion remains source-access/revised-contract gated without raw archive vendoring or broad property claims | [thermophysical-property-residuals.md](./campaigns/thermophysical-property-residuals.md) |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Repair `RESULT-0027` for Gate-B-safe replay and fair-null transparency; reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
-| FRB / Radio Transients | Activated sealed-prediction preparation lane | Use the frozen exposure-only model surface for a maintainer-approved sealed registration pack; no repeater-success wording before reveal | [fresh-physics-data-axes.md](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Preserve AGENT_VALIDATED `RESULT-0027` as bounded null-baseline negative/control memory; reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
+| FRB / Radio Transients | Registered sealed-prediction reveal-discipline lane | `PRED-0001` is registered and GitHub-anchored as a point-score/rank-only pre-reveal prediction; no DOI deposit, reveal scoring, repeater-success wording, population claim, or morphology claim before a separate maintainer-reviewed task | [fresh-physics-data-axes.md](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
@@ -119,11 +119,11 @@ The clearest current repository-level results are:
     FIRAS/Wien `RESULT-0023`, AGENT_VALIDATED Stellar high-mass transfer
     `RESULT-0024`, Nuclear point-estimator `RESULT-0025`, ThermoML `Tb`
     `RESULT-0026`, Exoplanet negative/control `RESULT-0027`, ThermoML
-    failed-family `RESULT-0028`, and Quantum ZnSe no-refit `RESULT-0029` are
-    the current strongest post-validation, replay-ready, or source-pinned
-    dataset-backed surfaces. The newest agent wave also moved FRB from source
-    scouting into sealed-prediction preparation with the exposure-only model
-    surface frozen. These surfaces are useful as
+    AGENT_VALIDATED failed-family `RESULT-0028`, and Quantum ZnSe no-refit
+    `RESULT-0029` are the current strongest post-validation, replay-ready, or
+    source-pinned dataset-backed surfaces. The newest agent wave also moved FRB
+    from source scouting into a registered, GitHub-anchored sealed prediction
+    with the exposure-only model surface frozen. These surfaces are useful as
     scoped, review-tiered memory and transfer/source-readiness prompts, not as
     material-discovery, stellar-law, nuclear-law, thermophysical-law,
     repeater-population, quantum-design, or universal-formula claims.

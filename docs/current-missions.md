@@ -68,24 +68,27 @@ science paths are:
 1. protect the registered FRB chain after `PRED-0001`: preserve the GitHub
    Release anchor, use the TASK-0995 reveal-source contract, and do not read or
    score reveal labels before a separate maintainer-reviewed reveal task;
-2. repair Exoplanet `RESULT-0027` for Gate-B-safe replay and fair-null
-   transparency (`TASK-0959`), without reopening residual scoring;
+2. keep Exoplanet `RESULT-0027` as AGENT_VALIDATED negative/control memory with
+   fair-null transparency; do not reopen residual scoring without a future
+   NOTIFY-class source trigger or maintainer-approved coverage amendment;
 3. score the approved Nuclear shell-axis mini-wave reveal only through the
    source-approved `TASK-0305` lane, while keeping interval-bearing claims
    blocked until uncertainty calibration is repaired;
 4. enforce future result replayability after the Exoplanet bridge lands
    (`TASK-0960`);
 5. use source-gated campaigns for blocker memory, replay, and revised contracts:
-   Quantum `RESULT-0029` needs replay/new-source work, ThermoML has `RESULT-0028`
-   replay plus source-access decisions, Atomic remains monitor-only, and Stellar
-   has a value-blind CHARA source-artifact route.
+   Quantum `RESULT-0029` is AGENT_VALIDATED but its next CdSe source lead is
+   SOURCE_LIMITED_MONITOR, ThermoML has AGENT_VALIDATED `RESULT-0028` plus
+   source-access decisions, Atomic remains
+   monitor-only, and Stellar has a value-blind CHARA source-artifact route.
 
 Nuclear Mass Surface remains the flagship ambition, but interval-bearing
 prediction remains blocked because approved no-peek uncertainty routes failed.
 Exoplanet remains monitor-only on the unchanged snapshot even though
 `RESULT-0027` now exists. Quantum has a source-scoped Almeida baseline and
-AGENT_PUBLISHED `RESULT-0029`, so the same ZnSe/InP transfer should not be
-rerun as a new benchmark. Atomic remains row-admissibility blocked after the
+AGENT_VALIDATED `RESULT-0029`, so the same ZnSe/InP transfer should not be
+rerun as a new benchmark; TASK-0988 found only a monitor-only CdSe source lead.
+Atomic remains row-admissibility blocked after the
 McGrew/NIST route failed; the next route needs a genuinely admissible source or
 a maintainer-approved multi-species contract.
 At handoff, agents should route the output through
@@ -109,11 +112,11 @@ turning watchlist topics into formula-search work.
 | [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer lane: `RESULT-0021` is reviewed memory, repository-local MD-0002 metadata is closed, transfer-negative memory is preserved, the dataset is externally published (Zenodo DOI `10.5281/zenodo.21207072`, v0.1.0, 2026-07-05, integrity-confirmed) | Reuse/citation surfaces and the second-dataset decision packet; no row mutation, metric mutation, or claim wording |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with validated exact-reference, Stellar M-L, FIRAS/Wien surfaces, AGENT_VALIDATED same-source `RESULT-0024`, and a `PAPER_LEVEL_PIN_READY` CHARA route | `TASK-0989` value-blind CHARA source artifact/de-dup package; no universal formula wording |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory, exact-replayed `RESULT-0025` point-estimator evidence, failed uncertainty calibration, DZ10 full-table parity PASS, and the executed tier-1 point-only freeze (`PRED-0069..0072`, sealed 2026-07-05) | External anchoring (`TASK-0945` pack), reveal-source watch discipline, approved `TASK-0305` scoring lane; no interval-bearing freeze until calibration repair |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, `NO_NOTIFY` monitor check, and AGENT_PUBLISHED `RESULT-0027` negative/control packaging | `TASK-0959` Gate-B-safe workflow repair and fair-null transparency; no residual scoring unless a NOTIFY-class trigger appears |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, `NO_NOTIFY` monitor check, and AGENT_VALIDATED `RESULT-0027` negative/control packaging | Monitor-only until a NOTIFY-class source trigger or maintainer-approved coverage amendment appears; no residual scoring on the unchanged snapshot |
 | [FRB / Radio Transients](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) | Registered sealed-prediction chain with checksum/schema-gated Catalog-1 interval exposure pair, committed 479-row pre-T exposure feature surface, frozen exposure-only model surface, maintainer-approved `PRED-0001`, and GitHub Release anchor tag `pred-frb-pret-repeater-propensity-20260710` | Reveal-source contract discipline via TASK-0995; no label reading, success wording, population claim, or reveal scoring before a separate maintainer-reviewed reveal task |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, Toufanian ZnSe rows are frozen as limited factual extracts, and `RESULT-0029` preserves the strict no-refit transfer miss as inconclusive/control memory | `TASK-0987` replay and `TASK-0988` next-source scout; no repeat transfer on the same ZnSe/InP surface |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-scoped Almeida baseline exists, Toufanian ZnSe rows are frozen as limited factual extracts, and AGENT_VALIDATED `RESULT-0029` preserves the strict no-refit transfer miss as inconclusive/control memory | TASK-0988 found a CdSe route but returned SOURCE_LIMITED_MONITOR; no repeat transfer on the same ZnSe/InP surface |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with source-limited Yb/Sr memory, covariance policy, diagnostic-only Pizzocaro aggregation, blocked McGrew/NIST route, and `KEEP_MONITOR_ONLY` multispecies verdict | `TASK-0990` monitor-only trigger ledger; no constants-drift or metric rerun |
-| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026`, frozen Joback baseline, rights boundary, and AGENT_PUBLISHED esters/lactones negative/control `RESULT-0028` | `TASK-0985` RESULT-0028 replay and `TASK-0986` source-access contract packet; no broader property claims |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026`, frozen Joback baseline, rights boundary, and AGENT_VALIDATED esters/lactones negative/control `RESULT-0028` | `TASK-0986` source-access contract packet; no replay loop, broader property claims, or raw archive vendoring |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -135,11 +138,11 @@ Near-term portfolio shape:
 | Dataset/source-readiness gate | Materials Property Residuals | MD-0002 is published (DOI `10.5281/zenodo.21207072`); `TASK-0993` should decide whether a second Materials dataset is worth opening or whether to hold. |
 | Source-readiness / ratification gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | CHARA is paper-level-pin-ready; `TASK-0989` is value-blind source artifact/de-dup only, before any row or metric work. |
 | External-reveal / uncertainty gate | Nuclear Mass Surface | Tier-1 point-only freeze executed, sealed (2026-07-05), and externally anchored (Zenodo DOI `10.5281/zenodo.21240451`); `TASK-0992` continues source-watch discipline while `TASK-0305` remains the approved scoring lane. |
-| Monitor / negative-control gate | Exoplanet Mass-Radius | `RESULT-0027` is AGENT_PUBLISHED; bridge it to a Gate-B-safe workflow and keep source-version monitoring metadata-only. |
+| Monitor / negative-control gate | Exoplanet Mass-Radius | `RESULT-0027` is AGENT_VALIDATED; keep source-version monitoring metadata-only and wait for a future trigger before scoring. |
 | Sealed-prediction reveal discipline | FRB / radio transients | `PRED-0001` is registered and externally anchored by GitHub Release; keep future work to TASK-0995-compliant reveal-source manifests and maintainer-reviewed reveal scoring. |
-| Transfer/source gate and negative memory | Quantum Size Effects | Preserve `RESULT-0029` as inconclusive/control transfer memory; `TASK-0987` replays it and `TASK-0988` scouts one new direct source route. |
+| Transfer/source gate and negative memory | Quantum Size Effects | Preserve `RESULT-0029` as AGENT_VALIDATED inconclusive/control transfer memory; the TASK-0988 CdSe lead is SOURCE_LIMITED_MONITOR until a source-artifact package exists. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | `KEEP_MONITOR_ONLY` is the current scientific posture; `TASK-0990` should make the reopen triggers durable. |
-| Source-pinned thermophysical benchmark | Thermophysical Property Residuals | `RESULT-0026` is AGENT_VALIDATED and `RESULT-0028` preserves the failed family; `TASK-0985`/`0986` are the replay/source-access path. |
+| Source-pinned thermophysical benchmark | Thermophysical Property Residuals | `RESULT-0026` and `RESULT-0028` are AGENT_VALIDATED; `TASK-0986` is the source-access/revised-contract path. |
 | Ratification / quality-floor gates | Anharmonic, Dimensional, Pendulum, Particle Mass Relations | `TASK-0991` handles the fresh AHS common-scheme diagnostic; do not restart broad formula search. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
