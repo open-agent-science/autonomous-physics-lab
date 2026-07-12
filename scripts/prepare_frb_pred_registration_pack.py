@@ -69,12 +69,13 @@ def write_yaml(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(
         yaml.safe_dump(payload, sort_keys=False, allow_unicode=False, width=100),
         encoding="utf-8",
+        newline="\n",
     )
 
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def rel_path(path: Path, *, root: Path) -> str:

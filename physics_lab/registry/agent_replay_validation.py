@@ -21,6 +21,14 @@ SAFE_RESULT_COMMANDS = (
     ("python3", "-m", "physics_lab.cli", "run"),
     ("python", "-m", "physics_lab.cli", "run"),
 )
+GATE_A_REPLAY_COMMAND_GRANDFATHERED_RESULT_IDS = frozenset(
+    {
+        "RESULT-0007",
+        "RESULT-0012",
+        "RESULT-0018",
+        "RESULT-0025",
+    }
+)
 SKIPPED_NUMERIC_PATH_PREFIXES = (
     "generated_at",
     "git_commit",
@@ -415,6 +423,35 @@ def _safe_replay_command(payload: dict[str, Any], *, root: Path) -> tuple[str, .
         return ReplayIssue("config-missing", f"Replay config does not exist: {config_path}.")
 
     return (sys.executable, "-m", "physics_lab.cli", "run", config_path)
+
+
+def gate_a_replay_command_issues(
+    payload: dict[str, Any],
+    *,
+    root: str | Path,
+) -> list[ReplayIssue]:
+    """Return a Gate A error when a new result cannot enter Gate B replay.
+
+    The legacy exception list is intentionally frozen by result id. It keeps
+    current historical artifacts valid while preventing a new packaging path
+    from reintroducing an unsupported command shape.
+    """
+    result_id = str(payload.get("result_id") or "").strip()
+    command = _safe_replay_command(payload, root=Path(root))
+    if not isinstance(command, ReplayIssue):
+        return []
+    if result_id in GATE_A_REPLAY_COMMAND_GRANDFATHERED_RESULT_IDS:
+        return []
+    return [
+        ReplayIssue(
+            "gate-a-unreplayable-command",
+            f"{result_id or '<missing result_id>'} cannot enter Gate A with a command "
+            "that Gate B cannot replay. Use a supported `physics-lab run <workflow>` "
+            "command or add a workflow bridge (the RESULT-0028/TASK-1016 pattern), "
+            "not a bespoke packaging-script replay. "
+            f"Details: {command.message}",
+        )
+    ]
 
 
 def _replayed_result_path(payload: dict[str, Any], replay_dir: Path) -> Path:

@@ -9,6 +9,7 @@ import subprocess
 import shlex
 from typing import Any, Callable, Union
 
+from physics_lab.registry.agent_replay_validation import gate_a_replay_command_issues
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.campaigns import load_campaign_catalog
@@ -888,6 +889,17 @@ def _collect_strict_issues(
         )
     )
     issues.extend(_strict_golden_result_issues(root_path))
+    for path, payload in results:
+        for replay_issue in gate_a_replay_command_issues(payload, root=root_path):
+            issues.append(
+                _issue(
+                    "ERROR",
+                    replay_issue.code,
+                    replay_issue.message,
+                    path=path,
+                    root=root_path,
+                )
+            )
     issues.extend(
         _strict_research_proposal_id_issues(
             proposal_kind="Hypothesis proposal",
