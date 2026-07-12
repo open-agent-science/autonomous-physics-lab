@@ -1,0 +1,94 @@
+# Class 2 data-rights and external-publication route decision. This dedicated
+# one-surface PR keeps the maintainer signature separate from the broader
+# science-director task queue. The maintainer's merge is the binding
+# confirmation of GO_REDUCED_CAPSULE.
+decision_id: DEC-20260712-frb-reduced-anchor-publication
+decision_type: data_rights_decision
+autonomy_class: class_2_maintainer_only
+reversibility: hard_to_reverse
+external_exposure: external
+
+artifact_impact:
+  result_status_change: false
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: true
+
+recommended_action: approve_frb_reduced_metadata_checksum_capsule_route
+
+approved_scope:
+  selected_option: GO_REDUCED_CAPSULE
+  publication_route: reduced_metadata_checksum_capsule
+  current_nine_member_zip_upload_allowed: false
+  full_capsule_rights_clearance_claimed: false
+  blanket_cc_by_for_source_derived_members_allowed: false
+  open_reusable_frb_dataset_framing_allowed: false
+  source_derived_value_bearing_members_redistributed: false
+  excluded_members_represented_by_checksum_only: true
+  reduced_capsule_builder_allowed: true
+  deterministic_local_archive_build_allowed: true
+  copy_paste_zenodo_metadata_allowed: true
+  automatic_external_upload_allowed: false
+  doi_minting_by_implementation_task_allowed: false
+  maintainer_upload_and_publish_action_required: true
+  reveal_label_access_allowed: false
+  reveal_scoring_allowed: false
+  prediction_payload_mutation_allowed: false
+  result_claim_or_knowledge_promotion_allowed: false
+  required_resource_framing: sealed_prediction_pre_registration_checksum_anchor
+  required_doi_readiness_verdict: REDUCED_CAPSULE_REQUIRED
+  required_implementation_verdict: REDUCED_CAPSULE_READY_FOR_MAINTAINER_UPLOAD
+  implementation_task: TASK-1024
+
+basis:
+  - "TASK-1021 rights review: docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md"
+  - "The existing nine-member GitHub Release capsule includes source-derived value-bearing CHIME/FRB-linked score, rank, feature, and model surfaces and is not cleared for blanket external redistribution or licensing."
+  - "The reduced route preserves a third-party timestamp by publishing APL-authored metadata plus checksums, byte sizes, commits, tags, and public repository pointers for excluded sealed members."
+  - "The maintainer explicitly selected GO_REDUCED_CAPSULE in the Codex conversation on 2026-07-12."
+
+agent_quorum:
+  director_agent:
+    vote: approve
+    agent_id: scientific-campaign-director
+    vendor: openai
+    agent_tool: Codex
+    model_version: GPT-5
+    session_id: codex-director-20260712-go-reduced-capsule
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Keep the GitHub tag and Release as the only anchor until every member of
+    the full nine-file capsule receives a separate redistribution and license
+    determination.
+  strongest_objection: >-
+    A Zenodo record may still be misread as licensing or redistributing the
+    excluded CHIME/FRB-derived prediction surfaces, even when the archive
+    contains only APL-authored metadata and their checksums.
+  why_rejected: >-
+    The approved route excludes all source-derived value-bearing members,
+    forbids reusable-dataset and blanket-license framing, requires a generated
+    allowlist plus an excluded-member checksum manifest, and reserves the
+    upload and publish action for the maintainer. This preserves the stronger
+    third-party timestamp without asserting rights over the excluded bytes.
+  escalation_required: false
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: go_reduced_capsule_approved
+  selected_option: GO_REDUCED_CAPSULE
+  approved_at_utc: '2026-07-12T20:47:32Z'
+  approval_context: 'Codex conversation, 2026-07-12: maintainer explicitly selected GO_REDUCED_CAPSULE for the FRB reduced anchor route.'
+  decision_packet: docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md
+  implementation_task: TASK-1024
+  maintainer_merge_is_binding_confirmation: true
+  external_upload_status: not_started
+  doi_status: not_minted
+  revert_of: null
