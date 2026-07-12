@@ -46,7 +46,7 @@ result_artifact_policy:
   required: false
   reason: "Reveal-source scout only; no result or prediction artifact is created or scored."
   evidence:
-    - "prediction_registry/nuclear_mass/PRED-0063.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
     - "docs/nuclear-prediction-reveal-protocol.md"
 
 validation:
