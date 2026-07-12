@@ -1,7 +1,7 @@
 id: TASK-0986
 title: "Prepare a revised ThermoML source-access contract after the 80-row blocker"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Sets a ThermoML source-rights decision surface; closeout must confirm the bounded factual-extract limits and no raw archive redistribution posture."
 difficulty: medium
