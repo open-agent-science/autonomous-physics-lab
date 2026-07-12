@@ -1,0 +1,61 @@
+id: TASK-1023
+title: "Scout a post-registration source manifest for the nuclear shell-axis mini-wave"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "Reveal-source scouting for frozen predictions; closeout must confirm that no target values or reveal scores were inspected, copied, or computed."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "PRED-0063..PRED-0068 are frozen prospective nuclear shell-axis entries, but TASK-0305 stopped at a protocol-safe no-score outcome because no admissible post-registration source manifest was pinned."
+  - "A metadata-only source scout is the next honest unblocker before any MAE/RMSE reveal scoring task."
+  - "This preserves no-peek reveal discipline: source identity, rights, checksum plan, and value semantics must be reviewed before target values are read."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/proposals/20260709-akutenyov-nuclear-shell-axis-source-manifest-scout.yaml"
+    - "docs/reviews/maintainer-decision-day-2026-07-06.md"
+    - "docs/reviews/nuclear-shell-axis-reveal-source-manifest-review.md"
+    - "data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+  planning_context: >
+    Perform the accepted source-manifest scout proposed on 2026-07-09 for the
+    PRED-0063..PRED-0068 shell-axis mini-wave. This task is metadata-only until
+    source-manifest and no-peek gates clear; it must not read or score target
+    mass values.
+
+requirements:
+  - "Search only for source-level metadata first: source title, issuing body, release date, DOI/URL/archive locator, license/reuse terms, source class, retrieval path, and checksum feasibility."
+  - "The candidate source must postdate the PRED-0063..PRED-0068 registration boundary of 2026-05-20T00:00:00Z, or the task must stop with SOURCE_PREDATES_REGISTRATION."
+  - "Do not inspect, transcribe, normalize, copy, summarize, or commit target mass_excess values for V-70, Mn-75, Co-77, Cu-81, Ag-129, Cd-130, Sb-135, or Cs-139 before source-manifest and no-peek gates are reviewed."
+  - "Prepare a concrete source manifest only if source pinning can be done without weakening the no-peek boundary; otherwise write a blocker review."
+  - "Record archive policy, checksum plan or checksum values, measured/non-measured row semantics, target matching rules, and no-peek audit requirements before any reveal scoring task is opened."
+  - "Return exactly one verdict: READY_FOR_REVEAL_TASK, BLOCKED_SOURCE_NOT_PINNED, BLOCKED_VALUE_SEMANTICS, BLOCKED_NO_PEEK_AUDIT, SOURCE_PREDATES_REGISTRATION, or INCONCLUSIVE_ZERO_ELIGIBLE_TARGETS."
+  - "Do not modify PRED-0063..PRED-0068, compute MAE/RMSE, create RESULT/CLAIM/KNOW artifacts, run model comparisons, or make success/failure claims."
+
+accepted_outputs:
+  - "A docs/reviews/nuclear/ source-manifest scout note with metadata table, source-date/admissibility verdict, rights/checksum plan, no-peek audit requirements, and stop condition."
+  - "A data/nuclear_masses/shell_axis_reveal_source_manifest_<source-id>.yaml file only if a source can be pinned without target-value exposure."
+  - "Output-routing summary: reveal-source readiness only; no target values, reveal scores, result mutation, claim mutation, or knowledge endorsement."
+
+result_artifact_policy:
+  required: false
+  reason: "Reveal-source scout only; no result or prediction artifact is created or scored."
+  evidence:
+    - "prediction_registry/nuclear_mass/PRED-0063.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

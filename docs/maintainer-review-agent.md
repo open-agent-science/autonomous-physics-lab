@@ -430,7 +430,9 @@ This mode supports:
     other value-bearing data, require either a per-file rights-reviewed full
     capsule or a reduced metadata/pre-registration capsule with checksums for
     excluded sealed members. Otherwise report `HOLD_FOR_RIGHTS_REVIEW` or an
-    equivalent publication blocker.
+    equivalent publication blocker. For archive/upload-pack PRs, also check
+    that the PR records one DOI-readiness verdict:
+    `FULL_CAPSULE_DOI_READY`, `REDUCED_CAPSULE_REQUIRED`, or `DOI_HOLD`.
 21. Cross-platform compatibility (advisory): the PR does not introduce
     portability regressions for Linux/macOS/Windows agents — hardcoded `/tmp`,
     hardcoded `python3`, `HOME` reads, hardcoded `/` paths, `shell=True`, or a

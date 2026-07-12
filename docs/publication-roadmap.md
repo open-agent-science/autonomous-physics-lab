@@ -59,7 +59,7 @@ Current near-term candidates:
 | Exoplanet PSCompPars snapshots | Pinned-snapshot benchmark surface with control-sensitive residual evidence | Candidate for replication capsule and no-live-fetch snapshot protocol, not a planet-law claim |
 | Atomic Yb/Sr rows | Beloy rows exist; second-source rows remain blocked | Not publication-ready until second-source, covariance, direct-vs-derived, and holdout semantics clear |
 | Nuclear prediction registry | Frozen predictions await future source-grade reveal | Prediction artifacts are citable as pre-registered forecasts only if reveal-source discipline is maintained |
-| FRB prediction registry | `PRED-0001` is registered and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710` | Citable as a pre-reveal prediction freeze only; no success verdict, population claim, or reveal result exists |
+| FRB prediction registry | `PRED-0001` is registered and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`; archival DOI remains rights-gated | Citable as a pre-reveal prediction freeze only; no success verdict, population claim, reveal result, open reusable FRB dataset claim, or full-ZIP blanket license exists |
 
 ## Citable Output Path
 
@@ -78,7 +78,8 @@ software is archived on Zenodo via the GitHub integration (v0.2.0, version
 DOI `10.5281/zenodo.21249915`, concept DOI `10.5281/zenodo.21249914`;
 future releases archive automatically). Layer 2: `MD-0002` (DOI above)
 plus the sealed tier-1 forecast anchor capsule
-(`10.5281/zenodo.21240451`) and the GitHub-anchored FRB `PRED-0001` freeze.
+(`10.5281/zenodo.21240451`) and the GitHub-anchored FRB `PRED-0001` freeze
+(FRB archival DOI remains deferred pending the anchor-capsule rights gate).
 
 Physics discovery remains upside, not the base plan.
 

@@ -91,11 +91,11 @@ portfolio:
   coordination_notes: "Do not rerun RESULT-0021 Gate B, rebuild the v0.1.0 archive, or open a feature factory. Future work needs a new source/version/release question or a maintainer-approved v0.1.1 reason."
   next_validity_gate:
     type: source_readiness
-    blocker: "MD-0002 has an external DOI; before broader public opening, verify DOI/tag/archive/checksum/license/attribution/no-claim consistency without reopening rows or metrics."
-    target_artifact: "TASK-0937"
+    blocker: "MD-0002 release integrity is confirmed and no metric/archive rebuild is justified; the next decision is whether a second dataset surface is worth opening, or whether Materials should hold."
+    target_artifact: "TASK-0993"
   best_next_actions:
-    - task_id: TASK-0937
-      label: "Verify MD-0002 Zenodo release integrity and public no-claim readiness"
+    - task_id: TASK-0993
+      label: "Prepare a Materials second-dataset stop/go packet after MD-0002 publication"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -120,14 +120,14 @@ portfolio:
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Does the public Zenodo record, release tag, archive checksum, manifest, and no-claim wording remain mutually consistent after DOI record-back?"
+    - "Should Materials open a second source-pinned dataset surface, route MD-0001 as memory, or hold dataset expansion?"
     - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-05"
+    last_reviewed: "2026-07-12"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0924 Zenodo DOI record-back and Scientific Director 2026-07-05 task-queue cycle"
-    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark and the dataset now has a Zenodo DOI. The next useful action is a release-integrity/public-wording check, not new metrics or a feature factory."
+    source: "TASK-0937 MD-0002 release-integrity verification, TASK-0993 stop/go queue, and Scientific Director 2026-07-12 cycle"
+    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark and release integrity is confirmed. The next useful action is a second-dataset stop/go packet, not new metrics or a feature factory."

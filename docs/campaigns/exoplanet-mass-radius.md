@@ -17,10 +17,11 @@ effects kept visible.
 Active benchmark surface with pinned source snapshots, loader dry-run, baseline
 comparison, residual/failure-map work, bounded residual audits, and a
 null-baseline control panel. The campaign now has one scoped canonical
-negative/control result: `RESULT-0027` is `AGENT_PUBLISHED` with Gate A passed
-for the committed `EXO-0001` snapshot. It remains monitor-only: no claim,
-prediction registry entry, public article artifact, composition, habitability,
-target-priority, or universal mass-radius statement follows from it.
+negative/control result: `RESULT-0027` is `AGENT_VALIDATED` with Gate B replay
+and fair-null transparency for the committed `EXO-0001` snapshot. It remains
+monitor-only: no claim, prediction registry entry, public article artifact,
+composition, habitability, target-priority, or universal mass-radius statement
+follows from it.
 
 ## Public Monitoring Snapshot
 
@@ -70,11 +71,11 @@ monitor class or explicit maintainer direction.
 `TASK-0888` replayed the negative/control null-baseline finding and found that
 it remained scientifically useful but Gate-A-blocked at the time because the
 campaign lacked explicit experiment and hypothesis identities. `TASK-0909` then
-created those identities, and `TASK-0919` packaged the memory as `RESULT-0027`,
-an `AGENT_PUBLISHED` negative/control result with Gate A passed. The next
-useful work is `TASK-0959`: repackage the result onto a Gate-B-safe workflow and
-surface the fair-null comparisons honestly, without changing the verdict or
-reopening residual scoring.
+created those identities, and `TASK-0919` packaged the memory as `RESULT-0027`.
+`TASK-0959` then repackaged the result onto a Gate-B-safe workflow and surfaced
+the fair-null comparisons honestly, without changing the verdict or reopening
+residual scoring. `RESULT-0027` is now `AGENT_VALIDATED` negative/control
+memory.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -124,9 +125,9 @@ it does not itself authorize scoring.
 It did not fetch live rows, add new residual metrics, create `PRED-*`,
 `CLAIM-*`, or `KNOW-*`, or make composition, habitability, or universal
 mass-radius statements. Source-version monitor check 3 returned `NO_NOTIFY`.
-The next useful work is the Gate-B-safe workflow bridge and fair-null
-transparency for `RESULT-0027`, not another residual score. The campaign
-remains monitor-only.
+The Gate-B-safe workflow bridge and fair-null transparency are complete, so the
+campaign remains monitor-only until a future NOTIFY-class source trigger or
+explicit maintainer coverage-gate amendment exists.
 
 Evidence:
 
@@ -138,6 +139,7 @@ Evidence:
 - [Source-version monitor check 2](../reviews/exoplanet-source-version-monitor-check-2.md)
 - [Null-baseline canonical identity decision](../reviews/exoplanet-null-baseline-canonical-identity-decision.md)
 - [Source-version monitor check 3](../reviews/exoplanet-source-version-monitor-check-3.md)
+- [RESULT-0027 Gate-B workflow bridge](../reviews/exoplanet-result-0027-gate-b-workflow-repackage.md)
 - [RESULT-0027 result metadata](../../results/EXP-0021/RUN-0001/result.yaml)
 - [RESULT-0027 review summary](../../results/EXP-0021/RUN-0001/review_summary.md)
 

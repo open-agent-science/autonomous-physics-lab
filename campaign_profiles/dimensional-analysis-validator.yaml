@@ -84,16 +84,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 frozen MVP plus AGENT_PUBLISHED RESULT-0020 live 74-item replay; TASK-0916 confirmed clean replay but preserved AGENT_PUBLISHED because a truly independent validation identity is still needed."
+  current_stage: "RESULT-0007 frozen MVP plus AGENT_VALIDATED RESULT-0020 live 74-item replay; TASK-0948 supplied a genuinely independent Gate B replay identity with zero drift across 17 tracked metrics."
   recommended_parallel_agents: 1
-  coordination_notes: "Prioritize one independent Gate B replay identity before adding live challenge examples or claim support; duplicate dirty PRs are not new scientific evidence."
+  coordination_notes: "Do not add live challenge examples as a substitute for Gate C. The next useful step is maintainer review of CLAIM-0005 wording/status, while keeping dimensional consistency separate from full physical correctness."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0020 cleanly replays, but the AGENT_VALIDATED tier bump needs an independent replayer after the TASK-0916 identity blocker."
-    target_artifact: "TASK-0941"
+    blocker: "CLAIM-0005 remains DRAFT until the maintainer explicitly accepts a narrowed challenge-set agreement statement at Gate C, or chooses to keep it DRAFT/PARTIALLY_SUPPORTED."
+    target_artifact: "CLAIM-0005"
   best_next_actions:
-    - task_id: TASK-0941
-      label: "Run an independent RESULT-0020 Gate B replay for validation-tier eligibility"
+    - task_id: null
+      label: "Maintainer Gate C decision for CLAIM-0005: keep DRAFT, apply narrowed PARTIALLY_SUPPORTED, or apply narrowed SUPPORTED wording"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -106,12 +106,12 @@ portfolio:
     - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
     - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
   open_questions:
-    - "Can a truly independent replayer clear RESULT-0020 for metadata-only AGENT_VALIDATED without changing metrics, challenge sets, or CLAIM-0005?"
+    - "What exact narrowed title/status should CLAIM-0005 use if the maintainer accepts Gate C?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-05"
+    last_reviewed: "2026-07-12"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-0916 validation-independence blocker and Scientific Director 2026-07-05 task-queue cycle"
-    notes: "Quality-floor track has a high-value live result with clean replay. The next work is independent validation-tier replay, not challenge expansion or claim support."
+    source: "TASK-0948 independent Gate B replay, TASK-0956 evidence refresh, and Scientific Director 2026-07-12 cycle"
+    notes: "Quality-floor track now has AGENT_VALIDATED RESULT-0020 with independent replay. The next work is maintainer Gate C wording/status for CLAIM-0005, not challenge expansion."

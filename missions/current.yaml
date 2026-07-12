@@ -1,23 +1,26 @@
 default_mode: research
-updated: "2026-07-10"
+updated: "2026-07-12"
 
 curator_cycle:
   decision: updated
-  updated: "2026-07-10"
-  source: "Scientific Director update after FRB PRED-0001 registration and anchor"
+  updated: "2026-07-12"
+  source: "Scientific Director cycle after FRB anchor rights review and latest validation closeouts"
   note: >
     Mission guidance now reflects the FRB registration/anchor closeout:
     PRED-0001 is registered as a point-score/rank-only pre-reveal prediction
     and externally anchored by GitHub Release tag
     pred-frb-pret-repeater-propensity-20260710. FRB should now stay in
-    reveal-source discipline, not pre-freeze fitting. Exoplanet RESULT-0027
-    still needs a Gate-B-safe workflow bridge, Quantum RESULT-0029 and ThermoML
-    RESULT-0028 need replay/source follow-through, Stellar CHARA is
-    paper-level-pin-ready, Atomic is KEEP_MONITOR_ONLY, and Particle AHS has a
-    bounded sandbox diagnostic. The next wave should refill READY science tasks
-    around audit, source readiness, replay, reveal discipline, and stop/go
-    packets without reopening closed audit loops or promoting
-    calibration-known physics as discovery.
+    reveal-source discipline, not pre-freeze fitting. The FRB Zenodo/full-ZIP
+    route remains separately rights-gated; use reduced-capsule planning only
+    after explicit GO_REDUCED_CAPSULE. Exoplanet RESULT-0027 and Quantum
+    RESULT-0029 are now AGENT_VALIDATED and should not be replay-looped;
+    ThermoML RESULT-0028 is now AGENT_VALIDATED and should move through
+    source-access/revised-contract gates; Stellar CHARA is paper-level-pin-ready,
+    Atomic is KEEP_MONITOR_ONLY, and Particle AHS has a bounded sandbox
+    diagnostic. The next wave should refill READY science tasks around source readiness,
+    reveal discipline, contract decisions, and stop/go packets without
+    reopening closed audit loops or promoting calibration-known physics as
+    discovery.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -546,7 +549,7 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. RESULT-0029 now packages the strict no-refit ZnSe/InP transfer miss as AGENT_PUBLISHED INCONCLUSIVE control memory. Quantum should preserve this bounded negative/borderline transfer memory and hold further executor work until a new direct source surface or maintainer-approved contract change exists."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. RESULT-0029 now packages the strict no-refit ZnSe/InP transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory after independent-human replay. TASK-0988 found a CdSe source lead but returned SOURCE_LIMITED_MONITOR; Quantum should preserve this bounded negative/borderline transfer memory and hold metric work until a value-blind source-artifact contract or maintainer-approved route exists."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
@@ -557,6 +560,8 @@ missions:
       - "TASK-0903 froze the existing ZnSe factual rows and returned NEEDS_MAINTAINER_DECISION for any future transfer benchmark"
       - "TASK-0914 predeclared a strict no-refit transfer contract and cleared TASK-0920 for execution"
       - "TASK-0957 packaged the strict no-refit transfer miss as RESULT-0029 with INCONCLUSIVE verdict and no claim impact"
+      - "TASK-1015 independently replayed RESULT-0029 with zero metric drift and upgraded it to AGENT_VALIDATED memory"
+      - "TASK-0988 found only a SOURCE_LIMITED_MONITOR CdSe route until a source-artifact package exists"
     forbidden:
       - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -972,7 +977,7 @@ missions:
     status: active_monitor
     scientific_value: high
     risk: medium
-    recommendation: "Monitor/trigger-gated public-safe benchmark: source monitor check 3 returned NO_NOTIFY and EXO-0003 remains paused. RESULT-0027 now packages the null-baseline negative/control memory as AGENT_PUBLISHED evidence. The next executor path is TASK-0959 Gate-B-safe workflow repair and fair-null transparency; residual audits stay closed."
+    recommendation: "Monitor/trigger-gated public-safe benchmark: source monitor check 3 returned NO_NOTIFY and EXO-0003 remains paused. RESULT-0027 now packages the null-baseline negative/control memory as AGENT_VALIDATED evidence after Gate-B-safe replay and fair-null transparency. TASK-0959 is complete; residual audits stay closed until a NOTIFY-class source-version/coverage trigger or explicit maintainer contract change exists."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -985,6 +990,7 @@ missions:
       - "TASK-0482 froze the second-snapshot target set and reveal conditions without live fetching"
       - "TASK-0484 packaged an external-reviewer replication capsule around the current benchmark metrics"
       - "TASK-0483 found that nearest-radius null baselines match or beat CK17-style residuals across the highlighted true-mass slices, so the compact-radius story is control-sensitive"
+      - "TASK-0959 completed the Gate-B-safe workflow bridge and fair-null transparency repair for RESULT-0027"
       - "TASK-0515 recorded NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY for another compact-radius residual or host-context pilot on the current pinned snapshot"
       - "TASK-0888 found the negative/control route scientifically useful but Gate-A-blocked by missing canonical experiment/hypothesis identities"
       - "TASK-0904 recommended minimal negative/control canonical identities, TASK-0905 returned NO_NOTIFY for source-version monitor check 3, TASK-0909 created the identities, and TASK-0919 packaged RESULT-0027"
@@ -1427,10 +1433,10 @@ missions:
   - id: thermophysical-property-residuals
     title: "Thermophysical Property Residuals"
     rank: 2
-    status: active_gate_b_and_source_readiness
+    status: active_source_readiness
     scientific_value: high
     risk: medium
-    recommendation: "ThermoML Tb RESULT-0026 is AGENT_VALIDATED after zero-drift workflow replay, and RESULT-0028 now packages the esters/lactones failed-family memory as AGENT_PUBLISHED negative/control evidence. Expansion is source-access, rights, and revised-contract gated; do not extract rows or rerun metrics until the pinned archive/source contract issue is resolved in a separate task."
+    recommendation: "ThermoML Tb RESULT-0026 is AGENT_VALIDATED after zero-drift workflow replay, and RESULT-0028 is now AGENT_VALIDATED esters/lactones failed-family negative/control memory. Expansion is source-access, rights, and revised-contract gated; do not extract rows, replay-loop RESULT-0028, or rerun metrics until the pinned archive/source contract issue is resolved in a separate task."
     why_now:
       - "ThermoML normal boiling temperature is a source-pinned public benchmark lane outside astronomy and materials DFT"
       - "RESULT-0026 has a bounded 40-row family-stratified fixture and a clear frozen Joback/Reid baseline"
@@ -1438,12 +1444,14 @@ missions:
       - "source expansion is rights and identity/count gated before any raw archive bytes or row values"
       - "TASK-0907 formally bridged RESULT-0026 to Gate B and the result is now AGENT_VALIDATED"
       - "TASK-0936 packaged the esters/lactones failed-family memory as RESULT-0028 without mutating RESULT-0026"
+      - "TASK-1016 formally bridged RESULT-0028 to Gate B and the result is now AGENT_VALIDATED"
       - "TASK-0955 recorded that the bounded 80-row extract is blocked until the checksum-matching local archive is supplied or the source-access contract changes"
     forbidden:
       - "do not commit raw ThermoML archive bytes or a substantial normalized corpus"
       - "do not broaden from Tb to Tc or other properties without a separate leakage/source gate"
       - "do not claim universal Joback validation, chemical design guidance, process design, or thermophysical law support"
       - "do not rerun Gate A packaging as a new result"
+      - "do not replay-loop RESULT-0028; use it as validated failed-family memory"
     actions:
       - id: thermoml-result0026-gate-b-replay
         label: "Independently replay ThermoML Tb RESULT-0026 through Gate B"
@@ -1569,18 +1577,20 @@ missions:
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
     rank: 10
-    status: gate_b_adjudication_ready
+    status: gate_c_wording_ready
     scientific_value: medium
     risk: low
-    recommendation: "Use as a quality-floor ratification lane. TASK-0782 / PR #1337 resolved the RESULT-0020 packaging contest on main with clean Gate B replay. The next executor step is a metadata-only validation update decision; duplicate dirty PR #1339 should not be treated as new scientific evidence."
+    recommendation: "Use as a quality-floor ratification lane. RESULT-0020 is AGENT_VALIDATED after TASK-0948 supplied an independent Gate B replay with zero drift. The next step is maintainer Gate C wording/status for CLAIM-0005, not another challenge-set expansion or replay."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
       - "validator failures improve future research gates"
-      - "RESULT-0020 packaging contest is resolved on main; metadata-only validation remains a separate decision"
+      - "RESULT-0020 is AGENT_VALIDATED with validation_independence: independent"
+      - "CLAIM-0005 evidence is refreshed but status remains maintainer-only"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
+      - "do not promote CLAIM-0005 without explicit maintainer Gate C decision"
     actions:
       - id: dimensional-result0020-gateb-adjudication
         label: "Prepare RESULT-0020 Gate B packaging-contest adjudication brief"

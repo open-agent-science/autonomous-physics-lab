@@ -1,6 +1,6 @@
 proposal_id: 20260709-akutenyov-nuclear-shell-axis-source-manifest-scout
 title: Nuclear shell-axis post-registration source manifest scout
-status: PROPOSED
+status: ACCEPTED
 type: scientific_dataset
 priority: high
 proposed_by:
@@ -56,6 +56,10 @@ accepted_outputs:
 - explicit readiness verdict such as READY_FOR_REVEAL_TASK, BLOCKED_SOURCE_NOT_PINNED, BLOCKED_VALUE_SEMANTICS,
   BLOCKED_NO_PEEK_AUDIT, or INCONCLUSIVE_ZERO_ELIGIBLE_TARGETS
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-1023
+  decision: accepted
+  notes: >
+    Accepted by the Scientific Director task-queue cycle on 2026-07-12 as the
+    next source-manifest readiness step before any shell-axis reveal scoring.
+    Canonical task TASK-1023 preserves the proposal's metadata-only,
+    no-target-value, no-scoring scope.

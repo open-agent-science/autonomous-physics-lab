@@ -107,6 +107,12 @@ hashes for excluded sealed members so the external timestamp still anchors the
 full state without redistributing uncleared data. If neither route is ready, the
 recommendation is `HOLD_FOR_RIGHTS_REVIEW`, not "upload now".
 
+When the Director seeds or reviews an archive/upload-pack task, the task should
+include a one-pass DOI-readiness verdict in its accepted output:
+`FULL_CAPSULE_DOI_READY`, `REDUCED_CAPSULE_REQUIRED`, or `DOI_HOLD`. A task
+may still stop before upload or DOI minting, but it should not force the next
+agent to rediscover the same rights boundary from scratch.
+
 A decision packet must present the maintainer with a small explicit option set
 such as `GO`, `HOLD`, or `STOP`, and it must name:
 

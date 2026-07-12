@@ -136,14 +136,14 @@ portfolio:
       - updated_campaign_profile
   current_stage: "pinned PSCompPars snapshots, source monitor check 3 returned NO_NOTIFY, and RESULT-0027 now packages the EXO-0001 null-baseline control-sensitive memory as AGENT_VALIDATED negative/control evidence with a Gate-B-safe workflow route and fair-null transparency surfaced in the artifact."
   recommended_parallel_agents: 2
-  coordination_notes: "Parallel-safe for RESULT-0027 Gate B replay and metadata-only monitor reviews; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
+  coordination_notes: "RESULT-0027 Gate-B-safe replay and fair-null transparency are complete. Metadata-only monitor reviews remain safe; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
   next_validity_gate:
-    type: ratification
-    blocker: "RESULT-0027 has a Gate-B-safe workflow route and independent replay record after TASK-0959, but the task still needs maintainer review/closeout; residual scoring remains closed unless a future reviewed source-version or coverage trigger appears."
-    target_artifact: "TASK-0959"
+    type: source_readiness
+    blocker: "Residual scoring remains closed on the current snapshot; only a future reviewed source-version or coverage trigger can justify reopening."
+    target_artifact: "future EXO monitor task"
   best_next_actions:
-    - task_id: TASK-0959
-      label: "Review and close out the RESULT-0027 Gate-B workflow bridge; keep monitor-only posture explicit"
+    - task_id: null
+      label: "Keep monitor-only posture; open a metadata-only source-version watch only when a NOTIFY-class trigger or maintainer request appears"
   required_gates:
     - "Pinned snapshot and checksum state must remain explicit."
     - "Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes."
@@ -166,9 +166,9 @@ portfolio:
     - "What future source-version or coverage signal would justify EXO-0003 planning?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-09"
+    last_reviewed: "2026-07-12"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0919 RESULT-0027 packaging, TASK-0959 Gate-B workflow bridge, and Scientific Director 2026-07-09 docs-sync cycle"
+    source: "TASK-0919 RESULT-0027 packaging, TASK-0959 Gate-B workflow bridge, and Scientific Director 2026-07-12 cycle"
     notes: "Monitor-only lane with an AGENT_VALIDATED bounded negative/control result. Gate-B-safe workflow repair and fair-null transparency are complete; next work is trigger discipline, not residual scoring or EXO-0003 acquisition."

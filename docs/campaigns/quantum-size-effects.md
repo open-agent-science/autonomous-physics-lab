@@ -15,12 +15,14 @@ holdouts.
 ## Orientation Note for New Contributors
 
 This campaign now has six direct Almeida 2023 InP measurement rows, a
-source-scoped sandbox baseline, and `RESULT-0029`, an AGENT_PUBLISHED
+source-scoped sandbox baseline, and `RESULT-0029`, an AGENT_VALIDATED
 ZnSe/InP no-refit transfer-control result. Follow-up transfer work has not
 produced an admissible cross-material claim: ZnSe/Toufanian rows are usable only
 as limited factual extracts, the row surface is frozen, the strict no-refit
 transfer missed its predeclared margin, and a fixed effective-mass scaling
-transfer check failed against controls. The campaign is therefore
+transfer check failed against controls. TASK-0988 found a plausible CdSe lead
+but returned `SOURCE_LIMITED_MONITOR`, not row readiness. The campaign is
+therefore
 **source/negative-memory gated**, not authorized for autonomous correction
 search or cross-material claims.
 
@@ -42,7 +44,8 @@ under the current surfaces, and that the strict predeclared no-refit transfer
 missed its survival margin. `RESULT-0029` packages that outcome: the primary
 InP -> ZnSe equivalent-diameter transfer beat the best control by
 `0.04658368 eV`, just below the frozen `0.05 eV` requirement, so the verdict is
-`INCONCLUSIVE`.
+`INCONCLUSIVE`. TASK-1015 added an independent-human replay with zero metric
+drift; the review tier is `AGENT_VALIDATED`.
 
 **Not a claim:** this is sandbox, source-scoped consistency evidence. The
 published relation and rows share the same InP source series, the holdout has
@@ -55,9 +58,11 @@ rows, equivalent-diameter size harmonization, fixed confinement-energy model,
 controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
-memory. Useful work is replaying `RESULT-0029` without changing the contract or
-scouting one genuinely new direct source route. No correction search or repeat
-transfer on the same ZnSe/InP surface is authorized.
+memory. Useful work is limited to preserving `RESULT-0029` as validated
+inconclusive/control memory, or opening a value-blind source-artifact task for
+the TASK-0988 CdSe lead if the maintainer approves that route. No correction
+search, replay loop, or repeat transfer on the same ZnSe/InP surface is
+authorized.
 
 ## Historical Source-Readiness Trail
 
@@ -391,8 +396,9 @@ Historical context:
   second-material source decision is already made by `TASK-0914`;
 - keep the routed effective-mass transfer failure as durable negative/control
   memory before opening another quantum transfer lane.
-- pair `RESULT-0029` with its limitation line: AGENT_PUBLISHED,
-  `INCONCLUSIVE`, no cross-material law, no design guidance, and Gate B pending.
+- pair `RESULT-0029` with its limitation line: AGENT_VALIDATED,
+  `INCONCLUSIVE`, no cross-material law, no design guidance, and no transfer
+  success claim.
 
 Planning-only microtasks may be picked from
 `tasks/microtasks/quantum-size-effects.yaml`. They must not produce canonical
