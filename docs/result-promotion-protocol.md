@@ -325,6 +325,24 @@ For `RESULT-*`:
 9. **Dataset provenance valid where applicable** — for results referencing
    source datasets, the source provenance fields (license, checksum,
    retrieval date) are present.
+10. **Gate B-replayable command** — `command` must use the supported
+    `physics-lab run <workflow-config>` shape so the Gate B engine can
+    re-execute it. `validate-repo --strict --fail-on-warnings` rejects a new
+    unsupported command before it enters the repository.
+
+#### Gate A Replay-Command Guardrail
+
+The Gate A check imports the Gate B `SAFE_RESULT_COMMANDS` definition rather
+than maintaining a second allowlist. A result must therefore name a committed
+workflow config that Gate B can run with its own disposable `--output-dir`.
+
+The frozen legacy exception list contains only `RESULT-0007`, `RESULT-0012`,
+`RESULT-0018`, and `RESULT-0025`; it exists so historical artifacts remain
+valid while no new unsupported packaging route can merge. No new result may be
+added to that list. `RESULT-0028` is intentionally absent: TASK-1016 supplied
+its workflow bridge, so it now demonstrates the required remediation pattern.
+When the guard fails, the fix is a workflow bridge and a safe `physics-lab run`
+command, not a bespoke packaging-script replay.
 
 For `PRED-*`: the equivalent mechanical conditions in
 [`prediction-registry-policy.md`](./prediction-registry-policy.md):
