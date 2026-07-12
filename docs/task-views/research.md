@@ -6,7 +6,7 @@
 
 ## READY
 
-None.
+- `TASK-1023` - Scout a post-registration source manifest for the nuclear shell-axis mini-wave (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
