@@ -1,7 +1,7 @@
 id: TASK-0993
 title: "Prepare a Materials second-dataset stop/go packet after MD-0002 publication"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 difficulty: medium
 priority: medium
