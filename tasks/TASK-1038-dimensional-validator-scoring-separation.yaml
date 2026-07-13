@@ -1,0 +1,67 @@
+id: TASK-1038
+title: "Separate dimensional-validator inference from benchmark labels and expose honest agreement metrics"
+type: tooling_fix
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This changes the methodology contract used by future dimensional-validator results while preserving protected legacy replay semantics."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The deferred RESULT-0020 Gate C audit found that the historical 74/74 score mixed exact label matches, policy equivalences, and curated metadata-assisted inference under one agreement number."
+  - "A label-blind inference boundary and decomposed metrics are prerequisites for a fresh role-disjoint benchmark and any future maintainer endorsement."
+  - "Protected RESULT-0007 and RESULT-0020 remain historical AGENT_VALIDATED/calibration evidence; this task does not rewrite or promote them."
+
+input:
+  mode: workflow
+  related_domain: physics_validation
+  related_objects:
+    - "physics_lab/engines/dimensions.py"
+    - "physics_lab/workflows/dimensional_validator.py"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+  planning_context: >
+    Replace the implicit coupling between inference and curated benchmark
+    labels with a pure inference API plus an explicit scoring layer. Preserve
+    the old behavior only behind a named legacy contract for protected result
+    replay. Treat the existing 74-item surface as development/calibration, not
+    as fresh confirmatory evidence after this method change.
+
+requirements:
+  - "Label-blind inference may read only item identity, formula text, and declared variable dimensions; changing expected_verdict or curated policy metadata must not change its verdict."
+  - "Semantic-risk hints such as all-dimensionless structure must be warnings rather than dimensional verdicts in v2."
+  - "The scorer must report exact categorical agreement and policy-adjusted agreement separately, including a machine-readable reason for every non-exact policy acceptance."
+  - "The label_blind_exact_v2 contract must use exact agreement as its primary pass/fail metric. Policy-adjusted agreement is diagnostic only."
+  - "Historical RESULT-0007/RESULT-0020 commands may use legacy_policy_v1, but new configurations must explicitly declare label_blind_exact_v2; no silent legacy default for new result identities."
+  - "Do not alter protected result metrics, review tiers, CLAIM-0005 status, or knowledge status. Do not create a successor RESULT in this task."
+  - "Stop after the current 50/74 surfaces are covered as regression/calibration memory. A fresh role-disjoint benchmark and its scoring/replay are separate tasks."
+  - "No-claim wording: this refactor improves benchmark integrity; it does not establish external label truth, general formula-validation capability, semantic correctness, or a new scientific result."
+
+accepted_outputs:
+  - "A pure label-blind inference API, explicit legacy and v2 scoring contracts, and decomposed exact/policy metrics in generated artifacts."
+  - "Regression tests proving label invariance, legacy replay compatibility, warning/verdict separation, and v2 exact-primary behavior."
+  - "Updated existing challenge-set and campaign documentation that marks the 74-item surface calibration-only and routes future Gate C through a fresh role-disjoint benchmark."
+  - "Output-routing summary: methodology tooling only; no RESULT, CLAIM, KNOW, or prediction promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Methodology tooling and benchmark-contract repair; a fresh scientific RESULT is intentionally deferred to a role-disjoint successor task."
+  evidence:
+    - "physics_lab/engines/dimensions.py"
+    - "tests/test_dimensions.py"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/engines/dimensions.py physics_lab/workflows/dimensional_validator.py tests/test_dimensions.py tests/test_dimensional_validator_pilot.py"
+    - "python3 -m pytest -n0 tests/test_dimensions.py tests/test_dimensional_validator_pilot.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
