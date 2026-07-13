@@ -60,6 +60,40 @@ sources:
       pilot scope (stable binary oxides, database_version 2025.09.25, 169 rows).
       JARVIS-DFT (NIST) remains the fallback after a separate license/source note.
 
+  - source_id: oqmd-v1.8
+    title: "The Open Quantum Materials Database (OQMD), release v1.8"
+    provider: "OQMD development team (Wolverton group, Northwestern University)"
+    version: "v1.8 (database updated February 2026; dump qmdb__v1_8__022026.sql.gz, 21.1 GB; qmpy API v1.4 compatible)"
+    record_locator: "https://www.oqmd.org/download/ (release list); https://static.oqmd.org/static/downloads/qmdb__v1_8__022026.sql.gz (versioned dump, NOT fetched); https://oqmd.org/oqmdapi/formationenergy (bounded RESTful route)"
+    landing_page: "https://www.oqmd.org/"
+    citation: "Saal et al., JOM 65, 1501-1509 (2013), doi:10.1007/s11837-013-0755-4; Kirklin et al., npj Computational Materials 1, 15010 (2015), doi:10.1038/npjcompumats.2015.10."
+    properties:
+      - delta_e        # OQMD computed formation energy (eV/atom per canonical papers; unit confirmation is an acquisition-gate check)
+      - band_gap       # eV (DFT-PBE)
+      - stability      # convex-hull distance
+    provenance: computed_dft
+    dft_functional: "GGA-PBE (VASP 5.3.2, PAW); GGA+U (Dudarev) for listed transition metals in oxide compounds with published U-J table"
+    measurement_type: theoretical_calculation
+    license_note: "Official download page states the OQMD data are licensed CC-BY 4.0 (link to creativecommons.org/licenses/by/4.0/) with a request to cite the two canonical OQMD papers. Attribution is mandatory in any committed slice."
+    checksum_policy: sha256_file
+    access: open_no_key_required
+    inclusion_decision: accepted
+    notes: >
+      Registered by TASK-1026 as a metadata-only source-manifest preflight
+      (verdict READY_FOR_BOUNDED_ACQUISITION_TASK). Acceptance is source-level
+      only: no acquisition, rows, snapshot, or benchmark is authorized by this
+      entry. The 21.1 GB dump must not be the first acquisition step; the
+      bounded route is a dated, hash-pinned RESTful API snapshot (the OQMD API
+      self-reports api_version and time_stamp but no database-version stamp,
+      so version identity is calendar-anchored - a recorded limitation
+      relative to the MD-0002 Materials Project snapshot). OQMD delta_e and
+      Materials Project formation_energy_per_atom are NOT directly comparable
+      (different U-J values and correction schemes); benchmark analysis must
+      stay within-source. Conservative MD-0002 overlap rule: exclude every
+      OQMD entry whose reduced composition matches an MD-0002 included
+      material, before any target value is read. See
+      docs/reviews/materials/oqmd-v18-source-manifest-preflight.md (TASK-1026).
+
 candidate_source_classes_for_future_review:
   - "Open computed-property databases (JARVIS-DFT, Materials Project, OQMD, AFLOW) with DFT functional and version recorded."
   - "Curated experimental property compilations with explicit primary-source citation."
