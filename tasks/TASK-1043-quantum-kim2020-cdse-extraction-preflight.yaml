@@ -1,7 +1,7 @@
 id: TASK-1043
 title: "Predeclare the Kim-2020 CdSe deterministic extraction and uncertainty contract"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task decides whether the CdSe source can support deterministic row curation; closeout must verify source pins, axis semantics, uncertainty, morphology, and the stop before extraction or scoring."
 difficulty: medium

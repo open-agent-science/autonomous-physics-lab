@@ -1,0 +1,147 @@
+# TASK-1043 planning-only extraction contract. No measurement values are stored.
+contract_version: '1'
+task_id: TASK-1043
+source_id: kim-2020-nanomaterials-cdse-optical
+created_utc: '2026-07-13'
+planning_only: true
+contains_measurement_values: false
+
+source_reverification:
+  version_of_record_pdf:
+    bytes: 1368239
+    sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+    matches_task_1027: true
+  europe_pmc_jats:
+    bytes: 62029
+    sha256: 6642fed609ad6540b61ca856d293d2b469c5ed7be9323479c9b76b023f668244
+    matches_task_1027: true
+  crossref_snapshot:
+    bytes: 12087
+    sha256: 6b3a36ba7160d7c3d12a54bc64b846ec358d569ee562e778e8ac64eca6526e9c
+    matches_task_1027: true
+    note: mutable live-index response; digest is an access-date snapshot
+  pmc_oa_package:
+    locator: ftp://ftp.ncbi.nlm.nih.gov/pub/pmc/oa_package/f1/56/PMC7466547.tar.gz
+    checksum: null
+    retrieval_state: unavailable_from_official_locator
+    attempts:
+      - {transport: https, outcome: http_404}
+      - {transport: ftp, outcome: server_denied_directory_change}
+    blocker_effect: none; the checksum-pinned VoR PDF and JATS are sufficient for this preflight
+  redistribution_posture: metadata_only
+
+sample_identity:
+  required_samples: [CdSe-1, CdSe-2, CdSe-3, CdSe-4]
+  exact_sample_count: 4
+
+admissibility:
+  text_stated_size_summary:
+    class: text_stated_summary
+    decision: admissible_for_future_curation
+    required_locator: exact body-text or Figure 1 caption location
+    required_fields: [sample_id, reported_hrtem_gaussian_fit_mean_diameter, reported_size_dispersion, source_locator]
+    semantics: reported dispersion describes the size distribution and is not a standard error of the mean
+    exact_future_row_count: 4
+  figure_1_histograms:
+    class: figure_digitized_distribution
+    decision: excluded_from_primary_sample_summary_route
+    reason: histogram digitization would create a different provenance class and must not replace or be averaged with text-stated summaries
+    future_use: separate reviewed distribution-shape task only
+  figure_3a_spectra:
+    class: figure_digitized_spectrum_peak
+    decision: admissible_after_deterministic_replay
+    required_curve_roles: [absorption, emission]
+  figure_3b_stokes_shift_and_fwhm:
+    class: analysis_derived_summary
+    decision: excluded_from_this_contract
+  figure_4_differential_absorption_levels:
+    class: analysis_derived_transition
+    decision: excluded_from_this_contract
+  figure_5_model_levels:
+    class: model_derived
+    decision: excluded_from_direct_measurement_rows
+
+digitization_protocol:
+  tool: WebPlotDigitizer
+  tool_class: deterministic_axis_calibrated_export
+  version_rule: record the exact application version and export format in the future artifact; version drift requires reviewer replay
+  source_asset_rule: use the checksum-verified VoR figure panel; record the panel raster checksum without committing publisher bytes unless maintainers approve vendoring
+  axis_calibration:
+    minimum_anchor_count: 4
+    x_axis_minimum_anchors: 2
+    y_axis_minimum_anchors: 2
+    anchors_must_use: printed_tick_marks
+    record: [pixel_x, pixel_y, printed_value, printed_unit, scale_type]
+    native_axis_rule: retain the printed native axis and unit; any wavelength-to-energy conversion is a separate derived field with an explicit constant and formula
+  curve_rule: digitize each sample and curve role separately; never merge absorption and emission traces
+  independent_passes_required: 2
+  repeatability_gate:
+    x_coordinate_max_difference_fraction_of_axis_span: 0.005
+    y_coordinate_max_difference_fraction_of_axis_span: 0.01
+    required_pass_fraction: 1.0
+    failure_verdict: UNCERTAINTY_BLOCKED
+
+per_point_provenance_fields:
+  - point_id
+  - sample_id
+  - source_id
+  - source_artifact_sha256
+  - source_figure_ref
+  - curve_role
+  - raw_pixel_x
+  - raw_pixel_y
+  - axis_calibration_ref
+  - extraction_tool
+  - extraction_tool_version
+  - extraction_pass_id
+  - operator_or_runner_id
+  - native_x_value
+  - native_x_unit
+  - native_y_value
+  - native_y_unit
+  - coordinate_uncertainty
+  - inclusion_status
+  - exclusion_reason
+
+property_axis_mapping:
+  absorption_peak: absorption_peak_eV
+  emission_peak: emission_peak_eV
+  stokes_shift: derived_stokes_shift_eV
+  fwhm: spectrum_fwhm_eV
+  differential_absorption_levels: analysis_derived_transition_eV
+  model_levels: model_derived_level_eV
+  bandgap_rule: none of these axes may be labelled bandgap without a separate reviewed physical mapping
+
+morphology_contract:
+  state: unknown_non_spherical
+  reported_axis_name: reported_hrtem_gaussian_fit_mean_diameter
+  equivalent_sphere_conversion_allowed: false
+  missing_geometry_verdict: MORPHOLOGY_BLOCKED
+
+future_row_gate:
+  required_sample_records: 4
+  required_size_summary_rows: 4
+  required_absorption_peak_rows: 4
+  required_emission_peak_rows: 4
+  exact_total_atomic_observations: 12
+  sample_pairing_completeness: 1.0
+  size_dispersion_completeness: 1.0
+  digitization_uncertainty_completeness: 1.0
+  source_locator_completeness: 1.0
+  missing_instrument_uncertainty_rule: record not_reported; never impute or reinterpret digitization error as instrument uncertainty
+  insufficient_rows_verdict: SOURCE_LIMITED
+
+allowed_verdicts:
+  - EXTRACTION_CONTRACT_READY
+  - SOURCE_LIMITED
+  - AXIS_SEMANTICS_BLOCKED
+  - UNCERTAINTY_BLOCKED
+  - MORPHOLOGY_BLOCKED
+  - RIGHTS_BLOCKED
+verdict: EXTRACTION_CONTRACT_READY
+
+stop_conditions:
+  figures_cropped_or_digitized: 0
+  numeric_measurement_rows_created: 0
+  fits_or_metrics_run: 0
+  result_prediction_claim_knowledge_mutations: 0
