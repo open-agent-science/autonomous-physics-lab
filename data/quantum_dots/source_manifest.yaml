@@ -466,6 +466,68 @@ sources:
       quantum-size residual metrics. See
       docs/reviews/quantum-second-open-direct-table-source-scout.md.
 
+  - source_id: kim-2020-nanomaterials-cdse-optical
+    title: "Influence of Size and Shape Anisotropy on Optical Properties of CdSe Quantum Dots"
+    authors: "Kim, S. H.; Man, M. T.; Lee, J. W.; Park, K.-D.; Lee, H. S."
+    year: 2020
+    doi: "10.3390/nano10081589"
+    journal: "Nanomaterials"
+    volume: "10"
+    pages: "1589"
+    table_reference: >
+      Figure-only surface: Figure 1(a-d) HRTEM images with marked shape
+      anisotropy; Figure 1(e-h) per-sample size histograms with Gaussian fits
+      (per-sample mean diameter and dispersion also stated in the caption and
+      body text); Figure 3a absorption plus fluorescence spectra; Figure 4(a-d)
+      differential-absorption transition extraction; Figure 5 size-dependent
+      electron/hole level plot. No printed row table and no supplementary
+      material exist (JATS full text has zero table-wrap and zero
+      supplementary-material elements).
+    properties:
+      - absorption_peak_eV
+      - emission_peak_eV
+    materials:
+      - CdSe
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: accepted
+    inclusion_rationale: >
+      TASK-0988 selected this open-access article as the next direct CdSe
+      route (HRTEM size axis plus measured optical spectra; not an
+      optical-inversion sizing calibration). TASK-1027 pinned the
+      version-of-record bytes, license, figure/axis inventory, and morphology
+      semantics as a value-blind source artifact. Acceptance is source-level
+      only: no row extraction, digitization, or benchmark use is authorized
+      until a deterministic extraction preflight passes.
+    license_note: >
+      CC BY 4.0 CONFIRMED on the version of record (Crossref license
+      content-version vor effective 2020-08-12; PMC OA service record
+      license "CC BY", retracted "no"; JATS license block names Creative
+      Commons Attribution). Publisher PDF is hash-pinned but not vendored
+      (metadata_only posture); SHA-256 and locators are recorded in
+      data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md.
+    checksum_policy: doi_pinned
+    notes: >
+      Four growth-time samples CdSe-1 (5 s), CdSe-2 (1 min), CdSe-3 (5 min),
+      CdSe-4 (60 min). Size semantics: per-sample HRTEM Gaussian-fit mean
+      diameter in nm with stated per-sample dispersion (Cs-corrected
+      JEM-ARM200F). The article explicitly reports size-dependent shape
+      anisotropy (mixed zinc-blende/wurtzite, rod-like/hexagonal habits), so
+      morphology must remain unknown_non_spherical and no equivalent-sphere
+      coercion is allowed without a predeclared reviewed geometry rule.
+      Optical semantics: UV-vis absorption and fluorescence spectra
+      (FLAME-S); keep absorption_peak_eV, emission_peak_eV, and any bandgap
+      interpretation as separate axes; the Figure 4 first-through-sixth
+      excitonic transitions come from sixth-derivative differential-absorption
+      analysis and form a separate analysis-derived provenance class; the
+      Figure 5 electron/hole level curves are model fits (calibration-risk
+      class, not direct rows). Expected row class is digitization_required;
+      whether the text-stated per-sample mean diameters may enter as a
+      text-derived summary class is an extraction-preflight decision. See
+      docs/reviews/quantum/kim-2020-cdse-source-artifact.md and
+      data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md
+      (TASK-1027).
+
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25
     task_id: TASK-0364
