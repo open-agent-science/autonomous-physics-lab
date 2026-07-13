@@ -1,7 +1,7 @@
 id: TASK-1022
 title: "Clarify Zenodo software-record license boundary metadata"
 type: repository_hygiene
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
