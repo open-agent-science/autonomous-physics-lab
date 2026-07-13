@@ -51,6 +51,12 @@ externally published on Zenodo with version DOI `10.5281/zenodo.21207072`.
 No claim, prediction, material recommendation, or materials-law statement has
 been created.
 
+`TASK-0993` has now selected one bounded second-source direction: an OQMD v1.8
+source-manifest preflight. `TASK-1026` is metadata-only and must resolve
+official version, CC BY attribution, property/unit semantics, retrieval
+identity, and MD-0002 overlap/no-peek rules before any dump download, row
+selection, dataset construction, or benchmark metric is allowed.
+
 ## Public Monitoring Snapshot
 
 **Current question:** can APL turn a small, openly licensed Materials Project

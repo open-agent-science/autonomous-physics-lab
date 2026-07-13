@@ -1,0 +1,58 @@
+id: TASK-1025
+title: "Complete the CHARA identifier and alias audit before stellar row curation"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This source-readiness audit controls whether any CHARA system may later be treated as independent of DEBCat; closeout must verify that no stellar values or metrics were inspected."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0989 pinned six CHARA-related paper surfaces and excluded two explicit DEBCat whole-system overlaps, but all thirteen remaining candidates still require an identifier-complete alias audit."
+  - "Independent Stellar M-L validation is valuable only if DEBCat leakage, component hierarchy, and ambiguous aliases are resolved before values are read."
+  - "This task advances external validation without reopening same-source DEBCat fitting or universal stellar-law wording."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/stellar/chara-value-blind-source-artifact.md"
+    - "docs/reviews/stellar-chara-paper-level-source-pin-dedupe-preflight.md"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+  planning_context: >
+    Resolve paper, HD, HIP, HR, GCVS, Gaia, cluster, and component-hierarchy
+    aliases for the thirteen post-exclusion CHARA candidates. Keep the work
+    identifier-only and value-blind. The output decides whether a later,
+    separate row-curation task has any independent systems to curate.
+
+requirements:
+  - "Freeze and record the committed DEBCat revision and SHA-256 before matching; use whole physical systems, not component-level aliases, as the exclusion unit."
+  - "Audit exactly the thirteen candidates left after TASK-0989's two explicit exclusions; record stable identifiers, pinned lookup/source identity, alias evidence, component hierarchy, DEBCat match or null, decision, and reason."
+  - "Pin external alias responses or catalog versions where permitted. Do not rely on unrecorded fuzzy matching, coordinate proximity alone, or model/value similarity."
+  - "Exclude every stable DEBCat alias intersection as a whole system. Treat unresolved, conflicting, coordinate-only, or hierarchy-ambiguous identities as excluded from an independent holdout."
+  - "Do not inspect, transcribe, normalize, summarize, or commit mass, luminosity, radius, temperature, orbit, parallax, residual, or model-performance values."
+  - "Return exactly one verdict: ALIAS_AUDIT_READY_FOR_ROW_CURATION, SOURCE_LIMITED, or ZERO_ELIGIBLE_INDEPENDENT_SYSTEMS."
+  - "Stop before row extraction, benchmark split design, M-L scoring, exponent fitting, RESULT mutation, CLAIM mutation, or universal-law wording."
+
+accepted_outputs:
+  - "A docs/reviews/stellar/ identifier-alias audit note with the frozen DEBCat identity, source table, candidate-by-candidate ledger, post-audit counts, verdict, limitations, and a bounded future row-curation task shape only if the verdict is ready."
+  - "An identifier-only alias ledger under data/textbook_formula_audit/stellar_ml/ if it contains no scientific measurement values and passes source/license review."
+  - "Output-routing summary: source-readiness only; no rows, metrics, result, claim, prediction, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Identifier-only source audit; no scientific RESULT or PRED artifact is created."
+  evidence:
+    - "docs/reviews/stellar/chara-value-blind-source-artifact.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

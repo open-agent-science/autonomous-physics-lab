@@ -1,0 +1,59 @@
+id: TASK-1026
+title: "Preflight the OQMD v1.8 source manifest, semantics, and MD-0002 overlap plan"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This preflight controls entry into a new external Materials source surface; closeout must verify rights, semantics, and no-download/no-row boundaries."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0993 selected an OQMD v1.8 source-manifest preflight as the strongest second-dataset route after MD-0002 publication."
+  - "An independently versioned, openly licensed provider can test whether MD-0002 observations are Materials-Project-specific, but only after property semantics and overlap leakage are controlled."
+  - "The 21.1 GB dump is not an admissible first step; source identity, fields, units, retrieval policy, and no-peek overlap rules must be reviewed first."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "docs/reviews/materials/materials-second-dataset-stop-go-task0993.md"
+    - "docs/campaigns/materials-property-residuals.md"
+    - "data/materials/source_manifest.yaml"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+  planning_context: >
+    Prepare a metadata-only OQMD v1.8 source manifest and bounded acquisition
+    contract. Verify official source/version, CC BY attribution, field and unit
+    semantics, checksum or retrieval identity, and a conservative MD-0002
+    overlap/no-peek plan before any data download or row selection.
+
+requirements:
+  - "Pin the official OQMD v1.8 release/version locator, publication date, provider, license text, required attribution, available access routes, and a reproducible checksum or retrieval-identity policy."
+  - "Verify from official metadata the meanings, units, calculation provenance, and missingness semantics of candidate computed-property fields; do not assume that similarly named OQMD and Materials Project fields are directly comparable."
+  - "Propose a bounded row cap and source-side predicate only after semantics are clear. Keep computed and measured provenance classes separate."
+  - "Define conservative composition/structure/provider-reference overlap screening against MD-0002, with disjoint holdout and no-peek rules before any benchmark split is designed."
+  - "Do not download the 21.1 GB dump, query or extract scientific rows, select materials, compute overlap counts from values, construct a dataset, run metrics, or create RESULT/CLAIM/KNOW artifacts."
+  - "Return exactly one verdict: READY_FOR_BOUNDED_ACQUISITION_TASK, HOLD_MATERIALS_DATASET_EXPANSION, BLOCKED_PROPERTY_SEMANTICS, BLOCKED_RIGHTS, or BLOCKED_RETRIEVAL_IDENTITY."
+  - "Stop with HOLD or a blocker if exact property semantics, a legal reproducible retrieval identity, or a defensible pre-value overlap screen cannot be specified."
+
+accepted_outputs:
+  - "A docs/reviews/materials/ OQMD v1.8 source-manifest preflight note with official locators, rights/attribution, field/unit semantics, retrieval/checksum plan, bounded row-cap proposal, overlap/no-peek contract, verdict, and limitations."
+  - "A metadata-only OQMD source-manifest scaffold under data/materials/ only if no scientific rows or selected-material values are included."
+  - "Output-routing summary: source readiness only; no acquisition, rows, metrics, dataset, result, claim, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only source preflight; no scientific RESULT, PRED, or dataset rows are created."
+  evidence:
+    - "docs/reviews/materials/materials-second-dataset-stop-go-task0993.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
