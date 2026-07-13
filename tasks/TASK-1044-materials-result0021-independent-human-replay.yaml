@@ -1,0 +1,59 @@
+id: TASK-1044
+title: "Replay Materials RESULT-0021 with an independent human contributor"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "This task strengthens the validation-independence evidence of an externally cited canonical result and must preserve every metric, verdict, and scope limitation."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0021 is AGENT_VALIDATED and externally citable, but its strongest recorded Gate B identity is same_owner_different_account."
+  - "An independent-human replay is a higher-value trust improvement than another MD-0002 model or archive rebuild."
+  - "A pass strengthens reproducibility only; it does not turn computed-DFT benchmark evidence into a materials claim."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "results/EXP-0014/RUN-0001/review_summary.md"
+    - "docs/reviews/materials-md0002-result0021-gate-b-replay.md"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    Re-run the formal deterministic RESULT-0021 command under a contributor
+    controlled by a different human from the publisher and current replayer.
+    Append independent validation evidence only if every compared numeric
+    field and the scoped verdict reproduce within the frozen tolerance.
+
+requirements:
+  - "Reserved for a contributor controlled by a different human from the owner of gladunrv and romanhladun24-dot; any same-human lane must stop with INDEPENDENCE_BLOCKED before replay."
+  - "Record contributor id, GitHub username, agent/tool, model/version, operating system, replay command, output directory, tolerance, compared metric count, and maximum absolute drift."
+  - "Run the committed RESULT-0021 command and Gate B comparison without changing source data, split, code, controls, metrics, best_model_id, best_verdict, or result scope."
+  - "On PASS, append schema-permitted replay metadata so the strongest validation_independence becomes independent; preserve earlier replay history."
+  - "On command failure or drift, write a blocker note and leave RESULT-0021 tier, metrics, verdict, and public wording unchanged."
+  - "Do not rebuild the Zenodo archive, refit the cation-pair baseline, inspect OQMD, create a new RESULT, or promote a materials claim or knowledge artifact."
+  - "Return exactly one verdict: INDEPENDENT_GATE_B_PASS, INDEPENDENCE_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+  - "No-claim wording: independent replay establishes deterministic reproducibility of the frozen computed-DFT slice only."
+
+accepted_outputs:
+  - "An independent replay note under docs/reviews/materials/ or the existing materials review shard, plus the minimal RESULT-0021 review-metadata update only on PASS."
+  - "Output-routing summary: replay-validation evidence only; no metric, verdict, claim, prediction, knowledge, or dataset-release change."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation of an existing result; no new scientific result is produced."
+  evidence:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_materials_md0002_formation_energy_result.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

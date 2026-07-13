@@ -129,9 +129,11 @@ and now replays through the formal workflow route as `AGENT_VALIDATED`.
 `TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED,
 `TASK-0939` upgraded it to `PAPER_LEVEL_PIN_READY`, and `TASK-0989` then pinned
 six value-blind CHARA-related paper surfaces. Two explicit DEBCat overlaps are
-excluded as whole systems; thirteen remaining candidates are not yet
-independent-holdout-ready because stable aliases and component hierarchy remain
-unresolved.
+excluded as whole systems. `TASK-1025` has now resolved the remaining thirteen
+candidates to stable identities and found no further whole-system DEBCat alias
+intersection, with both positive controls passing. They are still not a
+benchmark: source-traceable same-component mass/luminosity rows and a
+cluster/group-dependence policy remain required before split design.
 
 The second independent-validation path is prospective rather than archival.
 The Gaia DR4 mass-luminosity reveal contract is already specified, but no DR4
@@ -140,10 +142,11 @@ official release/field trigger, target-independent functional payload, registry
 compatibility, and value-blind DEBCat leakage policy before any implementation
 task is split out.
 
-**Expected next outputs:** the CHARA lane should return an identifier-complete
-alias/de-dup verdict. The Gaia DR4 lane should return one GO/HOLD/STOP readiness
-decision. Both surfaces remain value-blind; neither authorizes row curation,
-prediction registration, or reveal scoring by itself.
+**Expected next outputs:** the CHARA lane should return a bounded per-component
+row surface and a separate value-blind cluster-dependence verdict, with no
+scoring. The Gaia DR4 lane should return one corrected GO/HOLD/STOP readiness
+decision that does not pair source-level luminosity with two component masses.
+Neither route currently authorizes prediction registration or reveal scoring.
 
 ## Why It Matters
 

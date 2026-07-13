@@ -1,0 +1,66 @@
+id: TASK-1040
+title: "Curate the thirteen alias-clean CHARA systems into a value-traceable per-component row surface"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task first admits CHARA stellar values after the alias audit; closeout must verify component pairing, source rights, uncertainty semantics, and the no-score stop line."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1025 resolved all thirteen post-exclusion CHARA candidates to stable identities with zero DEBCat whole-system alias intersections and returned ALIAS_AUDIT_READY_FOR_ROW_CURATION."
+  - "A small source-pinned per-component surface is the next evidence-bearing prerequisite for an independent Stellar mass-luminosity holdout."
+  - "Row curation must remain separate from split design and scoring so values cannot influence the future benchmark contract."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/stellar/chara-value-blind-source-artifact.md"
+    - "docs/reviews/stellar/chara-identifier-alias-audit.md"
+    - "data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    Re-pin the six TASK-0989 paper artifacts and the named HD 284163
+    supplement, then curate source-traceable mass/luminosity component rows
+    for exactly the thirteen TASK-1025 systems. Do not design a split or score
+    any formula in this task.
+
+requirements:
+  - "Verify the TASK-1025 alias ledger digest and keep exactly its thirteen eligible systems as the only candidate set; any new alias intersection fails closed."
+  - "Pin each article, supplement, table, and local source byte used by immutable locator or checksum, and record the per-artifact license/reuse boundary before transcription."
+  - "Treat the committed surface as a bounded factual extract for exactly the thirteen eligible systems: do not vendor article, supplement, table, figure, or source bytes, and do not reproduce a publisher table or substantial source compilation."
+  - "For every admitted row record system and component identity, source location, mass and luminosity definitions, units, uncertainty type, measurement or derivation method, and component-mapping rationale."
+  - "Admit only per-component mass paired with the same component's bolometric luminosity. Exclude system-integrated luminosity, unresolved flux, band-limited flux without a reviewed bolometric conversion, or ambiguous component assignments."
+  - "Re-run the TASK-1025 identifier intersection on curated row identifiers and stop with LEAKAGE_DETECTED if any DEBCat whole-system overlap appears."
+  - "Record morphology, multiplicity, cluster membership, and stage/provenance flags as metadata; do not use values or residuals to include, exclude, or relabel a row."
+  - "Register every committed value-bearing CHARA path in data/DATA_LICENSES.yaml with per-source attribution, raw_artifact_vendored: false, and the applicable CC BY or limited-factual-extract redistribution boundary before merge."
+  - "Return exactly one verdict: ROW_SURFACE_READY_FOR_SPLIT_DESIGN, SOURCE_LIMITED, COMPONENT_MAPPING_BLOCKED, RIGHTS_BLOCKED, or LEAKAGE_DETECTED."
+  - "Stop before benchmark split assignment, exponent fitting, residual computation, formula comparison, RESULT/PRED/CLAIM/KNOW mutation, or universal stellar-law wording."
+  - "No-claim wording: this is a bounded factual source surface, not evidence that any mass-luminosity relation transfers to CHARA systems."
+
+accepted_outputs:
+  - "A normalized CHARA per-component row YAML under data/textbook_formula_audit/stellar_ml/ with exact source and component provenance, or a blocker ledger with no fabricated rows."
+  - "A docs/reviews/stellar/ row-curation note with source pins, rights boundaries, inclusion/exclusion counts, component-mapping audit, DEBCat intersection result, limitations, and one bounded verdict."
+  - "A deterministic schema/provenance test for the curated surface if rows are admitted; no benchmark or metric test."
+  - "Output-routing summary: source readiness only; no split, metric, result, claim, prediction, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Source curation only; a later reviewed task must freeze the benchmark split before scoring."
+  evidence:
+    - "docs/reviews/stellar/chara-identifier-alias-audit.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

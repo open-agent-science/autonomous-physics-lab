@@ -1,0 +1,61 @@
+id: TASK-1043
+title: "Predeclare the Kim-2020 CdSe deterministic extraction and uncertainty contract"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether the CdSe source can support deterministic row curation; closeout must verify source pins, axis semantics, uncertainty, morphology, and the stop before extraction or scoring."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1027 returned SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT with source identity, CC BY 4.0 rights, figure/sample inventory, morphology, and uncertainty routes pinned."
+  - "A predeclared extraction contract is required before any figure digitization or text-derived row transcription can become a benchmark input."
+  - "The task tests source usability without reopening the completed ZnSe/InP transfer or searching corrections."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    Freeze how the Kim-2020 CdSe source could be transformed into factual
+    size/optical rows. Decide text-derived versus digitized classes,
+    coordinate calibration, uncertainty, and morphology semantics before
+    reading or recording numerical sample values.
+
+requirements:
+  - "Re-verify the TASK-1027 source digests and, if retrieval permits, pin the official PMC OA package checksum without vendoring unnecessary publisher bytes."
+  - "Decide whether text-stated mean diameters and dispersions are admissible factual summaries distinct from Figure 1 histogram digitization; do not mix the two provenance classes."
+  - "Predeclare the deterministic digitization tool, axis-calibration procedure, per-point provenance fields, repeatability tolerance, and uncertainty ledger for any admitted Figure 3a absorption or emission axis."
+  - "Keep absorption peak, emission peak, Stokes shift, FWHM, and model-derived energy levels as separate axes; do not relabel one as band gap without a reviewed physical mapping."
+  - "Predeclare an anisotropy/morphology rule. If a justified equivalent diameter is unavailable, retain unknown_non_spherical and forbid spherical conversion."
+  - "State exact row-count and uncertainty completeness gates for future curation and return SOURCE_LIMITED if they cannot support a bounded transfer surface."
+  - "Return exactly one verdict: EXTRACTION_CONTRACT_READY, SOURCE_LIMITED, AXIS_SEMANTICS_BLOCKED, UNCERTAINTY_BLOCKED, MORPHOLOGY_BLOCKED, or RIGHTS_BLOCKED."
+  - "Stop before cropping/digitizing figures, transcribing numerical rows, creating qd data rows, fitting size laws, rerunning ZnSe/InP metrics, or mutating RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No-claim wording: this preflight establishes extraction reproducibility only; it is not CdSe size-law evidence."
+
+accepted_outputs:
+  - "A docs/reviews/quantum/ extraction-preflight contract with source digest verification, admissibility classes, axis and uncertainty rules, morphology policy, future row gates, limitations, and one bounded verdict."
+  - "A machine-readable extraction contract under the existing Kim-2020 source-artifact directory if it contains no scientific values or digitized points."
+  - "Output-routing summary: source/extraction readiness only; no rows, metric, result, claim, prediction, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Preflight only; numerical extraction and any benchmark are separate reviewed tasks."
+  evidence:
+    - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

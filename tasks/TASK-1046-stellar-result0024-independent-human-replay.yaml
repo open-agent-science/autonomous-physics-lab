@@ -1,0 +1,58 @@
+id: TASK-1046
+title: "Replay Stellar high-mass transfer RESULT-0024 with an independent human contributor"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "This task strengthens the validation identity of a small same-source transfer result and must preserve its high-mass, stage, and provenance caveats."
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "RESULT-0024 is AGENT_VALIDATED with zero-drift replay, but the strongest recorded identity remains same_owner_different_account."
+  - "Independent-human replay is useful trust evidence before the campaign shifts to genuinely external CHARA or Gaia surfaces."
+  - "The same-source DEBCat transfer remains bounded evidence even if replay passes."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "results/EXP-0017/RUN-0001/review_summary.md"
+    - "docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    Re-run the frozen RESULT-0024 high-mass transfer workflow under an
+    independent human identity. Preserve the frozen RESULT-0022 alpha and all
+    stage/provenance limitations; this is not a new external validation.
+
+requirements:
+  - "Reserved for a contributor controlled by a different human from the owner of gladunrv and romanhladun24-dot; same-human execution must stop with INDEPENDENCE_BLOCKED."
+  - "Record contributor id, GitHub username, agent/tool, model/version, operating system, replay command, output directory, tolerance, metric count, and maximum absolute drift."
+  - "Run the committed RESULT-0024 command and Gate B comparison without changing source rows, frozen alpha, split, controls, thresholds, metrics, best_model_id, or best_verdict."
+  - "On PASS, append schema-permitted replay metadata so the strongest validation_independence becomes independent; preserve earlier replay history and the metadata caveat repair."
+  - "On drift or command failure, record a blocker and leave RESULT-0024 metadata, tier, metrics, and wording unchanged."
+  - "Do not call the DEBCat high-mass slice an independent external dataset, inspect CHARA/Gaia values, tune the relation, or create/promote a claim."
+  - "Return exactly one verdict: INDEPENDENT_GATE_B_PASS, INDEPENDENCE_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+  - "No-claim wording: replay strengthens reproducibility of a same-source, small-holdout transfer benchmark only."
+
+accepted_outputs:
+  - "An independent replay note under docs/reviews/stellar/ plus the minimal RESULT-0024 review-metadata update only on PASS."
+  - "Output-routing summary: replay-validation evidence only; no metric, verdict, claim, prediction, or knowledge change."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation of an existing result; no new result is produced."
+  evidence:
+    - "results/EXP-0017/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_stellar_ml_high_mass_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

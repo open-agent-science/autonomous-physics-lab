@@ -1,0 +1,60 @@
+id: TASK-1047
+title: "Replay ThermoML RESULT-0026 with an independent human contributor"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "This task strengthens the trust evidence of the bounded ThermoML benchmark and must preserve the paired failed-family memory and all source/rights limits."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0026 is AGENT_VALIDATED, but its recorded replay identity is same_owner_different_account; RESULT-0028 already has independent-human negative-memory replay."
+  - "Independent-human replay of the positive aggregate benchmark balances the campaign's trust evidence without reopening the stopped exact-80 expansion."
+  - "A pass validates deterministic reproduction only and must remain paired with the esters/lactones failure."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0001/review_summary.md"
+    - "docs/reviews/thermoml-result0026-gate-b-replay.md"
+    - "results/EXP-0020/RUN-0002/result.yaml"
+    - "docs/campaigns/thermophysical-property-residuals.md"
+  planning_context: >
+    Re-run the frozen RESULT-0026 ThermoML Tb workflow under a contributor
+    controlled by a different human from the publisher/current replayer.
+    Preserve the bounded 40-row fixture and pair any PASS wording with
+    RESULT-0028 failed-family memory.
+
+requirements:
+  - "Reserved for a contributor controlled by a different human from the owner of gladunrv and romanhladun24-dot; same-human execution must stop with INDEPENDENCE_BLOCKED."
+  - "Record contributor id, GitHub username, agent/tool, model/version, operating system, replay command, output directory, tolerance, metric count, and maximum absolute drift."
+  - "Run the committed RESULT-0026 command and Gate B comparison without changing the 40-row fixture, family split, Joback implementation, controls, thresholds, metrics, best_model_id, or best_verdict."
+  - "On PASS, append schema-permitted replay metadata so the strongest validation_independence becomes independent; preserve earlier replay history."
+  - "On drift or command failure, record a blocker and leave RESULT-0026 tier, metrics, verdict, and public wording unchanged."
+  - "Do not lower exact-80 family gates, rerun RESULT-0028, broaden beyond Tb, commit raw ThermoML bytes, fit a new estimator, or promote a universal Joback claim."
+  - "Return exactly one verdict: INDEPENDENT_GATE_B_PASS, INDEPENDENCE_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+  - "No-claim wording: replay concerns one bounded 40-row Tb fixture and does not establish global estimator reliability."
+
+accepted_outputs:
+  - "An independent replay note under docs/reviews/thermoml/ plus the minimal RESULT-0026 review-metadata update only on PASS."
+  - "Output-routing summary: replay-validation evidence only; no metric, verdict, claim, prediction, knowledge, or corpus change."
+
+result_artifact_policy:
+  required: false
+  reason: "Replay validation of an existing result; no new scientific result is produced."
+  evidence:
+    - "results/EXP-0020/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_joback_tb.py tests/test_thermoml_family_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/check_docs_reviews_shard_policy.py --base origin/main --head HEAD"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

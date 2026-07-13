@@ -84,16 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; RESULT-0029 packages the strict no-refit transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory with independent-human replay."
+  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory with independent-human replay. TASK-1027 pinned the Kim-2020 CdSe CC BY source artifact and returned SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT without admitting values."
   recommended_parallel_agents: 1
-  coordination_notes: "Preserve the TASK-0920 borderline/negative transfer memory. TASK-1027 may package the independent Kim-2020 CdSe source value-blind; no correction search, refit, row extraction, or design-law claim is authorized."
+  coordination_notes: "TASK-1043 may freeze the Kim-2020 extraction/uncertainty contract only. Preserve RESULT-0029; no value extraction, correction search, refit, repeat ZnSe/InP transfer, or design-law claim is authorized in that preflight."
   next_validity_gate:
     type: transfer
-    blocker: "The declared no-refit transfer ran and did not clear the survival margin; TASK-0988 found a CdSe route but returned SOURCE_LIMITED_MONITOR until a value-blind source-artifact/digitization package exists."
-    target_artifact: "TASK-1027"
+    blocker: "The CdSe source is pinned, but text-derived versus digitized row classes, optical-axis semantics, uncertainty, and anisotropy rules are not yet frozen."
+    target_artifact: "TASK-1043"
   best_next_actions:
-    - task_id: TASK-1027
-      label: "Package the Kim-2020 CdSe source artifact value-blind before any extraction"
+    - task_id: TASK-1043
+      label: "Predeclare the Kim-2020 CdSe deterministic extraction and uncertainty contract"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -113,6 +113,7 @@ portfolio:
     - "docs/reviews/quantum-znse-contract-transfer-benchmark.md"
     - "docs/reviews/quantum/result0029-independent-human-replay.md"
     - "docs/reviews/quantum-next-direct-source-scout.md"
+    - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
     - "results/EXP-0022/RUN-0001/result.yaml"
   open_questions:
     - "What new direct source surface or maintainer-approved contract change, if any, would add information beyond the TASK-0920 borderline transfer failure?"
@@ -122,5 +123,5 @@ portfolio:
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0957 RESULT-0029 packaging, TASK-1015 independent-human replay, TASK-0988 next-source scout, and Scientific Director 2026-07-13 cycle"
-    notes: "RESULT-0029 is AGENT_VALIDATED inconclusive/control memory. TASK-1027 opens only the value-blind Kim-2020 CdSe source-artifact gate; row extraction, another transfer benchmark, and open-ended correction search remain blocked."
+    source: "RESULT-0029 independent-human replay, TASK-1027 Kim-2020 source artifact, and Scientific Director 2026-07-13 cycle"
+    notes: "RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 passed source-artifact readiness, but only a no-value extraction preflight is open; row curation and any later transfer require separate tasks."

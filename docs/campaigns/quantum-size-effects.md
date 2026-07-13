@@ -21,10 +21,10 @@ produced an admissible cross-material claim: ZnSe/Toufanian rows are usable only
 as limited factual extracts, the row surface is frozen, the strict no-refit
 transfer missed its predeclared margin, and a fixed effective-mass scaling
 transfer check failed against controls. TASK-0988 found a plausible open CdSe
-lead but returned `SOURCE_LIMITED_MONITOR`, not row readiness. The next gate is
-a value-blind source artifact that pins the Kim et al. 2020 article, figure
-semantics, and per-artifact reuse boundary before extraction. The campaign is
-therefore
+lead, and `TASK-1027` has now pinned the Kim et al. 2020 version-of-record,
+CC BY 4.0 reuse boundary, figure/sample inventory, morphology semantics, and
+uncertainty routes. It admitted no values and returned
+`SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT`. The campaign is therefore
 **source/negative-memory gated**, not authorized for autonomous correction
 search or cross-material claims.
 
@@ -61,10 +61,11 @@ controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. Useful work is limited to preserving `RESULT-0029` as validated
-inconclusive/control memory and packaging the TASK-0988 CdSe lead value-blind
-before any extraction. No correction
-search, replay loop, or repeat transfer on the same ZnSe/InP surface is
-authorized.
+inconclusive/control memory and predeclaring how the pinned Kim-2020 CdSe
+source could be extracted reproducibly. Text-derived diameter summaries,
+digitized optical peaks, uncertainty, and anisotropy must be separated before
+any row curation. No correction search, replay loop, or repeat transfer on the
+same ZnSe/InP surface is authorized.
 
 ## Historical Source-Readiness Trail
 

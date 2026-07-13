@@ -51,11 +51,13 @@ externally published on Zenodo with version DOI `10.5281/zenodo.21207072`.
 No claim, prediction, material recommendation, or materials-law statement has
 been created.
 
-`TASK-0993` has now selected one bounded second-source direction: an OQMD v1.8
-source-manifest preflight. `TASK-1026` is metadata-only and must resolve
-official version, CC BY attribution, property/unit semantics, retrieval
-identity, and MD-0002 overlap/no-peek rules before any dump download, row
-selection, dataset construction, or benchmark metric is allowed.
+`TASK-0993` selected one bounded second-source direction, and `TASK-1026` has
+now completed the OQMD preflight. It confirmed CC BY 4.0 source rights, pinned
+property/unit semantics, and defined a dated live-API snapshot policy with a
+2,000-row cap plus conservative MD-0002 composition overlap and no-peek rules.
+No OQMD scientific row or metric has been admitted yet. The next useful
+artifact is a bounded, hash-pinned OQMD source snapshot; split design and
+cross-database scoring remain later gates.
 
 ## Public Monitoring Snapshot
 
