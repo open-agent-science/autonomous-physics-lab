@@ -1,7 +1,7 @@
 id: TASK-1024
 title: "Build the FRB reduced pre-registration anchor capsule after rights approval"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "External-anchor packaging for a registered prediction; closeout must confirm no upload, DOI, reveal scoring, or blanket-license assertion occurred."
 difficulty: medium

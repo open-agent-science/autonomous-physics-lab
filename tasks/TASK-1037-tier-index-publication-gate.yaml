@@ -1,7 +1,7 @@
 id: TASK-1037
 title: "Make the scientific-memory review-tier index a checked publication gate"
 type: infrastructure
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This changes a public evidence surface and two CI workflows; closeout must confirm the index regenerates post-merge and the nightly drift alarm is live."
 difficulty: medium

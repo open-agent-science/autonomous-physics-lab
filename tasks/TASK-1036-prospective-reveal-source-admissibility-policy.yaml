@@ -1,7 +1,7 @@
 id: TASK-1036
 title: "Codify the shared prospective-reveal source-admissibility policy after the TASK-1023 no-peek incident"
 type: docs_protocol
-status: REVIEW_READY
+status: DONE
 closeout: review
 difficulty: low
 priority: high
