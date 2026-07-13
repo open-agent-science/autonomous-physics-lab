@@ -20,6 +20,7 @@ from physics_lab.engines.dimensions import (
     validate_challenge_set,
     validate_item,
 )
+from physics_lab.registry.examples import load_example_config
 from physics_lab.workflows.dimensional_validator import (
     run_dimensional_validator_with_output,
 )
@@ -450,6 +451,94 @@ def test_dimensional_validator_v2_calibration_uses_exact_primary_metric(
     assert result_payload["best_verdict"] == "INCONCLUSIVE"
     assert "zero_disagreement_ledger" not in check_names
     assert "frozen_input_checksum" not in check_names
+
+
+@pytest.mark.parametrize(
+    "scoring_contract",
+    [SCORING_CONTRACT_LEGACY_V1, SCORING_CONTRACT_LABEL_BLIND_V2],
+)
+def test_example_config_schema_accepts_dimensional_scoring_contract(
+    tmp_path: Path, scoring_contract: str
+) -> None:
+    config = _load_yaml(Path("examples/dimensional_analysis_live_74.yaml"))
+    config["scoring_contract"] = scoring_contract
+    config_path = tmp_path / "dimensional-validator-config.yaml"
+    config_path.write_text(yaml.safe_dump(config), encoding="utf-8")
+
+    assert load_example_config(config_path)["scoring_contract"] == scoring_contract
+
+
+def _patch_new_result_config(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    scoring_contract: str | None,
+) -> None:
+    config = load_example_config("examples/dimensional_analysis_live_74.yaml")
+    config.update(
+        {
+            "task_id": "TASK-1038",
+            "run_id": "RUN-9999",
+            "result_id": "RESULT-9999",
+            "result_title": "Dimensional Validator Contract Test",
+        }
+    )
+    if scoring_contract is None:
+        config.pop("scoring_contract", None)
+    else:
+        config["scoring_contract"] = scoring_contract
+    monkeypatch.setattr(
+        "physics_lab.workflows.dimensional_validator.load_example_config",
+        lambda _: config,
+    )
+
+
+def test_new_result_requires_explicit_scoring_contract(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _patch_new_result_config(monkeypatch, scoring_contract=None)
+
+    with pytest.raises(ValueError, match="must declare scoring_contract"):
+        run_dimensional_validator_with_output(
+            "examples/dimensional_analysis_live_74.yaml",
+            output_dir=tmp_path / "missing-contract",
+        )
+
+
+def test_new_result_rejects_legacy_scoring_contract(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _patch_new_result_config(
+        monkeypatch,
+        scoring_contract=SCORING_CONTRACT_LEGACY_V1,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="restricted to protected RESULT-0007/RESULT-0020 replays",
+    ):
+        run_dimensional_validator_with_output(
+            "examples/dimensional_analysis_live_74.yaml",
+            output_dir=tmp_path / "legacy-contract",
+        )
+
+
+def test_new_result_runs_with_label_blind_v2_contract(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _patch_new_result_config(
+        monkeypatch,
+        scoring_contract=SCORING_CONTRACT_LABEL_BLIND_V2,
+    )
+
+    outcome = run_dimensional_validator_with_output(
+        "examples/dimensional_analysis_live_74.yaml",
+        output_dir=tmp_path / "v2-contract",
+    )
+    metrics = json.loads(outcome.artifacts.metrics_path.read_text(encoding="utf-8"))
+
+    assert metrics["run_id"] == "RUN-9999"
+    assert metrics["scoring_contract"] == SCORING_CONTRACT_LABEL_BLIND_V2
+    assert metrics["primary_metric"] == "exact_agreement_fraction"
 
 
 @pytest.mark.skipif(

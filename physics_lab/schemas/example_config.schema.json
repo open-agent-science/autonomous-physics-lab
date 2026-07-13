@@ -84,6 +84,13 @@
       "type": "string",
       "minLength": 1
     },
+    "scoring_contract": {
+      "type": "string",
+      "enum": [
+        "legacy_policy_v1",
+        "label_blind_exact_v2"
+      ]
+    },
     "expected_item_count": {
       "type": "integer",
       "minimum": 1

@@ -133,6 +133,14 @@ def run_dimensional_validator_with_output(
         scoring_contract = SCORING_CONTRACT_LEGACY_V1
     else:
         scoring_contract = str(declared_scoring_contract)
+    if (
+        scoring_contract == SCORING_CONTRACT_LEGACY_V1
+        and not legacy_replay_identity
+    ):
+        raise ValueError(
+            "legacy_policy_v1 is restricted to protected "
+            "RESULT-0007/RESULT-0020 replays."
+        )
 
     # Run validator
     item_results, summary = validate_challenge_set(
