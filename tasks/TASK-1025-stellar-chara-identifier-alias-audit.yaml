@@ -1,7 +1,7 @@
 id: TASK-1025
 title: "Complete the CHARA identifier and alias audit before stellar row curation"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This source-readiness audit controls whether any CHARA system may later be treated as independent of DEBCat; closeout must verify that no stellar values or metrics were inspected."
 difficulty: medium
