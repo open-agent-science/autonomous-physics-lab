@@ -104,7 +104,7 @@ jobs:
         run: |
           python -m physics_lab.cli sync-active-board .
 
-      - name: Regenerate scientific-memory review-tier index
+      - name: Regenerate scientific-memory surfaces (tier index + historical ledger)
         run: |
           python scripts/apl_scientific_memory_index.py --write
 
@@ -141,7 +141,7 @@ jobs:
             unexpected_paths=()
             while IFS= read -r path; do
               case "${path}" in
-                docs/task-views/*.md|tasks/TASK-*.yaml|docs/scientific-memory-review-tiers.md)
+                docs/task-views/*.md|tasks/TASK-*.yaml|docs/scientific-memory-review-tiers.md|docs/historical-scientific-memory.md)
                   ;;
                 *)
                   unexpected_paths+=("${path}")
@@ -212,7 +212,7 @@ jobs:
           git config user.name "${BOARD_SYNC_APP_SLUG}[bot]"
           git config user.email "${app_bot_id}+${BOARD_SYNC_APP_SLUG}[bot]@users.noreply.github.com"
           mapfile -d '' changed_paths < <(
-            git diff --name-only -z -- docs/task-views/ docs/scientific-memory-review-tiers.md ':(glob)tasks/TASK-*.yaml'
+            git diff --name-only -z -- docs/task-views/ docs/scientific-memory-review-tiers.md docs/historical-scientific-memory.md ':(glob)tasks/TASK-*.yaml'
           )
           if (( ${#changed_paths[@]} == 0 )); then
             echo "No changed board-sync paths to stage."

@@ -4,9 +4,38 @@ from pathlib import Path
 
 from physics_lab.registry.scientific_memory_index import (
     collect_scientific_memory_artifacts,
+    render_historical_scientific_memory_ledger,
     render_scientific_memory_index,
     write_scientific_memory_index,
 )
+
+
+def test_historical_ledger_lists_pre_tier_artifacts(tmp_path: Path) -> None:
+    _write(
+        tmp_path / "results/EXP-0001/RUN-0001/result.yaml",
+        """
+result_id: RESULT-0001
+title: Tiered result
+best_verdict: VALID
+review_tier: AGENT_VALIDATED
+""",
+    )
+    _write(
+        tmp_path / "prediction_registry/domain/PRED-0001.yaml",
+        """
+prediction_id: PRED-0001
+title: Legacy prediction
+registry_status: REGISTERED
+""",
+    )
+
+    ledger = render_historical_scientific_memory_ledger(tmp_path)
+
+    assert "Historical Scientific Memory (Pre-Tier Ledger)" in ledger
+    assert "must not be read as reviewed or endorsed" in ledger
+    assert "`PRED-0001` - Legacy prediction" in ledger
+    # Tiered artifacts belong to the review-tier index, not the ledger.
+    assert "RESULT-0001" not in ledger
 
 
 def test_collects_review_tiers_and_legacy_artifacts(tmp_path: Path) -> None:
@@ -56,8 +85,11 @@ review_tier: AGENT_VALIDATED
 
     assert by_id["RESULT-0001"].review_tier == "AGENT_PUBLISHED"
     assert by_id["RESULT-0001"].next_action == "replay-needed"
+    assert by_id["RESULT-0001"].historical_classification is None
     assert by_id["PRED-0001"].next_action == "external-reveal-needed"
-    assert by_id["CLAIM-0001"].review_tier == "LEGACY_UNTIERED"
+    assert by_id["CLAIM-0001"].review_tier is None
+    assert by_id["CLAIM-0001"].is_historical
+    assert by_id["CLAIM-0001"].historical_classification == "PRE_TIER_PROTOCOL"
     assert by_id["CLAIM-0001"].next_action == "legacy-triage-only"
     assert by_id["KNOW-0001"].review_tier == "AGENT_VALIDATED"
     assert by_id["KNOW-0001"].next_action == "maintainer-review-needed"
@@ -92,7 +124,14 @@ registry_status: REGISTERED
     rendered = render_scientific_memory_index(tmp_path)
 
     assert "| `AGENT_PUBLISHED` | 1 | 0 | 0 | 0 | 1 |" in rendered
-    assert "| `LEGACY_UNTIERED` | 0 | 1 | 0 | 0 | 1 |" in rendered
+    # Historical artifacts stay out of the trust-ladder counts and sections;
+    # they appear only in the compact historical summary.
+    assert "LEGACY_UNTIERED" not in rendered
+    assert "## Historical Pre-Tier Artifacts" in rendered
+    assert "1 canonical artifacts predate the explicit review-tier" in rendered
+    assert "| `PRED` | 1 |" in rendered
+    assert "`PRED-0001`" not in rendered
+    assert "(historical-scientific-memory.md)" in rendered
     assert "`RESULT-0001` - Agent result" in rendered
     assert "`PRED-TEMPLATE`" not in rendered
     assert "[`results/EXP-0001/RUN-0001/result.yaml`](../results/EXP-0001/RUN-0001/result.yaml)" in rendered

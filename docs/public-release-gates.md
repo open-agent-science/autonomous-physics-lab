@@ -103,12 +103,16 @@ All of the following must be true:
   contributor entrypoints
 - `docs/status.md` and the public science dashboard summarize current campaign
   state without implying discovery-level claims
-- `docs/scientific-memory-review-tiers.md` is byte-synchronized with the
+- `docs/scientific-memory-review-tiers.md` and the historical pre-tier ledger
+  `docs/historical-scientific-memory.md` are byte-synchronized with the
   canonical scientific-memory artifacts:
   `python3 scripts/apl_scientific_memory_index.py --check` passes
 - the review-tier index shows the validation-independence axis for replayed
   results, so review tier and replay independence cannot be conflated on the
   public surface
+- the trust ladder shows only real review tiers; historical pre-tier artifacts
+  stay outside it (preserved and discoverable, never presented as reviewed),
+  and every new canonical artifact declares an explicit `review_tier`
 - an announcement draft exists
 - a citation/publication path exists for software and reusable datasets, even
   if DOI minting is deferred until maintainer-approved release

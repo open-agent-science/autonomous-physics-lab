@@ -21,7 +21,7 @@ import yaml
 from physics_lab.registry.scientific_memory_index import (
     collect_scientific_memory_artifacts,
     render_scientific_memory_index,
-    write_scientific_memory_index,
+    write_scientific_memory_surfaces,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -103,16 +103,16 @@ def test_index_header_documents_independence_axis(tmp_path: Path) -> None:
     assert "`Independence` is a separate axis from the tier" in rendered
 
 
-def test_check_passes_when_index_in_sync(tmp_path: Path, capsys) -> None:
+def test_check_passes_when_surfaces_in_sync(tmp_path: Path, capsys) -> None:
     _write_result(tmp_path, "RUN-0007", "AGENT_VALIDATED", "independent")
-    write_scientific_memory_index(tmp_path)
+    write_scientific_memory_surfaces(tmp_path)
     assert index_cli.main(["--root", str(tmp_path), "--check"]) == 0
     assert "IN SYNC" in capsys.readouterr().out
 
 
 def test_check_fails_when_index_is_stale(tmp_path: Path, capsys) -> None:
     _write_result(tmp_path, "RUN-0008", "AGENT_VALIDATED", "independent")
-    write_scientific_memory_index(tmp_path)
+    write_scientific_memory_surfaces(tmp_path)
     # A canonical change after the last regen must flip --check to failing.
     _write_result(tmp_path, "RUN-0009", "AGENT_PUBLISHED")
     assert index_cli.main(["--root", str(tmp_path), "--check"]) == 1
@@ -121,7 +121,17 @@ def test_check_fails_when_index_is_stale(tmp_path: Path, capsys) -> None:
     assert "--write" in out
 
 
-def test_check_fails_when_index_is_missing(tmp_path: Path) -> None:
+def test_check_fails_when_only_ledger_is_stale(tmp_path: Path, capsys) -> None:
+    _write_result(tmp_path, "RUN-0014", "AGENT_VALIDATED", "independent")
+    write_scientific_memory_surfaces(tmp_path)
+    # An untiered artifact changes the ledger (and the index historical
+    # summary); a hand-deleted ledger alone must also fail the check.
+    (tmp_path / "docs" / "historical-scientific-memory.md").unlink()
+    assert index_cli.main(["--root", str(tmp_path), "--check"]) == 1
+    assert "historical-scientific-memory.md" in capsys.readouterr().out
+
+
+def test_check_fails_when_surfaces_are_missing(tmp_path: Path) -> None:
     _write_result(tmp_path, "RUN-0010", "AGENT_VALIDATED", "independent")
     assert index_cli.main(["--root", str(tmp_path), "--check"]) == 1
 
@@ -133,7 +143,51 @@ def test_write_then_check_roundtrip_is_deterministic(tmp_path: Path) -> None:
         ("RUN-0013", "AGENT_PUBLISHED", None),
     ):
         _write_result(tmp_path, run, tier, independence)
-    first = write_scientific_memory_index(tmp_path).read_text(encoding="utf-8")
-    second = write_scientific_memory_index(tmp_path).read_text(encoding="utf-8")
+    first = [path.read_text(encoding="utf-8") for path in write_scientific_memory_surfaces(tmp_path)]
+    second = [path.read_text(encoding="utf-8") for path in write_scientific_memory_surfaces(tmp_path)]
     assert first == second
     assert index_cli.main(["--root", str(tmp_path), "--check"]) == 0
+
+
+def test_untiered_artifact_is_historical_not_a_tier(tmp_path: Path) -> None:
+    target = tmp_path / "results" / "EXP-0001" / "RUN-0015" / "result.yaml"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(
+        yaml.safe_dump(
+            {
+                "result_id": "RESULT-0015",
+                "title": "Pre-tier fixture",
+                "best_verdict": "VALID",
+            }
+        ),
+        encoding="utf-8",
+    )
+    rendered = render_scientific_memory_index(tmp_path)
+    assert "LEGACY_UNTIERED" not in rendered
+    assert "## Historical Pre-Tier Artifacts" in rendered
+    assert "| `RESULT` | 1 |" in rendered
+    # Historical artifacts never appear in trust-ladder counts or sections.
+    assert "| `AGENT_PUBLISHED` | 0 | 0 | 0 | 0 | 0 |" in rendered
+    assert "`RESULT-0015`" not in rendered
+
+
+def test_no_new_untiered_canonical_artifacts() -> None:
+    """Guard: canonical artifacts added after the pre-tier freeze must declare
+    an explicit review_tier. Grandfathered paths live in the frozen allowlist;
+    do not extend it — declare a tier in the new artifact instead."""
+    allowlist_path = REPO_ROOT / "policy" / "pre-tier-artifact-allowlist.yaml"
+    payload = yaml.safe_load(allowlist_path.read_text(encoding="utf-8"))
+    allowed_paths = payload["paths"]
+    allowed = set(allowed_paths)
+    assert len(allowed_paths) == len(allowed), "allowlist contains duplicate paths"
+
+    untiered = {
+        artifact.path
+        for artifact in collect_scientific_memory_artifacts(REPO_ROOT)
+        if artifact.is_historical
+    }
+    unexpected = sorted(untiered - allowed)
+    assert not unexpected, (
+        "New canonical artifacts must declare an explicit review_tier "
+        f"instead of extending the pre-tier allowlist: {unexpected}"
+    )
