@@ -1,7 +1,7 @@
 id: TASK-1027
 title: "Package the Kim 2020 CdSe source artifact before any quantum row extraction"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Open-licensed figure/source intake for a possible independent transfer surface; closeout must verify that no measurement values, digitized points, or benchmark metrics were created."
 difficulty: medium
@@ -44,6 +44,8 @@ result_artifact_policy:
   reason: "Value-blind source packaging only; no scientific result or prediction is created."
   evidence:
     - "docs/reviews/quantum-next-direct-source-scout.md"
+    - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md"
 
 validation:
   commands:
