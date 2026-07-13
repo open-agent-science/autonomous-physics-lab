@@ -7,7 +7,8 @@ POLICY = REPO_ROOT / "docs" / "prospective-reveal-source-admissibility.md"
 
 REQUIRED_INVARIANTS = (
     "official metadata surfaces",
-    "search-result snippets are\n  forbidden",
+    "search-result snippets",
+    "forbidden** for target-aware scouting",
     "BLOCKED_NO_PEEK_AUDIT",
     "source_discovery_mode: official_metadata_only",
     "search_result_snippets_allowed: false",
