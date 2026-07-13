@@ -69,8 +69,8 @@ portfolio:
   status: pinned_dataset
   domain: precision_metrology
   surface_type: source_pinned_benchmark
-  lifecycle_stage: source_readiness
-  activity_status: active
+  lifecycle_stage: monitor_only
+  activity_status: active_monitor
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
@@ -82,18 +82,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "Beloy/Nemitz 171Yb/87Sr diagnostic is preserved as source-limited consistency memory; Pizzocaro remains diagnostic-only; McGrew/NIST is blocked; TASK-0913 found an independent 171Yb/88Sr route but it cannot serve as the third 171Yb/87Sr row."
-  recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun Beloy/Nemitz, duplicate the Beloy/BACON row under McGrew/NIST, coerce 171Yb/88Sr into 171Yb/87Sr, or fit constants drift. Current work is source-blocker memory and a protocol-only multi-species go/no-go contract."
+  current_stage: "Beloy/Nemitz 171Yb/87Sr diagnostic is preserved as source-limited consistency memory; other routes remain diagnostic, blocked, or isotope-mismatched. TASK-0990 ratified the monitor-only reopen-trigger ledger."
+  recommended_parallel_agents: 0
+  coordination_notes: "Do not rerun metrics, duplicate the Beloy/BACON row, coerce 171Yb/88Sr into 171Yb/87Sr, or fit constants drift. Reopen only on a ledger-qualified source event."
   next_validity_gate:
     type: source_readiness
     blocker: "The campaign still lacks a third independent primary 171Yb/87Sr source; the post-2021 independent source found by TASK-0913 is isotope-mismatched (171Yb/88Sr)."
-    target_artifact: "TASK-0938"
+    target_artifact: "docs/reviews/atomic/monitor-only-reopen-trigger-ledger.md"
   best_next_actions:
-    - task_id: TASK-0938
-      label: "Draft a multi-species harmonization go/no-go contract without values"
-    - task_id: TASK-0942
-      label: "Package the 2024 isotope-mismatch source scout as blocker memory"
+    - task_id: null
+      label: "Monitor the ratified trigger ledger; do not seed an executor task without a qualifying source event"
   required_gates:
     - "Second-source provenance review."
     - "Real-row loader and schema validation."
@@ -116,9 +114,9 @@ portfolio:
     - "Is there a future post-2021 primary absolute 171Yb/87Sr ratio route outside Beloy/Nemitz/Pizzocaro/McGrew/Morzynski that is independent enough to curate later?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-05"
+    last_reviewed: "2026-07-13"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: source_readiness
-    source: "TASK-0913 post-2021 source scout and Scientific Director 2026-07-05 task-queue cycle"
-    notes: "High-prestige lane with completed source-limited memory. The newest independent route is 171Yb/88Sr, not the committed 171Yb/87Sr axis; next work is blocker memory and a multi-species go/no-go contract, not metrics or constants-drift fitting."
+    source: "TASK-0990 monitor-only reopen-trigger ledger and Scientific Director 2026-07-13 task-queue cycle"
+    notes: "High-prestige lane with completed source-limited memory and a ratified monitor ledger. No executor work is justified until a qualifying source trigger appears."
