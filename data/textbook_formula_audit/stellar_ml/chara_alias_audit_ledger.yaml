@@ -24,6 +24,13 @@ frozen_comparison_surface:
 alias_lookup_identity:
   service: SIMBAD TAP (synchronous)
   service_url: https://simbad.cds.unistra.fr/simbad/sim-tap/sync
+  source_license: ODbL-1.0
+  source_license_url: https://opendatacommons.org/licenses/odbl/1-0/
+  reuse_classification: bounded_identifier_and_hierarchy_extract_with_attribution
+  covered_by_repo_license: false
+  rights_note: SIMBAD-sourced identifiers and hierarchy links remain subject to the upstream ODbL-1.0;
+    APL-authored matching decisions, normalization rules, and audit prose use the repository license. This
+    file does not relicense the upstream database content or authorize bulk SIMBAD redistribution.
   access_date_utc: '2026-07-13'
   response_format: text
   alias_query_template: SELECT id2.id AS alias_id FROM ident AS id1 JOIN ident AS id2 USING(oidref) WHERE

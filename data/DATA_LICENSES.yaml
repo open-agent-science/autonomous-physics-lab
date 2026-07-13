@@ -162,6 +162,28 @@ datasets:
       - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.sample.yaml
       - data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
       - data/textbook_formula_audit/stellar_ml/debcat_holdout_manifest.yaml
+
+  - id: simbad-chara-alias-audit
+    source: "SIMBAD astronomical database (CDS, Strasbourg)"
+    source_url: https://simbad.cds.unistra.fr/simbad/
+    license: "Open Database License 1.0 (ODbL-1.0)"
+    redistribution_status: bounded_identifier_and_hierarchy_extract_with_attribution
+    citation_or_acknowledgement: >
+      This research made use of the SIMBAD database, operated at CDS,
+      Strasbourg, France. Cite Wenger et al. 2000, A&AS 143, 9, and preserve
+      the ODbL-1.0 source notice for the SIMBAD-derived identifiers and links.
+    evidence: >
+      The SIMBAD service home page states that use is available under ODbL.
+      TASK-1025 commits only the aliases and hierarchy links needed to audit 13
+      CHARA candidates, seven sibling components, and two positive controls;
+      raw TAP responses, measurement values, and any bulk database export are
+      not vendored. APL-authored normalization rules and audit decisions remain
+      separate from the upstream-licensed database content.
+    raw_artifact_vendored: false
+    provenance: data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
+    paths:
+      - data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
+
   - id: almeida-2023-inp-sizing-digitized
     source: "Almeida et al. 2023, InP colloidal quantum dot sizing curve (Figure 2b), deterministically digitized"
     source_url: https://doi.org/10.1021/acs.nanolett.3c02630

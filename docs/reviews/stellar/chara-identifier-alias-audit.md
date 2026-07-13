@@ -41,7 +41,12 @@ following the same pin-without-vendoring pattern as TASK-0989. A single
 additional pinned query recorded each candidate's SIMBAD `main_id` and `oid`
 and confirmed one-to-one identity resolution (13 queried identifiers, 13
 distinct objects). SIMBAD content used here is limited to object identifiers
-and hierarchy links (facts), with CDS acknowledgement recorded in the ledger.
+and hierarchy links, with CDS acknowledgement recorded in the ledger. SIMBAD
+states that its service is available under ODbL 1.0; the ledger therefore
+marks the bounded identifier/hierarchy extract as upstream ODbL content and
+does not place it under APL's repository licence. APL-authored normalization,
+matching decisions, and audit prose remain separately licensed with the
+repository. This is not a grant or precedent for bulk SIMBAD redistribution.
 
 Matching used one recorded deterministic normalization applied to both sides
 (strip whitespace/quotes; drop a leading GCVS `V* ` prefix; uppercase; remove
@@ -127,6 +132,9 @@ or evidence about any mass-luminosity formula.
 - SIMBAD is a living database; alias sets are pinned by access date and
   response digest, not by an upstream version number. A future row-curation
   task should re-verify digests only if it needs to re-query.
+- The committed alias/hierarchy subset carries an ODbL 1.0 source notice and
+  CDS attribution. Any broader extraction must receive a fresh rights review;
+  this audit does not establish that a larger SIMBAD subset is admissible.
 - The audit trusts SIMBAD's identifier cross-matching. A DEBCat system whose
   committed `system_id` is not linked to a candidate in SIMBAD's `ident`
   table would be missed; this residual risk is shared with TASK-0989 and is
