@@ -6,7 +6,7 @@
 
 ## Release Blockers
 
-- `TASK-1024` - Build the FRB reduced pre-registration anchor capsule after rights approval (`scientific_dataset`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
+None.
 
 ## Research Blockers
 
