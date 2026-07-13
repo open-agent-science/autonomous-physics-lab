@@ -1,0 +1,61 @@
+id: TASK-1041
+title: "Freeze a value-blind CHARA cluster-dependence and DEBCat environment-overlap policy"
+type: benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This task controls statistical independence for a prospective stellar holdout and must be checked for identifier-only, value-blind execution."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1025 found that seven of thirteen alias-clean CHARA candidates are Hyades members, so physical-system de-duplication alone does not establish independent draws."
+  - "A cluster/group-aware policy can be frozen from identifiers before CHARA values or residuals are used in benchmark design."
+  - "This task runs in parallel with row curation because it owns only environment/dependence metadata and a prospective grouping contract."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/stellar/chara-identifier-alias-audit.md"
+    - "data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    Determine whether cluster membership, shared environment, or unresolved
+    hierarchy creates dependence between the thirteen CHARA candidates or
+    between CHARA and the frozen DEBCat development surface. Use identifiers,
+    memberships, and provenance only; do not inspect scientific target values.
+
+requirements:
+  - "Freeze the TASK-1025 thirteen-system identity set and the DEBCat 373-system revision/digest before any environment matching."
+  - "Pin the cluster-membership source identity and record a candidate-by-candidate environment/group ledger, including the seven known Melotte 25 members and any additional reviewed memberships."
+  - "Audit whether any DEBCat development system shares the same cluster or explicitly linked environment; record matches without inspecting masses, luminosities, residuals, or formula outputs."
+  - "Predeclare a group-aware split rule that keeps all members of one physical cluster/environment in one partition and prevents a cluster represented in DEBCat from serving as a nominally independent CHARA holdout."
+  - "Set a minimum effective independent-group count and return HOLD_UNDERPOWERED if the prospective surface cannot support a meaningful holdout after grouping; do not lower the minimum after seeing values."
+  - "Do not edit the TASK-1025 alias ledger or any CHARA value surface; write a separate dependence ledger and review note to preserve parallel safety with TASK-1040."
+  - "Return exactly one verdict: DEPENDENCE_POLICY_READY, HOLD_UNDERPOWERED, SOURCE_LIMITED, or ENVIRONMENT_OVERLAP_BLOCKED."
+  - "Stop before row curation, split assignment to actual rows, metric calculation, fitting, RESULT/PRED/CLAIM/KNOW mutation, or formula wording."
+  - "No-claim wording: cluster grouping is a leakage/dependence control, not a stellar-population result."
+
+accepted_outputs:
+  - "A separate identifier-only CHARA/DEBCat environment-dependence ledger under data/textbook_formula_audit/stellar_ml/."
+  - "A docs/reviews/stellar/ policy note with pinned sources, group counts, overlap audit, frozen grouping rule, minimum effective-group gate, limitations, and one bounded verdict."
+  - "Output-routing summary: prospective holdout policy only; no values, split, metric, result, claim, prediction, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind dependence planning only; no scientific row or metric is produced."
+  evidence:
+    - "docs/reviews/stellar/chara-identifier-alias-audit.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -84,16 +84,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 frozen MVP plus AGENT_VALIDATED RESULT-0020 live 74-item replay; TASK-0948 supplied a genuinely independent Gate B replay identity with zero drift across 17 tracked metrics."
+  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. TASK-1038 separated label-blind v2 inference from policy scoring; the old 74-item surface is now explicitly development-only, so CLAIM-0005 Gate C is deferred pending a fresh role-disjoint benchmark."
   recommended_parallel_agents: 1
-  coordination_notes: "Do not add live challenge examples as a substitute for Gate C. The next useful step is maintainer review of CLAIM-0005 wording/status, while keeping dimensional consistency separate from full physical correctness."
+  coordination_notes: "Run TASK-1039 only as a no-score, role-disjoint benchmark freeze. Do not rescore the historical 50/74 surfaces as confirmatory evidence or reopen CLAIM-0005 before a fresh v2 result and replay exist."
   next_validity_gate:
-    type: ratification
-    blocker: "CLAIM-0005 remains DRAFT until the maintainer explicitly accepts a narrowed challenge-set agreement statement at Gate C, or chooses to keep it DRAFT/PARTIALLY_SUPPORTED."
-    target_artifact: "CLAIM-0005"
+    type: source_readiness
+    blocker: "No fresh role-disjoint label_blind_exact_v2 benchmark has been frozen; the historical surfaces were used during method development and cannot support confirmatory Gate C."
+    target_artifact: "TASK-1039"
   best_next_actions:
-    - task_id: null
-      label: "Maintainer Gate C decision for CLAIM-0005: keep DRAFT, apply narrowed PARTIALLY_SUPPORTED, or apply narrowed SUPPORTED wording"
+    - task_id: TASK-1039
+      label: "Curate and freeze a role-disjoint v2 benchmark without running the validator"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -105,13 +105,15 @@ portfolio:
     - "docs/reviews/dimensional-result0020-gateb-adjudication-brief.md"
     - "docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md"
     - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
+    - "tasks/TASK-1038-dimensional-validator-scoring-separation.yaml"
+    - "tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml"
   open_questions:
-    - "What exact narrowed title/status should CLAIM-0005 use if the maintainer accepts Gate C?"
+    - "Can a fresh role-disjoint benchmark clear the predeclared v2 exact-agreement and class-recall gates without policy-equivalence credit?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-12"
+    last_reviewed: "2026-07-13"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-0948 independent Gate B replay, TASK-0956 evidence refresh, and Scientific Director 2026-07-12 cycle"
-    notes: "Quality-floor track now has AGENT_VALIDATED RESULT-0020 with independent replay. The next work is maintainer Gate C wording/status for CLAIM-0005, not challenge expansion."
+    source: "TASK-1038 scoring separation, TASK-1039 benchmark-freeze contract, and Scientific Director 2026-07-13 cycle"
+    notes: "Historical reproducibility remains valid, but the honest primary metric is label-blind exact agreement. Gate C is deferred until a fresh role-disjoint v2 benchmark is frozen, scored later, and independently replayed."

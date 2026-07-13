@@ -183,23 +183,23 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: RESULT-0007 frozen MVP plus AGENT_VALIDATED RESULT-0020 live 74-item replay;
-    TASK-0948 supplied a genuinely independent Gate B replay identity with zero drift across
-    17 tracked metrics.
+  current_stage: RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression
+    memory. TASK-1038 separated label-blind v2 inference from policy scoring; the old 74-item
+    surface is now explicitly development-only, so CLAIM-0005 Gate C is deferred pending a
+    fresh role-disjoint benchmark.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Do not add live challenge examples as a substitute for Gate C. The
-      next useful step is maintainer review of CLAIM-0005 wording/status, while keeping dimensional
-      consistency separate from full physical correctness.
+    coordination_notes: Run TASK-1039 only as a no-score, role-disjoint benchmark freeze.
+      Do not rescore the historical 50/74 surfaces as confirmatory evidence or reopen CLAIM-0005
+      before a fresh v2 result and replay exist.
   next_validity_gate:
-    type: ratification
-    blocker: CLAIM-0005 remains DRAFT until the maintainer explicitly accepts a narrowed challenge-set
-      agreement statement at Gate C, or chooses to keep it DRAFT/PARTIALLY_SUPPORTED.
-    target_artifact: CLAIM-0005
+    type: source_readiness
+    blocker: No fresh role-disjoint label_blind_exact_v2 benchmark has been frozen; the historical
+      surfaces were used during method development and cannot support confirmatory Gate C.
+    target_artifact: TASK-1039
   best_next_actions:
-  - task_id: null
-    label: 'Maintainer Gate C decision for CLAIM-0005: keep DRAFT, apply narrowed PARTIALLY_SUPPORTED,
-      or apply narrowed SUPPORTED wording'
+  - task_id: TASK-1039
+    label: Curate and freeze a role-disjoint v2 benchmark without running the validator
   required_gates:
   - Do not change frozen RESULT-0007 replay scope.
   - Separate live curation from canonical MVP metrics.
@@ -224,19 +224,22 @@ campaigns:
   - docs/reviews/dimensional-result0020-gateb-adjudication-brief.md
   - docs/reviews/dimensional-result-0020-gate-b-packaging-adjudication.md
   - docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md
+  - tasks/TASK-1038-dimensional-validator-scoring-separation.yaml
+  - tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml
   open_questions:
-  - What exact narrowed title/status should CLAIM-0005 use if the maintainer accepts Gate
-    C?
+  - Can a fresh role-disjoint benchmark clear the predeclared v2 exact-agreement and class-recall
+    gates without policy-equivalence credit?
   curator_review:
     status: current
-    last_reviewed: '2026-07-12'
+    last_reviewed: '2026-07-13'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: TASK-0948 independent Gate B replay, TASK-0956 evidence refresh, and Scientific
-      Director 2026-07-12 cycle
-    notes: Quality-floor track now has AGENT_VALIDATED RESULT-0020 with independent replay.
-      The next work is maintainer Gate C wording/status for CLAIM-0005, not challenge expansion.
+    source: TASK-1038 scoring separation, TASK-1039 benchmark-freeze contract, and Scientific
+      Director 2026-07-13 cycle
+    notes: Historical reproducibility remains valid, but the honest primary metric is label-blind
+      exact agreement. Gate C is deferred until a fresh role-disjoint v2 benchmark is frozen,
+      scored later, and independently replayed.
   source_docs:
   - docs/campaigns/dimensional-analysis-validator.md
   - docs/results/dimensional-analysis-validator-summary.md
@@ -434,22 +437,25 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot
-    is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072;
-    TASK-0993 selected an OQMD v1.8 source-manifest preflight as the next second-source gate.
+  current_stage: MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo
+    dataset DOI 10.5281/zenodo.21207072. TASK-1026 returned READY_FOR_BOUNDED_ACQUISITION_TASK
+    for a dated, hash-pinned OQMD live-API snapshot with a 2,000-row cap and conservative
+    MD-0002 overlap/no-peek contract.
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: Do not rerun RESULT-0021 Gate B, rebuild the v0.1.0 archive, or open
-      a feature factory. Future work needs a new source/version/release question or a maintainer-approved
-      v0.1.1 reason.
+    coordination_notes: TASK-1042 may acquire the bounded OQMD source surface while TASK-1044
+      is reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0,
+      run cross-database metrics, or open a feature factory.
   next_validity_gate:
     type: source_readiness
-    blocker: OQMD property semantics, retrieval identity, attribution, and overlap/no-peek
-      rules must be pinned before any second-dataset acquisition.
-    target_artifact: TASK-1026
+    blocker: No dated OQMD API snapshot has yet been acquired, hash-pinned, overlap-filtered,
+      and normalized under the TASK-1026 no-peek contract.
+    target_artifact: TASK-1042
   best_next_actions:
-  - task_id: TASK-1026
-    label: Preflight the OQMD v1.8 source manifest, semantics, and MD-0002 overlap plan
+  - task_id: TASK-1042
+    label: Acquire and freeze the bounded OQMD live-API snapshot without split or metrics
+  - task_id: TASK-1044
+    label: Replay RESULT-0021 under a genuinely independent human identity
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -496,6 +502,7 @@ campaigns:
   - data/materials/materials_md0002_snapshot_manifest.yaml
   - results/EXP-0014/RUN-0001/result.yaml
   - agent_runs/AGENT-RUN-0072/
+  - docs/reviews/materials/oqmd-v18-source-manifest-preflight.md
   open_questions:
   - Can OQMD v1.8 provide a rights-clear, semantically comparable, overlap-controlled source
     surface without downloading rows during preflight?
@@ -508,11 +515,11 @@ campaigns:
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0937 MD-0002 release-integrity verification, TASK-0993 OPEN_SOURCE_TASK verdict,
-      and Scientific Director 2026-07-13 cycle
-    notes: MD-0002 remains fixed and citable. TASK-0993 selected a metadata-only OQMD v1.8
-      source-manifest preflight; no dump download, rows, metrics, or new Materials claim is
-      authorized.
+    source: TASK-1026 OQMD READY_FOR_BOUNDED_ACQUISITION_TASK verdict and Scientific Director
+      2026-07-13 cycle
+    notes: MD-0002 remains fixed and citable. OQMD passed metadata preflight, but only a bounded
+      dated API snapshot is authorized next; split, metric, and cross-database claim work
+      remain closed.
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -798,24 +805,23 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: Six direct Almeida InP rows passed readiness and TASK-0225 produced a source-scoped
-    sandbox baseline; Toufanian ZnSe rows are frozen as limited factual extracts; RESULT-0029
-    packages the strict no-refit transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory
-    with independent-human replay.
+  current_stage: RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED
+    INCONCLUSIVE control memory with independent-human replay. TASK-1027 pinned the Kim-2020
+    CdSe CC BY source artifact and returned SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT
+    without admitting values.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Preserve the TASK-0920 borderline/negative transfer memory. TASK-1027
-      may package the independent Kim-2020 CdSe source value-blind; no correction search,
-      refit, row extraction, or design-law claim is authorized.
+    coordination_notes: TASK-1043 may freeze the Kim-2020 extraction/uncertainty contract
+      only. Preserve RESULT-0029; no value extraction, correction search, refit, repeat ZnSe/InP
+      transfer, or design-law claim is authorized in that preflight.
   next_validity_gate:
     type: transfer
-    blocker: The declared no-refit transfer ran and did not clear the survival margin; TASK-0988
-      found a CdSe route but returned SOURCE_LIMITED_MONITOR until a value-blind source-artifact/digitization
-      package exists.
-    target_artifact: TASK-1027
+    blocker: The CdSe source is pinned, but text-derived versus digitized row classes, optical-axis
+      semantics, uncertainty, and anisotropy rules are not yet frozen.
+    target_artifact: TASK-1043
   best_next_actions:
-  - task_id: TASK-1027
-    label: Package the Kim-2020 CdSe source artifact value-blind before any extraction
+  - task_id: TASK-1043
+    label: Predeclare the Kim-2020 CdSe deterministic extraction and uncertainty contract
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -854,6 +860,7 @@ campaigns:
   - docs/reviews/quantum-znse-contract-transfer-benchmark.md
   - docs/reviews/quantum/result0029-independent-human-replay.md
   - docs/reviews/quantum-next-direct-source-scout.md
+  - docs/reviews/quantum/kim-2020-cdse-source-artifact.md
   - results/EXP-0022/RUN-0001/result.yaml
   open_questions:
   - What new direct source surface or maintainer-approved contract change, if any, would add
@@ -864,11 +871,11 @@ campaigns:
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0957 RESULT-0029 packaging, TASK-1015 independent-human replay, TASK-0988
-      next-source scout, and Scientific Director 2026-07-13 cycle
-    notes: RESULT-0029 is AGENT_VALIDATED inconclusive/control memory. TASK-1027 opens only
-      the value-blind Kim-2020 CdSe source-artifact gate; row extraction, another transfer
-      benchmark, and open-ended correction search remain blocked.
+    source: RESULT-0029 independent-human replay, TASK-1027 Kim-2020 source artifact, and
+      Scientific Director 2026-07-13 cycle
+    notes: RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 passed source-artifact
+      readiness, but only a no-value extraction preflight is open; row curation and any later
+      transfer require separate tasks.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
@@ -981,25 +988,29 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED
-    scoped verifier/benchmark memory; CHARA needs alias-complete independence review, while
-    TASK-1029 consolidates the Gaia DR4 trigger, functional-freeze, and leakage questions
-    into one readiness decision.
+    scoped verifier/benchmark memory. TASK-1025 found thirteen alias-clean CHARA systems with
+    no DEBCat whole-system intersections; per-component row provenance and cluster dependence
+    are the next gates. Gaia DR4 readiness remains under review because component masses require
+    same-component bolometric luminosities.
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: Do not rerun DEBCat or FIRAS/Wien metrics. TASK-1025 handles CHARA
-      aliases; TASK-1029 produces one value-blind Gaia DR4 GO/HOLD/STOP packet before any
-      identity, schema, or freeze task is split out.
+    coordination_notes: TASK-1040 row curation and TASK-1041 identifier-only cluster dependence
+      are parallel-safe; TASK-1045/1046 are independent-human replays. Do not score CHARA,
+      treat clustered systems as independent, or register a Gaia functional freeze without
+      a valid same-component luminosity route.
   next_validity_gate:
     type: source_readiness
-    blocker: The thirteen post-exclusion CHARA candidates are not independent-holdout-ready
-      until stable aliases, component hierarchy, and whole-system DEBCat intersections are
-      resolved.
-    target_artifact: TASK-1025
+    blocker: The thirteen alias-clean CHARA systems still lack source-traceable same-component
+      mass/luminosity rows and a frozen cluster/group-dependence policy.
+    target_artifact: TASK-1040 and TASK-1041
   best_next_actions:
-  - task_id: TASK-1025
-    label: Complete the CHARA identifier and alias audit before stellar row curation
+  - task_id: TASK-1040
+    label: Curate source-traceable per-component CHARA rows without split or scoring
+  - task_id: TASK-1041
+    label: Freeze the CHARA cluster/group-dependence policy value-blind
   - task_id: TASK-1029
-    label: Prepare one Gaia DR4 stellar-transfer freeze-readiness packet
+    label: Return a corrected Gaia DR4 GO/HOLD/STOP packet with same-component luminosity
+      semantics
   required_gates:
   - Stage policy, source/range assumptions, and baseline adequacy before promotion.
   - Null/shuffle controls and seeded split sensitivity before Gate A packaging.
@@ -1054,6 +1065,7 @@ campaigns:
   - docs/reviews/textbook-next-formula-source-baseline-slice.md
   - docs/reviews/stellar-ml-alternate-split-stability-audit.md
   - docs/reviews/stellar-ml-piecewise-complexity-audit.md
+  - docs/reviews/stellar/chara-identifier-alias-audit.md
   open_questions:
   - Can the CHARA paper-level route be pinned and de-duplicated enough to support a small
     0.5-2.0 Msun independent holdout?
@@ -1065,11 +1077,11 @@ campaigns:
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-0989 CHARA source package, TASK-0834 Gaia DR4 reveal contract, and Scientific
+    source: TASK-1025 CHARA alias audit, TASK-1029 Gaia DR4 readiness review, and Scientific
       Director 2026-07-13 cycle
-    notes: The campaign has four AGENT_VALIDATED results and two independent-validation paths.
-      CHARA remains alias-gated; Gaia DR4 remains a single prospective value-blind readiness
-      decision until a GO verdict justifies separate implementation tasks.
+    notes: CHARA cleared whole-system alias de-duplication and can advance through row provenance
+      plus cluster-dependence gates. Gaia remains a value-blind readiness decision; source-level
+      luminosity must not be paired with two component masses.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md

@@ -78,6 +78,9 @@ Start here:
   decision.
 - `TASK-1038` separates label-blind inference from benchmark scoring and keeps
   the historical 50/74 surfaces as regression/calibration memory.
+- `TASK-1039` is the next scientific gate: a role-disjoint curator must freeze
+  a fresh 80-120 item v2 surface without running the validator or seeing its
+  outputs.
 - The next result-bearing task must use a fresh role-disjoint frozen benchmark;
   do not rescore the current 74 items as confirmatory evidence.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`

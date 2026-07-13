@@ -86,16 +86,18 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072; TASK-0993 selected an OQMD v1.8 source-manifest preflight as the next second-source gate."
+  current_stage: "MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. TASK-1026 returned READY_FOR_BOUNDED_ACQUISITION_TASK for a dated, hash-pinned OQMD live-API snapshot with a 2,000-row cap and conservative MD-0002 overlap/no-peek contract."
   recommended_parallel_agents: 2
-  coordination_notes: "Do not rerun RESULT-0021 Gate B, rebuild the v0.1.0 archive, or open a feature factory. Future work needs a new source/version/release question or a maintainer-approved v0.1.1 reason."
+  coordination_notes: "TASK-1042 may acquire the bounded OQMD source surface while TASK-1044 is reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0, run cross-database metrics, or open a feature factory."
   next_validity_gate:
     type: source_readiness
-    blocker: "OQMD property semantics, retrieval identity, attribution, and overlap/no-peek rules must be pinned before any second-dataset acquisition."
-    target_artifact: "TASK-1026"
+    blocker: "No dated OQMD API snapshot has yet been acquired, hash-pinned, overlap-filtered, and normalized under the TASK-1026 no-peek contract."
+    target_artifact: "TASK-1042"
   best_next_actions:
-    - task_id: TASK-1026
-      label: "Preflight the OQMD v1.8 source manifest, semantics, and MD-0002 overlap plan"
+    - task_id: TASK-1042
+      label: "Acquire and freeze the bounded OQMD live-API snapshot without split or metrics"
+    - task_id: TASK-1044
+      label: "Replay RESULT-0021 under a genuinely independent human identity"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -119,6 +121,7 @@ portfolio:
     - "data/materials/materials_md0002_snapshot_manifest.yaml"
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
+    - "docs/reviews/materials/oqmd-v18-source-manifest-preflight.md"
   open_questions:
     - "Can OQMD v1.8 provide a rights-clear, semantically comparable, overlap-controlled source surface without downloading rows during preflight?"
     - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
@@ -129,5 +132,5 @@ portfolio:
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0937 MD-0002 release-integrity verification, TASK-0993 OPEN_SOURCE_TASK verdict, and Scientific Director 2026-07-13 cycle"
-    notes: "MD-0002 remains fixed and citable. TASK-0993 selected a metadata-only OQMD v1.8 source-manifest preflight; no dump download, rows, metrics, or new Materials claim is authorized."
+    source: "TASK-1026 OQMD READY_FOR_BOUNDED_ACQUISITION_TASK verdict and Scientific Director 2026-07-13 cycle"
+    notes: "MD-0002 remains fixed and citable. OQMD passed metadata preflight, but only a bounded dated API snapshot is authorized next; split, metric, and cross-database claim work remain closed."

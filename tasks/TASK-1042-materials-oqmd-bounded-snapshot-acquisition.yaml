@@ -1,0 +1,63 @@
+id: TASK-1042
+title: "Acquire and freeze a bounded OQMD live-API snapshot under the approved overlap and no-peek contract"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task admits a second materials source surface; closeout must verify API identity, raw/normalized hashes, row cap, computed-property semantics, overlap exclusions, and no target-based selection."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1026 returned READY_FOR_BOUNDED_ACQUISITION_TASK after pinning OQMD rights, semantics, retrieval identity, row cap, and the MD-0002 overlap/no-peek contract."
+  - "A second open computed-DFT source can test transfer across database pipelines without rebuilding or tuning MD-0002."
+  - "The acquisition must remain a source artifact; split design and benchmark metrics come later."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "docs/reviews/materials/oqmd-v18-source-manifest-preflight.md"
+    - "data/materials/source_manifest.yaml"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    Execute only the bounded REST API acquisition authorized by TASK-1026.
+    Pin raw paginated responses and a normalized computed-DFT slice while
+    preserving the 2,000-row cap, identifier-only narrowing, conservative
+    MD-0002 composition exclusion, and no-peek boundary.
+
+requirements:
+  - "Use the TASK-1026 source-side predicate and fields without target-value-driven changes: ternary oxides with one alkali/alkaline-earth cation, one first-row transition cation, oxygen, ntypes=3, stability=0, and noduplicate=True."
+  - "Record every full query URL, UTC fetch window, response meta fields, pagination order, raw bytes, and SHA-256 for raw concatenated and normalized snapshots."
+  - "Describe the source as a dated OQMD live-API snapshot after the v1.8 release, not as byte-identical to the 21.1 GB v1.8 dump."
+  - "Enforce a hard 2,000-row normalized cap. If exceeded, stop or narrow only by a predeclared identifier-level chemistry subset before inspecting target values."
+  - "Preserve computed_dft provenance and OQMD delta_e semantics; do not claim numerical interchangeability with Materials Project formation_energy_per_atom."
+  - "Exclude every reduced composition present in MD-0002 using identifiers only; log composition+spacegroup coincidences and OQMD duplicate fields without using delta_e or band_gap."
+  - "Do not compute exploratory target summaries, assign train/holdout splits, fit baselines, compare OQMD with MD-0002 values, create a RESULT, or make material recommendations."
+  - "Return exactly one verdict: SNAPSHOT_READY_FOR_SPLIT_FREEZE, API_IDENTITY_BLOCKED, CAP_EXCEEDED, SEMANTICS_BLOCKED, RIGHTS_BLOCKED, or OVERLAP_POLICY_BLOCKED."
+  - "No-claim wording: this is a bounded computed-DFT source snapshot, not an independent experimental replication or materials-design dataset."
+
+accepted_outputs:
+  - "A bounded raw and normalized OQMD snapshot plus manifest under data/materials/ with query, timestamp, API meta, hashes, rights/attribution, row counts, exclusion ledger, and provenance semantics."
+  - "A docs/reviews/materials/ acquisition note with pre/post-filter counts, cap decision, MD-0002 overlap counts, limitations, and one bounded verdict."
+  - "Deterministic schema, checksum, predicate, row-cap, duplicate, and overlap-policy tests; no metric test."
+  - "Output-routing summary: source/dataset readiness only; no benchmark split, result, claim, prediction, knowledge, or design guidance."
+
+result_artifact_policy:
+  required: false
+  reason: "Source acquisition and normalization only; a later task must freeze a no-peek split before metrics."
+  evidence:
+    - "docs/reviews/materials/oqmd-v18-source-manifest-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
