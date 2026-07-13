@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-1037` - Make the scientific-memory review-tier index a checked publication gate (`infrastructure`, priority `high`, difficulty `medium`)
