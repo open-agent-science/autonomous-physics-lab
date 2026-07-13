@@ -1,0 +1,1019 @@
+# TASK-1025 identifier-only CHARA alias-audit ledger.
+# Generated deterministically from pinned SIMBAD TAP responses (digests recorded below).
+# Contains identifiers and hierarchy links only; no scientific measurement values.
+ledger_version: '1'
+task_id: TASK-1025
+campaign_id: textbook-formula-audit
+surface_id: stellar-mass-luminosity
+created_utc: '2026-07-13'
+value_blind: true
+no_values_recorded_here: true
+scope_note: Identifier-only alias audit of the thirteen post-TASK-0989 CHARA candidates against the frozen
+  committed DEBCat component-row surface. No mass, luminosity, radius, temperature, orbit, parallax, residual,
+  or model-performance value was read, transcribed, or recorded.
+frozen_comparison_surface:
+  path: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+  sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
+  last_commit_touching_file: c16d97e07f5a8d01b2481c3350b0574871ac0d9c
+  audited_at_branch_base: 3eb4d8603901611e5c5caaa513ce95679fd9f237
+  system_id_count: 373
+  component_row_count: 748
+  exclusion_unit: whole_physical_system
+  identifier_extraction_rule: Only the system_id field of each component row was read (grep '^\s*system_id:');
+    value fields were never parsed.
+alias_lookup_identity:
+  service: SIMBAD TAP (synchronous)
+  service_url: https://simbad.cds.unistra.fr/simbad/sim-tap/sync
+  access_date_utc: '2026-07-13'
+  response_format: text
+  alias_query_template: SELECT id2.id AS alias_id FROM ident AS id1 JOIN ident AS id2 USING(oidref) WHERE
+    id1.id = '<queried-id>' ORDER BY alias_id
+  hierarchy_query_template: SELECT b1.main_id AS parent_id, b2.main_id AS child_id, h.membership FROM
+    h_link AS h JOIN basic AS b1 ON b1.oid=h.parent JOIN basic AS b2 ON b2.oid=h.child WHERE h.parent
+    IN (SELECT oidref FROM ident WHERE id='<queried-id>') OR h.child IN (SELECT oidref FROM ident WHERE
+    id='<queried-id>') ORDER BY parent_id, child_id
+  main_id_query: SELECT id.id AS queried_id, b.main_id, b.oid FROM ident AS id JOIN basic AS b ON b.oid=id.oidref
+    WHERE id.id IN ('HD 8374','HD 24546','HD 61859','HD 89822','HD 109510','HD 191692','HD 27483','HD
+    283882','HD 26874','HD 27149','HD 30676','HD 28545','HD 284163') ORDER BY main_id
+  raw_responses_committed: false
+  raw_response_digest_algorithm: sha256
+  acknowledgement: This audit made use of the SIMBAD database, operated at CDS, Strasbourg, France (Wenger
+    et al. 2000, A&AS 143, 9). Recorded content is limited to object identifiers and hierarchy links (facts),
+    with per-response SHA-256 digests.
+normalization_rule:
+  applied_to: both SIMBAD aliases and DEBCat system ids
+  steps:
+  - strip surrounding whitespace and quote characters
+  - drop a leading GCVS 'V* ' prefix
+  - uppercase
+  - remove every space and underscore character
+  forbidden_match_bases:
+  - coordinate_proximity_only
+  - fuzzy_or_unrecorded_string_similarity
+  - model_or_value_similarity
+positive_controls:
+- queried_id: HD 224355
+  expected_debcat_match: V1022_Cas
+  matched:
+  - V* V1022 Cas -> V1022_Cas
+  result: PASS
+  alias_response_sha256: b181876d2c15d67e8b850059fc432f6b202b73e5d19e3771f3955b24668242c0
+- queried_id: HD 185912
+  expected_debcat_match: V1143_Cyg
+  matched:
+  - V* V1143 Cyg -> V1143_Cyg
+  result: PASS
+  alias_response_sha256: 9ad7ba3d0d21cce846f522c1f27795d455005a5f3083f06ea8598ebbe73e3f53
+candidates:
+- queried_id: HD 8374
+  paper_surface: CHARA III; DOI 10.3847/1538-3881/ab8f95; arXiv 2005.00546
+  simbad_main_id: '*  47 And'
+  simbad_oid: 1577875
+  alias_count: 31
+  alias_response_sha256: bcc9395cecac45143df71de7ce29b047a8556181e15ab534bfcad3f37c2f1a79
+  hierarchy_response_sha256: 22795c31303908d9c8b5e52f8781c906d74b52b30487d8d8a95692f1321e3534
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - SBC9 73
+  simbad_hierarchy_links: null
+  sibling_components_checked: []
+  aliases:
+  - 2MASS J01234063+3742537
+  - '*  47 And'
+  - AG+37  130
+  - AKARI-IRC-V1 J0123407+374253
+  - BD+36   237
+  - FK5 2093
+  - Gaia DR2 323159631479218560
+  - Gaia DR3 323159631479218560
+  - GC  1681
+  - GCRV   790
+  - GEN# +1.00008374
+  - GSC 02813-02103
+  - HD   8374
+  - HIC   6514
+  - HIP 6514
+  - HR   395
+  - IRAS 01208+3727
+  - PPM  66233
+  - Renson 2020
+  - ROT   199
+  - SAO  54655
+  - SBC7    48
+  - SBC9 73
+  - SKY#  2105
+  - TD1   785
+  - TIC 186513891
+  - TYC 2813-2103-1
+  - UBV    1461
+  - UBV M   8138
+  - uvby98 100008374
+  - WEB  1437
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 24546
+  paper_surface: CHARA III; DOI 10.3847/1538-3881/ab8f95; arXiv 2005.00546
+  simbad_main_id: '*  43 Per'
+  simbad_oid: 213169
+  alias_count: 42
+  alias_response_sha256: 961064c15b40196caa12e87188c7c6745bb830847841eb99ac596f6600058e0b
+  hierarchy_response_sha256: 22795c31303908d9c8b5e52f8781c906d74b52b30487d8d8a95692f1321e3534
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - '** S  440A'
+  - CCDM J03566+5042A
+  - SBC9 204
+  - WDS J03566+5042A
+  simbad_hierarchy_links: null
+  sibling_components_checked:
+  - WDS J03566+5042B
+  aliases:
+  - 1RXS J035635.2+504142
+  - 2MASS J03563650+5041432
+  - '*  43 Per'
+  - AG+50  410
+  - ASCC  242361
+  - BD+50   860
+  - CCDM J03566+5042A
+  - CSI+50   860  1
+  - Gaia DR2 250437313946591360
+  - Gaia DR3 250437313946591360
+  - GC  4728
+  - GCRV  2252
+  - GEN# +1.00024546
+  - GSC 03339-01703
+  - HD  24546
+  - '[HFE83]  260'
+  - HIC  18453
+  - HIP 18453
+  - HR  1210
+  - IDS 03492+5024 A
+  - IRAS 03528+5033
+  - LSPM J0356+5041
+  - PLX  862.1
+  - PLX  862.10
+  - PPM  28799
+  - ROT  3496
+  - '** S  440A'
+  - SAO  24314
+  - SBC7   150
+  - SBC9 204
+  - SKY#  6028
+  - TD1  2644
+  - TIC 429118330
+  - TYC 3339-1703-1
+  - UBV    3804
+  - UBV M   9803
+  - USNO-B1.0 1406-00106903
+  - WDS J03566+5042A
+  - WEB  3557
+  - YPAC 327
+  - YZ  50  1654
+  - '[ZZ2002] 246'
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 61859
+  paper_surface: CHARA IV; DOI 10.3847/1538-3881/ac9385; arXiv 2209.09993
+  simbad_main_id: HD  61859
+  simbad_oid: 1001388
+  alias_count: 24
+  alias_response_sha256: dbae3ed753092a6748cf8ca07c839ad7e93ecd45a7e3dd51755f9aaf52a9739e
+  hierarchy_response_sha256: 22795c31303908d9c8b5e52f8781c906d74b52b30487d8d8a95692f1321e3534
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - SBC9 468
+  simbad_hierarchy_links: null
+  sibling_components_checked: []
+  aliases:
+  - 2MASS J07424355+3400006
+  - AG+34  839
+  - AGKR  6930
+  - BD+34  1657
+  - Gaia DR2 894177491988669952
+  - Gaia DR3 894177491988669952
+  - GC 10354
+  - GCRV  5129
+  - GEN# +1.00061859
+  - HD  61859
+  - HIC  37580
+  - HIP 37580
+  - HR  2962
+  - IRAS 07394+3407
+  - PPM  73048
+  - SAO  60291
+  - SBC7   318
+  - SBC9 468
+  - SKY# 14238
+  - TD1 10730
+  - TIC 4287805
+  - TYC 2462-2104-1
+  - uvby98 100061859
+  - WEB  7430
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 89822
+  paper_surface: CHARA IV; DOI 10.3847/1538-3881/ac9385; arXiv 2209.09993
+  simbad_main_id: V* ET UMa
+  simbad_oid: 463937
+  alias_count: 39
+  alias_response_sha256: 3a5df1cc8067369f5763549bcc55689b2ae161e8ca05489215498013cd138e94
+  hierarchy_response_sha256: 22795c31303908d9c8b5e52f8781c906d74b52b30487d8d8a95692f1321e3534
+  gcvs_variable_designations:
+  - ET UMa
+  multiplicity_identifiers:
+  - SBC9 608
+  simbad_hierarchy_links: null
+  sibling_components_checked: []
+  aliases:
+  - 2MASS J10240782+6533590
+  - AG+65  520
+  - BD+66   664
+  - FK5  387
+  - Gaia DR2 1053778957742409984
+  - Gaia DR3 1053778957742409984
+  - GC 14260
+  - GCRV  6528
+  - GEN# +1.00089822
+  - GJ 9327
+  - GSC 04150-01302
+  - HD  89822
+  - '[HFE83]  723'
+  - HIC  50933
+  - HIP 50933
+  - HR  4072
+  - IRAS 10205+6549
+  - JP11  1939
+  - N30 2464
+  - NSV  4839
+  - PLX 2433
+  - PLX 2433.00
+  - PMC 90-93   279
+  - PPM  17427
+  - Pul -3  670001
+  - Renson 25790
+  - ROT  1560
+  - SAO  15163
+  - SBC7   398
+  - SBC9 608
+  - SKY# 19976
+  - TD1 14783
+  - TIC 287287930
+  - TYC 4150-1302-1
+  - UBV    9584
+  - UBV M  16163
+  - uvby98 100089822
+  - V* ET UMa
+  - WEB  9316
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 109510
+  paper_surface: CHARA IV; DOI 10.3847/1538-3881/ac9385; arXiv 2209.09993
+  simbad_main_id: '*  24 Com B'
+  simbad_oid: 1959994
+  alias_count: 37
+  alias_response_sha256: be45bd3ec535a42ee8dd31cac5d99a720d4250758622d174979182df78de86d0
+  hierarchy_response_sha256: 22795c31303908d9c8b5e52f8781c906d74b52b30487d8d8a95692f1321e3534
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - ADS  8600 B
+  - CCDM J12351+1823B
+  - SBC9 730
+  - WDS J12351+1823B
+  simbad_hierarchy_links: null
+  sibling_components_checked:
+  - WDS J12351+1823A
+  aliases:
+  - '*  24 Com B'
+  - 2MASS J12350634+1822375
+  - ADS  8600 B
+  - AG+18 1195
+  - BD+19  2584B
+  - CCDM J12351+1823B
+  - CSI+19  2584  1
+  - CSV 101297
+  - FAUST 3262
+  - FAUST NGP-16
+  - Gaia DR1 3947647756222627712
+  - Gaia DR2 3947647760517933824
+  - Gaia DR3 3947647760517933824
+  - GC 17146
+  - GCRV  7571
+  - GEN# +1.00109510
+  - GSC 01446-02468
+  - HD 109510
+  - HIC  61415
+  - HIP 61415
+  - HR  4791
+  - PMSC 12301+1855B
+  - PMSC 12301+1855Bab
+  - PPM 129165
+  - Renson 31760
+  - ROT  3559
+  - SAO 100159
+  - SBC7   468
+  - SBC9 730
+  - TD1 16373
+  - TIC 159164209
+  - TYC 1446-2468-1
+  - UBV   11304
+  - uvby98 100109510
+  - WDS J12351+1823B
+  - WEB 10931
+  - YZ  18  4705
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 191692
+  paper_surface: CHARA IV; DOI 10.3847/1538-3881/ac9385; arXiv 2209.09993
+  simbad_main_id: '* tet Aql'
+  simbad_oid: 2645736
+  alias_count: 48
+  alias_response_sha256: 26e3cc8286ead5cc3f8bdaff05cd771bdb41e1270918c6ae7034496712049cfb
+  hierarchy_response_sha256: 22795c31303908d9c8b5e52f8781c906d74b52b30487d8d8a95692f1321e3534
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - CCDM J20113-0049A
+  - SBC9 1211
+  - WDS J20113-0049A
+  simbad_hierarchy_links: null
+  sibling_components_checked:
+  - WDS J20113-0049B
+  aliases:
+  - 2MASS J20111828-0049171
+  - '*  65 Aql'
+  - AG-00 2584
+  - AKARI-IRC-V1 J2011183-004917
+  - ALS 16460
+  - BD-01  3911
+  - BDS  9960 A
+  - CCDM J20113-0049A
+  - CSI-01  3911  1
+  - FK5  756
+  - Gaia DR2 4224225924756404480
+  - Gaia DR3 4224225924761329792
+  - GC 28010
+  - GCRV 12537
+  - GEN# +1.00191692
+  - GSC 05161-02682
+  - HD 191692
+  - '[HFE83] 1348'
+  - HGAM    861
+  - HIC  99473
+  - HIP 99473
+  - HR  7710
+  - IDS 20061-0107 A
+  - IRAS 20087-0058
+  - JP11  3180
+  - N30 4459
+  - NAME-IAU Antinous
+  - PLX 4790
+  - PLX 4790.00
+  - PMC 90-93   535
+  - PPM 180896
+  - ROT  2926
+  - SAO 144150
+  - SBC7   790
+  - SBC9 1211
+  - SKY# 38006
+  - TD1 26180
+  - '* tet Aql'
+  - TIC 243877738
+  - TYC 5161-2682-1
+  - UBV   17389
+  - UBV M  24576
+  - UCAC4 446-126452
+  - uvby98 100191692
+  - VDB 129
+  - WDS J20113-0049A
+  - WEB 17777
+  - WISE J201118.29-004917.4
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 27483
+  paper_surface: Hyades six; arXiv 2406.01674
+  simbad_main_id: HD  27483
+  simbad_oid: 709131
+  alias_count: 50
+  alias_response_sha256: 616ec233f854f44ad36ab4d29151466c0d476f8fbb76f25391c347cfa727491e
+  hierarchy_response_sha256: bd180c7f9892e01c0049160c810da1d0a0a98c3e0be7fa394a7378e1b001d7d0
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - '** BAS    3'
+  - SBC9 236
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> HD  27483
+  - NAME Hyades Moving Group -> HD  27483
+  sibling_components_checked: []
+  aliases:
+  - 1RXS J042052.8+135155
+  - 2E 0418.0+1344
+  - 2E   979
+  - 2MASS J04205271+1351521
+  - 2RXP J042052.8+135150
+  - AG+13  343
+  - AP J04205271+1351521
+  - '** BAS    3'
+  - BD+13   665
+  - CEL    389
+  - Cl Melotte   25    34
+  - Cl* Melotte   25    HAN     230
+  - Cl* Melotte   25      S      23
+  - Cl* Melotte   25     VA     201
+  - Gaia DR1 3310615561179780736
+  - Gaia DR2 3310615565476268032
+  - Gaia DR3 3310615565476268032
+  - GC  5260
+  - GCRV  2509
+  - GEN# +5.20250034
+  - GSC 00680-00027
+  - HD  27483
+  - HIC  20284
+  - HIP 20284
+  - HR  1358
+  - IRAS 04180+1344
+  - JP11  4810
+  - LP   13-665
+  - N30  895
+  - PPM 119807
+  - RE J0420+135
+  - RE J042049+135206
+  - ROT  3844
+  - '[RSP2011] 238'
+  - RX J0420.8+1352
+  - SAO  93878
+  - SBC7   173
+  - SBC9 236
+  - SKY#  6673
+  - TD1  3053
+  - TIC 435915513
+  - TYC  680-27-1
+  - UBV    4194
+  - UBV M  41240
+  - UCAC4 520-007820
+  - uvby98 520250034
+  - WD 0418+137
+  - WEB  3879
+  - YPAC 340
+  - YZ  13  1268
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 283882
+  paper_surface: Hyades six; arXiv 2406.01674
+  simbad_main_id: V* V808 Tau
+  simbad_oid: 732440
+  alias_count: 43
+  alias_response_sha256: 52f3bd30f7201f4935227b906d521377742272a130a327e9b248fd8e50d27cf0
+  hierarchy_response_sha256: 0159607e0ebc4387cae7c7463805fbe7c791a2d76075976192a4f0d80f20e85e
+  gcvs_variable_designations:
+  - V808 Tau
+  multiplicity_identifiers:
+  - '** LMP   30A'
+  - SBC9 278
+  - WDS J04492+2448A
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> V* V808 Tau
+  - NAME Hyades Moving Group -> V* V808 Tau
+  sibling_components_checked:
+  - WDS J04492+2448B
+  aliases:
+  - 1RXS J044913.0+244804
+  - 1SWASP J044912.98+244810.2
+  - 2MASS J04491296+2448103
+  - AG+24  428
+  - AP J04491296+2448103
+  - '[BCK99] L1537-8'
+  - '[BCK99] L1538-5'
+  - BD+24   692
+  - CABS  45
+  - CCABS  39
+  - Cl Melotte   25   117
+  - Cl* Melotte   25      S      62
+  - Gaia DR1 147182172683187712
+  - Gaia DR2 147182172683187712
+  - Gaia DR3 147182172683187712
+  - GCRV  2829
+  - GEN# +5.20250117
+  - '[GKL99] 128'
+  - GSC 01835-00658
+  - HD 283882
+  - HIC  22394
+  - HIP 22394
+  - JP11  4917
+  - LAMOST J044912.79+244814.6
+  - LAMOST J044912.85+244813.3
+  - LAMOST J044913.08+244809.4
+  - '** LMP   30A'
+  - '[M69]+24 366'
+  - NC 12
+  - PPM  93796
+  - '[RSP2011] 564'
+  - SAO  76773
+  - SBC9 278
+  - TIC 60005364
+  - TYC 1835-658-1
+  - UBV    4605
+  - UBV M  41323
+  - V* V808 Tau
+  - WDS J04492+2448A
+  - WEB  4317
+  - WISEA J044913.05+244809.6
+  - WISE J044913.04+244809.7
+  - YZ  24  1532
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 26874
+  paper_surface: Hyades six; arXiv 2406.01674
+  simbad_main_id: HD  26874
+  simbad_oid: 698846
+  alias_count: 32
+  alias_response_sha256: 45aa054255e08fdbd4c9e06f5a46706bc4573e80a61632d883ed88c3b2b0b10b
+  hierarchy_response_sha256: 7a453c474fddf071d6a2994d1d498f594c60cb0a9f35391862ae842c7a1b20ea
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - '** TOK  659A'
+  - SBC9 225
+  - WDS J04157+2049A
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> HD  26874
+  sibling_components_checked:
+  - WDS J04157+2049B
+  aliases:
+  - 2MASS J04154242+2049114
+  - AG+20  382
+  - AGKR  3768
+  - BD+20   721
+  - Cl Melotte   25   162
+  - Cl* Melotte   25      S      50
+  - FK5 4390
+  - Gaia DR1 49365082792386816
+  - Gaia DR2 49365087086285184
+  - Gaia DR3 49365087086285184
+  - GC  5129
+  - GCRV  2431
+  - GEN# +5.20250162
+  - GSC 01263-01000
+  - HD  26874
+  - HIC  19870
+  - HIP 19870
+  - JP11  4953
+  - PPM  93374
+  - '[RSP2011] 189'
+  - SAO  76525
+  - SBC9 225
+  - SKY#  6517
+  - TIC 17070887
+  - '** TOK  659A'
+  - TYC 1263-1000-1
+  - UBV    4130
+  - UBV M  41369
+  - uvby98 520250162
+  - WDS J04157+2049A
+  - WEB  3797
+  - YZ  20  1371
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 27149
+  paper_surface: Hyades six; arXiv 2406.01674
+  simbad_main_id: V* V1232 Tau
+  simbad_oid: 699058
+  alias_count: 37
+  alias_response_sha256: 120d9c6d01579a77fe588c320945f21c9b98521ab34d664df57d0ddc6d24d4c1
+  hierarchy_response_sha256: b26795398ea0e5a2f67908d93d9f63ff520af92b1ba2ba80b8f0f50c6e3c0af6
+  gcvs_variable_designations:
+  - V1232 Tau
+  multiplicity_identifiers:
+  - SBC9 231
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> V* V1232 Tau
+  - NAME Hyades Moving Group -> V* V1232 Tau
+  sibling_components_checked: []
+  aliases:
+  - 1RXS J041801.5+181543
+  - 2MASS J04180182+1815245
+  - AG+18  328
+  - AGKR  3812
+  - BD+17   703
+  - CABS  38
+  - CCABS  34
+  - Cl Melotte   25    23
+  - Cl* Melotte   25    HAN     178
+  - Cl* Melotte   25      S      73
+  - Cl* Melotte   25     VA     123
+  - Gaia DR1 47620260916592384
+  - Gaia DR2 47620265212420096
+  - Gaia DR3 47620265212420096
+  - GCRV  2464
+  - GEN# +5.20250023
+  - GSC 01268-00327
+  - HD  27149
+  - HIC  20056
+  - HIP 20056
+  - JP11  4790
+  - NSV 15940
+  - PPM 119769
+  - '[RSP2011] 211'
+  - SAO  93849
+  - SBC7   168
+  - SBC9 231
+  - SKY#  6573
+  - TIC 17150156
+  - TYC 1268-327-1
+  - UBV    4152
+  - UBV M  41229
+  - UCAC4 542-008747
+  - uvby98 520250023
+  - V* V1232 Tau
+  - WEB  3827
+  - YZ  18  1129
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 30676
+  paper_surface: Hyades six; arXiv 2406.01674
+  simbad_main_id: HD  30676
+  simbad_oid: 733466
+  alias_count: 30
+  alias_response_sha256: 02caa1922ccb477d046e7d31232f747122363422cd8ddb639ebb3283ee8ec9db
+  hierarchy_response_sha256: 4564a2da91de65c66a3f26d83ea2dd0948e34022c1e852fbc177bb68c10478c9
+  gcvs_variable_designations: null
+  multiplicity_identifiers: null
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> HD  30676
+  sibling_components_checked: []
+  aliases:
+  - 1RXS J045024.1+171207
+  - 2MASS J04502391+1712096
+  - AG+17  425
+  - AGKR  4295
+  - BD+16   657
+  - Cl Melotte   25   119
+  - Cl* Melotte   25      S     131
+  - Gaia DR2 3406103958460672768
+  - Gaia DR3 3406103958460672768
+  - GC  5885
+  - GCRV  2842
+  - GEN# +5.20250119
+  - GSC 01284-00332
+  - HD  30676
+  - HIC  22496
+  - HIP 22496
+  - JP11  4919
+  - PPM 120314
+  - ROT  3901
+  - '[RSP2011] 573'
+  - SAO  94158
+  - SKY#  7528
+  - TD1  3595
+  - TIC 436650260
+  - TYC 1284-332-1
+  - UBV    4638
+  - UBV M  41325
+  - uvby98 520250119
+  - WEB  4339
+  - YZ  17  1323
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 28545
+  paper_surface: Hyades six; arXiv 2406.01674
+  simbad_main_id: HD  28545
+  simbad_oid: 719697
+  alias_count: 42
+  alias_response_sha256: 54f2b25bb723f80ad4a285de948cdb766bb384c70d79324e72a95da488e38de5
+  hierarchy_response_sha256: 04a1b49164de8b7d5d8834715b2b954d4ceaf19f140f7cd9fa8da58368888c45
+  gcvs_variable_designations: null
+  multiplicity_identifiers:
+  - '** BUP   62B'
+  - CCDM J04306+1542B
+  - SBC9 251
+  - WDS J04306+1542B
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> HD  28545
+  sibling_components_checked:
+  - WDS J04306+1542A
+  aliases:
+  - 1RXS J043035.1+154405
+  - 2E 0427.7+1537
+  - 2E  1066
+  - 2MASS J04303486+1544023
+  - AG+15  372
+  - '[AKS95]   46'
+  - BD+15   638
+  - '** BUP   62B'
+  - CCDM J04306+1542B
+  - Cl Melotte   25   182
+  - Cl* Melotte   25    HAN     491
+  - Cl* Melotte   25     OS     666
+  - Cl* Melotte   25   PELS      61
+  - Cl* Melotte   25   REID     288
+  - Cl* Melotte   25      S     110
+  - Cl* Melotte   25     VA     587
+  - Cl* Melotte   25     VR      22
+  - EUVE J0430+15.7
+  - Gaia DR1 3312631618828998144
+  - Gaia DR2 3312631623125272448
+  - Gaia DR3 3312631623125272448
+  - GCRV  2642
+  - GEN# +5.20250182
+  - GSC 01265-00148
+  - HD  28545
+  - IDS 04249+1529 B
+  - JP11  4972
+  - LP   15-638
+  - PLX  996.01
+  - PPM 119968
+  - '[RSP2011] 388'
+  - SBC9 251
+  - TIC 245819967
+  - '[TSA98] J043033.92+154352.02'
+  - TYC 1265-148-1
+  - UBV    4335
+  - UBV M  41389
+  - UCAC4 529-008662
+  - uvby98 520250182
+  - VVO 391
+  - WDS J04306+1542B
+  - WEB  4046
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+- queried_id: HD 284163
+  paper_surface: HD 284163; DOI 10.1093/mnras/stad3803; arXiv 2312.05301
+  simbad_main_id: HD 284163A
+  simbad_oid: 9642851
+  alias_count: 35
+  alias_response_sha256: 660b954316cb0dd6915d3ee3ae0a25ca422cfa17163f3e0bd34b7c5a4c283d58
+  hierarchy_response_sha256: f54ed64f34aae62e0ee97fc5cd14a5bcb465acaad0d67bb4ad540b9ad1277604
+  gcvs_variable_designations:
+  - V1136 Tau
+  multiplicity_identifiers:
+  - '** CHR   14'
+  - '** SKF 2409A'
+  - CCDM J04119+2338AB
+  - SBC9 220
+  - WDS J04119+2338A
+  - WDS J04119+2338Aa,Ab
+  simbad_hierarchy_links:
+  - Cl Melotte   25 -> HD 284163A
+  sibling_components_checked:
+  - WDS J04119+2338B
+  aliases:
+  - 1RXS J041155.6+233822
+  - 2EUVE J0412+23.6
+  - 2MASS J04115620+2338108
+  - ASAS J041155+2338.3
+  - ASCC  749389
+  - BD+23   635
+  - BD+23   635A
+  - CABS  36
+  - CCABS  32
+  - CCDM J04119+2338AB
+  - '** CHR   14'
+  - Cl* Melotte   25   PELS      20
+  - EPIC 211041649
+  - EUVE J0411+23.6
+  - EUVE J0412+23.6
+  - Gaia DR2 149767987810042624
+  - Gaia DR3 149767987810042624
+  - GSC 01815-00309
+  - HD 284163
+  - HD 284163A
+  - HIC  19591
+  - HIP 19591
+  - '[K37] 3-4'
+  - LSPM J0411+2338
+  - '[RSP2011] 161'
+  - SBC9 220
+  - '** SKF 2409A'
+  - TIC 15939295
+  - TYC 1815-309-1
+  - UCAC2  40137477
+  - V* V1136 Tau
+  - WDS J04119+2338A
+  - WDS J04119+2338Aa,Ab
+  - WEB  3748
+  - WISEA J041156.32+233809.8
+  debcat_match: null
+  decision: INDEPENDENT_CANDIDATE
+  reason: Identity resolves to a single SIMBAD object; no stable alias (including GCVS, HD, HIP, HR, BD,
+    Gaia, 2MASS, TYC, TIC, cluster, or component identifiers) intersects the frozen DEBCat system list.
+sibling_component_checks:
+- queried_id: WDS J12351+1823A
+  checked_for_candidate: HD 109510
+  alias_count: 39
+  alias_response_sha256: 8b9ced94f5fa8d901d80663aff08c519a590af0a4a62d7724a4cfbfd4c41caf1
+  aliases:
+  - '*  24 Com A'
+  - 2MASS J12350776+1822375
+  - ADS  8600 A
+  - AG+18 1196
+  - BD+19  2584
+  - CCDM J12351+1823A
+  - CSI+19  2584  2
+  - CSV 101298
+  - FK5  473
+  - Gaia DR2 3947649169267207296
+  - Gaia DR3 3947649169267207296
+  - GC 17147
+  - GCRV  7572
+  - GEN# +1.00109511
+  - HD 109511
+  - HIC  61418
+  - HIP 61418
+  - HR  4792
+  - IRAS 12326+1839
+  - IRC +20244
+  - N30 2908
+  - NSV  5748
+  - PLX 2902
+  - PMC 90-93   337
+  - PMSC 12301+1855A
+  - PPM 129167
+  - RAFGL 4853S
+  - ROT  3512
+  - SAO 100160
+  - SKY# 23522
+  - SV* ZI   948
+  - TIC 159164208
+  - TYC 1446-2469-1
+  - UBV   11303
+  - UBV M  18382
+  - uvby98 100109511
+  - WDS J12351+1823A
+  - WEB 10932
+  - YZ  18  4706
+  debcat_match: null
+- queried_id: WDS J20113-0049B
+  checked_for_candidate: HD 191692
+  alias_count: 16
+  alias_response_sha256: cdd6deb5bdb2a2bbbbb9dd42a0d964ff56d08e3cdce6f76a921f84f1497493a1
+  aliases:
+  - 2MASS J20111071-0049387
+  - BDS  9960 B
+  - '** BU 1540B'
+  - CCDM J20113-0049B
+  - CSI-01  3911  2
+  - Gaia DR2 4224226160979028608
+  - Gaia DR3 4224226160979028608
+  - '** H   27B'
+  - IDS 20061-0107 B
+  - TIC 243877729
+  - UCAC2  31592134
+  - UCAC3 179-276364
+  - UCAC4 446-126429
+  - WDS J20113-0049B
+  - WISEA J201110.73-004938.6
+  - WISE J201110.72-004938.6
+  debcat_match: null
+- queried_id: WDS J03566+5042B
+  checked_for_candidate: HD 24546
+  alias_count: 22
+  alias_response_sha256: 9d60efd70b103e1119c928ddedcb8bf4578d347e5ed2ade703438317c41fdc7d
+  aliases:
+  - 2MASS J03564056+5042481
+  - ASCC  242366
+  - BD+50   861
+  - BDS  1933 B
+  - CCDM J03566+5042B
+  - CSI+50   860  2
+  - Gaia DR1 250437687603927680
+  - Gaia DR2 250437691903701760
+  - Gaia DR3 250437691903701760
+  - GSC 03339-01311
+  - IDS 03492+5024 B
+  - Karmn J03566+507
+  - LSPM J0356+5042
+  - PMSC 03492+5024B
+  - ROT  3543
+  - '** S  440B'
+  - TIC 429118360
+  - TYC 3339-1311-1
+  - UCAC2  48162236
+  - USNO-B1.0 1407-00107819
+  - WDS J03566+5042B
+  - WISEA J035640.66+504246.7
+  debcat_match: null
+- queried_id: WDS J04157+2049B
+  checked_for_candidate: HD 26874
+  alias_count: 10
+  alias_response_sha256: 32ea8f6ddca23432db2d73c334cc542508a5845077af9d66b63c4519299e1ad7
+  aliases:
+  - 2MASS J04153255+2048274
+  - Cl* Melotte   25   REID     119
+  - LP  414-138
+  - '[RSP2011] 185'
+  - TIC 17067723
+  - '** TOK  659B'
+  - USNO-B1.0 1108-00049122
+  - WDS J04157+2049B
+  - WISEA J041532.66+204826.9
+  - WISE J041532.65+204826.9
+  debcat_match: null
+- queried_id: WDS J04492+2448B
+  checked_for_candidate: HD 283882
+  alias_count: 8
+  alias_response_sha256: 5eb62a5b9c30374360d24cfe4a8a133060ed38782d62fb2ccc355c08480f3b4d
+  aliases:
+  - 2MASS J04491406+2447461
+  - Gaia DR2 147181966524757632
+  - Gaia DR3 147181966524757632
+  - LAMOST J044914.06+244746.4
+  - '** LMP   30B'
+  - TIC 60005375
+  - UCAC4 574-011790
+  - WDS J04492+2448B
+  debcat_match: null
+- queried_id: WDS J04119+2338B
+  checked_for_candidate: HD 284163
+  alias_count: 8
+  alias_response_sha256: 7d26070ea1af0ae9ae0971d65dd2159228704a06c85ad72c694797dfd8792c90
+  aliases:
+  - 2MASS J04115616+2338065
+  - BD+23   635B
+  - Gaia DR2 149767987808179968
+  - Gaia DR3 149767987808179968
+  - HD 284163B
+  - '** SKF 2409B'
+  - TIC 15939296
+  - WDS J04119+2338B
+  debcat_match: null
+- queried_id: WDS J04306+1542A
+  checked_for_candidate: HD 28545
+  alias_count: 46
+  alias_response_sha256: 8a76ba5140eab450aa30ea801ab8c1efd649d5d696e28c9179e4c81e57685bc0
+  aliases:
+  - 2MASS J04303886+1541309
+  - '*  81 Tau'
+  - AG+15  373
+  - '[AKS95]   48'
+  - '** ARN   36A'
+  - BD+15   639
+  - '** BUP   62A'
+  - CCDM J04306+1542A
+  - CEL    418
+  - Cl Melotte   25    83
+  - Cl Melotte   25   831
+  - Cl* Melotte   25    HAN     493
+  - Cl* Melotte   25      S      37
+  - Cl* Melotte   25     VA     589
+  - Gaia DR2 3312628358950130176
+  - Gaia DR3 3312628358950130176
+  - GC  5482
+  - GCRV  2643
+  - GEN# +5.20250083
+  - GSC 01265-01174
+  - HD  28546
+  - HIC  21039
+  - HIP 21039
+  - HR  1428
+  - IDS 04249+1529 A
+  - IRAS 04277+1534
+  - JP11  4883
+  - LP   15-639
+  - N30  943
+  - PPM 119971
+  - Renson 7340
+  - ROT  3881
+  - '[RSP2011] 391'
+  - SAO  93978
+  - SBC9 1979
+  - SKY#  6986
+  - TD1  3246
+  - TIC 245819988
+  - TYC 1265-1174-1
+  - UBV    4336
+  - UBV M  41289
+  - UCAC4 529-008665
+  - uvby98 520250083
+  - WDS J04306+1542A
+  - WEB  4047
+  - YZ  15  1202
+  debcat_match: null
+counts:
+  candidates_audited: 13
+  identity_unresolved: 0
+  hierarchy_ambiguous: 0
+  stable_debcat_alias_overlaps: 0
+  sibling_components_checked: 7
+  eligible_independent_systems: 13
+verdict: ALIAS_AUDIT_READY_FOR_ROW_CURATION
