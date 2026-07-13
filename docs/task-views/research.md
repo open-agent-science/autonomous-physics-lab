@@ -21,3 +21,4 @@ None.
 - `TASK-1023` - Scout a post-registration source manifest for the nuclear shell-axis mini-wave (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-1024` - Build the FRB reduced pre-registration anchor capsule after rights approval (`scientific_dataset`, priority `high`, difficulty `medium`, domain `radio_transients_astrophysics`)
 - `TASK-1036` - Codify the shared prospective-reveal source-admissibility policy after the TASK-1023 no-peek incident (`docs_protocol`, priority `high`, difficulty `low`, domain `cross_campaign_quality`)
+- `TASK-1038` - Separate dimensional-validator inference from benchmark labels and expose honest agreement metrics (`tooling_fix`, priority `high`, difficulty `medium`, domain `physics_validation`)
