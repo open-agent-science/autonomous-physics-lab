@@ -597,7 +597,7 @@ campaigns:
   - agent_runs/AGENT-RUN-0089/report.md
   - docs/notes/nuclear-controls-first-hypothesis-gauntlet.md
   - prediction_registry/nuclear_masses/
-  - docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout.md
+  - docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md
   open_questions:
   - Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker
     memory, or remain a review note?

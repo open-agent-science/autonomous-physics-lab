@@ -15,10 +15,16 @@ strategy_alignment:
 input:
   mode: planning_only
   related_domain: nuclear_physics
+  source_discovery_mode: official_metadata_only
+  search_result_snippets_allowed: false
+  target_matching_requires_manifest_approval: true
+  value_access_requires_reveal_task: true
+  no_peek_context_status: clean
   related_objects:
     - "tasks/TASK-1023-nuclear-shell-axis-source-manifest-scout.yaml"
-    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout.md"
+    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
     - "data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml"
+    - "docs/prospective-reveal-source-admissibility.md"
     - "docs/nuclear-prediction-reveal-protocol.md"
     - "docs/nuclear-reveal-source-readiness-checklist.md"
     - "prediction_registry/nuclear_masses/PRED-0063.yaml"
@@ -46,7 +52,7 @@ result_artifact_policy:
   reason: "Independent source-metadata retry only; no registered prediction is opened or scored."
   evidence:
     - "prediction_registry/nuclear_masses/PRED-0063.yaml"
-    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout.md"
+    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
 
 validation:
   commands:
