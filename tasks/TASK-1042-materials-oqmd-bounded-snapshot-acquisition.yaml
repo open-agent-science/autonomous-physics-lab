@@ -34,6 +34,7 @@ requirements:
   - "Enforce a hard 2,000-row normalized cap. If exceeded, stop or narrow only by a predeclared identifier-level chemistry subset before inspecting target values."
   - "Preserve computed_dft provenance and OQMD delta_e semantics; do not claim numerical interchangeability with Materials Project formation_energy_per_atom."
   - "Exclude every reduced composition present in MD-0002 using identifiers only; log composition+spacegroup coincidences and OQMD duplicate fields without using delta_e or band_gap."
+  - "Register the raw and normalized snapshot paths in data/DATA_LICENSES.yaml as OQMD CC BY 4.0 material, preserving the required OQMD citations, license link, modification/normalization notice, and raw_artifact_vendored decision."
   - "Do not compute exploratory target summaries, assign train/holdout splits, fit baselines, compare OQMD with MD-0002 values, create a RESULT, or make material recommendations."
   - "Return exactly one verdict: SNAPSHOT_READY_FOR_SPLIT_FREEZE, API_IDENTITY_BLOCKED, CAP_EXCEEDED, SEMANTICS_BLOCKED, RIGHTS_BLOCKED, or OVERLAP_POLICY_BLOCKED."
   - "No-claim wording: this is a bounded computed-DFT source snapshot, not an independent experimental replication or materials-design dataset."
@@ -53,6 +54,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 

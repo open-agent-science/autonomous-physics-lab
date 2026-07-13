@@ -30,10 +30,12 @@ input:
 requirements:
   - "Verify the TASK-1025 alias ledger digest and keep exactly its thirteen eligible systems as the only candidate set; any new alias intersection fails closed."
   - "Pin each article, supplement, table, and local source byte used by immutable locator or checksum, and record the per-artifact license/reuse boundary before transcription."
+  - "Treat the committed surface as a bounded factual extract for exactly the thirteen eligible systems: do not vendor article, supplement, table, figure, or source bytes, and do not reproduce a publisher table or substantial source compilation."
   - "For every admitted row record system and component identity, source location, mass and luminosity definitions, units, uncertainty type, measurement or derivation method, and component-mapping rationale."
   - "Admit only per-component mass paired with the same component's bolometric luminosity. Exclude system-integrated luminosity, unresolved flux, band-limited flux without a reviewed bolometric conversion, or ambiguous component assignments."
   - "Re-run the TASK-1025 identifier intersection on curated row identifiers and stop with LEAKAGE_DETECTED if any DEBCat whole-system overlap appears."
   - "Record morphology, multiplicity, cluster membership, and stage/provenance flags as metadata; do not use values or residuals to include, exclude, or relabel a row."
+  - "Register every committed value-bearing CHARA path in data/DATA_LICENSES.yaml with per-source attribution, raw_artifact_vendored: false, and the applicable CC BY or limited-factual-extract redistribution boundary before merge."
   - "Return exactly one verdict: ROW_SURFACE_READY_FOR_SPLIT_DESIGN, SOURCE_LIMITED, COMPONENT_MAPPING_BLOCKED, RIGHTS_BLOCKED, or LEAKAGE_DETECTED."
   - "Stop before benchmark split assignment, exponent fitting, residual computation, formula comparison, RESULT/PRED/CLAIM/KNOW mutation, or universal stellar-law wording."
   - "No-claim wording: this is a bounded factual source surface, not evidence that any mass-luminosity relation transfers to CHARA systems."
@@ -53,6 +55,7 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_data_redistribution_declarations.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 
