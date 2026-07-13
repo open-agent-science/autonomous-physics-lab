@@ -1,7 +1,7 @@
 id: TASK-1023
 title: "Scout a post-registration source manifest for the nuclear shell-axis mini-wave"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Reveal-source scouting for frozen predictions; closeout must confirm that no target values or reveal scores were inspected, copied, or computed."
 difficulty: medium
