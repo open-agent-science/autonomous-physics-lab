@@ -26,9 +26,9 @@ def test_frb_reduced_anchor_capsule_is_deterministic(tmp_path: Path) -> None:
     first = build_capsule(ROOT, tmp_path / "first")
     second = build_capsule(ROOT, tmp_path / "second")
 
-    assert first["archive"]["bytes"] == 48_547
+    assert first["archive"]["bytes"] == 50_077
     assert first["archive"]["sha256"] == (
-        "e577df9240e32f415e65c3554afb08a6addabd23e7babc0e2d0fb13cd23e20d3"
+        "141a4ef4e0e1bfe626abb721cccf2d170249b91d910cb125132efa4b019ec49a"
     )
     assert first["archive"]["sha256"] == second["archive"]["sha256"]
     assert first["archive"]["bytes"] == second["archive"]["bytes"]
@@ -61,6 +61,8 @@ def test_frb_reduced_anchor_capsule_enforces_allowlist_and_exclusions(
     assert all(item["bytes"] > 0 for item in excluded)
     assert all(len(item["sha256"]) == 64 for item in excluded)
     assert all(item["redistributed_in_reduced_capsule"] is False for item in excluded)
+    assert manifest["zenodo_metadata"]["license"] == "MIT"
+    assert "LICENSE" in expected_names
 
 
 def test_frb_reduced_anchor_capsule_has_no_value_bearing_surface_leakage(

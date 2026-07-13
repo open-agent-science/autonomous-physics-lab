@@ -50,9 +50,9 @@ pinned input size/SHA-256 checks.
 | Field | Value |
 | --- | --- |
 | Filename | `frb-pret-reduced-pre-registration-anchor-v1.0.0.zip` |
-| Archive members | 8 |
-| Archive bytes | `48547` |
-| Archive SHA-256 | `e577df9240e32f415e65c3554afb08a6addabd23e7babc0e2d0fb13cd23e20d3` |
+| Archive members | 9 |
+| Archive bytes | `50077` |
+| Archive SHA-256 | `141a4ef4e0e1bfe626abb721cccf2d170249b91d910cb125132efa4b019ec49a` |
 | Compression | `zip_stored` |
 | Fixed timestamp | `1980-01-01T00:00:00` |
 | Full-anchor SHA-256 referenced | `7f7f44e83dca50b84ba5f2ce310b305172140c04fcf7ae9484fbab0dfa8e1039` |
@@ -71,6 +71,7 @@ Two builds in separate local output directories were byte-identical.
 | 6 | `docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md` | Full-anchor package record |
 | 7 | `docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md` | GitHub Release anchor record |
 | 8 | `docs/reviews/frb/frb-anchor-zenodo-rights-publication-review.md` | Rights review and reduced-route basis |
+| 9 | `LICENSE` | Repository MIT copyright and permission notice for included APL-authored/generated metadata |
 
 The archive includes no `predicted_score` field, no `rank_descending` field,
 no row-level FRB target id, and none of the excluded paths below.
@@ -116,8 +117,10 @@ The source tag for every entry is
 > by checksum and public repository pointers only; they are not redistributed
 > or licensed by this record.
 
-**License:** `CC BY 4.0`, scoped only to the APL-authored files included in this
-reduced archive. It does not license any checksum-referenced excluded member.
+**License:** `MIT`, scoped only to the APL-authored and generated metadata
+included in this reduced archive. The archive includes the repository
+copyright and permission notice as `LICENSE`; it does not license any
+checksum-referenced excluded member.
 
 **Keywords:** `sealed prediction; pre-registration; checksum anchor; fast radio
 bursts; open agent science; reproducibility`
@@ -138,7 +141,7 @@ No external publication was attempted in this task.
 
 ## Validation
 
-- Builder regression suite verifies deterministic bytes, the eight-member
+- Builder regression suite verifies deterministic bytes, the nine-member
   allowlist, the complete eight-member exclusion ledger, fixed ZIP metadata,
   decision-veto blocking, repository-output refusal, and value-bearing-field
   leakage guards.

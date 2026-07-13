@@ -106,6 +106,13 @@ INCLUDED_FILES = (
         "936914e39bc8247accdf7df90acfb71328dd0ad1caf145bdcdd69ed271ae196b",
         "reduced_capsule_rights_review",
     ),
+    IncludedFile(
+        7,
+        "LICENSE",
+        1_092,
+        "2cf9341bcca6f0eebd532362132d41b2abc8250b6af5cf0e2035e4aabc67f61d",
+        "repository_mit_license_notice",
+    ),
 )
 
 
@@ -295,9 +302,10 @@ The archive is prepared for a maintainer-controlled external checksum anchor.
 Building it does not upload externally, mint a DOI, inspect reveal labels,
 score a reveal, change `PRED-0001`, or create a RESULT, CLAIM, or KNOW artifact.
 
-License scope: CC BY 4.0 may be selected for the APL-authored files actually
-included in this reduced archive only. It does not apply to checksum-referenced
-excluded prediction, feature, model, score, rank, or source-derived surfaces.
+License scope: the included APL-authored and generated metadata remain under the
+repository MIT License, whose copyright and permission notice is included as
+`LICENSE`. That license does not apply to checksum-referenced excluded
+prediction, feature, model, score, rank, or source-derived surfaces.
 """
     return text.encode("utf-8")
 
@@ -366,10 +374,11 @@ def build_content_manifest(repo_root: Path) -> tuple[dict[str, Any], bytes, byte
             "title": "APL FRB sealed prediction pre-registration checksum anchor (reduced capsule)",
             "upload_type": "other",
             "access_right": "open",
-            "license": "CC-BY-4.0",
+            "license": "MIT",
             "license_scope": (
-                "Included APL-authored reduced metadata only; no license grant for "
-                "checksum-referenced excluded members."
+                "Included APL-authored and generated reduced metadata only; the "
+                "MIT notice is included in the archive, and no license grant is "
+                "made for checksum-referenced excluded members."
             ),
             "version": CAPSULE_VERSION,
             "creators": [
