@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import zipfile
 
 import yaml
@@ -120,9 +121,18 @@ def test_frb_registration_helper_is_reproducible(tmp_path: Path) -> None:
     )
     assert built == _load_yaml(PRED_FILE)
 
+    # register_prediction writes canonical files. Keep it inside an isolated
+    # fixture so xdist workers can never observe transient repository state.
+    isolated_root = tmp_path / "repo"
+    for member in FINAL_CAPSULE_MEMBERS:
+        source = ROOT / member.path
+        destination = isolated_root / member.path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+
     capsule_dir = tmp_path / "capsule"
     summary = register_prediction(
-        root=ROOT,
+        root=isolated_root,
         registered_at_utc=REGISTERED_AT,
         approved_freeze_commit=APPROVED_FREEZE_COMMIT,
         capsule_output_dir=capsule_dir,
