@@ -86,16 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072; no materials claim, prediction, or design guidance is created."
+  current_stage: "MD-0001 reusable dataset and controls complete; MD-0002 narrowed snapshot is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072; TASK-0993 selected an OQMD v1.8 source-manifest preflight as the next second-source gate."
   recommended_parallel_agents: 2
   coordination_notes: "Do not rerun RESULT-0021 Gate B, rebuild the v0.1.0 archive, or open a feature factory. Future work needs a new source/version/release question or a maintainer-approved v0.1.1 reason."
   next_validity_gate:
     type: source_readiness
-    blocker: "MD-0002 release integrity is confirmed and no metric/archive rebuild is justified; the next decision is whether a second dataset surface is worth opening, or whether Materials should hold."
-    target_artifact: "TASK-0993"
+    blocker: "OQMD property semantics, retrieval identity, attribution, and overlap/no-peek rules must be pinned before any second-dataset acquisition."
+    target_artifact: "TASK-1026"
   best_next_actions:
-    - task_id: TASK-0993
-      label: "Prepare a Materials second-dataset stop/go packet after MD-0002 publication"
+    - task_id: TASK-1026
+      label: "Preflight the OQMD v1.8 source manifest, semantics, and MD-0002 overlap plan"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -120,14 +120,14 @@ portfolio:
     - "results/EXP-0014/RUN-0001/result.yaml"
     - "agent_runs/AGENT-RUN-0072/"
   open_questions:
-    - "Should Materials open a second source-pinned dataset surface, route MD-0001 as memory, or hold dataset expansion?"
+    - "Can OQMD v1.8 provide a rights-clear, semantically comparable, overlap-controlled source surface without downloading rows during preflight?"
     - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-12"
+    last_reviewed: "2026-07-13"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0937 MD-0002 release-integrity verification, TASK-0993 stop/go queue, and Scientific Director 2026-07-12 cycle"
-    notes: "MD-0002 formation energy is AGENT_VALIDATED as a computed-DFT, slice-limited benchmark and release integrity is confirmed. The next useful action is a second-dataset stop/go packet, not new metrics or a feature factory."
+    source: "TASK-0937 MD-0002 release-integrity verification, TASK-0993 OPEN_SOURCE_TASK verdict, and Scientific Director 2026-07-13 cycle"
+    notes: "MD-0002 remains fixed and citable. TASK-0993 selected a metadata-only OQMD v1.8 source-manifest preflight; no dump download, rows, metrics, or new Materials claim is authorized."

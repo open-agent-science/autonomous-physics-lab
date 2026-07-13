@@ -126,15 +126,17 @@ checks for `RESULT-0022`. `RESULT-0023` now packages the FIRAS/Wien
 spectral-domain self-consistency slice through a workflow and has passed Gate B
 with negligible numeric drift. `RESULT-0024` is the high-mass transfer result
 and now replays through the formal workflow route as `AGENT_VALIDATED`.
-`TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED, and
-`TASK-0939` upgraded that route to `PAPER_LEVEL_PIN_READY`: CHARA
-interferometric binaries are promising for a small `0.5-2.0 M_sun` holdout if a
-future value-blind source-artifact task can pin exact paper/table identities and
-apply DEBCat system-level de-duplication before any values or metrics.
+`TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED,
+`TASK-0939` upgraded it to `PAPER_LEVEL_PIN_READY`, and `TASK-0989` then pinned
+six value-blind CHARA-related paper surfaces. Two explicit DEBCat overlaps are
+excluded as whole systems; thirteen remaining candidates are not yet
+independent-holdout-ready because stable aliases and component hierarchy remain
+unresolved.
 
-**Expected next result:** a value-blind CHARA source-artifact and de-dup package
-for a possible independent Stellar M-L holdout beyond DEBCat, not another
-DEBCat metric or universal stellar-law wording.
+**Expected next result:** `TASK-1025` should return an identifier-complete CHARA
+alias/de-dup verdict. It must remain value-blind and may only authorize a later
+row-curation task if at least one candidate survives whole-system DEBCat and
+ambiguity exclusions.
 
 ## Why It Matters
 
@@ -286,9 +288,10 @@ Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
 FIRAS/Wien `RESULT-0023` is also `AGENT_VALIDATED`, but only as
 calibration/known-physics verifier memory. High-mass Stellar transfer
 `RESULT-0024` has replay memory with zero metric drift and a retained metadata
-caveat. `TASK-0939` found the CHARA route paper-level-pin-ready, so the next
-work is value-blind source-artifact/de-dup curation before any row or metric
-task, not another formula or model-search lane.
+caveat. `TASK-0989` pinned the CHARA source package value-blind and excluded two
+known DEBCat overlaps. The next work is `TASK-1025`, an identifier-complete
+alias and whole-system de-dup audit for the thirteen remaining candidates
+before any row or metric task.
 
 ## Cross-References
 
