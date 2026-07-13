@@ -63,6 +63,13 @@ jobs:
         run: |
           python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
+      # Drift alarm only: the post-merge board sync regenerates the index, so
+      # a failure here means a merge path bypassed that sync and the public
+      # review-tier surface no longer matches canonical artifacts.
+      - name: Check scientific-memory review-tier index freshness
+        run: |
+          python scripts/apl_scientific_memory_index.py --check
+
       - name: Core example replays
         run: |
           python -m physics_lab.cli run examples/pendulum.yaml --output-dir "${RUNNER_TEMP}/apl-pendulum"
