@@ -1,0 +1,116 @@
+id: radio-transients-frb-pre-t-repeater-propensity
+title: "FRB pre-T repeater propensity"
+autonomy_status: WHITELISTED_LIMITED
+pilot_rank: null
+
+source_docs:
+  - docs/campaigns/public-science-dashboard.md
+  - docs/campaigns/fresh-physics-data-axes.md
+  - docs/reviews/frb/frb-prediction-freeze-registration.md
+  - docs/reviews/frb-reveal-source-admissibility-contract.md
+  - docs/prediction-registry-policy.md
+  - docs/result-promotion-protocol.md
+
+allowed_hypothesis_families:
+  - "No new model family while PRED-0001 is registered and unrevealed."
+  - "Metadata-only reveal-source, alias, rights, checksum, and no-peek readiness work."
+  - "Negative, null, or inconclusive reveal-memory planning under the frozen comparison contract."
+
+allowed_experiment_families:
+  - "No reveal scoring until a checksum-pinned source manifest is separately approved by the maintainer."
+  - "Deterministic archive/reduced-capsule packaging that does not alter the registered prediction."
+
+required_inputs:
+  - "Registered prediction_registry/radio_transients/PRED-0001.yaml identity and payload digest."
+  - "TASK-0995 reveal-source admissibility contract and no-label boundary."
+  - "Source release date, version, rights, checksum, and repeat-evidence timestamp semantics before label read."
+  - "Maintainer approval before reveal-source ingestion or scoring."
+
+required_quality_checks:
+  - "Do not read repeat labels or timestamps before the reveal manifest freezes."
+  - "Do not alter scores, ranks, target ids, comparators, or the T=2019-07-02 split."
+  - "Keep source-state non-repeat labels distinct from permanent non-repeater claims."
+  - "Preserve null, negative, partial, and inconclusive reveal outcomes."
+
+forbidden_claims:
+  - "PRED-0001 is a successful predictor before a maintainer-reviewed reveal."
+  - "The exposure score is a calibrated probability."
+  - "The registered surface establishes FRB population, morphology, or repeater physics."
+  - "Packaging or external anchoring is a scientific reveal result."
+
+sandbox_permissions:
+  may_create:
+    - scoped_notes
+    - metadata_only_source_manifests
+    - temporary_outputs
+  must_not_edit:
+    - claims
+    - canonical_results
+    - registered_prediction_payloads
+    - reveal_labels
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - prediction_registry_reference
+  - source_or_anchor_identity
+  - no_label_attestation
+  - limitations
+  - verdict
+  - maintainer_decision_requested
+
+portfolio:
+  status: active_secondary
+  domain: radio_transients_astrophysics
+  surface_type: prediction_reveal
+  lifecycle_stage: reveal_blocked
+  activity_status: active
+  curator:
+    primary_pool: prediction_reveal
+    secondary_pools:
+      - source_data_benchmark
+      - result_promotion
+    review_cadence: weekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - updated_campaign_profile
+  current_stage: "PRED-0001 is registered as a 479-source point-score/rank prediction and checksum-anchored by GitHub Release; no reveal labels have been read and no FRB success or population result exists."
+  recommended_parallel_agents: 1
+  coordination_notes: "TASK-1024 may build the reduced rights-bounded anchor capsule. Reveal-source work is event-triggered: do not seed a manual scout until a concrete official catalog or repeater-table signal exists. No lane may inspect labels or mutate PRED-0001."
+  next_validity_gate:
+    type: external_reveal
+    blocker: "Reveal scoring remains blocked until a concrete post-T source passes TASK-0995 identity, rights, timestamp, checksum, alias, and no-peek gates and receives separate maintainer approval."
+    target_artifact: "future trigger-activated reveal-source decision task"
+  best_next_actions:
+    - task_id: TASK-1024
+      label: "Build the approved reduced metadata/checksum anchor capsule without external upload"
+    - task_id: null
+      label: "Monitor official post-T source releases and activate one reveal-source decision only on a concrete trigger"
+  required_gates:
+    - "Freeze source metadata and manifest before reading any repeat label or repeat-evidence timestamp."
+    - "Do not alter the registered score, rank, target, comparator, or split payload."
+    - "Any reveal RESULT requires separate maintainer review and conservative outcome wording."
+  current_results:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb/frb-prediction-freeze-registration.md"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+    - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
+    - "data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml"
+    - "data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml"
+  open_questions:
+    - "Which official or immutable post-T source can be frozen before label contact and label the registered targets under TASK-0995?"
+    - "When a source becomes ready, will coverage and repeat-evidence timing support a meaningful reveal rather than an underpowered or ambiguous comparison?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-07-13"
+    review_interval: quarterly_active
+    next_review_due: "2026-09-01"
+    review_reason: flagship_validation
+    source: "PRED-0001 registration, TASK-0995 reveal contract, TASK-1021 rights review, and Scientific Director 2026-07-13 cycle"
+    notes: "FRB is now a first-class prospective prediction campaign rather than a generic fresh-data sublane. Reduced-capsule completion is active; reveal-source work remains trigger-based, while model fitting and success wording stay closed."

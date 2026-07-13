@@ -135,7 +135,7 @@ portfolio:
       - curator_cycle_review
       - updated_campaign_profile
   current_stage: "pinned PSCompPars snapshots, source monitor check 3 returned NO_NOTIFY, and RESULT-0027 now packages the EXO-0001 null-baseline control-sensitive memory as AGENT_VALIDATED negative/control evidence with a Gate-B-safe workflow route and fair-null transparency surfaced in the artifact."
-  recommended_parallel_agents: 2
+  recommended_parallel_agents: 0
   coordination_notes: "RESULT-0027 Gate-B-safe replay and fair-null transparency are complete. Metadata-only monitor reviews remain safe; do not reopen residual scoring without a materially changed reviewed snapshot or coverage-gate amendment."
   next_validity_gate:
     type: source_readiness

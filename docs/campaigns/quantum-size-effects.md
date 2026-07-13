@@ -20,8 +20,10 @@ ZnSe/InP no-refit transfer-control result. Follow-up transfer work has not
 produced an admissible cross-material claim: ZnSe/Toufanian rows are usable only
 as limited factual extracts, the row surface is frozen, the strict no-refit
 transfer missed its predeclared margin, and a fixed effective-mass scaling
-transfer check failed against controls. TASK-0988 found a plausible CdSe lead
-but returned `SOURCE_LIMITED_MONITOR`, not row readiness. The campaign is
+transfer check failed against controls. TASK-0988 found a plausible open CdSe
+lead but returned `SOURCE_LIMITED_MONITOR`, not row readiness. The next gate is
+a value-blind source artifact that pins the Kim et al. 2020 article, figure
+semantics, and per-artifact reuse boundary before extraction. The campaign is
 therefore
 **source/negative-memory gated**, not authorized for autonomous correction
 search or cross-material claims.
@@ -59,8 +61,8 @@ controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. Useful work is limited to preserving `RESULT-0029` as validated
-inconclusive/control memory, or opening a value-blind source-artifact task for
-the TASK-0988 CdSe lead if the maintainer approves that route. No correction
+inconclusive/control memory and packaging the TASK-0988 CdSe lead value-blind
+before any extraction. No correction
 search, replay loop, or repeat transfer on the same ZnSe/InP surface is
 authorized.
 

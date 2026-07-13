@@ -1,0 +1,61 @@
+id: TASK-1029
+title: "Prepare a Gaia DR4 stellar-transfer freeze-readiness packet"
+type: scientific_prediction_preflight
+status: READY
+closeout: review
+closeout_review_reason: "Prospective prediction architecture for an unreleased source; closeout must confirm that no Gaia DR4 value, target list, PRED registration, or post-release tuning entered the packet."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-0834 armed a prospective Gaia DR4 Stellar M-L reveal contract but returned NEEDS_FIELDS because the exact product semantics and eligible two-mass coverage were not yet published."
+  - "RESULT-0022 supplies frozen mass-luminosity functions and controls, but a valid prospective route also needs an event trigger, target-independent payload shape, and predeclared DEBCat leakage policy."
+  - "One readiness packet should decide GO/HOLD/STOP before separate identity, schema, registration, or freeze tasks are opened."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/gaia-dr4-stellar-ml-reveal-contract-scout.md"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+  planning_context: >
+    Build one value-blind pre-release readiness packet for a future Gaia DR4
+    transfer test. Use official release and data-model metadata plus existing
+    committed RESULT-0022 and DEBCat identities. Do not read DR4 values, invent
+    target rows, or register a prediction in this task.
+
+requirements:
+  - "Pin only official ESA/Gaia release, content, and data-model metadata; record the access date, release-event status, required field semantics, units, uncertainties, solution types, and source-count availability without using secondary snippets as evidence."
+  - "Use the event trigger Gaia DR4 officially published or an official draft data model published; do not hard-code an unconfirmed calendar release date."
+  - "Specify the target-independent functional payload needed to freeze the existing RESULT-0022 functions: formula/version, coefficients, units, eligibility rule, comparators, metric, decision rule, missing-field behavior, and no post-release tuning rule."
+  - "Define a value-blind whole-system DEBCat leakage/overlap policy, stable identity evidence requirements, ambiguity stops, and the future identity-manifest shape without building that manifest here."
+  - "Audit whether the current prediction registry can represent the proposed functional freeze and name any required schema task; do not change registry schema or create PRED entries."
+  - "Return exactly one verdict: GO_GAIA_FREEZE_PREPARATION, HOLD_FIELDS_NOT_READY, HOLD_REGISTRY_UNSUPPORTED, HOLD_LEAKAGE_IDENTITY_UNREADY, or STOP_PROSPECTIVE_ROUTE."
+  - "Stop if official metadata is insufficient, product semantics are incompatible, leakage cannot be frozen value-blind, or the route would require post-release model or sample tuning."
+  - "Do not query Gaia DR4 rows, inspect pre-release values, build targets, fit or rank models, extract stellar measurements, or create RESULT/PRED/CLAIM/KNOW artifacts."
+
+accepted_outputs:
+  - "One docs/reviews/stellar/ Gaia DR4 freeze-readiness packet with official trigger/field table, exact proposed functional payload, DEBCat leakage policy, registry compatibility, stop conditions, GO/HOLD/STOP verdict, and bounded follow-on task shapes."
+  - "Output-routing summary: prospective prediction readiness only; no DR4 values, target identities, prediction registration, result, claim, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Readiness decision only; any identity freeze, schema change, PRED registration, and reveal score require separate reviewed tasks."
+  evidence:
+    - "docs/reviews/gaia-dr4-stellar-ml-reveal-contract-scout.md"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

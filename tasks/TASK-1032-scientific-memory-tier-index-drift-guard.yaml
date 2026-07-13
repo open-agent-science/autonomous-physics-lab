@@ -1,0 +1,63 @@
+id: TASK-1032
+title: "Repair the scientific-memory tier index and add a drift guard"
+type: repository_hardening
+status: READY
+closeout: review
+closeout_review_reason: "Public scientific-memory metadata and CI behavior change; closeout must verify exact agreement with canonical artifacts without promoting or re-tiering them."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "docs/scientific-memory-review-tiers.md currently undercounts AGENT_VALIDATED and MAINTAINER_REVIEWED artifacts and misclassifies canonical reviewed memory as LEGACY_UNTIERED."
+  - "A stale public trust index obscures the actual evidence ladder and can regress again because CI does not compare generated output with canonical artifacts."
+  - "The repair should expose validation independence while remaining a visibility-only generator, never a promotion mechanism."
+
+input:
+  mode: workflow
+  related_domain: scientific_memory
+  related_objects:
+    - "docs/scientific-memory-review-tiers.md"
+    - "scripts/apl_scientific_memory_index.py"
+    - "physics_lab/registry/scientific_memory_index.py"
+    - "tests/test_scientific_memory_index.py"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Correct the generator against current RESULT, PRED, CLAIM, and KNOW
+    schemas, regenerate the committed public index, surface validation
+    independence where canonical metadata supports it, and make drift fail a
+    deterministic CI check.
+
+requirements:
+  - "Identify why current canonical review_tier and validation records are missed across YAML and Markdown scientific-memory classes; fix schema-aware parsing rather than special-casing artifact ids or expected counts."
+  - "Render counts and rows that match canonical artifacts at test time, including MAINTAINER_REVIEWED claims/predictions and all current AGENT_VALIDATED results."
+  - "Add a validation_independence column or equivalent explicit field with conservative values such as independent, same-agent, not-applicable, or unknown; never infer independence from contributor names alone."
+  - "Add a deterministic check mode and CI invocation that fails when docs/scientific-memory-review-tiers.md differs from generator output."
+  - "Add focused fixtures for reviewed Markdown claims, reviewed predictions, validated results, missing tiers, and independence metadata."
+  - "Regenerate only the canonical scientific-memory index; do not edit generated task views or unrelated status pages."
+  - "Do not change canonical artifact review tiers, support statuses, validation records, metrics, verdicts, claims, or knowledge content."
+  - "Stop with SCHEMA_BLOCKED if a class cannot be interpreted without changing its canonical schema; document the exact gap instead of guessing a tier."
+
+accepted_outputs:
+  - "Schema-aware scientific-memory index generator and tests with deterministic check mode."
+  - "A regenerated docs/scientific-memory-review-tiers.md whose counts, rows, and independence labels agree with canonical artifacts."
+  - "A CI drift guard scoped to the scientific-memory index."
+  - "Output-routing summary: public metadata visibility only; no scientific artifact promotion, result mutation, claim transition, or knowledge endorsement."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository/public-index correctness task; canonical scientific evidence remains unchanged."
+  evidence:
+    - "docs/scientific-memory-review-tiers.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_scientific_memory_index.py"
+    - "python3 scripts/apl_scientific_memory_index.py --check"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

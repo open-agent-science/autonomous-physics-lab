@@ -39,6 +39,8 @@ contract.
 | `particle-mass-relations.yaml` | `GUARDRAIL_ONLY` | Falsification-first and provenance-focused proposal work |
 | `textbook-formula-audit.yaml` | `SCAFFOLD` | Per-formula sandbox audits of textbook formulas against pinned public datasets; first slice queued is the Stellar Mass-Luminosity OOD audit |
 | `thermophysical-property-residuals.yaml` | `WHITELISTED_LIMITED` | ThermoML Tb / Joback source-pinned benchmark lane with replay, source-readiness, and negative-memory gates |
+| `radio-transients-frb-pre-t-repeater-propensity.yaml` | `WHITELISTED_LIMITED` | Registered 479-target FRB point-score/rank prediction with label-blind reveal-source and rights-bounded anchor gates |
+| `lattice-qcd-aggregated-consistency.yaml` | `SCAFFOLD_ONLY` | One-observable incubator for an auditable dependency/covariance graph and a GO/HOLD/STOP decision before full campaign activation |
 
 Profiles may also include a `portfolio` block. That block is the editable
 source for the generated `campaign_profiles/_catalog.yaml` portfolio index;
