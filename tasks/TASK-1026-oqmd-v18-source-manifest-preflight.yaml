@@ -1,7 +1,7 @@
 id: TASK-1026
 title: "Preflight the OQMD v1.8 source manifest, semantics, and MD-0002 overlap plan"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This preflight controls entry into a new external Materials source surface; closeout must verify rights, semantics, and no-download/no-row boundaries."
 difficulty: medium
