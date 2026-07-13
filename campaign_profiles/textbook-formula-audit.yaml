@@ -104,9 +104,9 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "exact-reference RESULT-0019, Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and Stellar high-mass transfer RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory; TASK-0989 pinned a value-blind CHARA source package, excluded two DEBCat overlaps, and left thirteen candidates for alias audit."
-  recommended_parallel_agents: 1
-  coordination_notes: "Use one formula slice at a time. Do not rerun Stellar split/complexity audits, DEBCat metrics, or FIRAS/Wien metrics; current work is identifier-only CHARA alias/de-dup readiness before any value extraction."
+  current_stage: "RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory; CHARA needs alias-complete independence review, while TASK-1029 consolidates the Gaia DR4 trigger, functional-freeze, and leakage questions into one readiness decision."
+  recommended_parallel_agents: 2
+  coordination_notes: "Do not rerun DEBCat or FIRAS/Wien metrics. TASK-1025 handles CHARA aliases; TASK-1029 produces one value-blind Gaia DR4 GO/HOLD/STOP packet before any identity, schema, or freeze task is split out."
   next_validity_gate:
     type: source_readiness
     blocker: "The thirteen post-exclusion CHARA candidates are not independent-holdout-ready until stable aliases, component hierarchy, and whole-system DEBCat intersections are resolved."
@@ -114,6 +114,8 @@ portfolio:
   best_next_actions:
     - task_id: TASK-1025
       label: "Complete the CHARA identifier and alias audit before stellar row curation"
+    - task_id: TASK-1029
+      label: "Prepare one Gaia DR4 stellar-transfer freeze-readiness packet"
   required_gates:
     - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
     - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
@@ -149,5 +151,5 @@ portfolio:
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-0989 SOURCE_ARTIFACT_READY package and Scientific Director 2026-07-13 cycle"
-    notes: "Public-friendly verifier lane has four AGENT_VALIDATED results. CHARA source identities are pinned value-blind, but thirteen candidates still need a complete alias and whole-system de-dup audit before any row curation."
+    source: "TASK-0989 CHARA source package, TASK-0834 Gaia DR4 reveal contract, and Scientific Director 2026-07-13 cycle"
+    notes: "The campaign has four AGENT_VALIDATED results and two independent-validation paths. CHARA remains alias-gated; Gaia DR4 remains a single prospective value-blind readiness decision until a GO verdict justifies separate implementation tasks."

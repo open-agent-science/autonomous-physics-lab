@@ -129,18 +129,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "frozen baseline, RESULT-0018 AGENT_VALIDATED diagnostic memory, RESULT-0025 point-estimator evidence with exact Gate B replay, failed no-peek uncertainty-calibration audit, canonical DZ10 wrapper, and a point-only prospective PRED freeze registered without intervals or success wording"
-  recommended_parallel_agents: 3
-  coordination_notes: "Do not launch another broad F2, shell-axis, local-curvature, Wigner-shape, or NMD-0002 factory sprint. Do not mutate frozen PRED payloads or score reveal early. Current executable work is preserving the uncertainty-calibration failure as negative/blocker memory and running rights-safe DZ10 parity if local AMDC bytes are available."
+  current_stage: "RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen. TASK-1023 correctly stopped after target-bearing search snippets compromised that session's no-peek scout."
+  recommended_parallel_agents: 1
+  coordination_notes: "Do not launch another model/factory sprint, mutate frozen PRED payloads, or score reveal early. TASK-1031 is the only new lane: a fresh independent session using direct official metadata only, with immediate stop on any target-value exposure."
   next_validity_gate:
     type: external_reveal
     blocker: "Point-only central-value predictions are frozen, but reveal scoring and any success claim remain blocked until an admissible source is revealed and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899."
-    target_artifact: "PRED-0069"
+    target_artifact: "TASK-1031"
   best_next_actions:
-    - task_id: TASK-0912
-      label: "Preflight the uncertainty-calibration failure as negative/blocker result memory"
-    - task_id: TASK-0911
-      label: "Run rights-safe DZ10 full-table parity if local AMDC bytes are available"
+    - task_id: TASK-1031
+      label: "Retry shell-axis source identity in a clean session using direct official metadata only"
   required_gates:
     - "Use the source-gated NMD-0003 measured-row training surface and frozen split manifest for the next broad Nuclear factory sprint."
     - "No reveal scoring before a source-grade no-peek release passes preflight."
@@ -166,15 +164,16 @@ portfolio:
     - "agent_runs/AGENT-RUN-0089/report.md"
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
+    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
   open_questions:
     - "Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker memory, or remain a review note?"
     - "What admissible future source and reveal protocol can score the frozen point-only PRED entries without interval or success overclaiming?"
     - "What source-byte/cache route can support full AMDC DZ10 parity without vendoring restricted source bytes?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-05"
+    last_reviewed: "2026-07-13"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "TASK-0933 point-only prospective freeze, TASK-0899 no-peek uncertainty-calibration audit, TASK-0878 DZ10 wrapper, and Scientific Director 2026-07-05 task-queue cycle"
-    notes: "Flagship has frozen point-only prospective entries but remains reveal/success-claim blocked. RESULT-0025 has a strong replayed point-estimator gain but no calibrated intervals; the calibration failure itself may now be useful negative/blocker memory. Do not start another broad residual factory."
+    source: "TASK-0933 point-only prospective freeze, TASK-1023 no-peek source scout, and Scientific Director 2026-07-13 task-queue cycle"
+    notes: "The flagship remains reveal/success-claim blocked. TASK-1023 produced useful blocker memory rather than a source manifest; only a clean direct-official-metadata retry is justified, not another residual factory or search-snippet scout."

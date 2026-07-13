@@ -1,0 +1,58 @@
+id: TASK-1027
+title: "Package the Kim 2020 CdSe source artifact before any quantum row extraction"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "Open-licensed figure/source intake for a possible independent transfer surface; closeout must verify that no measurement values, digitized points, or benchmark metrics were created."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0029 preserved the failed ZnSe no-refit transfer as AGENT_VALIDATED control memory; a new material/source is required before another transfer test can add information."
+  - "TASK-0988 identified Kim et al. 2020 CdSe as an open-access direct HRTEM plus optical source, but it is not row-ready until exact source bytes, figure semantics, and reuse boundaries are pinned."
+  - "A value-blind source artifact is the smallest honest step toward an independent CdSe transfer judge."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum-next-direct-source-scout.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    Pin the exact Kim et al. 2020 article and permitted figure or supplement
+    artifacts without transcribing scientific values. Establish whether a
+    later deterministic extraction task can separate HRTEM diameter,
+    morphology, and absorption-transition axes without model-derived sizing.
+
+requirements:
+  - "Pin DOI 10.3390/nano10081589, the exact version-of-record or approved mirror, access date, byte size, SHA-256, citation, and the license text that applies to every retained artifact."
+  - "Record figure and sample identifiers, axis meanings and units, HRTEM diameter semantics, morphology/anisotropy semantics, optical-axis class, and the expected uncertainty route without copying plotted or tabulated values."
+  - "Keep absorption_peak_eV, emission_peak_eV, and bandgap interpretation as separate candidate axes; do not infer one from another."
+  - "Do not coerce anisotropic particles to an equivalent sphere unless a later task predeclares and reviews a geometry rule."
+  - "Return exactly one verdict: SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT, BLOCKED_LICENSE, BLOCKED_AXIS_SEMANTICS, BLOCKED_SOURCE_IDENTITY, or SOURCE_LIMITED."
+  - "Stop before cropping or digitizing figures, transcribing rows, creating qd-*.yaml data, fitting any size law, rerunning transfer metrics, or creating RESULT/PRED/CLAIM/KNOW artifacts."
+
+accepted_outputs:
+  - "A docs/reviews/quantum/ Kim-2020 CdSe source-artifact note with exact identity, per-artifact rights, figure/axis inventory, morphology and uncertainty semantics, verdict, and stop condition."
+  - "A metadata-only source-artifact README or manifest under data/quantum_dots/source_artifacts/ only if it contains no scientific measurement values."
+  - "Output-routing summary: source readiness only; no rows, digitized values, metrics, result, prediction, claim, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind source packaging only; no scientific result or prediction is created."
+  evidence:
+    - "docs/reviews/quantum-next-direct-source-scout.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

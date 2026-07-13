@@ -77,10 +77,17 @@ It remains source-surface work only; no rows or metrics are ingested.
 
 ### Lattice QCD
 
-Lattice-QCD aggregated outputs are eligible only for source-policy review.
-Future ingestion must record observable definitions, scheme and scale,
-flavor content, aggregation source, uncertainty semantics, correlation notes,
-source locators, license terms, and holdout classification.
+Lattice-QCD aggregated consistency is now a single planning incubator, not an
+activated data-ingestion campaign. It asks whether one dimensionless or
+convention-stable observable can support an auditable dependency/covariance
+graph with enough primary provenance, rights clarity, and ensemble-lineage
+metadata to add value beyond existing FLAG summaries.
+
+No real Lattice-QCD central value, uncertainty, average, ensemble file, metric,
+result, or claim has been admitted. Future ingestion must record observable
+definitions, scheme and scale, flavor content, aggregation source, uncertainty
+semantics, correlation notes, source locators, license terms, dependency class,
+and holdout classification.
 
 This axis must not become cross-domain fitting before the project has a fixed
 source manifest and correlation policy.
@@ -114,8 +121,10 @@ froze the exposure-only model surface without label contact, `TASK-0965`
 prepared the sealed-registration pack, and the maintainer approved registered
 `PRED-0001`. The deterministic nine-member capsule is anchored by GitHub
 Release tag `pred-frb-pret-repeater-propensity-20260710`. The next allowed
-work is reveal-source contract discipline and future maintainer-reviewed reveal
-scoring, not new model fitting or label inspection.
+scientific work is a metadata-only scout for one admissible post-T reveal
+source under the frozen contract only after a concrete official release trigger,
+followed by a separate maintainer decision. It is not a standing manual scout,
+new model fitting, label inspection, or current reveal scoring.
 
 ## WATCHLIST Axes
 
@@ -132,7 +141,7 @@ loader, or benchmark task can be proposed.
 
 Allowed next steps, only after maintainer assignment:
 
-- create a source-manifest template for atomic clocks or lattice-QCD outputs;
+- run one Lattice-QCD observable/dependency feasibility incubator or stop the campaign;
 - write a license and citation review checklist for one axis;
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
@@ -165,9 +174,10 @@ list candidate primary sources, license and citation status, retrieval policy,
 checksum plan, unit and uncertainty schema, and blockers. It should still add
 no numerical rows.
 
-For FRB specifically, the active next task shape is no longer generic source
-scouting or registration preparation: it is reveal-source admissibility and
-future scoring discipline around the registered Catalog-1 `PRED-0001`. A future
+For FRB specifically, the active next task shape is a metadata-only scout for
+one concrete source under the existing reveal-source admissibility contract,
+then future scoring discipline around the registered Catalog-1 `PRED-0001`.
+A future
 Catalog-2-compatible route would still start as a metadata-only time-indexed
 exposure source scout with official source candidates, interval semantics,
 sky-coordinate mapping, rights/access posture, checksum feasibility, and an
