@@ -1,7 +1,7 @@
 id: TASK-1024
 title: "Build the FRB reduced pre-registration anchor capsule after rights approval"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 closeout: review
 closeout_review_reason: "External-anchor packaging for a registered prediction; closeout must confirm no upload, DOI, reveal scoring, or blanket-license assertion occurred."
 difficulty: medium
@@ -10,6 +10,7 @@ priority: high
 strategy_alignment:
   - "TASK-1021 determined that the current nine-member FRB anchor capsule should not be uploaded to Zenodo as a blanket-licensed dataset because it contains source-derived value-bearing surfaces."
   - "The safe next route is a reduced APL-authored metadata/pre-registration capsule with checksums for excluded sealed members, but only after the maintainer explicitly chooses GO_REDUCED_CAPSULE."
+  - "DEC-20260712-frb-reduced-anchor-publication records the maintainer's GO_REDUCED_CAPSULE selection and was merged in PR #1528."
   - "This task turns the rights review into a deterministic package path without weakening the no-reveal/no-claim boundary."
 
 input:
@@ -21,6 +22,7 @@ input:
     - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
     - "docs/reviews/frb/frb-prediction-freeze-anchor-upload-pack.md"
     - "docs/published-source-dataset-standard.md"
+    - "decisions/DEC-20260712-frb-reduced-anchor-publication.yaml"
   planning_context: >
     Implement the reduced-capsule route recommended by TASK-1021 only after an
     explicit maintainer GO_REDUCED_CAPSULE decision. The implementation should
@@ -28,7 +30,7 @@ input:
     upload, but must stop before external publication or DOI minting.
 
 requirements:
-  - "Blocked-by: maintainer has not yet recorded GO_REDUCED_CAPSULE for the TASK-1021 route. Before any packaging work, verify that the decision is recorded; otherwise stop without editing package bytes."
+  - "Before packaging work, verify that decisions/DEC-20260712-frb-reduced-anchor-publication.yaml still records GO_REDUCED_CAPSULE and has not been vetoed or reverted; otherwise stop without editing package bytes."
   - "Build only the reduced metadata/pre-registration capsule: registered PRED entry or redacted copy, approved decision context, freeze/anchor record, tag/commit/release metadata, checksum manifest, excluded-member manifest, README, and no-claim wording."
   - "Exclude source-derived feature surfaces, model surfaces, target payloads, ranks/scores tables, or mixed narrative notes unless TASK-1021 explicitly classified them rights-clear for the reduced capsule."
   - "For each excluded sealed member, record path, role, byte size, SHA-256, source commit or tag, and exclusion reason so the external timestamp can anchor the full sealed state by checksum."
