@@ -1,6 +1,6 @@
 ---
 id: CLAIM-0005
-title: Dimensional Analysis Validator Correctly Classifies Physics Formulas
+title: Dimensional Analysis Validator Meets the Predeclared Agreement Threshold on Two Frozen Curated Challenge Sets
 domain: physics_validation
 status: DRAFT
 hypothesis_id: HYP-0006
@@ -17,13 +17,16 @@ scope: >
   is claimed.
 ---
 
-# CLAIM-0005: Dimensional Analysis Validator Correctly Classifies Physics Formulas
+# CLAIM-0005: Dimensional Analysis Validator Meets the Predeclared Agreement Threshold on Two Frozen Curated Challenge Sets
 
 ## Statement
 
-The APL dimensional-analysis validator achieves ≥90% agreement with curated
-expected labels on the 50-item DA-CHALLENGE-001 challenge set. The achieved
-agreement is 98% (49/50 items).
+The APL dimensional-analysis validator meets the predeclared ≥90% agreement
+threshold with internally curated expected labels on two frozen challenge
+sets: 49/50 (98%) on DA-CHALLENGE-001 and 74/74 (100%) on `frozen_live_74`.
+This supports reproducible benchmark performance on those sets only; it does
+not establish external label truth, general validity for arbitrary formulas,
+or semantic correctness beyond dimensional checks.
 
 On the larger frozen 74-item `frozen_live_74` challenge set the validator
 achieves 100% agreement (74/74 items, threshold 90%, zero-disagreement
@@ -63,3 +66,21 @@ available. Honest residual limits:
 This claim does not assert that the validator is complete or sound for arbitrary
 physics formulas. It is a quality-floor engine scoped to the challenge set.
 Do not cite this result as evidence of general formula-checking capability.
+
+## Claim Role Disposition (2026-07-13)
+
+The maintainer disposition (recorded with the RESULT-0020 Gate C
+endorsement, TASK-1035) classifies this object on the role axis following
+the TASK-0927/TASK-0950 precedent:
+
+- `claim_role: methodology_quality_floor`
+- `active_scientific_claim: false`
+
+The claim stays `DRAFT` by design: this is a tool-quality benchmark, not an
+active claim about nature. The endorsed artifact is `RESULT-0020`, which the
+maintainer reviewed to `MAINTAINER_REVIEWED` as a scoped methodology
+benchmark (independently replayed, zero drift). Whether the
+`methodology_quality_floor` class may ever hold `SUPPORTED` is an explicitly
+open policy question requiring a separate maintainer policy decision; do not
+promote this claim without that decision.
+

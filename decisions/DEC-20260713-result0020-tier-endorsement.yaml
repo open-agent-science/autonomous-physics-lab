@@ -1,0 +1,64 @@
+# Class 2 result-tier endorsement (first Gate C on a RESULT in repo history).
+# The maintainer decided this in the 2026-07-13 session; the merge of the
+# dedicated TASK-1035 PR is the recorded review act.
+decision_id: DEC-20260713-result0020-tier-endorsement
+decision_type: result_tier_endorsement
+autonomy_class: class_2_maintainer_only
+reversibility: reversible
+external_exposure: internal_public_docs
+
+artifact_impact:
+  result_status_change: true
+  claim_status_change: false
+  prediction_change: false
+  knowledge_change: false
+  external_publication: false
+
+recommended_action: endorse_result0020_as_scoped_methodology_benchmark
+basis:
+  - "RESULT-0020: 74/74 agreement on the frozen frozen_live_74 set, deterministic replay, AGENT_VALIDATED with validation_independence: independent (akutenyov, zero drift, 17 metrics @ 1e-9)"
+  - "Three-agent review consensus (2026-07-11..13): endorsement belongs on the verified RESULT; CLAIM-0005 stays DRAFT with a methodology_quality_floor disposition"
+  - "Protocol: MAINTAINER_REVIEWED = maintainer signs off on verdict and scope wording (docs/result-promotion-protocol.md tier table)"
+
+agent_quorum:
+  director_agent:
+    vote: escalate
+    agent_id: scientific-campaign-director
+    vendor: anthropic
+    agent_tool: Claude Code
+    model_version: Fable 5
+    session_id: director-session-b1113fba
+  cross_vendor_reviews: >-
+    Two independent agent reviews (2026-07-11 and 2026-07-13 sessions)
+    converged on this route: endorse the RESULT, keep the claim DRAFT with a
+    role disposition, and treat SUPPORTED-for-methodology as a separate
+    policy question.
+  cross_vendor: false
+
+devils_advocate:
+  alternative_considered: >-
+    Endorse nothing and keep the whole ladder at AGENT_VALIDATED until an
+    externally validated label set exists.
+  strongest_objection: >-
+    The endorsement rests on internally curated labels; a hostile reader
+    could frame MAINTAINER_REVIEWED as the lab grading its own homework.
+  why_rejected: >-
+    The endorsement scope is written to exclude exactly that reading: it
+    covers reproduction and agreement metrics on frozen sets (independently
+    replayed by a different human), explicitly NOT label ground truth or
+    general capability. Gate C per protocol endorses verdict-plus-scope
+    wording, which is precisely what is endorsed; refusing any Gate C until
+    external labels exist would leave the tier untested for no integrity
+    gain.
+  escalation_required: true
+
+veto:
+  window_hours: 48
+  deadline_utc: null
+  maintainer_vetoed: false
+
+decision_record:
+  decided_by: maintainer
+  applied_by: pending
+  status: dry_run_only
+  revert_of: null

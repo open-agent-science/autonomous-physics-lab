@@ -1,0 +1,57 @@
+id: TASK-1035
+title: "Record the first result-level Gate C: endorse RESULT-0020 as a scoped methodology benchmark and park CLAIM-0005 by role"
+type: scientific_validation
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "First MAINTAINER_REVIEWED result and a claim-role disposition need the maintainer's closeout confirmation of the endorsement scope wording."
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Three independent agent reviews (2026-07-11..13) converged: the Gate C endorsement belongs on the verified RESULT-0020, while CLAIM-0005 is a methodology/tool-quality object that stays DRAFT with a role disposition per the TASK-0927/0950 precedent."
+  - "This exercises the MAINTAINER_REVIEWED tier on a result for the first time, with an endorsement scope written to exclude the 'grading own labels' reading."
+  - "The maintainer decided this in the 2026-07-13 session; the merge of this dedicated PR is the recorded Class 2 review act."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis_validator
+  related_objects:
+    - "results/EXP-0006/RUN-0007/result.yaml"
+    - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+    - "decisions/DEC-20260713-result0020-tier-endorsement.yaml"
+    - "docs/reviews/validation/result-0020-gate-c-endorsement-20260713.md"
+  planning_context: >
+    Apply the decided route: RESULT-0020 review_tier AGENT_VALIDATED ->
+    MAINTAINER_REVIEWED with a maintainer_review record carrying the scoped
+    endorsement wording; CLAIM-0005 gains the narrowed threshold-form
+    title/statement and the dated methodology_quality_floor disposition
+    (status stays DRAFT); the decision matrix gains the
+    result_tier_endorsement Class 2 type; the Class 2 packet records the
+    decision with merge-as-review-act.
+
+requirements:
+  - "RESULT-0020 tier flip carries an explicit endorsement_scope that covers reproduction/agreement on the frozen sets and excludes label ground truth and general capability; no metric or verdict changes."
+  - "CLAIM-0005: threshold-form title and statement; dated disposition claim_role: methodology_quality_floor, active_scientific_claim: false; status stays DRAFT; the open SUPPORTED-policy question stated explicitly."
+  - "Decision matrix gains result_tier_endorsement (Class 2); policy invariants tests stay green; the Class 2 packet validates via scripts/apl_decision.py."
+  - "New review note lives under the docs/reviews/validation/ shard per the shard-forward policy."
+  - "No external publication, no KNOW change, no other claim or result touched."
+
+accepted_outputs:
+  - "The tier flip + maintainer_review record, the claim retitle + disposition, the matrix type, the Class 2 packet, and the shard review note."
+  - "Output-routing summary: first result-level Gate C recorded; claim layer honestly parked; no scientific content change."
+
+result_artifact_policy:
+  required: false
+  reason: "Tier endorsement and claim-role documentation; no new scientific result artifact."
+  evidence:
+    - "docs/reviews/validation/result-0020-gate-c-endorsement-20260713.md"
+
+validation:
+  commands:
+    - "python3 scripts/apl_decision.py validate decisions/DEC-20260713-result0020-tier-endorsement.yaml"
+    - "python3 -m pytest tests/test_decision_autonomy_policy.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
