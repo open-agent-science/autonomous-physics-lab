@@ -7,7 +7,7 @@ difficulty: low
 priority: high
 
 strategy_alignment:
-  - "The TASK-1023 scout (PR #1534) proved general web search is itself a leakage vector for reveal scouting: result snippets surfaced target-related values before any manifest existed; the executor honestly stopped with BLOCKED_NO_PEEK_AUDIT."
+  - "The TASK-1023 scout (PR #1534) showed that general web search is itself a leakage vector for reveal scouting: result snippets surfaced target-related values before any manifest existed; the executor honestly stopped with BLOCKED_NO_PEEK_AUDIT."
   - "The failure mode is cross-surface (nuclear, FRB, any future sealed registry), so the rule lives once in a shared policy that domain protocols reference - not as a nuclear-only note."
   - "Common-law with a guardrail: incident -> generalized invariant -> regression test, and only via maintainer-reviewed policy changes; agents never extend or relax this autonomously."
 
