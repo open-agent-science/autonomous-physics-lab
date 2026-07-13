@@ -1390,7 +1390,7 @@ missions:
         label: "Complete the CHARA identifier and whole-system alias audit"
         task_id: TASK-1025
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
         recommended: true
