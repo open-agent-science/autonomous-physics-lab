@@ -36,21 +36,22 @@ ledger) — `RESULT-0020`, deterministic replay of
 ## Evidence Status
 
 `EXP-0006` produced `RESULT-0007` (50 items, 98%) and `RESULT-0020`
-(74 items, 100%). `RESULT-0020` is `AGENT_VALIDATED` with
+(74 items, 100%). `RESULT-0020` is `MAINTAINER_REVIEWED` as a scoped
+methodology benchmark and retains its independently replayed
 `validation_independence: independent`: the Gate B replay was performed by
 akutenyov (Codex, 2026-07-07) — a different human from both the original
 publisher (romanhladun24-dot) and the packaging-fix author (gladunrv) —
-with zero drift across 17 metrics at tolerance 1e-9. This claim remains
-`DRAFT` until the maintainer explicitly accepts the scope and evidence
-chain at Gate C.
+with zero drift across 17 metrics at tolerance 1e-9. Gate C endorsed that
+result's bounded scope, while this methodology-quality object remains `DRAFT`
+under the role disposition below.
 
 ## Review Recommendation
 
-Keep `DRAFT` until Gate C. The evidence is strong (98% on 50 items, 100%
-on 74 items), and the promotion protocol's independence requirement is now
-satisfied: `RESULT-0020` carries an independently validated Gate B replay
-(different human, zero drift), so Gate C promotion has the required basis
-available. Honest residual limits:
+Keep `DRAFT` after the scoped RESULT-0020 Gate C endorsement. The evidence is
+strong (98% on 50 items, 100% on 74 items), and `RESULT-0020` carries an
+independently validated Gate B replay (different human, zero drift), but this
+object is classified as a methodology quality floor rather than an active
+scientific claim. Honest residual limits:
 
 - Both challenge sets are curated internally; the labels themselves have no
   external validation (the independent replay validates reproduction, not
@@ -83,4 +84,3 @@ benchmark (independently replayed, zero drift). Whether the
 `methodology_quality_floor` class may ever hold `SUPPORTED` is an explicitly
 open policy question requiring a separate maintainer policy decision; do not
 promote this claim without that decision.
-

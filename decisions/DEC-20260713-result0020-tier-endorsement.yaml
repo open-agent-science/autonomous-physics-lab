@@ -59,6 +59,7 @@ veto:
 
 decision_record:
   decided_by: maintainer
-  applied_by: pending
-  status: dry_run_only
+  applied_by: maintainer
+  status: result0020_scoped_endorsement_approved
+  maintainer_merge_is_binding_confirmation: true
   revert_of: null

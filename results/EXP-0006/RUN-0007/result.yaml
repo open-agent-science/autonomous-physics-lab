@@ -27,7 +27,10 @@ input_file_hashes:
     sha256: a64132cdc2416f2c9a45ee84cf24547a50c4f1f8513b070dd162ee7357130425
 code_reference: physics_lab/workflows/dimensional_validator.py
 limitations:
-- Agent-published, not yet independently validated or maintainer-reviewed.
+- Independently replayed and maintainer-reviewed only as a scoped methodology
+  benchmark on the frozen 74-item challenge set; the review does not validate
+  the labels as external ground truth or establish general formula-validation
+  capability.
 - Dimension-only agreement is formula-quality evidence, not proof of numerical correctness,
   empirical validity, or physical truth.
 - KNOWN_LIMIT_FAIL rows are treated as dimensionally valid because numerical and regime
@@ -61,9 +64,9 @@ agent_proposal_evaluation:
     VALID verdict. The validation applies only to deterministic reproduction
     of the frozen 74-item dimensional benchmark result.
   followup_for_maintainer: >
-    Treat this as AGENT_VALIDATED evidence with human-level independent replay,
-    not maintainer endorsement. Do not promote CLAIM-0005 or create a
-    knowledge endorsement automatically.
+    Gate C was completed through TASK-1035 as a scoped methodology-benchmark
+    endorsement. CLAIM-0005 remains DRAFT under its methodology-quality-floor
+    disposition, and no knowledge endorsement follows automatically.
   maintainer_review:
     gate: C
     reviewed_by:
@@ -76,8 +79,8 @@ agent_proposal_evaluation:
       decisions/DEC-20260713-result0020-tier-endorsement.yaml.
     endorsement_scope: >-
       Scoped methodology-benchmark endorsement: the maintainer endorses
-      the reproduction and agreement metrics (74/74 on the frozen
-      frozen_live_74 set, independently replayed with zero drift) and the
+      the reproduction and agreement metrics (74/74 on the frozen_live_74
+      set, independently replayed with zero drift) and the
       scope wording. The endorsement does NOT assert external label
       ground truth or general formula-validation capability; the
       validator remains a quality-floor engine on the frozen curated
