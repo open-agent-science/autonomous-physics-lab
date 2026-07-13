@@ -5,8 +5,10 @@ curated challenge set declared in the experiment file and writes a full
 canonical result artifact directory (result.yaml, metrics.json, report.md,
 claim_update.md, knowledge_update.md, review artefacts).
 
-No training/test split, no curve fitting. The metric is agreement_fraction
-(fraction of items whose computed verdict matches the curated label).
+No training/test split, no curve fitting. Historical configurations use the
+legacy policy-adjusted agreement contract. New configurations must opt into the
+label-blind v2 contract, whose primary metric is exact categorical agreement;
+policy-adjusted agreement remains a separately reported diagnostic.
 
 Verdict:
 - VALID if agreement_fraction >= experiment.comparison_targets[0].reference_value
@@ -25,7 +27,11 @@ from typing import Any
 import yaml
 
 from physics_lab import __version__
-from physics_lab.engines.dimensions import validate_challenge_set
+from physics_lab.engines.dimensions import (
+    SCORING_CONTRACT_LABEL_BLIND_V2,
+    SCORING_CONTRACT_LEGACY_V1,
+    validate_challenge_set,
+)
 from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
@@ -49,6 +55,8 @@ from physics_lab.workflows.artifacts import (
 def run_dimensional_validator_with_output(
     config_path: str | Path,
     output_dir: str | Path | None = None,
+    *,
+    scoring_contract_override: str | None = None,
 ) -> ExperimentOutcome:
     """Execute the dimensional-analysis validator benchmark."""
     config_path = Path(config_path).resolve()
@@ -108,8 +116,37 @@ def run_dimensional_validator_with_output(
 
     challenge_set_data = yaml.safe_load(challenge_set_path.read_text(encoding="utf-8")) or {}
 
+    # Configurations created before TASK-1038 replay the historical contract.
+    # Successor benchmarks must opt into label_blind_exact_v2 explicitly.
+    declared_scoring_contract = scoring_contract_override or config.get("scoring_contract")
+    legacy_replay_identity = (
+        experiment_id == "EXP-0006"
+        and (run_id, result_id)
+        in {("RUN-0006", "RESULT-0007"), ("RUN-0007", "RESULT-0020")}
+    )
+    if declared_scoring_contract is None:
+        if not legacy_replay_identity:
+            raise ValueError(
+                "New dimensional-validator configurations must declare "
+                f"scoring_contract={SCORING_CONTRACT_LABEL_BLIND_V2!r}."
+            )
+        scoring_contract = SCORING_CONTRACT_LEGACY_V1
+    else:
+        scoring_contract = str(declared_scoring_contract)
+    if (
+        scoring_contract == SCORING_CONTRACT_LEGACY_V1
+        and not legacy_replay_identity
+    ):
+        raise ValueError(
+            "legacy_policy_v1 is restricted to protected "
+            "RESULT-0007/RESULT-0020 replays."
+        )
+
     # Run validator
-    item_results, summary = validate_challenge_set(challenge_set_data)
+    item_results, summary = validate_challenge_set(
+        challenge_set_data,
+        scoring_contract=scoring_contract,
+    )
 
     declared_total = challenge_set_data.get("total_items")
     if declared_total is not None and int(declared_total) != summary.total:
@@ -139,8 +176,18 @@ def run_dimensional_validator_with_output(
         )
     )
 
-    # Determine verdict
-    agreement = summary.agreement_fraction
+    # Determine verdict. V2 promotes exact match to the primary metric; the
+    # legacy contract retains policy-adjusted agreement for reproducibility.
+    exact_agreement = summary.exact_agreement_fraction
+    policy_agreement = summary.policy_agreement_fraction
+    is_label_blind_v2 = scoring_contract == SCORING_CONTRACT_LABEL_BLIND_V2
+    primary_metric = (
+        "exact_agreement_fraction"
+        if is_label_blind_v2
+        else "policy_adjusted_agreement_fraction"
+    )
+    primary_agree = summary.exact_agree if is_label_blind_v2 else summary.policy_agree
+    agreement = exact_agreement if is_label_blind_v2 else policy_agreement
     best_verdict = "VALID" if agreement >= agreement_threshold else "INCONCLUSIVE"
 
     inconclusive_limit = 1
@@ -158,7 +205,11 @@ def run_dimensional_validator_with_output(
             f"exceeding MVP tolerance ({inconclusive_limit})."
         )
 
-    disagreement_id_list = [result.item_id for result in item_results if not result.agrees]
+    disagreement_id_list = [
+        result.item_id
+        for result in item_results
+        if not (result.exact_match if is_label_blind_v2 else result.policy_match)
+    ]
     disagreement_ids_value = ", ".join(disagreement_id_list) if disagreement_id_list else "none"
     fixture_sha256 = input_hashes["fixture"]["sha256"]
     is_result_0020_publication_replay = (
@@ -167,6 +218,7 @@ def run_dimensional_validator_with_output(
         and result_id == "RESULT-0020"
         and benchmark_scope == "frozen_live_74"
         and summary.total == 74
+        and scoring_contract == SCORING_CONTRACT_LEGACY_V1
     )
 
     # Build verification checks
@@ -204,14 +256,31 @@ def run_dimensional_validator_with_output(
             "name": "agreement_fraction",
             "status": "PASS" if agreement >= agreement_threshold else "FAIL",
             "details": (
-                f"Validator agreed with {summary.agree}/{summary.total} curated labels "
-                f"({agreement:.1%}), threshold {agreement_threshold:.0%}."
+                f"Primary metric {primary_metric} is "
+                f"{primary_agree}/{summary.total} ({agreement:.1%}), "
+                f"threshold {agreement_threshold:.0%}."
             ),
             "metrics": {
-                "agree": summary.agree,
+                "agree": primary_agree,
                 "total": summary.total,
                 "agreement_fraction": round(agreement, 6),
                 "threshold": agreement_threshold,
+                "primary_metric": primary_metric,
+            },
+        },
+        {
+            "name": "agreement_metric_decomposition",
+            "status": "PASS",
+            "details": (
+                f"Exact categorical agreement: {summary.exact_agree}/{summary.total} "
+                f"({exact_agreement:.1%}); policy-adjusted agreement: "
+                f"{summary.policy_agree}/{summary.total} ({policy_agreement:.1%})."
+            ),
+            "metrics": {
+                "exact_agree": summary.exact_agree,
+                "exact_agreement_fraction": round(exact_agreement, 6),
+                "policy_adjusted_agree": summary.policy_agree,
+                "policy_adjusted_agreement_fraction": round(policy_agreement, 6),
             },
         },
     ]
@@ -236,7 +305,7 @@ def run_dimensional_validator_with_output(
                         )
                     ),
                     "metrics": {
-                        "disagreement_count": summary.total - summary.agree,
+                        "disagreement_count": summary.total - primary_agree,
                         "disagreement_ids": disagreement_ids_value,
                     },
                 },
@@ -272,8 +341,17 @@ def run_dimensional_validator_with_output(
         "run_id": run_id,
         "experiment_id": experiment_id,
         "total_items": summary.total,
-        "agree": summary.agree,
+        "scoring_contract": scoring_contract,
+        "primary_metric": primary_metric,
+        "agree": primary_agree,
         "agreement_fraction": round(agreement, 6),
+        "exact_agree": summary.exact_agree,
+        "exact_agreement_fraction": round(exact_agreement, 6),
+        "policy_adjusted_agree": summary.policy_agree,
+        "policy_adjusted_agreement_fraction": round(policy_agreement, 6),
+        "non_exact_policy_acceptance_count": sum(
+            result.policy_match and not result.exact_match for result in item_results
+        ),
         "agreement_threshold": agreement_threshold,
         "benchmark_scope": benchmark_scope,
         "expected_item_count": expected_item_count,
@@ -282,8 +360,8 @@ def run_dimensional_validator_with_output(
         "suspicious_count": summary.suspicious_count,
         "inconclusive_count": summary.inconclusive_count,
         "best_verdict": best_verdict,
-        "disagreement_count": summary.total - summary.agree,
-        "disagreement_ids": [result.item_id for result in item_results if not result.agrees],
+        "disagreement_count": summary.total - primary_agree,
+        "disagreement_ids": disagreement_id_list,
         "challenge_set_provenance": {
             "frozen_input": relative_or_absolute(challenge_set_path, repo_root),
             "source_path": source_challenge_set_path,
@@ -293,7 +371,11 @@ def run_dimensional_validator_with_output(
                 "id": r.item_id,
                 "expected": r.expected_verdict,
                 "computed": r.computed_verdict,
-                "agrees": r.agrees,
+                "exact_match": r.exact_match,
+                "policy_match": r.policy_match,
+                "agreement_kind": r.agreement_kind,
+                "agrees": r.policy_match,
+                "warnings": list(r.warnings),
                 "detail": r.detail,
             }
             for r in item_results
@@ -307,7 +389,7 @@ def run_dimensional_validator_with_output(
     disagree_rows = "\n".join(
         f"| {r.item_id} | {r.expected_verdict} | {r.computed_verdict} | {r.detail[:60]} |"
         for r in item_results
-        if not r.agrees
+        if not (r.exact_match if is_label_blind_v2 else r.policy_match)
     )
     report_text = textwrap.dedent(f"""\
         # Dimensional Analysis Validator - Run Report
@@ -320,12 +402,16 @@ def run_dimensional_validator_with_output(
         | Metric | Value |
         |---|---|
         | Total items | {summary.total} |
-        | Agreement | {summary.agree}/{summary.total} ({agreement:.1%}) |
+        | Scoring contract | `{scoring_contract}` |
+        | Primary metric | `{primary_metric}` |
+        | Primary agreement | {primary_agree}/{summary.total} ({agreement:.1%}) |
+        | Exact categorical agreement | {summary.exact_agree}/{summary.total} ({exact_agreement:.1%}) |
+        | Policy-adjusted agreement | {summary.policy_agree}/{summary.total} ({policy_agreement:.1%}) |
         | VALID computed | {summary.valid_count} |
         | INVALID computed | {summary.invalid_count} |
         | SUSPICIOUS computed | {summary.suspicious_count} |
         | INCONCLUSIVE | {summary.inconclusive_count} |
-        | Remaining disagreements | {summary.total - summary.agree} |
+        | Remaining primary disagreements | {summary.total - primary_agree} |
         | Agreement threshold | {agreement_threshold:.0%} |
         | Best verdict | **{best_verdict}** |
 
@@ -351,8 +437,10 @@ def run_dimensional_validator_with_output(
 
         ## Claim Ceiling
 
-        The validator achieves {agreement:.1%} agreement on the frozen
-        {summary.total}-item `{benchmark_scope}` benchmark scope. No claim
+        The validator achieves {agreement:.1%} on its declared primary metric
+        (`{primary_metric}`) for the frozen {summary.total}-item
+        `{benchmark_scope}` benchmark scope. Exact and policy-adjusted metrics
+        are reported separately. No claim
         about unseen formulas, numerical correctness, empirical validity,
         or physics domains outside the benchmark scope is made.
     """)
@@ -377,8 +465,10 @@ def run_dimensional_validator_with_output(
         Evidence source: {result_id}.
         Proposed status: DRAFT (no automatic promotion).
 
-        The validator achieves {agreement:.1%} agreement on the frozen
-        {summary.total}-item `{benchmark_scope}` benchmark scope.
+        The validator achieves {agreement:.1%} on `{primary_metric}` for the
+        frozen {summary.total}-item `{benchmark_scope}` benchmark scope. Exact
+        categorical agreement is {exact_agreement:.1%}; policy-adjusted
+        agreement is {policy_agreement:.1%}.
         CLAIM-0005 is already drafted with this scope restriction. Maintainer
         review is required before any status or benchmark-text change.
     """)
@@ -393,7 +483,11 @@ def run_dimensional_validator_with_output(
         proposed_text=_claim_original,
         proposed_status="DRAFT",
         sections_to_update=["Evidence Status"],
-        rationale=f"Validator achieves {agreement:.1%} agreement; claim remains DRAFT pending human review.",
+        rationale=(
+            f"Validator achieves {agreement:.1%} on {primary_metric}; exact and "
+            "policy-adjusted metrics are separated; claim remains DRAFT pending "
+            "human review."
+        ),
     )
     claim_update_patch_path = run_dir / "claim_update.patch.md"
     write_text_atomic(claim_update_patch_path, claim_update_patch_text)
@@ -404,8 +498,9 @@ def run_dimensional_validator_with_output(
 
         Evidence source: {result_id}.
 
-        Dimensional validator benchmarked at {agreement:.1%} agreement on
-        the frozen `{benchmark_scope}` scope ({summary.total} items).
+        Dimensional validator benchmarked at {agreement:.1%} on
+        `{primary_metric}` over the frozen `{benchmark_scope}` scope
+        ({summary.total} items); exact and policy-adjusted metrics are separate.
         No knowledge change is authorized by this result-publication task.
     """)
     knowledge_update_path = run_dir / "knowledge_update.md"
@@ -431,14 +526,14 @@ def run_dimensional_validator_with_output(
         knowledge_id="KNOW-0004",
         suggested_status="DRAFT",
         rationale=(
-            f"Dimensional validator achieves {agreement:.1%} agreement on "
-            f"the frozen {summary.total}-item {benchmark_scope} scope; "
+            f"Dimensional validator achieves {agreement:.1%} on {primary_metric} "
+            f"for the frozen {summary.total}-item {benchmark_scope} scope; "
             "keep DRAFT until independent review."
         ),
         highlights=[
-            f"Agreement: {summary.agree}/{summary.total} ({agreement:.1%})",
+            f"{primary_metric}: {primary_agree}/{summary.total} ({agreement:.1%})",
             f"VALID: {summary.valid_count}, INVALID: {summary.invalid_count}",
-            f"Remaining disagreements: {summary.total - summary.agree}.",
+            f"Remaining primary disagreements: {summary.total - primary_agree}.",
         ],
         limitations=[
             "Dimensional checks do not establish numerical or empirical validity.",
@@ -493,7 +588,12 @@ def run_dimensional_validator_with_output(
         "limitations": [
             "Dimension-only agreement is formula-quality evidence, not proof of numerical correctness, empirical validity, or physical truth.",
             "KNOWN_LIMIT_FAIL rows are treated as dimensionally valid because numerical and regime limits are outside validator scope.",
-            "Curated dimensionally balanced SUSPICIOUS rows rely on explicit benchmark metadata; the validator does not infer semantic emptiness or missing dimensionless factors unaided.",
+            (
+                "The legacy scoring contract may use curated metadata during inference; "
+                "its policy-adjusted score is historical calibration evidence only."
+                if scoring_contract == SCORING_CONTRACT_LEGACY_V1
+                else "Label-blind v2 inference does not read expected labels or curated benchmark annotations."
+            ),
             f"This result is restricted to the frozen {summary.total}-item {benchmark_scope} input snapshot.",
             "SUSPICIOUS items with explicit dimensional mismatch are classified INVALID.",
             "Unit symbol table covers SI base units and common derived units only.",
@@ -512,8 +612,9 @@ def run_dimensional_validator_with_output(
                     abs(agreement - agreement_threshold) / agreement_threshold, 6
                 ),
                 "notes": (
-                    f"Validator agreed with {summary.agree}/{summary.total} curated labels; "
-                    f"threshold {agreement_threshold:.0%}."
+                    f"{primary_metric} is {primary_agree}/{summary.total}; threshold "
+                    f"{agreement_threshold:.0%}. Exact and policy-adjusted metrics are "
+                    "reported separately."
                 ),
             }
         ],
@@ -585,7 +686,7 @@ def run_dimensional_validator_with_output(
         artifacts=artifacts,
         verdicts={"dimensional_validation": best_verdict},
         summary_lines=(
-            f"Agreement: {summary.agree}/{summary.total} ({agreement:.1%})",
+            f"{primary_metric}: {primary_agree}/{summary.total} ({agreement:.1%})",
             f"Verdict: {best_verdict}",
         ),
     )

@@ -1,0 +1,67 @@
+id: TASK-1031
+title: "Retry the nuclear shell-axis source scout through direct official metadata only"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "Fresh no-peek retry after TASK-1023 encountered target-bearing search snippets; closeout must verify contributor/session independence and zero target-value exposure."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1023 correctly stopped with BLOCKED_NO_PEEK_AUDIT after search-result snippets exposed target-related information without copying or scoring values."
+  - "The frozen PRED-0063..PRED-0068 shell-axis mini-wave remains scientifically alive, but only a clean independent session may retry source pinning."
+  - "A direct-official-metadata route can recover source readiness without reopening nuclear model fitting or weakening the no-peek boundary."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  source_discovery_mode: official_metadata_only
+  search_result_snippets_allowed: false
+  target_matching_requires_manifest_approval: true
+  value_access_requires_reveal_task: true
+  no_peek_context_status: clean
+  related_objects:
+    - "tasks/TASK-1023-nuclear-shell-axis-source-manifest-scout.yaml"
+    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
+    - "data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml"
+    - "docs/prospective-reveal-source-admissibility.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+  planning_context: >
+    Retry only the source identity and retrieval route for the registered
+    shell-axis mini-wave. The executor must be a fresh contributor/session that
+    did not inspect the target-bearing snippets encountered in TASK-1023.
+
+requirements:
+  - "Before browsing, record contributor_id, github_username, agent tool/model, session identity, and an attestation that the executor did not see the TASK-1023 target-bearing snippets or any candidate target values."
+  - "Use direct official issuing-body metadata pages, DOI landing pages, release notes, repository records, and archive manifests only; search-result snippets, cached previews, tables, PDFs containing target values, and target-name queries are forbidden."
+  - "Freeze source title, issuing body, release date, source class, DOI/URL/archive locator, rights/reuse terms, retrieval identity, and checksum route before any target matching."
+  - "Do not search individual target nuclides, inspect table contents, download value-bearing payloads, or determine whether a target is measured until a separate maintainer-reviewed manifest decision."
+  - "Any accidental target-value or target-status exposure requires immediate STOP_VALUE_EXPOSURE and a blocker note; it cannot be cured inside the same session."
+  - "Return exactly one verdict: READY_FOR_MANIFEST_DECISION, BLOCKED_OFFICIAL_METADATA, SOURCE_PREDATES_REGISTRATION, BLOCKED_RIGHTS_OR_CHECKSUM, STOP_VALUE_EXPOSURE, or INDEPENDENCE_BLOCKED."
+  - "Do not modify PRED-0063..PRED-0068, ingest values, match targets, compute scores, fit models, or create RESULT/CLAIM/KNOW artifacts."
+
+accepted_outputs:
+  - "A docs/reviews/nuclear/ clean-retry note with executor independence record, direct-official-source table, release/date/rights/checksum assessment, no-value attestation, stop conditions, and verdict."
+  - "A metadata-only candidate source-manifest decision scaffold only if the official source identity passes; no target list, measured-state flag, value-bearing file, or reveal score."
+  - "Output-routing summary: no-peek source readiness only; no prediction mutation, target matching, result, claim, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent source-metadata retry only; no registered prediction is opened or scored."
+  evidence:
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+    - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

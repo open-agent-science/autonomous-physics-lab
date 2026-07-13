@@ -1,0 +1,117 @@
+id: lattice-qcd-aggregated-consistency
+title: "Lattice-QCD aggregated consistency"
+autonomy_status: SCAFFOLD_ONLY
+pilot_rank: null
+
+source_docs:
+  - docs/campaigns/fresh-physics-data-axes.md
+  - docs/notes/fresh-data-source-policy.md
+  - docs/future-research-portfolio.md
+  - docs/blind-holdout-benchmark-protocol.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Source, observable, normalization, scheme, scale, and uncertainty readiness proposals only."
+  - "Independence, shared-ensemble, covariance, and evaluated-average control proposals."
+  - "Synthetic-only dependency-graph examples with fabricated values when needed to explain the contract."
+
+allowed_experiment_families:
+  - "No real-data experiment until one observable, source manifest, dependency contract, and holdout rule pass review."
+  - "No execution experiment until one-observable feasibility shows a distinct contribution beyond FLAG."
+
+required_inputs:
+  - "Official FLAG-style, primary collaboration, or linked archival source identity."
+  - "Observable definition, normalization, flavor content, scheme, scale, and units."
+  - "Uncertainty components, covariance visibility, aggregation class, and ensemble lineage."
+  - "Rights, citation, retrieval identity, and checksum policy."
+  - "Holdout classification that keeps shared ensembles and evaluated averages together."
+
+required_quality_checks:
+  - "Unknown dependencies must not default to independent evidence."
+  - "Scheme- or scale-incompatible quantities must not be pooled."
+  - "Evaluated averages must not be counted as independent of their included sources."
+  - "No cross-domain fit, anomaly claim, or broad constants interpretation."
+
+forbidden_claims:
+  - "APL has found a Lattice-QCD anomaly or inconsistency."
+  - "Separate publications are independent merely because their citations differ."
+  - "A source-readiness or synthetic-loader artifact is a scientific dataset or result."
+  - "Lattice-QCD rows may be combined with PDG, nuclear, or anomaly data without a reviewed covariance contract."
+
+sandbox_permissions:
+  may_create:
+    - scoped_notes
+    - metadata_only_source_manifests
+    - synthetic_fixtures
+    - future_hypothesis_proposals
+    - future_experiment_proposals
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+    - real_lattice_qcd_rows
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - source_or_schema_reference
+  - observable_scope
+  - scheme_scale_and_flavor_semantics
+  - dependency_and_covariance_status
+  - limitations
+  - verdict
+  - maintainer_decision_requested
+
+portfolio:
+  status: scaffold
+  domain: lattice_qcd
+  surface_type: source_pinned_benchmark
+  lifecycle_stage: scaffold
+  activity_status: planning
+  curator:
+    primary_pool: source_data_benchmark
+    secondary_pools:
+      - verifier_quality_floor
+      - result_promotion
+    review_cadence: biweekly
+    transfer_requires:
+      - scientific_director_or_maintainer_pr
+      - curator_cycle_review
+      - source_readiness_pass
+      - updated_campaign_profile
+  current_stage: "TASK-0309 approved Lattice-QCD aggregated outputs as a fresh-data policy axis; TASK-1030 is a single incubator testing whether a one-observable dependency/covariance graph can add value beyond FLAG. No real row, baseline, result, or claim has been admitted."
+  recommended_parallel_agents: 1
+  coordination_notes: "Run only TASK-1030. Do not split source selection, dependency rules, loader work, or metric planning into parallel tasks before the incubator returns GO_LATTICE_DEPENDENCY_AUDIT."
+  next_validity_gate:
+    type: source_readiness
+    blocker: "No concrete observable has passed source/version, rights, semantics, uncertainty, ensemble-independence, retrieval, and holdout gates."
+    target_artifact: "TASK-1030"
+  best_next_actions:
+    - task_id: TASK-1030
+      label: "Test one observable dependency/covariance audit as a GO/HOLD/STOP incubator"
+  required_gates:
+    - "Official source identity, rights, retrieval, and checksum policy before real rows."
+    - "Observable normalization, flavor, scheme, scale, and uncertainty semantics before comparison."
+    - "Shared-ensemble and evaluated-average dependency control before holdout or metrics."
+    - "Demonstrated distinction from FLAG before any full campaign, real-data ingestion, loader, or benchmark task."
+    - "Separate maintainer-approved task before real-data ingestion or any benchmark run."
+  current_results:
+    - "docs/notes/fresh-data-source-policy.md"
+    - "docs/campaigns/fresh-physics-data-axes.md"
+  open_questions:
+    - "Can one dimensionless or convention-stable observable support an auditable dependency graph that materially differs from FLAG?"
+    - "Can shared ensembles and evaluated averages be represented without false independence or unusable covariance assumptions?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-07-13"
+    review_interval: quarterly_planning
+    next_review_due: "2026-09-01"
+    review_reason: planning_scaffold
+    source: "TASK-0309 fresh-data source policy and Scientific Director 2026-07-13 cycle"
+    notes: "This is an incubator, not an activated full campaign. It remains planning/source-gated; broad lattice ingestion, loader construction, anomaly fitting, and real-data claims are not authorized."

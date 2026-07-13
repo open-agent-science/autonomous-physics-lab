@@ -1,0 +1,60 @@
+id: TASK-1030
+title: "Test one Lattice-QCD independence and covariance audit as a campaign incubator"
+type: scientific_benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "Incubator decision for a new scientific surface; closeout must verify that it produced no world average, real-value dataset, anomaly score, or claim."
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "TASK-0309 admitted Lattice-QCD aggregated outputs as a conservative fresh-data axis, but generic aggregation would largely duplicate established FLAG review work."
+  - "The potentially distinctive APL contribution is an auditable machine-readable dependency graph for collaborations, shared ensembles, scale setting, renormalization, and covariance assumptions."
+  - "A single one-observable incubator should decide whether that artifact is feasible and non-duplicative before a full campaign or loader is opened."
+
+input:
+  mode: planning_only
+  related_domain: lattice_qcd
+  related_objects:
+    - "docs/notes/fresh-data-source-policy.md"
+    - "docs/campaigns/fresh-physics-data-axes.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/research-quality-gate.md"
+  planning_context: >
+    Select at most one mature dimensionless or convention-stable observable,
+    with f_K/f_pi as a preferred candidate rather than a mandatory outcome.
+    Test whether official review and primary-publication metadata can support
+    an auditable dependency/covariance graph that adds value beyond FLAG.
+
+requirements:
+  - "Review at most three candidate observables and select at most one using definition stability, primary provenance, rights/retrieval identity, uncertainty semantics, shared-ensemble visibility, and a clear distinction from existing FLAG summaries."
+  - "For the selected candidate, define the metadata graph vocabulary: collaboration, publication, gauge-ensemble family, fermion action, scale-setting source, renormalization route, shared configurations/data, evaluated-average inclusion, quoted uncertainty components, and covariance availability."
+  - "Use no central values or uncertainties. Demonstrate any graph or sensitivity design with fabricated examples only."
+  - "Specify future comparison families only as a contract: naive aggregation, collaboration-disjoint, ensemble-family-disjoint, and leave-one-collaboration-out. Do not run them."
+  - "Unknown dependence must remain unknown or conservatively linked; separate papers must not default to independent evidence."
+  - "Return exactly one verdict: GO_LATTICE_DEPENDENCY_AUDIT, HOLD_COVARIANCE_UNRESOLVED, HOLD_SOURCE_OR_RIGHTS, or STOP_DUPLICATES_FLAG."
+  - "Stop if the only defensible output is a new world average, if source lineage is too incomplete for a dependency graph, or if the proposed artifact does not materially differ from FLAG."
+  - "Do not ingest real rows, reproduce FLAG tables, download ensembles, calculate averages or tensions, combine with PDG inputs, or create RESULT/PRED/CLAIM/KNOW artifacts."
+
+accepted_outputs:
+  - "One docs/reviews/lattice_qcd/ feasibility packet with bounded candidate comparison, selected observable or stop decision, dependency/covariance graph contract, source/rights plan, distinction-from-FLAG assessment, stop conditions, and verdict."
+  - "An optional metadata-schema sketch or fully fabricated graph example only; no real central values, uncertainties, scientific rows, averages, or metrics."
+  - "Output-routing summary: campaign incubator decision only; no dataset, benchmark, result, prediction, claim, or knowledge promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "One-observable feasibility/incubator packet only; real-data acquisition and audit execution remain unauthorized."
+  evidence:
+    - "docs/notes/fresh-data-source-policy.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

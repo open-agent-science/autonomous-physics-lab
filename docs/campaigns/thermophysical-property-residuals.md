@@ -13,7 +13,7 @@ source, identity, family-split, and control gates.
 
 ## Current Status
 
-**Active benchmark surface with preserved failed-family memory.** The first
+**Monitor-only benchmark surface with preserved failed-family memory.** The first
 slice is already stronger than a scaffold: `TASK-0869` packaged the bounded
 ThermoML `Tb` family-stratified Joback transfer benchmark as `RESULT-0026`, now
 an `AGENT_VALIDATED`, `VALID_IN_RANGE` result after formal Gate B workflow
@@ -28,6 +28,13 @@ ThermoML archive bytes and any substantial normalized corpus are not committed.
 The source route is pinned to the NIST TRC ThermoML Archive DOI
 `10.18434/mds2-2422` and the published archive SHA-256 recorded in
 `data/thermophysical/source_manifest.yaml`.
+
+A checksum-matching local archive has now been checked with the frozen
+count-only preflight. The exact 80-row design is not feasible under its
+predeclared ten-per-family rule: acids provide 6 admissible non-conflict
+identities and ketones provide 8. No rows or values were emitted. This closes
+the exact-80 route under the current contract; it is no longer an archive-access
+blocker.
 
 The frozen Joback estimator is structure-only for `Tb`:
 
@@ -68,22 +75,20 @@ or other ThermoML properties. `Tc` is intentionally excluded because Joback's
 `Tc` estimator depends on `Tb`, which creates an upstream-property leakage path
 for this first audit.
 
-## Active Next Work
+## Current Decision
 
-The campaign should now move through source-access and expansion gates rather
-than another Joback metric rerun:
+The current campaign state is monitor-only:
 
-1. **Expansion source-access decision** - the exact 80-row public fixture path
-   is blocked unless the checksum-matching local archive is supplied under the
-   frozen source contract, or the contract is changed in a separate
-   maintainer-reviewed task.
-2. **Revised expansion design, if any** - the earlier local-only count preflight
-   found the exact ten-per-family 80-row target underpopulated for acids and
-   ketones, so any larger fixture needs a revised, explicit contract before
-   rows or values are extracted.
+1. **Exact 80-row expansion is stopped** - the checksum-matched count preflight
+   found acids at 6/10 and ketones at 8/10 admissible non-conflict identities.
+   Lowering those gates after seeing the counts would be post-result contract
+   shopping, not a valid completion of the frozen design.
+2. **Reopen only for new information** - a different source or a separately
+   motivated, predeclared family contract may justify future work. It must not
+   be selected merely to force the row total to 80.
 3. **No further replay loop for `RESULT-0028`** - it is already
    `AGENT_VALIDATED`; future work should use it as failed-family memory while
-   solving the source-access/revised-contract blocker.
+   preserving the bounded aggregate context.
 
 ## Admissible Source Classes
 
@@ -105,8 +110,9 @@ Not currently admitted:
 
 ## Allowed Task Types
 
-1. **Source-readiness task** - revised-contract, rights, identity-map, or
-   family-count blocker work for any future bounded expansion.
+1. **Source-readiness task** - a genuinely new source, rights, identity-map, or
+   independently motivated family-contract question for a future bounded
+   expansion.
 2. **Negative-memory task** - failed-family or control-memory packaging only
    when a new failed slice appears or a task explicitly asks for public
    synthesis; the existing esters/lactones memory is already packaged as
@@ -136,12 +142,11 @@ Not allowed:
 
 - Keep `RESULT-0026` and `RESULT-0028` paired in public wording: aggregate win
   plus explicit failed-family memory.
-- Do not treat `TASK-0955` as available execution work until the pinned
-  `ThermoML.v2020-09-30.tgz` archive is provided locally or the source-access
-  contract changes.
-- Any future 80-row or larger fixture should start from a revised
-  maintainer-approved contract because the exact ten-per-family count target
-  already failed under the frozen preflight.
+- Do not reopen the exact 80-row route by lowering the acids or ketones family
+  thresholds after the count result.
+- Any future larger fixture must start from a scientifically independent source
+  or a new predeclared contract with a reason beyond reaching a desired row
+  total.
 
 ## Why It Matters
 

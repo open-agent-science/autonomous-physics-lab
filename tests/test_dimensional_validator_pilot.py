@@ -3,7 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from physics_lab.engines.dimensions import validate_item
+from physics_lab.engines.dimensions import (
+    SCORING_CONTRACT_LEGACY_V1,
+    validate_item,
+)
 
 
 def test_dimensional_validator_pilot_metrics_recompute() -> None:
@@ -23,7 +26,8 @@ def test_dimensional_validator_pilot_metrics_recompute() -> None:
                 "formula": item["formula"],
                 "variables": item["variables"],
                 "expected_verdict": item["expected_verdict"],
-            }
+            },
+            scoring_contract=SCORING_CONTRACT_LEGACY_V1,
         )
         assert result.computed_verdict == item["observed_verdict"]
         assert result.agrees is item["agrees"]

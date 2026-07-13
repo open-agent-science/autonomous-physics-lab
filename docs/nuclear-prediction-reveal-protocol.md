@@ -11,6 +11,15 @@ by [Prediction Registry Policy](./prediction-registry-policy.md) and
 [Blind Holdout Benchmark Protocol](./blind-holdout-benchmark-protocol.md);
 it does not replace either document.
 
+Shared cross-surface rule: source admissibility scouting for ANY sealed
+prediction surface is governed by
+[Prospective Reveal Source Admissibility](./prospective-reveal-source-admissibility.md)
+(official-metadata-only discovery, no search-result snippets, manifest before
+target matching, values only in an approved reveal task, contamination =>
+`BLOCKED_NO_PEEK_AUDIT` + clean-session retry). This protocol adds the
+domain-specific layer on top of that policy.
+
+
 The goal is to preserve an auditable before/after boundary:
 
 - predictions are frozen before later measurements are reviewed;

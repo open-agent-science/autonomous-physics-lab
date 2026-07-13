@@ -133,10 +133,17 @@ excluded as whole systems; thirteen remaining candidates are not yet
 independent-holdout-ready because stable aliases and component hierarchy remain
 unresolved.
 
-**Expected next result:** `TASK-1025` should return an identifier-complete CHARA
-alias/de-dup verdict. It must remain value-blind and may only authorize a later
-row-curation task if at least one candidate survives whole-system DEBCat and
-ambiguity exclusions.
+The second independent-validation path is prospective rather than archival.
+The Gaia DR4 mass-luminosity reveal contract is already specified, but no DR4
+value or target list has been read. One readiness packet now combines the
+official release/field trigger, target-independent functional payload, registry
+compatibility, and value-blind DEBCat leakage policy before any implementation
+task is split out.
+
+**Expected next outputs:** the CHARA lane should return an identifier-complete
+alias/de-dup verdict. The Gaia DR4 lane should return one GO/HOLD/STOP readiness
+decision. Both surfaces remain value-blind; neither authorizes row curation,
+prediction registration, or reveal scoring by itself.
 
 ## Why It Matters
 
