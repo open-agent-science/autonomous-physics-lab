@@ -34,6 +34,7 @@ class MemoryArtifact:
     next_action: str
     path: str
     status: str | None = None
+    validation_independence: str | None = None
 
 
 def collect_scientific_memory_artifacts(root: str | Path = ".") -> list[MemoryArtifact]:
@@ -102,6 +103,10 @@ def render_scientific_memory_index(root: str | Path = ".") -> str:
             "  replay.",
             "- `CLAIM` and `KNOW` artifacts remain maintainer-sensitive in Phase 1 even",
             "  when a future agent creates draft supporting material.",
+            "- `Independence` is a separate axis from the tier: `AGENT_VALIDATED`",
+            "  means replayed; the independence value records who replayed relative",
+            "  to the publisher (see docs/result-promotion-protocol.md, Validation",
+            "  Independence). `not_recorded` marks replays that predate the axis.",
             "",
         ]
     )
@@ -138,6 +143,7 @@ def _collect_results(root: Path) -> list[MemoryArtifact]:
                 next_action=_next_action("RESULT", _review_tier(payload)),
                 path=_relative(path, root),
                 status=_string(payload.get("best_verdict")),
+                validation_independence=_validation_independence(payload),
             )
         )
     return artifacts
@@ -238,14 +244,15 @@ def _render_counts(artifacts: list[MemoryArtifact]) -> list[str]:
 
 def _render_artifact_table(artifacts: Iterable[MemoryArtifact]) -> list[str]:
     lines = [
-        "| Class | Artifact | Status | Next action | Path |",
-        "| --- | --- | --- | --- | --- |",
+        "| Class | Artifact | Status | Independence | Next action | Path |",
+        "| --- | --- | --- | --- | --- | --- |",
     ]
     for artifact in artifacts:
         status = artifact.status or "n/a"
+        independence = artifact.validation_independence or "n/a"
         title = _escape_markdown(artifact.title)
         lines.append(
-            f"| `{artifact.artifact_class}` | `{artifact.artifact_id}` - {title} | `{status}` | `{artifact.next_action}` | [`{artifact.path}`](../{artifact.path}) |"
+            f"| `{artifact.artifact_class}` | `{artifact.artifact_id}` - {title} | `{status}` | `{independence}` | `{artifact.next_action}` | [`{artifact.path}`](../{artifact.path}) |"
         )
     return lines
 
@@ -266,6 +273,19 @@ def _next_action(artifact_class: str, review_tier: str) -> str:
     if review_tier == "EXTERNAL_REPLICATED":
         return "preserve"
     return "legacy-triage-only"
+
+
+def _validation_independence(payload: dict[str, Any]) -> str | None:
+    """Independence of the recorded replay; separate axis from the tier."""
+    tier = _string(payload.get("review_tier"))
+    ape = payload.get("agent_proposal_evaluation")
+    record = ape.get("validation_record") if isinstance(ape, dict) else None
+    value = _string(record.get("validation_independence")) if isinstance(record, dict) else None
+    if value:
+        return value
+    if tier in ("AGENT_VALIDATED", "MAINTAINER_REVIEWED", "EXTERNAL_REPLICATED"):
+        return "not_recorded"
+    return None
 
 
 def _review_tier(payload: dict[str, Any]) -> str:
