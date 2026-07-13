@@ -1091,7 +1091,7 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028
-    is AGENT_VALIDATED failed-family memory; a checksum-matched local archive preflight proved
+    is AGENT_VALIDATED failed-family memory; a checksum-matched local archive preflight found
     the exact eight-family 80-row contract infeasible because acids and ketones are underpopulated.
   agent_capacity:
     recommended_parallel_agents: 0

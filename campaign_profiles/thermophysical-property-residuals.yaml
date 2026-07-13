@@ -92,7 +92,7 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028 is AGENT_VALIDATED failed-family memory; a checksum-matched local archive preflight proved the exact eight-family 80-row contract infeasible because acids and ketones are underpopulated."
+  current_stage: "RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028 is AGENT_VALIDATED failed-family memory; a checksum-matched local archive preflight found the exact eight-family 80-row contract infeasible because acids and ketones are underpopulated."
   recommended_parallel_agents: 0
   coordination_notes: "Treat the exact 80-row route as stopped under the frozen contract. Do not lower family gates after seeing counts, rerun RESULT-0028, broaden properties, or commit archive bytes. Reopen only through a new source or a separately justified predeclared contract."
   next_validity_gate:
