@@ -1,5 +1,14 @@
 # Nuclear Reveal Source Readiness Checklist
 
+Shared cross-surface rule: source admissibility scouting for ANY sealed
+prediction surface is governed by
+[Prospective Reveal Source Admissibility](./prospective-reveal-source-admissibility.md)
+(official-metadata-only discovery, no search-result snippets, manifest before
+target matching, values only in an approved reveal task, contamination =>
+`BLOCKED_NO_PEEK_AUDIT` + clean-session retry). This protocol adds the
+domain-specific layer on top of that policy.
+
+
 ## Purpose
 
 This checklist turns the nuclear prediction reveal protocol into a

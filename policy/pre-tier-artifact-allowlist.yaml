@@ -1,0 +1,113 @@
+# Frozen allowlist of canonical scientific-memory artifacts that predate the
+# explicit review-tier protocol (historical classification: PRE_TIER_PROTOCOL).
+#
+# Purpose: every canonical RESULT/PRED/CLAIM/KNOW artifact added AFTER this
+# freeze must declare an explicit review_tier. tests/
+# test_scientific_memory_index_gate.py enforces that any artifact without a
+# review_tier appears in this list, so new untiered artifacts fail PR CI.
+#
+# Rules:
+# - Do NOT add new paths here; declare review_tier in the new artifact instead.
+# - Historical artifacts enter the trust ladder only through a dedicated
+#   review or replay PR that assigns an explicit review_tier. Removing the
+#   promoted path from this list is optional cleanup.
+# - Do not backfill tiers in bulk; that would fabricate review history.
+historical_classification: PRE_TIER_PROTOCOL
+frozen_on: '2026-07-13'
+frozen_by: TASK-1037
+paths:
+  - claims/CLAIM-0002-damped-oscillator-regimes.md
+  - claims/CLAIM-0003-koide-charged-lepton-reproduction.md
+  - claims/CLAIM-0004-koide-tau-holdout.md
+  - claims/CLAIM-0005-dimensional-analysis-validator.md
+  - claims/CLAIM-0006-koide-quark-falsification.md
+  - claims/CLAIM-0007-particle-mass-falsifier-mvp.md
+  - claims/CLAIM-0008-muon-g2-lepton-cascade-empirical.md
+  - claims/CLAIM-0010-nuclear-mass-baseline.md
+  - knowledge/classical_mechanics/anharmonic_oscillator.md
+  - knowledge/classical_mechanics/damped_oscillator.md
+  - knowledge/classical_mechanics/pendulum.md
+  - knowledge/nuclear_physics/nuclear_mass_baseline.md
+  - knowledge/particle_physics/koide_relation.md
+  - knowledge/particle_physics/muon_g2.yaml
+  - knowledge/particle_physics/quark_masses.yaml
+  - knowledge/physics_validation/dimensional_analysis_validator.md
+  - knowledge/reference/units-and-dimensions.md
+  - prediction_registry/nuclear_masses/PRED-0001.yaml
+  - prediction_registry/nuclear_masses/PRED-0002.yaml
+  - prediction_registry/nuclear_masses/PRED-0003.yaml
+  - prediction_registry/nuclear_masses/PRED-0004.yaml
+  - prediction_registry/nuclear_masses/PRED-0005.yaml
+  - prediction_registry/nuclear_masses/PRED-0006.yaml
+  - prediction_registry/nuclear_masses/PRED-0007.yaml
+  - prediction_registry/nuclear_masses/PRED-0008.yaml
+  - prediction_registry/nuclear_masses/PRED-0009.yaml
+  - prediction_registry/nuclear_masses/PRED-0010.yaml
+  - prediction_registry/nuclear_masses/PRED-0011.yaml
+  - prediction_registry/nuclear_masses/PRED-0012.yaml
+  - prediction_registry/nuclear_masses/PRED-0013.yaml
+  - prediction_registry/nuclear_masses/PRED-0014.yaml
+  - prediction_registry/nuclear_masses/PRED-0015.yaml
+  - prediction_registry/nuclear_masses/PRED-0016.yaml
+  - prediction_registry/nuclear_masses/PRED-0017.yaml
+  - prediction_registry/nuclear_masses/PRED-0018.yaml
+  - prediction_registry/nuclear_masses/PRED-0019.yaml
+  - prediction_registry/nuclear_masses/PRED-0020.yaml
+  - prediction_registry/nuclear_masses/PRED-0021.yaml
+  - prediction_registry/nuclear_masses/PRED-0022.yaml
+  - prediction_registry/nuclear_masses/PRED-0023.yaml
+  - prediction_registry/nuclear_masses/PRED-0024.yaml
+  - prediction_registry/nuclear_masses/PRED-0025.yaml
+  - prediction_registry/nuclear_masses/PRED-0026.yaml
+  - prediction_registry/nuclear_masses/PRED-0027.yaml
+  - prediction_registry/nuclear_masses/PRED-0028.yaml
+  - prediction_registry/nuclear_masses/PRED-0029.yaml
+  - prediction_registry/nuclear_masses/PRED-0030.yaml
+  - prediction_registry/nuclear_masses/PRED-0037.yaml
+  - prediction_registry/nuclear_masses/PRED-0038.yaml
+  - prediction_registry/nuclear_masses/PRED-0041.yaml
+  - prediction_registry/nuclear_masses/PRED-0042.yaml
+  - prediction_registry/nuclear_masses/PRED-0043.yaml
+  - prediction_registry/nuclear_masses/PRED-0044.yaml
+  - prediction_registry/nuclear_masses/PRED-0045.yaml
+  - prediction_registry/nuclear_masses/PRED-0046.yaml
+  - prediction_registry/nuclear_masses/PRED-0047.yaml
+  - prediction_registry/nuclear_masses/PRED-0048.yaml
+  - prediction_registry/nuclear_masses/PRED-0049.yaml
+  - prediction_registry/nuclear_masses/PRED-0050.yaml
+  - prediction_registry/nuclear_masses/PRED-0051.yaml
+  - prediction_registry/nuclear_masses/PRED-0052.yaml
+  - prediction_registry/nuclear_masses/PRED-0053.yaml
+  - prediction_registry/nuclear_masses/PRED-0054.yaml
+  - prediction_registry/nuclear_masses/PRED-0055.yaml
+  - prediction_registry/nuclear_masses/PRED-0056.yaml
+  - prediction_registry/nuclear_masses/PRED-0057.yaml
+  - prediction_registry/nuclear_masses/PRED-0058.yaml
+  - prediction_registry/nuclear_masses/PRED-0059.yaml
+  - prediction_registry/nuclear_masses/PRED-0060.yaml
+  - prediction_registry/nuclear_masses/PRED-0061.yaml
+  - prediction_registry/nuclear_masses/PRED-0062.yaml
+  - prediction_registry/nuclear_masses/PRED-0063.yaml
+  - prediction_registry/nuclear_masses/PRED-0064.yaml
+  - prediction_registry/nuclear_masses/PRED-0065.yaml
+  - prediction_registry/nuclear_masses/PRED-0066.yaml
+  - prediction_registry/nuclear_masses/PRED-0067.yaml
+  - prediction_registry/nuclear_masses/PRED-0068.yaml
+  - prediction_registry/nuclear_masses/PRED-0069.yaml
+  - prediction_registry/nuclear_masses/PRED-0070.yaml
+  - prediction_registry/nuclear_masses/PRED-0071.yaml
+  - prediction_registry/nuclear_masses/PRED-0072.yaml
+  - results/EXP-0001/RUN-0001/result.yaml
+  - results/EXP-0001/RUN-0002/result.yaml
+  - results/EXP-0001/RUN-0003/result.yaml
+  - results/EXP-0001/RUN-0004/result.yaml
+  - results/EXP-0001/RUN-0005/result.yaml
+  - results/EXP-0002/RUN-0001/result.yaml
+  - results/EXP-0004/RUN-0004/result.yaml
+  - results/EXP-0005/RUN-0005/result.yaml
+  - results/EXP-0006/RUN-0006/result.yaml
+  - results/EXP-0007/RUN-0001/result.yaml
+  - results/EXP-0008/RUN-0001/result.yaml
+  - results/EXP-0010/RUN-0001/result.yaml
+  - results/EXP-0011/RUN-0001/result.yaml
+  - results/EXP-0012/RUN-0001/result.yaml
