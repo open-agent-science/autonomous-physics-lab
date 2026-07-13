@@ -7,10 +7,13 @@ total_items: 74
 status: draft
 description: >
   A growing curated set of 74 physics formulas for testing dimensional analysis
-  verification. This is the live curation surface for follow-on work, not the
-  frozen EXP-0006/RUN-0006 MVP replay input. Covers five categories: valid,
+  verification. This is now a development/calibration surface: it was inspected
+  while the validator and its legacy policy-adjusted scoring rules were built,
+  so it is not admissible as a fresh confirmatory holdout. It is not the frozen
+  EXP-0006/RUN-0006 MVP replay input. Covers five categories: valid,
   invalid-units, missing-constants, dimensionless/suspicious, and known-limit
-  violations.
+  violations. Future confirmatory work must use a role-disjoint frozen surface
+  and the label_blind_exact_v2 scoring contract.
 
 categories:
   - id: cat1

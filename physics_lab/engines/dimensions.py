@@ -5,16 +5,16 @@ expressions with the standard library ``ast`` module, computes the
 dimension of the right-hand side from declared variable dimensions, and
 classifies each formula against the dimension of the left-hand side.
 
-Verdicts produced by ``validate_item`` and ``validate_challenge_set``:
+Verdicts produced by the label-blind ``infer_item`` path:
 
 - ``VALID``: LHS and RHS have identical SI dimensions.
 - ``INVALID``: dimensional mismatch or unparseable structure.
-- ``SUSPICIOUS``: formula is dimensionally consistent but the validator
-  flags it as unphysical or boundary-risky (for example: every variable is
-  dimensionless, or a challenge item explicitly marks a dimensionally-balanced
-  formula as curated suspicious).
 - ``INCONCLUSIVE``: validator cannot decide (unsupported syntax, unknown
   unit, etc.). MVP keeps this category small and explicit.
+
+Potentially suspicious structure such as an all-dimensionless relation is a
+warning, not a dimensional verdict. ``SUSPICIOUS`` remains only in the legacy
+replay path that reproduces pre-v2 benchmark semantics.
 
 The engine is deliberately **MVP-scoped**:
 
@@ -24,6 +24,11 @@ The engine is deliberately **MVP-scoped**:
 - The expression grammar is intentionally narrow (binary +, -, *, /,
   **, unary -, numeric literals, variable names, and dimensionless
   function calls). Anything outside this returns ``INCONCLUSIVE``.
+
+Inference reads only the item id, formula, and variable dimensions. Expected
+labels and curated benchmark annotations are consumed later by the separate
+scoring layer. The legacy scoring contract remains available only to replay
+historical benchmark artifacts that predate this separation.
 
 No external API calls are made at runtime.
 """
@@ -36,6 +41,14 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+
+
+SCORING_CONTRACT_LEGACY_V1 = "legacy_policy_v1"
+SCORING_CONTRACT_LABEL_BLIND_V2 = "label_blind_exact_v2"
+_SCORING_CONTRACTS = {
+    SCORING_CONTRACT_LEGACY_V1,
+    SCORING_CONTRACT_LABEL_BLIND_V2,
+}
 
 
 # --------------------------------------------------------------------------- #
@@ -321,14 +334,32 @@ def evaluate_expression_dimension(
 # --------------------------------------------------------------------------- #
 
 @dataclass(frozen=True)
+class InferenceResult:
+    """Label-blind dimensional inference for one formula."""
+
+    item_id: str
+    computed_verdict: str
+    detail: str
+    warnings: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class ValidationResult:
-    """Outcome of validating a single challenge-set item."""
+    """Benchmark score for one label-blind inference result."""
 
     item_id: str
     expected_verdict: str
     computed_verdict: str
     detail: str
-    agrees: bool
+    exact_match: bool
+    policy_match: bool
+    agreement_kind: str
+    warnings: tuple[str, ...] = ()
+
+    @property
+    def agrees(self) -> bool:
+        """Backward-compatible alias for policy-adjusted agreement."""
+        return self.policy_match
 
 
 def _split_formula(formula: str) -> tuple[str, str] | None:
@@ -338,27 +369,16 @@ def _split_formula(formula: str) -> tuple[str, str] | None:
     return lhs.strip(), rhs.strip()
 
 
-def validate_item(item: dict[str, Any]) -> ValidationResult:
-    """Validate one challenge-set item.
-
-    Returns a :class:`ValidationResult`. The ``computed_verdict`` is the
-    label assigned by the deterministic validator. The ``agrees`` flag
-    compares the computed verdict to the curated ``expected_verdict``,
-    treating curated ``"mixed"`` as agree-on-VALID-or-SUSPICIOUS and
-    curated ``"KNOWN_LIMIT_FAIL"`` as agree-on-VALID (because those
-    formulas are dimensionally fine but fail outside their physical
-    range — a property the dimension validator does not check).
-    """
+def infer_item(item: dict[str, Any]) -> InferenceResult:
+    """Infer a dimensional verdict without reading benchmark labels."""
     item_id = str(item.get("id", "<unknown>"))
-    expected = str(item.get("expected_verdict", "")).strip()
     formula = str(item.get("formula", "")).strip()
     variables = item.get("variables", {}) or {}
 
     parts = _split_formula(formula)
     if parts is None:
-        return ValidationResult(
-            item_id, expected, "INCONCLUSIVE",
-            "Formula has no '=' separator.", False,
+        return InferenceResult(
+            item_id, "INCONCLUSIVE", "Formula has no '=' separator."
         )
     lhs_expression, rhs = parts
 
@@ -368,9 +388,8 @@ def validate_item(item: dict[str, Any]) -> ValidationResult:
             for name, unit in variables.items()
         }
     except DimensionError as exc:
-        return ValidationResult(
-            item_id, expected, "INCONCLUSIVE",
-            f"Unit parse failure: {exc}", False,
+        return InferenceResult(
+            item_id, "INCONCLUSIVE", f"Unit parse failure: {exc}"
         )
 
     try:
@@ -379,77 +398,133 @@ def validate_item(item: dict[str, Any]) -> ValidationResult:
     except DimensionError as exc:
         msg = str(exc)
         if "incompatible dimensions" in msg or "Non-integer exponent" in msg:
-            return ValidationResult(
-                item_id, expected, "INVALID", msg,
-                _agrees(expected, "INVALID"),
-            )
-        return ValidationResult(
-            item_id, expected, "INCONCLUSIVE", msg, False,
-        )
+            return InferenceResult(item_id, "INVALID", msg)
+        return InferenceResult(item_id, "INCONCLUSIVE", msg)
     except SyntaxError as exc:
-        return ValidationResult(
-            item_id, expected, "INCONCLUSIVE",
-            f"Formula syntax error: {exc.msg}", False,
+        return InferenceResult(
+            item_id, "INCONCLUSIVE", f"Formula syntax error: {exc.msg}"
         )
 
     if lhs_dim == rhs_dim:
-        curated_balanced = str(
-            item.get("curated_dimensionally_balanced_verdict", "")
-        ).strip()
-        if expected == "KNOWN_LIMIT_FAIL" and item.get("check_type") == "known_limit":
-            verdict = "VALID"
-            detail = (
-                "Known-limit item is dimensionally balanced; numerical or "
-                "regime limit is outside dimensional scope."
-            )
-        elif curated_balanced == "SUSPICIOUS":
-            verdict = "SUSPICIOUS"
-            detail = (
-                "Curated dimensionally-balanced boundary case marked "
-                "SUSPICIOUS."
-            )
-        # Suspicious heuristic: if every variable is dimensionless, flag.
-        elif all(v.is_dimensionless() for v in var_dims.values()) and var_dims:
-            if item.get("dimensionless_relation_policy") == "accepted_textbook_identity":
-                verdict = "VALID"
-                detail = "Curated all-dimensionless textbook identity."
-            else:
-                verdict = "SUSPICIOUS"
-                detail = "All variables dimensionless; no physical scale check."
-        else:
-            verdict = "VALID"
-            detail = f"LHS = RHS = {lhs_dim}"
+        warnings: tuple[str, ...] = ()
+        if all(v.is_dimensionless() for v in var_dims.values()) and var_dims:
+            warnings = ("all_variables_dimensionless",)
+        verdict = "VALID"
+        detail = f"LHS = RHS = {lhs_dim}"
     else:
+        warnings = ()
         verdict = "INVALID"
         detail = f"LHS dim {lhs_dim} != RHS dim {rhs_dim}"
 
+    return InferenceResult(item_id, verdict, detail, warnings)
+
+
+def _legacy_infer_item(item: dict[str, Any]) -> InferenceResult:
+    """Reproduce the pre-v2 metadata-assisted inference contract."""
+    inference = infer_item(item)
+    if inference.computed_verdict != "VALID":
+        return inference
+
+    expected = str(item.get("expected_verdict", "")).strip()
+    if expected == "KNOWN_LIMIT_FAIL" and item.get("check_type") == "known_limit":
+        return InferenceResult(
+            inference.item_id,
+            "VALID",
+            "Known-limit item is dimensionally balanced; numerical or regime "
+            "limit is outside dimensional scope.",
+            inference.warnings,
+        )
+    if str(item.get("curated_dimensionally_balanced_verdict", "")).strip() == "SUSPICIOUS":
+        return InferenceResult(
+            inference.item_id,
+            "SUSPICIOUS",
+            "Curated dimensionally-balanced boundary case marked SUSPICIOUS.",
+            inference.warnings,
+        )
+    if "all_variables_dimensionless" in inference.warnings:
+        if item.get("dimensionless_relation_policy") == "accepted_textbook_identity":
+            return InferenceResult(
+                inference.item_id,
+                "VALID",
+                "Curated all-dimensionless textbook identity.",
+                inference.warnings,
+            )
+        return InferenceResult(
+            inference.item_id,
+            "SUSPICIOUS",
+            "All variables dimensionless; no physical scale check.",
+            inference.warnings,
+        )
+    return inference
+
+
+def _policy_agreement(
+    expected: str,
+    computed: str,
+    *,
+    scoring_contract: str,
+) -> tuple[bool, str]:
+    """Compare verdicts under an explicit benchmark scoring contract.
+
+    Exact categorical agreement is always recorded separately. Policy
+    equivalences preserve the historical interpretation that a dimensional
+    checker should return VALID for known-limit cases and that INVALID is an
+    acceptable safety flag for a curated SUSPICIOUS item.
+    """
+    if expected == computed:
+        return True, "exact"
+    if (
+        scoring_contract == SCORING_CONTRACT_LEGACY_V1
+        and expected == "mixed"
+        and computed in {"VALID", "SUSPICIOUS", "INVALID"}
+    ):
+        return True, "legacy_mixed_equivalent"
+    if expected == "SUSPICIOUS" and computed == "INVALID":
+        return True, "safety_flag_equivalent"
+    if expected == "KNOWN_LIMIT_FAIL" and computed == "VALID":
+        return True, "known_limit_out_of_scope_equivalent"
+    return False, "mismatch"
+
+
+def score_inference(
+    item: dict[str, Any],
+    inference: InferenceResult,
+    *,
+    scoring_contract: str = SCORING_CONTRACT_LABEL_BLIND_V2,
+) -> ValidationResult:
+    """Score a precomputed inference against curated benchmark metadata."""
+    if scoring_contract not in _SCORING_CONTRACTS:
+        raise ValueError(f"Unknown dimensional scoring contract: {scoring_contract}")
+
+    expected = str(item.get("expected_verdict", "")).strip()
+    policy_match, agreement_kind = _policy_agreement(
+        expected,
+        inference.computed_verdict,
+        scoring_contract=scoring_contract,
+    )
     return ValidationResult(
-        item_id, expected, verdict, detail,
-        _agrees(expected, verdict),
+        item_id=inference.item_id,
+        expected_verdict=expected,
+        computed_verdict=inference.computed_verdict,
+        detail=inference.detail,
+        exact_match=expected == inference.computed_verdict,
+        policy_match=policy_match,
+        agreement_kind=agreement_kind,
+        warnings=inference.warnings,
     )
 
 
-def _agrees(expected: str, computed: str) -> bool:
-    """Compare a curated expected verdict against the computed verdict.
-
-    The curated set sometimes uses ``"mixed"`` or ``"KNOWN_LIMIT_FAIL"``;
-    map both to a relaxed agreement rule that the dimension-only validator
-    can satisfy.
-    """
-    if expected == computed:
-        return True
-    if expected == "mixed" and computed in ("VALID", "SUSPICIOUS", "INVALID"):
-        return True
-    if expected == "SUSPICIOUS" and computed == "INVALID":
-        # Validator has flagged the formula as bad; it cannot articulate the
-        # "physically meaningless" reason behind a curated SUSPICIOUS label,
-        # but it did refuse to pass the formula. Count as agreement.
-        return True
-    if expected == "KNOWN_LIMIT_FAIL" and computed == "VALID":
-        # Validator cannot detect numerical-limit failures; treat dimensional
-        # consistency as the expected positive outcome here.
-        return True
-    return False
+def validate_item(
+    item: dict[str, Any],
+    *,
+    scoring_contract: str = SCORING_CONTRACT_LABEL_BLIND_V2,
+) -> ValidationResult:
+    """Infer and score one item under an explicit contract."""
+    if scoring_contract == SCORING_CONTRACT_LEGACY_V1:
+        inference = _legacy_infer_item(item)
+    else:
+        inference = infer_item(item)
+    return score_inference(item, inference, scoring_contract=scoring_contract)
 
 
 # --------------------------------------------------------------------------- #
@@ -461,7 +536,8 @@ class ChallengeSetSummary:
     """Aggregate metrics for one full challenge-set pass."""
 
     total: int
-    agree: int
+    exact_agree: int
+    policy_agree: int
     valid_count: int
     invalid_count: int
     suspicious_count: int
@@ -469,12 +545,28 @@ class ChallengeSetSummary:
     by_category: dict[str, dict[str, int]] = field(default_factory=dict)
 
     @property
+    def agree(self) -> int:
+        """Backward-compatible policy-adjusted agreement count."""
+        return self.policy_agree
+
+    @property
+    def exact_agreement_fraction(self) -> float:
+        return self.exact_agree / self.total if self.total else 0.0
+
+    @property
+    def policy_agreement_fraction(self) -> float:
+        return self.policy_agree / self.total if self.total else 0.0
+
+    @property
     def agreement_fraction(self) -> float:
-        return self.agree / self.total if self.total else 0.0
+        """Backward-compatible policy-adjusted agreement fraction."""
+        return self.policy_agreement_fraction
 
 
 def validate_challenge_set(
     challenge_set: dict[str, Any] | str | Path,
+    *,
+    scoring_contract: str = SCORING_CONTRACT_LABEL_BLIND_V2,
 ) -> tuple[list[ValidationResult], ChallengeSetSummary]:
     """Run the validator over every item in a challenge set.
 
@@ -485,17 +577,26 @@ def validate_challenge_set(
             challenge_set = yaml.safe_load(handle)
 
     items = challenge_set.get("items", []) or []
-    results = [validate_item(item) for item in items]
+    results = [
+        validate_item(item, scoring_contract=scoring_contract)
+        for item in items
+    ]
 
     by_category: dict[str, dict[str, int]] = {}
-    valid = invalid = suspicious = inconclusive = agree = 0
+    valid = invalid = suspicious = inconclusive = exact_agree = policy_agree = 0
     for item, result in zip(items, results):
         category = item.get("category") or item.get("domain") or "uncategorized"
-        bucket = by_category.setdefault(category, {"total": 0, "agree": 0})
+        bucket = by_category.setdefault(
+            category,
+            {"total": 0, "exact_agree": 0, "policy_agree": 0},
+        )
         bucket["total"] += 1
-        if result.agrees:
-            bucket["agree"] += 1
-            agree += 1
+        if result.exact_match:
+            bucket["exact_agree"] += 1
+            exact_agree += 1
+        if result.policy_match:
+            bucket["policy_agree"] += 1
+            policy_agree += 1
         if result.computed_verdict == "VALID":
             valid += 1
         elif result.computed_verdict == "INVALID":
@@ -507,7 +608,8 @@ def validate_challenge_set(
 
     summary = ChallengeSetSummary(
         total=len(items),
-        agree=agree,
+        exact_agree=exact_agree,
+        policy_agree=policy_agree,
         valid_count=valid,
         invalid_count=invalid,
         suspicious_count=suspicious,

@@ -3,7 +3,7 @@
 Task: `TASK-0017`  
 Type: `benchmark_planning`  
 Domain: `physics_validation`  
-Status: planning only — no implementation yet
+Status: historical planning record with a 2026-07-13 methodology amendment
 
 ---
 
@@ -18,6 +18,30 @@ This document covers all four required outputs for TASK-0017:
 
 The machine-readable dataset is at:
 `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`
+
+## 2026-07-13 Methodology Amendment
+
+The original benchmark combined dimensional inference, semantic/known-limit
+annotations, and policy-adjusted scoring in one `agreement_fraction`. That
+historical contract remains replayable as `legacy_policy_v1`, but it is not the
+contract for future confirmatory results.
+
+`label_blind_exact_v2` separates the layers:
+
+1. Inference reads only the item id, formula, and declared variable dimensions.
+2. Expected labels and curated annotations are read only by the scorer.
+3. Exact categorical agreement is the primary v2 pass/fail metric.
+4. Policy-adjusted agreement remains a diagnostic and identifies every
+   non-exact acceptance (`KNOWN_LIMIT_FAIL -> VALID` or safety-flag
+   `SUSPICIOUS -> INVALID`) explicitly.
+5. All-dimensionless structure is a warning, not a dimensional verdict.
+
+The current 74-item file is calibration/development memory because its boundary
+cases informed the engine and legacy scoring rules. It may be used for
+regression tests, but not as fresh confirmatory evidence after TASK-1038. A
+future benchmark must be curated and frozen by a role-disjoint contributor
+after the v2 method is fixed; scoring and result publication happen only in a
+later task. No result or claim is promoted by this amendment.
 
 ---
 

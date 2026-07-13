@@ -25,9 +25,12 @@ challenge surface:
 - `EXP-0006/RUN-0006` produced `RESULT-0007`, a frozen 50-item MVP benchmark
   with **49/50 agreement (98%)**.
 - `EXP-0006/RUN-0007` produced `RESULT-0020`, an `AGENT_VALIDATED` live
-  74-item replay with **74/74 agreement**. `TASK-0948` supplied the genuinely
-  independent Gate B replay identity and reproduced all 17 tracked metrics with
-  zero drift at tolerance `1e-9`.
+  74-item replay with **74/74 legacy policy-adjusted agreement**. Its item
+  ledger contains 64/74 exact categorical matches; eight `KNOWN_LIMIT_FAIL ->
+  VALID` and two `SUSPICIOUS -> INVALID` equivalences account for the other ten
+  legacy acceptances. `TASK-0948` supplied the genuinely independent Gate B
+  replay identity and reproduced all 17 tracked metrics with zero drift at
+  tolerance `1e-9`.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
   stores the frozen canonical replay input.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml` stores the
@@ -39,10 +42,10 @@ challenge surface:
 
 Current campaign state in one sentence:
 
-The validator has a frozen `LEGACY_UNTIERED` MVP result and a newer live
-74-item `AGENT_VALIDATED` result. The next step is a maintainer Gate C wording
-decision for `CLAIM-0005`, not silent challenge-set drift or automatic claim
-promotion.
+The validator has a frozen `LEGACY_UNTIERED` MVP result and a newer
+`AGENT_VALIDATED` calibration result. Gate C is deferred: the next scientific
+step is a fresh role-disjoint benchmark under the label-blind v2 contract, not
+promotion of the historical 74-item surface.
 
 Start here:
 
@@ -54,15 +57,14 @@ Start here:
 
 ## Open Questions
 
-- How should `SUSPICIOUS` versus `INVALID` cases be exposed in result
-  artifacts beyond the MVP scope?
+- Can a role-disjoint fresh benchmark sustain the predeclared exact-agreement
+  threshold once inference is isolated from labels and curated policy metadata?
 - Which known-limit checks belong in the next benchmark version, and which
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
   the current SI-focused benchmark version?
-- Should `CLAIM-0005` remain `DRAFT`, or should the maintainer accept a
-  benchmark-limited transition based on `RESULT-0007` plus independently
-  Gate-B-validated `RESULT-0020`?
+- Which semantic warnings should remain outside the dimensional verdict and be
+  evaluated on their own axis?
 
 ## Recommended Tasks
 
@@ -74,6 +76,10 @@ Start here:
 - `TASK-0956` refreshed `CLAIM-0005` evidence to cite `RESULT-0020` while
   keeping the claim in `DRAFT`; any status change remains a maintainer Gate C
   decision.
+- `TASK-1038` separates label-blind inference from benchmark scoring and keeps
+  the historical 50/74 surfaces as regression/calibration memory.
+- The next result-bearing task must use a fresh role-disjoint frozen benchmark;
+  do not rescore the current 74 items as confirmatory evidence.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.
 
@@ -88,8 +94,12 @@ Start here:
 
 - Do not let live challenge-set additions rewrite the canonical MVP result.
 - Do not report follow-on curation metrics as if they were `RESULT-0007`.
-- Do not change `RESULT-0020` metrics, challenge-set contents, or `CLAIM-0005`
-  wording/status outside an explicit maintainer Gate C task.
+- Do not change the frozen `RESULT-0020` input snapshot or metrics, or
+  `CLAIM-0005` wording/status, outside an explicit maintainer Gate C task.
+- Do not describe 74/74 legacy policy-adjusted agreement as 74 exact label
+  matches; the exact historical count is 64/74.
+- Do not use the current 74-item development surface as a fresh holdout after
+  changing the validator or scorer.
 - Do not treat SI-only validation as support for natural-unit workflows.
 - Do not blur dimensional consistency with full physical correctness.
 - Do not promote any claim automatically from challenge-set curation alone.
