@@ -1,0 +1,66 @@
+id: TASK-1039
+title: "Curate and freeze a role-disjoint dimensional-validator v2 benchmark without scoring it"
+type: benchmark_planning
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task creates the fresh confirmatory surface for a later result; closeout must verify role separation, native-label semantics, provenance, and no-score discipline."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1038 separates label-blind dimensional inference from benchmark scoring and demotes the historical 50/74 surfaces to regression/calibration memory."
+  - "A fresh benchmark authored after the method contract is frozen, but without access to computed outputs during curation, is the shortest honest path to a successor RESULT and later Gate C."
+  - "Keeping curation/freeze separate from scoring prevents test-set tuning and makes a negative or inconclusive successor result scientifically useful."
+
+input:
+  mode: planning_only
+  related_domain: physics_validation
+  related_objects:
+    - "tasks/TASK-1038-dimensional-validator-scoring-separation.yaml"
+    - "physics_lab/engines/dimensions.py"
+    - "docs/notes/dimensional-analysis-challenge-set.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+  planning_context: >
+    Build a new formula surface for label_blind_exact_v2 after the scoring
+    contract has been fixed. The curator owns source/provenance, native
+    dimensional labels, exclusions, and the frozen manifest only. They must not
+    execute the validator, inspect computed verdicts, tune rows against engine
+    behavior, or publish result metrics.
+
+requirements:
+  - "Unblock to READY only after TASK-1038 is merged and its label_blind_exact_v2 contract is the canonical main-branch method. Do not start curation from an unmerged or moving method contract."
+  - "Record benchmark_authorship_independence relative to TASK-1038 as independent_human, same_owner_different_agent, or same_agent. Only independent_human may later support a confirmatory-independence claim; other classes remain role-disjoint calibration and must be worded that way."
+  - "Curate 80-120 unique formulas across at least five physics domains, with a predeclared target balance of 40-60% dimensionally VALID and 40-60% dimensionally INVALID; use INCONCLUSIVE only for a small explicit parser-boundary stratum."
+  - "The primary label vocabulary is native to the v2 inference output: VALID, INVALID, or INCONCLUSIVE. Store known-limit, semantic-suspicion, numerical-correctness, and regime annotations on separate non-scoring axes; do not use KNOWN_LIMIT_FAIL or SUSPICIOUS as primary exact-match labels."
+  - "For every item provide formula, declared variable dimensions, expected dimensional verdict, domain, provenance/source note, rationale, and a stable item id. Labels must be justified from SI dimensions without consulting validator output."
+  - "Predeclare before freeze: exact-agreement threshold >=0.90, VALID and INVALID class recall floors >=0.85, INCONCLUSIVE ceiling <=0.05, duplicate policy, parser-scope exclusions, and stop/go routing for PASS, FAIL, or contaminated curation."
+  - "Freeze the ordered item manifest, scoring contract id label_blind_exact_v2, item count, source/provenance ledger, and SHA-256 checksum. Include a no-score declaration naming the curator session and confirming that no validator run or output inspection occurred."
+  - "Do not copy or lightly mutate the existing 50/74 formulas. Declare and justify any unavoidable conceptual overlap; stop if more than 20% of rows are near-duplicates of historical items."
+  - "Do not modify engine/workflow code, run the validator, create metrics, create a RESULT, update CLAIM-0005/KNOW-0004, or claim that the benchmark passes. Scoring and independent replay require later tasks after merge."
+  - "Stop with BLOCKED_ROLE_SEPARATION if the curator authored TASK-1038 and no independent curator is available; BLOCKED_LABEL_AMBIGUITY if native dimensional labels cannot be made unambiguous; or BLOCKED_PROVENANCE if formula provenance cannot be recorded safely."
+  - "No-claim wording: this task creates a prospective benchmark surface only. It is not evidence that the validator is accurate, general, semantically complete, or scientifically novel."
+
+accepted_outputs:
+  - "A frozen v2 challenge-set YAML under knowledge/challenge_sets/ with 80-120 native-labelled items and separate non-scoring semantic annotations."
+  - "A checksum/source manifest recording scoring contract, role-separation class, item-order digest, provenance, exclusions, overlap audit, frozen thresholds, no-score declaration, and one bounded verdict: READY_FOR_BLIND_SCORING, CALIBRATION_ONLY_ROLE_LIMIT, or a named blocker."
+  - "A concise update to the existing dimensional-analysis campaign page stating only surface readiness, independence class, and next result path; no metrics or success wording."
+  - "Output-routing summary: benchmark/source readiness only; no RESULT, claim, knowledge, or Gate C impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Prospective benchmark curation and freeze only; scoring is forbidden and belongs to a later result-bearing task."
+  evidence:
+    - "docs/notes/dimensional-analysis-challenge-set.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_dimensions.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
