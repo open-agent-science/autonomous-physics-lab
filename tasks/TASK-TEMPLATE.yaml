@@ -39,6 +39,14 @@ input:
   # mode: workflow
   # related_objects: []
   # planning_context: "What this workflow or contributor task is coordinating"
+  #
+  # Prospective reveal-scout task (sealed-prediction surfaces) — REQUIRED
+  # fields per docs/prospective-reveal-source-admissibility.md:
+  # source_discovery_mode: official_metadata_only
+  # search_result_snippets_allowed: false
+  # target_matching_requires_manifest_approval: true
+  # value_access_requires_reveal_task: true
+  # no_peek_context_status: clean
   mode: planning_only
   related_domain: ""
   related_objects: []

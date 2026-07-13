@@ -2,6 +2,29 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Task",
   "$defs": {
+    "sourceDiscoveryMode": {
+      "type": "string",
+      "const": "official_metadata_only"
+    },
+    "searchResultSnippetsAllowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "targetMatchingRequiresManifestApproval": {
+      "type": "boolean",
+      "const": true
+    },
+    "valueAccessRequiresRevealTask": {
+      "type": "boolean",
+      "const": true
+    },
+    "noPeekContextStatus": {
+      "type": "string",
+      "enum": [
+        "clean",
+        "contaminated"
+      ]
+    },
     "scienceExecutionInput": {
       "type": "object",
       "additionalProperties": false,
@@ -56,6 +79,24 @@
         "planning_context": {
           "type": "string",
           "minLength": 1
+        },
+        "source_discovery_mode": {
+          "$ref": "#/$defs/sourceDiscoveryMode"
+        },
+        "search_result_snippets_allowed": {
+          "$ref": "#/$defs/searchResultSnippetsAllowed"
+        },
+        "target_matching_requires_manifest_approval": {
+          "$ref": "#/$defs/targetMatchingRequiresManifestApproval"
+        },
+        "value_access_requires_reveal_task": {
+          "$ref": "#/$defs/valueAccessRequiresRevealTask"
+        },
+        "no_peek_context_status": {
+          "$ref": "#/$defs/noPeekContextStatus"
+        },
+        "prospective_reveal_eligibility": {
+          "type": "boolean"
         }
       }
     },
@@ -88,6 +129,24 @@
         "planning_context": {
           "type": "string",
           "minLength": 1
+        },
+        "source_discovery_mode": {
+          "$ref": "#/$defs/sourceDiscoveryMode"
+        },
+        "search_result_snippets_allowed": {
+          "$ref": "#/$defs/searchResultSnippetsAllowed"
+        },
+        "target_matching_requires_manifest_approval": {
+          "$ref": "#/$defs/targetMatchingRequiresManifestApproval"
+        },
+        "value_access_requires_reveal_task": {
+          "$ref": "#/$defs/valueAccessRequiresRevealTask"
+        },
+        "no_peek_context_status": {
+          "$ref": "#/$defs/noPeekContextStatus"
+        },
+        "prospective_reveal_eligibility": {
+          "type": "boolean"
         }
       }
     }

@@ -1,0 +1,57 @@
+id: TASK-1036
+title: "Codify the shared prospective-reveal source-admissibility policy after the TASK-1023 no-peek incident"
+type: docs_protocol
+status: REVIEW_READY
+closeout: review
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "The TASK-1023 scout (PR #1534) showed that general web search is itself a leakage vector for reveal scouting: result snippets surfaced target-related values before any manifest existed; the executor honestly stopped with BLOCKED_NO_PEEK_AUDIT."
+  - "The failure mode is cross-surface (nuclear, FRB, any future sealed registry), so the rule lives once in a shared policy that domain protocols reference - not as a nuclear-only note."
+  - "Common-law with a guardrail: incident -> generalized invariant -> regression test, and only via maintainer-reviewed policy changes; agents never extend or relax this autonomously."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/prospective-reveal-source-admissibility.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+  planning_context: >
+    Write the shared policy (official-metadata-only discovery; no general web
+    search, AI summaries, or result snippets for target-aware scouting;
+    identity/rights/checksum first; target matching only after a reviewed
+    manifest; values only inside an approved reveal task; contamination =>
+    BLOCKED_NO_PEEK_AUDIT + fresh-session retry), backlink the nuclear and
+    FRB protocols to it, add the machine-readable scout fields to the task
+    template, and pin the invariants with regression tests. This unblocks a
+    clean TASK-1023 retry under explicit rules.
+
+requirements:
+  - "Shared policy document with the six-point rule, machine-readable task fields (clean/contaminated semantics), the incident origin, and the maintainer-review guardrail."
+  - "Nuclear reveal protocol, nuclear readiness checklist, and the FRB admissibility contract each reference the shared policy as the base layer."
+  - "TASK-TEMPLATE gains the commented reveal-scout field block."
+  - "Regression tests pin the invariants, the backlinks, and the template fields."
+  - "No scientific artifact, registry, or autonomy-matrix change; no scout retry inside this task."
+
+accepted_outputs:
+  - "docs/prospective-reveal-source-admissibility.md + three protocol backlinks + template fields + tests/test_prospective_reveal_policy.py."
+  - "Output-routing summary: protocol codification only; the clean nuclear retry is a separate task."
+
+result_artifact_policy:
+  required: false
+  reason: "Protocol documentation and regression tests; no scientific artifact."
+  evidence:
+    - "docs/prospective-reveal-source-admissibility.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_prospective_reveal_policy.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
