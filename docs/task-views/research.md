@@ -8,6 +8,9 @@
 
 - `TASK-1025` - Complete the CHARA identifier and alias audit before stellar row curation (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `stellar_astrophysics`)
 - `TASK-1026` - Preflight the OQMD v1.8 source manifest, semantics, and MD-0002 overlap plan (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `materials_science`)
+- `TASK-1027` - Package the Kim 2020 CdSe source artifact before any quantum row extraction (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
+- `TASK-1030` - Test one Lattice-QCD independence and covariance audit as a campaign incubator (`scientific_benchmark_planning`, priority `medium`, difficulty `medium`, domain `lattice_qcd`)
+- `TASK-1031` - Retry the nuclear shell-axis source scout through direct official metadata only (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
