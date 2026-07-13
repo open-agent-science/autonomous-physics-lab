@@ -80,16 +80,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "PRED-0001 is registered as a 479-source point-score/rank prediction and checksum-anchored by GitHub Release; no reveal labels have been read and no FRB success or population result exists."
+  current_stage: "PRED-0001 is registered as a 479-source point-score/rank prediction and checksum-anchored by GitHub Release; TASK-1024 also completed the deterministic reduced rights-bounded capsule for optional maintainer-only external publication. No reveal labels have been read and no FRB success or population result exists."
   recommended_parallel_agents: 1
-  coordination_notes: "TASK-1024 may build the reduced rights-bounded anchor capsule. Reveal-source work is event-triggered: do not seed a manual scout until a concrete official catalog or repeater-table signal exists. No lane may inspect labels or mutate PRED-0001."
+  coordination_notes: "TASK-1024 completed the reduced rights-bounded capsule without uploading it or minting a DOI. Any external publication remains a separate maintainer-only act. Reveal-source work is event-triggered: do not seed a manual scout until a concrete official catalog or repeater-table signal exists. No lane may inspect labels or mutate PRED-0001."
   next_validity_gate:
     type: external_reveal
     blocker: "Reveal scoring remains blocked until a concrete post-T source passes TASK-0995 identity, rights, timestamp, checksum, alias, and no-peek gates and receives separate maintainer approval."
     target_artifact: "future trigger-activated reveal-source decision task"
   best_next_actions:
-    - task_id: TASK-1024
-      label: "Build the approved reduced metadata/checksum anchor capsule without external upload"
+    - task_id: null
+      label: "Optionally publish the completed reduced capsule through a maintainer-only external-publication decision"
     - task_id: null
       label: "Monitor official post-T source releases and activate one reveal-source decision only on a concrete trigger"
   required_gates:
@@ -101,6 +101,7 @@ portfolio:
     - "docs/reviews/frb/frb-prediction-freeze-registration.md"
     - "docs/reviews/frb-reveal-source-admissibility-contract.md"
     - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
+    - "docs/reviews/frb/frb-reduced-anchor-capsule-implementation.md"
     - "data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml"
     - "data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml"
   open_questions:
@@ -113,4 +114,4 @@ portfolio:
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
     source: "PRED-0001 registration, TASK-0995 reveal contract, TASK-1021 rights review, and Scientific Director 2026-07-13 cycle"
-    notes: "FRB is now a first-class prospective prediction campaign rather than a generic fresh-data sublane. Reduced-capsule completion is active; reveal-source work remains trigger-based, while model fitting and success wording stay closed."
+    notes: "FRB is now a first-class prospective prediction campaign rather than a generic fresh-data sublane. The reduced capsule is complete but not externally published; reveal-source work remains trigger-based, while model fitting and success wording stay closed."
