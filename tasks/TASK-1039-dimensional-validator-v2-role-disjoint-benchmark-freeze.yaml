@@ -1,7 +1,7 @@
 id: TASK-1039
 title: "Curate and freeze a role-disjoint dimensional-validator v2 benchmark without scoring it"
 type: benchmark_planning
-status: BLOCKED
+status: READY
 closeout: review
 closeout_review_reason: "This task creates the fresh confirmatory surface for a later result; closeout must verify role separation, native-label semantics, provenance, and no-score discipline."
 difficulty: medium
@@ -29,21 +29,26 @@ input:
     behavior, or publish result metrics.
 
 requirements:
-  - "Unblock to READY only after TASK-1038 is merged and its label_blind_exact_v2 contract is the canonical main-branch method. Do not start curation from an unmerged or moving method contract."
-  - "Record benchmark_authorship_independence relative to TASK-1038 as independent_human, same_owner_different_agent, or same_agent. Only independent_human may later support a confirmatory-independence claim; other classes remain role-disjoint calibration and must be worded that way."
+  - "Verify before claim that merged TASK-1038 and its label_blind_exact_v2 contract remain the canonical main-branch method. Stop if the method contract is unmerged, moving, or superseded during curation."
+  - "Record benchmark_authorship_independence relative to TASK-1038 as independent_human, same_owner_role_disjoint_agent, or same_agent_or_session. independent_human requires a different human contributor from the TASK-1038 method author/reviewer; an agent acting under the same maintainer must not self-report this class."
+  - "Only independent_human may produce READY_FOR_BLIND_SCORING as a confirmatory candidate. same_owner_role_disjoint_agent may freeze only CALIBRATION_ONLY_ROLE_LIMIT memory, while same_agent_or_session must stop with BLOCKED_ROLE_SEPARATION and must not freeze a benchmark."
+  - "Record curator contributor id, agent/tool identity, session id, method-authorship overlap, and whether the curator inspected TASK-1038 implementation or any dimensional-validator outputs; missing identity or context provenance blocks freeze."
   - "Curate 80-120 unique formulas across at least five physics domains, with a predeclared target balance of 40-60% dimensionally VALID and 40-60% dimensionally INVALID; use INCONCLUSIVE only for a small explicit parser-boundary stratum."
   - "The primary label vocabulary is native to the v2 inference output: VALID, INVALID, or INCONCLUSIVE. Store known-limit, semantic-suspicion, numerical-correctness, and regime annotations on separate non-scoring axes; do not use KNOWN_LIMIT_FAIL or SUSPICIOUS as primary exact-match labels."
   - "For every item provide formula, declared variable dimensions, expected dimensional verdict, domain, provenance/source note, rationale, and a stable item id. Labels must be justified from SI dimensions without consulting validator output."
+  - "Treat formulas and dimensional labels as bounded factual metadata with source attribution. Do not copy source prose, figures, tables, publisher files, or archive bytes; record a per-source reuse classification and do not imply that an upstream license covers APL-authored benchmark annotations."
   - "Predeclare before freeze: exact-agreement threshold >=0.90, VALID and INVALID class recall floors >=0.85, INCONCLUSIVE ceiling <=0.05, duplicate policy, parser-scope exclusions, and stop/go routing for PASS, FAIL, or contaminated curation."
   - "Freeze the ordered item manifest, scoring contract id label_blind_exact_v2, item count, source/provenance ledger, and SHA-256 checksum. Include a no-score declaration naming the curator session and confirming that no validator run or output inspection occurred."
+  - "Add a deterministic freeze-contract test that fails on wrong item count or class balance, non-v2 primary labels, missing provenance/reuse fields, excess historical overlap, checksum drift, missing curator identity/context, or a missing no-score declaration. The test must inspect metadata only and must not execute dimensional inference."
   - "Do not copy or lightly mutate the existing 50/74 formulas. Declare and justify any unavoidable conceptual overlap; stop if more than 20% of rows are near-duplicates of historical items."
   - "Do not modify engine/workflow code, run the validator, create metrics, create a RESULT, update CLAIM-0005/KNOW-0004, or claim that the benchmark passes. Scoring and independent replay require later tasks after merge."
-  - "Stop with BLOCKED_ROLE_SEPARATION if the curator authored TASK-1038 and no independent curator is available; BLOCKED_LABEL_AMBIGUITY if native dimensional labels cannot be made unambiguous; or BLOCKED_PROVENANCE if formula provenance cannot be recorded safely."
+  - "Stop with BLOCKED_ROLE_SEPARATION for same_agent_or_session; BLOCKED_LABEL_AMBIGUITY if native dimensional labels cannot be made unambiguous; BLOCKED_PROVENANCE if formula provenance cannot be recorded; or BLOCKED_RIGHTS if the bounded factual-extract boundary cannot be maintained."
   - "No-claim wording: this task creates a prospective benchmark surface only. It is not evidence that the validator is accurate, general, semantically complete, or scientifically novel."
 
 accepted_outputs:
   - "A frozen v2 challenge-set YAML under knowledge/challenge_sets/ with 80-120 native-labelled items and separate non-scoring semantic annotations."
-  - "A checksum/source manifest recording scoring contract, role-separation class, item-order digest, provenance, exclusions, overlap audit, frozen thresholds, no-score declaration, and one bounded verdict: READY_FOR_BLIND_SCORING, CALIBRATION_ONLY_ROLE_LIMIT, or a named blocker."
+  - "A checksum/source manifest recording scoring contract, curator identity/context provenance, role-separation class, item-order digest, source and reuse classifications, exclusions, overlap audit, frozen thresholds, no-score declaration, and one bounded verdict: READY_FOR_BLIND_SCORING, CALIBRATION_ONLY_ROLE_LIMIT, or a named blocker."
+  - "A metadata-only regression test for the frozen benchmark contract; the test must not import or call the dimensional inference/scoring path."
   - "A concise update to the existing dimensional-analysis campaign page stating only surface readiness, independence class, and next result path; no metrics or success wording."
   - "Output-routing summary: benchmark/source readiness only; no RESULT, claim, knowledge, or Gate C impact."
 
