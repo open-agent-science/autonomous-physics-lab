@@ -1,9 +1,15 @@
 """Regression tests for the shared prospective-reveal source-admissibility policy (TASK-1036)."""
 
+from copy import deepcopy
+import json
 from pathlib import Path
+
+import jsonschema
+import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 POLICY = REPO_ROOT / "docs" / "prospective-reveal-source-admissibility.md"
+TASK_SCHEMA = REPO_ROOT / "physics_lab" / "schemas" / "task.schema.json"
 
 REQUIRED_INVARIANTS = (
     "official metadata surfaces",
@@ -46,3 +52,57 @@ def test_task_template_carries_reveal_scout_fields():
         "no_peek_context_status: clean",
     ):
         assert field in text, f"template missing reveal-scout field: {field}"
+
+
+def _reveal_scout_task(*, mode: str) -> dict:
+    input_payload = {
+        "mode": mode,
+        "related_domain": "nuclear_physics",
+        "related_objects": ["PRED-0069"],
+        "planning_context": "Locate official metadata without accessing values.",
+        "source_discovery_mode": "official_metadata_only",
+        "search_result_snippets_allowed": False,
+        "target_matching_requires_manifest_approval": True,
+        "value_access_requires_reveal_task": True,
+        "no_peek_context_status": "clean",
+        "prospective_reveal_eligibility": True,
+    }
+    return {
+        "id": "TASK-9999",
+        "title": "Prospective reveal scout fixture",
+        "type": "scientific_source_curation",
+        "status": "READY",
+        "difficulty": "medium",
+        "priority": "high",
+        "input": input_payload,
+        "requirements": ["Preserve no-peek eligibility."],
+        "accepted_outputs": ["An approved source manifest."],
+        "can_be_done_by": ["human", "agent"],
+    }
+
+
+@pytest.mark.parametrize("mode", ["planning_only", "workflow"])
+def test_task_schema_accepts_enforced_reveal_scout_contract(mode: str):
+    schema = json.loads(TASK_SCHEMA.read_text(encoding="utf-8"))
+    jsonschema.validate(instance=_reveal_scout_task(mode=mode), schema=schema)
+
+
+@pytest.mark.parametrize(
+    ("field", "unsafe_value"),
+    [
+        ("source_discovery_mode", "open_web_search"),
+        ("search_result_snippets_allowed", True),
+        ("target_matching_requires_manifest_approval", False),
+        ("value_access_requires_reveal_task", False),
+        ("no_peek_context_status", "unknown"),
+    ],
+)
+def test_task_schema_rejects_weakened_reveal_scout_contract(
+    field: str, unsafe_value: object
+):
+    schema = json.loads(TASK_SCHEMA.read_text(encoding="utf-8"))
+    task = deepcopy(_reveal_scout_task(mode="planning_only"))
+    task["input"][field] = unsafe_value
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(instance=task, schema=schema)
