@@ -1,0 +1,104 @@
+# TASK-1041 identifier-only environment-dependence ledger.
+# No stellar measurement, residual, fit, or formula-output value is recorded.
+ledger_version: '1'
+task_id: TASK-1041
+campaign_id: textbook-formula-audit
+surface_id: stellar-mass-luminosity
+created_utc: '2026-07-13'
+value_blind: true
+planning_only: true
+
+frozen_inputs:
+  chara_identity_set:
+    path: data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
+    sha256: 9ba15da828381841914b7e848f2d9e9235aa7237d6ecf513a795dfa6b2ec8613
+    task_id: TASK-1025
+    system_count: 13
+  debcat_development_surface:
+    path: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+    sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
+    system_id_count: 373
+    identifier_read_rule: only system_id fields were inspected
+
+membership_sources:
+  candidate_membership:
+    service: SIMBAD TAP
+    service_url: https://simbad.cds.unistra.fr/simbad/sim-tap/sync
+    source_license: ODbL-1.0
+    access_date_utc: '2026-07-13'
+    source_artifact: data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
+    evidence_rule: use only pinned aliases and h_link parent-child identifiers from TASK-1025
+  hyades_six_publication:
+    source_label: Hyades six
+    arxiv_id: '2406.01674'
+    pinned_pdf_sha256: c8bc5d92f3cd3386f648a777c6bdbe50c324ca666e56af23a0f13543895229d0
+  hd_284163_publication:
+    doi: 10.1093/mnras/stad3803
+    arxiv_id: '2312.05301'
+    pinned_pdf_sha256: b70c76a0eb77f7e2c723471361fbd0b832f4ab9944f52d94be09bdde6d87182f
+  debcat_overlap_lookup:
+    service: SIMBAD TAP
+    access_date_utc: '2026-07-13'
+    queried_identifier: V818 Tau
+    resolved_main_id: HD 27130
+    main_id_response_sha256: 6aaadc069d1b4797643e461a635b8175ff9b032a31330c356dd7c6c7e847aa7d
+    alias_response_sha256: 71d4dee9f3e56b7838616bfce4f660a5ad386ad60c9ab4501c18a0880d7112c9
+    hierarchy_response_sha256: b73c25c0c5cd9fbe8aaec2c59856a943e74758bbd16543842b73ae8974c04ea8
+    raw_responses_committed: false
+    hierarchy_finding: Cl Melotte 25 and NAME Hyades Moving Group are direct parents of HD 27130
+
+grouping_contract:
+  unit: explicit physical cluster or linked environment
+  canonical_cluster_group: melotte-25
+  unlinked_candidate_rule: assign a provisional singleton group; absence of a pinned link is not proof of field independence
+  partition_rule: all systems in one environment_group must remain in the same partition
+  development_overlap_rule: if an environment_group is represented by any DEBCat development system, no CHARA member of that group is eligible for an independent holdout
+  hierarchy_rule: unresolved components of one physical system inherit the system environment_group and never form extra independent groups
+  minimum_effective_independent_group_count: 5
+  underpowered_verdict: HOLD_UNDERPOWERED
+  freeze_rule: the minimum may not be lowered after reading CHARA values, assigning rows, or observing metrics
+
+candidates:
+  - {queried_id: HD 8374, environment_group: singleton-hd-8374, membership_state: unlinked_in_pinned_hierarchy, holdout_eligibility: provisional}
+  - {queried_id: HD 24546, environment_group: singleton-hd-24546, membership_state: unlinked_in_pinned_hierarchy, holdout_eligibility: provisional}
+  - {queried_id: HD 61859, environment_group: singleton-hd-61859, membership_state: unlinked_in_pinned_hierarchy, holdout_eligibility: provisional}
+  - {queried_id: HD 89822, environment_group: singleton-hd-89822, membership_state: unlinked_in_pinned_hierarchy, holdout_eligibility: provisional}
+  - {queried_id: HD 109510, environment_group: singleton-hd-109510, membership_state: unlinked_in_pinned_hierarchy, holdout_eligibility: provisional}
+  - {queried_id: HD 191692, environment_group: singleton-hd-191692, membership_state: unlinked_in_pinned_hierarchy, holdout_eligibility: provisional}
+  - {queried_id: HD 27483, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+  - {queried_id: HD 283882, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+  - {queried_id: HD 26874, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+  - {queried_id: HD 27149, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+  - {queried_id: HD 30676, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+  - {queried_id: HD 28545, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+  - {queried_id: HD 284163, environment_group: melotte-25, membership_state: direct_cluster_link, holdout_eligibility: blocked_by_debcat_environment_overlap}
+
+debcat_environment_overlaps:
+  - debcat_system_id: V818_Tau
+    simbad_main_id: HD 27130
+    environment_group: melotte-25
+    match_basis: direct SIMBAD hierarchy link to Cl Melotte 25
+    consequence: exclude every melotte-25 CHARA candidate from an independent holdout against this DEBCat development surface
+
+counts:
+  candidate_systems: 13
+  explicit_melotte_25_members: 7
+  provisional_unlinked_singletons: 6
+  prospective_groups_before_debcat_overlap: 7
+  environment_groups_blocked_by_debcat_overlap: 1
+  effective_independent_holdout_groups: 6
+  minimum_required: 5
+
+verdict: DEPENDENCE_POLICY_READY
+verdict_basis: >
+  The frozen group-aware rule removes the shared Melotte 25 environment from
+  independent holdout use and leaves six provisional independent groups, above
+  the predeclared minimum of five. Future membership evidence must recompute the
+  count before values are read; a count below five returns HOLD_UNDERPOWERED.
+
+output_routing:
+  prospective_holdout_policy_only: true
+  actual_split_created: false
+  measurement_rows_created: 0
+  metrics_or_fits_run: 0
+  result_prediction_claim_knowledge_mutations: 0
