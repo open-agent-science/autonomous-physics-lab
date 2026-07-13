@@ -1,7 +1,7 @@
 id: TASK-1038
 title: "Separate dimensional-validator inference from benchmark labels and expose honest agreement metrics"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This changes the methodology contract used by future dimensional-validator results while preserving protected legacy replay semantics."
 difficulty: medium
