@@ -11,6 +11,7 @@
 - `TASK-1027` - Package the Kim 2020 CdSe source artifact before any quantum row extraction (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-1030` - Test one Lattice-QCD independence and covariance audit as a campaign incubator (`scientific_benchmark_planning`, priority `medium`, difficulty `medium`, domain `lattice_qcd`)
 - `TASK-1031` - Retry the nuclear shell-axis source scout through direct official metadata only (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-1039` - Curate and freeze a role-disjoint dimensional-validator v2 benchmark without scoring it (`benchmark_planning`, priority `high`, difficulty `medium`, domain `physics_validation`)
 
 ## IN_PROGRESS
 
