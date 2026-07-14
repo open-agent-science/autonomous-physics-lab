@@ -1,5 +1,18 @@
 # Dimensional Analysis Validator
 
+## Role-Disjoint V2 Surface Freeze
+
+`TASK-1039` freezes an 80-item `label_blind_exact_v2` surface under
+`knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml`. Its
+curation identity is `same_owner_role_disjoint_agent`, so the bounded outcome
+is `CALIBRATION_ONLY_ROLE_LIMIT`, not a confirmatory holdout. No validator run,
+score, metric, or computed verdict was inspected during curation.
+
+The next result path requires a separately assigned blind-scoring task. A
+confirmatory candidate and later Gate C still require an independently authored
+surface; this calibration freeze does not change any `RESULT`, `CLAIM`, or
+knowledge status.
+
 ## Goal
 
 Build a deterministic benchmark that checks whether APL can classify formulas
