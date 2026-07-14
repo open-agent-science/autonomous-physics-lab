@@ -78,6 +78,10 @@ sources:
     checksum_policy: sha256_file
     access: open_no_key_required
     inclusion_decision: accepted
+    acquisition_status: bounded_snapshot_pinned
+    snapshot_path: data/materials/oqmd_live_api_2026-07-14_normalized.json
+    snapshot_manifest: data/materials/oqmd_live_api_2026-07-14_manifest.yaml
+    snapshot_checksum_sha256: af8991aefda6f408a3ad33251aa5564f5fed37a7d527b696d68442971bc978a4
     notes: >
       Registered by TASK-1026 as a metadata-only source-manifest preflight
       (verdict READY_FOR_BOUNDED_ACQUISITION_TASK). Acceptance is source-level

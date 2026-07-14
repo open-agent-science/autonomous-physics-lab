@@ -184,6 +184,29 @@ datasets:
     paths:
       - data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
 
+  - id: oqmd-live-api-2026-07-14
+    source: "Open Quantum Materials Database bounded live-API snapshot"
+    source_url: https://oqmd.org/oqmdapi/formationenergy
+    license: CC BY 4.0
+    redistribution_status: redistributable_with_attribution
+    citation_or_acknowledgement: >
+      Data from OQMD, licensed CC BY 4.0. Cite Saal et al., JOM 65,
+      1501-1509 (2013), doi:10.1007/s11837-013-0755-4, and Kirklin et al.,
+      npj Computational Materials 1, 15010 (2015),
+      doi:10.1038/npjcompumats.2015.10.
+    evidence: >
+      The official OQMD download page states CC BY 4.0. TASK-1042 vendors one
+      94,115-byte dated API response and an attributed normalized subset;
+      checksums, query identity, modification notice, overlap exclusions, and
+      computed-DFT semantics are recorded in
+      data/materials/oqmd_live_api_2026-07-14_manifest.yaml.
+    raw_artifact_vendored: true
+    provenance: data/materials/oqmd_live_api_2026-07-14_manifest.yaml
+    paths:
+      - data/materials/snapshots/oqmd_live_api_2026-07-14_page_0000.json
+      - data/materials/oqmd_live_api_2026-07-14_normalized.json
+      - data/materials/oqmd_live_api_2026-07-14_manifest.yaml
+
   - id: almeida-2023-inp-sizing-digitized
     source: "Almeida et al. 2023, InP colloidal quantum dot sizing curve (Figure 2b), deterministically digitized"
     source_url: https://doi.org/10.1021/acs.nanolett.3c02630
