@@ -1,7 +1,7 @@
 id: TASK-1041
 title: "Freeze a value-blind CHARA cluster-dependence and DEBCat environment-overlap policy"
 type: benchmark_planning
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task controls statistical independence for a prospective stellar holdout and must be checked for identifier-only, value-blind execution."
 difficulty: medium
