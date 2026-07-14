@@ -1,0 +1,111 @@
+schema_version: "0.1-fabricated"
+artifact_id: LQCD-DEPENDENCY-GRAPH-SYNTHETIC-0001
+task_id: TASK-1030
+synthetic_only: true
+contains_real_scientific_values: false
+contains_real_uncertainties: false
+purpose: "Structure-only example for the future f_K/f_pi dependency audit."
+
+dependence_states:
+  - CONFIRMED_SHARED
+  - CONFIRMED_DISJOINT
+  - POSSIBLE_SHARED
+  - UNKNOWN
+
+node_types:
+  - collaboration
+  - publication
+  - gauge_ensemble_family
+  - fermion_action
+  - scale_setting_source
+  - normalization_or_renormalization_route
+  - shared_configuration_or_data_source
+  - evaluated_average
+  - uncertainty_component
+
+edge_types:
+  - authored_by
+  - reports_observable
+  - uses_ensemble_family
+  - uses_fermion_action
+  - depends_on_scale_setting
+  - depends_on_normalization_or_renormalization
+  - shares_configuration_or_data
+  - contributes_to_evaluated_average
+  - carries_uncertainty_component
+
+required_node_fields:
+  - node_id
+  - node_type
+  - label
+  - source_identity
+  - rights_status
+  - retrieval_identity
+
+required_edge_fields:
+  - edge_id
+  - edge_type
+  - from_node
+  - to_node
+  - dependence_state
+  - evidence_identity
+  - curator_note
+
+fabricated_nodes:
+  - node_id: FAB-COLLAB-A
+    node_type: collaboration
+    label: "Fabricated Collaboration A"
+    source_identity: SYNTHETIC
+    rights_status: NOT_APPLICABLE
+    retrieval_identity: SYNTHETIC
+  - node_id: FAB-PUB-A
+    node_type: publication
+    label: "Fabricated Publication A"
+    source_identity: SYNTHETIC
+    rights_status: NOT_APPLICABLE
+    retrieval_identity: SYNTHETIC
+  - node_id: FAB-ENS-1
+    node_type: gauge_ensemble_family
+    label: "Fabricated Ensemble Family 1"
+    source_identity: SYNTHETIC
+    rights_status: NOT_APPLICABLE
+    retrieval_identity: SYNTHETIC
+  - node_id: FAB-AVG-1
+    node_type: evaluated_average
+    label: "Fabricated Evaluated Average 1"
+    source_identity: SYNTHETIC
+    rights_status: NOT_APPLICABLE
+    retrieval_identity: SYNTHETIC
+
+fabricated_edges:
+  - edge_id: FAB-EDGE-001
+    edge_type: authored_by
+    from_node: FAB-PUB-A
+    to_node: FAB-COLLAB-A
+    dependence_state: CONFIRMED_SHARED
+    evidence_identity: SYNTHETIC
+    curator_note: "Demonstrates publication-to-collaboration lineage only."
+  - edge_id: FAB-EDGE-002
+    edge_type: uses_ensemble_family
+    from_node: FAB-PUB-A
+    to_node: FAB-ENS-1
+    dependence_state: POSSIBLE_SHARED
+    evidence_identity: SYNTHETIC
+    curator_note: "A possible or unknown ensemble link is grouped conservatively."
+  - edge_id: FAB-EDGE-003
+    edge_type: contributes_to_evaluated_average
+    from_node: FAB-PUB-A
+    to_node: FAB-AVG-1
+    dependence_state: CONFIRMED_SHARED
+    evidence_identity: SYNTHETIC
+    curator_note: "An evaluated average is not independent of included publications."
+
+future_comparison_contracts:
+  - naive_aggregation
+  - collaboration_disjoint
+  - ensemble_family_disjoint
+  - leave_one_collaboration_out
+
+unknown_dependency_policy: >
+  UNKNOWN and POSSIBLE_SHARED edges are conservatively connected for future
+  partitioning. Missing edge metadata never implies independence.
