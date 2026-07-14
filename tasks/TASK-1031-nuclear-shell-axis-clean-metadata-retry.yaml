@@ -1,7 +1,7 @@
 id: TASK-1031
 title: "Retry the nuclear shell-axis source scout through direct official metadata only"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Fresh no-peek retry after TASK-1023 encountered target-bearing search snippets; closeout must verify contributor/session independence and zero target-value exposure."
 difficulty: medium
