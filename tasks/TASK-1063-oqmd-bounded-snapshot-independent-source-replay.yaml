@@ -1,0 +1,62 @@
+id: TASK-1063
+title: "Independently replay the bounded OQMD snapshot source and overlap contract"
+type: scientific_source_validation
+status: READY
+closeout: review
+closeout_review_reason: "This is the independent source gate before OQMD benchmark scoring; closeout must verify exact bytes, predicate semantics, overlap exclusions, target-blind routing, and rights."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1042 acquired 373 dated OQMD API rows and normalized a 172-row composition-disjoint surface under a frozen source contract."
+  - "Independent source replay can validate the acquisition and exclusion logic in parallel with the identity-only split and value-blind control contract."
+  - "The replay must not become exploratory target analysis or a second-source result."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "data/materials/snapshots/oqmd_live_api_2026-07-14_page_0000.json"
+    - "data/materials/oqmd_live_api_2026-07-14_normalized.json"
+    - "data/materials/oqmd_live_api_2026-07-14_manifest.yaml"
+    - "scripts/curate_oqmd_bounded_snapshot.py"
+    - "docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md"
+    - "data/materials/md-0002-materials-project-stable-ternary-oxides.yaml"
+  planning_context: >
+    Independently reproduce the committed source checks, normalization,
+    reduced-composition overlap exclusions, row counts, hashes, property
+    semantics, and rights boundary without fitting, partitioning, or reporting
+    target-value summaries.
+
+requirements:
+  - "Use a contributor or agent distinct from the TASK-1042 executor and record contributor/session identity, runtime, commands, and compared checks."
+  - "Verify raw bytes and SHA-256, API identity and pagination metadata, 373 raw rows, the frozen chemistry predicate, unique entry identities, and the 2,000-row cap."
+  - "Recompute reduced compositions and the identifier-only MD-0002 overlap ledger from committed inputs; verify 201 exclusions, 90 composition-plus-space-group coincidences, and 172 normalized rows without using target values to select or summarize rows."
+  - "Verify normalized bytes and SHA-256, required fields, OQMD delta_e and band_gap semantics, computed-DFT provenance, and explicit non-interchangeability with Materials Project values."
+  - "Audit the OQMD CC BY 4.0 attribution, vendored-raw declaration, citations, and modification notice without fetching or republishing a new snapshot."
+  - "Do not compute target distributions, residuals, correlations, model metrics, split assignments, material rankings, cross-database offsets, or RESULT/PRED/CLAIM/KNOW artifacts."
+  - "Return exactly one verdict: INDEPENDENT_SOURCE_REPLAY_PASS, SOURCE_CONTESTED, OVERLAP_CONTESTED, SEMANTICS_CONTESTED, or RIGHTS_CONTESTED."
+  - "No-claim wording: this replay validates one dated computed-DFT source artifact and its identity exclusions; it is not experimental replication or benchmark evidence."
+
+accepted_outputs:
+  - "An independent OQMD source-replay note under docs/reviews/materials/ with hashes, counts, predicate checks, overlap checks, semantics, rights, limitations, and one bounded verdict."
+  - "Only minimal source-validation metadata or tests needed to make the replay durable; no source-row, split, target, or result mutation."
+  - "Output-routing summary: source validation only; Gate A/B not attempted, no claim/knowledge impact, and any blocker propagated to later OQMD scoring."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent source validation only; no scientific metric or result is created."
+  evidence:
+    - "docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_materials_oqmd_bounded_snapshot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

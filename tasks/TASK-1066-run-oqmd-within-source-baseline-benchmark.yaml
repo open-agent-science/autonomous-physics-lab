@@ -1,0 +1,63 @@
+id: TASK-1066
+title: "Run the frozen within-OQMD baseline benchmark after split and contract gates"
+type: scientific_result_publication
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task will create the first OQMD metric/result surface; closeout must verify prerequisite hashes, no-peek split integrity, fixed controls, target semantics, and conservative public scope."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-1042 supplied a bounded 172-row OQMD computed-DFT surface; TASK-1053 and TASK-1054 separately freeze the target-blind split and value-blind model/control contract."
+  - "A single execution task should preserve either a passing, failing, or inconclusive within-source result without cross-database pooling or rescue fitting."
+  - "Independent TASK-1063 source replay should pass before any metric result is published."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "data/materials/oqmd_live_api_2026-07-14_normalized.json"
+    - "data/materials/oqmd_live_api_2026-07-14_manifest.yaml"
+    - "tasks/TASK-1053-freeze-oqmd-identifier-only-benchmark-split.yaml"
+    - "tasks/TASK-1054-predeclare-oqmd-baseline-control-contract.yaml"
+    - "tasks/TASK-1063-oqmd-bounded-snapshot-independent-source-replay.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    Execute exactly one frozen within-OQMD formation-energy benchmark after the
+    split, control contract, and independent source replay are merged. Preserve
+    every outcome and do not compare numeric target values across databases.
+
+requirements:
+  - "Blocked-by: merged TASK-1053 with a valid frozen split, merged TASK-1054 with a non-contaminated baseline/control contract, and merged TASK-1063 with INDEPENDENT_SOURCE_REPLAY_PASS. Keep BLOCKED until all three exact artifacts are on main."
+  - "Verify source, normalized snapshot, split, contract, and independent-replay hashes before reading targets or running metrics; stop on any drift."
+  - "Use only OQMD delta_e under OQMD semantics, the frozen split, train-only cation-pair baseline/fallback, declared nulls, controls, seeds, metric, tolerance, and survival margin."
+  - "Report all partition/group counts, unseen-pair behavior, primary and secondary metrics, every required control, seeded sensitivity, and complete failure cases without row or residual-based exclusions."
+  - "Return exactly one verdict from the frozen contract's PASS/FAIL/INCONCLUSIVE vocabulary, plus SOURCE_STATE_BLOCKED or CONTRACT_STATE_BLOCKED before scoring when a prerequisite fails."
+  - "Preserve FAIL or INCONCLUSIVE as valuable negative/control memory; do not refit, add descriptors, tune thresholds, pool Materials Project values, or launch a rescue factory."
+  - "Create an AGENT_PUBLISHED RESULT candidate only if deterministic code, provenance, controls, limitations, verification, and Gate A all pass; otherwise write a blocker note with no RESULT."
+  - "Do not claim experimental validation, cross-database numerical agreement, a materials law, material recommendation, synthesis guidance, or device-performance evidence."
+  - "No-claim wording: this is one within-source computed-DFT baseline test on a bounded OQMD slice, not experimental replication or materials discovery."
+
+accepted_outputs:
+  - "A deterministic OQMD benchmark workflow, tests, frozen config/input copies, report, metric/control ledger, limitations, and one bounded verdict."
+  - "A new scoped RESULT artifact and Gate A report only when publication gates pass; otherwise an explicit no-publication blocker."
+  - "Output-routing summary covering canonical destination, review tier, Gate A/B, claim impact, knowledge impact, and publication blocker."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to preserve the frozen within-OQMD PASS, FAIL, or INCONCLUSIVE outcome as durable evidence when Gate A passes."
+  evidence:
+    - "results/EXP-*/RUN-*/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -n0 tests/test_materials_oqmd_bounded_snapshot.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

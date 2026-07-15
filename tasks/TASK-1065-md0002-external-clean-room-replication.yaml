@@ -1,0 +1,62 @@
+id: TASK-1065
+title: "Replicate MD-0002 RESULT-0021 externally from the public release surface"
+type: scientific_external_replication
+status: READY
+closeout: review
+closeout_review_reason: "This task is designed to earn the first genuinely external clean-room replication evidence; closeout must verify contributor independence, public-only inputs, implementation independence, metrics, and tier eligibility."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "APL has AGENT_PUBLISHED, AGENT_VALIDATED, and MAINTAINER_REVIEWED memory but no EXTERNAL_REPLICATED artifact."
+  - "MD-0002 is the strongest bounded candidate because its exact dataset archive is public on Zenodo and RESULT-0021 has frozen metrics, controls, and scope."
+  - "A public-artifact clean-room recomputation is scientifically distinct from TASK-1044, which re-runs the committed repository workflow."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "https://doi.org/10.5281/zenodo.21207072"
+    - "docs/external-reviewer-replication-guide.md"
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "data/materials/materials_md0002_snapshot_manifest.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    A contributor outside the maintainer's human-controlled agent accounts
+    should download the public MD-0002 archive, verify its release identity,
+    and independently recompute the frozen RESULT-0021 baseline and controls
+    without importing APL's benchmark workflow implementation.
+
+requirements:
+  - "Reserved for a contributor controlled by a different human or external organization from gladunrv and romanhladun24-dot. Any maintainer-controlled session must stop with EXTERNAL_IDENTITY_BLOCKED before downloading or computing."
+  - "Use only public release inputs: Zenodo record 21207072, its md0002-v0.1.0.zip asset, public repository tag dataset-md0002-v0.1.0, and public protocol/documentation. Record access times, environment, contributor identity, and all commands."
+  - "Verify DOI, archive filename, byte size, archive checksum, internal manifest, normalized row count, unique material count, two property axes, and frozen material-level split identity before metrics."
+  - "Implement the formation-energy cation-pair baseline, train-only global fallback, global-median/null controls, and frozen holdout metric independently. Do not import physics_lab.workflows.materials_md0002_formation_energy or copy its implementation."
+  - "Predeclare a numeric comparison tolerance before reading the canonical result metrics. Compare all required metrics, best model, verdict, row counts, split digest, and control ordering after the external run is sealed."
+  - "On exact PASS, produce an external replication record and request EXTERNAL_REPLICATED tier review; the task itself must not mutate the tier without maintainer review."
+  - "On archive, implementation, or metric failure, preserve a complete blocker/drift report and leave RESULT-0021, Zenodo metadata, tier, metrics, and public wording unchanged."
+  - "Do not use OQMD, refit feature families, recommend materials, claim experimental validation, rebuild or republish the Zenodo archive, or promote CLAIM/KNOW artifacts."
+  - "Return exactly one verdict: EXTERNAL_CLEAN_ROOM_PASS, EXTERNAL_IDENTITY_BLOCKED, PUBLIC_ARTIFACT_BLOCKED, or EXTERNAL_METRIC_DRIFT."
+  - "No-claim wording: external replication would establish reproducibility of one computed-DFT benchmark slice, not experimental agreement, material discovery, or a universal materials law."
+
+accepted_outputs:
+  - "A public, auditable external replication package with contributor attestation, clean-room method, independent code reference, environment, archive checks, complete metric comparison, limitations, and one bounded verdict."
+  - "A maintainer review packet for EXTERNAL_REPLICATED eligibility only on PASS; no automatic tier, metric, RESULT, CLAIM, KNOW, dataset, DOI, or release mutation."
+  - "Output-routing summary covering external identity, public-only provenance, Gate/review status, tier request, claim impact, knowledge impact, and blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "External replication of an existing result; no new scientific result is created."
+  evidence:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

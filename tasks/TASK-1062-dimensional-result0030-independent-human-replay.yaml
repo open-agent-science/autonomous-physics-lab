@@ -1,0 +1,60 @@
+id: TASK-1062
+title: "Replay Dimensional RESULT-0030 with an independent human contributor"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "This task is the first independent-human Gate B replay of the exact-v2 calibration result; closeout must preserve the frozen metrics, calibration-only role, and CLAIM-0005 exclusion."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0030 passed all four frozen exact-v2 calibration thresholds on 80 items and is AGENT_PUBLISHED, but Gate B has not been attempted."
+  - "Independent deterministic replay is the next trust step; another same-owner rescore or benchmark edit would add little evidence."
+  - "The surface remains calibration-only even if replay passes because benchmark authorship is same_owner_role_disjoint_agent."
+
+input:
+  mode: workflow
+  related_domain: physics_validation
+  related_objects:
+    - "results/EXP-0006/RUN-0008/result.yaml"
+    - "results/EXP-0006/RUN-0008/gate_a_report.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+  planning_context: >
+    Re-run the frozen RESULT-0030 command under a contributor controlled by a
+    different human from the publisher. Compare all deterministic metrics and
+    verification fields without changing the challenge set, engine, labels,
+    thresholds, or calibration-only interpretation.
+
+requirements:
+  - "Reserved for a contributor controlled by a different human from the owner of gladunrv; same-human execution must stop with INDEPENDENCE_BLOCKED before replay."
+  - "Record contributor id, GitHub username, agent/tool, model/version, operating system, replay command, isolated output directory, tolerance, compared numeric-field count, and maximum absolute drift."
+  - "Verify the frozen 80-item count, item-order digest, label vocabulary, input hashes, scoring contract, and CALIBRATION_ONLY_ROLE_LIMIT before execution."
+  - "Run the committed RESULT-0030 command and Gate B comparison without changing formulas, dimensions, expected labels, parser behavior, thresholds, metrics, best verdict, or result scope."
+  - "On exact replay PASS, append only schema-permitted replay metadata and upgrade RESULT-0030 to AGENT_VALIDATED with validation_independence independent; preserve Gate A history and every metric."
+  - "On command failure, identity failure, or metric drift, write a blocker note and leave RESULT-0030 tier, metrics, verdict, and public wording unchanged."
+  - "Do not inspect or modify CLAIM-0005, reinterpret curated labels as external ground truth, or claim semantic or universal physical correctness."
+  - "Return exactly one verdict: INDEPENDENT_GATE_B_PASS, INDEPENDENCE_BLOCKED, or GATE_B_FAIL_METRIC_DRIFT."
+  - "No-claim wording: replay establishes deterministic reproducibility of one frozen SI-focused calibration surface only; it does not provide confirmatory evidence for CLAIM-0005."
+
+accepted_outputs:
+  - "An independent replay note under docs/reviews/ plus the minimal RESULT-0030 review-metadata update only on PASS."
+  - "A complete metric-comparison ledger and output-routing summary covering tier, independence, Gate B, claim impact, knowledge impact, and the calibration-only ceiling."
+
+result_artifact_policy:
+  required: false
+  reason: "Gate B validation of an existing result; no new scientific result is produced."
+  evidence:
+    - "results/EXP-0006/RUN-0008/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_dimensions.py tests/test_dimensional_validator_v2_freeze.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
