@@ -91,10 +91,12 @@ python3 scripts/apl_task_occupancy.py --task TASK-XXXX
 Pass `--task` more than once for a batch of candidate tasks. The helper reads
 live GitHub PR metadata when available, scans PR title, body, and branch name
 for task ids, and classifies each requested task as `occupied`,
-`merged_pending_closeout`, or `apparently_free`. If GitHub CLI, network, or
-known local proxy blockers prevent the live lookup, the helper exits
-successfully with an advisory fallback instead of becoming a hard offline
-blocker.
+`merged_pending_closeout`, or `apparently_free`. It uses the same bounded
+GitHub-CLI-first, public-REST-second client as mission onboarding and maintainer
+review. The REST cache is process-local so parallel agents cannot share stale
+occupancy state through a file. If GitHub CLI, REST, network, or known local
+proxy blockers prevent the live lookup, the helper exits successfully with an
+advisory fallback instead of becoming a hard offline blocker.
 
 If an open PR already implements the same task, do not open a duplicate
 implementation PR. Instead:

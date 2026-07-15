@@ -5,20 +5,14 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass
 import json
-import os
 from pathlib import Path
 import random
-import subprocess
 from typing import Any, Mapping, Optional
 
 import yaml
 
 from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
-from physics_lab.registry.pr_capability import (
-    env_with_discovered_tool_paths,
-    find_gh_path,
-    suspicious_proxy_env_names,
-)
+from physics_lab.registry.github_readonly import GitHubReadOnlyClient
 from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.task_occupancy import occupancy_by_task_id, task_ids_from_text
 from physics_lab.registry.tasks import load_task
@@ -187,37 +181,6 @@ def _local_registry_availability(*warnings: str) -> TaskAvailabilitySnapshot:
     )
 
 
-def _run_gh_json(
-    command: list[str],
-    *,
-    root: Path,
-    env: Mapping[str, str],
-    timeout: int,
-) -> tuple[list[dict[str, Any]] | None, str | None]:
-    try:
-        completed = subprocess.run(
-            command,
-            cwd=root,
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            env=dict(env),
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        return None, f"{type(exc).__name__}: {exc}"
-    if completed.returncode != 0:
-        details = completed.stderr.strip() or completed.stdout.strip()
-        return None, details or f"gh exited with status {completed.returncode}"
-    try:
-        payload = json.loads(completed.stdout)
-    except json.JSONDecodeError as exc:
-        return None, f"gh returned invalid JSON: {exc}"
-    if not isinstance(payload, list):
-        return None, "gh returned a non-list JSON payload"
-    return [item for item in payload if isinstance(item, dict)], None
-
-
 def collect_github_task_availability(
     root: Path,
     *,
@@ -227,72 +190,24 @@ def collect_github_task_availability(
     timeout: int = 15,
 ) -> TaskAvailabilitySnapshot:
     """Return live GitHub task occupancy or a clear registry-only fallback."""
-    source_env = dict(os.environ if env is None else env)
-    proxy_names = suspicious_proxy_env_names(source_env)
-    if proxy_names and not clear_suspicious_proxy:
-        return _local_registry_availability(
-            "Live GitHub availability was not checked because known local blocker "
-            "proxy variables are set: "
-            + ", ".join(proxy_names)
-            + ". Retry with --ignore-suspicious-proxy when network access is allowed."
-        )
-
-    child_env = env_with_discovered_tool_paths(
-        source_env,
+    client = GitHubReadOnlyClient(
+        root,
+        env=env,
+        gh_path=gh_path,
         clear_suspicious_proxy=clear_suspicious_proxy,
-    )
-    resolved_gh_path = gh_path or find_gh_path(env=child_env)
-    if resolved_gh_path is None:
-        return _local_registry_availability(
-            "Live GitHub availability was not checked because GitHub CLI `gh` "
-            "is not installed or discoverable."
-        )
-
-    prs, pr_error = _run_gh_json(
-        [
-            resolved_gh_path,
-            "pr",
-            "list",
-            "--state",
-            "all",
-            "--limit",
-            "100",
-            "--json",
-            "number,title,body,state,mergedAt,headRefName",
-        ],
-        root=root,
-        env=child_env,
         timeout=timeout,
     )
-    if pr_error is not None:
+    pr_result = client.list_pull_requests()
+    claim_result = client.list_task_claims()
+    if not pr_result.available and not claim_result.available:
         return _local_registry_availability(
-            "Live GitHub PR availability lookup failed; using local registry-only "
-            f"options. Details: {pr_error}"
+            *tuple(
+                dict.fromkeys((*pr_result.diagnostics, *claim_result.diagnostics))
+            )
         )
 
-    issues, issue_error = _run_gh_json(
-        [
-            resolved_gh_path,
-            "issue",
-            "list",
-            "--state",
-            "open",
-            "--label",
-            "task-claim",
-            "--limit",
-            "100",
-            "--json",
-            "number,title,body",
-        ],
-        root=root,
-        env=child_env,
-        timeout=timeout,
-    )
-    if issue_error is not None:
-        return _local_registry_availability(
-            "Live GitHub claim availability lookup failed; using local registry-only "
-            f"options. Details: {issue_error}"
-        )
+    prs = pr_result.payload if isinstance(pr_result.payload, list) else []
+    issues = claim_result.payload if isinstance(claim_result.payload, list) else []
 
     ready_task_ids = {
         entry.task_id
@@ -300,13 +215,13 @@ def collect_github_task_availability(
         if entry.status == "READY"
     }
     reasons: dict[str, list[str]] = {}
-    pr_occupancy = occupancy_by_task_id(sorted(ready_task_ids), prs or [])
+    pr_occupancy = occupancy_by_task_id(sorted(ready_task_ids), prs)
     for task_id, occupancy in sorted(pr_occupancy.items()):
         if occupancy.classification == "apparently_free":
             continue
         reasons.setdefault(task_id, []).extend(occupancy.reasons)
 
-    for issue in issues or []:
+    for issue in issues:
         number = issue.get("number")
         for task_id in task_ids_from_text(issue.get("title"), issue.get("body")):
             if task_id not in ready_task_ids:
@@ -317,12 +232,40 @@ def collect_github_task_availability(
         task_id: tuple(dict.fromkeys(items))
         for task_id, items in sorted(reasons.items())
     }
+    checked = pr_result.available and claim_result.available
+    available_sources = {
+        result.source
+        for result in (pr_result, claim_result)
+        if result.available
+    }
+    if checked and available_sources == {"gh"}:
+        source = "github"
+    elif checked and available_sources == {"public_rest"}:
+        source = "public_rest"
+    elif checked:
+        source = "mixed"
+    else:
+        source = "partial_" + next(iter(available_sources))
+
+    warnings = list(
+        dict.fromkeys((*pr_result.diagnostics, *claim_result.diagnostics))
+    )
+    if not pr_result.available:
+        warnings.append(
+            "PR occupancy metadata is unavailable; confirmed claims were still "
+            "filtered, but a manual PR search is required before claiming a task."
+        )
+    if not claim_result.available:
+        warnings.append(
+            "Task-claim issue metadata is unavailable; confirmed PR occupancy was "
+            "still filtered, but a manual claim search is required before work."
+        )
     return TaskAvailabilitySnapshot(
-        checked=True,
-        source="github",
+        checked=checked,
+        source=source,
         excluded_task_ids=tuple(normalized_reasons),
         reasons=normalized_reasons,
-        warnings=(),
+        warnings=tuple(dict.fromkeys(warnings)),
     )
 
 
@@ -693,6 +636,32 @@ def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionS
     return MissionSelection(mode=selected_mode, mission=None, action=None, alternatives=())
 
 
+def _selection_without_unavailable_tasks(
+    selection: MissionSelection,
+    unavailable_task_ids: frozenset[str],
+) -> MissionSelection:
+    """Remove confirmed occupied task actions from every mission output surface."""
+    alternatives = tuple(
+        action
+        for action in selection.alternatives
+        if action.get("task_id") not in unavailable_task_ids
+    )
+    action = selection.action
+    mission = selection.mission
+    if action is not None and action.get("task_id") in unavailable_task_ids:
+        action = alternatives[0] if alternatives else None
+        alternatives = alternatives[1:] if alternatives else ()
+        # A replacement may belong to another campaign; do not retain the old
+        # campaign's why-now/guardrail context as though it described that task.
+        mission = None
+    return MissionSelection(
+        mode=selection.mode,
+        mission=mission,
+        action=action,
+        alternatives=alternatives,
+    )
+
+
 def _availability_or_local(
     availability: TaskAvailabilitySnapshot | None,
 ) -> TaskAvailabilitySnapshot:
@@ -713,6 +682,15 @@ def _availability_lines(availability: TaskAvailabilitySnapshot | None) -> list[s
             )
         else:
             lines.append("- no occupied READY task ids were detected")
+    elif snapshot.excluded_task_ids:
+        lines.append(
+            "- partially checked; confirmed occupied tasks were omitted, but the "
+            "remaining GitHub coordination surface needs a manual check"
+        )
+        lines.append(
+            "- omitted tasks confirmed by available metadata: "
+            + ", ".join(snapshot.excluded_task_ids)
+        )
     else:
         lines.append("- unavailable; showing local registry-only READY options")
     lines.extend(f"- note: {warning}" for warning in snapshot.warnings)
@@ -730,6 +708,10 @@ def mission_json(
     selection = select_mission(payload, mode)
     snapshot = _availability_or_local(availability)
     unavailable_task_ids = frozenset(snapshot.excluded_task_ids)
+    selection = _selection_without_unavailable_tasks(
+        selection,
+        unavailable_task_ids,
+    )
     live_candidates = (
         task_candidates(
             root,
@@ -802,6 +784,10 @@ def render_human_mission(
     selection = select_mission(payload, mode)
     unavailable_task_ids = frozenset(
         _availability_or_local(availability).excluded_task_ids
+    )
+    selection = _selection_without_unavailable_tasks(
+        selection,
+        unavailable_task_ids,
     )
     live_candidates = (
         task_candidates(
@@ -920,6 +906,10 @@ def render_agent_prompt(
     unavailable_task_ids = frozenset(
         _availability_or_local(availability).excluded_task_ids
     )
+    selection = _selection_without_unavailable_tasks(
+        selection,
+        unavailable_task_ids,
+    )
     live_candidates = (
         task_candidates(
             root,
@@ -989,6 +979,10 @@ def render_onboarding_prompt(
     selection = select_mission(payload, None)
     unavailable_task_ids = frozenset(
         _availability_or_local(availability).excluded_task_ids
+    )
+    selection = _selection_without_unavailable_tasks(
+        selection,
+        unavailable_task_ids,
     )
     live_candidates = (
         task_candidates(

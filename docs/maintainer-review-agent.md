@@ -487,17 +487,19 @@ run with `--branch`, run it again with `--pr <number>` after opening the PR so
 the agent can inspect the actual GitHub title, branch, metadata, and template
 sections before merge.
 
-PR-number review first reads metadata through `gh pr view`. A transient failure
-receives one bounded retry. If an agent sandbox cannot access the local `gh`
-credential store, the helper may read the same public metadata from fixed,
-read-only REST endpoints for `open-agent-science/autonomous-physics-lab`.
-Public fallback data stays in memory, uses no token, writes no metadata/cache
-file, and never mutates GitHub. It is capped at 100 changed files to protect the
-unauthenticated API allowance. Before validation, the helper fetches the
-canonical `refs/pull/<number>/head` ref and requires its SHA to match the
-reported PR head; incomplete metadata, rate limiting, or a mismatch remains a
-fail-closed blocker. This post-PR fallback does not change branch-only preflight
-or any task/proposal PR-body helper.
+PR-number review uses the shared agent read-only GitHub client. It first reads
+metadata through `gh pr view`, with one bounded retry for transient failures.
+If an agent sandbox cannot access the local `gh` credential store, the client
+may read the same public metadata from fixed REST endpoints for
+`open-agent-science/autonomous-physics-lab`. Public fallback data stays in a
+per-process in-memory cache, uses no token, writes no metadata/cache file, and
+never mutates GitHub. Parallel agents therefore share no stale local metadata.
+The PR-detail path is capped at 100 changed files to protect the unauthenticated
+API allowance. Before validation, the helper fetches the canonical
+`refs/pull/<number>/head` ref and requires its SHA to match the reported PR
+head; incomplete metadata, rate limiting, or a mismatch remains a fail-closed
+blocker. This post-PR fallback does not change branch-only preflight or any
+task/proposal PR-body helper.
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
