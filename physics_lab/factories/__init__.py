@@ -19,6 +19,7 @@ from physics_lab.factories.core import (
 
 # Register the first-party adapters on import.
 from physics_lab.factories import nuclear as _nuclear  # noqa: F401  (registration side effect)
+from physics_lab.factories import materials as _materials  # noqa: F401  (registration side effect)
 
 __all__ = [
     "Candidate",

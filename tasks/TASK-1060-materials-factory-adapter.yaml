@@ -1,0 +1,60 @@
+id: TASK-1060
+title: "Second Research Factory adapter: materials formation-energy through the shared core"
+type: research_infrastructure
+status: REVIEW_READY
+closeout: review
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Validates the central architectural claim of the Research Factory layer (TASK-0506): the campaign-agnostic core generalizes beyond one campaign. Until now only physics_lab/factories/nuclear.py exercised FactorySpec/CampaignAdapter/run_factory; the materials formation-energy science lived in a separate smoke script that bypassed the core (N=1 abstraction)."
+  - "Adds a genuinely different second adapter (materials formation-energy residual-offset correction) through the SAME shared core, with one bounded reproducible run, proving the core carries no campaign-specific logic."
+  - "Diagnostic-only: reuses the validated TASK-0626 smoke-sprint science verbatim; no claim, prediction, knowledge, or result promotion."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "physics_lab/factories/core.py"
+    - "physics_lab/factories/nuclear.py"
+    - "physics_lab/engines/materials_md0001_baseline.py"
+    - "examples/factories/materials_md0001_formation_energy_smoke.yaml"
+  planning_context: >
+    Implement physics_lab/factories/materials.py as a real CampaignAdapter
+    (MaterialsFormationEnergyFactoryAdapter) whose build_run reuses the MD-0001
+    engine primitives and the frozen residual-offset-lane science from the
+    TASK-0626 smoke sprint (four candidate lanes, three matched null controls,
+    seeded split sensitivity), mapping lane outcomes onto the core's route
+    verdicts and candidate states. Register it on import, add a factory config,
+    and run it through the shared run_factory to emit a schema-valid
+    factory_summary. A cross-check test proves the adapter's per-lane holdout
+    improvements match the smoke sprint exactly. The core stays untouched.
+
+requirements:
+  - "New adapter implements the shared CampaignAdapter interface (adapter_id/adapter_version/build_run) and is registered via physics_lab/factories/__init__; no campaign-specific logic is added to physics_lab/factories/core.py."
+  - "The bounded run emits a schema-valid factory_summary through run_factory (candidate cap respected, all route verdicts in the core vocabulary)."
+  - "Faithfulness: the adapter's per-lane holdout MAE improvements equal the TASK-0626 smoke sprint's, proving the materials science is unchanged by routing through the core."
+  - "Diagnostic-only: no claim/prediction/knowledge/result promotion; formation-energy axis only, band gap excluded."
+  - "Follow-up (not this task): converge the TASK-0626 smoke script onto the shared adapter to remove the duplicated lane science; this task keeps the smoke untouched so its diff stays reviewable and its regression test proves faithfulness."
+
+accepted_outputs:
+  - "physics_lab/factories/materials.py adapter + registration, examples/factories/materials_md0001_formation_energy_smoke.yaml config, tests/test_materials_factory_adapter.py, and this task file."
+  - "Output-routing summary: research infrastructure; the campaign-agnostic core is now proven on two adapters. No scientific RESULT/PRED/CLAIM/KNOW artifact is created."
+
+result_artifact_policy:
+  required: false
+  reason: "Research-infrastructure task proving core reusability; the factory_summary it emits is sandbox/diagnostic-only and is not a promoted scientific RESULT."
+  evidence:
+    - "physics_lab/factories/materials.py"
+    - "tests/test_materials_factory_adapter.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/factories/materials.py tests/test_materials_factory_adapter.py"
+    - "python3 -m pytest tests/test_materials_factory_adapter.py tests/test_materials_md0001_formation_energy_factory_smoke.py tests/test_research_factory_core.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
