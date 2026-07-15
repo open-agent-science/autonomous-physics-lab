@@ -57,6 +57,8 @@ row-producing digitisation artifact:
 - `norris-bawendi-1996-prb-cdse-band-edge/` records the TASK-0563 deterministic
   preflight templates and blocker state for the Norris-Bawendi 1996 CdSe
   source path.
+- `kim-2020-nanomaterials-cdse-optical/` records the TASK-1052 real-value,
+  dual-pass `UNCERTAINTY_BLOCKED` ledger. It authorizes no `qd-*.yaml` rows.
 
 The first row-producing artifact must still add source-specific
 `axis_calibration.csv`, `extracted_points.csv`, and extraction notes before
