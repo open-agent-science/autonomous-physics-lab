@@ -5,7 +5,7 @@ run_id: RUN-0008
 experiment_id: EXP-0006
 claim_id: CLAIM-0005
 knowledge_id: KNOW-0004
-generated_at: '2026-07-15T20:48:50.672830+00:00'
+generated_at: '2026-07-15T21:41:27.546991+00:00'
 proposed_claim_status: DRAFT
 required_human_review: true
 evidence_basis:

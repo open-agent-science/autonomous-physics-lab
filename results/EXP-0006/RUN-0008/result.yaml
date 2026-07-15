@@ -1,4 +1,4 @@
-generated_at: '2026-07-15T20:48:50.672830+00:00'
+generated_at: '2026-07-15T21:41:27.546991+00:00'
 result_id: RESULT-0030
 run_id: RUN-0008
 experiment_id: EXP-0006
@@ -6,7 +6,7 @@ title: Dimensional Validator Exact-v2 Frozen Calibration Score
 hypothesis_id: HYP-0006
 task_id: TASK-1051
 engine_version: 0.2.0
-git_commit: 0b822d422cf900b1a16b22a0ceb1ccf3b3eb1ee3
+git_commit: a2c81acadb67c80f12143f011b11402051b1d1df
 command: python -m physics_lab.cli run examples/dimensional_analysis_v2_calibration.yaml
   --output-dir results/EXP-0006/RUN-0008
 input_file_hashes:
@@ -24,7 +24,7 @@ input_file_hashes:
     sha256: 7488667ad52b2d6b6d0fb2b9bbf0d6bb3280254dc9798a454704258d8705ad4b
   task:
     path: results/EXP-0006/RUN-0008/inputs/task.yaml
-    sha256: 5a7ad159706399c3479156bfd60c0083c5d64bd396e624a343a092c68bc98357
+    sha256: 07980466276eff63018e9d595e7a687d27105389d54bcd3bc0d2ad875065b8a7
 code_reference: physics_lab/workflows/dimensional_validator.py
 limitations:
 - Agent-published, not yet independently validated or maintainer-reviewed.
