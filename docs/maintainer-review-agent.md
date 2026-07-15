@@ -260,8 +260,26 @@ verdict from the current local branch.
 
 The deterministic review output includes a compact `Quality: X/10` line for
 maintainer triage. This score summarizes the shape of the review surface:
-risk level, blockers, required fixes, security-sensitive paths, and advisory
-warnings.
+change-surface risk, blockers, required fixes, security-sensitive paths, and
+advisory warnings.
+
+`Change risk` and `Validation` are independent axes:
+
+- `Change risk: low` means the diff is limited to documentation or task
+  coordination metadata, except for explicitly protected governance paths;
+- `Change risk: medium` covers executable code, schemas, CI, tests, data, and
+  unclassified new repository surfaces;
+- `Change risk: high` covers governance, protected scientific memory,
+  prediction/result/claim/knowledge, and rights/publication surfaces;
+- `Validation: environment_blocked` still keeps the verdict fail-closed, but
+  it does not relabel a known low-risk change surface as high risk.
+
+An unavailable or unproven diff is classified high because the helper cannot
+establish what changed. A known docs/task-only diff with an unavailable local
+runtime is instead reported as `BLOCKED`, `Change risk: low`, and
+`Validation: environment_blocked`. The maintainer must still accept proven
+equivalent exact-head CI evidence or rerun validation in a healthy environment
+before merge.
 
 The score is advisory only. It must not override `MERGE_OK`, `NEEDS_CHANGES`,
 `BLOCKED`, GitHub CI, scientific guardrails, or maintainer judgment. Use it to
@@ -503,11 +521,11 @@ Lane mismatch rule:
 ### Recommended output format
 
 - `Verdict: MERGE_OK | NEEDS_CHANGES | BLOCKED`
-- `Risk: low | medium | high`
+- `Change risk: low | medium | high`
 - `Task: TASK-XXXX`
 - `Branch: ...`
 - `Changed files: ...`
-- `Validation: pass | fail | not_run`
+- `Validation: pass | fail | environment_blocked | not_run`
 - `Security risks: [...]`
 - `Blockers: [...]`
 - `Required fixes: [...]`
