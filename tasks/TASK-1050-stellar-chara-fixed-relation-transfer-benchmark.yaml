@@ -1,0 +1,67 @@
+id: TASK-1050
+title: "Run the frozen Stellar relation on the source-curated CHARA component surface"
+type: scientific_result_publication
+status: READY
+closeout: review
+closeout_review_reason: "This is the first cross-source CHARA transfer metric and potential RESULT artifact; closeout must verify source eligibility, grouped independence, fixed-model discipline, controls, and public scope."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "RESULT-0022 established a frozen DEBCat relation and RESULT-0024 tested same-source high-mass transfer; TASK-1040 now supplies twelve CHARA rows from six external systems."
+  - "TASK-1041 froze a minimum five-effective-group rule and excludes the Melotte-25 group as an independent holdout against DEBCat."
+  - "A no-refit external transfer is more informative than another DEBCat split audit or formula search."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "results/EXP-0017/RUN-0001/result.yaml"
+    - "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
+    - "data/textbook_formula_audit/stellar_ml/chara_cluster_dependence_ledger.yaml"
+    - "docs/reviews/stellar/chara-per-component-row-curation.md"
+    - "docs/reviews/stellar/chara-cluster-dependence-policy.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    Apply the frozen RESULT-0022 relation and controls to the admitted CHARA
+    component rows without refitting, post-value exclusions, or threshold
+    changes. Package any passing, failing, or inconclusive outcome through the
+    result-promotion protocol when Gate A permits it.
+
+requirements:
+  - "Use exactly the twelve TASK-1040 rows from six systems. Recompute source/schema checks before metrics and stop with SOURCE_CONTESTED_NO_SCORE if a merged independent source replay disputes an included row."
+  - "Apply TASK-1041 grouping exactly. Keep every system atomic, exclude any Melotte-25/DEBCat-overlap group from independent-holdout wording, and stop with HOLD_UNDERPOWERED if fewer than five eligible effective groups remain."
+  - "Primary candidate is the frozen RESULT-0022 relation log10(L/Lsun) = 4.526004 * log10(M/Msun), fixed intercept 0.0. Do not refit any coefficient on CHARA."
+  - "Preserve alpha=3.5 and alpha=4.0 fixed textbook comparators and reconstruct the RESULT-0022 train-only mass-band/global-median null without using CHARA targets."
+  - "Use component-level log-luminosity MAE as the primary metric, report per-system paired diagnostics, and preserve system-level sensitivity so two components do not count as two independent environments."
+  - "Use the pre-existing 0.04 dex survival margin over the best eligible non-oracle control; do not choose a new threshold after CHARA values or metrics are inspected."
+  - "Report all rows and systems, uncertainty/provenance strata, each model/control metric, the effective-group count, and any source-limited exclusions. No residual-based row removal is allowed."
+  - "Return exactly one scientific verdict: VALID_IN_RANGE, INCONCLUSIVE, INVALID, SOURCE_CONTESTED_NO_SCORE, or HOLD_UNDERPOWERED. A failed or inconclusive metric outcome is valuable negative memory and must not trigger a rescue fit."
+  - "If deterministic code, provenance, controls, verification, limitations, and replay command satisfy Gate A, package a new scoped RESULT candidate; otherwise preserve a review note and the publication blocker."
+  - "Do not change RESULT-0022/0024, fit a new exponent, add piecewise terms, use Gaia values, promote a claim, or describe a universal stellar law."
+  - "No-claim wording: this tests one frozen relation on six source-curated CHARA systems; it is not a population result or universal mass-luminosity law."
+
+accepted_outputs:
+  - "A deterministic CHARA transfer workflow, tests, frozen input/config artifacts, and a review note with exact metrics, controls, grouping, exclusions, limitations, and one bounded verdict."
+  - "A new RESULT artifact with Gate A report when publication gates pass, including AGENT_PUBLISHED wording and no claim/knowledge impact; otherwise an explicit no-publication blocker."
+  - "Output-routing summary covering canonical destination, review tier, Gate A/B, claim impact, knowledge impact, and publication blocker."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to produce a durable positive, negative, or inconclusive cross-source transfer RESULT when Gate A passes."
+  evidence:
+    - "results/EXP-*/RUN-*/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -n0 tests/test_stellar_ml_chara_component_rows.py tests/test_docs_links.py tests/test_result_publication_gate.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-`v0.2-public-alpha candidate — multi-campaign agent research network hardening`
+`v0.2-public-alpha live — multi-campaign agent research network hardening`
 
 The repository is still gated by maintainer review and release discipline, but
 the strategic center has moved from a single flagship/private-alpha dry run to a
@@ -67,8 +67,9 @@ emphasis:
    collection of isolated local experiments.
 2. Keep Nuclear Mass Surface as the flagship science track, but separate
    replayed point-estimator gains from prediction-ready uncertainty. `RESULT-0025`
-   is useful evidence; prediction freeze still requires no-peek calibration and
-   source-grade reveal discipline.
+   is useful evidence and the tier-1 point-only predictions are frozen and
+   externally anchored; interval-bearing predictions still require fresh
+   no-peek calibration and source-grade reveal discipline.
 3. Treat Exoplanet Mass-Radius as a public-safe monitor/negative-control
    surface: pinned snapshots, residual failure maps, and null baselines are
    useful, but current residual scoring stays closed until a material
@@ -103,13 +104,20 @@ emphasis:
 12. Keep post-validation campaigns pointed at explicit validity gates:
    transfer, ratification, external reveal, or source readiness. Repeated
    audits are useful only when they clear one of those gates.
-13. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+13. Convert the current source-ready wave into bounded result paths: independent
+   CHARA provenance replay plus no-refit transfer, Kim-2020 CdSe row extraction,
+   an OQMD within-source split/control route after source readiness, and one
+   calibration-only dimensional v2 score.
+14. Keep Lattice-QCD at a bounded `f_K/f_pi` metadata/dependency pilot until it
+   demonstrates value beyond existing evaluated summaries; do not admit central
+   values or create a general loader yet.
+15. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-14. Distinguish retrospective time-split benchmarks from prospective prediction:
+16. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-15. Prepare public launch only after the explicit gates in
+17. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through
@@ -172,9 +180,11 @@ Current visible evidence includes:
   `RESULT-0026`, Exoplanet negative/control `RESULT-0027`, ThermoML
   failed-family `RESULT-0028`, and Quantum ZnSe no-refit `RESULT-0029` as
   scoped, review-tiered benchmark memory rather than broad physical claims;
-- the FRB pre-T exposure surface, frozen exposure-only model, and prepared
-  sealed-registration pack as a prediction-readiness lane, not a result or
-  repeater-population claim.
+- the registered FRB pre-T point-score/rank prediction and GitHub Release
+  checksum anchor as a sealed prospective benchmark, not a result, success
+  verdict, or repeater-population claim;
+- the new CHARA, CdSe, dimensional-v2, and `f_K/f_pi` source/dependency surfaces
+  as next-gate inputs rather than numerical results or discovery claims.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.

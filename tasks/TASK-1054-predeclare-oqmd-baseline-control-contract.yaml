@@ -1,0 +1,61 @@
+id: TASK-1054
+title: "Predeclare the OQMD within-source baseline and control contract value-blind"
+type: benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This contract fixes the only allowed OQMD model/control families before target summaries; closeout must verify cross-database semantics, numeric thresholds, and no-value-access discipline."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0021 shows a cation-pair baseline can beat null controls on MD-0002, while TASK-1026 records that OQMD and Materials Project energies are not numerically interchangeable."
+  - "A value-blind contract can be designed in parallel with source acquisition and prevents OQMD methodology shopping."
+  - "The future scientific question is within-OQMD reproducibility of a frozen baseline family, not equality of two DFT databases or material discovery."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+    - "physics_lab/workflows/materials_md0002_formation_energy.py"
+    - "docs/reviews/materials/oqmd-v18-source-manifest-preflight.md"
+    - "tasks/TASK-1042-materials-oqmd-bounded-snapshot-acquisition.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    Freeze the OQMD formation-energy objective, train-only cation-pair baseline,
+    null/control families, metrics, margins, sensitivity rules, and stop
+    conditions without reading OQMD target values or summaries.
+
+requirements:
+  - "Use OQMD delta_e only under its own computed-DFT reference/correction semantics. Explicitly forbid direct numeric pooling, offset claims, or equality with Materials Project formation_energy_per_atom."
+  - "Primary model family is the RESULT-0021-style unordered non-oxygen cation-pair train mean with a train-only global fallback; no structural descriptor or feature expansion is allowed."
+  - "Predeclare train-only global-median and cation-group nulls, deterministic label-shuffle and cation-label-shuffle controls, row-order invariance, and at least five identity-group-preserving sensitivity seeds."
+  - "Choose and justify one numeric/relative survival margin before any OQMD target value or summary is inspected. The future verdict must fail closed if the model does not beat every required non-oracle control and the frozen margin."
+  - "Freeze MAE as the primary metric, any secondary metric, missing-target policy, unseen-pair fallback, tie handling, tolerance, random seeds, and PASS/FAIL/INCONCLUSIVE routing."
+  - "Record author/session identity and a no-OQMD-target-access declaration. If target values or aggregate summaries were inspected in this session, return CONTRACT_CONTAMINATED and do not freeze the contract."
+  - "Do not assign rows to partitions, fetch source data, inspect target summaries, run metrics, edit RESULT-0021, or create a RESULT/PRED/CLAIM/KNOW artifact."
+  - "Return exactly one verdict: CONTRACT_READY_FOR_FROZEN_SPLIT, CONTRACT_CONTAMINATED, SEMANTICS_BLOCKED, CONTROL_BLOCKED, or THRESHOLD_BLOCKED."
+  - "No-claim wording: this contract can test a simple baseline within a bounded OQMD computed-DFT slice; it cannot establish cross-database agreement or a materials law."
+
+accepted_outputs:
+  - "A machine-readable OQMD baseline/control contract under data/materials/ or docs/reviews/materials/ with all frozen families, metrics, margins, seeds, tolerances, stops, and no-target-access declaration."
+  - "A concise preflight note and metadata-only contract test; no source rows, split, metrics, result, claim, or knowledge mutation."
+  - "Output-routing summary: methodology readiness only; future scoring remains blocked on TASK-1053 and a separate execution task."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind benchmark contract only; no scoring or scientific result is produced."
+  evidence:
+    - "results/EXP-0014/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_materials_md0002_formation_energy_result.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

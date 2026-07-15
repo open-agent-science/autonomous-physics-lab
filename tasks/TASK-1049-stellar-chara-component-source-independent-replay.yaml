@@ -1,0 +1,61 @@
+id: TASK-1049
+title: "Independently replay the CHARA per-component source and derivation surface"
+type: scientific_source_validation
+status: READY
+closeout: review
+closeout_review_reason: "The CHARA rows are a manual source extract that will feed an external transfer benchmark; closeout must adjudicate any source, component, derivation, or rights disagreement before stronger wording."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1040 admitted twelve same-component mass/luminosity rows for six CHARA systems and returned SOURCE_LIMITED."
+  - "An independent source-level replay is the shortest way to harden the new external surface before it is reused in result-bearing work."
+  - "This validates transcription and derivation only; it does not score or endorse a stellar mass-luminosity relation."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
+    - "docs/reviews/stellar/chara-per-component-row-curation.md"
+    - "data/textbook_formula_audit/stellar_ml/chara_cluster_dependence_ledger.yaml"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    Re-pin the cited source artifacts independently, verify each admitted
+    component identity and value locator, and replay every derived luminosity
+    and uncertainty without fitting or scoring a stellar relation.
+
+requirements:
+  - "Reserve this task for a contributor controlled by a different human from the TASK-1040 row curator; otherwise stop with INDEPENDENCE_BLOCKED."
+  - "Verify the exact twelve-row, six-system surface and every source identity, locator, article checksum, component mapping, unit, uncertainty meaning, morphology flag, and multiplicity flag."
+  - "Recompute the four Stefan-Boltzmann-derived luminosities and propagated uncertainties from the cited radius and temperature values using the frozen formula and constants; report maximum numeric drift."
+  - "Confirm that the eight directly reported luminosities preserve their source-table semantics and were not converted from band-limited magnitudes."
+  - "Re-run the DEBCat whole-system identifier intersection and the TASK-1041 environment-group assignment without inspecting residuals or model outputs."
+  - "Verify the per-source redistribution boundary and that publisher bytes remain uncommitted."
+  - "On any contested row, identify it precisely and leave the canonical source surface unchanged; do not silently repair values in this replay task."
+  - "Return exactly one verdict: INDEPENDENT_SOURCE_REPLAY_PASS, INDEPENDENCE_BLOCKED, SOURCE_ROW_CONTESTED, DERIVATION_DRIFT, RIGHTS_BLOCKED, or LEAKAGE_DETECTED."
+  - "No-claim wording: replay validates a bounded factual source extract only, not a stellar relation, population, or universal law."
+
+accepted_outputs:
+  - "An independent replay note under docs/reviews/stellar/ with row-by-row provenance decisions, derived-value drift, rights checks, leakage checks, limitations, and one bounded verdict."
+  - "Minimal validation metadata may be appended to the CHARA source surface only on exact PASS; no row value, split, metric, RESULT, PRED, CLAIM, or KNOW mutation."
+  - "Output-routing summary: source validation only; later benchmark work must preserve the TASK-1041 grouping policy."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent source validation only; no scientific RESULT artifact is produced."
+  evidence:
+    - "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_stellar_ml_chara_component_rows.py tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

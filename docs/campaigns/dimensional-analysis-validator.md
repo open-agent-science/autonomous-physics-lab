@@ -55,10 +55,10 @@ challenge surface:
 
 Current campaign state in one sentence:
 
-The validator has a frozen `LEGACY_UNTIERED` MVP result and a newer
-`AGENT_VALIDATED` calibration result. Gate C is deferred: the next scientific
-step is a fresh role-disjoint benchmark under the label-blind v2 contract, not
-promotion of the historical 74-item surface.
+The validator has a frozen `LEGACY_UNTIERED` MVP result, a newer
+`AGENT_VALIDATED` calibration result, and an unscored 80-item exact-v2 surface.
+Because that surface is same-owner role-disjoint, its next score is
+calibration-only and cannot promote `CLAIM-0005`.
 
 Start here:
 
@@ -91,11 +91,13 @@ Start here:
   decision.
 - `TASK-1038` separates label-blind inference from benchmark scoring and keeps
   the historical 50/74 surfaces as regression/calibration memory.
-- `TASK-1039` is the next scientific gate: a role-disjoint curator must freeze
-  a fresh 80-120 item v2 surface without running the validator or seeing its
-  outputs.
-- The next result-bearing task must use a fresh role-disjoint frozen benchmark;
-  do not rescore the current 74 items as confirmatory evidence.
+- `TASK-1039` froze 80 v2 items without running the validator and returned
+  `CALIBRATION_ONLY_ROLE_LIMIT` because curation was same-owner role-disjoint.
+- `TASK-1051` is the next scientific gate: score those 80 frozen items once
+  under the exact-agreement and class-recall thresholds, with no row, label,
+  threshold, or engine changes.
+- The resulting evidence remains calibration-only. A genuinely independent
+  future surface is still required for confirmatory `CLAIM-0005` review.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.
 

@@ -1,0 +1,58 @@
+id: TASK-1053
+title: "Freeze an identifier-only OQMD benchmark split without target inspection"
+type: benchmark_planning
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task creates the no-peek partition for a second-source materials benchmark; closeout must verify the TASK-1042 source outcome, identity grouping, row floors, checksums, and no-target-access declaration."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1026 predeclared OQMD acquisition and overlap controls; TASK-1042 is the sole authorized bounded snapshot acquisition."
+  - "A target-blind, composition-grouped split is required before any OQMD baseline can be fit or scored."
+  - "The split must remain separate from target summaries and metric execution."
+
+input:
+  mode: planning_only
+  related_domain: materials_science
+  related_objects:
+    - "tasks/TASK-1042-materials-oqmd-bounded-snapshot-acquisition.yaml"
+    - "docs/reviews/materials/oqmd-v18-source-manifest-preflight.md"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    After TASK-1042 is merged and closed with SNAPSHOT_READY_FOR_SPLIT_FREEZE,
+    use stable identity fields only to freeze a deterministic OQMD
+    train/validation/holdout partition.
+
+requirements:
+  - "Blocked-by: merged TASK-1042 with verdict SNAPSHOT_READY_FOR_SPLIT_FREEZE and canonical raw/normalized hashes. Keep this task BLOCKED until that condition is recorded on main."
+  - "Use only stable entry id, reduced composition, space-group identity, and source manifest fields while assigning groups and partitions; do not inspect delta_e, band_gap, target missingness summaries, or residuals."
+  - "Keep every reduced-composition group atomic. Record whether space-group variants share a group and prevent any composition leakage across partitions."
+  - "Freeze a deterministic 70/15/15 target allocation from a documented hash/ordering rule, with at least 24 rows in the final holdout and explicit deviation rules for atomic groups."
+  - "Record ordered row/group manifests, partition counts, source/snapshot hashes, algorithm/version, seed or salt, and a no-target-access declaration."
+  - "Stop with HOLD_UNDERPOWERED if grouping cannot preserve the holdout floor, LEAKAGE_BLOCKED on any cross-partition composition group, or SOURCE_STATE_BLOCKED on snapshot/hash drift."
+  - "Do not compute target summaries, fit baselines, compare OQMD with Materials Project values, run metrics, create a RESULT, or make a material recommendation."
+  - "No-claim wording: this is an identity-only partition of a computed-DFT source snapshot, not benchmark evidence or experimental replication."
+
+accepted_outputs:
+  - "An OQMD split manifest under data/materials/ with identity groups, deterministic partition assignments, hashes, row floors, and no-target-access declaration."
+  - "A docs/reviews/materials/ split-freeze note and deterministic leakage/checksum/count tests with one bounded verdict."
+  - "Output-routing summary: benchmark readiness only; no metric, result, claim, prediction, or knowledge impact."
+
+result_artifact_policy:
+  required: false
+  reason: "No-peek split planning only; result-bearing execution belongs to a later task."
+  evidence:
+    - "docs/reviews/materials/oqmd-v18-source-manifest-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

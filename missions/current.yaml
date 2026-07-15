@@ -1,23 +1,22 @@
 default_mode: research
-updated: "2026-07-12"
+updated: "2026-07-15"
 
 curator_cycle:
   decision: updated
-  updated: "2026-07-12"
-  source: "Scientific Director cycle after FRB anchor rights review and latest validation closeouts"
+  updated: "2026-07-15"
+  source: "Scientific Director cycle after CHARA, CdSe, dimensional-v2, and lattice source-readiness outputs"
   note: >
-    Mission guidance now reflects the FRB registration/anchor closeout:
-    PRED-0001 is registered as a point-score/rank-only pre-reveal prediction
-    and externally anchored by GitHub Release tag
-    pred-frb-pret-repeater-propensity-20260710. FRB should now stay in
-    reveal-source discipline, not pre-freeze fitting. The FRB Zenodo/full-ZIP
-    route remains separately rights-gated; use reduced-capsule planning only
-    after explicit GO_REDUCED_CAPSULE. Exoplanet RESULT-0027 and Quantum
-    RESULT-0029 are now AGENT_VALIDATED and should not be replay-looped;
-    ThermoML RESULT-0028 is now AGENT_VALIDATED and should move through
-    source-access/revised-contract gates; Stellar CHARA is paper-level-pin-ready,
-    Atomic is KEEP_MONITOR_ONLY, and Particle AHS has a bounded sandbox
-    diagnostic. The next wave should refill READY science tasks around source readiness,
+    Mission guidance now reflects the latest source-readiness wave. CHARA has
+    twelve source-traceable component rows across six systems and a dependence
+    policy; Kim-2020 CdSe has a frozen twelve-observation extraction contract;
+    dimensional exact-v2 has an unscored 80-item calibration-only surface; and
+    the lattice incubator selected f_K/f_pi for one bounded primary-source
+    dependency pilot. OQMD acquisition remains under review, so split and
+    metrics stay gated. FRB PRED-0001 remains registered and GitHub-anchored
+    under reveal-source discipline. Exoplanet RESULT-0027, Quantum RESULT-0029,
+    and ThermoML RESULT-0028 must not be replay-looped. Atomic remains
+    KEEP_MONITOR_ONLY. The next wave should convert source readiness through
+    independent replay, bounded extraction, fixed-contract scoring,
     reveal discipline, contract decisions, and stop/go packets without
     reopening closed audit loops or promoting calibration-known physics as
     discovery.
@@ -549,7 +548,7 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. RESULT-0029 now packages the strict no-refit ZnSe/InP transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory after independent-human replay. TASK-0988 found a CdSe source lead but returned SOURCE_LIMITED_MONITOR; Quantum should preserve this bounded negative/borderline transfer memory and hold metric work until a value-blind source-artifact contract or maintainer-approved route exists."
+    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. RESULT-0029 packages the strict no-refit ZnSe/InP transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1027 and TASK-1043 now pin the Kim-2020 CdSe source and an exactly twelve-observation extraction contract; TASK-1052 may curate those rows, but no benchmark metric or correction search is authorized."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
@@ -561,7 +560,8 @@ missions:
       - "TASK-0914 predeclared a strict no-refit transfer contract and cleared TASK-0920 for execution"
       - "TASK-0957 packaged the strict no-refit transfer miss as RESULT-0029 with INCONCLUSIVE verdict and no claim impact"
       - "TASK-1015 independently replayed RESULT-0029 with zero metric drift and upgraded it to AGENT_VALIDATED memory"
-      - "TASK-0988 found only a SOURCE_LIMITED_MONITOR CdSe route until a source-artifact package exists"
+      - "TASK-1027 pinned the Kim-2020 CdSe source artifact and reuse boundary"
+      - "TASK-1043 returned EXTRACTION_CONTRACT_READY for exactly twelve observations with two-pass digitization controls"
     forbidden:
       - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -756,6 +756,18 @@ missions:
         recommended: false
         expected_outputs:
           - "explicit decision on whether a weaker calibration-consistency benchmark may exist separately from TASK-0225"
+      - id: quantum-kim2020-cdse-row-extraction
+        label: "Extract the twelve predeclared Kim-2020 CdSe observations"
+        task_id: TASK-1052
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "exactly four size summaries, four absorption peaks, and four emission peaks with source locators"
+          - "two independent digitization passes reconciled under the frozen tolerances"
+          - "no benchmark metric, model fit, correction search, RESULT, CLAIM, or design guidance"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
@@ -1220,7 +1232,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022 and FIRAS/Wien RESULT-0023 are AGENT_VALIDATED within narrow scope. RESULT-0024 is AGENT_VALIDATED same-source high-mass transfer memory. TASK-0989 pinned a value-blind CHARA source package and excluded two explicit DEBCat overlaps; the next useful work is TASK-1025, an identifier-complete alias and whole-system de-dup audit before any row curation or independent-holdout metric work."
+    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. CHARA now has twelve source-traceable component rows across six systems plus a frozen dependence policy. TASK-1049 should independently replay the source surface, while TASK-1050 may score the frozen RESULT-0022 relation and controls without refitting."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1234,6 +1246,8 @@ missions:
       - "RESULT-0024 replayed with zero metric drift but retains a metadata caveat"
       - "TASK-0939 returned PAPER_LEVEL_PIN_READY as the source-pin/de-dup preflight before any CHARA-derived independent holdout metric work"
       - "TASK-0989 returned SOURCE_ARTIFACT_READY after pinning the CHARA source package value-blind and excluding two explicit DEBCat whole-system overlaps"
+      - "TASK-1040 admitted twelve source-traceable component rows across six CHARA systems and kept seven systems source-limited"
+      - "TASK-1041 froze the group-dependence policy and minimum five-effective-group gate"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1393,12 +1407,36 @@ missions:
         status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "identifier-complete alias ledger for the thirteen remaining CHARA candidates"
           - "whole-system DEBCat intersection decisions before any stellar value extraction"
           - "ALIAS_AUDIT_READY_FOR_ROW_CURATION, SOURCE_LIMITED, or ZERO_ELIGIBLE_INDEPENDENT_SYSTEMS verdict"
           - "no stellar values, M-L scoring, exponent fitting, or universal formula wording"
+      - id: textbook-stellar-chara-source-replay
+        label: "Independently replay the CHARA component-source surface"
+        task_id: TASK-1049
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "independent verification of all twelve rows, component identities, units, and derivations"
+          - "explicit correction or exclusion ledger with no metric execution"
+          - "no inferred values, relation fit, transfer score, RESULT, or universal formula wording"
+      - id: textbook-stellar-chara-fixed-transfer
+        label: "Score the fixed RESULT-0022 relation on CHARA without refitting"
+        task_id: TASK-1050
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "twelve-row, six-system transfer score using the frozen dependence policy"
+          - "frozen RESULT-0022 relation, controls, and 0.04 dex survival margin with no refit"
+          - "bounded positive, negative, or inconclusive RESULT route with no universal stellar-law claim"
       - id: textbook-review-ready-handoff
         label: "Treat Textbook formula audit as source-gated and choose a live READY science task"
         task_id: null
@@ -1408,7 +1446,7 @@ missions:
         difficulty: low
         recommended: false
         expected_outputs:
-          - "do not reopen CHARA metric work before TASK-1025 completes identifier aliases and whole-system de-dup"
+          - "use TASK-1049 and TASK-1050 as the bounded CHARA replay and transfer routes"
           - "choose from the executable READY task candidates generated from the task registry"
       - id: textbook-stellar-ml-source-baseline-plan
         label: "Stellar Mass-Luminosity OOD source and baseline plan landed"
@@ -1591,20 +1629,21 @@ missions:
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
     rank: 10
-    status: gate_c_wording_ready
+    status: calibration_v2_scoring_ready
     scientific_value: medium
     risk: low
-    recommendation: "Use as a quality-floor ratification lane. RESULT-0020 is AGENT_VALIDATED after TASK-0948 supplied an independent Gate B replay with zero drift. The next step is maintainer Gate C wording/status for CLAIM-0005, not another challenge-set expansion or replay."
+    recommendation: "Use as a quality-floor calibration lane. RESULT-0020 remains AGENT_VALIDATED historical memory, and TASK-1039 froze an 80-item label_blind_exact_v2 surface. Because curation was same-owner role-disjoint, TASK-1051 may score it only as calibration evidence and cannot reopen CLAIM-0005 Gate C."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
       - "validator failures improve future research gates"
       - "RESULT-0020 is AGENT_VALIDATED with validation_independence: independent"
-      - "CLAIM-0005 evidence is refreshed but status remains maintainer-only"
+      - "TASK-1039 froze 80 exact-v2 items with CALIBRATION_ONLY_ROLE_LIMIT and no validator run"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
       - "do not promote CLAIM-0005 without explicit maintainer Gate C decision"
+      - "do not reinterpret the same-owner v2 surface as confirmatory claim evidence"
     actions:
       - id: dimensional-result0020-gateb-adjudication
         label: "Prepare RESULT-0020 Gate B packaging-contest adjudication brief"
@@ -1643,6 +1682,18 @@ missions:
           - "explicit decision on whether publication-check metrics are part of replay scope"
           - "Gate B replay rerun only if the scope decision permits it, otherwise blocker memory"
           - "no claim support, challenge-generation expansion, or silent metric reinterpretation"
+      - id: dimensional-v2-calibration-score
+        label: "Blind-score the frozen 80-item dimensional v2 calibration surface"
+        task_id: TASK-1051
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "one deterministic score under frozen exact-agreement and class-recall thresholds"
+          - "CALIBRATION_ONLY_ROLE_LIMIT preserved in result routing"
+          - "no row, label, threshold, engine-semantics, CLAIM-0005, or knowledge mutation"
 
 support_actions:
   - id: release-signoff

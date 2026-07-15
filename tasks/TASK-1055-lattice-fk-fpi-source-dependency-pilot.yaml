@@ -1,0 +1,63 @@
+id: TASK-1055
+title: "Build a bounded f_K/f_pi source manifest and dependency-edge pilot"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This is the first real-source Lattice-QCD campaign artifact; closeout must verify primary identities, rights, convention fields, dependency evidence, and the STOP_DUPLICATES_FLAG boundary."
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "TASK-1030 returned GO_LATTICE_DEPENDENCY_AUDIT and selected f_K/f_pi because a dependency graph may add operational value beyond another FLAG average."
+  - "The next gate is real bibliographic and lineage metadata, not central values, covariance reconstruction, averaging, or anomaly scoring."
+  - "Unknown dependence must remain conservatively linked rather than silently treated as independence."
+
+input:
+  mode: planning_only
+  related_domain: lattice_qcd
+  related_objects:
+    - "docs/reviews/lattice_qcd/lattice-dependency-covariance-incubator.md"
+    - "docs/reviews/lattice_qcd/lattice-dependency-graph-fabricated.yaml"
+    - "campaign_profiles/lattice-qcd-aggregated-consistency.yaml"
+    - "docs/campaigns/fresh-physics-data-axes.md"
+  planning_context: >
+    Use FLAG 2024 only to identify a bounded f_K/f_pi evaluated set, then pin
+    primary publication identities and source-evidenced collaboration,
+    ensemble, scale-setting, normalization, and evaluated-average edges.
+
+requirements:
+  - "Bound the pilot to 8-12 primary f_K/f_pi publications selected before lineage inspection. Resolve each to stable DOI, arXiv, or INSPIRE identity; do not copy FLAG tables, figures, prose, or publisher files."
+  - "Record observable identity, flavor content, isospin/QED treatment, normalization route, scheme/scale applicability, publication role, source locator, access date, rights status, and citation requirement."
+  - "Create graph nodes and source-evidenced edges for collaboration, publication, gauge-ensemble family, action, scale setting, normalization, shared configurations/data, evaluated-average inclusion, and quoted uncertainty-component lineage where available."
+  - "Classify every dependency edge as CONFIRMED_SHARED, CONFIRMED_DISJOINT, POSSIBLE_SHARED, or UNKNOWN. Absence of an edge is never evidence of independence."
+  - "Link each evaluated FLAG average to every included primary publication and forbid counting an average as independent evidence alongside its inputs."
+  - "Record completeness and unresolved-dependence diagnostics without central values, uncertainties, averages, tensions, residuals, or anomaly scores."
+  - "Stop with STOP_DUPLICATES_FLAG if the graph adds no machine-actionable dependency evidence beyond a directly reusable FLAG artifact; HOLD_SOURCE_OR_RIGHTS on unresolved source reuse; or HOLD_COVARIANCE_UNRESOLVED if lineage is too incomplete for a later disjoint split."
+  - "Return METADATA_GRAPH_READY_FOR_VALUE_GATE only if primary identities and enough dependency edges are source-pinned to define conservative connected components for a later value/covariance policy task."
+  - "Do not ingest central values, reconstruct covariance, create a world average, compare collaborations, build a loader for numeric rows, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No-claim wording: this pilot audits publication dependence metadata only; it does not assess agreement, tension, precision, or Lattice-QCD physics."
+
+accepted_outputs:
+  - "A bounded machine-readable f_K/f_pi publication/source manifest and real dependency graph under data/lattice_qcd/ with evidence identities, rights, convention metadata, and conservative dependency states."
+  - "A docs/reviews/lattice_qcd/ pilot note with selection rule, coverage, unresolved edges, distinction from FLAG, limitations, and one GO/HOLD/STOP verdict."
+  - "Metadata-only schema, identity, edge-evidence, evaluated-average, and rights tests; no numeric physics test."
+  - "Output-routing summary: source/dependency readiness only; no result, claim, prediction, knowledge, or full-campaign activation."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only source/dependency pilot; numeric Lattice-QCD evidence remains forbidden."
+  evidence:
+    - "docs/reviews/lattice_qcd/lattice-dependency-covariance-incubator.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

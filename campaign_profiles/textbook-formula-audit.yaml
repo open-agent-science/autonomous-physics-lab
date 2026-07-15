@@ -104,18 +104,18 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory. TASK-1025 found thirteen alias-clean CHARA systems with no DEBCat whole-system intersections; per-component row provenance and cluster dependence are the next gates. Gaia DR4 readiness remains under review because component masses require same-component bolometric luminosities."
+  current_stage: "RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory. The CHARA route now has twelve source-traceable component rows across six systems plus a frozen dependence policy; seven additional systems remain source-limited. Gaia DR4 readiness remains under review because component masses require same-component bolometric luminosities."
   recommended_parallel_agents: 2
-  coordination_notes: "TASK-1040 row curation and TASK-1041 identifier-only cluster dependence are parallel-safe; TASK-1045/1046 are independent-human replays. Do not score CHARA, treat clustered systems as independent, or register a Gaia functional freeze without a valid same-component luminosity route."
+  coordination_notes: "TASK-1049 source replay and TASK-1050 fixed-relation transfer scoring are parallel-safe because they write separate verification and result surfaces; TASK-1045/1046 remain independent-human replays. The transfer task must use the frozen six-system grouping policy and must not refit RESULT-0022. Do not register a Gaia functional freeze without a valid same-component luminosity route."
   next_validity_gate:
-    type: source_readiness
-    blocker: "The thirteen alias-clean CHARA systems still lack source-traceable same-component mass/luminosity rows and a frozen cluster/group-dependence policy."
-    target_artifact: "TASK-1040 and TASK-1041"
+    type: transfer
+    blocker: "The twelve-row CHARA surface has not yet received an independent source replay or a no-refit transfer score against the frozen RESULT-0022 relation and controls."
+    target_artifact: "TASK-1049 and TASK-1050"
   best_next_actions:
-    - task_id: TASK-1040
-      label: "Curate source-traceable per-component CHARA rows without split or scoring"
-    - task_id: TASK-1041
-      label: "Freeze the CHARA cluster/group-dependence policy value-blind"
+    - task_id: TASK-1049
+      label: "Independently replay the twelve CHARA component rows and derivations"
+    - task_id: TASK-1050
+      label: "Score the frozen RESULT-0022 relation on CHARA without refitting"
     - task_id: TASK-1029
       label: "Return a corrected Gaia DR4 GO/HOLD/STOP packet with same-component luminosity semantics"
   required_gates:
@@ -145,14 +145,18 @@ portfolio:
     - "docs/reviews/stellar-ml-alternate-split-stability-audit.md"
     - "docs/reviews/stellar-ml-piecewise-complexity-audit.md"
     - "docs/reviews/stellar/chara-identifier-alias-audit.md"
+    - "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
+    - "data/textbook_formula_audit/stellar_ml/chara_cluster_dependence_ledger.yaml"
+    - "docs/reviews/stellar/chara-per-component-row-curation.md"
+    - "docs/reviews/stellar/chara-cluster-dependence-policy.md"
   open_questions:
-    - "Can the CHARA paper-level route be pinned and de-duplicated enough to support a small 0.5-2.0 Msun independent holdout?"
+    - "Can the frozen RESULT-0022 relation survive a no-refit transfer on the twelve-row, six-system CHARA surface after independent source replay?"
     - "What future external stellar catalogue, if any, can test the high-mass transfer beyond same-source DEBCat?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-13"
+    last_reviewed: "2026-07-15"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1025 CHARA alias audit, TASK-1029 Gaia DR4 readiness review, and Scientific Director 2026-07-13 cycle"
-    notes: "CHARA cleared whole-system alias de-duplication and can advance through row provenance plus cluster-dependence gates. Gaia remains a value-blind readiness decision; source-level luminosity must not be paired with two component masses."
+    source: "TASK-1040 CHARA row curation, TASK-1041 dependence policy, and Scientific Director 2026-07-15 cycle"
+    notes: "CHARA cleared the bounded source and dependence gates for twelve component rows across six systems. Independent source replay and a fixed-relation no-refit transfer are next; Gaia remains held on same-component luminosity semantics."

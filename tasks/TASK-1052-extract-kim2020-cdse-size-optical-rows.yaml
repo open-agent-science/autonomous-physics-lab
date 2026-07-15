@@ -1,0 +1,64 @@
+id: TASK-1052
+title: "Extract the predeclared Kim-2020 CdSe size and optical observations"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task first admits Kim-2020 CdSe values and digitized optical observations; closeout must verify dual-pass agreement, source rights, morphology, axis semantics, and uncertainty completeness."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-1027 pinned the open Kim-2020 source and TASK-1043 froze deterministic text-versus-digitized provenance and uncertainty rules before value extraction."
+  - "A complete four-sample, twelve-observation CdSe surface is the next source gate after the validated ZnSe/InP transfer miss."
+  - "Extraction must precede any split, no-refit transfer, correction search, or size-law interpretation."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/source_artifact.yaml"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/extraction_contract.yaml"
+    - "docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    Execute the frozen text-summary and Figure 3a extraction contract for
+    CdSe-1 through CdSe-4. Keep text-stated size summaries and independently
+    digitized absorption/emission peaks as separate provenance classes.
+
+requirements:
+  - "Re-pin the version-of-record PDF, JATS, and metadata hashes before extraction; publisher/raster bytes remain outside the repository."
+  - "Extract exactly four text-stated mean-size/dispersion summaries, four absorption peaks, and four emission peaks with 100% sample pairing and exact source locators."
+  - "Perform two independent Figure 3a calibration/extraction passes with recorded operator/session, tool/version, raster checksum, axis anchors, raw pixels, native coordinates, and uncertainty."
+  - "Admit a digitized observation only when the two passes agree within 0.5% of x-axis span and 1.0% of y-axis span; do not widen tolerances after seeing values."
+  - "Keep absorption, emission, Stokes shift, FWHM, differential-absorption levels, and model levels distinct. Do not relabel an optical peak as band gap."
+  - "Keep morphology unknown_non_spherical and retain the source-reported diameter semantics; do not perform equivalent-sphere conversion."
+  - "Record unreported instrument uncertainty as not_reported. Do not substitute pixel error for measurement uncertainty or invent error bars."
+  - "Register every committed value-bearing path and per-source attribution/reuse boundary in data/DATA_LICENSES.yaml; do not commit source figures or substantial source content."
+  - "Return exactly one verdict: ROW_SURFACE_READY_FOR_BENCHMARK_PREFLIGHT, SOURCE_LIMITED, DIGITIZATION_CONTESTED, UNCERTAINTY_BLOCKED, MORPHOLOGY_BLOCKED, or RIGHTS_BLOCKED."
+  - "Stop before split assignment, fitting, no-refit transfer scoring, residual metrics, RESULT/PRED/CLAIM/KNOW mutation, synthesis guidance, device claims, or a CdSe size-law statement."
+  - "No-claim wording: this is a four-sample factual/digitized source surface, not validation of a quantum-confinement law or materials-design guidance."
+
+accepted_outputs:
+  - "A normalized CdSe sample/observation YAML under data/quantum_dots/ with twelve complete observations or a precise blocker ledger."
+  - "A docs/reviews/quantum/ extraction note with source pins, pass agreement, uncertainties, morphology, rights, inclusion/exclusion counts, limitations, and one bounded verdict."
+  - "Deterministic schema, checksum, pairing, provenance, tolerance, and rights tests; no benchmark metric test."
+  - "Output-routing summary: source readiness only; no scientific RESULT or claim impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Source extraction only; split and benchmark scoring require later reviewed tasks."
+  evidence:
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/extraction_contract.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_quantum_size_effects.py tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
