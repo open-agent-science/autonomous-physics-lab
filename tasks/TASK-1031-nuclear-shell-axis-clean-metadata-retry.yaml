@@ -1,7 +1,7 @@
 id: TASK-1031
 title: "Retry the nuclear shell-axis source scout through direct official metadata only"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Fresh no-peek retry after TASK-1023 encountered target-bearing search snippets; closeout must verify contributor/session independence and zero target-value exposure."
 difficulty: medium
@@ -15,11 +15,6 @@ strategy_alignment:
 input:
   mode: planning_only
   related_domain: nuclear_physics
-  source_discovery_mode: official_metadata_only
-  search_result_snippets_allowed: false
-  target_matching_requires_manifest_approval: true
-  value_access_requires_reveal_task: true
-  no_peek_context_status: clean
   related_objects:
     - "tasks/TASK-1023-nuclear-shell-axis-source-manifest-scout.yaml"
     - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
@@ -53,6 +48,7 @@ result_artifact_policy:
   evidence:
     - "prediction_registry/nuclear_masses/PRED-0063.yaml"
     - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
+    - "docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md"
 
 validation:
   commands:
