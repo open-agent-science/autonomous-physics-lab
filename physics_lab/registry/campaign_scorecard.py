@@ -18,6 +18,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 from typing import Any
 
 import yaml
@@ -25,11 +26,8 @@ import yaml
 from physics_lab.registry.campaigns import campaign_catalog_path
 
 
-# Prediction-registry subdirectories map to campaigns by directory name.
-PREDICTION_DOMAIN_TO_CAMPAIGN = {
-    "nuclear_masses": "nuclear-mass-surface",
-}
 REVIEW_TIERS = ("AGENT_PUBLISHED", "AGENT_VALIDATED", "MAINTAINER_REVIEWED", "EXTERNAL_REPLICATED")
+PREDICTION_FILENAME = re.compile(r"PRED-\d{4}\.yaml")
 
 
 @dataclass(frozen=True)
@@ -120,21 +118,21 @@ def _count_predictions(root: Path, campaign_id: str) -> tuple[int, dict[str, int
     statuses: dict[str, int] = {}
     tiers: dict[str, int] = {}
     count = 0
-    for domain, mapped in PREDICTION_DOMAIN_TO_CAMPAIGN.items():
-        if mapped != campaign_id:
+    registry = root / "prediction_registry"
+    if not registry.is_dir():
+        return count, statuses, tiers
+
+    for path in sorted(registry.glob("*/PRED-*.yaml")):
+        if PREDICTION_FILENAME.fullmatch(path.name) is None:
             continue
-        domain_dir = root / "prediction_registry" / domain
-        if not domain_dir.is_dir():
+        payload = _safe_load(path)
+        if not payload or str(payload.get("campaign_profile_id", "")).strip() != campaign_id:
             continue
-        for path in sorted(domain_dir.glob("PRED-*.yaml")):
-            payload = _safe_load(path)
-            if not payload:
-                continue
-            count += 1
-            status = str(payload.get("registry_status", "UNKNOWN"))
-            statuses[status] = statuses.get(status, 0) + 1
-            tier = str(payload.get("review_tier", "LEGACY_UNTIERED"))
-            tiers[tier] = tiers.get(tier, 0) + 1
+        count += 1
+        status = str(payload.get("registry_status", "UNKNOWN"))
+        statuses[status] = statuses.get(status, 0) + 1
+        tier = str(payload.get("review_tier", "LEGACY_UNTIERED"))
+        tiers[tier] = tiers.get(tier, 0) + 1
     return count, statuses, tiers
 
 
