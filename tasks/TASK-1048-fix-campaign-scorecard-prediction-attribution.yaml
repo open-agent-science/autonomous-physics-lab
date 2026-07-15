@@ -1,0 +1,56 @@
+id: TASK-1048
+title: "Fix campaign scorecard prediction attribution and template exclusion"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "The Scientific Director scorecard currently reports the nuclear template as a registered prediction while omitting the registered FRB and Exoplanet prediction surfaces."
+  - "Portfolio steering metrics must attribute durable prediction artifacts from their canonical campaign metadata rather than a stale hardcoded domain list."
+  - "This is a descriptive accounting repair only; no prediction payload, review tier, registry status, result, claim, or knowledge artifact may change."
+
+input:
+  mode: workflow
+  related_objects:
+    - "physics_lab/registry/campaign_scorecard.py"
+    - "scripts/apl_campaign_scorecard.py"
+    - "prediction_registry/nuclear_masses/"
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml"
+  planning_context: >
+    Repair campaign prediction counts so canonical numeric PRED files are
+    attributed by their campaign_profile_id, template files are excluded, and
+    future campaign directories do not require another hardcoded mapping edit.
+
+requirements:
+  - "Discover only canonical numeric PRED YAML files below prediction_registry domain directories; exclude templates and root scaffolds."
+  - "Attribute each counted prediction from its canonical campaign_profile_id field rather than a manually maintained directory-to-campaign map."
+  - "Preserve registry_status and review_tier aggregation semantics, including LEGACY_UNTIERED fallback behavior."
+  - "Add deterministic tests covering Nuclear, FRB, Exoplanet, and a template false-positive."
+  - "Do not edit any prediction, result, claim, knowledge, campaign profile, generated task view, or review-tier artifact."
+
+accepted_outputs:
+  - "A campaign scorecard implementation that counts all canonical campaign-attributed PRED artifacts and excludes templates."
+  - "Focused regression tests for campaign attribution, status/tier aggregation, and template exclusion."
+  - "Output-routing summary: tooling/accounting fix only; no scientific artifact or claim impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Tooling fix only; no scientific RESULT or PRED artifact is produced or modified."
+  evidence:
+    - "physics_lab/registry/campaign_scorecard.py"
+    - "tests/test_campaign_scorecard.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_campaign_scorecard.py"
+    - "python3 scripts/apl_campaign_scorecard.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
