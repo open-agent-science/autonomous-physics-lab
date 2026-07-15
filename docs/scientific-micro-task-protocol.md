@@ -208,7 +208,6 @@ For queue-definition and documentation work, run:
 ./scripts/validate_quick.sh
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
-./scripts/apl_review_bundle.sh
 git diff --exit-code
 ```
 

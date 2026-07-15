@@ -90,7 +90,7 @@ Level 2 success criteria:
 - negative, blocked, or inconclusive outcomes are preserved;
 - task-specific validation is run before full validation;
 - PR body includes changed files, limitations, and result-artifact impact;
-- review bundle is generated before handoff.
+- the exact-SHA PR-number review is run before merge.
 
 Level 2 is the right level for contributors who already completed one small PR
 or who are pairing with an agent under close maintainer review.
@@ -154,12 +154,6 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --check
 ```
 
-Before PR handoff:
-
-```bash
-./scripts/apl_review_bundle.sh
-```
-
 If a command cannot run because of local environment or sandbox restrictions,
 record the failure and the safer retry path in the PR body.
 
@@ -185,7 +179,7 @@ Protocol:
 - Branch format correct:
 - PR title/body format correct:
 - One task or queue item only:
-- Review bundle present:
+- Exact-SHA post-PR review run:
 
 Validation:
 - Local validation reported:

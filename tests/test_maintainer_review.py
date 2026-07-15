@@ -37,6 +37,7 @@ from physics_lab.registry.maintainer_review import (
     overclaim_hits,
     parse_added_lines,
     _portable_validation_command,
+    _load_public_pr_metadata,
     _pull_request_metadata_from_payload,
     output_routing_value,
     prepare_clean_pr_worktree,
@@ -214,10 +215,6 @@ def _build_surface_review_report(
         patch(
             "physics_lab.registry.maintainer_review.run_command",
             return_value=_EMPTY_DIFF,
-        ),
-        patch(
-            "physics_lab.registry.maintainer_review.ensure_review_bundle",
-            return_value=(None, "present"),
         ),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
@@ -758,7 +755,6 @@ def test_build_review_report_requires_agent_published_output_routing(
         patch("physics_lab.registry.maintainer_review.load_yaml_payload_from_ref", return_value={}),
         patch("physics_lab.registry.maintainer_review.check_payload", return_value=gate_report),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -839,7 +835,6 @@ def test_build_review_report_keeps_coauthor_trailer_noise_advisory(
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_git_command", return_value=_EMPTY_DIFF),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -1677,6 +1672,8 @@ def test_prepare_clean_pr_worktree_fetches_remote_head(tmp_path: Path) -> None:
     ) -> CommandResult:
         del cwd, extra_safe_directories, timeout
         commands.append(args)
+        if args[:2] == ["rev-parse", "refs/remotes/origin/pr-104"]:
+            return CommandResult(returncode=0, stdout="1234567890abcdef\n", stderr="")
         return _EMPTY_DIFF
 
     with (
@@ -1695,15 +1692,60 @@ def test_prepare_clean_pr_worktree_fetches_remote_head(tmp_path: Path) -> None:
         "fetch",
         "--no-tags",
         "origin",
-        f"refs/heads/{branch}:refs/remotes/origin/{branch}",
+        "+refs/pull/104/head:refs/remotes/origin/pr-104",
     ]
-    assert commands[1] == [
+    assert commands[1] == ["rev-parse", "refs/remotes/origin/pr-104"]
+    assert commands[2] == [
         "worktree",
         "add",
         "--detach",
         str(prepared.root),
         "1234567890abcdef",
     ]
+
+
+def test_prepare_clean_pr_worktree_blocks_metadata_sha_mismatch(tmp_path: Path) -> None:
+    metadata = PullRequestMetadata(
+        number=104,
+        title="TASK-0104: Fixture",
+        body="",
+        branch="agent/roman/codex/task-0104-fixture",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0104-fixture.yaml",),
+        head_sha="1" * 40,
+    )
+    commands: list[list[str]] = []
+
+    def fake_run_git_command(
+        args: list[str],
+        *,
+        cwd: Path,
+        extra_safe_directories: tuple[Path, ...] = (),
+        timeout: int = 60,
+    ) -> CommandResult:
+        del cwd, extra_safe_directories, timeout
+        commands.append(args)
+        if args[0] == "fetch":
+            return _EMPTY_DIFF
+        if args[0] == "rev-parse":
+            return CommandResult(returncode=0, stdout=f"{'2' * 40}\n", stderr="")
+        raise AssertionError(f"unexpected command after SHA mismatch: {args}")
+
+    with patch(
+        "physics_lab.registry.maintainer_review.run_git_command",
+        side_effect=fake_run_git_command,
+    ):
+        prepared = prepare_clean_pr_worktree(tmp_path, metadata)
+
+    assert not prepared.ready
+    assert "Exact-head verification failed" in prepared.message
+    assert metadata.head_sha in prepared.message
+    assert "2" * 40 in prepared.message
+    assert [command[0] for command in commands] == ["fetch", "rev-parse"]
 
 
 def test_build_review_report_pr_uses_clean_remote_worktree_from_dirty_caller(
@@ -1764,7 +1806,6 @@ def test_build_review_report_pr_uses_clean_remote_worktree_from_dirty_caller(
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", side_effect=fake_changed_files),
         patch("physics_lab.registry.maintainer_review.git_status_clean", side_effect=fake_git_status_clean),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -1777,7 +1818,6 @@ def test_build_review_report_pr_uses_clean_remote_worktree_from_dirty_caller(
     assert validation_mock.call_args.args[0] == clean_root
     assert validation_mock.call_args.kwargs["enabled"] is True
     assert any("clean fixture worktree" in item for item in report.advisory_warnings)
-    assert any("Review bundle generation was skipped" in item for item in report.advisory_warnings)
 
 
 def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
@@ -1812,6 +1852,43 @@ def test_build_review_report_pr_metadata_failure_has_fallback_diagnostic(
     )
 
 
+def test_build_review_report_partial_metadata_does_not_blame_pr_body(
+    tmp_path: Path,
+) -> None:
+    partial_metadata = PullRequestMetadata(
+        number=104,
+        title="TASK-0104: Fixture",
+        body="",
+        branch="agent/roman/codex/task-0104-fixture",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=(),
+        head_sha="a" * 40,
+        source="gh_list",
+        complete=False,
+    )
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.load_pr_metadata",
+            return_value=partial_metadata,
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.current_branch",
+            side_effect=AssertionError("partial metadata must not inspect the checkout"),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=104)
+
+    assert report.verdict == "BLOCKED"
+    assert report.branch == "PR-104-PARTIAL-METADATA"
+    assert any("partial GitHub PR metadata" in item for item in report.blockers)
+    assert not any("template" in item.lower() for item in report.blockers)
+    assert report.required_fixes == ()
+
+
 def test_build_review_report_allows_explicit_local_pr_ref_review(
     tmp_path: Path,
 ) -> None:
@@ -1827,7 +1904,10 @@ def test_build_review_report_allows_explicit_local_pr_ref_review(
         return (task_path,)
 
     with (
-        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
+        patch(
+            "physics_lab.registry.maintainer_review.load_pr_metadata",
+            side_effect=AssertionError("local-ref review must not load GitHub metadata"),
+        ),
         patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
         patch(
             "physics_lab.registry.maintainer_review.prepare_clean_local_ref_worktree",
@@ -1845,7 +1925,6 @@ def test_build_review_report_allows_explicit_local_pr_ref_review(
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", side_effect=fake_changed_files),
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -1893,6 +1972,11 @@ def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) 
     with (
         patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
         patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch("physics_lab.registry.maintainer_review.time.sleep"),
+        patch(
+            "physics_lab.registry.maintainer_review._load_public_pr_metadata",
+            return_value=None,
+        ),
     ):
         metadata = load_pr_metadata(tmp_path, 104)
 
@@ -1900,6 +1984,212 @@ def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) 
     assert metadata.number == 104
     assert metadata.merged is True
     assert metadata.status_checks_passed is True
+    assert metadata.source == "gh_list"
+    assert metadata.complete is False
+
+
+def test_load_pr_metadata_retries_one_transient_view_failure(tmp_path: Path) -> None:
+    payload = {
+        "number": 104,
+        "title": "TASK-0104: Fixture",
+        "body": "complete body",
+        "headRefName": "agent/roman/codex/task-0104-fixture",
+        "headRefOid": "a" * 40,
+        "baseRefName": "main",
+        "state": "OPEN",
+        "mergedAt": None,
+        "statusCheckRollup": [{"conclusion": "SUCCESS", "status": "COMPLETED"}],
+        "files": [{"path": "tasks/TASK-0104-fixture.yaml"}],
+    }
+    attempts = 0
+
+    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        nonlocal attempts
+        assert command[1:3] == ["pr", "view"]
+        attempts += 1
+        if attempts == 1:
+            return CommandResult(returncode=1, stdout="", stderr="HTTP 503")
+        return CommandResult(returncode=0, stdout=json.dumps(payload), stderr="")
+
+    diagnostics: list[str] = []
+    with (
+        patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch("physics_lab.registry.maintainer_review.time.sleep") as sleep_mock,
+        patch(
+            "physics_lab.registry.maintainer_review._load_public_pr_metadata",
+            side_effect=AssertionError("successful retry must not use REST fallback"),
+        ),
+    ):
+        metadata = load_pr_metadata(tmp_path, 104, diagnostics=diagnostics)
+
+    assert metadata is not None
+    assert metadata.source == "gh_view"
+    assert metadata.complete is True
+    assert attempts == 2
+    sleep_mock.assert_called_once()
+    assert diagnostics == ["gh pr view attempt 1 failed: HTTP 503"]
+
+
+def test_load_pr_metadata_uses_public_rest_without_retrying_auth_failure(
+    tmp_path: Path,
+) -> None:
+    public_metadata = PullRequestMetadata(
+        number=104,
+        title="TASK-0104: Fixture",
+        body="complete body",
+        branch="agent/roman/codex/task-0104-fixture",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0104-fixture.yaml",),
+        head_sha="a" * 40,
+        source="public_rest",
+    )
+
+    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        assert command[1:3] == ["pr", "view"]
+        return CommandResult(
+            returncode=1,
+            stdout="",
+            stderr="HTTP 401: Requires authentication; try gh auth login",
+        )
+
+    diagnostics: list[str] = []
+    with (
+        patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
+        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch("physics_lab.registry.maintainer_review.time.sleep") as sleep_mock,
+        patch(
+            "physics_lab.registry.maintainer_review._load_public_pr_metadata",
+            return_value=public_metadata,
+        ) as public_mock,
+    ):
+        metadata = load_pr_metadata(tmp_path, 104, diagnostics=diagnostics)
+
+    assert metadata == public_metadata
+    public_mock.assert_called_once_with(104, diagnostics=diagnostics)
+    sleep_mock.assert_not_called()
+    assert len(diagnostics) == 1
+    assert "401" in diagnostics[0]
+
+
+def test_load_public_pr_metadata_normalizes_public_read_only_payload() -> None:
+    head_sha = "a" * 40
+    pull_payload = {
+        "number": 104,
+        "title": "TASK-0104: Fixture",
+        "body": "complete body",
+        "state": "open",
+        "merged_at": None,
+        "changed_files": 1,
+        "head": {"ref": "agent/roman/codex/task-0104-fixture", "sha": head_sha},
+        "base": {"ref": "main"},
+    }
+    requested_paths: list[str] = []
+
+    def fake_request(path: str):
+        requested_paths.append(path)
+        if path.endswith("/pulls/104"):
+            return pull_payload
+        if "/pulls/104/files?" in path:
+            return [{"filename": "tasks/TASK-0104-fixture.yaml"}]
+        if f"/commits/{head_sha}/check-runs?" in path:
+            return {
+                "total_count": 1,
+                "check_runs": [
+                    {
+                        "name": "Python fast tests (3.12)",
+                        "status": "completed",
+                        "conclusion": "success",
+                        "started_at": "2026-07-15T10:00:00Z",
+                        "completed_at": "2026-07-15T10:01:00Z",
+                    }
+                ]
+            }
+        raise AssertionError(f"unexpected public API path: {path}")
+
+    diagnostics: list[str] = []
+    with patch(
+        "physics_lab.registry.maintainer_review._request_public_github_json",
+        side_effect=fake_request,
+    ):
+        metadata = _load_public_pr_metadata(104, diagnostics=diagnostics)
+
+    assert metadata is not None
+    assert metadata.number == 104
+    assert metadata.head_sha == head_sha
+    assert metadata.changed_files == ("tasks/TASK-0104-fixture.yaml",)
+    assert metadata.status_checks_passed is True
+    assert metadata.status_checks_pending is False
+    assert metadata.source == "public_rest"
+    assert metadata.complete is True
+    assert diagnostics == []
+    assert len(requested_paths) == 3
+
+
+def test_load_public_pr_metadata_refuses_incomplete_check_runs() -> None:
+    head_sha = "a" * 40
+
+    def fake_request(path: str):
+        if path.endswith("/pulls/104"):
+            return {
+                "number": 104,
+                "changed_files": 1,
+                "head": {
+                    "ref": "agent/roman/codex/task-0104-fixture",
+                    "sha": head_sha,
+                },
+                "base": {"ref": "main"},
+            }
+        if "/pulls/104/files?" in path:
+            return [{"filename": "tasks/TASK-0104-fixture.yaml"}]
+        if f"/commits/{head_sha}/check-runs?" in path:
+            return {"total_count": 101, "check_runs": []}
+        raise AssertionError(f"unexpected public API path: {path}")
+
+    diagnostics: list[str] = []
+    with patch(
+        "physics_lab.registry.maintainer_review._request_public_github_json",
+        side_effect=fake_request,
+    ):
+        metadata = _load_public_pr_metadata(104, diagnostics=diagnostics)
+
+    assert metadata is None
+    assert any("check-runs response was incomplete" in item for item in diagnostics)
+
+
+def test_load_public_pr_metadata_refuses_large_pr_before_extra_requests() -> None:
+    requested_paths: list[str] = []
+
+    def fake_request(path: str):
+        requested_paths.append(path)
+        return {
+            "number": 104,
+            "title": "TASK-0104: Oversized fixture",
+            "body": "complete body",
+            "state": "open",
+            "merged_at": None,
+            "changed_files": 101,
+            "head": {
+                "ref": "agent/roman/codex/task-0104-fixture",
+                "sha": "a" * 40,
+            },
+            "base": {"ref": "main"},
+        }
+
+    diagnostics: list[str] = []
+    with patch(
+        "physics_lab.registry.maintainer_review._request_public_github_json",
+        side_effect=fake_request,
+    ):
+        metadata = _load_public_pr_metadata(104, diagnostics=diagnostics)
+
+    assert metadata is None
+    assert len(requested_paths) == 1
+    assert any("more than 100 changed files" in item for item in diagnostics)
 
 
 def test_rollup_stale_cancelled_run_superseded_by_success_passes() -> None:
@@ -2044,7 +2334,6 @@ def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) ->
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch("physics_lab.registry.maintainer_review.run_task_validation", side_effect=fake_validation),
     ):
         report = build_review_report(tmp_path, branch=branch)
@@ -2112,7 +2401,6 @@ def test_build_review_report_allows_explicit_proposal_triage_supersede(
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=(proposal_path,)),
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2231,7 +2519,6 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2299,10 +2586,6 @@ def test_closeout_review_selects_fast_commands_only_for_guarded_diff(
             ),
             patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
             patch(
-                "physics_lab.registry.maintainer_review.ensure_review_bundle",
-                return_value=(None, "present"),
-            ),
-            patch(
                 "physics_lab.registry.maintainer_review.status_only_closeout_fast_path",
                 return_value=fast_path,
             ),
@@ -2348,7 +2631,6 @@ def test_build_review_report_blocks_non_generated_docs_only_closeout_pr(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2411,7 +2693,6 @@ def test_build_review_report_archive_closeout_pr_is_merge_ok(tmp_path: Path) -> 
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             side_effect=fake_run_task_validation,
@@ -2474,7 +2755,6 @@ def test_build_review_report_archive_closeout_requires_terminal_task(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2554,7 +2834,6 @@ def test_build_review_report_requires_agent_tool_to_match_branch_agent(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2718,7 +2997,6 @@ def test_build_review_report_closeout_pr_may_unblock_dependent_task(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2775,7 +3053,6 @@ def test_build_review_report_allows_proposal_drift_closeout_pr(tmp_path: Path) -
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             side_effect=fake_run_task_validation,
@@ -2831,7 +3108,6 @@ def test_build_review_report_rejects_proposal_drift_closeout_to_non_done_task(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2882,7 +3158,6 @@ def test_build_review_report_rejects_mixed_proposal_drift_closeout_files(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -2961,7 +3236,6 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
     ):
         report = build_review_report(tmp_path, pull_request=67)
 
@@ -2998,7 +3272,6 @@ def test_build_review_report_closeout_short_body_needs_changes_even_with_green_c
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
     ):
         report = build_review_report(tmp_path, pull_request=68)
 
@@ -3073,7 +3346,6 @@ def test_build_review_report_closeout_batch_pr_does_not_require_active_board_syn
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3158,7 +3430,6 @@ def test_build_review_report_accepts_task_queue_pr_with_ready_future_task(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3240,7 +3511,6 @@ def test_build_review_report_accepts_task_queue_pr_without_generated_navigation(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3298,7 +3568,6 @@ def test_build_review_report_flags_task_queue_closeout_review_without_reason(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3353,7 +3622,6 @@ def test_build_review_report_accepts_task_queue_closeout_review_with_reason(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3438,7 +3706,6 @@ def test_build_review_report_blocks_task_queue_pr_that_changes_results(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3490,7 +3757,6 @@ def test_build_review_report_task_queue_wrong_title_needs_changes(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3536,7 +3802,6 @@ def test_build_review_report_redirects_queue_shaped_canonical_pr(
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3612,7 +3877,6 @@ def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: 
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed) as changed_mock,
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3677,7 +3941,6 @@ def test_build_review_report_requires_repository_pr_template_sections(tmp_path: 
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0094-helper.yaml",)),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3716,7 +3979,6 @@ def test_build_review_report_blocks_explicit_task_id_branch_mismatch(tmp_path: P
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0095-helper.yaml",)),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3739,13 +4001,15 @@ def test_build_review_report_branch_only_keeps_missing_pr_body_advisory(
         patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0094-helper.yaml",)),
-        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
+        patch(
+            "physics_lab.registry.maintainer_review.load_pr_metadata",
+            side_effect=AssertionError("branch-only preflight must not load GitHub metadata"),
+        ),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
         patch(
             "physics_lab.registry.maintainer_review.prepare_clean_pr_worktree",
             side_effect=AssertionError("branch-only review should stay local"),
         ),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3881,7 +4145,6 @@ def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> N
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -3948,7 +4211,6 @@ def test_build_review_report_accepts_canonical_microtask_batch_pr(tmp_path: Path
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -4005,7 +4267,6 @@ def test_build_review_report_blocks_microtask_batch_when_branch_queue_mismatches
         patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),
@@ -4083,7 +4344,6 @@ def test_build_review_report_blocks_microtask_pr_when_queue_file_missing(tmp_pat
         ),
         patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
-        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
         patch(
             "physics_lab.registry.maintainer_review.run_task_validation",
             return_value=ValidationSummary(status="pass", failed_commands=()),

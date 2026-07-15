@@ -106,8 +106,8 @@ typical_activities:
       freshly-produced sandbox evidence.
   - title: "Read recent merged campaign PRs"
     description: |
-      Read recent merged PR titles and review bundles to understand what
-      has just landed for the campaign.
+      Read recent merged PR metadata and exact diffs to understand what has
+      just landed for the campaign.
   - title: "Identify exhausted directions"
     description: |
       Lanes that converged on FALSIFIED / OVERFITTED are positive

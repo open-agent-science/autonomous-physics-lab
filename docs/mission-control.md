@@ -174,7 +174,7 @@ Operational entry points:
   and `docs/task-views/*.md` aligned with task YAML files on `main`;
 - `python3 -m physics_lab.cli sync-active-board .` remains available for
   maintainer dry-runs and explicit board-sync PRs;
-- maintainer review and closeout tooling for review bundles and handoff.
+- maintainer review and closeout tooling for exact-SHA PR review and handoff.
 
 Low-risk contribution patterns right now:
 

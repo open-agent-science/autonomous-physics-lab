@@ -55,7 +55,7 @@ the artifact:
   distinguish intended scope from accidental protected-artifact drift;
 - do not commit regenerated `docs/task-views/*.md` for
   routine task status transitions, and remove local generated diffs before
-  producing the review bundle.
+  opening the PR.
 
 ## PR Output Routing
 
