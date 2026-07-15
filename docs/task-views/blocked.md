@@ -6,11 +6,11 @@
 
 ## Release Blockers
 
-None.
+- `TASK-1050` - Run the frozen Stellar relation on the source-curated CHARA component surface (`scientific_result_publication`, priority `high`, difficulty `high`, domain `stellar_astrophysics`)
 
 ## Research Blockers
 
-None.
+- `TASK-1053` - Freeze an identifier-only OQMD benchmark split without target inspection (`benchmark_planning`, priority `high`, difficulty `medium`, domain `materials_science`)
 
 ## Support Blockers
 
