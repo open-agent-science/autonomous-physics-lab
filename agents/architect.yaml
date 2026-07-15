@@ -215,7 +215,6 @@ scripts_to_use:
   - scripts/apl_task_pr_helper.py
   - scripts/apl_proposal_triage.py
   - scripts/apl_review_pr.py
-  - scripts/apl_review_bundle.sh
   - scripts/apl_snapshot.sh
   - scripts/check_public_path_leaks.py
   - scripts/reproduce_core_results.py

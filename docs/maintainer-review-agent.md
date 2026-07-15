@@ -305,7 +305,7 @@ claim-like.
 ### AI Co-Author Trailer Noise
 
 AI-agent attribution belongs in PR metadata, not in git co-author trailers.
-When a contributor commit, PR body, or generated review bundle contains a
+When a contributor commit or PR body contains a
 `Co-authored-by` / `Co-Authored-By` trailer for an AI tool, report it as
 advisory hygiene unless the PR also has another attribution or authorship
 problem.
@@ -349,7 +349,7 @@ This mode supports:
 
 ### Inputs
 
-- PR link, PR description, or review bundle
+- PR link and PR description
 - task id or `TASK-PROPOSAL`
 - branch name
 - task file path or proposal file path
@@ -415,7 +415,8 @@ This mode supports:
 12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
     Maintainer-directed task-queue PRs may create or update canonical task files,
     but must not treat those newly queued tasks as completed.
-13. The review bundle was generated from the PR branch, not from `main`.
+13. Post-PR review resolves the exact PR head SHA and does not substitute the
+    current checkout or a moving branch for the reviewed commit.
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
 15. The selected review lane matches the actual PR surface.
@@ -485,6 +486,18 @@ Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so
 the agent can inspect the actual GitHub title, branch, metadata, and template
 sections before merge.
+
+PR-number review first reads metadata through `gh pr view`. A transient failure
+receives one bounded retry. If an agent sandbox cannot access the local `gh`
+credential store, the helper may read the same public metadata from fixed,
+read-only REST endpoints for `open-agent-science/autonomous-physics-lab`.
+Public fallback data stays in memory, uses no token, writes no metadata/cache
+file, and never mutates GitHub. It is capped at 100 changed files to protect the
+unauthenticated API allowance. Before validation, the helper fetches the
+canonical `refs/pull/<number>/head` ref and requires its SHA to match the
+reported PR head; incomplete metadata, rate limiting, or a mismatch remains a
+fail-closed blocker. This post-PR fallback does not change branch-only preflight
+or any task/proposal PR-body helper.
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
@@ -905,7 +918,7 @@ Run this after:
 ```text
 Review PR #<number> according to docs/maintainer-review-agent.md.
 Task: TASK-XXXX.
-Use the review bundle and PR metadata.
+Use exact-SHA PR metadata and the verified PR diff.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
 Include risk, security risks, blockers, and required fixes for the developer.
 Do not edit files.
@@ -916,7 +929,7 @@ Do not edit files.
 ```text
 Review PR #<number> according to docs/maintainer-review-agent.md.
 Task: TASK-PROPOSAL.
-Check branch, proposal file, PR title, proposal scope, review bundle, and overclaim risk.
+Check branch, proposal file, PR title, proposal scope, exact-SHA diff, and overclaim risk.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
 Do not create a canonical TASK id unless I explicitly ask.
 Do not edit files.

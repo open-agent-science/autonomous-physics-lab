@@ -70,7 +70,6 @@ Before adding or keeping a `scripts/*.sh`, ask:
 | Script | Verdict | Action |
 | --- | --- | --- |
 | `validate_quick.sh` | Needless wrapper — only `ruff check .` + `pytest -q`. | Agents run the two commands directly (works on every OS); keep the script as a Linux convenience only. |
-| `apl_review_bundle.sh` | Linux/macOS convenience wrapper for the portable `scripts/apl_review_bundle.py` entrypoint. The PR preflight no longer requires a bundle, but maintainer review may generate one. | Keep the Python entrypoint canonical and the shell wrapper thin. |
 | `apl_new_worktree.sh` | Real bash logic (git worktree + validation); convenience, not required to execute a task. | Acceptable to keep. Optional Python equivalent if a Windows agent needs scripted worktrees. |
 | `apl_setup_worktree.sh` | Real git plumbing (`--git-common-dir`) + file copy; agent-environment convenience. | Acceptable to keep. Optional Python equivalent. |
 | `apl_snapshot.sh` | Maintainer-only, already delegates heavy work to `physics_lab.registry.snapshot`. | No action; maintainer-only. |

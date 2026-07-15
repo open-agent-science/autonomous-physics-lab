@@ -88,19 +88,7 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
 
-## 8) Generate a review bundle
-
-Before opening PR, generate the maintainer review snapshot:
-
-```bash
-python3 scripts/apl_review_bundle.py
-```
-
-This creates:
-
-`_snapshots/review_<branch>_<timestamp>.md`
-
-## 9) Open a pull request
+## 8) Open a pull request
 
 Use one PR for one task branch and keep scope atomic.
 Fill in the Agent / Contributor Metadata block in the PR template so both the
@@ -129,7 +117,6 @@ Example:
 - Create branch with the required naming pattern.
 - Run quick validation.
 - Run full required validation before PR handoff.
-- Generate review bundle.
 - Open one PR tied to one task.
 
 ## First-Contributor Workflow Note
