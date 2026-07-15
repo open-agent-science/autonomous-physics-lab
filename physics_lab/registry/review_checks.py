@@ -57,6 +57,39 @@ SENSITIVE_PATH_RULES = (
     ("scripts/", "Repository scripts changed."),
     ("pyproject.toml", "Project dependency or tooling configuration changed."),
 )
+# Change risk describes the inherent review surface, not whether validation or
+# protocol checks happened to pass. Keep these rules path-only so an unavailable
+# runtime cannot relabel a docs-only change as high risk, while new unclassified
+# repository surfaces still default conservatively to medium.
+HIGH_CHANGE_RISK_EXACT_PATHS = frozenset(
+    {
+        ".github/CODEOWNERS",
+        ".zenodo.json",
+        "CITATION.cff",
+        "LICENSE",
+        "data/DATA_LICENSES.yaml",
+        "docs/decision-autonomy-policy.md",
+    }
+)
+HIGH_CHANGE_RISK_PREFIXES = (
+    "policy/",
+    "claims/",
+    "experiments/",
+    "hypotheses/",
+    "knowledge/",
+    "prediction_registry/",
+    "results/",
+)
+MEDIUM_CHANGE_RISK_PREFIXES = (
+    ".github/workflows/",
+    "agent_runs/",
+    "data/",
+    "physics_lab/",
+    "schemas/",
+    "scripts/",
+    "tests/",
+)
+LOW_CHANGE_RISK_PREFIXES = ("docs/", "tasks/")
 SECURITY_BLOCK_RULES = (
     (re.compile(r"\beval\s*\("), "Introduces eval(...)."),
     (re.compile(r"\bexec\s*\("), "Introduces exec(...)."),
@@ -422,6 +455,44 @@ def sensitive_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ...]:
                 hits.append(f"{description} Path: {path}")
                 break
     return tuple(dict.fromkeys(hits))
+
+
+def classify_change_surface_risk(changed_files: tuple[str, ...]) -> str:
+    """Return low, medium, or high risk from changed repository paths only.
+
+    Governance, protected scientific memory, and redistribution/publication
+    surfaces are high risk. Executable code, schemas, CI, tests, data, and any
+    new unclassified surface are medium risk. Only documentation and task
+    coordination are low risk, after the explicit high-risk exceptions above.
+
+    Empty metadata is high risk because the helper cannot prove what changed;
+    this is distinct from a known low-risk diff whose validation environment is
+    unavailable.
+    """
+
+    if not changed_files:
+        return "high"
+
+    level = "low"
+    for raw_path in changed_files:
+        path = raw_path.replace("\\", "/")
+        path_parts = Path(path).parts
+        if (
+            path in HIGH_CHANGE_RISK_EXACT_PATHS
+            or path.startswith(HIGH_CHANGE_RISK_PREFIXES)
+            or "source_artifacts" in path_parts
+            or path.lower().endswith(".pdf")
+        ):
+            return "high"
+        if path.startswith(MEDIUM_CHANGE_RISK_PREFIXES):
+            level = "medium"
+            continue
+        if path.startswith(LOW_CHANGE_RISK_PREFIXES):
+            continue
+        # Unknown top-level surfaces must not become low risk merely because a
+        # future directory has not yet been added to this classifier.
+        level = "medium"
+    return level
 
 
 def normalize_output_path(raw_output: str) -> str | None:

@@ -1,0 +1,63 @@
+id: TASK-1057
+title: "Separate maintainer-review change risk from validation state"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce false high-risk maintainer-review reports without weakening fail-closed validation or scientific/publication gates."
+  - "Make review output distinguish the inherent write surface from environment, protocol, and test outcomes."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    The review helper currently assigns risk: high whenever any blocker exists,
+    including local environment failures on docs-only or task-only diffs. This
+    conflates whether a change may merge with the inherent risk of its write
+    surface, produces misleading quality scores, and causes avoidable review
+    loops. Validation must remain fail-closed while change risk is derived
+    independently from changed paths.
+
+requirements:
+  - "Add a deterministic path-only change-surface classifier: docs/task coordination low; code, schemas, CI, tests, data, and unknown new surfaces medium; governance, protected scientific memory, and rights/publication surfaces high."
+  - "Keep missing changed-file metadata conservative and high risk because the reviewed surface cannot be proven."
+  - "Keep validation fail-closed: environment_blocked and failed validation still block merge unless existing maintainer policy accepts proven equivalent exact-head evidence."
+  - "Render Change risk separately from Validation and stop deriving change risk from verdict, blockers, required fixes, or validation status."
+  - "Update advisory quality scoring to use the independent change-surface classification without overriding the verdict."
+  - "Cover low-risk environment failure, medium-risk assertion failure, high-risk protected-content blocker, and classifier boundary cases with regression tests."
+  - "Do not change scientific, license, Gate A/Gate B, PR-template, branch, or merge-queue gates."
+
+accepted_outputs:
+  - "A deterministic change-surface risk classifier in physics_lab/registry/review_checks.py."
+  - "Independent change_risk composition and rendering in physics_lab/registry/maintainer_review.py."
+  - "Regression coverage in tests/test_maintainer_review.py."
+  - "Updated maintainer-review semantics in docs/maintainer-review-agent.md."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling semantics only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/review_checks.py physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m pytest -n0 tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

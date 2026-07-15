@@ -40,6 +40,7 @@ from physics_lab.registry.review_checks import (
     novelty_classification,
     security_pattern_hits,
     sensitive_surface_hits,
+    classify_change_surface_risk,
     cross_platform_advisory_hits,
     cross_platform_surface_hits,
     coauthor_trailer_advisory_hits,
@@ -287,7 +288,7 @@ class ReviewReport:
     """Rendered maintainer review decision."""
 
     verdict: str
-    risk: str
+    change_risk: str
     task_id: str
     branch: str
     changed_files: tuple[str, ...]
@@ -298,6 +299,16 @@ class ReviewReport:
     recommended_action: str
     advisory_warnings: tuple[str, ...] = ()
     validation_outcomes: tuple[ValidationCommandOutcome, ...] = ()
+
+    @property
+    def risk(self) -> str:
+        """Return the legacy risk attribute for read-only callers.
+
+        New code should use ``change_risk`` so validation state cannot be
+        mistaken for the inherent risk of the changed repository surface.
+        """
+
+        return self.change_risk
 
 
 @dataclass(frozen=True)
@@ -1625,7 +1636,7 @@ def _compose_review_report(
     if pull_request is not None and pr_metadata is None and branch is None:
         return ReviewReport(
             verdict="BLOCKED",
-            risk="high",
+            change_risk=classify_change_surface_risk(()),
             task_id=task_id or "TASK-UNKNOWN",
             branch=f"PR-{pull_request}-UNRESOLVED",
             changed_files=(),
@@ -2367,24 +2378,25 @@ def _compose_review_report(
     elif validation.status == "not_run" and not closeout_ci_pass:
         required_fixes.append("Validation commands were not executed during this review run.")
 
+    # Verdict remains fail-closed, but change risk is classified independently
+    # from protocol and validation outcomes. In particular, an environment-
+    # blocked docs/task review is still BLOCKED without being mislabeled as a
+    # high-risk change surface.
+    change_risk = classify_change_surface_risk(changed_files)
     if blockers:
         verdict = "BLOCKED"
-        risk = "high"
         recommended_action = "Do not merge. Return the blockers to the developer."
     elif required_fixes:
         verdict = "NEEDS_CHANGES"
-        risk = "medium"
         recommended_action = "Request changes and re-run the maintainer review."
     elif security_risks:
         verdict = "MERGE_OK"
-        risk = "medium"
         recommended_action = (
             "Merge after GitHub CI is green and the maintainer accepts the listed "
             "security-sensitive changes."
         )
     else:
         verdict = "MERGE_OK"
-        risk = "low"
         recommended_action = "Merge after GitHub CI is green."
 
     if bundle_path is not None and bundle_status == "generated":
@@ -2394,7 +2406,7 @@ def _compose_review_report(
 
     return ReviewReport(
         verdict=verdict,
-        risk=risk,
+        change_risk=change_risk,
         task_id=resolved_task_id,
         branch=target_branch,
         changed_files=changed_files,
@@ -2414,7 +2426,7 @@ def render_review_report(report: ReviewReport) -> str:
     lines = [
         f"Verdict: {report.verdict}",
         f"Quality: {quality_score}/10",
-        f"Risk: {report.risk}",
+        f"Change risk: {report.change_risk}",
         f"Task: {report.task_id}",
         f"Branch: {report.branch}",
         "Changed files:",
@@ -2488,10 +2500,10 @@ def review_quality_score(report: ReviewReport) -> tuple[int, tuple[str, ...]]:
     if report.required_fixes:
         score -= 2
         notes.append("required fixes remain")
-    if report.risk == "high":
+    if report.change_risk == "high":
         score -= 2
         notes.append("high-risk change surface")
-    elif report.risk == "medium":
+    elif report.change_risk == "medium":
         score -= 1
         notes.append("medium-risk change surface")
     if report.security_risks:

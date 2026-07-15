@@ -22,6 +22,7 @@ from physics_lab.registry.maintainer_review import (
     branch_task_queue_slug,
     branch_task_id,
     build_review_report,
+    classify_change_surface_risk,
     classify_artifact_review_changes,
     changed_task_proposal_files,
     ci_aware_validation_command,
@@ -189,6 +190,41 @@ def _write_review_task(
         + "\n",
         encoding="utf-8",
     )
+
+
+def _build_surface_review_report(
+    root: Path,
+    *,
+    changed_files: tuple[str, ...],
+    validation: ValidationSummary,
+) -> ReviewReport:
+    """Build a branch-only report with deterministic surface/validation inputs."""
+
+    task_id = "TASK-0094"
+    branch = "agent/roman/codex/task-0094-fix-helper-stale-diff"
+    _write_review_task(root, task_id)
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch(
+            "physics_lab.registry.maintainer_review.changed_files_vs_main",
+            return_value=changed_files,
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.run_command",
+            return_value=_EMPTY_DIFF,
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.ensure_review_bundle",
+            return_value=(None, "present"),
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=validation,
+        ),
+    ):
+        return build_review_report(root, branch=branch)
 
 
 def _write_task_proposal(
@@ -910,6 +946,38 @@ def test_sensitive_surface_hits_flags_repository_safety_surfaces() -> None:
     assert all("docs/maintainer-review-agent.md" not in item for item in hits)
 
 
+def test_change_surface_risk_keeps_docs_and_task_metadata_low() -> None:
+    changed_files = (
+        "docs/maintainer-review-agent.md",
+        "tasks/TASK-1057-separate-review-risk-validation.yaml",
+    )
+
+    assert classify_change_surface_risk(changed_files) == "low"
+
+
+def test_change_surface_risk_marks_code_schema_and_ci_medium() -> None:
+    assert classify_change_surface_risk(("physics_lab/registry/tasks.py",)) == "medium"
+    assert classify_change_surface_risk(("schemas/task.schema.json",)) == "medium"
+    assert classify_change_surface_risk((".github/workflows/ci.yml",)) == "medium"
+
+
+def test_change_surface_risk_marks_protected_and_rights_surfaces_high() -> None:
+    assert classify_change_surface_risk((".github/CODEOWNERS",)) == "high"
+    assert classify_change_surface_risk(("policy/decision-autonomy-matrix.yaml",)) == "high"
+    assert classify_change_surface_risk(("results/EXP-0012/RESULT-0025.yaml",)) == "high"
+    assert (
+        classify_change_surface_risk(
+            ("data/quantum_dots/source_artifacts/publisher-table.pdf",)
+        )
+        == "high"
+    )
+
+
+def test_change_surface_risk_defaults_unknown_or_unavailable_surfaces_conservatively() -> None:
+    assert classify_change_surface_risk(("future_runtime/engine.py",)) == "medium"
+    assert classify_change_surface_risk(()) == "high"
+
+
 def test_decision_regression_hits_flag_static_agent_state_layers() -> None:
     added_lines = (
         "Add campaigns/task-index.yaml as a generated static index for agents.",
@@ -947,7 +1015,7 @@ def test_decision_regression_hits_ignore_guardrail_context() -> None:
 def test_render_review_report_includes_security_section() -> None:
     report = ReviewReport(
         verdict="MERGE_OK",
-        risk="medium",
+        change_risk="medium",
         task_id="TASK-0034",
         branch="agent/roman/codex/task-0034-maintainer-review-agent",
         changed_files=("scripts/apl_review_pr.py",),
@@ -960,6 +1028,8 @@ def test_render_review_report_includes_security_section() -> None:
 
     rendered = render_review_report(report)
 
+    assert "Change risk: medium" in rendered
+    assert report.risk == "medium"
     assert "Security risks:" in rendered
     assert "Repository scripts changed." in rendered
     assert "Advisory warnings:" in rendered
@@ -968,7 +1038,7 @@ def test_render_review_report_includes_security_section() -> None:
 def test_render_review_report_includes_advisory_quality_score() -> None:
     report = ReviewReport(
         verdict="MERGE_OK",
-        risk="medium",
+        change_risk="medium",
         task_id="TASK-0429",
         branch="agent/roman/codex/task-0429-review-agent-quality-score",
         changed_files=("physics_lab/registry/maintainer_review.py",),
@@ -1452,7 +1522,7 @@ def test_run_task_validation_classifies_runtime_failure(tmp_path: Path) -> None:
 def test_render_review_report_includes_validation_outcome_details() -> None:
     report = ReviewReport(
         verdict="BLOCKED",
-        risk="high",
+        change_risk="high",
         task_id="TASK-0770",
         branch="agent/roman/codex/task-0770-validation-budgets",
         changed_files=("physics_lab/registry/maintainer_review.py",),
@@ -3684,9 +3754,81 @@ def test_build_review_report_branch_only_keeps_missing_pr_body_advisory(
         report = build_review_report(tmp_path, branch=branch)
 
     assert report.verdict == "MERGE_OK"
-    assert report.risk == "low"
+    assert report.change_risk == "low"
     assert report.required_fixes == ()
     assert any("Branch-only review cannot validate" in item for item in report.advisory_warnings)
+
+
+def test_environment_blocker_keeps_task_only_change_risk_low(tmp_path: Path) -> None:
+    report = _build_surface_review_report(
+        tmp_path,
+        changed_files=("tasks/TASK-0094-helper.yaml",),
+        validation=ValidationSummary(
+            status="environment_blocked",
+            failed_commands=("python3 -m pytest",),
+            outcomes=(
+                ValidationCommandOutcome(
+                    command="python3 -m pytest",
+                    executed_command="python3 -m pytest",
+                    status="environment_failure",
+                    returncode=1,
+                    elapsed_seconds=0.2,
+                    reason="pytest-xdist worker startup failed",
+                ),
+            ),
+        ),
+    )
+
+    assert report.verdict == "BLOCKED"
+    assert report.change_risk == "low"
+    assert report.validation == "environment_blocked"
+    assert "high-risk change surface" not in render_review_report(report)
+
+
+def test_assertion_failure_keeps_code_change_risk_medium(tmp_path: Path) -> None:
+    report = _build_surface_review_report(
+        tmp_path,
+        changed_files=(
+            "tasks/TASK-0094-helper.yaml",
+            "physics_lab/registry/maintainer_review.py",
+        ),
+        validation=ValidationSummary(
+            status="fail",
+            failed_commands=("python3 -m pytest",),
+            outcomes=(
+                ValidationCommandOutcome(
+                    command="python3 -m pytest",
+                    executed_command="python3 -m pytest",
+                    status="assertion_failure",
+                    returncode=1,
+                    elapsed_seconds=0.3,
+                    reason="test assertion failed",
+                ),
+            ),
+        ),
+    )
+
+    assert report.verdict == "BLOCKED"
+    assert report.change_risk == "medium"
+    assert report.validation == "fail"
+
+
+def test_content_blocker_keeps_protected_science_change_risk_high(
+    tmp_path: Path,
+) -> None:
+    report = _build_surface_review_report(
+        tmp_path,
+        changed_files=(
+            "tasks/TASK-0094-helper.yaml",
+            "results/EXP-0012/unexpected.txt",
+        ),
+        validation=ValidationSummary(status="pass", failed_commands=()),
+    )
+
+    assert report.verdict == "BLOCKED"
+    assert report.change_risk == "high"
+    assert report.validation == "pass"
+    assert any("Unexpected protected artifact changes" in item for item in report.blockers)
 
 
 def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> None:
@@ -4140,7 +4282,7 @@ def test_build_review_report_tears_down_own_review_worktree(tmp_path: Path) -> N
 
     dummy = ReviewReport(
         verdict="MERGE_OK",
-        risk="low",
+        change_risk="low",
         task_id="TASK-0001",
         branch="main",
         changed_files=(),
@@ -4201,7 +4343,7 @@ def test_build_review_report_startup_janitor_reclaims_old_worktree(tmp_path: Pat
 
     dummy = ReviewReport(
         verdict="MERGE_OK",
-        risk="low",
+        change_risk="low",
         task_id="TASK-0001",
         branch="main",
         changed_files=(),
