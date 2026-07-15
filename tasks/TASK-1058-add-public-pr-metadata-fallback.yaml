@@ -1,0 +1,61 @@
+id: TASK-1058
+title: "Add public read-only PR metadata fallback"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent false PR-UNRESOLVED maintainer-review blockers when an agent sandbox cannot access the local gh credential store."
+  - "Keep review exact-head and fail-closed while using the canonical public repository as a read-only metadata source."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    A PR-number review of PR 1574 returned PR-UNRESOLVED because the Python
+    sandbox could execute gh but could not read its host credential store.
+    Direct public GitHub REST access from the same process returned the exact
+    PR metadata. The fallback should use that public surface in memory without
+    introducing metadata files, changing pre-PR branch review, or weakening
+    exact-head and CI requirements.
+
+requirements:
+  - "Keep the existing gh pr view path first and retry only bounded transient failures; authentication failures should move directly to the public fallback."
+  - "Read fallback metadata only from the fixed open-agent-science/autonomous-physics-lab public REST endpoints, with GET requests, timeouts, response-size limits, and no credential requirement."
+  - "Load PR body, branch/base, exact head SHA, changed-file paths, and latest check runs in memory; do not write metadata or cache files to the checkout."
+  - "Limit the unauthenticated fallback to at most 100 changed files so a large PR cannot exhaust the public API allowance; keep broader or incomplete surfaces fail-closed."
+  - "Fetch the canonical refs/pull/<number>/head ref and require it to equal the metadata head SHA before creating the detached review worktree."
+  - "Distinguish partial gh pr list metadata from an actually incomplete PR body so unavailable metadata does not produce false contributor-content findings."
+  - "Do not change branch-only pre-PR review, task/proposal PR helpers, body-file support, scientific gates, rights checks, or merge policy."
+
+accepted_outputs:
+  - "Bounded gh retry and public REST fallback in physics_lab/registry/maintainer_review.py."
+  - "Exact refs/pull head verification before PR-number review worktree creation."
+  - "Regression tests for public fallback, transient recovery, partial metadata, SHA mismatch, and unchanged pre-PR behavior."
+  - "A short public-fallback contract in docs/maintainer-review-agent.md."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling hardening only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m pytest -n0 tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
