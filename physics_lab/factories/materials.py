@@ -119,6 +119,33 @@ CONTROL_LABELERS.update(
         "matched_random_formula_family_control": _matched_random_formula_family_labels,
     }
 )
+REQUIRED_CONTROL_IDS = tuple(CONTROL_LABELERS)
+
+
+def _validate_spec_contract(spec: FactorySpec) -> None:
+    """Reject configs that could bypass the adapter's bounded control contract."""
+    if spec.candidate_cap < 1:
+        raise ValueError("Materials factory candidate_cap must be at least 1")
+
+    unknown_families = sorted(set(spec.families) - set(CANDIDATE_LABELERS))
+    if unknown_families:
+        raise ValueError(
+            "Unsupported materials factory families: " + ", ".join(unknown_families)
+        )
+
+    unknown_controls = sorted(set(spec.controls) - set(CONTROL_LABELERS))
+    if unknown_controls:
+        raise ValueError(
+            "Unsupported materials factory controls: " + ", ".join(unknown_controls)
+        )
+
+    missing_controls = [
+        control_id for control_id in REQUIRED_CONTROL_IDS if control_id not in spec.controls
+    ]
+    if missing_controls:
+        raise ValueError(
+            "Missing required materials factory controls: " + ", ".join(missing_controls)
+        )
 
 
 # --- Lane scoring (frozen baseline + per-label residual offsets) ------------
@@ -249,7 +276,7 @@ def _route_lane(
     if lane["verdict"] == "negative":
         return "EXECUTED", "NEGATIVE_RESULT"
     margin = round(lane["penalized_holdout_improvement"] - best_control_penalized, 6)
-    if margin < 0.0:
+    if margin <= 0.0:
         # A matched null control does at least as well: not a real signal.
         return "REJECTED_BY_CONTROL", "REJECTED_BY_CONTROL"
     if margin >= SURVIVAL_MARGIN_EV_PER_ATOM and stable:
@@ -266,21 +293,19 @@ class MaterialsFormationEnergyFactoryAdapter:
     adapter_version = "0.1"
 
     def build_run(self, spec: FactorySpec) -> FactoryRun:
+        _validate_spec_contract(spec)
         rows = load_formation_energy_rows(spec.dataset["snapshot_ref"])
         splits = _split_rows(rows)
         baseline_predictor = _fit_baselines(splits["train"])[
             str(spec.baseline.get("baseline_id", "cation_group_mean"))
         ]
 
+        selected_families = spec.families[: spec.candidate_cap]
         candidate_labelers = {
-            family: CANDIDATE_LABELERS[family]
-            for family in spec.families
-            if family in CANDIDATE_LABELERS
+            family: CANDIDATE_LABELERS[family] for family in selected_families
         }
         control_labelers = {
-            control: CONTROL_LABELERS[control]
-            for control in spec.controls
-            if control in CONTROL_LABELERS
+            control: CONTROL_LABELERS[control] for control in spec.controls
         }
 
         scored_candidates = {

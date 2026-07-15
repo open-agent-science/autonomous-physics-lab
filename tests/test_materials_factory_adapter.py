@@ -10,9 +10,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 import yaml
 
 from physics_lab.factories import get_adapter, run_factory
+from physics_lab.factories import materials as materials_factory
 from physics_lab.factories.core import FactorySpec
 from physics_lab.factories.materials import MaterialsFormationEnergyFactoryAdapter
 
@@ -22,10 +24,17 @@ CONFIG_PATH = (
 )
 
 
-def _run() -> dict:
-    config = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+def _load_config() -> dict:
+    return yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+
+
+def _run_config(config: dict) -> dict:
     spec = FactorySpec.from_config(config)
     return run_factory(spec, get_adapter(spec.adapter_id))
+
+
+def _run() -> dict:
+    return _run_config(_load_config())
 
 
 def test_materials_adapter_is_registered_on_import() -> None:
@@ -71,6 +80,81 @@ def test_materials_adapter_run_is_deterministic() -> None:
         "formula_family_x_cation_group_offsets": -0.12619,
     }
     assert summary["route_verdict_summary"] == {"NEGATIVE_RESULT": 4}
+
+
+def test_candidate_cap_bounds_scoring_not_only_serialized_output(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config = _load_config()
+    config["candidate_cap"] = 1
+    called_labelers: list[str] = []
+    original_score = materials_factory.score_offset_lane
+
+    def tracking_score(rows, splits, baseline_predictor, labeler):
+        called_labelers.append(labeler.__name__)
+        return original_score(rows, splits, baseline_predictor, labeler)
+
+    monkeypatch.setattr(materials_factory, "score_offset_lane", tracking_score)
+    summary = _run_config(config)
+
+    assert summary["candidate_counts"]["generated"] == 1
+    # One primary score plus five sensitivity seeds for the selected family.
+    assert called_labelers.count("_cation_group_labels") == 6
+    assert "_formula_family_labels" not in called_labelers
+    assert "_oxygen_stoichiometry_labels" not in called_labelers
+    assert "_formula_family_x_cation_group_labels" not in called_labelers
+
+
+def test_materials_adapter_rejects_unknown_family() -> None:
+    config = _load_config()
+    config["families"].append("typo_family")
+
+    with pytest.raises(ValueError, match="Unsupported materials factory families: typo_family"):
+        _run_config(config)
+
+
+def test_materials_adapter_rejects_unknown_control() -> None:
+    config = _load_config()
+    config["controls"].append("typo_control")
+
+    with pytest.raises(ValueError, match="Unsupported materials factory controls: typo_control"):
+        _run_config(config)
+
+
+def test_materials_adapter_requires_complete_control_suite() -> None:
+    config = _load_config()
+    config["controls"].remove("matched_random_formula_family_control")
+
+    with pytest.raises(
+        ValueError,
+        match=(
+            "Missing required materials factory controls: "
+            "matched_random_formula_family_control"
+        ),
+    ):
+        _run_config(config)
+
+
+def test_materials_adapter_requires_positive_candidate_cap() -> None:
+    config = _load_config()
+    config["candidate_cap"] = 0
+
+    with pytest.raises(ValueError, match="candidate_cap must be at least 1"):
+        _run_config(config)
+
+
+def test_route_rejects_candidate_tied_with_best_control() -> None:
+    lane = {
+        "verdict": "diagnostic_only",
+        "penalized_holdout_improvement": 0.02,
+        "improvement_vs_baseline_mae": {"holdout": 0.04},
+    }
+
+    assert materials_factory._route_lane(
+        lane,
+        best_control_penalized=0.02,
+        stable=True,
+    ) == ("REJECTED_BY_CONTROL", "REJECTED_BY_CONTROL")
 
 
 def test_materials_adapter_matches_smoke_sprint_science() -> None:
