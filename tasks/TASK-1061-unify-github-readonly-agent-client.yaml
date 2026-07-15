@@ -1,7 +1,7 @@
 id: TASK-1061
 title: "Unify read-only GitHub availability for agent tools"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
