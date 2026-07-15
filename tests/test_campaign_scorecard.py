@@ -6,6 +6,7 @@ from pathlib import Path
 
 from physics_lab.registry.campaign_scorecard import (
     ScorecardReport,
+    _count_predictions,
     _count_results,
     _repo_claim_statuses,
     build_scorecard,
@@ -15,6 +16,18 @@ from physics_lab.registry.campaign_scorecard import (
 def _write_result(path: Path, *, verdict: str, tier: str | None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     lines = [f"best_verdict: {verdict}"]
+    if tier is not None:
+        lines.append(f"review_tier: {tier}")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _write_prediction(path: Path, *, campaign_id: str, tier: str | None = None) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        f"prediction_id: {path.stem}",
+        "registry_status: REGISTERED",
+        f"campaign_profile_id: {campaign_id}",
+    ]
     if tier is not None:
         lines.append(f"review_tier: {tier}")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -30,6 +43,50 @@ def test_count_results_groups_verdicts_and_tiers(tmp_path: Path) -> None:
     assert verdicts == {"VALID": 1, "FALSIFIED": 1}
     # missing review_tier defaults to LEGACY_UNTIERED
     assert tiers == {"AGENT_PUBLISHED": 1, "LEGACY_UNTIERED": 1}
+
+
+def test_count_predictions_uses_artifact_campaign_and_excludes_templates(tmp_path: Path) -> None:
+    registry = tmp_path / "prediction_registry"
+    _write_prediction(
+        registry / "nuclear_masses" / "PRED-0001.yaml",
+        campaign_id="nuclear-mass-surface",
+    )
+    _write_prediction(
+        registry / "radio_transients" / "PRED-0001.yaml",
+        campaign_id="radio-transients-frb-pre-t-repeater-propensity",
+        tier="AGENT_PUBLISHED",
+    )
+    _write_prediction(
+        registry / "exoplanet_mass_radius" / "PRED-0001.yaml",
+        campaign_id="exoplanet-mass-radius",
+        tier="AGENT_PUBLISHED",
+    )
+    (registry / "nuclear_masses" / "PRED-TEMPLATE.yaml").write_text(
+        "prediction_id: PRED-XXXX\nregistry_status: REGISTERED\n"
+        "campaign_profile_id: nuclear-mass-surface\n",
+        encoding="utf-8",
+    )
+    (registry / "nuclear_masses" / "PRED-0002-draft.yaml").write_text(
+        "prediction_id: PRED-0002\nregistry_status: REGISTERED\n"
+        "campaign_profile_id: nuclear-mass-surface\n",
+        encoding="utf-8",
+    )
+
+    assert _count_predictions(tmp_path, "nuclear-mass-surface") == (
+        1,
+        {"REGISTERED": 1},
+        {"LEGACY_UNTIERED": 1},
+    )
+    assert _count_predictions(tmp_path, "radio-transients-frb-pre-t-repeater-propensity") == (
+        1,
+        {"REGISTERED": 1},
+        {"AGENT_PUBLISHED": 1},
+    )
+    assert _count_predictions(tmp_path, "exoplanet-mass-radius") == (
+        1,
+        {"REGISTERED": 1},
+        {"AGENT_PUBLISHED": 1},
+    )
 
 
 def test_repo_claim_statuses_counts_status_lines(tmp_path: Path) -> None:

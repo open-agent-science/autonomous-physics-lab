@@ -1,0 +1,55 @@
+id: TASK-1056
+title: "Add exact-head status-only closeout review fast path"
+type: tooling_fix
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer review latency without weakening scientific, publication, or merge-queue validation gates."
+  - "Keep mechanical task closeout proportional to its status-only diff while preserving the full review path for every broader change."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    A mechanical closeout PR that only changed canonical task statuses from
+    REVIEW_READY to DONE repeatedly launched a local full_repo slice after the
+    same PR head had already passed required CI. Environment-sensitive xdist
+    failures then caused redundant review loops. The fast path must be tightly
+    guarded by exact PR-head identity, green CI, and a textual status-only diff;
+    every wider closeout remains on the existing validation path.
+
+requirements:
+  - "Recognize only canonical tasks/TASK-*.yaml diffs with exactly one textual status: REVIEW_READY to status: DONE replacement per file."
+  - "Require a PR number, green GitHub status checks, a non-empty PR head SHA, and local review-ref equality with that exact SHA before selecting the fast path."
+  - "Run targeted closeout tests and require strict repository validation locally or through exact-head green CI in ci-aware mode; do not run the duplicate local full_repo slice."
+  - "Fall back to the existing closeout validation commands for formatting edits, additional fields or files, missing metadata, non-green CI, SHA mismatch, or branch-only review."
+  - "Do not change closeout candidate selection, task mutation, scientific artifacts, publication gates, or merge semantics."
+
+accepted_outputs:
+  - "A diff-guarded closeout validation selector in physics_lab/registry/maintainer_review.py."
+  - "Regression tests covering the accepted status-only shape and strict fallback conditions."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling optimization only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m pytest -n0 tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

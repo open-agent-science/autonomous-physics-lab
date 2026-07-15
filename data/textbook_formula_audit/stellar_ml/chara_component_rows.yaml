@@ -1,0 +1,325 @@
+schema_version: "1"
+task_id: TASK-1040
+campaign_id: textbook-formula-audit
+surface_id: stellar-mass-luminosity
+status: source_limited
+verdict: SOURCE_LIMITED
+created_utc: "2026-07-14"
+scope_note: >
+  Bounded factual extract for the thirteen TASK-1025 candidates. Only rows with
+  same-component dynamical mass and bolometric luminosity are admitted. No
+  split, fit, residual, metric, or target-driven selection is present.
+frozen_inputs:
+  alias_ledger:
+    path: data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
+    sha256: 9ba15da828381841914b7e848f2d9e9235aa7237d6ecf513a795dfa6b2ec8613
+  debcat_rows:
+    path: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+    sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
+candidate_policy:
+  candidate_system_count: 13
+  admitted_system_count: 6
+  admitted_component_row_count: 12
+  excluded_system_count: 7
+  debcat_whole_system_intersection_count: 0
+  selection_basis: source_completeness_and_component_mapping_only
+source_artifacts:
+  - source_id: chara-i
+    locator: https://arxiv.org/pdf/1902.05557
+    doi: 10.3847/1538-3881/ab064d
+    bytes: 610985
+    sha256: 8860e1f9b2c37b13864f71996256177f5ebed98702dc63416b12b4c1d86dc3ae
+    rights: AAS_all_rights_reserved_limited_factual_inspection
+    values_used: false
+  - source_id: chara-ii
+    locator: https://arxiv.org/pdf/1909.09161
+    doi: 10.3847/1538-3881/ab449d
+    bytes: 2922018
+    sha256: 581debe7ce77da900eb250e418bf020de848a90ef7a8384186ad3381726b62c1
+    rights: AAS_all_rights_reserved_limited_factual_inspection
+    values_used: false
+  - source_id: chara-iii
+    locator: https://arxiv.org/pdf/2005.00546
+    doi: 10.3847/1538-3881/ab8f95
+    bytes: 958390
+    sha256: 1f61a6ddcfefd1225459ea6a3485b2c17ec09870a91dc15025fe531bbeee7b5c
+    rights: AAS_all_rights_reserved_bounded_factual_extract
+    values_used: true
+  - source_id: chara-iv
+    locator: https://arxiv.org/pdf/2209.09993
+    doi: 10.3847/1538-3881/ac9385
+    bytes: 1227253
+    sha256: bf700038072502164842a92384713f9c030be56cdac9a6e243dd4d4942adfd6b
+    rights: CC_BY_4_0
+    values_used: true
+  - source_id: hyades-six
+    locator: https://arxiv.org/pdf/2406.01674
+    doi: 10.3847/1538-3881/ad4879
+    bytes: 1717730
+    sha256: c8bc5d92f3cd3386f648a777c6bdbe50c324ca666e56af23a0f13543895229d0
+    rights: CC_BY_4_0
+    values_used: false
+  - source_id: hd284163-article
+    locator: https://arxiv.org/pdf/2312.05301
+    doi: 10.1093/mnras/stad3803
+    bytes: 2695999
+    sha256: b70c76a0eb77f7e2c723471361fbd0b832f4ab9944f52d94be09bdde6d87182f
+    rights: CC_BY_4_0
+    values_used: false
+  - source_id: hd284163-supplement
+    locator: https://academic.oup.com/mnras/article/527/3/8907/7469483
+    named_artifact: stad3803_supplemental_file.zip
+    pin_status: checksum_unavailable
+    rights: CC_BY_4_0_article_supplement_boundary_unverified
+    values_used: false
+conventions:
+  mass_unit: solar_mass
+  luminosity_unit: solar_bolometric_luminosity
+  solar_effective_temperature_k: 5772.0
+  derived_luminosity_formula: L_over_Lsun = (R_over_Rsun)^2 * (Teff_K / 5772)^4
+  derived_uncertainty_formula: sigma_L_over_L = sqrt((2*sigma_R/R)^2 + (4*sigma_T/Teff)^2)
+  derived_uncertainty_assumption: radius_and_temperature_errors_independent
+  component_mapping_rule: paper_primary_to_A_and_paper_secondary_to_B
+excluded_systems:
+  - system_id: HD 27483
+    source_id: hyades-six
+    reason: only_band_limited_absolute_magnitudes_no_reviewed_bolometric_conversion
+  - system_id: HD 283882
+    source_id: hyades-six
+    reason: only_band_limited_absolute_magnitudes_no_reviewed_bolometric_conversion
+  - system_id: HD 26874
+    source_id: hyades-six
+    reason: only_band_limited_absolute_magnitudes_no_reviewed_bolometric_conversion
+  - system_id: HD 27149
+    source_id: hyades-six
+    reason: only_band_limited_absolute_magnitudes_no_reviewed_bolometric_conversion
+  - system_id: HD 30676
+    source_id: hyades-six
+    reason: only_band_limited_absolute_magnitudes_no_reviewed_bolometric_conversion
+  - system_id: HD 28545
+    source_id: hyades-six
+    reason: only_band_limited_absolute_magnitudes_no_reviewed_bolometric_conversion
+  - system_id: HD 284163
+    source_id: hd284163-article
+    reason: supplement_not_checksum_pinned_and_no_reviewed_bolometric_luminosity
+rows:
+  - row_id: HD8374-A
+    system_id: HD 8374
+    component_id: A
+    paper_component: primary
+    source_id: chara-iii
+    source_location: Table 8
+    mass_solar: 1.636
+    mass_uncertainty_solar: 0.050
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 8.567535
+    luminosity_uncertainty_solar: 0.696379
+    luminosity_definition: bolometric_stefan_boltzmann_from_published_radius_and_teff
+    luminosity_inputs: {radius_solar: 1.84, radius_uncertainty_solar: 0.05, teff_k: 7280, teff_uncertainty_k: 110}
+    uncertainty_type: published_symmetric_1sigma_with_propagated_independent_luminosity_error
+    component_mapping: paper_primary_is_the_more_massive_component_and_maps_to_A
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary
+    environment_group: provisional_singleton_HD8374
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD8374-B
+    system_id: HD 8374
+    component_id: B
+    paper_component: secondary
+    source_id: chara-iii
+    source_location: Table 8
+    mass_solar: 1.587
+    mass_uncertainty_solar: 0.049
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 6.973269
+    luminosity_uncertainty_solar: 1.108074
+    luminosity_definition: bolometric_stefan_boltzmann_from_published_radius_and_teff
+    luminosity_inputs: {radius_solar: 1.66, radius_uncertainty_solar: 0.12, teff_k: 7280, teff_uncertainty_k: 120}
+    uncertainty_type: published_symmetric_1sigma_with_propagated_independent_luminosity_error
+    component_mapping: paper_secondary_is_the_less_massive_component_and_maps_to_B
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary
+    environment_group: provisional_singleton_HD8374
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD24546-A
+    system_id: HD 24546
+    component_id: A
+    paper_component: primary
+    source_id: chara-iii
+    source_location: Table 8
+    mass_solar: 1.434
+    mass_uncertainty_solar: 0.014
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 5.340805
+    luminosity_uncertainty_solar: 0.538355
+    luminosity_definition: bolometric_stefan_boltzmann_from_published_radius_and_teff
+    luminosity_inputs: {radius_solar: 1.67, radius_uncertainty_solar: 0.06, teff_k: 6790, teff_uncertainty_k: 120}
+    uncertainty_type: published_symmetric_1sigma_with_propagated_independent_luminosity_error
+    component_mapping: paper_primary_is_the_more_massive_component_and_maps_to_A
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary_with_resolved_distant_sibling
+    environment_group: provisional_singleton_HD24546
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD24546-B
+    system_id: HD 24546
+    component_id: B
+    paper_component: secondary
+    source_id: chara-iii
+    source_location: Table 8
+    mass_solar: 1.409
+    mass_uncertainty_solar: 0.014
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 4.844951
+    luminosity_uncertainty_solar: 0.658141
+    luminosity_definition: bolometric_stefan_boltzmann_from_published_radius_and_teff
+    luminosity_inputs: {radius_solar: 1.60, radius_uncertainty_solar: 0.10, teff_k: 6770, teff_uncertainty_k: 90}
+    uncertainty_type: published_symmetric_1sigma_with_propagated_independent_luminosity_error
+    component_mapping: paper_secondary_is_the_less_massive_component_and_maps_to_B
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary_with_resolved_distant_sibling
+    environment_group: provisional_singleton_HD24546
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD61859-A
+    system_id: HD 61859
+    component_id: A
+    paper_component: primary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 1.629
+    mass_uncertainty_solar: 0.023
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 9.6
+    luminosity_uncertainty_solar: 1.3
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_primary_is_the_more_massive_component_and_maps_to_A
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary
+    environment_group: provisional_singleton_HD61859
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD61859-B
+    system_id: HD 61859
+    component_id: B
+    paper_component: secondary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 1.443
+    mass_uncertainty_solar: 0.020
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 4.1
+    luminosity_uncertainty_solar: 0.5
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_secondary_is_the_less_massive_component_and_maps_to_B
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary
+    environment_group: provisional_singleton_HD61859
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD89822-A
+    system_id: HD 89822
+    component_id: A
+    paper_component: primary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 2.779
+    mass_uncertainty_solar: 0.153
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 101.0
+    luminosity_uncertainty_solar: 8.0
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_primary_is_the_more_massive_component_and_maps_to_A
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary
+    environment_group: provisional_singleton_HD89822
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD89822-B
+    system_id: HD 89822
+    component_id: B
+    paper_component: secondary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 1.708
+    mass_uncertainty_solar: 0.094
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 9.7
+    luminosity_uncertainty_solar: 1.0
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_secondary_is_the_less_massive_component_and_maps_to_B
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary
+    environment_group: provisional_singleton_HD89822
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD109510-A
+    system_id: HD 109510
+    component_id: A
+    paper_component: primary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 1.838
+    mass_uncertainty_solar: 0.218
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 15.6
+    luminosity_uncertainty_solar: 1.3
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_primary_is_the_more_massive_component_and_maps_to_A
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary_with_resolved_distant_sibling
+    environment_group: provisional_singleton_HD109510
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD109510-B
+    system_id: HD 109510
+    component_id: B
+    paper_component: secondary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 1.541
+    mass_uncertainty_solar: 0.184
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 7.2
+    luminosity_uncertainty_solar: 0.9
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_secondary_is_the_less_massive_component_and_maps_to_B
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary_with_resolved_distant_sibling
+    environment_group: provisional_singleton_HD109510
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD191692-A
+    system_id: HD 191692
+    component_id: A
+    paper_component: primary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 3.564
+    mass_uncertainty_solar: 0.049
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 229.8
+    luminosity_uncertainty_solar: 22.5
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_primary_is_the_more_massive_component_and_maps_to_A
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary_with_resolved_distant_sibling
+    environment_group: provisional_singleton_HD191692
+    evolutionary_stage_flag: unassigned_source_curation_only
+  - row_id: HD191692-B
+    system_id: HD 191692
+    component_id: B
+    paper_component: secondary
+    source_id: chara-iv
+    source_location: Table 3
+    mass_solar: 2.739
+    mass_uncertainty_solar: 0.037
+    mass_definition: dynamical_mass_combined_visual_and_double_lined_spectroscopic_orbit
+    luminosity_solar: 54.0
+    luminosity_uncertainty_solar: 5.8
+    luminosity_definition: published_bolometric_stefan_boltzmann_luminosity
+    uncertainty_type: published_symmetric_1sigma
+    component_mapping: paper_secondary_is_the_less_massive_component_and_maps_to_B
+    morphology: double_lined_spectroscopic_visual_binary
+    multiplicity: binary_with_resolved_distant_sibling
+    environment_group: provisional_singleton_HD191692
+    evolutionary_stage_flag: unassigned_source_curation_only

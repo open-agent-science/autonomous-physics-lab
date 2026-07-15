@@ -9,9 +9,11 @@ from unittest.mock import patch
 
 from physics_lab.registry.maintainer_review import (
     ArtifactReviewSignal,
+    CLOSEOUT_VALIDATION_COMMANDS,
     CleanPrWorktree,
     ReviewReport,
     PullRequestMetadata,
+    STATUS_ONLY_CLOSEOUT_VALIDATION_COMMANDS,
     ValidationCommandOutcome,
     ValidationSummary,
     branch_microtask_id,
@@ -42,6 +44,8 @@ from physics_lab.registry.maintainer_review import (
     run_task_validation,
     security_pattern_hits,
     sensitive_surface_hits,
+    status_only_closeout_diff,
+    status_only_closeout_fast_path,
     _validation_subprocess_env,
 )
 from physics_lab.registry.review_checks import (
@@ -1154,6 +1158,125 @@ def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
     )
 
 
+def test_status_only_closeout_diff_accepts_exact_status_flips(tmp_path: Path) -> None:
+    diff = "\n".join(
+        [
+            "diff --git a/tasks/TASK-0001-one.yaml b/tasks/TASK-0001-one.yaml",
+            "--- a/tasks/TASK-0001-one.yaml",
+            "+++ b/tasks/TASK-0001-one.yaml",
+            "@@ -4 +4 @@",
+            "-status: REVIEW_READY",
+            "+status: DONE",
+        ]
+    )
+    with patch(
+        "physics_lab.registry.maintainer_review.run_git_command",
+        return_value=CommandResult(returncode=0, stdout=diff, stderr=""),
+    ):
+        assert status_only_closeout_diff(
+            tmp_path,
+            base_ref="main",
+            review_ref="HEAD",
+            changed_files=("tasks/TASK-0001-one.yaml",),
+        )
+
+
+def test_status_only_closeout_diff_rejects_any_additional_edit(tmp_path: Path) -> None:
+    diff = "\n".join(
+        [
+            "diff --git a/tasks/TASK-0001-one.yaml b/tasks/TASK-0001-one.yaml",
+            "--- a/tasks/TASK-0001-one.yaml",
+            "+++ b/tasks/TASK-0001-one.yaml",
+            "@@ -2 +2 @@",
+            '-title: "Old title"',
+            '+title: "New title"',
+            "@@ -4 +4 @@",
+            "-status: REVIEW_READY",
+            "+status: DONE",
+        ]
+    )
+    with patch(
+        "physics_lab.registry.maintainer_review.run_git_command",
+        return_value=CommandResult(returncode=0, stdout=diff, stderr=""),
+    ):
+        assert not status_only_closeout_diff(
+            tmp_path,
+            base_ref="main",
+            review_ref="HEAD",
+            changed_files=("tasks/TASK-0001-one.yaml",),
+        )
+
+
+def test_status_only_closeout_fast_path_requires_green_exact_pr_head(tmp_path: Path) -> None:
+    branch = "agent/roman/codex/closeout-status-only"
+    metadata = PullRequestMetadata(
+        number=42,
+        title="TASK-CLOSEOUT: Close reviewed task",
+        body="",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0001-one.yaml",),
+        head_sha="abc123",
+    )
+    diff = "\n".join(
+        [
+            "--- a/tasks/TASK-0001-one.yaml",
+            "+++ b/tasks/TASK-0001-one.yaml",
+            "@@ -4 +4 @@",
+            "-status: REVIEW_READY",
+            "+status: DONE",
+        ]
+    )
+    with patch(
+        "physics_lab.registry.maintainer_review.run_git_command",
+        side_effect=(
+            CommandResult(returncode=0, stdout="abc123\n", stderr=""),
+            CommandResult(returncode=0, stdout=diff, stderr=""),
+        ),
+    ):
+        assert status_only_closeout_fast_path(
+            tmp_path,
+            pull_request=42,
+            pr_metadata=metadata,
+            base_ref="main",
+            review_ref="HEAD",
+            changed_files=metadata.changed_files,
+        )
+
+    with patch(
+        "physics_lab.registry.maintainer_review.run_git_command",
+        return_value=CommandResult(returncode=0, stdout="different-sha\n", stderr=""),
+    ):
+        assert not status_only_closeout_fast_path(
+            tmp_path,
+            pull_request=42,
+            pr_metadata=metadata,
+            base_ref="main",
+            review_ref="HEAD",
+            changed_files=metadata.changed_files,
+        )
+
+    non_green = PullRequestMetadata(
+        **{**metadata.__dict__, "status_checks_passed": False}
+    )
+    with patch(
+        "physics_lab.registry.maintainer_review.run_git_command",
+        side_effect=AssertionError("non-green CI must not inspect the diff"),
+    ):
+        assert not status_only_closeout_fast_path(
+            tmp_path,
+            pull_request=42,
+            pr_metadata=non_green,
+            base_ref="main",
+            review_ref="HEAD",
+            changed_files=non_green.changed_files,
+        )
+
+
 def test_run_task_validation_ci_aware_skips_ci_duplicates_but_runs_remainder(
     tmp_path,
 ) -> None:
@@ -2049,6 +2172,80 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert report.blockers == ()
+
+
+def test_closeout_review_selects_fast_commands_only_for_guarded_diff(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0027", status="DONE", slug="units")
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = ("tasks/TASK-0027-units.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged task as done",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Closed Task Files: `tasks/TASK-0027-units.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+        head_sha="abc123",
+    )
+
+    for fast_path, expected in (
+        (True, STATUS_ONLY_CLOSEOUT_VALIDATION_COMMANDS),
+        (False, CLOSEOUT_VALIDATION_COMMANDS),
+    ):
+        seen_commands: list[tuple[str, ...]] = []
+
+        def fake_validation(
+            _root: Path, payload: dict[str, object], **_kwargs: object
+        ) -> ValidationSummary:
+            validation = payload["validation"]
+            assert isinstance(validation, dict)
+            commands = validation["commands"]
+            assert isinstance(commands, list)
+            seen_commands.append(tuple(str(command) for command in commands))
+            return ValidationSummary(status="pass", failed_commands=())
+
+        with (
+            patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+            patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+            patch(
+                "physics_lab.registry.maintainer_review.changed_files_vs_main",
+                return_value=changed,
+            ),
+            patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+            patch(
+                "physics_lab.registry.maintainer_review.load_pr_metadata",
+                return_value=pr_metadata,
+            ),
+            patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+            patch(
+                "physics_lab.registry.maintainer_review.ensure_review_bundle",
+                return_value=(None, "present"),
+            ),
+            patch(
+                "physics_lab.registry.maintainer_review.status_only_closeout_fast_path",
+                return_value=fast_path,
+            ),
+            patch(
+                "physics_lab.registry.maintainer_review.run_task_validation",
+                side_effect=fake_validation,
+            ),
+        ):
+            report = build_review_report(tmp_path, pull_request=67)
+
+        assert report.verdict == "MERGE_OK"
+        assert seen_commands == [expected]
+        assert any("Status-only closeout fast path" in warning for warning in report.advisory_warnings) is fast_path
 
 
 def test_build_review_report_blocks_non_generated_docs_only_closeout_pr(

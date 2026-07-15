@@ -112,6 +112,10 @@ CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
+STATUS_ONLY_CLOSEOUT_VALIDATION_COMMANDS = (
+    "python3 -m pytest -n0 tests/test_closeout_sweep.py tests/test_task_closeout.py",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
 PROPOSAL_DRIFT_CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 scripts/apl_proposal_triage.py",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
@@ -637,6 +641,81 @@ def ci_aware_validation_command(command_text: str) -> str | None:
     if python_args.startswith('-m pytest -m "not full_repo"'):
         return None
     return command_text
+
+
+def status_only_closeout_diff(
+    root: Path,
+    *,
+    base_ref: str,
+    review_ref: str,
+    changed_files: tuple[str, ...],
+) -> bool:
+    """Return whether a closeout diff contains only REVIEW_READY -> DONE flips.
+
+    This intentionally checks the textual diff, not only parsed YAML values.
+    Comments, formatting edits, or any second field change must use the normal
+    closeout validation path instead of inheriting the narrow fast path.
+    """
+
+    if not changed_files or any(
+        not path.startswith("tasks/TASK-") or not path.endswith(".yaml")
+        for path in changed_files
+    ):
+        return False
+    for path in changed_files:
+        result = run_git_command(
+            ["diff", "--unified=0", f"{base_ref}...{review_ref}", "--", path],
+            cwd=root,
+            timeout=120,
+        )
+        if result.returncode != 0:
+            return False
+        removed = tuple(
+            line[1:]
+            for line in result.stdout.splitlines()
+            if line.startswith("-") and not line.startswith("---")
+        )
+        added = tuple(
+            line[1:]
+            for line in result.stdout.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        )
+        if removed != ("status: REVIEW_READY",) or added != ("status: DONE",):
+            return False
+    return True
+
+
+def status_only_closeout_fast_path(
+    root: Path,
+    *,
+    pull_request: int | None,
+    pr_metadata: PullRequestMetadata | None,
+    base_ref: str,
+    review_ref: str,
+    changed_files: tuple[str, ...],
+) -> bool:
+    """Return whether exact-head CI permits narrow closeout validation."""
+
+    if (
+        pull_request is None
+        or pr_metadata is None
+        or pr_metadata.status_checks_passed is not True
+        or not pr_metadata.head_sha
+    ):
+        return False
+    resolved = run_git_command(
+        ["rev-parse", "--verify", review_ref],
+        cwd=root,
+        timeout=30,
+    )
+    if resolved.returncode != 0 or resolved.stdout.strip() != pr_metadata.head_sha:
+        return False
+    return status_only_closeout_diff(
+        root,
+        base_ref=base_ref,
+        review_ref=review_ref,
+        changed_files=changed_files,
+    )
 
 
 def _validation_python_args(command_text: str) -> str:
@@ -1827,11 +1906,29 @@ def _compose_review_report(
                     f"Closeout PR should mark {task_path} as DONE, READY, REJECTED, or SUPERSEDED."
                 )
         if closeout_task_files:
+            narrow_closeout_validation = status_only_closeout_fast_path(
+                root,
+                pull_request=pull_request,
+                pr_metadata=pr_metadata,
+                base_ref=base_ref,
+                review_ref=review_ref,
+                changed_files=changed_files,
+            )
             validation_payload = {
                 "validation": {
-                    "commands": list(CLOSEOUT_VALIDATION_COMMANDS),
+                    "commands": list(
+                        STATUS_ONLY_CLOSEOUT_VALIDATION_COMMANDS
+                        if narrow_closeout_validation
+                        else CLOSEOUT_VALIDATION_COMMANDS
+                    ),
                 }
             }
+            if narrow_closeout_validation:
+                advisory_warnings.append(
+                    "Status-only closeout fast path verified exact PR-head green CI "
+                    "and REVIEW_READY -> DONE-only task diffs; running targeted "
+                    "closeout tests instead of a duplicate local full_repo slice."
+                )
     elif is_task_queue_review:
         resolved_task_id = "TASK-QUEUE"
         if protocol.task_queue_slug is None:

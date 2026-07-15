@@ -1,7 +1,7 @@
 id: TASK-1040
 title: "Curate the thirteen alias-clean CHARA systems into a value-traceable per-component row surface"
 type: scientific_source_curation
-status: READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task first admits CHARA stellar values after the alias audit; closeout must verify component pairing, source rights, uncertainty semantics, and the no-score stop line."
 difficulty: medium
