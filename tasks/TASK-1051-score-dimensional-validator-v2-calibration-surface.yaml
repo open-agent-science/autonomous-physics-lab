@@ -1,0 +1,61 @@
+id: TASK-1051
+title: "Blind-score the frozen dimensional-validator v2 calibration surface"
+type: scientific_result_publication
+status: READY
+closeout: review
+closeout_review_reason: "This task creates the first exact-v2 score after label/inference separation; closeout must preserve the calibration-only role limit and prevent an invalid confirmatory or claim interpretation."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1038 separated label-blind inference from expected labels and TASK-1039 froze an 80-item exact-v2 surface without executing the validator."
+  - "The surface is same-owner role-disjoint calibration memory, so scoring can test the quality floor but cannot support confirmatory Gate C."
+  - "A frozen PASS or FAIL is more useful than another historical 50/74 rescore or policy-equivalence audit."
+
+input:
+  mode: workflow
+  related_domain: physics_validation
+  related_objects:
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
+    - "physics_lab/engines/dimensions.py"
+    - "tasks/TASK-1038-dimensional-validator-scoring-separation.yaml"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+  planning_context: >
+    Execute label_blind_exact_v2 against the frozen 80-item surface, reveal
+    expected labels only in the scoring stage, and preserve the predeclared
+    thresholds and calibration-only independence class.
+
+requirements:
+  - "Verify the frozen item-order digest, 80-item count, label vocabulary, curation identity, no-score declaration, and CALIBRATION_ONLY_ROLE_LIMIT before executing inference."
+  - "Run inference from formula plus declared variable dimensions only. The inference path must not read expected_verdict, rationale, semantic annotations, or source notes."
+  - "Do not change rows, labels, parser exclusions, scoring equivalences, engine behavior, or thresholds after any computed output is observed."
+  - "Score exact agreement as the primary metric, VALID and INVALID recall as class floors, and INCONCLUSIVE rate as a ceiling; use the frozen thresholds 0.90, 0.85, 0.85, and 0.05 respectively."
+  - "Emit a complete item-level disagreement ledger and domain/class breakdown. Do not award legacy KNOWN_LIMIT_FAIL or SUSPICIOUS equivalence credit."
+  - "Return PASS only if every threshold passes, FAIL otherwise, or CONTAMINATED if label blindness or frozen-state integrity is violated. Preserve FAIL as negative quality-floor memory without tuning."
+  - "A Gate A result may be AGENT_PUBLISHED only as calibration/methodology evidence with benchmark_authorship_independence same_owner_role_disjoint_agent. It cannot become confirmatory evidence, unblock CLAIM-0005, or justify Gate C."
+  - "Do not rescore the historical 50/74 surfaces, change RESULT-0007/0020, modify CLAIM-0005, or claim semantic or universal physical correctness."
+  - "No-claim wording: exact dimensional-label agreement on this frozen calibration surface measures a bounded SI-focused validator quality floor, not full physical correctness."
+
+accepted_outputs:
+  - "A deterministic exact-v2 scoring workflow, item-level ledger, tests, metrics, limitations, and PASS/FAIL/CONTAMINATED verdict."
+  - "A new calibration-scoped RESULT artifact and Gate A report when publication gates pass; otherwise a blocker/contamination note without claim impact."
+  - "Output-routing summary with calibration-only role, review tier, Gate A/B, claim impact, knowledge impact, and publication blocker."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to preserve the frozen v2 PASS or FAIL as a durable calibration result when Gate A passes."
+  evidence:
+    - "results/EXP-*/RUN-*/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -n0 tests/test_dimensions.py tests/test_dimensional_validator_v2_freeze.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

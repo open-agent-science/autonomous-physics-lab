@@ -88,7 +88,7 @@ portfolio:
       - updated_campaign_profile
   current_stage: "MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. TASK-1026 returned READY_FOR_BOUNDED_ACQUISITION_TASK for a dated, hash-pinned OQMD live-API snapshot with a 2,000-row cap and conservative MD-0002 overlap/no-peek contract."
   recommended_parallel_agents: 2
-  coordination_notes: "TASK-1042 may acquire the bounded OQMD source surface while TASK-1044 is reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0, run cross-database metrics, or open a feature factory."
+  coordination_notes: "TASK-1042 may acquire the bounded OQMD source surface while TASK-1054 predeclares only within-OQMD baselines and controls value-blind; TASK-1044 remains reserved for an independent-human RESULT-0021 replay. TASK-1053 stays blocked until the acquisition verdict is merged. Do not rebuild MD-0002 v0.1.0, run cross-database metrics, or open a feature factory."
   next_validity_gate:
     type: source_readiness
     blocker: "No dated OQMD API snapshot has yet been acquired, hash-pinned, overlap-filtered, and normalized under the TASK-1026 no-peek contract."
@@ -98,6 +98,10 @@ portfolio:
       label: "Acquire and freeze the bounded OQMD live-API snapshot without split or metrics"
     - task_id: TASK-1044
       label: "Replay RESULT-0021 under a genuinely independent human identity"
+    - task_id: TASK-1054
+      label: "Predeclare within-OQMD baselines and controls without inspecting target values"
+    - task_id: TASK-1053
+      label: "After source readiness, freeze an identifier-only grouped OQMD split"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -128,9 +132,9 @@ portfolio:
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-13"
+    last_reviewed: "2026-07-15"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1026 OQMD READY_FOR_BOUNDED_ACQUISITION_TASK verdict and Scientific Director 2026-07-13 cycle"
-    notes: "MD-0002 remains fixed and citable. OQMD passed metadata preflight, but only a bounded dated API snapshot is authorized next; split, metric, and cross-database claim work remain closed."
+    source: "TASK-1026 OQMD preflight, TASK-1042 open acquisition PR, and Scientific Director 2026-07-15 cycle"
+    notes: "MD-0002 remains fixed and citable. OQMD acquisition is still awaiting merge, so only a value-blind within-source control contract may proceed in parallel; split and metric work remain gated."

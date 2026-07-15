@@ -129,11 +129,11 @@ and now replays through the formal workflow route as `AGENT_VALIDATED`.
 `TASK-0928` found the best non-DEBCat external route SOURCE_LIMITED,
 `TASK-0939` upgraded it to `PAPER_LEVEL_PIN_READY`, and `TASK-0989` then pinned
 six value-blind CHARA-related paper surfaces. Two explicit DEBCat overlaps are
-excluded as whole systems. `TASK-1025` has now resolved the remaining thirteen
-candidates to stable identities and found no further whole-system DEBCat alias
-intersection, with both positive controls passing. They are still not a
-benchmark: source-traceable same-component mass/luminosity rows and a
-cluster/group-dependence policy remain required before split design.
+excluded as whole systems. The source route now contains twelve traceable
+component rows across six systems; seven additional systems remain
+source-limited. A separate dependence audit treats the seven Hyades/Melotte 25
+candidates, including the DEBCat-linked V818 Tau system, as one non-independent
+group and freezes a minimum five-effective-group gate.
 
 The second independent-validation path is prospective rather than archival.
 The Gaia DR4 mass-luminosity reveal contract is already specified, but no DR4
@@ -142,11 +142,11 @@ official release/field trigger, target-independent functional payload, registry
 compatibility, and value-blind DEBCat leakage policy before any implementation
 task is split out.
 
-**Expected next outputs:** the CHARA lane should return a bounded per-component
-row surface and a separate value-blind cluster-dependence verdict, with no
-scoring. The Gaia DR4 lane should return one corrected GO/HOLD/STOP readiness
-decision that does not pair source-level luminosity with two component masses.
-Neither route currently authorizes prediction registration or reveal scoring.
+**Expected next outputs:** the CHARA lane should independently replay the twelve
+source rows and then score the already-frozen `RESULT-0022` relation and
+predeclared controls without refitting. The Gaia DR4 lane remains at a
+GO/HOLD/STOP readiness decision until same-component bolometric luminosities
+exist. Neither route currently authorizes a universal relation or reveal claim.
 
 ## Why It Matters
 
@@ -298,10 +298,10 @@ Gate A packaging, and Gate B replay have landed; `RESULT-0022` is now
 FIRAS/Wien `RESULT-0023` is also `AGENT_VALIDATED`, but only as
 calibration/known-physics verifier memory. High-mass Stellar transfer
 `RESULT-0024` has replay memory with zero metric drift and a retained metadata
-caveat. `TASK-0989` pinned the CHARA source package value-blind and excluded two
-known DEBCat overlaps. The next work is `TASK-1025`, an identifier-complete
-alias and whole-system de-dup audit for the thirteen remaining candidates
-before any row or metric task.
+caveat. The CHARA source path now has twelve source-traceable component rows
+across six systems plus a frozen dependence policy. The next work is an
+independent source replay followed by a fixed-relation, no-refit transfer score;
+the seven source-limited systems are not to be filled with inferred values.
 
 ## Cross-References
 

@@ -77,11 +77,12 @@ It remains source-surface work only; no rows or metrics are ingested.
 
 ### Lattice QCD
 
-Lattice-QCD aggregated consistency is now a single planning incubator, not an
-activated data-ingestion campaign. It asks whether one dimensionless or
-convention-stable observable can support an auditable dependency/covariance
-graph with enough primary provenance, rights clarity, and ensemble-lineage
-metadata to add value beyond existing FLAG summaries.
+Lattice-QCD aggregated consistency remains source-gated rather than an activated
+data-ingestion campaign. The bounded incubator selected `f_K/f_pi` and returned
+`GO_LATTICE_DEPENDENCY_AUDIT`: the next test is whether 8-12 primary
+publications can support an auditable dependency graph with enough provenance,
+rights clarity, and ensemble-lineage metadata to add value beyond existing
+FLAG summaries.
 
 No real Lattice-QCD central value, uncertainty, average, ensemble file, metric,
 result, or claim has been admitted. Future ingestion must record observable
@@ -141,7 +142,7 @@ loader, or benchmark task can be proposed.
 
 Allowed next steps, only after maintainer assignment:
 
-- run one Lattice-QCD observable/dependency feasibility incubator or stop the campaign;
+- build one bounded `f_K/f_pi` primary-source/dependency metadata pilot without central values;
 - write a license and citation review checklist for one axis;
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;

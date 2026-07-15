@@ -84,16 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory with independent-human replay. TASK-1027 pinned the Kim-2020 CdSe CC BY source artifact and returned SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT without admitting values."
+  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory with independent-human replay. The Kim-2020 CdSe source and deterministic extraction contract are now pinned for exactly twelve observations, but no values or metrics have been admitted."
   recommended_parallel_agents: 1
-  coordination_notes: "TASK-1043 may freeze the Kim-2020 extraction/uncertainty contract only. Preserve RESULT-0029; no value extraction, correction search, refit, repeat ZnSe/InP transfer, or design-law claim is authorized in that preflight."
+  coordination_notes: "TASK-1052 may extract exactly the twelve predeclared Kim-2020 observations with two independent digitization passes. Preserve RESULT-0029; no correction search, refit, repeat ZnSe/InP transfer, benchmark metric, or design-law claim is authorized during row extraction."
   next_validity_gate:
     type: transfer
-    blocker: "The CdSe source is pinned, but text-derived versus digitized row classes, optical-axis semantics, uncertainty, and anisotropy rules are not yet frozen."
-    target_artifact: "TASK-1043"
+    blocker: "The CdSe extraction contract is frozen, but the twelve source-traceable size, absorption, and emission observations have not yet been extracted and reconciled."
+    target_artifact: "TASK-1052"
   best_next_actions:
-    - task_id: TASK-1043
-      label: "Predeclare the Kim-2020 CdSe deterministic extraction and uncertainty contract"
+    - task_id: TASK-1052
+      label: "Extract and independently reconcile the twelve predeclared Kim-2020 CdSe observations"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -114,14 +114,15 @@ portfolio:
     - "docs/reviews/quantum/result0029-independent-human-replay.md"
     - "docs/reviews/quantum-next-direct-source-scout.md"
     - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
+    - "docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md"
     - "results/EXP-0022/RUN-0001/result.yaml"
   open_questions:
-    - "What new direct source surface or maintainer-approved contract change, if any, would add information beyond the TASK-0920 borderline transfer failure?"
+    - "Can the twelve predeclared Kim-2020 observations be extracted with two-pass agreement and complete source semantics before any benchmark is designed?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-12"
+    last_reviewed: "2026-07-15"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0029 independent-human replay, TASK-1027 Kim-2020 source artifact, and Scientific Director 2026-07-13 cycle"
-    notes: "RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 passed source-artifact readiness, but only a no-value extraction preflight is open; row curation and any later transfer require separate tasks."
+    source: "RESULT-0029 independent-human replay, TASK-1043 Kim-2020 extraction preflight, and Scientific Director 2026-07-15 cycle"
+    notes: "RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 passed source-artifact and extraction-contract gates; bounded row extraction is next, while any transfer score remains a separate later decision."

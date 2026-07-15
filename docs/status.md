@@ -31,12 +31,13 @@ explicitly source- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory, AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`, and the externally published `MD-0002` v0.1.0 dataset (Zenodo DOI `10.5281/zenodo.21207072`, 2026-07-05, post-publication integrity confirmed) | `TASK-0993` selected an OQMD v1.8 source-manifest preflight; `TASK-1026` must resolve rights, semantics, retrieval identity, and overlap controls before any download or rows |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with exact-reference fixtures, AGENT_VALIDATED Stellar M-L `RESULT-0022`, AGENT_VALIDATED FIRAS/Wien `RESULT-0023`, AGENT_VALIDATED high-mass transfer `RESULT-0024`, and a value-blind CHARA source package | Thirteen CHARA candidates still need identifier-complete alias and whole-system DEBCat de-dup audit before any rows or metrics |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset benchmark lane with `MD-0001` memory, AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`, and the externally published `MD-0002` v0.1.0 dataset (Zenodo DOI `10.5281/zenodo.21207072`, 2026-07-05, post-publication integrity confirmed) | Bounded OQMD acquisition is under review; within-source baselines may be predeclared value-blind, but split and metrics wait for a merged source-readiness verdict |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four scoped AGENT_VALIDATED results and a new twelve-row, six-system CHARA component surface | Independent CHARA source replay and a frozen-relation no-refit transfer are next; seven additional systems remain source-limited, and Gaia DR4 lacks same-component bolometric luminosities |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, the executed tier-1 point-only prediction freeze (`PRED-0069..0072`, sealed 2026-07-05 and externally anchored: tag `pred-nmd0003-tier1-20260705`, Zenodo DOI `10.5281/zenodo.21240451`), preserved uncertainty-calibration failures, and DZ10 full-table parity PASS | Interval-bearing freeze stays blocked until calibration repair; TASK-0305 has a review-ready no-score gate outcome because no pinned source manifest exists; next useful work is reveal-source watch discipline, not broad new fitting |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_VALIDATED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is source-version/coverage trigger monitoring, not residual rescoring |
 | FRB / Radio Transients | A time-truncated, source-pinned sealed repeater-propensity prediction pack | `PRED-0001` is registered as a 479-source point-score/rank-only prediction and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`; reveal scoring remains a future maintainer-reviewed task |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | AGENT_VALIDATED `RESULT-0029` preserves the ZnSe/InP no-refit transfer miss as inconclusive/control memory; TASK-0988 found only a monitor-only CdSe source lead |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | AGENT_VALIDATED `RESULT-0029` preserves the ZnSe/InP no-refit miss; Kim-2020 now has a frozen twelve-observation CdSe extraction contract, but no values or metrics |
+| Lattice-QCD Aggregated Consistency | A near-active test of whether dependency-aware source curation adds value beyond evaluated summaries | `f_K/f_pi` passed the incubator gate for one 8-12-publication metadata/dependency pilot; central values, loader work, metrics, and claims remain closed |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy/Nemitz memory exists, Pizzocaro remains diagnostic, McGrew/NIST is blocked, and the multi-species route is `KEEP_MONITOR_ONLY`; next useful work is a durable reopen-trigger ledger |
 | [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A source-pinned ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026`, frozen Joback baseline, and AGENT_VALIDATED failed-family `RESULT-0028` | Expansion is source-access and revised-contract gated; no raw archive vendoring, broad property claims, replay loop, or Joback rerun as a new result |
 
@@ -97,7 +98,8 @@ Highlights:
   AGENT_VALIDATED FIRAS/Wien self-consistency `RESULT-0023`, and AGENT_VALIDATED
   high-mass transfer `RESULT-0024` memory with a same-source caveat. These are
   controlled benchmark surfaces, not universal formula or stellar-evolution
-  claims.
+  claims. Its CHARA route now adds twelve traceable component rows across six
+  systems and a frozen dependence policy, but no transfer metric yet.
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
   AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`. The result is a
   computed-DFT, frozen-slice benchmark artifact, not a material recommendation,
@@ -115,6 +117,9 @@ Highlights:
   exposure-only model surface, and externally anchored `PRED-0001`
   point-score/rank forecasts. It is a sealed prediction registry artifact, not
   a replayed result, repeater-success verdict, or population claim.
+- Dimensional Analysis now also has a frozen 80-item exact-v2 surface. Its
+  same-owner role separation limits the first score to calibration evidence and
+  does not support `CLAIM-0005` promotion.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -150,18 +155,18 @@ Important operating rules:
   manifest and no-peek protocol.
 - Quantum Size Effects has a source-scoped Almeida InP sandbox baseline, but
   open-ended correction search remains blocked. `RESULT-0029` already packages
-  the current ZnSe/InP no-refit transfer miss; new work needs new source
-  evidence or a maintainer-approved contract change.
+  the current ZnSe/InP no-refit transfer miss; the only open row path is the
+  frozen twelve-observation Kim-2020 CdSe extraction contract.
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
   admitted independent rows or an approved aggregation/harmonization contract
   before any Yb/Sr consistency benchmark.
 - Exoplanet residual scoring is closed on the current snapshot; it needs a
   materially changed pinned snapshot or approved `EXO-0003` trigger before
   another residual audit.
-- Materials and Stellar now need external-release or maintainer-review
-  decisions, not broader benchmark expansion. Their validated/replayed
-  artifacts do not support broad property-law, material-design,
-  universal-formula, or application-domain claims.
+- Materials OQMD still needs a merged source-readiness verdict before split or
+  metrics. Stellar CHARA can advance only through independent source replay and
+  a frozen-relation no-refit transfer. Neither route supports broad property-
+  law, material-design, universal-formula, or application-domain claims.
 - Thermophysical work is active but narrow: `RESULT-0026` is `Tb`-only and
   AGENT_VALIDATED; `RESULT-0028` is AGENT_VALIDATED failed-family
   negative/control memory. Do

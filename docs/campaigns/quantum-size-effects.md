@@ -21,12 +21,13 @@ produced an admissible cross-material claim: ZnSe/Toufanian rows are usable only
 as limited factual extracts, the row surface is frozen, the strict no-refit
 transfer missed its predeclared margin, and a fixed effective-mass scaling
 transfer check failed against controls. TASK-0988 found a plausible open CdSe
-lead, and `TASK-1027` has now pinned the Kim et al. 2020 version-of-record,
-CC BY 4.0 reuse boundary, figure/sample inventory, morphology semantics, and
-uncertainty routes. It admitted no values and returned
-`SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT`. The campaign is therefore
-**source/negative-memory gated**, not authorized for autonomous correction
-search or cross-material claims.
+lead, and the Kim et al. 2020 version-of-record, CC BY 4.0 reuse boundary,
+figure/sample inventory, morphology semantics, and deterministic extraction
+contract are now pinned. The contract admits exactly twelve future observations:
+four size summaries, four absorption peaks, and four emission peaks, with two
+independent digitization passes. It has not admitted values or metrics. The
+campaign is therefore **source/negative-memory gated**, not authorized for
+autonomous correction search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
@@ -61,11 +62,11 @@ controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. Useful work is limited to preserving `RESULT-0029` as validated
-inconclusive/control memory and predeclaring how the pinned Kim-2020 CdSe
-source could be extracted reproducibly. Text-derived diameter summaries,
-digitized optical peaks, uncertainty, and anisotropy must be separated before
-any row curation. No correction search, replay loop, or repeat transfer on the
-same ZnSe/InP surface is authorized.
+inconclusive/control memory and extracting the twelve predeclared Kim-2020 CdSe
+observations under the frozen text-versus-digitized, optical-axis, uncertainty,
+anisotropy, and two-pass reconciliation rules. No benchmark metric, correction
+search, replay loop, or repeat transfer on the same ZnSe/InP surface is
+authorized during extraction.
 
 ## Historical Source-Readiness Trail
 

@@ -184,22 +184,22 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression
-    memory. TASK-1038 separated label-blind v2 inference from policy scoring; the old 74-item
-    surface is now explicitly development-only, so CLAIM-0005 Gate C is deferred pending a
-    fresh role-disjoint benchmark.
+    memory. TASK-1039 froze an 80-item label_blind_exact_v2 surface and exact class-recall
+    gates, but same-owner role separation limits this surface to calibration rather than confirmatory
+    CLAIM-0005 evidence.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Run TASK-1039 only as a no-score, role-disjoint benchmark freeze.
-      Do not rescore the historical 50/74 surfaces as confirmatory evidence or reopen CLAIM-0005
-      before a fresh v2 result and replay exist.
+    coordination_notes: TASK-1051 may run the first blind score on the frozen 80-item surface
+      without changing rows, labels, thresholds, or engine semantics. Preserve CALIBRATION_ONLY_ROLE_LIMIT
+      and do not use this result to reopen CLAIM-0005 Gate C.
   next_validity_gate:
     type: source_readiness
-    blocker: No fresh role-disjoint label_blind_exact_v2 benchmark has been frozen; the historical
-      surfaces were used during method development and cannot support confirmatory Gate C.
-    target_artifact: TASK-1039
+    blocker: The frozen 80-item v2 surface has not yet been scored, and its same-owner role
+      limit prevents confirmatory claim promotion even if calibration thresholds pass.
+    target_artifact: TASK-1051
   best_next_actions:
-  - task_id: TASK-1039
-    label: Curate and freeze a role-disjoint v2 benchmark without running the validator
+  - task_id: TASK-1051
+    label: Blind-score the frozen v2 surface as calibration-only evidence
   required_gates:
   - Do not change frozen RESULT-0007 replay scope.
   - Separate live curation from canonical MVP metrics.
@@ -226,20 +226,20 @@ campaigns:
   - docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md
   - tasks/TASK-1038-dimensional-validator-scoring-separation.yaml
   - tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml
+  - knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml
   open_questions:
   - Can a fresh role-disjoint benchmark clear the predeclared v2 exact-agreement and class-recall
     gates without policy-equivalence credit?
   curator_review:
     status: current
-    last_reviewed: '2026-07-13'
+    last_reviewed: '2026-07-15'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: TASK-1038 scoring separation, TASK-1039 benchmark-freeze contract, and Scientific
-      Director 2026-07-13 cycle
-    notes: Historical reproducibility remains valid, but the honest primary metric is label-blind
-      exact agreement. Gate C is deferred until a fresh role-disjoint v2 benchmark is frozen,
-      scored later, and independently replayed.
+    source: TASK-1039 v2 benchmark freeze and Scientific Director 2026-07-15 cycle
+    notes: The 80-item surface is ready for a blind calibration score, but its role-separation
+      class is not independent enough for confirmatory Gate C. A future genuinely independent
+      benchmark would still be required for claim promotion.
   source_docs:
   - docs/campaigns/dimensional-analysis-validator.md
   - docs/results/dimensional-analysis-validator-summary.md
@@ -344,8 +344,8 @@ campaigns:
   status: scaffold
   domain: lattice_qcd
   surface_type: source_pinned_benchmark
-  lifecycle_stage: scaffold
-  activity_status: planning
+  lifecycle_stage: source_readiness
+  activity_status: active_limited
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
@@ -357,21 +357,23 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: TASK-0309 approved Lattice-QCD aggregated outputs as a fresh-data policy
-    axis; TASK-1030 is a single incubator testing whether a one-observable dependency/covariance
-    graph can add value beyond FLAG. No real row, baseline, result, or claim has been admitted.
+  current_stage: TASK-1030 selected f_K/f_pi and returned GO_LATTICE_DEPENDENCY_AUDIT for
+    a bounded source/dependency pilot. No primary-publication rows, central values, benchmark,
+    result, or claim have been admitted.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: Run only TASK-1030. Do not split source selection, dependency rules,
-      loader work, or metric planning into parallel tasks before the incubator returns GO_LATTICE_DEPENDENCY_AUDIT.
+    coordination_notes: Run only the bounded TASK-1055 primary-publication metadata and dependency
+      pilot next. Do not extract central values, build a general loader, plan anomaly metrics,
+      or activate a broad lattice campaign until that pilot resolves source and shared-ensemble
+      semantics.
   next_validity_gate:
     type: source_readiness
-    blocker: No concrete observable has passed source/version, rights, semantics, uncertainty,
-      ensemble-independence, retrieval, and holdout gates.
-    target_artifact: TASK-1030
+    blocker: The f_K/f_pi route lacks a primary-publication metadata ledger and auditable
+      shared-ensemble/evaluated-average dependency graph.
+    target_artifact: TASK-1055
   best_next_actions:
-  - task_id: TASK-1030
-    label: Test one observable dependency/covariance audit as a GO/HOLD/STOP incubator
+  - task_id: TASK-1055
+    label: Build a bounded f_K/f_pi source and dependency pilot without extracting values
   required_gates:
   - Official source identity, rights, retrieval, and checksum policy before real rows.
   - Observable normalization, flavor, scheme, scale, and uncertainty semantics before comparison.
@@ -398,21 +400,23 @@ campaigns:
   current_results:
   - docs/notes/fresh-data-source-policy.md
   - docs/campaigns/fresh-physics-data-axes.md
+  - docs/reviews/lattice_qcd/lattice-dependency-covariance-incubator.md
+  - docs/reviews/lattice_qcd/lattice-dependency-graph-fabricated.yaml
   open_questions:
-  - Can one dimensionless or convention-stable observable support an auditable dependency
-    graph that materially differs from FLAG?
+  - Can 8-12 f_K/f_pi primary publications define source-evidenced conservative dependency
+    components that add machine-actionable value beyond FLAG?
   - Can shared ensembles and evaluated averages be represented without false independence
-    or unusable covariance assumptions?
+    before any central values are admitted?
   curator_review:
     status: current
-    last_reviewed: '2026-07-13'
+    last_reviewed: '2026-07-15'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: planning_scaffold
-    source: TASK-0309 fresh-data source policy and Scientific Director 2026-07-13 cycle
-    notes: This is an incubator, not an activated full campaign. It remains planning/source-gated;
-      broad lattice ingestion, loader construction, anomaly fitting, and real-data claims
-      are not authorized.
+    source: TASK-1030 lattice dependency incubator and Scientific Director 2026-07-15 cycle
+    notes: The f_K/f_pi route earned a bounded metadata/dependency pilot, not full campaign
+      activation. Broad ingestion, loader construction, numeric comparison, anomaly fitting,
+      and claims remain unauthorized.
   source_docs:
   - docs/campaigns/fresh-physics-data-axes.md
   - docs/notes/fresh-data-source-policy.md
@@ -443,9 +447,11 @@ campaigns:
     MD-0002 overlap/no-peek contract.
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: TASK-1042 may acquire the bounded OQMD source surface while TASK-1044
-      is reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0,
-      run cross-database metrics, or open a feature factory.
+    coordination_notes: TASK-1042 may acquire the bounded OQMD source surface while TASK-1054
+      predeclares only within-OQMD baselines and controls value-blind; TASK-1044 remains reserved
+      for an independent-human RESULT-0021 replay. TASK-1053 stays blocked until the acquisition
+      verdict is merged. Do not rebuild MD-0002 v0.1.0, run cross-database metrics, or open
+      a feature factory.
   next_validity_gate:
     type: source_readiness
     blocker: No dated OQMD API snapshot has yet been acquired, hash-pinned, overlap-filtered,
@@ -456,6 +462,10 @@ campaigns:
     label: Acquire and freeze the bounded OQMD live-API snapshot without split or metrics
   - task_id: TASK-1044
     label: Replay RESULT-0021 under a genuinely independent human identity
+  - task_id: TASK-1054
+    label: Predeclare within-OQMD baselines and controls without inspecting target values
+  - task_id: TASK-1053
+    label: After source readiness, freeze an identifier-only grouped OQMD split
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -511,15 +521,15 @@ campaigns:
     and descriptor-ablation limits?
   curator_review:
     status: current
-    last_reviewed: '2026-07-13'
+    last_reviewed: '2026-07-15'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-1026 OQMD READY_FOR_BOUNDED_ACQUISITION_TASK verdict and Scientific Director
-      2026-07-13 cycle
-    notes: MD-0002 remains fixed and citable. OQMD passed metadata preflight, but only a bounded
-      dated API snapshot is authorized next; split, metric, and cross-database claim work
-      remain closed.
+    source: TASK-1026 OQMD preflight, TASK-1042 open acquisition PR, and Scientific Director
+      2026-07-15 cycle
+    notes: MD-0002 remains fixed and citable. OQMD acquisition is still awaiting merge, so
+      only a value-blind within-source control contract may proceed in parallel; split and
+      metric work remain gated.
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -806,22 +816,23 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED
-    INCONCLUSIVE control memory with independent-human replay. TASK-1027 pinned the Kim-2020
-    CdSe CC BY source artifact and returned SOURCE_ARTIFACT_READY_FOR_EXTRACTION_PREFLIGHT
-    without admitting values.
+    INCONCLUSIVE control memory with independent-human replay. The Kim-2020 CdSe source and
+    deterministic extraction contract are now pinned for exactly twelve observations, but
+    no values or metrics have been admitted.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: TASK-1043 may freeze the Kim-2020 extraction/uncertainty contract
-      only. Preserve RESULT-0029; no value extraction, correction search, refit, repeat ZnSe/InP
-      transfer, or design-law claim is authorized in that preflight.
+    coordination_notes: TASK-1052 may extract exactly the twelve predeclared Kim-2020 observations
+      with two independent digitization passes. Preserve RESULT-0029; no correction search,
+      refit, repeat ZnSe/InP transfer, benchmark metric, or design-law claim is authorized
+      during row extraction.
   next_validity_gate:
     type: transfer
-    blocker: The CdSe source is pinned, but text-derived versus digitized row classes, optical-axis
-      semantics, uncertainty, and anisotropy rules are not yet frozen.
-    target_artifact: TASK-1043
+    blocker: The CdSe extraction contract is frozen, but the twelve source-traceable size,
+      absorption, and emission observations have not yet been extracted and reconciled.
+    target_artifact: TASK-1052
   best_next_actions:
-  - task_id: TASK-1043
-    label: Predeclare the Kim-2020 CdSe deterministic extraction and uncertainty contract
+  - task_id: TASK-1052
+    label: Extract and independently reconcile the twelve predeclared Kim-2020 CdSe observations
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -861,21 +872,22 @@ campaigns:
   - docs/reviews/quantum/result0029-independent-human-replay.md
   - docs/reviews/quantum-next-direct-source-scout.md
   - docs/reviews/quantum/kim-2020-cdse-source-artifact.md
+  - docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md
   - results/EXP-0022/RUN-0001/result.yaml
   open_questions:
-  - What new direct source surface or maintainer-approved contract change, if any, would add
-    information beyond the TASK-0920 borderline transfer failure?
+  - Can the twelve predeclared Kim-2020 observations be extracted with two-pass agreement
+    and complete source semantics before any benchmark is designed?
   curator_review:
     status: current
-    last_reviewed: '2026-07-12'
+    last_reviewed: '2026-07-15'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: RESULT-0029 independent-human replay, TASK-1027 Kim-2020 source artifact, and
-      Scientific Director 2026-07-13 cycle
+    source: RESULT-0029 independent-human replay, TASK-1043 Kim-2020 extraction preflight,
+      and Scientific Director 2026-07-15 cycle
     notes: RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 passed source-artifact
-      readiness, but only a no-value extraction preflight is open; row curation and any later
-      transfer require separate tasks.
+      and extraction-contract gates; bounded row extraction is next, while any transfer score
+      remains a separate later decision.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
@@ -988,26 +1000,28 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED
-    scoped verifier/benchmark memory. TASK-1025 found thirteen alias-clean CHARA systems with
-    no DEBCat whole-system intersections; per-component row provenance and cluster dependence
-    are the next gates. Gaia DR4 readiness remains under review because component masses require
+    scoped verifier/benchmark memory. The CHARA route now has twelve source-traceable component
+    rows across six systems plus a frozen dependence policy; seven additional systems remain
+    source-limited. Gaia DR4 readiness remains under review because component masses require
     same-component bolometric luminosities.
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: TASK-1040 row curation and TASK-1041 identifier-only cluster dependence
-      are parallel-safe; TASK-1045/1046 are independent-human replays. Do not score CHARA,
-      treat clustered systems as independent, or register a Gaia functional freeze without
-      a valid same-component luminosity route.
+    coordination_notes: 'Run TASK-1049 before TASK-1050: independent source replay must pass
+      and freeze the exact eligible CHARA surface before any transfer score. TASK-1045/1046
+      remain independent-human replays. The later transfer task must use the frozen six-system
+      grouping policy and must not refit RESULT-0022. Do not register a Gaia functional freeze
+      without a valid same-component luminosity route.'
   next_validity_gate:
     type: source_readiness
-    blocker: The thirteen alias-clean CHARA systems still lack source-traceable same-component
-      mass/luminosity rows and a frozen cluster/group-dependence policy.
-    target_artifact: TASK-1040 and TASK-1041
+    blocker: The twelve-row CHARA surface has not yet received the independent source replay
+      required before no-refit transfer scoring.
+    target_artifact: TASK-1049
   best_next_actions:
-  - task_id: TASK-1040
-    label: Curate source-traceable per-component CHARA rows without split or scoring
-  - task_id: TASK-1041
-    label: Freeze the CHARA cluster/group-dependence policy value-blind
+  - task_id: TASK-1049
+    label: Independently replay the twelve CHARA component rows and derivations
+  - task_id: TASK-1050
+    label: After TASK-1049 passes, score the frozen RESULT-0022 relation on CHARA without
+      refitting
   - task_id: TASK-1029
     label: Return a corrected Gaia DR4 GO/HOLD/STOP packet with same-component luminosity
       semantics
@@ -1066,22 +1080,26 @@ campaigns:
   - docs/reviews/stellar-ml-alternate-split-stability-audit.md
   - docs/reviews/stellar-ml-piecewise-complexity-audit.md
   - docs/reviews/stellar/chara-identifier-alias-audit.md
+  - data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml
+  - data/textbook_formula_audit/stellar_ml/chara_cluster_dependence_ledger.yaml
+  - docs/reviews/stellar/chara-per-component-row-curation.md
+  - docs/reviews/stellar/chara-cluster-dependence-policy.md
   open_questions:
-  - Can the CHARA paper-level route be pinned and de-duplicated enough to support a small
-    0.5-2.0 Msun independent holdout?
+  - Can the frozen RESULT-0022 relation survive a no-refit transfer on the twelve-row, six-system
+    CHARA surface after independent source replay?
   - What future external stellar catalogue, if any, can test the high-mass transfer beyond
     same-source DEBCat?
   curator_review:
     status: current
-    last_reviewed: '2026-07-13'
+    last_reviewed: '2026-07-15'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-1025 CHARA alias audit, TASK-1029 Gaia DR4 readiness review, and Scientific
-      Director 2026-07-13 cycle
-    notes: CHARA cleared whole-system alias de-duplication and can advance through row provenance
-      plus cluster-dependence gates. Gaia remains a value-blind readiness decision; source-level
-      luminosity must not be paired with two component masses.
+    source: TASK-1040 CHARA row curation, TASK-1041 dependence policy, and Scientific Director
+      2026-07-15 cycle
+    notes: CHARA cleared the bounded source and dependence gates for twelve component rows
+      across six systems. Independent source replay and a fixed-relation no-refit transfer
+      are next; Gaia remains held on same-component luminosity semantics.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md

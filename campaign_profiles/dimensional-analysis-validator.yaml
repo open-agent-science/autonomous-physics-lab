@@ -84,16 +84,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. TASK-1038 separated label-blind v2 inference from policy scoring; the old 74-item surface is now explicitly development-only, so CLAIM-0005 Gate C is deferred pending a fresh role-disjoint benchmark."
+  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. TASK-1039 froze an 80-item label_blind_exact_v2 surface and exact class-recall gates, but same-owner role separation limits this surface to calibration rather than confirmatory CLAIM-0005 evidence."
   recommended_parallel_agents: 1
-  coordination_notes: "Run TASK-1039 only as a no-score, role-disjoint benchmark freeze. Do not rescore the historical 50/74 surfaces as confirmatory evidence or reopen CLAIM-0005 before a fresh v2 result and replay exist."
+  coordination_notes: "TASK-1051 may run the first blind score on the frozen 80-item surface without changing rows, labels, thresholds, or engine semantics. Preserve CALIBRATION_ONLY_ROLE_LIMIT and do not use this result to reopen CLAIM-0005 Gate C."
   next_validity_gate:
     type: source_readiness
-    blocker: "No fresh role-disjoint label_blind_exact_v2 benchmark has been frozen; the historical surfaces were used during method development and cannot support confirmatory Gate C."
-    target_artifact: "TASK-1039"
+    blocker: "The frozen 80-item v2 surface has not yet been scored, and its same-owner role limit prevents confirmatory claim promotion even if calibration thresholds pass."
+    target_artifact: "TASK-1051"
   best_next_actions:
-    - task_id: TASK-1039
-      label: "Curate and freeze a role-disjoint v2 benchmark without running the validator"
+    - task_id: TASK-1051
+      label: "Blind-score the frozen v2 surface as calibration-only evidence"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -107,13 +107,14 @@ portfolio:
     - "docs/reviews/dimensional-result-0020-gate-b-validation-independence-blocker.md"
     - "tasks/TASK-1038-dimensional-validator-scoring-separation.yaml"
     - "tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
   open_questions:
     - "Can a fresh role-disjoint benchmark clear the predeclared v2 exact-agreement and class-recall gates without policy-equivalence credit?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-13"
+    last_reviewed: "2026-07-15"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-1038 scoring separation, TASK-1039 benchmark-freeze contract, and Scientific Director 2026-07-13 cycle"
-    notes: "Historical reproducibility remains valid, but the honest primary metric is label-blind exact agreement. Gate C is deferred until a fresh role-disjoint v2 benchmark is frozen, scored later, and independently replayed."
+    source: "TASK-1039 v2 benchmark freeze and Scientific Director 2026-07-15 cycle"
+    notes: "The 80-item surface is ready for a blind calibration score, but its role-separation class is not independent enough for confirmatory Gate C. A future genuinely independent benchmark would still be required for claim promotion."

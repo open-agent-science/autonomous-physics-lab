@@ -72,8 +72,8 @@ portfolio:
   status: scaffold
   domain: lattice_qcd
   surface_type: source_pinned_benchmark
-  lifecycle_stage: scaffold
-  activity_status: planning
+  lifecycle_stage: source_readiness
+  activity_status: active_limited
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
@@ -85,16 +85,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "TASK-0309 approved Lattice-QCD aggregated outputs as a fresh-data policy axis; TASK-1030 is a single incubator testing whether a one-observable dependency/covariance graph can add value beyond FLAG. No real row, baseline, result, or claim has been admitted."
+  current_stage: "TASK-1030 selected f_K/f_pi and returned GO_LATTICE_DEPENDENCY_AUDIT for a bounded source/dependency pilot. No primary-publication rows, central values, benchmark, result, or claim have been admitted."
   recommended_parallel_agents: 1
-  coordination_notes: "Run only TASK-1030. Do not split source selection, dependency rules, loader work, or metric planning into parallel tasks before the incubator returns GO_LATTICE_DEPENDENCY_AUDIT."
+  coordination_notes: "Run only the bounded TASK-1055 primary-publication metadata and dependency pilot next. Do not extract central values, build a general loader, plan anomaly metrics, or activate a broad lattice campaign until that pilot resolves source and shared-ensemble semantics."
   next_validity_gate:
     type: source_readiness
-    blocker: "No concrete observable has passed source/version, rights, semantics, uncertainty, ensemble-independence, retrieval, and holdout gates."
-    target_artifact: "TASK-1030"
+    blocker: "The f_K/f_pi route lacks a primary-publication metadata ledger and auditable shared-ensemble/evaluated-average dependency graph."
+    target_artifact: "TASK-1055"
   best_next_actions:
-    - task_id: TASK-1030
-      label: "Test one observable dependency/covariance audit as a GO/HOLD/STOP incubator"
+    - task_id: TASK-1055
+      label: "Build a bounded f_K/f_pi source and dependency pilot without extracting values"
   required_gates:
     - "Official source identity, rights, retrieval, and checksum policy before real rows."
     - "Observable normalization, flavor, scheme, scale, and uncertainty semantics before comparison."
@@ -104,14 +104,16 @@ portfolio:
   current_results:
     - "docs/notes/fresh-data-source-policy.md"
     - "docs/campaigns/fresh-physics-data-axes.md"
+    - "docs/reviews/lattice_qcd/lattice-dependency-covariance-incubator.md"
+    - "docs/reviews/lattice_qcd/lattice-dependency-graph-fabricated.yaml"
   open_questions:
-    - "Can one dimensionless or convention-stable observable support an auditable dependency graph that materially differs from FLAG?"
-    - "Can shared ensembles and evaluated averages be represented without false independence or unusable covariance assumptions?"
+    - "Can 8-12 f_K/f_pi primary publications define source-evidenced conservative dependency components that add machine-actionable value beyond FLAG?"
+    - "Can shared ensembles and evaluated averages be represented without false independence before any central values are admitted?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-13"
+    last_reviewed: "2026-07-15"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: planning_scaffold
-    source: "TASK-0309 fresh-data source policy and Scientific Director 2026-07-13 cycle"
-    notes: "This is an incubator, not an activated full campaign. It remains planning/source-gated; broad lattice ingestion, loader construction, anomaly fitting, and real-data claims are not authorized."
+    source: "TASK-1030 lattice dependency incubator and Scientific Director 2026-07-15 cycle"
+    notes: "The f_K/f_pi route earned a bounded metadata/dependency pilot, not full campaign activation. Broad ingestion, loader construction, numeric comparison, anomaly fitting, and claims remain unauthorized."

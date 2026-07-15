@@ -65,10 +65,11 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | `MD-0002` v0.1.0 is published and integrity-confirmed; `TASK-0993` selected an OQMD v1.8 source-manifest preflight before any acquisition or metrics | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier, replay, and source-contract gate | Keep famous-formula checks source-first; FIRAS/Wien is agent-validated calibration memory, while high-mass transfer needs metadata-caveat adjudication before stronger wording | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer gate | `MD-0002` v0.1.0 is published and integrity-confirmed; bounded OQMD acquisition is under review, with split and metrics still source-gated | [materials-property-residuals.md](./campaigns/materials-property-residuals.md) |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier, replay, and source-contract gate | CHARA now has twelve component rows across six systems and a dependence policy; independently replay provenance, then score the frozen relation without refitting | [textbook-formula-audit.md](./campaigns/textbook-formula-audit.md) |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, negative/control memory, and uncertainty-gated prospective reveal | Test nuclear residual candidates with frozen baselines and future reveal discipline, while keeping `RESULT-0025` point-estimator gains separate from uncalibrated intervals | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Preserve `RESULT-0029` as bounded inconclusive/control transfer memory; new work needs new source evidence or a maintainer-approved contract change | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source/negative-memory gate after a source-scoped baseline | Preserve `RESULT-0029`; extract only the twelve Kim-2020 CdSe observations allowed by the frozen contract, with no metric or model search | [quantum-size-effects.md](./campaigns/quantum-size-effects.md) |
+| Lattice-QCD Aggregated Consistency | Near-active source/dependency pilot | `f_K/f_pi` passed its incubator; audit 8-12 primary-source dependency records before central values, loader work, or metrics | [fresh-physics-data-axes.md](./campaigns/fresh-physics-data-axes.md) |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface and public-safe negative-memory lane | McGrew/NIST is blocked as not a direct independent Yb/Sr route; scout one post-2021 independent primary source before any metric rerun | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
 | [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | Source-pinned thermophysical benchmark lane | Keep `RESULT-0026` and failed-family `RESULT-0028` paired; expansion remains source-access/revised-contract gated without raw archive vendoring or broad property claims | [thermophysical-property-residuals.md](./campaigns/thermophysical-property-residuals.md) |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Monitor/trigger-gated catalog benchmark surface | Preserve AGENT_VALIDATED `RESULT-0027` as bounded null-baseline negative/control memory; reopen residual scoring only after source-version or coverage triggers | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
@@ -77,7 +78,7 @@ are either quality-floor benchmarks or planning/watchlist surfaces.
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
 | [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
-| [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
+| [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active quality floor with an unscored 80-item v2 surface | Run one calibration-only blind score; same-owner role separation blocks claim promotion | [dimensional-analysis-validator.md](./campaigns/dimensional-analysis-validator.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
 
 ## Current Results
@@ -121,7 +122,11 @@ The clearest current repository-level results are:
     `RESULT-0026`, Exoplanet negative/control `RESULT-0027`, ThermoML
     AGENT_VALIDATED failed-family `RESULT-0028`, and Quantum ZnSe no-refit
     `RESULT-0029` are the current strongest post-validation, replay-ready, or
-    source-pinned dataset-backed surfaces. The newest agent wave also moved FRB
+    source-pinned dataset-backed surfaces. The newest source wave added a
+    twelve-row CHARA component surface, a frozen twelve-observation CdSe
+    extraction contract, an 80-item dimensional v2 calibration surface, and an
+    `f_K/f_pi` dependency-audit GO without yet creating new numerical results.
+    The earlier agent wave also moved FRB
     from source scouting into a registered, GitHub-anchored sealed prediction
     with the exposure-only model surface frozen. These surfaces are useful as
     scoped, review-tiered memory and transfer/source-readiness prompts, not as
