@@ -1,7 +1,7 @@
 id: TASK-1049
 title: "Independently replay the CHARA per-component source and derivation surface"
 type: scientific_source_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "The CHARA rows are a manual source extract that will feed an external transfer benchmark; closeout must adjudicate any source, component, derivation, or rights disagreement before stronger wording."
 difficulty: medium
