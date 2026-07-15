@@ -1,7 +1,7 @@
 id: TASK-1029
 title: "Prepare a Gaia DR4 stellar-transfer freeze-readiness packet"
 type: scientific_prediction_preflight
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "Prospective prediction architecture for an unreleased source; closeout must confirm that no Gaia DR4 value, target list, PRED registration, or post-release tuning entered the packet."
 difficulty: medium
