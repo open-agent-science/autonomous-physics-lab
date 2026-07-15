@@ -106,8 +106,8 @@ APL already has a working scientific memory, not just a pitch.
 | Surface | What is stored |
 | --- | --- |
 | Nuclear prediction discipline | Frozen baseline, sandbox audits, negative controls, and sealed predictions through `PRED-0072`, including externally anchored tier-1 point-only frontier forecasts awaiting future reveal data |
-| Fresh-data intake | Quantum-dot, atomic-clock, and exoplanet source surfaces with schema, provenance, and blocker notes before modeling |
-| Benchmark floor | Pendulum, dimensional-analysis, and particle-mass falsification tracks that keep the system honest |
+| Source and transfer gates | Bounded OQMD and CHARA source surfaces, monitor-only atomic/exoplanet lanes, and an explicit CdSe extraction stop before new metrics |
+| Benchmark floor | Pendulum, particle-mass falsification, and dimensional-analysis calibration through `RESULT-0030` keep the system honest |
 | Review memory | Agent runs, review notes, negative results, task closeout, and generated task views that prevent repeated weak work |
 
 The point is not that these artifacts establish claim-level physics. The point is that
@@ -136,11 +136,11 @@ planet-composition or habitability claim.
 | Campaign | Current role |
 | --- | --- |
 | [Nuclear Mass Surface](docs/campaigns/nuclear-mass-surface.md) | Current flagship validation campaign with baseline residuals, sandbox scouts, prediction registry, and reveal-readiness gates |
-| [Quantum Size Effects](docs/campaigns/quantum-size-effects.md) | Six direct Almeida InP rows and a source-scoped baseline exist; transfer-source and baseline-readiness gates remain |
-| [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Pinned Beloy direct-row seed with covariance guardrails; moving toward benchmark readiness |
-| [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | Active catalog benchmark with a public-safe `BENCHMARK_SUMMARY_ONLY` scorecard |
-| [Textbook Formula Audit](docs/campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas |
-| [Materials Property Residuals](docs/campaigns/materials-property-residuals.md) | Reusable-dataset lane with the externally published `MD-0002` benchmark dataset (Zenodo DOI [10.5281/zenodo.21207072](https://doi.org/10.5281/zenodo.21207072), CC BY 4.0) and `MD-0001` memory; a frozen computed-DFT benchmark slice, not a promoted materials-law result |
+| [Quantum Size Effects](docs/campaigns/quantum-size-effects.md) | Six direct Almeida InP rows and AGENT_VALIDATED `RESULT-0029`; the Kim-2020 CdSe digitization route stopped at its frozen two-axis calibration gate |
+| [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Pinned Yb/Sr source-limited memory under a ratified monitor-only reopen-trigger ledger |
+| [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | AGENT_VALIDATED negative/control benchmark memory; residual scoring is monitor-only on the unchanged snapshot |
+| [Textbook Formula Audit](docs/campaigns/textbook-formula-audit.md) | Four scoped AGENT_VALIDATED results plus an independently source-replayed twelve-row CHARA transfer surface |
+| [Materials Property Residuals](docs/campaigns/materials-property-residuals.md) | Externally published `MD-0002` benchmark dataset (Zenodo DOI [10.5281/zenodo.21207072](https://doi.org/10.5281/zenodo.21207072), CC BY 4.0), AGENT_VALIDATED `RESULT-0021`, and a bounded 172-row OQMD source surface awaiting frozen split and controls |
 
 Older and mature benchmark tracks still matter, but they are not the landing
 page focus. See the full [campaign map](docs/campaigns/README.md) for Pendulum,

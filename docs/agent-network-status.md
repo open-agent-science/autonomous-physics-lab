@@ -1,83 +1,43 @@
-# Open Agent Network Status
+# Open Agent Network Navigation
 
-This page is a compact maintainer-facing status board for APL's open agent
-network. It summarizes where coordinated AI agents can currently add value
-without replacing the canonical task board.
+This page is a stable entry point for APL's open agent network. It intentionally
+does not duplicate current task states, campaign metrics, or recent-result
+tables; those surfaces change faster than a hand-maintained status page can stay
+accurate.
 
-Canonical work still lives in `tasks/TASK-*.yaml`. Generated navigation lives
-in `docs/task-views/`. This page is a readable network overview, not a source
-of truth for task state.
+## Start Here
 
-## Current Network Posture
+- Run `python3 scripts/apl_mission.py --output onboarding` for a live `READY`
+  research recommendation.
+- Use [Current Missions](./current-missions.md) for the human-readable portfolio
+  direction.
+- Use [Project Status](./status.md) and the
+  [Public Science Dashboard](./campaigns/public-science-dashboard.md) for
+  public-safe evidence and blockers.
+- Use the generated [research](./task-views/research.md),
+  [support](./task-views/support.md), [release](./task-views/release.md), and
+  [blocked](./task-views/blocked.md) views for current task navigation.
+- Use [Scientific Memory Review Tiers](./scientific-memory-review-tiers.md) for
+  the current artifact tiers, validation-independence axis, and next review
+  action.
 
-| Area | Status | Notes |
-| --- | --- | --- |
-| Default mode | Agent First, Research First | New agents should start with `python3 scripts/apl_mission.py`. |
-| Parallel work | Supported with discipline | Use separate branches or worktrees and disjoint artifact surfaces. |
-| Review gate | Required | No auto-merge, no claim promotion, no direct pushes to `main`. |
-| Scientific memory | Active | Hypotheses, agent runs, reviews, results, predictions, and negative evidence are versioned in Git. |
-| Public release | Gated | Release remains blocked until public-release gates are explicitly satisfied. |
+Canonical task state lives in `tasks/TASK-*.yaml`; generated task views are
+regenerated on `main`. Campaign state lives in `campaign_profiles/*.yaml` and
+the existing campaign pages. This page should remain useful without being
+updated after every result wave.
 
-## Active Campaign Surfaces
+## Network Rules
 
-| Campaign | Network role | Current evidence surface |
-| --- | --- | --- |
-| Nuclear Mass Surface | Flagship shared campaign for coordinated agents | Frozen baseline, sandbox scouts, prediction registry, reveal protocol, source-readiness gate, evidence card. |
-| Quantum Size Effects | Measurement-grade dataset campaign | Schema and source manifests exist; benchmark remains blocked until direct measurement rows are sufficient. |
-| Atomic-Clock Residuals | High-precision fresh-data source surface | Manifest, synthetic loader, source-class, and covariance review work before real-row ingestion. |
-| Exoplanet Mass-Radius | Catalog-snapshot benchmark surface | Pinned snapshot and loader work are emerging; baseline interpretation remains protocol-gated. |
-| Mature benchmark floor | Pendulum, Dimensional Analysis, Particle Mass Relations | Useful for replay, guardrail, and falsification hygiene rather than default flagship expansion. |
-| Planning/watchlist | Fresh Data Axes, Anomaly Registry, Thought Experiments | Schema and admissibility work only; do not present as implemented benchmark results. |
+- Executors choose only `READY` tasks unless the maintainer asks for review or
+  closeout.
+- Parallel sessions use separate branches or worktrees and disjoint write
+  surfaces.
+- Deterministic evidence, provenance, limitations, and output routing are part
+  of every scientific handoff.
+- Negative, inconclusive, and blocked outcomes are durable scientific memory.
+- Agents do not auto-merge, promote claims, or describe sealed predictions as
+  measured successes.
 
-## Recent Agent Evidence
-
-| Surface | Artifact | Interpretation |
-| --- | --- | --- |
-| Nuclear baseline | `EXP-0012` / `RESULT-0015` | Frozen residual baseline for sandbox follow-up. |
-| Nuclear prediction registry | `PRED-0001` through `PRED-0068` | Prospective records awaiting future source-pinned reveal; not current measured successes. |
-| Nuclear scout synthesis | `docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md` | Ranks shell-axis, asymmetry, and failed mid-mass/isotope-chain lanes conservatively. |
-| Shell-axis stress | `docs/reviews/nuclear-shell-axis-stress-scout-001.md` | Strongest current sandbox follow-up surface; still not a claim. |
-| Asymmetry-frontier stress | `docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md` | Smaller subset-scoped review surface with explicit overfit neighbor. |
-| Nuclear evidence card | `docs/results/nuclear-scout-evidence-card.md` | Compact internal orientation layer for baseline, sandbox, negative, and prospective evidence. |
-| Quantum data readiness | `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md` | Keeps the quantum baseline blocked until direct measurement evidence is adequate. |
-
-## Current Contribution Lanes
-
-Use generated task views for live task availability:
-
-- research lane: `docs/task-views/research.md`;
-- support lane: `docs/task-views/support.md`;
-- release lane: `docs/task-views/release.md`;
-- blocked lane: `docs/task-views/blocked.md`;
-- current-work views: `docs/task-views/*.md`.
-
-Near-term useful work should prefer:
-
-- Nuclear source-readiness, evidence synthesis, and negative-control packaging
-  before any reveal scoring;
-- curating direct-measurement Quantum Size Effects sources;
-- reviewing atomic-clock source classes, covariance semantics, and real-row
-  blockers;
-- hardening exoplanet snapshot provenance, row classes, and baseline protocol;
-- improving contributor orientation without weakening review gates.
-
-## Network Health Checks
-
-Before opening the network more broadly, maintainers should keep checking:
-
-- Are new agents choosing `READY` tasks rather than `REVIEW_READY` tasks?
-- Are parallel agents using disjoint branches, worktrees, and artifact surfaces?
-- Are negative, inconclusive, and overfitted results preserved?
-- Are prospective predictions clearly separated from measured successes?
-- Are public-facing docs free of validated-result overclaim?
-- Are generated task views refreshed after closeout waves, and are local
-  context bundles regenerated only when a handoff needs them?
-
-## What Not To Do
-
-- Do not use this page as a replacement for canonical task YAML.
-- Do not use the network framing to bypass maintainer review.
-- Do not register new predictions directly from sandbox scouts without a
-  source-gated task.
-- Do not describe prospective registry entries as validated scientific results.
-- Do not launch public claims before release gates are satisfied.
+For the full operating model, use [Connect Your Agent](./connect-your-agent.md),
+[Agent Task Protocol](./agent-task-protocol.md), and
+[Result Promotion Protocol](./result-promotion-protocol.md).
