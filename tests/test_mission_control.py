@@ -10,6 +10,7 @@ import sys
 import yaml
 
 from physics_lab.registry import mission_control
+from physics_lab.registry.github_readonly import GitHubReadResult
 from physics_lab.registry.mission_control import (
     TaskAvailabilitySnapshot,
     collect_github_task_availability,
@@ -501,64 +502,52 @@ def test_collect_github_task_availability_reports_open_claims_and_prs(
         task_type="scientific_audit",
         priority="high",
     )
-    responses = [
-        subprocess.CompletedProcess(
-            args=[],
-            returncode=0,
-            stdout=json.dumps(
-                [
-                    {
-                        "number": 10,
-                        "title": "TASK-0005: open implementation",
-                        "state": "OPEN",
-                        "mergedAt": None,
-                        "headRefName": "agent/roman/codex/task-0005-open",
-                    },
-                    {
-                        "number": 11,
-                        "title": "TASK-0006: merged implementation",
-                        "state": "MERGED",
-                        "mergedAt": "2026-06-01T00:00:00Z",
-                        "headRefName": "agent/roman/codex/task-0006-merged",
-                    },
-                    {
-                        "number": 12,
-                        "title": "TASK-0007: closed replacement",
-                        "state": "CLOSED",
-                        "mergedAt": None,
-                        "headRefName": "agent/roman/codex/task-0007-closed",
-                    },
-                    {
-                        "number": 14,
-                        "title": "TASK-0009: merged and closed out",
-                        "state": "MERGED",
-                        "mergedAt": "2026-06-01T00:00:00Z",
-                        "headRefName": "agent/roman/codex/task-0009-done",
-                    },
-                ]
-            ),
-            stderr="",
-        ),
-        subprocess.CompletedProcess(
-            args=[],
-            returncode=0,
-            stdout=json.dumps(
-                [
-                    {
-                        "number": 13,
-                        "title": "Task claim: TASK-0008 claimed",
-                        "body": "Task ID: TASK-0008",
-                    }
-                ]
-            ),
-            stderr="",
-        ),
+    prs = [
+        {
+            "number": 10,
+            "title": "TASK-0005: open implementation",
+            "state": "OPEN",
+            "mergedAt": None,
+            "headRefName": "agent/roman/codex/task-0005-open",
+        },
+        {
+            "number": 11,
+            "title": "TASK-0006: merged implementation",
+            "state": "MERGED",
+            "mergedAt": "2026-06-01T00:00:00Z",
+            "headRefName": "agent/roman/codex/task-0006-merged",
+        },
+        {
+            "number": 12,
+            "title": "TASK-0007: closed replacement",
+            "state": "CLOSED",
+            "mergedAt": None,
+            "headRefName": "agent/roman/codex/task-0007-closed",
+        },
+        {
+            "number": 14,
+            "title": "TASK-0009: merged and closed out",
+            "state": "MERGED",
+            "mergedAt": "2026-06-01T00:00:00Z",
+            "headRefName": "agent/roman/codex/task-0009-done",
+        },
     ]
-    monkeypatch.setattr(mission_control, "find_gh_path", lambda env=None: "gh")
+    claims = [
+        {
+            "number": 13,
+            "title": "Task claim: TASK-0008 claimed",
+            "body": "Task ID: TASK-0008",
+        }
+    ]
     monkeypatch.setattr(
-        mission_control.subprocess,
-        "run",
-        lambda *args, **kwargs: responses.pop(0),
+        mission_control.GitHubReadOnlyClient,
+        "list_pull_requests",
+        lambda self: GitHubReadResult(payload=prs, source="gh"),
+    )
+    monkeypatch.setattr(
+        mission_control.GitHubReadOnlyClient,
+        "list_task_claims",
+        lambda self: GitHubReadResult(payload=claims, source="gh"),
     )
 
     snapshot = collect_github_task_availability(tmp_path, env={"PATH": ""})
@@ -572,15 +561,132 @@ def test_collect_github_task_availability_reports_open_claims_and_prs(
     assert "TASK-0009" not in snapshot.reasons
 
 
-def test_collect_github_task_availability_degrades_on_known_proxy(
+def test_collect_github_task_availability_public_fallback_omits_open_pr(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    def unexpected_run(*args, **kwargs):
-        raise AssertionError("gh should not run without explicit proxy bypass")
+    for task_id in ("TASK-0005", "TASK-0006"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Ready candidate {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+    prs = [
+        {
+            "number": 1579,
+            "title": "TASK-0005: open implementation",
+            "state": "OPEN",
+            "mergedAt": None,
+            "headRefName": "agent/roman/codex/task-0005-open",
+        }
+    ]
+    monkeypatch.setattr(
+        mission_control.GitHubReadOnlyClient,
+        "list_pull_requests",
+        lambda self: GitHubReadResult(payload=prs, source="public_rest"),
+    )
+    monkeypatch.setattr(
+        mission_control.GitHubReadOnlyClient,
+        "list_task_claims",
+        lambda self: GitHubReadResult(payload=[], source="public_rest"),
+    )
 
-    monkeypatch.setattr(mission_control.subprocess, "run", unexpected_run)
+    snapshot = collect_github_task_availability(tmp_path, env={"PATH": ""})
 
+    assert snapshot.checked is True
+    assert snapshot.source == "public_rest"
+    assert snapshot.excluded_task_ids == ("TASK-0005",)
+    assert snapshot.reasons["TASK-0005"] == ("open PR #1579",)
+
+
+def test_collect_github_task_availability_keeps_confirmed_pr_on_partial_fallback(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    _write_task(
+        tmp_path,
+        task_id="TASK-0005",
+        title="Ready candidate",
+        status="READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    prs = [
+        {
+            "number": 20,
+            "title": "TASK-0005: open implementation",
+            "state": "OPEN",
+            "mergedAt": None,
+            "headRefName": "agent/roman/codex/task-0005-open",
+        }
+    ]
+    monkeypatch.setattr(
+        mission_control.GitHubReadOnlyClient,
+        "list_pull_requests",
+        lambda self: GitHubReadResult(payload=prs, source="public_rest"),
+    )
+    monkeypatch.setattr(
+        mission_control.GitHubReadOnlyClient,
+        "list_task_claims",
+        lambda self: GitHubReadResult(
+            payload=None,
+            source="unavailable",
+            diagnostics=("rate limit exhausted",),
+        ),
+    )
+
+    snapshot = collect_github_task_availability(tmp_path, env={"PATH": ""})
+
+    assert snapshot.checked is False
+    assert snapshot.source == "partial_public_rest"
+    assert snapshot.excluded_task_ids == ("TASK-0005",)
+    assert any("manual claim search" in warning for warning in snapshot.warnings)
+
+
+def test_all_mission_outputs_remove_confirmed_unavailable_static_action(
+    tmp_path: Path,
+) -> None:
+    _write_missions(tmp_path)
+    payload = load_current_missions(tmp_path)
+    availability = TaskAvailabilitySnapshot(
+        checked=True,
+        source="public_rest",
+        excluded_task_ids=("TASK-0002",),
+        reasons={"TASK-0002": ("open PR #20",)},
+        warnings=(),
+    )
+
+    rendered_json = json.loads(
+        mission_json(payload, root=tmp_path, availability=availability)
+    )
+    rendered_human = render_human_mission(
+        payload,
+        root=tmp_path,
+        availability=availability,
+    )
+    rendered_agent = render_agent_prompt(
+        payload,
+        root=tmp_path,
+        availability=availability,
+    )
+    rendered_onboarding = render_onboarding_prompt(
+        payload,
+        root=tmp_path,
+        availability=availability,
+    )
+
+    assert rendered_json["recommended"]["task_id"] is None
+    assert "TASK-0002" not in rendered_human.split("Live GitHub task availability:")[0]
+    assert "Use canonical task TASK-0002" not in rendered_agent
+    assert "Run split replay" not in rendered_onboarding
+
+
+def test_collect_github_task_availability_degrades_on_known_proxy(
+    tmp_path: Path,
+) -> None:
     snapshot = collect_github_task_availability(
         tmp_path,
         env={"HTTPS_PROXY": "http://127.0.0.1:9"},

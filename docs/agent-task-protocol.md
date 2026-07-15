@@ -62,15 +62,20 @@ python3 scripts/apl_mission.py --output onboarding
 The onboarding path dynamically tries to exclude `READY` tasks that already
 have an open claim, an open PR, or a merged PR pending local closeout. This is
 stdout-only coordination state; do not commit a generated availability cache.
-When GitHub CLI or network metadata is unavailable, onboarding reports that it
-is showing local registry-only options. Agents must then perform the manual
-pre-claim search from `docs/agent-task-claiming.md` before starting work.
+Agent-facing availability tools use one bounded read-only client: authenticated
+GitHub CLI first, then fixed public REST endpoints for the canonical public
+repository. Public responses are cached only inside the current process. They
+are never written to the checkout or shared across agents. If only PR or claim
+metadata is available, confirmed occupied tasks are still omitted and the
+output reports the missing half as a manual-check requirement. If neither path
+is available, onboarding reports local registry-only options and agents must
+perform the manual pre-claim search from `docs/agent-task-claiming.md`.
 
 For an explicit live check from another output mode, add
 `--github-availability auto` or use `--github-availability required` when a
 registry-only fallback should fail clearly. If an approved Codex sandbox sets
 the known loopback blocker proxy, add `--ignore-suspicious-proxy`; this clears
-only blocker-valued proxy variables for the child GitHub CLI process.
+only blocker-valued proxy variables for the read-only client process.
 
 ## Task Proposals
 
