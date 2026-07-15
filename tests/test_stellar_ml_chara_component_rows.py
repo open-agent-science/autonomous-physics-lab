@@ -11,6 +11,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ROWS_PATH = ROOT / "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
 ALIAS_PATH = ROOT / "data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml"
 DEBCAT_PATH = ROOT / "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+GROUP_LEDGER_PATH = (
+    ROOT
+    / "data/textbook_formula_audit/stellar_ml/chara_cluster_dependence_ledger.yaml"
+)
 
 
 def _load(path: Path) -> dict:
@@ -109,3 +113,46 @@ def test_source_artifacts_are_hash_pinned_or_explicitly_blocked() -> None:
     )
     assert supplement["pin_status"] == "checksum_unavailable"
     assert supplement["values_used"] is False
+
+
+def test_task1049_replay_metadata_and_environment_groups() -> None:
+    payload = _load(ROWS_PATH)
+    replay = payload["independent_source_replay"]
+    assert replay == {
+        "task_id": "TASK-1049",
+        "replay_date_utc": "2026-07-15",
+        "contributor_id": "gladunrv",
+        "github_username": "gladunrv",
+        "agent_tool": "codex",
+        "source_curator_contributor_id": "akutenyov",
+        "independence_class": "different_human_contributor",
+        "source_pdf_count": 6,
+        "source_pdf_hashes_reproduced": 6,
+        "admitted_system_count": 6,
+        "admitted_component_row_count": 12,
+        "derived_row_count": 4,
+        "direct_luminosity_row_count": 8,
+        "max_absolute_luminosity_drift_solar": 4.3231877633331806e-07,
+        "max_absolute_uncertainty_drift_solar": 1.4513580925967773e-07,
+        "debcat_whole_system_intersection_count": 0,
+        "task1041_environment_assignment": (
+            "one_to_one_provisional_singleton_equivalence"
+        ),
+        "publisher_bytes_committed": False,
+        "review_note": (
+            "docs/reviews/stellar/"
+            "chara-component-source-independent-replay-task1049.md"
+        ),
+        "verdict": "INDEPENDENT_SOURCE_REPLAY_PASS",
+    }
+
+    group_lookup = {
+        item["queried_id"]: item["environment_group"]
+        for item in _load(GROUP_LEDGER_PATH)["candidates"]
+    }
+    for row in payload["rows"]:
+        system_id = row["system_id"]
+        expected_source_label = f"provisional_singleton_{system_id.replace(' ', '')}"
+        expected_policy_label = f"singleton-{system_id.lower().replace(' ', '-')}"
+        assert row["environment_group"] == expected_source_label
+        assert group_lookup[system_id] == expected_policy_label

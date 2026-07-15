@@ -323,3 +323,25 @@ rows:
     multiplicity: binary_with_resolved_distant_sibling
     environment_group: provisional_singleton_HD191692
     evolutionary_stage_flag: unassigned_source_curation_only
+
+independent_source_replay:
+  task_id: TASK-1049
+  replay_date_utc: "2026-07-15"
+  contributor_id: gladunrv
+  github_username: gladunrv
+  agent_tool: codex
+  source_curator_contributor_id: akutenyov
+  independence_class: different_human_contributor
+  source_pdf_count: 6
+  source_pdf_hashes_reproduced: 6
+  admitted_system_count: 6
+  admitted_component_row_count: 12
+  derived_row_count: 4
+  direct_luminosity_row_count: 8
+  max_absolute_luminosity_drift_solar: 4.3231877633331806e-07
+  max_absolute_uncertainty_drift_solar: 1.4513580925967773e-07
+  debcat_whole_system_intersection_count: 0
+  task1041_environment_assignment: one_to_one_provisional_singleton_equivalence
+  publisher_bytes_committed: false
+  review_note: docs/reviews/stellar/chara-component-source-independent-replay-task1049.md
+  verdict: INDEPENDENT_SOURCE_REPLAY_PASS
