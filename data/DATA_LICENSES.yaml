@@ -184,6 +184,25 @@ datasets:
     paths:
       - data/textbook_formula_audit/stellar_ml/chara_alias_audit_ledger.yaml
 
+  - id: chara-component-row-surface
+    source: "CHARA orbital studies III/IV and Hyades source articles"
+    source_url: https://arxiv.org/abs/2005.00546
+    license: "Mixed: AAS limited factual extract and CC BY 4.0"
+    redistribution_status: bounded_factual_extract_with_per_source_attribution
+    citation_or_acknowledgement: >
+      Cite Lester et al. 2020, AJ 160, 58
+      (doi:10.3847/1538-3881/ab8f95) and Lester et al. 2022, AJ 164, 228
+      (doi:10.3847/1538-3881/ac9385). CHARA III is a bounded factual extract;
+      CHARA IV is CC BY 4.0. Source tables are not vendored.
+    evidence: >
+      TASK-1040 pins the source PDFs and commits 12 normalized component facts.
+      Seven systems without a reviewed bolometric route are excluded. See
+      docs/reviews/stellar/chara-per-component-row-curation.md.
+    raw_artifact_vendored: false
+    provenance: docs/reviews/stellar/chara-per-component-row-curation.md
+    paths:
+      - data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml
+
   - id: almeida-2023-inp-sizing-digitized
     source: "Almeida et al. 2023, InP colloidal quantum dot sizing curve (Figure 2b), deterministically digitized"
     source_url: https://doi.org/10.1021/acs.nanolett.3c02630
