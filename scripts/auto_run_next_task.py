@@ -182,7 +182,7 @@ Follow all protocols in AGENTS.md and docs/agent-task-protocol.md exactly:
 - Transition status READY -> IN_PROGRESS before editing
 - Work on a branch: agent/<contributor-id>/<agent-id>/task-<number>-<slug>
 - Use the lowercased GitHub username as contributor-id when available
-- Run full validation: ruff, pytest, validate-repo --strict, example runs, apl_review_bundle.sh
+- Run full validation: ruff, pytest, validate-repo --strict, and example runs
 - Transition status -> REVIEW_READY after validation passes
 - Open a PR using apl_task_pr_helper.py with the full PR template body
 - Do NOT push to main. Do NOT promote claims or write PRED-*.yaml files.

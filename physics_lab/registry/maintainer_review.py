@@ -89,7 +89,6 @@ from physics_lab.registry.task_closeout import (
 from physics_lab.registry.task_unblock import safe_unblock_candidates
 
 
-REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
 LOCAL_PR_REF_PATTERN = re.compile(r"^(?:refs/remotes/)?origin/pr-[0-9]+$")
 VENV_PYTHON_LAUNCHER_PATTERN = re.compile(
@@ -538,51 +537,6 @@ def proposal_drift_closeout_policy(
                 f"Proposal-drift closeout should link {proposal_file} only to a DONE canonical task; {canonical_task_id} is {task_status}."
             )
     return tuple(blockers), tuple(required_fixes)
-
-
-def latest_review_bundle(root: Path, branch: str) -> Path | None:
-    """Return the latest review bundle for a branch if present."""
-    safe_branch = branch.replace("/", "-")
-    bundles = sorted((root / "_snapshots").glob(f"review_{safe_branch}_*.md"))
-    if not bundles:
-        return None
-    return bundles[-1]
-
-
-def ensure_review_bundle(root: Path, branch: str, *, can_generate: bool) -> tuple[Path | None, str]:
-    """Return a valid review bundle path or a status string."""
-    bundle = latest_review_bundle(root, branch)
-    if bundle is not None:
-        if review_bundle_branch(bundle) == branch:
-            return bundle, "present"
-        return bundle, "invalid"
-    if not can_generate:
-        return None, "missing"
-    script = Path(__file__).resolve().parents[2] / "scripts" / "apl_review_bundle.py"
-    if not script.exists():
-        script = root / "scripts" / "apl_review_bundle.py"
-    result = run_command(
-        [sys.executable, str(script), "--root", str(root)],
-        cwd=root,
-        timeout=120,
-    )
-    if result.returncode != 0:
-        return None, "missing"
-    bundle = latest_review_bundle(root, branch)
-    if bundle is None:
-        return None, "missing"
-    if review_bundle_branch(bundle) != branch:
-        return bundle, "invalid"
-    return bundle, "generated"
-
-
-def review_bundle_branch(path: Path) -> str | None:
-    """Read the branch metadata from a review bundle."""
-    for line in path.read_text(encoding="utf-8").splitlines():
-        match = REVIEW_BUNDLE_BRANCH_PATTERN.match(line.strip())
-        if match is not None:
-            return match.group("branch")
-    return None
 
 
 def _portable_validation_command(
@@ -2593,22 +2547,6 @@ def _compose_review_report(
     coauthor_advisories = coauthor_trailer_advisory_hits(overclaim_lines + pr_body_lines)
     advisory_warnings.extend(coauthor_advisories)
 
-    bundle_path, bundle_status = ensure_review_bundle(
-        root,
-        target_branch,
-        can_generate=target_branch == current and target_branch != "main",
-    )
-    if bundle_status == "missing" and reviewing_clean_pr_worktree:
-        advisory_warnings.append(
-            "Review bundle generation was skipped for clean remote PR worktree review."
-        )
-    elif bundle_status == "missing" and not closeout_ci_pass:
-        required_fixes.append("Review bundle is missing and could not be generated.")
-    elif bundle_status == "invalid":
-        blockers.append(
-            "Review bundle exists but was generated from the wrong branch, not the PR branch."
-        )
-
     validation = run_task_validation(
         root,
         validation_payload or task_payload or {},
@@ -2666,11 +2604,6 @@ def _compose_review_report(
     else:
         verdict = "MERGE_OK"
         recommended_action = "Merge after GitHub CI is green."
-
-    if bundle_path is not None and bundle_status == "generated":
-        required_fixes = [
-            item for item in required_fixes if item != "Review bundle is missing and could not be generated."
-        ]
 
     return ReviewReport(
         verdict=verdict,

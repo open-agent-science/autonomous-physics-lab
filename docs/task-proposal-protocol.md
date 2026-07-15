@@ -231,10 +231,9 @@ python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
-`./scripts/validate_quick.sh` (lint + full pytest) and
-`./scripts/apl_review_bundle.sh` remain available but are not required for a
-proposal-only PR. Use heavier benchmark execution only when the proposal PR also
-changes code that genuinely requires it.
+`./scripts/validate_quick.sh` (lint + full pytest) remains available but is not
+required for a proposal-only PR. Use heavier benchmark execution only when the
+proposal PR also changes code that genuinely requires it.
 
 ## Proposal Review Checklist
 

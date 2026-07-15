@@ -37,7 +37,7 @@ workflow surface before the specific decision, for example:
 - `stellar-ml-campaign-promotion-gate.md`
 
 Avoid mass-moving existing notes until a link audit checks direct references
-from docs, tasks, PR bodies, and review bundles. If new files need grouping,
+from docs, tasks, PR bodies, and GitHub links. If new files need grouping,
 prefer topic subfolders over date folders so campaign trails remain readable.
 
 ## Referencing Notes

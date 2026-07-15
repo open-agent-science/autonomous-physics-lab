@@ -29,7 +29,7 @@ That makes the work a good fit for file-backed agent routines.
 
 2. Deterministic checks outrank free-form judgment.
    Routine agents should prefer repository scripts, validation commands,
-   review bundles, and canonical task files over narrative inference.
+   exact-SHA PR diffs, and canonical task files over narrative inference.
 
 3. File-backed instructions beat chat-only memory.
    Periodic or manual automations should read stable instruction files from the
@@ -164,7 +164,7 @@ Depending on mode, inputs may include:
 - `docs/strategy.md`;
 - `docs/roadmap.md`;
 - `docs/status.md`;
-- review bundles;
+- exact-SHA GitHub PR metadata and diffs;
 - GitHub CI state.
 
 ### Default Allowed Actions
@@ -174,7 +174,7 @@ Safe default actions:
 - review and summarize;
 - classify and prioritize;
 - generate maintainer comments for optional posting;
-- generate or update review bundles when local branch context exists;
+- run deterministic branch preflight and exact-SHA PR-number review;
 - prepare closeout or admin diffs on a task branch;
 - propose clean replacement PRs for stale or contaminated branches.
 

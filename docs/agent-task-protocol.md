@@ -715,17 +715,6 @@ generated-board behavior should build small fixture repositories or derive
 expectations from the committed source of truth at runtime, so routine task
 completion, unblock, or board sync changes do not break unrelated tests.
 
-Before opening a PR, agents may optionally generate a review bundle for the
-maintainer. This is no longer a required step and its absence is not flagged by
-the PR preflight:
-
-```bash
-python3 scripts/apl_review_bundle.py
-```
-
-This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
-vs `main`, commit list, and changed-file summary.
-
 For microtask PRs, contributors and their agents may also use
 `python3 scripts/apl_microtask_pr_helper.py` to scaffold canonical branch/title
 metadata and run a local preflight check before maintainer review.
@@ -842,8 +831,7 @@ for two explicit modes:
 
 The maintainer review agent may:
 
-- verify PR metadata, scope, validation, accepted outputs, and review bundle
-  integrity;
+- verify PR metadata, exact-head diff, scope, validation, and accepted outputs;
 - surface repository-safety and security-sensitive changes for maintainer review;
 - return `MERGE_OK`, `NEEDS_CHANGES`, or `BLOCKED`;
 - help close a merged task by updating the task file and synchronizing
@@ -886,7 +874,7 @@ The maintainer review agent must not:
    configuration issue to report or fix, not as permission to commit generated
    navigation churn. If a local sync or validation comparison leaves generated
    board files dirty, do not stage them; remove those generated diffs before
-   creating the review bundle.
+   opening the PR.
 8. Do not add committed static files whose primary consumer is another agent
    and whose content changes with ordinary task churn. For agent routing,
    queue filtering, campaign-lane mapping, conflict scans, or current-state

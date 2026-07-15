@@ -172,7 +172,6 @@ def test_preflight_task_pr_accepts_clean_shape() -> None:
         changed_files=("scripts/apl_task_pr_helper.py",),
         validation_commands=(
             "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
-            "./scripts/apl_review_bundle.sh",
         ),
         scientific_claim_impact="No claim promotion.",
         result_artifact_impact="No committed result artifacts changed.",
@@ -496,7 +495,6 @@ def test_preflight_task_pr_flags_agent_tool_mismatch() -> None:
         changed_files=("scripts/apl_task_pr_helper.py",),
         validation_commands=(
             "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
-            "./scripts/apl_review_bundle.sh",
         ),
         scientific_claim_impact="No claim promotion.",
         result_artifact_impact="No committed result artifacts changed.",

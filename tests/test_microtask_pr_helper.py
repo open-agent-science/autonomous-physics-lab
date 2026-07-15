@@ -45,7 +45,7 @@ def test_microtask_branch_normalizes_github_username_contributor_id() -> None:
     )
 
 
-def test_microtask_pr_body_mentions_review_bundle_and_queue() -> None:
+def test_microtask_pr_body_mentions_queue_and_validation() -> None:
     branch = "agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries"
     title = microtask_title(
         "dimensional-analysis-validator",
@@ -61,7 +61,7 @@ def test_microtask_pr_body_mentions_review_bundle_and_queue() -> None:
     assert "tasks/microtasks/dimensional-analysis-validator.yaml" in body
     assert "## PR Kind" in body
     assert "## Primary Reference" in body
-    assert "./scripts/apl_review_bundle.sh" in body
+    assert "validate-repo . --strict --fail-on-warnings" in body
     assert "DAV-003, DAV-004, DAV-008" in body
     assert "Agent session ID" not in body
 

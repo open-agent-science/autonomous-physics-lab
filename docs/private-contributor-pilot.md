@@ -153,7 +153,6 @@ For task proposal PRs, use the lighter validation path:
 ./scripts/validate_quick.sh
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
-./scripts/apl_review_bundle.sh
 ```
 
 Use `--output-dir` for routine example runs so committed canonical artifacts do
