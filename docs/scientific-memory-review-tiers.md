@@ -21,7 +21,7 @@ scientific artifacts.
 
 | Tier | RESULT | PRED | CLAIM | KNOW | Total |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `AGENT_PUBLISHED` | 0 | 1 | 0 | 0 | 1 |
+| `AGENT_PUBLISHED` | 1 | 1 | 0 | 0 | 2 |
 | `AGENT_VALIDATED` | 15 | 0 | 0 | 0 | 15 |
 | `MAINTAINER_REVIEWED` | 0 | 1 | 2 | 0 | 3 |
 | `EXTERNAL_REPLICATED` | 0 | 0 | 0 | 0 | 0 |
@@ -31,6 +31,7 @@ scientific artifacts.
 | Class | Artifact | Status | Independence | Next action | Path |
 | --- | --- | --- | --- | --- | --- |
 | `PRED` | `PRED-0001` - Prospective exoplanet second-snapshot protocol outcome forecast | `REGISTERED` | `n/a` | `reveal-needed` | [`prediction_registry/exoplanet_mass_radius/PRED-0001.yaml`](../prediction_registry/exoplanet_mass_radius/PRED-0001.yaml) |
+| `RESULT` | `RESULT-0030` - Dimensional Validator Exact-v2 Frozen Calibration Score | `VALID` | `n/a` | `replay-needed` | [`results/EXP-0006/RUN-0008/result.yaml`](../results/EXP-0006/RUN-0008/result.yaml) |
 
 ## AGENT_VALIDATED
 

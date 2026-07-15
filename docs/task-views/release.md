@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-1051` - Blind-score the frozen dimensional-validator v2 calibration surface (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `physics_validation`)
+None.
 
 ## IN_PROGRESS
 
@@ -15,3 +15,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-1029` - Prepare a Gaia DR4 stellar-transfer freeze-readiness packet (`scientific_prediction_preflight`, priority `high`, difficulty `medium`, domain `stellar_astrophysics`)
+- `TASK-1051` - Blind-score the frozen dimensional-validator v2 calibration surface (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `physics_validation`)
