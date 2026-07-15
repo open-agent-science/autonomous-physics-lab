@@ -1,0 +1,14 @@
+experiment_path: ../experiments/EXP-0006-dimensional-analysis-validator.yaml
+hypothesis_path: ../hypotheses/HYP-0006-dimensional-analysis-validator.yaml
+task_id: TASK-1051
+run_id: RUN-0008
+result_id: RESULT-0030
+result_root: ../results/EXP-0006
+workflow: dimensional_validation
+challenge_set_path: ../knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml
+challenge_set_source_path: knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml
+benchmark_scope: frozen_v2_calibration_80
+scoring_contract: label_blind_exact_v2
+frozen_calibration_contract: true
+expected_item_count: 80
+result_title: Dimensional Validator Exact-v2 Frozen Calibration Score
