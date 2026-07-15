@@ -1,7 +1,7 @@
 id: TASK-1030
 title: "Test one Lattice-QCD independence and covariance audit as a campaign incubator"
 type: scientific_benchmark_planning
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "Incubator decision for a new scientific surface; closeout must verify that it produced no world average, real-value dataset, anomaly score, or claim."
 difficulty: medium
