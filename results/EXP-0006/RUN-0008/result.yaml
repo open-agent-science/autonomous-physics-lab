@@ -1,0 +1,201 @@
+generated_at: '2026-07-15T20:48:50.672830+00:00'
+result_id: RESULT-0030
+run_id: RUN-0008
+experiment_id: EXP-0006
+title: Dimensional Validator Exact-v2 Frozen Calibration Score
+hypothesis_id: HYP-0006
+task_id: TASK-1051
+engine_version: 0.2.0
+git_commit: 0b822d422cf900b1a16b22a0ceb1ccf3b3eb1ee3
+command: python -m physics_lab.cli run examples/dimensional_analysis_v2_calibration.yaml
+  --output-dir results/EXP-0006/RUN-0008
+input_file_hashes:
+  config:
+    path: results/EXP-0006/RUN-0008/inputs/config.yaml
+    sha256: e41a8baaeec202d2c1f6e33fc47131ac55d362b18bbd7ccab4ddc4ac649547d2
+  fixture:
+    path: results/EXP-0006/RUN-0008/inputs/fixture.yaml
+    sha256: 2526cbd5f4dc652b9647283b294a081ea38539bfc995451b9e9c7251d7f60f0d
+  experiment:
+    path: results/EXP-0006/RUN-0008/inputs/experiment.yaml
+    sha256: c3b9ef8b620fa972256d88f0ad8ba53a55e70adfd9735979249f1f13e7bd180c
+  hypothesis:
+    path: results/EXP-0006/RUN-0008/inputs/hypothesis.yaml
+    sha256: 7488667ad52b2d6b6d0fb2b9bbf0d6bb3280254dc9798a454704258d8705ad4b
+  task:
+    path: results/EXP-0006/RUN-0008/inputs/task.yaml
+    sha256: 5a7ad159706399c3479156bfd60c0083c5d64bd396e624a343a092c68bc98357
+code_reference: physics_lab/workflows/dimensional_validator.py
+limitations:
+- Agent-published, not yet independently validated or maintainer-reviewed.
+- Dimension-only agreement is formula-quality evidence, not proof of numerical correctness,
+  empirical validity, or physical truth.
+- KNOWN_LIMIT_FAIL rows are treated as dimensionally valid because numerical and regime
+  limits are outside validator scope.
+- Label-blind v2 inference does not read expected labels or curated benchmark annotations.
+- This result is restricted to the frozen 80-item frozen_v2_calibration_80 input snapshot.
+- SUSPICIOUS items with explicit dimensional mismatch are classified INVALID.
+- Unit symbol table covers SI base units and common derived units only.
+- Natural-unit or Gaussian-unit formulas are outside scope.
+- Benchmark authorship independence is same_owner_role_disjoint_agent, so this result
+  is calibration-only and not confirmatory evidence.
+- CALIBRATION_ONLY_ROLE_LIMIT blocks Gate C, CLAIM-0005 promotion, and any semantic
+  or universal physical-correctness interpretation.
+best_verdict: VALID
+comparison_summary:
+- target_id: target_agreement
+  label: Agreement fraction target
+  reference_value: 0.9
+  observed_value: 1.0
+  unit: null
+  absolute_difference: 0.1
+  relative_difference: 0.111111
+  notes: exact_agreement_fraction is 80/80; threshold 90%. Exact and policy-adjusted
+    metrics are reported separately.
+- target_id: target_valid_recall
+  label: VALID recall floor
+  reference_value: 0.85
+  observed_value: 1.0
+  unit: null
+  absolute_difference: 0.15
+  relative_difference: 0.176471
+  notes: Observed value must be at or above the frozen threshold.
+- target_id: target_invalid_recall
+  label: INVALID recall floor
+  reference_value: 0.85
+  observed_value: 1.0
+  unit: null
+  absolute_difference: 0.15
+  relative_difference: 0.176471
+  notes: Observed value must be at or above the frozen threshold.
+- target_id: target_inconclusive_rate_ceiling
+  label: INCONCLUSIVE rate ceiling
+  reference_value: 0.05
+  observed_value: 0.0
+  unit: null
+  absolute_difference: 0.05
+  relative_difference: 1.0
+  notes: Observed value must be at or below the frozen threshold.
+uncertainty_summary:
+  method: binomial standard error sqrt(p(1-p)/n) on agreement fraction
+  observed_uncertainty: 0.0
+  reference_uncertainty: 0.0
+  combined_uncertainty: 0.0
+  z_score: null
+  within_combined_uncertainty: false
+  notes: Binomial standard error on the agreement fraction. Reference uncertainty
+    is 0 because the threshold is a fixed target.
+verification:
+  passed: true
+  checks:
+  - name: challenge_set_loaded
+    status: PASS
+    details: Loaded 80 items from the frozen_v2_calibration_80 challenge-set scope.
+    metrics:
+      item_count: 80
+  - name: challenge_set_declared_total_matches_items
+    status: PASS
+    details: Challenge-set metadata declares total_items=80; parsed 80 items.
+    metrics:
+      declared_total_items: 80
+      parsed_item_count: 80
+  - name: frozen_v2_contract_integrity
+    status: PASS
+    details: Verified the 80-item manifest, label vocabulary, item-order digest, curator
+      identity, no-score declaration, and CALIBRATION_ONLY_ROLE_LIMIT before inference.
+    metrics:
+      item_count: 80
+      item_order_digest: 4f92423ba8211a2964a9b2c4f1b3c419294b3f7d058ed5f0047ccb3f494a3437
+      label_vocabulary: VALID,INVALID,INCONCLUSIVE
+      benchmark_authorship_independence: same_owner_role_disjoint_agent
+      bounded_verdict: CALIBRATION_ONLY_ROLE_LIMIT
+  - name: label_blind_phase_separation
+    status: PASS
+    details: All 80 inferences completed from id, formula, and declared variable dimensions
+      before expected labels entered scoring.
+    metrics:
+      inference_item_count: 80
+      expected_labels_read_during_inference: false
+      inference_input_fields: id,formula,variables
+  - name: agreement_fraction
+    status: PASS
+    details: Exact agreement is 80/80 (100.0%), threshold 90%.
+    metrics:
+      agree: 80
+      total: 80
+      agreement_fraction: 1.0
+      threshold: 0.9
+      primary_metric: exact_agreement_fraction
+  - name: valid_recall_floor
+    status: PASS
+    details: VALID recall is 100.0%, floor 85%.
+    metrics:
+      valid_recall: 1.0
+      floor: 0.85
+      support: 40
+  - name: invalid_recall_floor
+    status: PASS
+    details: INVALID recall is 100.0%, floor 85%.
+    metrics:
+      invalid_recall: 1.0
+      floor: 0.85
+      support: 40
+  - name: inconclusive_rate_ceiling
+    status: PASS
+    details: Computed INCONCLUSIVE rate is 0.0%, ceiling 5%.
+    metrics:
+      inconclusive_count: 0
+      inconclusive_rate: 0.0
+      ceiling: 0.05
+  - name: legacy_equivalence_credit_disabled
+    status: PASS
+    details: PASS/FAIL uses exact categorical matches only; policy equivalences receive
+      zero primary-score credit.
+    metrics:
+      credited_non_exact_matches: 0
+      primary_agree: 80
+  - name: agreement_metric_decomposition
+    status: PASS
+    details: 'Exact categorical agreement: 80/80 (100.0%); policy-adjusted agreement:
+      80/80 (100.0%).'
+    metrics:
+      exact_agree: 80
+      exact_agreement_fraction: 1.0
+      policy_adjusted_agree: 80
+      policy_adjusted_agreement_fraction: 1.0
+artifacts:
+  report: results/EXP-0006/RUN-0008/report.md
+  metrics: results/EXP-0006/RUN-0008/metrics.json
+  claim_update: results/EXP-0006/RUN-0008/claim_update.md
+  claim_update_patch: results/EXP-0006/RUN-0008/claim_update.patch.md
+  knowledge_update: results/EXP-0006/RUN-0008/knowledge_update.md
+  knowledge_update_patch: results/EXP-0006/RUN-0008/knowledge_update.patch.md
+  review_summary: results/EXP-0006/RUN-0008/review_summary.md
+  review_metadata: results/EXP-0006/RUN-0008/review_metadata.yaml
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: VALID
+  published_by:
+    contributor_id: gladunrv
+    github_username: gladunrv
+    agent_tool: Codex
+    model_version: GPT-5
+  benchmark_authorship_independence: same_owner_role_disjoint_agent
+  calibration_role_limit: CALIBRATION_ONLY_ROLE_LIMIT
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: 'The frozen 80-item exact-v2 calibration surface returned PASS:
+    exact agreement 100.0%, VALID recall 100.0%, INVALID recall 100.0%, and INCONCLUSIVE
+    rate 0.0%.'
+  followup_for_maintainer: Keep AGENT_PUBLISHED and CALIBRATION_ONLY_ROLE_LIMIT explicit.
+    Gate B may independently replay the command, but this surface cannot become confirmatory
+    Gate C evidence or reopen CLAIM-0005.

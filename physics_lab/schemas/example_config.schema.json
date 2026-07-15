@@ -91,6 +91,9 @@
         "label_blind_exact_v2"
       ]
     },
+    "frozen_calibration_contract": {
+      "type": "boolean"
+    },
     "expected_item_count": {
       "type": "integer",
       "minimum": 1

@@ -1,0 +1,1087 @@
+{
+  "run_id": "RUN-0008",
+  "experiment_id": "EXP-0006",
+  "total_items": 80,
+  "scoring_contract": "label_blind_exact_v2",
+  "primary_metric": "exact_agreement_fraction",
+  "agree": 80,
+  "agreement_fraction": 1.0,
+  "exact_agree": 80,
+  "exact_agreement_fraction": 1.0,
+  "policy_adjusted_agree": 80,
+  "policy_adjusted_agreement_fraction": 1.0,
+  "non_exact_policy_acceptance_count": 0,
+  "agreement_threshold": 0.9,
+  "benchmark_scope": "frozen_v2_calibration_80",
+  "expected_item_count": 80,
+  "valid_count": 40,
+  "invalid_count": 40,
+  "suspicious_count": 0,
+  "inconclusive_count": 0,
+  "best_verdict": "VALID",
+  "disagreement_count": 0,
+  "disagreement_ids": [],
+  "disagreement_ledger": [],
+  "class_breakdown": {
+    "VALID": {
+      "support": 40,
+      "correct": 40,
+      "computed_count": 40,
+      "recall": 1.0
+    },
+    "INVALID": {
+      "support": 40,
+      "correct": 40,
+      "computed_count": 40,
+      "recall": 1.0
+    },
+    "INCONCLUSIVE": {
+      "support": 0,
+      "correct": 0,
+      "computed_count": 0,
+      "recall": null
+    }
+  },
+  "domain_breakdown": {
+    "astrophysics": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "electromagnetism": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "fluid_mechanics": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "nuclear_and_particle": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "quantum_and_atomic": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "rotational_mechanics": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "thermodynamics": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    },
+    "waves_and_optics": {
+      "total": 10,
+      "exact_agree": 10,
+      "expected_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "computed_counts": {
+        "INVALID": 5,
+        "VALID": 5
+      },
+      "disagreement_ids": [],
+      "exact_agreement_fraction": 1.0
+    }
+  },
+  "challenge_set_provenance": {
+    "frozen_input": "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml",
+    "source_path": "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
+  },
+  "item_results": [
+    {
+      "id": "DAV2-001",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M T^-1"
+    },
+    {
+      "id": "DAV2-002",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^-1 T^-2"
+    },
+    {
+      "id": "DAV2-003",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^2 T^-1"
+    },
+    {
+      "id": "DAV2-004",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^3 T^-1"
+    },
+    {
+      "id": "DAV2-005",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^-1 T^-2"
+    },
+    {
+      "id": "DAV2-006",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M T^-1 != RHS dim M L^-1"
+    },
+    {
+      "id": "DAV2-007",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^-1 T^-2 != RHS dim M L^-2 T^-1"
+    },
+    {
+      "id": "DAV2-008",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^2 T^-1 != RHS dim M^2 L^-4 T^-1"
+    },
+    {
+      "id": "DAV2-009",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^3 T^-1 != RHS dim L T"
+    },
+    {
+      "id": "DAV2-010",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^-1 T^-2 != RHS dim M L^-3 T^-2"
+    },
+    {
+      "id": "DAV2-011",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-012",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-1"
+    },
+    {
+      "id": "DAV2-013",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-014",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-1"
+    },
+    {
+      "id": "DAV2-015",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L T^-1"
+    },
+    {
+      "id": "DAV2-016",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L^2 T^-1"
+    },
+    {
+      "id": "DAV2-017",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-1 != RHS dim M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-018",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L^2 T^-1"
+    },
+    {
+      "id": "DAV2-019",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-1 != RHS dim M L^2 T^-3"
+    },
+    {
+      "id": "DAV2-020",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L T^-1 != RHS dim L^-1 T^-1"
+    },
+    {
+      "id": "DAV2-021",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^3 T^-3 Amp^-1"
+    },
+    {
+      "id": "DAV2-022",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M^-1 L^-2 T^4 Amp^2"
+    },
+    {
+      "id": "DAV2-023",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-024",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-3"
+    },
+    {
+      "id": "DAV2-025",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2 Amp^-1"
+    },
+    {
+      "id": "DAV2-026",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^3 T^-3 Amp^-1 != RHS dim M L^-1 T^-3 Amp^-1"
+    },
+    {
+      "id": "DAV2-027",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M^-1 L^-2 T^4 Amp^2 != RHS dim M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-028",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L^2 T^-2 Amp^-1"
+    },
+    {
+      "id": "DAV2-029",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-3 != RHS dim M L^2 T^-3 Amp^-2"
+    },
+    {
+      "id": "DAV2-030",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 Amp^-1 != RHS dim M L^-2 T^-2 Amp^-1"
+    },
+    {
+      "id": "DAV2-031",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2 Theta^-1"
+    },
+    {
+      "id": "DAV2-032",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^2 T^-1"
+    },
+    {
+      "id": "DAV2-033",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-034",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M^-1 L^-2 T^3 Theta"
+    },
+    {
+      "id": "DAV2-035",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^-1 T^-2"
+    },
+    {
+      "id": "DAV2-036",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 Theta^-1 != RHS dim M L^2 T^-2 Theta"
+    },
+    {
+      "id": "DAV2-037",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^2 T^-1 != RHS dim M^2 L^-4 T^-1"
+    },
+    {
+      "id": "DAV2-038",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L^-2 T^2"
+    },
+    {
+      "id": "DAV2-039",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M^-1 L^-2 T^3 Theta != RHS dim M L^2 T^-3 Theta"
+    },
+    {
+      "id": "DAV2-040",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^-1 T^-2 != RHS dim M L^5 T^-2"
+    },
+    {
+      "id": "DAV2-041",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = T^-1"
+    },
+    {
+      "id": "DAV2-042",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^-1"
+    },
+    {
+      "id": "DAV2-043",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M T^-3"
+    },
+    {
+      "id": "DAV2-044",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^-1"
+    },
+    {
+      "id": "DAV2-045",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = T"
+    },
+    {
+      "id": "DAV2-046",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim T^-1 != RHS dim 1"
+    },
+    {
+      "id": "DAV2-047",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^-1 != RHS dim L"
+    },
+    {
+      "id": "DAV2-048",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M T^-3 != RHS dim M L^4 T^-3"
+    },
+    {
+      "id": "DAV2-049",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^-1 != RHS dim L"
+    },
+    {
+      "id": "DAV2-050",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim T != RHS dim L^2 T^-1"
+    },
+    {
+      "id": "DAV2-051",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L T^-1"
+    },
+    {
+      "id": "DAV2-052",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-053",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-1"
+    },
+    {
+      "id": "DAV2-054",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = T^-1"
+    },
+    {
+      "id": "DAV2-055",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^2 Amp"
+    },
+    {
+      "id": "DAV2-056",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L T^-1 != RHS dim M L^3 T^-1"
+    },
+    {
+      "id": "DAV2-057",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L^2"
+    },
+    {
+      "id": "DAV2-058",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-1 != RHS dim M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-059",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim T^-1 != RHS dim M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-060",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^2 Amp != RHS dim M^2 L^2 Amp"
+    },
+    {
+      "id": "DAV2-061",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-3"
+    },
+    {
+      "id": "DAV2-062",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = T^-1"
+    },
+    {
+      "id": "DAV2-063",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^-2"
+    },
+    {
+      "id": "DAV2-064",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = T"
+    },
+    {
+      "id": "DAV2-065",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-3"
+    },
+    {
+      "id": "DAV2-066",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-3 != RHS dim M L T^-3"
+    },
+    {
+      "id": "DAV2-067",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim T^-1 != RHS dim L^0.5 T^-1"
+    },
+    {
+      "id": "DAV2-068",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^-2 != RHS dim M L^2"
+    },
+    {
+      "id": "DAV2-069",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim T != RHS dim L^2 T^-1"
+    },
+    {
+      "id": "DAV2-070",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-3 != RHS dim M L^4 T^-3"
+    },
+    {
+      "id": "DAV2-071",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DAV2-072",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = T^-1"
+    },
+    {
+      "id": "DAV2-073",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = L^2"
+    },
+    {
+      "id": "DAV2-074",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L T^-2 Amp^-1"
+    },
+    {
+      "id": "DAV2-075",
+      "expected": "VALID",
+      "computed": "VALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS = RHS = M L T^-2"
+    },
+    {
+      "id": "DAV2-076",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L^2"
+    },
+    {
+      "id": "DAV2-077",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim T^-1 != RHS dim T"
+    },
+    {
+      "id": "DAV2-078",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim L^2 != RHS dim L^-2"
+    },
+    {
+      "id": "DAV2-079",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L T^-2 Amp^-1 != RHS dim M L Amp"
+    },
+    {
+      "id": "DAV2-080",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "exact_match": true,
+      "policy_match": true,
+      "agreement_kind": "exact",
+      "agrees": true,
+      "warnings": [],
+      "detail": "LHS dim M L T^-2 != RHS dim M L^3 T^-2"
+    }
+  ],
+  "calibration_outcome": "PASS",
+  "threshold_outcomes": {
+    "exact_agreement": true,
+    "valid_recall": true,
+    "invalid_recall": true,
+    "inconclusive_rate": true
+  },
+  "valid_recall": 1.0,
+  "invalid_recall": 1.0,
+  "inconclusive_rate": 0.0,
+  "frozen_contract_audit": {
+    "surface_id": "DA-CHALLENGE-V2-001",
+    "item_order_digest": "4f92423ba8211a2964a9b2c4f1b3c419294b3f7d058ed5f0047ccb3f494a3437",
+    "item_count": 80,
+    "label_vocabulary": [
+      "VALID",
+      "INVALID",
+      "INCONCLUSIVE"
+    ],
+    "curator_contributor_id": "akutenyov",
+    "curator_agent_tool": "Codex (OpenAI)",
+    "curator_session_id": "TASK-1039-ISSUE-1563-2026-07-14",
+    "benchmark_authorship_independence": "same_owner_role_disjoint_agent",
+    "bounded_verdict": "CALIBRATION_ONLY_ROLE_LIMIT",
+    "thresholds": {
+      "exact_agreement_threshold": 0.9,
+      "valid_recall_floor": 0.85,
+      "invalid_recall_floor": 0.85,
+      "inconclusive_ceiling": 0.05
+    }
+  },
+  "claim_ceiling": "Calibration-only SI-focused validator quality floor; no confirmatory, Gate C, CLAIM-0005, semantic, or universal physical-correctness interpretation is authorized.",
+  "output_routing": {
+    "canonical_destination": "results/EXP-0006/RUN-0008/",
+    "review_tier": "AGENT_PUBLISHED",
+    "gate_a": "PASS",
+    "gate_b": "NOT_ATTEMPTED",
+    "claim_impact": "none; CLAIM-0005 unchanged",
+    "knowledge_impact": "none",
+    "publication_blocker": "none for AGENT_PUBLISHED calibration evidence; maintainer review remains required",
+    "calibration_role": "CALIBRATION_ONLY_ROLE_LIMIT"
+  }
+}

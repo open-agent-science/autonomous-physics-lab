@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 import yaml
 
+import physics_lab.workflows.dimensional_validator as dimensional_validator
 from physics_lab.engines.dimensions import (
     DIMENSIONLESS,
     SCORING_CONTRACT_LABEL_BLIND_V2,
@@ -22,6 +23,7 @@ from physics_lab.engines.dimensions import (
 )
 from physics_lab.registry.examples import load_example_config
 from physics_lab.workflows.dimensional_validator import (
+    FrozenCalibrationContaminationError,
     run_dimensional_validator_with_output,
 )
 
@@ -565,3 +567,102 @@ def test_dimensional_validator_result_schema_accepts_inconclusive_tolerance(
         inconclusive_check["metrics"]["inconclusive_count"]
         <= inconclusive_check["metrics"]["inconclusive_limit"]
     )
+
+
+def test_frozen_v2_calibration_scores_all_gates_after_blind_inference(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    seen_inference_keys: list[set[str]] = []
+    original_infer_item = dimensional_validator.infer_item
+
+    def capture_blind_input(item: dict) -> object:
+        seen_inference_keys.append(set(item))
+        return original_infer_item(item)
+
+    monkeypatch.setattr(dimensional_validator, "infer_item", capture_blind_input)
+    outcome = run_dimensional_validator_with_output(
+        "examples/dimensional_analysis_v2_calibration.yaml",
+        output_dir=tmp_path / "run-v2-frozen",
+    )
+
+    metrics = json.loads(outcome.artifacts.metrics_path.read_text(encoding="utf-8"))
+    result_payload = yaml.safe_load(
+        outcome.artifacts.result_path.read_text(encoding="utf-8")
+    )
+    checks = {
+        check["name"]: check for check in result_payload["verification"]["checks"]
+    }
+
+    assert len(seen_inference_keys) == 80
+    assert all(keys == {"id", "formula", "variables"} for keys in seen_inference_keys)
+    assert metrics["total_items"] == 80
+    assert len(metrics["item_results"]) == 80
+    assert metrics["scoring_contract"] == SCORING_CONTRACT_LABEL_BLIND_V2
+    assert metrics["primary_metric"] == "exact_agreement_fraction"
+    assert metrics["calibration_outcome"] == "PASS"
+    assert metrics["exact_agreement_fraction"] == 1.0
+    assert metrics["valid_recall"] == 1.0
+    assert metrics["invalid_recall"] == 1.0
+    assert metrics["inconclusive_rate"] == 0.0
+    assert metrics["frozen_contract_audit"]["bounded_verdict"] == (
+        "CALIBRATION_ONLY_ROLE_LIMIT"
+    )
+    assert metrics["frozen_contract_audit"]["benchmark_authorship_independence"] == (
+        "same_owner_role_disjoint_agent"
+    )
+    assert set(metrics["threshold_outcomes"]) == {
+        "exact_agreement",
+        "valid_recall",
+        "invalid_recall",
+        "inconclusive_rate",
+    }
+    assert set(metrics["class_breakdown"]) >= {"VALID", "INVALID", "INCONCLUSIVE"}
+    assert len(metrics["domain_breakdown"]) >= 5
+    assert len(metrics["disagreement_ledger"]) == metrics["disagreement_count"]
+    assert checks["frozen_v2_contract_integrity"]["status"] == "PASS"
+    assert checks["label_blind_phase_separation"]["metrics"] == {
+        "inference_item_count": 80,
+        "expected_labels_read_during_inference": False,
+        "inference_input_fields": "id,formula,variables",
+    }
+    assert checks["legacy_equivalence_credit_disabled"]["metrics"][
+        "credited_non_exact_matches"
+    ] == 0
+    assert result_payload["review_tier"] == "AGENT_PUBLISHED"
+    assert result_payload["agent_proposal_evaluation"][
+        "benchmark_authorship_independence"
+    ] == "same_owner_role_disjoint_agent"
+    assert (tmp_path / "run-v2-frozen" / "gate_a_report.md").is_file()
+
+
+def test_frozen_v2_digest_drift_stops_before_inference(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    surface = _load_yaml(
+        Path("knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml")
+    )
+    surface["items"][0]["formula"] += " * 1"
+    drifted_surface = tmp_path / "drifted-v2.yaml"
+    drifted_surface.write_text(
+        yaml.safe_dump(surface, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    config = load_example_config("examples/dimensional_analysis_v2_calibration.yaml")
+    config["challenge_set_path"] = str(drifted_surface)
+    monkeypatch.setattr(dimensional_validator, "load_example_config", lambda _: config)
+
+    def inference_must_not_run(_: dict) -> object:
+        raise AssertionError("inference ran before frozen-contract verification")
+
+    monkeypatch.setattr(dimensional_validator, "infer_item", inference_must_not_run)
+    with pytest.raises(
+        FrozenCalibrationContaminationError,
+        match="CONTAMINATED.*item-order digest mismatch",
+    ):
+        run_dimensional_validator_with_output(
+            "examples/dimensional_analysis_v2_calibration.yaml",
+            output_dir=tmp_path / "contaminated",
+        )
