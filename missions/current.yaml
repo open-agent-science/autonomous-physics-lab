@@ -1417,10 +1417,10 @@ missions:
         label: "Independently replay the CHARA component-source surface"
         task_id: TASK-1049
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "independent verification of all twelve rows, component identities, units, and derivations"
           - "explicit correction or exclusion ledger with no metric execution"
@@ -1444,7 +1444,7 @@ missions:
         status: guidance
         priority: medium
         difficulty: low
-        recommended: false
+        recommended: true
         expected_outputs:
           - "use TASK-1049 and TASK-1050 as the bounded CHARA replay and transfer routes"
           - "choose from the executable READY task candidates generated from the task registry"
