@@ -106,16 +106,16 @@ portfolio:
       - updated_campaign_profile
   current_stage: "RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory. The CHARA route now has twelve source-traceable component rows across six systems plus a frozen dependence policy; seven additional systems remain source-limited. Gaia DR4 readiness remains under review because component masses require same-component bolometric luminosities."
   recommended_parallel_agents: 2
-  coordination_notes: "TASK-1049 source replay and TASK-1050 fixed-relation transfer scoring are parallel-safe because they write separate verification and result surfaces; TASK-1045/1046 remain independent-human replays. The transfer task must use the frozen six-system grouping policy and must not refit RESULT-0022. Do not register a Gaia functional freeze without a valid same-component luminosity route."
+  coordination_notes: "Run TASK-1049 before TASK-1050: independent source replay must pass and freeze the exact eligible CHARA surface before any transfer score. TASK-1045/1046 remain independent-human replays. The later transfer task must use the frozen six-system grouping policy and must not refit RESULT-0022. Do not register a Gaia functional freeze without a valid same-component luminosity route."
   next_validity_gate:
-    type: transfer
-    blocker: "The twelve-row CHARA surface has not yet received an independent source replay or a no-refit transfer score against the frozen RESULT-0022 relation and controls."
-    target_artifact: "TASK-1049 and TASK-1050"
+    type: source_readiness
+    blocker: "The twelve-row CHARA surface has not yet received the independent source replay required before no-refit transfer scoring."
+    target_artifact: "TASK-1049"
   best_next_actions:
     - task_id: TASK-1049
       label: "Independently replay the twelve CHARA component rows and derivations"
     - task_id: TASK-1050
-      label: "Score the frozen RESULT-0022 relation on CHARA without refitting"
+      label: "After TASK-1049 passes, score the frozen RESULT-0022 relation on CHARA without refitting"
     - task_id: TASK-1029
       label: "Return a corrected Gaia DR4 GO/HOLD/STOP packet with same-component luminosity semantics"
   required_gates:

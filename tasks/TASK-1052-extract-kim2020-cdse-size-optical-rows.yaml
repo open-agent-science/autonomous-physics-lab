@@ -16,7 +16,8 @@ input:
   mode: planning_only
   related_domain: condensed_matter
   related_objects:
-    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/source_artifact.yaml"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md"
+    - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
     - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/extraction_contract.yaml"
     - "docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md"
     - "docs/campaigns/quantum-size-effects.md"

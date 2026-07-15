@@ -1,7 +1,7 @@
 id: TASK-1050
 title: "Run the frozen Stellar relation on the source-curated CHARA component surface"
 type: scientific_result_publication
-status: READY
+status: BLOCKED
 closeout: review
 closeout_review_reason: "This is the first cross-source CHARA transfer metric and potential RESULT artifact; closeout must verify source eligibility, grouped independence, fixed-model discipline, controls, and public scope."
 difficulty: high
@@ -24,12 +24,14 @@ input:
     - "docs/reviews/stellar/chara-cluster-dependence-policy.md"
     - "docs/campaigns/textbook-formula-audit.md"
   planning_context: >
-    Apply the frozen RESULT-0022 relation and controls to the admitted CHARA
+    After TASK-1049 independently passes the complete CHARA source surface,
+    apply the frozen RESULT-0022 relation and controls to the admitted CHARA
     component rows without refitting, post-value exclusions, or threshold
     changes. Package any passing, failing, or inconclusive outcome through the
     result-promotion protocol when Gate A permits it.
 
 requirements:
+  - "Blocked-by: merged TASK-1049 with verdict INDEPENDENT_SOURCE_REPLAY_PASS. Keep this task BLOCKED until that verdict and the exact eligible row surface are recorded on main."
   - "Use exactly the twelve TASK-1040 rows from six systems. Recompute source/schema checks before metrics and stop with SOURCE_CONTESTED_NO_SCORE if a merged independent source replay disputes an included row."
   - "Apply TASK-1041 grouping exactly. Keep every system atomic, exclude any Melotte-25/DEBCat-overlap group from independent-holdout wording, and stop with HOLD_UNDERPOWERED if fewer than five eligible effective groups remain."
   - "Primary candidate is the frozen RESULT-0022 relation log10(L/Lsun) = 4.526004 * log10(M/Msun), fixed intercept 0.0. Do not refit any coefficient on CHARA."
