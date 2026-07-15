@@ -84,16 +84,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. TASK-1039 froze an 80-item label_blind_exact_v2 surface and exact class-recall gates, but same-owner role separation limits this surface to calibration rather than confirmatory CLAIM-0005 evidence."
+  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. RESULT-0030 is AGENT_PUBLISHED after the frozen 80-item label_blind_exact_v2 surface scored 80/80 exact agreement, 100% VALID and INVALID recall, and 0% INCONCLUSIVE; same-owner role separation limits it to calibration rather than confirmatory CLAIM-0005 evidence."
   recommended_parallel_agents: 1
-  coordination_notes: "TASK-1051 may run the first blind score on the frozen 80-item surface without changing rows, labels, thresholds, or engine semantics. Preserve CALIBRATION_ONLY_ROLE_LIMIT and do not use this result to reopen CLAIM-0005 Gate C."
+  coordination_notes: "The scoring gate is complete. The next trust step is one independent-human Gate B replay of RESULT-0030 without changing rows, labels, thresholds, engine semantics, metrics, or CALIBRATION_ONLY_ROLE_LIMIT. Do not use this result to reopen CLAIM-0005 Gate C."
   next_validity_gate:
-    type: source_readiness
-    blocker: "The frozen 80-item v2 surface has not yet been scored, and its same-owner role limit prevents confirmatory claim promotion even if calibration thresholds pass."
-    target_artifact: "TASK-1051"
+    type: ratification
+    blocker: "RESULT-0030 is AGENT_PUBLISHED and has not yet received independent Gate B replay; its same-owner benchmark-authorship limit still prevents confirmatory claim promotion."
+    target_artifact: "results/EXP-0006/RUN-0008/result.yaml"
   best_next_actions:
-    - task_id: TASK-1051
-      label: "Blind-score the frozen v2 surface as calibration-only evidence"
+    - task_id: null
+      label: "Replay RESULT-0030 under a genuinely independent human identity while preserving the calibration-only ceiling"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -108,13 +108,14 @@ portfolio:
     - "tasks/TASK-1038-dimensional-validator-scoring-separation.yaml"
     - "tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml"
     - "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
+    - "results/EXP-0006/RUN-0008/result.yaml"
   open_questions:
-    - "Can a fresh role-disjoint benchmark clear the predeclared v2 exact-agreement and class-recall gates without policy-equivalence credit?"
+    - "Can an independent human replay reproduce RESULT-0030 exactly while preserving its calibration-only interpretation?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-15"
+    last_reviewed: "2026-07-16"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "TASK-1039 v2 benchmark freeze and Scientific Director 2026-07-15 cycle"
-    notes: "The 80-item surface is ready for a blind calibration score, but its role-separation class is not independent enough for confirmatory Gate C. A future genuinely independent benchmark would still be required for claim promotion."
+    source: "RESULT-0030, TASK-1051, and Scientific Director 2026-07-16 cycle"
+    notes: "The 80-item exact-v2 calibration passed every frozen threshold and now needs independent Gate B replay. Its benchmark-authorship class is still not independent enough for confirmatory Gate C."

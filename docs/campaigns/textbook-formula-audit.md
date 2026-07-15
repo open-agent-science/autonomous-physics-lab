@@ -70,7 +70,10 @@ memory, not a discovery claim. Stellar high-mass transfer `RESULT-0024`
 now has formal workflow Gate B replay with zero metric drift and is
 `AGENT_VALIDATED`; it remains same-source DEBCat transfer evidence with
 small-holdout and stage/provenance caveats. The current blocker is external
-source readiness beyond DEBCat, not another model search.
+transfer execution beyond DEBCat, not another model search. The twelve CHARA
+component rows and four luminosity derivations now pass independent source
+replay with zero contested rows; the frozen relation has not yet been scored on
+that surface.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -135,18 +138,22 @@ source-limited. A separate dependence audit treats the seven Hyades/Melotte 25
 candidates, including the DEBCat-linked V818 Tau system, as one non-independent
 group and freezes a minimum five-effective-group gate.
 
-The second independent-validation path is prospective rather than archival.
-The Gaia DR4 mass-luminosity reveal contract is already specified, but no DR4
-value or target list has been read. One readiness packet now combines the
-official release/field trigger, target-independent functional payload, registry
-compatibility, and value-blind DEBCat leakage policy before any implementation
-task is split out.
+`TASK-1049` independently replayed all twelve CHARA rows, source locators,
+units, uncertainty meanings, component mappings, derivations, whole-system
+grouping, rights boundaries, and zero-DEBCat-overlap checks. Its verdict is
+`INDEPENDENT_SOURCE_REPLAY_PASS`; this validates the source surface, not the
+stellar relation.
 
-**Expected next outputs:** the CHARA lane should independently replay the twelve
-source rows and then score the already-frozen `RESULT-0022` relation and
-predeclared controls without refitting. The Gaia DR4 lane remains at a
-GO/HOLD/STOP readiness decision until same-component bolometric luminosities
-exist. Neither route currently authorizes a universal relation or reveal claim.
+The second independent-validation path is prospective rather than archival.
+The Gaia DR4 mass-luminosity reveal contract is specified, but no DR4 value or
+target list has been read. The official draft model defines component masses
+but not an admissible same-component bolometric-luminosity route, so the current
+readiness verdict is `HOLD_FIELDS_NOT_READY`.
+
+**Expected next outputs:** the CHARA lane should score the already-frozen
+`RESULT-0022` relation and predeclared controls without refitting. Gaia remains
+on hold until same-component bolometric luminosities exist. Neither route
+currently authorizes a universal relation or reveal claim.
 
 ## Why It Matters
 
@@ -299,9 +306,9 @@ FIRAS/Wien `RESULT-0023` is also `AGENT_VALIDATED`, but only as
 calibration/known-physics verifier memory. High-mass Stellar transfer
 `RESULT-0024` has replay memory with zero metric drift and a retained metadata
 caveat. The CHARA source path now has twelve source-traceable component rows
-across six systems plus a frozen dependence policy. The next work is an
-independent source replay followed by a fixed-relation, no-refit transfer score;
-the seven source-limited systems are not to be filled with inferred values.
+across six systems, a frozen dependence policy, and an independent source replay
+PASS. The next work is the fixed-relation, no-refit transfer score; the seven
+source-limited systems are not to be filled with inferred values.
 
 ## Cross-References
 

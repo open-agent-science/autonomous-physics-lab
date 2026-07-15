@@ -1,0 +1,62 @@
+id: TASK-1067
+title: "Synchronize public science surfaces after the July source and result wave"
+type: documentation
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This task changes public scientific wording and campaign routing; closeout must verify every tier, independence label, metric, blocker, and next-result path against canonical artifacts."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Merged CHARA, OQMD, CdSe, and dimensional-v2 work materially changed campaign readiness while several public pages still describe the pre-execution state."
+  - "The public dashboard also overstates validation independence for some same-owner/different-account replays and understates the canonical tier of RESULT-0025."
+  - "Existing pages should be corrected in place instead of adding another status digest."
+
+input:
+  mode: planning_only
+  related_domain: cross_domain_physics
+  related_objects:
+    - "docs/scientific-memory-review-tiers.md"
+    - "results/EXP-0006/RUN-0008/result.yaml"
+    - "docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md"
+    - "docs/reviews/stellar/chara-component-source-independent-replay-task1049.md"
+    - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/status.md"
+  planning_context: >
+    Update existing public and campaign surfaces to the exact merged state.
+    Preserve metrics and no-claim wording, keep task availability canonical,
+    and replace the stale agent-network status duplicate with stable pointers.
+
+requirements:
+  - "Correct review-tier and validation-independence wording against docs/scientific-memory-review-tiers.md; tier and independence are separate axes."
+  - "Record the merged CHARA independent source replay, bounded OQMD snapshot, RESULT-0030 calibration outcome, and CdSe UNCERTAINTY_BLOCKED stop without promoting any claim."
+  - "Update only existing README, status, mission, campaign, and profile surfaces that contain materially stale scientific state."
+  - "Keep public pages reader-facing: current evidence, blocker, next result path, and safe wording only; no executor checklists or internal agent instructions."
+  - "Turn docs/agent-network-status.md into a stable navigation hub rather than maintaining a second volatile task/campaign board."
+  - "Do not edit generated docs/task-views/*. Regenerate campaign_profiles/_catalog.yaml mechanically after profile changes because its sync test treats it as a checked derived artifact."
+  - "Do not change any RESULT/PRED/CLAIM/KNOW artifact, metric, verdict, source row, split, task availability outside TASK-1067, or publication tier."
+  - "Do not mention unrelated publication or promotional plans."
+
+accepted_outputs:
+  - "Corrected public dashboard, README/status/current-mission, campaign pages, and campaign profiles reflecting only merged scientific facts."
+  - "A stable agent-network navigation page that points to canonical mission/task/tier surfaces instead of duplicating their current contents."
+  - "A reviewable diff with no generated task-view edits, only mechanical campaign-catalog regeneration, and no scientific-memory mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Public truth synchronization only; no scientific result is created or promoted."
+  evidence:
+    - "docs/scientific-memory-review-tiers.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_docs_links.py tests/test_campaign_registry.py tests/test_campaign_curator.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

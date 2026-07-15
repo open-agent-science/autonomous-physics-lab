@@ -78,7 +78,7 @@ Reveal scoring remains blocked until a future source-grade no-peek release.
 
 ### NMD-0003 Retrospective Point-Estimator Card
 
-**Review tier:** `RESULT-0025` is `AGENT_PUBLISHED`; Gate B point metrics were
+**Review tier:** `RESULT-0025` is `AGENT_VALIDATED`; Gate B point metrics were
 independently replayed exactly.
 
 > On one frozen NMD-0003 residual surface, a single RBF Gaussian-process model on
@@ -93,7 +93,7 @@ independently replayed exactly.
 > later tier-1 prospective registry freezes point-only central values only; it
 > is not a reveal result, interval claim, or success verdict. It establishes no
 > nuclear-mass law, no broad mass formula, and no discovery; it is an
-> agent-published, independently replayed retrospective point-estimator result
+> AGENT_VALIDATED retrospective point-estimator result
 > plus a guarded point-only prediction-registration follow-up.
 
 **Replay bookkeeping:** the committed `RESULT-0025` package preserves the
@@ -202,13 +202,15 @@ It now has a Gate-B-validated exact-reference software/convention result and a
 first Stellar M-L empirical lane with committed DEBCat rows, stage/split/null
 controls, baseline-adequacy evidence, and an `AGENT_VALIDATED` scoped
 benchmark (`RESULT-0022`). FIRAS/Wien `RESULT-0023` is now an
-AGENT_VALIDATED spectral-domain self-consistency slice after independent Gate B
-replay, and Stellar high-mass transfer `RESULT-0024` is now an AGENT_VALIDATED
-bounded same-source transfer result after formal workflow Gate B replay.
+AGENT_VALIDATED spectral-domain self-consistency slice after Gate B replay,
+and Stellar high-mass transfer `RESULT-0024` is now an AGENT_VALIDATED bounded
+same-source transfer result after formal workflow Gate B replay. Their strongest
+recorded validation identity remains `same_owner_different_account`.
 
 **Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
 
-**Review tier:** `AGENT_VALIDATED`; Gate A and independent Gate B both pass.
+**Review tier:** `AGENT_VALIDATED`; Gate A and Gate B both pass. The strongest
+recorded validation independence is `same_owner_different_account`.
 
 > On a frozen, CC BY 4.0 DEBCat slice of 223 main-sequence-compatible binary
 > components spanning `0.5-2.0 M_sun`, the fixed `L proportional to M^3.5`
@@ -217,7 +219,7 @@ bounded same-source transfer result after formal workflow Gate B replay.
 > (`0.119925 dex`). The direction is stable across the committed controls and
 > three additional value-blind system-level splits, although the alternate-
 > split margin is modest. A two-segment fit is not justified after the
-> predeclared complexity penalty. This independently replayed result shows
+> predeclared complexity penalty. This Gate-B-replayed result shows
 > only that `alpha=3.5` is inadequate as the sole baseline on this frozen
 > slice; it does not falsify the textbook relation universally or establish a
 > universal mass-luminosity or stellar-evolution law.
@@ -225,7 +227,8 @@ bounded same-source transfer result after formal workflow Gate B replay.
 - **Source:** DEBCat detached eclipsing binaries (Southworth 2015), CC BY 4.0 by explicit grant (`data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml`); direct dynamical masses; raw `debs.dat` not committed (Route 2). Frozen main-sequence 0.5–2.0 Msun slice (223 components).
 - **Command:** `python3 -m physics_lab.cli run examples/stellar_ml_debcat_baseline_benchmark.yaml` (quick check: `python3 scripts/replay_stellar_ml_result.py --check`).
 - **Primary metric:** textbook single exponent α=3.5 holdout MAE **0.184954 dex** beats the per-mass-band null (0.331817) but is inadequate as the sole baseline — train-fitted α≈4.53 (**0.119925**) and piecewise α=4.0 (0.137608) are materially better (gaps 0.065 / 0.047 dex > 0.04 dex split-noise). Positive in 5/5 seeded splits; beats luminosity-shuffle controls.
-- **Review tier:** `AGENT_VALIDATED` (independently replayed; not maintainer-reviewed).
+- **Review tier:** `AGENT_VALIDATED` (Gate B replayed under
+  `same_owner_different_account`; not maintainer-reviewed).
 - **Gate A:** PASS (9/9). **Gate B:** PASS. Follow-up controls found the conclusion stable across a small alternate-split slate, while a piecewise baseline is not justified after complexity penalty.
 
 **Why it is interesting:** it is an accessible way for many agents to run
@@ -234,8 +237,9 @@ bounded, reviewable audits without claiming new laws.
 **Limitation:** no empirical textbook formula claim has been promoted. The
 formula tasks include exact-reference fixtures, Stellar M-L scoped benchmarks,
 and a FIRAS/Wien self-consistency slice, not universal validation or
-falsification. `RESULT-0022` and `RESULT-0023` are independently replayed but
-not maintainer-reviewed. `RESULT-0023` remains calibration/known-physics
+falsification. `RESULT-0022` and `RESULT-0023` have passed Gate B but retain
+`same_owner_different_account` validation identity and are not
+maintainer-reviewed. `RESULT-0023` remains calibration/known-physics
 verifier memory, not a discovery claim. `RESULT-0024` keeps a same-source
 DEBCat and small-holdout transfer boundary; the formal workflow replay removes
 the earlier helper blocker but does not make the evidence external to DEBCat.
@@ -285,27 +289,30 @@ deterministic null controls, and is split-robust. Band gap is weaker: it
 survived the first null-control audit only modestly, and later split-sensitivity
 found the ordering split-fragile. The wider MD-0002 formation-energy retest has
 now been packaged as `RESULT-0021`, an `AGENT_VALIDATED` computed-DFT
-benchmark that is regenerable end-to-end via `physics-lab run` and replayed
-independently in Gate B with zero numeric drift.
+benchmark that is regenerable end-to-end via `physics-lab run` and replayed in
+Gate B with zero numeric drift.
 
 **Result capsule — RESULT-0021 (Materials MD-0002 formation energy):**
 
 - **Source:** The Materials Project, CC BY 4.0, computed-DFT stable ternary-oxide slice (`data/materials/md-0002-materials-project-stable-ternary-oxides.yaml`), frozen 362-row holdout-split slice.
 - **Command:** `python3 -m physics_lab.cli run examples/materials_md0002_formation_energy_benchmark.yaml` (quick check: `python3 scripts/replay_materials_md0002_result.py --check`).
 - **Primary metric:** exact cation-pair mean baseline holdout MAE **0.200606 eV/atom** vs global-median null **0.506092** (60.4% lower); winner in 5/5 seeded splits; beats label-shuffle and cation-label-shuffle nulls.
-- **Review tier:** `AGENT_VALIDATED` (agent-published result independently replayed by a different agent; not maintainer-endorsed knowledge).
-- **Gate A:** PASS (9/9). **Gate B:** PASS on a Codex independent replay (42 numeric fields compared, max absolute drift 0.0; TASK-0775).
+- **Review tier:** `AGENT_VALIDATED` (Gate B replayed by a different agent under
+  `same_owner_different_account`; not maintainer-endorsed knowledge).
+- **Gate A:** PASS (9/9). **Gate B:** PASS on 42 compared numeric fields with
+  maximum absolute drift `0.0` (TASK-0775).
 
 **Why it is interesting:** this is the first concrete evidence trail showing
 APL can turn a published/open source into a provenance-rich benchmark dataset
-before modeling, regenerate the result deterministically for independent
-replay, and then preserve failed transfer as useful scope memory. It is a
+before modeling, regenerate the result deterministically for replay, and then
+preserve failed transfer as useful scope memory. It is a
 dataset/benchmark artifact, not a claim.
 
 **Limitation:** the rows are computed DFT values from Materials Project, not
 experimental measurements. This is not a material recommendation, synthesis
-guide, device claim, biomedical claim, promoted result, external dataset
-repository, DOI, or promoted materials claim.
+guide, device claim, biomedical claim, or promoted materials claim. The
+dataset is externally published at DOI `10.5281/zenodo.21207072`, but that
+citation does not broaden the result's scientific scope.
 
 **Evidence trail:**
 
@@ -373,13 +380,13 @@ mapping, property leakage, and family failures visible.
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can the frozen shell-axis mini-wave reach a clean post-registration source without weakening no-peek discipline? | `RESULT-0025` has exact replayed point-estimator improvement; intervals remain uncalibrated; point-only PRED entries are frozen; `TASK-1023` stopped after target-bearing search snippets compromised that scout session. | One clean independent retry through direct official metadata only; no target matching or early scoring. | A source-manifest readiness or durable no-peek blocker verdict, not a reveal score. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_VALIDATED negative/control memory with fair-null transparency. | Monitor-only trigger discipline. | A source-version/coverage trigger verdict, not a residual score. |
 | FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, `PRED-0001` was registered as a 479-source point-score/rank prediction, the full anchor is sealed by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`, and `TASK-1024` completed a reduced rights-bounded capsule without external upload. | Keep any reduced-capsule publication maintainer-only; activate reveal-source work only on a concrete official release signal. | An optional citable reduced checksum anchor or a later trigger-based reveal-source decision; no current success verdict. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can the pinned Kim-2020 CdSe source support deterministic factual-row extraction without reopening model search? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP no-refit miss as INCONCLUSIVE control memory; Kim-2020 now has a frozen contract for exactly twelve future size/absorption/emission observations, but no values or metrics. | Extract and independently reconcile only those twelve observations under the frozen uncertainty and anisotropy rules. | A source-traceable row surface or bounded blocker, not a CdSe size-law result. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Can the Kim-2020 article support a distinct text-reported CdSe peak route after the frozen digitization contract stopped? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP miss; TASK-1052 produced repeatable optical x coordinates, but all eight optical rows remain excluded because Figure 3(a) has no numeric y ticks required by the contract. | Preserve `UNCERTAINTY_BLOCKED`; adjudicate the text-reported peak provenance separately. | A source-route GO/STOP decision, not a CdSe size-law result. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What future source event would justify reopening the two-row `171Yb/87Sr` surface? | Beloy and Nemitz support a narrow no-tension memory card; other routes are blocked or isotope-mismatched; the multi-species route returned `KEEP_MONITOR_ONLY`. | Follow the ratified reopen-trigger ledger; no standing executor task or metric rerun. | A future trigger decision, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can CHARA or a prospective Gaia DR4 route provide a cleaner external stellar transfer surface? | Four results are AGENT_VALIDATED; CHARA now has twelve source-traceable component rows across six systems and a frozen dependence policy, while seven systems remain source-limited. Gaia DR4 component masses still lack same-component bolometric luminosities. | Independently replay the CHARA rows, then score the frozen RESULT-0022 relation and controls without refitting; keep Gaia at GO/HOLD/STOP readiness. | A bounded external transfer result or honest negative, not universal stellar-law wording. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can a bounded OQMD snapshot provide a genuinely separate computed-DFT transfer surface? | `MD-0002` is `AGENT_VALIDATED` as `RESULT-0021` and externally citable; the OQMD preflight now pins CC BY rights, semantics, dated API identity, a 2,000-row cap, and conservative MD-0002 overlap/no-peek rules. | Acquire and hash-pin the bounded OQMD source surface without split or metrics. | A snapshot-readiness verdict, not a cross-database benchmark or material recommendation. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can CHARA or a prospective Gaia DR4 route provide a cleaner external stellar transfer surface? | Four results are AGENT_VALIDATED; all twelve CHARA rows across six systems passed independent source replay, while seven systems remain source-limited. Gaia DR4 component masses still lack same-component bolometric luminosities. | Score the frozen RESULT-0022 relation and controls on CHARA without refitting; keep Gaia on HOLD. | A bounded external transfer result or honest negative, not universal stellar-law wording. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can a bounded OQMD snapshot support a separate within-source computed-DFT benchmark? | `MD-0002` is AGENT_VALIDATED as `RESULT-0021` and externally citable; OQMD now has 172 normalized rows after 201 conservative MD-0002 composition exclusions from 373 raw rows. | Freeze the identifier-only grouped split and value-blind controls; independently replay source semantics before metrics. | Split/contract/source readiness, not a cross-database claim or material recommendation. |
 | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can a frozen published thermophysical estimator survive source-pinned family-stratified controls? | ThermoML `Tb` `RESULT-0026` is AGENT_VALIDATED on a bounded 40-row fixture; `RESULT-0028` preserves the esters/lactones failure, and the exact-80 count preflight found acids at 6/10 and ketones at 8/10. | Monitor only; preserve the fixed-contract stop and avoid threshold lowering. | A new-source or independently motivated contract decision, not an exact-80 retry. |
 | Lattice-QCD Aggregated Consistency | Can one convention-stable observable support an auditable dependency graph that adds value beyond FLAG? | The incubator selected `f_K/f_pi` and returned GO for a bounded source/dependency audit; no primary-source central value, metric, result, or claim has been admitted. | Build an 8-12-publication metadata and dependency pilot without extracting values. | Source/dependency readiness, a covariance hold, or STOP; no Lattice-QCD physics claim. |
-| [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Can label-blind dimensional inference clear an honestly fresh benchmark without policy-equivalence credit? | Historical 50/74 surfaces remain reproducible calibration memory; an 80-item exact-v2 surface is now frozen but limited to same-owner role-disjoint calibration use. | Blind-score the 80 frozen items once without changing rows, labels, thresholds, or engine semantics. | A calibration-only result; no `CLAIM-0005` promotion from this surface. |
+| [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Can label-blind dimensional inference remain exactly reproducible on the frozen v2 calibration surface? | AGENT_PUBLISHED `RESULT-0030` scored 80/80 exact agreement, 100% VALID/INVALID recall, and 0% INCONCLUSIVE under the same-owner role limit. | Independent Gate B replay with no row, label, threshold, engine, metric, or scope change. | AGENT_VALIDATED calibration memory if replay passes; no `CLAIM-0005` promotion from this surface. |
 
 ## What Is Interesting Right Now
 
@@ -470,22 +477,23 @@ Why it matters:
   checksum-pinned and license-confirmed; six direct rows and a source-scoped
   sandbox baseline exist. ZnSe/Toufanian rows are frozen as limited factual
   extracts, and `RESULT-0029` packages the strict no-refit transfer miss as
-  bounded inconclusive/control memory rather than a new benchmark claim.
+  bounded inconclusive/control memory. Kim-2020 produced repeatable optical x
+  coordinates but stopped at its frozen two-axis calibration gate; no CdSe row
+  was admitted.
 - Atomic has Beloy and Nemitz Yb/Sr rows and a first exploratory cross-source
   diagnostic preserved as a source-limited consistency-memory card. Pizzocaro
   still needs an aggregation/observable-harmonization contract; McGrew/NIST is
   blocked as not a direct independent Yb/Sr route.
 
-Next visible artifact: an Atomic multi-species go/no-go / source-blocker memory
-card, plus only a future Quantum source-readiness proposal if a genuinely new
-direct surface appears.
+Next visible artifact: a future Atomic trigger decision or a bounded Quantum
+text-reported source-route adjudication; neither is a physics result.
 
 ### Textbook Formula Audit As A Public Entry Surface
 
 Textbook Formula Audit is the most accessible future campaign for new
 contributors: each task can audit one famous formula in one source-pinned
-range. The exact-reference fixture lane has one AGENT_VALIDATED result and one
-AGENT_PUBLISHED replay-ready FIRAS/Wien result. The first empirical slice is
+range. The exact-reference fixture lane and FIRAS/Wien result are
+AGENT_VALIDATED. The first empirical slice is
 Stellar Mass-Luminosity through DEBCat direct dynamical masses; it now has
 stage/split/null controls, baseline-adequacy evidence, the full committed
 DEBCat dataset, AGENT_VALIDATED `RESULT-0022`, AGENT_VALIDATED `RESULT-0023`
@@ -498,8 +506,8 @@ Why it matters:
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Next visible artifact: source-readiness and de-duplication for a possible
-independent Stellar M-L holdout; no universal formula claim.
+Next visible artifact: the no-refit CHARA transfer on the independently
+source-replayed twelve-row surface; no universal formula claim.
 
 ### Materials Dataset-To-Benchmark Path
 

@@ -52,26 +52,31 @@ challenge surface:
   `VALID`, `INVALID`, `SUSPICIOUS`, and `KNOWN_LIMIT_FAIL`.
 - Known-limit and semantic-suspicion cases remain explicit MVP limitations:
   dimensional consistency is not full physical correctness.
+- `EXP-0006/RUN-0008` produced AGENT_PUBLISHED `RESULT-0030` on the frozen
+  exact-v2 calibration surface: **80/80 exact agreement**, **100% VALID
+  recall**, **100% INVALID recall**, and **0% INCONCLUSIVE**. Gate A passed;
+  Gate B has not yet been attempted.
 
 Current campaign state in one sentence:
 
-The validator has a frozen `LEGACY_UNTIERED` MVP result, a newer
-`AGENT_VALIDATED` calibration result, and an unscored 80-item exact-v2 surface.
-Because that surface is same-owner role-disjoint, its next score is
-calibration-only and cannot promote `CLAIM-0005`.
+The validator has a frozen `LEGACY_UNTIERED` MVP result, AGENT_VALIDATED
+historical calibration memory, and AGENT_PUBLISHED `RESULT-0030` on the 80-item
+exact-v2 surface. Because benchmark authorship is same-owner role-disjoint, the
+new result remains calibration-only and cannot promote `CLAIM-0005`.
 
 Start here:
 
 - [Dimensional Analysis Validator MVP summary](../results/dimensional-analysis-validator-summary.md)
 - [RESULT-0007 report](../../results/EXP-0006/RUN-0006/report.md)
 - [RESULT-0020 report](../../results/EXP-0006/RUN-0007/report.md)
+- [RESULT-0030 report](../../results/EXP-0006/RUN-0008/report.md)
 - [Dimensional Analysis Challenge Set](../notes/dimensional-analysis-challenge-set.md)
 - [Reproducibility capsule](../reproducibility-capsules.md#result-0007--dimensional-analysis-validator-mvp)
 
 ## Open Questions
 
-- Can a role-disjoint fresh benchmark sustain the predeclared exact-agreement
-  threshold once inference is isolated from labels and curated policy metadata?
+- Can an independent human Gate B replay reproduce all RESULT-0030 metrics and
+  verification fields exactly?
 - Which known-limit checks belong in the next benchmark version, and which
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
@@ -93,10 +98,11 @@ Start here:
   the historical 50/74 surfaces as regression/calibration memory.
 - `TASK-1039` froze 80 v2 items without running the validator and returned
   `CALIBRATION_ONLY_ROLE_LIMIT` because curation was same-owner role-disjoint.
-- `TASK-1051` is the next scientific gate: score those 80 frozen items once
-  under the exact-agreement and class-recall thresholds, with no row, label,
-  threshold, or engine changes.
-- The resulting evidence remains calibration-only. A genuinely independent
+- `TASK-1051` scored the 80 frozen items once and published `RESULT-0030` after
+  all exact-agreement, class-recall, and inconclusive-rate gates passed.
+- The next trust gate is an independent-human replay with no row, label,
+  threshold, engine, metric, or scope change.
+- The evidence remains calibration-only. A genuinely independent
   future surface is still required for confirmatory `CLAIM-0005` review.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.

@@ -25,9 +25,12 @@ lead, and the Kim et al. 2020 version-of-record, CC BY 4.0 reuse boundary,
 figure/sample inventory, morphology semantics, and deterministic extraction
 contract are now pinned. The contract admits exactly twelve future observations:
 four size summaries, four absorption peaks, and four emission peaks, with two
-independent digitization passes. It has not admitted values or metrics. The
-campaign is therefore **source/negative-memory gated**, not authorized for
-autonomous correction search or cross-material claims.
+independent digitization passes. `TASK-1052` executed that contract: the two
+passes agreed on optical x coordinates, but Figure 3(a) has no numeric y ticks,
+so the frozen two-axis calibration gate failed and all eight optical rows remain
+excluded. The verdict is `UNCERTAINTY_BLOCKED`; no `qd-*.yaml` row or metric was
+admitted. The campaign is therefore **source/negative-memory gated**, not
+authorized for autonomous correction search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
@@ -61,12 +64,12 @@ rows, equivalent-diameter size harmonization, fixed confinement-energy model,
 controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
-memory. Useful work is limited to preserving `RESULT-0029` as validated
-inconclusive/control memory and extracting the twelve predeclared Kim-2020 CdSe
-observations under the frozen text-versus-digitized, optical-axis, uncertainty,
-anisotropy, and two-pass reconciliation rules. No benchmark metric, correction
+memory. Preserve `TASK-1052` as failed-contract memory: do not weaken the y-axis
+gate or admit its excluded digitization rows retroactively. A separate stop/go
+decision may ask whether the article's text-reported absorption and emission
+peaks form a distinct factual provenance class. No benchmark metric, correction
 search, replay loop, or repeat transfer on the same ZnSe/InP surface is
-authorized during extraction.
+authorized.
 
 ## Historical Source-Readiness Trail
 
@@ -332,6 +335,10 @@ Current evidence is source-scoped and sandbox-only:
 - `TASK-0850` found that fixed effective-mass scaling does not rescue the
   current cross-material transfer path; treat that as negative/control memory
   unless a later source-gated task changes the surface.
+- `TASK-1052` transcribed four HRTEM summaries and produced repeatable two-pass
+  optical x coordinates, but returned `UNCERTAINTY_BLOCKED` because the frozen
+  contract required numeric y ticks absent from Figure 3(a). All eight optical
+  rows remain excluded.
 
 Historical context:
 
@@ -344,8 +351,9 @@ Historical context:
 - Is the six-row, one-holdout Almeida InP baseline sufficient for any bounded
   follow-up, or should it remain review-only until a license-clear independent
   material/source holdout exists?
-- Which exact ZnSe/Toufanian factual rows are admissible and frozen enough for
-  a future transfer benchmark?
+- Can the Kim-2020 body-text optical peak statements form a distinct,
+  sample-resolved provenance route without changing the failed digitization
+  contract?
 - Which visualization or tabular summary would help reviewers inspect the
   baseline without implying a design law?
 - How should absorption-versus-emission and bandgap semantics be separated in

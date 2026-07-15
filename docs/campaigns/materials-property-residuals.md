@@ -55,9 +55,12 @@ been created.
 now completed the OQMD preflight. It confirmed CC BY 4.0 source rights, pinned
 property/unit semantics, and defined a dated live-API snapshot policy with a
 2,000-row cap plus conservative MD-0002 composition overlap and no-peek rules.
-No OQMD scientific row or metric has been admitted yet. The next useful
-artifact is a bounded, hash-pinned OQMD source snapshot; split design and
-cross-database scoring remain later gates.
+`TASK-1042` then acquired 373 dated live-API rows and excluded 201 whose reduced
+composition overlaps MD-0002, leaving a hash-pinned 172-row normalized OQMD
+surface. No split, target summary, metric, or `RESULT` was created. The next
+useful artifacts are an identifier-only grouped split, value-blind within-OQMD
+controls, and independent source replay; cross-database numeric pooling remains
+forbidden.
 
 ## Public Monitoring Snapshot
 
@@ -216,13 +219,15 @@ sandbox-pass formation-energy benchmark package at
 materials claim.
 The numbered path below is now:
 
-1. **TASK-0937: Post-release integrity memory** — verify and preserve the
-   Zenodo DOI, release tag, archive checksum, license/attribution, and no-claim
-   wording; do not rebuild the archive unless a future versioned release
-   explicitly refreshes the allowlist and pins.
-2. **Post-transfer stop/go memory** — preserve the disjoint-family transfer
-   failure as scope memory; do not rerun broad feature factories or convert the
-   cation-pair advantage into material-design wording.
+1. **MD-0002 trust path** — run the reserved independent-human replay or a
+   genuinely external clean-room replication from the public release; do not
+   rebuild the archive or broaden the result scope.
+2. **OQMD readiness path** — freeze the identity-only grouped split and
+   within-source baseline/control contract on disjoint surfaces, then replay
+   source semantics independently before one bounded metric task.
+3. **Stop boundary** — preserve transfer failures and sparse-family limits;
+   do not pool OQMD and Materials Project values, run broad feature factories,
+   or convert a cation-pair advantage into material-design wording.
 
 ## Why It Matters
 
