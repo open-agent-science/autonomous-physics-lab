@@ -33,9 +33,9 @@ The priority script rows to inspect first are:
 - `scripts/apl_campaign_curator.py`
 - `scripts/apl_microtask_pr_helper.py`
 
-Shell scripts such as `scripts/apl_snapshot.sh` and
-`scripts/apl_review_bundle.sh` are excluded from Python coverage and should be
-covered by targeted smoke or text-regression tests where useful.
+Shell scripts such as `scripts/apl_snapshot.sh` are excluded from Python
+coverage and should be covered by targeted smoke or text-regression tests where
+useful.
 
 ## Measured Baseline
 

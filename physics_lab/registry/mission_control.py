@@ -965,7 +965,7 @@ Start in Agent First Research Mode.
 4. Recommended mission now: {mission_title}.
 5. Recommended action now: {action_label}.
 6. {task_instruction}
-7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve all meaningful outcomes including negative and inconclusive results, update sandbox/review artifacts, route the final output through `docs/result-promotion-protocol.md`, run validation, generate a review bundle, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
+7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve all meaningful outcomes including negative and inconclusive results, update sandbox/review artifacts, route the final output through `docs/result-promotion-protocol.md`, run validation, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
 7a. Missing `gh`, missing GitHub auth, or restricted network access is not a reason to stop before editing files. At the end, try repository helpers, available GitHub/MCP tools, or GitHub CLI; if a needed command is blocked by permissions, request permission/escalation for that command before falling back to exact maintainer-run commands for `git push`, `gh pr create`, PR-number review, and `gh pr ready`.
 8. In the final output-routing summary, state the verdict, canonical destination, review tier if any, Gate A/B status if any, limitations, and blockers.
 9. Keep outputs sandbox-only unless a canonical task explicitly allows AGENT_PUBLISHED or AGENT_VALIDATED RESULT/PRED artifacts and the required gate passes.

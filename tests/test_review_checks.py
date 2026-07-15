@@ -156,7 +156,7 @@ def test_cross_platform_flags_hardcoded_python3_executable() -> None:
 
 
 def test_cross_platform_flags_direct_shell_script_invocation() -> None:
-    hits = cross_platform_advisory_hits(('    run(["./scripts/apl_review_bundle.sh"])',))
+    hits = cross_platform_advisory_hits(('    run(["./scripts/apl_snapshot.sh"])',))
     assert any("cross-platform (Python) entrypoint" in hit for hit in hits)
 
 

@@ -1,0 +1,62 @@
+id: TASK-1059
+title: "Remove obsolete Review Bundle workflow"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Use exact-SHA GitHub PR review as the single canonical post-PR review path."
+  - "Remove duplicated local full-diff snapshots that add workflow, documentation, disk, and token overhead without strengthening review integrity."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "scripts/apl_review_pr.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/ops/pr_helpers/microtask_pr_helper.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Review bundles predate the exact-head PR-number review path. The bundle is
+    an ignored local Markdown copy of git status, commit list, and full diff;
+    it is not consumed by CI, does not pin head/base SHAs, and is redundant now
+    that public PR metadata fallback, refs/pull exact-SHA verification, and
+    detached review worktrees are available. The public repository does not
+    use an offline review-bundle handoff lane.
+
+requirements:
+  - "Delete the Review Bundle generator module, Python entrypoint, shell wrapper, and dedicated tests."
+  - "Remove bundle discovery, auto-generation, blockers, warnings, and branch-header validation from maintainer review and microtask preflight."
+  - "Remove Review Bundle commands and instructions from active contributor, agent, maintainer, mission-control, template, and architecture documentation."
+  - "Keep apl_review_pr.py --branch for pre-PR review and apl_review_pr.py --pr N for canonical exact-SHA post-PR review."
+  - "Do not add a replacement metadata, cache, snapshot, or generated review file."
+  - "Preserve tasks/archive/** and dated historical review records as provenance; they are not active workflow instructions."
+  - "Do not weaken CI, security, rights, licensing, scientific-content, Gate A, or Gate B review."
+
+accepted_outputs:
+  - "Removal of scripts/apl_review_bundle.py and scripts/apl_review_bundle.sh."
+  - "Removal of physics_lab/registry/review_bundle.py and tests/test_review_bundle.py."
+  - "Maintainer and PR helpers with no Review Bundle dependency."
+  - "Active project documentation with no Review Bundle workflow instructions."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer workflow cleanup only; no scientific artifact is produced or modified."
+  evidence:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/ops/pr_helpers/microtask_pr_helper.py"
+    - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py physics_lab/ops/pr_helpers/microtask_pr_helper.py physics_lab/ops/pr_helpers/task_pr_helper.py tests/test_maintainer_review.py tests/test_microtask_pr_helper.py tests/test_task_pr_helper.py tests/test_review_checks.py"
+    - "python3 -m pytest -n0 tests/test_maintainer_review.py tests/test_microtask_pr_helper.py tests/test_task_pr_helper.py tests/test_review_checks.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

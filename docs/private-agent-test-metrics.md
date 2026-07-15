@@ -20,7 +20,7 @@ The metrics are workflow-quality gates, not marketing claims.
 - PRs with canonical title format
 - PRs with complete Agent / Contributor Metadata
 - PRs linked to an existing task, proposal, queue, or closeout lane
-- PRs with review bundle generated from the PR branch
+- PRs with exact-SHA PR-number review completed before merge
 - PRs requiring protocol-only rework
 - direct pushes to `main`
 
@@ -75,4 +75,3 @@ When preparing a public-readiness decision, summarize:
 - number of review-helper catches
 - number of claim-promotion attempts blocked
 - remaining blockers before public opening
-

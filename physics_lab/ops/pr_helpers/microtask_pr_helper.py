@@ -10,8 +10,6 @@ from physics_lab.registry.maintainer_review import (
     MICROTASK_BRANCH_PATTERN,
     MICROTASK_PR_TITLE_PATTERN,
     branch_microtask_queue_id,
-    latest_review_bundle,
-    review_bundle_branch,
 )
 from physics_lab.registry.review_policy import normalize_contributor_id
 
@@ -125,7 +123,6 @@ def microtask_pr_body(
             "- [ ] `./scripts/validate_quick.sh`",
             "- [ ] `python3 -m physics_lab.cli validate-repo .`",
             "- [ ] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`",
-            "- [ ] `./scripts/apl_review_bundle.sh`",
             "",
             "Note: agents do not commit regenerated `docs/task-views/*.md`",
             "from microtask PRs; the `Sync Active Board` post-merge GitHub",
@@ -202,15 +199,6 @@ def preflight_microtask_pr(
     if placeholders:
         errors.append(
             "PR body still contains placeholder text: " + ", ".join(placeholders) + "."
-        )
-
-    if "./scripts/apl_review_bundle.sh" not in body_text and "apl_review_bundle.sh" not in body_text:
-        warnings.append("PR body does not remind the contributor to run ./scripts/apl_review_bundle.sh.")
-
-    bundle = latest_review_bundle(root, branch)
-    if bundle is None or review_bundle_branch(bundle) != branch:
-        warnings.append(
-            "No valid review bundle found for this branch yet. Run ./scripts/apl_review_bundle.sh before requesting maintainer review."
         )
 
     return MicrotaskPreflightReport(errors=tuple(errors), warnings=tuple(warnings))

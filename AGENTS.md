@@ -630,13 +630,6 @@ Maintainer review and task closeout may be assisted by a maintainer-run review
 agent, but that agent must not auto-merge PRs, promote claims, or mark tasks
 `DONE` before maintainer review and merge.
 
-After committing, agents may optionally generate a review bundle (a full
-diff-vs-`main` snapshot for the maintainer). It is not a required PR step:
-
-```bash
-./scripts/apl_review_bundle.sh
-```
-
 ## Testing Rules
 
 Add tests for:

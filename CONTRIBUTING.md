@@ -43,7 +43,6 @@ Task proposal PRs may use the lighter validation path from
 ```bash
 ./scripts/validate_quick.sh
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
-./scripts/apl_review_bundle.sh
 ```
 
 For larger milestones, schema changes, roadmap updates, or public-release

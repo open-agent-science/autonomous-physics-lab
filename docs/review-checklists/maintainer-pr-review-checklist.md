@@ -20,7 +20,7 @@ Use this checklist during pre-merge maintainer review.
 - PR Contributor ID metadata matches the contributor segment in the branch.
 - PR title follows `TASK-XXXX: ...`.
 - PR metadata block is filled in.
-- Review bundle was generated from the PR branch, not `main`.
+- PR-number review resolves and validates the exact PR head SHA.
 
 ## Accepted Outputs
 

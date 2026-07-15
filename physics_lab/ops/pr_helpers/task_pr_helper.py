@@ -389,7 +389,7 @@ def task_pr_body(
             "",
             "## Maintainer Review Notes",
             "",
-            "- Review the validation commands and generated review bundle before merge.",
+            "- Review the validation commands and exact-SHA PR diff before merge.",
             "- Keep any task status transition at REVIEW_READY until maintainer closeout.",
             "",
         ]
@@ -463,9 +463,6 @@ def preflight_task_pr(
         except (FileNotFoundError, ValueError) as exc:
             errors.append(str(exc))
 
-    # The review bundle is optional, not a mandatory PR step (see TASK-0466, F5),
-    # so its absence is no longer flagged. scripts/apl_review_bundle.sh remains
-    # available for maintainers who want a full diff snapshot.
     if STRICT_VALIDATE_REPO_PATTERN.search(body_text) is None:
         warnings.append("PR body does not mention strict repository validation.")
 
