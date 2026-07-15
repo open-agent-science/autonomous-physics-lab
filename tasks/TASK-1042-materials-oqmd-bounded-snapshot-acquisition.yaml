@@ -1,7 +1,7 @@
 id: TASK-1042
 title: "Acquire and freeze a bounded OQMD live-API snapshot under the approved overlap and no-peek contract"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task admits a second materials source surface; closeout must verify API identity, raw/normalized hashes, row cap, computed-property semantics, overlap exclusions, and no target-based selection."
 difficulty: medium
