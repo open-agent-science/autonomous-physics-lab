@@ -1686,10 +1686,10 @@ missions:
         label: "Blind-score the frozen 80-item dimensional v2 calibration surface"
         task_id: TASK-1051
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "one deterministic score under frozen exact-agreement and class-recall thresholds"
           - "CALIBRATION_ONLY_ROLE_LIMIT preserved in result routing"
