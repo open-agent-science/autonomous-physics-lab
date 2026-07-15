@@ -1,0 +1,61 @@
+id: TASK-1064
+title: "Decide the Kim-2020 CdSe text-reported optical-peak route after the digitization stop"
+type: scientific_source_adjudication
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether a distinct text-reported peak provenance class is scientifically admissible after the frozen digitization contract stopped; closeout must prevent retroactive rescue of excluded rows."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1052 achieved repeatable x-coordinate digitization but correctly excluded all optical rows because Figure 3(a) lacks the numeric y ticks required by its frozen two-axis contract."
+  - "The article body independently reports sample-level optical peak positions, creating a potentially valid source route that was not adjudicated by the digitization contract."
+  - "A separate provenance decision is more honest than silently weakening TASK-1043 or abandoning a source that may contain direct text-stated values."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
+    - "docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/extraction_contract.yaml"
+    - "data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    Adjudicate, without model fitting or benchmark scoring, whether the source's
+    body-text optical peak statements can form a new text_stated_summary route.
+    Preserve the failed digitization contract and excluded optical rows exactly
+    as historical blocker memory.
+
+requirements:
+  - "Treat TASK-1043 and TASK-1052 as immutable history: do not change their axis-anchor rule, excluded-row status, verdict, tolerances, ledger values, or no-publication conclusion."
+  - "Pin the exact body-text locators, sample-to-statement mapping, optical quantity names, units, rounding precision, absorption/emission distinction, and whether every one of the four samples has an unambiguous text-reported value for both required optical axes."
+  - "Decide whether text-stated optical peaks are a distinct admissible factual provenance class; do not use agreement with the excluded digitization coordinates as the admission criterion."
+  - "Predeclare any future row schema, rounding-derived uncertainty floor, missing-instrument-uncertainty wording, morphology limitation, and cross-check policy before authorizing a separate extraction task."
+  - "Return GO_TEXT_REPORTED_PEAK_ROUTE only if all eight optical statements are source-locatable, sample-resolved, semantically unambiguous, and rights-compatible. Otherwise return STOP_SOURCE_INCOMPLETE, STOP_SEMANTICS_AMBIGUOUS, or STOP_RIGHTS_BLOCKED."
+  - "Do not create qd-*.yaml rows, copy the excluded digitized values, fit a size-energy relation, calculate residuals, change RESULT-0029, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "Any later extraction must be a new canonical task with a fresh contract; it may use text statements as primary values and digitization only as a labelled non-admission cross-check."
+  - "No-claim wording: this decision concerns source provenance for four CdSe samples only; it is not a quantum-confinement benchmark, band-gap result, or materials-design conclusion."
+
+accepted_outputs:
+  - "A concise docs/reviews/quantum/ stop/go note with exact source locators, sample/axis completeness, provenance decision, uncertainty and morphology boundaries, rights, limitations, and one bounded verdict."
+  - "If GO, a planning-only machine-readable text-route contract with zero measurement rows and a clearly named future extraction task shape; if STOP, durable blocker memory and no follow-up task recommendation."
+  - "Output-routing summary: source-adjudication only; no metric, result, claim, prediction, or knowledge impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Source/provenance stop-go decision only; value extraction and metrics remain separate tasks."
+  evidence:
+    - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_quantum_size_effects.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

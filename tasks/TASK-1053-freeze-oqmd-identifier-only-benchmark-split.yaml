@@ -1,7 +1,7 @@
 id: TASK-1053
 title: "Freeze an identifier-only OQMD benchmark split without target inspection"
 type: benchmark_planning
-status: BLOCKED
+status: READY
 closeout: review
 closeout_review_reason: "This task creates the no-peek partition for a second-source materials benchmark; closeout must verify the TASK-1042 source outcome, identity grouping, row floors, checksums, and no-target-access declaration."
 difficulty: medium
@@ -25,7 +25,7 @@ input:
     train/validation/holdout partition.
 
 requirements:
-  - "Blocked-by: merged TASK-1042 with verdict SNAPSHOT_READY_FOR_SPLIT_FREEZE and canonical raw/normalized hashes. Keep this task BLOCKED until that condition is recorded on main."
+  - "Prerequisite satisfied on main: TASK-1042 returned SNAPSHOT_READY_FOR_SPLIT_FREEZE with canonical raw and normalized hashes. Reverify those hashes before assigning the split."
   - "Use only stable entry id, reduced composition, space-group identity, and source manifest fields while assigning groups and partitions; do not inspect delta_e, band_gap, target missingness summaries, or residuals."
   - "Keep every reduced-composition group atomic. Record whether space-group variants share a group and prevent any composition leakage across partitions."
   - "Freeze a deterministic 70/15/15 target allocation from a documented hash/ordering rule, with at least 24 rows in the final holdout and explicit deviation rules for atomic groups."
