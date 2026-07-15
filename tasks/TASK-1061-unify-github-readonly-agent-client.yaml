@@ -1,0 +1,62 @@
+id: TASK-1061
+title: "Unify read-only GitHub availability for agent tools"
+type: tooling_fix
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent parallel agents from selecting a READY task that already has an open implementation PR when local gh GraphQL access fails."
+  - "Keep GitHub coordination dynamic and read-only without adding a committed or cross-run availability cache."
+  - "Consolidate registry-to-operations metadata access behind one cross-platform boundary before the external-agent-network milestone."
+
+input:
+  mode: workflow
+  related_domain: agent_coordination
+  related_objects:
+    - "physics_lab/registry/github_readonly.py"
+    - "physics_lab/registry/mission_control.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_task_occupancy.py"
+  planning_context: >
+    Mission onboarding offered TASK-1049 while PR #1579 was already open
+    because its gh GraphQL availability query returned HTTP 401 and it discarded
+    live occupancy. Maintainer review already had a separate public REST
+    fallback. Use one bounded client for both paths and the task-occupancy helper,
+    preserving conservative partial and offline behavior.
+
+requirements:
+  - "Use authenticated gh reads first and fixed public REST endpoints for open-agent-science/autonomous-physics-lab as the credential-free fallback."
+  - "Keep public response caching in memory and scoped to one client/process; do not create a committed, checkout-local, or cross-agent cache file."
+  - "Surface low or exhausted unauthenticated rate limits and degrade softly without discarding already confirmed PR or claim occupancy."
+  - "Keep maintainer PR review exact-head and fail-closed for incomplete detail, more than 100 changed files, incomplete checks, rate limiting, or ref mismatch."
+  - "Use pathlib, discovered executable paths, argument-list subprocesses with shell disabled, standard-library HTTP, bounded timeouts, and UTF-8 JSON so Linux, macOS, and Windows agents share one path."
+  - "Do not change task classification, claim semantics, PR policy, scientific gates, branch-only review, or GitHub write behavior."
+
+accepted_outputs:
+  - "One shared read-only GitHub client used by mission availability, task occupancy, and maintainer PR metadata."
+  - "Public REST list fallback that excludes confirmed open or merged-pending-closeout task PRs when gh authentication is unavailable."
+  - "Process-local cache, rate-limit diagnostics, bounded REST detail, and partial-availability behavior."
+  - "Regression coverage for HTTP 401 fallback, no auth retry, cache isolation, partial evidence retention, and cross-platform subprocess construction."
+  - "Updated agent task, claiming, and maintainer-review documentation."
+
+result_artifact_policy:
+  required: false
+  reason: "Agent coordination tooling only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/github_readonly.py"
+    - "tests/test_github_readonly.py"
+    - "tests/test_mission_control.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/github_readonly.py physics_lab/registry/mission_control.py physics_lab/registry/maintainer_review.py scripts/apl_task_occupancy.py tests/test_github_readonly.py tests/test_mission_control.py tests/test_task_claiming.py tests/test_maintainer_review.py"
+    - "python3 -m pytest -n0 tests/test_github_readonly.py tests/test_mission_control.py tests/test_task_claiming.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -4,17 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-import json
 import os
 from pathlib import Path
 import re
 import sys
-import time
 from typing import Any
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 import yaml
 
+from physics_lab.registry.github_readonly import GitHubReadOnlyClient
 from physics_lab.registry.review_git import (
     CommandResult,  # noqa: F401 — re-exported for backwards compatibility
     run_command,
@@ -33,7 +30,6 @@ from physics_lab.registry.review_worktree_gc import (
 )
 from physics_lab.registry.repo_python import resolve_validation_python
 from physics_lab.registry.generated_state import sync_generated_task_state
-from physics_lab.registry.pr_capability import find_gh_path
 from physics_lab.registry.task_discovery import find_task_files, task_id_from_path
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
@@ -111,13 +107,6 @@ PROPOSAL_TRIAGE_BODY_MARKERS = (
 )
 DEFAULT_REVIEW_VALIDATION_TIMEOUT_SECONDS = 300
 VALIDATION_OUTPUT_EXCERPT_CHARS = 500
-CANONICAL_GITHUB_REPOSITORY = "open-agent-science/autonomous-physics-lab"
-PUBLIC_GITHUB_API_ROOT = "https://api.github.com"
-PUBLIC_GITHUB_API_VERSION = "2026-03-10"
-PUBLIC_GITHUB_RESPONSE_LIMIT_BYTES = 4_000_000
-PUBLIC_GITHUB_MAX_CHANGED_FILES = 100
-PR_METADATA_GH_ATTEMPTS = 2
-PR_METADATA_RETRY_SECONDS = 0.5
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
@@ -898,262 +887,23 @@ def run_task_validation(
     )
 
 
-def _metadata_diagnostic_excerpt(value: str) -> str:
-    """Return a bounded single-line diagnostic without echoing command input."""
-    return " ".join(value.strip().split())[:240]
-
-
-def _gh_metadata_failure_is_retryable(result: CommandResult) -> bool:
-    """Return whether another bounded ``gh pr view`` attempt may help."""
-    if result.timed_out:
-        return True
-    combined = f"{result.stdout}\n{result.stderr}".lower()
-    permanent_markers = (
-        "401",
-        "authentication",
-        "auth login",
-        "not logged into",
-    )
-    return not any(marker in combined for marker in permanent_markers)
-
-
-def _request_public_github_json(path: str) -> Any:
-    """Read one bounded JSON response from the canonical public repository.
-
-    The endpoint is deliberately fixed to APL's public GitHub repository. This
-    is a read-only fallback for agent sandboxes that cannot access the local
-    ``gh`` credential store; it is not a general-purpose URL fetcher.
-    """
-    trusted_prefix = f"/repos/{CANONICAL_GITHUB_REPOSITORY}/"
-    if not path.startswith(trusted_prefix) or ".." in path:
-        raise ValueError("Public GitHub fallback path is outside the canonical repository.")
-    request = Request(
-        f"{PUBLIC_GITHUB_API_ROOT}{path}",
-        headers={
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": PUBLIC_GITHUB_API_VERSION,
-            "User-Agent": "autonomous-physics-lab-maintainer-review",
-        },
-    )
-    try:
-        with urlopen(request, timeout=15) as response:  # noqa: S310 - fixed trusted host
-            payload_bytes = response.read(PUBLIC_GITHUB_RESPONSE_LIMIT_BYTES + 1)
-    except HTTPError as exc:
-        remaining = exc.headers.get("X-RateLimit-Remaining", "unknown")
-        reset = exc.headers.get("X-RateLimit-Reset", "unknown")
-        raise RuntimeError(
-            f"public GitHub REST returned HTTP {exc.code} "
-            f"(rate remaining={remaining}, reset={reset})"
-        ) from exc
-    except (TimeoutError, URLError) as exc:
-        raise RuntimeError(f"public GitHub REST request failed: {exc}") from exc
-    if len(payload_bytes) > PUBLIC_GITHUB_RESPONSE_LIMIT_BYTES:
-        raise RuntimeError("public GitHub REST response exceeded the bounded size limit")
-    try:
-        return json.loads(payload_bytes.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise RuntimeError("public GitHub REST returned invalid JSON") from exc
-
-
-def _load_public_pr_metadata(
-    number: int,
-    *,
-    diagnostics: list[str],
-) -> PullRequestMetadata | None:
-    """Load complete PR metadata through unauthenticated public REST reads."""
-    pull_path = f"/repos/{CANONICAL_GITHUB_REPOSITORY}/pulls/{number}"
-    try:
-        pull_payload = _request_public_github_json(pull_path)
-        if not isinstance(pull_payload, dict):
-            raise RuntimeError("public pull-request response was not an object")
-        returned_number = int(pull_payload.get("number") or -1)
-        if returned_number != number:
-            raise RuntimeError(
-                f"public pull-request number mismatch: expected {number}, got {returned_number}"
-            )
-        head = pull_payload.get("head") or {}
-        base = pull_payload.get("base") or {}
-        if not isinstance(head, dict) or not isinstance(base, dict):
-            raise RuntimeError("public pull-request response omitted head/base metadata")
-        head_sha = str(head.get("sha") or "").strip()
-        if re.fullmatch(r"[0-9a-fA-F]{40,64}", head_sha) is None:
-            raise RuntimeError("public pull-request response omitted a valid head SHA")
-        changed_file_count = int(pull_payload.get("changed_files") or 0)
-        if changed_file_count > PUBLIC_GITHUB_MAX_CHANGED_FILES:
-            raise RuntimeError(
-                "public fallback refuses PRs with more than "
-                f"{PUBLIC_GITHUB_MAX_CHANGED_FILES} changed files"
-            )
-
-        files_payload = _request_public_github_json(
-            f"{pull_path}/files?per_page={PUBLIC_GITHUB_MAX_CHANGED_FILES}"
-        )
-        if not isinstance(files_payload, list):
-            raise RuntimeError("public changed-files response was not a list")
-        if len(files_payload) != changed_file_count:
-            raise RuntimeError(
-                "public changed-files response was incomplete: "
-                f"expected {changed_file_count}, got {len(files_payload)}"
-            )
-
-        checks_payload = _request_public_github_json(
-            f"/repos/{CANONICAL_GITHUB_REPOSITORY}/commits/{head_sha}/check-runs"
-            "?filter=latest&per_page=100"
-        )
-        if not isinstance(checks_payload, dict):
-            raise RuntimeError("public check-runs response was not an object")
-        check_runs = checks_payload.get("check_runs") or []
-        if not isinstance(check_runs, list):
-            raise RuntimeError("public check-runs response omitted the check_runs list")
-        check_run_count = int(checks_payload.get("total_count") or 0)
-        if check_run_count != len(check_runs):
-            raise RuntimeError(
-                "public check-runs response was incomplete: "
-                f"expected {check_run_count}, got {len(check_runs)}"
-            )
-    except (RuntimeError, TypeError, ValueError) as exc:
-        diagnostics.append(f"Public GitHub REST fallback failed: {exc}")
-        return None
-
-    normalized_payload = {
-        "number": returned_number,
-        "title": pull_payload.get("title") or "",
-        "body": pull_payload.get("body") or "",
-        "headRefName": head.get("ref") or "",
-        "headRefOid": head_sha,
-        "baseRefName": base.get("ref") or "main",
-        "state": str(pull_payload.get("state") or "").upper(),
-        "mergedAt": pull_payload.get("merged_at"),
-        "files": [
-            {"path": item.get("filename") or ""}
-            for item in files_payload
-            if isinstance(item, dict)
-        ],
-        "statusCheckRollup": [
-            {
-                "name": item.get("name") or "",
-                "status": item.get("status") or "",
-                "conclusion": item.get("conclusion") or "",
-                "startedAt": item.get("started_at") or "",
-                "completedAt": item.get("completed_at") or "",
-            }
-            for item in check_runs
-            if isinstance(item, dict)
-        ],
-    }
-    return _pull_request_metadata_from_payload(
-        normalized_payload,
-        source="public_rest",
-        complete=True,
-    )
-
-
 def load_pr_metadata(
     root: Path,
     number: int,
     *,
     diagnostics: list[str] | None = None,
 ) -> PullRequestMetadata | None:
-    """Load PR metadata via ``gh`` with a public read-only REST fallback."""
+    """Load PR metadata through the shared read-only GitHub client."""
     diagnostic_sink = diagnostics if diagnostics is not None else []
-    gh_path = find_gh_path()
-    if gh_path is not None:
-        for attempt in range(1, PR_METADATA_GH_ATTEMPTS + 1):
-            result = run_command(
-                [
-                    gh_path,
-                    "pr",
-                    "view",
-                    str(number),
-                    "--json",
-                    "number,title,body,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup,files",
-                ],
-                cwd=root,
-                timeout=30,
-            )
-            if result.returncode == 0:
-                try:
-                    payload = json.loads(result.stdout)
-                except json.JSONDecodeError:
-                    diagnostic_sink.append(
-                        f"gh pr view attempt {attempt} returned invalid JSON."
-                    )
-                else:
-                    if isinstance(payload, dict):
-                        return _pull_request_metadata_from_payload(payload)
-                    diagnostic_sink.append(
-                        f"gh pr view attempt {attempt} returned a non-object payload."
-                    )
-            else:
-                detail = _metadata_diagnostic_excerpt(result.stderr or result.stdout)
-                diagnostic_sink.append(
-                    f"gh pr view attempt {attempt} failed"
-                    + (f": {detail}" if detail else ".")
-                )
-                if not _gh_metadata_failure_is_retryable(result):
-                    break
-            if attempt < PR_METADATA_GH_ATTEMPTS:
-                time.sleep(PR_METADATA_RETRY_SECONDS)
-    else:
-        diagnostic_sink.append("GitHub CLI was not found.")
-
-    public_metadata = _load_public_pr_metadata(number, diagnostics=diagnostic_sink)
-    if public_metadata is not None:
-        return public_metadata
-
-    partial_metadata = _load_pr_metadata_from_list(root, number, gh_path=gh_path)
-    if partial_metadata is not None:
-        diagnostic_sink.append(
-            "Only partial gh pr list metadata was available; PR body and files were not verified."
-        )
-    return partial_metadata
-
-
-def _load_pr_metadata_from_list(
-    root: Path,
-    number: int,
-    *,
-    gh_path: str | None = None,
-) -> PullRequestMetadata | None:
-    """Fallback PR metadata path for flaky direct gh pr view calls."""
-    resolved_gh_path = gh_path or find_gh_path()
-    if resolved_gh_path is None:
+    result = GitHubReadOnlyClient(root).load_pull_request(number)
+    diagnostic_sink.extend(result.diagnostics)
+    if not isinstance(result.payload, dict):
         return None
-    result = run_command(
-        [
-            resolved_gh_path,
-            "pr",
-            "list",
-            "--state",
-            "all",
-            "--limit",
-            "200",
-            "--json",
-            "number,title,headRefName,headRefOid,baseRefName,state,mergedAt,statusCheckRollup",
-        ],
-        cwd=root,
-        timeout=60,
+    return _pull_request_metadata_from_payload(
+        result.payload,
+        source=result.source,
+        complete=result.complete,
     )
-    # This fallback intentionally keeps a smaller field set than `gh pr view`:
-    # it can recover branch/head/check state when GraphQL `pr view` flakes, but
-    # it must not pretend to have full PR body/template or changed-file context.
-    # The review path below still requires a clean worktree before validation.
-    if result.returncode != 0:
-        return None
-    try:
-        rows = json.loads(result.stdout)
-    except json.JSONDecodeError:
-        return None
-    if not isinstance(rows, list):
-        return None
-    for row in rows:
-        if isinstance(row, dict) and int(row.get("number") or -1) == number:
-            return _pull_request_metadata_from_payload(
-                row,
-                source="gh_list",
-                complete=False,
-            )
-    return None
 
 
 def _latest_status_check_entries(status_checks: list[Any]) -> list[Any]:

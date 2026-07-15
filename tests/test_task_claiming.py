@@ -5,7 +5,9 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from unittest.mock import patch
 
+from physics_lab.registry.github_readonly import GitHubReadResult
 from scripts.apl_task_occupancy import check_task_occupancy
 from physics_lab.registry.subprocess_env import env_with_overrides
 from physics_lab.registry.task_occupancy import classify_task_pr_occupancy
@@ -108,6 +110,34 @@ def test_task_occupancy_check_is_advisory_on_proxy_blocker(tmp_path: Path) -> No
     assert report.checked is False
     assert report.source == "local_registry_only"
     assert "--ignore-suspicious-proxy" in report.warnings[0]
+
+
+def test_task_occupancy_check_uses_shared_public_rest_fallback(
+    tmp_path: Path,
+) -> None:
+    result = GitHubReadResult(
+        payload=[
+            {
+                "number": 20,
+                "state": "OPEN",
+                "title": "TASK-0617: implementation",
+                "body": "",
+                "headRefName": "agent/sviti/codex/task-0617-implementation",
+            }
+        ],
+        source="public_rest",
+        diagnostics=("gh pr list attempt 1 failed: HTTP 401",),
+    )
+    with patch(
+        "scripts.apl_task_occupancy.GitHubReadOnlyClient.list_pull_requests",
+        return_value=result,
+    ):
+        report = check_task_occupancy(tmp_path, ("TASK-0617",))
+
+    assert report.checked is True
+    assert report.source == "public_rest_prs"
+    assert report.tasks[0]["classification"] == "occupied"
+    assert report.warnings == result.diagnostics
 
 
 def test_task_occupancy_cli_json_runs_with_proxy_advisory() -> None:

@@ -6,9 +6,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import asdict, dataclass
 import json
-import os
 from pathlib import Path
-import subprocess
 import sys
 from typing import Any, Mapping
 
@@ -16,11 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from physics_lab.registry.pr_capability import (  # noqa: E402
-    env_with_discovered_tool_paths,
-    find_gh_path,
-    suspicious_proxy_env_names,
-)
+from physics_lab.registry.github_readonly import GitHubReadOnlyClient  # noqa: E402
 from physics_lab.registry.task_occupancy import classify_task_pr_occupancy  # noqa: E402
 
 
@@ -45,45 +39,6 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _run_gh_pr_list(
-    *,
-    root: Path,
-    gh_path: str,
-    env: Mapping[str, str],
-) -> tuple[list[dict[str, Any]] | None, str | None]:
-    try:
-        result = subprocess.run(
-            [
-                gh_path,
-                "pr",
-                "list",
-                "--state",
-                "all",
-                "--limit",
-                "100",
-                "--json",
-                "number,title,body,state,mergedAt,headRefName,url,isDraft",
-            ],
-            cwd=root,
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=20,
-            env=dict(env),
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        return None, f"{type(exc).__name__}: {exc}"
-    if result.returncode != 0:
-        return None, result.stderr.strip() or result.stdout.strip()
-    try:
-        payload = json.loads(result.stdout)
-    except json.JSONDecodeError as exc:
-        return None, f"gh returned invalid JSON: {exc}"
-    if not isinstance(payload, list):
-        return None, "gh returned a non-list JSON payload"
-    return [item for item in payload if isinstance(item, dict)], None
-
-
 def check_task_occupancy(
     root: Path,
     task_ids: tuple[str, ...],
@@ -91,51 +46,28 @@ def check_task_occupancy(
     env: Mapping[str, str] | None = None,
     clear_suspicious_proxy: bool = False,
 ) -> TaskOccupancyCheck:
-    source_env = dict(os.environ if env is None else env)
-    proxy_names = suspicious_proxy_env_names(source_env)
-    if proxy_names and not clear_suspicious_proxy:
-        return TaskOccupancyCheck(
-            checked=False,
-            source="local_registry_only",
-            tasks=(),
-            warnings=(
-                "Live PR occupancy was not checked because known local blocker "
-                "proxy variables are set: "
-                + ", ".join(proxy_names)
-                + ". Retry with --ignore-suspicious-proxy when network access is allowed.",
-            ),
-        )
-
-    child_env = env_with_discovered_tool_paths(
-        source_env,
+    client = GitHubReadOnlyClient(
+        root,
+        env=env,
         clear_suspicious_proxy=clear_suspicious_proxy,
     )
-    gh_path = find_gh_path(env=child_env)
-    if gh_path is None:
+    result = client.list_pull_requests()
+    if not isinstance(result.payload, list):
         return TaskOccupancyCheck(
             checked=False,
             source="local_registry_only",
             tasks=(),
-            warnings=("GitHub CLI `gh` is not installed or discoverable.",),
-        )
-
-    records, error = _run_gh_pr_list(root=root, gh_path=gh_path, env=child_env)
-    if error is not None:
-        return TaskOccupancyCheck(
-            checked=False,
-            source="local_registry_only",
-            tasks=(),
-            warnings=(f"Live PR occupancy lookup failed: {error}",),
+            warnings=result.diagnostics,
         )
 
     return TaskOccupancyCheck(
         checked=True,
-        source="github_prs",
+        source="github_prs" if result.source == "gh" else "public_rest_prs",
         tasks=tuple(
             item.to_json()
-            for item in classify_task_pr_occupancy(task_ids, records or [])
+            for item in classify_task_pr_occupancy(task_ids, result.payload)
         ),
-        warnings=(),
+        warnings=result.diagnostics,
     )
 
 

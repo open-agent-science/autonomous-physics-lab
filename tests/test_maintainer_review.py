@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import json
 import os
 from pathlib import Path
 import subprocess
 import sys
 from unittest.mock import patch
 
+from physics_lab.registry.github_readonly import GitHubReadResult
 from physics_lab.registry.maintainer_review import (
     ArtifactReviewSignal,
     CLOSEOUT_VALIDATION_COMMANDS,
@@ -37,7 +37,6 @@ from physics_lab.registry.maintainer_review import (
     overclaim_hits,
     parse_added_lines,
     _portable_validation_command,
-    _load_public_pr_metadata,
     _pull_request_metadata_from_payload,
     output_routing_value,
     prepare_clean_pr_worktree,
@@ -1944,51 +1943,7 @@ def test_build_review_report_allows_explicit_local_pr_ref_review(
     assert any("fetched local PR ref" in item for item in report.advisory_warnings)
 
 
-def test_load_pr_metadata_falls_back_to_pr_list_when_view_fails(tmp_path: Path) -> None:
-    payload = json.dumps(
-        [
-            {
-                "number": 104,
-                "title": "TASK-0104: Fixture",
-                "headRefName": "agent/roman/codex/task-0104-fixture",
-                "headRefOid": "abc123",
-                "baseRefName": "main",
-                "state": "MERGED",
-                "mergedAt": "2026-06-07T00:00:00Z",
-                "statusCheckRollup": [
-                    {"conclusion": "SUCCESS", "status": "COMPLETED"},
-                ],
-            }
-        ]
-    )
-
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
-        if command[1:3] == ["pr", "view"]:
-            return CommandResult(returncode=1, stdout="", stderr="network")
-        if command[1:3] == ["pr", "list"]:
-            return CommandResult(returncode=0, stdout=payload, stderr="")
-        return CommandResult(returncode=1, stdout="", stderr="unexpected")
-
-    with (
-        patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
-        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
-        patch("physics_lab.registry.maintainer_review.time.sleep"),
-        patch(
-            "physics_lab.registry.maintainer_review._load_public_pr_metadata",
-            return_value=None,
-        ),
-    ):
-        metadata = load_pr_metadata(tmp_path, 104)
-
-    assert metadata is not None
-    assert metadata.number == 104
-    assert metadata.merged is True
-    assert metadata.status_checks_passed is True
-    assert metadata.source == "gh_list"
-    assert metadata.complete is False
-
-
-def test_load_pr_metadata_retries_one_transient_view_failure(tmp_path: Path) -> None:
+def test_load_pr_metadata_normalizes_shared_client_result(tmp_path: Path) -> None:
     payload = {
         "number": 104,
         "title": "TASK-0104: Fixture",
@@ -2001,195 +1956,64 @@ def test_load_pr_metadata_retries_one_transient_view_failure(tmp_path: Path) -> 
         "statusCheckRollup": [{"conclusion": "SUCCESS", "status": "COMPLETED"}],
         "files": [{"path": "tasks/TASK-0104-fixture.yaml"}],
     }
-    attempts = 0
-
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
-        nonlocal attempts
-        assert command[1:3] == ["pr", "view"]
-        attempts += 1
-        if attempts == 1:
-            return CommandResult(returncode=1, stdout="", stderr="HTTP 503")
-        return CommandResult(returncode=0, stdout=json.dumps(payload), stderr="")
-
     diagnostics: list[str] = []
-    with (
-        patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
-        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
-        patch("physics_lab.registry.maintainer_review.time.sleep") as sleep_mock,
-        patch(
-            "physics_lab.registry.maintainer_review._load_public_pr_metadata",
-            side_effect=AssertionError("successful retry must not use REST fallback"),
-        ),
-    ):
-        metadata = load_pr_metadata(tmp_path, 104, diagnostics=diagnostics)
-
-    assert metadata is not None
-    assert metadata.source == "gh_view"
-    assert metadata.complete is True
-    assert attempts == 2
-    sleep_mock.assert_called_once()
-    assert diagnostics == ["gh pr view attempt 1 failed: HTTP 503"]
-
-
-def test_load_pr_metadata_uses_public_rest_without_retrying_auth_failure(
-    tmp_path: Path,
-) -> None:
-    public_metadata = PullRequestMetadata(
-        number=104,
-        title="TASK-0104: Fixture",
-        body="complete body",
-        branch="agent/roman/codex/task-0104-fixture",
-        base_branch="main",
-        state="OPEN",
-        merged=False,
-        status_checks_passed=True,
-        status_checks_pending=False,
-        changed_files=("tasks/TASK-0104-fixture.yaml",),
-        head_sha="a" * 40,
+    result = GitHubReadResult(
+        payload=payload,
         source="public_rest",
+        diagnostics=("gh pr view attempt 1 failed: HTTP 401",),
     )
-
-    def fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
-        assert command[1:3] == ["pr", "view"]
-        return CommandResult(
-            returncode=1,
-            stdout="",
-            stderr="HTTP 401: Requires authentication; try gh auth login",
-        )
-
-    diagnostics: list[str] = []
-    with (
-        patch("physics_lab.registry.maintainer_review.find_gh_path", return_value="/custom/gh"),
-        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
-        patch("physics_lab.registry.maintainer_review.time.sleep") as sleep_mock,
-        patch(
-            "physics_lab.registry.maintainer_review._load_public_pr_metadata",
-            return_value=public_metadata,
-        ) as public_mock,
+    with patch(
+        "physics_lab.registry.maintainer_review.GitHubReadOnlyClient.load_pull_request",
+        return_value=result,
     ):
         metadata = load_pr_metadata(tmp_path, 104, diagnostics=diagnostics)
-
-    assert metadata == public_metadata
-    public_mock.assert_called_once_with(104, diagnostics=diagnostics)
-    sleep_mock.assert_not_called()
-    assert len(diagnostics) == 1
-    assert "401" in diagnostics[0]
-
-
-def test_load_public_pr_metadata_normalizes_public_read_only_payload() -> None:
-    head_sha = "a" * 40
-    pull_payload = {
-        "number": 104,
-        "title": "TASK-0104: Fixture",
-        "body": "complete body",
-        "state": "open",
-        "merged_at": None,
-        "changed_files": 1,
-        "head": {"ref": "agent/roman/codex/task-0104-fixture", "sha": head_sha},
-        "base": {"ref": "main"},
-    }
-    requested_paths: list[str] = []
-
-    def fake_request(path: str):
-        requested_paths.append(path)
-        if path.endswith("/pulls/104"):
-            return pull_payload
-        if "/pulls/104/files?" in path:
-            return [{"filename": "tasks/TASK-0104-fixture.yaml"}]
-        if f"/commits/{head_sha}/check-runs?" in path:
-            return {
-                "total_count": 1,
-                "check_runs": [
-                    {
-                        "name": "Python fast tests (3.12)",
-                        "status": "completed",
-                        "conclusion": "success",
-                        "started_at": "2026-07-15T10:00:00Z",
-                        "completed_at": "2026-07-15T10:01:00Z",
-                    }
-                ]
-            }
-        raise AssertionError(f"unexpected public API path: {path}")
-
-    diagnostics: list[str] = []
-    with patch(
-        "physics_lab.registry.maintainer_review._request_public_github_json",
-        side_effect=fake_request,
-    ):
-        metadata = _load_public_pr_metadata(104, diagnostics=diagnostics)
 
     assert metadata is not None
     assert metadata.number == 104
-    assert metadata.head_sha == head_sha
     assert metadata.changed_files == ("tasks/TASK-0104-fixture.yaml",)
     assert metadata.status_checks_passed is True
-    assert metadata.status_checks_pending is False
     assert metadata.source == "public_rest"
     assert metadata.complete is True
-    assert diagnostics == []
-    assert len(requested_paths) == 3
+    assert diagnostics == ["gh pr view attempt 1 failed: HTTP 401"]
 
 
-def test_load_public_pr_metadata_refuses_incomplete_check_runs() -> None:
-    head_sha = "a" * 40
-
-    def fake_request(path: str):
-        if path.endswith("/pulls/104"):
-            return {
-                "number": 104,
-                "changed_files": 1,
-                "head": {
-                    "ref": "agent/roman/codex/task-0104-fixture",
-                    "sha": head_sha,
-                },
-                "base": {"ref": "main"},
-            }
-        if "/pulls/104/files?" in path:
-            return [{"filename": "tasks/TASK-0104-fixture.yaml"}]
-        if f"/commits/{head_sha}/check-runs?" in path:
-            return {"total_count": 101, "check_runs": []}
-        raise AssertionError(f"unexpected public API path: {path}")
-
-    diagnostics: list[str] = []
-    with patch(
-        "physics_lab.registry.maintainer_review._request_public_github_json",
-        side_effect=fake_request,
-    ):
-        metadata = _load_public_pr_metadata(104, diagnostics=diagnostics)
-
-    assert metadata is None
-    assert any("check-runs response was incomplete" in item for item in diagnostics)
-
-
-def test_load_public_pr_metadata_refuses_large_pr_before_extra_requests() -> None:
-    requested_paths: list[str] = []
-
-    def fake_request(path: str):
-        requested_paths.append(path)
-        return {
+def test_load_pr_metadata_preserves_partial_shared_client_result(
+    tmp_path: Path,
+) -> None:
+    result = GitHubReadResult(
+        payload={
             "number": 104,
-            "title": "TASK-0104: Oversized fixture",
-            "body": "complete body",
-            "state": "open",
-            "merged_at": None,
-            "changed_files": 101,
-            "head": {
-                "ref": "agent/roman/codex/task-0104-fixture",
-                "sha": "a" * 40,
-            },
-            "base": {"ref": "main"},
-        }
-
+            "title": "TASK-0104: Fixture",
+            "headRefName": "agent/roman/codex/task-0104-fixture",
+            "headRefOid": "abc123",
+            "baseRefName": "main",
+            "state": "MERGED",
+            "mergedAt": "2026-06-07T00:00:00Z",
+            "statusCheckRollup": [
+                {"conclusion": "SUCCESS", "status": "COMPLETED"},
+            ],
+        },
+        source="gh_list",
+        diagnostics=(
+            "Only partial gh pr list metadata was available; PR body and files "
+            "were not verified.",
+        ),
+        complete=False,
+    )
     diagnostics: list[str] = []
     with patch(
-        "physics_lab.registry.maintainer_review._request_public_github_json",
-        side_effect=fake_request,
+        "physics_lab.registry.maintainer_review.GitHubReadOnlyClient.load_pull_request",
+        return_value=result,
     ):
-        metadata = _load_public_pr_metadata(104, diagnostics=diagnostics)
+        metadata = load_pr_metadata(tmp_path, 104, diagnostics=diagnostics)
 
-    assert metadata is None
-    assert len(requested_paths) == 1
-    assert any("more than 100 changed files" in item for item in diagnostics)
+    assert metadata is not None
+    assert metadata.number == 104
+    assert metadata.merged is True
+    assert metadata.status_checks_passed is True
+    assert metadata.source == "gh_list"
+    assert metadata.complete is False
+    assert diagnostics == list(result.diagnostics)
 
 
 def test_rollup_stale_cancelled_run_superseded_by_success_passes() -> None:
