@@ -1,7 +1,7 @@
 id: TASK-1039
 title: "Curate and freeze a role-disjoint dimensional-validator v2 benchmark without scoring it"
 type: benchmark_planning
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task creates the fresh confirmatory surface for a later result; closeout must verify role separation, native-label semantics, provenance, and no-score discipline."
 difficulty: medium
