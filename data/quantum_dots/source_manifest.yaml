@@ -496,9 +496,11 @@ sources:
       route (HRTEM size axis plus measured optical spectra; not an
       optical-inversion sizing calibration). TASK-1027 pinned the
       version-of-record bytes, license, figure/axis inventory, and morphology
-      semantics as a value-blind source artifact. Acceptance is source-level
-      only: no row extraction, digitization, or benchmark use is authorized
-      until a deterministic extraction preflight passes.
+      semantics as a value-blind source artifact. TASK-1043 froze the
+      deterministic extraction contract. TASK-1052 executed that contract and
+      returned UNCERTAINTY_BLOCKED because Figure 3a has no numeric y ticks;
+      source-level acceptance remains, but no qd row or benchmark use is
+      authorized.
     license_note: >
       CC BY 4.0 CONFIRMED on the version of record (Crossref license
       content-version vor effective 2020-08-12; PMC OA service record
@@ -522,11 +524,14 @@ sources:
       analysis and form a separate analysis-derived provenance class; the
       Figure 5 electron/hole level curves are model fits (calibration-risk
       class, not direct rows). Expected row class is digitization_required;
-      whether the text-stated per-sample mean diameters may enter as a
-      text-derived summary class is an extraction-preflight decision. See
+      TASK-1052 admitted the four per-sample HRTEM summaries as text-stated
+      source facts and completed two diagnostic peak passes, but all optical
+      observations remain excluded because the frozen printed-y-tick contract
+      cannot be satisfied. See
       docs/reviews/quantum/kim-2020-cdse-source-artifact.md and
+      docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md and
       data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md
-      (TASK-1027).
+      (TASK-1027/TASK-1052).
 
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25

@@ -1,7 +1,7 @@
 id: TASK-1052
 title: "Extract the predeclared Kim-2020 CdSe size and optical observations"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task first admits Kim-2020 CdSe values and digitized optical observations; closeout must verify dual-pass agreement, source rights, morphology, axis semantics, and uncertainty completeness."
 difficulty: high

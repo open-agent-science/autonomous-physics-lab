@@ -760,10 +760,10 @@ missions:
         label: "Extract the twelve predeclared Kim-2020 CdSe observations"
         task_id: TASK-1052
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "exactly four size summaries, four absorption peaks, and four emission peaks with source locators"
           - "two independent digitization passes reconciled under the frozen tolerances"

@@ -1,0 +1,731 @@
+schema_version: '1'
+ledger_id: KIM-2020-CDSE-EXTRACTION-0001
+task_id: TASK-1052
+source_id: kim-2020-nanomaterials-cdse-optical
+created_utc: '2026-07-15'
+status: blocked
+verdict: UNCERTAINTY_BLOCKED
+contains_real_measurement_values: true
+qd_yaml_allowed: false
+baseline_metrics_allowed: false
+claim_promotion_allowed: false
+
+source_pins:
+  version_of_record_pdf:
+    locator: https://mdpi-res.com/d_attachment/nanomaterials/nanomaterials-10-01589/article_deploy/nanomaterials-10-01589.pdf
+    retrieved_utc: '2026-07-15'
+    bytes: 1368239
+    sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+    matches_task_1043: true
+  europe_pmc_jats:
+    locator: https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7466547/fullTextXML
+    retrieved_utc: '2026-07-15'
+    bytes: 62029
+    sha256: 6642fed609ad6540b61ca856d293d2b469c5ed7be9323479c9b76b023f668244
+    matches_task_1043: true
+  crossref_snapshot:
+    locator: https://api.crossref.org/works/10.3390/nano10081589
+    retrieved_utc: '2026-07-15'
+    bytes: 12087
+    sha256: 6b3a36ba7160d7c3d12a54bc64b846ec358d569ee562e778e8ac64eca6526e9c
+    matches_task_1043: true
+    note: mutable live-index response; this access-date snapshot remained byte-identical
+
+rights:
+  license: CC BY 4.0
+  attribution_required: true
+  source_bytes_committed: false
+  derived_value_posture: attributed_factual_extract_and_diagnostic_coordinates
+  source_bytes_posture: metadata_only
+
+figure_raster:
+  source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+  source_figure_ref: Figure 3(a), version-of-record PDF page 5 of 8
+  extraction_surface: absorption spectra (dashed) and fluorescence spectra (solid)
+  component_images:
+    - pdf_page: 5
+      pdfimages_number: 6
+      pdf_object_id: 35
+      position: top
+      dimensions_px: [1478, 457]
+      bytes: 92760
+      sha256: 193f17ff41091cea8a2a1a63900bf5f15cc5be0185970f16700c83ecfd44dbf7
+    - pdf_page: 5
+      pdfimages_number: 7
+      pdf_object_id: 36
+      position: bottom
+      dimensions_px: [1478, 456]
+      bytes: 91332
+      sha256: aa5d06ba5e9e9bb46f15a4b17d340c6221287e5f21f7525fd5208fe60d61f402
+  assembly:
+    operation: append_top_to_bottom_without_resampling
+    tool: ImageMagick
+    dimensions_px: [1478, 913]
+    sha256: 100e9f4cb1cd82aa18033523edd382e146115f6b60be4317e441ccd6b09567e7
+  panel_crop:
+    geometry: 650x913+0+0
+    dimensions_px: [650, 913]
+    sha256: 975fd9d33a14106dc7b42c8917aeeba86c591ca4c4c49087cd3c99dc54585c12
+    committed: false
+
+axis_contract:
+  x_axis:
+    printed_label: Energy
+    printed_unit: eV
+    scale_type: linear
+    labelled_span: [1.8, 3.0]
+    labelled_span_eV: 1.2
+    numeric_tick_marks_present: true
+  y_axes:
+    printed_labels: [Fluorescence, Absorption]
+    printed_unit: arb. units
+    scale_type: unreported
+    numeric_tick_marks_present: false
+  blocker: >
+    The frozen contract requires two y-axis anchors on printed tick marks.
+    Figure 3a has axis labels and frames but no numeric y ticks. Assigning 0 and
+    1 to the frame endpoints is useful for repeatability diagnostics but is not
+    a source-native y calibration.
+
+text_size_summaries:
+  - observation_id: kim-cdse1-size-summary
+    sample_id: CdSe-1
+    provenance_class: text_stated_summary
+    growth_time: 5 s
+    reported_hrtem_gaussian_fit_mean_diameter_nm: 2.7
+    reported_size_dispersion_nm: 0.5
+    reported_relative_dispersion_percent: 20
+    dispersion_semantics: size_distribution_descriptor_not_standard_error
+    morphology: unknown_non_spherical
+    equivalent_sphere_conversion: not_performed
+    instrument_uncertainty: not_reported
+    source_locator: Section 3, version-of-record PDF page 3 of 8, first paragraph under Results and Discussion
+    inclusion_status: included
+  - observation_id: kim-cdse2-size-summary
+    sample_id: CdSe-2
+    provenance_class: text_stated_summary
+    growth_time: 1 min
+    reported_hrtem_gaussian_fit_mean_diameter_nm: 3.5
+    reported_size_dispersion_nm: 0.6
+    reported_relative_dispersion_percent: 19
+    dispersion_semantics: size_distribution_descriptor_not_standard_error
+    morphology: unknown_non_spherical
+    equivalent_sphere_conversion: not_performed
+    instrument_uncertainty: not_reported
+    source_locator: Section 3, version-of-record PDF page 3 of 8, first paragraph under Results and Discussion
+    inclusion_status: included
+  - observation_id: kim-cdse3-size-summary
+    sample_id: CdSe-3
+    provenance_class: text_stated_summary
+    growth_time: 5 min
+    reported_hrtem_gaussian_fit_mean_diameter_nm: 3.7
+    reported_size_dispersion_nm: 0.9
+    reported_relative_dispersion_percent: 26
+    dispersion_semantics: size_distribution_descriptor_not_standard_error
+    morphology: unknown_non_spherical
+    equivalent_sphere_conversion: not_performed
+    instrument_uncertainty: not_reported
+    source_locator: Section 3, version-of-record PDF page 3 of 8, first paragraph under Results and Discussion
+    inclusion_status: included
+  - observation_id: kim-cdse4-size-summary
+    sample_id: CdSe-4
+    provenance_class: text_stated_summary
+    growth_time: 60 min
+    reported_hrtem_gaussian_fit_mean_diameter_nm: 4.5
+    reported_size_dispersion_nm: 0.5
+    reported_relative_dispersion_percent: 11
+    dispersion_semantics: size_distribution_descriptor_not_standard_error
+    morphology: unknown_non_spherical
+    equivalent_sphere_conversion: not_performed
+    instrument_uncertainty: not_reported
+    source_locator: Section 3, version-of-record PDF page 3 of 8, first paragraph under Results and Discussion
+    inclusion_status: included
+
+digitization:
+  extraction_tool:
+    name: WebPlotDigitizer
+    version: '4.8'
+    official_build_url: https://apps.automeris.io/wpd4/
+    export_format: manual_point_yaml_ledger
+    image_load_method: official imageManager.loadFromURL through a temporary localhost wrapper
+    source_raster_transmitted_off_machine: false
+  coordinate_uncertainty_policy:
+    source_raster_x_resolution_eV_per_pixel: 0.0025
+    source_raster_y_resolution_fraction_per_pixel: 0.0013
+    wpd_display_click_quantization_eV: 0.0044
+    wpd_display_click_quantization_y_fraction: 0.0023
+    adopted_x_coordinate_uncertainty_eV: 0.0045
+    adopted_y_coordinate_uncertainty_fraction: 0.0023
+    basis: larger WPD display-click quantization rounded up conservatively
+    instrument_uncertainty: not_reported
+    note: coordinate uncertainty is not measurement or instrument uncertainty
+  passes:
+    - extraction_pass_id: kim-f3a-pass-a
+      session_id: TASK-1052-20260715-A
+      operator_or_runner_id: codex-gpt5.6
+      extraction_tool: WebPlotDigitizer
+      extraction_tool_version: '4.8'
+      panel_raster_sha256: 100e9f4cb1cd82aa18033523edd382e146115f6b60be4317e441ccd6b09567e7
+      axis_calibration_ref: kim-f3a-calibration-a
+      axis_calibration:
+        status: diagnostic_only_missing_printed_y_ticks
+        anchors:
+          - anchor_id: a-x1
+            axis: x
+            pixel_x: 95.47
+            pixel_y: 806.18
+            printed_value: 1.8
+            printed_unit: eV
+            scale_type: linear
+            anchor_kind: printed_tick_mark
+            contract_valid: true
+          - anchor_id: a-x2
+            axis: x
+            pixel_x: 586.96
+            pixel_y: 806.18
+            printed_value: 3.0
+            printed_unit: eV
+            scale_type: linear
+            anchor_kind: printed_tick_mark
+            contract_valid: true
+          - anchor_id: a-y1
+            axis: y
+            pixel_x: 54.81
+            pixel_y: 806.18
+            printed_value: null
+            assigned_diagnostic_value: 0.0
+            printed_unit: arb. units
+            scale_type: unreported
+            anchor_kind: panel_frame_endpoint
+            contract_valid: false
+          - anchor_id: a-y2
+            axis: y
+            pixel_x: 54.81
+            pixel_y: 7.07
+            printed_value: null
+            assigned_diagnostic_value: 1.0
+            printed_unit: arb. units
+            scale_type: unreported
+            anchor_kind: panel_frame_endpoint
+            contract_valid: false
+      points:
+        - point_id: kim-f3a-a-cdse1-absorption
+          sample_id: CdSe-1
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 397.79
+          raw_pixel_y: 717.78
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.5381294964028775
+          native_x_unit: eV
+          native_y_value: 0.11061946902654873
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse1-emission
+          sample_id: CdSe-1
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 358.89
+          raw_pixel_y: 631.16
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.443165467625899
+          native_x_unit: eV
+          native_y_value: 0.21902654867256643
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse2-absorption
+          sample_id: CdSe-2
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 350.05
+          raw_pixel_y: 500.33
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.42158273381295
+          native_x_unit: eV
+          native_y_value: 0.3827433628318584
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse2-emission
+          sample_id: CdSe-2
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 304.09
+          raw_pixel_y: 443.75
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.3093525179856114
+          native_x_unit: eV
+          native_y_value: 0.45353982300884954
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse3-absorption
+          sample_id: CdSe-3
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 304.09
+          raw_pixel_y: 332.37
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.3093525179856114
+          native_x_unit: eV
+          native_y_value: 0.5929203539823009
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse3-emission
+          sample_id: CdSe-3
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 252.82
+          raw_pixel_y: 256.35
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.1841726618705035
+          native_x_unit: eV
+          native_y_value: 0.6880530973451328
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse4-absorption
+          sample_id: CdSe-4
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 251.05
+          raw_pixel_y: 125.52
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.179856115107914
+          native_x_unit: eV
+          native_y_value: 0.8517699115044248
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-a-cdse4-emission
+          sample_id: CdSe-4
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 203.31
+          raw_pixel_y: 68.95
+          axis_calibration_ref: kim-f3a-calibration-a
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-a
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.0633093525179857
+          native_x_unit: eV
+          native_y_value: 0.922566371681416
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+    - extraction_pass_id: kim-f3a-pass-b
+      session_id: TASK-1052-20260715-B
+      operator_or_runner_id: codex-gpt5.6
+      extraction_tool: WebPlotDigitizer
+      extraction_tool_version: '4.8'
+      panel_raster_sha256: 100e9f4cb1cd82aa18033523edd382e146115f6b60be4317e441ccd6b09567e7
+      axis_calibration_ref: kim-f3a-calibration-b
+      axis_calibration:
+        status: diagnostic_only_missing_printed_y_ticks
+        anchors:
+          - anchor_id: b-x1
+            axis: x
+            pixel_x: 219.22
+            pixel_y: 806.18
+            printed_value: 2.1
+            printed_unit: eV
+            scale_type: linear
+            anchor_kind: printed_tick_mark
+            contract_valid: true
+          - anchor_id: b-x2
+            axis: x
+            pixel_x: 464.97
+            pixel_y: 806.18
+            printed_value: 2.7
+            printed_unit: eV
+            scale_type: linear
+            anchor_kind: printed_tick_mark
+            contract_valid: true
+          - anchor_id: b-y1
+            axis: y
+            pixel_x: 586.96
+            pixel_y: 806.18
+            printed_value: null
+            assigned_diagnostic_value: 0.0
+            printed_unit: arb. units
+            scale_type: unreported
+            anchor_kind: panel_frame_endpoint
+            contract_valid: false
+          - anchor_id: b-y2
+            axis: y
+            pixel_x: 586.96
+            pixel_y: 7.07
+            printed_value: null
+            assigned_diagnostic_value: 1.0
+            printed_unit: arb. units
+            scale_type: unreported
+            anchor_kind: panel_frame_endpoint
+            contract_valid: false
+      points:
+        - point_id: kim-f3a-b-cdse1-absorption
+          sample_id: CdSe-1
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 399.56
+          raw_pixel_y: 717.78
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.540287769784173
+          native_x_unit: eV
+          native_y_value: 0.11061946902654873
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse1-emission
+          sample_id: CdSe-1
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 360.66
+          raw_pixel_y: 631.16
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.4453237410071944
+          native_x_unit: eV
+          native_y_value: 0.21902654867256643
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse2-absorption
+          sample_id: CdSe-2
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 350.05
+          raw_pixel_y: 502.10
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.419424460431655
+          native_x_unit: eV
+          native_y_value: 0.38053097345132747
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse2-emission
+          sample_id: CdSe-2
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 304.09
+          raw_pixel_y: 443.75
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.3071942446043168
+          native_x_unit: eV
+          native_y_value: 0.45353982300884954
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse3-absorption
+          sample_id: CdSe-3
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 305.85
+          raw_pixel_y: 332.37
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.311510791366907
+          native_x_unit: eV
+          native_y_value: 0.5929203539823009
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse3-emission
+          sample_id: CdSe-3
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 252.82
+          raw_pixel_y: 258.12
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.182014388489209
+          native_x_unit: eV
+          native_y_value: 0.6858407079646018
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse4-absorption
+          sample_id: CdSe-4
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: absorption
+          raw_pixel_x: 251.05
+          raw_pixel_y: 125.52
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.177697841726619
+          native_x_unit: eV
+          native_y_value: 0.8517699115044248
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+        - point_id: kim-f3a-b-cdse4-emission
+          sample_id: CdSe-4
+          source_id: kim-2020-nanomaterials-cdse-optical
+          source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+          source_figure_ref: Figure 3(a), PDF page 5 of 8
+          curve_role: emission
+          raw_pixel_x: 205.08
+          raw_pixel_y: 68.95
+          axis_calibration_ref: kim-f3a-calibration-b
+          extraction_tool: WebPlotDigitizer
+          extraction_tool_version: '4.8'
+          extraction_pass_id: kim-f3a-pass-b
+          operator_or_runner_id: codex-gpt5.6
+          native_x_value: 2.065467625899281
+          native_x_unit: eV
+          native_y_value: 0.922566371681416
+          native_y_unit: diagnostic_panel_height_fraction
+          coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+          inclusion_status: excluded
+          exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+
+optical_observations:
+  - observation_id: kim-cdse1-absorption-peak
+    sample_id: CdSe-1
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: absorption_peak_eV
+    diagnostic_consensus_eV: 2.5392086330935255
+    text_cross_check_eV: 2.54
+    pass_point_refs: [kim-f3a-a-cdse1-absorption, kim-f3a-b-cdse1-absorption]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse1-emission-peak
+    sample_id: CdSe-1
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: emission_peak_eV
+    diagnostic_consensus_eV: 2.4442446043165464
+    text_cross_check_eV: 2.44
+    pass_point_refs: [kim-f3a-a-cdse1-emission, kim-f3a-b-cdse1-emission]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse2-absorption-peak
+    sample_id: CdSe-2
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: absorption_peak_eV
+    diagnostic_consensus_eV: 2.4205035971223023
+    text_cross_check_eV: 2.41
+    pass_point_refs: [kim-f3a-a-cdse2-absorption, kim-f3a-b-cdse2-absorption]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse2-emission-peak
+    sample_id: CdSe-2
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: emission_peak_eV
+    diagnostic_consensus_eV: 2.3082733812949643
+    text_cross_check_eV: 2.30
+    pass_point_refs: [kim-f3a-a-cdse2-emission, kim-f3a-b-cdse2-emission]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse3-absorption-peak
+    sample_id: CdSe-3
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: absorption_peak_eV
+    diagnostic_consensus_eV: 2.3104316546762593
+    text_cross_check_eV: 2.31
+    pass_point_refs: [kim-f3a-a-cdse3-absorption, kim-f3a-b-cdse3-absorption]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse3-emission-peak
+    sample_id: CdSe-3
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: emission_peak_eV
+    diagnostic_consensus_eV: 2.1830935251798564
+    text_cross_check_eV: 2.18
+    pass_point_refs: [kim-f3a-a-cdse3-emission, kim-f3a-b-cdse3-emission]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse4-absorption-peak
+    sample_id: CdSe-4
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: absorption_peak_eV
+    diagnostic_consensus_eV: 2.1787769784172664
+    text_cross_check_eV: 2.18
+    pass_point_refs: [kim-f3a-a-cdse4-absorption, kim-f3a-b-cdse4-absorption]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+  - observation_id: kim-cdse4-emission-peak
+    sample_id: CdSe-4
+    provenance_class: figure_digitized_spectrum_peak
+    property_kind: emission_peak_eV
+    diagnostic_consensus_eV: 2.0643884892086333
+    text_cross_check_eV: 2.06
+    pass_point_refs: [kim-f3a-a-cdse4-emission, kim-f3a-b-cdse4-emission]
+    coordinate_uncertainty: {x_eV: 0.0045, y_axis_fraction: 0.0023, instrument_uncertainty: not_reported}
+    source_locator: Figure 3(a), PDF page 5 of 8; text cross-check in Section 3, PDF page 4 of 8
+    morphology: unknown_non_spherical
+    inclusion_status: excluded
+    exclusion_reason: frozen printed-y-tick calibration requirement is unsatisfied
+
+agreement:
+  x_axis_span_eV: 1.2
+  y_axis_span_fraction: 1.0
+  x_max_difference_fraction_allowed: 0.005
+  y_max_difference_fraction_allowed: 0.01
+  required_pass_fraction: 1.0
+  point_pairs:
+    - {sample_id: CdSe-1, curve_role: absorption, x_difference_eV: 0.0021582733812954835, x_difference_fraction: 0.0017985611510795696, y_difference_fraction: 0.0, passes: true}
+    - {sample_id: CdSe-1, curve_role: emission, x_difference_eV: 0.0021582733812954835, x_difference_fraction: 0.0017985611510795696, y_difference_fraction: 0.0, passes: true}
+    - {sample_id: CdSe-2, curve_role: absorption, x_difference_eV: 0.0021582733812950394, x_difference_fraction: 0.0017985611510791997, y_difference_fraction: 0.0022123893805309214, passes: true}
+    - {sample_id: CdSe-2, curve_role: emission, x_difference_eV: 0.0021582733812945953, x_difference_fraction: 0.0017985611510788295, y_difference_fraction: 0.0, passes: true}
+    - {sample_id: CdSe-3, curve_role: absorption, x_difference_eV: 0.0021582733812954835, x_difference_fraction: 0.0017985611510795696, y_difference_fraction: 0.0, passes: true}
+    - {sample_id: CdSe-3, curve_role: emission, x_difference_eV: 0.0021582733812945953, x_difference_fraction: 0.0017985611510788295, y_difference_fraction: 0.0022123893805309214, passes: true}
+    - {sample_id: CdSe-4, curve_role: absorption, x_difference_eV: 0.0021582733812950394, x_difference_fraction: 0.0017985611510791997, y_difference_fraction: 0.0, passes: true}
+    - {sample_id: CdSe-4, curve_role: emission, x_difference_eV: 0.0021582733812950394, x_difference_fraction: 0.0017985611510791997, y_difference_fraction: 0.0, passes: true}
+  max_x_difference_fraction: 0.0017985611510795696
+  max_y_difference_fraction: 0.0022123893805309214
+  pair_pass_fraction: 1.0
+  repeatability_gate_pass: true
+  full_contract_gate_pass: false
+  full_contract_failure: no printed numeric y-axis tick anchors exist
+
+completeness:
+  required_samples: [CdSe-1, CdSe-2, CdSe-3, CdSe-4]
+  text_size_summary_count: 4
+  absorption_peak_count: 4
+  emission_peak_count: 4
+  exact_total_atomic_observations: 12
+  sample_pairing_completeness: 1.0
+  size_dispersion_completeness: 1.0
+  source_locator_completeness: 1.0
+  dual_pass_completeness: 1.0
+  admitted_optical_row_count: 0
+  excluded_optical_observation_count: 8
+
+semantic_boundaries:
+  admitted_property_kinds: [absorption_peak_eV, emission_peak_eV]
+  excluded_from_this_ledger:
+    - derived_stokes_shift_eV
+    - spectrum_fwhm_eV
+    - analysis_derived_transition_eV
+    - model_derived_level_eV
+    - bandgap_eV
+  morphology: unknown_non_spherical
+  equivalent_sphere_conversion: forbidden
+  instrument_uncertainty: not_reported
+
+limitations:
+  - Figure 3a has no numeric y-axis ticks, so the frozen printed-tick calibration contract cannot be met.
+  - The panel-frame y normalization is diagnostic and must not be interpreted as measured intensity.
+  - The optical paragraph calls the CdSe-1 particle size 2.5 nm while the primary HRTEM summary reports 2.7 +/- 0.5 nm; sample identity is retained and the values are not averaged.
+  - No optical observation is authorized for a qd dataset, split, fit, metric, result, prediction, claim, or knowledge artifact.
