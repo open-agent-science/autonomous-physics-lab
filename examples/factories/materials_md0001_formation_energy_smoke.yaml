@@ -1,0 +1,37 @@
+# Bounded Materials MD-0001 formation-energy residual-offset factory smoke
+# config: the second real Research Factory campaign adapter (TASK-1060), after
+# the nuclear adapter, exercising the shared campaign-agnostic core end to end.
+factory_id: materials-formation-energy-factory-smoke
+campaign_id: materials-md0001-formation-energy
+adapter_id: materials_formation_energy_factory
+adapter_version: "0.1"
+task_id: TASK-1060
+dataset:
+  snapshot_ref: data/materials/md-0001-materials-project-formation-energy.yaml
+  source_id: MD-0001-materials-project-formation-energy
+  retrieval_policy: no_live_fetch
+  checksum_policy: source recorded in the MD-0001 snapshot manifest
+baseline:
+  baseline_id: cation_group_mean
+  baseline_type: frozen
+families:
+  - cation_group_residual_offsets
+  - formula_family_residual_offsets
+  - oxygen_stoichiometry_residual_offsets
+  - formula_family_x_cation_group_offsets
+controls:
+  - label_shuffle_control
+  - cation_group_shuffle_control
+  - matched_random_formula_family_control
+candidate_cap: 12
+splits:
+  policy: deterministic materials-engine train/validation/holdout split
+limitations:
+  - "Computed-DFT stable binary oxides only; formation-energy axis, band gap excluded."
+  - "Small MD-0001 holdout; diagnostic-only smoke run."
+  - "Sandbox evidence only; no claim, prediction, result, or knowledge promotion."
+reproducibility:
+  code_reference: physics_lab/factories/materials.py
+  command: python3 scripts/run_research_factory.py --config examples/factories/materials_md0001_formation_energy_smoke.yaml --output-dir <dir>
+  run_date: "2026-07-10"
+  seed: 626
