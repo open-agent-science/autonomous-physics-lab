@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-1050` - Run the frozen Stellar relation on the source-curated CHARA component surface (`scientific_result_publication`, priority `high`, difficulty `high`, domain `stellar_astrophysics`)
+- `TASK-1065` - Replicate MD-0002 RESULT-0021 externally from the public release surface (`scientific_external_replication`, priority `high`, difficulty `high`, domain `materials_science`)
 
 ## IN_PROGRESS
 
@@ -14,5 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-1029` - Prepare a Gaia DR4 stellar-transfer freeze-readiness packet (`scientific_prediction_preflight`, priority `high`, difficulty `medium`, domain `stellar_astrophysics`)
-- `TASK-1051` - Blind-score the frozen dimensional-validator v2 calibration surface (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `physics_validation`)
+- `TASK-1067` - Synchronize public science surfaces after the July source and result wave (`documentation`, priority `high`, difficulty `medium`, domain `cross_domain_physics`)

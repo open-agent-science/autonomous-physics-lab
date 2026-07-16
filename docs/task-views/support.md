@@ -10,6 +10,7 @@
 - `TASK-1045` - Replay Stellar RESULT-0022 with an independent human contributor (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `stellar_astrophysics`)
 - `TASK-1046` - Replay Stellar high-mass transfer RESULT-0024 with an independent human contributor (`scientific_replay_validation`, priority `medium`, difficulty `medium`, domain `stellar_astrophysics`)
 - `TASK-1047` - Replay ThermoML RESULT-0026 with an independent human contributor (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `thermophysical_property_estimation`)
+- `TASK-1062` - Replay Dimensional RESULT-0030 with an independent human contributor (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `physics_validation`)
 
 ## IN_PROGRESS
 
