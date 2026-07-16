@@ -26,7 +26,7 @@ input_file_hashes:
     sha256: 261327413e39d3152e860d5d752128b9fe6973332f5cc04d7ebc4da374fbbdca
 code_reference: physics_lab/workflows/thermoml_tb_family_transfer.py
 limitations:
-- Agent-validated by independent replay; not yet maintainer-reviewed.
+- Agent-validated by independent-human Gate B replay; not yet maintainer-reviewed.
 - Scope is normal boiling temperature (Tb) only on the committed 40-row ThermoML family-stratified
   audit fixture.
 - Raw ThermoML archive bytes and any substantial normalized corpus are not committed;
@@ -64,21 +64,42 @@ agent_proposal_evaluation:
     audit fixture; esters/lactones remains the failed family; no CLAIM, KNOW, or broad
     property-estimation promotion is proposed.'
   validation_record:
-    validation_independence: same_owner_different_account
+    validation_independence: independent
     validation_independence_note: >-
-      Publisher romanhladun24-dot and replayer gladunrv are two accounts of the same person (the maintainer); deterministic reproducibility on a second account/tool path, not an independent-human validation.
+      Publisher romanhladun24-dot and replayer akutenyov are different human
+      contributors; this is independent-human validation. Both publication and
+      replay used Codex/GPT-5, so the independence is human-level and same-tool.
     replayed_by:
-      contributor_id: gladunrv
-      github_username: gladunrv
-      agent_tool: Claude Code
-      model_version: Claude Opus 4.8
-    replayed_at_utc: '2026-07-02T06:33:24+00:00'
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex Desktop
+      model_version: GPT-5
+    replayed_at_utc: '2026-07-16T12:00:45+00:00'
     replay_command: physics-lab run examples/thermoml_tb_family_transfer_benchmark.yaml
-    replay_output_dir: _gateb_replay
+    replay_output_dir: C:\\tmp\\apl-task-1047-gateb-final
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 23
     drift_observed: none
+    helper_status: PASS
+    helper_note: >-
+      Canonical Gate B helper completed with zero metric drift. Same-agent-tool
+      is not a blocker because the task requires independent human identity;
+      cross-tool validation remains a future strengthening option.
+    replays:
+    - validation_independence: same_owner_different_account
+      replayed_by:
+        contributor_id: gladunrv
+        github_username: gladunrv
+        agent_tool: Claude Code
+        model_version: Claude Opus 4.8
+      replayed_at_utc: '2026-07-02T06:33:24+00:00'
+      replay_command: physics-lab run examples/thermoml_tb_family_transfer_benchmark.yaml
+      replay_output_dir: _gateb_replay
+      tolerance_used: 1.0e-09
+      max_abs_delta: 0.0
+      metric_count: 23
+      drift_observed: none
 verification:
   passed: true
   checks:

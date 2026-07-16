@@ -1,7 +1,7 @@
 id: TASK-1047
 title: "Replay ThermoML RESULT-0026 with an independent human contributor"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task strengthens the trust evidence of the bounded ThermoML benchmark and must preserve the paired failed-family memory and all source/rights limits."
 difficulty: medium
