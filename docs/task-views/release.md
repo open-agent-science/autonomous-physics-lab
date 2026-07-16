@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-1067` - Synchronize public science surfaces after the July source and result wave (`documentation`, priority `high`, difficulty `medium`, domain `cross_domain_physics`)
+None.
