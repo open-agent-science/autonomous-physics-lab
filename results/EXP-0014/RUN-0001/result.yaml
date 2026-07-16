@@ -24,7 +24,7 @@ input_file_hashes:
     sha256: 349cbe57b471f39c9c442cfa22f18b28033eaa3a4e81cdddd60b4120740ce3cf
 code_reference: physics_lab/workflows/materials_md0002_formation_energy.py
 limitations:
-- Agent-published, not yet independently validated or maintainer-reviewed.
+- Agent-validated by independent-human Gate B replay; not yet maintainer-reviewed.
 - Scope is the frozen 362-row MD-0002 stable ternary-oxide slice (alkali/alkaline-earth
   + first-row transition); this is a benchmark/dataset evaluation, not a materials-discovery,
   design, or universal-law claim.
@@ -58,21 +58,38 @@ agent_proposal_evaluation:
     MD-0002 slice; no materials-discovery or universal-law claim is made, and no
     CLAIM/KNOW promotion is proposed.'
   validation_record:
-    validation_independence: same_owner_different_account
+    validation_independence: independent
     validation_independence_note: >-
-      Publisher gladunrv and replayer romanhladun24-dot are two accounts of the same person (the maintainer); deterministic reproducibility on a second account/tool path, not an independent-human validation.
+      Publisher gladunrv and replayer akutenyov are different human contributors;
+      this is independent-human validation. Both publication and replay used
+      Codex/GPT-5, so the independence is human-level and same-tool.
     replayed_by:
-      contributor_id: romanhladun24-dot
-      github_username: romanhladun24-dot
-      agent_tool: Codex
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex Desktop
       model_version: GPT-5
-    replayed_at_utc: '2026-06-19T12:34:50+00:00'
+    replayed_at_utc: '2026-07-16T12:00:47+00:00'
     replay_command: physics-lab run examples/materials_md0002_formation_energy_benchmark.yaml
-    replay_output_dir: _gateb_replay
+    replay_output_dir: C:\\tmp\\apl-task-1044-gateb-final
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 42
     drift_observed: none
+    helper_status: PASS
+    replays:
+    - validation_independence: same_owner_different_account
+      replayed_by:
+        contributor_id: romanhladun24-dot
+        github_username: romanhladun24-dot
+        agent_tool: Codex
+        model_version: GPT-5
+      replayed_at_utc: '2026-06-19T12:34:50+00:00'
+      replay_command: physics-lab run examples/materials_md0002_formation_energy_benchmark.yaml
+      replay_output_dir: _gateb_replay
+      tolerance_used: 1.0e-09
+      max_abs_delta: 0.0
+      metric_count: 42
+      drift_observed: none
 verification:
   passed: true
   checks:
