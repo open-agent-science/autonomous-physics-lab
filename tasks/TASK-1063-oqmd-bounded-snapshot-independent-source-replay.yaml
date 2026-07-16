@@ -48,10 +48,8 @@ result_artifact_policy:
   reason: "Independent source validation only; no scientific metric or result is created."
   evidence:
     - "docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md"
-
-evidence:
-  - "docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md"
-  - "tests/test_materials_oqmd_independent_replay.py"
+    - "docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md"
+    - "tests/test_materials_oqmd_independent_replay.py"
 
 validation:
   commands:
