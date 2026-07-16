@@ -1,7 +1,7 @@
 id: TASK-1054
 title: "Predeclare the OQMD within-source baseline and control contract value-blind"
 type: benchmark_planning
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This contract fixes the only allowed OQMD model/control families before target summaries; closeout must verify cross-database semantics, numeric thresholds, and no-value-access discipline."
 difficulty: medium
@@ -47,6 +47,8 @@ result_artifact_policy:
   reason: "Value-blind benchmark contract only; no scoring or scientific result is produced."
   evidence:
     - "results/EXP-0014/RUN-0001/result.yaml"
+    - "docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml"
+    - "docs/reviews/materials/oqmd-within-source-baseline-control-preflight.md"
 
 validation:
   commands:
