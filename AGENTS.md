@@ -581,6 +581,27 @@ as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
 instead of calling bare `gh`; they check common GitHub CLI locations such as
 `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
 
+On macOS, a Codex sandbox may also be unable to read the host Keychain even
+when `gh` is correctly authenticated in the maintainer terminal. A sandbox
+`gh auth status` failure is therefore `sandbox_credential_unverified`, not
+proof that the token expired or was revoked. Do not tell the maintainer to
+logout/login from that result alone, and never copy a token into the repository
+or chat. Read-only APL PR metadata may use the bounded public REST fallback.
+Before a GitHub write, rerun the same auth check in the maintainer terminal or
+with protocol-approved sandbox escalation; keep the write fail-closed until
+that keychain-aware check succeeds. If the keychain-aware check also fails,
+explicitly ask the maintainer to authorize the discovered CLI with
+`gh auth login --hostname github.com --git-protocol https --web`, then verify
+with `gh auth status --hostname github.com`. Explain that the bounded public
+REST fallback is only a temporary read-only review path while authorization is
+pending; do not silently present it as a substitute for GitHub authentication.
+Codex is auto-detected through `CODEX_SANDBOX`. Claude and any other agent
+runtime that knows its credential store may be isolated must pass the portable
+`--agent-sandbox` flag to `scripts/apl_agent_doctor.py` or
+`scripts/apl_pr_capability_check.py`; do not rely on undocumented vendor
+environment variables. The flag changes diagnosis only and never grants GitHub
+access.
+
 Agents should open task PRs as drafts while validation and review are still in
 progress. After GitHub CI is green and the PR-number review agent returns
 `MERGE_OK`, agents should mark the PR ready for review with

@@ -1,0 +1,67 @@
+id: TASK-1068
+title: "Harden sandbox GitHub authentication diagnostics"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent sandbox credential-store isolation from being misreported as an expired or revoked GitHub token."
+  - "Keep GitHub writes fail-closed while preserving the bounded public read-only fallback added by TASK-1058 and TASK-1061."
+  - "Reduce repeated maintainer login work and review-agent delay without storing credentials in repository files or agent-visible caches."
+
+input:
+  mode: workflow
+  related_domain: maintainer_tooling
+  related_objects:
+    - "physics_lab/registry/pr_capability.py"
+    - "scripts/apl_agent_doctor.py"
+    - "scripts/apl_pr_capability_check.py"
+    - "docs/maintainer-review-agent.md"
+    - "agents/review-agent.yaml"
+  planning_context: >
+    A macOS Codex sandbox reported `gh auth status` as invalid while the same
+    executable, account, and OAuth token were valid through the host Keychain
+    when the command ran with protocol-approved escalation. The old diagnostic
+    conflated credential-store isolation with actual token revocation and led
+    to unnecessary logout/login instructions. Public PR reads already have a
+    bounded credential-free fallback; authenticated GitHub writes still require
+    a verified credential path.
+
+requirements:
+  - "Expose a typed machine-readable gh authentication state that distinguishes authenticated, not checked, unavailable, sandbox credential unverified, token environment unverified, and unauthenticated-or-invalid outcomes."
+  - "When gh authentication fails inside a recognized agent sandbox without GH_TOKEN/GITHUB_TOKEN, state that the credential store is unverified rather than claiming the account is unauthenticated or the token is invalid."
+  - "Keep GitHub mutations fail-closed: require a successful keychain-aware terminal or protocol-approved escalated auth check before PR, merge, release, or settings writes."
+  - "Keep read-only review metadata on the existing bounded public REST fallback; do not add a credential file, token cache, generated auth report, or automatic login/logout behavior."
+  - "Never print token values, and do not recommend deleting or replacing credentials solely from a sandbox auth failure."
+  - "When a keychain-aware check confirms that authentication is absent, explicitly request the standard gh web-login flow first and explain that public REST is only a temporary read-only fallback while authorization is pending."
+  - "Preserve cross-platform behavior and classify non-sandbox auth failures conservatively."
+  - "Support Claude and other isolated agent runtimes through an explicit vendor-neutral --agent-sandbox diagnostic flag rather than undocumented vendor environment markers."
+
+accepted_outputs:
+  - "Machine-readable auth and sandbox states in the shared PR-capability report and human-readable doctor/CLI output."
+  - "Regression tests for authenticated, auto-detected sandbox, explicit cross-agent sandbox, token-env-unverified, and ordinary unauthenticated paths without secret leakage."
+  - "Updated AGENTS, maintainer-review protocol, and review-agent profile instructions for keychain-aware verification and safe escalation."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer tooling diagnostics only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/pr_capability.py"
+    - "tests/test_pr_capability.py"
+    - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/pr_capability.py scripts/apl_agent_doctor.py scripts/apl_pr_capability_check.py tests/test_pr_capability.py tests/test_agent_doctor.py"
+    - "python3 -m pytest -n0 tests/test_pr_capability.py tests/test_agent_doctor.py"
+    - "python3 scripts/apl_pr_capability_check.py --root ."
+    - "python3 scripts/apl_agent_doctor.py --root ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

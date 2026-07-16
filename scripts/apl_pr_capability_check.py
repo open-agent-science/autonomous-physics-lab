@@ -25,6 +25,14 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Only check for `gh` or token presence; skip `gh auth status`.",
     )
+    parser.add_argument(
+        "--agent-sandbox",
+        action="store_true",
+        help=(
+            "Declare that this agent runtime may isolate the host credential store. "
+            "Use for Claude or other sandboxes without an auto-detected marker."
+        ),
+    )
     return parser
 
 
@@ -33,6 +41,7 @@ def main() -> int:
     report = check_pr_capability(
         Path(args.root),
         require_gh_auth=not args.no_gh_auth_check,
+        agent_sandbox=args.agent_sandbox,
     )
     if args.json:
         print(json.dumps(asdict(report), indent=2, sort_keys=True))
@@ -40,8 +49,16 @@ def main() -> int:
         print("PR capability check")
         print(f"- gh path: {report.gh_path or 'not found'}")
         print(f"- git path: {report.git_path or 'not found'}")
+        print(f"- gh auth state: {report.gh_auth_state}")
+        print(f"- agent sandbox detected: {report.sandbox_detected}")
         token_label = ", ".join(report.token_env_names) if report.token_env_names else "none"
         print(f"- token fallback: {token_label}")
+        sandbox_label = (
+            ", ".join(report.sandbox_env_names)
+            if report.sandbox_env_names
+            else "none"
+        )
+        print(f"- agent sandbox markers: {sandbox_label}")
         proxy_label = (
             ", ".join(report.suspicious_proxy_env_names)
             if report.suspicious_proxy_env_names
