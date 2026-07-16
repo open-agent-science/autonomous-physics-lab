@@ -9,6 +9,7 @@ strategy_alignment:
   - "Prevent sandbox credential-store isolation from being misreported as an expired or revoked GitHub token."
   - "Keep GitHub writes fail-closed while preserving the bounded public read-only fallback added by TASK-1058 and TASK-1061."
   - "Reduce repeated maintainer login work and review-agent delay without storing credentials in repository files or agent-visible caches."
+  - "Apply one GitHub authentication decision tree to executor, research, proposal, queue, closeout, release, and review agents."
 
 input:
   mode: workflow
@@ -18,6 +19,7 @@ input:
     - "scripts/apl_agent_doctor.py"
     - "scripts/apl_pr_capability_check.py"
     - "docs/maintainer-review-agent.md"
+    - "docs/agent-task-protocol.md"
     - "agents/review-agent.yaml"
   planning_context: >
     A macOS Codex sandbox reported `gh auth status` as invalid while the same
@@ -41,7 +43,7 @@ requirements:
 accepted_outputs:
   - "Machine-readable auth and sandbox states in the shared PR-capability report and human-readable doctor/CLI output."
   - "Regression tests for authenticated, auto-detected sandbox, explicit cross-agent sandbox, token-env-unverified, and ordinary unauthenticated paths without secret leakage."
-  - "Updated AGENTS, maintainer-review protocol, and review-agent profile instructions for keychain-aware verification and safe escalation."
+  - "Updated AGENTS and the canonical all-agent task protocol, with maintainer-review and review-agent role guidance as defense-in-depth rather than the sole source of the rule."
 
 result_artifact_policy:
   required: false
@@ -50,6 +52,7 @@ result_artifact_policy:
     - "physics_lab/registry/pr_capability.py"
     - "tests/test_pr_capability.py"
     - "docs/maintainer-review-agent.md"
+    - "docs/agent-task-protocol.md"
 
 validation:
   commands:
