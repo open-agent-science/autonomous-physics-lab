@@ -1,0 +1,93 @@
+schema_version: "1"
+task_id: TASK-1064
+campaign_id: quantum-size-effects
+source_id: kim-2020-nanomaterials-cdse-optical
+contract_id: kim2020-cdse-text-reported-optical-peaks-v1
+planning_only: true
+measurement_rows_created: 0
+verdict: GO_TEXT_REPORTED_PEAK_ROUTE
+
+source:
+  doi: 10.3390/nano10081589
+  version_of_record_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+  europe_pmc_jats_sha256: 6642fed609ad6540b61ca856d293d2b469c5ed7be9323479c9b76b023f668244
+  license: CC BY 4.0
+  locator:
+    section: "3. Results and Discussion"
+    body_paragraph: "paragraph immediately following Figure 2 and beginning Figure 3a shows"
+    pdf_page: "4 of 8"
+    jats_anchor_context: "paragraph immediately before Figure 3"
+  statement_structure:
+    sample_order_basis: "Figure 3a particle-size order, smallest to largest"
+    particle_size_sequence_nm: [2.5, 3.5, 3.7, 4.5]
+    absorption_sequence_eV: [2.54, 2.41, 2.31, 2.18]
+    fluorescence_sequence_eV: [2.44, 2.30, 2.18, 2.06]
+    printed_precision_eV: 0.01
+
+sample_axis_mapping:
+  - sample_id: CdSe-1
+    paragraph_particle_size_nm: 2.5
+    absorption_peak_eV: 2.54
+    fluorescence_peak_eV: 2.44
+  - sample_id: CdSe-2
+    paragraph_particle_size_nm: 3.5
+    absorption_peak_eV: 2.41
+    fluorescence_peak_eV: 2.30
+  - sample_id: CdSe-3
+    paragraph_particle_size_nm: 3.7
+    absorption_peak_eV: 2.31
+    fluorescence_peak_eV: 2.18
+  - sample_id: CdSe-4
+    paragraph_particle_size_nm: 4.5
+    absorption_peak_eV: 2.18
+    fluorescence_peak_eV: 2.06
+
+future_row_contract:
+  provenance_class: text_stated_summary
+  required_rows: 8
+  required_samples: [CdSe-1, CdSe-2, CdSe-3, CdSe-4]
+  required_property_kinds: [absorption_peak_eV, fluorescence_peak_eV]
+  required_fields:
+    - observation_id
+    - sample_id
+    - source_id
+    - source_artifact_sha256
+    - property_kind
+    - value
+    - units
+    - printed_precision_eV
+    - rounding_uncertainty_floor_eV
+    - instrument_uncertainty
+    - source_locator
+    - provenance_class
+    - morphology
+  units: eV
+  rounding_uncertainty_floor_eV: 0.005
+  rounding_floor_basis: "half of the 0.01 eV printed increment"
+  instrument_uncertainty: not_reported
+  morphology: unknown_non_spherical
+  equivalent_sphere_conversion_allowed: false
+  bandgap_relabeling_allowed: false
+  absorption_fluorescence_pooling_allowed: false
+
+cross_check_policy:
+  excluded_digitization_coordinates_may_be_used_as_primary_values: false
+  agreement_with_excluded_digitization_is_admission_criterion: false
+  optional_use: "labelled non-admission diagnostic only"
+  task_1043_contract_mutable: false
+  task_1052_ledger_mutable: false
+  task_1052_verdict_mutable: false
+
+future_task_shape:
+  task_type: scientific_data_curation
+  action: "extract exactly eight text-reported optical peak rows under this contract"
+  fresh_canonical_task_required: true
+  scoring_allowed_in_extraction_task: false
+  result_claim_prediction_knowledge_mutation_allowed: false
+
+stop_conditions:
+  - source_hash_drift
+  - sample_order_not_reproducible
+  - any_of_eight_statements_missing
+  - absorption_fluorescence_semantics_ambiguous
+  - rights_incompatible
