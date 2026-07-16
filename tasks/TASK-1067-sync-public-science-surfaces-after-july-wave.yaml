@@ -1,7 +1,7 @@
 id: TASK-1067
 title: "Synchronize public science surfaces after the July source and result wave"
 type: documentation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task changes public scientific wording and campaign routing; closeout must verify every tier, independence label, metric, blocker, and next-result path against canonical artifacts."
 difficulty: medium
