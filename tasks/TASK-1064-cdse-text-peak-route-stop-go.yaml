@@ -1,7 +1,7 @@
 id: TASK-1064
 title: "Decide the Kim-2020 CdSe text-reported optical-peak route after the digitization stop"
 type: scientific_source_adjudication
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task decides whether a distinct text-reported peak provenance class is scientifically admissible after the frozen digitization contract stopped; closeout must prevent retroactive rescue of excluded rows."
 difficulty: medium

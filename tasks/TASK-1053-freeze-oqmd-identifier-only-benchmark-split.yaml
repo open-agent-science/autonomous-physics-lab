@@ -1,7 +1,7 @@
 id: TASK-1053
 title: "Freeze an identifier-only OQMD benchmark split without target inspection"
 type: benchmark_planning
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task creates the no-peek partition for a second-source materials benchmark; closeout must verify the TASK-1042 source outcome, identity grouping, row floors, checksums, and no-target-access declaration."
 difficulty: medium
