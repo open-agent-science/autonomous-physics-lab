@@ -7,6 +7,7 @@ import sys
 from textwrap import dedent
 
 from physics_lab.registry.pr_capability import (
+    active_sandbox_env_names,
     check_pr_capability,
     env_with_discovered_tool_paths,
     find_git_path,
@@ -51,9 +52,11 @@ def test_pr_capability_is_advisory_without_gh_or_token(tmp_path: Path) -> None:
     assert report.ok
     assert report.errors == ()
     assert any("Direct PR creation is not available" in item for item in report.warnings)
+    assert any("gh auth login" in item for item in report.warnings)
+    assert any("read-only" in item for item in report.warnings)
 
 
-def test_pr_capability_accepts_token_fallback_without_gh(tmp_path: Path) -> None:
+def test_pr_capability_reports_unverified_token_without_gh(tmp_path: Path) -> None:
     report = check_pr_capability(
         tmp_path,
         env={"GITHUB_TOKEN": "present"},
@@ -61,8 +64,10 @@ def test_pr_capability_accepts_token_fallback_without_gh(tmp_path: Path) -> None
     )
 
     assert report.ok
+    assert report.gh_auth_state == "token_env_unverified"
     assert report.token_env_names == ("GITHUB_TOKEN",)
-    assert any("token-based API fallback" in item for item in report.warnings)
+    assert any("environment token is unverified" in item for item in report.warnings)
+    assert not any("fallback appears available" in item for item in report.warnings)
 
 
 def test_pr_capability_discovers_homebrew_style_gh_path(
@@ -105,6 +110,93 @@ def test_pr_capability_discovers_windows_style_gh_path(
 
     assert report.ok
     assert report.gh_path == str(fake_gh)
+
+
+def test_pr_capability_reports_authenticated_gh(tmp_path: Path) -> None:
+    fake_gh = _write_gh_stub(tmp_path, exit_code=0)
+
+    report = check_pr_capability(tmp_path, env={"PATH": ""}, gh_path=str(fake_gh))
+
+    assert report.gh_auth_state == "authenticated"
+    assert report.sandbox_detected is False
+    assert report.sandbox_env_names == ()
+    assert report.warnings == ()
+
+
+def test_pr_capability_does_not_treat_sandbox_keyring_failure_as_revocation(
+    tmp_path: Path,
+) -> None:
+    fake_gh = _write_gh_stub(tmp_path, exit_code=1)
+
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": "", "CODEX_SANDBOX": "seatbelt"},
+        gh_path=str(fake_gh),
+    )
+
+    assert report.gh_auth_state == "sandbox_credential_unverified"
+    assert report.sandbox_detected is True
+    assert report.sandbox_env_names == ("CODEX_SANDBOX",)
+    assert any("does not prove" in item for item in report.warnings)
+    assert any("protocol-approved sandbox escalation" in item for item in report.warnings)
+    assert any("Only if that keychain-aware check" in item for item in report.warnings)
+    assert not any("not authenticated" in item for item in report.warnings)
+
+
+def test_pr_capability_accepts_explicit_sandbox_signal_for_other_agents(
+    tmp_path: Path,
+) -> None:
+    fake_gh = _write_gh_stub(tmp_path, exit_code=1)
+
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": ""},
+        gh_path=str(fake_gh),
+        agent_sandbox=True,
+    )
+
+    assert report.gh_auth_state == "sandbox_credential_unverified"
+    assert report.sandbox_detected is True
+    assert report.sandbox_env_names == ()
+    assert any("explicit --agent-sandbox signal" in item for item in report.warnings)
+
+
+def test_pr_capability_does_not_claim_failed_env_token_is_available(
+    tmp_path: Path,
+) -> None:
+    fake_gh = _write_gh_stub(tmp_path, exit_code=1)
+    secret = "never-print-this-token"
+
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": "", "GH_TOKEN": secret},
+        gh_path=str(fake_gh),
+    )
+
+    assert report.gh_auth_state == "token_env_unverified"
+    assert report.token_env_names == ("GH_TOKEN",)
+    rendered = repr(report)
+    assert secret not in rendered
+    assert any("unverified" in item for item in report.warnings)
+    assert not any("fallback appears available" in item for item in report.warnings)
+
+
+def test_pr_capability_reports_non_sandbox_auth_failure_conservatively(
+    tmp_path: Path,
+) -> None:
+    fake_gh = _write_gh_stub(tmp_path, exit_code=1)
+
+    report = check_pr_capability(tmp_path, env={"PATH": ""}, gh_path=str(fake_gh))
+
+    assert report.gh_auth_state == "unauthenticated_or_invalid"
+    assert any("gh auth login" in item for item in report.warnings)
+    assert any("does not authorize GitHub writes" in item for item in report.warnings)
+
+
+def test_active_sandbox_env_names_returns_names_without_values() -> None:
+    assert active_sandbox_env_names(
+        {"CODEX_SANDBOX": "secret-host-detail", "PATH": "test"}
+    ) == ("CODEX_SANDBOX",)
 
 
 def test_pr_capability_discovers_git_from_candidate_paths(
@@ -281,6 +373,7 @@ def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -
 
     assert result.returncode == 0
     assert "PR capability check" in result.stdout
+    assert "gh auth state: gh_unavailable" in result.stdout
     assert "git path:" in result.stdout
     assert "suspicious proxy env:" in result.stdout
     assert "Warnings:" in result.stdout
@@ -324,6 +417,7 @@ def test_pr_capability_cli_reports_clean_state_when_gh_authenticated(
 
     assert result.returncode == 0, (result.stdout, result.stderr)
     assert "PR capability check" in result.stdout
+    assert "gh auth state: authenticated" in result.stdout
     assert os.path.normcase(str(stub_gh)) in os.path.normcase(result.stdout)
     assert "Warnings: none" in result.stdout
     assert "Errors: none" in result.stdout

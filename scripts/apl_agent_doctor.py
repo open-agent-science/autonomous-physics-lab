@@ -96,6 +96,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Skip `gh auth status`; useful before logging in or in offline environments.",
     )
     parser.add_argument(
+        "--agent-sandbox",
+        action="store_true",
+        help=(
+            "Declare that this agent runtime may isolate the host credential store. "
+            "Use for Claude or other sandboxes without an auto-detected marker."
+        ),
+    )
+    parser.add_argument(
         "--probe-pytest-runtime",
         action="store_true",
         help=(
@@ -422,10 +430,15 @@ def build_report(
     root: Path,
     *,
     require_gh_auth: bool = True,
+    agent_sandbox: bool = False,
     probe_pytest_runtime: bool = False,
     worktree_runtime_preflight_enabled: bool = False,
 ) -> AgentDoctorReport:
-    pr_report = check_pr_capability(root, require_gh_auth=require_gh_auth)
+    pr_report = check_pr_capability(
+        root,
+        require_gh_auth=require_gh_auth,
+        agent_sandbox=agent_sandbox,
+    )
     return AgentDoctorReport(
         python=python_runtime_report(),
         pr_capability=asdict(pr_report),
@@ -460,9 +473,14 @@ def _print_human(report: AgentDoctorReport) -> None:
     print("PR publication")
     print(f"- gh path: {pr.get('gh_path') or 'not found'}")
     print(f"- git path: {pr.get('git_path') or 'not found'}")
+    print(f"- gh auth state: {pr.get('gh_auth_state') or 'unknown'}")
+    print(f"- agent sandbox detected: {bool(pr.get('sandbox_detected'))}")
     tokens = pr.get("token_env_names") or ()
     token_label = ", ".join(tokens) if tokens else "none"
     print(f"- token fallback: {token_label}")
+    sandbox_names = pr.get("sandbox_env_names") or ()
+    sandbox_label = ", ".join(sandbox_names) if sandbox_names else "none"
+    print(f"- agent sandbox markers: {sandbox_label}")
     proxy_names = pr.get("suspicious_proxy_env_names") or ()
     proxy_label = ", ".join(proxy_names) if proxy_names else "none"
     print(f"- suspicious proxy env: {proxy_label}")
@@ -547,6 +565,7 @@ def main() -> int:
     report = build_report(
         Path(args.root),
         require_gh_auth=not args.no_gh_auth_check,
+        agent_sandbox=args.agent_sandbox,
         probe_pytest_runtime=args.probe_pytest_runtime,
         worktree_runtime_preflight_enabled=args.worktree_runtime_preflight,
     )
