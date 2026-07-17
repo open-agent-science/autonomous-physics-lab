@@ -1,0 +1,117 @@
+schema_version: "1"
+task_id: TASK-1054
+campaign_id: materials-property-residuals
+contract_id: oqmd-within-source-cation-pair-v1
+contract_state: frozen_value_blind
+verdict: CONTRACT_READY_FOR_FROZEN_SPLIT
+
+authorship:
+  contributor_id: akutenyov
+  github_username: akutenyov
+  agent_tool: Codex
+  session_id: codex-task1054-clean-20260716
+  no_oqmd_target_access: true
+  target_values_or_aggregates_inspected: false
+  contamination_action: CONTRACT_CONTAMINATED
+
+scientific_scope:
+  source: OQMD
+  target_field: delta_e
+  target_units: eV_per_atom_per_OQMD_canonical_definition
+  provenance_class: computed_dft
+  within_source_only: true
+  materials_project_numeric_pooling_allowed: false
+  cross_database_offset_claim_allowed: false
+  field_equality_claim_allowed: false
+
+split_dependency:
+  required_task: TASK-1053
+  required_split_property: reduced_composition_group_atomic
+  identity_group_preserving: true
+  row_assignment_in_this_task: false
+
+primary_model:
+  model_id: unordered_non_oxygen_cation_pair_train_mean
+  feature: sorted_unordered_non_oxygen_cation_pair
+  fit_scope: train_only
+  estimator: arithmetic_mean
+  unseen_pair_fallback: train_only_global_mean
+  structural_descriptors_allowed: false
+  feature_expansion_allowed: false
+
+required_nulls:
+  - model_id: train_only_global_median
+    estimator: median
+    fit_scope: train_only
+  - model_id: train_only_iupac_cation_group_pair_mean
+    grouping: sorted_unordered_iupac_cation_group_pair
+    estimator: arithmetic_mean
+    fit_scope: train_only
+    unseen_group_fallback: train_only_global_mean
+
+required_controls:
+  label_shuffle:
+    scope: train_targets_only
+    deterministic: true
+    seeds: [1054, 2054, 3054, 4054, 5054]
+  cation_pair_label_shuffle:
+    scope: train_pair_labels_only
+    deterministic: true
+    seeds: [1054, 2054, 3054, 4054, 5054]
+  row_order_invariance:
+    variants: [canonical_entry_id_order, reversed_entry_id_order]
+    required_metric_drift_max: 1.0e-12
+
+sensitivity:
+  identity_group_preserving: true
+  seeds: [1054, 2054, 3054, 4054, 5054]
+  partition_source: frozen_TASK_1053_manifest
+  target_values_used_for_partitioning: false
+
+metrics:
+  primary:
+    name: MAE
+    units: eV_per_atom
+  secondary:
+    name: RMSE
+    units: eV_per_atom
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 1.0e-9
+
+survival_gate:
+  comparator_scope: every_required_null_and_every_required_control_instance
+  absolute_margin_eV_per_atom: 0.02
+  relative_margin_fraction: 0.05
+  required_rule: model_mae <= comparator_mae - max(0.02, 0.05 * comparator_mae)
+  ties_within_tolerance: fail
+  all_sensitivity_seeds_must_pass: true
+
+data_policy:
+  missing_non_numeric_or_non_finite_target: exclude_before_future_partitioning
+  exclusion_counts_must_be_reported: true
+  empty_or_ambiguous_eligible_population: INCONCLUSIVE
+  target_imputation_allowed: false
+
+future_verdicts:
+  PASS:
+    condition: every frozen gate and every sensitivity seed passes
+  FAIL:
+    condition: any required comparator survives the frozen margin or leakage/order drift occurs
+  INCONCLUSIVE:
+    condition: eligible population or required control is unavailable without contract change
+
+stop_conditions:
+  - CONTRACT_CONTAMINATED
+  - SEMANTICS_BLOCKED
+  - CONTROL_BLOCKED
+  - THRESHOLD_BLOCKED
+  - IDENTITY_LEAKAGE
+  - ROW_ORDER_DRIFT
+  - INSUFFICIENT_GROUP_COVERAGE
+
+routing:
+  split_created: false
+  metrics_computed: false
+  result_created: false
+  claim_prediction_or_knowledge_changed: false
+  next_gate: TASK-1053 plus a separate reviewed execution task
