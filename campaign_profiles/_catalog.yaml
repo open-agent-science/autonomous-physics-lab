@@ -188,20 +188,23 @@ campaigns:
     scored 80/80 exact agreement, 100% VALID and INVALID recall, and 0% INCONCLUSIVE; same-owner
     role separation limits it to calibration rather than confirmatory CLAIM-0005 evidence.
   agent_capacity:
-    recommended_parallel_agents: 1
-    coordination_notes: The scoring gate is complete. The next trust step is one independent-human
-      Gate B replay of RESULT-0030 without changing rows, labels, thresholds, engine semantics,
-      metrics, or CALIBRATION_ONLY_ROLE_LIMIT. Do not use this result to reopen CLAIM-0005
-      Gate C.
+    recommended_parallel_agents: 2
+    coordination_notes: TASK-1062 may independently replay RESULT-0030 while TASK-1071 is
+      reserved for a genuinely external human-controlled curator to freeze a new no-score
+      benchmark. These surfaces are disjoint. Do not use the same-owner v2 result to reopen
+      CLAIM-0005 Gate C.
   next_validity_gate:
     type: ratification
-    blocker: RESULT-0030 is AGENT_PUBLISHED and has not yet received independent Gate B replay;
-      its same-owner benchmark-authorship limit still prevents confirmatory claim promotion.
-    target_artifact: results/EXP-0006/RUN-0008/result.yaml
+    blocker: RESULT-0030 still needs independent Gate B replay, and confirmatory generalization
+      remains blocked until a genuinely external human authors a fresh blind benchmark without
+      validator exposure.
+    target_artifact: TASK-1062 and TASK-1071
   best_next_actions:
-  - task_id: null
+  - task_id: TASK-1062
     label: Replay RESULT-0030 under a genuinely independent human identity while preserving
       the calibration-only ceiling
+  - task_id: TASK-1071
+    label: Freeze a genuinely external blind benchmark without scoring it
   required_gates:
   - Do not change frozen RESULT-0007 replay scope.
   - Separate live curation from canonical MVP metrics.
@@ -233,16 +236,18 @@ campaigns:
   open_questions:
   - Can an independent human replay reproduce RESULT-0030 exactly while preserving its calibration-only
     interpretation?
+  - Can a different human curate a fresh blind surface that is independent enough for a later
+    one-shot generalization test?
   curator_review:
     status: current
-    last_reviewed: '2026-07-16'
+    last_reviewed: '2026-07-17'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: RESULT-0030, TASK-1051, and Scientific Director 2026-07-16 cycle
-    notes: The 80-item exact-v2 calibration passed every frozen threshold and now needs independent
-      Gate B replay. Its benchmark-authorship class is still not independent enough for confirmatory
-      Gate C.
+    source: RESULT-0030, TASK-1062, and Scientific Director 2026-07-17 cycle
+    notes: The 80-item exact-v2 calibration passed every frozen threshold and needs independent
+      Gate B replay. A separate externally authored no-score surface is the honest route to
+      a future generalization test.
   source_docs:
   - docs/campaigns/dimensional-analysis-validator.md
   - docs/results/dimensional-analysis-validator-summary.md
@@ -444,29 +449,29 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: 'MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo
-    dataset DOI 10.5281/zenodo.21207072. TASK-1042 acquired a dated OQMD live-API surface:
-    373 raw rows, 201 identifier-only MD-0002 composition exclusions, and 172 normalized rows,
-    with verdict SNAPSHOT_READY_FOR_SPLIT_FREEZE.'
+  current_stage: MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo
+    dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized rows after
+    201 identifier-only MD-0002 composition exclusions; TASK-1053 froze a leakage-free 120/26/26
+    grouped split and TASK-1054 froze the value-blind baseline/control contract.
   agent_capacity:
     recommended_parallel_agents: 3
-    coordination_notes: The OQMD source gate is now satisfied. Freeze the identifier-only
-      grouped split and value-blind within-OQMD baseline/control contract on disjoint branches;
-      an independent source replay may proceed in parallel. TASK-1044 remains reserved for
-      an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0, pool OQMD and
-      Materials Project target values, or open a feature factory.
+    coordination_notes: The OQMD source, split, and control-contract gates are satisfied.
+      TASK-1063 is the only remaining prerequisite before TASK-1066 may run the frozen within-OQMD
+      benchmark. TASK-1044 remains reserved for an independent-human RESULT-0021 replay. Do
+      not rebuild MD-0002 v0.1.0, pool OQMD and Materials Project target values, or open a
+      feature factory.
   next_validity_gate:
     type: transfer
-    blocker: The 172-row OQMD source surface is ready, but its identifier-only grouped split
-      and value-blind baseline/control contract are not yet frozen.
-    target_artifact: TASK-1053 and TASK-1054
+    blocker: The source, grouped split, and value-blind control contract are frozen; benchmark
+      scoring remains blocked only until TASK-1063 returns INDEPENDENT_SOURCE_REPLAY_PASS.
+    target_artifact: TASK-1063, then TASK-1066
   best_next_actions:
   - task_id: TASK-1044
     label: Replay RESULT-0021 under a genuinely independent human identity
-  - task_id: TASK-1054
-    label: Predeclare within-OQMD baselines and controls without inspecting target values
-  - task_id: TASK-1053
-    label: Freeze an identifier-only grouped OQMD split
+  - task_id: TASK-1063
+    label: Independently replay the bounded OQMD source and overlap contract
+  - task_id: TASK-1066
+    label: After source replay passes, run the frozen within-OQMD benchmark once
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -517,6 +522,10 @@ campaigns:
   - docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md
   - data/materials/oqmd_live_api_2026-07-14_manifest.yaml
   - data/materials/oqmd_live_api_2026-07-14_normalized.json
+  - data/materials/oqmd_live_api_2026-07-14_split.yaml
+  - docs/reviews/materials/oqmd-identifier-only-split-freeze.md
+  - docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml
+  - docs/reviews/materials/oqmd-within-source-baseline-control-preflight.md
   open_questions:
   - Can the frozen within-OQMD baseline survive grouped holdout controls on the 172-row composition-disjoint
     surface?
@@ -525,14 +534,15 @@ campaigns:
     and descriptor-ablation limits?
   curator_review:
     status: current
-    last_reviewed: '2026-07-16'
+    last_reviewed: '2026-07-17'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-1042 OQMD bounded acquisition and Scientific Director 2026-07-16 cycle
-    notes: MD-0002 remains fixed and citable. OQMD now has a bounded, hash-pinned 172-row
-      source surface; split, contract, and independent source validation precede any metric
-      execution.
+    source: TASK-1053/TASK-1054 OQMD split and contract outcomes and Scientific Director 2026-07-17
+      cycle
+    notes: MD-0002 remains fixed and citable. OQMD has a bounded, hash-pinned 172-row source
+      surface plus frozen split and controls; independent source replay is the sole remaining
+      gate before one metric execution.
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -555,25 +565,26 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration
+  current_stage: 'RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration
     remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen.
-    TASK-1023 correctly stopped after target-bearing search snippets compromised that session's
-    no-peek scout.
+    TASK-1031 completed a clean official-metadata scout with zero target exposure and found
+    only pre-registration AME2020/NUBASE2020 sources: SOURCE_PREDATES_REGISTRATION.'
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: 'Do not launch another model/factory sprint, mutate frozen PRED payloads,
-      or score reveal early. TASK-1031 is the only new lane: a fresh independent session using
-      direct official metadata only, with immediate stop on any target-value exposure.'
+    coordination_notes: Do not launch another model/factory sprint, mutate frozen PRED payloads,
+      score reveal early, or repeat a manual metadata scout without a new official event.
+      TASK-1072 should ratify the post-registration trigger ledger; after that, remain monitor-only
+      until a qualifying official release signal exists.
   next_validity_gate:
     type: external_reveal
-    blocker: Point-only central-value predictions are frozen, but reveal scoring and any success
-      claim remain blocked until an admissible source is revealed and maintainer-reviewed;
-      calibrated intervals remain blocked by TASK-0899.
-    target_artifact: TASK-1031
+    blocker: The clean scout found no post-registration official source. Reveal scoring and
+      any success claim remain blocked until a ledger-qualified source event is separately
+      manifested and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899.
+    target_artifact: TASK-1072 trigger ledger, then a future event-specific source-manifest
+      task
   best_next_actions:
-  - task_id: TASK-1031
-    label: Retry shell-axis source identity in a clean session using direct official metadata
-      only
+  - task_id: TASK-1072
+    label: Ratify event-triggered monitoring and stop repeated no-signal scouts
   required_gates:
   - Use the source-gated NMD-0003 measured-row training surface and frozen split manifest
     for the next broad Nuclear factory sprint.
@@ -618,6 +629,7 @@ campaigns:
   - docs/notes/nuclear-controls-first-hypothesis-gauntlet.md
   - prediction_registry/nuclear_masses/
   - docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md
+  - docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md
   open_questions:
   - Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker
     memory, or remain a review note?
@@ -627,15 +639,14 @@ campaigns:
     source bytes?
   curator_review:
     status: current
-    last_reviewed: '2026-07-13'
+    last_reviewed: '2026-07-17'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: TASK-0933 point-only prospective freeze, TASK-1023 no-peek source scout, and Scientific
-      Director 2026-07-13 task-queue cycle
-    notes: The flagship remains reveal/success-claim blocked. TASK-1023 produced useful blocker
-      memory rather than a source manifest; only a clean direct-official-metadata retry is
-      justified, not another residual factory or search-snippet scout.
+    source: TASK-1031 clean official-metadata scout and Scientific Director 2026-07-17 cycle
+    notes: The flagship remains reveal/success-claim blocked. The clean retry found only pre-registration
+      sources, so the next useful artifact is a trigger ledger, not another residual factory
+      or periodic source scout.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
@@ -819,27 +830,23 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED
-    INCONCLUSIVE control memory with independent-human replay. TASK-1052 transcribed four
-    Kim-2020 HRTEM summaries and produced repeatable two-pass optical x coordinates, but all
-    eight optical observations remain excluded because the frozen contract required numeric
-    y-axis ticks that the figure does not provide; verdict UNCERTAINTY_BLOCKED.
+    INCONCLUSIVE control memory. TASK-1052 remains UNCERTAINTY_BLOCKED, while TASK-1064 independently
+    established GO_TEXT_REPORTED_PEAK_ROUTE for eight sample-resolved Kim-2020 CdSe absorption/fluorescence
+    statements under a separate provenance contract.
   agent_capacity:
     recommended_parallel_agents: 1
     coordination_notes: Preserve TASK-1052 as failed-contract memory; do not weaken its axis
-      gate or admit its excluded optical rows retroactively. The only useful follow-up is
-      a separate source-provenance stop/go decision for the article's text-reported optical
-      peaks. Preserve RESULT-0029; no correction search, refit, repeat ZnSe/InP transfer,
-      or benchmark metric is authorized.
+      gate or admit excluded digitized coordinates. TASK-1070 may curate exactly eight text-stated
+      rows into separate absorption and emission files without scoring. Preserve RESULT-0029;
+      no correction search, refit, repeat ZnSe/InP transfer, or benchmark metric is authorized.
   next_validity_gate:
     type: source_readiness
-    blocker: The frozen digitization route stopped because Figure 3(a) has no numeric y ticks;
-      a distinct text-reported optical-peak provenance route has not yet received a separate
-      stop/go decision.
-    target_artifact: docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md
+    blocker: The text-reported route is provenance-ready, but its eight approved observations
+      have not yet been represented as schema-valid, property-separated dataset rows.
+    target_artifact: TASK-1070
   best_next_actions:
-  - task_id: null
-    label: Create a separate text-reported optical-peak source-adjudication task; do not rescue
-      the excluded digitization rows
+  - task_id: TASK-1070
+    label: Curate eight text-reported CdSe optical rows without fitting or scoring
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -881,22 +888,23 @@ campaigns:
   - docs/reviews/quantum/kim-2020-cdse-source-artifact.md
   - docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md
   - docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md
+  - docs/reviews/quantum/kim-2020-cdse-text-reported-peak-route.md
+  - data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml
   - data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml
   - results/EXP-0022/RUN-0001/result.yaml
   open_questions:
-  - Can the article's text-reported optical peaks form a distinct, source-locatable provenance
-    class without changing the failed digitization contract?
+  - After the eight text-stated rows are curated, is there a sufficiently strong predeclared
+    benchmark question that adds information beyond the existing transfer-negative memory?
   curator_review:
     status: current
-    last_reviewed: '2026-07-16'
+    last_reviewed: '2026-07-17'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: RESULT-0029 independent-human replay, TASK-1052 Kim-2020 extraction stop, and
-      Scientific Director 2026-07-16 cycle
-    notes: RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 two-pass x coordinates
-      were repeatable, but the frozen two-axis contract failed; only a separately justified
-      text-reported source route may reopen row readiness.
+    source: TASK-1064 Kim-2020 text-route GO and Scientific Director 2026-07-17 cycle
+    notes: RESULT-0029 remains bounded inconclusive/control memory. The failed digitization
+      route stays closed, while a separate eight-row text-stated route is ready for source
+      curation without metrics.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md

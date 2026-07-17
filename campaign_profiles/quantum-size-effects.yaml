@@ -84,16 +84,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory with independent-human replay. TASK-1052 transcribed four Kim-2020 HRTEM summaries and produced repeatable two-pass optical x coordinates, but all eight optical observations remain excluded because the frozen contract required numeric y-axis ticks that the figure does not provide; verdict UNCERTAINTY_BLOCKED."
+  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1052 remains UNCERTAINTY_BLOCKED, while TASK-1064 independently established GO_TEXT_REPORTED_PEAK_ROUTE for eight sample-resolved Kim-2020 CdSe absorption/fluorescence statements under a separate provenance contract."
   recommended_parallel_agents: 1
-  coordination_notes: "Preserve TASK-1052 as failed-contract memory; do not weaken its axis gate or admit its excluded optical rows retroactively. The only useful follow-up is a separate source-provenance stop/go decision for the article's text-reported optical peaks. Preserve RESULT-0029; no correction search, refit, repeat ZnSe/InP transfer, or benchmark metric is authorized."
+  coordination_notes: "Preserve TASK-1052 as failed-contract memory; do not weaken its axis gate or admit excluded digitized coordinates. TASK-1070 may curate exactly eight text-stated rows into separate absorption and emission files without scoring. Preserve RESULT-0029; no correction search, refit, repeat ZnSe/InP transfer, or benchmark metric is authorized."
   next_validity_gate:
     type: source_readiness
-    blocker: "The frozen digitization route stopped because Figure 3(a) has no numeric y ticks; a distinct text-reported optical-peak provenance route has not yet received a separate stop/go decision."
-    target_artifact: "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
+    blocker: "The text-reported route is provenance-ready, but its eight approved observations have not yet been represented as schema-valid, property-separated dataset rows."
+    target_artifact: "TASK-1070"
   best_next_actions:
-    - task_id: null
-      label: "Create a separate text-reported optical-peak source-adjudication task; do not rescue the excluded digitization rows"
+    - task_id: TASK-1070
+      label: "Curate eight text-reported CdSe optical rows without fitting or scoring"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -116,15 +116,17 @@ portfolio:
     - "docs/reviews/quantum/kim-2020-cdse-source-artifact.md"
     - "docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md"
     - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
+    - "docs/reviews/quantum/kim-2020-cdse-text-reported-peak-route.md"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml"
     - "data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml"
     - "results/EXP-0022/RUN-0001/result.yaml"
   open_questions:
-    - "Can the article's text-reported optical peaks form a distinct, source-locatable provenance class without changing the failed digitization contract?"
+    - "After the eight text-stated rows are curated, is there a sufficiently strong predeclared benchmark question that adds information beyond the existing transfer-negative memory?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-16"
+    last_reviewed: "2026-07-17"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0029 independent-human replay, TASK-1052 Kim-2020 extraction stop, and Scientific Director 2026-07-16 cycle"
-    notes: "RESULT-0029 remains bounded inconclusive/control memory. Kim-2020 two-pass x coordinates were repeatable, but the frozen two-axis contract failed; only a separately justified text-reported source route may reopen row readiness."
+    source: "TASK-1064 Kim-2020 text-route GO and Scientific Director 2026-07-17 cycle"
+    notes: "RESULT-0029 remains bounded inconclusive/control memory. The failed digitization route stays closed, while a separate eight-row text-stated route is ready for source curation without metrics."

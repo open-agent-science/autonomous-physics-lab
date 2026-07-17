@@ -8,7 +8,7 @@ difficulty: high
 priority: high
 
 strategy_alignment:
-  - "TASK-1042 supplied a bounded 172-row OQMD computed-DFT surface; TASK-1053 and TASK-1054 separately freeze the target-blind split and value-blind model/control contract."
+  - "TASK-1042 supplied a bounded 172-row OQMD computed-DFT surface; TASK-1053 froze the target-blind split and TASK-1054 froze the value-blind model/control contract."
   - "A single execution task should preserve either a passing, failing, or inconclusive within-source result without cross-database pooling or rescue fitting."
   - "Independent TASK-1063 source replay should pass before any metric result is published."
 
@@ -28,7 +28,7 @@ input:
     every outcome and do not compare numeric target values across databases.
 
 requirements:
-  - "Blocked-by: merged TASK-1053 with a valid frozen split, merged TASK-1054 with a non-contaminated baseline/control contract, and merged TASK-1063 with INDEPENDENT_SOURCE_REPLAY_PASS. Keep BLOCKED until all three exact artifacts are on main."
+  - "TASK-1053 and TASK-1054 prerequisites are satisfied on main with SPLIT_READY_FOR_BENCHMARK_PREFLIGHT and CONTRACT_READY_FOR_FROZEN_SPLIT. Blocked-by only: merged TASK-1063 with INDEPENDENT_SOURCE_REPLAY_PASS. Keep BLOCKED until that exact source-replay verdict is on main."
   - "Verify source, normalized snapshot, split, contract, and independent-replay hashes before reading targets or running metrics; stop on any drift."
   - "Use only OQMD delta_e under OQMD semantics, the frozen split, train-only cation-pair baseline/fallback, declared nulls, controls, seeds, metric, tolerance, and survival margin."
   - "Report all partition/group counts, unseen-pair behavior, primary and secondary metrics, every required control, seeded sensitivity, and complete failure cases without row or residual-based exclusions."

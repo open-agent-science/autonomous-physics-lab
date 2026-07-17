@@ -32,17 +32,18 @@ The later NMD-0003 GP point-estimator lane produced `RESULT-0025`, which
 substantially improves point MAE and replays exactly, but its uncertainty model
 is heavy-tailed and miscalibrated. `TASK-0899` has now confirmed that the
 approved no-peek uncertainty-calibration routes do not clear the declared
-freeze conditions. The next source-safe Nuclear work is preserving that
-calibration failure as blocker/negative memory and keeping source-rights-safe
-DZ10 parity auditable, not a new Wigner-shape search, broad prediction wave, or
-another F2 loop.
+freeze conditions. Point-only predictions are frozen. `TASK-1031` then ran a
+clean official-metadata-only source scout with zero target exposure and found
+only AME2020/NUBASE2020 records released before the 2026-05-20 registration;
+its verdict is `SOURCE_PREDATES_REGISTRATION`. The next source-safe work is an
+event-trigger ledger, not another no-signal scout, Wigner-shape search, broad
+prediction wave, or F2 loop.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can the replayed `RESULT-0025` point-estimator gain be
-paired with calibrated no-peek uncertainty and admissible stronger baselines
-before any prospective prediction freeze, or should the failed uncertainty
-calibration become durable blocker memory?
+**Current question:** what concrete post-registration official release event
+could legitimately open a fresh source-manifest decision for the frozen
+point-only predictions without weakening no-peek discipline?
 
 **Shareable result:** APL has useful negative/control memory from F2,
 local-curvature, Wigner-cusp, and factory lanes, plus `RESULT-0025` as
@@ -89,17 +90,20 @@ validation-holdout MAE regressed. More recent work packaged `RESULT-0025`,
 prepared a point-estimator-only public review packet, preflighted a no-peek
 uncertainty-calibration route, prepared a metadata-only DZ10 parity wrapper,
 and then found in `TASK-0899` that no approved no-peek uncertainty route passed
-the declared freeze conditions.
+the declared freeze conditions. `TASK-1031` later confirmed that the currently
+identifiable official AME/NUBASE release records predate prediction
+registration; no target values, target statuses, matching, or scores were
+inspected.
 
 **Expected next decision:** F2 and Wigner-cusp no longer need another
 hypothesis burst or publication preflight. `TASK-0633` packaged F2 as
 diagnostic `RESULT-0018`, and `TASK-0713` replayed it through Gate B without
 changing the `INCONCLUSIVE` scientific verdict. `TASK-0777` rejected the
-selected Wigner-cusp lane under its controls-first contract. The next useful
-Nuclear paths are a narrow preflight for packaging the failed calibration audit
-as negative/blocker result memory and a rights-safe full-table DZ10 parity
-check if local AMDC bytes are available. Reveal scoring and prediction freeze
-remain blocked.
+selected Wigner-cusp lane under its controls-first contract. The point-only
+freeze and negative calibration memory are already preserved. `TASK-1072`
+should ratify qualifying official release signals and keep the campaign
+`MONITOR_ONLY_NO_SCOUT` until one occurs. Reveal scoring, target matching, and
+interval-bearing wording remain blocked.
 
 ## Orientation Note for New Contributors
 

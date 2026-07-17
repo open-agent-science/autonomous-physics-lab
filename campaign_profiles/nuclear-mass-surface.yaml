@@ -129,16 +129,16 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen. TASK-1023 correctly stopped after target-bearing search snippets compromised that session's no-peek scout."
+  current_stage: "RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen. TASK-1031 completed a clean official-metadata scout with zero target exposure and found only pre-registration AME2020/NUBASE2020 sources: SOURCE_PREDATES_REGISTRATION."
   recommended_parallel_agents: 1
-  coordination_notes: "Do not launch another model/factory sprint, mutate frozen PRED payloads, or score reveal early. TASK-1031 is the only new lane: a fresh independent session using direct official metadata only, with immediate stop on any target-value exposure."
+  coordination_notes: "Do not launch another model/factory sprint, mutate frozen PRED payloads, score reveal early, or repeat a manual metadata scout without a new official event. TASK-1072 should ratify the post-registration trigger ledger; after that, remain monitor-only until a qualifying official release signal exists."
   next_validity_gate:
     type: external_reveal
-    blocker: "Point-only central-value predictions are frozen, but reveal scoring and any success claim remain blocked until an admissible source is revealed and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899."
-    target_artifact: "TASK-1031"
+    blocker: "The clean scout found no post-registration official source. Reveal scoring and any success claim remain blocked until a ledger-qualified source event is separately manifested and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899."
+    target_artifact: "TASK-1072 trigger ledger, then a future event-specific source-manifest task"
   best_next_actions:
-    - task_id: TASK-1031
-      label: "Retry shell-axis source identity in a clean session using direct official metadata only"
+    - task_id: TASK-1072
+      label: "Ratify event-triggered monitoring and stop repeated no-signal scouts"
   required_gates:
     - "Use the source-gated NMD-0003 measured-row training surface and frozen split manifest for the next broad Nuclear factory sprint."
     - "No reveal scoring before a source-grade no-peek release passes preflight."
@@ -165,15 +165,16 @@ portfolio:
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
     - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
+    - "docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md"
   open_questions:
     - "Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker memory, or remain a review note?"
     - "What admissible future source and reveal protocol can score the frozen point-only PRED entries without interval or success overclaiming?"
     - "What source-byte/cache route can support full AMDC DZ10 parity without vendoring restricted source bytes?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-13"
+    last_reviewed: "2026-07-17"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "TASK-0933 point-only prospective freeze, TASK-1023 no-peek source scout, and Scientific Director 2026-07-13 task-queue cycle"
-    notes: "The flagship remains reveal/success-claim blocked. TASK-1023 produced useful blocker memory rather than a source manifest; only a clean direct-official-metadata retry is justified, not another residual factory or search-snippet scout."
+    source: "TASK-1031 clean official-metadata scout and Scientific Director 2026-07-17 cycle"
+    notes: "The flagship remains reveal/success-claim blocked. The clean retry found only pre-registration sources, so the next useful artifact is a trigger ledger, not another residual factory or periodic source scout."
