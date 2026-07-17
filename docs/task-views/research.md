@@ -15,6 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-1053` - Freeze an identifier-only OQMD benchmark split without target inspection (`benchmark_planning`, priority `high`, difficulty `medium`, domain `materials_science`)
-- `TASK-1054` - Predeclare the OQMD within-source baseline and control contract value-blind (`benchmark_planning`, priority `high`, difficulty `medium`, domain `materials_science`)
-- `TASK-1064` - Decide the Kim-2020 CdSe text-reported optical-peak route after the digitization stop (`scientific_source_adjudication`, priority `high`, difficulty `medium`, domain `condensed_matter`)
+None.
