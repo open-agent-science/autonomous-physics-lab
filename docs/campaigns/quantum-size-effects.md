@@ -29,8 +29,13 @@ independent digitization passes. `TASK-1052` executed that contract: the two
 passes agreed on optical x coordinates, but Figure 3(a) has no numeric y ticks,
 so the frozen two-axis calibration gate failed and all eight optical rows remain
 excluded. The verdict is `UNCERTAINTY_BLOCKED`; no `qd-*.yaml` row or metric was
-admitted. The campaign is therefore **source/negative-memory gated**, not
-authorized for autonomous correction search or cross-material claims.
+admitted. `TASK-1064` then assessed a separate body-text route and returned
+`GO_TEXT_REPORTED_PEAK_ROUTE`: all four samples have source-locatable absorption
+and fluorescence statements, with pinned PDF/JATS hashes and a `0.005 eV`
+rounding floor. `TASK-1070` may curate those eight observations into separate
+absorption and emission files without scoring. The campaign remains
+**source/negative-memory gated**, not authorized for autonomous correction
+search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
@@ -65,11 +70,13 @@ controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. Preserve `TASK-1052` as failed-contract memory: do not weaken the y-axis
-gate or admit its excluded digitization rows retroactively. A separate stop/go
-decision may ask whether the article's text-reported absorption and emission
-peaks form a distinct factual provenance class. No benchmark metric, correction
-search, replay loop, or repeat transfer on the same ZnSe/InP surface is
-authorized.
+gate or admit its excluded digitization rows retroactively. `TASK-1064` has
+already established a distinct `text_stated_summary` provenance class for eight
+sample-resolved observations. The next bounded step is row curation only:
+separate absorption/emission files, source hashes, printed precision, rounding
+floor, unknown non-spherical morphology, and no equivalent-sphere conversion.
+No benchmark metric, correction search, replay loop, or repeat transfer on the
+same ZnSe/InP surface is authorized.
 
 ## Historical Source-Readiness Trail
 
@@ -339,6 +346,10 @@ Current evidence is source-scoped and sandbox-only:
   optical x coordinates, but returned `UNCERTAINTY_BLOCKED` because the frozen
   contract required numeric y ticks absent from Figure 3(a). All eight optical
   rows remain excluded.
+- `TASK-1064` independently located eight body-text optical statements and
+  returned `GO_TEXT_REPORTED_PEAK_ROUTE` under a separate zero-row provenance
+  contract. `TASK-1070` is the only authorized curation follow-up and may not
+  fit or score the rows.
 
 Historical context:
 
@@ -351,9 +362,9 @@ Historical context:
 - Is the six-row, one-holdout Almeida InP baseline sufficient for any bounded
   follow-up, or should it remain review-only until a license-clear independent
   material/source holdout exists?
-- Can the Kim-2020 body-text optical peak statements form a distinct,
-  sample-resolved provenance route without changing the failed digitization
-  contract?
+- After the eight Kim-2020 text-stated rows are curated, is there a bounded
+  predeclared benchmark question that adds information beyond existing
+  transfer-negative memory?
 - Which visualization or tabular summary would help reviewers inspect the
   baseline without implying a design law?
 - How should absorption-versus-emission and bandgap semantics be separated in

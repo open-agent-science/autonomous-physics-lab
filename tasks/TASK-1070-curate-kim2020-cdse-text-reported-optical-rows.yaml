@@ -1,0 +1,66 @@
+id: TASK-1070
+title: "Curate the eight Kim-2020 CdSe text-reported optical rows"
+type: scientific_data_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task creates the first admitted Kim-2020 CdSe rows; closeout must verify the frozen text-route contract, property-axis separation, source hashes, rounding limits, morphology boundary, and zero-scoring scope."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1064 returned GO_TEXT_REPORTED_PEAK_ROUTE for eight source-locatable, sample-resolved CdSe optical statements after the independent digitization route correctly stopped."
+  - "Curating the approved factual rows is the shortest source-readiness step toward a future bounded CdSe benchmark without weakening TASK-1052 or fitting a size law."
+  - "Absorption and fluorescence/emission must remain separate dataset and future residual axes."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-1064-cdse-text-peak-route-stop-go.yaml"
+    - "docs/reviews/quantum/kim-2020-cdse-text-reported-peak-route.md"
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    Convert only the eight text-stated optical observations approved by
+    TASK-1064 into schema-valid dataset rows. Keep the failed figure
+    digitization and its excluded coordinates immutable, and do not score or
+    fit the new rows.
+
+requirements:
+  - "Reverify GO_TEXT_REPORTED_PEAK_ROUTE, DOI 10.3390/nano10081589, PDF SHA-256 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb, and JATS SHA-256 6642fed609ad6540b61ca856d293d2b469c5ed7be9323479c9b76b023f668244 before curation; stop on contract or hash drift."
+  - "Create exactly eight included observations: four absorption peaks and four source-described fluorescence peaks for CdSe-1 through CdSe-4, using only the ordered size/value mapping frozen by TASK-1064."
+  - "Store the observations in two property-homogeneous files: qd-0005 for absorption_peak_eV and qd-0006 for emission_peak_eV. Map the source term fluorescence to the canonical emission_peak_eV schema term while preserving the source wording and locator; do not pool the two axes."
+  - "Use paragraph particle sizes 2.5, 3.5, 3.7, and 4.5 nm for this text-stated surface. Preserve the separate TASK-1052 HRTEM summaries and the 2.5-versus-2.7 nm first-sample discrepancy in provenance notes without averaging or substitution."
+  - "Record provenance_class text_stated_summary, sample id, source locator, source-artifact digest, printed precision 0.01 eV, rounding uncertainty floor 0.005 eV, and instrument uncertainty not_reported for every row. A minimal backward-compatible schema extension is allowed only for these predeclared provenance fields."
+  - "Keep morphology unknown_non_spherical. Do not infer or store an equivalent spherical diameter, relabel either axis as bandgap, or treat the rounding floor as reported instrument uncertainty."
+  - "Update source/dataset documentation and add deterministic tests for exact row count, sample/axis completeness, values, hashes, property separation, provenance fields, and schema validity."
+  - "TASK-1043 and TASK-1052 are immutable history: do not change their contract, ledger, excluded coordinates, tolerances, or UNCERTAINTY_BLOCKED verdict. Excluded digitization coordinates may appear only as a labelled non-admission diagnostic and are not required here."
+  - "Stop with SOURCE_HASH_DRIFT, CONTRACT_DRIFT, SCHEMA_SEMANTICS_BLOCKED, or ROW_PROVENANCE_BLOCKED rather than guessing or weakening the contract. On success return TEXT_ROWS_CURATED_NO_SCORE."
+  - "Do not fit a model, define a split, compute residuals or correlations, compare materials, edit RESULT-0029, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No-claim wording: these are eight source-reported optical observations for four CdSe samples, not a quantum-confinement law, benchmark result, material recommendation, or device claim."
+
+accepted_outputs:
+  - "Two schema-valid dataset files, qd-0005 absorption and qd-0006 emission, containing exactly four rows each and preserving the frozen TASK-1064 mapping and provenance."
+  - "Only the minimal schema, source-manifest/documentation, and deterministic test changes needed to represent the approved provenance fields; no metrics or result artifact."
+  - "A concise curation note and output-routing summary with one bounded verdict, Gate A/B not attempted, no claim/knowledge impact, and the exact future benchmark blocker."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-row curation only; benchmark scoring and any result publication require a later separately frozen task."
+  evidence:
+    - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_quantum_dot_dataset_schema.py tests/test_quantum_kim2020_text_peak_route.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -8,10 +8,11 @@ curation identity is `same_owner_role_disjoint_agent`, so the bounded outcome
 is `CALIBRATION_ONLY_ROLE_LIMIT`, not a confirmatory holdout. No validator run,
 score, metric, or computed verdict was inspected during curation.
 
-The next result path requires a separately assigned blind-scoring task. A
-confirmatory candidate and later Gate C still require an independently authored
-surface; this calibration freeze does not change any `RESULT`, `CLAIM`, or
-knowledge status.
+That surface has now been scored once as `RESULT-0030` and passed all frozen
+calibration thresholds, but it remains same-owner calibration memory. The next
+trust paths are disjoint: `TASK-1062` independently replays the frozen result,
+while `TASK-1071` is reserved for a different human to author and freeze a
+fresh blind surface without scoring. Neither task changes `CLAIM-0005`.
 
 ## Goal
 
@@ -77,6 +78,8 @@ Start here:
 
 - Can an independent human Gate B replay reproduce all RESULT-0030 metrics and
   verification fields exactly?
+- Can a different human author a fresh blind benchmark with enough source,
+  label, and exposure independence for a later one-shot generalization test?
 - Which known-limit checks belong in the next benchmark version, and which
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
@@ -100,10 +103,13 @@ Start here:
   `CALIBRATION_ONLY_ROLE_LIMIT` because curation was same-owner role-disjoint.
 - `TASK-1051` scored the 80 frozen items once and published `RESULT-0030` after
   all exact-agreement, class-recall, and inconclusive-rate gates passed.
-- The next trust gate is an independent-human replay with no row, label,
+- `TASK-1062` is the independent-human replay gate, with no row, label,
   threshold, engine, metric, or scope change.
-- The evidence remains calibration-only. A genuinely independent
-  future surface is still required for confirmatory `CLAIM-0005` review.
+- `TASK-1071` is a separate external benchmark-freeze gate. It forbids
+  validator execution and requires a different controlling human; later
+  one-shot scoring must be another task.
+- The current evidence remains calibration-only. Neither replay nor benchmark
+  curation automatically changes `CLAIM-0005`.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`
   only when they do not rewrite canonical benchmark metrics.
 

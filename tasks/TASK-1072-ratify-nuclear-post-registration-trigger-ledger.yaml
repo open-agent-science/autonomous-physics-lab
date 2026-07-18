@@ -1,0 +1,68 @@
+id: TASK-1072
+title: "Ratify the Nuclear post-registration reveal-source trigger ledger"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task replaces repeated no-peek scouts with an event-triggered reveal-source contract; closeout must verify registration timing, admissible official signals, no-value boundaries, and stop/go routing."
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "TASK-1031 completed a clean official-metadata scout and found only AME2020/NUBASE2020 records released before the 2026-05-20 prediction registration."
+  - "Repeated manual scouts without a new official event add no scientific information and increase accidental reveal risk."
+  - "A durable trigger ledger keeps the frozen point predictions alive while preserving a precise route to a future source-manifest decision."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-1031-nuclear-shell-axis-clean-metadata-retry.yaml"
+    - "docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md"
+    - "docs/prospective-reveal-source-admissibility.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    Convert the SOURCE_PREDATES_REGISTRATION outcome into a monitor-only
+    ledger. Define which future official release events may open a fresh
+    metadata-only source decision and which signals must not trigger browsing,
+    target matching, or scoring.
+
+requirements:
+  - "Treat TASK-1031 SOURCE_PREDATES_REGISTRATION and its zero-target-exposure record as immutable evidence; do not repeat its metadata search or reopen pre-registration AME2020/NUBASE2020 sources."
+  - "Record the relevant prediction registration date 2026-05-20 and define qualifying trigger classes limited to direct official issuing-body release notices, official repository/version records, or DOI metadata for a post-registration nuclear-mass evaluation or primary measurement release."
+  - "Require each trigger to identify issuer, source class, publication/release date, version or DOI, stable official locator, and why it may contain post-registration information before any source-manifest task is created."
+  - "Define non-triggers explicitly: generic search snippets, news or secondary summaries, theory/model papers, unchanged AME2020 mirrors, preprints without an official release identity, target-name searches, and any already value-bearing preview."
+  - "Predeclare the transition: qualifying metadata signal -> fresh independent metadata-only source-manifest decision -> maintainer review -> separate target-matching/reveal task. No step may be skipped."
+  - "Set the standing posture to MONITOR_ONLY_NO_SCOUT until a qualifying event is recorded. A calendar interval alone is not a trigger, and agents must not create recurring speculative scouts."
+  - "Reconcile the canonical policy in docs/nuclear-prediction-reveal-protocol.md: replace its monthly recurring availability-check cadence with event-trigger-only monitoring, update the standing-pipeline wording consistently, and remove instructions that schedule a new scout merely because a calendar interval elapsed. Do not leave monthly and event-trigger-only postures active at the same time."
+  - "Define how an external event becomes visible without target-adjacent scouting: a maintainer-provided official release alert, an issuing-body release notice already encountered through normal project monitoring, or another directly locatable official metadata signal. The trigger permits only a fresh metadata-only manifest decision, never immediate value access."
+  - "Specify immediate STOP_VALUE_EXPOSURE and session retirement if target values or measured-status information appear before manifest approval. Preserve prediction payloads and target identities unchanged."
+  - "Return exactly one verdict: MONITOR_LEDGER_RATIFIED, NEEDS_MAINTAINER_TRIGGER_DECISION, or LEDGER_BLOCKED."
+  - "Do not browse for new sources, download payloads, query target nuclides, ingest or match values, score predictions, repair uncertainty intervals, fit models, or create RESULT/CLAIM/KNOW artifacts."
+  - "No-claim wording: the ledger preserves a prospective reveal route; it is not evidence that a new source exists, that any target was measured, or that the frozen predictions succeed."
+
+accepted_outputs:
+  - "A concise docs/reviews/nuclear/ trigger ledger with qualifying and forbidden signals, evidence fields, state transitions, stop conditions, and one bounded verdict."
+  - "A synchronized update to docs/nuclear-prediction-reveal-protocol.md that replaces monthly recurring checks with the ratified event-trigger-only posture, plus a minimal Nuclear campaign-page/profile pointer; no source/value or prediction mutation."
+  - "Output-routing summary: trigger memory only; Gate A/B not attempted, no result/claim/knowledge impact, and no reveal authorization."
+
+result_artifact_policy:
+  required: false
+  reason: "Event-trigger and no-peek governance only; no source payload, prediction score, or scientific result is produced."
+  evidence:
+    - "docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

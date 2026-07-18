@@ -85,15 +85,17 @@ portfolio:
       - curator_cycle_review
       - updated_campaign_profile
   current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. RESULT-0030 is AGENT_PUBLISHED after the frozen 80-item label_blind_exact_v2 surface scored 80/80 exact agreement, 100% VALID and INVALID recall, and 0% INCONCLUSIVE; same-owner role separation limits it to calibration rather than confirmatory CLAIM-0005 evidence."
-  recommended_parallel_agents: 1
-  coordination_notes: "The scoring gate is complete. The next trust step is one independent-human Gate B replay of RESULT-0030 without changing rows, labels, thresholds, engine semantics, metrics, or CALIBRATION_ONLY_ROLE_LIMIT. Do not use this result to reopen CLAIM-0005 Gate C."
+  recommended_parallel_agents: 2
+  coordination_notes: "TASK-1062 may independently replay RESULT-0030 while TASK-1071 is reserved for a genuinely external human-controlled curator to freeze a new no-score benchmark. These surfaces are disjoint. Do not use the same-owner v2 result to reopen CLAIM-0005 Gate C."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0030 is AGENT_PUBLISHED and has not yet received independent Gate B replay; its same-owner benchmark-authorship limit still prevents confirmatory claim promotion."
-    target_artifact: "results/EXP-0006/RUN-0008/result.yaml"
+    blocker: "RESULT-0030 still needs independent Gate B replay, and confirmatory generalization remains blocked until a genuinely external human authors a fresh blind benchmark without validator exposure."
+    target_artifact: "TASK-1062 and TASK-1071"
   best_next_actions:
-    - task_id: null
+    - task_id: TASK-1062
       label: "Replay RESULT-0030 under a genuinely independent human identity while preserving the calibration-only ceiling"
+    - task_id: TASK-1071
+      label: "Freeze a genuinely external blind benchmark without scoring it"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -111,11 +113,12 @@ portfolio:
     - "results/EXP-0006/RUN-0008/result.yaml"
   open_questions:
     - "Can an independent human replay reproduce RESULT-0030 exactly while preserving its calibration-only interpretation?"
+    - "Can a different human curate a fresh blind surface that is independent enough for a later one-shot generalization test?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-16"
+    last_reviewed: "2026-07-17"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0030, TASK-1051, and Scientific Director 2026-07-16 cycle"
-    notes: "The 80-item exact-v2 calibration passed every frozen threshold and now needs independent Gate B replay. Its benchmark-authorship class is still not independent enough for confirmatory Gate C."
+    source: "RESULT-0030, TASK-1062, and Scientific Director 2026-07-17 cycle"
+    notes: "The 80-item exact-v2 calibration passed every frozen threshold and needs independent Gate B replay. A separate externally authored no-score surface is the honest route to a future generalization test."
