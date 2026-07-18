@@ -36,6 +36,8 @@ requirements:
   - "Define non-triggers explicitly: generic search snippets, news or secondary summaries, theory/model papers, unchanged AME2020 mirrors, preprints without an official release identity, target-name searches, and any already value-bearing preview."
   - "Predeclare the transition: qualifying metadata signal -> fresh independent metadata-only source-manifest decision -> maintainer review -> separate target-matching/reveal task. No step may be skipped."
   - "Set the standing posture to MONITOR_ONLY_NO_SCOUT until a qualifying event is recorded. A calendar interval alone is not a trigger, and agents must not create recurring speculative scouts."
+  - "Reconcile the canonical policy in docs/nuclear-prediction-reveal-protocol.md: replace its monthly recurring availability-check cadence with event-trigger-only monitoring, update the standing-pipeline wording consistently, and remove instructions that schedule a new scout merely because a calendar interval elapsed. Do not leave monthly and event-trigger-only postures active at the same time."
+  - "Define how an external event becomes visible without target-adjacent scouting: a maintainer-provided official release alert, an issuing-body release notice already encountered through normal project monitoring, or another directly locatable official metadata signal. The trigger permits only a fresh metadata-only manifest decision, never immediate value access."
   - "Specify immediate STOP_VALUE_EXPOSURE and session retirement if target values or measured-status information appear before manifest approval. Preserve prediction payloads and target identities unchanged."
   - "Return exactly one verdict: MONITOR_LEDGER_RATIFIED, NEEDS_MAINTAINER_TRIGGER_DECISION, or LEDGER_BLOCKED."
   - "Do not browse for new sources, download payloads, query target nuclides, ingest or match values, score predictions, repair uncertainty intervals, fit models, or create RESULT/CLAIM/KNOW artifacts."
@@ -43,7 +45,7 @@ requirements:
 
 accepted_outputs:
   - "A concise docs/reviews/nuclear/ trigger ledger with qualifying and forbidden signals, evidence fields, state transitions, stop conditions, and one bounded verdict."
-  - "A minimal Nuclear campaign-page/profile pointer that replaces repeated-scout wording with the ratified monitor posture; no source/value or prediction mutation."
+  - "A synchronized update to docs/nuclear-prediction-reveal-protocol.md that replaces monthly recurring checks with the ratified event-trigger-only posture, plus a minimal Nuclear campaign-page/profile pointer; no source/value or prediction mutation."
   - "Output-routing summary: trigger memory only; Gate A/B not attempted, no result/claim/knowledge impact, and no reveal authorization."
 
 result_artifact_policy:
@@ -51,6 +53,7 @@ result_artifact_policy:
   reason: "Event-trigger and no-peek governance only; no source payload, prediction score, or scientific result is produced."
   evidence:
     - "docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
 
 validation:
   commands:

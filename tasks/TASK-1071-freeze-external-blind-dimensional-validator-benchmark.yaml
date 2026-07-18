@@ -16,12 +16,7 @@ input:
   mode: planning_only
   related_domain: physics_validation
   related_objects:
-    - "tasks/TASK-1038-dimensional-validator-scoring-separation.yaml"
-    - "tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml"
-    - "results/EXP-0006/RUN-0008/result.yaml"
-    - "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
-    - "docs/notes/dimensional-analysis-challenge-set.md"
-    - "docs/campaigns/dimensional-analysis-validator.md"
+    - "docs/dimensional-validator-external-curator-interface.md"
   planning_context: >
     A contributor controlled by a different human from the APL maintainer
     curates and freezes a fresh native-label benchmark without inspecting the
@@ -31,21 +26,23 @@ input:
 requirements:
   - "Reserved for a contributor controlled by a human other than the owner of gladunrv. Record contributor id, GitHub username, controlling-human identity statement, agent/tool/model, session id, and any prior exposure to APL dimensional-validator code, outputs, challenge rows, or review discussions."
   - "Stop with EXTERNAL_IDENTITY_BLOCKED if the contributor is controlled by the same human, identity is unverifiable, or the session has inspected validator outputs or answer-bearing RESULT-0030 material. Do not downgrade this to same-owner role separation."
-  - "Before curation, read only the frozen label_blind_exact_v2 interface/scope contract and this task. Do not inspect physics_lab/engines/dimensions.py, inference output, RESULT-0030 item-level predictions, or existing challenge-set answers."
+  - "Before curation, read only docs/dimensional-validator-external-curator-interface.md and this task. Do not inspect any other APL dimensional-analysis file, validator implementation or test, inference output, RESULT-0030 material, historical formula list, or existing challenge-set answer."
   - "Curate 80-120 unique formulas across at least five physics domains, with a predeclared balance of 40-60% dimensionally VALID and 40-60% dimensionally INVALID. Use INCONCLUSIVE only for a small explicit parser-boundary stratum and keep it outside denominator gaming."
   - "Use native primary labels VALID, INVALID, or INCONCLUSIVE. Keep semantic plausibility, numerical correctness, physical regime, and known-limit annotations on separate non-scoring axes."
   - "For every item record a stable id, formula, variable-dimension declarations, expected dimensional verdict, domain, concise rationale, source/provenance note, and reuse classification. Derive labels from SI dimensions without consulting APL output."
   - "Do not copy source prose, figures, tables, publisher files, or archive bytes. Treat formulas and APL-authored annotations as bounded factual/curatorial metadata with explicit attribution and per-source reuse posture."
   - "Predeclare exact agreement >=0.90, VALID recall >=0.85, INVALID recall >=0.85, INCONCLUSIVE rate <=0.05, duplicate policy, parser exclusions, and PASS/FAIL/INCONCLUSIVE routing before freeze. These thresholds cannot be edited by the later scorer after outputs are seen."
-  - "Audit conceptual and structural overlap against the historical 50/74 and v2 surfaces without exposing their expected labels to the curator. Stop if more than 20% of rows are near-duplicates or if blind overlap checking cannot be performed by a separate helper/reviewer."
+  - "After the curator freezes the ordered candidate package and digest, assign conceptual/structural overlap checking to a different helper or reviewer. That reviewer may inspect formula fields from the candidate and historical surfaces, must not reveal historical labels or validator outputs to the curator, and reports only overlap identities/counts plus PASS or OVERLAP_BLOCKED."
+  - "Stop if more than 20% of rows are near-duplicates, if the overlap reviewer is not role-separated from the curator, or if overlap checking would require exposing answer-bearing historical material to the curator. The curator must not replace rows in response to validator performance or historical labels."
   - "Freeze ordered items, source ledger, exclusions, authorship-independence record, scoring-contract id, thresholds, no-score declaration, and SHA-256 digest. Add metadata-only tests that do not import or execute dimensional inference."
   - "Return exactly one verdict: READY_FOR_EXTERNAL_BLIND_SCORING, EXTERNAL_IDENTITY_BLOCKED, EXTERNAL_EXPOSURE_BLOCKED, LABEL_AMBIGUITY_BLOCKED, PROVENANCE_BLOCKED, RIGHTS_BLOCKED, or OVERLAP_BLOCKED."
   - "Do not run the validator, change engine/workflow code, inspect computed verdicts, create metrics or RESULT artifacts, or edit CLAIM-0005/KNOW-0004. A later one-shot scoring task is mandatory after merge."
   - "No-claim wording: this task freezes an externally authored prospective benchmark; it is not evidence that the validator is accurate, general, semantically complete, or scientifically novel."
 
 accepted_outputs:
-  - "A frozen external challenge-set YAML and companion manifest under knowledge/challenge_sets/ with 80-120 native-labelled items, complete provenance, frozen thresholds, identity/exposure record, overlap audit, no-score declaration, and digest."
-  - "A metadata-only freeze-contract test plus a concise campaign-page update that states readiness or the exact blocker without reporting validator performance."
+  - "A frozen external challenge-set YAML and companion manifest under knowledge/challenge_sets/ with 80-120 native-labelled items, complete provenance, frozen thresholds, identity/exposure record, no-score declaration, and digest."
+  - "A separate role-disjoint overlap-review record containing only compared identities/counts and a bounded PASS or OVERLAP_BLOCKED verdict; no historical labels or validator outputs are returned to the curator."
+  - "An extension of the metadata-only external-freeze contract test that validates the new package without importing or executing dimensional inference, plus a concise campaign-page update that states readiness or the exact blocker without reporting validator performance."
   - "Output-routing summary: benchmark readiness only; Gate A/B and CLAIM-0005 are untouched, and future scoring remains a separate one-shot task."
 
 result_artifact_policy:
@@ -56,7 +53,7 @@ result_artifact_policy:
 
 validation:
   commands:
-    - "python3 -m pytest -n0 tests/test_dimensions.py tests/test_dimensional_validator_v2_freeze.py tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_dimensional_external_blind_freeze.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 
