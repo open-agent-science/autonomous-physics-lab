@@ -1,0 +1,268 @@
+schema_version: "0.1"
+artifact_id: LQCD-FK-FPI-DEPENDENCY-GRAPH-0001
+task_id: TASK-1055
+source_manifest: data/lattice_qcd/fk_fpi_source_manifest.yaml
+metadata_only: true
+contains_central_values: false
+contains_uncertainties: false
+contains_averages: false
+
+dependence_states:
+  - CONFIRMED_SHARED
+  - CONFIRMED_DISJOINT
+  - POSSIBLE_SHARED
+  - UNKNOWN
+
+node_types:
+  - collaboration
+  - publication
+  - gauge_ensemble_family
+  - fermion_action
+  - scale_setting_source
+  - normalization_or_renormalization_route
+  - shared_configuration_or_data_source
+  - evaluated_average
+  - uncertainty_component
+
+edge_types:
+  - authored_by
+  - uses_ensemble_family
+  - uses_fermion_action
+  - depends_on_scale_setting
+  - depends_on_normalization_or_renormalization
+  - shares_configuration_or_data
+  - contributes_to_evaluated_average
+  - carries_uncertainty_component
+
+evidence_catalog:
+  ev-flag-set:
+    source_identity: arXiv:2411.04268
+    locator: "FLAG Review 2024, Table 17 and Eqs. 76-77"
+  ev-flag-hisq:
+    source_identity: arXiv:2411.04268
+    locator: "FLAG Review 2024, Sec. 5.3.2, PDF pages 73-74"
+  ev-flag-asqtad:
+    source_identity: arXiv:2411.04268
+    locator: "FLAG Review 2024, Sec. 5.3.2, PDF page 74"
+  ev-flag-etm:
+    source_identity: arXiv:2411.04268
+    locator: "FLAG Review 2024, Sec. 5.3.2, PDF pages 71-72"
+  ev-flag-isospin:
+    source_identity: arXiv:2411.04268
+    locator: "FLAG Review 2024, Table 18 and Eqs. 74-75"
+  ev-fnal: {source_identity: arXiv:1712.09262v4, locator: "Secs. II and IV-VIII"}
+  ev-hpqcd13: {source_identity: arXiv:1303.1670v2, locator: "abstract and Secs. II-IV"}
+  ev-etm14: {source_identity: arXiv:1411.7908v2, locator: "Secs. 2.1-2.2 and 3"}
+  ev-callat: {source_identity: arXiv:2005.04795v3, locator: "Secs. II-IV"}
+  ev-etm21: {source_identity: arXiv:2104.06747v3, locator: "Secs. II-IV and App. D"}
+  ev-rbc: {source_identity: arXiv:1411.7017v2, locator: "Secs. II-IV"}
+  ev-hpqcd07: {source_identity: arXiv:0706.1726v2, locator: "ensemble table and analysis text"}
+  ev-milc10: {source_identity: arXiv:1012.0868v1, locator: "Secs. 2-3"}
+  ev-bmw10: {source_identity: arXiv:1001.4692v1, locator: "Secs. 2-3"}
+  ev-bmw16: {source_identity: arXiv:1601.05998v2, locator: "Secs. 2-5 and appendix"}
+  ev-qcdsf: {source_identity: arXiv:1612.04798v1, locator: "Secs. 3-5 and App. C"}
+
+nodes:
+  - {node_id: pub-fnal-milc-17, node_type: publication, label: "FNAL/MILC 17", source_identity: arXiv:1712.09262v4, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1712.09262}
+  - {node_id: pub-hpqcd-13a, node_type: publication, label: "HPQCD 13A", source_identity: arXiv:1303.1670v2, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1303.1670}
+  - {node_id: pub-etm-14e, node_type: publication, label: "ETM 14E", source_identity: arXiv:1411.7908v2, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1411.7908}
+  - {node_id: pub-callat-20, node_type: publication, label: "CalLat 20", source_identity: arXiv:2005.04795v3, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/2005.04795}
+  - {node_id: pub-etm-21, node_type: publication, label: "ETM 21", source_identity: arXiv:2104.06747v3, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/2104.06747}
+  - {node_id: pub-rbc-ukqcd-14b, node_type: publication, label: "RBC/UKQCD 14B", source_identity: arXiv:1411.7017v2, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1411.7017}
+  - {node_id: pub-hpqcd-ukqcd-07, node_type: publication, label: "HPQCD/UKQCD 07", source_identity: arXiv:0706.1726v2, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/0706.1726}
+  - {node_id: pub-milc-10, node_type: publication, label: "MILC 10", source_identity: arXiv:1012.0868v1, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1012.0868}
+  - {node_id: pub-bmw-10, node_type: publication, label: "BMW 10", source_identity: arXiv:1001.4692v1, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1001.4692}
+  - {node_id: pub-bmw-16, node_type: publication, label: "BMW 16", source_identity: arXiv:1601.05998v2, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1601.05998}
+  - {node_id: pub-qcdsf-ukqcd-16, node_type: publication, label: "QCDSF/UKQCD 16", source_identity: arXiv:1612.04798v1, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1612.04798}
+
+  - {node_id: collab-fnal-milc, node_type: collaboration, label: "FNAL/MILC", source_identity: ev-fnal, rights_status: factual_metadata, retrieval_identity: pub-fnal-milc-17}
+  - {node_id: collab-hpqcd, node_type: collaboration, label: "HPQCD", source_identity: ev-hpqcd13, rights_status: factual_metadata, retrieval_identity: pub-hpqcd-13a}
+  - {node_id: collab-etm, node_type: collaboration, label: "ETM/ETMC", source_identity: ev-etm14, rights_status: factual_metadata, retrieval_identity: pub-etm-14e}
+  - {node_id: collab-callat, node_type: collaboration, label: "CalLat", source_identity: ev-callat, rights_status: factual_metadata, retrieval_identity: pub-callat-20}
+  - {node_id: collab-rbc-ukqcd, node_type: collaboration, label: "RBC/UKQCD", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: pub-rbc-ukqcd-14b}
+  - {node_id: collab-hpqcd-ukqcd, node_type: collaboration, label: "HPQCD/UKQCD", source_identity: ev-hpqcd07, rights_status: factual_metadata, retrieval_identity: pub-hpqcd-ukqcd-07}
+  - {node_id: collab-milc, node_type: collaboration, label: "MILC", source_identity: ev-milc10, rights_status: factual_metadata, retrieval_identity: pub-milc-10}
+  - {node_id: collab-bmw, node_type: collaboration, label: "BMW", source_identity: ev-bmw10, rights_status: factual_metadata, retrieval_identity: pub-bmw-10}
+  - {node_id: collab-qcdsf-ukqcd, node_type: collaboration, label: "QCDSF/UKQCD", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: pub-qcdsf-ukqcd-16}
+
+  - {node_id: ens-milc-hisq-2p1p1, node_type: gauge_ensemble_family, label: "MILC Nf=2+1+1 HISQ", source_identity: ev-flag-hisq, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: ens-etm-iwasaki-tm-2p1p1, node_type: gauge_ensemble_family, label: "ETM legacy Iwasaki twisted-mass Nf=2+1+1", source_identity: ev-etm14, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7908v2}
+  - {node_id: ens-etmc-clover-tm-2p1p1, node_type: gauge_ensemble_family, label: "ETMC Wilson-clover twisted-mass Nf=2+1+1", source_identity: ev-etm21, rights_status: factual_metadata, retrieval_identity: arXiv:2104.06747v3}
+  - {node_id: ens-rbc-dwf-2p1, node_type: gauge_ensemble_family, label: "RBC/UKQCD Iwasaki domain-wall Nf=2+1", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
+  - {node_id: ens-milc-asqtad-2p1, node_type: gauge_ensemble_family, label: "MILC Nf=2+1 asqtad", source_identity: ev-flag-asqtad, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: ens-bmw-2hex-2010, node_type: gauge_ensemble_family, label: "BMW 2HEX-clover 2010 family", source_identity: ev-bmw10, rights_status: factual_metadata, retrieval_identity: arXiv:1001.4692v1}
+  - {node_id: ens-bmw-2hex-2016, node_type: gauge_ensemble_family, label: "BMW 2HEX-clover 2016 family", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
+  - {node_id: ens-qcdsf-slinc-2p1, node_type: gauge_ensemble_family, label: "QCDSF/UKQCD SLiNC Nf=2+1", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
+
+  - {node_id: action-hisq-unitary, node_type: fermion_action, label: "HISQ sea and valence", source_identity: ev-fnal, rights_status: factual_metadata, retrieval_identity: arXiv:1712.09262v4}
+  - {node_id: action-gf-hisq-mdwf, node_type: fermion_action, label: "gradient-flowed HISQ sea plus Mobius domain-wall valence", source_identity: ev-callat, rights_status: factual_metadata, retrieval_identity: arXiv:2005.04795v3}
+  - {node_id: action-etm-tm, node_type: fermion_action, label: "Iwasaki plus Wilson twisted mass", source_identity: ev-etm14, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7908v2}
+  - {node_id: action-etmc-clover-tm, node_type: fermion_action, label: "improved Iwasaki plus Wilson-clover twisted mass", source_identity: ev-etm21, rights_status: factual_metadata, retrieval_identity: arXiv:2104.06747v3}
+  - {node_id: action-rbc-dwf, node_type: fermion_action, label: "Iwasaki plus Shamir/Mobius domain wall", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
+  - {node_id: action-hisq-on-asqtad, node_type: fermion_action, label: "HISQ valence on asqtad sea", source_identity: ev-hpqcd07, rights_status: factual_metadata, retrieval_identity: arXiv:0706.1726v2}
+  - {node_id: action-asqtad, node_type: fermion_action, label: "asqtad sea and valence", source_identity: ev-milc10, rights_status: factual_metadata, retrieval_identity: arXiv:1012.0868v1}
+  - {node_id: action-bmw-2hex-clover, node_type: fermion_action, label: "tree-level clover with 2HEX and Symanzik gauge", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
+  - {node_id: action-qcdsf-slinc, node_type: fermion_action, label: "NP-improved stout clover with Symanzik gauge", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
+
+  - {node_id: scale-fpi-fp4s, node_type: scale_setting_source, label: "f_pi absolute plus f_p4s relative", source_identity: ev-fnal, rights_status: factual_metadata, retrieval_identity: arXiv:1712.09262v4}
+  - {node_id: scale-w0-fpi, node_type: scale_setting_source, label: "w0 relative plus f_pi absolute", source_identity: ev-hpqcd13, rights_status: factual_metadata, retrieval_identity: arXiv:1303.1670v2}
+  - {node_id: scale-w0, node_type: scale_setting_source, label: "w0 dimensionless lattice-spacing route", source_identity: ev-callat, rights_status: factual_metadata, retrieval_identity: arXiv:2005.04795v3}
+  - {node_id: scale-etm-fpi, node_type: scale_setting_source, label: "f_pi-based ETM scale", source_identity: ev-etm14, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7908v2}
+  - {node_id: scale-etmc-fpi-flow, node_type: scale_setting_source, label: "isoQCD f_pi plus gradient-flow scales", source_identity: ev-etm21, rights_status: factual_metadata, retrieval_identity: arXiv:2104.06747v3}
+  - {node_id: scale-rbc-hadron, node_type: scale_setting_source, label: "m_pi, m_K, m_Omega global fit", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
+  - {node_id: scale-milc-r1, node_type: scale_setting_source, label: "MILC r1 family", source_identity: ev-milc10, rights_status: factual_metadata, retrieval_identity: arXiv:1012.0868v1}
+  - {node_id: scale-bmw-xi-omega, node_type: scale_setting_source, label: "BMW Xi/Omega hadron-mass route", source_identity: ev-bmw10, rights_status: factual_metadata, retrieval_identity: arXiv:1001.4692v1}
+  - {node_id: scale-bmw-omega, node_type: scale_setting_source, label: "BMW Omega mass route", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
+  - {node_id: scale-qcdsf-singlet, node_type: scale_setting_source, label: "SU(3)-singlet trajectory and prior spacing determination", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
+
+  - {node_id: norm-staggered-pcac, node_type: normalization_or_renormalization_route, label: "staggered PCAC absolute normalization", source_identity: ev-hpqcd13, rights_status: factual_metadata, retrieval_identity: arXiv:1303.1670v2}
+  - {node_id: norm-domain-wall-ratio, node_type: normalization_or_renormalization_route, label: "domain-wall common axial normalization cancels in ratio", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
+  - {node_id: norm-twisted-ward, node_type: normalization_or_renormalization_route, label: "maximal-twist Ward-identity normalization", source_identity: ev-etm21, rights_status: factual_metadata, retrieval_identity: arXiv:2104.06747v3}
+  - {node_id: norm-clover-za-cancel, node_type: normalization_or_renormalization_route, label: "common clover Z_A cancellation in ratio", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
+  - {node_id: norm-qcdsf-improved-axial, node_type: normalization_or_renormalization_route, label: "renormalized O(a)-improved axial-current ratio", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
+
+  - {node_id: data-milc-hisq-configurations, node_type: shared_configuration_or_data_source, label: "overlapping MILC HISQ configurations", source_identity: ev-flag-hisq, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: data-milc-asqtad-configurations, node_type: shared_configuration_or_data_source, label: "overlapping MILC asqtad configurations", source_identity: ev-flag-asqtad, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: data-bmw-configuration-lineage, node_type: shared_configuration_or_data_source, label: "unresolved BMW 2010/2016 configuration lineage", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
+
+  - {node_id: flag-2024-nf-2p1p1-fk-fpi, node_type: evaluated_average, label: "FLAG 2024 direct Nf=2+1+1 f_K/f_pi average", source_identity: ev-flag-set, rights_status: metadata_only, retrieval_identity: arXiv:2411.04268}
+  - {node_id: flag-2024-nf-2p1-fk-fpi, node_type: evaluated_average, label: "FLAG 2024 direct Nf=2+1 f_K/f_pi average", source_identity: ev-flag-set, rights_status: metadata_only, retrieval_identity: arXiv:2411.04268}
+
+  - {node_id: unc-milc-hisq-statistical, node_type: uncertainty_component, label: "shared MILC HISQ statistical lineage", source_identity: ev-flag-hisq, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: unc-hisq-valence-systematic, node_type: uncertainty_component, label: "shared HISQ-valence systematic lineage", source_identity: ev-flag-hisq, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: unc-milc-asqtad-stat-systematic, node_type: uncertainty_component, label: "shared MILC asqtad statistical and systematic lineage", source_identity: ev-flag-asqtad, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+  - {node_id: unc-flag-su3-isospin, node_type: uncertainty_component, label: "shared FLAG NLO SU(3) strong-isospin correction", source_identity: ev-flag-isospin, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
+
+edges:
+  - {edge_id: e001, edge_type: authored_by, from_node: pub-fnal-milc-17, to_node: collab-fnal-milc, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-fnal, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e002, edge_type: authored_by, from_node: pub-hpqcd-13a, to_node: collab-hpqcd, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd13, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e003, edge_type: authored_by, from_node: pub-etm-14e, to_node: collab-etm, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm14, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e004, edge_type: authored_by, from_node: pub-callat-20, to_node: collab-callat, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-callat, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e005, edge_type: authored_by, from_node: pub-etm-21, to_node: collab-etm, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm21, curator_note: "Later ETMC publication; same collaboration component."}
+  - {edge_id: e006, edge_type: authored_by, from_node: pub-rbc-ukqcd-14b, to_node: collab-rbc-ukqcd, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e007, edge_type: authored_by, from_node: pub-hpqcd-ukqcd-07, to_node: collab-hpqcd-ukqcd, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e008, edge_type: authored_by, from_node: pub-milc-10, to_node: collab-milc, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e009, edge_type: authored_by, from_node: pub-bmw-10, to_node: collab-bmw, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "Primary publication collaboration identity."}
+  - {edge_id: e010, edge_type: authored_by, from_node: pub-bmw-16, to_node: collab-bmw, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "Later BMW publication; same collaboration component."}
+  - {edge_id: e011, edge_type: authored_by, from_node: pub-qcdsf-ukqcd-16, to_node: collab-qcdsf-ukqcd, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "Primary publication collaboration identity."}
+
+  - {edge_id: e012, edge_type: uses_ensemble_family, from_node: pub-fnal-milc-17, to_node: ens-milc-hisq-2p1p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-fnal, curator_note: "MILC HISQ ensemble family."}
+  - {edge_id: e013, edge_type: uses_ensemble_family, from_node: pub-hpqcd-13a, to_node: ens-milc-hisq-2p1p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd13, curator_note: "MILC HISQ ensemble subset."}
+  - {edge_id: e014, edge_type: uses_ensemble_family, from_node: pub-callat-20, to_node: ens-milc-hisq-2p1p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-callat, curator_note: "Gradient-flowed MILC HISQ ensembles."}
+  - {edge_id: e015, edge_type: uses_ensemble_family, from_node: pub-etm-14e, to_node: ens-etm-iwasaki-tm-2p1p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm14, curator_note: "Legacy ETM ensemble family."}
+  - {edge_id: e016, edge_type: uses_ensemble_family, from_node: pub-etm-21, to_node: ens-etmc-clover-tm-2p1p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm21, curator_note: "New Wilson-clover twisted-mass ensemble family."}
+  - {edge_id: e017, edge_type: uses_ensemble_family, from_node: pub-rbc-ukqcd-14b, to_node: ens-rbc-dwf-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "RBC/UKQCD physical and legacy domain-wall ensembles."}
+  - {edge_id: e018, edge_type: uses_ensemble_family, from_node: pub-hpqcd-ukqcd-07, to_node: ens-milc-asqtad-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "MILC asqtad gauge configurations."}
+  - {edge_id: e019, edge_type: uses_ensemble_family, from_node: pub-milc-10, to_node: ens-milc-asqtad-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "MILC asqtad gauge configurations."}
+  - {edge_id: e020, edge_type: uses_ensemble_family, from_node: pub-bmw-10, to_node: ens-bmw-2hex-2010, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "BMW 2010 2HEX-clover family."}
+  - {edge_id: e021, edge_type: uses_ensemble_family, from_node: pub-bmw-16, to_node: ens-bmw-2hex-2016, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "BMW 2016 47-ensemble family."}
+  - {edge_id: e022, edge_type: uses_ensemble_family, from_node: pub-qcdsf-ukqcd-16, to_node: ens-qcdsf-slinc-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "QCDSF/UKQCD SLiNC family."}
+
+  - {edge_id: e023, edge_type: uses_fermion_action, from_node: pub-fnal-milc-17, to_node: action-hisq-unitary, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-fnal, curator_note: "HISQ sea and valence."}
+  - {edge_id: e024, edge_type: uses_fermion_action, from_node: pub-hpqcd-13a, to_node: action-hisq-unitary, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd13, curator_note: "HISQ sea and valence."}
+  - {edge_id: e025, edge_type: uses_fermion_action, from_node: pub-callat-20, to_node: action-gf-hisq-mdwf, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-callat, curator_note: "Mixed-action route."}
+  - {edge_id: e026, edge_type: uses_fermion_action, from_node: pub-etm-14e, to_node: action-etm-tm, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm14, curator_note: "Twisted-mass route."}
+  - {edge_id: e027, edge_type: uses_fermion_action, from_node: pub-etm-21, to_node: action-etmc-clover-tm, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm21, curator_note: "Wilson-clover twisted-mass route."}
+  - {edge_id: e028, edge_type: uses_fermion_action, from_node: pub-rbc-ukqcd-14b, to_node: action-rbc-dwf, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "Domain-wall route."}
+  - {edge_id: e029, edge_type: uses_fermion_action, from_node: pub-hpqcd-ukqcd-07, to_node: action-hisq-on-asqtad, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "HISQ valence on asqtad sea."}
+  - {edge_id: e030, edge_type: uses_fermion_action, from_node: pub-milc-10, to_node: action-asqtad, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "Unitary asqtad route."}
+  - {edge_id: e031, edge_type: uses_fermion_action, from_node: pub-bmw-10, to_node: action-bmw-2hex-clover, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "2HEX-clover route."}
+  - {edge_id: e032, edge_type: uses_fermion_action, from_node: pub-bmw-16, to_node: action-bmw-2hex-clover, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "2HEX-clover route."}
+  - {edge_id: e033, edge_type: uses_fermion_action, from_node: pub-qcdsf-ukqcd-16, to_node: action-qcdsf-slinc, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "SLiNC route."}
+
+  - {edge_id: e034, edge_type: depends_on_scale_setting, from_node: pub-fnal-milc-17, to_node: scale-fpi-fp4s, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-fnal, curator_note: "Absolute and relative scale lineage."}
+  - {edge_id: e035, edge_type: depends_on_scale_setting, from_node: pub-hpqcd-13a, to_node: scale-w0-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd13, curator_note: "Relative and absolute scale lineage."}
+  - {edge_id: e036, edge_type: depends_on_scale_setting, from_node: pub-callat-20, to_node: scale-w0, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-callat, curator_note: "Dimensionless w0 route."}
+  - {edge_id: e037, edge_type: depends_on_scale_setting, from_node: pub-etm-14e, to_node: scale-etm-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm14, curator_note: "ETM f_pi scale route."}
+  - {edge_id: e038, edge_type: depends_on_scale_setting, from_node: pub-etm-21, to_node: scale-etmc-fpi-flow, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm21, curator_note: "isoQCD f_pi and flow scales."}
+  - {edge_id: e039, edge_type: depends_on_scale_setting, from_node: pub-rbc-ukqcd-14b, to_node: scale-rbc-hadron, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "Hadron-mass global-fit route."}
+  - {edge_id: e040, edge_type: depends_on_scale_setting, from_node: pub-hpqcd-ukqcd-07, to_node: scale-milc-r1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "MILC r1 lineage."}
+  - {edge_id: e041, edge_type: depends_on_scale_setting, from_node: pub-milc-10, to_node: scale-milc-r1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "MILC r1 lineage with f_pi cross-check."}
+  - {edge_id: e042, edge_type: depends_on_scale_setting, from_node: pub-bmw-10, to_node: scale-bmw-xi-omega, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "Xi/Omega route."}
+  - {edge_id: e043, edge_type: depends_on_scale_setting, from_node: pub-bmw-16, to_node: scale-bmw-omega, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "Omega route."}
+  - {edge_id: e044, edge_type: depends_on_scale_setting, from_node: pub-qcdsf-ukqcd-16, to_node: scale-qcdsf-singlet, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "SU(3)-singlet trajectory route."}
+
+  - {edge_id: e045, edge_type: depends_on_normalization_or_renormalization, from_node: pub-fnal-milc-17, to_node: norm-staggered-pcac, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-fnal, curator_note: "Absolute staggered-current normalization."}
+  - {edge_id: e046, edge_type: depends_on_normalization_or_renormalization, from_node: pub-hpqcd-13a, to_node: norm-staggered-pcac, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd13, curator_note: "Absolute staggered-current normalization."}
+  - {edge_id: e047, edge_type: depends_on_normalization_or_renormalization, from_node: pub-milc-10, to_node: norm-staggered-pcac, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "Absolute staggered-current normalization."}
+  - {edge_id: e048, edge_type: depends_on_normalization_or_renormalization, from_node: pub-hpqcd-ukqcd-07, to_node: norm-staggered-pcac, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "Absolute staggered-current normalization."}
+  - {edge_id: e049, edge_type: depends_on_normalization_or_renormalization, from_node: pub-callat-20, to_node: norm-domain-wall-ratio, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-callat, curator_note: "Common axial normalization cancels in ratio."}
+  - {edge_id: e050, edge_type: depends_on_normalization_or_renormalization, from_node: pub-rbc-ukqcd-14b, to_node: norm-domain-wall-ratio, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "Common axial normalization cancels in ratio."}
+  - {edge_id: e051, edge_type: depends_on_normalization_or_renormalization, from_node: pub-etm-14e, to_node: norm-twisted-ward, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm14, curator_note: "Maximal-twist Ward identity."}
+  - {edge_id: e052, edge_type: depends_on_normalization_or_renormalization, from_node: pub-etm-21, to_node: norm-twisted-ward, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm21, curator_note: "Maximal-twist Ward identity."}
+  - {edge_id: e053, edge_type: depends_on_normalization_or_renormalization, from_node: pub-bmw-10, to_node: norm-clover-za-cancel, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "Common Z_A cancels in ratio."}
+  - {edge_id: e054, edge_type: depends_on_normalization_or_renormalization, from_node: pub-bmw-16, to_node: norm-clover-za-cancel, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "Common Z_A cancels in ratio."}
+  - {edge_id: e055, edge_type: depends_on_normalization_or_renormalization, from_node: pub-qcdsf-ukqcd-16, to_node: norm-qcdsf-improved-axial, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "Improved axial-current route."}
+
+  - {edge_id: e056, edge_type: shares_configuration_or_data, from_node: pub-fnal-milc-17, to_node: data-milc-hisq-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG records partial configuration overlap."}
+  - {edge_id: e057, edge_type: shares_configuration_or_data, from_node: pub-hpqcd-13a, to_node: data-milc-hisq-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG records partial configuration overlap."}
+  - {edge_id: e058, edge_type: shares_configuration_or_data, from_node: pub-callat-20, to_node: data-milc-hisq-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG records partial configuration overlap."}
+  - {edge_id: e059, edge_type: shares_configuration_or_data, from_node: pub-hpqcd-ukqcd-07, to_node: data-milc-asqtad-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-asqtad, curator_note: "FLAG records a shared subset."}
+  - {edge_id: e060, edge_type: shares_configuration_or_data, from_node: pub-milc-10, to_node: data-milc-asqtad-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-asqtad, curator_note: "FLAG records a shared subset."}
+  - {edge_id: e061, edge_type: shares_configuration_or_data, from_node: pub-etm-14e, to_node: pub-etm-21, dependence_state: CONFIRMED_DISJOINT, evidence_identity: ev-flag-etm, curator_note: "FLAG calls ETM 21 independent and the primary sources identify legacy versus new clover ensembles."}
+  - {edge_id: e062, edge_type: shares_configuration_or_data, from_node: pub-bmw-10, to_node: data-bmw-configuration-lineage, dependence_state: POSSIBLE_SHARED, evidence_identity: ev-bmw10, curator_note: "Same collaboration/action family; exact configuration overlap not resolved."}
+  - {edge_id: e063, edge_type: shares_configuration_or_data, from_node: pub-bmw-16, to_node: data-bmw-configuration-lineage, dependence_state: POSSIBLE_SHARED, evidence_identity: ev-bmw16, curator_note: "Same collaboration/action family; exact configuration overlap not resolved."}
+
+  - {edge_id: e064, edge_type: contributes_to_evaluated_average, from_node: pub-fnal-milc-17, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e065, edge_type: contributes_to_evaluated_average, from_node: pub-hpqcd-13a, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e066, edge_type: contributes_to_evaluated_average, from_node: pub-etm-14e, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e067, edge_type: contributes_to_evaluated_average, from_node: pub-callat-20, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e068, edge_type: contributes_to_evaluated_average, from_node: pub-etm-21, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e069, edge_type: contributes_to_evaluated_average, from_node: pub-rbc-ukqcd-14b, to_node: flag-2024-nf-2p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e070, edge_type: contributes_to_evaluated_average, from_node: pub-hpqcd-ukqcd-07, to_node: flag-2024-nf-2p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e071, edge_type: contributes_to_evaluated_average, from_node: pub-milc-10, to_node: flag-2024-nf-2p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e072, edge_type: contributes_to_evaluated_average, from_node: pub-bmw-10, to_node: flag-2024-nf-2p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e073, edge_type: contributes_to_evaluated_average, from_node: pub-bmw-16, to_node: flag-2024-nf-2p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+  - {edge_id: e074, edge_type: contributes_to_evaluated_average, from_node: pub-qcdsf-ukqcd-16, to_node: flag-2024-nf-2p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
+
+  - {edge_id: e075, edge_type: carries_uncertainty_component, from_node: pub-fnal-milc-17, to_node: unc-milc-hisq-statistical, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG assumes fully correlated statistical lineage."}
+  - {edge_id: e076, edge_type: carries_uncertainty_component, from_node: pub-hpqcd-13a, to_node: unc-milc-hisq-statistical, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG assumes fully correlated statistical lineage."}
+  - {edge_id: e077, edge_type: carries_uncertainty_component, from_node: pub-callat-20, to_node: unc-milc-hisq-statistical, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG assumes fully correlated statistical lineage."}
+  - {edge_id: e078, edge_type: carries_uncertainty_component, from_node: pub-fnal-milc-17, to_node: unc-hisq-valence-systematic, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG correlates total systematics for the two HISQ-valence analyses."}
+  - {edge_id: e079, edge_type: carries_uncertainty_component, from_node: pub-hpqcd-13a, to_node: unc-hisq-valence-systematic, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-hisq, curator_note: "FLAG correlates total systematics for the two HISQ-valence analyses."}
+  - {edge_id: e080, edge_type: carries_uncertainty_component, from_node: pub-hpqcd-ukqcd-07, to_node: unc-milc-asqtad-stat-systematic, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-asqtad, curator_note: "FLAG treats statistical and systematic uncertainty as correlated."}
+  - {edge_id: e081, edge_type: carries_uncertainty_component, from_node: pub-milc-10, to_node: unc-milc-asqtad-stat-systematic, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-asqtad, curator_note: "FLAG treats statistical and systematic uncertainty as correlated."}
+  - {edge_id: e082, edge_type: carries_uncertainty_component, from_node: pub-rbc-ukqcd-14b, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
+  - {edge_id: e083, edge_type: carries_uncertainty_component, from_node: pub-hpqcd-ukqcd-07, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
+  - {edge_id: e084, edge_type: carries_uncertainty_component, from_node: pub-bmw-10, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
+
+pair_diagnostics:
+  publication_count: 11
+  unordered_pair_count: 55
+  confirmed_shared_pairs:
+    - [pub-fnal-milc-17, pub-hpqcd-13a]
+    - [pub-fnal-milc-17, pub-callat-20]
+    - [pub-hpqcd-13a, pub-callat-20]
+    - [pub-hpqcd-ukqcd-07, pub-milc-10]
+  confirmed_disjoint_pairs:
+    - [pub-etm-14e, pub-etm-21]
+  possible_shared_pairs:
+    - [pub-bmw-10, pub-bmw-16]
+  unresolved_pair_count: 49
+  absence_of_edge_means_independent: false
+
+provisional_connected_components:
+  independence_certified: false
+  policy: "Join publications sharing a collaboration, confirmed/possible ensemble family, configuration source, scale source, or normalization route."
+  components:
+    - [pub-fnal-milc-17, pub-hpqcd-13a, pub-callat-20]
+    - [pub-etm-14e, pub-etm-21]
+    - [pub-hpqcd-ukqcd-07, pub-milc-10]
+    - [pub-bmw-10, pub-bmw-16]
+    - [pub-rbc-ukqcd-14b]
+    - [pub-qcdsf-ukqcd-16]
+  limitation: >
+    These are connected groups, not certified mutually disjoint folds. The 49
+    unclassified cross-component pairs remain UNKNOWN and must not be treated
+    as independent by a later value policy.
+
+evaluated_average_policy:
+  average_node_count: 2
+  linked_primary_count: 11
+  count_average_as_independent_with_inputs: false
+
+verdict: HOLD_COVARIANCE_UNRESOLVED
+verdict_basis: >
+  The graph adds machine-actionable lineage beyond a copied average, but the
+  unresolved pair surface is too large to authorize a publication-disjoint
+  value split or covariance policy.
