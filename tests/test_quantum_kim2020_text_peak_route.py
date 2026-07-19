@@ -12,6 +12,11 @@ LEDGER = ROOT / (
     "data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/"
     "extraction_ledger.yaml"
 )
+ABSORPTION = ROOT / "data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml"
+EMISSION = ROOT / "data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml"
+
+PDF_SHA256 = "2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb"
+JATS_SHA256 = "6642fed609ad6540b61ca856d293d2b469c5ed7be9323479c9b76b023f668244"
 
 
 def _load(path: Path) -> dict:
@@ -75,3 +80,55 @@ def test_digitization_blocker_history_remains_excluded() -> None:
     assert contract["cross_check_policy"]["task_1052_ledger_mutable"] is False
     assert contract["future_task_shape"]["fresh_canonical_task_required"] is True
     assert contract["future_task_shape"]["scoring_allowed_in_extraction_task"] is False
+
+
+def test_curated_rows_exactly_reproduce_frozen_text_mapping() -> None:
+    contract = _load(CONTRACT)
+    absorption = _load(ABSORPTION)
+    emission = _load(EMISSION)
+    expected = contract["sample_axis_mapping"]
+
+    assert contract["source"]["doi"] == "10.3390/nano10081589"
+    assert contract["source"]["version_of_record_sha256"] == PDF_SHA256
+    assert contract["source"]["europe_pmc_jats_sha256"] == JATS_SHA256
+    assert len(absorption["entries"]) == len(emission["entries"]) == 4
+
+    for source_row, absorption_row, emission_row in zip(
+        expected, absorption["entries"], emission["entries"], strict=True
+    ):
+        assert absorption_row["sample_id"] == emission_row["sample_id"] == source_row["sample_id"]
+        assert absorption_row["diameter_nm"] == emission_row["diameter_nm"] == source_row["paragraph_particle_size_nm"]
+        assert absorption_row["value_eV"] == source_row["absorption_peak_eV"]
+        assert emission_row["value_eV"] == source_row["fluorescence_peak_eV"]
+
+
+def test_curated_rows_preserve_property_and_provenance_boundaries() -> None:
+    absorption = _load(ABSORPTION)
+    emission = _load(EMISSION)
+
+    assert absorption["property_kind_covered"] == "absorption_peak_eV"
+    assert emission["property_kind_covered"] == "emission_peak_eV"
+    assert {row["sample_id"] for row in absorption["entries"]} == {
+        row["sample_id"] for row in emission["entries"]
+    } == {"CdSe-1", "CdSe-2", "CdSe-3", "CdSe-4"}
+
+    for row in absorption["entries"]:
+        assert row["property_kind"] == "absorption_peak_eV"
+        assert row["source_property_term"] == "absorption peak"
+        assert row["measurement_type"] == "optical_absorption"
+    for row in emission["entries"]:
+        assert row["property_kind"] == "emission_peak_eV"
+        assert row["source_property_term"] == "fluorescence peak"
+        assert row["measurement_type"] == "photoluminescence"
+
+    for row in absorption["entries"] + emission["entries"]:
+        assert row["inclusion_status"] == "included"
+        assert row["provenance_class"] == "text_stated_summary"
+        assert row["source_artifact_sha256"] == PDF_SHA256
+        assert row["printed_precision_eV"] == 0.01
+        assert row["rounding_uncertainty_floor_eV"] == 0.005
+        assert row["instrument_uncertainty"] == "not_reported"
+        assert row["morphology"] == "unknown_non_spherical"
+        assert "equivalent_diameter_nm" not in row
+        assert "uncertainty_eV" not in row
+        assert "Figure 3" in row["source_locator"]

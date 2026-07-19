@@ -1,0 +1,97 @@
+dataset_id: qd-0005-kim-2020-cdse-absorption
+title: "Kim 2020 CdSe text-reported absorption peaks"
+status: curated
+description: >
+  Four source-reported CdSe absorption-peak observations transcribed from the
+  body paragraph immediately before Figure 3 in Kim et al. 2020. The particle
+  sizes and peak energies are mapped by the paragraph's stated CdSe-1 through
+  CdSe-4 order. These rows are factual source curation only and have not been
+  fitted, scored, or interpreted as a size law.
+source_policy: >
+  DOI 10.3390/nano10081589, CC BY 4.0. Values follow the frozen TASK-1064
+  text-reported route contract. Version-of-record PDF SHA-256
+  2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb;
+  Europe PMC JATS SHA-256
+  6642fed609ad6540b61ca856d293d2b469c5ed7be9323479c9b76b023f668244.
+  The source files are not vendored. Printed precision is 0.01 eV, so 0.005 eV
+  is recorded only as a rounding floor; instrument uncertainty is not reported.
+property_kind_covered: absorption_peak_eV
+entries:
+  - entry_id: kim-2020-cdse-1-absorption
+    sample_id: CdSe-1
+    material: CdSe
+    morphology: unknown_non_spherical
+    diameter_nm: 2.5
+    property_kind: absorption_peak_eV
+    source_property_term: absorption peak
+    value_eV: 2.54
+    measurement_type: optical_absorption
+    source_id: kim-2020-nanomaterials-cdse-optical
+    source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+    source_locator: "Section 3, PDF page 4 of 8, paragraph immediately before Figure 3; first ordered absorption value."
+    source_table_ref: "Body paragraph immediately before Figure 3; CdSe-1 by Figure 3a particle-size order."
+    provenance_class: text_stated_summary
+    printed_precision_eV: 0.01
+    rounding_uncertainty_floor_eV: 0.005
+    instrument_uncertainty: not_reported
+    inclusion_status: included
+    notes: >
+      The paragraph gives 2.5 nm. TASK-1052 separately records a 2.7 nm HRTEM
+      summary for CdSe-1; the two values are neither averaged nor substituted.
+  - entry_id: kim-2020-cdse-2-absorption
+    sample_id: CdSe-2
+    material: CdSe
+    morphology: unknown_non_spherical
+    diameter_nm: 3.5
+    property_kind: absorption_peak_eV
+    source_property_term: absorption peak
+    value_eV: 2.41
+    measurement_type: optical_absorption
+    source_id: kim-2020-nanomaterials-cdse-optical
+    source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+    source_locator: "Section 3, PDF page 4 of 8, paragraph immediately before Figure 3; second ordered absorption value."
+    source_table_ref: "Body paragraph immediately before Figure 3; CdSe-2 by Figure 3a particle-size order."
+    provenance_class: text_stated_summary
+    printed_precision_eV: 0.01
+    rounding_uncertainty_floor_eV: 0.005
+    instrument_uncertainty: not_reported
+    inclusion_status: included
+    notes: "Text-stated particle size and absorption peak; no equivalent-sphere conversion."
+  - entry_id: kim-2020-cdse-3-absorption
+    sample_id: CdSe-3
+    material: CdSe
+    morphology: unknown_non_spherical
+    diameter_nm: 3.7
+    property_kind: absorption_peak_eV
+    source_property_term: absorption peak
+    value_eV: 2.31
+    measurement_type: optical_absorption
+    source_id: kim-2020-nanomaterials-cdse-optical
+    source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+    source_locator: "Section 3, PDF page 4 of 8, paragraph immediately before Figure 3; third ordered absorption value."
+    source_table_ref: "Body paragraph immediately before Figure 3; CdSe-3 by Figure 3a particle-size order."
+    provenance_class: text_stated_summary
+    printed_precision_eV: 0.01
+    rounding_uncertainty_floor_eV: 0.005
+    instrument_uncertainty: not_reported
+    inclusion_status: included
+    notes: "Text-stated particle size and absorption peak; no equivalent-sphere conversion."
+  - entry_id: kim-2020-cdse-4-absorption
+    sample_id: CdSe-4
+    material: CdSe
+    morphology: unknown_non_spherical
+    diameter_nm: 4.5
+    property_kind: absorption_peak_eV
+    source_property_term: absorption peak
+    value_eV: 2.18
+    measurement_type: optical_absorption
+    source_id: kim-2020-nanomaterials-cdse-optical
+    source_artifact_sha256: 2dab8a6b4db18af88f7175ac0773747fe1aeb15d88f951a4a8536cdc2dd73edb
+    source_locator: "Section 3, PDF page 4 of 8, paragraph immediately before Figure 3; fourth ordered absorption value."
+    source_table_ref: "Body paragraph immediately before Figure 3; CdSe-4 by Figure 3a particle-size order."
+    provenance_class: text_stated_summary
+    printed_precision_eV: 0.01
+    rounding_uncertainty_floor_eV: 0.005
+    instrument_uncertainty: not_reported
+    inclusion_status: included
+    notes: "Text-stated particle size and absorption peak; no equivalent-sphere conversion."

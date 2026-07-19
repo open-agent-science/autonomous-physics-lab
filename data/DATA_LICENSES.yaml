@@ -276,7 +276,7 @@ datasets:
     paths:
       - data/quantum_dots/qd-0004-toufanian-2021-znse-absorption.yaml
 
-  - id: kim-2020-cdse-figure3a-extraction-blocker
+  - id: kim-2020-cdse-optical-surface
     source: "Kim et al., Influence of Size and Shape Anisotropy on Optical Properties of CdSe Quantum Dots, Nanomaterials 2020, 10, 1589"
     source_url: https://doi.org/10.3390/nano10081589
     license: "CC BY 4.0 (version of record)"
@@ -290,14 +290,19 @@ datasets:
       Crossref, Europe PMC JATS, and the PMC OA record confirm CC BY 4.0 for the
       version of record. TASK-1052 re-fetched the PDF, JATS, and Crossref
       snapshot and reproduced their TASK-1043 SHA-256 pins. The committed
-      paths contain attributed factual HRTEM summaries and diagnostic
-      dual-pass coordinates only. All optical observations are excluded under
-      UNCERTAINTY_BLOCKED because Figure 3a has no numeric y ticks. The PDF,
-      embedded JPEGs, stitched figure, and panel crop are not committed.
+      paths contain attributed factual HRTEM summaries, diagnostic dual-pass
+      coordinates, and eight body-text optical facts. Figure-derived optical
+      observations remain excluded under UNCERTAINTY_BLOCKED because Figure 3a
+      has no numeric y ticks. TASK-1064 independently approved the paragraph
+      route and TASK-1070 transcribed its four absorption and four fluorescence
+      peaks with a 0.005 eV rounding floor. The PDF, embedded JPEGs, stitched
+      figure, and panel crop are not committed.
     raw_artifact_vendored: false
     provenance: docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md
     paths:
       - data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml
+      - data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml
+      - data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml
       - docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md
 
   - id: nasa-cobe-firas-monopole-spectrum-v1
