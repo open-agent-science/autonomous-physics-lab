@@ -14,6 +14,7 @@ from physics_lab.engines.stellar_ml_chara_transfer import (
     SURVIVAL_MARGIN_DEX,
     compute_chara_transfer_metrics,
 )
+from physics_lab.registry.result_publication_gate import check_payload
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / "examples" / "stellar_ml_chara_fixed_relation_transfer.yaml"
@@ -96,6 +97,7 @@ def test_workflow_writes_gate_a_replayable_package(tmp_path: Path) -> None:
         "physics-lab run examples/stellar_ml_chara_fixed_relation_transfer.yaml"
     )
     assert result["verification"]["passed"] is True
+    assert check_payload(result, artifact_path="result.yaml", root=ROOT).ok
     assert result["comparison_summary"][0]["observed_value"] == 0.036787
     assert set(result["input_file_hashes"]) == {
         "config",

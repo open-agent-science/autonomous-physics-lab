@@ -45,6 +45,8 @@ requirements:
   - "No-claim wording: this tests one frozen relation on six source-curated CHARA systems; it is not a population result or universal mass-luminosity law."
 
 accepted_outputs:
+  - "hypotheses/HYP-0023-stellar-ml-chara-fixed-relation-transfer.yaml"
+  - "experiments/EXP-0023-stellar-ml-chara-fixed-relation-transfer.yaml"
   - "A deterministic CHARA transfer workflow, tests, frozen input/config artifacts, and a review note with exact metrics, controls, grouping, exclusions, limitations, and one bounded verdict."
   - "A new RESULT artifact with Gate A report when publication gates pass, including AGENT_PUBLISHED wording and no claim/knowledge impact; otherwise an explicit no-publication blocker."
   - "Output-routing summary covering canonical destination, review tier, Gate A/B, claim impact, knowledge impact, and publication blocker."
