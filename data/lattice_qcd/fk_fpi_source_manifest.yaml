@@ -1,0 +1,331 @@
+schema_version: "0.1"
+artifact_id: LQCD-FK-FPI-SOURCE-MANIFEST-0001
+task_id: TASK-1055
+campaign_id: lattice-qcd-aggregated-consistency
+created_at: "2026-07-19"
+metadata_only: true
+contains_central_values: false
+contains_uncertainties: false
+contains_averages: false
+observable_contract:
+  observable_id: pseudoscalar_decay_constant_ratio_fk_fpi
+  quantity: f_K/f_pi
+  unit: dimensionless
+  required_conventions:
+    - flavor_content
+    - isospin_qed_treatment
+    - normalization_route
+    - scheme_scale_applicability
+
+selection_freeze:
+  frozen_before_lineage_inspection: true
+  rule: >
+    Include every primary publication cited as an input to the two direct
+    f_K/f_pi FLAG Review 2024 averages, and no other publication.
+  evaluated_set_source:
+    title: FLAG Review 2024
+    arxiv: 2411.04268
+    stable_url: https://arxiv.org/abs/2411.04268
+    retrieved_copy_url: https://lss.fnal.gov/archive/2024/pub/fermilab-pub-24-0785-t.pdf
+    retrieved_copy_sha256: a1ddc84062a5e815be4ed0a46a4970070c9a773f91444447da3355a7636134f1
+    accessed_at: "2026-07-19"
+    locators:
+      - "Table 17, PDF page 72"
+      - "Equation 76, references 20 and 42-45, PDF page 75"
+      - "Equation 77, references 12 and 46-50, PDF page 75"
+    rights_status: metadata_only_no_flag_content_redistributed
+    citation_requirement: "Cite FLAG Review 2024, arXiv:2411.04268."
+  selected_publication_count: 11
+  selected_publication_ids:
+    - pub-fnal-milc-17
+    - pub-hpqcd-13a
+    - pub-etm-14e
+    - pub-callat-20
+    - pub-etm-21
+    - pub-rbc-ukqcd-14b
+    - pub-hpqcd-ukqcd-07
+    - pub-milc-10
+    - pub-bmw-10
+    - pub-bmw-16
+    - pub-qcdsf-ukqcd-16
+
+publications:
+  - publication_id: pub-fnal-milc-17
+    flag_identity: {label: FNAL/MILC 17, reference: 20, average_id: flag-2024-nf-2p1p1-fk-fpi}
+    collaboration: FNAL/MILC
+    title: "B- and D-meson leptonic decay constants from four-flavor lattice QCD"
+    citation: "A. Bazavov et al., Phys. Rev. D 98, 074512 (2018)."
+    year: 2018
+    doi: 10.1103/PhysRevD.98.074512
+    arxiv: 1712.09262v4
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1+1; degenerate light sea quarks plus strange and charm"
+      isospin_qed_treatment: "isospin-symmetric ensembles; charged ratio obtained with strong-isospin and electromagnetic input uncertainties"
+      normalization_route: "HISQ partially conserved axial-current relation; no multiplicative axial-current renormalization"
+      scheme_scale_applicability: "no renormalization scheme for the dimensionless ratio; f_pi fixes the overall scale and f_p4s transfers relative scales"
+    simulation:
+      ensemble_family: milc-hisq-nf-2p1p1
+      fermion_action: HISQ sea and HISQ valence
+      scale_setting: f_pi_absolute_and_f_p4s_relative
+    uncertainty_component_names: [statistics, continuum, finite_volume, f_pi_input, electromagnetic, topological_sampling]
+    source_locator: "arXiv:1712.09262v4, Secs. II and IV-VIII; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.98.074512 and arXiv:1712.09262."
+
+  - publication_id: pub-hpqcd-13a
+    flag_identity: {label: HPQCD 13A, reference: 42, average_id: flag-2024-nf-2p1p1-fk-fpi}
+    collaboration: HPQCD
+    title: "Vus from pi and K decay constants in full lattice QCD with physical u, d, s and c quarks"
+    citation: "R. J. Dowdall et al., Phys. Rev. D 88, 074504 (2013)."
+    year: 2013
+    doi: 10.1103/PhysRevD.88.074504
+    arxiv: 1303.1670v2
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1+1; degenerate light sea quarks plus strange and charm"
+      isospin_qed_treatment: "strong-isospin correction to the charged ratio; no dynamical QED"
+      normalization_route: "HISQ partially conserved axial-current relation; no multiplicative axial-current renormalization"
+      scheme_scale_applicability: "no renormalization scheme for the dimensionless ratio; w0 fixes relative spacings and f_pi the absolute scale"
+    simulation:
+      ensemble_family: milc-hisq-nf-2p1p1
+      fermion_action: HISQ sea and HISQ valence
+      scale_setting: w0_relative_and_f_pi_absolute
+    uncertainty_component_names: [statistics, continuum, finite_volume, chiral_fit, scale_setting, light_quark_mass_ratio]
+    source_locator: "arXiv:1303.1670v2, abstract and Secs. II-IV; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.88.074504 and arXiv:1303.1670."
+
+  - publication_id: pub-etm-14e
+    flag_identity: {label: ETM 14E, reference: 43, average_id: flag-2024-nf-2p1p1-fk-fpi}
+    collaboration: ETM
+    title: "Leptonic decay constants fK, fD and fDs with Nf=2+1+1 twisted-mass lattice QCD"
+    citation: "N. Carrasco et al., Phys. Rev. D 91, 054507 (2015)."
+    year: 2015
+    doi: 10.1103/PhysRevD.91.054507
+    arxiv: 1411.7908v2
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1+1; unitary light sector and mixed-action strange/charm sector"
+      isospin_qed_treatment: "leading strong-isospin correction included; no dynamical QED"
+      normalization_route: "maximally twisted fermions; pseudoscalar Ward identity avoids a decay-constant renormalization factor"
+      scheme_scale_applicability: "no renormalization scheme for the ratio; f_pi used for lattice scale, while quoted quark masses use MSbar at 2 GeV"
+    simulation:
+      ensemble_family: etm-iwasaki-twisted-mass-nf-2p1p1
+      fermion_action: Iwasaki gauge with Wilson twisted-mass sea and Osterwalder-Seiler strange valence
+      scale_setting: f_pi_absolute
+    uncertainty_component_names: [statistics_and_fit, chiral, continuum, mass_renormalization, finite_volume, strong_isospin]
+    source_locator: "arXiv:1411.7908v2, Secs. 2.1-2.2 and 3; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.91.054507 and arXiv:1411.7908."
+
+  - publication_id: pub-callat-20
+    flag_identity: {label: CalLat 20, reference: 44, average_id: flag-2024-nf-2p1p1-fk-fpi}
+    collaboration: CalLat
+    # Verbatim source title, not a project claim.
+    title: "F_K/F_pi from Mobius domain-wall fermions solved on gradient-flowed HISQ ensembles"
+    citation: "N. Miller et al., Phys. Rev. D 102, 034507 (2020)."
+    year: 2020
+    doi: 10.1103/PhysRevD.102.034507
+    arxiv: 2005.04795v3
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1+1 HISQ sea with Mobius domain-wall valence quarks"
+      isospin_qed_treatment: "isoQCD ratio plus an estimated strong-isospin correction; no dynamical QED"
+      normalization_route: "common domain-wall axial-current normalization cancels in the ratio"
+      scheme_scale_applicability: "no renormalization scheme for the dimensionless ratio; w0 supplies the dimensionless lattice-spacing variable"
+    simulation:
+      ensemble_family: milc-hisq-nf-2p1p1
+      fermion_action: gradient-flowed HISQ sea with Mobius domain-wall valence
+      scale_setting: w0_relative
+    uncertainty_component_names: [statistics, chiral_continuum_model, finite_volume, model_selection, strong_isospin]
+    source_locator: "arXiv:2005.04795v3, Secs. II-IV; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.102.034507 and arXiv:2005.04795."
+
+  - publication_id: pub-etm-21
+    flag_identity: {label: ETM 21, reference: 45, average_id: flag-2024-nf-2p1p1-fk-fpi}
+    collaboration: ETM
+    title: "Ratio of kaon and pion leptonic decay constants with Nf=2+1+1 Wilson-clover twisted-mass fermions"
+    citation: "C. Alexandrou et al., Phys. Rev. D 104, 074520 (2021)."
+    year: 2021
+    doi: 10.1103/PhysRevD.104.074520
+    arxiv: 2104.06747v3
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1+1 Wilson-clover twisted-mass sea and valence quarks"
+      isospin_qed_treatment: "primary result in isoQCD under the GRS matching convention; no dynamical QED"
+      normalization_route: "maximally twisted fermions; pseudoscalar Ward identity avoids a decay-constant renormalization factor"
+      scheme_scale_applicability: "no renormalization scheme for the ratio; isoQCD f_pi fixes the absolute scale and gradient-flow scales transfer it"
+    simulation:
+      ensemble_family: etmc-clover-twisted-mass-nf-2p1p1
+      fermion_action: improved Iwasaki gauge with Wilson-clover twisted-mass fermions
+      scale_setting: isoQCD_f_pi_and_gradient_flow
+    uncertainty_component_names: [statistics_and_fit, chiral, continuum, finite_volume, scale_setting]
+    source_locator: "arXiv:2104.06747v3, Secs. II-IV and App. D; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.104.074520 and arXiv:2104.06747."
+
+  - publication_id: pub-rbc-ukqcd-14b
+    flag_identity: {label: RBC/UKQCD 14B, reference: 12, average_id: flag-2024-nf-2p1-fk-fpi}
+    collaboration: RBC/UKQCD
+    title: "Domain wall QCD with physical quark masses"
+    citation: "T. Blum et al., Phys. Rev. D 93, 074505 (2016)."
+    year: 2016
+    doi: 10.1103/PhysRevD.93.074505
+    arxiv: 1411.7017v2
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1; degenerate light sea quarks plus strange"
+      isospin_qed_treatment: "isospin-symmetric pure QCD with no QED; FLAG applies a shared strong-isospin correction for the charged-ratio average"
+      normalization_route: "domain-wall axial-current normalization determined nonperturbatively; its common factor cancels in f_K/f_pi"
+      scheme_scale_applicability: "no renormalization scheme for the ratio; m_pi, m_K, and m_Omega fix quark masses and scale"
+    simulation:
+      ensemble_family: rbc-ukqcd-iwasaki-domain-wall-nf-2p1
+      fermion_action: Iwasaki gauge with Shamir and Mobius domain-wall fermions
+      scale_setting: m_pi_m_K_m_Omega_global_fit
+    uncertainty_component_names: [statistics, chiral_continuum_global_fit, finite_volume, axial_normalization]
+    source_locator: "arXiv:1411.7017v2, Secs. II-IV; FLAG 2024 Sec. 5.3.2 and Table 18"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.93.074505 and arXiv:1411.7017."
+
+  - publication_id: pub-hpqcd-ukqcd-07
+    flag_identity: {label: HPQCD/UKQCD 07, reference: 46, average_id: flag-2024-nf-2p1-fk-fpi}
+    collaboration: HPQCD/UKQCD
+    title: "High precision determination of the pi, K, D and Ds decay constants from lattice QCD"
+    citation: "E. Follana et al., Phys. Rev. Lett. 100, 062002 (2008)."
+    year: 2008
+    doi: 10.1103/PhysRevLett.100.062002
+    arxiv: 0706.1726v2
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1 asqtad sea with HISQ valence quarks"
+      isospin_qed_treatment: "isospin-symmetric pure QCD with no QED; FLAG applies a shared strong-isospin correction for the charged-ratio average"
+      normalization_route: "HISQ partially conserved axial-current relation; no multiplicative current renormalization"
+      scheme_scale_applicability: "no renormalization scheme for the dimensionless ratio; MILC r1-based scale metadata used"
+    simulation:
+      ensemble_family: milc-asqtad-nf-2p1
+      fermion_action: asqtad sea with HISQ valence
+      scale_setting: milc_r1
+    uncertainty_component_names: [statistics, scale_setting, chiral_continuum, finite_volume]
+    source_locator: "arXiv:0706.1726v2, ensemble table and analysis text; FLAG 2024 Sec. 5.3.2 and Table 18"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevLett.100.062002 and arXiv:0706.1726."
+
+  - publication_id: pub-milc-10
+    flag_identity: {label: MILC 10, reference: 47, average_id: flag-2024-nf-2p1-fk-fpi}
+    collaboration: MILC
+    title: "Results for light pseudoscalar mesons"
+    citation: "A. Bazavov et al., PoS LATTICE2010, 074 (2010)."
+    year: 2010
+    doi: 10.22323/1.105.0074
+    arxiv: 1012.0868v1
+    publication_role: primary_flag_average_input_conference_proceeding
+    observable:
+      flavor_content: "N_f=2+1 asqtad sea and valence quarks"
+      isospin_qed_treatment: "isospin-symmetric pure QCD; no dynamical QED"
+      normalization_route: "staggered partially conserved axial-current relation; no multiplicative axial-current renormalization"
+      scheme_scale_applicability: "no renormalization scheme for the ratio; r1 and an f_pi cross-check set the scale"
+    simulation:
+      ensemble_family: milc-asqtad-nf-2p1
+      fermion_action: asqtad sea and asqtad valence
+      scale_setting: milc_r1_with_f_pi_cross_check
+    uncertainty_component_names: [statistics, chiral_fit, continuum, finite_volume, scale_setting]
+    source_locator: "arXiv:1012.0868v1, Secs. 2-3; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.22323/1.105.0074 and arXiv:1012.0868."
+
+  - publication_id: pub-bmw-10
+    flag_identity: {label: BMW 10, reference: 48, average_id: flag-2024-nf-2p1-fk-fpi}
+    collaboration: BMW
+    title: "The ratio F_K/F_pi in QCD"
+    citation: "S. Durr et al., Phys. Rev. D 81, 054507 (2010)."
+    year: 2010
+    doi: 10.1103/PhysRevD.81.054507
+    arxiv: 1001.4692v1
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1; degenerate light sea quarks plus strange"
+      isospin_qed_treatment: "isospin-symmetric pure QCD with no QED; FLAG applies a shared strong-isospin correction for the charged-ratio average"
+      normalization_route: "common Wilson-clover axial-current factor cancels in the ratio"
+      scheme_scale_applicability: "no renormalization scheme for the ratio; mass-independent Xi scale with Omega alternative"
+    simulation:
+      ensemble_family: bmw-2hex-clover-nf-2p1-2010
+      fermion_action: tree-level clover with HEX smearing and Symanzik-improved gauge action
+      scale_setting: Xi_primary_Omega_alternative
+    uncertainty_component_names: [statistics, chiral_interpolation, continuum, finite_volume, scale_setting, excited_states]
+    source_locator: "arXiv:1001.4692v1, Secs. 2-3; FLAG 2024 Sec. 5.3.2 and Table 18"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.81.054507 and arXiv:1001.4692."
+
+  - publication_id: pub-bmw-16
+    flag_identity: {label: BMW 16, reference: 49, average_id: flag-2024-nf-2p1-fk-fpi}
+    collaboration: BMW
+    title: "Leptonic decay-constant ratio f_K/f_pi from lattice QCD using 2+1 clover-improved fermion flavors with 2-HEX smearing"
+    citation: "S. Durr et al., Phys. Rev. D 95, 054513 (2017)."
+    year: 2017
+    doi: 10.1103/PhysRevD.95.054513
+    arxiv: 1601.05998v2
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1; degenerate light sea quarks plus strange"
+      isospin_qed_treatment: "isospin-symmetric pure QCD plus a chiral-perturbation strong-isospin conversion; no dynamical QED"
+      normalization_route: "common Wilson-clover axial-current factor Z_A cancels in the ratio"
+      scheme_scale_applicability: "no renormalization scheme for the ratio; Omega sets mass-independent and per-ensemble scales"
+    simulation:
+      ensemble_family: bmw-2hex-clover-nf-2p1-2016
+      fermion_action: tree-level clover with two HEX smearings and Symanzik-improved gauge action
+      scale_setting: Omega_mass_independent_and_per_ensemble
+    uncertainty_component_names: [statistics, fit_model, continuum, finite_volume, scale_setting, strong_isospin]
+    source_locator: "arXiv:1601.05998v2, Secs. 2-5 and appendix; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1103/PhysRevD.95.054513 and arXiv:1601.05998."
+
+  - publication_id: pub-qcdsf-ukqcd-16
+    flag_identity: {label: QCDSF/UKQCD 16, reference: 50, average_id: flag-2024-nf-2p1-fk-fpi}
+    collaboration: QCDSF/UKQCD
+    title: "Flavour breaking effects in the pseudoscalar meson decay constants"
+    citation: "V. G. Bornyakov et al., Phys. Lett. B 767, 366-373 (2017)."
+    year: 2017
+    doi: 10.1016/j.physletb.2017.02.018
+    arxiv: 1612.04798v1
+    publication_role: primary_flag_average_input
+    observable:
+      flavor_content: "N_f=2+1 nonperturbatively improved clover fermions"
+      isospin_qed_treatment: "mass-degenerate light simulations with partially quenched strong-isospin expansion; no dynamical QED"
+      normalization_route: "renormalized O(a)-improved axial current; common Z_A cancels in ratios while improvement terms remain"
+      scheme_scale_applicability: "no renormalization scheme for the final ratio; singlet quantities and previously determined lattice spacings set the trajectory"
+    simulation:
+      ensemble_family: qcdsf-ukqcd-slinc-nf-2p1
+      fermion_action: nonperturbatively improved clover with stout smearing and tree-level Symanzik gauge action
+      scale_setting: su3_singlet_trajectory_and_prior_spacing_determination
+    uncertainty_component_names: [statistics, axial_improvement, su3_breaking_expansion, finite_volume, physical_trajectory]
+    source_locator: "arXiv:1612.04798v1, Secs. 3-5 and App. C; FLAG 2024 Sec. 5.3.2"
+    accessed_at: "2026-07-19"
+    rights_status: metadata_only_no_source_bytes_committed
+    citation_requirement: "Cite DOI 10.1016/j.physletb.2017.02.018 and arXiv:1612.04798."
+
+rights_policy:
+  committed_content: factual_bibliographic_and_dependency_metadata_only
+  source_bytes_committed: false
+  flag_tables_figures_or_prose_copied: false
+  publisher_files_committed: false
+  source_license_required_for_metadata: false
+  publication_use_rule: "Any later value ingestion must perform a fresh rights and factual-extract review."
+
+output_boundary:
+  verdict: HOLD_COVARIANCE_UNRESOLVED
+  values_allowed: false
+  covariance_reconstruction_allowed: false
+  evaluated_average_may_count_as_independent: false
+  claim_or_knowledge_impact: none
