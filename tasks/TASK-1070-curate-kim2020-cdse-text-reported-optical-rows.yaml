@@ -1,7 +1,7 @@
 id: TASK-1070
 title: "Curate the eight Kim-2020 CdSe text-reported optical rows"
 type: scientific_data_curation
-status: READY
+status: IN_PROGRESS
 closeout: review
 closeout_review_reason: "This task creates the first admitted Kim-2020 CdSe rows; closeout must verify the frozen text-route contract, property-axis separation, source hashes, rounding limits, morphology boundary, and zero-scoring scope."
 difficulty: medium
