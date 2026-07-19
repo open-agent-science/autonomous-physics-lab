@@ -1,0 +1,42 @@
+id: HYP-0023
+title: "The frozen RESULT-0022 relation may transfer to the bounded CHARA surface"
+domain: stellar_astrophysics
+status: INCONCLUSIVE
+
+hypothesis:
+  statement: >
+    On exactly twelve source-curated components from six CHARA systems, the
+    frozen RESULT-0022 relation may outperform the best predeclared fixed
+    textbook or train-only null control by at least 0.04 dex in component-level
+    log-luminosity MAE without refitting.
+  formula_candidates:
+    - "model_result0022_frozen_alpha: log10(L/Lsun) = 4.526004 * log10(M/Msun)"
+    - "control_textbook_alpha_3p5: log10(L/Lsun) = 3.5 * log10(M/Msun)"
+    - "control_textbook_alpha_4p0: log10(L/Lsun) = 4.0 * log10(M/Msun)"
+    - "control_result0022_massband_median_null: train-only mass-band median with global fallback"
+
+assumptions:
+  - "TASK-1049 independently reproduced the exact twelve-row, six-system source surface."
+  - "Each binary system is one effective environment; components are not independent groups."
+  - "The Melotte-25 overlap group is ineligible for independent-holdout wording."
+  - "The RESULT-0022 alpha, intercept, controls, and 0.04 dex margin are frozen before CHARA scoring."
+  - "The CHARA surface is bounded and source-limited; it is not a stellar population sample."
+
+variables:
+  M:
+    unit: solar_mass
+    description: "Same-component dynamical mass."
+  L:
+    unit: solar_bolometric_luminosity
+    description: "Same-component bolometric luminosity, direct or source-derived as documented."
+  mae:
+    unit: dex
+    description: "Mean absolute error in log10 luminosity."
+
+evidence:
+  experiments:
+    - EXP-0023
+  results:
+    - RESULT-0031
+
+verdict: "INCONCLUSIVE: the frozen relation is evaluated under the fixed contract; a sub-threshold positive margin cannot be promoted to a transfer success."

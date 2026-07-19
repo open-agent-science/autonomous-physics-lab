@@ -1,0 +1,8 @@
+experiment_path: ../experiments/EXP-0023-stellar-ml-chara-fixed-relation-transfer.yaml
+hypothesis_path: ../hypotheses/HYP-0023-stellar-ml-chara-fixed-relation-transfer.yaml
+fixture_config_path: ../data/textbook_formula_audit/stellar_ml/chara_fixed_relation_transfer_contract.yaml
+task_id: TASK-1050
+run_id: RUN-0001
+result_id: RESULT-0031
+result_root: ../results/EXP-0023
+workflow: stellar_ml_chara_fixed_relation_transfer
