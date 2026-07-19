@@ -125,6 +125,7 @@ publications:
   - publication_id: pub-callat-20
     flag_identity: {label: CalLat 20, reference: 44, average_id: flag-2024-nf-2p1p1-fk-fpi}
     collaboration: CalLat
+    # Verbatim source title, not a project claim.
     title: "F_K/F_pi from Mobius domain-wall fermions solved on gradient-flowed HISQ ensembles"
     citation: "N. Miller et al., Phys. Rev. D 102, 034507 (2020)."
     year: 2020
