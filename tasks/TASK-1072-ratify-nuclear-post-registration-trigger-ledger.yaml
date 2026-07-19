@@ -1,7 +1,7 @@
 id: TASK-1072
 title: "Ratify the Nuclear post-registration reveal-source trigger ledger"
 type: scientific_source_curation
-status: IN_PROGRESS
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task replaces repeated no-peek scouts with an event-triggered reveal-source contract; closeout must verify registration timing, admissible official signals, no-value boundaries, and stop/go routing."
 difficulty: low
@@ -57,6 +57,7 @@ result_artifact_policy:
 
 validation:
   commands:
+    - "python3 -m pytest -n0 tests/test_nuclear_reveal_trigger_ledger.py"
     - "python3 -m pytest -n0 tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"

@@ -553,8 +553,8 @@ campaigns:
   status: flagship_validation
   domain: nuclear_physics
   surface_type: prediction_reveal
-  lifecycle_stage: reveal_blocked
-  activity_status: active
+  lifecycle_stage: monitor_only
+  activity_status: active_monitor
   curator:
     primary_pool: prediction_reveal
     secondary_pools:
@@ -565,26 +565,27 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: 'RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration
+  current_stage: RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration
     remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen.
-    TASK-1031 completed a clean official-metadata scout with zero target exposure and found
-    only pre-registration AME2020/NUBASE2020 sources: SOURCE_PREDATES_REGISTRATION.'
+    TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure,
+    and TASK-1072 ratified event-trigger-only monitoring.
   agent_capacity:
-    recommended_parallel_agents: 1
+    recommended_parallel_agents: 0
     coordination_notes: Do not launch another model/factory sprint, mutate frozen PRED payloads,
-      score reveal early, or repeat a manual metadata scout without a new official event.
-      TASK-1072 should ratify the post-registration trigger ledger; after that, remain monitor-only
-      until a qualifying official release signal exists.
+      score reveal early, or repeat a metadata scout without a ledger-qualified official event.
+      Remain MONITOR_ONLY_NO_SCOUT; a qualifying signal opens only a fresh metadata-only source-manifest
+      decision.
   next_validity_gate:
     type: external_reveal
     blocker: The clean scout found no post-registration official source. Reveal scoring and
       any success claim remain blocked until a ledger-qualified source event is separately
       manifested and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899.
-    target_artifact: TASK-1072 trigger ledger, then a future event-specific source-manifest
-      task
+    target_artifact: docs/reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md,
+      then a future event-specific source-manifest task
   best_next_actions:
-  - task_id: TASK-1072
-    label: Ratify event-triggered monitoring and stop repeated no-signal scouts
+  - task_id: null
+    label: Monitor the ratified trigger ledger; do not seed an executor task without a qualifying
+      official event
   required_gates:
   - Use the source-gated NMD-0003 measured-row training surface and frozen split manifest
     for the next broad Nuclear factory sprint.
@@ -630,6 +631,7 @@ campaigns:
   - prediction_registry/nuclear_masses/
   - docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md
   - docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md
+  - docs/reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md
   open_questions:
   - Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker
     memory, or remain a review note?
@@ -639,14 +641,14 @@ campaigns:
     source bytes?
   curator_review:
     status: current
-    last_reviewed: '2026-07-17'
+    last_reviewed: '2026-07-19'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: TASK-1031 clean official-metadata scout and Scientific Director 2026-07-17 cycle
-    notes: The flagship remains reveal/success-claim blocked. The clean retry found only pre-registration
-      sources, so the next useful artifact is a trigger ledger, not another residual factory
-      or periodic source scout.
+    source: TASK-1072 post-registration trigger ledger
+    notes: The flagship remains reveal/success-claim blocked. Event-trigger-only monitoring
+      is ratified; no executor work is justified until a qualifying official metadata signal
+      exists.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
