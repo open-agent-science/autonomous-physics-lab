@@ -45,6 +45,12 @@ prediction wave, or F2 loop.
 could legitimately open a fresh source-manifest decision for the frozen
 point-only predictions without weakening no-peek discipline?
 
+**Standing posture:** `MONITOR_ONLY_NO_SCOUT`. The
+[TASK-1072 trigger ledger](../reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md)
+defines the only qualifying official metadata signals. A calendar interval is
+not a trigger; a qualifying event opens only a fresh metadata-only
+source-manifest decision, never immediate target matching or scoring.
+
 **Shareable result:** APL has useful negative/control memory from F2,
 local-curvature, Wigner-cusp, and factory lanes, plus `RESULT-0025` as
 point-estimator evidence: GP residual modeling improves the declared point MAE
@@ -101,7 +107,7 @@ diagnostic `RESULT-0018`, and `TASK-0713` replayed it through Gate B without
 changing the `INCONCLUSIVE` scientific verdict. `TASK-0777` rejected the
 selected Wigner-cusp lane under its controls-first contract. The point-only
 freeze and negative calibration memory are already preserved. `TASK-1072`
-should ratify qualifying official release signals and keep the campaign
+ratifies qualifying official release signals and keeps the campaign
 `MONITOR_ONLY_NO_SCOUT` until one occurs. Reveal scoring, target matching, and
 interval-bearing wording remain blocked.
 
