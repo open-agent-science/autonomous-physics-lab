@@ -1,7 +1,7 @@
 id: TASK-1050
 title: "Run the frozen Stellar relation on the source-curated CHARA component surface"
 type: scientific_result_publication
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This is the first cross-source CHARA transfer metric and potential RESULT artifact; closeout must verify source eligibility, grouped independence, fixed-model discipline, controls, and public scope."
 difficulty: high

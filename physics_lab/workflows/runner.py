@@ -44,6 +44,9 @@ from physics_lab.workflows.stellar_ml_debcat_baseline import (
 from physics_lab.workflows.stellar_ml_high_mass_transfer import (
     run_stellar_ml_high_mass_transfer_with_output,
 )
+from physics_lab.workflows.stellar_ml_chara_transfer import (
+    run_stellar_ml_chara_transfer_with_output,
+)
 from physics_lab.workflows.thermoml_tb_family_transfer import (
     run_thermoml_tb_family_transfer_with_output,
 )
@@ -83,6 +86,9 @@ WORKFLOW_DISPATCH: dict[str, ExperimentHandler] = {
     "stellar_ml_debcat_baseline_benchmark": run_stellar_ml_debcat_baseline_with_output,
     "stellar_ml_high_mass_transfer_benchmark": (
         run_stellar_ml_high_mass_transfer_with_output
+    ),
+    "stellar_ml_chara_fixed_relation_transfer": (
+        run_stellar_ml_chara_transfer_with_output
     ),
     "thermoml_tb_family_transfer_benchmark": (
         run_thermoml_tb_family_transfer_with_output
@@ -158,5 +164,6 @@ __all__ = [
     "run_quantum_znse_contract_transfer_with_output",
     "run_stellar_ml_debcat_baseline_with_output",
     "run_stellar_ml_high_mass_transfer_with_output",
+    "run_stellar_ml_chara_transfer_with_output",
     "run_thermoml_tb_family_transfer_with_output",
 ]
