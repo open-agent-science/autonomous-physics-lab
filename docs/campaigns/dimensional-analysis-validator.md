@@ -107,7 +107,9 @@ Start here:
   threshold, engine, metric, or scope change.
 - `TASK-1071` is a separate external benchmark-freeze gate. It forbids
   validator execution and requires a different controlling human; later
-  one-shot scoring must be another task.
+  one-shot scoring must be another task. The current session stopped with
+  `EXTERNAL_EXPOSURE_BLOCKED` before curation; no candidate rows, labels, or
+  score were created. See [blocker record](../reviews/dimensional/task1071-external-exposure-blocker.md).
 - The current evidence remains calibration-only. Neither replay nor benchmark
   curation automatically changes `CLAIM-0005`.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`

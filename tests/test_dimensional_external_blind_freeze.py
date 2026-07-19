@@ -6,6 +6,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 TASK_PATH = ROOT / "tasks" / "TASK-1071-freeze-external-blind-dimensional-validator-benchmark.yaml"
 INTERFACE_PATH = ROOT / "docs" / "dimensional-validator-external-curator-interface.md"
+BLOCKER_RECORD_PATH = ROOT / "docs" / "reviews" / "dimensional" / "task1071-external-exposure-blocker.md"
 
 
 def _task() -> dict:
@@ -48,3 +49,15 @@ def test_curator_interface_contains_no_answer_bearing_paths() -> None:
     )
     assert all(token not in text for token in forbidden)
     assert "During curation, the curator may read only this document and `TASK-1071`." in text
+
+
+def test_external_exposure_blocker_is_metadata_only() -> None:
+    text = BLOCKER_RECORD_PATH.read_text(encoding="utf-8")
+    assert "**`EXTERNAL_EXPOSURE_BLOCKED`**" in text
+    assert "No formulas, variable-dimension declarations, native labels" in text
+    forbidden = (
+        "knowledge/challenge_sets/",
+        "physics_lab/engines/",
+        "results/EXP-",
+    )
+    assert all(token not in text for token in forbidden)
