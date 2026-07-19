@@ -1,0 +1,45 @@
+schema_version: "1"
+task_id: TASK-1050
+contract_id: stellar-chara-fixed-relation-transfer-v1
+frozen_before_scoring: true
+frozen_inputs:
+  chara_rows:
+    path: data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml
+    sha256: c0edf605a5a0ceca6b1f60dfaa38efbcdced33b2f9e52ec503a5c2de3d204be9
+  dependence_ledger:
+    path: data/textbook_formula_audit/stellar_ml/chara_cluster_dependence_ledger.yaml
+    sha256: 84dedfaceacb974e5ca54dd68f6e91efb5219c3a4a588e11929d5cd845c80392
+  debcat_rows:
+    path: data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml
+    sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
+source_gate:
+  required_replay_verdict: INDEPENDENT_SOURCE_REPLAY_PASS
+  required_component_count: 12
+  required_system_count: 6
+  minimum_effective_group_count: 5
+  debcat_environment_overlap_group: melotte-25
+predictor:
+  source_result_id: RESULT-0022
+  source_model_id: model_train_fitted_alpha
+  alpha: 4.526004
+  fixed_intercept_log_l0: 0.0
+  refit_allowed: false
+controls:
+  - control_textbook_alpha_3p5
+  - control_textbook_alpha_4p0
+  - control_result0022_massband_median_null
+null_contract:
+  source: RESULT-0022 main-sequence-compatible train lane
+  source_mass_range_solar: [0.5, 2.0]
+  grouping: frozen DEBCat mass_band
+  statistic: train_median_log_luminosity
+  unseen_band_fallback: global_train_median_log_luminosity
+  chara_target_values_used: false
+decision:
+  primary_metric: component_level_log_luminosity_mae_dex
+  survival_margin_dex: 0.04
+  rule: >
+    VALID_IN_RANGE when candidate margin over the lowest-MAE eligible control is
+    at least 0.04 dex; INCONCLUSIVE when the candidate wins by less than 0.04;
+    INVALID when it does not win; HOLD_UNDERPOWERED below five effective groups.
+  rescue_fit_allowed: false

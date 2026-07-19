@@ -1,0 +1,36 @@
+id: EXP-0023
+title: "Stellar M-L CHARA Fixed-Relation Transfer Benchmark"
+domain: astrophysics
+status: COMPLETED
+
+hypothesis_id: HYP-0023
+
+method:
+  type: transfer_benchmark
+  simulator: stellar_ml_chara_fixed_relation_transfer
+  comparator: frozen_result0022_relation_vs_predeclared_textbook_and_train_only_null_controls
+
+data:
+  dataset_path: ../data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml
+  dataset_kind: source_curated_chara_component_rows
+  benchmark_scope: >
+    Exactly twelve source-curated components from six CHARA systems, grouped by
+    physical system and screened against the Melotte-25 DEBCat environment.
+  expected_item_count: 12
+  sample_axes:
+    - log_mass_solar
+    - log_bolometric_luminosity_solar
+    - physical_system
+    - source_provenance
+    - luminosity_uncertainty
+  notes: >
+    The RESULT-0022 alpha and zero intercept are frozen. No CHARA coefficient,
+    threshold, exclusion, mass band, or rescue model is fitted after target
+    inspection.
+
+comparison_targets:
+  - id: target_chara_survival_margin
+    label: "Frozen RESULT-0022 relation margin over the best eligible non-oracle control"
+    reference_value: 0.04
+    unit: dex
+    notes: "Component-level log-luminosity MAE is primary; six physical systems remain the effective-group sensitivity unit."

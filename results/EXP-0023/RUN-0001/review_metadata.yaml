@@ -1,0 +1,20 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0031
+run_id: RUN-0001
+experiment_id: EXP-0023
+claim_id: null
+knowledge_id: null
+generated_at: '2026-07-19T00:00:00+00:00'
+proposed_claim_status: null
+required_human_review: true
+evidence_basis:
+- docs/reviews/stellar/chara-fixed-relation-transfer-task1050.md
+- data/textbook_formula_audit/stellar_ml/chara_fixed_relation_transfer_contract.yaml
+- results/EXP-0023/RUN-0001/metrics.json
+claim_target_file: null
+knowledge_target_file: null
+patch_artifacts:
+  claim_patch: results/EXP-0023/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0023/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0023/RUN-0001/review_summary.md
