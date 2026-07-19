@@ -1,0 +1,48 @@
+{
+  "artifact": {
+    "bytes": 795018,
+    "doi": "10.5281/zenodo.21207072",
+    "filename": "md0002-v0.1.0.zip",
+    "sha256": "19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22"
+  },
+  "checks": {
+    "material_level_split_identity": true,
+    "normalized_dataset_sha256": "516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1",
+    "normalized_rows": 724,
+    "property_axes": [
+      "band_gap",
+      "formation_energy_per_atom"
+    ],
+    "raw_snapshot_sha256": "5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567",
+    "split_counts_per_axis": {
+      "holdout": 54,
+      "train": 253,
+      "validation": 55
+    },
+    "split_digest_sha256": "0c1b06cddefe06d0dc6ee0c3341bba2966e0cb337d607afb6d7d797debfc46ef",
+    "unique_materials": 362
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]",
+    "pyyaml": "6.0.3"
+  },
+  "method": {
+    "axis": "formation_energy_per_atom",
+    "baseline": "train-only unordered non-oxygen cation-pair mean; global training median fallback",
+    "controls": [
+      "global_training_median",
+      "null_zero"
+    ],
+    "holdout_rows": 54,
+    "metric": "holdout_mae_eV_per_atom",
+    "pair_count_from_train": 79
+  },
+  "metrics": {
+    "cation_pair_baseline_mae": 0.20060612204925257,
+    "global_training_median_mae": 0.5060915176365851,
+    "null_zero_mae": 2.0356192354480647
+  },
+  "sealed_utc": "2026-07-19T11:30:10.577886+00:00",
+  "verdict": "INDEPENDENT_RUN_SEALED_PENDING_CANONICAL_COMPARISON"
+}

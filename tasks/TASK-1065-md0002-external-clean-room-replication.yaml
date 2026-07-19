@@ -1,7 +1,7 @@
 id: TASK-1065
 title: "Replicate MD-0002 RESULT-0021 externally from the public release surface"
 type: scientific_external_replication
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task is designed to earn the first genuinely external clean-room replication evidence; closeout must verify contributor independence, public-only inputs, implementation independence, metrics, and tier eligibility."
 difficulty: high
