@@ -498,9 +498,10 @@ sources:
       version-of-record bytes, license, figure/axis inventory, and morphology
       semantics as a value-blind source artifact. TASK-1043 froze the
       deterministic extraction contract. TASK-1052 executed that contract and
-      returned UNCERTAINTY_BLOCKED because Figure 3a has no numeric y ticks;
-      source-level acceptance remains, but no qd row or benchmark use is
-      authorized.
+      returned UNCERTAINTY_BLOCKED because Figure 3a has no numeric y ticks.
+      TASK-1064 then approved a distinct body-text route, and TASK-1070 curated
+      exactly four absorption and four fluorescence/emission observations from
+      that route. The rows remain unscored and are not a benchmark result.
     license_note: >
       CC BY 4.0 CONFIRMED on the version of record (Crossref license
       content-version vor effective 2020-08-12; PMC OA service record
@@ -523,15 +524,17 @@ sources:
       excitonic transitions come from sixth-derivative differential-absorption
       analysis and form a separate analysis-derived provenance class; the
       Figure 5 electron/hole level curves are model fits (calibration-risk
-      class, not direct rows). Expected row class is digitization_required;
-      TASK-1052 admitted the four per-sample HRTEM summaries as text-stated
-      source facts and completed two diagnostic peak passes, but all optical
-      observations remain excluded because the frozen printed-y-tick contract
-      cannot be satisfied. See
+      class, not direct rows). TASK-1052 admitted the four per-sample HRTEM
+      summaries and completed two diagnostic peak passes, but its
+      figure-digitized optical observations remain excluded because the frozen
+      printed-y-tick contract cannot be satisfied. TASK-1064 separately froze
+      a text_stated_summary route, and TASK-1070 transcribed its eight optical
+      statements into qd-0005 and qd-0006 without using the excluded
+      coordinates as an admission criterion. See
       docs/reviews/quantum/kim-2020-cdse-source-artifact.md and
       docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md and
       data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/README.md
-      (TASK-1027/TASK-1052).
+      (TASK-1027/TASK-1052/TASK-1064/TASK-1070).
 
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25

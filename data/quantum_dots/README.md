@@ -61,6 +61,12 @@ Optional but encouraged fields:
 - `measurement_type`: one of `optical_absorption`, `photoluminescence`,
   `electrical_transport`, `theoretical_calculation`.
 - `exclusion_reason`: required when `inclusion_status` is `excluded`.
+- `sample_id`, `source_artifact_sha256`, `source_locator`, and
+  `provenance_class`: row-level replay metadata for source-local statements.
+- `printed_precision_eV` and `rounding_uncertainty_floor_eV`: source-printing
+  limits; neither should be represented as reported instrument uncertainty.
+- `source_property_term`: original wording such as `fluorescence peak` when it
+  is mapped to a canonical property axis.
 
 Mixing absorption peak, emission peak, and bandgap values on the same
 residual axis is a leakage risk and is explicitly forbidden by the campaign

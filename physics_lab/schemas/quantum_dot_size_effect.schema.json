@@ -177,6 +177,46 @@
             "type": "string",
             "description": "Specific table, figure, or row reference within the source. Optional but encouraged."
           },
+          "sample_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Source-local sample identifier when the publication maps observations by sample name."
+          },
+          "source_artifact_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "SHA-256 of the source artifact from which this row was transcribed or extracted."
+          },
+          "source_locator": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-replayable locator for the exact source statement."
+          },
+          "provenance_class": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Reviewed provenance class, for example text_stated_summary."
+          },
+          "printed_precision_eV": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Energy increment implied by the source's printed precision, not an instrument uncertainty."
+          },
+          "rounding_uncertainty_floor_eV": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Half-increment rounding floor derived from printed precision."
+          },
+          "instrument_uncertainty": {
+            "type": "string",
+            "enum": ["not_reported"],
+            "description": "Explicit marker used when the source gives no instrument uncertainty for the row."
+          },
+          "source_property_term": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Original source wording when it differs from the canonical property_kind term."
+          },
           "inclusion_status": {
             "type": "string",
             "enum": ["included", "excluded"],
