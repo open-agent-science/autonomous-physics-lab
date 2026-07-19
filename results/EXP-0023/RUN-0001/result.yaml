@@ -7,7 +7,7 @@ hypothesis_id: HYP-0023
 task_id: TASK-1050
 generated_at: '2026-07-19T00:00:00+00:00'
 engine_version: 0.2.0
-git_commit: f631dcf3fda02da0b28b818e247430248211541b
+git_commit: 922dd4cb41e81508b47e6e453dac62f9c8538a0b
 command: physics-lab run examples/stellar_ml_chara_fixed_relation_transfer.yaml
 input_file_hashes:
   config:
@@ -21,7 +21,7 @@ input_file_hashes:
     sha256: 81d4b41157e0fa66c12166123c5f94048496bff17ff8da8d9757f13a5ea95559
   task:
     path: results/EXP-0023/RUN-0001/inputs/task.yaml
-    sha256: dd1ec60020620df4055403b7e27dc7275623ee6d26f06f49af00be519681dc11
+    sha256: 10617ca8dd900f30e9b96d609cfb4c1d55edcee501dbd2f3e935e3e2f514d3fb
   fixture:
     path: results/EXP-0023/RUN-0001/inputs/fixture.yaml
     sha256: f2867b31403d4f511ea6cb02ec95fc7df6f6995eaaea7170616f21c579862c2f
@@ -44,12 +44,12 @@ agent_proposal_evaluation:
     deterministic_run: true
     verification_block_populated: true
     input_hashes_recorded: true
-    limitations_recorded: true
-    engine_and_commit_pinned: true
-    schema_validation_required: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
     no_protected_artifact_rewrite: true
-    no_forbidden_overclaim: true
-    dataset_provenance_verified: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
     gate_b_replayable_command: true
   evidence_summary: A deterministic no-refit run scored all twelve source-replayed CHARA components under
     the frozen controls and retained the sub-threshold outcome.
