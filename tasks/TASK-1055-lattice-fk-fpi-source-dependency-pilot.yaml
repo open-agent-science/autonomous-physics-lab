@@ -1,7 +1,7 @@
 id: TASK-1055
 title: "Build a bounded f_K/f_pi source manifest and dependency-edge pilot"
 type: scientific_source_curation
-status: READY
+status: IN_PROGRESS
 closeout: review
 closeout_review_reason: "This is the first real-source Lattice-QCD campaign artifact; closeout must verify primary identities, rights, convention fields, dependency evidence, and the STOP_DUPLICATES_FLAG boundary."
 difficulty: high
