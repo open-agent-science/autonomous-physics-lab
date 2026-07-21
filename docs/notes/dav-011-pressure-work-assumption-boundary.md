@@ -1,7 +1,7 @@
 # DAV-011 Pressure-Work Assumption Boundary
 
-**Run:** `MICROTASK-RUN-0037`  
-**Run verdict:** `REVIEW_NEEDED`  
+**Run:** `MICROTASK-RUN-0037`
+**Run verdict:** `REVIEW_NEEDED`
 **Curated item classification:** `SUSPICIOUS`
 
 ## Input
