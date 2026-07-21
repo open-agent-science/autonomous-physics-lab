@@ -10,7 +10,7 @@
 - Archive byte-size expectation: `795018` bytes.
 - Archive SHA-256 expectation: `19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22`.
 - Benchmark axis: `formation_energy_per_atom` only; `band_gap` is not pooled or scored.
-- Independent method: parse the released YAML directly; for each holdout material, predict the mean training formation energy for its unordered non-oxygen cation pair, with the global training median only when that pair is absent. Controls are the training global median and null prediction `0.0`.
+- Independent method: read the required members directly from the SHA-256-verified ZIP; for each holdout material, predict the mean training formation energy for its unordered non-oxygen cation pair, with the global training mean only when that pair is absent. The global training median and null prediction `0.0` are controls.
 - Frozen split: release-provided material-level labels; no identifiers, values, prototypes, or pair definitions may be tuned after scoring.
 - Metric: holdout MAE in `eV_per_atom` over 54 material-level formation-energy rows.
 - Predeclared comparison tolerance: absolute difference no greater than `1e-12` for metrics and `0` for counts, identifiers, checksums, and split membership.
@@ -21,11 +21,24 @@
 - Zenodo DOI: `10.5281/zenodo.21207072`.
 - Archive accessed and downloaded on `2026-07-19 UTC` into a worktree-local clean-room directory.
 - Archive file: `md0002-v0.1.0.zip`; observed `795018` bytes; SHA-256 `19ec02cc0b64146357b14251065460d0af6b7f8cf234e20528c53ab977867b22`; both match the published expectations.
-- Public tag: `dataset-md0002-v0.1.0` resolves to commit `8be7469616fb8957d4f967124720ee30db20f6e9`.
+- Public tag: `dataset-md0002-v0.1.0` resolves to commit `2891f3a4176f97038bdb63efd2a677db0d1b8faa`.
 - Archive and tag normalized-dataset SHA-256: `516ed06f005157da93fb30490fea2d7a5026146129a4b56ed4c6d4159d81b1d1`.
 - Archive raw-snapshot SHA-256: `5bfb3e7f86c0afcdfa7e7898a47e05e063226758eeabeae0c95c246660349567`.
 - Normalized rows: `724`; unique material identifiers: `362`; property axes: `formation_energy_per_atom` and `band_gap`.
 - The two axes have identical material-to-split assignments. Formation-energy split counts are `253` train, `55` validation, and `54` holdout; frozen split digest is `0c1b06cddefe06d0dc6ee0c3341bba2966e0cb337d607afb6d7d797debfc46ef`.
+
+## Command ledger
+
+The following public-download, identity, tag, direct-read, sealing, and post-seal comparison commands were executed:
+
+```powershell
+Invoke-WebRequest -Uri "https://zenodo.org/records/21207072/files/md0002-v0.1.0.zip?download=1" -OutFile ".external-clean-room/md0002-v0.1.0.zip"
+Get-Item ".external-clean-room/md0002-v0.1.0.zip" | Select-Object Length,FullName
+git ls-remote --tags https://github.com/open-agent-science/autonomous-physics-lab.git refs/tags/dataset-md0002-v0.1.0
+python scripts/md0002_external_clean_room_replay.py --zip .external-clean-room/md0002-v0.1.0.zip --output docs/reviews/materials/result0021-external-clean-room-replay-20260719.json
+python -c 'from pathlib import Path; import hashlib; p=Path("docs/reviews/materials/result0021-external-clean-room-replay-20260719.json"); print("seal-sha256:", hashlib.sha256(p.read_bytes()).hexdigest())'
+python -c 'import json; from pathlib import Path; d=json.loads(Path("docs/reviews/materials/result0021-external-clean-room-replay-20260719.json").read_text(encoding="utf-8")); assert round(d["metrics"]["cation_pair_baseline_mae"],6)==0.200606; assert round(d["metrics"]["global_training_median_mae"],6)==0.506092; assert d["checks"]["normalized_rows"]==724; assert d["checks"]["unique_materials"]==362; print("published-precision comparison: PASS")'
+```
 
 ## Independent execution
 
@@ -33,12 +46,11 @@ Code reference: [`scripts/md0002_external_clean_room_replay.py`](../../../script
 
 ```text
 python scripts/md0002_external_clean_room_replay.py \
-  --archive-dir .external-clean-room/archive \
   --zip .external-clean-room/md0002-v0.1.0.zip \
   --output docs/reviews/materials/result0021-external-clean-room-replay-20260719.json
 ```
 
-Environment: Windows 11, CPython `3.12.13`, PyYAML `6.0.3`. The sealed output was written at `2026-07-19T11:30:10.577886+00:00` and has SHA-256 `1fa936ac50a0a2096aa80a590e1be7f451bfcfdd50f08788829cefc72ab8f55e`.
+Environment: Windows 11, CPython `3.12.13`, PyYAML `6.0.3`. The sealed output was written at `2026-07-21T08:28:04.936300+00:00` and has SHA-256 `80183da75a3d6685492de8dc7f5cf36c0ce4b266475526f4ae2f3700792d000a`.
 
 The sealed replay reports:
 
@@ -64,7 +76,7 @@ The canonical public result serializes the compared MAEs to six decimal places. 
 | Control ordering | cation-pair lower than global-median control | `0.200606 < 0.506092` | match |
 | Frozen split identity | material-level | material-level; digest recorded above | match |
 
-The canonical workflow describes a global train-mean fallback, while the predeclared clean-room script uses the global training median when a cation pair is absent. Eight holdout rows use that fallback. The two public fallback choices yield the same frozen-holdout MAE (`0.20060612204925257`) for this dataset; the distinction is retained as a limitation rather than silently normalized away. The zero control is an external-only diagnostic; canonical RESULT-0021 records the global-median control.
+The canonical workflow and the clean-room script both use the global train-mean fallback for unseen cation pairs. The global training median remains a separately reported control. Eight holdout rows use the mean fallback. The zero control is an external-only diagnostic; canonical RESULT-0021 records the global-median control.
 
 ## Verdict and maintainer request
 
