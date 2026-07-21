@@ -1,7 +1,7 @@
 id: TASK-1074
 title: "Audit the v0.3 Research Factory capability exit and preserve the release boundary"
 type: architecture_audit
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This audit records a roadmap milestone decision; closeout must preserve the distinction between capability exit and a maintainer-approved 0.3.0 release."
 difficulty: medium

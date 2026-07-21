@@ -1,7 +1,7 @@
 id: TASK-1046
 title: "Replay Stellar high-mass transfer RESULT-0024 with an independent human contributor"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task strengthens the validation identity of a small same-source transfer result and must preserve its high-mass, stage, and provenance caveats."
 difficulty: medium
