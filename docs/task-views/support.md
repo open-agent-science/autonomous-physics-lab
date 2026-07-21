@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-1069` - Reconcile the v0.3 roadmap with the Materials adapter and v0.2 marker (`documentation`, priority `medium`, difficulty `low`, domain `repository_architecture`)
+None.

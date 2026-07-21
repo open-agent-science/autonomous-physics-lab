@@ -6,7 +6,7 @@
 
 ## Release Blockers
 
-- `TASK-1066` - Run the frozen within-OQMD baseline benchmark after split and contract gates (`scientific_result_publication`, priority `high`, difficulty `high`, domain `materials_science`)
+None.
 
 ## Research Blockers
 
