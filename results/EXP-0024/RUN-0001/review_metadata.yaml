@@ -1,0 +1,21 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0032
+run_id: RUN-0001
+experiment_id: EXP-0024
+claim_id: null
+knowledge_id: null
+generated_at: '2026-07-22T00:00:00+00:00'
+proposed_claim_status: null
+required_human_review: true
+evidence_basis:
+- data/materials/oqmd_within_source_benchmark_config.yaml
+- docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml
+- results/EXP-0024/RUN-0001/metrics.json
+- results/EXP-0024/RUN-0001/metric_control_ledger.json
+claim_target_file: null
+knowledge_target_file: null
+patch_artifacts:
+  claim_patch: results/EXP-0024/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0024/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0024/RUN-0001/review_summary.md

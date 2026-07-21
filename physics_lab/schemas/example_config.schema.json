@@ -43,7 +43,7 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "stellar_ml_debcat_baseline_benchmark", "stellar_ml_high_mass_transfer_benchmark", "stellar_ml_chara_fixed_relation_transfer", "thermoml_tb_family_transfer_benchmark", "thermoml_esters_lactones_negative_result", "textbook_firas_wien_peak_consistency", "quantum_znse_contract_transfer_result", "exoplanet_null_baseline_result"]
+      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "materials_oqmd_within_source_baseline", "stellar_ml_debcat_baseline_benchmark", "stellar_ml_high_mass_transfer_benchmark", "stellar_ml_chara_fixed_relation_transfer", "thermoml_tb_family_transfer_benchmark", "thermoml_esters_lactones_negative_result", "textbook_firas_wien_peak_consistency", "quantum_znse_contract_transfer_result", "exoplanet_null_baseline_result"]
     },
     "amplitude_range_override": {
       "type": "object",
@@ -117,7 +117,7 @@
         "required": ["workflow"],
         "properties": {
           "workflow": {
-            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "stellar_ml_debcat_baseline_benchmark", "stellar_ml_high_mass_transfer_benchmark", "stellar_ml_chara_fixed_relation_transfer", "thermoml_tb_family_transfer_benchmark", "thermoml_esters_lactones_negative_result", "textbook_firas_wien_peak_consistency", "quantum_znse_contract_transfer_result", "exoplanet_null_baseline_result"]
+            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference", "materials_md0002_formation_energy_benchmark", "materials_oqmd_within_source_baseline", "stellar_ml_debcat_baseline_benchmark", "stellar_ml_high_mass_transfer_benchmark", "stellar_ml_chara_fixed_relation_transfer", "thermoml_tb_family_transfer_benchmark", "thermoml_esters_lactones_negative_result", "textbook_firas_wien_peak_consistency", "quantum_znse_contract_transfer_result", "exoplanet_null_baseline_result"]
           }
         }
       },
