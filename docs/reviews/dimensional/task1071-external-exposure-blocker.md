@@ -8,7 +8,10 @@
 
 - Contributor account: `akutenyov`.
 - Controlling-human statement: the account is controlled by a human different from the owner of `gladunrv` (and separately from `romanhladun24-dot`). This statement is recorded for maintainer verification; it does not override the exposure boundary.
-- Session: Codex desktop session on `2026-07-19`.
+- Agent/tool/model: `Codex Desktop` / `GPT-5`.
+- Session identifier: `TASK-1071-EXPOSURE-ATTESTATION-20260719-AKUTENYOV-CODEX-GPT5`. Codex Desktop did not expose a native session id in the recorded interface; this durable attestation identifies the blocked session.
+- Exact exposed repository path: `docs/campaigns/dimensional-analysis-validator.md`.
+- Exposure class: value-free result-performance discussion; this record deliberately includes no performance values, formulas, challenge answers, or validator output.
 - Intended role: external blind benchmark curator.
 
 ## Stop condition

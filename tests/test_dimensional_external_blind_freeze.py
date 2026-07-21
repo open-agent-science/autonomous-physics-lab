@@ -55,6 +55,10 @@ def test_external_exposure_blocker_is_metadata_only() -> None:
     text = BLOCKER_RECORD_PATH.read_text(encoding="utf-8")
     assert "**`EXTERNAL_EXPOSURE_BLOCKED`**" in text
     assert "No formulas, variable-dimension declarations, native labels" in text
+    assert "Codex Desktop` / `GPT-5" in text
+    assert "TASK-1071-EXPOSURE-ATTESTATION-20260719-AKUTENYOV-CODEX-GPT5" in text
+    assert "docs/campaigns/dimensional-analysis-validator.md" in text
+    assert "value-free result-performance discussion" in text
     forbidden = (
         "knowledge/challenge_sets/",
         "physics_lab/engines/",
