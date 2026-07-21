@@ -6,7 +6,7 @@ hypothesis_id: HYP-0024
 task_id: TASK-1066
 generated_at: '2026-07-22T00:00:00+00:00'
 engine_version: 0.2.0
-git_commit: b924261023e094b305dd07249c05447147a3346e
+git_commit: f48fd76387b1c2eb9633a4bf577a8b75c647fefd
 command: physics-lab run examples/materials_oqmd_within_source_baseline.yaml
 input_file_hashes:
   config:
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: 88e90238f271e52285f5f5370b3ebd7b9436ef7745f639cff5a261eda733d1fa
   task:
     path: results/EXP-0024/RUN-0001/inputs/task.yaml
-    sha256: 01e703818f94260b83db917b04c3e3d0ac5b3f28e350c5bf0d6c163d10d08bfe
+    sha256: d02800d4ff0dca0c95ac25b647aa348dcddffdbe9b2a2357f1f052a7b8daee67
   fixture:
     path: results/EXP-0024/RUN-0001/inputs/fixture.yaml
     sha256: 2e647812418448247a558a41b46a2606e9387ff122220f3821ba16f7393ec785

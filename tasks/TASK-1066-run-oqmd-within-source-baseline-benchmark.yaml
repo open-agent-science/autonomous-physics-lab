@@ -40,6 +40,7 @@ requirements:
 
 accepted_outputs:
   - "A deterministic OQMD benchmark workflow, tests, frozen config/input copies, report, metric/control ledger, limitations, and one bounded verdict."
+  - "A new scoped hypothesis artifact in hypotheses/ and experiment artifact in experiments/ that anchor the benchmark result without promoting a claim."
   - "A new scoped RESULT artifact and Gate A report only when publication gates pass; otherwise an explicit no-publication blocker."
   - "Output-routing summary covering canonical destination, review tier, Gate A/B, claim impact, knowledge impact, and publication blocker."
 
