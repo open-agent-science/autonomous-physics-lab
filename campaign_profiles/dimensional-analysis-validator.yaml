@@ -84,7 +84,7 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. RESULT-0030 is now AGENT_VALIDATED after an independent-human replay reproduced all 17 checked metrics with zero drift; its 80/80 exact agreement remains calibration-only because the benchmark labels and implementation share APL ownership. TASK-1071 stopped before any rows or labels were created because the external session had already seen result-performance material."
+  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. RESULT-0030 is now AGENT_VALIDATED after an independent-human replay reproduced all 43 compared numeric fields with zero drift; its 80/80 exact agreement remains calibration-only because the benchmark labels and implementation share APL ownership. TASK-1071 stopped before any rows or labels were created because the external session had already seen result-performance material."
   recommended_parallel_agents: 2
   coordination_notes: "TASK-1082 may retry the external freeze only with a clean controlling human who has not seen validator performance and receives an answer-free curation interface. TASK-1083 may independently scout third-party labelled corpora without copying formulas or scoring. Do not use RESULT-0030 as confirmatory CLAIM-0005 evidence or let APL inspect candidate labels before freeze."
   next_validity_gate:

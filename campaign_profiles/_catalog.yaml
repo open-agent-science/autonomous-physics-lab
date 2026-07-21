@@ -185,7 +185,7 @@ campaigns:
     - updated_campaign_profile
   current_stage: RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression
     memory. RESULT-0030 is now AGENT_VALIDATED after an independent-human replay reproduced
-    all 17 checked metrics with zero drift; its 80/80 exact agreement remains calibration-only
+    all 43 compared numeric fields with zero drift; its 80/80 exact agreement remains calibration-only
     because the benchmark labels and implementation share APL ownership. TASK-1071 stopped
     before any rows or labels were created because the external session had already seen result-performance
     material.

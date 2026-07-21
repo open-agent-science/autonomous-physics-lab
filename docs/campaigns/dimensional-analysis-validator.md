@@ -46,7 +46,7 @@ challenge surface:
   ledger contains 64/74 exact categorical matches; eight `KNOWN_LIMIT_FAIL ->
   VALID` and two `SUSPICIOUS -> INVALID` equivalences account for the other ten
   legacy acceptances. `TASK-0948` supplied the genuinely independent Gate B
-  replay identity and reproduced all 17 tracked metrics with zero drift at
+  replay identity and reproduced all 43 compared numeric fields with zero drift at
   tolerance `1e-9`.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
   stores the frozen canonical replay input.
