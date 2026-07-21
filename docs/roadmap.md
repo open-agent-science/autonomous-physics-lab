@@ -149,8 +149,9 @@ criteria:
   candidates into `NEGATIVE_RESULT` / `INCONCLUSIVE` / `SHORTLIST_CANDIDATE`
   memory under mandatory controls, with **no automatic claims, predictions, or
   discovery wording**;
-- a **second-campaign adapter contract** (TASK-0508, Exoplanet) demonstrates
-  reuse — proving the factory is a *layer*, not a Nuclear-only tool;
+- a **second executable campaign adapter** (TASK-1060, Materials) runs through
+  the same shared core and demonstrates reuse beyond Nuclear; TASK-0508 retains
+  the Exoplanet adapter contract for a distinct future campaign path;
 - at least one factory-compatible dataset surface has source, citation/reuse,
   and holdout or replay metadata suitable for future publication review;
 - the version marker is reconciled (see below) and public-facing wording stays
@@ -159,9 +160,9 @@ criteria:
 Sequencing: `v0.3` may be planned in parallel but is closed only after the
 `v0.2` public-launch gates above are satisfied.
 
-Version-marker hygiene: the narrative version (`v0.2`, then `v0.3`) must be
-reconciled with the package marker in `pyproject.toml` (currently `0.1.0`) so
-the version has a single source of truth tied to release gates rather than prose.
+Version-marker hygiene: `pyproject.toml` is the package-version source of truth.
+The `v0.2` public-alpha release reconciled that marker to `0.2.0`; do not advance
+it to `0.3.0` until the `v0.3` exit criteria and release gates are satisfied.
 
 ## v0.4 — External Agent Network Validation — Future
 

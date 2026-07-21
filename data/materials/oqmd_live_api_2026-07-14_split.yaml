@@ -1,0 +1,3723 @@
+{
+  "format_version": 1,
+  "serialization": "YAML 1.2 JSON-compatible",
+  "task_id": "TASK-1053",
+  "session": {
+    "identity": "task1053-clean-no-target-execution-v1",
+    "execution_mode": "clean_no_target",
+    "attestation": {
+      "only_dataset_input": "C:\\tmp\\oqmd-identities-task1053.json",
+      "allowed_row_fields": [
+        "entry_id",
+        "reduced_composition",
+        "spacegroup"
+      ],
+      "target_fields_accessed": false,
+      "target_summaries_or_metrics_computed": false,
+      "repository_normalized_or_raw_files_accessed": false,
+      "git_accessed": false,
+      "github_accessed": false,
+      "network_accessed": false
+    }
+  },
+  "source": {
+    "snapshot_id": "oqmd-live-api-2026-07-14",
+    "schema_version": "1",
+    "declared_source_sha256": "af8991aefda6f408a3ad33251aa5564f5fed37a7d527b696d68442971bc978a4",
+    "declared_source_hash_scope": "task-contract upstream source provenance",
+    "identifier_only_input_path": "C:\\tmp\\oqmd-identities-task1053.json",
+    "identifier_only_input_sha256": "17b0f9b8b59b1acfe1e97d48e4fa435ddc58a10f14417fd5ebea1b79595a16cd",
+    "identifier_only_input_row_count": 172,
+    "identifier_only_input_fields": [
+      "entry_id",
+      "reduced_composition",
+      "spacegroup"
+    ]
+  },
+  "algorithm": {
+    "name": "composition_group_sha256_greedy_total_absolute_deficit",
+    "version": 1,
+    "salt": "oqmd-task1053-v1",
+    "encoding": "UTF-8",
+    "group_key": "exact reduced_composition string",
+    "group_order": "ascending SHA-256 of UTF-8 'oqmd-task1053-v1|<reduced_composition>'; composition UTF-8 bytes break hash collisions",
+    "row_order_within_group": "UTF-8 byte order of the decimal/text representation of entry_id",
+    "partition_order": [
+      "train",
+      "validation",
+      "holdout"
+    ],
+    "target_row_counts": {
+      "train": 120,
+      "validation": 26,
+      "holdout": 26
+    },
+    "assignment_rule": "For each ordered whole group, try each partition and minimize the sum over all partitions of abs(target_rows - resulting_assigned_rows); break ties by partition_order."
+  },
+  "counts": {
+    "rows_total": 172,
+    "groups_total": 172,
+    "rows_by_partition": {
+      "train": 120,
+      "validation": 26,
+      "holdout": 26
+    },
+    "groups_by_partition": {
+      "train": 120,
+      "validation": 26,
+      "holdout": 26
+    }
+  },
+  "verification": {
+    "entry_ids_unique": true,
+    "composition_groups_atomic": true,
+    "spacegroup_variants_of_same_composition_coassigned": true,
+    "cross_partition_composition_leakage": false,
+    "holdout_minimum_rows": 24,
+    "holdout_minimum_satisfied": true,
+    "targets_reached_exactly": true
+  },
+  "verdict": "SPLIT_READY_FOR_BENCHMARK_PREFLIGHT",
+  "split_manifests": {
+    "train": {
+      "group_ordinals": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120
+      ],
+      "row_ordinals": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120
+      ],
+      "entry_ids": [
+        1375405,
+        1880265,
+        1888725,
+        2173116,
+        2173412,
+        2173079,
+        2174340,
+        1880741,
+        21689,
+        2173724,
+        1363057,
+        2153535,
+        1981314,
+        1880821,
+        1818614,
+        2173673,
+        2173223,
+        1982300,
+        2174325,
+        2173695,
+        629539,
+        1797407,
+        36658,
+        2635,
+        2173076,
+        1375153,
+        1992075,
+        2173827,
+        2173029,
+        1880643,
+        1741492,
+        31814,
+        1733035,
+        1347741,
+        1366995,
+        1738425,
+        2173884,
+        79535,
+        1373054,
+        2173923,
+        1742937,
+        3540,
+        84693,
+        2174233,
+        1344626,
+        13136,
+        1482561,
+        1770080,
+        2174082,
+        31849,
+        12776,
+        1880218,
+        1346934,
+        2174327,
+        1772956,
+        1346275,
+        2045903,
+        2174316,
+        1880320,
+        6212,
+        1346820,
+        25897,
+        2033223,
+        2174056,
+        2151728,
+        2173754,
+        827576,
+        2174322,
+        2173078,
+        1880203,
+        19743,
+        1482524,
+        692744,
+        2173671,
+        1344887,
+        1348492,
+        2146131,
+        2156251,
+        1362792,
+        2172935,
+        13131,
+        1344808,
+        1345449,
+        2173056,
+        1362799,
+        1368864,
+        2172853,
+        1733091,
+        1383901,
+        2173642,
+        1880550,
+        1482542,
+        26861,
+        1776208,
+        2172770,
+        2172936,
+        2173990,
+        2173245,
+        95806,
+        1348781,
+        3535,
+        1347658,
+        31840,
+        2859,
+        2024518,
+        1345211,
+        39671,
+        1992849,
+        1772818,
+        2174240,
+        2154246,
+        1750656,
+        1916,
+        2173874,
+        2173839,
+        26735,
+        1733087,
+        1982491,
+        2173626,
+        22104
+      ]
+    },
+    "validation": {
+      "group_ordinals": [
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146
+      ],
+      "row_ordinals": [
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146
+      ],
+      "entry_ids": [
+        2173460,
+        2174211,
+        7234,
+        646253,
+        2173907,
+        2012333,
+        2173794,
+        2151447,
+        19808,
+        2174231,
+        2172805,
+        2174289,
+        2174265,
+        2173941,
+        2174372,
+        1345287,
+        2173392,
+        1751886,
+        2174040,
+        2151720,
+        2172969,
+        2174094,
+        1880670,
+        1347016,
+        1388267,
+        2173219
+      ]
+    },
+    "holdout": {
+      "group_ordinals": [
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172
+      ],
+      "row_ordinals": [
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172
+      ],
+      "entry_ids": [
+        1345476,
+        1347984,
+        2172655,
+        1347212,
+        2173628,
+        1880486,
+        36003,
+        2173928,
+        1369277,
+        1338415,
+        2173880,
+        1752950,
+        2174149,
+        2173280,
+        2061686,
+        1880956,
+        2151770,
+        2757,
+        2173536,
+        2172994,
+        2156236,
+        648541,
+        2173445,
+        2174292,
+        1348842,
+        1348506
+      ]
+    }
+  },
+  "ordered_group_manifest": [
+    {
+      "ordinal": 1,
+      "ordering_sha256": "02dacd1bd961ebfeebb50b579d97af1a4b9c2d1d420d3a0cfbe1678fd325faa2",
+      "reduced_composition": "K2-O3-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1375405
+      ]
+    },
+    {
+      "ordinal": 2,
+      "ordering_sha256": "03730ac392f24e71abdd1187b1e6026d72bbc0edd4850fecc16e5498c04af53f",
+      "reduced_composition": "Li1-O3-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880265
+      ]
+    },
+    {
+      "ordinal": 3,
+      "ordering_sha256": "0570e81236ca79edb5b2c83135f8eb9316482759c92b06f0c58f3b332acf99af",
+      "reduced_composition": "Ba1-Cu2-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1888725
+      ]
+    },
+    {
+      "ordinal": 4,
+      "ordering_sha256": "05c2f4e25f65aced4cfcf110fc0905bc4c007ff1873ce58651628627fdc8cd51",
+      "reduced_composition": "Ba5-O14-Ti5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173116
+      ]
+    },
+    {
+      "ordinal": 5,
+      "ordering_sha256": "078e29668a0c728c18cda961062418869bf615b5bcef00e396577ede5c528b1f",
+      "reduced_composition": "O17-Rb3-Ti8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173412
+      ]
+    },
+    {
+      "ordinal": 6,
+      "ordering_sha256": "09abd0fd2b4a7091d3ea458be8a6daa5edc4bc6f8e5c68596d552fb864108289",
+      "reduced_composition": "Ba6-Fe4-O13",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173079
+      ]
+    },
+    {
+      "ordinal": 7,
+      "ordering_sha256": "0dc48c2fc1c34898b8472fb37f6c775bba5a2740e1902f2e638f8e2a10f5bcc3",
+      "reduced_composition": "Ba21-Fe14-O43",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174340
+      ]
+    },
+    {
+      "ordinal": 8,
+      "ordering_sha256": "0f7b4786f581f10e4d856cbf42acbf2707668c3c2267bc0d7f48f69682fca6a7",
+      "reduced_composition": "Mg1-O2-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880741
+      ]
+    },
+    {
+      "ordinal": 9,
+      "ordering_sha256": "1167fe86c3118603a7ed72a78e189afc504fb61c19f31886b2bceebef50e1961",
+      "reduced_composition": "Na4-O12-Ti5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        21689
+      ]
+    },
+    {
+      "ordinal": 10,
+      "ordering_sha256": "143e1bc6e73babd79e7431f19d623c359f62e7452b1527a47e684ca43e06cf03",
+      "reduced_composition": "Cr4-K3-O8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173724
+      ]
+    },
+    {
+      "ordinal": 11,
+      "ordering_sha256": "14d94c3d1d57a916e27f94c06f80fcd7b0440d4c7a1576751f9b0e817094fad0",
+      "reduced_composition": "Fe1-K4-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1363057
+      ]
+    },
+    {
+      "ordinal": 12,
+      "ordering_sha256": "160845d01ab9263719ec11e4c07b5b8319d9f4e9670b563b321ec91de9be0b87",
+      "reduced_composition": "Cu6-Mg1-O8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2153535
+      ]
+    },
+    {
+      "ordinal": 13,
+      "ordering_sha256": "167dd8b66a900fb6cc78d3b8db1238d28abd71eb7585dd2b6e5367b39fe35d9e",
+      "reduced_composition": "O1-Rb1-Zn1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1981314
+      ]
+    },
+    {
+      "ordinal": 14,
+      "ordering_sha256": "186da029b33e89e1df459a9eb995c0a300708082c0d53e927992b9a529f0a32a",
+      "reduced_composition": "Li1-Mn4-O5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880821
+      ]
+    },
+    {
+      "ordinal": 15,
+      "ordering_sha256": "19939897dcf28dbad53d0da789e1ad3c5e0c0d9b82afd3023bd004a1cc91fcb7",
+      "reduced_composition": "Co1-O4-Rb4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1818614
+      ]
+    },
+    {
+      "ordinal": 16,
+      "ordering_sha256": "1a6671dd46ddc4532f5910435e3abf1dd5963c1f9506176bca28237c5b143244",
+      "reduced_composition": "Mn2-O7-Rb6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173673
+      ]
+    },
+    {
+      "ordinal": 17,
+      "ordering_sha256": "1ce48981f217c36aa2d2d59680f8e3f1ecee5d7141d4d77cb25a8482b35afef2",
+      "reduced_composition": "Ba4-Cu2-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173223
+      ]
+    },
+    {
+      "ordinal": 18,
+      "ordering_sha256": "1dd71cd79b375aea3170ce7e79d5fd693a11e34c79329fedb0d76e5a6754d52b",
+      "reduced_composition": "Na2-O3-Ti1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1982300
+      ]
+    },
+    {
+      "ordinal": 19,
+      "ordering_sha256": "21bd0153604faf185915a550017b53b8c8bf6cfaa8256d4df42e73fe2e02dc81",
+      "reduced_composition": "Cs5-O10-V3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174325
+      ]
+    },
+    {
+      "ordinal": 20,
+      "ordering_sha256": "2282895e61748ebfee682c34c6a7f411cfea6dadbc53544ffbc2bdc0b840c3ef",
+      "reduced_composition": "Fe2-K6-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173695
+      ]
+    },
+    {
+      "ordinal": 21,
+      "ordering_sha256": "2457619e7a52c6d1d7e8046eec123eb56a37e72848e5fee9184d6bbf0f28a20e",
+      "reduced_composition": "Co7-Na4-O14",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        629539
+      ]
+    },
+    {
+      "ordinal": 22,
+      "ordering_sha256": "25a49330f0f202acf0d487f4868820c633eaca6ef7f8f33be24d7eead5861058",
+      "reduced_composition": "Mg3-O11-Ti6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1797407
+      ]
+    },
+    {
+      "ordinal": 23,
+      "ordering_sha256": "26b3c5aa8e1c6caaf9466865ef06c370f3b7098f2daeaf983816cbc1aff85912",
+      "reduced_composition": "O15-Sr1-V10",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        36658
+      ]
+    },
+    {
+      "ordinal": 24,
+      "ordering_sha256": "27029c27d2bf5368340c7fe835b52a53210744c14475745f0e89ed0347b3b3b0",
+      "reduced_composition": "Ba1-Mn2-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2635
+      ]
+    },
+    {
+      "ordinal": 25,
+      "ordering_sha256": "2a0197690a80a1101f5dae38922ad3d3726e8c9e25d1175d3ca95370b64c0e9f",
+      "reduced_composition": "Fe4-O13-Sr6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173076
+      ]
+    },
+    {
+      "ordinal": 26,
+      "ordering_sha256": "2a4b02bb966f32d17adf5d23093955e63fe9d1a549a83eb19d1ea4c2e023692d",
+      "reduced_composition": "Cs2-O5-Ti2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1375153
+      ]
+    },
+    {
+      "ordinal": 27,
+      "ordering_sha256": "2b745b5e8329c9bdcb40b44ef6d54fe6eeefb3a33324e5e31dcdb3b2c2dc6123",
+      "reduced_composition": "Cs3-Cu1-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1992075
+      ]
+    },
+    {
+      "ordinal": 28,
+      "ordering_sha256": "2bb7e5b69f3b922ea28061e2f53440e4eafd356f5da25de6b78f96d5b412d90f",
+      "reduced_composition": "Co1-O3-Rb4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173827
+      ]
+    },
+    {
+      "ordinal": 29,
+      "ordering_sha256": "2d30607425762a13b626a5a1cf189ccb6818d13bd0f60e5f2dabb3026b433509",
+      "reduced_composition": "Mn1-O5-Rb5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173029
+      ]
+    },
+    {
+      "ordinal": 30,
+      "ordering_sha256": "2f7a9ba1959b2cb4dd38c1540770d02b3ebdb38baad1b0bd669888bf57860519",
+      "reduced_composition": "Na2-Ni1-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880643
+      ]
+    },
+    {
+      "ordinal": 31,
+      "ordering_sha256": "30e8d4e3f9a7950a2479a9d4f9d3ad1c0b743793fc28ecd19babdd36b0aa9132",
+      "reduced_composition": "Cr1-Li2-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1741492
+      ]
+    },
+    {
+      "ordinal": 32,
+      "ordering_sha256": "3355606b70b982c9d718f7adb7f00ae1b093b8195534131b95cf62035c95ea1a",
+      "reduced_composition": "Li6-Mn1-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        31814
+      ]
+    },
+    {
+      "ordinal": 33,
+      "ordering_sha256": "36874ec60daea083cfa12bf00906ab087f13b626d8ceb6e24f48c85b89c2c001",
+      "reduced_composition": "Ba1-Cr3-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1733035
+      ]
+    },
+    {
+      "ordinal": 34,
+      "ordering_sha256": "37e0fd0c934ad3282770b1637f3d615533884f3fff2d8a8eee92d051f41fadd0",
+      "reduced_composition": "Mn1-O4-Rb4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1347741
+      ]
+    },
+    {
+      "ordinal": 35,
+      "ordering_sha256": "37eaf429f5a34e2966735d839016249fa35aa027d78e7768748e055fd206337e",
+      "reduced_composition": "Cr1-O4-Rb3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1366995
+      ]
+    },
+    {
+      "ordinal": 36,
+      "ordering_sha256": "3a43f6b5313941eb456be83437a12ca999e2b74388058426468e8f2cb3f36bf9",
+      "reduced_composition": "Co1-K2-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1738425
+      ]
+    },
+    {
+      "ordinal": 37,
+      "ordering_sha256": "3ae963181411fd1fa179c382e480702c401868f1068f2001f86afefd265c0005",
+      "reduced_composition": "Ba10-Fe5-O19",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173884
+      ]
+    },
+    {
+      "ordinal": 38,
+      "ordering_sha256": "3be132e47dab83a679abe3568585103f4c102e367b99c6cc7a4f56fa553c6651",
+      "reduced_composition": "Fe8-O23-Sr8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        79535
+      ]
+    },
+    {
+      "ordinal": 39,
+      "ordering_sha256": "3dcb70e684dd63a78c761c440940950e49f73134d5dd47cf31a51265df33c09f",
+      "reduced_composition": "Cs3-Mn1-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1373054
+      ]
+    },
+    {
+      "ordinal": 40,
+      "ordering_sha256": "404bca9c2ba392762d53c5f2d03832574ae57fe0cba1550ea1a61f18af9320d9",
+      "reduced_composition": "Mn5-O19-Sr10",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173923
+      ]
+    },
+    {
+      "ordinal": 41,
+      "ordering_sha256": "40586a3838a22ab2d58442cdf02212125b2625d466e16c5bad84330d9c5a24eb",
+      "reduced_composition": "Ba2-O3-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1742937
+      ]
+    },
+    {
+      "ordinal": 42,
+      "ordering_sha256": "40acc9c54343b65b497ae0e060de0d90e71691d938bc5f5778115f0486a86760",
+      "reduced_composition": "Ca1-Fe2-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        3540
+      ]
+    },
+    {
+      "ordinal": 43,
+      "ordering_sha256": "42e4850273794bd58f19948f7fc90b71cbebfc2b8035c355318d8c6aa009a19e",
+      "reduced_composition": "Ba6-Mn5-O16",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        84693
+      ]
+    },
+    {
+      "ordinal": 44,
+      "ordering_sha256": "43e809dfddd534d1e09d9ac850f8dd62b6ccc6d8e1ac9d450d1e9393e240f385",
+      "reduced_composition": "O25-Sr10-V6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174233
+      ]
+    },
+    {
+      "ordinal": 45,
+      "ordering_sha256": "450e55516df234d1dbc5cdb74a3d28c75fc1012156ed0cc52a46bb821452e09f",
+      "reduced_composition": "Co2-Cs2-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1344626
+      ]
+    },
+    {
+      "ordinal": 46,
+      "ordering_sha256": "4a0f56f89ddd0e89ed0d343c54db131c15dd0b859ab22d6bfd9b62fdec967592",
+      "reduced_composition": "K3-Ni1-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        13136
+      ]
+    },
+    {
+      "ordinal": 47,
+      "ordering_sha256": "4c9f4cc7613fca81176591aeb7a23ffb257606ad8744badf8e9e9c36d411a734",
+      "reduced_composition": "Mg1-O1-Sc3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1482561
+      ]
+    },
+    {
+      "ordinal": 48,
+      "ordering_sha256": "4d26c982a72372da6aa28cbdaed8a3d2246683d59285789ed211c703e8823f0f",
+      "reduced_composition": "Na3-Ni1-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1770080
+      ]
+    },
+    {
+      "ordinal": 49,
+      "ordering_sha256": "4dc3df72695ea80fb45b1a256b4f85b37a2ae9c1e49567ad5e2ffcb0407dab54",
+      "reduced_composition": "Co2-O4-Rb3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174082
+      ]
+    },
+    {
+      "ordinal": 50,
+      "ordering_sha256": "4e07b6862aa89c27ceded565657a89cf852f91653543c809c8f3c08af5004283",
+      "reduced_composition": "Co4-Li10-O9",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        31849
+      ]
+    },
+    {
+      "ordinal": 51,
+      "ordering_sha256": "4f5035f7f2e3da63de206fa5571b18c479a5af89859bbdca4c6a6d272f8c215f",
+      "reduced_composition": "Li2-Ni1-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        12776
+      ]
+    },
+    {
+      "ordinal": 52,
+      "ordering_sha256": "521dd79ad95f5315e9ed0670b234c1e3cc15f10c85838eeb2f56c49cd07ade51",
+      "reduced_composition": "Ca1-O2-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880218
+      ]
+    },
+    {
+      "ordinal": 53,
+      "ordering_sha256": "53be63b485024d9972ecfbdb3975fc1e14ee48260978a17dd9276db48a17fd1b",
+      "reduced_composition": "Ba3-O9-Sc4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1346934
+      ]
+    },
+    {
+      "ordinal": 54,
+      "ordering_sha256": "5741d18617f9a4ee024ce276ffe15b4ee52a2f77a3e6c433f5a01a0819c6fffd",
+      "reduced_composition": "Co7-O21-Sr9",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174327
+      ]
+    },
+    {
+      "ordinal": 55,
+      "ordering_sha256": "5a117d23b7735298c77f96783b1b31571abceb6d25ec92bd8695e07f06cfa918",
+      "reduced_composition": "K3-Ni1-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1772956
+      ]
+    },
+    {
+      "ordinal": 56,
+      "ordering_sha256": "5d025b74dfb3c9195853114b33733c73b6510b34db684ee462218792af8a0ebf",
+      "reduced_composition": "Fe11-O17-Rb1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1346275
+      ]
+    },
+    {
+      "ordinal": 57,
+      "ordering_sha256": "5d0f9f760b794d3739353399b3a49e6b8752e925db7b0eedc76752d19806bf3b",
+      "reduced_composition": "K1-O8-V4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2045903
+      ]
+    },
+    {
+      "ordinal": 58,
+      "ordering_sha256": "5e6cc426014d98b13bb294273cbd42b31018413320b0168bce2fab4031a04f94",
+      "reduced_composition": "Co2-O8-Rb7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174316
+      ]
+    },
+    {
+      "ordinal": 59,
+      "ordering_sha256": "5fc6ef4310ca07b893acb17d79308190b690a0d4b98a3fc49325744d6dce7d93",
+      "reduced_composition": "Li1-O4-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880320
+      ]
+    },
+    {
+      "ordinal": 60,
+      "ordering_sha256": "5ff2bbedb5d530ddb822afe6a6c0207b3be817a9e686eeec8eefc1acc31a0387",
+      "reduced_composition": "Ca4-Fe9-O17",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        6212
+      ]
+    },
+    {
+      "ordinal": 61,
+      "ordering_sha256": "62973f1b6b47f06ed66a6579aaf55aa60362e705a9c2e6ee2720b14088fdc740",
+      "reduced_composition": "Ba3-O6-Sc2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1346820
+      ]
+    },
+    {
+      "ordinal": 62,
+      "ordering_sha256": "64a6eedaecadec0a8c37c88834e19b90f7c1a0d03c35cbb4e13bb6810c90bf3e",
+      "reduced_composition": "Cu3-Na7-O8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        25897
+      ]
+    },
+    {
+      "ordinal": 63,
+      "ordering_sha256": "66e6a42583011f5b8c340e55d90a626e1f1485ad049498a439b094bf7a6c465b",
+      "reduced_composition": "Li1-Ni7-O8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2033223
+      ]
+    },
+    {
+      "ordinal": 64,
+      "ordering_sha256": "68a3110514aab4850e7bb12b4a967fa1998111d8c1e777b3f718342a9d7676ef",
+      "reduced_composition": "Cr1-Cs4-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174056
+      ]
+    },
+    {
+      "ordinal": 65,
+      "ordering_sha256": "68d68ea04ed1e66e447fcc0c597f4a4a82434012d2dcb67ee42fe7f70afd793e",
+      "reduced_composition": "Cs4-Cu3-O6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2151728
+      ]
+    },
+    {
+      "ordinal": 66,
+      "ordering_sha256": "6bbf41fb6cc4629c7a4f3a94ee4a3cfc3ada220e8ce0cd1388a044fa66716164",
+      "reduced_composition": "O3-Rb4-Zn1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173754
+      ]
+    },
+    {
+      "ordinal": 67,
+      "ordering_sha256": "6c20c63b4b3e3e447c11d0f412f7c59bcf18631292a1297dad6690691cfb23ad",
+      "reduced_composition": "Li4-O12-Ti5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        827576
+      ]
+    },
+    {
+      "ordinal": 68,
+      "ordering_sha256": "71492e47a6918149699dec0caec4c79e1f818a3164b69e318c6fe815e9332a75",
+      "reduced_composition": "Co7-O21-Sr8",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174322
+      ]
+    },
+    {
+      "ordinal": 69,
+      "ordering_sha256": "714f22e61cd883e635d6ee6ceb14ca7064551e6c0650b37ad05ebfdbb85ee760",
+      "reduced_composition": "K10-O9-Zn4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173078
+      ]
+    },
+    {
+      "ordinal": 70,
+      "ordering_sha256": "74283362d15435c3b3a916b7830e036bf82c4b46adfbccdf0739f9d8dbce0caa",
+      "reduced_composition": "Mg3-O4-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880203
+      ]
+    },
+    {
+      "ordinal": 71,
+      "ordering_sha256": "750a8a150913e80c5b32c400926bdd4a7f5d78b0ca49749db1accfdebfd4bb91",
+      "reduced_composition": "Ba5-Co5-O14",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        19743
+      ]
+    },
+    {
+      "ordinal": 72,
+      "ordering_sha256": "7584f226a758b3573a6df58bcec67f1157952359452e9ec68443c271063a8ac1",
+      "reduced_composition": "Mg1-Ni1-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1482524
+      ]
+    },
+    {
+      "ordinal": 73,
+      "ordering_sha256": "78e23d7decf30f656ada8647352462672268d8ec253e202c6b17de11d513d1d9",
+      "reduced_composition": "Mn1-O3-Rb1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        692744
+      ]
+    },
+    {
+      "ordinal": 74,
+      "ordering_sha256": "79862acbc62c9080d0ecd29774ca5a593484333e05fd42785bc7376121a396b9",
+      "reduced_composition": "Cs6-Fe2-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173671
+      ]
+    },
+    {
+      "ordinal": 75,
+      "ordering_sha256": "79c2976649b9d50cea42d312f01aed5c17b848b50f1a3a26a648e0f253ae09d7",
+      "reduced_composition": "Cs3-O4-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1344887
+      ]
+    },
+    {
+      "ordinal": 76,
+      "ordering_sha256": "7a41ac53c13cfb223fcdf79fc33130eababed18e7ee3af18bb6e3d761c52f5ff",
+      "reduced_composition": "Fe2-O3-Rb2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1348492
+      ]
+    },
+    {
+      "ordinal": 77,
+      "ordering_sha256": "7d6d7b013bbb56fba45bb757d49ffa6c43eab3be4bc263316d40316e68db5892",
+      "reduced_composition": "Li1-O3-Ti3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2146131
+      ]
+    },
+    {
+      "ordinal": 78,
+      "ordering_sha256": "801b4de1e622d649cf195ae5923b9e733f9288990b1c096211ecb682ea0a7488",
+      "reduced_composition": "K2-Mn5-O10",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2156251
+      ]
+    },
+    {
+      "ordinal": 79,
+      "ordering_sha256": "802a02fdfc8b88a6aac04b6ac0123b52ed0214686bd9d98b5e3f2f6cdad5ff10",
+      "reduced_composition": "Cr5-O8-Rb1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1362792
+      ]
+    },
+    {
+      "ordinal": 80,
+      "ordering_sha256": "80dbef0c863c0c8c1658749488e9b39e8aa4393178c9707f1e7ebacb2b24e461",
+      "reduced_composition": "Ba3-Cu2-O6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2172935
+      ]
+    },
+    {
+      "ordinal": 81,
+      "ordering_sha256": "826ac211d99b7a0d883deb97b3728ea35741beb29d18ade74f1710d0f05f16ee",
+      "reduced_composition": "Co1-Na3-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        13131
+      ]
+    },
+    {
+      "ordinal": 82,
+      "ordering_sha256": "8310de9de8b19205dee7d939c60c2fac5da61d77ac9646bc9436c82e7cc1024a",
+      "reduced_composition": "O7-Rb4-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1344808
+      ]
+    },
+    {
+      "ordinal": 83,
+      "ordering_sha256": "83eb098612f53769cbba8f5958b680e13467c41aeedb8a8a3349438f926871d5",
+      "reduced_composition": "Fe2-O5-Rb6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1345449
+      ]
+    },
+    {
+      "ordinal": 84,
+      "ordering_sha256": "8404ae6c66044fc74337d13599e5530ef6a6ce83f9df0646c92cf511ecec51cc",
+      "reduced_composition": "Cr2-Cs2-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173056
+      ]
+    },
+    {
+      "ordinal": 85,
+      "ordering_sha256": "845602a2b46a8cb59d19897dd3064b36e554ce60c30008472b31af47192f22fa",
+      "reduced_composition": "O4-Rb3-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1362799
+      ]
+    },
+    {
+      "ordinal": 86,
+      "ordering_sha256": "84586bd15df7428f683fcfe1771a916dbed540c8f1be280131fc535547dfff2f",
+      "reduced_composition": "Mg1-Ni2-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1368864
+      ]
+    },
+    {
+      "ordinal": 87,
+      "ordering_sha256": "8493178c161091bfc608ac4ec39b287b00121c30e0dcc0addd8c51abf9d52657",
+      "reduced_composition": "Mn3-O6-Rb1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2172853
+      ]
+    },
+    {
+      "ordinal": 88,
+      "ordering_sha256": "85b5fc85453745e4e1e800b0c49b29bc62fd0b94212b0639736c4ad1cd32320f",
+      "reduced_composition": "Cr1-O3-Sr2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1733091
+      ]
+    },
+    {
+      "ordinal": 89,
+      "ordering_sha256": "874174da1d9d88a426b0dbaf296d5cd4f3ab15c9a91bbfa283369a912b5676b7",
+      "reduced_composition": "O7-Rb2-Sc4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1383901
+      ]
+    },
+    {
+      "ordinal": 90,
+      "ordering_sha256": "8942b20ec0974b88ad62860da1511915685848c94d88a46e049ab9433e1c95f9",
+      "reduced_composition": "Fe2-O7-Rb6",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173642
+      ]
+    },
+    {
+      "ordinal": 91,
+      "ordering_sha256": "89aaad816621cfa5894beade1fa22427463a7dcb20a516720bec0cf8000d7b53",
+      "reduced_composition": "Ca1-O3-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1880550
+      ]
+    },
+    {
+      "ordinal": 92,
+      "ordering_sha256": "89f7146612635e88bbc5fade71631d896792dac27284c0ff0242cb5d7adec172",
+      "reduced_composition": "O3-Sr1-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1482542
+      ]
+    },
+    {
+      "ordinal": 93,
+      "ordering_sha256": "8c01e543ccd75c2dd0f9bab3dab50240059ba98f555b3cc12b50072319369d54",
+      "reduced_composition": "Cs9-O4-Sc1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        26861
+      ]
+    },
+    {
+      "ordinal": 94,
+      "ordering_sha256": "8c5afb454da641366d0cb786c0db2d56679ffeaf9ded431607bdda6025b0d3ec",
+      "reduced_composition": "Fe3-O10-Sr4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1776208
+      ]
+    },
+    {
+      "ordinal": 95,
+      "ordering_sha256": "8ca1d3f482044dfa8ad5273a48fdec1dca6a1c9bb7543f559356b04273722706",
+      "reduced_composition": "Fe3-O11-Sr5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2172770
+      ]
+    },
+    {
+      "ordinal": 96,
+      "ordering_sha256": "8ec274e55e5af885c356bec3fe84b7b1a3b71edcadd623cafc315b57d1141cc3",
+      "reduced_composition": "O5-Rb5-V1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2172936
+      ]
+    },
+    {
+      "ordinal": 97,
+      "ordering_sha256": "8ec72ca75a1e4d6b842e7f3bb2e40481ea53cae0e185f47b8b08d9edade5d8e0",
+      "reduced_composition": "O5-Rb1-V3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173990
+      ]
+    },
+    {
+      "ordinal": 98,
+      "ordering_sha256": "908b5c28e180f6d7e606087085f89734c2b0f6bab6826ee1c0f566c29cd0ccd7",
+      "reduced_composition": "Ba4-Mn2-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173245
+      ]
+    },
+    {
+      "ordinal": 99,
+      "ordering_sha256": "92f535a11aa588c5994ff127e91ade3dca717dce30df1f4323c3542aec2bae52",
+      "reduced_composition": "Co7-K4-O14",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        95806
+      ]
+    },
+    {
+      "ordinal": 100,
+      "ordering_sha256": "93165dcc7913bb11b0298eb484ee047e36021f519a32391d7f3a8c9fc702f4de",
+      "reduced_composition": "K6-Mn2-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1348781
+      ]
+    },
+    {
+      "ordinal": 101,
+      "ordering_sha256": "94b8b017e410ea87297085f509306e42f411b87059c748a42534b7d001e09d1f",
+      "reduced_composition": "Li1-O8-V3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        3535
+      ]
+    },
+    {
+      "ordinal": 102,
+      "ordering_sha256": "975f3c973b5e295558d2c0813e385e1cc56ae5866cb2a277625f0d36136f04cc",
+      "reduced_composition": "Cr3-O5-Rb1",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1347658
+      ]
+    },
+    {
+      "ordinal": 103,
+      "ordering_sha256": "9858cfc8874be53a617e2e121bfe7a2eec0f92315ce07cb9e88e9f767de1a81a",
+      "reduced_composition": "Co1-Li5-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        31840
+      ]
+    },
+    {
+      "ordinal": 104,
+      "ordering_sha256": "999ada94e04592b1be6f224efa63f3b34012ba4063e1c8e17a80d38297c071a2",
+      "reduced_composition": "Fe2-O5-Sr2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2859
+      ]
+    },
+    {
+      "ordinal": 105,
+      "ordering_sha256": "99b9dab3056b436a2563a1be2d09d5d2acd8228d2059db922937807d6102f51b",
+      "reduced_composition": "Ni1-O2-Rb3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2024518
+      ]
+    },
+    {
+      "ordinal": 106,
+      "ordering_sha256": "9bdbc9cf8aa0fc25dd90443dd59a72fb8631adac1223ad24161036e859e0c6de",
+      "reduced_composition": "Cs4-O7-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1345211
+      ]
+    },
+    {
+      "ordinal": 107,
+      "ordering_sha256": "9ff7ffbb21b75a5d8dba142b84a10d1a19d544e322a9a4bf519618acec191233",
+      "reduced_composition": "Ba1-O11-Ti5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        39671
+      ]
+    },
+    {
+      "ordinal": 108,
+      "ordering_sha256": "a0b1d0afe3327cf2ab263c0f7aab7d348363f743b5e72107180e0759f1bbd82e",
+      "reduced_composition": "Cu1-Li1-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1992849
+      ]
+    },
+    {
+      "ordinal": 109,
+      "ordering_sha256": "a1d79b7a44c5209f9d75d5f8c14839f94308c8b19c027f917d984eee41ae8ec3",
+      "reduced_composition": "O5-Sr2-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1772818
+      ]
+    },
+    {
+      "ordinal": 110,
+      "ordering_sha256": "a1f57cd2ec1b535a1074bfb20fa2e473d713c954a877cebf0ad3199f63e18cde",
+      "reduced_composition": "Co11-Li7-O24",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2174240
+      ]
+    },
+    {
+      "ordinal": 111,
+      "ordering_sha256": "a28ace25b2f7ae4101b7094cc4c6ebbcadf1d2f1fd145da59946c689e5592155",
+      "reduced_composition": "Ba3-Fe1-O4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2154246
+      ]
+    },
+    {
+      "ordinal": 112,
+      "ordering_sha256": "a4f20ffb4406af9ae472195f4ac4ff0655c684482eb6a5ecc9a7129640d6717e",
+      "reduced_composition": "Ba3-Co1-O5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1750656
+      ]
+    },
+    {
+      "ordinal": 113,
+      "ordering_sha256": "a8c7b701bec65b18e452ef41d34b03b099bef0f3915afca6918e79b7d18d61f2",
+      "reduced_composition": "Fe1-Na4-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1916
+      ]
+    },
+    {
+      "ordinal": 114,
+      "ordering_sha256": "a9047f28f9ab2860cbee5b2a118a82b6ed956e6110fa065c1f30d662401ec6d2",
+      "reduced_composition": "Fe1-O3-Rb4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173874
+      ]
+    },
+    {
+      "ordinal": 115,
+      "ordering_sha256": "aa455f45fb5f1d699ef408e4cfb94405ceedb838d1af22c9aef04bd2e5558448",
+      "reduced_composition": "Ni1-O3-Rb4",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173839
+      ]
+    },
+    {
+      "ordinal": 116,
+      "ordering_sha256": "ab41b8d2f52c11f3798063a003d8fd652e39f2544eeb847b54889a1d7918b053",
+      "reduced_composition": "Mn1-Na2-O2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        26735
+      ]
+    },
+    {
+      "ordinal": 117,
+      "ordering_sha256": "ac43e1c7d932d7ba1d831e7f5500323eee5c461b540bc89bbceb90423072b22c",
+      "reduced_composition": "Ba2-Cr1-O3",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1733087
+      ]
+    },
+    {
+      "ordinal": 118,
+      "ordering_sha256": "aca59a6d2a8e9ace2940166ae40460eaaae623a166dac582acc897ea3c9924b9",
+      "reduced_composition": "Be1-O6-V2",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        1982491
+      ]
+    },
+    {
+      "ordinal": 119,
+      "ordering_sha256": "ad0b1381715ed1006cefecf4170f9e5b2f9fb826c5f47db9d990b7a6c10791e2",
+      "reduced_composition": "Cr2-K6-O7",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        2173626
+      ]
+    },
+    {
+      "ordinal": 120,
+      "ordering_sha256": "ad2ea511e4bf382a7e260bbca4e0978dbbdba53d09d6d71e924f9b6a54d0c076",
+      "reduced_composition": "Fe2-K6-O5",
+      "row_count": 1,
+      "partition": "train",
+      "entry_ids": [
+        22104
+      ]
+    },
+    {
+      "ordinal": 121,
+      "ordering_sha256": "b0cf584591118f95b985f25a84a4e92a927c70a531835f92f2525ba0d5a2333a",
+      "reduced_composition": "Mn2-O4-Rb1",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2173460
+      ]
+    },
+    {
+      "ordinal": 122,
+      "ordering_sha256": "b61b44bc2ae1490243e9d5d1a0cfbb06b76684bfcd459cf03866544033691ac5",
+      "reduced_composition": "Cs1-Mn3-O6",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174211
+      ]
+    },
+    {
+      "ordinal": 123,
+      "ordering_sha256": "b710147676941e46512937d4c6a6101cad9d24946c6f1bcf18724081cd66e105",
+      "reduced_composition": "Mn3-O10-Sr4",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        7234
+      ]
+    },
+    {
+      "ordinal": 124,
+      "ordering_sha256": "b72ee8171813dada9d9e8a125f69590535614b2a27d44ac28ec504b023e50828",
+      "reduced_composition": "Mn1-Na5-O4",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        646253
+      ]
+    },
+    {
+      "ordinal": 125,
+      "ordering_sha256": "b74b0ba504a63fc0a1b0bc67289d235d2fdf8d9727ab7738dfa389bf16c1a988",
+      "reduced_composition": "O20-Sr7-Ti7",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2173907
+      ]
+    },
+    {
+      "ordinal": 126,
+      "ordering_sha256": "b796ec626609cb1c2d591f19dd07673e6f4ea41ac9ed088d88ab2fbe21d54d77",
+      "reduced_composition": "Cs3-Mn1-O3",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2012333
+      ]
+    },
+    {
+      "ordinal": 127,
+      "ordering_sha256": "b7f35b05655ab6cd5628a6e8f112123895e2d5431af5377a2412a8609ef35082",
+      "reduced_composition": "Ba7-Fe6-O19",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2173794
+      ]
+    },
+    {
+      "ordinal": 128,
+      "ordering_sha256": "b8c2e38ea7a3a1f5bada5095f310db2d2f970936cf53ecbc976937e08792bcfc",
+      "reduced_composition": "Cu3-K4-O6",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2151447
+      ]
+    },
+    {
+      "ordinal": 129,
+      "ordering_sha256": "ba300d9f68320844b8e3585717b2ce5e85ec6868725fd1ad1479524e47f29e2d",
+      "reduced_composition": "Fe2-O5-Rb4",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        19808
+      ]
+    },
+    {
+      "ordinal": 130,
+      "ordering_sha256": "bc62b4da8d6f92791af1ae6ae0e4fe85b279bbb5518a5dda6ab961074da1e0a0",
+      "reduced_composition": "Ba10-O25-V6",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174231
+      ]
+    },
+    {
+      "ordinal": 131,
+      "ordering_sha256": "be7523fd7344a66a33e4c001431d45bed04c84913f00dea98d6b7aac03111bc6",
+      "reduced_composition": "Co3-O6-Sr1",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2172805
+      ]
+    },
+    {
+      "ordinal": 132,
+      "ordering_sha256": "bfd122d954919471f6f6fac4e76dd3f318caebb410f100947659c3ab7ef757e3",
+      "reduced_composition": "Cr1-K7-O6",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174289
+      ]
+    },
+    {
+      "ordinal": 133,
+      "ordering_sha256": "c08cc44c01eb490b3549a1ee315cc38541c78c62cc23ab56b597cf5d37b79d63",
+      "reduced_composition": "O27-Sr12-V8",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174265
+      ]
+    },
+    {
+      "ordinal": 134,
+      "ordering_sha256": "c424546748827ab49b425b8a8bb8e1c7275b641791083b2059d09f137d1de675",
+      "reduced_composition": "Ba12-Fe4-O19",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2173941
+      ]
+    },
+    {
+      "ordinal": 135,
+      "ordering_sha256": "c5694be7b3ab0ffd5cd5c83815c240fb8ff54814f16ecfc4f59a60bb8aa7c98b",
+      "reduced_composition": "Co28-Li13-O56",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174372
+      ]
+    },
+    {
+      "ordinal": 136,
+      "ordering_sha256": "c666c8ea1fee752a866cfe345b069980ca4576e10204cc6d64a7d21e179e942f",
+      "reduced_composition": "Co2-Cs6-O5",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        1345287
+      ]
+    },
+    {
+      "ordinal": 137,
+      "ordering_sha256": "c8562f570fdbfbed0df6b82a8f4314c295da3948617e9d23c238849d493de354",
+      "reduced_composition": "Co1-O3-Rb3",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2173392
+      ]
+    },
+    {
+      "ordinal": 138,
+      "ordering_sha256": "cb46e113014e34bf08e3af9ad1895e0a553a8378c6fa258ac87c98a4178f2c91",
+      "reduced_composition": "Cr2-O5-Sr3",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        1751886
+      ]
+    },
+    {
+      "ordinal": 139,
+      "ordering_sha256": "cd3ce970e60585a5bdda416034e35c77cd27a17e647d7f913981ca6134c7b591",
+      "reduced_composition": "Fe3-K7-O8",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174040
+      ]
+    },
+    {
+      "ordinal": 140,
+      "ordering_sha256": "cdb988a0d40261dcec7617bfe44f61ebc6be917fcf79b40b2b148e4509f59bed",
+      "reduced_composition": "Co3-O6-Rb4",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2151720
+      ]
+    },
+    {
+      "ordinal": 141,
+      "ordering_sha256": "cf4571190f1fb0b7589b054fefe024e507fd3194a31b65048b0dff89c10ec4d7",
+      "reduced_composition": "Cr1-O5-Rb5",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2172969
+      ]
+    },
+    {
+      "ordinal": 142,
+      "ordering_sha256": "d13285df7ecda90d6548ee29ec19c33c539ddd0feb483e77e5e3f0d7f0d261d4",
+      "reduced_composition": "K1-O5-V3",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2174094
+      ]
+    },
+    {
+      "ordinal": 143,
+      "ordering_sha256": "d69f46af7e8b1070f2ecfbb2dce1a20c2b89e18942ef03fb7d170dc293b4d61b",
+      "reduced_composition": "Ba1-Mn2-O4",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        1880670
+      ]
+    },
+    {
+      "ordinal": 144,
+      "ordering_sha256": "d975ff6578017d4a505d6c5388e3fab352b408c8a1ec8b7071d9aa037c572234",
+      "reduced_composition": "Co1-Cs2-O2",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        1347016
+      ]
+    },
+    {
+      "ordinal": 145,
+      "ordering_sha256": "da4a1c376215e1e7e3ef928f8480e1c8609ec60e9153aaf69bfabf693272d112",
+      "reduced_composition": "Co1-O2-Rb2",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        1388267
+      ]
+    },
+    {
+      "ordinal": 146,
+      "ordering_sha256": "daf3e80e68f42c2054b780a0ed7d113e1ff073cbbc8a004867b82ef882680015",
+      "reduced_composition": "Mn2-O7-Sr4",
+      "row_count": 1,
+      "partition": "validation",
+      "entry_ids": [
+        2173219
+      ]
+    },
+    {
+      "ordinal": 147,
+      "ordering_sha256": "de063452d537cfcdc3c0ff5e30a5fe2c4f81e860a4ea10edbe9086e4f671dc5d",
+      "reduced_composition": "O5-Sr1-Ti2",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1345476
+      ]
+    },
+    {
+      "ordinal": 148,
+      "ordering_sha256": "de0d1e2e0240f1f9a161304d7d26de255dca21a10eea5c087e841731911adb99",
+      "reduced_composition": "Mn3-O8-Sr2",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1347984
+      ]
+    },
+    {
+      "ordinal": 149,
+      "ordering_sha256": "dec9660de990d4fd1c6d0564f9ec52e324360ed8e0da8fb70743926a416f9d9a",
+      "reduced_composition": "Co3-K4-O6",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2172655
+      ]
+    },
+    {
+      "ordinal": 150,
+      "ordering_sha256": "dfa769efc620f4be1b6b4f8394ee27ca10454583d6d732e7a2c602757b1d75bf",
+      "reduced_composition": "Cs4-O4-Ti1",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1347212
+      ]
+    },
+    {
+      "ordinal": 151,
+      "ordering_sha256": "e0af7bc3b6e28906a4e27e4ef9d61a3e0b7c37e5404cfed1b893168849fce0c7",
+      "reduced_composition": "Cr2-O7-Rb6",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2173628
+      ]
+    },
+    {
+      "ordinal": 152,
+      "ordering_sha256": "e130aa3082eb31e6b7f9769238a2eb38f4186bf62e85977979dbf1e2cdf1de1f",
+      "reduced_composition": "Ba1-O4-V2",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1880486
+      ]
+    },
+    {
+      "ordinal": 153,
+      "ordering_sha256": "e2e028d67f2301c6853c4247f14f8af00027f091b75c06a7a8517bb8afaee62f",
+      "reduced_composition": "Ba2-Fe6-O11",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        36003
+      ]
+    },
+    {
+      "ordinal": 154,
+      "ordering_sha256": "e32a37cc31bf0823c92c7359992c27810dbfa97b7e6d90d50782a8504a78ff2d",
+      "reduced_composition": "Fe2-K8-O7",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2173928
+      ]
+    },
+    {
+      "ordinal": 155,
+      "ordering_sha256": "e3709f62adb1321f8d314ae9bcfd21cad1d6436ac72ecf38c2c3f2564dd33190",
+      "reduced_composition": "Cs1-Mn1-O2",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1369277
+      ]
+    },
+    {
+      "ordinal": 156,
+      "ordering_sha256": "e45e021bec095e5d001033335c95931de12b72fb7826a51ce70ffe5b270a5abd",
+      "reduced_composition": "Fe1-Li3-O4",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1338415
+      ]
+    },
+    {
+      "ordinal": 157,
+      "ordering_sha256": "e51ee79de378eb9fd5a14f5013f45777aa48b78f3edd5a2aac8639d83aab4975",
+      "reduced_composition": "Mn3-Na2-O6",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2173880
+      ]
+    },
+    {
+      "ordinal": 158,
+      "ordering_sha256": "e7e668a9ddbaa6c3241b60d12833fd705c11f73e3d2f38a3d8cbd87195dce02c",
+      "reduced_composition": "Fe1-Li2-O2",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1752950
+      ]
+    },
+    {
+      "ordinal": 159,
+      "ordering_sha256": "eb3d8e94097acc917152febefa27de8443e64d99b3f0da33de9ef1e9a39020b4",
+      "reduced_composition": "Na7-O20-Ti10",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2174149
+      ]
+    },
+    {
+      "ordinal": 160,
+      "ordering_sha256": "ec0ce864c3c30e7bd8f47b876ad8b88f56bd56652bacee32072a7dde703d36e2",
+      "reduced_composition": "Ba6-Mn5-O15",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2173280
+      ]
+    },
+    {
+      "ordinal": 161,
+      "ordering_sha256": "eef1246911964c7f11dca0ed9bd00fe5faa6f0b72e1f685910ca04d004c7cd34",
+      "reduced_composition": "Cs3-Mn2-O4",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2061686
+      ]
+    },
+    {
+      "ordinal": 162,
+      "ordering_sha256": "f037fae684a581463a09717a88c4aff09c36b607270ec9ae99a50b77ffeed867",
+      "reduced_composition": "Co1-K3-O3",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1880956
+      ]
+    },
+    {
+      "ordinal": 163,
+      "ordering_sha256": "f07f30ebacdc9cb1955fc15ad8028d02a8f412b656faf29235a345fa2a57c322",
+      "reduced_composition": "Cu3-O6-Rb4",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2151770
+      ]
+    },
+    {
+      "ordinal": 164,
+      "ordering_sha256": "f1ce9977cce7124567f4ab86fcae1900bbe282f0816f4660ca5e3d962b978ed4",
+      "reduced_composition": "O13-Sr2-Ti6",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2757
+      ]
+    },
+    {
+      "ordinal": 165,
+      "ordering_sha256": "f47bc1fbea678049cdda4361fde1febed9a0c6e51c2c35867754d6eb976a4d55",
+      "reduced_composition": "Co2-O4-Sr1",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2173536
+      ]
+    },
+    {
+      "ordinal": 166,
+      "ordering_sha256": "f5958c714a3ef9ab41e046eadf41edf98bc5f1c2fa24fc2553c7012a193f5eb0",
+      "reduced_composition": "Cs5-Cu2-O4",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2172994
+      ]
+    },
+    {
+      "ordinal": 167,
+      "ordering_sha256": "f5c580ab21e79e6263ce5fa3031b8e7d2914952bc4796e904336de282c70bbdc",
+      "reduced_composition": "Cr2-O9-Rb6",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2156236
+      ]
+    },
+    {
+      "ordinal": 168,
+      "ordering_sha256": "f76e51ab0ed48050ca5c51f109e3e2f622a2d635302519118341949cb1f10451",
+      "reduced_composition": "O10-Sr1-V4",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        648541
+      ]
+    },
+    {
+      "ordinal": 169,
+      "ordering_sha256": "f88984116245c97c1a200db966fd16858da44fd8a4373f6de190a73316f9eabc",
+      "reduced_composition": "Mn2-O4-Sr1",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2173445
+      ]
+    },
+    {
+      "ordinal": 170,
+      "ordering_sha256": "fc3bb503603b8e272a855b5f64482df085bcd2770d98b5644fdac2a7c0168caa",
+      "reduced_composition": "K7-Mn1-O6",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        2174292
+      ]
+    },
+    {
+      "ordinal": 171,
+      "ordering_sha256": "fee630b21f37c5a3200b6363ada21b437ac474389f1ddc0c361ed55f3cb79ad4",
+      "reduced_composition": "K2-Mn3-O7",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1348842
+      ]
+    },
+    {
+      "ordinal": 172,
+      "ordering_sha256": "ff6d8b63dc9477a522110f957de8c2191e24059a1f218515613fa6b614c61389",
+      "reduced_composition": "Mn1-O2-Sr1",
+      "row_count": 1,
+      "partition": "holdout",
+      "entry_ids": [
+        1348506
+      ]
+    }
+  ],
+  "ordered_row_manifest": [
+    {
+      "ordinal": 1,
+      "group_ordinal": 1,
+      "partition": "train",
+      "entry_id": 1375405,
+      "reduced_composition": "K2-O3-V1",
+      "spacegroup": "Cmcm"
+    },
+    {
+      "ordinal": 2,
+      "group_ordinal": 2,
+      "partition": "train",
+      "entry_id": 1880265,
+      "reduced_composition": "Li1-O3-V2",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 3,
+      "group_ordinal": 3,
+      "partition": "train",
+      "entry_id": 1888725,
+      "reduced_composition": "Ba1-Cu2-O4",
+      "spacegroup": "I41/a"
+    },
+    {
+      "ordinal": 4,
+      "group_ordinal": 4,
+      "partition": "train",
+      "entry_id": 2173116,
+      "reduced_composition": "Ba5-O14-Ti5",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 5,
+      "group_ordinal": 5,
+      "partition": "train",
+      "entry_id": 2173412,
+      "reduced_composition": "O17-Rb3-Ti8",
+      "spacegroup": "Cm"
+    },
+    {
+      "ordinal": 6,
+      "group_ordinal": 6,
+      "partition": "train",
+      "entry_id": 2173079,
+      "reduced_composition": "Ba6-Fe4-O13",
+      "spacegroup": "Cmmm"
+    },
+    {
+      "ordinal": 7,
+      "group_ordinal": 7,
+      "partition": "train",
+      "entry_id": 2174340,
+      "reduced_composition": "Ba21-Fe14-O43",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 8,
+      "group_ordinal": 8,
+      "partition": "train",
+      "entry_id": 1880741,
+      "reduced_composition": "Mg1-O2-V1",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 9,
+      "group_ordinal": 9,
+      "partition": "train",
+      "entry_id": 21689,
+      "reduced_composition": "Na4-O12-Ti5",
+      "spacegroup": "P3"
+    },
+    {
+      "ordinal": 10,
+      "group_ordinal": 10,
+      "partition": "train",
+      "entry_id": 2173724,
+      "reduced_composition": "Cr4-K3-O8",
+      "spacegroup": "Pmmn"
+    },
+    {
+      "ordinal": 11,
+      "group_ordinal": 11,
+      "partition": "train",
+      "entry_id": 1363057,
+      "reduced_composition": "Fe1-K4-O3",
+      "spacegroup": "Cc"
+    },
+    {
+      "ordinal": 12,
+      "group_ordinal": 12,
+      "partition": "train",
+      "entry_id": 2153535,
+      "reduced_composition": "Cu6-Mg1-O8",
+      "spacegroup": "Fm-3m"
+    },
+    {
+      "ordinal": 13,
+      "group_ordinal": 13,
+      "partition": "train",
+      "entry_id": 1981314,
+      "reduced_composition": "O1-Rb1-Zn1",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 14,
+      "group_ordinal": 14,
+      "partition": "train",
+      "entry_id": 1880821,
+      "reduced_composition": "Li1-Mn4-O5",
+      "spacegroup": "I4/m"
+    },
+    {
+      "ordinal": 15,
+      "group_ordinal": 15,
+      "partition": "train",
+      "entry_id": 1818614,
+      "reduced_composition": "Co1-O4-Rb4",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 16,
+      "group_ordinal": 16,
+      "partition": "train",
+      "entry_id": 2173673,
+      "reduced_composition": "Mn2-O7-Rb6",
+      "spacegroup": "P21"
+    },
+    {
+      "ordinal": 17,
+      "group_ordinal": 17,
+      "partition": "train",
+      "entry_id": 2173223,
+      "reduced_composition": "Ba4-Cu2-O7",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 18,
+      "group_ordinal": 18,
+      "partition": "train",
+      "entry_id": 1982300,
+      "reduced_composition": "Na2-O3-Ti1",
+      "spacegroup": "C2/c"
+    },
+    {
+      "ordinal": 19,
+      "group_ordinal": 19,
+      "partition": "train",
+      "entry_id": 2174325,
+      "reduced_composition": "Cs5-O10-V3",
+      "spacegroup": "P41212"
+    },
+    {
+      "ordinal": 20,
+      "group_ordinal": 20,
+      "partition": "train",
+      "entry_id": 2173695,
+      "reduced_composition": "Fe2-K6-O7",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 21,
+      "group_ordinal": 21,
+      "partition": "train",
+      "entry_id": 629539,
+      "reduced_composition": "Co7-Na4-O14",
+      "spacegroup": "P21/m"
+    },
+    {
+      "ordinal": 22,
+      "group_ordinal": 22,
+      "partition": "train",
+      "entry_id": 1797407,
+      "reduced_composition": "Mg3-O11-Ti6",
+      "spacegroup": "P-3m1"
+    },
+    {
+      "ordinal": 23,
+      "group_ordinal": 23,
+      "partition": "train",
+      "entry_id": 36658,
+      "reduced_composition": "O15-Sr1-V10",
+      "spacegroup": "Cmca"
+    },
+    {
+      "ordinal": 24,
+      "group_ordinal": 24,
+      "partition": "train",
+      "entry_id": 2635,
+      "reduced_composition": "Ba1-Mn2-O3",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 25,
+      "group_ordinal": 25,
+      "partition": "train",
+      "entry_id": 2173076,
+      "reduced_composition": "Fe4-O13-Sr6",
+      "spacegroup": "Cmmm"
+    },
+    {
+      "ordinal": 26,
+      "group_ordinal": 26,
+      "partition": "train",
+      "entry_id": 1375153,
+      "reduced_composition": "Cs2-O5-Ti2",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 27,
+      "group_ordinal": 27,
+      "partition": "train",
+      "entry_id": 1992075,
+      "reduced_composition": "Cs3-Cu1-O2",
+      "spacegroup": "Pnnm"
+    },
+    {
+      "ordinal": 28,
+      "group_ordinal": 28,
+      "partition": "train",
+      "entry_id": 2173827,
+      "reduced_composition": "Co1-O3-Rb4",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 29,
+      "group_ordinal": 29,
+      "partition": "train",
+      "entry_id": 2173029,
+      "reduced_composition": "Mn1-O5-Rb5",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 30,
+      "group_ordinal": 30,
+      "partition": "train",
+      "entry_id": 1880643,
+      "reduced_composition": "Na2-Ni1-O2",
+      "spacegroup": "Pbcn"
+    },
+    {
+      "ordinal": 31,
+      "group_ordinal": 31,
+      "partition": "train",
+      "entry_id": 1741492,
+      "reduced_composition": "Cr1-Li2-O2",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 32,
+      "group_ordinal": 32,
+      "partition": "train",
+      "entry_id": 31814,
+      "reduced_composition": "Li6-Mn1-O4",
+      "spacegroup": "P42/nmc"
+    },
+    {
+      "ordinal": 33,
+      "group_ordinal": 33,
+      "partition": "train",
+      "entry_id": 1733035,
+      "reduced_composition": "Ba1-Cr3-O4",
+      "spacegroup": "Cmmm"
+    },
+    {
+      "ordinal": 34,
+      "group_ordinal": 34,
+      "partition": "train",
+      "entry_id": 1347741,
+      "reduced_composition": "Mn1-O4-Rb4",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 35,
+      "group_ordinal": 35,
+      "partition": "train",
+      "entry_id": 1366995,
+      "reduced_composition": "Cr1-O4-Rb3",
+      "spacegroup": "Imm2"
+    },
+    {
+      "ordinal": 36,
+      "group_ordinal": 36,
+      "partition": "train",
+      "entry_id": 1738425,
+      "reduced_composition": "Co1-K2-O3",
+      "spacegroup": "Cmc21"
+    },
+    {
+      "ordinal": 37,
+      "group_ordinal": 37,
+      "partition": "train",
+      "entry_id": 2173884,
+      "reduced_composition": "Ba10-Fe5-O19",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 38,
+      "group_ordinal": 38,
+      "partition": "train",
+      "entry_id": 79535,
+      "reduced_composition": "Fe8-O23-Sr8",
+      "spacegroup": "I4/mmm"
+    },
+    {
+      "ordinal": 39,
+      "group_ordinal": 39,
+      "partition": "train",
+      "entry_id": 1373054,
+      "reduced_composition": "Cs3-Mn1-O4",
+      "spacegroup": "Imm2"
+    },
+    {
+      "ordinal": 40,
+      "group_ordinal": 40,
+      "partition": "train",
+      "entry_id": 2173923,
+      "reduced_composition": "Mn5-O19-Sr10",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 41,
+      "group_ordinal": 41,
+      "partition": "train",
+      "entry_id": 1742937,
+      "reduced_composition": "Ba2-O3-V1",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 42,
+      "group_ordinal": 42,
+      "partition": "train",
+      "entry_id": 3540,
+      "reduced_composition": "Ca1-Fe2-O4",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 43,
+      "group_ordinal": 43,
+      "partition": "train",
+      "entry_id": 84693,
+      "reduced_composition": "Ba6-Mn5-O16",
+      "spacegroup": "Cmca"
+    },
+    {
+      "ordinal": 44,
+      "group_ordinal": 44,
+      "partition": "train",
+      "entry_id": 2174233,
+      "reduced_composition": "O25-Sr10-V6",
+      "spacegroup": "P3"
+    },
+    {
+      "ordinal": 45,
+      "group_ordinal": 45,
+      "partition": "train",
+      "entry_id": 1344626,
+      "reduced_composition": "Co2-Cs2-O3",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 46,
+      "group_ordinal": 46,
+      "partition": "train",
+      "entry_id": 13136,
+      "reduced_composition": "K3-Ni1-O2",
+      "spacegroup": "P41212"
+    },
+    {
+      "ordinal": 47,
+      "group_ordinal": 47,
+      "partition": "train",
+      "entry_id": 1482561,
+      "reduced_composition": "Mg1-O1-Sc3",
+      "spacegroup": "Pm-3m"
+    },
+    {
+      "ordinal": 48,
+      "group_ordinal": 48,
+      "partition": "train",
+      "entry_id": 1770080,
+      "reduced_composition": "Na3-Ni1-O3",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 49,
+      "group_ordinal": 49,
+      "partition": "train",
+      "entry_id": 2174082,
+      "reduced_composition": "Co2-O4-Rb3",
+      "spacegroup": "Pnna"
+    },
+    {
+      "ordinal": 50,
+      "group_ordinal": 50,
+      "partition": "train",
+      "entry_id": 31849,
+      "reduced_composition": "Co4-Li10-O9",
+      "spacegroup": "P42/nmc"
+    },
+    {
+      "ordinal": 51,
+      "group_ordinal": 51,
+      "partition": "train",
+      "entry_id": 12776,
+      "reduced_composition": "Li2-Ni1-O2",
+      "spacegroup": "P-3m1"
+    },
+    {
+      "ordinal": 52,
+      "group_ordinal": 52,
+      "partition": "train",
+      "entry_id": 1880218,
+      "reduced_composition": "Ca1-O2-V1",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 53,
+      "group_ordinal": 53,
+      "partition": "train",
+      "entry_id": 1346934,
+      "reduced_composition": "Ba3-O9-Sc4",
+      "spacegroup": "R3"
+    },
+    {
+      "ordinal": 54,
+      "group_ordinal": 54,
+      "partition": "train",
+      "entry_id": 2174327,
+      "reduced_composition": "Co7-O21-Sr9",
+      "spacegroup": "R-3c"
+    },
+    {
+      "ordinal": 55,
+      "group_ordinal": 55,
+      "partition": "train",
+      "entry_id": 1772956,
+      "reduced_composition": "K3-Ni1-O3",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 56,
+      "group_ordinal": 56,
+      "partition": "train",
+      "entry_id": 1346275,
+      "reduced_composition": "Fe11-O17-Rb1",
+      "spacegroup": "P63/mmc"
+    },
+    {
+      "ordinal": 57,
+      "group_ordinal": 57,
+      "partition": "train",
+      "entry_id": 2045903,
+      "reduced_composition": "K1-O8-V4",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 58,
+      "group_ordinal": 58,
+      "partition": "train",
+      "entry_id": 2174316,
+      "reduced_composition": "Co2-O8-Rb7",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 59,
+      "group_ordinal": 59,
+      "partition": "train",
+      "entry_id": 1880320,
+      "reduced_composition": "Li1-O4-V2",
+      "spacegroup": "Imma"
+    },
+    {
+      "ordinal": 60,
+      "group_ordinal": 60,
+      "partition": "train",
+      "entry_id": 6212,
+      "reduced_composition": "Ca4-Fe9-O17",
+      "spacegroup": "C2"
+    },
+    {
+      "ordinal": 61,
+      "group_ordinal": 61,
+      "partition": "train",
+      "entry_id": 1346820,
+      "reduced_composition": "Ba3-O6-Sc2",
+      "spacegroup": "I4/mmm"
+    },
+    {
+      "ordinal": 62,
+      "group_ordinal": 62,
+      "partition": "train",
+      "entry_id": 25897,
+      "reduced_composition": "Cu3-Na7-O8",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 63,
+      "group_ordinal": 63,
+      "partition": "train",
+      "entry_id": 2033223,
+      "reduced_composition": "Li1-Ni7-O8",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 64,
+      "group_ordinal": 64,
+      "partition": "train",
+      "entry_id": 2174056,
+      "reduced_composition": "Cr1-Cs4-O4",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 65,
+      "group_ordinal": 65,
+      "partition": "train",
+      "entry_id": 2151728,
+      "reduced_composition": "Cs4-Cu3-O6",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 66,
+      "group_ordinal": 66,
+      "partition": "train",
+      "entry_id": 2173754,
+      "reduced_composition": "O3-Rb4-Zn1",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 67,
+      "group_ordinal": 67,
+      "partition": "train",
+      "entry_id": 827576,
+      "reduced_composition": "Li4-O12-Ti5",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 68,
+      "group_ordinal": 68,
+      "partition": "train",
+      "entry_id": 2174322,
+      "reduced_composition": "Co7-O21-Sr8",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 69,
+      "group_ordinal": 69,
+      "partition": "train",
+      "entry_id": 2173078,
+      "reduced_composition": "K10-O9-Zn4",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 70,
+      "group_ordinal": 70,
+      "partition": "train",
+      "entry_id": 1880203,
+      "reduced_composition": "Mg3-O4-V1",
+      "spacegroup": "P2/c"
+    },
+    {
+      "ordinal": 71,
+      "group_ordinal": 71,
+      "partition": "train",
+      "entry_id": 19743,
+      "reduced_composition": "Ba5-Co5-O14",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 72,
+      "group_ordinal": 72,
+      "partition": "train",
+      "entry_id": 1482524,
+      "reduced_composition": "Mg1-Ni1-O2",
+      "spacegroup": "R-3m"
+    },
+    {
+      "ordinal": 73,
+      "group_ordinal": 73,
+      "partition": "train",
+      "entry_id": 692744,
+      "reduced_composition": "Mn1-O3-Rb1",
+      "spacegroup": "R-3"
+    },
+    {
+      "ordinal": 74,
+      "group_ordinal": 74,
+      "partition": "train",
+      "entry_id": 2173671,
+      "reduced_composition": "Cs6-Fe2-O7",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 75,
+      "group_ordinal": 75,
+      "partition": "train",
+      "entry_id": 1344887,
+      "reduced_composition": "Cs3-O4-V1",
+      "spacegroup": "P213"
+    },
+    {
+      "ordinal": 76,
+      "group_ordinal": 76,
+      "partition": "train",
+      "entry_id": 1348492,
+      "reduced_composition": "Fe2-O3-Rb2",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 77,
+      "group_ordinal": 77,
+      "partition": "train",
+      "entry_id": 2146131,
+      "reduced_composition": "Li1-O3-Ti3",
+      "spacegroup": "Pm-3m"
+    },
+    {
+      "ordinal": 78,
+      "group_ordinal": 78,
+      "partition": "train",
+      "entry_id": 2156251,
+      "reduced_composition": "K2-Mn5-O10",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 79,
+      "group_ordinal": 79,
+      "partition": "train",
+      "entry_id": 1362792,
+      "reduced_composition": "Cr5-O8-Rb1",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 80,
+      "group_ordinal": 80,
+      "partition": "train",
+      "entry_id": 2172935,
+      "reduced_composition": "Ba3-Cu2-O6",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 81,
+      "group_ordinal": 81,
+      "partition": "train",
+      "entry_id": 13131,
+      "reduced_composition": "Co1-Na3-O2",
+      "spacegroup": "P42/mnm"
+    },
+    {
+      "ordinal": 82,
+      "group_ordinal": 82,
+      "partition": "train",
+      "entry_id": 1344808,
+      "reduced_composition": "O7-Rb4-V2",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 83,
+      "group_ordinal": 83,
+      "partition": "train",
+      "entry_id": 1345449,
+      "reduced_composition": "Fe2-O5-Rb6",
+      "spacegroup": "Cm"
+    },
+    {
+      "ordinal": 84,
+      "group_ordinal": 84,
+      "partition": "train",
+      "entry_id": 2173056,
+      "reduced_composition": "Cr2-Cs2-O7",
+      "spacegroup": "C2/c"
+    },
+    {
+      "ordinal": 85,
+      "group_ordinal": 85,
+      "partition": "train",
+      "entry_id": 1362799,
+      "reduced_composition": "O4-Rb3-V1",
+      "spacegroup": "Pmn21"
+    },
+    {
+      "ordinal": 86,
+      "group_ordinal": 86,
+      "partition": "train",
+      "entry_id": 1368864,
+      "reduced_composition": "Mg1-Ni2-O3",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 87,
+      "group_ordinal": 87,
+      "partition": "train",
+      "entry_id": 2172853,
+      "reduced_composition": "Mn3-O6-Rb1",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 88,
+      "group_ordinal": 88,
+      "partition": "train",
+      "entry_id": 1733091,
+      "reduced_composition": "Cr1-O3-Sr2",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 89,
+      "group_ordinal": 89,
+      "partition": "train",
+      "entry_id": 1383901,
+      "reduced_composition": "O7-Rb2-Sc4",
+      "spacegroup": "P-31m"
+    },
+    {
+      "ordinal": 90,
+      "group_ordinal": 90,
+      "partition": "train",
+      "entry_id": 2173642,
+      "reduced_composition": "Fe2-O7-Rb6",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 91,
+      "group_ordinal": 91,
+      "partition": "train",
+      "entry_id": 1880550,
+      "reduced_composition": "Ca1-O3-V2",
+      "spacegroup": "Pmmn"
+    },
+    {
+      "ordinal": 92,
+      "group_ordinal": 92,
+      "partition": "train",
+      "entry_id": 1482542,
+      "reduced_composition": "O3-Sr1-V1",
+      "spacegroup": "P21/m"
+    },
+    {
+      "ordinal": 93,
+      "group_ordinal": 93,
+      "partition": "train",
+      "entry_id": 26861,
+      "reduced_composition": "Cs9-O4-Sc1",
+      "spacegroup": "I4/mcm"
+    },
+    {
+      "ordinal": 94,
+      "group_ordinal": 94,
+      "partition": "train",
+      "entry_id": 1776208,
+      "reduced_composition": "Fe3-O10-Sr4",
+      "spacegroup": "I4/mmm"
+    },
+    {
+      "ordinal": 95,
+      "group_ordinal": 95,
+      "partition": "train",
+      "entry_id": 2172770,
+      "reduced_composition": "Fe3-O11-Sr5",
+      "spacegroup": "C2"
+    },
+    {
+      "ordinal": 96,
+      "group_ordinal": 96,
+      "partition": "train",
+      "entry_id": 2172936,
+      "reduced_composition": "O5-Rb5-V1",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 97,
+      "group_ordinal": 97,
+      "partition": "train",
+      "entry_id": 2173990,
+      "reduced_composition": "O5-Rb1-V3",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 98,
+      "group_ordinal": 98,
+      "partition": "train",
+      "entry_id": 2173245,
+      "reduced_composition": "Ba4-Mn2-O7",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 99,
+      "group_ordinal": 99,
+      "partition": "train",
+      "entry_id": 95806,
+      "reduced_composition": "Co7-K4-O14",
+      "spacegroup": "P63/m"
+    },
+    {
+      "ordinal": 100,
+      "group_ordinal": 100,
+      "partition": "train",
+      "entry_id": 1348781,
+      "reduced_composition": "K6-Mn2-O7",
+      "spacegroup": "Pc"
+    },
+    {
+      "ordinal": 101,
+      "group_ordinal": 101,
+      "partition": "train",
+      "entry_id": 3535,
+      "reduced_composition": "Li1-O8-V3",
+      "spacegroup": "P21/m"
+    },
+    {
+      "ordinal": 102,
+      "group_ordinal": 102,
+      "partition": "train",
+      "entry_id": 1347658,
+      "reduced_composition": "Cr3-O5-Rb1",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 103,
+      "group_ordinal": 103,
+      "partition": "train",
+      "entry_id": 31840,
+      "reduced_composition": "Co1-Li5-O4",
+      "spacegroup": "Pbca"
+    },
+    {
+      "ordinal": 104,
+      "group_ordinal": 104,
+      "partition": "train",
+      "entry_id": 2859,
+      "reduced_composition": "Fe2-O5-Sr2",
+      "spacegroup": "Ima2"
+    },
+    {
+      "ordinal": 105,
+      "group_ordinal": 105,
+      "partition": "train",
+      "entry_id": 2024518,
+      "reduced_composition": "Ni1-O2-Rb3",
+      "spacegroup": "P42/mnm"
+    },
+    {
+      "ordinal": 106,
+      "group_ordinal": 106,
+      "partition": "train",
+      "entry_id": 1345211,
+      "reduced_composition": "Cs4-O7-V2",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 107,
+      "group_ordinal": 107,
+      "partition": "train",
+      "entry_id": 39671,
+      "reduced_composition": "Ba1-O11-Ti5",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 108,
+      "group_ordinal": 108,
+      "partition": "train",
+      "entry_id": 1992849,
+      "reduced_composition": "Cu1-Li1-O4",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 109,
+      "group_ordinal": 109,
+      "partition": "train",
+      "entry_id": 1772818,
+      "reduced_composition": "O5-Sr2-V2",
+      "spacegroup": "Ima2"
+    },
+    {
+      "ordinal": 110,
+      "group_ordinal": 110,
+      "partition": "train",
+      "entry_id": 2174240,
+      "reduced_composition": "Co11-Li7-O24",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 111,
+      "group_ordinal": 111,
+      "partition": "train",
+      "entry_id": 2154246,
+      "reduced_composition": "Ba3-Fe1-O4",
+      "spacegroup": "R-3c"
+    },
+    {
+      "ordinal": 112,
+      "group_ordinal": 112,
+      "partition": "train",
+      "entry_id": 1750656,
+      "reduced_composition": "Ba3-Co1-O5",
+      "spacegroup": "I4/mcm"
+    },
+    {
+      "ordinal": 113,
+      "group_ordinal": 113,
+      "partition": "train",
+      "entry_id": 1916,
+      "reduced_composition": "Fe1-Na4-O3",
+      "spacegroup": "Cc"
+    },
+    {
+      "ordinal": 114,
+      "group_ordinal": 114,
+      "partition": "train",
+      "entry_id": 2173874,
+      "reduced_composition": "Fe1-O3-Rb4",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 115,
+      "group_ordinal": 115,
+      "partition": "train",
+      "entry_id": 2173839,
+      "reduced_composition": "Ni1-O3-Rb4",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 116,
+      "group_ordinal": 116,
+      "partition": "train",
+      "entry_id": 26735,
+      "reduced_composition": "Mn1-Na2-O2",
+      "spacegroup": "C2/c"
+    },
+    {
+      "ordinal": 117,
+      "group_ordinal": 117,
+      "partition": "train",
+      "entry_id": 1733087,
+      "reduced_composition": "Ba2-Cr1-O3",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 118,
+      "group_ordinal": 118,
+      "partition": "train",
+      "entry_id": 1982491,
+      "reduced_composition": "Be1-O6-V2",
+      "spacegroup": "C2/c"
+    },
+    {
+      "ordinal": 119,
+      "group_ordinal": 119,
+      "partition": "train",
+      "entry_id": 2173626,
+      "reduced_composition": "Cr2-K6-O7",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 120,
+      "group_ordinal": 120,
+      "partition": "train",
+      "entry_id": 22104,
+      "reduced_composition": "Fe2-K6-O5",
+      "spacegroup": "Cm"
+    },
+    {
+      "ordinal": 121,
+      "group_ordinal": 121,
+      "partition": "validation",
+      "entry_id": 2173460,
+      "reduced_composition": "Mn2-O4-Rb1",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 122,
+      "group_ordinal": 122,
+      "partition": "validation",
+      "entry_id": 2174211,
+      "reduced_composition": "Cs1-Mn3-O6",
+      "spacegroup": "C2/c"
+    },
+    {
+      "ordinal": 123,
+      "group_ordinal": 123,
+      "partition": "validation",
+      "entry_id": 7234,
+      "reduced_composition": "Mn3-O10-Sr4",
+      "spacegroup": "Cmca"
+    },
+    {
+      "ordinal": 124,
+      "group_ordinal": 124,
+      "partition": "validation",
+      "entry_id": 646253,
+      "reduced_composition": "Mn1-Na5-O4",
+      "spacegroup": "Pmn21"
+    },
+    {
+      "ordinal": 125,
+      "group_ordinal": 125,
+      "partition": "validation",
+      "entry_id": 2173907,
+      "reduced_composition": "O20-Sr7-Ti7",
+      "spacegroup": "P2/m"
+    },
+    {
+      "ordinal": 126,
+      "group_ordinal": 126,
+      "partition": "validation",
+      "entry_id": 2012333,
+      "reduced_composition": "Cs3-Mn1-O3",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 127,
+      "group_ordinal": 127,
+      "partition": "validation",
+      "entry_id": 2173794,
+      "reduced_composition": "Ba7-Fe6-O19",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 128,
+      "group_ordinal": 128,
+      "partition": "validation",
+      "entry_id": 2151447,
+      "reduced_composition": "Cu3-K4-O6",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 129,
+      "group_ordinal": 129,
+      "partition": "validation",
+      "entry_id": 19808,
+      "reduced_composition": "Fe2-O5-Rb4",
+      "spacegroup": "C2/c"
+    },
+    {
+      "ordinal": 130,
+      "group_ordinal": 130,
+      "partition": "validation",
+      "entry_id": 2174231,
+      "reduced_composition": "Ba10-O25-V6",
+      "spacegroup": "P3"
+    },
+    {
+      "ordinal": 131,
+      "group_ordinal": 131,
+      "partition": "validation",
+      "entry_id": 2172805,
+      "reduced_composition": "Co3-O6-Sr1",
+      "spacegroup": "P2"
+    },
+    {
+      "ordinal": 132,
+      "group_ordinal": 132,
+      "partition": "validation",
+      "entry_id": 2174289,
+      "reduced_composition": "Cr1-K7-O6",
+      "spacegroup": "Pbcn"
+    },
+    {
+      "ordinal": 133,
+      "group_ordinal": 133,
+      "partition": "validation",
+      "entry_id": 2174265,
+      "reduced_composition": "O27-Sr12-V8",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 134,
+      "group_ordinal": 134,
+      "partition": "validation",
+      "entry_id": 2173941,
+      "reduced_composition": "Ba12-Fe4-O19",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 135,
+      "group_ordinal": 135,
+      "partition": "validation",
+      "entry_id": 2174372,
+      "reduced_composition": "Co28-Li13-O56",
+      "spacegroup": "R3"
+    },
+    {
+      "ordinal": 136,
+      "group_ordinal": 136,
+      "partition": "validation",
+      "entry_id": 1345287,
+      "reduced_composition": "Co2-Cs6-O5",
+      "spacegroup": "Cm"
+    },
+    {
+      "ordinal": 137,
+      "group_ordinal": 137,
+      "partition": "validation",
+      "entry_id": 2173392,
+      "reduced_composition": "Co1-O3-Rb3",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 138,
+      "group_ordinal": 138,
+      "partition": "validation",
+      "entry_id": 1751886,
+      "reduced_composition": "Cr2-O5-Sr3",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 139,
+      "group_ordinal": 139,
+      "partition": "validation",
+      "entry_id": 2174040,
+      "reduced_composition": "Fe3-K7-O8",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 140,
+      "group_ordinal": 140,
+      "partition": "validation",
+      "entry_id": 2151720,
+      "reduced_composition": "Co3-O6-Rb4",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 141,
+      "group_ordinal": 141,
+      "partition": "validation",
+      "entry_id": 2172969,
+      "reduced_composition": "Cr1-O5-Rb5",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 142,
+      "group_ordinal": 142,
+      "partition": "validation",
+      "entry_id": 2174094,
+      "reduced_composition": "K1-O5-V3",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 143,
+      "group_ordinal": 143,
+      "partition": "validation",
+      "entry_id": 1880670,
+      "reduced_composition": "Ba1-Mn2-O4",
+      "spacegroup": "P21/m"
+    },
+    {
+      "ordinal": 144,
+      "group_ordinal": 144,
+      "partition": "validation",
+      "entry_id": 1347016,
+      "reduced_composition": "Co1-Cs2-O2",
+      "spacegroup": "I4/mmm"
+    },
+    {
+      "ordinal": 145,
+      "group_ordinal": 145,
+      "partition": "validation",
+      "entry_id": 1388267,
+      "reduced_composition": "Co1-O2-Rb2",
+      "spacegroup": "I4/mmm"
+    },
+    {
+      "ordinal": 146,
+      "group_ordinal": 146,
+      "partition": "validation",
+      "entry_id": 2173219,
+      "reduced_composition": "Mn2-O7-Sr4",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 147,
+      "group_ordinal": 147,
+      "partition": "holdout",
+      "entry_id": 1345476,
+      "reduced_composition": "O5-Sr1-Ti2",
+      "spacegroup": "Pnma"
+    },
+    {
+      "ordinal": 148,
+      "group_ordinal": 148,
+      "partition": "holdout",
+      "entry_id": 1347984,
+      "reduced_composition": "Mn3-O8-Sr2",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 149,
+      "group_ordinal": 149,
+      "partition": "holdout",
+      "entry_id": 2172655,
+      "reduced_composition": "Co3-K4-O6",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 150,
+      "group_ordinal": 150,
+      "partition": "holdout",
+      "entry_id": 1347212,
+      "reduced_composition": "Cs4-O4-Ti1",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 151,
+      "group_ordinal": 151,
+      "partition": "holdout",
+      "entry_id": 2173628,
+      "reduced_composition": "Cr2-O7-Rb6",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 152,
+      "group_ordinal": 152,
+      "partition": "holdout",
+      "entry_id": 1880486,
+      "reduced_composition": "Ba1-O4-V2",
+      "spacegroup": "P21/m"
+    },
+    {
+      "ordinal": 153,
+      "group_ordinal": 153,
+      "partition": "holdout",
+      "entry_id": 36003,
+      "reduced_composition": "Ba2-Fe6-O11",
+      "spacegroup": "Pnnm"
+    },
+    {
+      "ordinal": 154,
+      "group_ordinal": 154,
+      "partition": "holdout",
+      "entry_id": 2173928,
+      "reduced_composition": "Fe2-K8-O7",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 155,
+      "group_ordinal": 155,
+      "partition": "holdout",
+      "entry_id": 1369277,
+      "reduced_composition": "Cs1-Mn1-O2",
+      "spacegroup": "Cmcm"
+    },
+    {
+      "ordinal": 156,
+      "group_ordinal": 156,
+      "partition": "holdout",
+      "entry_id": 1338415,
+      "reduced_composition": "Fe1-Li3-O4",
+      "spacegroup": "P2/c"
+    },
+    {
+      "ordinal": 157,
+      "group_ordinal": 157,
+      "partition": "holdout",
+      "entry_id": 2173880,
+      "reduced_composition": "Mn3-Na2-O6",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 158,
+      "group_ordinal": 158,
+      "partition": "holdout",
+      "entry_id": 1752950,
+      "reduced_composition": "Fe1-Li2-O2",
+      "spacegroup": "Immm"
+    },
+    {
+      "ordinal": 159,
+      "group_ordinal": 159,
+      "partition": "holdout",
+      "entry_id": 2174149,
+      "reduced_composition": "Na7-O20-Ti10",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 160,
+      "group_ordinal": 160,
+      "partition": "holdout",
+      "entry_id": 2173280,
+      "reduced_composition": "Ba6-Mn5-O15",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 161,
+      "group_ordinal": 161,
+      "partition": "holdout",
+      "entry_id": 2061686,
+      "reduced_composition": "Cs3-Mn2-O4",
+      "spacegroup": "P21/c"
+    },
+    {
+      "ordinal": 162,
+      "group_ordinal": 162,
+      "partition": "holdout",
+      "entry_id": 1880956,
+      "reduced_composition": "Co1-K3-O3",
+      "spacegroup": "Cmcm"
+    },
+    {
+      "ordinal": 163,
+      "group_ordinal": 163,
+      "partition": "holdout",
+      "entry_id": 2151770,
+      "reduced_composition": "Cu3-O6-Rb4",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 164,
+      "group_ordinal": 164,
+      "partition": "holdout",
+      "entry_id": 2757,
+      "reduced_composition": "O13-Sr2-Ti6",
+      "spacegroup": "C2/m"
+    },
+    {
+      "ordinal": 165,
+      "group_ordinal": 165,
+      "partition": "holdout",
+      "entry_id": 2173536,
+      "reduced_composition": "Co2-O4-Sr1",
+      "spacegroup": "Pmmn"
+    },
+    {
+      "ordinal": 166,
+      "group_ordinal": 166,
+      "partition": "holdout",
+      "entry_id": 2172994,
+      "reduced_composition": "Cs5-Cu2-O4",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 167,
+      "group_ordinal": 167,
+      "partition": "holdout",
+      "entry_id": 2156236,
+      "reduced_composition": "Cr2-O9-Rb6",
+      "spacegroup": "Fm-3m"
+    },
+    {
+      "ordinal": 168,
+      "group_ordinal": 168,
+      "partition": "holdout",
+      "entry_id": 648541,
+      "reduced_composition": "O10-Sr1-V4",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 169,
+      "group_ordinal": 169,
+      "partition": "holdout",
+      "entry_id": 2173445,
+      "reduced_composition": "Mn2-O4-Sr1",
+      "spacegroup": "P1"
+    },
+    {
+      "ordinal": 170,
+      "group_ordinal": 170,
+      "partition": "holdout",
+      "entry_id": 2174292,
+      "reduced_composition": "K7-Mn1-O6",
+      "spacegroup": "Pbcn"
+    },
+    {
+      "ordinal": 171,
+      "group_ordinal": 171,
+      "partition": "holdout",
+      "entry_id": 1348842,
+      "reduced_composition": "K2-Mn3-O7",
+      "spacegroup": "P-1"
+    },
+    {
+      "ordinal": 172,
+      "group_ordinal": 172,
+      "partition": "holdout",
+      "entry_id": 1348506,
+      "reduced_composition": "Mn1-O2-Sr1",
+      "spacegroup": "Pnma"
+    }
+  ]
+}

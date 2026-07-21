@@ -28,8 +28,8 @@ dev = [
     "ruff>=0.6",
 ]
 thermoml = [
-    "rdkit==2026.3.3",
-    "thermo==0.6.0",
+    "rdkit==2026.3.4",
+    "thermo==0.6.1",
 ]
 
 [project.scripts]

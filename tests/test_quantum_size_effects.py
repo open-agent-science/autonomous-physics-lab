@@ -27,6 +27,8 @@ KIM_LEDGER_PATH = (
     "data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/"
     "extraction_ledger.yaml"
 )
+KIM_ABSORPTION_PATH = "data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml"
+KIM_EMISSION_PATH = "data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml"
 
 
 def test_loader_keeps_only_six_direct_inp_absorption_rows() -> None:
@@ -324,9 +326,14 @@ def test_kim_value_bearing_paths_are_registered_for_redistribution() -> None:
     entry = next(
         item
         for item in registry["datasets"]
-        if item["id"] == "kim-2020-cdse-figure3a-extraction-blocker"
+        if item["id"] == "kim-2020-cdse-optical-surface"
     )
 
     assert entry["license"] == "CC BY 4.0 (version of record)"
     assert entry["raw_artifact_vendored"] is False
-    assert set(entry["paths"]) == {KIM_LEDGER_PATH, KIM_REVIEW_PATH}
+    assert set(entry["paths"]) == {
+        KIM_LEDGER_PATH,
+        KIM_ABSORPTION_PATH,
+        KIM_EMISSION_PATH,
+        KIM_REVIEW_PATH,
+    }

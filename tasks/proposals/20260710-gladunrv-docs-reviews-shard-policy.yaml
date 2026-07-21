@@ -1,6 +1,6 @@
 proposal_id: 20260710-gladunrv-docs-reviews-shard-policy
 title: "docs/reviews/ shard-forward policy (freeze legacy flat root, new reviews into by-domain subfolders)"
-status: PROPOSED
+status: SUPERSEDED
 type: repository_hardening
 priority: medium
 
@@ -125,6 +125,12 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Recommended: shard-forward (freeze legacy, shard new). The immediate small PR (rglob flip + README/repository-map/agent-task-protocol policy updates + read-only inventory CLI + diff-based root-guard) is low-risk and ready to assign a canonical task id. Physical bulk migration is optional/later and NOT recommended as default. Convergent recommendation of two independent architect reviews (claude + codex)."
+  canonical_task_id: TASK-1013
+  decision: superseded
+  notes: >
+    Superseded after the accepted shard-forward direction was implemented by
+    DONE TASK-1013 and merged in PR #1497. That task delivered recursive review
+    discovery, the diff-based flat-root guard, the read-only inventory helper,
+    and the policy documentation without moving legacy review paths or adding a
+    committed generated index. Any future physical migration remains a separate
+    maintainer decision and should not reopen this proposal by default.

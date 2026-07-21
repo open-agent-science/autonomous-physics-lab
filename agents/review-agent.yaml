@@ -94,6 +94,19 @@ typical_activities:
       Include repeated evidence, affected workflow, proposed process change,
       risk, and the maintainer decision needed. Do not weaken review gates or
       treat the proposal as a merge approval.
+  - title: "Diagnose sandboxed GitHub authentication"
+    description: |
+      Treat a sandbox-only `gh auth status` failure as credential-store
+      unverified, not as proof that the maintainer token expired. Keep writes
+      fail-closed, use the bounded public fallback only for read-only APL
+      metadata, and request protocol-approved escalation or a maintainer-terminal
+      auth check before recommending login/logout or performing a mutation. If
+      that keychain-aware check also fails, explicitly request the standard gh
+      web-login flow and describe public REST only as a temporary read-only
+      fallback while authorization is pending. In Claude or another sandbox
+      without an auto-detected marker, pass the vendor-neutral
+      `--agent-sandbox` diagnostic flag instead of guessing an undocumented
+      environment variable.
 
 allowed_tools:
   - "Read pull-request diffs, bodies, branch metadata, and CI status."
@@ -125,6 +138,7 @@ restrictions:
   - "Must surface architecture-sensitive routing changes (new live campaign, mission, portfolio, or task-state surfaces) for explicit maintainer review."
   - "Must block publication of raw upstream artifacts when redistribution permission, license posture, or source provenance is missing."
   - "Must not leave repeated review-helper, CI, validation, or closeout failures only as local comments when they indicate a structural bottleneck worth proposing."
+  - "Must not diagnose a GitHub token as expired or revoked solely from a sandbox auth failure, expose token values, or persist credentials to bypass sandbox isolation."
 
 cadence: |
   Prompt-first. The maintainer asks the Review Agent to review a specific

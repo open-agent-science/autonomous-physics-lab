@@ -1,0 +1,57 @@
+id: TASK-1069
+title: "Reconcile the v0.3 roadmap with the Materials adapter and v0.2 marker"
+type: documentation
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This task changes the public capability roadmap, so closeout must confirm that adapter and release-version statements match merged repository evidence."
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the manually curated roadmap aligned with merged architecture rather than leaving a stale pre-TASK-1060 description of Research Factory reuse."
+  - "Record the package version as the release source of truth without implying that v0.3 has already shipped."
+  - "Correct existing public truth in place instead of adding another status or generated planning surface."
+
+input:
+  mode: planning_only
+  related_domain: repository_architecture
+  related_objects:
+    - "docs/roadmap.md"
+    - "pyproject.toml"
+    - "tasks/archive/0500-0999/TASK-0508-define-exoplanet-factory-reuse-contract.yaml"
+    - "tasks/TASK-1060-materials-factory-adapter.yaml"
+  planning_context: >
+    The v0.3 roadmap still describes Exoplanet's contract-only TASK-0508 as the
+    sole second-campaign reuse evidence and says pyproject.toml is at 0.1.0.
+    Main now contains the executable Materials adapter from DONE TASK-1060, and
+    the package marker was reconciled to 0.2.0 for the public-alpha release.
+    Correct only these stale statements while preserving the distinction
+    between a merged executable adapter, a contract-only future campaign path,
+    and an unreleased v0.3 milestone.
+
+requirements:
+  - "State that TASK-1060 provides the second executable campaign adapter through the shared Research Factory core while TASK-0508 remains the Exoplanet contract path."
+  - "Replace the stale 0.1.0 package-marker statement with the merged v0.2.0 state and retain a clear gate against advancing to v0.3.0 before milestone closure."
+  - "Do not change v0.3 exit criteria beyond reconciling the evidence now satisfying the reuse criterion."
+  - "Do not edit scientific artifacts, metrics, claims, predictions, knowledge, generated task views, or release metadata."
+
+accepted_outputs:
+  - "A narrow docs/roadmap.md correction that distinguishes executable Materials reuse from the Exoplanet adapter contract."
+  - "A version-marker statement consistent with pyproject.toml 0.2.0 and the unreleased v0.3 milestone."
+
+result_artifact_policy:
+  required: false
+  reason: "Documentation truth synchronization only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is created or promoted."
+  evidence:
+    - "docs/roadmap.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

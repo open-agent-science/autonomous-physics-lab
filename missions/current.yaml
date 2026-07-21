@@ -74,7 +74,7 @@ missions:
     status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "RESULT-0021 completed its immediate Gate B replay, bounded control, public-capsule wave, MD-0002 metadata closeout, transfer-negative memory, external-release decision packet, deterministic archive helper, and Zenodo v0.1.0 DOI record-back. Materials has no immediate metric or claim mutation route from this mission entry; use live task candidates before opening a new follow-up."
+    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. The OQMD route now has a bounded 172-row source, a leakage-free 120/26/26 grouped split, a frozen value-blind control contract, and a passing independent source-replay candidate in maintainer review. Keep TASK-1066 blocked until TASK-1063 is merged and closed out on main."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
@@ -85,6 +85,10 @@ missions:
       - "TASK-0817 closed the independent transfer-route scout after metadata closeout"
       - "TASK-0900 produced a deterministic package allowlist and checksum dry run"
       - "MD-0002 v0.1.0 is published on Zenodo with DOI record-back complete"
+      - "TASK-1042 acquired 373 raw OQMD rows and retained 172 after 201 identifier-only MD-0002 composition exclusions"
+      - "TASK-1053 froze a leakage-free 120/26/26 grouped split without target inspection"
+      - "TASK-1054 froze the within-OQMD baseline and control contract value-blind"
+      - "TASK-1063 independently reproduced the bounded source hashes, counts, overlap exclusions, semantics, and rights boundary; its PASS candidate awaits merge and closeout"
     forbidden:
       - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
       - "do not mix computed DFT and experimental measurements without explicit provenance"
@@ -195,6 +199,39 @@ missions:
         recommended: false
         expected_outputs:
           - "public-safe capsule with review tier, Gate B status, and no-claim wording"
+      - id: materials-oqmd-independent-source-replay
+        label: "Independently replay the bounded OQMD source and overlap contract"
+        task_id: TASK-1063
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "independent source, hash, predicate, overlap, semantics, and rights verdict without target summaries"
+          - "no split, metric, RESULT, CLAIM, or cross-database value comparison"
+      - id: materials-oqmd-source-replay-review-handoff
+        label: "Review and close out the independent OQMD source replay"
+        task_id: null
+        mode: research
+        status: guidance
+        priority: high
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "merge and close out TASK-1063 only if the exact source-replay PASS evidence remains valid"
+          - "keep TASK-1066 blocked until the TASK-1063 PASS verdict is durable on main"
+      - id: materials-oqmd-frozen-benchmark
+        label: "Run the frozen within-OQMD benchmark after source replay passes"
+        task_id: TASK-1066
+        mode: research
+        status: blocked
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "one frozen PASS, FAIL, or INCONCLUSIVE within-source result under the committed split and controls"
+          - "no rescue fitting, feature factory, cross-database pooling, or materials claim"
 
   - id: nuclear-mass-surface
     title: "Nuclear Mass Surface"
@@ -202,7 +239,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. RESULT-0025 is exact-replayed point-estimator evidence, and TASK-0899 confirmed the approved no-peek uncertainty-calibration routes fail the predeclared interval-freeze conditions. Point-only PRED entries are frozen and externally anchored; interval-bearing wording remains blocked. The next executable Nuclear lane is the approved TASK-0305 reveal-scoring path under the source manifest and no-peek protocol, not broad new fitting."
+    recommendation: "Flagship validation challenge. RESULT-0025 is exact-replayed point-estimator evidence and point-only PRED entries are frozen; interval wording remains blocked. TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure. Ratify TASK-1072 and remain monitor-only until a qualifying post-registration official release signal exists."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -228,6 +265,7 @@ missions:
       - "TASK-0823, TASK-0824, TASK-0825, TASK-0826, TASK-0843, and TASK-0844 closed their parts of the significant-result wave; TASK-0827 remains blocked because the GP residual model is point-estimator evidence only until a defensible uncertainty-calibration route exists"
       - "RESULT-0025 has a strong point-estimator gain and exact Gate B replay, but TASK-0899 found no approved no-peek uncertainty route passed; prediction freeze and interval wording remain blocked"
       - "TASK-0878 added a metadata-only canonical DZ10 reference wrapper and smoke fixture; full-table parity is now a local/source-rights gate"
+      - "TASK-1031 completed a clean official-metadata retry and returned SOURCE_PREDATES_REGISTRATION without target-value or target-status exposure"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -541,6 +579,17 @@ missions:
         expected_outputs:
           - "TASK-0449 residual-free taxonomy is INCONCLUSIVE under current training sparsity"
           - "do not repeat the same cluster taxonomy without a declared finer taxonomy or larger curated training slice"
+      - id: nuclear-post-registration-trigger-ledger
+        label: "Ratify event-triggered Nuclear reveal-source monitoring"
+        task_id: TASK-1072
+        mode: research
+        status: ready
+        priority: high
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "qualifying and forbidden post-registration source signals plus no-peek state transitions"
+          - "MONITOR_ONLY_NO_SCOUT until a concrete official event; no source browsing, target matching, or scoring"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
@@ -548,7 +597,7 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "TASK-0277 kept open-ended autonomous correction search blocked. RESULT-0029 packages the strict no-refit ZnSe/InP transfer miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1027 and TASK-1043 now pin the Kim-2020 CdSe source and an exactly twelve-observation extraction contract; TASK-1052 may curate those rows, but no benchmark metric or correction search is authorized."
+    recommendation: "RESULT-0029 remains AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1052 correctly stopped the figure-digitization route at its missing-y-tick gate. TASK-1064 separately returned GO_TEXT_REPORTED_PEAK_ROUTE; TASK-1070 may now curate exactly eight source-stated CdSe rows into property-separated files, with no fit or metric."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
@@ -562,6 +611,8 @@ missions:
       - "TASK-1015 independently replayed RESULT-0029 with zero metric drift and upgraded it to AGENT_VALIDATED memory"
       - "TASK-1027 pinned the Kim-2020 CdSe source artifact and reuse boundary"
       - "TASK-1043 returned EXTRACTION_CONTRACT_READY for exactly twelve observations with two-pass digitization controls"
+      - "TASK-1052 preserved an honest UNCERTAINTY_BLOCKED stop because Figure 3(a) lacks numeric y ticks"
+      - "TASK-1064 found all eight body-text absorption/fluorescence statements source-locatable and froze a distinct text_stated_summary contract"
     forbidden:
       - "do not run autonomous formula search or correction search from the single-source Almeida baseline"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -757,16 +808,37 @@ missions:
         expected_outputs:
           - "explicit decision on whether a weaker calibration-consistency benchmark may exist separately from TASK-0225"
       - id: quantum-kim2020-cdse-row-extraction
-        label: "Extract the twelve predeclared Kim-2020 CdSe observations"
+        label: "Preserve the stopped twelve-observation digitization attempt"
         task_id: TASK-1052
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "exactly four size summaries, four absorption peaks, and four emission peaks with source locators"
-          - "two independent digitization passes reconciled under the frozen tolerances"
+          - "UNCERTAINTY_BLOCKED memory; four HRTEM summaries and excluded optical coordinates remain immutable"
+          - "no retroactive weakening of the y-axis gate or admission of excluded rows"
+      - id: quantum-kim2020-text-route-stop-go
+        label: "Adjudicate the distinct Kim-2020 text-reported optical route"
+        task_id: TASK-1064
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "GO_TEXT_REPORTED_PEAK_ROUTE for eight sample-resolved statements under a frozen provenance contract"
+          - "no qd rows, scoring, RESULT, CLAIM, or change to TASK-1052"
+      - id: quantum-kim2020-text-row-curation
+        label: "Curate eight Kim-2020 text-reported CdSe optical rows"
+        task_id: TASK-1070
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "four absorption and four emission rows in separate schema-valid files with frozen source hashes and rounding floor"
           - "no benchmark metric, model fit, correction search, RESULT, CLAIM, or design guidance"
 
   - id: atomic-clock-residuals
@@ -1232,7 +1304,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. CHARA now has twelve source-traceable component rows across six systems plus a frozen dependence policy. TASK-1049 must independently pass the exact source surface before TASK-1050 may score the frozen RESULT-0022 relation and controls without refitting."
+    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. TASK-1049 independently replayed all twelve CHARA component rows across six systems. TASK-1050 may now score the frozen RESULT-0022 relation and controls once without refitting."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1248,6 +1320,7 @@ missions:
       - "TASK-0989 returned SOURCE_ARTIFACT_READY after pinning the CHARA source package value-blind and excluding two explicit DEBCat whole-system overlaps"
       - "TASK-1040 admitted twelve source-traceable component rows across six CHARA systems and kept seven systems source-limited"
       - "TASK-1041 froze the group-dependence policy and minimum five-effective-group gate"
+      - "TASK-1049 independently replayed the exact CHARA component-source surface and cleared the fixed-transfer source gate"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1417,7 +1490,7 @@ missions:
         label: "Independently replay the CHARA component-source surface"
         task_id: TASK-1049
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -1429,7 +1502,7 @@ missions:
         label: "Score the fixed RESULT-0022 relation on CHARA without refitting"
         task_id: TASK-1050
         mode: research
-        status: blocked
+        status: ready
         priority: high
         difficulty: medium
         recommended: false
@@ -1629,16 +1702,17 @@ missions:
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
     rank: 10
-    status: calibration_v2_scoring_ready
+    status: calibration_v2_replay_and_external_freeze
     scientific_value: medium
     risk: low
-    recommendation: "Use as a quality-floor calibration lane. RESULT-0020 remains AGENT_VALIDATED historical memory, and TASK-1039 froze an 80-item label_blind_exact_v2 surface. Because curation was same-owner role-disjoint, TASK-1051 may score it only as calibration evidence and cannot reopen CLAIM-0005 Gate C."
+    recommendation: "Use as a quality-floor calibration lane. RESULT-0030 is AGENT_PUBLISHED after 80/80 exact agreement on the same-owner v2 surface. TASK-1062 should independently replay it; in parallel, TASK-1071 is reserved for a different human to freeze a genuinely external blind surface without scoring. Neither task changes CLAIM-0005."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
       - "validator failures improve future research gates"
       - "RESULT-0020 is AGENT_VALIDATED with validation_independence: independent"
       - "TASK-1039 froze 80 exact-v2 items with CALIBRATION_ONLY_ROLE_LIMIT and no validator run"
+      - "TASK-1051 scored the surface once and published RESULT-0030 after every frozen threshold passed"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
@@ -1686,7 +1760,7 @@ missions:
         label: "Blind-score the frozen 80-item dimensional v2 calibration surface"
         task_id: TASK-1051
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -1694,6 +1768,28 @@ missions:
           - "one deterministic score under frozen exact-agreement and class-recall thresholds"
           - "CALIBRATION_ONLY_ROLE_LIMIT preserved in result routing"
           - "no row, label, threshold, engine-semantics, CLAIM-0005, or knowledge mutation"
+      - id: dimensional-result0030-independent-replay
+        label: "Replay RESULT-0030 under a genuinely independent human identity"
+        task_id: TASK-1062
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "exact deterministic Gate B replay or explicit independence/metric-drift blocker"
+          - "calibration-only ceiling preserved; no CLAIM-0005 promotion"
+      - id: dimensional-external-blind-benchmark-freeze
+        label: "Freeze a genuinely external blind dimensional benchmark without scoring"
+        task_id: TASK-1071
+        mode: research
+        status: ready
+        priority: high
+        difficulty: high
+        recommended: true
+        expected_outputs:
+          - "80-120 externally authored native-labelled formulas with provenance, digest, no-score declaration, and frozen thresholds"
+          - "no validator execution, metric, RESULT, CLAIM-0005, or knowledge mutation"
 
 support_actions:
   - id: release-signoff

@@ -86,20 +86,20 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. TASK-1042 acquired a dated OQMD live-API surface: 373 raw rows, 201 identifier-only MD-0002 composition exclusions, and 172 normalized rows, with verdict SNAPSHOT_READY_FOR_SPLIT_FREEZE."
+  current_stage: "MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized rows after 201 identifier-only MD-0002 composition exclusions; TASK-1053 froze a leakage-free 120/26/26 grouped split and TASK-1054 froze the value-blind baseline/control contract."
   recommended_parallel_agents: 3
-  coordination_notes: "The OQMD source gate is now satisfied. Freeze the identifier-only grouped split and value-blind within-OQMD baseline/control contract on disjoint branches; an independent source replay may proceed in parallel. TASK-1044 remains reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0, pool OQMD and Materials Project target values, or open a feature factory."
+  coordination_notes: "The OQMD source, split, and control-contract gates are satisfied. TASK-1063 is the only remaining prerequisite before TASK-1066 may run the frozen within-OQMD benchmark. TASK-1044 remains reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0, pool OQMD and Materials Project target values, or open a feature factory."
   next_validity_gate:
     type: transfer
-    blocker: "The 172-row OQMD source surface is ready, but its identifier-only grouped split and value-blind baseline/control contract are not yet frozen."
-    target_artifact: "TASK-1053 and TASK-1054"
+    blocker: "The source, grouped split, and value-blind control contract are frozen; benchmark scoring remains blocked only until TASK-1063 returns INDEPENDENT_SOURCE_REPLAY_PASS."
+    target_artifact: "TASK-1063, then TASK-1066"
   best_next_actions:
     - task_id: TASK-1044
       label: "Replay RESULT-0021 under a genuinely independent human identity"
-    - task_id: TASK-1054
-      label: "Predeclare within-OQMD baselines and controls without inspecting target values"
-    - task_id: TASK-1053
-      label: "Freeze an identifier-only grouped OQMD split"
+    - task_id: TASK-1063
+      label: "Independently replay the bounded OQMD source and overlap contract"
+    - task_id: TASK-1066
+      label: "After source replay passes, run the frozen within-OQMD benchmark once"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -127,15 +127,19 @@ portfolio:
     - "docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md"
     - "data/materials/oqmd_live_api_2026-07-14_manifest.yaml"
     - "data/materials/oqmd_live_api_2026-07-14_normalized.json"
+    - "data/materials/oqmd_live_api_2026-07-14_split.yaml"
+    - "docs/reviews/materials/oqmd-identifier-only-split-freeze.md"
+    - "docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml"
+    - "docs/reviews/materials/oqmd-within-source-baseline-control-preflight.md"
   open_questions:
     - "Can the frozen within-OQMD baseline survive grouped holdout controls on the 172-row composition-disjoint surface?"
     - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-16"
+    last_reviewed: "2026-07-17"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1042 OQMD bounded acquisition and Scientific Director 2026-07-16 cycle"
-    notes: "MD-0002 remains fixed and citable. OQMD now has a bounded, hash-pinned 172-row source surface; split, contract, and independent source validation precede any metric execution."
+    source: "TASK-1053/TASK-1054 OQMD split and contract outcomes and Scientific Director 2026-07-17 cycle"
+    notes: "MD-0002 remains fixed and citable. OQMD has a bounded, hash-pinned 172-row source surface plus frozen split and controls; independent source replay is the sole remaining gate before one metric execution."

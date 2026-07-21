@@ -6,13 +6,22 @@ from dataclasses import dataclass
 from pathlib import Path
 import os
 import shutil
-from typing import Mapping
+from typing import Literal, Mapping
 
 from physics_lab.registry.review_git import run_command
 from physics_lab.registry.subprocess_env import env_with_overrides as env_with_overrides
 
 
 TOKEN_ENV_NAMES = ("GH_TOKEN", "GITHUB_TOKEN")
+SANDBOX_ENV_NAMES = ("CODEX_SANDBOX",)
+GhAuthState = Literal[
+    "authenticated",
+    "not_checked",
+    "gh_unavailable",
+    "sandbox_credential_unverified",
+    "token_env_unverified",
+    "unauthenticated_or_invalid",
+]
 PROXY_ENV_NAMES = (
     "HTTP_PROXY",
     "HTTPS_PROXY",
@@ -71,7 +80,10 @@ class PrCapabilityReport:
     warnings: tuple[str, ...]
     gh_path: str | None
     git_path: str | None
+    gh_auth_state: GhAuthState
     token_env_names: tuple[str, ...]
+    sandbox_detected: bool
+    sandbox_env_names: tuple[str, ...]
     suspicious_proxy_env_names: tuple[str, ...]
 
     @property
@@ -87,10 +99,13 @@ def check_pr_capability(
     candidate_paths: tuple[str, ...] = DEFAULT_GH_CANDIDATE_PATHS,
     discover_gh: bool = True,
     require_gh_auth: bool = True,
+    agent_sandbox: bool = False,
 ) -> PrCapabilityReport:
     """Check whether a PR can be opened directly, without blocking local work."""
     env_map = os.environ if env is None else env
     tokens = tuple(name for name in TOKEN_ENV_NAMES if env_map.get(name))
+    sandbox_names = active_sandbox_env_names(env_map)
+    sandbox_detected = agent_sandbox or bool(sandbox_names)
     git_path = find_git_path(env=env_map)
     suspicious_proxy_names = suspicious_proxy_env_names(env_map)
     # Env var override for candidate paths wins when set. An empty value
@@ -127,45 +142,112 @@ def check_pr_capability(
     if resolved_gh_path is None:
         if tokens:
             warnings.append(
-                "GitHub CLI `gh` was not found; token-based API fallback appears available."
+                "GitHub CLI `gh` was not found while GH_TOKEN/GITHUB_TOKEN is present. "
+                "The environment token is unverified; do not describe it as an "
+                "available fallback or print its value. Ask the maintainer to "
+                "authenticate GitHub CLI through the standard web flow first "
+                "(`gh auth login --hostname github.com --git-protocol https --web`) "
+                "or verify the environment token through their secure credential "
+                "path before GitHub writes."
             )
+            gh_auth_state: GhAuthState = "token_env_unverified"
         else:
             warnings.append(
                 "Direct PR creation is not available in this environment: neither `gh` "
-                "nor `GH_TOKEN`/`GITHUB_TOKEN` is available. Continue local task work "
-                "and provide maintainer-run `git push` and `gh pr create` commands."
+                "nor `GH_TOKEN`/`GITHUB_TOKEN` is available. Ask the maintainer to "
+                "install or expose GitHub CLI and authorize it with "
+                "`gh auth login --hostname github.com --git-protocol https --web`, "
+                "then verify with `gh auth status --hostname github.com`. Continue "
+                "local task work while authorization is pending; the bounded public "
+                "REST fallback is read-only and does not authorize GitHub writes."
             )
+            gh_auth_state = "gh_unavailable"
         return PrCapabilityReport(
             errors=tuple(errors),
             warnings=tuple(warnings),
             gh_path=None,
             git_path=git_path,
+            gh_auth_state=gh_auth_state,
             token_env_names=tokens,
+            sandbox_detected=sandbox_detected,
+            sandbox_env_names=sandbox_names,
             suspicious_proxy_env_names=suspicious_proxy_names,
         )
 
+    gh_auth_state = "not_checked"
     if require_gh_auth:
-        result = run_command([resolved_gh_path, "auth", "status"], cwd=root, timeout=20)
-        if result.returncode != 0:
-            if tokens:
-                warnings.append(
-                    "`gh auth status` failed, but token-based API fallback appears available."
-                )
-            else:
-                warnings.append(
-                    "`gh` is installed but not authenticated, and no "
-                    "`GH_TOKEN`/`GITHUB_TOKEN` fallback is available. Continue local "
-                    "task work and provide maintainer-run publication commands."
-                )
+        result = run_command(
+            [resolved_gh_path, "auth", "status", "--hostname", "github.com"],
+            cwd=root,
+            timeout=20,
+            env=env_map,
+        )
+        if result.returncode == 0:
+            gh_auth_state = "authenticated"
+        elif tokens:
+            gh_auth_state = "token_env_unverified"
+            warnings.append(
+                "`gh auth status` failed while GH_TOKEN/GITHUB_TOKEN is present. "
+                "The environment token is unverified; do not describe it as an "
+                "available fallback or print its value. Ask the maintainer to "
+                "authenticate GitHub CLI through the standard web flow first "
+                f"(`{resolved_gh_path} auth login --hostname github.com "
+                "--git-protocol https --web`) or verify the environment token "
+                "through their secure credential path before GitHub writes."
+            )
+        elif sandbox_detected:
+            # macOS Keychain and similar host credential stores can be intentionally
+            # invisible to an agent sandbox. Treat that as unknown, not as proof that
+            # the token expired; writes still require an authenticated rerun.
+            gh_auth_state = "sandbox_credential_unverified"
+            sandbox_label = (
+                ", ".join(sandbox_names)
+                if sandbox_names
+                else "explicit --agent-sandbox signal"
+            )
+            warnings.append(
+                "`gh auth status` failed inside an agent sandbox "
+                f"({sandbox_label}). This does not prove that the host "
+                "credential or token is invalid. Do not run `gh auth login`/`logout` "
+                "from this result alone. Read-only APL PR metadata may use the bounded "
+                "public REST fallback; before any GitHub write, rerun "
+                f"`{resolved_gh_path} auth status --hostname github.com` in the "
+                "maintainer terminal or with protocol-approved sandbox escalation. "
+                "Only if that keychain-aware check also fails should the agent ask "
+                "the maintainer to run the standard web login flow."
+            )
+        else:
+            gh_auth_state = "unauthenticated_or_invalid"
+            warnings.append(
+                "`gh` authentication failed outside a recognized agent sandbox, and "
+                "no GH_TOKEN/GITHUB_TOKEN fallback is present. Ask the maintainer to "
+                "authorize the discovered CLI with "
+                f"`{resolved_gh_path} auth login --hostname github.com "
+                "--git-protocol https --web`, then verify with "
+                f"`{resolved_gh_path} auth status --hostname github.com`. The bounded "
+                "public REST fallback may support read-only review while authorization "
+                "is pending, but it does not authorize GitHub writes."
+            )
 
     return PrCapabilityReport(
         errors=tuple(errors),
         warnings=tuple(warnings),
         gh_path=resolved_gh_path,
         git_path=git_path,
+        gh_auth_state=gh_auth_state,
         token_env_names=tokens,
+        sandbox_detected=sandbox_detected,
+        sandbox_env_names=sandbox_names,
         suspicious_proxy_env_names=suspicious_proxy_names,
     )
+
+
+def active_sandbox_env_names(
+    env: Mapping[str, str] | None = None,
+) -> tuple[str, ...]:
+    """Return recognized agent-sandbox markers without exposing their values."""
+    env_map = os.environ if env is None else env
+    return tuple(name for name in SANDBOX_ENV_NAMES if env_map.get(name))
 
 
 def find_gh_path(

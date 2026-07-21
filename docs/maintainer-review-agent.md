@@ -501,6 +501,42 @@ head; incomplete metadata, rate limiting, or a mismatch remains a fail-closed
 blocker. This post-PR fallback does not change branch-only preflight or any
 task/proposal PR-body helper.
 
+### Sandbox credential-store diagnosis
+
+`gh auth status` cannot distinguish an actually revoked token from a host
+credential store that the current sandbox is forbidden to read. This is most
+visible on macOS when `gh` stores its OAuth token in Keychain: the same account
+may report `invalid` inside a Codex seatbelt sandbox and `authenticated` when
+the identical command runs in the maintainer terminal or with approved
+escalation.
+
+Treat the sandbox-only outcome as `sandbox_credential_unverified`:
+
+- do not recommend `gh auth logout` or `gh auth login` from that signal alone;
+- do not print, copy, cache, or persist token values;
+- use the bounded public REST fallback only for read-only APL metadata;
+- before any PR, merge, release, settings, or other GitHub mutation, rerun the
+  auth check through a keychain-aware maintainer terminal or protocol-approved
+  escalation and require success;
+- if the keychain-aware check also fails, report
+  `unauthenticated_or_invalid`, explicitly ask the maintainer to run
+  `gh auth login --hostname github.com --git-protocol https --web`, and verify
+  the result with `gh auth status --hostname github.com` before retrying a
+  mutation;
+- explain any bounded public REST use as a temporary read-only fallback while
+  authorization is pending, never as a replacement for authentication.
+
+`python3 scripts/apl_agent_doctor.py` and
+`python3 scripts/apl_pr_capability_check.py` expose this distinction as the
+machine-readable `gh_auth_state`; neither helper performs login/logout or
+stores credentials.
+
+Codex provides an auto-detected `CODEX_SANDBOX` marker. Claude and other agent
+runtimes do not need a vendor-specific marker: when their host credential store
+may be isolated, run either helper with `--agent-sandbox`. This explicit,
+cross-platform signal produces the same conservative diagnosis on macOS,
+Linux, and Windows; it does not bypass permissions or make writes available.
+
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
 title queue id. Reviewers should also check `microtask_runs/` for duplicate

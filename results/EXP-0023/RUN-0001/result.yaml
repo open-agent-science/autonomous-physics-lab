@@ -1,0 +1,110 @@
+result_id: RESULT-0031
+run_id: RUN-0001
+experiment_id: EXP-0023
+title: Stellar M-L CHARA fixed-relation transfer - frozen RESULT-0022 relation wins narrowly but misses
+  the predeclared margin
+hypothesis_id: HYP-0023
+task_id: TASK-1050
+generated_at: '2026-07-19T00:00:00+00:00'
+engine_version: 0.2.0
+git_commit: 922dd4cb41e81508b47e6e453dac62f9c8538a0b
+command: physics-lab run examples/stellar_ml_chara_fixed_relation_transfer.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0023/RUN-0001/inputs/config.yaml
+    sha256: bca280b172e5cb0c0c27c99ca3bd40562fa6db44d50f471629895fa3b9d85827
+  experiment:
+    path: results/EXP-0023/RUN-0001/inputs/experiment.yaml
+    sha256: 1970b6c8eca240bf626535773dc058179869407ba2b4a6c57b3a9dc31ef9e52b
+  hypothesis:
+    path: results/EXP-0023/RUN-0001/inputs/hypothesis.yaml
+    sha256: 81d4b41157e0fa66c12166123c5f94048496bff17ff8da8d9757f13a5ea95559
+  task:
+    path: results/EXP-0023/RUN-0001/inputs/task.yaml
+    sha256: 10617ca8dd900f30e9b96d609cfb4c1d55edcee501dbd2f3e935e3e2f514d3fb
+  fixture:
+    path: results/EXP-0023/RUN-0001/inputs/fixture.yaml
+    sha256: f2867b31403d4f511ea6cb02ec95fc7df6f6995eaaea7170616f21c579862c2f
+code_reference: physics_lab/workflows/stellar_ml_chara_transfer.py
+limitations:
+- Agent-published, not yet independently replayed or maintainer-reviewed.
+- Scope is exactly twelve components from six source-curated CHARA systems; this is not a population result
+  or universal mass-luminosity law.
+- The frozen relation beats the best eligible control, but its margin is below the predeclared 0.04 dex
+  threshold; no rescue fit or threshold change is allowed.
+- The surface mixes published and Stefan-Boltzmann-derived luminosities and contains only six effective
+  physical-system groups.
+best_model_id: model_result0022_frozen_alpha_chara_transfer
+best_verdict: INCONCLUSIVE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INCONCLUSIVE
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+    gate_b_replayable_command: true
+  evidence_summary: A deterministic no-refit run scored all twelve source-replayed CHARA components under
+    the frozen controls and retained the sub-threshold outcome.
+  followup_for_maintainer: Keep the INCONCLUSIVE wording and six-system scope; do not reinterpret the
+    positive but sub-threshold margin as a transfer validation.
+verification:
+  passed: true
+  checks:
+  - name: independent_source_surface_reproduced
+    status: PASS
+    details: TASK-1049 replay verdict and every frozen source hash match.
+    metrics:
+      component_count: 12
+      system_count: 6
+      effective_group_count: 6
+  - name: no_refit_and_train_only_null
+    status: PASS
+    details: The RESULT-0022 alpha is fixed and the null uses only its train lane.
+    metrics:
+      alpha: 4.526004
+      refit_on_chara: false
+      null_train_count: 102
+      chara_targets_used_for_null: 0
+  - name: predeclared_margin_applied_without_rescue
+    status: PASS
+    details: The observed margin is recorded against the unchanged 0.04 dex rule.
+    metrics:
+      candidate_mae_dex: 0.06053
+      best_control_mae_dex: 0.097317
+      margin_over_best_control_dex: 0.036787
+      required_margin_dex: 0.04
+      clears_margin: false
+comparison_summary:
+- target_id: target_chara_survival_margin
+  label: Observed frozen-relation margin versus the predeclared survival threshold
+  reference_value: 0.04
+  observed_value: 0.036787
+  unit: dex
+  absolute_difference: 0.003213
+  relative_difference: 0.080325
+  notes: Best control is control_textbook_alpha_4p0; positive but sub-threshold margin yields INCONCLUSIVE.
+uncertainty_summary:
+  method: leave_one_physical_system_group_out_margin_sensitivity
+  observed_uncertainty: 0.044452
+  reference_uncertainty: 0.04
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: Leave-one-group-out margins range from 0.021022 to 0.065474 dex.
+artifacts:
+  report: results/EXP-0023/RUN-0001/report.md
+  metrics: results/EXP-0023/RUN-0001/metrics.json
+  claim_update: results/EXP-0023/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0023/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0023/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0023/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0023/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0023/RUN-0001/review_metadata.yaml

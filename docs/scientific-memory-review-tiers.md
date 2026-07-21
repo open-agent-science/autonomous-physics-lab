@@ -21,7 +21,7 @@ scientific artifacts.
 
 | Tier | RESULT | PRED | CLAIM | KNOW | Total |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `AGENT_PUBLISHED` | 1 | 1 | 0 | 0 | 2 |
+| `AGENT_PUBLISHED` | 2 | 1 | 0 | 0 | 3 |
 | `AGENT_VALIDATED` | 15 | 0 | 0 | 0 | 15 |
 | `MAINTAINER_REVIEWED` | 0 | 1 | 2 | 0 | 3 |
 | `EXTERNAL_REPLICATED` | 0 | 0 | 0 | 0 | 0 |
@@ -32,6 +32,7 @@ scientific artifacts.
 | --- | --- | --- | --- | --- | --- |
 | `PRED` | `PRED-0001` - Prospective exoplanet second-snapshot protocol outcome forecast | `REGISTERED` | `n/a` | `reveal-needed` | [`prediction_registry/exoplanet_mass_radius/PRED-0001.yaml`](../prediction_registry/exoplanet_mass_radius/PRED-0001.yaml) |
 | `RESULT` | `RESULT-0030` - Dimensional Validator Exact-v2 Frozen Calibration Score | `VALID` | `n/a` | `replay-needed` | [`results/EXP-0006/RUN-0008/result.yaml`](../results/EXP-0006/RUN-0008/result.yaml) |
+| `RESULT` | `RESULT-0031` - Stellar M-L CHARA fixed-relation transfer - frozen RESULT-0022 relation wins narrowly but misses the predeclared margin | `INCONCLUSIVE` | `n/a` | `replay-needed` | [`results/EXP-0023/RUN-0001/result.yaml`](../results/EXP-0023/RUN-0001/result.yaml) |
 
 ## AGENT_VALIDATED
 

@@ -45,6 +45,24 @@ def test_agent_doctor_builds_report_without_network_auth_check(tmp_path: Path) -
     assert "warnings" in report.pr_capability
     assert "gh_path" in report.pr_capability
     assert "git_path" in report.pr_capability
+    assert "gh_auth_state" in report.pr_capability
+    assert "sandbox_detected" in report.pr_capability
+    assert "sandbox_env_names" in report.pr_capability
+
+
+def test_agent_doctor_accepts_explicit_agent_sandbox_signal(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.delenv("CODEX_SANDBOX", raising=False)
+    report = build_report(
+        tmp_path,
+        require_gh_auth=False,
+        agent_sandbox=True,
+    )
+
+    assert report.pr_capability["sandbox_detected"] is True
+    assert report.pr_capability["sandbox_env_names"] == ()
 
 
 def test_agent_doctor_reports_python_minimum_version(tmp_path: Path) -> None:
@@ -77,6 +95,9 @@ def test_agent_doctor_cli_json_runs_from_repo_root() -> None:
     assert result.returncode == 0, (result.stdout, result.stderr)
     assert '"python"' in result.stdout
     assert '"pr_capability"' in result.stdout
+    assert '"gh_auth_state"' in result.stdout
+    assert '"sandbox_detected"' in result.stdout
+    assert '"sandbox_env_names"' in result.stdout
     assert '"pytest_runtime": null' in result.stdout
     assert '"worktree_runtime": null' in result.stdout
 

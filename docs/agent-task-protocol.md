@@ -512,6 +512,34 @@ check whether the environment can open a PR:
 python3 scripts/apl_pr_capability_check.py
 ```
 
+### GitHub authentication diagnosis for every agent
+
+This diagnostic order applies to every agent path, including research and
+executor tasks, proposals, task queues, closeout, release work, and maintainer
+review. It is not specific to the review agent.
+
+1. Run `python3 scripts/apl_pr_capability_check.py` or the agent doctor.
+2. Codex sandboxes are auto-detected through `CODEX_SANDBOX`. Claude and any
+   other runtime that knows its host credential store may be isolated must add
+   the vendor-neutral `--agent-sandbox` flag; do not guess undocumented vendor
+   environment variables.
+3. Treat `sandbox_credential_unverified` as an unknown credential-store state,
+   not as proof that a token expired or was revoked. Before any GitHub write,
+   rerun `gh auth status --hostname github.com` in the maintainer terminal or
+   through protocol-approved escalation.
+4. If that keychain-aware check succeeds, continue through the normal helper or
+   CLI path. If it also fails, explicitly ask the maintainer to run
+   `gh auth login --hostname github.com --git-protocol https --web`, then verify
+   the result before retrying a write.
+5. Only after surfacing the authorization request may an agent use the bounded
+   public REST path to continue read-only work. Public metadata does not
+   authorize PR creation, ready transitions, merges, releases, settings
+   changes, or other GitHub mutations.
+
+Neither diagnostic helper performs login/logout, stores credentials, prints
+token values, or weakens repository permissions. The `--agent-sandbox` flag is
+portable across macOS, Linux, and Windows and changes diagnosis only.
+
 This check is advisory. It must never be used as a pre-edit gate. Missing
 `gh`, missing GitHub auth, restricted network access, or a sandbox that cannot
 push should not block local task execution or cause the agent to ask the user
