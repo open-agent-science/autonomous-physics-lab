@@ -1,0 +1,30 @@
+id: MICROTASK-RUN-0035
+queue_id: particle-mass-relations
+microtask_id: PMR-011
+status: CLAIMED
+claimant:
+  contributor_id: gladunrv
+  agent_id: codex
+branch: agent/gladunrv/codex/microtask-PMR-011-lepton-geometric-progression
+pull_request: null
+result_note: null
+verdict: NOT_RUN
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Test the zero-parameter geometric-progression relation m_mu^2 = m_e*m_tau using the pinned charged-lepton pole masses."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Reject the relation if its ratio-to-unity or log-spacing mismatch exceeds the predeclared 1% tolerance."
+  limitations:
+    - "One hand-declared relation on one pinned triplet; no search, mechanism, or broad particle-mass inference."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/pmr-*.md
+      - docs/reviews/particle-ahs-common-scheme-baseline.md
+    summary: "Prior PMR-011 tested up-type quark Koide Q. No prior microtask run tests equal logarithmic spacing of the charged-lepton pole-mass triplet."
