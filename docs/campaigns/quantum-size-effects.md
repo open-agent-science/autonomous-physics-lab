@@ -32,8 +32,9 @@ excluded. The verdict is `UNCERTAINTY_BLOCKED`; no `qd-*.yaml` row or metric was
 admitted. `TASK-1064` then assessed a separate body-text route and returned
 `GO_TEXT_REPORTED_PEAK_ROUTE`: all four samples have source-locatable absorption
 and fluorescence statements, with pinned PDF/JATS hashes and a `0.005 eV`
-rounding floor. `TASK-1070` may curate those eight observations into separate
-absorption and emission files without scoring. The campaign remains
+rounding floor. `TASK-1070` curated those eight statements into separate
+`qd-0005` absorption and `qd-0006` emission files without scoring. The campaign
+remains
 **source/negative-memory gated**, not authorized for autonomous correction
 search or cross-material claims.
 
@@ -70,13 +71,14 @@ controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
 so the current posture is bounded inconclusive/control transfer memory. The
 effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. Preserve `TASK-1052` as failed-contract memory: do not weaken the y-axis
-gate or admit its excluded digitization rows retroactively. `TASK-1064` has
-already established a distinct `text_stated_summary` provenance class for eight
-sample-resolved observations. The next bounded step is row curation only:
-separate absorption/emission files, source hashes, printed precision, rounding
-floor, unknown non-spherical morphology, and no equivalent-sphere conversion.
-No benchmark metric, correction search, replay loop, or repeat transfer on the
-same ZnSe/InP surface is authorized.
+gate or admit its excluded digitization rows retroactively. `TASK-1064`
+established a distinct `text_stated_summary` provenance class and `TASK-1070`
+completed the bounded row curation with source hashes, printed precision,
+rounding floor, unknown non-spherical morphology, and no equivalent-sphere
+conversion. A future benchmark still requires a separate frozen task with an
+explicit split, controls, and uncertainty treatment. No benchmark metric,
+correction search, replay loop, or repeat transfer on the same ZnSe/InP surface
+is authorized here.
 
 ## Historical Source-Readiness Trail
 
