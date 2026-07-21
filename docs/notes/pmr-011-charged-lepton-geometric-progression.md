@@ -1,6 +1,6 @@
 # PMR-011 Charged-Lepton Geometric-Progression Attempt
 
-**Run:** `MICROTASK-RUN-0035`  
+**Run:** `MICROTASK-RUN-0035`
 **Verdict:** `FALSIFIED`
 
 ## Relation And Inputs
