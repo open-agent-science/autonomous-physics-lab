@@ -27,7 +27,7 @@ input_file_hashes:
     sha256: 7e8fe4a2359f53f7fd7c80cdba5f56dc024fa45f985879d3faecb8bc8398db08
 code_reference: physics_lab/workflows/stellar_ml_high_mass_transfer.py
 limitations:
-- Agent-validated by independent replay; not yet maintainer-reviewed.
+- Agent-validated by independent-human Gate B replay; not yet maintainer-reviewed.
 - Scope is one frozen RESULT-0022 mass-luminosity relation transferred to one disjoint
   high-mass DEBCat regime under controls; this is not a universal stellar mass-luminosity
   law, discovery, or stellar-structure conclusion.
@@ -67,20 +67,30 @@ agent_proposal_evaluation:
     every shuffle seed.
   followup_for_maintainer: 'Gate B independently replayed the RESULT-0024 command via
     the TASK-0917 physics-lab run workflow route and reproduced every published metric
-    with zero drift; a different contributor and agent tool performed the replay, so
-    the AGENT_VALIDATED bump is independent. Keep the trust qualifier explicit: same-source
+    with zero drift. Publisher romanhladun24-dot used Codex / GPT-5 and replayer
+    akutenyov used Codex Desktop / GPT-5, so this is independent-human, same-tool/model
+    validation. Keep the trust qualifier explicit: same-source
     DEBCat transfer under controls, not a universal law or CLAIM/KNOW promotion.'
   validation_record:
-    validation_independence: same_owner_different_account
+    validation_independence: independent
     validation_independence_note: >-
-      Publisher romanhladun24-dot and replayer gladunrv are two accounts of the same person (the maintainer); deterministic reproducibility on a second account/tool path, not an independent-human validation.
+      Publisher romanhladun24-dot and replayer akutenyov are different human
+      contributors; this is independent-human validation. Both publication and
+      replay used Codex/GPT-5, so the independence is human-level and same-tool.
     replayed_by:
-      contributor_id: gladunrv
-      github_username: gladunrv
-      agent_tool: Claude Code
-      model_version: Claude Opus 4.8
-    replayed_at_utc: '2026-07-02T00:00:00Z'
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex Desktop
+      model_version: GPT-5
+    replayed_at_utc: '2026-07-16T12:00:45+00:00'
     replay_command: physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml
+    replay_output_dir: C:/tmp/apl-task-1046-gateb-final
+    replay_environment:
+      operating_system: Windows 11 Pro
+      operating_system_version: 10.0.26200
+      operating_system_build: '26200'
+      operating_system_architecture: 64-bit
+      python_interpreter_version: Python 3.12.13
     gate_b_replay_reference:
       task_id: TASK-0863
       review_note: docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md
@@ -90,7 +100,7 @@ agent_proposal_evaluation:
     max_abs_delta: 0.0
     metric_count: 25
     drift_observed: none
-    independence_assessment: independent_publisher_and_replayer_differ_on_contributor_and_agent_tool
+    independence_assessment: independent_publisher_and_replayer_differ_on_human_contributor_same_agent_tool
     gate_b_route: physics_lab/workflows/stellar_ml_high_mass_transfer.py
     task_input_hash_lifecycle_caveat: The original task-input hash caveat was
       lifecycle packaging drift, and the standalone replay package now preserves
@@ -102,6 +112,25 @@ agent_proposal_evaluation:
       classification: accepted_lifecycle_drift_not_metric_drift
       repair_note: docs/reviews/stellar-result0024-gate-b-metadata-caveat-repair.md
       maintainer_authorization: docs/reviews/maintainer-decision-day-2026-07-02.md D3
+    helper_status: PASS
+    helper_note: >-
+      Canonical Gate B helper completed with zero metric drift. Same-agent-tool
+      is not a blocker because the task requires independent human identity;
+      cross-tool validation remains a future strengthening option.
+    replays:
+    - validation_independence: same_owner_different_account
+      replayed_by:
+        contributor_id: gladunrv
+        github_username: gladunrv
+        agent_tool: Claude Code
+        model_version: Claude Opus 4.8
+      replayed_at_utc: '2026-07-02T00:00:00Z'
+      replay_command: physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml
+      replay_output_dir: _gateb_replay
+      tolerance_used: 1.0e-09
+      max_abs_delta: 0.0
+      metric_count: 25
+      drift_observed: none
 verification:
   passed: true
   checks:
