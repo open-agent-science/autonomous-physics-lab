@@ -14,10 +14,12 @@
 | agent/tool | `Codex Desktop` |
 | model/version | `GPT-5` |
 | validation_independence | `independent` |
+| operating system | `Windows 11 Pro 10.0.26200, build 26200, 64-bit` |
+| Python interpreter | `Python 3.12.13` |
 
-Publisher `gladunrv` and replayer `akutenyov` are different human
-contributors. Both used Codex/GPT-5, so this is independent-human,
-same-tool validation.
+Publisher `gladunrv` used `Claude Code` / `Claude Opus 4.8`; replayer
+`akutenyov` used `Codex Desktop` / `GPT-5`. They are different human
+contributors, so this is independent-human, cross-tool/model validation.
 
 ## Replay
 
@@ -25,7 +27,7 @@ same-tool validation.
 python scripts/apl_validate_agent_published_result.py `
   results/EXP-0014/RUN-0001/result.yaml `
   --root . `
-  --output-dir C:\tmp\apl-task-1044-gateb-final `
+  --output-dir C:/tmp/apl-task-1044-gateb-final `
   --validator-contributor-id akutenyov `
   --validator-github-username akutenyov `
   --validator-agent-tool "Codex Desktop" `

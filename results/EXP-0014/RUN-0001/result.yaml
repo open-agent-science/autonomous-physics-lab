@@ -60,9 +60,9 @@ agent_proposal_evaluation:
   validation_record:
     validation_independence: independent
     validation_independence_note: >-
-      Publisher gladunrv and replayer akutenyov are different human contributors;
-      this is independent-human validation. Both publication and replay used
-      Codex/GPT-5, so the independence is human-level and same-tool.
+      Publisher gladunrv used Claude Code / Claude Opus 4.8 and replayer
+      akutenyov used Codex Desktop / GPT-5. They are different human contributors,
+      so this is independent-human, cross-tool/model validation.
     replayed_by:
       contributor_id: akutenyov
       github_username: akutenyov
@@ -70,7 +70,13 @@ agent_proposal_evaluation:
       model_version: GPT-5
     replayed_at_utc: '2026-07-16T12:00:47+00:00'
     replay_command: physics-lab run examples/materials_md0002_formation_energy_benchmark.yaml
-    replay_output_dir: C:\\tmp\\apl-task-1044-gateb-final
+    replay_output_dir: C:/tmp/apl-task-1044-gateb-final
+    replay_environment:
+      operating_system: Windows 11 Pro
+      operating_system_version: 10.0.26200
+      operating_system_build: '26200'
+      operating_system_architecture: 64-bit
+      python_interpreter_version: Python 3.12.13
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 42
