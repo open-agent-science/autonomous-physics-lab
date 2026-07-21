@@ -1,6 +1,6 @@
 # QSE-004 Pinned Quantum-Dot Source Policy Note
 
-**Run:** `MICROTASK-RUN-0038`  
+**Run:** `MICROTASK-RUN-0038`
 **Verdict:** `REVIEW_NEEDED`
 
 ## Scope
