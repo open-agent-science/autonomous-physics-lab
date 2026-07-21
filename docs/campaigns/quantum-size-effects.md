@@ -40,9 +40,9 @@ search or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** what new source evidence or maintainer-approved contract
-change, if any, would add information beyond the completed InP/ZnSe no-refit
-transfer failure?
+**Current question:** can either four-row Kim-2020 property axis support an
+honest predeclared small-surface benchmark, or should it stop as underpowered;
+and can an independent CdSe source add direct rows with compatible semantics?
 
 **Shareable result:** `TASK-0293` admitted six deterministic figure-derived
 Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
@@ -75,10 +75,12 @@ gate or admit its excluded digitization rows retroactively. `TASK-1064`
 established a distinct `text_stated_summary` provenance class and `TASK-1070`
 completed the bounded row curation with source hashes, printed precision,
 rounding floor, unknown non-spherical morphology, and no equivalent-sphere
-conversion. A future benchmark still requires a separate frozen task with an
-explicit split, controls, and uncertainty treatment. No benchmark metric,
-correction search, replay loop, or repeat transfer on the same ZnSe/InP surface
-is authorized here.
+conversion. A future benchmark still requires a separate frozen contract with
+an explicit split, controls, rounding treatment, and an honest
+`HOLD_UNDERPOWERED` stop if four observations per axis cannot support it. An
+independent direct-row CdSe source is the parallel breadth path. No benchmark
+metric, correction search, replay loop, or repeat transfer on the same ZnSe/InP
+surface is authorized here.
 
 ## Historical Source-Readiness Trail
 
@@ -350,8 +352,9 @@ Current evidence is source-scoped and sandbox-only:
   rows remain excluded.
 - `TASK-1064` independently located eight body-text optical statements and
   returned `GO_TEXT_REPORTED_PEAK_ROUTE` under a separate zero-row provenance
-  contract. `TASK-1070` is the only authorized curation follow-up and may not
-  fit or score the rows.
+  contract. `TASK-1070` then curated four absorption and four emission rows on
+  separate axes without fitting or scoring. Any benchmark needs a new frozen
+  adequacy/split/control contract.
 
 Historical context:
 

@@ -85,16 +85,20 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "TASK-1030 selected f_K/f_pi and returned GO_LATTICE_DEPENDENCY_AUDIT for a bounded source/dependency pilot. No primary-publication rows, central values, benchmark, result, or claim have been admitted."
-  recommended_parallel_agents: 1
-  coordination_notes: "Run only the bounded TASK-1055 primary-publication metadata and dependency pilot next. Do not extract central values, build a general loader, plan anomaly metrics, or activate a broad lattice campaign until that pilot resolves source and shared-ensemble semantics."
+  current_stage: "TASK-1055 created an eleven-publication f_K/f_pi source manifest and dependency graph, then returned HOLD_COVARIANCE_UNRESOLVED because all 49 pairwise dependency relations remain UNKNOWN. No central values, benchmark, result, or claim have been admitted."
+  recommended_parallel_agents: 3
+  coordination_notes: "TASK-1079 and TASK-1080 split the exact dependency evidence audit by Nf=2+1+1 and Nf=2+1 publication families; TASK-1081 freezes value-admissibility rules without extracting values. These write surfaces are independent. Do not infer independence from missing evidence, extract central values, build a general loader, or run anomaly metrics."
   next_validity_gate:
     type: source_readiness
-    blocker: "The f_K/f_pi route lacks a primary-publication metadata ledger and auditable shared-ensemble/evaluated-average dependency graph."
-    target_artifact: "TASK-1055"
+    blocker: "The pilot has a bounded source graph, but all 49 pairwise dependency edges are UNKNOWN and value-admissibility rules are not frozen."
+    target_artifact: "TASK-1079, TASK-1080, and TASK-1081"
   best_next_actions:
-    - task_id: TASK-1055
-      label: "Build a bounded f_K/f_pi source and dependency pilot without extracting values"
+    - task_id: TASK-1079
+      label: "Resolve only the Nf=2+1+1 dependency edges from primary evidence"
+    - task_id: TASK-1080
+      label: "Resolve only the Nf=2+1 dependency edges from primary evidence"
+    - task_id: TASK-1081
+      label: "Freeze source-locator, rights, convention, and uncertainty admissibility rules"
   required_gates:
     - "Official source identity, rights, retrieval, and checksum policy before real rows."
     - "Observable normalization, flavor, scheme, scale, and uncertainty semantics before comparison."
@@ -106,14 +110,17 @@ portfolio:
     - "docs/campaigns/fresh-physics-data-axes.md"
     - "docs/reviews/lattice_qcd/lattice-dependency-covariance-incubator.md"
     - "docs/reviews/lattice_qcd/lattice-dependency-graph-fabricated.yaml"
+    - "docs/reviews/lattice_qcd/fk-fpi-source-dependency-pilot.md"
+    - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
+    - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
   open_questions:
-    - "Can 8-12 f_K/f_pi primary publications define source-evidenced conservative dependency components that add machine-actionable value beyond FLAG?"
-    - "Can shared ensembles and evaluated averages be represented without false independence before any central values are admitted?"
+    - "Can primary-source evidence resolve enough of the 49 UNKNOWN edges to define conservative dependency components without false independence?"
+    - "Can all eleven publications satisfy one predeclared value-admissibility policy before any central values are admitted?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-15"
+    last_reviewed: "2026-07-21"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: planning_scaffold
-    source: "TASK-1030 lattice dependency incubator and Scientific Director 2026-07-15 cycle"
-    notes: "The f_K/f_pi route earned a bounded metadata/dependency pilot, not full campaign activation. Broad ingestion, loader construction, numeric comparison, anomaly fitting, and claims remain unauthorized."
+    source: "TASK-1055 f_K/f_pi source/dependency pilot and Scientific Director 2026-07-21 cycle"
+    notes: "The route now has a real bounded source graph, but unknown dependencies still block any numeric surface. Three disjoint evidence-policy tasks are warranted; broad ingestion, fitting, and claims remain unauthorized."

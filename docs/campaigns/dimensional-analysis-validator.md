@@ -9,10 +9,13 @@ is `CALIBRATION_ONLY_ROLE_LIMIT`, not a confirmatory holdout. No validator run,
 score, metric, or computed verdict was inspected during curation.
 
 That surface has now been scored once as `RESULT-0030` and passed all frozen
-calibration thresholds, but it remains same-owner calibration memory. The next
-trust paths are disjoint: `TASK-1062` independently replays the frozen result,
-while `TASK-1071` is reserved for a different human to author and freeze a
-fresh blind surface without scoring. Neither task changes `CLAIM-0005`.
+calibration thresholds. An independent-human replay reproduced every checked
+field with zero drift, so the result is `AGENT_VALIDATED`, but it remains
+same-owner calibration memory. The first external-freeze attempt stopped before
+curation because the external session had already seen result-performance
+material. A clean external retry or an independently authored third-party
+corpus is still required for a future generalization test. None of these paths
+changes `CLAIM-0005` automatically.
 
 ## Goal
 
@@ -43,7 +46,7 @@ challenge surface:
   ledger contains 64/74 exact categorical matches; eight `KNOWN_LIMIT_FAIL ->
   VALID` and two `SUSPICIOUS -> INVALID` equivalences account for the other ten
   legacy acceptances. `TASK-0948` supplied the genuinely independent Gate B
-  replay identity and reproduced all 17 tracked metrics with zero drift at
+  replay identity and reproduced all 43 compared numeric fields with zero drift at
   tolerance `1e-9`.
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
   stores the frozen canonical replay input.
@@ -53,15 +56,15 @@ challenge surface:
   `VALID`, `INVALID`, `SUSPICIOUS`, and `KNOWN_LIMIT_FAIL`.
 - Known-limit and semantic-suspicion cases remain explicit MVP limitations:
   dimensional consistency is not full physical correctness.
-- `EXP-0006/RUN-0008` produced AGENT_PUBLISHED `RESULT-0030` on the frozen
+- `EXP-0006/RUN-0008` produced AGENT_VALIDATED `RESULT-0030` on the frozen
   exact-v2 calibration surface: **80/80 exact agreement**, **100% VALID
   recall**, **100% INVALID recall**, and **0% INCONCLUSIVE**. Gate A passed;
-  Gate B has not yet been attempted.
+  independent Gate B replay reproduced all checked fields with zero drift.
 
 Current campaign state in one sentence:
 
 The validator has a frozen `LEGACY_UNTIERED` MVP result, AGENT_VALIDATED
-historical calibration memory, and AGENT_PUBLISHED `RESULT-0030` on the 80-item
+historical calibration memory, and AGENT_VALIDATED `RESULT-0030` on the 80-item
 exact-v2 surface. Because benchmark authorship is same-owner role-disjoint, the
 new result remains calibration-only and cannot promote `CLAIM-0005`.
 
@@ -76,10 +79,10 @@ Start here:
 
 ## Open Questions
 
-- Can an independent human Gate B replay reproduce all RESULT-0030 metrics and
-  verification fields exactly?
-- Can a different human author a fresh blind benchmark with enough source,
+- Can a clean external human author a fresh blind benchmark with enough source,
   label, and exposure independence for a later one-shot generalization test?
+- Does an independently authored third-party labelled corpus exist with
+  adequate provenance, scope, and reuse rights?
 - Which known-limit checks belong in the next benchmark version, and which
   should remain out of scope?
 - How should the validator communicate that natural-unit formulas are outside
@@ -103,13 +106,18 @@ Start here:
   `CALIBRATION_ONLY_ROLE_LIMIT` because curation was same-owner role-disjoint.
 - `TASK-1051` scored the 80 frozen items once and published `RESULT-0030` after
   all exact-agreement, class-recall, and inconclusive-rate gates passed.
-- `TASK-1062` is the independent-human replay gate, with no row, label,
-  threshold, engine, metric, or scope change.
+- `TASK-1062` completed the independent-human replay with zero drift and
+  upgraded `RESULT-0030` to `AGENT_VALIDATED` without changing its
+  calibration-only ceiling.
 - `TASK-1071` is a separate external benchmark-freeze gate. It forbids
   validator execution and requires a different controlling human; later
   one-shot scoring must be another task. The current session stopped with
   `EXTERNAL_EXPOSURE_BLOCKED` before curation; no candidate rows, labels, or
   score were created. See [blocker record](../reviews/dimensional/task1071-external-exposure-blocker.md).
+- The next honest routes are a clean external retry under strict no-exposure
+  controls and a bounded scout for independently authored labelled corpora;
+  neither route may inspect validator scores or import candidate labels into an
+  APL-authored benchmark before freeze.
 - The current evidence remains calibration-only. Neither replay nor benchmark
   curation automatically changes `CLAIM-0005`.
 - narrow microtasks from `tasks/microtasks/dimensional-analysis-validator.yaml`

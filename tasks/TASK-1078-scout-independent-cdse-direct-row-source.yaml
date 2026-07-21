@@ -1,0 +1,56 @@
+id: TASK-1078
+title: "Scout one independent CdSe direct-row source beyond Kim-2020"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether Quantum has an independent source-expansion route; closeout must verify source identity, rights, property semantics, and no-value/no-score discipline."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The Kim-2020 surface is only four sample groups per axis, so an independent source is the highest-leverage route to a real holdout or transfer question."
+  - "The existing ZnSe/InP transfer miss must not be rerun or rescued; a distinct CdSe publication/sample surface would add genuinely new evidence."
+  - "Source admissibility must be decided before row values or model performance are inspected."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/reviews/quantum/kim-2020-cdse-text-row-curation.md"
+  planning_context: >
+    Review a bounded candidate set and select at most one publication that can
+    supply a distinct CdSe size-plus-optical row surface under clear rights and
+    property semantics, without transcribing values in this task.
+
+requirements:
+  - "Review at most five candidate publications and select at most one using independent sample provenance, at least six sample-resolved size-plus-optical observations on one property axis, stable source bytes, rights, citation, uncertainty, and morphology semantics."
+  - "Prefer directly reported tabular or body-text values. Figure digitization is admissible only if both axes have numeric calibration and a future two-pass extraction can be predeclared."
+  - "Keep absorption, emission, and bandgap identities separate; reject sources that silently mix them or provide only model-derived sizes or calibration curves."
+  - "Record DOI/version, source artifact class, license, retrieval/checksum plan, candidate row count from metadata only, overlap with Kim-2020, and exact future extraction blocker."
+  - "Return exactly one verdict: SOURCE_ROUTE_READY_NO_VALUES, SOURCE_LIMITED, RIGHTS_BLOCKED, SEMANTICS_BLOCKED, or STOP_NO_INDEPENDENT_ROUTE."
+  - "Do not transcribe scientific values, commit publisher bytes, fit models, score rows, create a dataset/result, or reopen the failed ZnSe/InP transfer."
+  - "No-claim wording: locating a source route is not evidence for a CdSe size law, cross-source transfer, material recommendation, or device performance."
+
+accepted_outputs:
+  - "A bounded source-candidate adjudication under docs/source-candidates/quantum/ with one selected route or explicit stop, plus source identity, rights, semantics, and future extraction gate."
+  - "Optional metadata-only source-manifest entry without row values, and output routing with no Gate A/B, claim, or knowledge impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-free source scouting only; no dataset rows, metrics, RESULT, or prediction are created."
+  evidence:
+    - "data/quantum_dots/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_quantum_dot_dataset_schema.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

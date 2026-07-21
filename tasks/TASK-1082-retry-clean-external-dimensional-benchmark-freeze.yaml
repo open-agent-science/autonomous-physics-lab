@@ -1,0 +1,58 @@
+id: TASK-1082
+title: "Retry the external dimensional benchmark freeze with a clean curator"
+type: scientific_benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This task creates a prospective externally authored benchmark; closeout must verify controlling-human independence, zero prior result exposure, provenance, rights, overlap review, and no-score discipline."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "The first external-freeze session stopped before curation because its exposure boundary was violated; no candidate row or label was created."
+  - "A clean external benchmark remains the direct route from calibration reproducibility to an honest generalization test."
+  - "Reissuing the task is justified only for a contributor whose controlling human and session have not seen APL dimensional performance, answers, or outputs."
+
+input:
+  mode: planning_only
+  related_domain: physics_validation
+  related_objects:
+    - "docs/dimensional-validator-external-curator-interface.md"
+  planning_context: >
+    A genuinely external, unexposed curator freezes a fresh native-label
+    benchmark without inspecting APL dimensional implementation, historical
+    formulas, expected labels, outputs, metrics, result pages, or reviews.
+
+requirements:
+  - "Before any curation, record contributor id, GitHub username, controlling-human identity statement, agent/tool/model, session id, and an explicit attestation of no prior APL dimensional-result, challenge-answer, validator-output, or performance exposure."
+  - "Stop with EXTERNAL_IDENTITY_BLOCKED or EXTERNAL_EXPOSURE_BLOCKED if the controlling human is the owner of gladunrv, identity is unverifiable, or the human/session has previously inspected any answer-bearing or performance-bearing APL dimensional surface. A fresh tool session does not erase human exposure."
+  - "During curation read only this task and docs/dimensional-validator-external-curator-interface.md. Do not inspect any other APL dimensional file, test, code, result, campaign page, historical formula list, challenge answer, review, or output."
+  - "Curate 80-120 unique formulas across at least five physics domains with 40-60% VALID and 40-60% INVALID; keep any INCONCLUSIVE parser-boundary stratum at or below 5%."
+  - "For every item record stable id, formula, complete SI dimension declarations, native verdict, domain, concise rationale, provenance, and reuse classification without consulting APL output."
+  - "Freeze ordered items, source ledger, exclusions, thresholds, no-score declaration, identity/exposure record, and SHA-256 digest before any overlap review."
+  - "A different reviewer may compare formula structure against historical APL surfaces after freeze, but must not return historical labels or validator outputs to the curator. Stop if near-duplicate overlap exceeds 20% or role separation fails."
+  - "Return exactly one verdict: READY_FOR_EXTERNAL_BLIND_SCORING, EXTERNAL_IDENTITY_BLOCKED, EXTERNAL_EXPOSURE_BLOCKED, LABEL_AMBIGUITY_BLOCKED, PROVENANCE_BLOCKED, RIGHTS_BLOCKED, or OVERLAP_BLOCKED."
+  - "Do not run the validator, compute metrics, change engine code, create a RESULT, or edit CLAIM-0005."
+  - "No-claim wording: this task freezes an external prospective benchmark; it does not establish validator accuracy, generality, semantic completeness, or novelty."
+
+accepted_outputs:
+  - "A frozen external challenge-set package and manifest with 80-120 items, complete provenance, thresholds, no-score declaration, identity/exposure record, and digest, or one explicit blocker record created before curation."
+  - "A separate role-disjoint overlap-review record and metadata-only tests that never import or execute dimensional inference."
+  - "Output routing: benchmark readiness only; later one-shot scoring is a separate task and CLAIM-0005 remains untouched."
+
+result_artifact_policy:
+  required: false
+  reason: "Prospective external benchmark curation only; validator execution and result publication are forbidden."
+  evidence:
+    - "docs/dimensional-validator-external-curator-interface.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_dimensional_external_blind_freeze.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

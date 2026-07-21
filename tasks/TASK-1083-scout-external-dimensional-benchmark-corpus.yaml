@@ -1,0 +1,55 @@
+id: TASK-1083
+title: "Scout an external dimensional-consistency benchmark corpus route"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task may select a third-party benchmark source route; closeout must verify independent labels, rights, scope fit, and that no validator scoring occurred."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Human-authored blind curation is valuable but scarce and exposure-sensitive. A pre-existing independently labelled public corpus could provide a second generalization route."
+  - "The route is useful only if labels and formula provenance predate APL evaluation and rights permit a bounded benchmark package or locator-based manifest."
+  - "A negative source verdict prevents repeated broad web searches for unsuitable formula collections."
+
+input:
+  mode: planning_only
+  related_domain: physics_validation
+  related_objects:
+    - "docs/dimensional-validator-external-curator-interface.md"
+    - "docs/published-source-dataset-standard.md"
+  planning_context: >
+    Review a small source slate for independently authored dimensional-validity
+    or unit-consistency labels. This is source admissibility work, not benchmark
+    curation or validator execution.
+
+requirements:
+  - "Review at most five candidate corpora from primary project, publisher, educational, or benchmark sources and select at most one."
+  - "Require labels or answer keys authored independently of APL, at least 80 usable formula items or a defensible path to that count, at least five physics domains, stable identity/version, and explicit provenance."
+  - "Record license/reuse terms, citation, retrieval/checksum plan, formula/variable-dimension schema, label vocabulary, ambiguity rate, duplicate risk, and SI versus natural-unit scope."
+  - "Distinguish redistributable corpora from locator-only manifests. Do not copy source prose, figures, publisher files, or a full corpus before rights review."
+  - "Return exactly one verdict: EXTERNAL_CORPUS_ROUTE_READY, LOCATOR_ONLY_ROUTE_READY, RIGHTS_BLOCKED, LABEL_SEMANTICS_BLOCKED, COVERAGE_BLOCKED, or STOP_NO_ADMISSIBLE_CORPUS."
+  - "Do not inspect APL item-level predictions, run the validator, score candidate formulas, rewrite challenge sets, or create RESULT/CLAIM/KNOW artifacts."
+  - "No-claim wording: an admissible corpus route is source readiness only and does not validate the APL dimensional engine."
+
+accepted_outputs:
+  - "A bounded source-candidate adjudication under docs/source-candidates/ with candidate table, selected route or stop, rights, schema, coverage, duplicate/ambiguity risks, and one verdict."
+  - "Optional metadata-only source-manifest scaffold with no copied formulas or labels, plus output routing with no Gate A/B, claim, or knowledge impact."
+
+result_artifact_policy:
+  required: false
+  reason: "External source scouting only; no benchmark rows, metrics, RESULT, or prediction are produced."
+  evidence:
+    - "docs/dimensional-validator-external-curator-interface.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -77,7 +77,9 @@ for this first audit.
 
 ## Current Decision
 
-The current campaign state is monitor-only:
+The exact-80 contract remains stopped. One bounded stop/go adjudication may now
+compare only predeclared counts-based alternatives;
+`STOP_NO_FEASIBLE_CONTRACT` is a valid and useful outcome.
 
 1. **Exact 80-row expansion is stopped** - the checksum-matched count preflight
    found acids at 6/10 and ketones at 8/10 admissible non-conflict identities.
@@ -89,6 +91,9 @@ The current campaign state is monitor-only:
 3. **No further replay loop for `RESULT-0028`** - it is already
    `AGENT_VALIDATED`; future work should use it as failed-family memory while
    preserving the bounded aggregate context.
+4. **No metric before a new contract** - any feasible alternative must be
+   selected from counts and scientific balance alone, without inspecting target
+   values or being tuned to rescue the old 80-row goal.
 
 ## Admissible Source Classes
 
@@ -147,6 +152,8 @@ Not allowed:
 - Any future larger fixture must start from a scientifically independent source
   or a new predeclared contract with a reason beyond reaching a desired row
   total.
+- The immediate next artifact is a counts-only GO/STOP contract decision, not
+  a new fixture, benchmark rerun, or revised result.
 
 ## Why It Matters
 

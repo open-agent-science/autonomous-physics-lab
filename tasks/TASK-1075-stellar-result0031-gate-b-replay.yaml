@@ -1,0 +1,58 @@
+id: TASK-1075
+title: "Replay Stellar CHARA RESULT-0031 through Gate B"
+type: scientific_replay_validation
+status: READY
+closeout: review
+closeout_review_reason: "This task may upgrade a canonical result review tier; closeout must verify exact metric preservation, replay identity, and the unchanged INCONCLUSIVE interpretation."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0031 is the newest AGENT_PUBLISHED cross-source Stellar transfer result and is the only canonical result still waiting at Gate B."
+  - "Exact replay is higher value than another Stellar fit because the frozen relation won narrowly but missed the predeclared survival margin."
+  - "A replay pass strengthens reproducibility without turning a sub-threshold outcome into positive transfer evidence."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "results/EXP-0023/RUN-0001/result.yaml"
+    - "results/EXP-0023/RUN-0001/gate_a_report.md"
+    - "docs/reviews/stellar/chara-fixed-relation-transfer-task1050.md"
+    - "examples/stellar_ml_chara_fixed_relation_transfer.yaml"
+  planning_context: >
+    Re-run the frozen RESULT-0031 workflow in an isolated output directory and
+    compare the complete deterministic metric surface without changing the
+    CHARA rows, fixed relation, controls, grouping, threshold, or verdict.
+
+requirements:
+  - "Record contributor id, GitHub username, agent/tool/model, operating system, Python version, replay command, isolated output directory, tolerance, compared numeric-field count, and maximum absolute drift."
+  - "Use the committed Gate-B-safe command and exact input hashes. Do not edit the twelve CHARA rows, six-system grouping, RESULT-0022 coefficient, train-only null, controls, 0.04 dex threshold, best_model_id, or INCONCLUSIVE verdict."
+  - "Compare all deterministic metrics and verification fields at tolerance 1e-9. Record any lifecycle-only task-copy drift separately from scientific input drift."
+  - "On PASS, append only schema-permitted replay metadata and upgrade review_tier to AGENT_VALIDATED; preserve publication history and every scientific value."
+  - "On command failure or metric drift, write a blocker note and leave the canonical result unchanged."
+  - "Return exactly one verdict: GATE_B_PASS, GATE_B_FAIL_METRIC_DRIFT, or REPLAY_ENVIRONMENT_BLOCKED."
+  - "Do not refit, relax the survival margin, add CHARA rows, promote a claim, or describe the narrow positive margin as validation."
+  - "No-claim wording: this replay checks deterministic reproduction of one six-system CHARA transfer result; it is not a population result or universal stellar mass-luminosity law."
+
+accepted_outputs:
+  - "A replay note under docs/reviews/stellar/ with identity, environment, input hashes, metric comparison, limitations, and one bounded verdict."
+  - "A minimal RESULT-0031 review-metadata update only on PASS, plus an output-routing summary covering Gate B, review tier, claim/knowledge impact, and remaining scientific scope."
+
+result_artifact_policy:
+  required: false
+  reason: "Gate B validation of an existing result; no new scientific result is produced."
+  evidence:
+    - "results/EXP-0023/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_stellar_ml_chara_transfer.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

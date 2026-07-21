@@ -1,0 +1,58 @@
+id: TASK-1081
+title: "Freeze f_K/f_pi value and uncertainty source admissibility"
+type: scientific_benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This task controls the first possible numeric Lattice-QCD intake; closeout must verify source rights, observable semantics, and that no values were copied or compared."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Dependency resolution alone cannot authorize numeric ingestion; every primary result also needs an exact source locator, convention match, uncertainty interpretation, and reuse boundary."
+  - "This policy can be prepared in parallel with edge resolution because it does not decide independence or construct folds."
+  - "A no-value admissibility gate prevents later agents from silently copying FLAG tables or incompatible publication variants."
+
+input:
+  mode: planning_only
+  related_domain: lattice_qcd
+  related_objects:
+    - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
+    - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
+    - "docs/reviews/lattice_qcd/fk-fpi-source-dependency-pilot.md"
+  planning_context: >
+    For the eleven frozen publications, identify where a future executor may
+    obtain the primary f_K/f_pi central estimate and uncertainty components,
+    while recording conventions and rights without transcribing any value.
+
+requirements:
+  - "For all eleven publications, pin the exact primary-paper equation, table, supplement, or official ancillary locator that contains the publication's preferred f_K/f_pi estimate."
+  - "Record flavor content, charged versus isosymmetric convention, QED/isospin treatment, normalization route, version priority, uncertainty-component names, covariance availability class, rights status, and citation requirement."
+  - "Define an admissible future row schema and variant-selection rule. Do not treat a FLAG average as an independent row or silently substitute an updated value from another publication version."
+  - "Classify each source as VALUE_SOURCE_ADMISSIBLE, VALUE_SOURCE_AMBIGUOUS, RIGHTS_BLOCKED, or SEMANTICS_INCOMPATIBLE without copying central values or uncertainty magnitudes."
+  - "Freeze stop conditions for missing total-uncertainty composition, asymmetric intervals, shared systematic components, and incompatible isospin/QED conventions."
+  - "Return exactly one campaign-level verdict: VALUE_POLICY_READY_NO_VALUES, PARTIAL_SOURCE_HOLD, RIGHTS_BLOCKED, SEMANTICS_BLOCKED, or STOP_DUPLICATES_FLAG."
+  - "Do not extract numeric rows, reconstruct covariance, compute averages/tensions, build a loader, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No-claim wording: source admissibility does not show agreement, tension, precision, or a Lattice-QCD anomaly."
+
+accepted_outputs:
+  - "A value/uncertainty admissibility ledger under data/lattice_qcd/ containing locators and policy metadata only, with no central values or uncertainty magnitudes."
+  - "A docs/reviews/lattice_qcd/ policy note with per-publication status, future row schema, variant rules, stop conditions, limitations, and one verdict."
+  - "Metadata-only tests and output routing: source/value policy only; campaign numeric activation remains maintainer-gated."
+
+result_artifact_policy:
+  required: false
+  reason: "No-value source and policy freeze only; no scientific RESULT or dataset rows are created."
+  evidence:
+    - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_lattice_fk_fpi_source_dependency_pilot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

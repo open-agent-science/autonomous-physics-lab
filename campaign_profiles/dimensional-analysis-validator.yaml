@@ -84,18 +84,18 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. RESULT-0030 is AGENT_PUBLISHED after the frozen 80-item label_blind_exact_v2 surface scored 80/80 exact agreement, 100% VALID and INVALID recall, and 0% INCONCLUSIVE; same-owner role separation limits it to calibration rather than confirmatory CLAIM-0005 evidence."
+  current_stage: "RESULT-0007 and AGENT_VALIDATED RESULT-0020 are historical calibration/regression memory. RESULT-0030 is now AGENT_VALIDATED after an independent-human replay reproduced all 43 compared numeric fields with zero drift; its 80/80 exact agreement remains calibration-only because the benchmark labels and implementation share APL ownership. TASK-1071 stopped before any rows or labels were created because the external session had already seen result-performance material."
   recommended_parallel_agents: 2
-  coordination_notes: "TASK-1062 may independently replay RESULT-0030 while TASK-1071 is reserved for a genuinely external human-controlled curator to freeze a new no-score benchmark. These surfaces are disjoint. Do not use the same-owner v2 result to reopen CLAIM-0005 Gate C."
+  coordination_notes: "TASK-1082 may retry the external freeze only with a clean controlling human who has not seen validator performance and receives an answer-free curation interface. TASK-1083 may independently scout third-party labelled corpora without copying formulas or scoring. Do not use RESULT-0030 as confirmatory CLAIM-0005 evidence or let APL inspect candidate labels before freeze."
   next_validity_gate:
-    type: ratification
-    blocker: "RESULT-0030 still needs independent Gate B replay, and confirmatory generalization remains blocked until a genuinely external human authors a fresh blind benchmark without validator exposure."
-    target_artifact: "TASK-1062 and TASK-1071"
+    type: source_readiness
+    blocker: "A genuinely external, label-independent benchmark surface does not yet exist; the first attempt correctly stopped on prior result exposure."
+    target_artifact: "TASK-1082 and TASK-1083"
   best_next_actions:
-    - task_id: TASK-1062
-      label: "Replay RESULT-0030 under a genuinely independent human identity while preserving the calibration-only ceiling"
-    - task_id: TASK-1071
-      label: "Freeze a genuinely external blind benchmark without scoring it"
+    - task_id: TASK-1082
+      label: "Retry the external freeze with a clean controlling human and answer-free interface"
+    - task_id: TASK-1083
+      label: "Scout independently authored labelled corpora without importing formulas or scores"
   required_gates:
     - "Do not change frozen RESULT-0007 replay scope."
     - "Separate live curation from canonical MVP metrics."
@@ -111,14 +111,16 @@ portfolio:
     - "tasks/TASK-1039-dimensional-validator-v2-role-disjoint-benchmark-freeze.yaml"
     - "knowledge/challenge_sets/dimensional_analysis_challenge_set_v2.yaml"
     - "results/EXP-0006/RUN-0008/result.yaml"
+    - "docs/reviews/dimensional/result0030-independent-human-replay-20260719.md"
+    - "docs/reviews/dimensional/task1071-external-exposure-blocker.md"
   open_questions:
-    - "Can an independent human replay reproduce RESULT-0030 exactly while preserving its calibration-only interpretation?"
-    - "Can a different human curate a fresh blind surface that is independent enough for a later one-shot generalization test?"
+    - "Can a clean external human freeze a fresh blind surface without prior validator-performance exposure?"
+    - "Does an independently authored third-party labelled corpus exist with sufficient scope, provenance, and reuse rights?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-17"
+    last_reviewed: "2026-07-21"
     review_interval: semiannual_quality_floor
     next_review_due: "2026-12-01"
     review_reason: quality_floor_hygiene
-    source: "RESULT-0030, TASK-1062, and Scientific Director 2026-07-17 cycle"
-    notes: "The 80-item exact-v2 calibration passed every frozen threshold and needs independent Gate B replay. A separate externally authored no-score surface is the honest route to a future generalization test."
+    source: "TASK-1062 RESULT-0030 replay, TASK-1071 exposure blocker, and Scientific Director 2026-07-21 cycle"
+    notes: "RESULT-0030 is reproducible but remains calibration-only. The next honest route is a clean externally controlled freeze or an independently authored labelled corpus; prior exposure is a stop condition, not a reason to weaken independence."
