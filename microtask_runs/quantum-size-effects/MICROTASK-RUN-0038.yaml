@@ -1,15 +1,15 @@
 id: MICROTASK-RUN-0038
 queue_id: quantum-size-effects
 microtask_id: QSE-004
-status: CLAIMED
+status: REVIEW_READY
 claimant:
   contributor_id: gladunrv
   agent_id: codex
 branch: agent/gladunrv/codex/microtask-QSE-004-pinned-source-policy
-pull_request: null
-result_note: null
-verdict: NOT_RUN
-review_state: UNREVIEWED
+pull_request: "https://github.com/open-agent-science/autonomous-physics-lab/pull/1626"
+result_note: docs/notes/qse-004-pinned-quantum-dot-source-policy.md
+verdict: REVIEW_NEEDED
+review_state: REVIEW_READY
 metadata:
   inputs:
     - tasks/microtasks/quantum-size-effects.yaml
@@ -19,8 +19,12 @@ metadata:
   code_references:
     - docs/scientific-micro-task-protocol.md
   metrics:
-    - NOT_RUN
-  failure_mode: "The note fails if it permits silent ingestion, live-fetch substitution, or deferred provenance reconstruction."
+    - "required_artifact_metadata_fields: 13"
+    - "mandatory_manifest_registration: yes"
+    - "mandatory_property_and_size_axis_semantics: yes"
+    - "mandatory_license_and_checksum_posture: yes"
+    - "silent_unpinned_ingestion_allowed: no"
+  failure_mode: "A source remains ineligible for benchmark rows if identity, artifact version, checksum posture, rights, evidence class, property semantics, or row lineage is missing or reconstructed after ingestion."
   limitations:
     - "Policy note only; no source approval, row curation, benchmark execution, or result promotion."
   novelty_check:
@@ -28,4 +32,4 @@ metadata:
       - microtask_runs/quantum-size-effects/
       - docs/notes/
       - docs/quantum-direct-source-artifact-intake.md
-    summary: "No prior QSE-004 run exists. Existing intake documentation is comprehensive; this microtask will add a concise pre-benchmark checklist without changing canonical policy."
+    summary: "No prior QSE-004 run exists. Existing intake documentation is comprehensive; this run adds a concise pre-benchmark checklist without changing canonical policy or approving a source."
