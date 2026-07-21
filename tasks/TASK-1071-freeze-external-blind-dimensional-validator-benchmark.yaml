@@ -1,7 +1,7 @@
 id: TASK-1071
 title: "Freeze a genuinely external blind dimensional-validator benchmark"
 type: benchmark_planning
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task creates a prospective externally authored benchmark surface; closeout must verify human independence, no validator exposure, provenance, native-label semantics, overlap limits, rights, and no-score discipline."
 difficulty: high
