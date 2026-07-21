@@ -1,0 +1,73 @@
+id: TASK-1074
+title: "Audit the v0.3 Research Factory capability exit and preserve the release boundary"
+type: architecture_audit
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This audit records a roadmap milestone decision; closeout must preserve the distinction between capability exit and a maintainer-approved 0.3.0 release."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The roadmap defines v0.3 by evidence-facing Research Factory criteria rather than by implementation presence alone."
+  - "A traceable evidence matrix prevents completed factory work from remaining indefinitely labelled Planned while also preventing an audit from silently becoming a version bump or release decision."
+  - "The audit should keep public wording benchmark- and negative-evidence-honest and leave tags, DOI metadata, and package release state maintainer-gated."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_research_factory
+  related_objects:
+    - "docs/roadmap.md"
+    - "docs/strategy.md"
+    - "docs/public-release-gates.md"
+    - "docs/research-factory-protocol.md"
+    - "physics_lab/schemas/factory_summary.schema.json"
+    - "physics_lab/factories/core.py"
+    - "physics_lab/factories/nuclear.py"
+    - "physics_lab/factories/materials.py"
+    - "agent_runs/AGENT-RUN-0052/factory_summary.yaml"
+    - "data/materials/md-0001-materials-project-formation-energy.yaml"
+  planning_context: >
+    Re-evaluate every committed v0.3 Research Factory exit criterion at one
+    exact main-branch baseline, rerun both executable adapters and their
+    focused validation, and record a capability GO or NOT_YET decision. Keep
+    the package at 0.2.0 and leave release metadata, tags, and DOI actions to a
+    separate maintainer-approved release decision.
+
+requirements:
+  - "Map every roadmap exit criterion to committed protocol, schema, code, dataset, sprint, and release-gate evidence."
+  - "Rerun the Nuclear sprint and Materials smoke adapter through scripts/run_research_factory.py and record bounded counts and route verdicts."
+  - "Verify the factory schema/core/adapter tests and strict repository validation at the audited baseline."
+  - "Record exactly one decision: V0.3_CAPABILITY_EXIT_GO or V0.3_CAPABILITY_EXIT_NOT_YET, including any blocking criterion."
+  - "Synchronize roadmap and strategy wording with the decision without changing scientific metrics or artifact review tiers."
+  - "Do not change pyproject.toml, CITATION.cff, .zenodo.json, tags, releases, DOI records, or package version metadata."
+  - "Do not create or modify RESULT, PRED, CLAIM, KNOW, dataset rows, factory metrics, or generated task navigation."
+  - "Treat the legacy Materials smoke-script convergence noted by TASK-1060 as a non-blocking follow-up unless the shared adapter fails re-execution."
+
+accepted_outputs:
+  - "docs/reviews/workflow/v0.3-research-factory-exit-audit-2026-07-21.md with the evidence matrix, verification log, decision, limitations, and release boundary."
+  - "docs/roadmap.md and docs/strategy.md wording synchronized to capability-exit status while package version remains 0.2.0."
+  - "Output-routing summary confirming no scientific artifact, claim, knowledge, prediction, or release mutation."
+
+result_artifact_policy:
+  required: false
+  reason: "Architecture and roadmap decision audit; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/reviews/workflow/v0.3-research-factory-exit-audit-2026-07-21.md"
+    - "docs/roadmap.md"
+    - "docs/strategy.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_factory_summary_schema.py tests/test_research_factory_core.py tests/test_nuclear_residual_factory.py tests/test_materials_factory_adapter.py tests/test_docs_links.py"
+    - "python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_sprint.yaml --output-dir <temporary-output-dir>"
+    - "python3 scripts/run_research_factory.py --config examples/factories/materials_md0001_formation_energy_smoke.yaml --output-dir <temporary-output-dir>"
+    - "python3 scripts/apl_check_mission_drift.py"
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

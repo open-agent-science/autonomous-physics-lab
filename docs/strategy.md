@@ -2,17 +2,20 @@
 
 ## Current Phase
 
-`v0.2-public-alpha live — multi-campaign agent research network hardening`
+`v0.2-public-alpha live — v0.3 capability exit met; release decision pending`
 
 The repository is still gated by maintainer review and release discipline, but
 the strategic center has moved from a single flagship/private-alpha dry run to a
 multi-campaign network where many agents can safely work in parallel.
 
-The next capability milestone after `v0.2` is **`v0.3` — the Research Factory
-Layer**: a reusable bounded workflow that turns one-lane audits into
-high-throughput, controls-first candidate generation routed into negative and
-shortlist memory (no automatic claims). Exit criteria and sequencing are in
-[roadmap.md](./roadmap.md) (`v0.3 — Research Factory Layer`).
+The **`v0.3` Research Factory Layer** capability exit is now met: a reusable
+bounded workflow turns one-lane audits into controls-first candidate generation
+routed into negative and shortlist memory with no automatic claims. The
+evidence matrix and `V0.3_CAPABILITY_EXIT_GO` decision are in the
+[exit audit](./reviews/workflow/v0.3-research-factory-exit-audit-2026-07-21.md).
+Package version `0.3.0`, release metadata, tags, and announcement remain a
+separate maintainer decision under the sequencing and release gates in
+[roadmap.md](./roadmap.md).
 
 ## Mission
 
