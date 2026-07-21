@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-1071` - Freeze a genuinely external blind dimensional-validator benchmark (`benchmark_planning`, priority `high`, difficulty `high`, domain `physics_validation`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-1071` - Freeze a genuinely external blind dimensional-validator benchmark (`benchmark_planning`, priority `high`, difficulty `high`, domain `physics_validation`)

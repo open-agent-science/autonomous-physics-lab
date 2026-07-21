@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-1073` - Make task-claim discovery label-independent through the shared GitHub read path (`tooling_fix`, priority `high`, difficulty `medium`, domain `agent_coordination`)
