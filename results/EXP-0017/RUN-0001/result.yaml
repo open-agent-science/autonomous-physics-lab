@@ -67,8 +67,9 @@ agent_proposal_evaluation:
     every shuffle seed.
   followup_for_maintainer: 'Gate B independently replayed the RESULT-0024 command via
     the TASK-0917 physics-lab run workflow route and reproduced every published metric
-    with zero drift; a different contributor and agent tool performed the replay, so
-    the AGENT_VALIDATED bump is independent. Keep the trust qualifier explicit: same-source
+    with zero drift. Publisher romanhladun24-dot used Codex / GPT-5 and replayer
+    akutenyov used Codex Desktop / GPT-5, so this is independent-human, same-tool/model
+    validation. Keep the trust qualifier explicit: same-source
     DEBCat transfer under controls, not a universal law or CLAIM/KNOW promotion.'
   validation_record:
     validation_independence: independent
@@ -83,7 +84,13 @@ agent_proposal_evaluation:
       model_version: GPT-5
     replayed_at_utc: '2026-07-16T12:00:45+00:00'
     replay_command: physics-lab run examples/stellar_ml_high_mass_transfer_benchmark.yaml
-    replay_output_dir: C:\\tmp\\apl-task-1046-gateb-final
+    replay_output_dir: C:/tmp/apl-task-1046-gateb-final
+    replay_environment:
+      operating_system: Windows 11 Pro
+      operating_system_version: 10.0.26200
+      operating_system_build: '26200'
+      operating_system_architecture: 64-bit
+      python_interpreter_version: Python 3.12.13
     gate_b_replay_reference:
       task_id: TASK-0863
       review_note: docs/reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md
