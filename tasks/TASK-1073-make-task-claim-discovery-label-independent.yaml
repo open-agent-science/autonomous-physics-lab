@@ -1,7 +1,7 @@
 id: TASK-1073
 title: "Make task-claim discovery label-independent through the shared GitHub read path"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This changes cross-agent occupancy semantics; closeout must verify that unlabeled claims remain visible without weakening bounded reads or conservative fallback behavior."
 difficulty: medium

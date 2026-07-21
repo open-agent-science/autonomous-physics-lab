@@ -1,7 +1,7 @@
 id: TASK-1044
 title: "Replay Materials RESULT-0021 with an independent human contributor"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task strengthens the validation-independence evidence of an externally cited canonical result and must preserve every metric, verdict, and scope limitation."
 difficulty: medium

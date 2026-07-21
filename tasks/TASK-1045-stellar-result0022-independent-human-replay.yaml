@@ -1,7 +1,7 @@
 id: TASK-1045
 title: "Replay Stellar RESULT-0022 with an independent human contributor"
 type: scientific_replay_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task strengthens the trust tier of the controlled DEBCat baseline and must preserve the fitted relation, controls, metrics, verdict, and range limits."
 difficulty: medium

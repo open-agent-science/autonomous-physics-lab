@@ -1724,10 +1724,10 @@ missions:
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
     rank: 10
-    status: calibration_v2_replay_and_external_freeze
+    status: calibration_v2_gateb_pass_external_freeze_blocked
     scientific_value: medium
     risk: low
-    recommendation: "Use as a quality-floor calibration lane. RESULT-0030 is AGENT_PUBLISHED after 80/80 exact agreement on the same-owner v2 surface. TASK-1062 should independently replay it; in parallel, TASK-1071 is reserved for a different human to freeze a genuinely external blind surface without scoring. Neither task changes CLAIM-0005."
+    recommendation: "Use as a quality-floor calibration lane. RESULT-0030 is AGENT_VALIDATED after an exact independent-human Gate B replay, but the same-owner v2 surface remains calibration-only. The TASK-1071 external-freeze attempt stopped with EXTERNAL_EXPOSURE_BLOCKED before curation; any retry requires a fresh independently controlled human session and a new maintainer-authorized task. CLAIM-0005 remains unchanged."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
@@ -1735,6 +1735,8 @@ missions:
       - "RESULT-0020 is AGENT_VALIDATED with validation_independence: independent"
       - "TASK-1039 froze 80 exact-v2 items with CALIBRATION_ONLY_ROLE_LIMIT and no validator run"
       - "TASK-1051 scored the surface once and published RESULT-0030 after every frozen threshold passed"
+      - "TASK-1062 reproduced 43 compared numeric fields with zero drift and upgraded RESULT-0030 to AGENT_VALIDATED without changing its calibration-only ceiling"
+      - "TASK-1071 recorded EXTERNAL_EXPOSURE_BLOCKED before curation; no external benchmark, labels, metrics, or validator output were created"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
@@ -1794,23 +1796,23 @@ missions:
         label: "Replay RESULT-0030 under a genuinely independent human identity"
         task_id: TASK-1062
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "exact deterministic Gate B replay or explicit independence/metric-drift blocker"
+          - "exact deterministic Gate B replay passed with zero drift across 43 compared numeric fields"
           - "calibration-only ceiling preserved; no CLAIM-0005 promotion"
       - id: dimensional-external-blind-benchmark-freeze
         label: "Freeze a genuinely external blind dimensional benchmark without scoring"
         task_id: TASK-1071
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "80-120 externally authored native-labelled formulas with provenance, digest, no-score declaration, and frozen thresholds"
+          - "EXTERNAL_EXPOSURE_BLOCKED recorded before curation; no benchmark package or labels created"
           - "no validator execution, metric, RESULT, CLAIM-0005, or knowledge mutation"
 
 support_actions:
