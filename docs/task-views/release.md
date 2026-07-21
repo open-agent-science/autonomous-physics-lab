@@ -14,5 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-1065` - Replicate MD-0002 RESULT-0021 externally from the public release surface (`scientific_external_replication`, priority `high`, difficulty `high`, domain `materials_science`)
-- `TASK-1074` - Audit the v0.3 Research Factory capability exit and preserve the release boundary (`architecture_audit`, priority `high`, difficulty `medium`, domain `cross_campaign_research_factory`)
+None.
