@@ -221,6 +221,12 @@ agent_proposal_evaluation:
     replayed_at_utc: '2026-07-19T10:41:04+00:00'
     replay_command: python -m physics_lab.cli run examples/dimensional_analysis_v2_calibration.yaml --output-dir results/EXP-0006/RUN-0008
     replay_output_dir: .gate-b-replay-task1062
+    replay_environment:
+      operating_system: Windows 11 Pro
+      operating_system_version: 10.0.26200
+      operating_system_build: '26200'
+      operating_system_architecture: 64-bit
+      python_interpreter_version: Python 3.12.13
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 43
