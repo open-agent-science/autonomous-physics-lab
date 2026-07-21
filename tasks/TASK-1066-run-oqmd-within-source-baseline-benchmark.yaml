@@ -1,7 +1,7 @@
 id: TASK-1066
 title: "Run the frozen within-OQMD baseline benchmark after split and contract gates"
 type: scientific_result_publication
-status: BLOCKED
+status: READY
 closeout: review
 closeout_review_reason: "This task will create the first OQMD metric/result surface; closeout must verify prerequisite hashes, no-peek split integrity, fixed controls, target semantics, and conservative public scope."
 difficulty: high

@@ -74,7 +74,7 @@ missions:
     status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. The OQMD route now has a bounded 172-row source, a leakage-free 120/26/26 grouped split, a frozen value-blind control contract, and a passing independent source-replay candidate in maintainer review. Keep TASK-1066 blocked until TASK-1063 is merged and closed out on main."
+    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. The OQMD route now has a bounded 172-row source, a leakage-free 120/26/26 grouped split, a frozen value-blind control contract, and a closed independent source replay with INDEPENDENT_SOURCE_REPLAY_PASS. TASK-1066 is ready for one frozen within-source benchmark with no rescue fitting or cross-database pooling."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
@@ -203,7 +203,7 @@ missions:
         label: "Independently replay the bounded OQMD source and overlap contract"
         task_id: TASK-1063
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -214,10 +214,10 @@ missions:
         label: "Review and close out the independent OQMD source replay"
         task_id: null
         mode: research
-        status: guidance
+        status: done
         priority: high
         difficulty: low
-        recommended: true
+        recommended: false
         expected_outputs:
           - "merge and close out TASK-1063 only if the exact source-replay PASS evidence remains valid"
           - "keep TASK-1066 blocked until the TASK-1063 PASS verdict is durable on main"
@@ -225,10 +225,10 @@ missions:
         label: "Run the frozen within-OQMD benchmark after source replay passes"
         task_id: TASK-1066
         mode: research
-        status: blocked
+        status: ready
         priority: high
         difficulty: high
-        recommended: false
+        recommended: true
         expected_outputs:
           - "one frozen PASS, FAIL, or INCONCLUSIVE within-source result under the committed split and controls"
           - "no rescue fitting, feature factory, cross-database pooling, or materials claim"
@@ -239,7 +239,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. RESULT-0025 is exact-replayed point-estimator evidence and point-only PRED entries are frozen; interval wording remains blocked. TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure. Ratify TASK-1072 and remain monitor-only until a qualifying post-registration official release signal exists."
+    recommendation: "Flagship validation challenge. RESULT-0025 is exact-replayed point-estimator evidence and point-only PRED entries are frozen; interval wording remains blocked. TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure. TASK-1072 ratified the event-triggered ledger; remain monitor-only until a qualifying post-registration official release signal exists."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -583,13 +583,24 @@ missions:
         label: "Ratify event-triggered Nuclear reveal-source monitoring"
         task_id: TASK-1072
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: low
-        recommended: true
+        recommended: false
         expected_outputs:
           - "qualifying and forbidden post-registration source signals plus no-peek state transitions"
           - "MONITOR_ONLY_NO_SCOUT until a concrete official event; no source browsing, target matching, or scoring"
+      - id: nuclear-post-registration-monitor
+        label: "Follow the ratified event-triggered Nuclear reveal-source monitor"
+        task_id: null
+        mode: research
+        status: guidance
+        priority: medium
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "use the TASK-1072 ledger only after a qualifying official metadata signal appears"
+          - "remain MONITOR_ONLY_NO_SCOUT otherwise; no periodic browsing, target matching, or scoring"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
@@ -597,7 +608,7 @@ missions:
     status: post_baseline_transfer_gated
     scientific_value: medium
     risk: medium
-    recommendation: "RESULT-0029 remains AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1052 correctly stopped the figure-digitization route at its missing-y-tick gate. TASK-1064 separately returned GO_TEXT_REPORTED_PEAK_ROUTE; TASK-1070 may now curate exactly eight source-stated CdSe rows into property-separated files, with no fit or metric."
+    recommendation: "RESULT-0029 remains AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1052 correctly stopped the figure-digitization route at its missing-y-tick gate. TASK-1064 returned GO_TEXT_REPORTED_PEAK_ROUTE and TASK-1070 curated exactly eight source-stated CdSe rows into property-separated files. Any benchmark remains gated on a separately frozen split/control contract."
     why_now:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "six direct Almeida InP rows and a source-scoped sandbox baseline exist"
@@ -833,13 +844,24 @@ missions:
         label: "Curate eight Kim-2020 text-reported CdSe optical rows"
         task_id: TASK-1070
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "four absorption and four emission rows in separate schema-valid files with frozen source hashes and rounding floor"
           - "no benchmark metric, model fit, correction search, RESULT, CLAIM, or design guidance"
+      - id: quantum-kim2020-post-curation-handoff
+        label: "Keep the curated Kim-2020 rows unscored until a frozen benchmark contract exists"
+        task_id: null
+        mode: research
+        status: guidance
+        priority: medium
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "preserve the eight TASK-1070 rows as curation-only source memory"
+          - "require a separate READY task for split, controls, rounding treatment, and any metric"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
@@ -1304,7 +1326,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. TASK-1049 independently replayed all twelve CHARA component rows across six systems. TASK-1050 may now score the frozen RESULT-0022 relation and controls once without refitting."
+    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. TASK-1049 independently replayed all twelve CHARA component rows across six systems. TASK-1050 completed the no-refit CHARA transfer as bounded INCONCLUSIVE RESULT-0031 evidence."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1502,7 +1524,7 @@ missions:
         label: "Score the fixed RESULT-0022 relation on CHARA without refitting"
         task_id: TASK-1050
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -1519,7 +1541,7 @@ missions:
         difficulty: low
         recommended: true
         expected_outputs:
-          - "use TASK-1049 and TASK-1050 as the bounded CHARA replay and transfer routes"
+          - "use TASK-1049 and TASK-1050 as completed bounded CHARA replay and transfer evidence"
           - "choose from the executable READY task candidates generated from the task registry"
       - id: textbook-stellar-ml-source-baseline-plan
         label: "Stellar Mass-Luminosity OOD source and baseline plan landed"

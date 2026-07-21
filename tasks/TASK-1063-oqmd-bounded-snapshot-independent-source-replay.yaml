@@ -1,7 +1,7 @@
 id: TASK-1063
 title: "Independently replay the bounded OQMD snapshot source and overlap contract"
 type: scientific_source_validation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This is the independent source gate before OQMD benchmark scoring; closeout must verify exact bytes, predicate semantics, overlap exclusions, target-blind routing, and rights."
 difficulty: medium
