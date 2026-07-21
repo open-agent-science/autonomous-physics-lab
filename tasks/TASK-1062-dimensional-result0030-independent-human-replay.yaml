@@ -1,7 +1,7 @@
 id: TASK-1062
 title: "Replay Dimensional RESULT-0030 with an independent human contributor"
 type: scientific_replay_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task is the first independent-human Gate B replay of the exact-v2 calibration result; closeout must preserve the frozen metrics, calibration-only role, and CLAIM-0005 exclusion."
 difficulty: medium

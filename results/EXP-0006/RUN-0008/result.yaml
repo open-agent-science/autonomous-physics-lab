@@ -27,7 +27,7 @@ input_file_hashes:
     sha256: 07980466276eff63018e9d595e7a687d27105389d54bcd3bc0d2ad875065b8a7
 code_reference: physics_lab/workflows/dimensional_validator.py
 limitations:
-- Agent-published, not yet independently validated or maintainer-reviewed.
+- Agent-validated by independent-human Gate B replay; not yet maintainer-reviewed.
 - Dimension-only agreement is formula-quality evidence, not proof of numerical correctness,
   empirical validity, or physical truth.
 - KNOWN_LIMIT_FAIL rows are treated as dimensionally valid because numerical and regime
@@ -172,9 +172,9 @@ artifacts:
   knowledge_update_patch: results/EXP-0006/RUN-0008/knowledge_update.patch.md
   review_summary: results/EXP-0006/RUN-0008/review_summary.md
   review_metadata: results/EXP-0006/RUN-0008/review_metadata.yaml
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: VALID
   published_by:
     contributor_id: gladunrv
@@ -193,9 +193,42 @@ agent_proposal_evaluation:
     no_protected_artifact_rewrite: true
     no_forbidden_overclaim_wording: true
     dataset_provenance_valid: true
-  evidence_summary: 'The frozen 80-item exact-v2 calibration surface returned PASS:
-    exact agreement 100.0%, VALID recall 100.0%, INVALID recall 100.0%, and INCONCLUSIVE
-    rate 0.0%.'
-  followup_for_maintainer: Keep AGENT_PUBLISHED and CALIBRATION_ONLY_ROLE_LIMIT explicit.
-    Gate B may independently replay the command, but this surface cannot become confirmatory
-    Gate C evidence or reopen CLAIM-0005.
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
+  evidence_summary: >
+    The frozen 80-item exact-v2 calibration surface returned PASS: exact agreement
+    100.0%, VALID recall 100.0%, INVALID recall 100.0%, and INCONCLUSIVE rate
+    0.0%. Independent-human Gate B replay by akutenyov reproduced all 43 compared
+    numeric fields with maximum absolute drift 0.0 and preserved the VALID verdict.
+  followup_for_maintainer: >
+    Keep AGENT_VALIDATED and CALIBRATION_ONLY_ROLE_LIMIT explicit. Independent
+    deterministic replay confirms reproducibility of this frozen calibration surface
+    only; it cannot become confirmatory Gate C evidence or reopen CLAIM-0005.
+  validation_record:
+    validation_independence: independent
+    validation_independence_note: >-
+      Publisher gladunrv and replayer akutenyov are different human contributors;
+      this is independent-human validation. Both publication and replay used
+      Codex/GPT-5, so the independence is human-level and same-tool.
+    replayed_by:
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex Desktop
+      model_version: GPT-5
+    replayed_at_utc: '2026-07-19T10:41:04+00:00'
+    replay_command: python -m physics_lab.cli run examples/dimensional_analysis_v2_calibration.yaml --output-dir results/EXP-0006/RUN-0008
+    replay_output_dir: .gate-b-replay-task1062
+    replay_environment:
+      operating_system: Windows 11 Pro
+      operating_system_version: 10.0.26200
+      operating_system_build: '26200'
+      operating_system_architecture: 64-bit
+      python_interpreter_version: Python 3.12.13
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 43
+    drift_observed: none
+    helper_status: PASS
