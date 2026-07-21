@@ -53,7 +53,7 @@ result_artifact_policy:
 
 validation:
   commands:
-    - "python3 -m pytest -n0 tests/test_materials_oqmd_bounded_snapshot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_materials_oqmd_independent_replay.py tests/test_materials_oqmd_bounded_snapshot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 

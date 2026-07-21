@@ -6,6 +6,37 @@
 committed source artifacts without contacting OQMD and reproduced the pinned
 bytes, row counts, schema boundary, and conservative overlap accounting.
 
+## Independent replay identity and environment
+
+The maintainer replay was contributor-distinct from the TASK-1042 executor and
+used a separate agent session. It did not contact OQMD or inspect target-value
+summaries.
+
+| Field | Recorded value |
+| --- | --- |
+| Contributor / GitHub | `gladunrv` |
+| Agent tool | `Codex Desktop` |
+| Model | `GPT-5` |
+| Session ID | `codex-maintainer-pr1597-replay-20260718` |
+| Operating system | `macOS 14.5 (build 23F79), arm64` |
+| Python runtime | `Python 3.12.13` |
+| Exact PR head | `e03d4628e7685cb9560e554a4b90771dda29f623` |
+
+Exact commands, run with the recorded APL Python environment active:
+
+```text
+python -m pytest -n0 tests/test_materials_oqmd_independent_replay.py tests/test_materials_oqmd_bounded_snapshot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py
+python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+```
+
+The replay produced `14 passed` and strict validation produced `0 ERROR, 0
+WARNING`. It independently reproduced the raw bytes, hash, API-page identity,
+373-row count, 201 reduced-composition exclusions, 90 composition-plus-space-
+group coincidences, 172 retained rows, zero normalized MD-0002 composition
+overlap, normalized hash and schema, OQMD property semantics, and the bounded
+CC BY 4.0 redistribution posture. No split, target distribution, residual,
+correlation, metric, model, RESULT, PRED, CLAIM, or KNOW artifact was computed.
+
 ## Pinned artifacts
 
 | Surface | Bytes | SHA-256 | Rows |
