@@ -21,8 +21,8 @@ scientific artifacts.
 
 | Tier | RESULT | PRED | CLAIM | KNOW | Total |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `AGENT_PUBLISHED` | 2 | 1 | 0 | 0 | 3 |
-| `AGENT_VALIDATED` | 15 | 0 | 0 | 0 | 15 |
+| `AGENT_PUBLISHED` | 1 | 1 | 0 | 0 | 2 |
+| `AGENT_VALIDATED` | 16 | 0 | 0 | 0 | 16 |
 | `MAINTAINER_REVIEWED` | 0 | 1 | 2 | 0 | 3 |
 | `EXTERNAL_REPLICATED` | 0 | 0 | 0 | 0 | 0 |
 
@@ -31,7 +31,6 @@ scientific artifacts.
 | Class | Artifact | Status | Independence | Next action | Path |
 | --- | --- | --- | --- | --- | --- |
 | `PRED` | `PRED-0001` - Prospective exoplanet second-snapshot protocol outcome forecast | `REGISTERED` | `n/a` | `reveal-needed` | [`prediction_registry/exoplanet_mass_radius/PRED-0001.yaml`](../prediction_registry/exoplanet_mass_radius/PRED-0001.yaml) |
-| `RESULT` | `RESULT-0030` - Dimensional Validator Exact-v2 Frozen Calibration Score | `VALID` | `n/a` | `replay-needed` | [`results/EXP-0006/RUN-0008/result.yaml`](../results/EXP-0006/RUN-0008/result.yaml) |
 | `RESULT` | `RESULT-0031` - Stellar M-L CHARA fixed-relation transfer - frozen RESULT-0022 relation wins narrowly but misses the predeclared margin | `INCONCLUSIVE` | `n/a` | `replay-needed` | [`results/EXP-0023/RUN-0001/result.yaml`](../results/EXP-0023/RUN-0001/result.yaml) |
 
 ## AGENT_VALIDATED
@@ -45,7 +44,7 @@ scientific artifacts.
 | `RESULT` | `RESULT-0019` - Textbook Stefan-Boltzmann Exact-Reference Software Fixture Result | `VALID_IN_RANGE` | `same_account_different_tool` | `maintainer-review-needed` | [`results/EXP-0013/RUN-0001/result.yaml`](../results/EXP-0013/RUN-0001/result.yaml) |
 | `RESULT` | `RESULT-0020` - Dimensional Analysis Validator Live 74-Item Replay | `VALID` | `independent` | `maintainer-review-needed` | [`results/EXP-0006/RUN-0007/result.yaml`](../results/EXP-0006/RUN-0007/result.yaml) |
 | `RESULT` | `RESULT-0021` - Materials MD-0002 Formation-Energy Cation-Pair Baseline Benchmark (stable ternary oxides) | `VALID_IN_RANGE` | `same_owner_different_account` | `maintainer-review-needed` | [`results/EXP-0014/RUN-0001/result.yaml`](../results/EXP-0014/RUN-0001/result.yaml) |
-| `RESULT` | `RESULT-0022` - Stellar M-L DEBCat Controlled Baseline Benchmark — textbook alpha=3.5 inadequate as sole baseline on the frozen main-sequence slice | `VALID_IN_RANGE` | `same_owner_different_account` | `maintainer-review-needed` | [`results/EXP-0015/RUN-0001/result.yaml`](../results/EXP-0015/RUN-0001/result.yaml) |
+| `RESULT` | `RESULT-0022` - Stellar M-L DEBCat Controlled Baseline Benchmark — textbook alpha=3.5 inadequate as sole baseline on the frozen main-sequence slice | `VALID_IN_RANGE` | `independent` | `maintainer-review-needed` | [`results/EXP-0015/RUN-0001/result.yaml`](../results/EXP-0015/RUN-0001/result.yaml) |
 | `RESULT` | `RESULT-0023` - FIRAS/Wien Spectral-Domain Peak Consistency Slice (pinned COBE/FIRAS absolute monopole) | `VALID_IN_RANGE` | `same_owner_different_account` | `maintainer-review-needed` | [`results/EXP-0016/RUN-0001/result.yaml`](../results/EXP-0016/RUN-0001/result.yaml) |
 | `RESULT` | `RESULT-0024` - Stellar M-L High-Mass DEBCat Transfer - frozen RESULT-0022 relation survives stage-matched controls | `VALID_IN_RANGE` | `same_owner_different_account` | `maintainer-review-needed` | [`results/EXP-0017/RUN-0001/result.yaml`](../results/EXP-0017/RUN-0001/result.yaml) |
 | `RESULT` | `RESULT-0025` - NMD-0003 GP Residual Extrapolation Replay - control-surviving gain with miscalibrated uncertainty | `PARTIALLY_VALID` | `independent` | `maintainer-review-needed` | [`results/EXP-0018/RUN-0001/result.yaml`](../results/EXP-0018/RUN-0001/result.yaml) |
@@ -53,6 +52,7 @@ scientific artifacts.
 | `RESULT` | `RESULT-0027` - Exoplanet EXO-0001 null-baseline control-sensitive negative result | `INCONCLUSIVE` | `independent` | `maintainer-review-needed` | [`results/EXP-0021/RUN-0001/result.yaml`](../results/EXP-0021/RUN-0001/result.yaml) |
 | `RESULT` | `RESULT-0028` - ThermoML Tb esters/lactones failed-family negative control | `INVALID` | `independent` | `maintainer-review-needed` | [`results/EXP-0020/RUN-0002/result.yaml`](../results/EXP-0020/RUN-0002/result.yaml) |
 | `RESULT` | `RESULT-0029` - Quantum ZnSe no-refit contract transfer inconclusive control result | `INCONCLUSIVE` | `independent` | `maintainer-review-needed` | [`results/EXP-0022/RUN-0001/result.yaml`](../results/EXP-0022/RUN-0001/result.yaml) |
+| `RESULT` | `RESULT-0030` - Dimensional Validator Exact-v2 Frozen Calibration Score | `VALID` | `independent` | `maintainer-review-needed` | [`results/EXP-0006/RUN-0008/result.yaml`](../results/EXP-0006/RUN-0008/result.yaml) |
 
 ## MAINTAINER_REVIEWED
 
