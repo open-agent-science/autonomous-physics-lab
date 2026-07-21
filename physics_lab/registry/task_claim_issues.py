@@ -9,15 +9,25 @@ first.
 from __future__ import annotations
 
 from dataclasses import dataclass
-import json
+import os
 from pathlib import Path
 import re
 import subprocess
-from typing import Any
+from typing import Any, Mapping
 
 import yaml
 
+from physics_lab.registry.github_readonly import (
+    CANONICAL_GITHUB_REPOSITORY,
+    GitHubReadOnlyClient,
+    GitHubReadResult,
+)
+from physics_lab.registry.pr_capability import (
+    env_with_discovered_tool_paths,
+    find_gh_path,
+)
 from physics_lab.registry.task_discovery import find_task_files
+from physics_lab.registry.task_occupancy import is_task_claim_issue
 
 
 TASK_ID_PATTERN = re.compile(r"\bTASK-[0-9]{4}\b")
@@ -64,21 +74,7 @@ def extract_branch(body: str) -> str | None:
 
 def is_task_claim_like(issue: dict[str, Any]) -> bool:
     """Return whether an issue is a task-claim coordination marker."""
-    labels = {
-        str(label.get("name", ""))
-        for label in issue.get("labels", []) or []
-        if isinstance(label, dict)
-    }
-    title = str(issue.get("title", ""))
-    body = str(issue.get("body", ""))
-    if "task-claim" in labels:
-        return True
-    lowered_title = title.lower()
-    if lowered_title.startswith("task claim:") and extract_task_id(title, body) is not None:
-        return True
-    if re.match(r"^TASK-[0-9]{4}\s+claim:", title) is not None:
-        return True
-    return "claim channel:" in body.lower() and extract_task_id(title, body) is not None
+    return is_task_claim_issue(issue)
 
 
 def load_task_status(root: Path, task_id: str) -> str | None:
@@ -174,36 +170,64 @@ def classify_task_claim_issues(root: Path, issues: list[dict[str, Any]]) -> Task
     )
 
 
-def load_open_github_issues(*, repo: str | None = None, limit: int = 100) -> list[dict[str, Any]]:
-    """Load open GitHub issues through gh CLI."""
-    command = [
-        "gh",
-        "issue",
-        "list",
-        "--state",
-        "open",
-        "--limit",
-        str(limit),
-        "--json",
-        "number,title,labels,body,url",
-    ]
-    if repo:
-        command.extend(["--repo", repo])
-    completed = subprocess.run(command, check=True, capture_output=True, text=True)
-    payload = json.loads(completed.stdout or "[]")
-    return payload if isinstance(payload, list) else []
+def load_open_github_issues(
+    root: Path,
+    *,
+    repo: str | None = None,
+    limit: int = 100,
+    client: GitHubReadOnlyClient | None = None,
+) -> GitHubReadResult:
+    """Load semantic task-claim issues through the shared read-only client."""
+    if repo not in {None, CANONICAL_GITHUB_REPOSITORY}:
+        return GitHubReadResult(
+            payload=None,
+            source="unavailable",
+            diagnostics=(
+                "Task-claim issue hygiene is restricted to the canonical APL repository "
+                f"{CANONICAL_GITHUB_REPOSITORY}.",
+            ),
+        )
+    return (client or GitHubReadOnlyClient(root)).list_task_claims(limit=limit)
 
 
-def close_task_claim_issue(number: int, *, repo: str | None = None) -> None:
+def close_task_claim_issue(
+    number: int,
+    *,
+    repo: str | None = None,
+    root: Path | None = None,
+    env: Mapping[str, str] | None = None,
+) -> None:
     """Close one stale task-claim issue through gh CLI."""
     comment = (
         "Closing stale task-claim issue: the canonical task is already DONE. "
         "Future closeout sweeps should close task-claim issues alongside task YAML closeout."
     )
-    command = ["gh", "issue", "close", str(number), "--comment", comment]
+    command_env = env_with_discovered_tool_paths(
+        dict(os.environ if env is None else env)
+    )
+    gh_path = find_gh_path(env=command_env)
+    if gh_path is None:
+        raise RuntimeError("GitHub CLI `gh` is not installed or discoverable.")
+    command = [gh_path, "issue", "close", str(number), "--comment", comment]
     if repo:
         command.extend(["--repo", repo])
-    subprocess.run(command, check=True)
+    completed = subprocess.run(
+        command,
+        cwd=root or Path.cwd(),
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        shell=False,
+        env=command_env,
+    )
+    if completed.returncode != 0:
+        detail = " ".join((completed.stderr or completed.stdout).strip().split())[:240]
+        raise RuntimeError(
+            f"Could not close task-claim issue #{number}"
+            + (f": {detail}" if detail else ".")
+        )
 
 
 def render_task_claim_issue_report(report: TaskClaimIssueReport) -> str:
