@@ -1,6 +1,6 @@
 # PFF-011 Fixed-Asymptotic x3-Log Attempt
 
-**Run:** `MICROTASK-RUN-0036`  
+**Run:** `MICROTASK-RUN-0036`
 **Verdict:** `FALSIFIED`
 
 ## Candidate And Inputs
