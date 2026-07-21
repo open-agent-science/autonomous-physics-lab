@@ -1,0 +1,65 @@
+id: TASK-1073
+title: "Make task-claim discovery label-independent through the shared GitHub read path"
+type: tooling_fix
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This changes cross-agent occupancy semantics; closeout must verify that unlabeled claims remain visible without weakening bounded reads or conservative fallback behavior."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent parallel agents from selecting a READY task whose valid GitHub claim lacks issue-template labels."
+  - "Complete the TASK-1061 shared read-only GitHub boundary instead of retaining a separate gh-only claim-closeout reader."
+  - "Keep coordination portable across Linux, macOS, and Windows with bounded, process-local reads and explicit maintainer-only writes."
+
+input:
+  mode: workflow
+  related_domain: agent_coordination
+  related_objects:
+    - "physics_lab/registry/github_readonly.py"
+    - "physics_lab/registry/task_occupancy.py"
+    - "physics_lab/registry/task_claim_issues.py"
+    - "scripts/apl_close_task_claim_issues.py"
+    - "docs/agent-task-claiming.md"
+  planning_context: >
+    The canonical claiming protocol says labels are advisory, but the shared
+    GitHub client currently requests only issues labeled task-claim. Live valid
+    claims #1619 and #1592 therefore disappear from mission availability even
+    though their canonical titles are recognizable. The stale-claim closeout
+    helper separately invokes bare gh and crashes when authentication is
+    unavailable, bypassing the public REST fallback added by TASK-1061.
+
+requirements:
+  - "Query one bounded open-issue window and identify task claims semantically by the advisory label or canonical title/body forms; exclude pull requests returned by the REST issues endpoint."
+  - "Use the same semantic classifier for mission availability and stale-claim closeout so the two tools cannot drift."
+  - "Route stale-claim report reads through GitHubReadOnlyClient: authenticated gh first, fixed public REST fallback, process-local cache, bounded timeout, and explicit diagnostics when unavailable."
+  - "Keep task-claim closing an explicit maintainer write action; discover gh portably, use argument-list subprocesses with shell disabled, and stop cleanly on write failure."
+  - "Do not add committed or cross-run caches, broaden trusted GitHub hosts, weaken rate-limit diagnostics, or change canonical task/PR lifecycle authority."
+  - "Preserve labeled-claim support and add regression coverage for an unlabeled canonical claim after gh HTTP 401 on Linux/macOS/Windows-compatible code paths."
+
+accepted_outputs:
+  - "One shared label-independent task-claim classifier consumed by GitHubReadOnlyClient and task-claim closeout helpers."
+  - "Mission availability and the stale-claim report see canonical unlabeled claims through the public REST fallback without treating unrelated TASK mentions as claims."
+  - "The stale-claim CLI reports unavailable reads or writes without a traceback and does not close anything on partial/unavailable metadata."
+  - "Focused tests and protocol wording that prevent a future label-only regression."
+
+result_artifact_policy:
+  required: false
+  reason: "Agent coordination tooling only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "physics_lab/registry/github_readonly.py"
+    - "tests/test_github_readonly.py"
+    - "tests/test_task_claim_issues.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/github_readonly.py physics_lab/registry/task_occupancy.py physics_lab/registry/task_claim_issues.py scripts/apl_close_task_claim_issues.py tests/test_github_readonly.py tests/test_task_claim_issues.py tests/test_mission_control.py"
+    - "python3 -m pytest -n0 tests/test_github_readonly.py tests/test_task_claim_issues.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -8,6 +8,7 @@ from typing import Any, Iterable, Mapping
 
 
 TASK_ID_PATTERN = re.compile(r"\bTASK-\d{4}\b", re.IGNORECASE)
+TASK_CLAIM_TITLE_PATTERN = re.compile(r"^\s*TASK-\d{4}\s+claim:", re.IGNORECASE)
 # An implementation PR for TASK-XXXX is identified by the canonical PR title
 # (`TASK-XXXX: ...`) or the canonical implementation branch
 # (`.../task-XXXX-<slug>`). Task-creation/reference PRs (`TASK-QUEUE:`,
@@ -42,6 +43,33 @@ class TaskOccupancy:
 def task_ids_from_text(*values: object) -> tuple[str, ...]:
     combined = " ".join(str(value or "") for value in values)
     return tuple(sorted({task_id.upper() for task_id in TASK_ID_PATTERN.findall(combined)}))
+
+
+def is_task_claim_issue(issue: Mapping[str, Any]) -> bool:
+    """Return whether an open issue is a task-claim coordination marker.
+
+    Claim labels are advisory in the repository protocol. Readers must retain
+    the canonical title/body fallback so an agent-created claim remains visible
+    even when GitHub did not apply the issue-template labels.
+    """
+    labels: set[str] = set()
+    for raw_label in issue.get("labels", ()) or ():
+        if isinstance(raw_label, Mapping):
+            label = str(raw_label.get("name", ""))
+        else:
+            label = str(raw_label)
+        if label:
+            labels.add(label.lower())
+
+    title = str(issue.get("title", ""))
+    body = str(issue.get("body", ""))
+    if "task-claim" in labels:
+        return True
+    if title.lower().lstrip().startswith("task claim:"):
+        return bool(task_ids_from_text(title, body))
+    if TASK_CLAIM_TITLE_PATTERN.match(title) is not None:
+        return True
+    return "claim channel:" in body.lower() and bool(task_ids_from_text(title, body))
 
 
 def implementation_task_ids(title: object, head_ref_name: object) -> tuple[str, ...]:

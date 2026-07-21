@@ -212,6 +212,11 @@ When GitHub labels are available, use lightweight labels:
 Labels are advisory. The task YAML status and PR state remain the authoritative
 lifecycle signals.
 
+Repository availability readers therefore inspect a bounded open-issue window
+and recognize claims by either the `task-claim` label or the canonical claim
+title/body forms above. They must not filter exclusively by label: issue-template
+labels can be unavailable even when the claim itself is valid.
+
 ## Relationship To Task Status
 
 A claim does not replace task status.

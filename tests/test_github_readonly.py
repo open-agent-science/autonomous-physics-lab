@@ -146,7 +146,7 @@ def test_list_pull_requests_uses_public_rest_after_gh_auth_failure(
     assert "401" in result.diagnostics[0]
 
 
-def test_list_task_claims_filters_pull_requests_from_public_issue_endpoint(
+def test_list_task_claims_finds_labeled_and_unlabeled_claims_after_gh_auth_failure(
     tmp_path: Path,
 ) -> None:
     client = _client(tmp_path)
@@ -157,11 +157,32 @@ def test_list_task_claims_filters_pull_requests_from_public_issue_endpoint(
         stderr="HTTP 401: Requires authentication",
     )
     public_payload = [
-        {"number": 10, "title": "Claim TASK-0001", "body": "TASK-0001"},
+        {
+            "number": 10,
+            "title": "Task claim: TASK-0001 source replay",
+            "body": "Task ID: TASK-0001",
+            "labels": [],
+            "html_url": "https://github.com/example/issues/10",
+        },
+        {
+            "number": 12,
+            "title": "Plain claim title",
+            "body": "Task ID: TASK-0002",
+            "labels": [{"name": "task-claim"}],
+            "html_url": "https://github.com/example/issues/12",
+        },
+        {
+            "number": 13,
+            "title": "Unrelated task discussion",
+            "body": "TASK-0003",
+            "labels": [],
+            "html_url": "https://github.com/example/issues/13",
+        },
         {
             "number": 11,
-            "title": "PR carrying the same label",
-            "body": "",
+            "title": "Task claim: TASK-0004 in a PR",
+            "body": "Task ID: TASK-0004",
+            "labels": [{"name": "task-claim"}],
             "pull_request": {"url": "https://api.github.com/pulls/11"},
         },
     ]
@@ -171,14 +192,67 @@ def test_list_task_claims_filters_pull_requests_from_public_issue_endpoint(
             "physics_lab.registry.github_readonly.subprocess.run",
             return_value=auth_failure,
         ),
-        patch.object(client, "public_json", return_value=public_payload),
+        patch.object(client, "public_json", return_value=public_payload) as public_mock,
     ):
         result = client.list_task_claims()
 
     assert result.source == "public_rest"
     assert result.payload == [
-        {"number": 10, "title": "Claim TASK-0001", "body": "TASK-0001"}
+        {
+            "number": 10,
+            "title": "Task claim: TASK-0001 source replay",
+            "body": "Task ID: TASK-0001",
+            "labels": [],
+            "url": "https://github.com/example/issues/10",
+        },
+        {
+            "number": 12,
+            "title": "Plain claim title",
+            "body": "Task ID: TASK-0002",
+            "labels": [{"name": "task-claim"}],
+            "url": "https://github.com/example/issues/12",
+        },
     ]
+    public_path = public_mock.call_args.args[0]
+    assert "state=open" in public_path
+    assert "labels=task-claim" not in public_path
+
+
+def test_list_task_claims_gh_path_filters_semantically_without_label_query(
+    tmp_path: Path,
+) -> None:
+    client = _client(tmp_path)
+    payload = [
+        {
+            "number": 20,
+            "title": "Task claim: TASK-0020 fixture",
+            "body": "Task ID: TASK-0020",
+            "labels": [],
+            "url": "https://github.com/example/issues/20",
+        },
+        {
+            "number": 21,
+            "title": "Ordinary issue",
+            "body": "TASK-0021",
+            "labels": [],
+            "url": "https://github.com/example/issues/21",
+        },
+    ]
+    completed = subprocess.CompletedProcess(
+        args=[], returncode=0, stdout=json.dumps(payload), stderr=""
+    )
+
+    with patch(
+        "physics_lab.registry.github_readonly.subprocess.run",
+        return_value=completed,
+    ) as run_mock:
+        result = client.list_task_claims()
+
+    assert result.source == "gh"
+    assert [item["number"] for item in result.payload] == [20]
+    command = run_mock.call_args.args[0]
+    assert "--label" not in command
+    assert "number,title,body,labels,url" in command
 
 
 def test_permanent_gh_auth_failure_is_reused_inside_one_agent_run(

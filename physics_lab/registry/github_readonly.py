@@ -17,6 +17,7 @@ from physics_lab.registry.pr_capability import (
     find_gh_path,
     suspicious_proxy_env_names,
 )
+from physics_lab.registry.task_occupancy import is_task_claim_issue
 
 
 CANONICAL_GITHUB_REPOSITORY = "open-agent-science/autonomous-physics-lab"
@@ -78,6 +79,24 @@ def _proxy_mapping(env: Mapping[str, str]) -> dict[str, str]:
         proxies.setdefault("http", all_proxy)
         proxies.setdefault("https", all_proxy)
     return proxies
+
+
+def _task_claim_records(items: list[Any]) -> list[dict[str, Any]]:
+    """Normalize and semantically filter a bounded open-issue window."""
+    records: list[dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict) or "pull_request" in item:
+            continue
+        record = {
+            "number": item.get("number"),
+            "title": item.get("title") or "",
+            "body": item.get("body") or "",
+            "labels": item.get("labels") or [],
+            "url": item.get("html_url") or item.get("url") or "",
+        }
+        if is_task_claim_issue(record):
+            records.append(record)
+    return records
 
 
 class GitHubReadOnlyClient:
@@ -380,21 +399,22 @@ class GitHubReadOnlyClient:
         )
 
     def list_task_claims(self, *, limit: int = 100) -> GitHubReadResult:
-        """List open ``task-claim`` issues through the shared read path."""
+        """List semantically identified open task claims through the shared path."""
         if not 1 <= limit <= 100:
             raise ValueError("GitHub issue list limit must be between 1 and 100.")
+        # Labels are advisory. Query one bounded open-issue window and apply the
+        # same title/body semantics used by claim closeout instead of hiding an
+        # otherwise valid claim when the issue-template labels were not applied.
         gh_result = self._run_gh_json(
             [
                 "issue",
                 "list",
                 "--state",
                 "open",
-                "--label",
-                "task-claim",
                 "--limit",
                 str(limit),
                 "--json",
-                "number,title,body",
+                "number,title,body,labels,url",
             ],
             expected_type=list,
             label="gh issue list",
@@ -402,14 +422,14 @@ class GitHubReadOnlyClient:
         )
         if gh_result.available:
             return GitHubReadResult(
-                payload=[item for item in gh_result.payload if isinstance(item, dict)],
+                payload=_task_claim_records(gh_result.payload),
                 source="gh",
                 diagnostics=gh_result.diagnostics,
             )
 
         public_result = self._public_result(
             f"/repos/{CANONICAL_GITHUB_REPOSITORY}/issues"
-            f"?state=open&labels=task-claim&sort=updated&direction=desc&per_page={limit}"
+            f"?state=open&sort=updated&direction=desc&per_page={limit}"
         )
         diagnostics = tuple(
             dict.fromkeys((*gh_result.diagnostics, *public_result.diagnostics))
@@ -421,17 +441,8 @@ class GitHubReadOnlyClient:
                 diagnostics=diagnostics
                 + (("Public GitHub task-claim list was not a JSON list.",) if public_result.available else ()),
             )
-        records = [
-            {
-                "number": item.get("number"),
-                "title": item.get("title") or "",
-                "body": item.get("body") or "",
-            }
-            for item in public_result.payload
-            if isinstance(item, dict) and "pull_request" not in item
-        ]
         return GitHubReadResult(
-            payload=records,
+            payload=_task_claim_records(public_result.payload),
             source="public_rest",
             diagnostics=diagnostics,
         )

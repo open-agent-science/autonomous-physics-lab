@@ -15,7 +15,10 @@ if str(REPO_ROOT) not in sys.path:
 def build_parser() -> argparse.ArgumentParser:
     """Create the CLI parser for task-claim issue hygiene."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repo", help="Optional GitHub repo slug, e.g. owner/name.")
+    parser.add_argument(
+        "--repo",
+        help="Optional canonical APL GitHub repo slug (owner/name).",
+    )
     parser.add_argument("--limit", type=int, default=100, help="Open issue limit to inspect.")
     parser.add_argument(
         "--apply",
@@ -35,13 +38,38 @@ def main() -> int:
     )
 
     args = build_parser().parse_args()
-    issues = load_open_github_issues(repo=args.repo, limit=args.limit)
+    issue_result = load_open_github_issues(
+        REPO_ROOT,
+        repo=args.repo,
+        limit=args.limit,
+    )
+    if not isinstance(issue_result.payload, list):
+        print("Task-claim issue read unavailable; no closeout action was taken.")
+        for diagnostic in issue_result.diagnostics:
+            print(f"- {diagnostic}")
+        return 2
+
+    issues = issue_result.payload
     report = classify_task_claim_issues(REPO_ROOT, issues)
     print(render_task_claim_issue_report(report))
+    if issue_result.diagnostics:
+        print("")
+        print(f"Read source: {issue_result.source}")
+        for diagnostic in issue_result.diagnostics:
+            print(f"- {diagnostic}")
 
     if args.apply:
-        for issue in report.closeable:
-            close_task_claim_issue(issue.number, repo=args.repo)
+        try:
+            for issue in report.closeable:
+                close_task_claim_issue(
+                    issue.number,
+                    repo=args.repo,
+                    root=REPO_ROOT,
+                )
+        except RuntimeError as exc:
+            print("")
+            print(f"Task-claim closeout stopped: {exc}")
+            return 2
         if report.closeable:
             print("")
             print(f"Closed {len(report.closeable)} stale task-claim issue(s).")

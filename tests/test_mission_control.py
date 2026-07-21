@@ -602,6 +602,61 @@ def test_collect_github_task_availability_public_fallback_omits_open_pr(
     assert snapshot.reasons["TASK-0005"] == ("open PR #1579",)
 
 
+def test_collect_github_task_availability_public_fallback_keeps_unlabeled_claim(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    _write_task(
+        tmp_path,
+        task_id="TASK-0005",
+        title="Ready candidate",
+        status="READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    auth_failure = subprocess.CompletedProcess(
+        args=[],
+        returncode=1,
+        stdout="",
+        stderr="HTTP 401: authentication required",
+    )
+
+    monkeypatch.setattr(
+        "physics_lab.registry.github_readonly.subprocess.run",
+        lambda *args, **kwargs: auth_failure,
+    )
+
+    def public_json(self, path: str):
+        if "/pulls?" in path:
+            return []
+        return [
+            {
+                "number": 1619,
+                "title": "Task claim: TASK-0005 external freeze",
+                "body": "Task ID: TASK-0005",
+                "labels": [],
+                "html_url": "https://github.com/example/issues/1619",
+            }
+        ]
+
+    monkeypatch.setattr(
+        mission_control.GitHubReadOnlyClient,
+        "public_json",
+        public_json,
+    )
+
+    snapshot = collect_github_task_availability(
+        tmp_path,
+        env={"PATH": ""},
+        gh_path="/custom/gh",
+    )
+
+    assert snapshot.checked is True
+    assert snapshot.source == "public_rest"
+    assert snapshot.excluded_task_ids == ("TASK-0005",)
+    assert snapshot.reasons["TASK-0005"] == ("open claim #1619",)
+
+
 def test_collect_github_task_availability_keeps_confirmed_pr_on_partial_fallback(
     tmp_path: Path,
     monkeypatch,
