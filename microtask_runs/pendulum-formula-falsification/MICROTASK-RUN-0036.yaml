@@ -21,7 +21,10 @@ metadata:
     - physics_lab/engines/formula_discovery.py
   metrics:
     - NOT_RUN
-  failure_mode: "The candidate fails if configured-range or near-separatrix errors exceed the predeclared thresholds."
+    - "predeclared_configured_test_mre_max: 1.0e-3"
+    - "predeclared_near_separatrix_max_re_max: 5.0e-2"
+    - "predeclared_asymptotic_slope_relative_error_max: 5.0e-2"
+  failure_mode: "The candidate fails if any predeclared configured-range, near-separatrix, or asymptotic-slope threshold is exceeded."
   limitations:
     - "One deterministic candidate family only; no exhaustive formula search or claim promotion."
   novelty_check:
