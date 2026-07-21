@@ -24,7 +24,7 @@ input_file_hashes:
     sha256: f3a9648107a0f9b6f0970fa96a04557743e003bf0fad112a6ef532b8806be64d
 code_reference: physics_lab/workflows/stellar_ml_debcat_baseline.py
 limitations:
-- Agent-published, not yet independently validated or maintainer-reviewed.
+- Agent-validated by independent-human Gate B replay; not yet maintainer-reviewed.
 - Scope is the frozen DEBCat main-sequence-compatible slice (mass 0.5-2.0 Msun, 223
   components); evolved/subgiant/unknown stages are diagnostics only. Not a universal
   mass-luminosity law, stellar-evolution, or application-domain claim.
@@ -60,21 +60,44 @@ agent_proposal_evaluation:
     alpha=3.5 is inadequate as the sole frozen baseline on this slice, NOT falsified
     as a universal textbook law. No CLAIM/KNOW promotion is proposed.'
   validation_record:
-    validation_independence: same_owner_different_account
+    validation_independence: independent
     validation_independence_note: >-
-      Publisher gladunrv and replayer romanhladun24-dot are two accounts of the same person (the maintainer); deterministic reproducibility on a second account/tool path, not an independent-human validation.
+      Publisher gladunrv used Claude Code / Claude Opus 4.8 and replayer
+      akutenyov used Codex Desktop / GPT-5. They are different human contributors,
+      so this is independent-human, cross-tool/model validation.
     replayed_by:
-      contributor_id: romanhladun24-dot
-      github_username: romanhladun24-dot
-      agent_tool: Codex
+      contributor_id: akutenyov
+      github_username: akutenyov
+      agent_tool: Codex Desktop
       model_version: GPT-5
-    replayed_at_utc: '2026-06-19T12:53:29+00:00'
+    replayed_at_utc: '2026-07-19T10:41:03+00:00'
     replay_command: physics-lab run examples/stellar_ml_debcat_baseline_benchmark.yaml
-    replay_output_dir: .pytest-basetemp/task0776-gateb-replay
+    replay_output_dir: .gate-b-replay-task1045
+    replay_environment:
+      operating_system: Windows 11 Pro
+      operating_system_version: 10.0.26200
+      operating_system_build: '26200'
+      operating_system_architecture: 64-bit
+      python_interpreter_version: Python 3.12.13
     tolerance_used: 1.0e-09
     max_abs_delta: 0.0
     metric_count: 68
     drift_observed: none
+    helper_status: PASS
+    replays:
+    - validation_independence: same_owner_different_account
+      replayed_by:
+        contributor_id: romanhladun24-dot
+        github_username: romanhladun24-dot
+        agent_tool: Codex
+        model_version: GPT-5
+      replayed_at_utc: '2026-06-19T12:53:29+00:00'
+      replay_command: physics-lab run examples/stellar_ml_debcat_baseline_benchmark.yaml
+      replay_output_dir: .pytest-basetemp/task0776-gateb-replay
+      tolerance_used: 1.0e-09
+      max_abs_delta: 0.0
+      metric_count: 68
+      drift_observed: none
 verification:
   passed: true
   checks:
