@@ -59,8 +59,8 @@ result_artifact_policy:
 validation:
   commands:
     - "python3 -m pytest -n0 tests/test_factory_summary_schema.py tests/test_research_factory_core.py tests/test_nuclear_residual_factory.py tests/test_materials_factory_adapter.py tests/test_docs_links.py"
-    - "python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_sprint.yaml --output-dir <temporary-output-dir>"
-    - "python3 scripts/run_research_factory.py --config examples/factories/materials_md0001_formation_energy_smoke.yaml --output-dir <temporary-output-dir>"
+    - "python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_sprint.yaml --output-dir _generated/task-1074/nuclear"
+    - "python3 scripts/run_research_factory.py --config examples/factories/materials_md0001_formation_energy_smoke.yaml --output-dir _generated/task-1074/materials"
     - "python3 scripts/apl_check_mission_drift.py"
     - "python3 scripts/generate_campaign_catalog.py --check"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
