@@ -140,7 +140,7 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
     assert "microtask-batch-dimensional-analysis-validator--challenge-entries" in result.stdout
 
 
-def test_cli_status_lists_available_microtasks_from_repo_root() -> None:
+def test_cli_status_renders_queue_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
         [
@@ -158,4 +158,6 @@ def test_cli_status_lists_available_microtasks_from_repo_root() -> None:
 
     assert result.returncode == 0
     assert "Microtask availability for pendulum-formula-falsification" in result.stdout
-    assert "`pendulum-formula-falsification`" in result.stdout
+    assert "| Queue | Microtask | Status |" in result.stdout
+    # The live queue may be exhausted; row-presence assertions would make a
+    # repository-root smoke test fail when valid microtask work is completed.

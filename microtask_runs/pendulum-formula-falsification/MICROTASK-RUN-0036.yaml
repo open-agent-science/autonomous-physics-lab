@@ -1,0 +1,46 @@
+id: MICROTASK-RUN-0036
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-011
+status: REVIEW_READY
+claimant:
+  contributor_id: gladunrv
+  agent_id: codex
+branch: agent/gladunrv/codex/microtask-PFF-011-x3-log-search
+pull_request: "https://github.com/open-agent-science/autonomous-physics-lab/pull/1624"
+result_note: docs/notes/pff-011-x3-log-fixed-asymptotic-attempt.md
+verdict: FALSIFIED
+review_state: REVIEW_READY
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+    - physics_lab/engines/simulation.py
+    - physics_lab/engines/formula_discovery.py
+  method: "Fit a fixed-asymptotic x^3 log candidate on the canonical train range and test it on configured and near-separatrix slices."
+  code_references:
+    - physics_lab/engines/simulation.py
+    - physics_lab/engines/formula_discovery.py
+  metrics:
+    - "predeclared_configured_test_mre_max: 1.0e-3"
+    - "predeclared_near_separatrix_max_re_max: 5.0e-2"
+    - "predeclared_asymptotic_slope_relative_error_max: 5.0e-2"
+    - "a: 0.2502334789149173"
+    - "b: 0.1473489146300460"
+    - "train_mre: 1.584713757570333e-5"
+    - "train_max_re: 1.0091283630351904e-4"
+    - "configured_test_mre: 2.481508302576918e-3 (FAIL)"
+    - "configured_test_max_re: 7.788276642876002e-3"
+    - "near_separatrix_mre: 1.69035799823652e-1"
+    - "near_separatrix_max_re: 1.9860520692567105e-1 (FAIL)"
+    - "asymptotic_slope: 0.6408429142478926"
+    - "expected_asymptotic_slope: 0.6366197723675814"
+    - "asymptotic_slope_relative_error: 6.633695753126611e-3 (PASS)"
+    - "minimum_prediction_step: 3.508206172231354e-7"
+  failure_mode: "The fixed 1/pi log coefficient recovers the leading asymptotic slope, but the family exceeds both accuracy gates; slope alignment alone does not control the additive offset or intermediate-angle curvature."
+  limitations:
+    - "One deterministic candidate family only; no exhaustive formula search or claim promotion."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/pendulum-formula-falsification/
+      - docs/notes/pff-*.md
+      - results/EXP-0001/
+    summary: "Prior PFF-011 tested a two-parameter Pade family. No prior run fixes the asymptotic 1/pi coefficient on an x^3-suppressed log term; repository searches also found no x^3-log atom in the canonical gauntlet families."
