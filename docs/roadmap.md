@@ -125,14 +125,21 @@ criteria:
 This track should be planned before public launch and completed only when the
 maintainer is ready to publish release artifacts.
 
-## v0.3 — Research Factory And Dataset Publication Layer — Planned
+## v0.3 — Research Factory And Dataset Publication Layer — Capability Exit Met; Release Decision Pending
 
 **Goal:** APL can run bounded campaign factories that test many hypotheses, route
 candidates through controls, and produce reviewable scientific memory on
 source-pinned datasets without claim promotion.
 
-`v0.3` is the next capability milestone after the `v0.2` public-alpha hardening.
-It is a deliberate step change, not more hardening: APL moves from
+The evidence-facing `v0.3` capability exit was audited at main commit
+`6e724537` under `TASK-1074` with decision
+[`V0.3_CAPABILITY_EXIT_GO`](reviews/workflow/v0.3-research-factory-exit-audit-2026-07-21.md).
+This means the bounded Research Factory milestone is implemented and exercised;
+it does not mean that package version `0.3.0` has been released. The release
+transition remains a separate maintainer decision.
+
+`v0.3` is a deliberate step change after `v0.2` public-alpha hardening, not more
+hardening: APL moves from
 one-lane-at-a-time hypothesis audits to a reusable **Research Factory** — a
 deterministic bounded workflow that campaign adapters call to generate many
 scoped candidates under locked controls and route the output into scientific
@@ -161,8 +168,10 @@ Sequencing: `v0.3` may be planned in parallel but is closed only after the
 `v0.2` public-launch gates above are satisfied.
 
 Version-marker hygiene: `pyproject.toml` is the package-version source of truth.
-The `v0.2` public-alpha release reconciled that marker to `0.2.0`; do not advance
-it to `0.3.0` until the `v0.3` exit criteria and release gates are satisfied.
+The `v0.2` public-alpha release reconciled that marker to `0.2.0`, which remains
+the package version after the capability-exit audit. Advance it to `0.3.0` only
+in a dedicated maintainer-approved release change that rechecks the release
+gates and synchronizes citation and release metadata.
 
 ## v0.4 — External Agent Network Validation — Future
 
