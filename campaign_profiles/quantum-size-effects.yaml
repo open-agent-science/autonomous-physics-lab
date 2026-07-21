@@ -84,16 +84,18 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1052 remains UNCERTAINTY_BLOCKED, while TASK-1064 independently established GO_TEXT_REPORTED_PEAK_ROUTE for eight sample-resolved Kim-2020 CdSe absorption/fluorescence statements under a separate provenance contract."
-  recommended_parallel_agents: 1
-  coordination_notes: "Preserve TASK-1052 as failed-contract memory; do not weaken its axis gate or admit excluded digitized coordinates. TASK-1070 may curate exactly eight text-stated rows into separate absorption and emission files without scoring. Preserve RESULT-0029; no correction search, refit, repeat ZnSe/InP transfer, or benchmark metric is authorized."
+  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1070 curated eight source-stated Kim-2020 CdSe observations into separate four-row absorption and emission surfaces with no score; the failed figure-digitization route remains closed."
+  recommended_parallel_agents: 2
+  coordination_notes: "TASK-1077 may freeze one honest small-surface benchmark contract or stop as underpowered. TASK-1078 may scout one genuinely independent direct-row CdSe source in parallel. Preserve RESULT-0029 and TASK-1052; do not pool absorption with emission, admit excluded digitized coordinates, refit the failed transfer, or score before a separate frozen contract."
   next_validity_gate:
     type: source_readiness
-    blocker: "The text-reported route is provenance-ready, but its eight approved observations have not yet been represented as schema-valid, property-separated dataset rows."
-    target_artifact: "TASK-1070"
+    blocker: "Each Kim-2020 property axis contains only four same-source observations, so benchmark adequacy and independent-source transfer are unresolved."
+    target_artifact: "TASK-1077 and TASK-1078"
   best_next_actions:
-    - task_id: TASK-1070
-      label: "Curate eight text-reported CdSe optical rows without fitting or scoring"
+    - task_id: TASK-1077
+      label: "Freeze an honest no-score small-surface benchmark contract or stop as underpowered"
+    - task_id: TASK-1078
+      label: "Scout one independent CdSe direct-row source without extracting values"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -117,16 +119,20 @@ portfolio:
     - "docs/reviews/quantum/kim-2020-cdse-extraction-preflight.md"
     - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
     - "docs/reviews/quantum/kim-2020-cdse-text-reported-peak-route.md"
+    - "docs/reviews/quantum/kim-2020-cdse-text-row-curation.md"
+    - "data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml"
+    - "data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml"
     - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml"
     - "data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml"
     - "results/EXP-0022/RUN-0001/result.yaml"
   open_questions:
-    - "After the eight text-stated rows are curated, is there a sufficiently strong predeclared benchmark question that adds information beyond the existing transfer-negative memory?"
+    - "Can either four-row property axis support an honest predeclared benchmark, or should the route stop as underpowered?"
+    - "Can a genuinely independent CdSe source provide directly reported size/property rows with compatible semantics?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-17"
+    last_reviewed: "2026-07-21"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1064 Kim-2020 text-route GO and Scientific Director 2026-07-17 cycle"
-    notes: "RESULT-0029 remains bounded inconclusive/control memory. The failed digitization route stays closed, while a separate eight-row text-stated route is ready for source curation without metrics."
+    source: "TASK-1070 Kim-2020 row curation and Scientific Director 2026-07-21 cycle"
+    notes: "RESULT-0029 remains bounded inconclusive/control memory. Eight direct text-stated rows now exist on two separate axes; benchmark adequacy and independent-source breadth must be decided before any metric run."

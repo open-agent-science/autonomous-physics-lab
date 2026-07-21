@@ -1,0 +1,59 @@
+id: TASK-1080
+title: "Resolve bounded N_f=2+1 f_K/f_pi dependency edges"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task changes the real Lattice-QCD dependency graph; closeout must verify every upgraded edge against primary evidence and preserve unknown dependence conservatively."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-1055 preserved unresolved dependence instead of falsely treating separate publications as independent."
+  - "The six-publication N_f=2+1 set can be audited independently from the N_f=2+1+1 set and may define conservative connected components for a later policy."
+  - "The task remains valuable even if most pairs stay UNKNOWN because it records exactly where primary lineage evidence ends."
+
+input:
+  mode: planning_only
+  related_domain: lattice_qcd
+  related_objects:
+    - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
+    - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
+    - "docs/reviews/lattice_qcd/fk-fpi-source-dependency-pilot.md"
+  planning_context: >
+    Audit only the N_f=2+1 publication subset and replace UNKNOWN pair states
+    only with primary-source or official ensemble evidence. Keep numeric
+    f_K/f_pi content outside the task.
+
+requirements:
+  - "Scope is exactly pub-rbc-ukqcd-14b, pub-hpqcd-ukqcd-07, pub-milc-10, pub-bmw-10, pub-bmw-16, and pub-qcdsf-ukqcd-16 and their fifteen unordered publication pairs."
+  - "Inspect primary papers, linked supplements, collaboration ensemble tables, or official data-release metadata; record stable identity and locator for every asserted relation."
+  - "Classify configuration, scale-setting, normalization, and named uncertainty lineage separately as CONFIRMED_SHARED, CONFIRMED_DISJOINT, POSSIBLE_SHARED, or UNKNOWN."
+  - "Preserve FLAG's common strong-isospin-conversion lineage and evaluated-average membership; do not count either FLAG average as independent evidence."
+  - "Do not infer disjointness from different citations, collaborations, actions, or absent overlap prose. Unsupported pairs remain UNKNOWN."
+  - "Update only N_f=2+1 edge/evidence records and a dedicated review note; do not edit N_f=2+1+1 pair states."
+  - "Return exactly one verdict: SUBGRAPH_DEPENDENCY_READY, PARTIAL_HOLD_UNKNOWN_EDGES, SOURCE_IDENTITY_BLOCKED, or STOP_NO_ADDITIONAL_EVIDENCE."
+  - "Do not extract values, uncertainty magnitudes, averages, covariance magnitudes, run metrics, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No-claim wording: dependency-edge resolution does not assess Lattice-QCD agreement, precision, tension, or physics."
+
+accepted_outputs:
+  - "A docs/reviews/lattice_qcd/ N_f=2+1 edge-resolution note with fifteen-pair coverage, exact evidence locators, remaining UNKNOWN states, limitations, and one verdict."
+  - "Minimal source-evidenced updates to data/lattice_qcd/fk_fpi_dependency_graph.yaml plus metadata-only tests; no numeric physics rows."
+  - "Output routing: source/dependency readiness only; no result, claim, prediction, knowledge, or campaign-wide GO."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only dependency resolution; no scientific RESULT or dataset values are produced."
+  evidence:
+    - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_lattice_fk_fpi_source_dependency_pilot.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

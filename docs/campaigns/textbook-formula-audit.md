@@ -66,14 +66,16 @@ stable across a small value-blind alternate-split slate, while a predeclared
 piecewise baseline is not justified after complexity penalty. The later
 FIRAS/Wien slice has been packaged and independently replayed as
 AGENT_VALIDATED `RESULT-0023`; it is calibration/known-physics verifier
-memory, not a discovery claim. Stellar high-mass transfer `RESULT-0024`
-now has formal workflow Gate B replay with zero metric drift and is
-`AGENT_VALIDATED`; it remains same-source DEBCat transfer evidence with
-small-holdout and stage/provenance caveats. The current blocker is external
-transfer execution beyond DEBCat, not another model search. The twelve CHARA
-component rows and four luminosity derivations now pass independent source
-replay with zero contested rows; the frozen relation has not yet been scored on
-that surface.
+memory, not a discovery claim. Stellar high-mass transfer `RESULT-0024` now has
+formal workflow Gate B replay with zero metric drift and is `AGENT_VALIDATED`;
+it remains same-source DEBCat transfer evidence with small-holdout and
+stage/provenance caveats. The twelve CHARA component rows and four luminosity
+derivations pass independent source replay with zero contested rows.
+`RESULT-0031` now records the no-refit CHARA transfer as `AGENT_PUBLISHED` and
+`INCONCLUSIVE`: the frozen relation reached `0.060530 dex` MAE versus
+`0.097317 dex` for the best eligible control, but its `0.036787 dex` margin
+missed the predeclared `0.04 dex` survival threshold by `0.003213 dex`. This
+bounded outcome needs independent replay, not a rescue fit.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -94,7 +96,8 @@ controls, baseline-adequacy evidence, and `RESULT-0022` as an
 `AGENT_VALIDATED` after independent Gate B replay. `RESULT-0024` now also has a
 formal workflow Gate B replay with zero numeric drift and is
 `AGENT_VALIDATED`; it remains bounded same-source DEBCat transfer evidence, not
-a universal stellar law.
+a universal stellar law. `RESULT-0031` adds a separate external CHARA transfer
+surface with an `INCONCLUSIVE` verdict pending Gate B replay.
 
 ### Maintainer-Approved Public Capsule — RESULT-0022
 
@@ -144,16 +147,24 @@ grouping, rights boundaries, and zero-DEBCat-overlap checks. Its verdict is
 `INDEPENDENT_SOURCE_REPLAY_PASS`; this validates the source surface, not the
 stellar relation.
 
+`TASK-1050` then scored the frozen `RESULT-0022` relation exactly once on that
+surface without refitting. The relation beat the best control, but the margin
+fell just short of the predeclared threshold, so `RESULT-0031` is
+`INCONCLUSIVE`. Its six-system scope, mixed direct/derived luminosity
+provenance, and leave-one-system sensitivity remain explicit limitations.
+
 The second independent-validation path is prospective rather than archival.
 The Gaia DR4 mass-luminosity reveal contract is specified, but no DR4 value or
 target list has been read. The official draft model defines component masses
 but not an admissible same-component bolometric-luminosity route, so the current
 readiness verdict is `HOLD_FIELDS_NOT_READY`.
 
-**Expected next outputs:** the CHARA lane should score the already-frozen
-`RESULT-0022` relation and predeclared controls without refitting. Gaia remains
-on hold until same-component bolometric luminosities exist. Neither route
-currently authorizes a universal relation or reveal claim.
+**Expected next outputs:** an independent Gate B replay should test whether
+`RESULT-0031` reproduces with zero material drift while preserving the
+`INCONCLUSIVE` boundary. A separate source gate may determine whether HD 284163
+can support a future versioned extension; it cannot be added as a rescue row to
+the frozen result. Gaia remains on hold until same-component bolometric
+luminosities exist. None of these routes authorizes a universal relation.
 
 ## Why It Matters
 

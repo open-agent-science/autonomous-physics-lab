@@ -59,10 +59,12 @@ property/unit semantics, and defined a dated live-API snapshot policy with a
 composition overlaps MD-0002, leaving a hash-pinned 172-row normalized OQMD
 surface. `TASK-1053` then froze a leakage-free grouped split with 120 train, 26
 validation, and 26 holdout rows, and `TASK-1054` froze the cation-pair baseline,
-nulls, controls, seeds, metrics, and survival margin without target access. No
-metric or `RESULT` was created. Independent source replay is now the only gate
-before one frozen within-OQMD benchmark; cross-database numeric pooling remains
-forbidden.
+nulls, controls, seeds, metrics, and survival margin without target access.
+`TASK-1063` independently reproduced the source hashes, counts, predicate,
+overlap exclusions, semantics, and rights boundary and returned
+`INDEPENDENT_SOURCE_REPLAY_PASS`. No OQMD metric or `RESULT` exists yet; one
+frozen within-source benchmark is now ready, while cross-database numeric
+pooling remains forbidden.
 
 ## Public Monitoring Snapshot
 
@@ -224,9 +226,10 @@ The numbered path below is now:
 1. **MD-0002 trust path** — run the reserved independent-human replay or a
    genuinely external clean-room replication from the public release; do not
    rebuild the archive or broaden the result scope.
-2. **OQMD readiness path** — the identity-only split and within-source
-   baseline/control contract are frozen. Complete `TASK-1063` source replay;
-   only `INDEPENDENT_SOURCE_REPLAY_PASS` may unblock one `TASK-1066` metric run.
+2. **OQMD result path** — the identity-only split, within-source
+   baseline/control contract, and independent source replay all pass. Run
+   `TASK-1066` once under the frozen contract; preserve PASS, FAIL, or
+   INCONCLUSIVE without rescue fitting.
 3. **Stop boundary** — preserve transfer failures and sparse-family limits;
    do not pool OQMD and Materials Project values, run broad feature factories,
    or convert a cation-pair advantage into material-design wording.

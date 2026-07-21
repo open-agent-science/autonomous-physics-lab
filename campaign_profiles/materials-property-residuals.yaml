@@ -86,20 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0002 is AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized rows after 201 identifier-only MD-0002 composition exclusions; TASK-1053 froze a leakage-free 120/26/26 grouped split and TASK-1054 froze the value-blind baseline/control contract."
-  recommended_parallel_agents: 3
-  coordination_notes: "The OQMD source, split, and control-contract gates are satisfied. TASK-1063 is the only remaining prerequisite before TASK-1066 may run the frozen within-OQMD benchmark. TASK-1044 remains reserved for an independent-human RESULT-0021 replay. Do not rebuild MD-0002 v0.1.0, pool OQMD and Materials Project target values, or open a feature factory."
+  current_stage: "MD-0002 remains AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized rows, a leakage-free 120/26/26 grouped split, a frozen value-blind baseline/control contract, and an independent source replay with INDEPENDENT_SOURCE_REPLAY_PASS."
+  recommended_parallel_agents: 1
+  coordination_notes: "All source, split, control, and independent-replay gates for the bounded OQMD surface are satisfied. TASK-1066 is now the single direct result path and must run the frozen within-OQMD benchmark once without pooling OQMD and Materials Project values, rebuilding MD-0002 v0.1.0, or opening a feature factory."
   next_validity_gate:
     type: transfer
-    blocker: "The source, grouped split, and value-blind control contract are frozen; benchmark scoring remains blocked only until TASK-1063 returns INDEPENDENT_SOURCE_REPLAY_PASS."
-    target_artifact: "TASK-1063, then TASK-1066"
+    blocker: "No scientific prerequisite remains; the frozen one-shot OQMD benchmark has not yet been executed."
+    target_artifact: "TASK-1066"
   best_next_actions:
-    - task_id: TASK-1044
-      label: "Replay RESULT-0021 under a genuinely independent human identity"
-    - task_id: TASK-1063
-      label: "Independently replay the bounded OQMD source and overlap contract"
     - task_id: TASK-1066
-      label: "After source replay passes, run the frozen within-OQMD benchmark once"
+      label: "Run the frozen within-OQMD benchmark once"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -131,15 +127,16 @@ portfolio:
     - "docs/reviews/materials/oqmd-identifier-only-split-freeze.md"
     - "docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml"
     - "docs/reviews/materials/oqmd-within-source-baseline-control-preflight.md"
+    - "docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md"
   open_questions:
-    - "Can the frozen within-OQMD baseline survive grouped holdout controls on the 172-row composition-disjoint surface?"
+    - "Will the frozen within-OQMD baseline survive grouped holdout controls on the 172-row composition-disjoint surface?"
     - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-17"
+    last_reviewed: "2026-07-21"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1053/TASK-1054 OQMD split and contract outcomes and Scientific Director 2026-07-17 cycle"
-    notes: "MD-0002 remains fixed and citable. OQMD has a bounded, hash-pinned 172-row source surface plus frozen split and controls; independent source replay is the sole remaining gate before one metric execution."
+    source: "TASK-1063 OQMD independent source replay and Scientific Director 2026-07-21 cycle"
+    notes: "MD-0002 remains fixed and citable. OQMD has cleared source, split, control, and independent-replay gates; TASK-1066 is the sole authorized metric execution."

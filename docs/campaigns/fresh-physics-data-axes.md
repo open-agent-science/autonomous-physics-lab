@@ -78,11 +78,12 @@ It remains source-surface work only; no rows or metrics are ingested.
 ### Lattice QCD
 
 Lattice-QCD aggregated consistency remains source-gated rather than an activated
-data-ingestion campaign. The bounded incubator selected `f_K/f_pi` and returned
-`GO_LATTICE_DEPENDENCY_AUDIT`: the next test is whether 8-12 primary
-publications can support an auditable dependency graph with enough provenance,
-rights clarity, and ensemble-lineage metadata to add value beyond existing
-FLAG summaries.
+data-ingestion campaign. The bounded `f_K/f_pi` pilot now has an eleven-
+publication source manifest and a real dependency graph, but returned
+`HOLD_COVARIANCE_UNRESOLVED`: all 49 pairwise dependency relations remain
+`UNKNOWN`. The next test is whether primary-source evidence can resolve those
+edges conservatively and whether all eleven publications satisfy one frozen
+value-admissibility policy.
 
 No real Lattice-QCD central value, uncertainty, average, ensemble file, metric,
 result, or claim has been admitted. Future ingestion must record observable
@@ -90,8 +91,9 @@ definitions, scheme and scale, flavor content, aggregation source, uncertainty
 semantics, correlation notes, source locators, license terms, dependency class,
 and holdout classification.
 
-This axis must not become cross-domain fitting before the project has a fixed
-source manifest and correlation policy.
+This axis must not admit central values or become cross-domain fitting before
+the dependency evidence and value-admissibility policy pass. Missing evidence
+must remain `UNKNOWN`, not be interpreted as independence.
 
 ### FRB Selection-Effect Audit
 

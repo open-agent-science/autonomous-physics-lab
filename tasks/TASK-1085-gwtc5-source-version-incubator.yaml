@@ -1,0 +1,57 @@
+id: TASK-1085
+title: "Incubate a version-pinned GWTC-5 open-catalog source route"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether a new gravitational-wave campaign has a distinct, source-safe benchmark route; closeout must verify official versioning, rights, selection effects, and no-value/no-claim boundaries."
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "GWOSC released O4b open data and GWTC-5.0 in 2026, creating a versioned fresh-data surface that did not exist during the earlier WATCHLIST review."
+  - "A pre-O4 to O4 time-split benchmark could be scientifically legible, but only if catalog versions, event identity, selection functions, parameter revisions, and rights are controlled first."
+  - "The incubator must stop if the only output would duplicate GWOSC/LVK catalog summaries or ignore search sensitivity."
+
+input:
+  mode: planning_only
+  related_domain: gravitational_wave_astrophysics
+  related_objects:
+    - "docs/campaigns/fresh-physics-data-axes.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/notes/fresh-data-source-policy.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    Use official GWOSC and primary LVK publication metadata to decide whether
+    GWTC-5.0 can support one bounded source/version manifest and a later
+    retrospective time-split benchmark. Do not ingest event parameters.
+
+requirements:
+  - "Pin the official GWTC-5.0 and O4b release identities, publication/release dates, catalog/API version, DOI or stable locator, CC BY 4.0 terms, attribution, API schema route, and checksum/retrieval-identity policy."
+  - "Map event identity/version semantics, confident versus marginal or p_astro-selected classes, detector-frame versus source-frame parameters, credible-interval conventions, parameter-estimation revisions, and duplicate/supersession rules without reading numeric event values."
+  - "Identify at most one candidate pre-O4-to-O4 benchmark question and explain why it adds value beyond an LVK/GWOSC summary. Require an explicit search-sensitivity/selection-function control and a time-split that cannot leak revised O4 information into the development surface."
+  - "Define row cap, source classes, future schema fields, no-peek boundary, null/control families, and stop conditions at contract level only."
+  - "Return exactly one verdict: GO_GWTC_SOURCE_MANIFEST, HOLD_SCHEMA_VERSION, HOLD_SELECTION_FUNCTION, RIGHTS_BLOCKED, or STOP_NO_DISTINCT_APL_QUESTION."
+  - "Do not fetch bulk strain or posterior samples, ingest event rows or values, calculate residuals/population statistics, fit models, register predictions, or create RESULT/CLAIM/KNOW artifacts."
+  - "No-claim wording: source-incubator readiness is not a gravitational-wave population result, anomaly, cosmology constraint, prediction success, or new-physics claim."
+
+accepted_outputs:
+  - "A docs/reviews/gravitational_waves/ incubator packet with official source/version table, rights and retrieval policy, schema/selection-function risks, one candidate question or STOP, limitations, and one verdict."
+  - "Optional metadata-only source-manifest scaffold with no event values, plus output routing that leaves campaign activation and numeric ingestion to a later Scientific Director/maintainer decision."
+
+result_artifact_policy:
+  required: false
+  reason: "New-campaign source/version incubator only; no scientific rows, metrics, RESULT, or prediction are produced."
+  evidence:
+    - "docs/campaigns/fresh-physics-data-axes.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

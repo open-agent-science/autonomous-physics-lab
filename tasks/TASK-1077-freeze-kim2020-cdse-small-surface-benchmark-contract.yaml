@@ -1,0 +1,57 @@
+id: TASK-1077
+title: "Freeze or stop a Kim-2020 CdSe small-surface benchmark contract"
+type: scientific_benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether eight newly curated rows support any honest benchmark; closeout must reject underpowered or outcome-shaped contracts."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "TASK-1070 produced four absorption and four emission observations with source hashes and no scoring."
+  - "The next question is not which model fits best, but whether four sample groups per axis support a predeclared diagnostic with informative controls and stop conditions."
+  - "A formal HOLD_UNDERPOWERED decision is preferable to manufacturing a result from a tiny surface."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml"
+    - "data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml"
+    - "docs/reviews/quantum/kim-2020-cdse-text-row-curation.md"
+    - "results/EXP-0022/RUN-0001/result.yaml"
+  planning_context: >
+    Decide, without running metrics, whether the four shared sample groups can
+    support a bounded source-scoped diagnostic. Keep absorption and emission
+    as separate primary axes and preserve missing instrument uncertainty.
+
+requirements:
+  - "Reverify exactly four source-matched sample groups per property axis, text_stated_summary provenance, 0.005 eV rounding floors, unknown_non_spherical morphology, and no instrument uncertainty."
+  - "Predeclare at most one compact physics-motivated baseline family, simple null controls, group-level resampling or leave-one-sample-out sensitivity, metrics, tolerances, and a minimum information/power rule before any score is computed."
+  - "Do not pool absorption and emission under one residual metric. A paired Stokes-shift diagnostic is allowed only as a separately named secondary axis with propagated rounding limits."
+  - "Return CONTRACT_READY_FOR_SOURCE_SCOPED_DIAGNOSTIC only if every primary verdict can survive one-group deletion and the contract adds information beyond monotonic plotting; otherwise return HOLD_UNDERPOWERED or SEMANTICS_BLOCKED."
+  - "Freeze PASS/FAIL/INCONCLUSIVE routing and forbid post-score threshold changes, rescue fitting, equivalent-sphere conversion, or reuse of excluded figure-digitization coordinates."
+  - "Do not run the validator/model, compute metrics, create hypotheses/experiments/results, or change RESULT-0029."
+  - "No-claim wording: a future run would test one four-sample CdSe text-reported surface, not a quantum-confinement law or material-design rule."
+
+accepted_outputs:
+  - "A frozen benchmark contract and review note under data/quantum_dots/ and docs/reviews/quantum/, or an explicit HOLD/SEMANTICS blocker with no execution task implied."
+  - "Metadata-only contract tests plus output routing: benchmark readiness only, Gate A/B not attempted, no claim or knowledge impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind benchmark contract or stop decision only; no metrics or RESULT artifact are produced."
+  evidence:
+    - "docs/reviews/quantum/kim-2020-cdse-text-row-curation.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_quantum_dot_dataset_schema.py tests/test_quantum_kim2020_text_peak_route.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

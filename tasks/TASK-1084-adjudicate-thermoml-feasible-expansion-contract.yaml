@@ -1,0 +1,60 @@
+id: TASK-1084
+title: "Adjudicate a feasible ThermoML Tb expansion contract without scoring"
+type: scientific_benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This task may reopen a stopped ThermoML expansion route; closeout must verify that any revised contract is count-driven, outcome-blind, rights-bounded, and scientifically incremental."
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The exact 80-row contract is infeasible because acids provide 6/10 and ketones 8/10 admissible identities; repeating extraction cannot change that fact."
+  - "The pinned archive nevertheless contains enough count-only information to decide whether a smaller or family-weighted surface would add evidence beyond the existing balanced 40-row result."
+  - "A STOP_LOW_INCREMENTAL_VALUE outcome is preferable to lowering gates merely to keep the campaign active."
+
+input:
+  mode: planning_only
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "docs/reviews/thermoml-tb-80row-local-count-preflight.md"
+    - "docs/reviews/thermoml/thermoml-revised-source-access-contract-task0986.md"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "results/EXP-0020/RUN-0001/result.yaml"
+    - "results/EXP-0020/RUN-0002/result.yaml"
+  planning_context: >
+    Use only frozen identity counts, rights limits, and existing contract
+    structure to decide whether a revised Tb-only expansion has enough
+    incremental information for a future extraction and benchmark.
+
+requirements:
+  - "Do not access the local ThermoML archive, selected identities, row values, residuals, or family performance while choosing the contract. Use only committed aggregate counts and pre-existing family definitions."
+  - "Compare at most three predeclared options: balanced six-per-family, availability-capped family-equal weighting, and STOP. Quantify row/group counts and effective family-level information without scientific target values."
+  - "Any GO contract must preserve all eight families, Tb-only scope, conflict exclusions, Joback coverage, per-article cap, family-level reporting, fixed controls, rights boundary, and no raw/archive/corpus redistribution."
+  - "Define the minimum incremental-information rule versus the existing 40-row fixture before selecting an option. Do not choose a route because it could rescue RESULT-0026 or hide RESULT-0028."
+  - "Freeze future extraction row caps, deterministic identity selection, group weighting, split/control semantics, stop conditions, and PASS/FAIL/INCONCLUSIVE routing without scoring."
+  - "Return exactly one verdict: REVISED_CONTRACT_READY_NO_SCORE, STOP_LOW_INCREMENTAL_VALUE, RIGHTS_DECISION_BLOCKED, or CONTRACT_SEMANTICS_BLOCKED."
+  - "Do not extract rows, run Joback, alter RESULT-0026/0028, broaden properties, publish a dataset, or make chemical-design/process/safety claims."
+  - "No-claim wording: contract readiness is not evidence that Joback transfers, fails globally, or supports property prediction in production."
+
+accepted_outputs:
+  - "A docs/reviews/thermoml/ stop/go packet with option comparison, frozen information floor, recommended contract or STOP, rights boundary, limitations, and one verdict."
+  - "Only on GO, a value-blind contract artifact and metadata-only tests; execution and any RESULT require later tasks."
+  - "Output routing: source/benchmark readiness only; Gate A/B not attempted and existing results/claims/knowledge remain unchanged."
+
+result_artifact_policy:
+  required: false
+  reason: "Value-blind contract adjudication only; no data rows, metrics, RESULT, or prediction are produced."
+  evidence:
+    - "docs/reviews/thermoml-tb-80row-local-count-preflight.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_thermoml_tb_80row_preflight.py tests/test_thermoml_family_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

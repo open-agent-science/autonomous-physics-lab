@@ -1,0 +1,58 @@
+id: TASK-1076
+title: "Resolve the HD 284163 CHARA supplement source gate"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task may admit a new external-system row surface; closeout must verify supplement identity, rights, component mapping, and strict separation from the frozen RESULT-0031 input."
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "The existing CHARA surface excluded HD 284163 because the named supplement lacked a pinned checksum and reviewed same-component bolometric luminosity route."
+  - "Unlike the six Hyades exclusions, HD 284163 could add a distinct physical-system group rather than more rows from an already dependent environment."
+  - "Resolving one precise source gate is more informative than reopening all seven excluded systems or refitting RESULT-0031."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
+    - "docs/reviews/stellar/chara-per-component-row-curation.md"
+    - "docs/reviews/stellar/chara-cluster-dependence-policy.md"
+    - "results/EXP-0023/RUN-0001/result.yaml"
+  planning_context: >
+    Pin and inspect only the named HD 284163 article supplement and decide
+    whether it supports a separate source-curated component surface. The
+    twelve RESULT-0031 input rows remain immutable.
+
+requirements:
+  - "Pin the exact supplement locator, filename, retrieval date, byte count, SHA-256, article DOI 10.1093/mnras/stad3803, license/reuse boundary, and citation requirement before extracting any factual values."
+  - "Verify whether the source provides same-component dynamical masses and either direct bolometric luminosities or all explicitly reported inputs required by the already reviewed Stefan-Boltzmann derivation."
+  - "Record component aliases and primary/secondary-to-A/B mapping. Stop on unresolved component identity, band-limited luminosity only, missing uncertainty semantics, or supplement rights ambiguity."
+  - "If the gate passes, place at most two HD 284163 component rows in a new extension artifact; do not append to or rewrite the frozen twelve-row CHARA surface used by RESULT-0031."
+  - "Return exactly one verdict: EXTENSION_SOURCE_READY_NO_SCORE, SUPPLEMENT_IDENTITY_BLOCKED, RIGHTS_BLOCKED, COMPONENT_MAPPING_BLOCKED, or LUMINOSITY_SEMANTICS_BLOCKED."
+  - "Do not score, refit, alter RESULT-0031, merge the extension into an existing benchmark, or use residuals to decide row inclusion."
+  - "No-claim wording: source-ready HD 284163 rows would be a bounded extension surface, not additional evidence for a universal stellar relation."
+
+accepted_outputs:
+  - "A source-adjudication note under docs/reviews/stellar/ with exact supplement identity, rights, component/luminosity semantics, stop conditions, and one verdict."
+  - "Only on PASS, a separate schema-valid HD 284163 extension-row artifact with provenance and no score, plus deterministic metadata tests."
+  - "Output-routing summary: source readiness only; Gate A/B not attempted and RESULT-0031, claims, and knowledge remain unchanged."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-gate and optional no-score row curation only; no RESULT or prediction is produced."
+  evidence:
+    - "data/textbook_formula_audit/stellar_ml/chara_component_rows.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_stellar_ml_chara_component_rows.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
