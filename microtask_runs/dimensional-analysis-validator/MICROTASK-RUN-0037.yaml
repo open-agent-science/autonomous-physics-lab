@@ -1,15 +1,15 @@
 id: MICROTASK-RUN-0037
 queue_id: dimensional-analysis-validator
 microtask_id: DAV-011
-status: CLAIMED
+status: REVIEW_READY
 claimant:
   contributor_id: gladunrv
   agent_id: codex
 branch: agent/gladunrv/codex/microtask-DAV-011-pressure-work-boundary
-pull_request: null
-result_note: null
-verdict: NOT_RUN
-review_state: UNREVIEWED
+pull_request: "https://github.com/open-agent-science/autonomous-physics-lab/pull/1625"
+result_note: docs/notes/dav-011-pressure-work-assumption-boundary.md
+verdict: REVIEW_NEEDED
+review_state: REVIEW_READY
 metadata:
   inputs:
     - tasks/microtasks/dimensional-analysis-validator.yaml
@@ -18,12 +18,16 @@ metadata:
   code_references:
     - physics_lab/engines/dimensions.py
   metrics:
-    - NOT_RUN
-  failure_mode: "The attempt is invalid if dimensional inference and the separate physical-assumption review are conflated."
+    - "formula: E = p * V"
+    - "label_blind_dimensional_verdict: VALID"
+    - "dimension_balance: LHS = RHS = M L^2 T^-2"
+    - "engine_warnings: none"
+    - "curated_boundary_classification: SUSPICIOUS"
+  failure_mode: "A consumer could incorrectly interpret the engine's VALID dimensional verdict as proof that unqualified E = p*V is a general energy or work law."
   limitations:
     - "One thermodynamic boundary example; no canonical challenge-set or validator semantics change."
   novelty_check:
     checked_paths:
       - microtask_runs/dimensional-analysis-validator/
       - docs/notes/dav-*.md
-    summary: "Prior DAV-011 compared a dimensionally invalid power expression with its area-corrected form. No prior run tests the pressure-work assumption boundary."
+    summary: "Prior DAV-011 compared a dimensionally invalid power expression with its area-corrected form. No prior run tests the pressure-work integral and process-assumption boundary."
