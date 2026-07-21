@@ -1,7 +1,7 @@
 id: TASK-1069
 title: "Reconcile the v0.3 roadmap with the Materials adapter and v0.2 marker"
 type: documentation
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task changes the public capability roadmap, so closeout must confirm that adapter and release-version statements match merged repository evidence."
 difficulty: low
