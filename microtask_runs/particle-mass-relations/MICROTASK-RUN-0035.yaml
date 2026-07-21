@@ -1,15 +1,15 @@
 id: MICROTASK-RUN-0035
 queue_id: particle-mass-relations
 microtask_id: PMR-011
-status: CLAIMED
+status: REVIEW_READY
 claimant:
   contributor_id: gladunrv
   agent_id: codex
 branch: agent/gladunrv/codex/microtask-PMR-011-lepton-geometric-progression
-pull_request: null
-result_note: null
-verdict: NOT_RUN
-review_state: UNREVIEWED
+pull_request: "https://github.com/open-agent-science/autonomous-physics-lab/pull/1623"
+result_note: docs/notes/pmr-011-charged-lepton-geometric-progression.md
+verdict: FALSIFIED
+review_state: REVIEW_READY
 metadata:
   inputs:
     - tasks/microtasks/particle-mass-relations.yaml
@@ -18,8 +18,15 @@ metadata:
   code_references:
     - docs/scientific-micro-task-protocol.md
   metrics:
-    - NOT_RUN
-  failure_mode: "Reject the relation if its ratio-to-unity or log-spacing mismatch exceeds the predeclared 1% tolerance."
+    - "predeclared_ratio_relative_residual_max: 1.0e-2"
+    - "m_mu_squared_over_m_e_m_tau: 12.294688527629699"
+    - "ratio_relative_residual: 11.294688527629699 (FAIL)"
+    - "ratio_percent_residual: 1129.4688527629698%"
+    - "log_spacing_mismatch: 2.509167342092258"
+    - "geometric_mean_muon_prediction_mev: 30.133193727573914"
+    - "observed_muon_mass_mev: 105.6583755"
+    - "muon_prediction_relative_error: 0.7148054417363826"
+  failure_mode: "The ratio differs from unity by more than three orders of magnitude beyond the 1% tolerance; equal logarithmic spacing is rejected for this pinned triplet."
   limitations:
     - "One hand-declared relation on one pinned triplet; no search, mechanism, or broad particle-mass inference."
   novelty_check:
@@ -27,4 +34,4 @@ metadata:
       - microtask_runs/particle-mass-relations/
       - docs/notes/pmr-*.md
       - docs/reviews/particle-ahs-common-scheme-baseline.md
-    summary: "Prior PMR-011 tested up-type quark Koide Q. No prior microtask run tests equal logarithmic spacing of the charged-lepton pole-mass triplet."
+    summary: "Prior PMR-011 tested up-type quark Koide Q. No prior microtask run tests equal logarithmic spacing of the charged-lepton pole-mass triplet; the AHS midpoint diagnostic uses a separate common-scale Yukawa surface."
