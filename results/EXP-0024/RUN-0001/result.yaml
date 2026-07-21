@@ -6,7 +6,7 @@ hypothesis_id: HYP-0024
 task_id: TASK-1066
 generated_at: '2026-07-22T00:00:00+00:00'
 engine_version: 0.2.0
-git_commit: 1b50840707da8b2440455c05049fa56e8e54adf1
+git_commit: b924261023e094b305dd07249c05447147a3346e
 command: physics-lab run examples/materials_oqmd_within_source_baseline.yaml
 input_file_hashes:
   config:
