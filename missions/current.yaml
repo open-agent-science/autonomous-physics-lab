@@ -74,7 +74,7 @@ missions:
     status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. The OQMD route now has a bounded 172-row source, a leakage-free 120/26/26 grouped split, and a frozen value-blind control contract. Run TASK-1063 independent source replay; only on PASS may blocked TASK-1066 execute the one-shot within-OQMD benchmark."
+    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. The OQMD route now has a bounded 172-row source, a leakage-free 120/26/26 grouped split, a frozen value-blind control contract, and a passing independent source-replay candidate in maintainer review. Keep TASK-1066 blocked until TASK-1063 is merged and closed out on main."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
@@ -88,6 +88,7 @@ missions:
       - "TASK-1042 acquired 373 raw OQMD rows and retained 172 after 201 identifier-only MD-0002 composition exclusions"
       - "TASK-1053 froze a leakage-free 120/26/26 grouped split without target inspection"
       - "TASK-1054 froze the within-OQMD baseline and control contract value-blind"
+      - "TASK-1063 independently reproduced the bounded source hashes, counts, overlap exclusions, semantics, and rights boundary; its PASS candidate awaits merge and closeout"
     forbidden:
       - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
       - "do not mix computed DFT and experimental measurements without explicit provenance"
@@ -202,13 +203,24 @@ missions:
         label: "Independently replay the bounded OQMD source and overlap contract"
         task_id: TASK-1063
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "independent source, hash, predicate, overlap, semantics, and rights verdict without target summaries"
           - "no split, metric, RESULT, CLAIM, or cross-database value comparison"
+      - id: materials-oqmd-source-replay-review-handoff
+        label: "Review and close out the independent OQMD source replay"
+        task_id: null
+        mode: research
+        status: guidance
+        priority: high
+        difficulty: low
+        recommended: true
+        expected_outputs:
+          - "merge and close out TASK-1063 only if the exact source-replay PASS evidence remains valid"
+          - "keep TASK-1066 blocked until the TASK-1063 PASS verdict is durable on main"
       - id: materials-oqmd-frozen-benchmark
         label: "Run the frozen within-OQMD benchmark after source replay passes"
         task_id: TASK-1066

@@ -1,7 +1,7 @@
 id: TASK-1063
 title: "Independently replay the bounded OQMD snapshot source and overlap contract"
 type: scientific_source_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This is the independent source gate before OQMD benchmark scoring; closeout must verify exact bytes, predicate semantics, overlap exclusions, target-blind routing, and rights."
 difficulty: medium
@@ -48,10 +48,12 @@ result_artifact_policy:
   reason: "Independent source validation only; no scientific metric or result is created."
   evidence:
     - "docs/reviews/materials/oqmd-bounded-snapshot-acquisition.md"
+    - "docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md"
+    - "tests/test_materials_oqmd_independent_replay.py"
 
 validation:
   commands:
-    - "python3 -m pytest -n0 tests/test_materials_oqmd_bounded_snapshot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_materials_oqmd_independent_replay.py tests/test_materials_oqmd_bounded_snapshot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 
