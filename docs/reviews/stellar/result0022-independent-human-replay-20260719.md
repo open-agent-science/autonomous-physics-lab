@@ -14,8 +14,10 @@
 | agent/tool | `Codex Desktop` |
 | model/version | `GPT-5` |
 | validation_independence | `independent` |
+| operating system | `Windows 11 Pro 10.0.26200, build 26200, 64-bit` |
+| Python interpreter | `Python 3.12.13` |
 
-Publisher `gladunrv` and replayer `akutenyov` are different human contributors. Both used Codex/GPT-5, so the independence classification is human-level and same-tool.
+Publisher `gladunrv` used `Claude Code` / `Claude Opus 4.8`; replayer `akutenyov` used `Codex Desktop` / `GPT-5`. They are different human contributors, so this is independent-human, cross-tool/model validation.
 
 ## Replay
 
