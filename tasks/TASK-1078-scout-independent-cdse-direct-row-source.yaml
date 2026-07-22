@@ -1,7 +1,7 @@
 id: TASK-1078
 title: "Scout one independent CdSe direct-row source beyond Kim-2020"
 type: scientific_source_curation
-status: READY
+status: IN_PROGRESS
 closeout: review
 closeout_review_reason: "This task decides whether Quantum has an independent source-expansion route; closeout must verify source identity, rights, property semantics, and no-value/no-score discipline."
 difficulty: medium
