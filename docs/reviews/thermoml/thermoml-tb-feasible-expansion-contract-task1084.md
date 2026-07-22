@@ -128,6 +128,9 @@ rights metadata validation belong to the later fixture PR.
 - Canonical destination: the value-blind contract and this review note.
 - Source readiness: ready for a separate gated extraction task.
 - Benchmark readiness: contract ready; expanded fixture does not yet exist.
+- Future task routing: advisory only. This PR does not create or imply an
+  executable task; any extraction requires a separately maintainer-assigned
+  canonical task and fresh claim.
 - Gate A: not attempted.
 - Gate B: not applicable.
 - Existing `RESULT-0026` and `RESULT-0028`: unchanged, not opened, and not used

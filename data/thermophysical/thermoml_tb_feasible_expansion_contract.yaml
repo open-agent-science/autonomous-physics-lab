@@ -232,6 +232,7 @@ forbidden_outputs:
 output_routing:
   source_readiness: ready_under_frozen_later_task_gates
   benchmark_readiness: contract_ready_fixture_not_created
+  future_extraction_task: advisory_only_not_created
   gate_a: not_attempted
   gate_b: not_applicable
   claim_impact: none

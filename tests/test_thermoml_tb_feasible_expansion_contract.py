@@ -121,4 +121,5 @@ def test_contract_contains_no_rows_values_scores_or_result_mutation() -> None:
         assert forbidden_key not in keys
     assert contract["output_routing"]["gate_a"] == "not_attempted"
     assert contract["output_routing"]["gate_b"] == "not_applicable"
+    assert contract["output_routing"]["future_extraction_task"] == "advisory_only_not_created"
     assert contract["output_routing"]["existing_results_changed"] is False
