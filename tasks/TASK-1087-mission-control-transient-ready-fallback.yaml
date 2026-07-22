@@ -1,7 +1,7 @@
 id: TASK-1087
 title: "Make Mission Control fall back from transient canonical task states"
 type: tooling_fix
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
