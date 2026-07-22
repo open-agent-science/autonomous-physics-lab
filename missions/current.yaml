@@ -852,10 +852,10 @@ missions:
         label: "Freeze an honest Kim-2020 small-surface benchmark contract or stop as underpowered"
         task_id: TASK-1077
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "one no-score split/control/rounding contract or HOLD_UNDERPOWERED for each four-row property axis"
           - "no fit, metric, RESULT, CLAIM, pooled absorption/emission axis, or rescue of excluded digitization rows"
@@ -863,10 +863,10 @@ missions:
         label: "Scout one independent CdSe direct-row source"
         task_id: TASK-1078
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "at most one source-readiness route with direct size/property semantics, rights, locators, and row-count estimate"
           - "no value extraction, scoring, source-byte redistribution, or material-law claim"
@@ -1544,10 +1544,10 @@ missions:
         label: "Independently replay CHARA RESULT-0031"
         task_id: TASK-1075
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "formal Gate B replay with metric-drift table and preserved INCONCLUSIVE threshold boundary"
           - "no refit, threshold relaxation, rescue model, RESULT metric mutation, or universal stellar-law claim"
@@ -1695,10 +1695,10 @@ missions:
         label: "Adjudicate one feasible ThermoML expansion contract from counts only"
         task_id: TASK-1084
         mode: research
-        status: ready
+        status: done
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "GO_FEASIBLE_CONTRACT with one frozen counts-only design, or STOP_NO_FEASIBLE_CONTRACT"
           - "no target-value inspection, row emission, threshold shopping, metric rerun, RESULT mutation, or broad thermophysical claim"

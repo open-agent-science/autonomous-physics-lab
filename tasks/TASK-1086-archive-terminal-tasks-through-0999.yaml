@@ -1,7 +1,7 @@
 id: TASK-1086
 title: "Archive newly terminal canonical tasks through TASK-0999"
 type: research_infrastructure
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This is a history-preserving repository-layout change; closeout must verify archive-aware discovery, id uniqueness, and that no active task was moved."
 difficulty: low
