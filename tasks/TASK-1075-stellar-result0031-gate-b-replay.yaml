@@ -1,7 +1,7 @@
 id: TASK-1075
 title: "Replay Stellar CHARA RESULT-0031 through Gate B"
 type: scientific_replay_validation
-status: IN_PROGRESS
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task may upgrade a canonical result review tier; closeout must verify exact metric preservation, replay identity, and the unchanged INCONCLUSIVE interpretation."
 difficulty: medium
