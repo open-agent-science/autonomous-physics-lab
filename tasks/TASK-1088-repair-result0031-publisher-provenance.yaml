@@ -45,7 +45,7 @@ result_artifact_policy:
 
 validation:
   commands:
-    - "python3 scripts/apl_check_result_publication.py --result results/EXP-0023/RUN-0001/result.yaml"
+    - "python3 scripts/apl_check_result_publication.py results/EXP-0023/RUN-0001/result.yaml"
     - "python3 -m pytest -n0 tests/test_result_publication_gate.py tests/test_stellar_ml_chara_transfer.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
