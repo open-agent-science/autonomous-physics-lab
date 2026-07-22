@@ -1,0 +1,57 @@
+id: TASK-1088
+title: "Repair RESULT-0031 publisher provenance from the merged task PR"
+type: scientific_validation
+status: READY
+closeout: review
+closeout_review_reason: "This task edits protected publication metadata on an AGENT_PUBLISHED result and directly controls whether an independent Gate B replay may start."
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "TASK-1075 stopped before metric comparison because RESULT-0031 lacks agent_proposal_evaluation.published_by."
+  - "Merged PR #1609 contains durable contributor, GitHub, agent-tool, model, task, branch, and commit metadata for the original publication."
+  - "Repairing provenance is required for identity-aware independent replay and must not be confused with replay success or scientific promotion."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "results/EXP-0023/RUN-0001/result.yaml"
+    - "docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md"
+    - "https://github.com/open-agent-science/autonomous-physics-lab/pull/1609"
+  planning_context: >
+    Recover only the missing original-publisher identity from the merged PR and
+    add it to RESULT-0031 in the schema-permitted location. This task does not
+    run or claim Gate B.
+
+requirements:
+  - "Verify the merged PR number, task id, result id, author login, branch, merged state, head commit, agent tool, and model/version before editing RESULT-0031."
+  - "Record published_by as contributor_id gladunrv, github_username gladunrv, agent_tool Codex, and model_version GPT-5 Codex only if the durable PR metadata agrees exactly."
+  - "Write a concise provenance-repair note that cites PR #1609 and records which fields were recovered and which scientific fields were deliberately untouched."
+  - "Leave review_tier AGENT_PUBLISHED, best_verdict INCONCLUSIVE, every metric, input hash, threshold, limitation, and result payload unchanged."
+  - "Stop with RESULT-0031 unchanged if the durable PR record is unavailable or inconsistent; do not infer identity from chat history alone."
+  - "Do not represent this metadata repair as independent replay, Gate B PASS, stronger stellar evidence, or support for a universal relation."
+
+accepted_outputs:
+  - "A minimal schema-valid published_by addition to results/EXP-0023/RUN-0001/result.yaml."
+  - "A provenance-repair note under docs/reviews/stellar/ with the durable source record, exact recovered identity, stop checks, limitations, and output routing."
+  - "Tests or validation proving the publication checker now reaches the replay-identity gate without changing scientific content."
+
+result_artifact_policy:
+  required: false
+  reason: "Protected provenance repair for an existing result; no new scientific result is produced."
+  evidence:
+    - "results/EXP-0023/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 scripts/apl_check_result_publication.py --result results/EXP-0023/RUN-0001/result.yaml"
+    - "python3 -m pytest -n0 tests/test_result_publication_gate.py tests/test_stellar_ml_chara_transfer.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
