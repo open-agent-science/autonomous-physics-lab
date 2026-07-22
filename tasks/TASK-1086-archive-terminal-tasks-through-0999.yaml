@@ -1,0 +1,62 @@
+id: TASK-1086
+title: "Archive newly terminal canonical tasks through TASK-0999"
+type: research_infrastructure
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This is a history-preserving repository-layout change; closeout must verify archive-aware discovery, id uniqueness, and that no active task was moved."
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the live task root focused on executable work while preserving completed task contracts as public, version-controlled history."
+  - "Reuse the deterministic archive buckets and archive-aware discovery layer established by TASK-0559 and TASK-0590 instead of creating another task index or storage mechanism."
+  - "Apply the periodic sweep policy after the flat terminal count crossed its documented threshold, without coupling file movement to every closeout."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "scripts/apl_archive_sweep.py"
+    - "docs/task-archive-migration-plan.md"
+    - "docs/task-reference-convention.md"
+    - "tasks/archive/README.md"
+  planning_context: >
+    The repository already archives terminal canonical tasks into deterministic
+    500-id buckets and resolves active and archived tasks through one recursive
+    discovery layer. A fresh dry run found 198 terminal tasks accumulated flat,
+    above the documented example threshold of 150. This bounded sweep archives
+    only the 130 terminal files with numeric ids through TASK-0999: 129 DONE and
+    one SUPERSEDED. TASK-0925 remains flat because it is BLOCKED. Tasks numbered
+    TASK-1000 and above remain outside this PR.
+
+requirements:
+  - "Move exactly the flat canonical tasks with numeric ids <= 0999 and terminal status DONE, SUPERSEDED, or REJECTED into tasks/archive/<id-range>/ using git mv semantics."
+  - "Leave READY, BLOCKED, REVIEW_READY, IN_PROGRESS, and PROPOSED tasks flat; specifically preserve TASK-0925 as the sole non-terminal task below 1000."
+  - "Do not edit historical task YAML content, rewrite task references, add a committed task index, or change task discovery and validation semantics."
+  - "Preserve global task-id uniqueness, archive-aware by-id lookup, active-only mission/task views, and strict repository validation."
+  - "Keep TASK-1000 and all higher-numbered tasks outside this bounded sweep."
+
+accepted_outputs:
+  - "One rename-only archive batch moving 130 terminal task files into tasks/archive/0000-0499/ and tasks/archive/0500-0999/."
+  - "TASK-0925 remains flat and resolvable as BLOCKED; no flat terminal task with an id below 1000 remains."
+  - "Focused archive/discovery tests and strict repository validation remain green."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository task-history hygiene only; no scientific RESULT, PRED, CLAIM, KNOW, dataset, or release artifact is produced."
+  evidence:
+    - "tasks/archive/README.md"
+    - "docs/task-archive-migration-plan.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_archive_sweep.py tests/test_task_discovery.py tests/test_repository_validation_scoping.py tests/test_repository_archive_aware.py tests/test_active_board.py tests/test_docs_links.py"
+    - "python3 scripts/apl_task_path.py TASK-0925"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

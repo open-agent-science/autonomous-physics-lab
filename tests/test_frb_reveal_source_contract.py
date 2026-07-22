@@ -6,9 +6,10 @@ from pathlib import Path
 
 import yaml
 
+from physics_lab.registry.task_discovery import find_task_file
+
 ROOT = Path(__file__).resolve().parents[1]
 NOTE = ROOT / "docs" / "reviews" / "frb-reveal-source-admissibility-contract.md"
-TASK = ROOT / "tasks" / "TASK-0995-frb-reveal-source-admissibility-contract.yaml"
 
 
 def _note_text() -> str:
@@ -86,7 +87,10 @@ def test_frb_reveal_contract_freezes_comparators_without_refit() -> None:
 
 
 def test_task_0995_is_reviewed_or_closed_out() -> None:
-    with TASK.open("r", encoding="utf-8") as handle:
+    task_path = find_task_file(ROOT, "TASK-0995")
+    assert task_path is not None
+    assert task_path.exists()
+    with task_path.open("r", encoding="utf-8") as handle:
         task = yaml.safe_load(handle)
     assert task["status"] in {"REVIEW_READY", "DONE"}
     assert task["closeout"] == "review"
