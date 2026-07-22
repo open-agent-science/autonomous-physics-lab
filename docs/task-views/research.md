@@ -24,3 +24,4 @@ None.
 - `TASK-1077` - Freeze or stop a Kim-2020 CdSe small-surface benchmark contract (`scientific_benchmark_planning`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-1078` - Scout one independent CdSe direct-row source beyond Kim-2020 (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-1084` - Adjudicate a feasible ThermoML Tb expansion contract without scoring (`scientific_benchmark_planning`, priority `medium`, difficulty `medium`, domain `thermophysical_property_estimation`)
+- `TASK-1086` - Archive newly terminal canonical tasks through TASK-0999 (`research_infrastructure`, priority `medium`, difficulty `low`, domain `task_architecture`)
