@@ -1,7 +1,7 @@
 id: TASK-1084
 title: "Adjudicate a feasible ThermoML Tb expansion contract without scoring"
 type: scientific_benchmark_planning
-status: READY
+status: IN_PROGRESS
 closeout: review
 closeout_review_reason: "This task may reopen a stopped ThermoML expansion route; closeout must verify that any revised contract is count-driven, outcome-blind, rights-bounded, and scientifically incremental."
 difficulty: medium
