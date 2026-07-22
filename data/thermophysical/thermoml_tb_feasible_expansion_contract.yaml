@@ -8,15 +8,17 @@ verdict: REVISED_CONTRACT_READY_NO_SCORE
 
 adjudication_boundary:
   archive_accessed: false
-  fixture_rows_accessed: false
-  selected_identities_accessed: false
-  scientific_values_accessed: false
+  existing_fixture_conflict_metadata_accessed: true
+  future_selected_identities_accessed: false
+  scientific_values_used_in_adjudication: false
+  scientific_values_reported: false
   result_artifacts_accessed: false
   family_performance_used_in_option_selection: false
   incidental_repository_search_snippets_excluded: true
   allowed_inputs:
     - committed_aggregate_identity_counts
     - existing_40_row_fixture_shape
+    - existing_fixture_conflict_flags_and_family_labels
     - pre_existing_eight_family_taxonomy
     - committed_rights_decision_scope
     - frozen_selection_and_benchmark_protocols
@@ -47,6 +49,9 @@ rights:
 
 existing_surface:
   row_count: 40
+  conflict_flagged_row_count: 2
+  eligible_existing_row_count: 38
+  preserved_existing_row_count: 38
   family_count: 8
   rows_per_family: 5
   family_weight: 0.125
@@ -56,55 +61,73 @@ family_caps:
   - family: acids
     admissible_non_conflict_count: 6
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
     revised_row_cap: 6
     maximum_additions: 1
   - family: esters/lactones
     admissible_non_conflict_count: 48
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 1
+    preserved_eligible_row_count: 4
     revised_row_cap: 10
-    maximum_additions: 5
+    maximum_additions: 6
   - family: ketones
     admissible_non_conflict_count: 8
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 1
+    preserved_eligible_row_count: 4
     revised_row_cap: 8
-    maximum_additions: 3
+    maximum_additions: 4
   - family: alcohols/phenols
     admissible_non_conflict_count: 29
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
     revised_row_cap: 10
     maximum_additions: 5
   - family: ethers
     admissible_non_conflict_count: 12
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
     revised_row_cap: 10
     maximum_additions: 5
   - family: halocarbons
     admissible_non_conflict_count: 15
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
     revised_row_cap: 10
     maximum_additions: 5
   - family: aromatic hydrocarbons
     admissible_non_conflict_count: 20
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
     revised_row_cap: 10
     maximum_additions: 5
   - family: alkanes/cycloalkanes
     admissible_non_conflict_count: 11
     existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
     revised_row_cap: 10
     maximum_additions: 5
 
 predeclared_options:
   - option_id: balanced_six_per_family
     row_ceiling: 48
-    maximum_additions_vs_existing: 8
+    maximum_new_identities_vs_existing_fixture: 10
+    net_row_growth_vs_historical_fixture: 8
     effective_family_count: 8.0
     equal_family_weighted_effective_row_count: 48.0
     count_feasible: true
     clears_incremental_information_floor: false
   - option_id: availability_capped_family_equal_weighting
     row_ceiling: 74
-    maximum_additions_vs_existing: 34
+    maximum_new_identities_vs_existing_fixture: 36
+    net_row_growth_vs_historical_fixture: 34
     effective_family_count: 8.0
     equal_family_weighted_effective_row_count: 71.775701
     count_feasible_before_article_cap: true
@@ -112,7 +135,8 @@ predeclared_options:
     selected: true
   - option_id: stop
     row_ceiling: 40
-    maximum_additions_vs_existing: 0
+    maximum_new_identities_vs_existing_fixture: 0
+    net_row_growth_vs_historical_fixture: 0
     effective_family_count: 8.0
     equal_family_weighted_effective_row_count: 40.0
     clears_incremental_information_floor: false
@@ -133,10 +157,13 @@ incremental_information_rule:
 selected_option:
   option_id: availability_capped_family_equal_weighting
   maximum_total_rows: 74
-  maximum_new_identities: 34
+  maximum_new_identities: 36
+  net_row_growth_vs_historical_fixture: 34
   property_scope: normal_boiling_temperature_tb_only
   preserve_all_eight_families: true
-  preserve_existing_40_rows: true
+  preserve_eligible_existing_rows: 38
+  replace_conflict_flagged_existing_rows: 2
+  conflict_flagged_legacy_exception_allowed: false
   partial_fixture_publication_allowed: false
 
 eligibility_filters:
@@ -151,7 +178,8 @@ eligibility_filters:
 
 deterministic_selection:
   selection_unit: canonical_standard_inchikey
-  existing_fixture_identities_excluded_from_addition_pool: true
+  all_existing_fixture_identities_excluded_from_addition_pool: true
+  conflict_flagged_existing_identities_excluded_from_future_fixture: true
   representative_rule: smallest_reported_expanded_uncertainty
   representative_ties:
     - source_doi
@@ -160,7 +188,7 @@ deterministic_selection:
     - molecular_weight_g_mol
     - standard_inchikey
   addition_rule: deterministic_molecular_weight_quantile_positions_per_family
-  source_article_cap_applies_across_existing_and_added_rows: true
+  source_article_cap_applies_across_preserved_existing_and_added_rows: true
   source_article_cap_fallback: >
     Skip a cap-violating candidate and advance through the deterministic
     candidate order; stop the entire extraction if the information floor can
@@ -214,6 +242,7 @@ stop_conditions:
   - equal_family_weighted_effective_row_count_below_64
   - more_than_5_rows_from_any_source_article
   - source_article_attribution_or_cap_not_checkable
+  - any_conflict_flagged_existing_identity_retained
   - conflict_uncertainty_identity_or_joback_coverage_semantics_missing
   - selected_identities_or_scientific_values_exposed_before_contract_freeze
   - selection_depends_on_joback_error_residual_or_family_performance
