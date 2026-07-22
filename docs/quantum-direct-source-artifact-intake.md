@@ -22,11 +22,11 @@ a source artifact must meet before a new row task may proceed.
 
 ---
 
-## 1. Local Artifact Directory and Filename Convention
+## 1. Repository Package Directory and Filename Convention
 
 ### 1.1 Directory
 
-All source artifact packages for the Quantum Size Effects campaign are stored
+Committed provenance packages for the Quantum Size Effects campaign are stored
 under:
 
 ```
@@ -46,6 +46,14 @@ data/quantum_dots/source_artifacts/<source_id>/
 data/quantum_dots/source_artifacts/jasieniak-2011-acs-nano-band-edge/
 data/quantum_dots/source_artifacts/hens-moreels-2012-rsc-open-table-candidate/
 ```
+
+This repository directory is not a private file vault. It may contain
+metadata, checksums, extraction records, and only those source bytes whose
+redistribution has been explicitly approved. Maintainer-provided or
+license-unclear bytes stay outside git under the cross-campaign
+[Local Artifact Workspace](local-artifact-workspace.md). Agents locate them by
+source id, filename, and checksum; generated digitization or extraction work
+goes to the task/run local-work directory.
 
 ### 1.2 Filename Convention for Source Files
 
@@ -82,7 +90,7 @@ persistent filename (e.g. `nn201681s_si_001.pdf`).
 
 Each artifact subdirectory must contain a `README.md` that records, at minimum:
 
-- source locator (DOI, URL, or maintainer-supplied path)
+- source locator (DOI, URL, or `maintainer_supplied_local_only`; never an absolute machine path)
 - retrieval date (ISO-8601, e.g. `2026-05-24`)
 - expected upstream filename (the publisher filename before renaming)
 - SHA-256 checksum of the retrieved file (or `PENDING` if not yet retrieved)
@@ -142,7 +150,7 @@ when a new `checksum_sha256` field is added):
 | `authors` | Author list as a single string (last, first; semicolon-separated) |
 | `year` | Four-digit publication year |
 | `doi` | DOI or equivalent persistent identifier |
-| `access_path` | URL or maintainer-supplied file path used for retrieval |
+| `access_path` | Stable URL or `maintainer_supplied_local_only` plus the upstream filename; never an absolute machine path |
 | `retrieval_date` | ISO-8601 date when the artifact was accessed (e.g. `2026-05-24`) |
 | `checksum_sha256` | Hex digest from `sha256sum`, or `PENDING` |
 | `license` | Reuse and redistribution terms as stated in the source or publisher policy |
@@ -251,15 +259,16 @@ the source artifact package may be committed as `METADATA_ONLY_BLOCKER`, but
 no row curation may proceed until all items are checked.
 
 ```
-[ ] 1.  Source artifact file (or metadata-only stub) committed to
+[ ] 1.  Source provenance package (and only redistribution-approved bytes) committed to
         data/quantum_dots/source_artifacts/<source_id>/.
 
 [ ] 2.  Checksum recorded in the artifact README.md under sha256:. If the
         file is not yet retrieved, mark checksum_sha256: PENDING and keep the
         package as METADATA_ONLY_BLOCKER.
 
-[ ] 3.  Retrieval date (ISO-8601) and access path (URL or maintainer-supplied
-        path) documented in the artifact README.md.
+[ ] 3.  Retrieval date (ISO-8601) and stable access locator documented in the
+        artifact README.md. A local-only handoff records identity/checksum,
+        not a machine path.
 
 [ ] 4.  License and reuse terms confirmed. Default posture is metadata_only:
         commit locator, checksum, and extraction notes only — not the publisher

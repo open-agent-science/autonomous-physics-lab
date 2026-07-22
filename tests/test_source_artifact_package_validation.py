@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import shutil
 
+import pytest
 import yaml
 
 from physics_lab.registry.source_artifacts import (
@@ -112,6 +113,44 @@ def test_source_artifact_package_accepts_checksum_sidecar(tmp_path: Path) -> Non
     assert result.ok
 
 
+@pytest.mark.parametrize(
+    "artifact_path",
+    [
+        "/home/example/private/source.csv",
+        r"C:\Users\example\private\source.csv",
+    ],
+)
+def test_source_artifact_package_rejects_absolute_machine_path(
+    tmp_path: Path,
+    artifact_path: str,
+) -> None:
+    package_path = _copy_template(tmp_path)
+    payload = _valid_payload(package_path)
+    artifact = payload["artifact"]
+    assert isinstance(artifact, dict)
+    artifact["artifact_path"] = artifact_path
+    _write_provenance(package_path, payload)
+
+    result = validate_source_artifact_package(package_path)
+
+    assert not result.ok
+    assert "MACHINE_LOCAL_ARTIFACT_PATH" in {issue.code for issue in result.issues}
+
+
+def test_source_artifact_package_rejects_parent_path_traversal(tmp_path: Path) -> None:
+    package_path = _copy_template(tmp_path)
+    payload = _valid_payload(package_path)
+    artifact = payload["artifact"]
+    assert isinstance(artifact, dict)
+    artifact["artifact_path"] = "../private/source.csv"
+    _write_provenance(package_path, payload)
+
+    result = validate_source_artifact_package(package_path)
+
+    assert not result.ok
+    assert "ARTIFACT_PATH_TRAVERSAL" in {issue.code for issue in result.issues}
+
+
 def test_source_artifact_package_rejects_missing_checksum(tmp_path: Path) -> None:
     package_path = _copy_template(tmp_path)
     payload = _valid_payload(package_path)
@@ -124,9 +163,7 @@ def test_source_artifact_package_rejects_missing_checksum(tmp_path: Path) -> Non
     result = validate_source_artifact_package(package_path)
 
     assert not result.ok
-    assert {issue.code for issue in result.issues} == {
-        "CHECKSUM_OR_ARCHIVE_POLICY_MISSING"
-    }
+    assert {issue.code for issue in result.issues} == {"CHECKSUM_OR_ARCHIVE_POLICY_MISSING"}
 
 
 def test_source_artifact_package_rejects_missing_license_review(tmp_path: Path) -> None:

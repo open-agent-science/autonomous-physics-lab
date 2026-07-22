@@ -213,6 +213,10 @@ blanket license for mixed-source artifacts. Before recommending or executing an
 external DOI/deposit, follow `docs/published-source-dataset-standard.md`,
 including the anchor-capsule DOI publication gate.
 
+For maintainer-provided source bytes and durable local task work, use
+`docs/local-artifact-workspace.md` and `scripts/apl_local_artifacts.py`. Never
+commit private bytes or copy machine-local paths into repository artifacts.
+
 No anonymous unverifiable scientific claim should be accepted as a result.
 
 ## Shared Task Pool
