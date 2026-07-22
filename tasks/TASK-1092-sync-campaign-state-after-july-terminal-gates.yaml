@@ -1,0 +1,68 @@
+id: TASK-1092
+title: "Synchronize campaign state after the July terminal gates"
+type: documentation
+status: READY
+closeout: review
+closeout_review_reason: "This task changes maintainer-facing mission priority and public scientific wording across multiple campaign surfaces."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Merged TASK-1075, TASK-1077, TASK-1078, and TASK-1084 changed the honest next action for CHARA, Quantum, and ThermoML."
+  - "The Anharmonic profile and mission still describe CLAIM-0009 as DRAFT even though the canonical claim is PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED."
+  - "Mission and public pages should describe current evidence and blockers without advertising completed tasks as executable work."
+
+input:
+  mode: planning_only
+  related_domain: campaign_portfolio
+  related_objects:
+    - "missions/current.yaml"
+    - "campaign_profiles/*.yaml"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "docs/campaigns/*.md"
+    - "docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md"
+    - "docs/reviews/quantum/kim-2020-cdse-small-surface-contract-task1077.md"
+    - "docs/source-candidates/quantum/cdse-independent-source-task1078.md"
+    - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
+  planning_context: >
+    Perform one bounded curator synchronization from merged canonical evidence.
+    Open PR #1634 is not yet repository evidence, so RESULT-0032 must not be
+    described as merged or validated in this task.
+
+requirements:
+  - "Update Textbook/CHARA state to REPLAY_ENVIRONMENT_BLOCKED on missing publisher provenance and route next work through TASK-1088 then TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
+  - "Update Quantum state to HOLD_UNDERPOWERED plus STOP_NO_INDEPENDENT_ROUTE and monitor/source-trigger-only; do not seed another generic CdSe scout or score either four-row axis."
+  - "Update ThermoML state to REVISED_CONTRACT_READY_NO_SCORE with the availability-capped 74-row ceiling, local archive blocker, article-cap hard stop, and extraction/scoring separation."
+  - "Correct Anharmonic state to CLAIM-0009 PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED and remove the obsolete Gate C blocker and executor action."
+  - "Keep Materials/OQMD wording at pre-benchmark readiness until PR #1634 merges; do not publish RESULT-0032 metrics from an open PR."
+  - "Choose a currently READY, unclaimed scientific action for the top mission recommendation and mark completed task actions non-executable; preserve event-trigger-only Nuclear, FRB, Exoplanet, and Atomic lanes."
+  - "Update only useful scientific/public state, blockers, next result paths, and safe wording. Do not place internal agent instructions on public campaign pages."
+  - "Regenerate the committed campaign catalog from profiles if required, but do not commit generated docs/task-views files."
+
+accepted_outputs:
+  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through TASK-1084."
+  - "Focused updates to the Textbook, Quantum, ThermoML, and portfolio dashboard pages where their public state is materially stale."
+  - "A validation note or PR summary listing deliberately deferred OQMD wording and confirming no generated task views were committed."
+
+result_artifact_policy:
+  required: false
+  reason: "Portfolio curation and public documentation synchronization; no scientific RESULT is produced."
+  evidence:
+    - "missions/current.yaml"
+    - "campaign_profiles/_catalog.yaml"
+    - "docs/status.md"
+
+validation:
+  commands:
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 scripts/apl_check_mission_drift.py"
+    - "python3 -m pytest -n0 tests/test_campaign_registry.py tests/test_campaign_curator.py tests/test_mission_control.py tests/test_mission_freshness.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
