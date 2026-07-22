@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-1093` - Standardize private source and task-local artifact workspaces (`repository_hardening`, priority `high`, difficulty `medium`, domain `cross_campaign_source_acquisition`)
