@@ -67,7 +67,12 @@ typical_activities:
       report (Verdict, Risk, Required fixes, Recommended action). Treat
       duplicate live routing surfaces and raw upstream artifacts without clear
       redistribution rights as merge blockers unless the maintainer explicitly
-      accepts the tradeoff.
+      accepts the tradeoff. When a PR touches local-source handoff or committed
+      source provenance, confirm that private bytes and machine-local paths are
+      absent and that the canonical local-artifact helper/protocol is used. Run
+      `scripts/check_public_path_leaks.py --path <changed-public-path>` for the
+      changed public surfaces rather than treating unrelated historical paths
+      as a regression in the current PR.
   - title: "Closeout PR preparation"
     description: |
       Run `python3 scripts/apl_closeout_pr_helper.py` or
@@ -120,6 +125,7 @@ scripts_to_use:
   - scripts/apl_closeout_pr_helper.py
   - scripts/apl_closeout_sweep.py
   - scripts/apl_task_closeout_check.py
+  - scripts/check_public_path_leaks.py
 
 can_invoke_other_roles:
   - role_id: scientific-curator
@@ -137,6 +143,7 @@ restrictions:
   - "Must surface security-sensitive changes (auth, secrets, CI, hooks) for explicit maintainer review."
   - "Must surface architecture-sensitive routing changes (new live campaign, mission, portfolio, or task-state surfaces) for explicit maintainer review."
   - "Must block publication of raw upstream artifacts when redistribution permission, license posture, or source provenance is missing."
+  - "Must block new committed source provenance that depends on an absolute machine-local path instead of stable source identity and checksum."
   - "Must not leave repeated review-helper, CI, validation, or closeout failures only as local comments when they indicate a structural bottleneck worth proposing."
   - "Must not diagnose a GitHub token as expired or revoked solely from a sandbox auth failure, expose token values, or persist credentials to bypass sandbox isolation."
 

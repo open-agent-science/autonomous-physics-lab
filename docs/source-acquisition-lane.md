@@ -114,6 +114,13 @@ publisher PDFs, tables, figures, screenshots, local-only source copies, secret
 files, or artifact bytes from the queue. A separate source-artifact or
 acquisition task must make the reuse, checksum, and row-curation decisions.
 
+When the maintainer supplies local bytes, resolve them through the
+[Local Artifact Workspace](local-artifact-workspace.md). Agents must use an
+exact filename/source-id lookup and verify the pinned checksum before reading
+the file. Private source bytes remain under `APL_PRIVATE_SOURCE_ROOT`; unpacked
+or generated work belongs under the task/run directory resolved from
+`APL_LOCAL_WORK_ROOT`. Do not recursively search the maintainer's machine.
+
 ## Maintainer Acquisition Runbook Contract
 
 Every acquisition (agent-run or maintainer-run) must record:
@@ -126,7 +133,7 @@ license_status:          # open | metadata_only | restricted | unknown
 attribution_text:        # required for CC BY etc.
 acquisition_actor:       # maintainer | approved-actor | agent (public/key-free only)
 retrieval_timestamp_utc:
-raw_artifact_path:       # or external reference if not committable
+raw_artifact_path:       # local execution only; commit identity/checksum, not a machine path
 normalized_artifact_path:# if committed
 row_count:
 selected_fields:
@@ -137,6 +144,8 @@ no_peek_attestation:     # no benchmark tuning occurred after row inspection
 
 A runbook that cannot fill `checksum_sha256`, `license_status`, or
 `retrieval_timestamp_utc` is not complete and must not be used to curate rows.
+When the raw path is local-only, committed evidence replaces it with the
+source id, upstream filename, checksum, version, and stable locator.
 
 ## What This Lane Does Not Authorize
 
@@ -154,6 +163,7 @@ A runbook that cannot fill `checksum_sha256`, `license_status`, or
 - [Published-Source and Reusable-Dataset Standard](published-source-dataset-standard.md) — source admissibility, `blocker_type`, dataset-publication rules.
 - [Fresh-Data Intake Protocol](fresh-data-intake-protocol.md) — the source-to-row lifecycle stages this lane feeds.
 - [Source-Manifest Minimum Schema](source-manifest-minimum-schema.md) — required manifest fields for a pinned source.
+- [Local Artifact Workspace](local-artifact-workspace.md) — shared private-source and task-local work roots, exact lookup, and path-redaction rules.
 - [Local Source Secrets](local-source-secrets.md) — local-only env file pattern and key-gated acquisition handshake.
 - `agents/data-acquisition.yaml` — the maintainer-run role profile that operates this lane.
 

@@ -1,0 +1,65 @@
+id: TASK-1093
+title: "Standardize private source and task-local artifact workspaces"
+type: repository_hardening
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This task changes the repo-wide private-source handoff contract and hardens committed source provenance against machine-local paths."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove a repeated source-access bottleneck by giving every agent one deterministic, worktree-aware way to locate maintainer-provided bytes."
+  - "Keep private inputs, generated scratch, committed provenance, and public artifacts as separate lifecycle classes."
+  - "Preserve cross-platform source acquisition without hardcoded maintainer paths or campaign-specific storage conventions."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_source_acquisition
+  related_objects:
+    - "AGENTS.md"
+    - "docs/source-acquisition-lane.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+    - "agents/data-acquisition.yaml"
+    - "physics_lab/registry/source_artifacts.py"
+  planning_context: >
+    Maintainer-provided archives currently live outside git, but agents have no
+    canonical cross-worktree root, exact lookup helper, or clean boundary
+    between private source bytes and generated local work. ThermoML exposes the
+    immediate problem; the solution must remain generic across campaigns.
+
+requirements:
+  - "Define separate private-source and local-work roots with explicit CLI override, environment override, and worktree-shared sibling defaults."
+  - "Provide exact source-id/filename lookup with a root-level compatibility fallback, mandatory SHA-256 verification, and no recursive home or vault scan."
+  - "Provide task/run-scoped generated work directories without creating any in-repository scratch convention."
+  - "Keep machine-local paths out of committed tasks, provenance, reviews, results, and PR text; reject absolute artifact paths in new source-artifact provenance packages."
+  - "Clarify that data/**/source_artifacts contains committed provenance and explicitly approved bytes, not private maintainer inputs."
+  - "Do not move, modify, commit, unpack, or relicense any maintainer-provided source file."
+  - "Do not change scientific rows, metrics, RESULT, CLAIM, KNOW, prediction, or campaign verdict state."
+
+accepted_outputs:
+  - "docs/local-artifact-workspace.md as the canonical repo-wide placement and lookup contract"
+  - "scripts/apl_local_artifacts.py with roots, locate, and workdir commands"
+  - "targeted tests for precedence, worktree root sharing, compatibility fallback, checksum mismatch, traversal rejection, exact non-recursive lookup, and task/run isolation"
+  - "minimal AGENTS, agent-catalog, acquisition-role, source-lane, repository-map, Quantum-intake, review-role, and ThermoML replay pointers"
+  - "source-artifact provenance validation that rejects absolute machine paths"
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening and local workflow tooling only; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "docs/local-artifact-workspace.md"
+    - "scripts/apl_local_artifacts.py"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_local_artifacts.py tests/test_source_artifact_package_validation.py tests/test_public_path_leaks.py tests/test_docs_links.py"
+    - "python3 -m ruff check scripts/apl_local_artifacts.py tests/test_local_artifacts.py physics_lab/registry/source_artifacts.py tests/test_source_artifact_package_validation.py"
+    - "python3 scripts/apl_local_artifacts.py roots --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
