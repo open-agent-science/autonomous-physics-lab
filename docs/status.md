@@ -24,23 +24,24 @@ For linkable, public-safe summaries of active campaign results, use the
 ## Current Focus
 
 APL is concentrating on converting source-ready surfaces into bounded evidence.
-The current center of gravity is the OQMD one-shot benchmark, independent replay
-of CHARA `RESULT-0031`, honest benchmark-adequacy decisions for the eight CdSe
-rows, and dependency/value-admissibility resolution for Lattice-QCD. A clean
-external dimensional surface remains a high-value validation gate. FRB,
-Exoplanet, Nuclear, and Atomic remain explicitly reveal- or trigger-gated.
+The current center of gravity is dependency/value-admissibility resolution for
+Lattice-QCD, clean external validation for the Dimensional Analysis Validator,
+and removal of the publisher-provenance blocker before CHARA `RESULT-0031` can
+receive an independent replay. The revised ThermoML route is archive-gated;
+Quantum has reached an honest stop. FRB, Exoplanet, Nuclear, and Atomic remain
+explicitly reveal- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset lane with AGENT_VALIDATED `RESULT-0021`, externally published `MD-0002`, and a dated OQMD surface whose split, controls, and independent source replay pass | Run the one-shot frozen within-OQMD benchmark without rescue fitting or cross-database pooling |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four AGENT_VALIDATED results plus AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031` | Independently replay `RESULT-0031`; keep HD 284163 separate as a source-gated future extension |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset lane with AGENT_VALIDATED `RESULT-0021`, externally published `MD-0002`, and a dated OQMD surface whose split, controls, and independent source replay pass | Proposed OQMD result PR #1634 is under review; do not treat its metrics as repository evidence before merge |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four AGENT_VALIDATED results plus AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031` | Repair missing publisher provenance, then require an identity-independent replay; keep HD 284163 separate |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, an externally anchored tier-1 point-only freeze, preserved uncertainty-calibration failures, and a clean no-value source scout | TASK-1031 found only pre-registration official sources; ratify the event-trigger ledger and do not repeat source scouts until a qualifying post-registration release signal |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_VALIDATED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is source-version/coverage trigger monitoring, not residual rescoring |
 | FRB / Radio Transients | A time-truncated, source-pinned sealed repeater-propensity prediction pack | `PRED-0001` is registered as a 479-source point-score/rank-only prediction and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`; reveal scoring remains a future maintainer-reviewed task |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Eight Kim-2020 CdSe rows now exist on separate four-row absorption/emission axes; decide benchmark adequacy or stop, and seek one independent source |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Both four-row Kim-2020 axes are underpowered and no independent direct-row route cleared the frozen gates; monitor for a new source trigger |
 | Lattice-QCD Aggregated Consistency | A near-active test of whether dependency-aware source curation adds value beyond evaluated summaries | An eleven-publication `f_K/f_pi` graph exists, but all 49 pairwise edges are UNKNOWN; resolve evidence and value policy before any central values |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy/Nemitz memory exists, Pizzocaro remains diagnostic, McGrew/NIST is blocked, and the multi-species route is `KEEP_MONITOR_ONLY`; next useful work is a durable reopen-trigger ledger |
-| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A source-pinned ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026` and failed-family `RESULT-0028` | Exact-80 is infeasible; make one counts-only feasible-contract GO/STOP decision without target values or threshold shopping |
+| [Thermophysical Property Residuals](./campaigns/thermophysical-property-residuals.md) | A source-pinned ThermoML `Tb` benchmark lane with AGENT_VALIDATED `RESULT-0026` and failed-family `RESULT-0028` | An at-most-74-row contract is frozen; extraction waits on the exact local archive and article-cap/information-floor gates |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | AGENT_VALIDATED `RESULT-0030` proves exact reproducibility on the same-owner v2 calibration surface | A clean external no-score benchmark or independent third-party corpus is still needed; the first attempt stopped on prior result exposure |
 
 Older and mature tracks still define the quality floor:
@@ -103,7 +104,9 @@ Highlights:
   claims. Its twelve CHARA rows across six systems and their derivations now
   pass independent source replay. `RESULT-0031` now records the no-refit CHARA
   transfer as AGENT_PUBLISHED INCONCLUSIVE because its positive margin missed
-  the predeclared survival threshold; independent Gate B replay is next.
+  the predeclared survival threshold. A first Gate B attempt verified all five
+  frozen input hashes but stopped before metrics because original-publisher
+  metadata was missing; provenance repair precedes an identity-independent replay.
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
   AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`. The result is a
   computed-DFT, frozen-slice benchmark artifact, not a material recommendation,
@@ -113,12 +116,15 @@ Highlights:
   (RELEASE_INTEGRITY_CONFIRMED). A bounded OQMD acquisition supplies 172
   normalized rows after 201 conservative MD-0002 composition exclusions, with
   a frozen 120/26/26 grouped split, value-blind controls, and independent source
-  replay PASS. The one-shot within-source benchmark remains unrun.
+  replay PASS. A proposed one-shot result remains in open PR #1634 and is not
+  repository evidence yet.
 - Thermophysical Property Residuals starts from ThermoML `Tb` `RESULT-0026`,
   an AGENT_VALIDATED bounded Joback transfer benchmark on a 40-row
   family-stratified fixture. Aggregate transfer is positive in scope, and
   `RESULT-0028` separately preserves the esters/lactones family failure as
-  AGENT_VALIDATED negative/control memory.
+  AGENT_VALIDATED negative/control memory. The exact-80 expansion is stopped;
+  a later counts-only decision froze a value-blind, family-equal contract of at
+  most 74 rows, without extracting rows or running a score.
 - FRB / Radio Transients now has a checksum-pinned Catalog-1 interval exposure
   pair, a committed 479-row pre-T exposure feature surface, a frozen
   exposure-only model surface, and externally anchored `PRED-0001`
@@ -163,11 +169,12 @@ Important operating rules:
 - Nuclear interval-bearing prediction remains blocked until calibration repair;
   the point-only reveal-scoring lane must still follow the approved source
   manifest and no-peek protocol.
-- Quantum Size Effects has a source-scoped Almeida InP sandbox baseline, but
-  open-ended correction search remains blocked. `RESULT-0029` packages the
-  current ZnSe/InP no-refit transfer miss. The Kim-2020 digitization path stays
-  `UNCERTAINTY_BLOCKED`; separately, TASK-1064 found eight text-stated optical
-  observations provenance-ready for property-separated row curation.
+- Quantum Size Effects has a source-scoped Almeida InP sandbox baseline and
+  AGENT_VALIDATED `RESULT-0029`, but open-ended correction search remains
+  blocked. The separate Kim-2020 text route produced four absorption and four
+  emission rows; both axes are `HOLD_UNDERPOWERED`, and a bounded source scout
+  returned `STOP_NO_INDEPENDENT_ROUTE`. Reopen only on genuinely new source
+  evidence.
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
   admitted independent rows or an approved aggregation/harmonization contract
   before any Yb/Sr consistency benchmark.
@@ -175,15 +182,16 @@ Important operating rules:
   materially changed pinned snapshot or approved `EXO-0003` trigger before
   another residual audit.
 - Materials OQMD has a merged source-readiness verdict, frozen grouped split,
-  and value-blind control contract; only independent source replay remains
-  before one metric task. Stellar CHARA has passed independent source replay and now
-  needs a frozen-relation no-refit transfer. Neither route supports broad property-
-  law, material-design, universal-formula, or application-domain claims.
+  value-blind controls, and independent source replay. Its proposed result is
+  still under review in PR #1634. Stellar CHARA has an AGENT_PUBLISHED
+  INCONCLUSIVE result, but independent replay is blocked until publisher
+  provenance is repaired. Neither route supports broad property-law,
+  material-design, universal-formula, or application-domain claims.
 - Thermophysical work is active but narrow: `RESULT-0026` is `Tb`-only and
   AGENT_VALIDATED; `RESULT-0028` is AGENT_VALIDATED failed-family
-  negative/control memory. Do
-  not broaden to `Tc` or other ThermoML properties before a separate leakage
-  and source gate.
+  negative/control memory. A revised at-most-74-row fixture remains blocked on
+  the exact local archive and frozen extraction gates. Do not broaden to `Tc`
+  or other ThermoML properties before a separate leakage and source gate.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 

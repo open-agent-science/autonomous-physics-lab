@@ -13,8 +13,8 @@ source, identity, family-split, and control gates.
 
 ## Current Status
 
-**Monitor-only benchmark surface with preserved failed-family memory.** The first
-slice is already stronger than a scaffold: `TASK-0869` packaged the bounded
+**Source-readiness benchmark surface with preserved failed-family memory.** The
+first slice is already stronger than a scaffold: `TASK-0869` packaged the bounded
 ThermoML `Tb` family-stratified Joback transfer benchmark as `RESULT-0026`, now
 an `AGENT_VALIDATED`, `VALID_IN_RANGE` result after formal Gate B workflow
 replay. `TASK-0936` then packaged the esters/lactones failed-family slice as
@@ -77,23 +77,24 @@ for this first audit.
 
 ## Current Decision
 
-The exact-80 contract remains stopped. One bounded stop/go adjudication may now
-compare only predeclared counts-based alternatives;
-`STOP_NO_FEASIBLE_CONTRACT` is a valid and useful outcome.
+The exact-80 contract remains stopped. `TASK-1084` made the one authorized
+counts-only decision and returned `REVISED_CONTRACT_READY_NO_SCORE`: an
+availability-capped surface of at most 74 rows, weighted equally across the
+eight chemical families. It emitted no target rows and ran no metric.
 
 1. **Exact 80-row expansion is stopped** - the checksum-matched count preflight
    found acids at 6/10 and ketones at 8/10 admissible non-conflict identities.
    Lowering those gates after seeing the counts would be post-result contract
    shopping, not a valid completion of the frozen design.
-2. **Reopen only for new information** - a different source or a separately
-   motivated, predeclared family contract may justify future work. It must not
-   be selected merely to force the row total to 80.
+2. **Revised contract is bounded** - family targets are capped by admissible
+   availability, the five-row per-article cap is mandatory, and a frozen
+   effective-information floor must pass. Failure produces no partial fixture.
 3. **No further replay loop for `RESULT-0028`** - it is already
    `AGENT_VALIDATED`; future work should use it as failed-family memory while
    preserving the bounded aggregate context.
-4. **No metric before a new contract** - any feasible alternative must be
-   selected from counts and scientific balance alone, without inspecting target
-   values or being tuned to rescue the old 80-row goal.
+4. **Extraction and scoring stay separate** - the revised contract authorizes
+   one complete value-blind fixture only after the exact checksum-matched local
+   archive is supplied. A later task would have to freeze any benchmark score.
 
 ## Admissible Source Classes
 
@@ -115,23 +116,23 @@ Not currently admitted:
 
 ## Allowed Task Types
 
-1. **Source-readiness task** - a genuinely new source, rights, identity-map, or
-   independently motivated family-contract question for a future bounded
-   expansion.
+1. **Source-readiness task** - deterministic extraction of the frozen revised
+   fixture after archive identity, rights, article-cap, and information-floor
+   checks pass.
 2. **Negative-memory task** - failed-family or control-memory packaging only
    when a new failed slice appears or a task explicitly asks for public
    synthesis; the existing esters/lactones memory is already packaged as
    `RESULT-0028`.
-3. **Maintainer-review packet** - safe public wording or source-contract
-   decision after the current rights blocker is resolved.
+3. **Future benchmark task** - only after a complete revised fixture exists;
+   extraction itself does not authorize a score.
 
 ## Guardrails
 
 Allowed current work:
 
 - inspect committed fixture, source manifest, result metadata, and runner code;
-- write source-readiness or negative-memory notes;
-- draft task-queue entries for bounded future work.
+- supply the exact checksum-matched archive outside version control;
+- extract one complete revised fixture under the frozen contract.
 
 Not allowed:
 
@@ -139,6 +140,8 @@ Not allowed:
 - edit `RESULT-0026` metrics outside an explicit repair task;
 - fetch or commit raw ThermoML archive bytes;
 - commit a broader normalized ThermoML corpus;
+- commit a partial revised fixture after any hard-stop gate fails;
+- score the revised fixture in the extraction task;
 - broaden from `Tb` to `Tc` or other properties;
 - claim Joback is universally right, universally wrong, or physically
   explanatory.
@@ -149,11 +152,11 @@ Not allowed:
   plus explicit failed-family memory.
 - Do not reopen the exact 80-row route by lowering the acids or ketones family
   thresholds after the count result.
-- Any future larger fixture must start from a scientifically independent source
-  or a new predeclared contract with a reason beyond reaching a desired row
-  total.
-- The immediate next artifact is a counts-only GO/STOP contract decision, not
-  a new fixture, benchmark rerun, or revised result.
+- The immediate next artifact is one complete, rights-bounded at-most-74-row
+  fixture after the exact archive, article-cap, and information-floor gates
+  pass; a hard stop is preferable to a partial fixture.
+- Benchmark scoring, RESULT packaging, and any broader property route remain
+  separate future decisions.
 
 ## Why It Matters
 
@@ -178,3 +181,5 @@ demonstration of verification-first agent science.
 - [RESULT-0028 result metadata](../../results/EXP-0020/RUN-0002/result.yaml)
 - [ThermoML 80-row local count preflight](../reviews/thermoml-tb-80row-local-count-preflight.md)
 - [ThermoML 80-row source blocker](../reviews/thermoml-80-row-fixture-source-blocker.md)
+- [ThermoML feasible expansion contract](../../data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml)
+- [ThermoML feasible-contract review](../reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md)

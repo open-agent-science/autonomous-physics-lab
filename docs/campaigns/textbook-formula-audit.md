@@ -74,8 +74,11 @@ derivations pass independent source replay with zero contested rows.
 `RESULT-0031` now records the no-refit CHARA transfer as `AGENT_PUBLISHED` and
 `INCONCLUSIVE`: the frozen relation reached `0.060530 dex` MAE versus
 `0.097317 dex` for the best eligible control, but its `0.036787 dex` margin
-missed the predeclared `0.04 dex` survival threshold by `0.003213 dex`. This
-bounded outcome needs independent replay, not a rescue fit.
+missed the predeclared `0.04 dex` survival threshold by `0.003213 dex`.
+`TASK-1075` confirmed all five frozen input hashes but stopped before metric
+comparison with `REPLAY_ENVIRONMENT_BLOCKED` because the result lacks durable
+original-publisher metadata. The bounded outcome still needs an identity-
+independent replay after that provenance-only repair, not a rescue fit.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -97,7 +100,9 @@ controls, baseline-adequacy evidence, and `RESULT-0022` as an
 formal workflow Gate B replay with zero numeric drift and is
 `AGENT_VALIDATED`; it remains bounded same-source DEBCat transfer evidence, not
 a universal stellar law. `RESULT-0031` adds a separate external CHARA transfer
-surface with an `INCONCLUSIVE` verdict pending Gate B replay.
+surface with an `INCONCLUSIVE` verdict. Its first Gate B attempt verified the
+frozen hashes but produced no replay metrics because publisher provenance was
+missing.
 
 ### Maintainer-Approved Public Capsule — RESULT-0022
 
@@ -153,18 +158,26 @@ fell just short of the predeclared threshold, so `RESULT-0031` is
 `INCONCLUSIVE`. Its six-system scope, mixed direct/derived luminosity
 provenance, and leave-one-system sensitivity remain explicit limitations.
 
+`TASK-1075` then attempted formal Gate B replay. All five input hashes matched
+the frozen record, but the validator correctly stopped before metric comparison
+because `RESULT-0031` does not record the original publisher identity needed to
+enforce independent validation. This is a provenance blocker, not metric drift
+or a scientific change.
+
 The second independent-validation path is prospective rather than archival.
 The Gaia DR4 mass-luminosity reveal contract is specified, but no DR4 value or
 target list has been read. The official draft model defines component masses
 but not an admissible same-component bolometric-luminosity route, so the current
 readiness verdict is `HOLD_FIELDS_NOT_READY`.
 
-**Expected next outputs:** an independent Gate B replay should test whether
-`RESULT-0031` reproduces with zero material drift while preserving the
-`INCONCLUSIVE` boundary. A separate source gate may determine whether HD 284163
-can support a future versioned extension; it cannot be added as a rescue row to
-the frozen result. Gaia remains on hold until same-component bolometric
-luminosities exist. None of these routes authorizes a universal relation.
+**Expected next outputs:** first restore only the durable original-publisher
+metadata from merged PR #1609, without changing any scientific field. A
+different contributor or agent identity may then test whether `RESULT-0031`
+reproduces with zero material drift while preserving the `INCONCLUSIVE`
+boundary. A separate source gate may determine whether HD 284163 can support a
+future versioned extension; it cannot be added as a rescue row to the frozen
+result. Gaia remains on hold until same-component bolometric luminosities exist.
+None of these routes authorizes a universal relation.
 
 ## Why It Matters
 
@@ -318,8 +331,10 @@ calibration/known-physics verifier memory. High-mass Stellar transfer
 `RESULT-0024` has replay memory with zero metric drift and a retained metadata
 caveat. The CHARA source path now has twelve source-traceable component rows
 across six systems, a frozen dependence policy, and an independent source replay
-PASS. The next work is the fixed-relation, no-refit transfer score; the seven
-source-limited systems are not to be filled with inferred values.
+PASS. The fixed-relation, no-refit transfer is now `RESULT-0031`, bounded
+INCONCLUSIVE. Publisher-provenance repair and an identity-independent replay are
+next; the seven source-limited systems are not to be filled with inferred
+values.
 
 ## Cross-References
 

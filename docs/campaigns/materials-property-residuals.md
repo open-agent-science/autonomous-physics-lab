@@ -62,9 +62,9 @@ validation, and 26 holdout rows, and `TASK-1054` froze the cation-pair baseline,
 nulls, controls, seeds, metrics, and survival margin without target access.
 `TASK-1063` independently reproduced the source hashes, counts, predicate,
 overlap exclusions, semantics, and rights boundary and returned
-`INDEPENDENT_SOURCE_REPLAY_PASS`. No OQMD metric or `RESULT` exists yet; one
-frozen within-source benchmark is now ready, while cross-database numeric
-pooling remains forbidden.
+`INDEPENDENT_SOURCE_REPLAY_PASS`. A proposed one-shot OQMD result is under
+review in PR #1634. Its metrics are not canonical repository evidence until
+merge; cross-database numeric pooling remains forbidden.
 
 ## Public Monitoring Snapshot
 
@@ -227,9 +227,10 @@ The numbered path below is now:
    genuinely external clean-room replication from the public release; do not
    rebuild the archive or broaden the result scope.
 2. **OQMD result path** — the identity-only split, within-source
-   baseline/control contract, and independent source replay all pass. Run
-   `TASK-1066` once under the frozen contract; preserve PASS, FAIL, or
-   INCONCLUSIVE without rescue fitting.
+   baseline/control contract, and independent source replay all pass. Review
+   PR #1634 without importing its proposed metrics into public evidence; after
+   merge, the next scientific gate is identity-independent replay of the
+   unchanged result.
 3. **Stop boundary** — preserve transfer failures and sparse-family limits;
    do not pool OQMD and Materials Project values, run broad feature factories,
    or convert a cation-pair advantage into material-design wording.

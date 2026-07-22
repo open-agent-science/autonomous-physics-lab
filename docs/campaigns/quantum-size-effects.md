@@ -33,16 +33,20 @@ admitted. `TASK-1064` then assessed a separate body-text route and returned
 `GO_TEXT_REPORTED_PEAK_ROUTE`: all four samples have source-locatable absorption
 and fluorescence statements, with pinned PDF/JATS hashes and a `0.005 eV`
 rounding floor. `TASK-1070` curated those eight statements into separate
-`qd-0005` absorption and `qd-0006` emission files without scoring. The campaign
-remains
-**source/negative-memory gated**, not authorized for autonomous correction
-search or cross-material claims.
+`qd-0005` absorption and `qd-0006` emission files without scoring. `TASK-1077`
+then returned `HOLD_UNDERPOWERED`: each axis has four observations and the
+frozen two-parameter stability check has zero residual degrees of freedom.
+`TASK-1078` reviewed five independent-source candidates and returned
+`STOP_NO_INDEPENDENT_ROUTE`; none cleared the direct-row, size, rights,
+uncertainty, and stable-byte gates. The campaign is now
+**monitor/source-trigger-only**, not authorized for scoring, autonomous
+correction search, or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can either four-row Kim-2020 property axis support an
-honest predeclared small-surface benchmark, or should it stop as underpowered;
-and can an independent CdSe source add direct rows with compatible semantics?
+**Current question:** what genuinely new, source-pinned evidence could reopen a
+CdSe route with at least eight compatible groups per property axis and usable
+uncertainty semantics?
 
 **Shareable result:** `TASK-0293` admitted six deterministic figure-derived
 Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
@@ -64,6 +68,10 @@ published relation and rows share the same InP source series, the holdout has
 one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
+**Current stop:** the four-row absorption and emission axes cannot support the
+frozen benchmark contract, and the bounded independent-source scout found no
+admissible route. No benchmark metric was run on either Kim-2020 axis.
+
 **Active next work:** the ZnSe/Toufanian factual row surface is frozen, and
 `RESULT-0029` records the strict no-refit contract outcome: fixed InP/ZnSe
 rows, equivalent-diameter size harmonization, fixed confinement-energy model,
@@ -73,14 +81,14 @@ effective-mass transfer failure has also been routed as scoped sandbox negative
 memory. Preserve `TASK-1052` as failed-contract memory: do not weaken the y-axis
 gate or admit its excluded digitization rows retroactively. `TASK-1064`
 established a distinct `text_stated_summary` provenance class and `TASK-1070`
-completed the bounded row curation with source hashes, printed precision,
-rounding floor, unknown non-spherical morphology, and no equivalent-sphere
-conversion. A future benchmark still requires a separate frozen contract with
-an explicit split, controls, rounding treatment, and an honest
-`HOLD_UNDERPOWERED` stop if four observations per axis cannot support it. An
-independent direct-row CdSe source is the parallel breadth path. No benchmark
-metric, correction search, replay loop, or repeat transfer on the same ZnSe/InP
-surface is authorized here.
+completed bounded row curation with source hashes, printed precision, rounding
+floor, unknown non-spherical morphology, and no equivalent-sphere conversion.
+`TASK-1077` and `TASK-1078` now close the current result path: the surfaces are
+underpowered and there is no qualifying independent source. Reopen only when a
+concrete new source/version trigger plausibly satisfies the frozen row,
+semantics, uncertainty, rights, and stable-byte requirements. No benchmark
+metric, pooled absorption/emission axis, correction search, replay loop, or
+repeat transfer on the same ZnSe/InP surface is authorized here.
 
 ## Historical Source-Readiness Trail
 
@@ -353,8 +361,12 @@ Current evidence is source-scoped and sandbox-only:
 - `TASK-1064` independently located eight body-text optical statements and
   returned `GO_TEXT_REPORTED_PEAK_ROUTE` under a separate zero-row provenance
   contract. `TASK-1070` then curated four absorption and four emission rows on
-  separate axes without fitting or scoring. Any benchmark needs a new frozen
-  adequacy/split/control contract.
+  separate axes without fitting or scoring.
+- `TASK-1077` returned `HOLD_UNDERPOWERED` for both axes because four
+  observations leave no residual degrees of freedom under the frozen
+  two-parameter stability check.
+- `TASK-1078` returned `STOP_NO_INDEPENDENT_ROUTE` after five candidates failed
+  one or more direct-row, size, rights, uncertainty, and stable-byte gates.
 
 Historical context:
 
@@ -367,9 +379,8 @@ Historical context:
 - Is the six-row, one-holdout Almeida InP baseline sufficient for any bounded
   follow-up, or should it remain review-only until a license-clear independent
   material/source holdout exists?
-- After the eight Kim-2020 text-stated rows are curated, is there a bounded
-  predeclared benchmark question that adds information beyond existing
-  transfer-negative memory?
+- Will a future independent source provide at least eight compatible direct
+  size/property groups per axis with usable uncertainty and rights semantics?
 - Which visualization or tabular summary would help reviewers inspect the
   baseline without implying a design law?
 - How should absorption-versus-emission and bandgap semantics be separated in
@@ -426,7 +437,10 @@ Historical context:
   memory before opening another quantum transfer lane.
 - pair `RESULT-0029` with its limitation line: AGENT_VALIDATED,
   `INCONCLUSIVE`, no cross-material law, no design guidance, and no transfer
-  success claim.
+  success claim;
+- preserve `TASK-1077` and `TASK-1078` as terminal gate memory. Do not launch
+  another generic CdSe scout or score either four-row axis without a concrete
+  qualifying source trigger.
 
 Planning-only microtasks may be picked from
 `tasks/microtasks/quantum-size-effects.yaml`. They must not produce canonical

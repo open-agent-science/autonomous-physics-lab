@@ -31,20 +31,23 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: AGENT_VALIDATED range-limited benchmark with CLAIM-0009 evidence handoff
-    completed; maintainer Gate C decision remains the blocker
+  current_stage: RESULT-0016 is AGENT_VALIDATED range-limited calibration memory, and CLAIM-0009
+    is PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED with calibration_known_physics / calibration_memory
+    classification.
   agent_capacity:
-    recommended_parallel_agents: 1
-    coordination_notes: Use as a bounded replay/follow-up benchmark only if maintainer asks;
-      avoid broad candidate expansion or duplicate handoff tasks.
+    recommended_parallel_agents: 0
+    coordination_notes: The quality-floor and Gate C paths are complete. Use only for maintainer-requested
+      regression maintenance or genuinely new external evidence; avoid broad candidate expansion,
+      duplicate handoffs, or novelty wording.
   next_validity_gate:
-    type: ratification
-    blocker: CLAIM-0009 remains DRAFT until maintainer Gate C accepts narrow range-limited
-      benchmark wording.
+    type: transfer
+    blocker: No active transfer is planned; the campaign is mature calibration memory and
+      reopens only for genuinely new external evidence.
     target_artifact: claims/CLAIM-0009-anharmonic-oscillator-period.md
   best_next_actions:
-  - task_id: TASK-0818
-    label: Prepare a narrow CLAIM-0009 Gate C ratification packet without changing claim status
+  - task_id: null
+    label: Keep as mature calibration memory; reopen only for genuinely new external evidence
+      or a maintainer-requested regression
   required_gates:
   - Train, holdout, and stress metrics must remain separated.
   - No exactness or broad-range wording.
@@ -61,22 +64,23 @@ campaigns:
   - A sandbox fit is exact or valid for all anharmonicities.
   - Negative-control failure means the benchmark itself is invalid.
   current_results:
-  - results/EXP-0011/
+  - results/EXP-0011/RUN-0002/result.yaml
+  - claims/CLAIM-0009-anharmonic-oscillator-period.md
   - docs/results/anharmonic-oscillator-summary.md
   - docs/reviews/first-agent-validated-replay.md
   - docs/reviews/claim-0009-anharmonic-evidence-handoff.md
-  open_questions:
-  - Should CLAIM-0009 receive narrowed maintainer-reviewed wording that cites RESULT-0016,
-    or remain DRAFT pending more evidence?
+  open_questions: []
   curator_review:
     status: current
-    last_reviewed: '2026-06-15'
+    last_reviewed: '2026-07-22'
     review_interval: semiannual_quality_floor
     next_review_due: '2026-12-01'
     review_reason: quality_floor_hygiene
-    source: RESULT-0016 and TASK-0758 evidence handoff
-    notes: Quality-floor benchmark has enough evidence for a maintainer decision packet, but
-      not for agent-side claim promotion. Avoid broad candidate expansion.
+    source: RESULT-0016, CLAIM-0009 maintainer Gate C record, and Scientific Director 2026-07-22
+      cycle
+    notes: Gate C is complete and the claim remains explicitly calibration memory. No executor
+      task is warranted without a new maintainer-requested regression or external evidence
+      route.
   source_docs:
   - docs/results/anharmonic-oscillator-summary.md
   - docs/drafts/anharmonic-period-experiment-plan.md
@@ -462,24 +466,25 @@ campaigns:
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
-  current_stage: MD-0002 remains AGENT_VALIDATED as RESULT-0021 and externally published as
-    Zenodo dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized
+  current_stage: 'MD-0002 remains AGENT_VALIDATED as RESULT-0021 and externally published
+    as Zenodo dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized
     rows, a leakage-free 120/26/26 grouped split, a frozen value-blind baseline/control contract,
-    and an independent source replay with INDEPENDENT_SOURCE_REPLAY_PASS.
+    and independent source replay PASS. TASK-1066 is under review in PR #1634; its proposed
+    metrics are not repository evidence before merge.'
   agent_capacity:
-    recommended_parallel_agents: 1
-    coordination_notes: All source, split, control, and independent-replay gates for the bounded
-      OQMD surface are satisfied. TASK-1066 is now the single direct result path and must
-      run the frozen within-OQMD benchmark once without pooling OQMD and Materials Project
-      values, rebuilding MD-0002 v0.1.0, or opening a feature factory.
+    recommended_parallel_agents: 0
+    coordination_notes: 'Do not rerun TASK-1066 or publish metrics from open PR #1634. After
+      a merge, TASK-1090 is the identity-independent replay path; it must preserve the frozen
+      split, controls, and bounded negative/control interpretation without rescue fitting
+      or cross-database pooling.'
   next_validity_gate:
     type: transfer
-    blocker: No scientific prerequisite remains; the frozen one-shot OQMD benchmark has not
-      yet been executed.
-    target_artifact: TASK-1066
+    blocker: 'The proposed one-shot result is not canonical until PR #1634 merges; independent
+      Gate B replay is then still required.'
+    target_artifact: TASK-1090
   best_next_actions:
-  - task_id: TASK-1066
-    label: Run the frozen within-OQMD benchmark once
+  - task_id: TASK-1090
+    label: 'After PR #1634 merges, independently replay the unchanged OQMD result'
   required_gates:
   - Use the committed MD-0002 source snapshot, checksums, and attribution.
   - Respect the frozen no-peek holdout binding before residual metrics.
@@ -536,20 +541,21 @@ campaigns:
   - docs/reviews/materials/oqmd-within-source-baseline-control-preflight.md
   - docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md
   open_questions:
-  - Will the frozen within-OQMD baseline survive grouped holdout controls on the 172-row composition-disjoint
-    surface?
+  - Will the proposed bounded OQMD result survive maintainer review and identity-independent
+    Gate B replay without drift?
   - What future release-version signal would justify rebuilding MD-0002 as v0.1.1?
   - What future Materials task, if any, can add information beyond the already-recorded transfer-negative
     and descriptor-ablation limits?
   curator_review:
     status: current
-    last_reviewed: '2026-07-21'
+    last_reviewed: '2026-07-22'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-1063 OQMD independent source replay and Scientific Director 2026-07-21 cycle
-    notes: MD-0002 remains fixed and citable. OQMD has cleared source, split, control, and
-      independent-replay gates; TASK-1066 is the sole authorized metric execution.
+    source: 'TASK-1063 OQMD independent source replay, open PR #1634, and Scientific Director
+      2026-07-22 cycle'
+    notes: 'MD-0002 remains fixed and citable. OQMD proposed metrics remain review-only until
+      PR #1634 merges; independent replay is the only scientific follow-up after merge.'
   source_docs:
   - docs/campaigns/materials-property-residuals.md
   - data/materials/README.md
@@ -826,39 +832,39 @@ campaigns:
   status: source_readiness
   domain: condensed_matter
   surface_type: source_pinned_benchmark
-  lifecycle_stage: active_benchmark
-  activity_status: active
+  lifecycle_stage: monitor_only
+  activity_status: active_monitor
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
     - verifier_quality_floor
-    review_cadence: weekly
+    review_cadence: as_needed
     transfer_requires:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED
-    INCONCLUSIVE control memory. TASK-1070 curated eight source-stated Kim-2020 CdSe observations
-    into separate four-row absorption and emission surfaces with no score; the failed figure-digitization
-    route remains closed.
+    INCONCLUSIVE control memory. TASK-1077 returned HOLD_UNDERPOWERED because each Kim-2020
+    axis has four observations and zero residual degrees of freedom under the frozen two-parameter
+    stability check. TASK-1078 returned STOP_NO_INDEPENDENT_ROUTE after five candidate publications
+    failed the direct-row, size, rights, uncertainty, or stable-byte gates.
   agent_capacity:
-    recommended_parallel_agents: 2
-    coordination_notes: TASK-1077 may freeze one honest small-surface benchmark contract or
-      stop as underpowered. TASK-1078 may scout one genuinely independent direct-row CdSe
-      source in parallel. Preserve RESULT-0029 and TASK-1052; do not pool absorption with
-      emission, admit excluded digitized coordinates, refit the failed transfer, or score
-      before a separate frozen contract.
+    recommended_parallel_agents: 0
+    coordination_notes: Keep the current CdSe route monitor/source-trigger-only. Preserve
+      RESULT-0029, the separate four-row absorption and emission surfaces, and TASK-1052 uncertainty-blocked
+      memory. Do not pool the axes, score either surface, repeat a generic source scout, admit
+      excluded digitized coordinates, or refit the failed transfer.
   next_validity_gate:
     type: source_readiness
-    blocker: Each Kim-2020 property axis contains only four same-source observations, so benchmark
-      adequacy and independent-source transfer are unresolved.
-    target_artifact: TASK-1077 and TASK-1078
+    blocker: The current route is underpowered and no independently sourced direct-row CdSe
+      surface cleared the frozen gates. Reopen only on a new source/version trigger that plausibly
+      supplies at least eight compatible groups per axis plus reviewed uncertainty semantics.
+    target_artifact: future trigger-specific source-readiness task
   best_next_actions:
-  - task_id: TASK-1077
-    label: Freeze an honest no-score small-surface benchmark contract or stop as underpowered
-  - task_id: TASK-1078
-    label: Scout one independent CdSe direct-row source without extracting values
+  - task_id: null
+    label: Monitor for a concrete source/version trigger that plausibly clears the frozen
+      row, semantics, uncertainty, rights, and stable-byte gates
   required_gates:
   - Direct measurement row provenance or approved weaker calibration-consistency scope.
   - Source artifact package before benchmark metrics.
@@ -902,26 +908,26 @@ campaigns:
   - docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md
   - docs/reviews/quantum/kim-2020-cdse-text-reported-peak-route.md
   - docs/reviews/quantum/kim-2020-cdse-text-row-curation.md
+  - docs/reviews/quantum/kim-2020-cdse-small-surface-contract-task1077.md
+  - docs/source-candidates/quantum/cdse-independent-source-task1078.md
   - data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml
   - data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml
   - data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml
   - data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml
   - results/EXP-0022/RUN-0001/result.yaml
   open_questions:
-  - Can either four-row property axis support an honest predeclared benchmark, or should the
-    route stop as underpowered?
-  - Can a genuinely independent CdSe source provide directly reported size/property rows with
-    compatible semantics?
+  - Will a future independent source expose at least eight compatible direct size/property
+    groups per axis with usable uncertainty and rights semantics?
   curator_review:
     status: current
-    last_reviewed: '2026-07-21'
+    last_reviewed: '2026-07-22'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: TASK-1070 Kim-2020 row curation and Scientific Director 2026-07-21 cycle
-    notes: RESULT-0029 remains bounded inconclusive/control memory. Eight direct text-stated
-      rows now exist on two separate axes; benchmark adequacy and independent-source breadth
-      must be decided before any metric run.
+    source: TASK-1077 adequacy contract, TASK-1078 independent-source scout, and Scientific
+      Director 2026-07-22 cycle
+    notes: HOLD_UNDERPOWERED and STOP_NO_INDEPENDENT_ROUTE close the current CdSe scoring
+      path. Reopening requires new source evidence, not another audit of the same candidates.
   source_docs:
   - docs/campaigns/quantum-size-effects.md
   - docs/notes/quantum-size-effects-campaign-plan.md
@@ -1040,19 +1046,22 @@ campaigns:
     dex.'
   agent_capacity:
     recommended_parallel_agents: 2
-    coordination_notes: TASK-1075 should independently replay RESULT-0031 while preserving
-      its INCONCLUSIVE verdict and no-refit contract. TASK-1076 may resolve only the HD 284163
-      supplemental source gate as a separately versioned extension; it must not rewrite the
-      frozen twelve-row RESULT-0031 surface. Do not rescue the margin, relax the threshold,
-      or register a Gaia functional freeze without valid same-component luminosities.
+    coordination_notes: TASK-1075 stopped before metric comparison with REPLAY_ENVIRONMENT_BLOCKED
+      because RESULT-0031 lacks original-publisher metadata; all five frozen input hashes
+      still match. TASK-1088 repairs provenance only, TASK-1089 then requires an identity-independent
+      Gate B executor, and TASK-1076 remains a separate HD 284163 source gate. Do not rescue
+      the margin, relax the threshold, or rewrite the frozen twelve-row surface.
   next_validity_gate:
     type: ratification
-    blocker: RESULT-0031 is reproducible and bounded but has not yet received an independent
-      Gate B replay.
-    target_artifact: TASK-1075; TASK-1076 is a separate source-extension gate
+    blocker: 'Gate B cannot start until RESULT-0031 records the durable original-publisher
+      identity from PR #1609; an independent executor is then still required.'
+    target_artifact: TASK-1088 followed by TASK-1089; TASK-1076 remains a separate source-extension
+      gate
   best_next_actions:
-  - task_id: TASK-1075
-    label: Independently replay RESULT-0031 and preserve the predeclared INCONCLUSIVE boundary
+  - task_id: TASK-1088
+    label: Repair RESULT-0031 publisher provenance without changing scientific content
+  - task_id: TASK-1089
+    label: After provenance repair, independently replay RESULT-0031 and preserve INCONCLUSIVE
   - task_id: TASK-1076
     label: Resolve the HD 284163 supplemental CHARA source gate without changing RESULT-0031
   required_gates:
@@ -1116,25 +1125,26 @@ campaigns:
   - docs/reviews/stellar/chara-cluster-dependence-policy.md
   - docs/reviews/stellar/chara-component-source-independent-replay-task1049.md
   - docs/reviews/stellar/chara-fixed-relation-transfer-task1050.md
+  - docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md
   - results/EXP-0023/RUN-0001/result.yaml
   - docs/reviews/stellar/gaia-dr4-freeze-readiness.md
   open_questions:
-  - Can an independent replay reproduce RESULT-0031 without metric or verdict drift?
+  - After publisher-provenance repair, can an identity-independent replay reproduce RESULT-0031
+    without metric or verdict drift?
   - Can HD 284163 supply source-pinned component luminosities and rights-clear provenance
     for a future, separately frozen extension?
   - What future external stellar catalogue, if any, can test the high-mass transfer beyond
     same-source DEBCat?
   curator_review:
     status: current
-    last_reviewed: '2026-07-21'
+    last_reviewed: '2026-07-22'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: RESULT-0031/TASK-1050 CHARA transfer outcome and Scientific Director 2026-07-21
-      cycle
-    notes: The frozen relation beat the eligible control but missed the predeclared survival
-      margin, so the durable result is INCONCLUSIVE pending Gate B replay. HD 284163 is a
-      source-gated extension, not a rescue row.
+    source: RESULT-0031, TASK-1075 replay blocker, and Scientific Director 2026-07-22 cycle
+    notes: The frozen relation remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1075 verified the
+      input hashes but computed no replay metrics because publisher provenance was missing.
+      HD 284163 remains a source-gated extension, not a rescue row.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md
@@ -1160,24 +1170,24 @@ campaigns:
     - source_readiness_pass
     - updated_campaign_profile
   current_stage: RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028
-    is AGENT_VALIDATED failed-family memory; a checksum-matched local archive preflight found
-    the exact eight-family 80-row contract infeasible because acids and ketones are underpopulated.
+    is AGENT_VALIDATED failed-family memory. TASK-1084 returned REVISED_CONTRACT_READY_NO_SCORE
+    for an availability-capped, family-equal-weighted surface of at most 74 rows; the exact
+    80-row route remains stopped.
   agent_capacity:
-    recommended_parallel_agents: 1
-    coordination_notes: Treat the exact 80-row route as stopped under the frozen contract.
-      TASK-1084 may make one counts-only stop/go decision among predeclared feasible alternatives
-      or preserve STOP; it may not inspect target values, lower family gates to force a pass,
-      rerun RESULT-0028, broaden properties, or commit archive bytes.
+    recommended_parallel_agents: 0
+    coordination_notes: TASK-1091 may extract the frozen at-most-74-row fixture only after
+      the exact checksum-matched local archive is supplied. It must independently reproduce
+      the count arithmetic, enforce the five-row article cap and information floor, and stop
+      without a partial fixture. Scoring remains a separate future task.
   next_validity_gate:
     type: source_readiness
-    blocker: The exact 80-row route is structurally infeasible; one bounded adjudication must
-      decide whether a scientifically motivated feasible contract exists or the expansion
-      remains stopped.
-    target_artifact: TASK-1084
+    blocker: The revised contract is ready but the exact local ThermoML archive is not available
+      in the current checkout, and article-cap feasibility is unknown until value-blind extraction.
+    target_artifact: TASK-1091
   best_next_actions:
-  - task_id: TASK-1084
-    label: Adjudicate feasible family-balanced alternatives from counts only, with STOP as
-      a valid outcome
+  - task_id: TASK-1091
+    label: After the checksum-matched archive is supplied, extract the at-most-74-row fixture
+      or stop on the frozen information floor
   required_gates:
   - ThermoML archive DOI, checksum, and rights boundary must stay explicit.
   - No raw archive bytes or substantial normalized corpus may be committed.
@@ -1222,20 +1232,22 @@ campaigns:
   - docs/reviews/thermoml/result0028-gate-b-workflow-bridge.md
   - docs/reviews/thermoml-80-row-fixture-source-blocker.md
   - docs/reviews/thermoml-tb-80row-local-count-preflight.md
+  - data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml
+  - docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md
   open_questions:
-  - Does a counts-only, independently motivated feasible family contract add information without
-    post-result threshold lowering, or should expansion stop?
+  - Can deterministic value-blind extraction satisfy every family cap, the five-row article
+    cap, and the frozen information floor without a partial fixture?
   curator_review:
     status: current
-    last_reviewed: '2026-07-21'
+    last_reviewed: '2026-07-22'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: RESULT-0026, RESULT-0028, local 80-row count preflight, and Scientific Director
-      2026-07-21 cycle
-    notes: The 40-row benchmark and failed-family memory are durable. Exact 80-row expansion
-      remains stopped; TASK-1084 is a single bounded stop/go adjudication, not permission
-      to rescue the old contract.
+    source: RESULT-0026, RESULT-0028, TASK-1084 revised contract, and Scientific Director
+      2026-07-22 cycle
+    notes: The 40-row benchmark and failed-family memory are durable. The revised 74-row ceiling
+      is source-ready planning only; archive identity, article caps, rights metadata, and
+      extraction hard stops still gate any fixture.
   source_docs:
   - docs/campaigns/thermophysical-property-residuals.md
   - data/thermophysical/source_manifest.yaml

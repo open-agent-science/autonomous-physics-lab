@@ -1,7 +1,7 @@
 id: TASK-1092
 title: "Synchronize campaign state after the July terminal gates"
 type: documentation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task changes maintainer-facing mission priority and public scientific wording across multiple campaign surfaces."
 difficulty: medium

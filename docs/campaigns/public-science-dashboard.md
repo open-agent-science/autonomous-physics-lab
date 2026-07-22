@@ -115,8 +115,10 @@ source-scoped sandbox baseline with controls and a one-point holdout. The later
 ZnSe/InP no-refit transfer is now packaged as `RESULT-0029`: the transferred
 model beats the best control but misses the frozen `0.05 eV` survival margin by
 `0.00341632 eV`, so the result is `INCONCLUSIVE`, not positive. A separate
-Kim-2020 route now contributes eight source-stated CdSe observations: four
-absorption and four emission rows, kept on distinct axes and not yet scored.
+Kim-2020 route contributes eight source-stated CdSe observations: four
+absorption and four emission rows, kept on distinct axes. A frozen adequacy
+review found both axes underpowered, and a five-candidate source scout found no
+qualifying independent direct-row route.
 
 **Why it is interesting:** the campaign demonstrates source discipline before
 attractive modeling. A source blocker is treated as useful output, not as a
@@ -125,9 +127,11 @@ failure.
 **Limitation:** this is a single-source InP sandbox baseline plus one bounded
 two-material transfer-control result, not a universal size-effect law, material
 recommendation, device-performance result, or validated cross-material model.
-The current blocker is benchmark adequacy on two four-row same-source axes and
-independent-source breadth; rerunning the same ZnSe/InP surface would be
-methodology shopping.
+The current blocker is new evidence: four rows per axis leave zero residual
+degrees of freedom for the frozen two-parameter stability check, and no
+independent source cleared the row-count, semantics, rights, uncertainty, and
+stable-byte gates. Rerunning the same ZnSe/InP surface or another generic scout
+would be methodology shopping.
 
 **Evidence trail:**
 
@@ -136,6 +140,8 @@ methodology shopping.
 - [Quantum Almeida deterministic source-artifact package](../reviews/quantum-almeida-2023-deterministic-source-artifact-package.md)
 - [RESULT-0029 report](../../results/EXP-0022/RUN-0001/report.md)
 - [RESULT-0029 result metadata](../../results/EXP-0022/RUN-0001/result.yaml)
+- [Kim-2020 small-surface adequacy decision](../reviews/quantum/kim-2020-cdse-small-surface-contract-task1077.md)
+- [Independent CdSe source verdict](../source-candidates/quantum/cdse-independent-source-task1078.md)
 - [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md)
 
 ### Atomic Yb/Sr Consistency Negative Memory
@@ -211,7 +217,9 @@ same-source transfer result after formal workflow Gate B replay. Their strongest
 recorded validation identity remains `same_owner_different_account`.
 The external CHARA transfer is now `AGENT_PUBLISHED` `RESULT-0031`: it beats the
 best eligible control, but misses the predeclared survival margin and is
-therefore `INCONCLUSIVE` pending independent replay.
+therefore `INCONCLUSIVE`. A first replay attempt confirmed all five frozen
+input hashes but stopped before metrics because original-publisher provenance
+was absent; that metadata must be repaired before an independent replay.
 
 **Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
 
@@ -272,8 +280,8 @@ is not a universal law claim.
 - **Primary metric:** frozen-relation MAE **0.060530 dex** versus best eligible
   control **0.097317 dex**. The **0.036787 dex** margin misses the predeclared
   **0.04 dex** survival threshold by **0.003213 dex**.
-- **Review status:** `AGENT_PUBLISHED`, `INCONCLUSIVE`; independent Gate B replay
-  remains pending.
+- **Review status:** `AGENT_PUBLISHED`, `INCONCLUSIVE`; a first replay attempt
+  was environment-blocked before metrics by missing publisher provenance.
 - **No-claim wording:** bounded six-system transfer test, not a validated
   universal stellar law and not a positive near-miss to be rescued by refit.
 
@@ -295,6 +303,7 @@ is not a universal law claim.
 - [Stellar high-mass transfer RESULT-0024 replay](../reviews/stellar-result0024-high-mass-transfer-gate-b-replay.md)
 - [CHARA fixed-relation RESULT-0031 report](../../results/EXP-0023/RUN-0001/report.md)
 - [CHARA fixed-relation transfer review](../reviews/stellar/chara-fixed-relation-transfer-task1050.md)
+- [CHARA Gate B replay blocker](../reviews/stellar/result0031-chara-gate-b-replay-task1075.md)
 - [Candidate slate](../notes/textbook-formula-audit-candidate-list.md)
 
 ### Materials Reusable Dataset And First Baseline
@@ -314,7 +323,8 @@ Gate B with zero numeric drift.
 
 The separate OQMD lane now has 172 source-pinned rows, a frozen 120/26/26
 composition-grouped split, value-blind controls, and an independent source
-replay PASS. Its one-shot within-source benchmark has not yet been run.
+replay PASS. A proposed one-shot result remains under review in PR #1634; its
+metrics are not canonical repository evidence until merge.
 
 **Result capsule — RESULT-0021 (Materials MD-0002 formation energy):**
 
@@ -386,6 +396,12 @@ negative/control memory.
 outside astronomy and materials DFT, while keeping source rights, identity
 mapping, property leakage, and family failures visible.
 
+**Expansion state:** the exact 80-row design is stopped because acids provide
+6/10 and ketones 8/10 admissible identities. A later value-blind decision froze
+an availability-capped, family-equal contract of at most 74 rows. No expanded
+fixture or score exists yet; extraction is blocked until the exact archive is
+supplied and the five-row article cap and information floor pass.
+
 **Evidence trail:**
 
 - [Thermophysical Property Residuals campaign page](./thermophysical-property-residuals.md)
@@ -397,6 +413,8 @@ mapping, property leakage, and family failures visible.
 - [RESULT-0026 result metadata](../../results/EXP-0020/RUN-0001/result.yaml)
 - [RESULT-0028 report](../../results/EXP-0020/RUN-0002/report.md)
 - [RESULT-0028 result metadata](../../results/EXP-0020/RUN-0002/result.yaml)
+- [ThermoML feasible expansion contract](../../data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml)
+- [ThermoML contract review](../reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md)
 
 ## Campaign Snapshot
 
@@ -405,11 +423,11 @@ mapping, property leakage, and family failures visible.
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | What official post-registration event could legitimately reopen the frozen shell-axis reveal route? | `RESULT-0025` has exact replayed point-estimator improvement; intervals remain uncalibrated; point-only PRED entries are frozen; a clean scout found only pre-registration AME2020/NUBASE2020 sources with zero target exposure. | Ratify event-triggered monitoring; do not repeat no-signal scouts or inspect targets. | A trigger ledger now, then a source-manifest decision only after a qualifying official release. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_VALIDATED negative/control memory with fair-null transparency. | Monitor-only trigger discipline. | A source-version/coverage trigger verdict, not a residual score. |
 | FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, `PRED-0001` was registered as a 479-source point-score/rank prediction, the full anchor is sealed by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`, and `TASK-1024` completed a reduced rights-bounded capsule without external upload. | Keep any reduced-capsule publication maintainer-only; activate reveal-source work only on a concrete official release signal. | An optional citable reduced checksum anchor or a later trigger-based reveal-source decision; no current success verdict. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can either four-row Kim-2020 axis support an honest small-surface benchmark, and can an independent CdSe source add breadth? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP miss; eight Kim-2020 CdSe observations are now curated as separate absorption and emission surfaces with no score. | Freeze a benchmark contract or stop as underpowered, while scouting one independent direct-row source. | A no-score adequacy decision and source-readiness verdict before any metric. |
+| [Quantum Size Effects](./quantum-size-effects.md) | What genuinely new source could reopen the stopped CdSe route? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP miss; both four-row Kim-2020 axes are underpowered and no independent direct-row source cleared the frozen gates. | Monitor/source-trigger-only; no score, pooling, or repeated generic scout. | A trigger-specific source-readiness decision, not a metric on the current rows. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What future source event would justify reopening the two-row `171Yb/87Sr` surface? | Beloy and Nemitz support a narrow no-tension memory card; other routes are blocked or isotope-mismatched; the multi-species route returned `KEEP_MONITOR_ONLY`. | Follow the ratified reopen-trigger ledger; no standing executor task or metric rerun. | A future trigger decision, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Does the bounded CHARA transfer reproduce exactly, and can one supplemental system clear source gates without rescuing the result? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE: 0.060530 dex MAE versus 0.097317 for the best control, with a 0.036787 dex margin below the frozen 0.04 threshold. | Independently replay RESULT-0031; assess HD 284163 only as a separately versioned extension. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can the frozen OQMD surface produce a durable within-source computed-DFT benchmark? | `MD-0002` is AGENT_VALIDATED and externally citable; OQMD has 172 normalized rows, a 120/26/26 grouped split, frozen controls, and an independent source replay PASS. | Run the frozen OQMD benchmark exactly once. | A bounded PASS/FAIL/INCONCLUSIVE within-OQMD result, not a cross-database claim or material recommendation. |
-| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Is there a scientifically motivated feasible expansion contract, or should the lane remain stopped? | `RESULT-0026` and failed-family `RESULT-0028` are AGENT_VALIDATED; the exact-80 route is infeasible because acids provide 6/10 and ketones 8/10. | Make one counts-only GO/STOP contract decision without inspecting values or lowering gates to force 80 rows. | A durable stop/go decision, not an exact-80 retry. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay, and can one supplemental system clear source gates without rescuing it? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; all five frozen hashes match, but the first replay stopped before metrics on missing publisher provenance. | Repair provenance, then replay with an independent identity; assess HD 284163 only as a separate extension. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can the frozen OQMD surface produce a durable within-source computed-DFT benchmark? | `MD-0002` is AGENT_VALIDATED and externally citable; OQMD has 172 normalized rows, a 120/26/26 grouped split, frozen controls, and independent source replay PASS. | Review proposed result PR #1634; do not publish its metrics before merge. | After merge, an independent replay of the unchanged bounded result, not a cross-database claim. |
+| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can the revised at-most-74-row contract be extracted without violating its source and information gates? | `RESULT-0026` and failed-family `RESULT-0028` are AGENT_VALIDATED; exact-80 is stopped, while a value-blind family-equal 74-row ceiling is frozen. | Supply the exact archive and enforce the five-row article cap and information floor; keep scoring separate. | One complete rights-bounded fixture or a hard extraction stop, not a partial fixture or metric. |
 | Lattice-QCD Aggregated Consistency | Can primary evidence resolve dependency structure before any central values are admitted? | An eleven-publication `f_K/f_pi` manifest and graph exist, but all 49 pairwise dependency relations remain `UNKNOWN`. | Split the dependency audit by flavor family and freeze value-admissibility policy in parallel. | Resolved conservative components or a durable covariance HOLD; no Lattice-QCD physics claim. |
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Can reproducible calibration be separated from a genuinely external test of generalization? | AGENT_VALIDATED `RESULT-0030` reproduced with zero drift but remains calibration-only; the first external-freeze attempt stopped before rows because of prior result exposure. | Retry only with a clean external controller and independently scout third-party labelled corpora. | A frozen external benchmark route or a precise source/independence blocker; no automatic `CLAIM-0005` promotion. |
 
