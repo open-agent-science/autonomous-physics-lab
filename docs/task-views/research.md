@@ -13,6 +13,7 @@
 - `TASK-1082` - Retry the external dimensional benchmark freeze with a clean curator (`scientific_benchmark_planning`, priority `high`, difficulty `high`, domain `physics_validation`)
 - `TASK-1083` - Scout an external dimensional-consistency benchmark corpus route (`scientific_source_curation`, priority `high`, difficulty `medium`, domain `physics_validation`)
 - `TASK-1085` - Incubate a version-pinned GWTC-5 open-catalog source route (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `gravitational_wave_astrophysics`)
+- `TASK-1088` - Repair RESULT-0031 publisher provenance from the merged task PR (`scientific_validation`, priority `high`, difficulty `low`, domain `stellar_astrophysics`)
 
 ## IN_PROGRESS
 

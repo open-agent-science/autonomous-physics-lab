@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-1087` - Make Mission Control fall back from transient canonical task states (`tooling_fix`, priority `high`, difficulty `medium`)
+- `TASK-1092` - Synchronize campaign state after the July terminal gates (`documentation`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
 
 ## IN_PROGRESS
 
