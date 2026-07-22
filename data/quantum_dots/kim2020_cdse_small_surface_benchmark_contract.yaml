@@ -1,0 +1,138 @@
+schema_version: "1"
+task_id: TASK-1077
+contract_id: kim2020-cdse-small-surface-v1
+planning_only: true
+execution_authorized: false
+verdict: HOLD_UNDERPOWERED
+
+source_surface:
+  source_id: kim-2020-nanomaterials-cdse-optical
+  doi: 10.3390/nano10081589
+  shared_sample_group_key: sample_id
+  shared_sample_group_count: 4
+  provenance_class: text_stated_summary
+  printed_precision_eV: 0.01
+  rounding_uncertainty_floor_eV: 0.005
+  instrument_uncertainty: not_reported
+  morphology: unknown_non_spherical
+  axes:
+    - axis_id: absorption_peak_eV
+      dataset: data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml
+      primary: true
+      group_count: 4
+    - axis_id: emission_peak_eV
+      dataset: data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml
+      primary: true
+      group_count: 4
+
+axis_policy:
+  fit_and_score_separately: true
+  pooled_residual_metric_allowed: false
+  paired_stokes_shift_axis_enabled: false
+  paired_stokes_shift_future_rule: >
+    A future contract may name this only as a secondary axis and must propagate
+    both 0.005 eV rounding floors before execution.
+
+candidate_family:
+  family_count: 1
+  family_id: affine_inverse_square_size
+  equation: "E_peak(d) = beta_0 + beta_1 / d^2"
+  parameter_count: 2
+  fit_scope: separately_within_each_property_axis
+  physics_motivation: compact leading-order confinement-shaped size dependence
+  coefficient_constraints_predeclared: none
+  rescue_refit_allowed: false
+
+null_controls:
+  - control_id: train_mean
+    equation: "E_peak(d) = mean(E_train)"
+    parameter_count: 1
+  - control_id: affine_diameter_trend
+    equation: "E_peak(d) = alpha_0 + alpha_1 * d"
+    parameter_count: 2
+    role: same-complexity monotonic-trend control
+
+resampling:
+  group_unit: sample_id
+  primary: leave_one_sample_group_out
+  sensitivity: >
+    Delete each sample group in turn, then recompute the complete grouped
+    leave-one-out comparison on the remaining groups.
+  verdict_stability_rule: >
+    Each property-axis verdict must keep the same route in the full surface and
+    every one-group-deletion surface.
+  current_surface_diagnostic:
+    full_group_count: 4
+    groups_after_outer_deletion: 3
+    inner_loo_training_groups: 2
+    candidate_parameter_count: 2
+    inner_training_residual_degrees_of_freedom: 0
+
+metrics:
+  primary:
+    - grouped_leave_one_out_mae_eV
+  secondary:
+    - grouped_leave_one_out_median_absolute_error_eV
+    - grouped_leave_one_out_max_absolute_error_eV
+  comparison: candidate_mae_minus_each_control_mae_eV
+
+tolerances:
+  deterministic_numeric_absolute: 1.0e-12
+  source_rounding_floor_eV: 0.005
+  required_materiality_margin_eV: 0.01
+  materiality_basis: twice_the_single_value_rounding_floor
+  instrument_uncertainty_tolerance_available: false
+
+minimum_information_rule:
+  minimum_groups_per_axis: 8
+  minimum_groups_after_outer_deletion: 7
+  minimum_inner_loo_training_groups: 6
+  minimum_inner_training_residual_degrees_of_freedom: 4
+  uncertainty_requirement: reported_instrument_uncertainty_or_reviewed_predeclared_envelope
+  rationale: >
+    With eight groups, one outer deletion followed by one inner LOO holdout
+    leaves six training groups for the two-parameter candidate. The current
+    four-group surface leaves only two and is exactly determined.
+  current_surface_passes_group_floor: false
+  current_surface_passes_uncertainty_requirement: false
+
+verdict_routing:
+  scope: separately_per_property_axis
+  pass: >
+    PASS only when the candidate MAE is more than 0.01 eV lower than both
+    controls in the full surface and every one-group-deletion surface, and its
+    maximum absolute error does not exceed either control maximum.
+  fail: >
+    FAIL only when both controls beat the candidate MAE by more than 0.01 eV in
+    the full surface and every one-group-deletion surface.
+  inconclusive: >
+    INCONCLUSIVE for every mixed, threshold-adjacent, deletion-unstable, or
+    uncertainty-unresolved outcome.
+  overall_pooling_allowed: false
+  post_score_threshold_change_allowed: false
+
+stop_conditions:
+  - fewer_than_eight_source_matched_groups_on_either_primary_axis
+  - missing_instrument_uncertainty_without_reviewed_predeclared_envelope
+  - sample_group_mismatch_between_axes
+  - provenance_or_source_hash_drift
+  - any_one_group_deletion_changes_the_primary_route
+
+forbidden_actions:
+  - execute_on_current_four_group_surface
+  - pool_absorption_and_emission_residuals
+  - rescue_fit_or_family_search
+  - change_thresholds_after_scores_are_visible
+  - equivalent_sphere_conversion
+  - reuse_excluded_figure_digitization_coordinates
+  - create_hypothesis_experiment_result_claim_or_knowledge_artifact
+
+output_routing:
+  benchmark_readiness: HOLD_UNDERPOWERED
+  gate_a: not_attempted
+  gate_b: not_applicable
+  claim_impact: none
+  knowledge_impact: none
+  publication_blocker: >
+    Add source-matched groups and an uncertainty policy before a new contract
+    can authorize scoring.
