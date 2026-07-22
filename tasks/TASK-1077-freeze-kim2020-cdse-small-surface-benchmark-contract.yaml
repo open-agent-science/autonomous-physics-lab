@@ -1,7 +1,7 @@
 id: TASK-1077
 title: "Freeze or stop a Kim-2020 CdSe small-surface benchmark contract"
 type: scientific_benchmark_planning
-status: REVIEW_READY
+status: DONE
 closeout: review
 closeout_review_reason: "This task decides whether eight newly curated rows support any honest benchmark; closeout must reject underpowered or outcome-shaped contracts."
 difficulty: medium
