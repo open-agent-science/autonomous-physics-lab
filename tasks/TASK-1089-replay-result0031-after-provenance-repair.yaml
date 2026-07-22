@@ -1,0 +1,58 @@
+id: TASK-1089
+title: "Replay RESULT-0031 after publisher-provenance repair"
+type: scientific_replay_validation
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task may upgrade RESULT-0031 to AGENT_VALIDATED and therefore requires identity, exact-metric, and unchanged-verdict review."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "RESULT-0031 remains the only AGENT_PUBLISHED result in the current portfolio."
+  - "TASK-1075 established that the frozen hashes are intact but could not enter metric comparison without original-publisher metadata."
+  - "An independent exact replay is higher value than another Stellar fit or a threshold rescue."
+
+input:
+  mode: workflow
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "tasks/TASK-1088-repair-result0031-publisher-provenance.yaml"
+    - "results/EXP-0023/RUN-0001/result.yaml"
+    - "docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md"
+    - "examples/stellar_ml_chara_fixed_relation_transfer.yaml"
+  planning_context: >
+    Blocked until TASK-1088 is merged and RESULT-0031 carries the durable
+    original-publisher identity. The replay executor must then clear the
+    repository's independence gate before any metric is computed.
+
+requirements:
+  - "Blocked-by: merged TASK-1088 provenance repair and an executor identity that passes the repository independence check against gladunrv / Codex / GPT-5 Codex."
+  - "Run the committed Gate-B-safe workflow in an isolated output directory and compare every deterministic metric and verification field at tolerance 1e-9."
+  - "Preserve all twelve CHARA rows, six-system grouping, frozen RESULT-0022 coefficient, train-only null, controls, 0.04 dex threshold, best_model_id, and INCONCLUSIVE verdict."
+  - "On exact PASS, append schema-permitted independent replay metadata and upgrade only review_tier to AGENT_VALIDATED."
+  - "On command failure, identity failure, hash drift, or metric drift, leave the canonical result unchanged and record one bounded blocker verdict."
+  - "Do not refit, add HD 284163, relax the margin, promote a claim, or describe a positive but sub-threshold margin as transfer validation."
+  - "No-claim wording: Gate B establishes deterministic reproduction of one six-system inconclusive transfer result, not a stellar population law."
+
+accepted_outputs:
+  - "An independent replay note with executor identity, environment, command, hashes, compared field count, maximum drift, and one bounded verdict."
+  - "Only on PASS, a minimal RESULT-0031 review-tier and replay-metadata update with all scientific values unchanged."
+  - "Output routing covering Gate B, claim/knowledge impact, and the remaining six-system scope."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent validation of an existing result; no new RESULT is produced."
+  evidence:
+    - "results/EXP-0023/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_stellar_ml_chara_transfer.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,57 @@
+id: TASK-1090
+title: "Independently replay the bounded OQMD negative/control result"
+type: scientific_replay_validation
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task may upgrade the new OQMD result review tier and must preserve its control-dominated negative verdict without rescue analysis."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "PR #1634 reports a scientifically useful bounded negative: the exact cation-pair baseline beats the global and shuffle controls but loses decisively to the stronger IUPAC group-pair null."
+  - "Independent replay can turn that one-shot result into durable validated control memory without opening another model-search cycle."
+  - "The result is more informative as an exact failure against a structured null than as a prompt for same-holdout rescue fitting."
+
+input:
+  mode: workflow
+  related_domain: materials_science
+  related_objects:
+    - "https://github.com/open-agent-science/autonomous-physics-lab/pull/1634"
+    - "tasks/TASK-1066-run-oqmd-within-source-baseline-benchmark.yaml"
+    - "results/EXP-0024/RUN-0001/result.yaml"
+  planning_context: >
+    Blocked until PR #1634 is merged and RESULT-0032 exists on main with its
+    original publisher identity. Replay the exact frozen workflow; do not
+    search for a better OQMD model.
+
+requirements:
+  - "Blocked-by: merged PR #1634, canonical RESULT-0032 on main, and an executor identity that passes the repository independence gate against its original publisher."
+  - "Verify that the merged result retains the 172-row source surface, 120/26/26 leakage-free split, exact cation-pair candidate, global median, IUPAC group-pair null, shuffle controls, fixed margin, and five sensitivity seeds before replay."
+  - "Run the committed Gate-B-safe command in an isolated output directory and compare every deterministic metric and verification field at tolerance 1e-9."
+  - "On exact PASS, append only schema-permitted independent replay metadata and upgrade the review tier; preserve INVALID and the control-dominated interpretation."
+  - "On identity, command, hash, metric, or verdict drift, leave the canonical result unchanged and record a bounded replay blocker."
+  - "Do not add model variants, tune thresholds, pool OQMD with Materials Project, remove the group-pair null, or perform a rescue fit on the seen holdout."
+  - "No-claim wording: this is a within-OQMD computed-DFT negative/control benchmark, not experimental validation, a universal materials law, or design guidance."
+
+accepted_outputs:
+  - "An independent Gate B replay note with identity, environment, hashes, complete metric comparison, sensitivity-seed comparison, limitations, and one verdict."
+  - "Only on PASS, a minimal RESULT-0032 review-tier and replay-metadata update preserving all scientific content."
+  - "Output routing to validated negative/control memory with no CLAIM or KNOW promotion."
+
+result_artifact_policy:
+  required: false
+  reason: "Independent replay of an existing result; no new RESULT is produced."
+  evidence:
+    - "results/EXP-0024/RUN-0001/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_oqmd_within_source_baseline_control_contract.py tests/test_materials_oqmd_bounded_snapshot.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
