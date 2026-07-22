@@ -1,0 +1,274 @@
+schema_version: "1"
+task_id: TASK-1084
+contract_id: thermoml-tb-availability-capped-expansion-v1
+planning_only: true
+execution_authorized: false
+benchmark_authorized: false
+verdict: REVISED_CONTRACT_READY_NO_SCORE
+
+adjudication_boundary:
+  archive_accessed: false
+  existing_fixture_conflict_metadata_accessed: true
+  future_selected_identities_accessed: false
+  scientific_values_used_in_adjudication: false
+  scientific_values_reported: false
+  result_artifacts_accessed: false
+  family_performance_used_in_option_selection: false
+  incidental_repository_search_snippets_excluded: true
+  allowed_inputs:
+    - committed_aggregate_identity_counts
+    - existing_40_row_fixture_shape
+    - existing_fixture_conflict_flags_and_family_labels
+    - pre_existing_eight_family_taxonomy
+    - committed_rights_decision_scope
+    - frozen_selection_and_benchmark_protocols
+
+source:
+  product: NIST_TRC_ThermoML_Archive
+  doi: 10.18434/mds2-2422
+  version: "1.2.6"
+  archive_filename: ThermoML.v2020-09-30.tgz
+  archive_size_bytes: 189433115
+  archive_sha256: 231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2
+  live_external_fetch_allowed: false
+  exact_local_archive_required: true
+
+rights:
+  decision_record: decisions/DEC-20260708-thermoml-option-a.yaml
+  approved_scope_available: true
+  execution_application_status: pending_later_task
+  reuse_status: limited_factual_extract_with_attribution
+  covered_by_repo_license: false
+  max_public_rows_total: 80
+  max_rows_per_source_article: 5
+  raw_archive_bytes_allowed: false
+  extracted_xml_json_allowed: false
+  normalized_corpus_allowed: false
+  external_dataset_release_allowed: false
+  zenodo_release_allowed: false
+
+existing_surface:
+  row_count: 40
+  conflict_flagged_row_count: 2
+  eligible_existing_row_count: 38
+  preserved_existing_row_count: 38
+  family_count: 8
+  rows_per_family: 5
+  family_weight: 0.125
+  equal_family_weighted_effective_row_count: 40.0
+
+family_caps:
+  - family: acids
+    admissible_non_conflict_count: 6
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
+    revised_row_cap: 6
+    maximum_additions: 1
+  - family: esters/lactones
+    admissible_non_conflict_count: 48
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 1
+    preserved_eligible_row_count: 4
+    revised_row_cap: 10
+    maximum_additions: 6
+  - family: ketones
+    admissible_non_conflict_count: 8
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 1
+    preserved_eligible_row_count: 4
+    revised_row_cap: 8
+    maximum_additions: 4
+  - family: alcohols/phenols
+    admissible_non_conflict_count: 29
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
+    revised_row_cap: 10
+    maximum_additions: 5
+  - family: ethers
+    admissible_non_conflict_count: 12
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
+    revised_row_cap: 10
+    maximum_additions: 5
+  - family: halocarbons
+    admissible_non_conflict_count: 15
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
+    revised_row_cap: 10
+    maximum_additions: 5
+  - family: aromatic hydrocarbons
+    admissible_non_conflict_count: 20
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
+    revised_row_cap: 10
+    maximum_additions: 5
+  - family: alkanes/cycloalkanes
+    admissible_non_conflict_count: 11
+    existing_row_count: 5
+    conflict_excluded_existing_row_count: 0
+    preserved_eligible_row_count: 5
+    revised_row_cap: 10
+    maximum_additions: 5
+
+predeclared_options:
+  - option_id: balanced_six_per_family
+    row_ceiling: 48
+    maximum_new_identities_vs_existing_fixture: 10
+    net_row_growth_vs_historical_fixture: 8
+    effective_family_count: 8.0
+    equal_family_weighted_effective_row_count: 48.0
+    count_feasible: true
+    clears_incremental_information_floor: false
+  - option_id: availability_capped_family_equal_weighting
+    row_ceiling: 74
+    maximum_new_identities_vs_existing_fixture: 36
+    net_row_growth_vs_historical_fixture: 34
+    effective_family_count: 8.0
+    equal_family_weighted_effective_row_count: 71.775701
+    count_feasible_before_article_cap: true
+    clears_incremental_information_floor: true
+    selected: true
+  - option_id: stop
+    row_ceiling: 40
+    maximum_new_identities_vs_existing_fixture: 0
+    net_row_growth_vs_historical_fixture: 0
+    effective_family_count: 8.0
+    equal_family_weighted_effective_row_count: 40.0
+    clears_incremental_information_floor: false
+
+incremental_information_rule:
+  declared_before_option_selection: true
+  minimum_total_rows: 64
+  minimum_new_identities_vs_existing_fixture: 24
+  minimum_rows_per_family: 6
+  required_effective_family_count: 8.0
+  minimum_equal_family_weighted_effective_row_count: 64.0
+  effective_row_count_formula: "64 / sum_f(1 / n_f)"
+  rationale: >
+    The expansion must average at least eight identities per family under
+    equal family weighting. Adding only one row per family does not materially
+    increase information when the number of family-level groups remains eight.
+
+selected_option:
+  option_id: availability_capped_family_equal_weighting
+  maximum_total_rows: 74
+  maximum_new_identities: 36
+  net_row_growth_vs_historical_fixture: 34
+  property_scope: normal_boiling_temperature_tb_only
+  preserve_all_eight_families: true
+  preserve_eligible_existing_rows: 38
+  replace_conflict_flagged_existing_rows: 2
+  conflict_flagged_legacy_exception_allowed: false
+  partial_fixture_publication_allowed: false
+
+eligibility_filters:
+  pure_single_component_only: true
+  standard_inchi_and_inchikey_required: true
+  neutral_single_fragment_only: true
+  frozen_joback_element_and_group_coverage_required: true
+  conflict_flagged_identities_allowed: false
+  missing_uncertainty_allowed: false
+  family_taxonomy_mutable: false
+  other_properties_allowed: false
+
+deterministic_selection:
+  selection_unit: canonical_standard_inchikey
+  all_existing_fixture_identities_excluded_from_addition_pool: true
+  conflict_flagged_existing_identities_excluded_from_future_fixture: true
+  representative_rule: smallest_reported_expanded_uncertainty
+  representative_ties:
+    - source_doi
+    - source_reported_value_final_order_only
+  candidate_order:
+    - molecular_weight_g_mol
+    - standard_inchikey
+  addition_rule: deterministic_molecular_weight_quantile_positions_per_family
+  source_article_cap_applies_across_preserved_existing_and_added_rows: true
+  source_article_cap_fallback: >
+    Skip a cap-violating candidate and advance through the deterministic
+    candidate order; stop the entire extraction if the information floor can
+    no longer be met.
+  identities_and_counts_frozen_before_scoring: true
+  outcome_or_residual_based_selection_allowed: false
+
+future_weighting:
+  family_weight: 0.125
+  row_weight_within_family: "1 / n_family"
+  aggregate_primary_metric: arithmetic_mean_of_eight_per_family_mae_values
+  pooled_unweighted_rows_can_determine_verdict: false
+  per_family_reporting_required: true
+
+future_split_and_controls:
+  split: leave_one_family_out_eight_folds
+  fixed_estimator: Joback_Tb_JR1987
+  survival_margin_k: 5.0
+  minimum_families_clearing_margin: 6
+  shuffle_seed: 851
+  controls:
+    - global_median
+    - molecular_weight_only
+    - nearest_homolog
+    - shuffled_group_counts
+    - within_family_constant
+  within_family_constant_oracle_eligible_for_best_control: false
+  refit_or_rescue_search_allowed: false
+
+future_verdict_routing:
+  pass: >
+    PASS_TRANSFER_SUPPORTED_IN_SCOPE only if equal-family-weighted Joback MAE
+    beats the best eligible non-oracle control by at least 5 K and at least six
+    of eight held-out families clear the same margin.
+  fail: >
+    FAIL_CONTROL_DOMINATED only if the best eligible non-oracle control beats
+    equal-family-weighted Joback MAE by at least 5 K and at least six of eight
+    held-out families also favor an eligible control by that margin.
+  inconclusive: >
+    INCONCLUSIVE_FAMILY_DEPENDENT for every mixed, threshold-adjacent, or
+    family-unstable outcome.
+  post_score_threshold_or_route_change_allowed: false
+
+stop_conditions:
+  - archive_identity_mismatch
+  - live_fetch_or_unapproved_source_version
+  - fewer_than_64_total_rows_after_all_filters_and_article_caps
+  - fewer_than_24_new_identities_vs_existing_fixture
+  - fewer_than_6_rows_in_any_family
+  - effective_family_count_not_equal_to_8
+  - equal_family_weighted_effective_row_count_below_64
+  - more_than_5_rows_from_any_source_article
+  - source_article_attribution_or_cap_not_checkable
+  - any_conflict_flagged_existing_identity_retained
+  - conflict_uncertainty_identity_or_joback_coverage_semantics_missing
+  - selected_identities_or_scientific_values_exposed_before_contract_freeze
+  - selection_depends_on_joback_error_residual_or_family_performance
+  - archive_source_members_or_normalized_corpus_would_enter_git
+
+forbidden_outputs:
+  - archive_bytes
+  - extracted_xml_or_json
+  - normalized_thermoml_corpus
+  - benchmark_metrics_in_extraction_task
+  - result_or_prediction_artifact
+  - claim_or_knowledge_promotion
+  - external_dataset_or_zenodo_release
+  - chemical_design_process_or_safety_guidance
+
+output_routing:
+  source_readiness: ready_under_frozen_later_task_gates
+  benchmark_readiness: contract_ready_fixture_not_created
+  future_extraction_task: advisory_only_not_created
+  gate_a: not_attempted
+  gate_b: not_applicable
+  claim_impact: none
+  knowledge_impact: none
+  existing_results_changed: false
+  publication_blocker: >
+    A later extraction task must verify the exact local archive, apply the
+    article cap, clear every incremental-information floor, publish the
+    bounded fixture under the approved rights metadata, and stop without
+    scoring.
