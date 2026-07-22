@@ -1,0 +1,61 @@
+id: TASK-1091
+title: "Extract the frozen ThermoML Tb feasible-expansion fixture"
+type: scientific_source_curation
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task admits a rights-bounded external factual extract and must verify archive identity, article caps, deterministic value-blind selection, and the information-floor stop condition."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-1084 selected a value-blind availability-capped contract with at most 74 rows and equal family weighting."
+  - "The revised surface can add meaningful within-family identity coverage while preserving all eight predeclared families and avoiding threshold shopping."
+  - "Extraction must precede and remain separate from any future Joback benchmark."
+
+input:
+  mode: workflow
+  related_domain: thermophysical_property_estimation
+  related_objects:
+    - "data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml"
+    - "data/thermophysical/thermoml_tb_audit_fixture.yaml"
+    - "data/thermophysical/source_manifest.yaml"
+    - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
+    - "decisions/DEC-20260708-thermoml-option-a.yaml"
+  planning_context: >
+    Blocked until the maintainer supplies the exact local-only
+    ThermoML.v2020-09-30.tgz archive with SHA-256
+    231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2.
+    The archive remains outside git.
+
+requirements:
+  - "Blocked-by: a maintainer-confirmed local archive path whose filename, byte digest, DOI-pinned identity, and sidecar checksum match the frozen source manifest. Do not live-fetch the archive inside the task PR."
+  - "Before extraction, independently reproduce the TASK-1084 count-only arithmetic and stop if the contract, existing conflict flags, or family caps do not match."
+  - "Retain the 38 eligible existing rows, exclude both conflict-flagged identities, and select at most 36 additions under family caps 6, 10, 8, 10, 10, 10, 10, 10."
+  - "Select additions only by deterministic molecular-weight quantile positions with InChIKey tie-breaking; target values, errors, residuals, prior family performance, and future Joback outcomes must not influence identity selection."
+  - "Apply the five-row source-article cap across retained and added rows and stop without a partial fixture if any filter leaves fewer than 64 rows, fewer than 24 new identities, fewer than six identities in a family, fewer than eight effective families, or equal-family effective rows below 64."
+  - "Preserve per-row source attribution, uncertainty/conflict semantics, limited_factual_extract_with_attribution, and covered_by_repo_license false."
+  - "Do not commit archive/XML bytes, a normalized ThermoML corpus, a score, residuals, RESULT, CLAIM, KNOW, DOI, or external dataset package."
+  - "No-claim wording: a passing fixture is source-ready input for a separate frozen benchmark, not evidence that Joback succeeds or fails."
+
+accepted_outputs:
+  - "On PASS, a schema-valid at-most-74-row bounded fixture, release manifest, deterministic extraction code, and tests proving archive pinning, selection, family/article caps, conflict exclusion, rights metadata, and information-floor compliance."
+  - "On any hard-stop condition, a review note with no partial fixture and one precise blocker verdict."
+  - "Output routing: source readiness only; Gate A/B and scientific scoring not attempted; future benchmark remains a separate maintainer-assigned task."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-fixture curation only; scientific scoring and RESULT creation are explicitly separate."
+  evidence:
+    - "data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_thermoml_tb_feasible_expansion_contract.py tests/test_thermoml_family_transfer.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
