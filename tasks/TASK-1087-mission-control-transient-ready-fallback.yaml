@@ -1,0 +1,59 @@
+id: TASK-1087
+title: "Make Mission Control fall back from transient canonical task states"
+type: tooling_fix
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Open result PR #1634 exposed a recurring integration failure: missions/current.yaml may still name a task while that same PR legitimately moves the canonical task from READY to REVIEW_READY."
+  - "Executor-facing Mission Control must recommend only canonical READY work without requiring every result PR to rewrite portfolio strategy as a workaround."
+  - "A deterministic fallback protects research throughput while preserving the strict task-state visibility policy."
+
+input:
+  mode: workflow
+  related_objects:
+    - "physics_lab/registry/mission_control.py"
+    - "physics_lab/registry/mission_freshness.py"
+    - "scripts/apl_mission.py"
+    - "tests/test_mission_control.py"
+    - "open-agent-science/autonomous-physics-lab#1634"
+  planning_context: >
+    Reconcile configured mission actions with the live canonical task registry
+    before rendering an executor recommendation. A configured task that is no
+    longer READY may remain historical mission context, but it must not be
+    emitted as executable work.
+
+requirements:
+  - "Cross-check every configured task-backed recommendation against canonical task YAML before rendering executor-facing output; only status READY is executable."
+  - "When the configured recommendation is REVIEW_READY, DONE, BLOCKED, SUPERSEDED, REJECTED, or missing, choose a deterministic READY fallback from the remaining configured actions or the ranked READY registry candidates for the same mode."
+  - "If the fallback belongs to another campaign, do not retain the stale campaign's why-now or guardrail context as though it described the replacement."
+  - "Apply GitHub claim/PR availability filtering after local task-state filtering and preserve the existing occupied-task fallback behavior."
+  - "If no READY task exists, emit guidance-only output with no task id; never expose REVIEW_READY or another non-executable state merely to keep a recommendation populated."
+  - "Add regression coverage for a configured task becoming REVIEW_READY while another READY science task exists, plus the no-fallback guidance-only case."
+  - "Do not weaken tests, change scientific artifacts, or edit missions/current.yaml as the implementation workaround."
+
+accepted_outputs:
+  - "A narrowly scoped Mission Control implementation that resolves recommendations against canonical task state."
+  - "Regression tests covering transient REVIEW_READY fallback, cross-campaign context clearing, GitHub availability composition, and no-READY behavior."
+  - "A short implementation note or code comments only where the fallback ordering is not self-explanatory."
+
+result_artifact_policy:
+  required: false
+  reason: "Mission-routing tooling fix; no scientific RESULT or PRED artifact is produced."
+  evidence:
+    - "physics_lab/registry/mission_control.py"
+    - "tests/test_mission_control.py"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_mission_control.py tests/test_mission_freshness.py"
+    - "python3 -m ruff check physics_lab/registry/mission_control.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
