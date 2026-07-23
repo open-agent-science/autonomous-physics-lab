@@ -241,8 +241,29 @@ def test_nf2p1_resolution_preserves_flag_membership_and_shared_lineages() -> Non
     assert hpqcd_milc["named_uncertainty_lineage"]["state"] == "CONFIRMED_SHARED"
 
     bmw_pair = pairs[("pub-bmw-10", "pub-bmw-16")]
-    assert bmw_pair["configuration_or_data"]["state"] == "POSSIBLE_SHARED"
+    assert bmw_pair["configuration_or_data"]["state"] == "UNKNOWN"
     assert bmw_pair["scale_setting"]["state"] == "POSSIBLE_SHARED"
+    assert bmw_pair["normalization_or_renormalization"]["state"] == "UNKNOWN"
+
+    nodes = {node["node_id"]: node for node in graph["nodes"]}
+    edges = {edge["edge_id"]: edge for edge in graph["edges"]}
+    assert graph["evidence_catalog"]["ev-bmw10-action"] == {
+        "source_identity": "arXiv:0802.2706v2",
+        "locator": (
+            "Sec. II.A (tree-level Symanzik gauge action and six-step stout-smeared "
+            "clover fermion action used by the BMW 2010 setup through Ref. [9])"
+        ),
+    }
+    assert nodes["ens-bmw-stout6-2010"]["source_identity"] == "ev-bmw10-action"
+    assert nodes["action-bmw-stout6-clover"]["source_identity"] == "ev-bmw10-action"
+    assert "2HEX" not in nodes["ens-bmw-stout6-2010"]["label"]
+    assert "2HEX" not in nodes["action-bmw-stout6-clover"]["label"]
+    assert edges["e020"]["to_node"] == "ens-bmw-stout6-2010"
+    assert edges["e031"]["to_node"] == "action-bmw-stout6-clover"
+    assert edges["e053"]["to_node"] == "norm-bmw10-unresolved"
+    assert edges["e053"]["dependence_state"] == "UNKNOWN"
+    assert edges["e062"]["dependence_state"] == "UNKNOWN"
+    assert edges["e063"]["dependence_state"] == "UNKNOWN"
 
     for pair in [
         ("pub-rbc-ukqcd-14b", "pub-hpqcd-ukqcd-07"),
