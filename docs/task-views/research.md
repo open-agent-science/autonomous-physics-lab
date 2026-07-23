@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-1076` - Resolve the HD 284163 CHARA supplement source gate (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `stellar_astrophysics`)
 - `TASK-1079` - Resolve bounded N_f=2+1+1 f_K/f_pi dependency edges (`scientific_source_curation`, priority `high`, difficulty `high`, domain `lattice_qcd`)
 - `TASK-1080` - Resolve bounded N_f=2+1 f_K/f_pi dependency edges (`scientific_source_curation`, priority `high`, difficulty `high`, domain `lattice_qcd`)
 - `TASK-1081` - Freeze f_K/f_pi value and uncertainty source admissibility (`scientific_benchmark_planning`, priority `high`, difficulty `high`, domain `lattice_qcd`)
@@ -20,4 +19,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-1076` - Resolve the HD 284163 CHARA supplement source gate (`scientific_source_curation`, priority `medium`, difficulty `medium`, domain `stellar_astrophysics`)
 - `TASK-1088` - Repair RESULT-0031 publisher provenance from the merged task PR (`scientific_validation`, priority `high`, difficulty `low`, domain `stellar_astrophysics`)
