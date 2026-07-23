@@ -50,11 +50,31 @@ evidence_catalog:
   ev-flag-isospin:
     source_identity: arXiv:2411.04268
     locator: "FLAG Review 2024, Table 18 and Eqs. 74-75"
-  ev-fnal: {source_identity: arXiv:1712.09262v4, locator: "Secs. II and IV-VIII"}
-  ev-hpqcd13: {source_identity: arXiv:1303.1670v2, locator: "abstract and Secs. II-IV"}
-  ev-etm14: {source_identity: arXiv:1411.7908v2, locator: "Secs. 2.1-2.2 and 3"}
-  ev-callat: {source_identity: arXiv:2005.04795v3, locator: "Secs. II-IV"}
-  ev-etm21: {source_identity: arXiv:2104.06747v3, locator: "Secs. II-IV and App. D"}
+  ev-fnal:
+    source_identity: arXiv:1712.09262v4
+    locator: >
+      Sec. II, table captioned "Ensembles used in this calculation"; Sec. III,
+      correlator-covariance discussion; Sec. IV, scale-setting and error-budget tables.
+  ev-hpqcd13:
+    source_identity: arXiv:1303.1670v2
+    locator: >
+      Sec. II, Tables I-II and "Meson Correlators"; Sec. III, table captioned
+      "Sources of uncertainty in the final results".
+  ev-etm14:
+    source_identity: arXiv:1411.7908v2
+    locator: >
+      Introduction, ensemble/analysis-branch paragraphs; Sec. 2, Eq. (4) and
+      the uncertainty discussion following Eq. (9).
+  ev-callat:
+    source_identity: arXiv:2005.04795v3
+    locator: >
+      Sec. II.A, Table I; Sec. II.B, Eq. (2); Sec. IV.C, "Full analysis and
+      uncertainty breakdown"; App. C.
+  ev-etm21:
+    source_identity: arXiv:2104.06747v3
+    locator: >
+      Sec. II, Table I and Eq. (15); Secs. IV-V; App. A, table captioned
+      "Simulation parameters for the ensembles used for this study"; App. D.
   ev-rbc: {source_identity: arXiv:1411.7017v2, locator: "Secs. II-IV"}
   ev-hpqcd07: {source_identity: arXiv:0706.1726v2, locator: "ensemble table and analysis text"}
   ev-milc10: {source_identity: arXiv:1012.0868v1, locator: "Secs. 2-3"}
@@ -226,6 +246,127 @@ edges:
   - {edge_id: e083, edge_type: carries_uncertainty_component, from_node: pub-hpqcd-ukqcd-07, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
   - {edge_id: e084, edge_type: carries_uncertainty_component, from_node: pub-bmw-10, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
 
+nf_2p1p1_pair_resolution:
+  task_id: TASK-1079
+  reviewed_at: "2026-07-23"
+  metadata_only: true
+  scope_publication_ids:
+    - pub-fnal-milc-17
+    - pub-hpqcd-13a
+    - pub-etm-14e
+    - pub-callat-20
+    - pub-etm-21
+  unordered_pair_count: 10
+  dependency_axes:
+    - configuration_or_data
+    - scale_setting
+    - normalization_or_renormalization
+    - named_uncertainty_lineage
+  pairs:
+    - publications: [pub-fnal-milc-17, pub-hpqcd-13a]
+      axes:
+        configuration_or_data:
+          state: CONFIRMED_SHARED
+          evidence_identities: [ev-flag-hisq, ev-fnal, ev-hpqcd13]
+          curator_note: "FLAG records overlap; the primary ensemble tables identify the common MILC-HISQ family."
+        scale_setting:
+          state: UNKNOWN
+          evidence_identities: [ev-fnal, ev-hpqcd13]
+          curator_note: "Both analyses use pion-decay input, but the bounded sources do not establish shared scale data."
+        normalization_or_renormalization:
+          state: UNKNOWN
+          evidence_identities: [ev-fnal, ev-hpqcd13]
+          curator_note: "Shared staggered-PCAC method labels do not establish a common fitted normalization input."
+        named_uncertainty_lineage:
+          state: CONFIRMED_SHARED
+          evidence_identities: [ev-flag-hisq, ev-fnal, ev-hpqcd13]
+          curator_note: "FLAG correlates statistical lineage and the total systematic lineage of the two HISQ-valence analyses."
+    - publications: [pub-fnal-milc-17, pub-etm-14e]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm14], curator_note: "No source proves shared or disjoint configuration identity."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm14], curator_note: "A shared external-input identity was not established."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm14], curator_note: "Different documented routes do not prove disjoint dependence."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm14], curator_note: "No cross-publication uncertainty lineage is documented."}
+    - publications: [pub-fnal-milc-17, pub-callat-20]
+      axes:
+        configuration_or_data:
+          state: CONFIRMED_SHARED
+          evidence_identities: [ev-flag-hisq, ev-fnal, ev-callat]
+          curator_note: "FLAG records overlap and the primary tables identify shared MILC-HISQ ensemble metadata."
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-callat], curator_note: "The sources do not identify common scale measurements or a shared absolute-scale fit."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-callat], curator_note: "HISQ-PCAC and domain-wall Ward-identity routes differ, but disjointness is not established."}
+        named_uncertainty_lineage:
+          state: CONFIRMED_SHARED
+          evidence_identities: [ev-flag-hisq, ev-fnal, ev-callat]
+          curator_note: "The overlapping configurations establish shared statistical lineage; no magnitude is inferred."
+    - publications: [pub-fnal-milc-17, pub-etm-21]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm21], curator_note: "No source proves shared or disjoint configuration identity."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm21], curator_note: "A shared external-input identity was not established."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm21], curator_note: "Different documented routes do not prove disjoint dependence."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-fnal, ev-etm21], curator_note: "No cross-publication uncertainty lineage is documented."}
+    - publications: [pub-hpqcd-13a, pub-etm-14e]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm14], curator_note: "No source proves shared or disjoint configuration identity."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm14], curator_note: "A shared external-input identity was not established."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm14], curator_note: "Different documented routes do not prove disjoint dependence."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm14], curator_note: "No cross-publication uncertainty lineage is documented."}
+    - publications: [pub-hpqcd-13a, pub-callat-20]
+      axes:
+        configuration_or_data:
+          state: CONFIRMED_SHARED
+          evidence_identities: [ev-flag-hisq, ev-hpqcd13, ev-callat]
+          curator_note: "FLAG records overlap and the primary tables identify shared MILC-HISQ ensemble metadata."
+        scale_setting:
+          state: POSSIBLE_SHARED
+          evidence_identities: [ev-hpqcd13, ev-callat]
+          curator_note: "Both use a w0 route on overlapping ensembles, but common flow measurements were not identified."
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-callat], curator_note: "HISQ-PCAC and domain-wall Ward-identity routes differ, but disjointness is not established."}
+        named_uncertainty_lineage:
+          state: CONFIRMED_SHARED
+          evidence_identities: [ev-flag-hisq, ev-hpqcd13, ev-callat]
+          curator_note: "The overlapping configurations establish shared statistical lineage; no magnitude is inferred."
+    - publications: [pub-hpqcd-13a, pub-etm-21]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm21], curator_note: "No source proves shared or disjoint configuration identity."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm21], curator_note: "Both use w0 and pion input, but shared data or fit identity is not established."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm21], curator_note: "Different documented routes do not prove disjoint dependence."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-hpqcd13, ev-etm21], curator_note: "No cross-publication uncertainty lineage is documented."}
+    - publications: [pub-etm-14e, pub-callat-20]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-etm14, ev-callat], curator_note: "No source proves shared or disjoint configuration identity."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-etm14, ev-callat], curator_note: "No common scale-data identity is documented."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-etm14, ev-callat], curator_note: "Different documented routes do not prove disjoint dependence."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-etm14, ev-callat], curator_note: "No cross-publication uncertainty lineage is documented."}
+    - publications: [pub-etm-14e, pub-etm-21]
+      axes:
+        configuration_or_data:
+          state: CONFIRMED_DISJOINT
+          evidence_identities: [ev-flag-etm, ev-etm14, ev-etm21]
+          curator_note: "Preserved pilot classification: FLAG calls the later estimate independent and the sources identify legacy and new clover ensemble families."
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-etm14, ev-etm21], curator_note: "Both use pion input, but the bounded sources do not establish shared scale data."}
+        normalization_or_renormalization:
+          state: UNKNOWN
+          evidence_identities: [ev-etm14, ev-etm21]
+          curator_note: "The shared maximal-twist Ward-identity method does not establish reuse of a fitted normalization input."
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-etm14, ev-etm21], curator_note: "Shared collaboration and category names do not establish shared uncertainty data."}
+    - publications: [pub-callat-20, pub-etm-21]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-callat, ev-etm21], curator_note: "No source proves shared or disjoint configuration identity."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-callat, ev-etm21], curator_note: "Both use w0, but common flow measurements or fit identity is not established."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-callat, ev-etm21], curator_note: "Different Ward-identity implementations do not prove shared or disjoint dependence."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-callat, ev-etm21], curator_note: "No cross-publication uncertainty lineage is documented."}
+  evaluated_average_membership:
+    average_node: flag-2024-nf-2p1p1-fk-fpi
+    evidence_identity: ev-flag-set
+    input_publication_ids:
+      - pub-fnal-milc-17
+      - pub-hpqcd-13a
+      - pub-etm-14e
+      - pub-callat-20
+      - pub-etm-21
+    count_average_as_independent_with_inputs: false
+  verdict: PARTIAL_HOLD_UNKNOWN_EDGES
 pair_diagnostics:
   publication_count: 11
   unordered_pair_count: 55
