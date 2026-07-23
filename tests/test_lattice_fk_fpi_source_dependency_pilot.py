@@ -176,6 +176,83 @@ def test_evaluated_averages_link_every_input_and_cannot_be_independent() -> None
     assert graph["evaluated_average_policy"]["count_average_as_independent_with_inputs"] is False
 
 
+def test_nf2p1_pair_resolution_covers_every_axis_conservatively() -> None:
+    graph = _load(GRAPH_PATH)
+    resolution = graph["nf_2p1_pair_resolution"]
+    publication_ids = resolution["scope_publication_ids"]
+    axes = set(resolution["dependency_axes"])
+    evidence_ids = set(graph["evidence_catalog"])
+    observed_pairs = {tuple(pair["publications"]) for pair in resolution["pairs"]}
+    expected_pairs = {
+        tuple(sorted((left, right), key=publication_ids.index))
+        for index, left in enumerate(publication_ids)
+        for right in publication_ids[index + 1 :]
+    }
+
+    assert resolution["task_id"] == "TASK-1080"
+    assert resolution["metadata_only"] is True
+    assert resolution["unordered_pair_count"] == len(observed_pairs) == 15
+    assert observed_pairs == expected_pairs
+    assert axes == {
+        "configuration_or_data",
+        "scale_setting",
+        "normalization_or_renormalization",
+        "named_uncertainty_lineage",
+    }
+    for pair in resolution["pairs"]:
+        assert set(pair["axes"]) == axes
+        for axis in pair["axes"].values():
+            assert axis["state"] in DEPENDENCE_STATES
+            assert axis["evidence_identities"]
+            assert set(axis["evidence_identities"]) <= evidence_ids
+            assert axis["curator_note"]
+
+    assert resolution["verdict"] == "PARTIAL_HOLD_UNKNOWN_EDGES"
+    assert not any(
+        axis["state"] == "CONFIRMED_DISJOINT"
+        for pair in resolution["pairs"]
+        for axis in pair["axes"].values()
+    )
+    assert not {
+        "central_value",
+        "value",
+        "quoted_uncertainty",
+        "average_value",
+        "covariance_magnitude",
+        "residual",
+        "tension",
+        "anomaly_score",
+    } & _all_keys(resolution)
+
+
+def test_nf2p1_resolution_preserves_flag_membership_and_shared_lineages() -> None:
+    graph = _load(GRAPH_PATH)
+    resolution = graph["nf_2p1_pair_resolution"]
+    pairs = {tuple(pair["publications"]): pair["axes"] for pair in resolution["pairs"]}
+    average = resolution["evaluated_average_membership"]
+
+    assert average["average_node"] == "flag-2024-nf-2p1-fk-fpi"
+    assert average["input_publication_ids"] == resolution["scope_publication_ids"]
+    assert average["count_average_as_independent_with_inputs"] is False
+
+    hpqcd_milc = pairs[("pub-hpqcd-ukqcd-07", "pub-milc-10")]
+    assert hpqcd_milc["configuration_or_data"]["state"] == "CONFIRMED_SHARED"
+    assert hpqcd_milc["scale_setting"]["state"] == "CONFIRMED_SHARED"
+    assert hpqcd_milc["named_uncertainty_lineage"]["state"] == "CONFIRMED_SHARED"
+
+    bmw_pair = pairs[("pub-bmw-10", "pub-bmw-16")]
+    assert bmw_pair["configuration_or_data"]["state"] == "POSSIBLE_SHARED"
+    assert bmw_pair["scale_setting"]["state"] == "POSSIBLE_SHARED"
+
+    for pair in [
+        ("pub-rbc-ukqcd-14b", "pub-hpqcd-ukqcd-07"),
+        ("pub-rbc-ukqcd-14b", "pub-bmw-10"),
+        ("pub-hpqcd-ukqcd-07", "pub-bmw-10"),
+    ]:
+        lineage = pairs[pair]["named_uncertainty_lineage"]
+        assert lineage["state"] == "CONFIRMED_SHARED"
+        assert lineage["evidence_identities"] == ["ev-flag-isospin"]
+
 def test_unresolved_pairs_force_covariance_hold() -> None:
     graph = _load(GRAPH_PATH)
     diagnostics = graph["pair_diagnostics"]
