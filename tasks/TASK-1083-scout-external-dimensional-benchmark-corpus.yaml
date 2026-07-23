@@ -1,7 +1,7 @@
 id: TASK-1083
 title: "Scout an external dimensional-consistency benchmark corpus route"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task may select a third-party benchmark source route; closeout must verify independent labels, rights, scope fit, and that no validator scoring occurred."
 difficulty: medium
