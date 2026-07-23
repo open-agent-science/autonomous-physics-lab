@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import shlex
 import shutil
 import subprocess
 import sys
@@ -474,6 +475,14 @@ def _print_human(report: AgentDoctorReport) -> None:
     print(f"- gh path: {pr.get('gh_path') or 'not found'}")
     print(f"- git path: {pr.get('git_path') or 'not found'}")
     print(f"- gh auth state: {pr.get('gh_auth_state') or 'unknown'}")
+    print(f"- repository: {pr.get('repository') or 'unknown'}")
+    print(
+        "- repository permission: "
+        f"{pr.get('repository_permission') or 'unknown'}"
+    )
+    print(f"- publication route: {pr.get('publication_route') or 'unknown'}")
+    print(f"- authenticated login: {pr.get('authenticated_login') or 'unknown'}")
+    print(f"- task branch: {pr.get('branch') or 'unknown'}")
     print(f"- agent sandbox detected: {bool(pr.get('sandbox_detected'))}")
     tokens = pr.get("token_env_names") or ()
     token_label = ", ".join(tokens) if tokens else "none"
@@ -499,6 +508,20 @@ def _print_human(report: AgentDoctorReport) -> None:
             print(f"- {item}")
     else:
         print("Warnings: none")
+    fork_commands = pr.get("fork_commands") or ()
+    if fork_commands:
+        print(
+            "Fork publication commands "
+            "(after preparing `.apl-pr-body.md` with the task PR helper):"
+        )
+        for command in fork_commands:
+            command_parts = tuple(str(part) for part in command)
+            rendered = (
+                subprocess.list2cmdline(command_parts)
+                if os.name == "nt"
+                else shlex.join(command_parts)
+            )
+            print(f"- {rendered}")
 
     if report.review_worktrees is not None:
         rw = report.review_worktrees

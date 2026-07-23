@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -11,12 +12,14 @@ from physics_lab.registry.pr_capability import (
     check_pr_capability,
     env_with_discovered_tool_paths,
     find_git_path,
+    fork_publication_commands,
     suspicious_proxy_env_names,
     without_suspicious_proxy_env,
 )
 from physics_lab.registry.pr_capability import (
     env_with_overrides as pr_capability_env_with_overrides,
 )
+from physics_lab.registry.review_git import CommandResult
 from physics_lab.registry.subprocess_env import env_with_overrides
 
 
@@ -34,6 +37,49 @@ def _write_gh_stub(bin_dir: Path, *, exit_code: int = 0) -> Path:
             f"""\
             #!/bin/sh
             exit {exit_code}
+            """
+        ),
+        encoding="utf-8",
+    )
+    stub.chmod(0o755)
+    return stub
+
+
+def _write_routing_gh_stub(
+    bin_dir: Path,
+    *,
+    permission: str,
+    login: str = "test-contributor",
+) -> Path:
+    """Create a gh stub that authenticates and reports viewerPermission."""
+    bin_dir.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt":
+        stub = bin_dir / "gh.cmd"
+        stub.write_text(
+            dedent(
+                f"""\
+                @echo off
+                if "%1"=="repo" echo {permission}
+                if "%1"=="api" echo {login}
+                exit /b 0
+                """
+            ),
+            encoding="utf-8",
+        )
+        return stub
+
+    stub = bin_dir / "gh"
+    stub.write_text(
+        dedent(
+            f"""\
+            #!/bin/sh
+            if [ "$1" = "repo" ]; then
+              printf '%s\\n' '{permission}'
+            fi
+            if [ "$1" = "api" ]; then
+              printf '%s\\n' '{login}'
+            fi
+            exit 0
             """
         ),
         encoding="utf-8",
@@ -115,12 +161,174 @@ def test_pr_capability_discovers_windows_style_gh_path(
 def test_pr_capability_reports_authenticated_gh(tmp_path: Path) -> None:
     fake_gh = _write_gh_stub(tmp_path, exit_code=0)
 
-    report = check_pr_capability(tmp_path, env={"PATH": ""}, gh_path=str(fake_gh))
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": ""},
+        gh_path=str(fake_gh),
+        check_repository_permission=False,
+    )
 
     assert report.gh_auth_state == "authenticated"
+    assert report.publication_route == "not_checked"
     assert report.sandbox_detected is False
     assert report.sandbox_env_names == ()
     assert report.warnings == ()
+
+
+def test_pr_capability_routes_read_permission_through_fork(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    calls: list[tuple[str, ...]] = []
+
+    def fake_run(command, **_kwargs) -> CommandResult:
+        argv = tuple(command)
+        calls.append(argv)
+        if argv[1:3] == ("auth", "status"):
+            return CommandResult(0, "", "")
+        if argv[1:3] == ("repo", "view"):
+            return CommandResult(0, "READ\n", "")
+        if argv[1:3] == ("api", "user"):
+            return CommandResult(0, "ablmnzde\n", "")
+        raise AssertionError(f"Unexpected command: {argv}")
+
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.find_git_path",
+        lambda env=None: "git-tool",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.run_command",
+        fake_run,
+    )
+    branch = "agent/ablmnzde/codex/task-1094-external-contributor-fork-flow"
+
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": ""},
+        gh_path="gh-tool",
+        branch=branch,
+    )
+
+    assert report.gh_auth_state == "authenticated"
+    assert report.repository_permission == "READ"
+    assert report.authenticated_login == "ablmnzde"
+    assert report.publication_route == "fork"
+    assert report.fork_commands == (
+        (
+            "gh-tool",
+            "repo",
+            "fork",
+            "open-agent-science/autonomous-physics-lab",
+            "--clone=false",
+            "--remote",
+            "--remote-name",
+            "fork",
+        ),
+        ("git-tool", "push", "--set-upstream", "fork", branch),
+        (
+            "gh-tool",
+            "pr",
+            "create",
+            "--repo",
+            "open-agent-science/autonomous-physics-lab",
+            "--base",
+            "main",
+            "--head",
+            f"ablmnzde:{branch}",
+            "--draft",
+            "--title",
+            "TASK-1094: external contributor fork flow",
+            "--body-file",
+            ".apl-pr-body.md",
+        ),
+    )
+    assert any("expected external-contributor state" in item for item in report.warnings)
+    assert any(
+        "Do not request upstream write permission solely" in item
+        for item in report.warnings
+    )
+    assert ("gh-tool", "repo", "view") == calls[1][:3]
+
+
+def test_pr_capability_routes_write_permission_directly(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    def fake_run(command, **_kwargs) -> CommandResult:
+        argv = tuple(command)
+        if argv[1:3] == ("auth", "status"):
+            return CommandResult(0, "", "")
+        if argv[1:3] == ("repo", "view"):
+            return CommandResult(0, "WRITE\n", "")
+        raise AssertionError(f"Unexpected command: {argv}")
+
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.find_git_path",
+        lambda env=None: "git-tool",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.run_command",
+        fake_run,
+    )
+
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": ""},
+        gh_path="gh-tool",
+        branch="agent/gladunrv/codex/task-1094-external-contributor-fork-flow",
+    )
+
+    assert report.repository_permission == "WRITE"
+    assert report.publication_route == "direct"
+    assert report.fork_commands == ()
+    assert report.warnings == ()
+
+
+def test_pr_capability_does_not_assume_direct_when_permission_query_fails(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    def fake_run(command, **_kwargs) -> CommandResult:
+        argv = tuple(command)
+        if argv[1:3] == ("auth", "status"):
+            return CommandResult(0, "", "")
+        if argv[1:3] == ("repo", "view"):
+            return CommandResult(1, "", "network unavailable")
+        raise AssertionError(f"Unexpected command: {argv}")
+
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.find_git_path",
+        lambda env=None: "git-tool",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.run_command",
+        fake_run,
+    )
+
+    report = check_pr_capability(
+        tmp_path,
+        env={"PATH": ""},
+        gh_path="gh-tool",
+        branch="agent/gladunrv/codex/task-1094-external-contributor-fork-flow",
+    )
+
+    assert report.repository_permission is None
+    assert report.publication_route == "unknown"
+    assert report.fork_commands == ()
+    assert any("Do not assume" in item for item in report.warnings)
+
+
+def test_fork_publication_commands_reject_unsafe_identifiers() -> None:
+    assert fork_publication_commands(
+        repository="open-agent-science/autonomous-physics-lab",
+        login="safe-login",
+        branch="agent/safe/codex/task-1094-safe;touch-bad",
+    ) == ()
+    assert fork_publication_commands(
+        repository="open-agent-science/autonomous-physics-lab",
+        login="unsafe;login",
+        branch="agent/safe/codex/task-1094-safe-branch",
+    ) == ()
 
 
 def test_pr_capability_does_not_treat_sandbox_keyring_failure_as_revocation(
@@ -393,7 +601,7 @@ def test_pr_capability_cli_reports_clean_state_when_gh_authenticated(
     repo_root = Path(__file__).resolve().parents[1]
 
     stub_bin = tmp_path / "stub-bin"
-    stub_gh = _write_gh_stub(stub_bin)
+    stub_gh = _write_routing_gh_stub(stub_bin, permission="WRITE")
 
     env = os.environ.copy()
     env.pop("GH_TOKEN", None)
@@ -418,6 +626,59 @@ def test_pr_capability_cli_reports_clean_state_when_gh_authenticated(
     assert result.returncode == 0, (result.stdout, result.stderr)
     assert "PR capability check" in result.stdout
     assert "gh auth state: authenticated" in result.stdout
+    assert "repository permission: WRITE" in result.stdout
+    assert "publication route: direct" in result.stdout
     assert os.path.normcase(str(stub_gh)) in os.path.normcase(result.stdout)
     assert "Warnings: none" in result.stdout
     assert "Errors: none" in result.stdout
+
+
+def test_pr_capability_cli_json_exposes_fork_command_argv(
+    tmp_path: Path,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    stub_bin = tmp_path / "stub-bin"
+    stub_gh = _write_routing_gh_stub(
+        stub_bin,
+        permission="READ",
+        login="external-user",
+    )
+    branch = "agent/external-user/codex/task-1094-fork-route"
+    env = os.environ.copy()
+    env.pop("GH_TOKEN", None)
+    env.pop("GITHUB_TOKEN", None)
+    env["PATH"] = str(stub_bin)
+    env["APL_PR_CAPABILITY_GH_CANDIDATE_PATHS"] = str(stub_gh)
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_pr_capability_check.py",
+            "--root",
+            ".",
+            "--branch",
+            branch,
+            "--json",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+
+    assert result.returncode == 0, (result.stdout, result.stderr)
+    payload = json.loads(result.stdout)
+    assert payload["repository_permission"] == "READ"
+    assert payload["publication_route"] == "fork"
+    assert payload["authenticated_login"] == "external-user"
+    assert payload["fork_commands"][0][1:3] == ["repo", "fork"]
+    assert payload["fork_commands"][1] == [
+        "git",
+        "push",
+        "--set-upstream",
+        "fork",
+        branch,
+    ]
+    assert payload["fork_commands"][2][1:3] == ["pr", "create"]
+    assert f"external-user:{branch}" in payload["fork_commands"][2]
