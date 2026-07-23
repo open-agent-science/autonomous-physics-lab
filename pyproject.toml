@@ -25,7 +25,11 @@ dev = [
     "pytest-cov>=5.0",
     "pytest-timeout>=2.0",
     "pytest-xdist>=3.6",
-    "ruff>=0.6",
+    # Merge-group CI installs dev extras into a fresh environment. Ruff 0.16.0
+    # changed the default lint surface and made unchanged main fail with 1752
+    # findings on 2026-07-23. Keep the last green version exact-pinned; upgrade
+    # the lint baseline only in a dedicated, reviewable dependency PR.
+    "ruff==0.15.22",
 ]
 thermoml = [
     "rdkit==2026.3.4",
