@@ -1,0 +1,62 @@
+id: TASK-1100
+title: "Adjudicate Lattice f_K/f_pi numeric activation or stop"
+type: scientific_campaign_adjudication
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task makes the Lattice-QCD campaign GO/HOLD/STOP decision after dependency and value-source gates; closeout must prevent UNKNOWN edges or evaluated-summary duplication from being treated as numeric readiness."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-1079 and TASK-1080 resolve the two flavor-sector dependency edges while TASK-1081 freezes value/uncertainty source admissibility."
+  - "The campaign should not continue metadata audits indefinitely: the merged evidence must either justify one bounded numeric pilot or produce a durable HOLD/STOP."
+  - "A useful pilot must add dependency-aware value beyond reproducing an existing FLAG average."
+
+input:
+  mode: planning_only
+  related_domain: lattice_qcd
+  related_objects:
+    - "tasks/TASK-1079-resolve-lattice-nf2p1p1-dependency-edges.yaml"
+    - "tasks/TASK-1080-resolve-lattice-nf2p1-dependency-edges.yaml"
+    - "tasks/TASK-1081-freeze-lattice-fk-fpi-value-admissibility-policy.yaml"
+    - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
+    - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
+    - "docs/reviews/lattice_qcd/fk-fpi-source-dependency-pilot.md"
+  planning_context: >
+    After all three prerequisite tasks are merged, combine their metadata-only
+    evidence and decide whether a small dependency-aware numeric benchmark is
+    admissible. Do not read or transcribe central values in this adjudication.
+
+requirements:
+  - "Blocked-by: merged TASK-1079, TASK-1080, and TASK-1081 with their final verdicts and canonical artifacts present on main."
+  - "Reconcile every publication into conservative dependency components; UNKNOWN remains potentially shared and must never be converted to independent."
+  - "Require enough disjoint components, admissible primary value sources, uncertainty semantics, and convention compatibility for a predeclared holdout/control comparison that is distinct from a FLAG summary."
+  - "Quantify readiness only with metadata counts and dependency classes; do not inspect central values, uncertainty magnitudes, tensions, or averages."
+  - "If GO, freeze one bounded future pilot shape with row/component caps, split unit, comparator/null, covariance treatment, minimum-information gate, stop conditions, and no-value/no-claim boundary."
+  - "Return exactly one verdict: GO_BOUNDED_DEPENDENCY_AWARE_PILOT, HOLD_UNKNOWN_DEPENDENCIES, HOLD_VALUE_SEMANTICS, or STOP_NO_VALUE_BEYOND_FLAG."
+  - "Do not open another edge-audit wave after HOLD/STOP without genuinely new primary evidence; do not ingest numbers, build a general loader, reconstruct covariance, or create RESULT/PRED/CLAIM/KNOW artifacts."
+  - "No-claim wording: campaign activation would authorize one scoped consistency benchmark, not a Lattice-QCD discrepancy, precision average, Standard Model tension, or new-physics result."
+
+accepted_outputs:
+  - "One campaign adjudication note with dependency-component counts, value-source readiness, distinct-value test, exact GO/HOLD/STOP verdict, reopen trigger, limitations, and do-not-repeat directions."
+  - "On GO only, a value-blind future pilot contract; on HOLD/STOP, a bounded campaign-page/profile status update rather than another task list."
+  - "Output routing to campaign activation or monitor-only memory with no numeric rows or scientific result."
+
+result_artifact_policy:
+  required: false
+  reason: "Metadata-only campaign adjudication; numeric ingestion and result production are forbidden."
+  evidence:
+    - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
+    - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_lattice_fk_fpi_source_dependency_pilot.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

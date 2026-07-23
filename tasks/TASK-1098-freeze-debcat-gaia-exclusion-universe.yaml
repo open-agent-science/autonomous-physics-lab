@@ -1,0 +1,59 @@
+id: TASK-1098
+title: "Freeze the DEBCat exclusion universe for a future Gaia reveal"
+type: scientific_benchmark_planning
+status: READY
+closeout: review
+closeout_review_reason: "This task freezes the training-source leakage boundary for a future prospective reveal; closeout must verify complete RESULT-0022 lineage, identity-only content, ambiguity stops, and zero Gaia value access."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "A Gaia DR4 transfer can be independent only if every DEBCat system that influenced RESULT-0022 is excluded at whole-system level."
+  - "TASK-1029 defined the policy but deliberately did not build the identity manifest."
+  - "The DEBCat-side exclusion universe can be frozen now, independently of Gaia component-luminosity readiness and without querying future targets."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "docs/reviews/stellar/gaia-dr4-freeze-readiness.md"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "data/textbook_formula_audit/stellar_ml/debcat_component_rows.yaml"
+    - "docs/reviews/stellar-ml-debcat-full-dataset-publication.md"
+  planning_context: >
+    Build an identity-only, whole-system exclusion universe from the committed
+    DEBCat lineage. It is a future leakage-control input, not a Gaia target
+    list or a scientific dataset.
+
+requirements:
+  - "Audit RESULT-0022 lineage and include every DEBCat system whose values influenced fitting, model/control selection, thresholds, validation, holdout interpretation, or published reporting; do not restrict the exclusion universe to train rows."
+  - "For each system freeze canonical system id, component linkage, normalized aliases, coordinates/reference epoch when already source-supported, provenance references, and an ambiguity status without copying mass, luminosity, residual, split, or performance values."
+  - "Freeze deterministic alias normalization, whole-system matching rules, one-to-many and coordinate/epoch ambiguity stops, manifest ordering, schema, and SHA-256 digest."
+  - "Use only committed DEBCat identity/provenance surfaces and narrowly scoped identity metadata needed to close gaps; record rights and citation posture for any external identity metadata."
+  - "Return exactly one verdict: EXCLUSION_UNIVERSE_FROZEN, HOLD_IDENTITY_GAPS, or STOP_UNAUDITABLE_DEBCAT_LINEAGE."
+  - "Do not query Gaia DR4, assign Gaia source ids, inspect stellar values, build a future target list, crossmatch outcomes, change RESULT-0022, or register a prediction."
+  - "No-claim wording: an exclusion manifest prevents known training-source leakage; it does not establish that future Gaia systems are independent, eligible, representative, or supportive of the frozen relation."
+
+accepted_outputs:
+  - "A schema-valid identity-only DEBCat exclusion manifest with full RESULT-0022 lineage coverage, deterministic digest, provenance, ambiguity statuses, and no scientific values."
+  - "Tests for completeness, ordering, duplicate/alias handling, forbidden value fields, and whole-system exclusion semantics."
+  - "A focused docs/reviews/stellar/ DEBCat exclusion-universe note with one verdict and output routing to a later value-blind Gaia crossmatch; do not edit the TASK-1097 component-semantics artifact."
+
+result_artifact_policy:
+  required: false
+  reason: "Leakage-control identity manifest only; no target values, score, prediction, or RESULT is produced."
+  evidence:
+    - "results/EXP-0015/RUN-0001/result.yaml"
+    - "docs/reviews/stellar/gaia-dr4-freeze-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_stellar_ml_debcat_rows.py tests/test_stellar_ml_debcat_baseline_result.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

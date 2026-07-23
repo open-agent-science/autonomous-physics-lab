@@ -1,0 +1,60 @@
+id: TASK-1099
+title: "Resolve the GWTC-5 O4b selection-function boundary once"
+type: scientific_source_curation
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether the GWTC-5 lane has an auditable O4b-only selection control; closeout must verify official source precedence, exact boundary arithmetic, normalization proof, and the one-attempt stop."
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "TASK-1085 identified a concrete two-day conflict between the official O4b run boundary and the sensitivity README, plus aggregate O4a+O4b normalization."
+  - "The catalog, rights, and candidate question are otherwise source-ready, so one bounded reconciliation attempt can decide GO or STOP."
+  - "Repeated catalog scouting or numeric ingestion before this control is resolved would create selection-biased work."
+
+input:
+  mode: planning_only
+  related_domain: gravitational_wave_astrophysics
+  related_objects:
+    - "tasks/TASK-1085-gwtc5-source-version-incubator.yaml"
+    - "docs/reviews/gravitational_waves/gwtc5-o4b-source-version-incubator.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    Perform one official-metadata and deterministic schema/normalization proof
+    attempt for an O4b-only selection control. Do not ingest event parameters
+    or activate a gravitational-wave benchmark.
+
+requirements:
+  - "Recheck the exact official GWOSC O4b start/end and the pinned sensitivity artifact version, README boundary, checksums, release notes, errata, and documentation hierarchy."
+  - "Explain the 172800-second start difference from authoritative documentation, or preserve it as unresolved; do not choose whichever boundary improves a future benchmark."
+  - "Using only run-boundary, injection-time, analysis-time, mixture-weight, generated-count, and normalization fields required for the control, prove whether an O4b-only denominator and sensitivity weighting can be reconstructed deterministically."
+  - "Keep O4a, engineering intervals, event catalog parameters, posterior samples, strain, and astrophysical outcome values outside the proof."
+  - "Freeze the future O4b-only selection-control schema and checksum policy only on a complete proof."
+  - "Return exactly one verdict: SELECTION_CONTRACT_READY, OFFICIAL_CORRECTION_REQUIRED, SCHEMA_PROOF_FAILED, or STOP_NO_AUDITABLE_O4B_CONTROL."
+  - "This is the only bounded reconciliation pass. On unresolved boundary or normalization, park the campaign until an official correction/new artifact instead of opening another audit."
+  - "Do not ingest event rows, compute population residuals, fit chirp-mass models, create a RESULT/PRED/CLAIM/KNOW artifact, or describe source readiness as gravitational-wave evidence."
+  - "No-claim wording: a reconstructed selection control is benchmark infrastructure, not a population result, anomaly, cosmology constraint, or new-physics signal."
+
+accepted_outputs:
+  - "A deterministic boundary/normalization proof packet under docs/reviews/gravitational_waves/ with exact sources, checksums, arithmetic, schema fields, limitations, and one verdict."
+  - "On PASS only, a metadata/control-only source-manifest amendment for the future O4b selection function; on any other verdict, a terminal trigger describing the exact official change required to reopen."
+  - "Output routing to campaign GO/STOP only; numeric ingestion and benchmark execution remain separate maintainer-assigned tasks."
+
+result_artifact_policy:
+  required: false
+  reason: "Selection-function source/control proof only; no event dataset, benchmark metric, or scientific RESULT is produced."
+  evidence:
+    - "docs/reviews/gravitational_waves/gwtc5-o4b-source-version-incubator.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

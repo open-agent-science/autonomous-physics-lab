@@ -1,0 +1,62 @@
+id: TASK-1094
+title: "Freeze the FRB reveal chronology and decision contract before labels"
+type: scientific_prediction_preflight
+status: READY
+closeout: review
+closeout_review_reason: "This task determines the evidence class and interpretation rules for a sealed prediction before any reveal labels are read; closeout must verify chronology, no-peek state, comparator hierarchy, and no-success wording."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "FRB PRED-0001 freezes 479 point scores and ranks, but an official post-T label source may have been public before the 2026-07-10 registration."
+  - "The existing reveal contract allows AUC, average precision, and top-k metrics but does not designate one primary comparison or a non-gameable decision rule."
+  - "Chronology and interpretation must be frozen before source matching or labels so retrospective and genuinely prospective evidence cannot be conflated."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients
+  related_objects:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+    - "docs/reviews/frb/frb-prediction-freeze-registration.md"
+    - "data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml"
+    - "docs/prospective-reveal-source-admissibility.md"
+  planning_context: >
+    Use only committed prediction metadata and official release metadata.
+    Resolve how later repeat evidence is classified relative to both
+    T=2019-07-02 and registration on 2026-07-10, then freeze one primary
+    comparison and conservative verdict rules without opening any label-bearing
+    source.
+
+requirements:
+  - "Record the prediction epoch, registration timestamp, candidate source release/publication timestamp classes, and a three-way evidence classification: public before registration, first public after registration, or timing ambiguous."
+  - "Classify evidence public before registration as blinded retrospective at best, even if the APL session passed a no-peek audit; reserve prospective wording only for evidence first available after registration."
+  - "Freeze one primary metric and paired comparison hierarchy before labels. The selected total-exposure score must be tested against both frozen single-transit comparators and the constant null; do not make success depend on whichever comparator looks easiest after reveal."
+  - "Predeclare minimum matched coverage, minimum positive-label information, tie handling, uncertainty/resampling or exact-test method, multiplicity handling, and the PASS/FAIL/INCONCLUSIVE mapping without using label prevalence or outcomes."
+  - "Keep AUC and top-k counts secondary unless the primary rule explicitly and prospectively assigns them another role; preserve all allowed metrics and negative/null outcomes."
+  - "Return exactly one verdict: CONTRACT_READY_BLINDED_RETROSPECTIVE, CONTRACT_READY_DUAL_CHRONOLOGY, HOLD_SOURCE_TIMING_AMBIGUOUS, or STOP_NO_DISCRIMINATING_DECISION_RULE."
+  - "Do not open, fetch, search, summarize, count, match, or infer repeat labels; do not inspect search-result snippets; do not alter PRED-0001, its 479 scores/ranks, formula, target set, or registration time."
+  - "No-claim wording: this contract does not show that exposure predicts repetition, identify repeaters, establish intrinsic FRB physics, or convert pre-registration public evidence into prospective evidence."
+
+accepted_outputs:
+  - "A dated FRB chronology/decision contract under docs/reviews/frb/ with timestamp classes, evidence-class rules, one primary metric, comparator hierarchy, minimum-information gates, exact verdict mapping, and one bounded verdict."
+  - "A no-label attestation and output-routing summary covering prediction impact, future source-manifest gate, result evidence class, Gate A/B, claim impact, and publication blockers."
+
+result_artifact_policy:
+  required: false
+  reason: "Pre-label chronology and interpretation freeze only; no source rows, labels, score, or RESULT is produced."
+  evidence:
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_frb_prediction_freeze_registration.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

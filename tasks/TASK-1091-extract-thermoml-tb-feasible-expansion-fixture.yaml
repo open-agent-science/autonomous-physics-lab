@@ -1,7 +1,7 @@
 id: TASK-1091
 title: "Extract the frozen ThermoML Tb feasible-expansion fixture"
 type: scientific_source_curation
-status: BLOCKED
+status: READY
 closeout: review
 closeout_review_reason: "This task admits a rights-bounded external factual extract and must verify archive identity, article caps, deterministic value-blind selection, and the information-floor stop condition."
 difficulty: high
@@ -21,14 +21,18 @@ input:
     - "data/thermophysical/source_manifest.yaml"
     - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
     - "decisions/DEC-20260708-thermoml-option-a.yaml"
+    - "docs/local-artifact-workspace.md"
+    - "scripts/apl_local_artifacts.py"
   planning_context: >
-    Blocked until the maintainer supplies the exact local-only
-    ThermoML.v2020-09-30.tgz archive with SHA-256
+    The maintainer-confirmed ThermoML.v2020-09-30.tgz archive is available
+    through the canonical private-source workspace and matches SHA-256
     231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2.
-    The archive remains outside git.
+    The archive remains outside git and must be resolved through the shared
+    local-artifact helper rather than a committed machine path.
 
 requirements:
-  - "Blocked-by: a maintainer-confirmed local archive path whose filename, byte digest, DOI-pinned identity, and sidecar checksum match the frozen source manifest. Do not live-fetch the archive inside the task PR."
+  - "Before extraction, use scripts/apl_local_artifacts.py locate with source id nist-trc-thermoml-archive, filename ThermoML.v2020-09-30.tgz, and the frozen SHA-256; stop unless status is FOUND and do not record the resolved machine path in committed artifacts."
+  - "Do not live-fetch, move, rename, modify, or unpack source bytes beside the private archive; use a TASK-1091 run directory from scripts/apl_local_artifacts.py workdir for generated local work."
   - "Before extraction, independently reproduce the TASK-1084 count-only arithmetic and stop if the contract, existing conflict flags, or family caps do not match."
   - "Retain the 38 eligible existing rows, exclude both conflict-flagged identities, and select at most 36 additions under family caps 6, 10, 8, 10, 10, 10, 10, 10."
   - "Select additions only by deterministic molecular-weight quantile positions with InChIKey tie-breaking; target values, errors, residuals, prior family performance, and future Joback outcomes must not influence identity selection."
