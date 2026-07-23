@@ -662,6 +662,118 @@ def _selection_without_unavailable_tasks(
     )
 
 
+def _selection_with_executable_task_fallback(
+    selection: MissionSelection,
+    *,
+    root: Path | None,
+    unavailable_task_ids: frozenset[str],
+) -> MissionSelection:
+    """Resolve a task-backed recommendation against current executable state."""
+    if root is None:
+        return _selection_without_unavailable_tasks(
+            selection,
+            unavailable_task_ids,
+        )
+
+    ready_task_ids = {
+        entry.task_id
+        for entry in load_board_entries(root)
+        if entry.status == "READY"
+    }
+
+    def is_executable(action: dict[str, Any]) -> bool:
+        task_id = action.get("task_id")
+        return bool(
+            task_id
+            and task_id in ready_task_ids
+            and task_id not in unavailable_task_ids
+        )
+
+    alternatives = tuple(
+        action
+        for action in selection.alternatives
+        if not action.get("task_id") or is_executable(action)
+    )
+    action = selection.action
+    if action is None or not action.get("task_id"):
+        return MissionSelection(
+            mode=selection.mode,
+            mission=selection.mission,
+            action=action,
+            alternatives=alternatives,
+        )
+    if is_executable(action):
+        return MissionSelection(
+            mode=selection.mode,
+            mission=selection.mission,
+            action=action,
+            alternatives=alternatives,
+        )
+
+    configured_fallback = next(
+        (candidate for candidate in alternatives if is_executable(candidate)),
+        None,
+    )
+    if configured_fallback is not None:
+        remaining = tuple(
+            candidate
+            for candidate in alternatives
+            if candidate is not configured_fallback
+        )
+        same_mission = bool(
+            selection.mission
+            and any(
+                configured_fallback is candidate
+                for candidate in selection.mission.get("actions", [])
+            )
+        )
+        return MissionSelection(
+            mode=selection.mode,
+            mission=selection.mission if same_mission else None,
+            action=configured_fallback,
+            alternatives=remaining,
+        )
+
+    registry_candidates = task_candidates(
+        root,
+        mode=selection.mode,
+        limit=1,
+        shuffle_equal_rank=False,
+        unavailable_task_ids=unavailable_task_ids,
+    )
+    if registry_candidates:
+        candidate = registry_candidates[0]
+        registry_action = {
+            "id": f"registry-{candidate.task_id.lower()}",
+            "label": candidate.title,
+            "task_id": candidate.task_id,
+            "priority": candidate.priority,
+            "difficulty": candidate.difficulty,
+            "expected_outputs": [],
+        }
+        return MissionSelection(
+            mode=selection.mode,
+            mission=None,
+            action=registry_action,
+            alternatives=alternatives,
+        )
+
+    guidance = next(
+        (candidate for candidate in alternatives if not candidate.get("task_id")),
+        {
+            "id": "registry-no-ready-task",
+            "label": "No executable READY task is available in this mode",
+        },
+    )
+    remaining = tuple(candidate for candidate in alternatives if candidate is not guidance)
+    return MissionSelection(
+        mode=selection.mode,
+        mission=None,
+        action=guidance,
+        alternatives=remaining,
+    )
+
+
 def _availability_or_local(
     availability: TaskAvailabilitySnapshot | None,
 ) -> TaskAvailabilitySnapshot:
@@ -708,9 +820,10 @@ def mission_json(
     selection = select_mission(payload, mode)
     snapshot = _availability_or_local(availability)
     unavailable_task_ids = frozenset(snapshot.excluded_task_ids)
-    selection = _selection_without_unavailable_tasks(
+    selection = _selection_with_executable_task_fallback(
         selection,
-        unavailable_task_ids,
+        root=root,
+        unavailable_task_ids=unavailable_task_ids,
     )
     live_candidates = (
         task_candidates(
@@ -785,9 +898,10 @@ def render_human_mission(
     unavailable_task_ids = frozenset(
         _availability_or_local(availability).excluded_task_ids
     )
-    selection = _selection_without_unavailable_tasks(
+    selection = _selection_with_executable_task_fallback(
         selection,
-        unavailable_task_ids,
+        root=root,
+        unavailable_task_ids=unavailable_task_ids,
     )
     live_candidates = (
         task_candidates(
@@ -906,9 +1020,10 @@ def render_agent_prompt(
     unavailable_task_ids = frozenset(
         _availability_or_local(availability).excluded_task_ids
     )
-    selection = _selection_without_unavailable_tasks(
+    selection = _selection_with_executable_task_fallback(
         selection,
-        unavailable_task_ids,
+        root=root,
+        unavailable_task_ids=unavailable_task_ids,
     )
     live_candidates = (
         task_candidates(
@@ -980,9 +1095,10 @@ def render_onboarding_prompt(
     unavailable_task_ids = frozenset(
         _availability_or_local(availability).excluded_task_ids
     )
-    selection = _selection_without_unavailable_tasks(
+    selection = _selection_with_executable_task_fallback(
         selection,
-        unavailable_task_ids,
+        root=root,
+        unavailable_task_ids=unavailable_task_ids,
     )
     live_candidates = (
         task_candidates(

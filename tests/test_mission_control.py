@@ -739,6 +739,99 @@ def test_all_mission_outputs_remove_confirmed_unavailable_static_action(
     assert "Run split replay" not in rendered_onboarding
 
 
+def test_mission_output_falls_back_from_review_ready_configured_task(
+    tmp_path: Path,
+) -> None:
+    _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0002",
+        title="Configured task now in review",
+        status="REVIEW_READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0003",
+        title="Live replacement",
+        status="READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = json.loads(mission_json(payload, root=tmp_path))
+
+    assert rendered["recommended"]["task_id"] == "TASK-0003"
+    assert rendered["recommended"]["mission"] is None
+    assert rendered["recommended"]["forbidden"] == []
+    assert rendered["recommended"]["is_executable"] is True
+
+
+def test_mission_fallback_composes_local_state_with_github_occupancy(
+    tmp_path: Path,
+) -> None:
+    _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0002",
+        title="Configured task now done",
+        status="DONE",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    for task_id in ("TASK-0003", "TASK-0004"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Live replacement {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+    payload = load_current_missions(tmp_path)
+    availability = TaskAvailabilitySnapshot(
+        checked=True,
+        source="public_rest",
+        excluded_task_ids=("TASK-0003",),
+        reasons={"TASK-0003": ("open PR #30",)},
+        warnings=(),
+    )
+
+    rendered = json.loads(
+        mission_json(payload, root=tmp_path, availability=availability)
+    )
+
+    assert rendered["recommended"]["task_id"] == "TASK-0004"
+    assert rendered["recommended"]["is_executable"] is True
+    assert "TASK-0003" not in {
+        candidate["task_id"] for candidate in rendered["live_task_candidates"]
+    }
+
+
+def test_mission_fallback_is_guidance_only_when_no_ready_task_exists(
+    tmp_path: Path,
+) -> None:
+    _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0002",
+        title="Configured task now done",
+        status="DONE",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = json.loads(mission_json(payload, root=tmp_path))
+
+    assert rendered["recommended"]["task_id"] is None
+    assert rendered["recommended"]["is_executable"] is False
+    assert rendered["recommended"]["guidance_only"] is True
+    assert rendered["recommended"]["mission"] is None
+
+
 def test_collect_github_task_availability_degrades_on_known_proxy(
     tmp_path: Path,
 ) -> None:
@@ -920,6 +1013,14 @@ def test_render_human_mission_shows_live_candidates(tmp_path: Path) -> None:
 
 def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
     _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0002",
+        title="Configured split replay",
+        status="READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
     payload = load_current_missions(tmp_path)
 
     rendered = render_agent_prompt(payload, root=tmp_path)

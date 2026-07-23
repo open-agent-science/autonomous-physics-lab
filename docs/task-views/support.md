@@ -6,7 +6,7 @@
 
 ## READY
 
-None.
+- `TASK-1092` - Synchronize campaign state after the July terminal gates (`documentation`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-1093` - Standardize private source and task-local artifact workspaces (`repository_hardening`, priority `high`, difficulty `medium`, domain `cross_campaign_source_acquisition`)

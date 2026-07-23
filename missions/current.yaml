@@ -1,23 +1,26 @@
 default_mode: research
-updated: "2026-07-22"
+updated: "2026-07-23"
 
 curator_cycle:
   decision: updated
-  updated: "2026-07-22"
-  source: "Scientific Director cycle after the CHARA replay blocker, Quantum terminal gates, ThermoML revised contract, and OQMD result PR"
+  updated: "2026-07-23"
+  source: "Scientific Director cycle after the CHARA replay blocker and provenance repair, Quantum terminal gates, ThermoML revised contract, and OQMD result PR"
   note: >
     The executable queue is intentionally below the preferred numeric target
     rather than padded with audit work. Lattice f_K/f_pi is the top active
     source-readiness mission, with three disjoint READY gates. Dimensional has
     two honest external-independence routes. CHARA RESULT-0031 remains bounded
     AGENT_PUBLISHED INCONCLUSIVE: TASK-1075 verified its hashes but stopped
-    before metrics on missing publisher provenance. Quantum returned
-    HOLD_UNDERPOWERED and STOP_NO_INDEPENDENT_ROUTE and is now trigger-only.
-    ThermoML has a revised at-most-74-row contract but extraction is blocked on
-    the exact local archive and article-cap feasibility. OQMD result PR #1634
-    remains unmerged and must not yet be treated as repository evidence. FRB,
-    Nuclear, Exoplanet, and Atomic stay reveal- or trigger-gated; mature
-    benchmark lanes must not be reopened for filler.
+    before metrics on publisher provenance that was missing at replay time.
+    TASK-1088 has since restored that identity from merged PR #1609 without
+    changing scientific content; TASK-1089 now waits for an executor that clears
+    the identity-independence gate. Quantum returned HOLD_UNDERPOWERED and
+    STOP_NO_INDEPENDENT_ROUTE and is now trigger-only. ThermoML has a revised
+    at-most-74-row contract but extraction is blocked on the exact local archive
+    and article-cap feasibility. OQMD result PR #1634 remains unmerged and must
+    not yet be treated as repository evidence. FRB, Nuclear, Exoplanet, and
+    Atomic stay reveal- or trigger-gated; mature benchmark lanes must not be
+    reopened for filler.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -1337,7 +1340,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. RESULT-0031 remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1075 stopped before metric comparison because original-publisher metadata is missing; TASK-1088 repairs provenance, TASK-1089 then requires an identity-independent replay, and TASK-1076 remains a separate HD 284163 source gate."
+    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. RESULT-0031 remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1075 stopped before metric comparison because original-publisher metadata was missing at replay time; TASK-1088 has since repaired that provenance from merged PR #1609 without changing scientific content. TASK-1089 remains blocked until an identity-independent executor is available, and TASK-1076 remains a separate HD 284163 source gate."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1354,7 +1357,8 @@ missions:
       - "TASK-1040 admitted twelve source-traceable component rows across six CHARA systems and kept seven systems source-limited"
       - "TASK-1041 froze the group-dependence policy and minimum five-effective-group gate"
       - "TASK-1049 independently replayed the exact CHARA component-source surface and cleared the fixed-transfer source gate"
-      - "TASK-1075 confirmed all five frozen input hashes but returned REPLAY_ENVIRONMENT_BLOCKED before metrics because published_by is absent"
+      - "TASK-1075 confirmed all five frozen input hashes but returned REPLAY_ENVIRONMENT_BLOCKED before metrics because published_by was absent at replay time"
+      - "TASK-1088 restored published_by from merged PR #1609 without changing review tier, verdict, metrics, hashes, or scientific interpretation"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1556,7 +1560,7 @@ missions:
           - "formal Gate B replay with metric-drift table and preserved INCONCLUSIVE threshold boundary"
           - "no refit, threshold relaxation, rescue model, RESULT metric mutation, or universal stellar-law claim"
       - id: textbook-stellar-result0031-publisher-provenance
-        label: "Repair RESULT-0031 publisher provenance from merged PR #1609"
+        label: "RESULT-0031 publisher provenance repaired from merged PR #1609"
         task_id: TASK-1088
         mode: research
         status: review_ready
@@ -1567,7 +1571,7 @@ missions:
           - "schema-permitted original-publisher identity with every scientific field unchanged"
           - "no replay, review-tier upgrade, claim promotion, or stronger stellar interpretation"
       - id: textbook-stellar-result0031-replay-after-provenance
-        label: "Independently replay RESULT-0031 after provenance repair"
+        label: "Independently replay RESULT-0031 when a qualifying executor is available"
         task_id: TASK-1089
         mode: research
         status: blocked
@@ -1575,7 +1579,7 @@ missions:
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "identity-independent exact Gate B replay after TASK-1088 merges"
+          - "identity-independent exact Gate B replay after the merged TASK-1088 provenance repair"
           - "preserved INCONCLUSIVE verdict and no refit, threshold change, or rescue row"
       - id: textbook-stellar-hd284163-source-gate
         label: "Resolve the HD 284163 supplemental CHARA source gate"

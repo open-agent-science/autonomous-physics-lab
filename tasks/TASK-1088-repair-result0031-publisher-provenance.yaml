@@ -1,7 +1,7 @@
 id: TASK-1088
 title: "Repair RESULT-0031 publisher provenance from the merged task PR"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task edits protected publication metadata on an AGENT_PUBLISHED result and directly controls whether an independent Gate B replay may start."
 difficulty: low

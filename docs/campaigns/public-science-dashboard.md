@@ -219,7 +219,9 @@ The external CHARA transfer is now `AGENT_PUBLISHED` `RESULT-0031`: it beats the
 best eligible control, but misses the predeclared survival margin and is
 therefore `INCONCLUSIVE`. A first replay attempt confirmed all five frozen
 input hashes but stopped before metrics because original-publisher provenance
-was absent; that metadata must be repaired before an independent replay.
+was absent at replay time. That identity has since been restored from merged
+PR #1609 without changing scientific content; replay now waits for an executor
+that clears the identity-independence gate.
 
 **Result capsule — RESULT-0022 (Stellar mass-luminosity, DEBCat):**
 
@@ -281,7 +283,8 @@ is not a universal law claim.
   control **0.097317 dex**. The **0.036787 dex** margin misses the predeclared
   **0.04 dex** survival threshold by **0.003213 dex**.
 - **Review status:** `AGENT_PUBLISHED`, `INCONCLUSIVE`; a first replay attempt
-  was environment-blocked before metrics by missing publisher provenance.
+  was environment-blocked before metrics by then-missing publisher provenance,
+  which is now repaired. Independent Gate B replay has not yet run.
 - **No-claim wording:** bounded six-system transfer test, not a validated
   universal stellar law and not a positive near-miss to be rescued by refit.
 
@@ -425,7 +428,7 @@ supplied and the five-row article cap and information floor pass.
 | FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, `PRED-0001` was registered as a 479-source point-score/rank prediction, the full anchor is sealed by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`, and `TASK-1024` completed a reduced rights-bounded capsule without external upload. | Keep any reduced-capsule publication maintainer-only; activate reveal-source work only on a concrete official release signal. | An optional citable reduced checksum anchor or a later trigger-based reveal-source decision; no current success verdict. |
 | [Quantum Size Effects](./quantum-size-effects.md) | What genuinely new source could reopen the stopped CdSe route? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP miss; both four-row Kim-2020 axes are underpowered and no independent direct-row source cleared the frozen gates. | Monitor/source-trigger-only; no score, pooling, or repeated generic scout. | A trigger-specific source-readiness decision, not a metric on the current rows. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What future source event would justify reopening the two-row `171Yb/87Sr` surface? | Beloy and Nemitz support a narrow no-tension memory card; other routes are blocked or isotope-mismatched; the multi-species route returned `KEEP_MONITOR_ONLY`. | Follow the ratified reopen-trigger ledger; no standing executor task or metric rerun. | A future trigger decision, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay, and can one supplemental system clear source gates without rescuing it? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; all five frozen hashes match, but the first replay stopped before metrics on missing publisher provenance. | Repair provenance, then replay with an independent identity; assess HD 284163 only as a separate extension. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay, and can one supplemental system clear source gates without rescuing it? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; all five frozen hashes match, the first replay stopped before metrics on then-missing publisher provenance, and TASK-1088 has repaired that identity without changing scientific content. | Wait for an identity-independent executor, then replay; assess HD 284163 only as a separate extension. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
 | [Materials Property Residuals](./materials-property-residuals.md) | Can the frozen OQMD surface produce a durable within-source computed-DFT benchmark? | `MD-0002` is AGENT_VALIDATED and externally citable; OQMD has 172 normalized rows, a 120/26/26 grouped split, frozen controls, and independent source replay PASS. | Review proposed result PR #1634; do not publish its metrics before merge. | After merge, an independent replay of the unchanged bounded result, not a cross-database claim. |
 | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can the revised at-most-74-row contract be extracted without violating its source and information gates? | `RESULT-0026` and failed-family `RESULT-0028` are AGENT_VALIDATED; exact-80 is stopped, while a value-blind family-equal 74-row ceiling is frozen. | Supply the exact archive and enforce the five-row article cap and information floor; keep scoring separate. | One complete rights-bounded fixture or a hard extraction stop, not a partial fixture or metric. |
 | Lattice-QCD Aggregated Consistency | Can primary evidence resolve dependency structure before any central values are admitted? | An eleven-publication `f_K/f_pi` manifest and graph exist, but all 49 pairwise dependency relations remain `UNKNOWN`. | Split the dependency audit by flavor family and freeze value-admissibility policy in parallel. | Resolved conservative components or a durable covariance HOLD; no Lattice-QCD physics claim. |

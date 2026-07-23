@@ -17,13 +17,23 @@ The run used only the pinned ThermoML v1.2.6 archive route from
 extracted XML/JSON, normalized rows, selected compound identities, `Tb` values,
 or benchmark metrics.
 
-## Local Replay
+## Portable Local Replay
 
-Command:
+Resolve and verify the private archive first:
 
 ```bash
-python scripts/preflight_thermoml_tb_80row_identity_counts.py \
-  --archive C:\tmp\APL-private-sources\ThermoML.v2020-09-30.tgz
+python3 scripts/apl_local_artifacts.py locate \
+  --source-id nist-trc-thermoml-archive \
+  --filename ThermoML.v2020-09-30.tgz \
+  --sha256 231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2
+```
+
+Then pass the locally printed path to the count-only preflight without copying
+that machine path into committed evidence:
+
+```bash
+python3 scripts/preflight_thermoml_tb_80row_identity_counts.py \
+  --archive <verified-local-archive-path>
 ```
 
 Archive verification:

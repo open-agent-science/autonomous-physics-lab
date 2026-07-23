@@ -58,6 +58,7 @@ required_reading:
   - AGENTS.md
   - docs/agent-task-protocol.md
   - docs/source-acquisition-lane.md
+  - docs/local-artifact-workspace.md
   - docs/local-source-secrets.md
   - docs/published-source-dataset-standard.md
   - docs/fresh-data-intake-protocol.md
@@ -86,6 +87,13 @@ typical_activities:
       with network approval, run a single bounded snapshot acquisition and
       commit a checksummed artifact plus a source manifest entry, license note,
       and retrieval timestamp.
+  - title: "Maintainer-provided local artifact handoff"
+    description: |
+      Resolve one exact source id and filename through
+      `scripts/apl_local_artifacts.py`, verify the frozen SHA-256 digest before
+      reading it, and write unpacked or generated files only to a task/run local
+      work directory. Record stable identity and checksum in committed evidence,
+      never the machine-local path.
   - title: "Key-gated runbook preparation"
     description: |
       For a source needing an API key, login, or maintainer-held
@@ -105,6 +113,7 @@ allowed_tools:
 scripts_to_use:
   - scripts/apl_mission.py
   - scripts/apl_acquisition_queue.py
+  - scripts/apl_local_artifacts.py
   - scripts/apl_local_secrets.py
 
 can_invoke_other_roles:
@@ -117,6 +126,7 @@ restrictions:
   - "Must not run an autonomous crawler/ingester or live-fetch inside benchmark code."
   - "Must not commit API keys, tokens, cookies, credentials, or private files."
   - "Must not print or log secret values; presence checks must report only SET/not set."
+  - "Must not recursively scan private roots or copy machine-local source/work paths into committed repository artifacts."
   - "Must not publish a key-gated source as blocked before asking the maintainer for the exact required local secret and safe setup path."
   - "Must not commit copyrighted PDFs, tables, or figures without explicit license/permission."
   - "Must not treat arXiv or other non-exclusive archive distribution licences as automatic permission for this repository to redistribute PDF bytes; use metadata-only locator + expected checksum + fetch/verify helper unless a compatible licence or explicit permission is recorded."

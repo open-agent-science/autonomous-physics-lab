@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import re
 from typing import Any
 
@@ -149,12 +149,28 @@ def _read_sidecar_checksum(sidecar_path: Path) -> str | None:
     return first_token[0]
 
 
+def _artifact_path_issue(artifact_path_value: str) -> tuple[str, str] | None:
+    """Return a committed-provenance path issue on any host platform."""
+    posix_path = PurePosixPath(artifact_path_value)
+    windows_path = PureWindowsPath(artifact_path_value)
+    if posix_path.is_absolute() or windows_path.is_absolute() or windows_path.drive:
+        return (
+            "MACHINE_LOCAL_ARTIFACT_PATH",
+            "artifact_path must be package-relative; record local source identity and checksum instead of an absolute machine path.",
+        )
+    if ".." in posix_path.parts or ".." in windows_path.parts:
+        return (
+            "ARTIFACT_PATH_TRAVERSAL",
+            "artifact_path must stay inside its committed source-artifact package.",
+        )
+    return None
+
+
 def _sidecar_candidates(package_path: Path, artifact_path_value: str) -> tuple[Path, ...]:
+    if _artifact_path_issue(artifact_path_value) is not None:
+        return ()
     artifact_path = Path(artifact_path_value)
-    if artifact_path.is_absolute():
-        resolved = artifact_path
-    else:
-        resolved = package_path / artifact_path
+    resolved = package_path / artifact_path
     return (
         resolved.with_name(f"{resolved.name}.sha256"),
         resolved.with_suffix(".sha256"),
@@ -229,8 +245,7 @@ def validate_source_artifact_package(package_path: str | Path) -> SourceArtifact
 
     locators = _as_mapping(provenance.get("locators"))
     if _is_missing(locators.get("citation")) and all(
-        _is_missing(locators.get(key))
-        for key in ("doi", "arxiv_id", "archive_url", "source_url")
+        _is_missing(locators.get(key)) for key in ("doi", "arxiv_id", "archive_url", "source_url")
     ):
         issues.append(
             SourceArtifactIssue(
@@ -244,9 +259,21 @@ def validate_source_artifact_package(package_path: str | Path) -> SourceArtifact
     artifact = _as_mapping(provenance.get("artifact"))
     artifact_path = artifact.get("artifact_path")
     artifact_locator = artifact.get("artifact_locator")
+    if isinstance(artifact_path, str) and artifact_path.strip():
+        path_issue = _artifact_path_issue(artifact_path.strip())
+        if path_issue is not None:
+            code, message = path_issue
+            issues.append(
+                SourceArtifactIssue(
+                    "ERROR",
+                    code,
+                    "provenance.yaml#artifact.artifact_path",
+                    message,
+                )
+            )
     value_bearing = bool(artifact.get("value_bearing_artifact"))
-    has_artifact_surface = value_bearing or not _is_missing(artifact_path) or not _is_missing(
-        artifact_locator
+    has_artifact_surface = (
+        value_bearing or not _is_missing(artifact_path) or not _is_missing(artifact_locator)
     )
     archive_policy = str(artifact.get("archive_policy") or "").strip()
     if has_artifact_surface and not _has_valid_checksum_or_sidecar(path, provenance):

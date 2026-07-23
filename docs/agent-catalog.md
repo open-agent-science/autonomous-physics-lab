@@ -213,6 +213,7 @@ the maintainer can run a key-gated or access-restricted fetch locally.
 - Role profile: [`agents/data-acquisition.yaml`](../agents/data-acquisition.yaml)
 - Primary docs:
   - [source-acquisition-lane.md](./source-acquisition-lane.md)
+  - [local-artifact-workspace.md](./local-artifact-workspace.md)
   - [published-source-dataset-standard.md](./published-source-dataset-standard.md)
   - [fresh-data-intake-protocol.md](./fresh-data-intake-protocol.md)
 

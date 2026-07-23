@@ -67,6 +67,12 @@ architecture:
 | `.worktrees/`, `_worktrees/`, `.claude/worktrees/` | Local agent worktrees. Do not commit. |
 | `.pytest_cache/`, `.pytest-basetemp/`, `.ruff_cache/`, `.DS_Store` | Local tool or OS cache files. |
 
+Two additional local roots normally live beside the primary checkout, not
+inside it: `<checkout>-private-sources/` for immutable maintainer-provided
+source bytes and `<checkout>-local-work/` for task/run-scoped generated work.
+Their resolution and safety contract is
+[Local Artifact Workspace](local-artifact-workspace.md).
+
 ## Migration Rule
 
 Broad path moves must happen through a dedicated task that updates loaders,

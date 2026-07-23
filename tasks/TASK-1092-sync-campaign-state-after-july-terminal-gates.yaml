@@ -8,7 +8,7 @@ difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Merged TASK-1075, TASK-1077, TASK-1078, and TASK-1084 changed the honest next action for CHARA, Quantum, and ThermoML."
+  - "Merged TASK-1075, TASK-1077, TASK-1078, TASK-1084, and TASK-1088 changed the honest next action for CHARA, Quantum, and ThermoML."
   - "The Anharmonic profile and mission still describe CLAIM-0009 as DRAFT even though the canonical claim is PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED."
   - "Mission and public pages should describe current evidence and blockers without advertising completed tasks as executable work."
 
@@ -27,11 +27,14 @@ input:
     - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
   planning_context: >
     Perform one bounded curator synchronization from merged canonical evidence.
+    TASK-1088 has repaired RESULT-0031 publisher provenance from merged PR
+    #1609 without changing scientific content; TASK-1075 remains historical
+    blocker memory and TASK-1089 still requires an identity-independent executor.
     Open PR #1634 is not yet repository evidence, so RESULT-0032 must not be
     described as merged or validated in this task.
 
 requirements:
-  - "Update Textbook/CHARA state to REPLAY_ENVIRONMENT_BLOCKED on missing publisher provenance and route next work through TASK-1088 then TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
+  - "Keep TASK-1075 as historical REPLAY_ENVIRONMENT_BLOCKED memory, record the merged TASK-1088 publisher-provenance repair, and route replay only through identity-independent TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
   - "Update Quantum state to HOLD_UNDERPOWERED plus STOP_NO_INDEPENDENT_ROUTE and monitor/source-trigger-only; do not seed another generic CdSe scout or score either four-row axis."
   - "Update ThermoML state to REVISED_CONTRACT_READY_NO_SCORE with the availability-capped 74-row ceiling, local archive blocker, article-cap hard stop, and extraction/scoring separation."
   - "Correct Anharmonic state to CLAIM-0009 PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED and remove the obsolete Gate C blocker and executor action."
@@ -41,7 +44,7 @@ requirements:
   - "Regenerate the committed campaign catalog from profiles if required, but do not commit generated docs/task-views files."
 
 accepted_outputs:
-  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through TASK-1084."
+  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through TASK-1088."
   - "Focused updates to the Textbook, Quantum, ThermoML, and portfolio dashboard pages where their public state is materially stale."
   - "A validation note or PR summary listing deliberately deferred OQMD wording and confirming no generated task views were committed."
 

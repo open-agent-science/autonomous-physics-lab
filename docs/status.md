@@ -26,15 +26,15 @@ For linkable, public-safe summaries of active campaign results, use the
 APL is concentrating on converting source-ready surfaces into bounded evidence.
 The current center of gravity is dependency/value-admissibility resolution for
 Lattice-QCD, clean external validation for the Dimensional Analysis Validator,
-and removal of the publisher-provenance blocker before CHARA `RESULT-0031` can
-receive an independent replay. The revised ThermoML route is archive-gated;
-Quantum has reached an honest stop. FRB, Exoplanet, Nuclear, and Atomic remain
-explicitly reveal- or trigger-gated.
+and an identity-independent replay of CHARA `RESULT-0031` after its publisher
+provenance was repaired from merged PR #1609. The revised ThermoML route is
+archive-gated; Quantum has reached an honest stop. FRB, Exoplanet, Nuclear, and
+Atomic remain explicitly reveal- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
 | [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset lane with AGENT_VALIDATED `RESULT-0021`, externally published `MD-0002`, and a dated OQMD surface whose split, controls, and independent source replay pass | Proposed OQMD result PR #1634 is under review; do not treat its metrics as repository evidence before merge |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four AGENT_VALIDATED results plus AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031` | Repair missing publisher provenance, then require an identity-independent replay; keep HD 284163 separate |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four AGENT_VALIDATED results plus AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031`; publisher provenance is repaired | Wait for an executor that clears the identity-independence gate, then replay; keep HD 284163 separate |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, an externally anchored tier-1 point-only freeze, preserved uncertainty-calibration failures, and a clean no-value source scout | TASK-1031 found only pre-registration official sources; ratify the event-trigger ledger and do not repeat source scouts until a qualifying post-registration release signal |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_VALIDATED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is source-version/coverage trigger monitoring, not residual rescoring |
 | FRB / Radio Transients | A time-truncated, source-pinned sealed repeater-propensity prediction pack | `PRED-0001` is registered as a 479-source point-score/rank-only prediction and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`; reveal scoring remains a future maintainer-reviewed task |
@@ -106,7 +106,9 @@ Highlights:
   transfer as AGENT_PUBLISHED INCONCLUSIVE because its positive margin missed
   the predeclared survival threshold. A first Gate B attempt verified all five
   frozen input hashes but stopped before metrics because original-publisher
-  metadata was missing; provenance repair precedes an identity-independent replay.
+  metadata was missing at replay time. TASK-1088 has since restored that
+  identity from merged PR #1609 without changing scientific content; Gate B
+  now waits for an identity-independent executor.
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
   AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`. The result is a
   computed-DFT, frozen-slice benchmark artifact, not a material recommendation,
@@ -184,9 +186,10 @@ Important operating rules:
 - Materials OQMD has a merged source-readiness verdict, frozen grouped split,
   value-blind controls, and independent source replay. Its proposed result is
   still under review in PR #1634. Stellar CHARA has an AGENT_PUBLISHED
-  INCONCLUSIVE result, but independent replay is blocked until publisher
-  provenance is repaired. Neither route supports broad property-law,
-  material-design, universal-formula, or application-domain claims.
+  INCONCLUSIVE result with repaired publisher provenance, but independent replay
+  remains blocked until a qualifying executor is available. Neither route
+  supports broad property-law, material-design, universal-formula, or
+  application-domain claims.
 - Thermophysical work is active but narrow: `RESULT-0026` is `Tb`-only and
   AGENT_VALIDATED; `RESULT-0028` is AGENT_VALIDATED failed-family
   negative/control memory. A revised at-most-74-row fixture remains blocked on

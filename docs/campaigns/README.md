@@ -9,9 +9,10 @@ The short version:
 - **Flagship validation challenge:** Nuclear Mass Surface.
 - **Default near-term science-output sprint:** resolve the `f_K/f_pi` dependency
   and value-admissibility gates, pursue clean external dimensional validation,
-  repair CHARA publisher provenance before independent replay, and preserve the
-  archive-gated ThermoML extraction path. FRB, Exoplanet, Nuclear, Atomic, and
-  Quantum remain reveal- or source-trigger-gated.
+  preserve the repaired CHARA publisher provenance while waiting for an
+  identity-independent replay, and preserve the archive-gated ThermoML
+  extraction path. FRB, Exoplanet, Nuclear, Atomic, and Quantum remain reveal-
+  or source-trigger-gated.
 - **Fresh-data monitoring:** Atomic-Clock Residuals and Quantum Size Effects
   (source-gated; Atomic has pinned rows and a source-limited `171Yb/87Sr`
   consistency memory card plus source-blocked McGrew and `171Yb/88Sr` routes;
@@ -66,7 +67,7 @@ campaign map or `missions/current.yaml`.
 | [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 direct InP rows, AGENT_VALIDATED `RESULT-0029`, Kim-2020 `UNCERTAINTY_BLOCKED` digitization memory, and separate four-row absorption/emission surfaces. | Monitor for a genuinely new source trigger; the current route is underpowered and has no qualifying independent source. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz `171Yb/87Sr` rows, real-row loader, covariance policy, Pizzocaro diagnostic blocker/contract, source-limited consistency memory, blocked McGrew/NIST route, `171Yb/88Sr` isotope-mismatch blocker, and `KEEP_MONITOR_ONLY` multi-species verdict. | Durable reopen-trigger ledger; no constants-drift or metric rerun. |
 | [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, a citable Zenodo DOI, and a source-replayed 172-row OQMD surface. | Review PR #1634; after merge, independently replay the unchanged result rather than refit. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Four narrow results are AGENT_VALIDATED; CHARA `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE, while Gaia DR4 remains held on luminosity semantics. | Repair original-publisher provenance, then run an identity-independent replay; do not rescue the margin. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Four narrow results are AGENT_VALIDATED; CHARA `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE with repaired publisher provenance, while Gaia DR4 remains held on luminosity semantics. | Wait for an identity-independent executor, then replay without rescuing the margin. |
 | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | AGENT_VALIDATED ThermoML `Tb` `RESULT-0026` and failed-family `RESULT-0028`; exact-80 failed, and a value-blind at-most-74-row contract is frozen. | Supply the checksum-matched archive and pass article-cap/information-floor gates before extracting a complete fixture; no score yet. |
 
 These are the main public-facing surfaces today. They should be presented as
@@ -90,7 +91,7 @@ the newer campaigns can be stricter.
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Atomic and FRB have graduated; the Lattice-QCD incubator selected `f_K/f_pi` for a bounded source/dependency pilot. | Audit primary-publication and shared-ensemble metadata; no central values or world average. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Stefan-Boltzmann, Stellar M-L, FIRAS/Wien, and high-mass transfer are agent-validated; CHARA has a bounded AGENT_PUBLISHED INCONCLUSIVE result. | Repair publisher provenance, then replay independently; no model-derived Gaia truth rows or universal formula claims. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Stefan-Boltzmann, Stellar M-L, FIRAS/Wien, and high-mass transfer are agent-validated; CHARA has a bounded AGENT_PUBLISHED INCONCLUSIVE result with repaired publisher provenance. | Replay only with an identity-independent executor; no model-derived Gaia truth rows or universal formula claims. |
 | Materials widenings | `MD-0002` stable ternary oxides are frozen and have AGENT_VALIDATED RESULT-0021 plus scope-control, transfer-negative memory, and Zenodo DOI record-back. | Future rebuild requires a versioned release reason; otherwise use the citable v0.1.0 archive as fixed memory. |
 | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Source-pinned benchmark with AGENT_VALIDATED RESULT-0026/0028 and a revised at-most-74-row no-score contract. | Archive-gated extraction only; no raw archive vendoring, partial fixture, threshold shopping, or multi-property broadening. |
 

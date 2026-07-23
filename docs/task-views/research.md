@@ -20,4 +20,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-1088` - Repair RESULT-0031 publisher provenance from the merged task PR (`scientific_validation`, priority `high`, difficulty `low`, domain `stellar_astrophysics`)
