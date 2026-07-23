@@ -46,6 +46,14 @@ def test_agent_doctor_builds_report_without_network_auth_check(tmp_path: Path) -
     assert "gh_path" in report.pr_capability
     assert "git_path" in report.pr_capability
     assert "gh_auth_state" in report.pr_capability
+    assert report.pr_capability["repository"] == (
+        "open-agent-science/autonomous-physics-lab"
+    )
+    assert report.pr_capability["repository_permission"] is None
+    assert report.pr_capability["publication_route"] == "not_checked"
+    assert "authenticated_login" in report.pr_capability
+    assert "branch" in report.pr_capability
+    assert "fork_commands" in report.pr_capability
     assert "sandbox_detected" in report.pr_capability
     assert "sandbox_env_names" in report.pr_capability
 
@@ -96,6 +104,9 @@ def test_agent_doctor_cli_json_runs_from_repo_root() -> None:
     assert '"python"' in result.stdout
     assert '"pr_capability"' in result.stdout
     assert '"gh_auth_state"' in result.stdout
+    assert '"repository_permission"' in result.stdout
+    assert '"publication_route": "not_checked"' in result.stdout
+    assert '"fork_commands"' in result.stdout
     assert '"sandbox_detected"' in result.stdout
     assert '"sandbox_env_names"' in result.stdout
     assert '"pytest_runtime": null' in result.stdout
