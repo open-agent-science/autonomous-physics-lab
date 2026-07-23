@@ -1,7 +1,7 @@
 id: TASK-1104
 title: "Pin the Ruff merge-queue toolchain after the 0.16 baseline break"
 type: repository_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
