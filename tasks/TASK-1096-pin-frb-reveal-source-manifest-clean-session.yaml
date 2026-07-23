@@ -1,0 +1,64 @@
+id: TASK-1096
+title: "Pin the FRB reveal-source manifest in a clean label-blind session"
+type: scientific_source_curation
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task creates the last no-label boundary before FRB target matching; closeout must verify clean-session identity, official source timing, checksums, rights, label semantics, and zero label access."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "PRED-0001 can be compared only after one official source is pinned without exposing labels during discovery."
+  - "TASK-1095 first determines whether the source supports blinded-retrospective, prospective, or dual chronology."
+  - "A source manifest must be frozen before target matching so source choice and association rules cannot adapt to outcomes."
+
+input:
+  mode: planning_only
+  related_domain: radio_transients
+  related_objects:
+    - "tasks/TASK-1095-freeze-frb-reveal-chronology-decision-contract.yaml"
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+    - "docs/prospective-reveal-source-admissibility.md"
+  planning_context: >
+    After TASK-1095 is merged with a contract-ready verdict, a clean executor
+    may pin exactly one official reveal source at metadata/schema level. Target
+    matching and label values remain forbidden until a separate reveal task.
+  source_discovery_mode: official_metadata_only
+  search_result_snippets_allowed: false
+  target_matching_requires_manifest_approval: true
+  value_access_requires_reveal_task: true
+  no_peek_context_status: clean
+
+requirements:
+  - "Blocked-by: merged TASK-1095 with CONTRACT_READY_BLINDED_RETROSPECTIVE or CONTRACT_READY_DUAL_CHRONOLOGY, plus a maintainer-approved source class."
+  - "Before discovery, record contributor, controlling-human, agent/tool/model, session, and an attestation that no reveal labels, label counts, target matches, or search snippets were inspected in this session."
+  - "Pin exactly one official CHIME/FRB or maintainer-approved immutable source with version, release/publication date, locator, byte size, SHA-256 or immutable record id, citation, rights/reuse posture, and retrieval/parser policy."
+  - "Freeze schema-level label and evidence-time semantics, target identity keys, association rules, ambiguity exclusions, chronology strata from TASK-1095, and the exact fields a later reveal task may read, without reading field values."
+  - "Freeze the source manifest and parser/source checksums before any of the 479 targets are matched."
+  - "Return exactly one verdict: MANIFEST_READY_BLINDED_RETROSPECTIVE, MANIFEST_READY_DUAL_CHRONOLOGY, BLOCKED_NO_PEEK_AUDIT, SOURCE_IDENTITY_BLOCKED, RIGHTS_BLOCKED, or STOP_NO_AUDITABLE_TARGET_MATCH."
+  - "Stop immediately if label-bearing rows or search snippets become visible, source timing is ambiguous, official identity cannot be pinned, or target matching would require outcome-informed association."
+  - "Do not copy label rows, count positives, match targets, run PRED scores, alter the prediction, create a RESULT, or use prediction-success or repeater-population wording."
+  - "No-claim wording: source-manifest readiness is not a reveal result, prediction success, repeater discovery, or FRB population evidence."
+
+accepted_outputs:
+  - "A checksum-pinned metadata-only reveal-source manifest and clean-session/no-peek record, with no target matches or label values."
+  - "A source-readiness review note with chronology class, schema semantics, rights, matching policy, stop conditions, limitations, one verdict, and output routing to a separate maintainer-approved reveal."
+
+result_artifact_policy:
+  required: false
+  reason: "Source-manifest readiness only; label values, target matching, prediction scoring, and RESULT creation are forbidden."
+  evidence:
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_data_redistribution_declarations.py tests/test_frb_prediction_freeze_registration.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
