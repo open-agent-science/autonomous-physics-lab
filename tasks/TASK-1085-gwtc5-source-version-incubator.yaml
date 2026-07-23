@@ -1,7 +1,7 @@
 id: TASK-1085
 title: "Incubate a version-pinned GWTC-5 open-catalog source route"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task decides whether a new gravitational-wave campaign has a distinct, source-safe benchmark route; closeout must verify official versioning, rights, selection effects, and no-value/no-claim boundaries."
 difficulty: medium
