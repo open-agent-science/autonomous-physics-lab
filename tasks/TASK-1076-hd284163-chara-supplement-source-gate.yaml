@@ -1,7 +1,7 @@
 id: TASK-1076
 title: "Resolve the HD 284163 CHARA supplement source gate"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task may admit a new external-system row surface; closeout must verify supplement identity, rights, component mapping, and strict separation from the frozen RESULT-0031 input."
 difficulty: medium
