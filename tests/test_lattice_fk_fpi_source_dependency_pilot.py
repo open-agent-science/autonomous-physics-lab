@@ -186,3 +186,79 @@ def test_unresolved_pairs_force_covariance_hold() -> None:
     assert diagnostics["absence_of_edge_means_independent"] is False
     assert components["independence_certified"] is False
     assert graph["verdict"] == "HOLD_COVARIANCE_UNRESOLVED"
+
+def test_nf2p1p1_pair_resolution_is_complete_conservative_and_metadata_only() -> None:
+    graph = _load(GRAPH_PATH)
+    resolution = graph["nf_2p1p1_pair_resolution"]
+    publication_ids = resolution["scope_publication_ids"]
+    pairs = resolution["pairs"]
+    axes = set(resolution["dependency_axes"])
+    observed_pairs = {tuple(pair["publications"]) for pair in pairs}
+    expected_pairs = {
+        tuple(sorted((left, right), key=publication_ids.index))
+        for index, left in enumerate(publication_ids)
+        for right in publication_ids[index + 1 :]
+    }
+
+    assert resolution["task_id"] == "TASK-1079"
+    assert resolution["reviewed_at"] == "2026-07-23"
+    assert resolution["metadata_only"] is True
+    assert len(publication_ids) == 5
+    assert resolution["unordered_pair_count"] == len(pairs) == 10
+    assert observed_pairs == expected_pairs
+    assert axes == {
+        "configuration_or_data",
+        "scale_setting",
+        "normalization_or_renormalization",
+        "named_uncertainty_lineage",
+    }
+
+    evidence_ids = set(graph["evidence_catalog"])
+    fully_unknown = 0
+    for pair in pairs:
+        assert set(pair["axes"]) == axes
+        pair_states = []
+        for classification in pair["axes"].values():
+            state = classification["state"]
+            pair_states.append(state)
+            assert state in DEPENDENCE_STATES
+            assert classification["evidence_identities"]
+            assert set(classification["evidence_identities"]) <= evidence_ids
+            assert classification["curator_note"]
+        fully_unknown += int(set(pair_states) == {"UNKNOWN"})
+
+    by_pair = {tuple(pair["publications"]): pair["axes"] for pair in pairs}
+    fnal_hpqcd = by_pair[("pub-fnal-milc-17", "pub-hpqcd-13a")]
+    fnal_callat = by_pair[("pub-fnal-milc-17", "pub-callat-20")]
+    hpqcd_callat = by_pair[("pub-hpqcd-13a", "pub-callat-20")]
+    etm_pair = by_pair[("pub-etm-14e", "pub-etm-21")]
+
+    assert fnal_hpqcd["configuration_or_data"]["state"] == "CONFIRMED_SHARED"
+    assert fnal_callat["configuration_or_data"]["state"] == "CONFIRMED_SHARED"
+    assert hpqcd_callat["configuration_or_data"]["state"] == "CONFIRMED_SHARED"
+    assert fnal_hpqcd["named_uncertainty_lineage"]["state"] == "CONFIRMED_SHARED"
+    assert fnal_callat["named_uncertainty_lineage"]["state"] == "CONFIRMED_SHARED"
+    assert hpqcd_callat["named_uncertainty_lineage"]["state"] == "CONFIRMED_SHARED"
+    assert hpqcd_callat["scale_setting"]["state"] == "POSSIBLE_SHARED"
+    assert etm_pair["configuration_or_data"]["state"] == "CONFIRMED_DISJOINT"
+    assert fully_unknown == 6
+    assert all(
+        pair["axes"]["normalization_or_renormalization"]["state"] == "UNKNOWN"
+        for pair in pairs
+    )
+
+    average = resolution["evaluated_average_membership"]
+    assert average["average_node"] == "flag-2024-nf-2p1p1-fk-fpi"
+    assert average["input_publication_ids"] == publication_ids
+    assert average["count_average_as_independent_with_inputs"] is False
+    assert resolution["verdict"] == "PARTIAL_HOLD_UNKNOWN_EDGES"
+    assert not {
+        "central_value",
+        "value",
+        "quoted_uncertainty",
+        "average_value",
+        "covariance_magnitude",
+        "residual",
+        "tension",
+        "anomaly_score",
+    } & _all_keys(resolution)
