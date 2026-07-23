@@ -42,11 +42,11 @@ arXiv source packages inspected on 2026-07-23.
 
 | Publication | Stable identity | Exact locator | Retrieved source SHA-256 |
 | --- | --- | --- | --- |
-| FNAL/MILC 17 | [arXiv:1712.09262v4](https://arxiv.org/abs/1712.09262v4), DOI `10.1103/PhysRevD.98.074512` | Sec. II, table captioned вЂњEnsembles used in this calculationвЂќ; Sec. III correlator-covariance discussion; Sec. IV scale-setting and error-budget tables | `b4256851a6633efc609ce79964bfe3795964dc6b266fe92fce28750b925d0b4a` |
-| HPQCD 13A | [arXiv:1303.1670v2](https://arxiv.org/abs/1303.1670v2), DOI `10.1103/PhysRevD.88.074504` | Sec. II, Tables IвЂ“II and вЂњMeson CorrelatorsвЂќ; Sec. III, table captioned вЂњSources of uncertainty in the final resultsвЂќ | `655b0a831af0c00f485a547c0ba2aa3e770c4596bd11126777ee8345575ce2df` |
+| FNAL/MILC 17 | [arXiv:1712.09262v4](https://arxiv.org/abs/1712.09262v4), DOI `10.1103/PhysRevD.98.074512` | Sec. II, table captioned "Ensembles used in this calculation"; Sec. III correlator-covariance discussion; Sec. IV scale-setting and error-budget tables | `b4256851a6633efc609ce79964bfe3795964dc6b266fe92fce28750b925d0b4a` |
+| HPQCD 13A | [arXiv:1303.1670v2](https://arxiv.org/abs/1303.1670v2), DOI `10.1103/PhysRevD.88.074504` | Sec. II, Tables I-II and "Meson Correlators"; Sec. III, table captioned "Sources of uncertainty in the final results" | `655b0a831af0c00f485a547c0ba2aa3e770c4596bd11126777ee8345575ce2df` |
 | ETM 14E | [arXiv:1411.7908v2](https://arxiv.org/abs/1411.7908v2), DOI `10.1103/PhysRevD.91.054507` | Introduction ensemble/analysis-branch paragraphs; Sec. 2, Eq. (4); uncertainty discussion following Eq. (9) | `4e5bf691c23cdac9dc0074888f61fb59f1fa4ef52ff0dc94ec696870cd8b5726` |
-| CalLat 20 | [arXiv:2005.04795v3](https://arxiv.org/abs/2005.04795v3), DOI `10.1103/PhysRevD.102.034507` | Sec. II.A, Table I; Sec. II.B, Eq. (2); Sec. IV.C вЂњFull analysis and uncertainty breakdownвЂќ; App. C | `5e71ae3a2ac43898d269fe019f963e8afa17264165e6c69507416e73e7707365` |
-| ETM 21 | [arXiv:2104.06747v3](https://arxiv.org/abs/2104.06747v3), DOI `10.1103/PhysRevD.104.074520` | Sec. II, Table I and Eq. (15); Secs. IVвЂ“V; App. A simulation-parameter table; App. D | `fd2104c59248041246072ddfb4b1014b5605ae65952ec7cc3eb557623a1cdadc` |
+| CalLat 20 | [arXiv:2005.04795v3](https://arxiv.org/abs/2005.04795v3), DOI `10.1103/PhysRevD.102.034507` | Sec. II.A, Table I; Sec. II.B, Eq. (2); Sec. IV.C "Full analysis and uncertainty breakdown"; App. C | `5e71ae3a2ac43898d269fe019f963e8afa17264165e6c69507416e73e7707365` |
+| ETM 21 | [arXiv:2104.06747v3](https://arxiv.org/abs/2104.06747v3), DOI `10.1103/PhysRevD.104.074520` | Sec. II, Table I and Eq. (15); Secs. IV-V; App. A simulation-parameter table; App. D | `fd2104c59248041246072ddfb4b1014b5605ae65952ec7cc3eb557623a1cdadc` |
 
 The FLAG cross-check remains pinned to
 [arXiv:2411.04268](https://arxiv.org/abs/2411.04268), Sec. 5.3.2 and
@@ -62,16 +62,16 @@ Abbreviations: `SHARED` = `CONFIRMED_SHARED`, `DISJOINT` =
 
 | Pair | Configuration/data | Scale setting | Normalization | Named uncertainty lineage |
 | --- | --- | --- | --- | --- |
-| FNAL/MILC 17 вЂ” HPQCD 13A | SHARED | UNKNOWN | SHARED | SHARED |
-| FNAL/MILC 17 вЂ” ETM 14E | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
-| FNAL/MILC 17 вЂ” CalLat 20 | SHARED | UNKNOWN | UNKNOWN | SHARED |
-| FNAL/MILC 17 вЂ” ETM 21 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
-| HPQCD 13A вЂ” ETM 14E | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
-| HPQCD 13A вЂ” CalLat 20 | SHARED | POSSIBLE | UNKNOWN | SHARED |
-| HPQCD 13A вЂ” ETM 21 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
-| ETM 14E вЂ” CalLat 20 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
-| ETM 14E вЂ” ETM 21 | DISJOINT | UNKNOWN | SHARED | UNKNOWN |
-| CalLat 20 вЂ” ETM 21 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| FNAL/MILC 17 - HPQCD 13A | SHARED | UNKNOWN | UNKNOWN | SHARED |
+| FNAL/MILC 17 - ETM 14E | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| FNAL/MILC 17 - CalLat 20 | SHARED | UNKNOWN | UNKNOWN | SHARED |
+| FNAL/MILC 17 - ETM 21 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| HPQCD 13A - ETM 14E | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| HPQCD 13A - CalLat 20 | SHARED | POSSIBLE | UNKNOWN | SHARED |
+| HPQCD 13A - ETM 21 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| ETM 14E - CalLat 20 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| ETM 14E - ETM 21 | DISJOINT | UNKNOWN | UNKNOWN | UNKNOWN |
+| CalLat 20 - ETM 21 | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
 
 ### Evidence interpretation
 
@@ -92,19 +92,19 @@ Abbreviations: `SHARED` = `CONFIRMED_SHARED`, `DISJOINT` =
   families. Their common maximal-twist Ward-identity method likewise does not
   establish reuse of a fitted normalization input, so normalization remains
   `UNKNOWN`.
-- Generic category-name overlap such as вЂњstatisticsвЂќ, вЂњcontinuumвЂќ, or
-  вЂњfinite volumeвЂќ is not enough to declare shared uncertainty lineage.
+- Generic category-name overlap such as "statistics", "continuum", or
+  "finite volume" is not enough to declare shared uncertainty lineage.
 
 ## Remaining UNKNOWN states
 
 Six pairs remain `UNKNOWN` on every axis:
 
-- FNAL/MILC 17 вЂ” ETM 14E
-- FNAL/MILC 17 вЂ” ETM 21
-- HPQCD 13A вЂ” ETM 14E
-- HPQCD 13A вЂ” ETM 21
-- ETM 14E вЂ” CalLat 20
-- CalLat 20 вЂ” ETM 21
+- FNAL/MILC 17 - ETM 14E
+- FNAL/MILC 17 - ETM 21
+- HPQCD 13A - ETM 14E
+- HPQCD 13A - ETM 21
+- ETM 14E - CalLat 20
+- CalLat 20 - ETM 21
 
 All ten normalization axes remain `UNKNOWN`: method-label equality is not
 dependency identity.

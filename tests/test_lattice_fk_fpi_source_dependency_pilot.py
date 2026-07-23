@@ -8,6 +8,13 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/lattice_qcd/fk_fpi_source_manifest.yaml"
 GRAPH_PATH = ROOT / "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
+NF2P1P1_REVIEW_PATH = (
+    ROOT
+    / "docs"
+    / "reviews"
+    / "lattice_qcd"
+    / "fk-fpi-nf2p1p1-dependency-edge-resolution.md"
+)
 
 DEPENDENCE_STATES = {
     "CONFIRMED_SHARED",
@@ -41,6 +48,17 @@ def _all_keys(value: object) -> set[str]:
             keys.update(_all_keys(child))
         return keys
     return set()
+
+
+def _markdown_pair_rows(path: Path) -> dict[str, tuple[str, str, str, str]]:
+    rows: dict[str, tuple[str, str, str, str]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("| ") or line.startswith(("| Pair ", "| ---")):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) == 5 and " - " in cells[0]:
+            rows[cells[0]] = tuple(cells[1:])
+    return rows
 
 
 def test_manifest_freezes_exact_flag_input_set_without_numeric_results() -> None:
@@ -262,3 +280,32 @@ def test_nf2p1p1_pair_resolution_is_complete_conservative_and_metadata_only() ->
         "tension",
         "anomaly_score",
     } & _all_keys(resolution)
+
+def test_nf2p1p1_review_table_matches_canonical_graph_states() -> None:
+    graph = _load(GRAPH_PATH)
+    resolution = graph["nf_2p1p1_pair_resolution"]
+    labels = {
+        "pub-fnal-milc-17": "FNAL/MILC 17",
+        "pub-hpqcd-13a": "HPQCD 13A",
+        "pub-etm-14e": "ETM 14E",
+        "pub-callat-20": "CalLat 20",
+        "pub-etm-21": "ETM 21",
+    }
+    abbreviations = {
+        "CONFIRMED_SHARED": "SHARED",
+        "CONFIRMED_DISJOINT": "DISJOINT",
+        "POSSIBLE_SHARED": "POSSIBLE",
+        "UNKNOWN": "UNKNOWN",
+    }
+    expected = {}
+    for pair in resolution["pairs"]:
+        left, right = pair["publications"]
+        axes = pair["axes"]
+        expected[f"{labels[left]} - {labels[right]}"] = (
+            abbreviations[axes["configuration_or_data"]["state"]],
+            abbreviations[axes["scale_setting"]["state"]],
+            abbreviations[axes["normalization_or_renormalization"]["state"]],
+            abbreviations[axes["named_uncertainty_lineage"]["state"]],
+        )
+
+    assert _markdown_pair_rows(NF2P1P1_REVIEW_PATH) == expected
