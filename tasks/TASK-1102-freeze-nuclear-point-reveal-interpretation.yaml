@@ -1,0 +1,64 @@
+id: TASK-1102
+title: "Freeze nuclear point-only reveal interpretation before measurements"
+type: scientific_prediction_preflight
+status: READY
+closeout: review
+closeout_review_reason: "This task fixes the primary candidate, comparator hierarchy, partial-reveal information floor, and multiplicity rules before future nuclear measurements; closeout must verify zero reveal-source contact and no interval claims."
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "PRED-0069 through PRED-0072 freeze one GP candidate and three comparators across the same 37 frontier targets."
+  - "The registry names MAE and rank but does not yet provide a complete primary decision hierarchy for small or partial reveals."
+  - "Interpretation must be fixed before an AME/NUBASE or qualifying measurement source appears so model/comparator selection cannot follow outcomes."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-0069.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0070.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0071.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0072.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+  planning_context: >
+    Use only frozen registry metadata. Predeclare how point-only partial reveals
+    will compare PRED-0069 against PRED-0070/0071/0072 without inspecting,
+    scouting, or inferring any later nuclear measurement.
+
+requirements:
+  - "Freeze PRED-0069 as the sole primary candidate and PRED-0070, PRED-0071, and PRED-0072 as the complete comparator set; no other registered variant may enter the headline after reveal."
+  - "Freeze the primary paired metric/comparison hierarchy, pooled versus region roles, minimum eligible target count and region coverage, partial-reveal handling, ties, uncertainty/resampling method when applicable, and VALID/PARTIALLY_VALID/INVALID/INCONCLUSIVE mapping."
+  - "Account explicitly for selection from the wider historical registry so a favorable comparison against only one weak baseline cannot be described as broad model superiority."
+  - "Keep point-only semantics: MAE/rank and paired absolute-error deltas are allowed; interval coverage, calibration, sharpness, posterior uncertainty, or sigma wording are forbidden."
+  - "Preserve all 37 targets, prediction values, registration timestamps, source commits, regions, and unrevealed eligibility. Do not choose a minimum-N or comparator after a source trigger."
+  - "Stop with HOLD_INSUFFICIENT_PREDECLARATION if a primary hierarchy, minimum-information rule, or multiplicity correction cannot be fixed from registry metadata alone, or if any target-adjacent reveal-source information enters the task."
+  - "Return exactly one verdict: POINT_REVEAL_INTERPRETATION_READY or HOLD_INSUFFICIENT_PREDECLARATION."
+  - "Do not search for, fetch, cite snippets from, summarize, or inspect a later AME/NUBASE/Penning-trap/storage-ring source; do not alter registry entries or create a reveal result."
+  - "No-claim wording: an interpretation contract is not a successful nuclear-mass prediction, validated uncertainty, improved mass model, new mass law, or evidence for new physics."
+
+accepted_outputs:
+  - "A dated nuclear point-only reveal interpretation contract or narrowly scoped protocol amendment with primary/comparator roles, metrics, minimum-information gates, multiplicity handling, partial-reveal rules, exact verdict mapping, and no-source attestation."
+  - "Output routing to a future source-manifest and reveal task only; PRED entries, RESULT/CLAIM/KNOW artifacts, and interval-bearing TASK-0827 remain unchanged."
+
+result_artifact_policy:
+  required: false
+  reason: "Pre-reveal interpretation freeze only; no measurement source, score, or scientific RESULT is produced."
+  evidence:
+    - "prediction_registry/nuclear_masses/PRED-0069.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0070.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0071.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0072.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_nuclear_mass_prediction_registry.py tests/test_nuclear_prediction_reveal.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
