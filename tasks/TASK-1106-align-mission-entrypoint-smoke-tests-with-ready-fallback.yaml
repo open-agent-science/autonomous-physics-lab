@@ -1,7 +1,7 @@
 id: TASK-1106
 title: "Align mission entrypoint smoke tests with the READY-only fallback"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
