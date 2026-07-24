@@ -228,7 +228,8 @@ It must not report or imply:
 - uncertainty-normalized residuals;
 - prediction-readiness or interval-readiness;
 - a successful prediction before an admissible reveal is scored;
-- a validated nuclear-mass model, new mass law, or new physics; or
+- a validated nuclear-mass model, novel mass law, or evidence beyond the
+  registered comparison scope; or
 - broad superiority beyond the frozen four-entry family and eligible subset.
 
 Measurement-source uncertainty fields may be preserved as source metadata, but
