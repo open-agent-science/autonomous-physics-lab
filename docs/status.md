@@ -24,15 +24,16 @@ For linkable, public-safe summaries of active campaign results, use the
 ## Current Focus
 
 APL is concentrating on converting source-ready surfaces into bounded evidence.
-The current center of gravity is the OQMD one-shot benchmark, independent replay
-of CHARA `RESULT-0031`, honest benchmark-adequacy decisions for the eight CdSe
+The current center of gravity is independent replay of the OQMD negative/control
+`RESULT-0032`, independent replay of CHARA `RESULT-0031`, honest
+benchmark-adequacy decisions for the eight CdSe
 rows, and dependency/value-admissibility resolution for Lattice-QCD. A clean
 external dimensional surface remains a high-value validation gate. FRB,
 Exoplanet, Nuclear, and Atomic remain explicitly reveal- or trigger-gated.
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset lane with AGENT_VALIDATED `RESULT-0021`, externally published `MD-0002`, and a dated OQMD surface whose split, controls, and independent source replay pass | Run the one-shot frozen within-OQMD benchmark without rescue fitting or cross-database pooling |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset lane with AGENT_VALIDATED `RESULT-0021`, externally published `MD-0002`, and AGENT_PUBLISHED negative/control OQMD `RESULT-0032` | Independently replay the frozen OQMD result; preserve the failed exact-pair gate without rescue fitting or cross-database pooling |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four AGENT_VALIDATED results plus AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031` | Independently replay `RESULT-0031`; keep HD 284163 separate as a source-gated future extension |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, an externally anchored tier-1 point-only freeze, preserved uncertainty-calibration failures, and a clean no-value source scout | TASK-1031 found only pre-registration official sources; ratify the event-trigger ledger and do not repeat source scouts until a qualifying post-registration release signal |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_VALIDATED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is source-version/coverage trigger monitoring, not residual rescoring |

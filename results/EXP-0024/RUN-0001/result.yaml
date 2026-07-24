@@ -1,0 +1,156 @@
+result_id: RESULT-0032
+run_id: RUN-0001
+experiment_id: EXP-0024
+title: Frozen within-OQMD exact cation-pair baseline fails against the predeclared IUPAC group-pair null
+hypothesis_id: HYP-0024
+task_id: TASK-1066
+generated_at: '2026-07-22T00:00:00+00:00'
+engine_version: 0.2.0
+git_commit: f48fd76387b1c2eb9633a4bf577a8b75c647fefd
+command: physics-lab run examples/materials_oqmd_within_source_baseline.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0024/RUN-0001/inputs/config.yaml
+    sha256: 6489a2afb0cba2424ee63b1bbb3286674af8d091358d7665f9fd35cd1b266e66
+  experiment:
+    path: results/EXP-0024/RUN-0001/inputs/experiment.yaml
+    sha256: f30b50e38def7b30418f2da5be054ef2dfdf1f5786b39dafbef7caa92ba39521
+  hypothesis:
+    path: results/EXP-0024/RUN-0001/inputs/hypothesis.yaml
+    sha256: 88e90238f271e52285f5f5370b3ebd7b9436ef7745f639cff5a261eda733d1fa
+  task:
+    path: results/EXP-0024/RUN-0001/inputs/task.yaml
+    sha256: d02800d4ff0dca0c95ac25b647aa348dcddffdbe9b2a2357f1f052a7b8daee67
+  fixture:
+    path: results/EXP-0024/RUN-0001/inputs/fixture.yaml
+    sha256: 2e647812418448247a558a41b46a2606e9387ff122220f3821ba16f7393ec785
+code_reference: physics_lab/workflows/materials_oqmd_baseline.py
+limitations:
+- Agent-published negative/control evidence; not yet independently replayed or maintainer-reviewed.
+- One bounded 172-row OQMD computed-DFT slice under OQMD delta_e semantics only.
+- The benchmark is within-source; OQMD values are not pooled with or treated as numerically equal to Materials
+  Project values.
+- The exact cation-pair mean is a simple train-only baseline with a global-mean fallback, not a materials
+  law or production predictor.
+- Seeded sensitivity reassigns whole reduced-composition identity groups and does not authorize threshold,
+  descriptor, or model changes.
+- No experimental validation, material recommendation, synthesis guidance, or device-performance inference
+  is supported.
+- Contract verdict FAIL is represented as best_verdict INVALID in the RESULT schema; no rescue fit or
+  threshold revision was performed.
+best_model_id: model_oqmd_cation_pair_mean
+best_verdict: INVALID
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INVALID
+  published_by:
+    contributor_id: akutenyov
+    github_username: akutenyov
+    agent_tool: Codex Desktop
+    model_version: GPT-5
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+    gate_b_replayable_command: true
+  evidence_summary: The deterministic one-shot run preserved all 172 frozen OQMD rows, passed source/split/contract
+    integrity checks, and retained the failed survival outcome. The exact cation-pair baseline beat the
+    global median and every shuffle control but was worse than the IUPAC group-pair null.
+  followup_for_maintainer: Preserve this as bounded negative/control memory. Do not rescue-fit, reinterpret
+    the within-source result as cross-database evidence, or promote a materials claim.
+verification:
+  passed: true
+  checks:
+  - name: frozen_inputs_and_prerequisites_match
+    status: PASS
+    details: Raw source, normalized snapshot, manifest, split, contract, and independent replay hashes
+      match the frozen execution config.
+    metrics:
+      row_count: 172
+      train_count: 120
+      validation_count: 26
+      holdout_count: 26
+      composition_leakage_count: 0
+  - name: frozen_model_and_controls_executed_without_rescue
+    status: PASS
+    details: The train-only exact pair baseline, both nulls, ten shuffle instances, row-order check, and
+      five sensitivity seeds ran unchanged.
+    metrics:
+      candidate_holdout_mae: 0.308533591392
+      global_median_holdout_mae: 0.459529604455
+      iupac_group_pair_holdout_mae: 0.154250620789
+      shuffle_instances: 10
+      sensitivity_seeds: 5
+  - name: predeclared_fail_closed_verdict_applied
+    status: PASS
+    details: The candidate failed the required margin against the IUPAC group-pair null on the fixed holdout
+      and every sensitivity seed.
+    metrics:
+      contract_verdict: FAIL
+      observed_margin: -0.154282970603
+      required_margin: 0.02
+      fixed_split_all_comparators_pass: false
+      all_sensitivity_seeds_pass: false
+comparison_summary:
+- target_id: target_oqmd_survival_margin
+  label: Exact cation-pair MAE versus IUPAC group-pair null MAE
+  reference_value: 0.154250620789
+  observed_value: 0.308533591392
+  unit: eV_per_atom
+  absolute_difference: 0.154282970603
+  relative_difference: 1.0002097224233817
+  notes: Lower MAE is better. The candidate is worse, so the frozen margin rule fails without rescue fitting.
+uncertainty_summary:
+  method: five identity-group-preserving seeded repartitions
+  observed_uncertainty: 0.10779881376599998
+  reference_uncertainty: 0.02
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: Candidate holdout MAE range across frozen seeds; every seed also fails against the IUPAC group-pair
+    null.
+artifacts:
+  report: results/EXP-0024/RUN-0001/report.md
+  metrics: results/EXP-0024/RUN-0001/metrics.json
+  claim_update: results/EXP-0024/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0024/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0024/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0024/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0024/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0024/RUN-0001/review_metadata.yaml
+scores:
+- model_id: model_oqmd_cation_pair_mean
+  formula: Train mean OQMD delta_e per unordered non-oxygen cation pair with train global-mean fallback
+  coefficients:
+    distinct_train_pairs: 58
+    global_train_mean_fallback: -2.032794482534
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.042844099068
+    max_relative_error: 0.267916115206
+  test_metrics:
+    mean_relative_error: 0.145829312149
+    max_relative_error: 0.669371495143
+  composite_score: 0.308533591392
+  verdict: INVALID
+- model_id: model_oqmd_iupac_group_pair_null
+  formula: Train mean OQMD delta_e per unordered IUPAC cation-group pair with train global-mean fallback
+  coefficients:
+    distinct_train_group_pairs: 19
+    global_train_mean_fallback: -2.032794482534
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.089487934776
+    max_relative_error: 1.016762793339
+  test_metrics:
+    mean_relative_error: 0.078640303739
+    max_relative_error: 0.310482157872
+  composite_score: 0.154250620789
+  verdict: VALID

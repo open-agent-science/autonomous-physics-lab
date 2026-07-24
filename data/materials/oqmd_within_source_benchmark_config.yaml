@@ -1,0 +1,39 @@
+schema_version: "1"
+task_id: TASK-1066
+contract_id: oqmd-within-source-cation-pair-v1
+inputs:
+  raw_snapshot:
+    path: data/materials/snapshots/oqmd_live_api_2026-07-14_page_0000.json
+    sha256: d39fc1c126434e9b178f88ee1afcaf15938993f2e6fc1528cdf5c4b0ea3bcb35
+  normalized_snapshot:
+    path: data/materials/oqmd_live_api_2026-07-14_normalized.json
+    sha256: af8991aefda6f408a3ad33251aa5564f5fed37a7d527b696d68442971bc978a4
+  source_manifest:
+    path: data/materials/oqmd_live_api_2026-07-14_manifest.yaml
+    sha256: 447eb1feb786b08845f147a93c3d0479fd2eeb5ee39f969cdd10469f61000e37
+  split:
+    path: data/materials/oqmd_live_api_2026-07-14_split.yaml
+    sha256: 457444fe8e54a2ec54491931adf33a75cd583f236a37d4726966b4edcb6e9c34
+  contract:
+    path: docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml
+    sha256: cc1d0787c7a9510f27ad19e910f8892c84850928845bb3ac73a8aab7ec4f4efa
+  independent_replay:
+    path: docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md
+    sha256: 9bbd04c3232a9a833d9a8213c731d1917588d8b6a83a887b6f0367fb53b2ebe0
+execution:
+  primary_model: unordered_non_oxygen_cation_pair_train_mean
+  fallback: train_only_global_mean
+  nulls:
+    - train_only_global_median
+    - train_only_iupac_cation_group_pair_mean
+  controls:
+    label_shuffle_seeds: [1054, 2054, 3054, 4054, 5054]
+    cation_pair_label_shuffle_seeds: [1054, 2054, 3054, 4054, 5054]
+  sensitivity_seeds: [1054, 2054, 3054, 4054, 5054]
+  primary_metric: MAE
+  secondary_metric: RMSE
+  absolute_margin_eV_per_atom: 0.02
+  relative_margin_fraction: 0.05
+  absolute_tolerance: 1.0e-12
+  rescue_fitting_allowed: false
+  cross_database_pooling_allowed: false

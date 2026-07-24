@@ -38,6 +38,9 @@ from physics_lab.workflows.textbook_exact_reference import (
 from physics_lab.workflows.materials_md0002_formation_energy import (
     run_materials_md0002_formation_energy_with_output,
 )
+from physics_lab.workflows.materials_oqmd_baseline import (
+    run_materials_oqmd_baseline_with_output,
+)
 from physics_lab.workflows.stellar_ml_debcat_baseline import (
     run_stellar_ml_debcat_baseline_with_output,
 )
@@ -83,6 +86,7 @@ WORKFLOW_DISPATCH: dict[str, ExperimentHandler] = {
     "materials_md0002_formation_energy_benchmark": (
         run_materials_md0002_formation_energy_with_output
     ),
+    "materials_oqmd_within_source_baseline": run_materials_oqmd_baseline_with_output,
     "stellar_ml_debcat_baseline_benchmark": run_stellar_ml_debcat_baseline_with_output,
     "stellar_ml_high_mass_transfer_benchmark": (
         run_stellar_ml_high_mass_transfer_with_output
@@ -165,5 +169,6 @@ __all__ = [
     "run_stellar_ml_debcat_baseline_with_output",
     "run_stellar_ml_high_mass_transfer_with_output",
     "run_stellar_ml_chara_transfer_with_output",
+    "run_materials_oqmd_baseline_with_output",
     "run_thermoml_tb_family_transfer_with_output",
 ]

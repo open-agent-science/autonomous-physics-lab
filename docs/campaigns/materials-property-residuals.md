@@ -62,9 +62,14 @@ validation, and 26 holdout rows, and `TASK-1054` froze the cation-pair baseline,
 nulls, controls, seeds, metrics, and survival margin without target access.
 `TASK-1063` independently reproduced the source hashes, counts, predicate,
 overlap exclusions, semantics, and rights boundary and returned
-`INDEPENDENT_SOURCE_REPLAY_PASS`. No OQMD metric or `RESULT` exists yet; one
-frozen within-source benchmark is now ready, while cross-database numeric
-pooling remains forbidden.
+`INDEPENDENT_SOURCE_REPLAY_PASS`. `TASK-1066` then ran the one frozen OQMD
+benchmark without rescue fitting. `RESULT-0032` preserves a fail-closed
+negative/control outcome: the exact cation-pair baseline reached holdout MAE
+`0.308534` eV/atom, worse than the train-only IUPAC group-pair null at
+`0.154251` eV/atom, although it beat the global-median and every shuffle
+control. All five identity-group-preserving sensitivity seeds also failed the
+IUPAC-null margin. This is bounded within-source computed-DFT evidence;
+cross-database numeric pooling remains forbidden.
 
 ## Public Monitoring Snapshot
 
