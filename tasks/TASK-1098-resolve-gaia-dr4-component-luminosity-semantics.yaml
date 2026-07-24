@@ -1,7 +1,7 @@
 id: TASK-1098
 title: "Resolve Gaia DR4 same-component luminosity semantics without values"
 type: scientific_prediction_preflight
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task decides whether Gaia DR4 can support the same-component mass-luminosity target required by RESULT-0022; closeout must verify official metadata, no-value discipline, and rejection of outcome-driven decomposition."
 difficulty: high
@@ -45,7 +45,7 @@ result_artifact_policy:
   required: false
   reason: "Official-metadata semantics gate only; no Gaia rows, values, predictions, or scientific result are produced."
   evidence:
-    - "docs/reviews/stellar/gaia-dr4-freeze-readiness.md"
+    - "docs/reviews/stellar/gaia-dr4-component-luminosity-gate-2026-07-24.md"
 
 validation:
   commands:
