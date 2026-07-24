@@ -221,7 +221,7 @@ DR4 sample exists.
 
 ## Repository Inputs
 
-- `tasks/TASK-1029-gaia-dr4-stellar-transfer-freeze-readiness.yaml`
+- `TASK-1029`
 - `docs/reviews/stellar/gaia-dr4-freeze-readiness.md`
 - `docs/reviews/gaia-dr4-stellar-ml-reveal-contract-scout.md`
 - `results/EXP-0015/RUN-0001/result.yaml`
