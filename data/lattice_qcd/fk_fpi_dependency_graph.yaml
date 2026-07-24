@@ -75,12 +75,13 @@ evidence_catalog:
     locator: >
       Sec. II, Table I and Eq. (15); Secs. IV-V; App. A, table captioned
       "Simulation parameters for the ensembles used for this study"; App. D.
-  ev-rbc: {source_identity: arXiv:1411.7017v2, locator: "Secs. II-IV"}
-  ev-hpqcd07: {source_identity: arXiv:0706.1726v2, locator: "ensemble table and analysis text"}
-  ev-milc10: {source_identity: arXiv:1012.0868v1, locator: "Secs. 2-3"}
-  ev-bmw10: {source_identity: arXiv:1001.4692v1, locator: "Secs. 2-3"}
-  ev-bmw16: {source_identity: arXiv:1601.05998v2, locator: "Secs. 2-5 and appendix"}
-  ev-qcdsf: {source_identity: arXiv:1612.04798v1, locator: "Secs. 3-5 and App. C"}
+  ev-rbc: {source_identity: arXiv:1411.7017v2, locator: "PDF pp. 3-4 (ensemble sets), Sec. III C (axial-current normalization), and Sec. IV (global fit and scale)"}
+  ev-hpqcd07: {source_identity: arXiv:0706.1726v2, locator: "PDF p. 1, Table I (MILC configuration rows); PDF p. 2 (PCAC current and MILC r1/a scale paragraphs)"}
+  ev-milc10: {source_identity: arXiv:1012.0868v1, locator: "official PoS(Lattice 2010)074 PDF pp. 2-3, Sec. 2 and Table 1 (ensembles and r1/a); PDF p. 5 (scale-setting paragraph)"}
+  ev-bmw10: {source_identity: arXiv:1001.4692v1, locator: "PDF pp. 2-4, Introduction, Sec. 2.1, and Table 1 (action delegated to Ref. [9], Xi/Omega scale routes); Sec. 2.5 (systematic treatment)"}
+  ev-bmw10-action: {source_identity: arXiv:0802.2706v2, locator: "Sec. II.A (tree-level Symanzik gauge action and six-step stout-smeared clover fermion action used by the BMW 2010 setup through Ref. [9])"}
+  ev-bmw16: {source_identity: arXiv:1601.05998v2, locator: "PDF pp. 2-5, Secs. 2-3.1 (47-ensemble family, Z_A cancellation, and Omega scale); PDF pp. 17-18, appendix ensemble table"}
+  ev-qcdsf: {source_identity: arXiv:1612.04798v1, locator: "PDF p. 5, Sec. 3 (simulation setup); PDF pp. 8-10, Sec. 4 and continuum-extrapolation paragraph (improved axial current and prior lattice spacings)"}
 
 nodes:
   - {node_id: pub-fnal-milc-17, node_type: publication, label: "FNAL/MILC 17", source_identity: arXiv:1712.09262v4, rights_status: metadata_only, retrieval_identity: https://arxiv.org/abs/1712.09262}
@@ -110,7 +111,7 @@ nodes:
   - {node_id: ens-etmc-clover-tm-2p1p1, node_type: gauge_ensemble_family, label: "ETMC Wilson-clover twisted-mass Nf=2+1+1", source_identity: ev-etm21, rights_status: factual_metadata, retrieval_identity: arXiv:2104.06747v3}
   - {node_id: ens-rbc-dwf-2p1, node_type: gauge_ensemble_family, label: "RBC/UKQCD Iwasaki domain-wall Nf=2+1", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
   - {node_id: ens-milc-asqtad-2p1, node_type: gauge_ensemble_family, label: "MILC Nf=2+1 asqtad", source_identity: ev-flag-asqtad, rights_status: factual_metadata, retrieval_identity: arXiv:2411.04268}
-  - {node_id: ens-bmw-2hex-2010, node_type: gauge_ensemble_family, label: "BMW 2HEX-clover 2010 family", source_identity: ev-bmw10, rights_status: factual_metadata, retrieval_identity: arXiv:1001.4692v1}
+  - {node_id: ens-bmw-stout6-2010, node_type: gauge_ensemble_family, label: "BMW six-step stout-clover 2010 family", source_identity: ev-bmw10-action, rights_status: factual_metadata, retrieval_identity: arXiv:0802.2706v2}
   - {node_id: ens-bmw-2hex-2016, node_type: gauge_ensemble_family, label: "BMW 2HEX-clover 2016 family", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
   - {node_id: ens-qcdsf-slinc-2p1, node_type: gauge_ensemble_family, label: "QCDSF/UKQCD SLiNC Nf=2+1", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
 
@@ -121,6 +122,7 @@ nodes:
   - {node_id: action-rbc-dwf, node_type: fermion_action, label: "Iwasaki plus Shamir/Mobius domain wall", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
   - {node_id: action-hisq-on-asqtad, node_type: fermion_action, label: "HISQ valence on asqtad sea", source_identity: ev-hpqcd07, rights_status: factual_metadata, retrieval_identity: arXiv:0706.1726v2}
   - {node_id: action-asqtad, node_type: fermion_action, label: "asqtad sea and valence", source_identity: ev-milc10, rights_status: factual_metadata, retrieval_identity: arXiv:1012.0868v1}
+  - {node_id: action-bmw-stout6-clover, node_type: fermion_action, label: "tree-level Symanzik gauge with six-step stout-smeared clover fermions", source_identity: ev-bmw10-action, rights_status: factual_metadata, retrieval_identity: arXiv:0802.2706v2}
   - {node_id: action-bmw-2hex-clover, node_type: fermion_action, label: "tree-level clover with 2HEX and Symanzik gauge", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
   - {node_id: action-qcdsf-slinc, node_type: fermion_action, label: "NP-improved stout clover with Symanzik gauge", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
 
@@ -138,6 +140,7 @@ nodes:
   - {node_id: norm-staggered-pcac, node_type: normalization_or_renormalization_route, label: "staggered PCAC absolute normalization", source_identity: ev-hpqcd13, rights_status: factual_metadata, retrieval_identity: arXiv:1303.1670v2}
   - {node_id: norm-domain-wall-ratio, node_type: normalization_or_renormalization_route, label: "domain-wall common axial normalization cancels in ratio", source_identity: ev-rbc, rights_status: factual_metadata, retrieval_identity: arXiv:1411.7017v2}
   - {node_id: norm-twisted-ward, node_type: normalization_or_renormalization_route, label: "maximal-twist Ward-identity normalization", source_identity: ev-etm21, rights_status: factual_metadata, retrieval_identity: arXiv:2104.06747v3}
+  - {node_id: norm-bmw10-unresolved, node_type: normalization_or_renormalization_route, label: "BMW 2010 normalization lineage unresolved by bounded locator", source_identity: ev-bmw10, rights_status: factual_metadata, retrieval_identity: arXiv:1001.4692v1}
   - {node_id: norm-clover-za-cancel, node_type: normalization_or_renormalization_route, label: "common clover Z_A cancellation in ratio", source_identity: ev-bmw16, rights_status: factual_metadata, retrieval_identity: arXiv:1601.05998v2}
   - {node_id: norm-qcdsf-improved-axial, node_type: normalization_or_renormalization_route, label: "renormalized O(a)-improved axial-current ratio", source_identity: ev-qcdsf, rights_status: factual_metadata, retrieval_identity: arXiv:1612.04798v1}
 
@@ -174,7 +177,7 @@ edges:
   - {edge_id: e017, edge_type: uses_ensemble_family, from_node: pub-rbc-ukqcd-14b, to_node: ens-rbc-dwf-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "RBC/UKQCD physical and legacy domain-wall ensembles."}
   - {edge_id: e018, edge_type: uses_ensemble_family, from_node: pub-hpqcd-ukqcd-07, to_node: ens-milc-asqtad-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "MILC asqtad gauge configurations."}
   - {edge_id: e019, edge_type: uses_ensemble_family, from_node: pub-milc-10, to_node: ens-milc-asqtad-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "MILC asqtad gauge configurations."}
-  - {edge_id: e020, edge_type: uses_ensemble_family, from_node: pub-bmw-10, to_node: ens-bmw-2hex-2010, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "BMW 2010 2HEX-clover family."}
+  - {edge_id: e020, edge_type: uses_ensemble_family, from_node: pub-bmw-10, to_node: ens-bmw-stout6-2010, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10-action, curator_note: "BMW 2010 six-step stout-smeared clover family via the action paper cited as Ref. [9]."}
   - {edge_id: e021, edge_type: uses_ensemble_family, from_node: pub-bmw-16, to_node: ens-bmw-2hex-2016, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "BMW 2016 47-ensemble family."}
   - {edge_id: e022, edge_type: uses_ensemble_family, from_node: pub-qcdsf-ukqcd-16, to_node: ens-qcdsf-slinc-2p1, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "QCDSF/UKQCD SLiNC family."}
 
@@ -186,7 +189,7 @@ edges:
   - {edge_id: e028, edge_type: uses_fermion_action, from_node: pub-rbc-ukqcd-14b, to_node: action-rbc-dwf, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "Domain-wall route."}
   - {edge_id: e029, edge_type: uses_fermion_action, from_node: pub-hpqcd-ukqcd-07, to_node: action-hisq-on-asqtad, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-hpqcd07, curator_note: "HISQ valence on asqtad sea."}
   - {edge_id: e030, edge_type: uses_fermion_action, from_node: pub-milc-10, to_node: action-asqtad, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-milc10, curator_note: "Unitary asqtad route."}
-  - {edge_id: e031, edge_type: uses_fermion_action, from_node: pub-bmw-10, to_node: action-bmw-2hex-clover, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "2HEX-clover route."}
+  - {edge_id: e031, edge_type: uses_fermion_action, from_node: pub-bmw-10, to_node: action-bmw-stout6-clover, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10-action, curator_note: "Tree-level Symanzik gauge action with six-step stout-smeared clover fermions."}
   - {edge_id: e032, edge_type: uses_fermion_action, from_node: pub-bmw-16, to_node: action-bmw-2hex-clover, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "2HEX-clover route."}
   - {edge_id: e033, edge_type: uses_fermion_action, from_node: pub-qcdsf-ukqcd-16, to_node: action-qcdsf-slinc, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "SLiNC route."}
 
@@ -210,7 +213,7 @@ edges:
   - {edge_id: e050, edge_type: depends_on_normalization_or_renormalization, from_node: pub-rbc-ukqcd-14b, to_node: norm-domain-wall-ratio, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-rbc, curator_note: "Common axial normalization cancels in ratio."}
   - {edge_id: e051, edge_type: depends_on_normalization_or_renormalization, from_node: pub-etm-14e, to_node: norm-twisted-ward, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm14, curator_note: "Maximal-twist Ward identity."}
   - {edge_id: e052, edge_type: depends_on_normalization_or_renormalization, from_node: pub-etm-21, to_node: norm-twisted-ward, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-etm21, curator_note: "Maximal-twist Ward identity."}
-  - {edge_id: e053, edge_type: depends_on_normalization_or_renormalization, from_node: pub-bmw-10, to_node: norm-clover-za-cancel, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw10, curator_note: "Common Z_A cancels in ratio."}
+  - {edge_id: e053, edge_type: depends_on_normalization_or_renormalization, from_node: pub-bmw-10, to_node: norm-bmw10-unresolved, dependence_state: UNKNOWN, evidence_identity: ev-bmw10, curator_note: "The bounded BMW 2010 locator does not identify Z_A cancellation or a reusable normalization input."}
   - {edge_id: e054, edge_type: depends_on_normalization_or_renormalization, from_node: pub-bmw-16, to_node: norm-clover-za-cancel, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-bmw16, curator_note: "Common Z_A cancels in ratio."}
   - {edge_id: e055, edge_type: depends_on_normalization_or_renormalization, from_node: pub-qcdsf-ukqcd-16, to_node: norm-qcdsf-improved-axial, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-qcdsf, curator_note: "Improved axial-current route."}
 
@@ -220,8 +223,8 @@ edges:
   - {edge_id: e059, edge_type: shares_configuration_or_data, from_node: pub-hpqcd-ukqcd-07, to_node: data-milc-asqtad-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-asqtad, curator_note: "FLAG records a shared subset."}
   - {edge_id: e060, edge_type: shares_configuration_or_data, from_node: pub-milc-10, to_node: data-milc-asqtad-configurations, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-asqtad, curator_note: "FLAG records a shared subset."}
   - {edge_id: e061, edge_type: shares_configuration_or_data, from_node: pub-etm-14e, to_node: pub-etm-21, dependence_state: CONFIRMED_DISJOINT, evidence_identity: ev-flag-etm, curator_note: "FLAG calls ETM 21 independent and the primary sources identify legacy versus new clover ensembles."}
-  - {edge_id: e062, edge_type: shares_configuration_or_data, from_node: pub-bmw-10, to_node: data-bmw-configuration-lineage, dependence_state: POSSIBLE_SHARED, evidence_identity: ev-bmw10, curator_note: "Same collaboration/action family; exact configuration overlap not resolved."}
-  - {edge_id: e063, edge_type: shares_configuration_or_data, from_node: pub-bmw-16, to_node: data-bmw-configuration-lineage, dependence_state: POSSIBLE_SHARED, evidence_identity: ev-bmw16, curator_note: "Same collaboration/action family; exact configuration overlap not resolved."}
+  - {edge_id: e062, edge_type: shares_configuration_or_data, from_node: pub-bmw-10, to_node: data-bmw-configuration-lineage, dependence_state: UNKNOWN, evidence_identity: ev-bmw10-action, curator_note: "BMW 2010 uses a six-step stout-clover action; no source cross-identifies its configurations with BMW 2016."}
+  - {edge_id: e063, edge_type: shares_configuration_or_data, from_node: pub-bmw-16, to_node: data-bmw-configuration-lineage, dependence_state: UNKNOWN, evidence_identity: ev-bmw16, curator_note: "BMW 2016 uses a 2HEX-clover family; no source cross-identifies its configurations with BMW 2010."}
 
   - {edge_id: e064, edge_type: contributes_to_evaluated_average, from_node: pub-fnal-milc-17, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
   - {edge_id: e065, edge_type: contributes_to_evaluated_average, from_node: pub-hpqcd-13a, to_node: flag-2024-nf-2p1p1-fk-fpi, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-set, curator_note: "Average input; average cannot count independently."}
@@ -245,6 +248,127 @@ edges:
   - {edge_id: e082, edge_type: carries_uncertainty_component, from_node: pub-rbc-ukqcd-14b, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
   - {edge_id: e083, edge_type: carries_uncertainty_component, from_node: pub-hpqcd-ukqcd-07, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
   - {edge_id: e084, edge_type: carries_uncertainty_component, from_node: pub-bmw-10, to_node: unc-flag-su3-isospin, dependence_state: CONFIRMED_SHARED, evidence_identity: ev-flag-isospin, curator_note: "Shared FLAG-applied strong-isospin route."}
+
+nf_2p1_pair_resolution:
+  task_id: TASK-1080
+  reviewed_at: "2026-07-23"
+  metadata_only: true
+  scope_publication_ids:
+    - pub-rbc-ukqcd-14b
+    - pub-hpqcd-ukqcd-07
+    - pub-milc-10
+    - pub-bmw-10
+    - pub-bmw-16
+    - pub-qcdsf-ukqcd-16
+  dependency_axes:
+    - configuration_or_data
+    - scale_setting
+    - normalization_or_renormalization
+    - named_uncertainty_lineage
+  unordered_pair_count: 15
+  pairs:
+    - publications: [pub-rbc-ukqcd-14b, pub-hpqcd-ukqcd-07]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-hpqcd07], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-hpqcd07], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-hpqcd07], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: CONFIRMED_SHARED, evidence_identities: [ev-flag-isospin], curator_note: "FLAG applies the common NLO SU(3) strong-isospin conversion to both inputs."}
+    - publications: [pub-rbc-ukqcd-14b, pub-milc-10]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-milc10], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-milc10], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-milc10], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-milc10], curator_note: "Named categories do not establish a common component or certified disjointness."}
+    - publications: [pub-rbc-ukqcd-14b, pub-bmw-10]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw10], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw10], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw10], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: CONFIRMED_SHARED, evidence_identities: [ev-flag-isospin], curator_note: "FLAG applies the common NLO SU(3) strong-isospin conversion to both inputs."}
+    - publications: [pub-rbc-ukqcd-14b, pub-bmw-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw16], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw16], curator_note: "A common hadron name is not enough to prove shared scale-data lineage."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw16], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-bmw16], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-rbc-ukqcd-14b, pub-qcdsf-ukqcd-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-qcdsf], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-qcdsf], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-qcdsf], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-rbc, ev-qcdsf], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-hpqcd-ukqcd-07, pub-milc-10]
+      axes:
+        configuration_or_data: {state: CONFIRMED_SHARED, evidence_identities: [ev-hpqcd07, ev-milc10, ev-flag-asqtad], curator_note: "HPQCD Table I identifies MILC configurations; its fine-ensemble rows are present in MILC Table 1, and FLAG records the shared subset."}
+        scale_setting: {state: CONFIRMED_SHARED, evidence_identities: [ev-hpqcd07, ev-milc10], curator_note: "Both analyses consume the MILC r1/a lineage; their physical r1 choices are not treated as identical."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-milc10], curator_note: "Shared staggered-PCAC method labels do not establish a common fitted normalization input."}
+        named_uncertainty_lineage: {state: CONFIRMED_SHARED, evidence_identities: [ev-flag-asqtad], curator_note: "FLAG treats the statistical and systematic lineages as correlated for this pair."}
+    - publications: [pub-hpqcd-ukqcd-07, pub-bmw-10]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw10], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw10], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw10], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: CONFIRMED_SHARED, evidence_identities: [ev-flag-isospin], curator_note: "FLAG applies the common NLO SU(3) strong-isospin conversion to both inputs."}
+    - publications: [pub-hpqcd-ukqcd-07, pub-bmw-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw16], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw16], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw16], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-bmw16], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-hpqcd-ukqcd-07, pub-qcdsf-ukqcd-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-qcdsf], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-qcdsf], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-qcdsf], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-hpqcd07, ev-qcdsf], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-milc-10, pub-bmw-10]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw10], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw10], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw10], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw10], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-milc-10, pub-bmw-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw16], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw16], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw16], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-bmw16], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-milc-10, pub-qcdsf-ukqcd-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-qcdsf], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-qcdsf], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-qcdsf], curator_note: "Distinct described routes do not by themselves certify disjoint lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-milc10, ev-qcdsf], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-bmw-10, pub-bmw-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-bmw10-action, ev-bmw16], curator_note: "BMW 2010 uses six-step stout smearing while BMW 2016 uses 2HEX; no source establishes a shared or disjoint configuration lineage."}
+        scale_setting: {state: POSSIBLE_SHARED, evidence_identities: [ev-bmw10, ev-bmw16], curator_note: "Independently supported routes include Xi with an Omega alternative for BMW 10 and Omega for BMW 16; shared scale-data inputs are not established."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-bmw10, ev-bmw16], curator_note: "The bounded BMW 2010 locator does not establish Z_A cancellation; BMW 2016 normalization evidence cannot establish shared lineage."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-bmw10, ev-bmw16], curator_note: "No pair-specific common named component or certified disjointness is identified."}
+    - publications: [pub-bmw-10, pub-qcdsf-ukqcd-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-bmw10, ev-qcdsf], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-bmw10, ev-qcdsf], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-bmw10, ev-qcdsf], curator_note: "Action similarity or different current details do not certify either relation."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-bmw10, ev-qcdsf], curator_note: "No pair-specific common component or certified disjointness is identified."}
+    - publications: [pub-bmw-16, pub-qcdsf-ukqcd-16]
+      axes:
+        configuration_or_data: {state: UNKNOWN, evidence_identities: [ev-bmw16, ev-qcdsf], curator_note: "The primary sources do not cross-identify configurations or certify disjointness."}
+        scale_setting: {state: UNKNOWN, evidence_identities: [ev-bmw16, ev-qcdsf], curator_note: "No shared scale input or explicit disjointness statement is identified."}
+        normalization_or_renormalization: {state: UNKNOWN, evidence_identities: [ev-bmw16, ev-qcdsf], curator_note: "Action similarity or different current details do not certify either relation."}
+        named_uncertainty_lineage: {state: UNKNOWN, evidence_identities: [ev-bmw16, ev-qcdsf], curator_note: "No pair-specific common component or certified disjointness is identified."}
+  evaluated_average_membership:
+    average_node: flag-2024-nf-2p1-fk-fpi
+    evidence_identity: ev-flag-set
+    input_publication_ids:
+      - pub-rbc-ukqcd-14b
+      - pub-hpqcd-ukqcd-07
+      - pub-milc-10
+      - pub-bmw-10
+      - pub-bmw-16
+      - pub-qcdsf-ukqcd-16
+    count_average_as_independent_with_inputs: false
+  verdict: PARTIAL_HOLD_UNKNOWN_EDGES
 
 nf_2p1p1_pair_resolution:
   task_id: TASK-1079
