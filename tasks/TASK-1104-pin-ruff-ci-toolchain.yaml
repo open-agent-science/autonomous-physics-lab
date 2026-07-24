@@ -1,0 +1,57 @@
+id: TASK-1104
+title: "Pin the Ruff merge-queue toolchain after the 0.16 baseline break"
+type: repository_hardening
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "The required merge queue must evaluate PR content rather than fail because a fresh dependency resolver silently changed the lint baseline."
+  - "PR #1665 and PR #1664 both passed exact-head review and pull-request CI but were removed from the queue when Ruff 0.16.0 replaced the last-green 0.15.22 release."
+  - "A narrow exact pin restores deterministic CI while preserving a separate review surface for any future lint-baseline migration."
+
+input:
+  mode: workflow
+  related_objects:
+    - "pyproject.toml"
+    - ".github/workflows/ci.yml"
+    - "tests/test_ci_toolchain_constraints.py"
+  planning_context: >
+    Merge-group runs 30037966338 and 30038549126 installed Ruff 0.16.0 from
+    the unconstrained ruff>=0.6 development requirement and failed on 1752
+    findings in the unchanged base tree. The preceding successful merge-group
+    run 30026222215 installed Ruff 0.15.22. Restore the known-green toolchain
+    without mass-formatting unrelated scientific and historical files.
+
+requirements:
+  - "Replace the open-ended Ruff development requirement with the exact last-green version 0.15.22."
+  - "Add a regression test that fails if the CI-critical Ruff requirement becomes open-ended or changes without an intentional PR."
+  - "Document beside the dependency why baseline upgrades must be isolated and reviewed."
+  - "Do not auto-fix, reformat, chmod, or otherwise modify unrelated repository files."
+  - "Do not weaken required merge-group CI, remove Ruff, ignore repository paths, or reduce the configured lint scope."
+  - "Keep future Ruff upgrades eligible for a dedicated dependency PR with their full rule and formatting impact visible."
+
+accepted_outputs:
+  - "An exact Ruff 0.15.22 development-tool pin used by fresh CI installs."
+  - "A focused regression test for the deterministic Ruff dependency contract."
+  - "Evidence that Ruff, strict repository validation, and targeted tests pass without unrelated rewrites."
+
+result_artifact_policy:
+  required: false
+  reason: "Repository hardening only; no scientific RESULT or PRED artifact is expected."
+  evidence:
+    - "pyproject.toml"
+    - "tests/test_ci_toolchain_constraints.py"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_ci_toolchain_constraints.py"
+    - "python3 -m ruff check tests/test_ci_toolchain_constraints.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

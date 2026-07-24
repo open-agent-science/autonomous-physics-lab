@@ -1,0 +1,60 @@
+id: TASK-1098
+title: "Resolve Gaia DR4 same-component luminosity semantics without values"
+type: scientific_prediction_preflight
+status: READY
+closeout: review
+closeout_review_reason: "This task decides whether Gaia DR4 can support the same-component mass-luminosity target required by RESULT-0022; closeout must verify official metadata, no-value discipline, and rejection of outcome-driven decomposition."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "TASK-1029 found direct component masses but only source-level FLAME luminosity and a G-band flux ratio in the official draft data model."
+  - "A stellar transfer reveal is invalid if one source-level luminosity is silently assigned to two component masses or decomposed after values are visible."
+  - "One metadata-only semantics gate can either clear a valid component route or park Gaia until final documentation changes."
+
+input:
+  mode: planning_only
+  related_domain: stellar_astrophysics
+  related_objects:
+    - "tasks/TASK-1029-gaia-dr4-stellar-transfer-freeze-readiness.yaml"
+    - "docs/reviews/stellar/gaia-dr4-freeze-readiness.md"
+    - "docs/reviews/gaia-dr4-stellar-ml-reveal-contract-scout.md"
+    - "results/EXP-0015/RUN-0001/result.yaml"
+  planning_context: >
+    Inspect only official ESA/Gaia release and data-model documentation. Decide
+    whether two dynamical component masses can be bound to two bolometric
+    component luminosities with documented semantics and uncertainties before
+    any Gaia DR4 target value is queried.
+
+requirements:
+  - "Pin the current official Gaia DR4 draft/final data-model identity, access date, checksum or immutable locator, relevant table/field definitions, solution enums, units, uncertainty fields, and component/source identity semantics."
+  - "Determine whether official metadata supplies per-component bolometric luminosity or an independently justified value-blind transformation that maps each dynamical component mass to the luminosity of that same component."
+  - "Treat source-level FLAME luminosity, G-band flux ratio, model-derived stellar mass, absolute magnitude, and bolometric luminosity as distinct quantities; do not infer an undocumented bolometric decomposition."
+  - "Freeze the admissible solution/provenance route and ambiguity stops only if it is fully documented without target values."
+  - "Return exactly one verdict: COMPONENT_LUMINOSITY_ROUTE_READY, HOLD_FINAL_SCHEMA, STOP_SOURCE_LEVEL_ONLY, or STOP_MODEL_DEPENDENT_DECOMPOSITION."
+  - "Stop if the route requires target-value inspection, post-release tuning, an empirical color/temperature fit, assigning one source luminosity to both components, or silently treating a band flux ratio as bolometric."
+  - "This is the only component-luminosity pass against the currently pinned data-model version. After HOLD/STOP, do not repeat it until a named official schema or documentation revision changes the relevant semantics."
+  - "Do not query Gaia rows, source counts, target identities, masses, luminosities, temperatures, radii, flux ratios, or outcomes; do not register/score a prediction or modify RESULT-0022."
+  - "No-claim wording: metadata compatibility does not validate the stellar relation, predict Gaia outcomes, establish a universal mass-luminosity law, or show that an eligible DR4 sample exists."
+
+accepted_outputs:
+  - "A focused docs/reviews/stellar/ Gaia component-luminosity gate note with official field semantics, component mapping, uncertainty/provenance boundary, stop conditions, and one verdict; do not rewrite the shared readiness packet from this parallel task."
+  - "Output routing that either unlocks a separate value-blind functional-freeze task or parks the route until a named official metadata change, with no PRED/RESULT/CLAIM/KNOW impact."
+
+result_artifact_policy:
+  required: false
+  reason: "Official-metadata semantics gate only; no Gaia rows, values, predictions, or scientific result are produced."
+  evidence:
+    - "docs/reviews/stellar/gaia-dr4-freeze-readiness.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

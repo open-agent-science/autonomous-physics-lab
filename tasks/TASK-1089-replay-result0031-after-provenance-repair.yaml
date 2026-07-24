@@ -1,7 +1,7 @@
 id: TASK-1089
 title: "Replay RESULT-0031 after publisher-provenance repair"
 type: scientific_replay_validation
-status: BLOCKED
+status: READY
 closeout: review
 closeout_review_reason: "This task may upgrade RESULT-0031 to AGENT_VALIDATED and therefore requires identity, exact-metric, and unchanged-verdict review."
 difficulty: medium
@@ -21,12 +21,12 @@ input:
     - "docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md"
     - "examples/stellar_ml_chara_fixed_relation_transfer.yaml"
   planning_context: >
-    Blocked until TASK-1088 is merged and RESULT-0031 carries the durable
-    original-publisher identity. The replay executor must then clear the
-    repository's independence gate before any metric is computed.
+    TASK-1088 is merged and RESULT-0031 now carries the durable
+    original-publisher identity. The remaining start gate is executor
+    independence: it must be checked before any metric is computed.
 
 requirements:
-  - "Blocked-by: merged TASK-1088 provenance repair and an executor identity that passes the repository independence check against gladunrv / Codex / GPT-5 Codex."
+  - "Start gate: verify that merged TASK-1088 provenance is present and that the executor identity passes the repository independence check against gladunrv / Codex / GPT-5 Codex; stop before replay on either failure."
   - "Run the committed Gate-B-safe workflow in an isolated output directory and compare every deterministic metric and verification field at tolerance 1e-9."
   - "Preserve all twelve CHARA rows, six-system grouping, frozen RESULT-0022 coefficient, train-only null, controls, 0.04 dex threshold, best_model_id, and INCONCLUSIVE verdict."
   - "On exact PASS, append schema-permitted independent replay metadata and upgrade only review_tier to AGENT_VALIDATED."
