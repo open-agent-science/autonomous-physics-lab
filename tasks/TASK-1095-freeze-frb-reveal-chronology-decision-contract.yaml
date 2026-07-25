@@ -1,7 +1,7 @@
 id: TASK-1095
 title: "Freeze the FRB reveal chronology and decision contract before labels"
 type: scientific_prediction_preflight
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task determines the evidence class and interpretation rules for a sealed prediction before any reveal labels are read; closeout must verify chronology, no-peek state, comparator hierarchy, and no-success wording."
 difficulty: high
@@ -48,6 +48,7 @@ result_artifact_policy:
   evidence:
     - "prediction_registry/radio_transients/PRED-0001.yaml"
     - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+    - "docs/reviews/frb/frb-reveal-chronology-decision-contract-2026-07-24.md"
 
 validation:
   commands:

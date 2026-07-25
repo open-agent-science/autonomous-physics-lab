@@ -115,12 +115,13 @@ def write_yaml(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(
         yaml.safe_dump(payload, sort_keys=False, allow_unicode=False, width=100),
         encoding="utf-8",
+        newline="\n",
     )
 
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def require(condition: bool, message: str) -> None:
@@ -327,7 +328,11 @@ def build_anchor_capsule(root: Path, output_dir: Path) -> dict[str, Any]:
             "Record GitHub Release and optional DOI URLs in a follow-up record-back PR if created.",
         ],
     }
-    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
     return manifest
 
 
