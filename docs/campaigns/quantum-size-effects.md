@@ -33,16 +33,19 @@ admitted. `TASK-1064` then assessed a separate body-text route and returned
 `GO_TEXT_REPORTED_PEAK_ROUTE`: all four samples have source-locatable absorption
 and fluorescence statements, with pinned PDF/JATS hashes and a `0.005 eV`
 rounding floor. `TASK-1070` curated those eight statements into separate
-`qd-0005` absorption and `qd-0006` emission files without scoring. The campaign
-remains
-**source/negative-memory gated**, not authorized for autonomous correction
-search or cross-material claims.
+`qd-0005` absorption and `qd-0006` emission files without scoring. `TASK-1077`
+then returned `HOLD_UNDERPOWERED`: each four-row axis has zero residual degrees
+of freedom under the frozen two-parameter stability check. `TASK-1078` returned
+`STOP_NO_INDEPENDENT_ROUTE` after five candidates failed the direct-row, size,
+rights, uncertainty, or stable-byte gates. The campaign is now
+**monitor/source-trigger-only**, not authorized for scoring, autonomous
+correction search, or cross-material claims.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can either four-row Kim-2020 property axis support an
-honest predeclared small-surface benchmark, or should it stop as underpowered;
-and can an independent CdSe source add direct rows with compatible semantics?
+**Current question:** will a genuinely new independent source expose enough
+compatible direct CdSe size/property groups, with usable uncertainty and rights
+semantics, to justify reopening this stopped route?
 
 **Shareable result:** `TASK-0293` admitted six deterministic figure-derived
 Almeida InP rows as direct measurement evidence. `TASK-0225` then froze a
@@ -64,7 +67,7 @@ published relation and rows share the same InP source series, the holdout has
 one row, and there is no cross-material validation, new material law, device,
 synthesis, biomedical, or design claim.
 
-**Active next work:** the ZnSe/Toufanian factual row surface is frozen, and
+**Current stop:** the ZnSe/Toufanian factual row surface is frozen, and
 `RESULT-0029` records the strict no-refit contract outcome: fixed InP/ZnSe
 rows, equivalent-diameter size harmonization, fixed confinement-energy model,
 controls, and a `0.05 eV` survival threshold. It failed to clear that threshold,
@@ -75,12 +78,12 @@ gate or admit its excluded digitization rows retroactively. `TASK-1064`
 established a distinct `text_stated_summary` provenance class and `TASK-1070`
 completed the bounded row curation with source hashes, printed precision,
 rounding floor, unknown non-spherical morphology, and no equivalent-sphere
-conversion. A future benchmark still requires a separate frozen contract with
-an explicit split, controls, rounding treatment, and an honest
-`HOLD_UNDERPOWERED` stop if four observations per axis cannot support it. An
-independent direct-row CdSe source is the parallel breadth path. No benchmark
-metric, correction search, replay loop, or repeat transfer on the same ZnSe/InP
-surface is authorized here.
+conversion. The adequacy gate has now returned `HOLD_UNDERPOWERED`, and the
+bounded independent-source scout returned `STOP_NO_INDEPENDENT_ROUTE`. No
+benchmark metric, pooled absorption/emission axis, generic repeat scout,
+correction search, replay loop, or repeat transfer on the same ZnSe/InP surface
+is authorized. A future route requires genuinely new source evidence that can
+clear the frozen row, semantics, uncertainty, rights, and stable-byte gates.
 
 ## Historical Source-Readiness Trail
 

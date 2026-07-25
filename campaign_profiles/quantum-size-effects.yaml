@@ -72,30 +72,28 @@ portfolio:
   status: source_readiness
   domain: condensed_matter
   surface_type: source_pinned_benchmark
-  lifecycle_stage: active_benchmark
-  activity_status: active
+  lifecycle_stage: monitor_only
+  activity_status: active_monitor
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
       - verifier_quality_floor
-    review_cadence: weekly
+    review_cadence: as_needed
     transfer_requires:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1070 curated eight source-stated Kim-2020 CdSe observations into separate four-row absorption and emission surfaces with no score; the failed figure-digitization route remains closed."
-  recommended_parallel_agents: 2
-  coordination_notes: "TASK-1077 may freeze one honest small-surface benchmark contract or stop as underpowered. TASK-1078 may scout one genuinely independent direct-row CdSe source in parallel. Preserve RESULT-0029 and TASK-1052; do not pool absorption with emission, admit excluded digitized coordinates, refit the failed transfer, or score before a separate frozen contract."
+  current_stage: "RESULT-0029 preserves the strict ZnSe/InP no-refit miss as AGENT_VALIDATED INCONCLUSIVE control memory. TASK-1077 returned HOLD_UNDERPOWERED because each Kim-2020 axis has four observations and zero residual degrees of freedom under the frozen two-parameter stability check. TASK-1078 returned STOP_NO_INDEPENDENT_ROUTE after five candidate publications failed the direct-row, size, rights, uncertainty, or stable-byte gates."
+  recommended_parallel_agents: 0
+  coordination_notes: "Keep the current CdSe route monitor/source-trigger-only. Preserve RESULT-0029, the separate four-row absorption and emission surfaces, and TASK-1052 uncertainty-blocked memory. Do not pool the axes, score either surface, repeat a generic source scout, admit excluded digitized coordinates, or refit the failed transfer."
   next_validity_gate:
     type: source_readiness
-    blocker: "Each Kim-2020 property axis contains only four same-source observations, so benchmark adequacy and independent-source transfer are unresolved."
-    target_artifact: "TASK-1077 and TASK-1078"
+    blocker: "The current route is underpowered and no independently sourced direct-row CdSe surface cleared the frozen gates. Reopen only on a new source/version trigger that plausibly supplies at least eight compatible groups per axis plus reviewed uncertainty semantics."
+    target_artifact: "future trigger-specific source-readiness task"
   best_next_actions:
-    - task_id: TASK-1077
-      label: "Freeze an honest no-score small-surface benchmark contract or stop as underpowered"
-    - task_id: TASK-1078
-      label: "Scout one independent CdSe direct-row source without extracting values"
+    - task_id: null
+      label: "Monitor for a concrete source/version trigger that plausibly clears the frozen row, semantics, uncertainty, rights, and stable-byte gates"
   required_gates:
     - "Direct measurement row provenance or approved weaker calibration-consistency scope."
     - "Source artifact package before benchmark metrics."
@@ -120,19 +118,20 @@ portfolio:
     - "docs/reviews/quantum/kim-2020-cdse-size-optical-extraction.md"
     - "docs/reviews/quantum/kim-2020-cdse-text-reported-peak-route.md"
     - "docs/reviews/quantum/kim-2020-cdse-text-row-curation.md"
+    - "docs/reviews/quantum/kim-2020-cdse-small-surface-contract-task1077.md"
+    - "docs/source-candidates/quantum/cdse-independent-source-task1078.md"
     - "data/quantum_dots/qd-0005-kim-2020-cdse-absorption.yaml"
     - "data/quantum_dots/qd-0006-kim-2020-cdse-emission.yaml"
     - "data/quantum_dots/source_artifacts/kim-2020-nanomaterials-cdse-optical/text_reported_peak_route_contract.yaml"
     - "data/quantum_dots/digitization/kim-2020-nanomaterials-cdse-optical/extraction_ledger.yaml"
     - "results/EXP-0022/RUN-0001/result.yaml"
   open_questions:
-    - "Can either four-row property axis support an honest predeclared benchmark, or should the route stop as underpowered?"
-    - "Can a genuinely independent CdSe source provide directly reported size/property rows with compatible semantics?"
+    - "Will a future independent source expose at least eight compatible direct size/property groups per axis with usable uncertainty and rights semantics?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-21"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1070 Kim-2020 row curation and Scientific Director 2026-07-21 cycle"
-    notes: "RESULT-0029 remains bounded inconclusive/control memory. Eight direct text-stated rows now exist on two separate axes; benchmark adequacy and independent-source breadth must be decided before any metric run."
+    source: "TASK-1077 adequacy contract, TASK-1078 independent-source scout, and Scientific Director 2026-07-25 cycle"
+    notes: "HOLD_UNDERPOWERED and STOP_NO_INDEPENDENT_ROUTE close the current CdSe scoring path. Reopening requires new source evidence, not another audit of the same candidates."

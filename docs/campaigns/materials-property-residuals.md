@@ -73,9 +73,9 @@ cross-database numeric pooling remains forbidden.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can APL turn a small, openly licensed Materials Project
-snapshot into a conservative residual benchmark without making material-design
-claims?
+**Current question:** can an identity-independent replay reproduce the bounded
+OQMD `RESULT-0032` metrics and failed structured-null verdict without rescue
+fitting or cross-database interpretation?
 
 **Shareable result:** APL now has a first reusable-dataset candidate and first
 baseline evidence: `MD-0001`, a CC BY 4.0 Materials Project stable-binary-
@@ -95,6 +95,11 @@ not support synthesis, device, biomedical, or material-design guidance.
 now externally citable on Zenodo (version DOI `10.5281/zenodo.21207072`,
 concept DOI `10.5281/zenodo.21207071`), but the DOI is a dataset citation, not
 a scientific claim or material-design endorsement.
+
+**Current negative/control result:** OQMD `RESULT-0032` is also not a material
+recommendation or cross-database transfer claim. It records that the frozen
+exact-pair model beat simple and shuffled controls but lost decisively to the
+stronger train-only IUPAC group-pair null on this dated computed-DFT surface.
 
 **Active next work:** `TASK-0626` ran the bounded formation-energy Research
 Factory smoke sprint and found no candidate that clears the frozen baseline
@@ -231,10 +236,12 @@ The numbered path below is now:
 1. **MD-0002 trust path** — run the reserved independent-human replay or a
    genuinely external clean-room replication from the public release; do not
    rebuild the archive or broaden the result scope.
-2. **OQMD result path** — the identity-only split, within-source
-   baseline/control contract, and independent source replay all pass. Run
-   `TASK-1066` once under the frozen contract; preserve PASS, FAIL, or
-   INCONCLUSIVE without rescue fitting.
+2. **OQMD result path** — `RESULT-0032` preserves the one-shot frozen benchmark
+   as AGENT_PUBLISHED `INVALID` negative/control memory. The exact cation-pair
+   baseline lost to the stronger train-only IUPAC group-pair null on the fixed
+   holdout and every sensitivity seed. The only remaining validation path is an
+   identity-independent replay that preserves the failed gate without rescue
+   fitting.
 3. **Stop boundary** — preserve transfer failures and sparse-family limits;
    do not pool OQMD and Materials Project values, run broad feature factories,
    or convert a cation-pair advantage into material-design wording.

@@ -37,7 +37,11 @@ clean official-metadata-only source scout with zero target exposure and found
 only AME2020/NUBASE2020 records released before the 2026-05-20 registration;
 its verdict is `SOURCE_PREDATES_REGISTRATION`. The next source-safe work is an
 event-trigger ledger, not another no-signal scout, Wigner-shape search, broad
-prediction wave, or F2 loop.
+prediction wave, or F2 loop. A later no-value interpretation freeze returned
+`POINT_REVEAL_INTERPRETATION_READY` for `PRED-0069` through `PRED-0072`: one
+future paired comparison must include the candidate and all three frozen
+comparators, with at least 12 eligible targets across at least three regions.
+No measurement source or target-adjacent value was accessed.
 
 ## Public Monitoring Snapshot
 
@@ -51,11 +55,18 @@ defines the only qualifying official metadata signals. A calendar interval is
 not a trigger; a qualifying event opens only a fresh metadata-only
 source-manifest decision, never immediate target matching or scoring.
 
+**Frozen interpretation:** if a qualifying source eventually passes the
+manifest gate, the sole headline look is a four-entry point-error comparison
+on one identical eligible set. Regional summaries are descriptive only.
+Intervals, source selection after value access, partial-comparator scoring, and
+post-reveal model changes remain outside the contract.
+
 **Shareable result:** APL has useful negative/control memory from F2,
 local-curvature, Wigner-cusp, and factory lanes, plus `RESULT-0025` as
 point-estimator evidence: GP residual modeling improves the declared point MAE
 against the current baseline and replays exactly, but does not yet support
-prediction intervals or a prediction freeze.
+prediction intervals. The point-only freeze and its future interpretation are
+separate, predeclared artifacts.
 
 ### Maintainer-Approved Point-Estimator Card — RESULT-0025
 
@@ -70,7 +81,7 @@ prediction intervals or a prediction freeze.
 > This is point-estimator evidence on a retrospective time-split holdout, not a
 > blind prediction reveal. Its predictive uncertainty envelope is heavy-tailed
 > and miscalibrated, so it provides no calibrated prediction intervals and does
-> not unblock the nuclear prediction freeze. It establishes no nuclear-mass law,
+> not support an interval-bearing prediction freeze. It establishes no nuclear-mass law,
 > no broad mass formula, and no discovery; it is an agent-published,
 > independently replayed retrospective point-estimator result only.
 
@@ -106,8 +117,9 @@ hypothesis burst or publication preflight. `TASK-0633` packaged F2 as
 diagnostic `RESULT-0018`, and `TASK-0713` replayed it through Gate B without
 changing the `INCONCLUSIVE` scientific verdict. `TASK-0777` rejected the
 selected Wigner-cusp lane under its controls-first contract. The point-only
-freeze and negative calibration memory are already preserved. `TASK-1072`
-ratifies qualifying official release signals and keeps the campaign
+freeze, negative calibration memory, and point-only reveal interpretation are
+already preserved. `TASK-1072` ratifies qualifying official release signals
+and keeps the campaign
 `MONITOR_ONLY_NO_SCOUT` until one occurs. Reveal scoring, target matching, and
 interval-bearing wording remain blocked.
 

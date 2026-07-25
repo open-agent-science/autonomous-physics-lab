@@ -69,7 +69,7 @@ portfolio:
   domain: radio_transients_astrophysics
   surface_type: prediction_reveal
   lifecycle_stage: reveal_blocked
-  activity_status: active
+  activity_status: active_monitor
   curator:
     primary_pool: prediction_reveal
     secondary_pools:
@@ -80,13 +80,13 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "PRED-0001 is registered as a 479-source point-score/rank prediction and checksum-anchored by GitHub Release; TASK-1024 also completed the deterministic reduced rights-bounded capsule for optional maintainer-only external publication. No reveal labels have been read and no FRB success or population result exists."
-  recommended_parallel_agents: 1
-  coordination_notes: "TASK-1024 completed the reduced rights-bounded capsule without uploading it or minting a DOI. Any external publication remains a separate maintainer-only act. Reveal-source work is event-triggered: do not seed a manual scout until a concrete official catalog or repeater-table signal exists. No lane may inspect labels or mutate PRED-0001."
+  current_stage: "PRED-0001 is registered as a 479-source point-score/rank prediction and checksum-anchored by GitHub Release. TASK-1095 froze a label-blind dual-chronology reveal contract with CONTRACT_READY_DUAL_CHRONOLOGY; no reveal source, target match, label, score, success verdict, or population result exists."
+  recommended_parallel_agents: 0
+  coordination_notes: "The reveal interpretation is frozen without label contact. TASK-1096 remains blocked until a concrete official source trigger can satisfy identity, rights, first-public timing, checksum, alias, and no-peek gates. Do not inspect labels, mutate PRED-0001, or present the current Catalog 2 route as prospective evidence."
   next_validity_gate:
     type: external_reveal
-    blocker: "Reveal scoring remains blocked until a concrete post-T source passes TASK-0995 identity, rights, timestamp, checksum, alias, and no-peek gates and receives separate maintainer approval."
-    target_artifact: "future trigger-activated reveal-source decision task"
+    blocker: "Reveal scoring remains blocked until TASK-1096 pins one qualifying source manifest and a later maintainer-reviewed task performs the single frozen score. The current Catalog 2 snapshot can support only blinded-retrospective evidence because it predates registration."
+    target_artifact: "TASK-1096 after a concrete source trigger; TASK-1097 remains blocked"
   best_next_actions:
     - task_id: null
       label: "Optionally publish the completed reduced capsule through a maintainer-only external-publication decision"
@@ -102,6 +102,7 @@ portfolio:
     - "docs/reviews/frb-reveal-source-admissibility-contract.md"
     - "docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md"
     - "docs/reviews/frb/frb-reduced-anchor-capsule-implementation.md"
+    - "docs/reviews/frb/frb-reveal-chronology-decision-contract-2026-07-24.md"
     - "data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml"
     - "data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml"
   open_questions:
@@ -109,9 +110,9 @@ portfolio:
     - "When a source becomes ready, will coverage and repeat-evidence timing support a meaningful reveal rather than an underpowered or ambiguous comparison?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-13"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "PRED-0001 registration, TASK-0995 reveal contract, TASK-1021 rights review, and Scientific Director 2026-07-13 cycle"
-    notes: "FRB is now a first-class prospective prediction campaign rather than a generic fresh-data sublane. The reduced capsule is complete but not externally published; reveal-source work remains trigger-based, while model fitting and success wording stay closed."
+    source: "PRED-0001 registration, TASK-1095 reveal chronology contract, and Scientific Director 2026-07-25 cycle"
+    notes: "The one-shot interpretation is frozen under prospective and blinded-retrospective chronology classes, but no source manifest or score is authorized. Reveal work remains trigger-based and all success, calibration, causal, morphology, and population wording stays closed."

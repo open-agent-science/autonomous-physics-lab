@@ -13,7 +13,7 @@ source, identity, family-split, and control gates.
 
 ## Current Status
 
-**Monitor-only benchmark surface with preserved failed-family memory.** The first
+**Source-readiness benchmark surface with preserved failed-family memory.** The first
 slice is already stronger than a scaffold: `TASK-0869` packaged the bounded
 ThermoML `Tb` family-stratified Joback transfer benchmark as `RESULT-0026`, now
 an `AGENT_VALIDATED`, `VALID_IN_RANGE` result after formal Gate B workflow
@@ -35,6 +35,14 @@ predeclared ten-per-family rule: acids provide 6 admissible non-conflict
 identities and ketones provide 8. No rows or values were emitted. This closes
 the exact-80 route under the current contract; it is no longer an archive-access
 blocker.
+
+`TASK-1084` therefore froze one revised, value-blind contract rather than
+lowering gates to recover 80 rows. It permits an availability-capped surface of
+at most 74 rows with equal family weighting. The checksum-matched archive is
+available through the project's private-source workspace, but no expanded
+fixture or score exists yet. Extraction must still pass the five-row
+per-article cap and the frozen information floor; a failure produces no partial
+fixture.
 
 The frozen Joback estimator is structure-only for `Tb`:
 
@@ -77,23 +85,22 @@ for this first audit.
 
 ## Current Decision
 
-The exact-80 contract remains stopped. One bounded stop/go adjudication may now
-compare only predeclared counts-based alternatives;
-`STOP_NO_FEASIBLE_CONTRACT` is a valid and useful outcome.
+The exact-80 contract remains stopped. The revised at-most-74-row contract is
+ready for one deterministic extraction gate, not for scoring.
 
 1. **Exact 80-row expansion is stopped** - the checksum-matched count preflight
    found acids at 6/10 and ketones at 8/10 admissible non-conflict identities.
    Lowering those gates after seeing the counts would be post-result contract
    shopping, not a valid completion of the frozen design.
-2. **Reopen only for new information** - a different source or a separately
-   motivated, predeclared family contract may justify future work. It must not
-   be selected merely to force the row total to 80.
+2. **Apply the revised contract once** - extraction must independently
+   reproduce the count arithmetic, enforce the five-row article cap, preserve
+   family equal weighting, and stop without a partial fixture if the
+   information floor fails.
 3. **No further replay loop for `RESULT-0028`** - it is already
    `AGENT_VALIDATED`; future work should use it as failed-family memory while
    preserving the bounded aggregate context.
-4. **No metric before a new contract** - any feasible alternative must be
-   selected from counts and scientific balance alone, without inspecting target
-   values or being tuned to rescue the old 80-row goal.
+4. **Extraction and scoring stay separate** - no metric is authorized until a
+   complete fixture passes the frozen contract and receives its own review.
 
 ## Admissible Source Classes
 
@@ -149,11 +156,11 @@ Not allowed:
   plus explicit failed-family memory.
 - Do not reopen the exact 80-row route by lowering the acids or ketones family
   thresholds after the count result.
-- Any future larger fixture must start from a scientifically independent source
-  or a new predeclared contract with a reason beyond reaching a desired row
-  total.
-- The immediate next artifact is a counts-only GO/STOP contract decision, not
-  a new fixture, benchmark rerun, or revised result.
+- The revised at-most-74-row contract is frozen; do not redesign it after
+  inspecting values or counts from the extraction run.
+- The immediate next artifact is either one complete fixture that clears the
+  article-cap and information-floor gates or a hard stop. It is not a score,
+  benchmark rerun, or revised result.
 
 ## Why It Matters
 

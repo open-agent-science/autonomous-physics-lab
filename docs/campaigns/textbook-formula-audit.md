@@ -75,7 +75,15 @@ derivations pass independent source replay with zero contested rows.
 `INCONCLUSIVE`: the frozen relation reached `0.060530 dex` MAE versus
 `0.097317 dex` for the best eligible control, but its `0.036787 dex` margin
 missed the predeclared `0.04 dex` survival threshold by `0.003213 dex`. This
-bounded outcome needs independent replay, not a rescue fit.
+bounded outcome needs independent replay, not a rescue fit. The first replay
+attempt verified the frozen input hashes but stopped before metrics because
+publisher identity was not durable at replay time. That provenance has since
+been repaired without changing metrics, verdict, review tier, or scientific
+interpretation. A new replay still requires an identity-independent executor.
+Separate source gates admitted no new stellar rows: HD 284163 is
+`LUMINOSITY_SEMANTICS_BLOCKED`, and the pinned Gaia DR4 draft returned
+`STOP_SOURCE_LEVEL_ONLY` because its luminosity is source-level rather than
+mapped to both mass components.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -97,7 +105,8 @@ controls, baseline-adequacy evidence, and `RESULT-0022` as an
 formal workflow Gate B replay with zero numeric drift and is
 `AGENT_VALIDATED`; it remains bounded same-source DEBCat transfer evidence, not
 a universal stellar law. `RESULT-0031` adds a separate external CHARA transfer
-surface with an `INCONCLUSIVE` verdict pending Gate B replay.
+surface with an `INCONCLUSIVE` verdict pending identity-independent Gate B
+replay.
 
 ### Maintainer-Approved Public Capsule — RESULT-0022
 
@@ -156,15 +165,17 @@ provenance, and leave-one-system sensitivity remain explicit limitations.
 The second independent-validation path is prospective rather than archival.
 The Gaia DR4 mass-luminosity reveal contract is specified, but no DR4 value or
 target list has been read. The official draft model defines component masses
-but not an admissible same-component bolometric-luminosity route, so the current
-readiness verdict is `HOLD_FIELDS_NOT_READY`.
+but not an admissible same-component bolometric-luminosity route. A pinned
+schema audit therefore returned `STOP_SOURCE_LEVEL_ONLY` without reading
+values. Reopening requires a named official schema revision with two
+same-component bolometric luminosities; inferred decomposition is not allowed.
 
-**Expected next outputs:** an independent Gate B replay should test whether
+**Expected next outputs:** an identity-independent Gate B replay should test whether
 `RESULT-0031` reproduces with zero material drift while preserving the
-`INCONCLUSIVE` boundary. A separate source gate may determine whether HD 284163
-can support a future versioned extension; it cannot be added as a rescue row to
-the frozen result. Gaia remains on hold until same-component bolometric
-luminosities exist. None of these routes authorizes a universal relation.
+`INCONCLUSIVE` boundary. In parallel, an identity-only DEBCat exclusion
+universe may freeze future leakage control without querying Gaia or reading
+stellar values. HD 284163 and the current Gaia schema are stop memory, not
+rescue routes. None of these paths authorizes a universal relation.
 
 ## Why It Matters
 

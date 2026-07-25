@@ -86,16 +86,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "MD-0002 remains AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. The dated OQMD surface has 172 normalized rows, a leakage-free 120/26/26 grouped split, a frozen value-blind baseline/control contract, and an independent source replay with INDEPENDENT_SOURCE_REPLAY_PASS."
-  recommended_parallel_agents: 1
-  coordination_notes: "All source, split, control, and independent-replay gates for the bounded OQMD surface are satisfied. TASK-1066 is now the single direct result path and must run the frozen within-OQMD benchmark once without pooling OQMD and Materials Project values, rebuilding MD-0002 v0.1.0, or opening a feature factory."
+  current_stage: "MD-0002 remains AGENT_VALIDATED as RESULT-0021 and externally published as Zenodo dataset DOI 10.5281/zenodo.21207072. RESULT-0032 is AGENT_PUBLISHED INVALID negative/control memory on the dated 172-row OQMD surface: the exact cation-pair baseline reached 0.308533591392 eV/atom holdout MAE versus 0.154250620789 for the stronger train-only IUPAC group-pair null, so the frozen contract returned FAIL."
+  recommended_parallel_agents: 0
+  coordination_notes: "TASK-1090 is the only authorized scientific follow-up and remains blocked pending an identity-independent executor. Replay the unchanged result and preserve INVALID/FAIL; do not rescue-fit, tune thresholds, pool OQMD with Materials Project, or make cross-database or design claims."
   next_validity_gate:
-    type: transfer
-    blocker: "No scientific prerequisite remains; the frozen one-shot OQMD benchmark has not yet been executed."
-    target_artifact: "TASK-1066"
+    type: ratification
+    blocker: "RESULT-0032 has not received identity-independent Gate B replay."
+    target_artifact: "TASK-1090"
   best_next_actions:
-    - task_id: TASK-1066
-      label: "Run the frozen within-OQMD benchmark once"
+    - task_id: TASK-1090
+      label: "Independently replay RESULT-0032 without changing its failed gate or model contract"
   required_gates:
     - "Use the committed MD-0002 source snapshot, checksums, and attribution."
     - "Respect the frozen no-peek holdout binding before residual metrics."
@@ -128,15 +128,16 @@ portfolio:
     - "docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml"
     - "docs/reviews/materials/oqmd-within-source-baseline-control-preflight.md"
     - "docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md"
+    - "results/EXP-0024/RUN-0001/result.yaml"
   open_questions:
-    - "Will the frozen within-OQMD baseline survive grouped holdout controls on the 172-row composition-disjoint surface?"
+    - "Will an identity-independent Gate B replay reproduce RESULT-0032 without metric or verdict drift?"
     - "What future release-version signal would justify rebuilding MD-0002 as v0.1.1?"
     - "What future Materials task, if any, can add information beyond the already-recorded transfer-negative and descriptor-ablation limits?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-21"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "TASK-1063 OQMD independent source replay and Scientific Director 2026-07-21 cycle"
-    notes: "MD-0002 remains fixed and citable. OQMD has cleared source, split, control, and independent-replay gates; TASK-1066 is the sole authorized metric execution."
+    source: "RESULT-0032, TASK-1090 replay contract, and Scientific Director 2026-07-25 cycle"
+    notes: "MD-0002 remains fixed and citable. OQMD now contributes bounded within-source negative/control memory; identity-independent replay is the only scientific follow-up, with no rescue fitting or cross-database interpretation."

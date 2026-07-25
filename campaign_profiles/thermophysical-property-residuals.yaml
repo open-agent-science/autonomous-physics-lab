@@ -79,8 +79,8 @@ portfolio:
   status: active_secondary
   domain: thermophysical_property_estimation
   surface_type: source_pinned_benchmark
-  lifecycle_stage: monitor_only
-  activity_status: active_monitor
+  lifecycle_stage: source_readiness
+  activity_status: active_limited
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:
@@ -92,16 +92,16 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028 is AGENT_VALIDATED failed-family memory; a checksum-matched local archive preflight found the exact eight-family 80-row contract infeasible because acids and ketones are underpopulated."
+  current_stage: "RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028 is AGENT_VALIDATED failed-family memory. TASK-1084 returned REVISED_CONTRACT_READY_NO_SCORE for an availability-capped, family-equal-weighted surface of at most 74 rows; the exact 80-row route remains stopped."
   recommended_parallel_agents: 1
-  coordination_notes: "Treat the exact 80-row route as stopped under the frozen contract. TASK-1084 may make one counts-only stop/go decision among predeclared feasible alternatives or preserve STOP; it may not inspect target values, lower family gates to force a pass, rerun RESULT-0028, broaden properties, or commit archive bytes."
+  coordination_notes: "The checksum-matched archive is available through the canonical private-source workspace, so TASK-1091 is READY. It must independently reproduce the count arithmetic, enforce the five-row article cap and information floor, and stop without a partial fixture. Scoring remains separate and TASK-1103 stays blocked until the fixture passes."
   next_validity_gate:
     type: source_readiness
-    blocker: "The exact 80-row route is structurally infeasible; one bounded adjudication must decide whether a scientifically motivated feasible contract exists or the expansion remains stopped."
-    target_artifact: "TASK-1084"
+    blocker: "Article-cap and information-floor feasibility remain unknown until the READY value-blind extraction runs against the checksum-matched private-source archive."
+    target_artifact: "TASK-1091"
   best_next_actions:
-    - task_id: TASK-1084
-      label: "Adjudicate feasible family-balanced alternatives from counts only, with STOP as a valid outcome"
+    - task_id: TASK-1091
+      label: "Extract the at-most-74-row fixture or stop on the frozen article-cap and information-floor gates"
   required_gates:
     - "ThermoML archive DOI, checksum, and rights boundary must stay explicit."
     - "No raw archive bytes or substantial normalized corpus may be committed."
@@ -124,13 +124,15 @@ portfolio:
     - "docs/reviews/thermoml/result0028-gate-b-workflow-bridge.md"
     - "docs/reviews/thermoml-80-row-fixture-source-blocker.md"
     - "docs/reviews/thermoml-tb-80row-local-count-preflight.md"
+    - "data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml"
+    - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
   open_questions:
-    - "Does a counts-only, independently motivated feasible family contract add information without post-result threshold lowering, or should expansion stop?"
+    - "Can deterministic value-blind extraction satisfy every family cap, the five-row article cap, and the frozen information floor without a partial fixture?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-21"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0026, RESULT-0028, local 80-row count preflight, and Scientific Director 2026-07-21 cycle"
-    notes: "The 40-row benchmark and failed-family memory are durable. Exact 80-row expansion remains stopped; TASK-1084 is a single bounded stop/go adjudication, not permission to rescue the old contract."
+    source: "RESULT-0026, RESULT-0028, TASK-1084 revised contract, and Scientific Director 2026-07-25 cycle"
+    notes: "The 40-row benchmark and failed-family memory are durable. The revised 74-row ceiling is source-readiness planning only; the archive is available privately, while article caps, rights metadata, and extraction hard stops still gate any fixture."

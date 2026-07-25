@@ -8,9 +8,9 @@ difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Merged TASK-1075, TASK-1077, TASK-1078, and TASK-1084 changed the honest next action for CHARA, Quantum, and ThermoML."
+  - "Merged TASK-1066, TASK-1075, TASK-1076, TASK-1077, TASK-1078, TASK-1079, TASK-1080, TASK-1083, TASK-1084, TASK-1088, TASK-1095, TASK-1098, and TASK-1102 changed the honest next action across the active portfolio."
   - "The Anharmonic profile and mission still describe CLAIM-0009 as DRAFT even though the canonical claim is PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED."
-  - "Mission and public pages should describe current evidence and blockers without advertising completed tasks as executable work."
+  - "PR #1649 was closed without merge because its snapshot was stale; this successor must start from current main and update only materially stale campaign and mission surfaces."
 
 input:
   mode: planning_only
@@ -25,25 +25,40 @@ input:
     - "docs/reviews/quantum/kim-2020-cdse-small-surface-contract-task1077.md"
     - "docs/source-candidates/quantum/cdse-independent-source-task1078.md"
     - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
+    - "results/EXP-0024/RUN-0001/result.yaml"
+    - "docs/reviews/lattice_qcd/fk-fpi-nf2p1p1-dependency-edge-resolution.md"
+    - "docs/reviews/lattice_qcd/fk-fpi-nf2p1-edge-resolution.md"
+    - "docs/source-candidates/dimensional/external-dimensional-corpus-task1083.md"
+    - "docs/reviews/frb/frb-reveal-chronology-decision-contract-2026-07-24.md"
+    - "docs/reviews/stellar/gaia-dr4-component-luminosity-gate-2026-07-24.md"
+    - "docs/reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md"
   planning_context: >
     Perform one bounded curator synchronization from merged canonical evidence.
-    Open PR #1634 is not yet repository evidence, so RESULT-0032 must not be
-    described as merged or validated in this task.
+    RESULT-0032 is canonical AGENT_PUBLISHED INVALID negative/control memory.
+    The Lattice dependency audits are REVIEW_READY partial-hold memory, not
+    executor work. FRB and Nuclear have no-value reveal interpretation
+    contracts, while the pinned Gaia DR4 draft stops on source-level
+    luminosity semantics. Preserve current READY routes without reopening
+    terminal campaigns.
 
 requirements:
-  - "Update Textbook/CHARA state to REPLAY_ENVIRONMENT_BLOCKED on missing publisher provenance and route next work through TASK-1088 then TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
+  - "Keep TASK-1075 as historical REPLAY_ENVIRONMENT_BLOCKED memory, record the TASK-1088 provenance repair, and route CHARA replay only through READY identity-independent TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
+  - "Preserve TASK-1076 LUMINOSITY_SEMANTICS_BLOCKED and TASK-1098 STOP_SOURCE_LEVEL_ONLY as source-semantic stop memory; keep READY TASK-1099 as an identity-only leakage-control route, not a Gaia value route."
   - "Update Quantum state to HOLD_UNDERPOWERED plus STOP_NO_INDEPENDENT_ROUTE and monitor/source-trigger-only; do not seed another generic CdSe scout or score either four-row axis."
-  - "Update ThermoML state to REVISED_CONTRACT_READY_NO_SCORE with the availability-capped 74-row ceiling, local archive blocker, article-cap hard stop, and extraction/scoring separation."
+  - "Update ThermoML state to REVISED_CONTRACT_READY_NO_SCORE with the availability-capped 74-row ceiling, canonical private-source availability, article-cap hard stop, and extraction/scoring separation."
   - "Correct Anharmonic state to CLAIM-0009 PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED and remove the obsolete Gate C blocker and executor action."
-  - "Keep Materials/OQMD wording at pre-benchmark readiness until PR #1634 merges; do not publish RESULT-0032 metrics from an open PR."
+  - "Record RESULT-0032 only as bounded within-OQMD AGENT_PUBLISHED INVALID negative/control memory; preserve FAIL, forbid rescue fitting and cross-database claims, and route only to TASK-1090 independent replay."
+  - "Represent TASK-1079 and TASK-1080 as REVIEW_READY partial-hold dependency memory rather than READY work; route the next Lattice action only through READY TASK-1081 and keep TASK-1101 blocked."
+  - "Record TASK-1083 as LABEL_SEMANTICS_BLOCKED source memory and keep TASK-1082 as the only READY Dimensional external-freeze route."
+  - "Record FRB CONTRACT_READY_DUAL_CHRONOLOGY and Nuclear POINT_REVEAL_INTERPRETATION_READY without implying source access, scoring, success, or scientific confirmation."
   - "Choose a currently READY, unclaimed scientific action for the top mission recommendation and mark completed task actions non-executable; preserve event-trigger-only Nuclear, FRB, Exoplanet, and Atomic lanes."
   - "Update only useful scientific/public state, blockers, next result paths, and safe wording. Do not place internal agent instructions on public campaign pages."
   - "Regenerate the committed campaign catalog from profiles if required, but do not commit generated docs/task-views files."
 
 accepted_outputs:
-  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through TASK-1084."
-  - "Focused updates to the Textbook, Quantum, ThermoML, and portfolio dashboard pages where their public state is materially stale."
-  - "A validation note or PR summary listing deliberately deferred OQMD wording and confirming no generated task views were committed."
+  - "Synchronized campaign profiles/catalog and mission/status documents reflecting current merged evidence without restoring the closed PR #1649 snapshot wholesale."
+  - "Focused updates only to campaign pages whose scientific state, blocker, or next result path is materially stale."
+  - "A validation note or PR summary confirming bounded result/contract wording and that no generated docs/task-views files were committed."
 
 result_artifact_policy:
   required: false

@@ -79,11 +79,13 @@ It remains source-surface work only; no rows or metrics are ingested.
 
 Lattice-QCD aggregated consistency remains source-gated rather than an activated
 data-ingestion campaign. The bounded `f_K/f_pi` pilot now has an eleven-
-publication source manifest and a real dependency graph, but returned
-`HOLD_COVARIANCE_UNRESOLVED`: all 49 pairwise dependency relations remain
-`UNKNOWN`. The next test is whether primary-source evidence can resolve those
-edges conservatively and whether all eleven publications satisfy one frozen
-value-admissibility policy.
+publication source manifest and a real dependency graph. Two bounded
+primary-source audits resolved several shared or possible-shared lineages but
+returned `PARTIAL_HOLD_UNKNOWN_EDGES`; substantial cross-publication axes
+remain `UNKNOWN`. The only live source-readiness gate is a frozen
+value/uncertainty admissibility policy for all eleven publications. Numeric
+activation adjudication remains blocked until that policy and both dependency
+surfaces are complete and reviewed.
 
 No real Lattice-QCD central value, uncertainty, average, ensemble file, metric,
 result, or claim has been admitted. Future ingestion must record observable
@@ -123,11 +125,14 @@ labels, register predictions, or make a population claim. `TASK-0964` then
 froze the exposure-only model surface without label contact, `TASK-0965`
 prepared the sealed-registration pack, and the maintainer approved registered
 `PRED-0001`. The deterministic nine-member capsule is anchored by GitHub
-Release tag `pred-frb-pret-repeater-propensity-20260710`. The next allowed
-scientific work is a metadata-only scout for one admissible post-T reveal
-source under the frozen contract only after a concrete official release trigger,
-followed by a separate maintainer decision. It is not a standing manual scout,
-new model fitting, label inspection, or current reveal scoring.
+Release tag `pred-frb-pret-repeater-propensity-20260710`. A subsequent
+label-blind contract returned `CONTRACT_READY_DUAL_CHRONOLOGY`: a source first
+published before registration can support only blinded-retrospective evidence,
+while a genuinely prospective result requires a source first published after
+registration. No source has been selected, no target match or label has been
+read, and no score exists. The next source-facing work therefore begins only
+after a concrete official release trigger and must freeze a source manifest
+before any labels are accessed.
 
 ## WATCHLIST Axes
 
@@ -144,15 +149,14 @@ loader, or benchmark task can be proposed.
 
 Allowed next steps, only after maintainer assignment:
 
-- build one bounded `f_K/f_pi` primary-source/dependency metadata pilot without central values;
+- complete the bounded `f_K/f_pi` value/uncertainty admissibility policy without central values;
 - write a license and citation review checklist for one axis;
 - define a deterministic loader contract without ingesting real values;
 - run a synthetic-only loader dry-run with fabricated rows;
 - review one candidate source class and preserve blockers.
-- for FRB, continue only through TASK-0995-compliant reveal-source manifest
-  work, anchor record-back/citation hygiene, or maintainer-approved reveal
-  scoring from the registered `PRED-0001`; a future Catalog-2-compatible route
-  would still start as a metadata-only time-indexed exposure source scout.
+- for FRB, continue only through the frozen chronology contract: concrete
+  trigger, label-blind source manifest, then a separate one-shot scoring
+  decision for registered `PRED-0001`.
 
 ## Not Allowed Yet
 
@@ -177,9 +181,9 @@ list candidate primary sources, license and citation status, retrieval policy,
 checksum plan, unit and uncertainty schema, and blockers. It should still add
 no numerical rows.
 
-For FRB specifically, the active next task shape is a metadata-only scout for
-one concrete source under the existing reveal-source admissibility contract,
-then future scoring discipline around the registered Catalog-1 `PRED-0001`.
+For FRB specifically, the active next task shape is a label-blind source
+manifest only after a concrete official trigger, followed by future scoring
+discipline around the registered Catalog-1 `PRED-0001`.
 A future
 Catalog-2-compatible route would still start as a metadata-only time-indexed
 exposure source scout with official source candidates, interval semantics,
