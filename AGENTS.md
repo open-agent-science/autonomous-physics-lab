@@ -551,6 +551,17 @@ Before starting implementation for a full PR lifecycle request, agents may run:
 python3 scripts/apl_pr_capability_check.py
 ```
 
+The check distinguishes authentication from repository permission. A
+`publication_route` of `direct` means the authenticated viewer has
+`WRITE`/`MAINTAIN`/`ADMIN`; `fork` means the authenticated viewer has
+`READ`/`TRIAGE` and should push to a contributor-owned fork; `unknown` must
+never be treated as permission to push to `origin`. For a canonical task branch
+on the fork route, human output includes OS-appropriate commands and `--json`
+provides shell-free argv arrays for fork creation, fork-remote push, and a
+cross-repository draft PR. Prepare `.apl-pr-body.md` with the task PR helper
+before executing that command pack. Do not ask for upstream write access merely
+to avoid the normal external-contributor fork workflow.
+
 This check is advisory, not a pre-work gate or task blocker. Missing `gh`,
 missing GitHub auth, or restricted agent network access must not stop the
 agent before implementation. Do not pause before editing files just because

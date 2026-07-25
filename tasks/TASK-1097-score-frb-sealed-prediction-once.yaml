@@ -1,0 +1,63 @@
+id: TASK-1097
+title: "Score FRB PRED-0001 once on the approved reveal source"
+type: scientific_result_publication
+status: BLOCKED
+closeout: review
+closeout_review_reason: "This task opens FRB reveal labels and may create a result; closeout must verify source approval, registry immutability, chronology/evidence class, one-shot scoring, controls, and conservative interpretation."
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "The registered 479-target score surface becomes scientifically useful only through a controlled reveal that preserves null and negative outcomes."
+  - "TASK-1095 freezes interpretation and TASK-1096 freezes the source before labels, preventing metric, comparator, and source shopping."
+  - "The result must distinguish blinded-retrospective evidence from labels first available after registration."
+
+input:
+  mode: workflow
+  related_domain: radio_transients
+  related_objects:
+    - "tasks/TASK-1095-freeze-frb-reveal-chronology-decision-contract.yaml"
+    - "tasks/TASK-1096-pin-frb-reveal-source-manifest-clean-session.yaml"
+    - "prediction_registry/radio_transients/PRED-0001.yaml"
+    - "docs/reviews/frb-reveal-source-admissibility-contract.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    Execute exactly one comparison only after the chronology contract, clean
+    source manifest, and explicit maintainer reveal approval are merged.
+    Preserve PRED-0001 and every negative, null, partial, or inconclusive
+    outcome.
+
+requirements:
+  - "Blocked-by: merged TASK-1095 contract-ready verdict, merged TASK-1096 manifest-ready verdict, and explicit maintainer approval of the exact source manifest for value access."
+  - "Before labels, freeze the registry commit, PRED-0001 digest, 479-target payload, source-manifest digest, parser command, chronology strata, primary decision rule, and no-peek attestation; stop on any drift."
+  - "Match all targets using only the predeclared identity rules and keep unmatched, ambiguous, ineligible, and unrevealed rows visible with machine-readable reasons."
+  - "Run the selected total-exposure score, both single-transit comparators, and constant null exactly once using TASK-1095 metrics, minimum-information gates, uncertainty method, and verdict mapping."
+  - "Report blinded-retrospective and genuinely post-registration evidence separately; never pool them into a prospective headline."
+  - "Preserve the frozen formula, ranks, targets, source, association rules, thresholds, and wording. Do not refit, add morphology, select another metric, tune top-k, or rescue a weak outcome."
+  - "Create an AGENT_PUBLISHED RESULT candidate only when deterministic code, source provenance, chronology, controls, limitations, verification, and Gate A pass; otherwise preserve one explicit blocker with no RESULT."
+  - "Return a conservative VALID_IN_RANGE, INVALID, INCONCLUSIVE, or pre-score blocker consistent with the frozen contract; no outcome auto-promotes a claim or knowledge entry."
+  - "No-claim wording: this comparison tests one exposure-based observation/detection ranking, not intrinsic repeater propensity, source physics, population prevalence, a repeater discovery method, or calibrated probability."
+
+accepted_outputs:
+  - "A deterministic reveal workflow, eligibility/chronology ledger, complete comparator metrics, limitations, failure cases, exact verdict, tests, and reproducibility command."
+  - "A scoped RESULT candidate and Gate A report only on publication-gate PASS; otherwise a durable no-publication blocker."
+  - "Output routing covering evidence class, Gate A/B, PRED immutability, claim/knowledge impact, and any future genuinely prospective stratum."
+
+result_artifact_policy:
+  required: true
+  reason: "This task exists to preserve the one-shot FRB reveal outcome as a scoped result whenever source, no-peek, and Gate A requirements pass."
+  evidence:
+    - "results/EXP-*/RUN-*/result.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -n0 tests/test_frb_prediction_freeze_registration.py tests/test_result_publication_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

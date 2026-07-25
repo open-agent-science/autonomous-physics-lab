@@ -1,0 +1,61 @@
+id: TASK-1105
+title: "Document conservative GitHub issue lifecycle for maintainer review"
+type: docs_protocol
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Preserve GitHub issues as an auditable coordination and decision trail instead of deleting them after related pull requests merge."
+  - "Prevent a partial implementation PR or one completed subtask from closing an umbrella, tracking, or campaign issue."
+  - "Keep task-claim cleanup mechanical and subordinate to canonical task YAML closeout."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "agents/review-agent.yaml"
+    - "docs/maintainer-review-agent.md"
+    - "scripts/apl_close_task_claim_issues.py"
+  planning_context: >
+    Maintainer review needs one explicit issue-lifecycle rule. A merged PR may
+    fully resolve an implementation issue, partially advance a tracking issue,
+    supersede a duplicate, or merely complete a task while its task-claim
+    coordination issue must wait for canonical task closeout. Review agents
+    should classify those cases before recommending issue closure and should
+    never delete issues as routine cleanup.
+
+requirements:
+  - "State that routine maintainer review never deletes GitHub issues; closure preserves the public provenance trail."
+  - "Require review of PR closing references and issue acceptance criteria before recommending closure."
+  - "Allow implementation-issue closure only after the merged change fully satisfies the issue acceptance criteria."
+  - "Keep partial, umbrella, tracking, multi-stage, and campaign issues open while updating their checklist or status."
+  - "Close duplicate or superseded issues only with an explanatory comment and a link to the canonical successor."
+  - "Keep task-claim issue closure subordinate to canonical task status DONE and the existing explicit apply helper."
+  - "Do not infer issue closure from a matching PR title, branch, or TASK-XXXX identifier alone."
+  - "Do not add general-purpose issue auto-close behavior or change scientific, claim, result, or publication gates."
+
+accepted_outputs:
+  - "Review-agent profile guidance for classifying issue lifecycle after merge."
+  - "Maintainer-review protocol guidance that distinguishes implementation, tracking, duplicate, and task-claim issues."
+  - "Validation evidence that the role profile and repository documentation remain valid."
+
+result_artifact_policy:
+  required: false
+  reason: "Maintainer protocol documentation only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "agents/review-agent.yaml"
+    - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -c \"import yaml; yaml.safe_load(open('agents/review-agent.yaml', encoding='utf-8')); yaml.safe_load(open('tasks/TASK-1105-document-review-agent-issue-lifecycle.yaml', encoding='utf-8'))\""
+    - "python3 -m pytest -n0 tests/test_docs_links.py tests/test_task_claim_issues.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

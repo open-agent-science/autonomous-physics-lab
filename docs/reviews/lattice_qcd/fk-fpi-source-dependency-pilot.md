@@ -46,9 +46,10 @@ MILC 10 is likewise `CONFIRMED_SHARED` for statistical and systematic lineage.
 ETM 21 is source-described as an independent estimate using a new
 Wilson-clover twisted-mass ensemble family, so its configuration relation to
 ETM 14E is `CONFIRMED_DISJOINT`; the publications remain joined for a
-collaboration-disjoint policy. BMW 10 and BMW 16 use the same collaboration and
-2HEX-clover action family, but the exact configuration overlap was not resolved
-from the bounded source pass, so that edge remains `POSSIBLE_SHARED`.
+collaboration-disjoint policy. BMW 10 uses the six-step stout-clover action
+specified by arXiv:0802.2706v2 Sec. II.A, while BMW 16 uses 2HEX-clover. No
+bounded source cross-identifies their configurations, so the relation is
+`UNKNOWN`.
 
 FLAG's common NLO SU(3) strong-isospin conversion for the isosymmetric
 HPQCD/UKQCD 07, BMW 10, and RBC/UKQCD 14B inputs is represented as a shared

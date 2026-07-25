@@ -1,0 +1,60 @@
+id: TASK-1106
+title: "Align mission entrypoint smoke tests with the READY-only fallback"
+type: tooling_fix
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Restore merge-queue throughput without weakening the READY-only mission recommendation invariant."
+  - "Test the public mission entrypoints after their live task-state and GitHub occupancy filters rather than comparing them with a pre-filter static selector."
+  - "Keep transient REVIEW_READY task handoff from blocking unrelated scientific PRs in exact merge-group CI."
+
+input:
+  mode: workflow
+  related_domain: mission_control_ci
+  related_objects:
+    - "physics_lab/registry/mission_control.py"
+    - "tests/test_mission_control.py"
+    - "TASK-1087"
+  planning_context: >
+    Merge-group runs for PR #1634 and PR #1655 passed lint and strict
+    repository validation, then failed the same two repository-root smoke
+    tests. TASK-1087 intentionally made mission entrypoints replace a
+    configured non-READY task with an executable READY fallback and clear
+    stale campaign context when the replacement belongs elsewhere. The smoke
+    tests still compare that effective output with raw select_mission(), so a
+    correct REVIEW_READY transition produces a false failure.
+
+requirements:
+  - "Keep the READY-only executable fallback and GitHub occupancy filtering unchanged."
+  - "Update only the repository-root entrypoint smoke assertions that assume raw select_mission() is the final public recommendation."
+  - "Assert that any recommended task resolves to a canonical task whose current status is READY."
+  - "Assert the is_executable and guidance_only flags remain consistent with the rendered recommendation."
+  - "When campaign context is retained, verify that the rendered action belongs to that mission; allow context to be absent for a cross-campaign or registry fallback."
+  - "Add a concise code comment explaining why raw select_mission() must not be used as the smoke-test oracle."
+  - "Do not weaken mission fallback unit tests, task-state validation, required merge-group CI, or scientific review gates."
+
+accepted_outputs:
+  - "Repository-root script and CLI smoke tests aligned with the effective READY-only mission selection."
+  - "Focused regression evidence for transient REVIEW_READY handoff."
+  - "A merge-queue-safe fix that does not alter production mission-selection behavior."
+
+result_artifact_policy:
+  required: false
+  reason: "CI and mission-control test maintenance only; no scientific RESULT, PRED, CLAIM, or KNOW artifact is produced."
+  evidence:
+    - "tests/test_mission_control.py"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_mission_control.py"
+    - "python3 -m ruff check tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

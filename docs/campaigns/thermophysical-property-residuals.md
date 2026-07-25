@@ -93,8 +93,9 @@ eight chemical families. It emitted no target rows and ran no metric.
    `AGENT_VALIDATED`; future work should use it as failed-family memory while
    preserving the bounded aggregate context.
 4. **Extraction and scoring stay separate** - the revised contract authorizes
-   one complete value-blind fixture only after the exact checksum-matched local
-   archive is supplied. A later task would have to freeze any benchmark score.
+   one complete value-blind fixture from the checksum-matched canonical
+   private-source archive. A later task would have to freeze any benchmark
+   score.
 
 ## Admissible Source Classes
 
@@ -131,7 +132,8 @@ Not currently admitted:
 Allowed current work:
 
 - inspect committed fixture, source manifest, result metadata, and runner code;
-- supply the exact checksum-matched archive outside version control;
+- locate the exact checksum-matched archive through the canonical private-source
+  workspace outside version control;
 - extract one complete revised fixture under the frozen contract.
 
 Not allowed:
@@ -153,7 +155,7 @@ Not allowed:
 - Do not reopen the exact 80-row route by lowering the acids or ketones family
   thresholds after the count result.
 - The immediate next artifact is one complete, rights-bounded at-most-74-row
-  fixture after the exact archive, article-cap, and information-floor gates
+  fixture after archive identity, article-cap, and information-floor gates
   pass; a hard stop is preferable to a partial fixture.
 - Benchmark scoring, RESULT packaging, and any broader property route remain
   separate future decisions.

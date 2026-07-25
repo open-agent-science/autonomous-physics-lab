@@ -326,8 +326,12 @@ Gate B with zero numeric drift.
 
 The separate OQMD lane now has 172 source-pinned rows, a frozen 120/26/26
 composition-grouped split, value-blind controls, and an independent source
-replay PASS. A proposed one-shot result remains under review in PR #1634; its
-metrics are not canonical repository evidence until merge.
+replay PASS. Its one-shot benchmark is now `RESULT-0032`, an AGENT_PUBLISHED
+`INVALID` negative/control result: the exact cation-pair baseline reached
+holdout MAE **0.308534 eV/atom**, worse than the stronger train-only IUPAC
+group-pair null at **0.154251 eV/atom**. It beat the global-median and shuffle
+controls, but all five sensitivity seeds still failed the predeclared
+IUPAC-null margin. No rescue fit was run.
 
 **Result capsule — RESULT-0021 (Materials MD-0002 formation energy):**
 
@@ -365,6 +369,8 @@ citation does not broaden the result's scientific scope.
 - [Materials MD-0002 RESULT-0021 Gate B replay](../reviews/materials-md0002-result0021-gate-b-replay.md)
 - [Materials MD-0002 result routing](../reviews/materials-md0002-formation-energy-result-routing.md)
 - [OQMD independent source replay](../reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md)
+- [OQMD RESULT-0032 report](../../results/EXP-0024/RUN-0001/report.md)
+- [OQMD RESULT-0032 metadata](../../results/EXP-0024/RUN-0001/result.yaml)
 - [Materials data area](../../data/materials/README.md)
 - [Published-source and reusable-dataset standard](../published-source-dataset-standard.md)
 
@@ -402,8 +408,9 @@ mapping, property leakage, and family failures visible.
 **Expansion state:** the exact 80-row design is stopped because acids provide
 6/10 and ketones 8/10 admissible identities. A later value-blind decision froze
 an availability-capped, family-equal contract of at most 74 rows. No expanded
-fixture or score exists yet; extraction is blocked until the exact archive is
-supplied and the five-row article cap and information floor pass.
+fixture or score exists yet. The checksum-matched archive is available through
+the private-source workspace, so value-blind extraction can now test the
+five-row article cap and information floor.
 
 **Evidence trail:**
 
@@ -428,10 +435,10 @@ supplied and the five-row article cap and information floor pass.
 | FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, `PRED-0001` was registered as a 479-source point-score/rank prediction, the full anchor is sealed by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`, and `TASK-1024` completed a reduced rights-bounded capsule without external upload. | Keep any reduced-capsule publication maintainer-only; activate reveal-source work only on a concrete official release signal. | An optional citable reduced checksum anchor or a later trigger-based reveal-source decision; no current success verdict. |
 | [Quantum Size Effects](./quantum-size-effects.md) | What genuinely new source could reopen the stopped CdSe route? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP miss; both four-row Kim-2020 axes are underpowered and no independent direct-row source cleared the frozen gates. | Monitor/source-trigger-only; no score, pooling, or repeated generic scout. | A trigger-specific source-readiness decision, not a metric on the current rows. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What future source event would justify reopening the two-row `171Yb/87Sr` surface? | Beloy and Nemitz support a narrow no-tension memory card; other routes are blocked or isotope-mismatched; the multi-species route returned `KEEP_MONITOR_ONLY`. | Follow the ratified reopen-trigger ledger; no standing executor task or metric rerun. | A future trigger decision, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay, and can one supplemental system clear source gates without rescuing it? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; all five frozen hashes match, the first replay stopped before metrics on then-missing publisher provenance, and TASK-1088 has repaired that identity without changing scientific content. | Wait for an identity-independent executor, then replay; assess HD 284163 only as a separate extension. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can the frozen OQMD surface produce a durable within-source computed-DFT benchmark? | `MD-0002` is AGENT_VALIDATED and externally citable; OQMD has 172 normalized rows, a 120/26/26 grouped split, frozen controls, and independent source replay PASS. | Review proposed result PR #1634; do not publish its metrics before merge. | After merge, an independent replay of the unchanged bounded result, not a cross-database claim. |
-| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can the revised at-most-74-row contract be extracted without violating its source and information gates? | `RESULT-0026` and failed-family `RESULT-0028` are AGENT_VALIDATED; exact-80 is stopped, while a value-blind family-equal 74-row ceiling is frozen. | Supply the exact archive and enforce the five-row article cap and information floor; keep scoring separate. | One complete rights-bounded fixture or a hard extraction stop, not a partial fixture or metric. |
-| Lattice-QCD Aggregated Consistency | Can primary evidence resolve dependency structure before any central values are admitted? | An eleven-publication `f_K/f_pi` manifest and graph exist, but all 49 pairwise dependency relations remain `UNKNOWN`. | Split the dependency audit by flavor family and freeze value-admissibility policy in parallel. | Resolved conservative components or a durable covariance HOLD; no Lattice-QCD physics claim. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; all five frozen hashes match, publisher identity is repaired, and the named HD 284163 supplement is LUMINOSITY_SEMANTICS_BLOCKED with zero admitted rows. | Perform identity-independent replay; preserve the HD 284163 stop. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can the bounded OQMD negative/control result survive identity-independent replay? | `MD-0002` is AGENT_VALIDATED and externally citable; OQMD `RESULT-0032` is AGENT_PUBLISHED INVALID because the exact-pair baseline loses to the stronger IUPAC group-pair null. | Replay the unchanged result; preserve FAIL and forbid rescue fitting or cross-database pooling. | An independently replayed bounded negative/control result, not a materials-law claim. |
+| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can the revised at-most-74-row contract be extracted without violating its source and information gates? | `RESULT-0026` and failed-family `RESULT-0028` are AGENT_VALIDATED; exact-80 is stopped, while a value-blind family-equal 74-row ceiling and checksum-matched private source are ready. | Enforce the five-row article cap and information floor during extraction; keep scoring separate. | One complete rights-bounded fixture or a hard extraction stop, not a partial fixture or metric. |
+| Lattice-QCD Aggregated Consistency | Can the remaining source/value gates justify one dependency-aware pilot without false independence? | Two partial-hold dependency audits make several shared lineages explicit, but substantial axes remain `UNKNOWN`. | Complete the no-value admissibility policy; activation adjudication remains blocked. | A no-value admissibility verdict, followed later by GO/HOLD/STOP adjudication; no Lattice-QCD physics claim. |
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Can reproducible calibration be separated from a genuinely external test of generalization? | AGENT_VALIDATED `RESULT-0030` reproduced with zero drift but remains calibration-only; the first external-freeze attempt stopped before rows because of prior result exposure. | Retry only with a clean external controller and independently scout third-party labelled corpora. | A frozen external benchmark route or a precise source/independence blocker; no automatic `CLAIM-0005` promotion. |
 
 ## What Is Interesting Right Now

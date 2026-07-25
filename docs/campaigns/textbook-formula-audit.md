@@ -176,11 +176,13 @@ readiness verdict is `HOLD_FIELDS_NOT_READY`.
 
 **Expected next outputs:** when an executor passes the repository independence
 check against the recorded publisher, test whether `RESULT-0031` reproduces
-with zero material drift while preserving the `INCONCLUSIVE` boundary. A
-separate source gate may determine whether HD 284163 can support a future
-versioned extension; it cannot be added as a rescue row to the frozen result.
-Gaia remains on hold until same-component bolometric luminosities exist. None
-of these routes authorizes a universal relation.
+with zero material drift while preserving the `INCONCLUSIVE` boundary. The
+named HD 284163 supplement has already returned
+`LUMINOSITY_SEMANTICS_BLOCKED`: it contains radial-velocity data but neither
+direct bolometric luminosities nor complete measured Stefan-Boltzmann inputs,
+so zero rows were admitted. Gaia remains on hold until same-component
+bolometric luminosities exist. None of these routes authorizes a universal
+relation.
 
 ## Why It Matters
 
@@ -335,9 +337,10 @@ calibration/known-physics verifier memory. High-mass Stellar transfer
 caveat. The CHARA source path now has twelve source-traceable component rows
 across six systems, a frozen dependence policy, and an independent source replay
 PASS. The fixed-relation, no-refit transfer is now `RESULT-0031`, bounded
-INCONCLUSIVE. Publisher provenance is repaired; an identity-independent replay
-remains blocked until a qualifying executor is available. The seven source-
-limited systems are not to be filled with inferred values.
+INCONCLUSIVE. Publisher provenance is repaired; the result now awaits a
+qualifying identity-independent replay. The named HD 284163 supplement is
+LUMINOSITY_SEMANTICS_BLOCKED with zero admitted rows. The seven source-limited
+systems are not to be filled with inferred values.
 
 ## Cross-References
 

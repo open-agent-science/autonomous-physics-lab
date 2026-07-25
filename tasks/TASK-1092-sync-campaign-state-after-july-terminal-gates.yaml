@@ -8,7 +8,7 @@ difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Merged TASK-1075, TASK-1077, TASK-1078, TASK-1084, and TASK-1088 changed the honest next action for CHARA, Quantum, and ThermoML."
+  - "Merged TASK-1075, TASK-1077, TASK-1078, TASK-1084, TASK-1088, TASK-1066, TASK-1079, and TASK-1080 changed the honest next action for CHARA, Quantum, ThermoML, Materials/OQMD, and Lattice-QCD."
   - "The Anharmonic profile and mission still describe CLAIM-0009 as DRAFT even though the canonical claim is PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED."
   - "Mission and public pages should describe current evidence and blockers without advertising completed tasks as executable work."
 
@@ -25,28 +25,32 @@ input:
     - "docs/reviews/quantum/kim-2020-cdse-small-surface-contract-task1077.md"
     - "docs/source-candidates/quantum/cdse-independent-source-task1078.md"
     - "docs/reviews/thermoml/thermoml-tb-feasible-expansion-contract-task1084.md"
+    - "results/EXP-0024/RUN-0001/result.yaml"
+    - "docs/reviews/lattice_qcd/fk-fpi-nf2p1p1-dependency-edge-resolution.md"
+    - "docs/reviews/lattice_qcd/fk-fpi-nf2p1-edge-resolution.md"
   planning_context: >
     Perform one bounded curator synchronization from merged canonical evidence.
-    TASK-1088 has repaired RESULT-0031 publisher provenance from merged PR
-    #1609 without changing scientific content; TASK-1075 remains historical
-    blocker memory and TASK-1089 still requires an identity-independent executor.
-    Open PR #1634 is not yet repository evidence, so RESULT-0032 must not be
-    described as merged or validated in this task.
+    TASK-1088 repaired RESULT-0031 publisher provenance from merged PR #1609
+    without changing scientific content. RESULT-0032 is now canonical
+    AGENT_PUBLISHED INVALID negative/control memory. TASK-1079 and TASK-1080
+    are merged REVIEW_READY dependency-memory with partial-hold verdicts; only
+    TASK-1081 is currently executable on the Lattice route.
 
 requirements:
-  - "Keep TASK-1075 as historical REPLAY_ENVIRONMENT_BLOCKED memory, record the merged TASK-1088 publisher-provenance repair, and route replay only through identity-independent TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
+  - "Keep TASK-1075 as historical REPLAY_ENVIRONMENT_BLOCKED memory, record the merged TASK-1088 publisher-provenance repair, and route replay only through READY identity-independent TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
   - "Update Quantum state to HOLD_UNDERPOWERED plus STOP_NO_INDEPENDENT_ROUTE and monitor/source-trigger-only; do not seed another generic CdSe scout or score either four-row axis."
-  - "Update ThermoML state to REVISED_CONTRACT_READY_NO_SCORE with the availability-capped 74-row ceiling, local archive blocker, article-cap hard stop, and extraction/scoring separation."
+  - "Update ThermoML state to REVISED_CONTRACT_READY_NO_SCORE with the availability-capped 74-row ceiling, canonical private-source availability, article-cap hard stop, and extraction/scoring separation."
   - "Correct Anharmonic state to CLAIM-0009 PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED and remove the obsolete Gate C blocker and executor action."
-  - "Keep Materials/OQMD wording at pre-benchmark readiness until PR #1634 merges; do not publish RESULT-0032 metrics from an open PR."
+  - "Record RESULT-0032 only as bounded within-OQMD AGENT_PUBLISHED INVALID negative/control memory; preserve FAIL, forbid rescue fitting and cross-database claims, and route only to TASK-1090 independent replay."
+  - "Represent TASK-1079 and TASK-1080 as REVIEW_READY partial-hold dependency memory rather than READY work; route the next Lattice action only through READY TASK-1081 and keep TASK-1101 blocked."
   - "Choose a currently READY, unclaimed scientific action for the top mission recommendation and mark completed task actions non-executable; preserve event-trigger-only Nuclear, FRB, Exoplanet, and Atomic lanes."
   - "Update only useful scientific/public state, blockers, next result paths, and safe wording. Do not place internal agent instructions on public campaign pages."
   - "Regenerate the committed campaign catalog from profiles if required, but do not commit generated docs/task-views files."
 
 accepted_outputs:
-  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through TASK-1088."
+  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through RESULT-0032 and the two Lattice dependency audits."
   - "Focused updates to the Textbook, Quantum, ThermoML, and portfolio dashboard pages where their public state is materially stale."
-  - "A validation note or PR summary listing deliberately deferred OQMD wording and confirming no generated task views were committed."
+  - "A validation note or PR summary confirming bounded OQMD negative/control wording, Lattice dependency-memory routing, and that no generated task views were committed."
 
 result_artifact_policy:
   required: false

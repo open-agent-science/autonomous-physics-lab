@@ -62,9 +62,14 @@ validation, and 26 holdout rows, and `TASK-1054` froze the cation-pair baseline,
 nulls, controls, seeds, metrics, and survival margin without target access.
 `TASK-1063` independently reproduced the source hashes, counts, predicate,
 overlap exclusions, semantics, and rights boundary and returned
-`INDEPENDENT_SOURCE_REPLAY_PASS`. A proposed one-shot OQMD result is under
-review in PR #1634. Its metrics are not canonical repository evidence until
-merge; cross-database numeric pooling remains forbidden.
+`INDEPENDENT_SOURCE_REPLAY_PASS`. `TASK-1066` then ran the one frozen OQMD
+benchmark without rescue fitting. `RESULT-0032` preserves a fail-closed
+negative/control outcome: the exact cation-pair baseline reached holdout MAE
+`0.308534` eV/atom, worse than the train-only IUPAC group-pair null at
+`0.154251` eV/atom, although it beat the global-median and every shuffle
+control. All five identity-group-preserving sensitivity seeds also failed the
+IUPAC-null margin. This is bounded within-source computed-DFT evidence;
+cross-database numeric pooling remains forbidden.
 
 ## Public Monitoring Snapshot
 
@@ -226,11 +231,11 @@ The numbered path below is now:
 1. **MD-0002 trust path** — run the reserved independent-human replay or a
    genuinely external clean-room replication from the public release; do not
    rebuild the archive or broaden the result scope.
-2. **OQMD result path** — the identity-only split, within-source
-   baseline/control contract, and independent source replay all pass. Review
-   PR #1634 without importing its proposed metrics into public evidence; after
-   merge, the next scientific gate is identity-independent replay of the
-   unchanged result.
+2. **OQMD result path** — `RESULT-0032` is canonical AGENT_PUBLISHED
+   negative/control memory with `INVALID` / contract `FAIL`: the exact
+   cation-pair baseline loses to the stronger IUPAC group-pair null. The next
+   scientific gate is identity-independent replay of the unchanged result, not
+   a rescue fit.
 3. **Stop boundary** — preserve transfer failures and sparse-family limits;
    do not pool OQMD and Materials Project values, run broad feature factories,
    or convert a cation-pair advantage into material-design wording.

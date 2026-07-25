@@ -1,0 +1,35 @@
+id: HYP-0024
+title: "The frozen exact cation-pair baseline may survive all OQMD controls"
+domain: materials_science
+status: FALSIFIED
+
+hypothesis:
+  statement: >
+    On the bounded 172-row OQMD computed-DFT slice, the train-only exact
+    non-oxygen cation-pair mean will beat the global-median null, the IUPAC
+    cation-group-pair null, every frozen shuffle control, and every seeded
+    identity-group-preserving sensitivity split by the predeclared margin.
+  formula_candidates:
+    - "model_oqmd_cation_pair_mean: train mean delta_e for the unordered non-oxygen cation pair, with train global-mean fallback"
+
+assumptions:
+  - "The source, normalized snapshot, split, value-blind contract, and independent replay hashes match the TASK-1066 frozen config."
+  - "OQMD delta_e is evaluated only under OQMD computed-DFT semantics."
+  - "Every comparator and sensitivity seed must pass; ties and sub-margin wins fail closed."
+  - "No descriptor expansion, threshold tuning, row exclusion, rescue fitting, or cross-database pooling is allowed."
+
+variables:
+  delta_e:
+    unit: eV_per_atom
+    description: "OQMD computed formation energy under the canonical OQMD definition."
+  mae:
+    unit: eV_per_atom
+    description: "Mean absolute error on the frozen evaluation partition."
+
+evidence:
+  experiments:
+    - EXP-0024
+  results:
+    - RESULT-0032
+
+verdict: "FALSIFIED: the exact cation-pair baseline fails the predeclared margin against the train-only IUPAC cation-group-pair null on the frozen holdout and in every seeded sensitivity split."

@@ -1,0 +1,63 @@
+id: TASK-1094
+title: "Route read-only contributors through fork pull requests"
+type: tooling_fix
+status: REVIEW_READY
+closeout: review
+closeout_review_reason: "This changes the cross-agent GitHub publication route and must be reviewed against both upstream-write and external-fork contributor paths."
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Let external agents contribute without granting write access to the canonical repository."
+  - "Distinguish GitHub authentication from repository write permission before recommending a push target."
+  - "Keep one advisory, cross-platform publication diagnosis for Codex, Claude, human contributors, and other agent runtimes."
+
+input:
+  mode: workflow
+  related_domain: external_contributor_publication
+  related_objects:
+    - "physics_lab/registry/pr_capability.py"
+    - "scripts/apl_pr_capability_check.py"
+    - "scripts/apl_agent_doctor.py"
+    - "docs/use-your-agent.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    An authenticated external contributor received a 403 while pushing a task
+    branch to the canonical upstream repository. The existing capability check
+    verifies GitHub authentication but does not inspect viewerPermission, so it
+    can report a clean publication environment even when the correct route is
+    a contributor-owned fork.
+
+requirements:
+  - "Query the authenticated viewer permission for the canonical repository after GitHub authentication succeeds."
+  - "Classify ADMIN, MAINTAIN, and WRITE as direct publication; classify TRIAGE and READ as fork publication; treat failed or unknown permission reads as unknown rather than direct."
+  - "For a fork route, report argument-vector commands for fork creation, fork-remote push, and a cross-repository draft PR when authenticated login and canonical task branch are known."
+  - "Preserve advisory preflight behavior, sandbox credential diagnosis, token secrecy, and local task execution when GitHub publication is unavailable."
+  - "Use pathlib, argument-list subprocesses, UTF-8 text, and portable Git/GitHub CLI discovery for Linux, macOS, and Windows."
+  - "Do not change repository permissions, branch protection, fork CI routing, scientific artifacts, claims, predictions, or knowledge."
+
+accepted_outputs:
+  - "Shared PR capability report with repository permission and direct/fork/unknown/not-checked publication route"
+  - "Human and JSON diagnostics that expose an executable fork command argv pack without shell interpolation"
+  - "Contributor and agent protocol guidance for authenticated read-only users"
+  - "Regression tests for direct write, read-only fork, permission-query failure, unsafe identifiers, and CLI/doctor reporting"
+
+result_artifact_policy:
+  required: false
+  reason: "Contributor workflow tooling only; no scientific result or prediction artifact is expected."
+  evidence:
+    - "physics_lab/registry/pr_capability.py"
+    - "tests/test_pr_capability.py"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_pr_capability.py tests/test_agent_doctor.py tests/test_docs_links.py"
+    - "python3 -m ruff check physics_lab/registry/pr_capability.py scripts/apl_pr_capability_check.py scripts/apl_agent_doctor.py tests/test_pr_capability.py tests/test_agent_doctor.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

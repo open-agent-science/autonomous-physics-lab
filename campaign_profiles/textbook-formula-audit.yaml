@@ -105,17 +105,15 @@ portfolio:
       - curator_cycle_review
       - updated_campaign_profile
   current_stage: "RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED scoped verifier/benchmark memory. RESULT-0031 is AGENT_PUBLISHED INCONCLUSIVE on the twelve-component CHARA transfer: the frozen relation achieved 0.060530 dex MAE versus 0.097317 for the best control, but its 0.036787 dex margin missed the predeclared 0.04 threshold by 0.003213 dex."
-  recommended_parallel_agents: 2
-  coordination_notes: "TASK-1075 remains historical REPLAY_ENVIRONMENT_BLOCKED memory: all five frozen input hashes matched, but publisher identity was absent at replay time. TASK-1088 has since restored the durable publisher identity from merged PR #1609 without changing scientific content. TASK-1089 remains blocked until an executor clears the identity-independence gate, and TASK-1076 remains a separate HD 284163 source gate. Do not rescue the margin, relax the threshold, or rewrite the frozen twelve-row surface."
+  recommended_parallel_agents: 1
+  coordination_notes: "TASK-1075 remains historical REPLAY_ENVIRONMENT_BLOCKED memory: all five frozen input hashes matched, but publisher identity was absent at replay time. TASK-1088 restored that identity, so TASK-1089 is READY for an executor who clears the identity-independence gate. TASK-1076 is REVIEW_READY LUMINOSITY_SEMANTICS_BLOCKED memory for HD 284163, not executor work. Do not rescue the margin, relax the threshold, or rewrite the frozen twelve-row surface."
   next_validity_gate:
     type: ratification
-    blocker: "RESULT-0031 now records the durable original-publisher identity from PR #1609; Gate B remains blocked until an executor clears the repository identity-independence check."
-    target_artifact: "TASK-1089; TASK-1076 remains a separate source-extension gate"
+    blocker: "RESULT-0031 records the durable original-publisher identity; the READY replay still requires an executor who clears the repository identity-independence check."
+    target_artifact: "TASK-1089"
   best_next_actions:
     - task_id: TASK-1089
-      label: "When an identity-independent executor is available, replay RESULT-0031 and preserve INCONCLUSIVE"
-    - task_id: TASK-1076
-      label: "Resolve the HD 284163 supplemental CHARA source gate without changing RESULT-0031"
+      label: "Independently replay RESULT-0031 and preserve INCONCLUSIVE"
   required_gates:
     - "Stage policy, source/range assumptions, and baseline adequacy before promotion."
     - "Null/shuffle controls and seeded split sensitivity before Gate A packaging."
@@ -151,17 +149,18 @@ portfolio:
     - "docs/reviews/stellar/chara-fixed-relation-transfer-task1050.md"
     - "docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md"
     - "docs/reviews/stellar/result0031-publisher-provenance-repair-task1088.md"
+    - "docs/reviews/stellar/hd284163-chara-supplement-source-gate.md"
     - "results/EXP-0023/RUN-0001/result.yaml"
     - "docs/reviews/stellar/gaia-dr4-freeze-readiness.md"
   open_questions:
     - "Can an identity-independent replay reproduce RESULT-0031 without metric or verdict drift?"
-    - "Can HD 284163 supply source-pinned component luminosities and rights-clear provenance for a future, separately frozen extension?"
+    - "Can a genuinely new source provide direct bolometric luminosities or complete measured Stefan-Boltzmann inputs for HD 284163?"
     - "What future external stellar catalogue, if any, can test the high-mass transfer beyond same-source DEBCat?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-23"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
-    source: "RESULT-0031, TASK-1075 replay blocker, TASK-1088 provenance repair, and Scientific Director 2026-07-22 cycle"
-    notes: "The frozen relation remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1075 verified the input hashes but computed no replay metrics because publisher provenance was missing at replay time; TASK-1088 has since restored that identity without changing scientific content. HD 284163 remains a source-gated extension, not a rescue row."
+    source: "RESULT-0031, TASK-1075/TASK-1088 replay path, TASK-1076 source gate, and Scientific Director 2026-07-25 cycle"
+    notes: "The frozen relation remains AGENT_PUBLISHED INCONCLUSIVE and TASK-1089 is READY for an identity-independent executor. The named HD 284163 supplement is durable LUMINOSITY_SEMANTICS_BLOCKED memory with zero admitted rows, not a rescue route."

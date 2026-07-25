@@ -518,7 +518,10 @@ This diagnostic order applies to every agent path, including research and
 executor tasks, proposals, task queues, closeout, release work, and maintainer
 review. It is not specific to the review agent.
 
-1. Run `python3 scripts/apl_pr_capability_check.py` or the agent doctor.
+1. Run `python3 scripts/apl_pr_capability_check.py` or the agent doctor. After
+   successful authentication, inspect `repository_permission` and
+   `publication_route`; authentication alone does not prove upstream write
+   access.
 2. Codex sandboxes are auto-detected through `CODEX_SANDBOX`. Claude and any
    other runtime that knows its host credential store may be isolated must add
    the vendor-neutral `--agent-sandbox` flag; do not guess undocumented vendor
@@ -527,11 +530,17 @@ review. It is not specific to the review agent.
    not as proof that a token expired or was revoked. Before any GitHub write,
    rerun `gh auth status --hostname github.com` in the maintainer terminal or
    through protocol-approved escalation.
-4. If that keychain-aware check succeeds, continue through the normal helper or
-   CLI path. If it also fails, explicitly ask the maintainer to run
+4. If that keychain-aware check succeeds and the route is `direct`, continue
+   through the normal upstream helper or CLI path. If the route is `fork`,
+   retain the canonical repository as the PR base, push the task branch to the
+   authenticated contributor's fork, and use `<login>:<branch>` as the PR
+   head. `READ` or `TRIAGE` is an expected external-contributor state and does
+   not justify requesting upstream write permission.
+5. If the keychain-aware authentication check also fails, explicitly ask the
+   maintainer to run
    `gh auth login --hostname github.com --git-protocol https --web`, then verify
    the result before retrying a write.
-5. Only after surfacing the authorization request may an agent use the bounded
+6. Only after surfacing the authorization request may an agent use the bounded
    public REST path to continue read-only work. Public metadata does not
    authorize PR creation, ready transitions, merges, releases, settings
    changes, or other GitHub mutations.
@@ -557,11 +566,14 @@ agent-driven path before falling back to manual commands:
    `gh pr ready`, or `python3 scripts/apl_review_pr.py` is blocked by sandbox
    permissions or missing command approval, request the needed permission or
    escalation for that specific command.
-4. Provide manual maintainer-run commands only after the available tool path
+4. For an authenticated `fork` route, use the command argv pack printed by the
+   capability checker; this is an agent-driven publication path, not a manual
+   maintainer fallback.
+5. Provide manual maintainer-run commands only after the available tool path
    and any appropriate permission request cannot complete the publication.
 
-Fallback commands to give the maintainer when direct publication is not
-available:
+Direct-route fallback commands to give the maintainer only when upstream write
+permission exists but agent publication is unavailable:
 
 ```bash
 git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
@@ -570,9 +582,28 @@ python3 scripts/apl_review_pr.py --pr <number>
 gh pr ready <number>
 ```
 
+For an authenticated external contributor, do not use the direct fallback
+above. The capability checker emits the exact login and current branch as
+shell-free argv. Its fork route is equivalent to:
+
+```text
+gh repo fork open-agent-science/autonomous-physics-lab --clone=false --remote --remote-name fork
+git push --set-upstream fork agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
+gh pr create --repo open-agent-science/autonomous-physics-lab --base main --head <github-login>:agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --draft --title "TASK-XXXX: <short title>" --body-file .apl-pr-body.md
+python3 scripts/apl_review_pr.py --pr <number>
+gh pr ready <number>
+```
+
+The placeholders above describe the protocol; agents should execute the
+concrete argument vectors from `apl_pr_capability_check.py --json` rather than
+constructing a shell string. Prepare `.apl-pr-body.md` with `prepare-current`
+before opening the draft PR.
+
 The agent should also offer to help the maintainer set up access, for example
 by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
-required for completing local validation work.
+required for completing local validation work. Do not suggest login or a new
+token when authentication is already valid and only upstream write permission
+is absent; use the fork route instead.
 
 If Python, Git, GitHub CLI, proxy settings, or Windows shell startup look
 inconsistent, run the read-only agent doctor before adding local workaround

@@ -1,26 +1,29 @@
 default_mode: research
-updated: "2026-07-23"
+updated: "2026-07-25"
 
 curator_cycle:
   decision: updated
-  updated: "2026-07-23"
-  source: "Scientific Director cycle after the CHARA replay blocker and provenance repair, Quantum terminal gates, ThermoML revised contract, and OQMD result PR"
+  updated: "2026-07-25"
+  source: "Scientific Director synchronization after RESULT-0032, Lattice dependency audits, CHARA provenance repair, Quantum terminal gates, and ThermoML private-source readiness"
   note: >
     The executable queue is intentionally below the preferred numeric target
     rather than padded with audit work. Lattice f_K/f_pi is the top active
-    source-readiness mission, with three disjoint READY gates. Dimensional has
-    two honest external-independence routes. CHARA RESULT-0031 remains bounded
+    source-readiness mission: TASK-1079 and TASK-1080 are REVIEW_READY
+    partial-hold dependency memory, while TASK-1081 is the sole READY gate.
+    Dimensional has one READY clean-freeze route and one REVIEW_READY source
+    scout. CHARA RESULT-0031 remains bounded
     AGENT_PUBLISHED INCONCLUSIVE: TASK-1075 verified its hashes but stopped
     before metrics on publisher provenance that was missing at replay time.
     TASK-1088 has since restored that identity from merged PR #1609 without
-    changing scientific content; TASK-1089 now waits for an executor that clears
-    the identity-independence gate. Quantum returned HOLD_UNDERPOWERED and
+    changing scientific content; READY TASK-1089 requires an executor that
+    clears the identity-independence gate. Quantum returned HOLD_UNDERPOWERED and
     STOP_NO_INDEPENDENT_ROUTE and is now trigger-only. ThermoML has a revised
-    at-most-74-row contract but extraction is blocked on the exact local archive
-    and article-cap feasibility. OQMD result PR #1634 remains unmerged and must
-    not yet be treated as repository evidence. FRB, Nuclear, Exoplanet, and
-    Atomic stay reveal- or trigger-gated; mature benchmark lanes must not be
-    reopened for filler.
+    at-most-74-row contract and checksum-matched private source; READY TASK-1091
+    must still pass article-cap and information-floor gates. OQMD RESULT-0032
+    is canonical AGENT_PUBLISHED INVALID negative/control memory and routes only
+    to identity-independent TASK-1090 replay without rescue fitting. FRB,
+    Nuclear, Exoplanet, and Atomic stay reveal- or trigger-gated; mature
+    benchmark lanes must not be reopened for filler.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -75,7 +78,7 @@ missions:
     status: post_validation_source_and_transfer
     scientific_value: high
     risk: medium
-    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. The OQMD route has a bounded 172-row source, leakage-free 120/26/26 split, frozen value-blind controls, and independent source replay PASS. TASK-1066 is under review in PR #1634; until merge, keep the campaign at pre-result readiness and do not publish proposed metrics."
+    recommendation: "MD-0002 and RESULT-0021 remain stable citable memory. OQMD RESULT-0032 is AGENT_PUBLISHED INVALID negative/control evidence on the bounded 172-row surface: the exact cation-pair baseline loses to the stronger IUPAC group-pair null under the fixed split and all five sensitivity seeds. Route only to TASK-1090 identity-independent replay; do not rescue-fit or pool databases."
     why_now:
       - "MD-0001 is reusable source-pinned dataset memory"
       - "MD-0002 is source-pinned, checksum-tracked, and frozen for a computed-DFT stable ternary-oxide slice"
@@ -90,6 +93,7 @@ missions:
       - "TASK-1053 froze a leakage-free 120/26/26 grouped split without target inspection"
       - "TASK-1054 froze the within-OQMD baseline and control contract value-blind"
       - "TASK-1063 independently reproduced the bounded source hashes, counts, overlap exclusions, semantics, and rights boundary with INDEPENDENT_SOURCE_REPLAY_PASS"
+      - "RESULT-0032 preserves the frozen FAIL as AGENT_PUBLISHED INVALID negative/control memory without rescue fitting"
     forbidden:
       - "do not claim material discovery, material recommendation, synthesis guidance, device performance, biomedical relevance, or universal materials-law support"
       - "do not mix computed DFT and experimental measurements without explicit provenance"
@@ -233,6 +237,17 @@ missions:
         expected_outputs:
           - "one frozen PASS, FAIL, or INCONCLUSIVE within-source result under the committed split and controls"
           - "no rescue fitting, feature factory, cross-database pooling, or materials claim"
+      - id: materials-oqmd-result0032-gate-b
+        label: "Independently replay the bounded OQMD negative/control result"
+        task_id: TASK-1090
+        mode: research
+        status: blocked
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "identity-independent exact replay of RESULT-0032 with metric and sensitivity-seed comparison"
+          - "preserved INVALID / FAIL verdict with no rescue fitting, threshold change, or cross-database claim"
 
   - id: nuclear-mass-surface
     title: "Nuclear Mass Surface"
@@ -1340,7 +1355,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. RESULT-0031 remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1075 stopped before metric comparison because original-publisher metadata was missing at replay time; TASK-1088 has since repaired that provenance from merged PR #1609 without changing scientific content. TASK-1089 remains blocked until an identity-independent executor is available, and TASK-1076 remains a separate HD 284163 source gate."
+    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. RESULT-0031 remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1088 repaired publisher provenance, so TASK-1089 is READY for an identity-independent executor. TASK-1076 is REVIEW_READY LUMINOSITY_SEMANTICS_BLOCKED memory for HD 284163, not an active rescue route."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1359,6 +1374,7 @@ missions:
       - "TASK-1049 independently replayed the exact CHARA component-source surface and cleared the fixed-transfer source gate"
       - "TASK-1075 confirmed all five frozen input hashes but returned REPLAY_ENVIRONMENT_BLOCKED before metrics because published_by was absent at replay time"
       - "TASK-1088 restored published_by from merged PR #1609 without changing review tier, verdict, metrics, hashes, or scientific interpretation"
+      - "TASK-1076 pinned the named HD 284163 supplement but admitted zero rows because direct bolometric luminosities and complete measured Stefan-Boltzmann inputs are absent"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1574,10 +1590,10 @@ missions:
         label: "Independently replay RESULT-0031 when a qualifying executor is available"
         task_id: TASK-1089
         mode: research
-        status: blocked
+        status: ready
         priority: high
         difficulty: medium
-        recommended: false
+        recommended: true
         expected_outputs:
           - "identity-independent exact Gate B replay after the merged TASK-1088 provenance repair"
           - "preserved INCONCLUSIVE verdict and no refit, threshold change, or rescue row"
@@ -1585,10 +1601,10 @@ missions:
         label: "Resolve the HD 284163 supplemental CHARA source gate"
         task_id: TASK-1076
         mode: research
-        status: ready
+        status: review_ready
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "source, checksum, rights, component-identity, and luminosity-semantics verdict for one supplemental system"
           - "separate versioned-extension route or durable blocker; no edit or rescue of RESULT-0031"
@@ -1643,7 +1659,7 @@ missions:
     status: active_source_readiness
     scientific_value: high
     risk: medium
-    recommendation: "ThermoML Tb RESULT-0026 and failed-family RESULT-0028 are AGENT_VALIDATED. The exact 80-row route remains stopped. TASK-1084 selected a value-blind availability-capped contract of at most 74 rows with equal family weighting. TASK-1091 remains blocked until the exact local archive is supplied; extraction must stop on article-cap or information-floor failure, and scoring stays separate."
+    recommendation: "ThermoML Tb RESULT-0026 and failed-family RESULT-0028 are AGENT_VALIDATED. The exact 80-row route remains stopped. TASK-1084 selected a value-blind availability-capped contract of at most 74 rows with equal family weighting. The checksum-matched archive is available through the canonical private-source workspace, so TASK-1091 is READY; extraction must stop on article-cap or information-floor failure, and TASK-1103 scoring stays blocked."
     why_now:
       - "ThermoML normal boiling temperature is a source-pinned public benchmark lane outside astronomy and materials DFT"
       - "RESULT-0026 has a bounded 40-row family-stratified fixture and a clear frozen Joback/Reid baseline"
@@ -1655,6 +1671,7 @@ missions:
       - "TASK-0955 recorded that the bounded 80-row extract is blocked until the checksum-matching local archive is supplied or the source-access contract changes"
       - "the checksum-matched local count preflight resolved archive access and stopped the exact-80 route on family underpopulation"
       - "TASK-1084 selected REVISED_CONTRACT_READY_NO_SCORE with a 74-row ceiling and frozen hard stops"
+      - "the maintainer-confirmed checksum-matched archive is available through the canonical private-source workspace without entering git"
     forbidden:
       - "do not commit raw ThermoML archive bytes or a substantial normalized corpus"
       - "do not broaden from Tb to Tc or other properties without a separate leakage/source gate"
@@ -1737,10 +1754,10 @@ missions:
         label: "Extract the frozen at-most-74-row ThermoML Tb fixture"
         task_id: TASK-1091
         mode: research
-        status: blocked
+        status: ready
         priority: high
         difficulty: high
-        recommended: false
+        recommended: true
         expected_outputs:
           - "value-blind, rights-bounded fixture only after exact archive identity and article-cap gates pass"
           - "hard stop with no partial fixture if the frozen information floor fails; no score or RESULT"
@@ -1811,12 +1828,13 @@ missions:
     status: source_dependency_hold
     scientific_value: medium
     risk: medium
-    recommendation: "The f_K/f_pi pilot has an eleven-publication source manifest and dependency graph, but all 49 pairwise edges remain UNKNOWN. Resolve the two flavor-family edge sets and freeze value-admissibility policy in parallel. Admit no central values or metrics until those gates pass."
+    recommendation: "The f_K/f_pi pilot has an eleven-publication source manifest and two REVIEW_READY dependency audits with PARTIAL_HOLD_UNKNOWN_EDGES verdicts. TASK-1081 is the sole READY action and may freeze value/uncertainty admissibility without copying values. TASK-1101 numeric activation adjudication remains BLOCKED until all three prerequisite surfaces are merged and reviewed."
     why_now:
       - "TASK-1030 selected f_K/f_pi as the only bounded incubator route"
       - "TASK-1055 created an eleven-publication primary-source manifest and dependency graph"
       - "TASK-1055 returned HOLD_COVARIANCE_UNRESOLVED because all 49 pairwise dependency relations remain UNKNOWN"
-      - "dependency evidence and value-admissibility policy can be audited on disjoint write surfaces before any central values are admitted"
+      - "TASK-1079 and TASK-1080 resolved several shared or possible-shared lineages but preserved substantial UNKNOWN axes and returned PARTIAL_HOLD_UNKNOWN_EDGES"
+      - "value-admissibility policy remains the sole executable prerequisite before any campaign activation adjudication"
     forbidden:
       - "do not infer independence from missing evidence"
       - "do not extract central values, build a general loader, compute averages, run anomaly metrics, or make a Lattice-QCD physics claim"
@@ -1826,10 +1844,10 @@ missions:
         label: "Resolve the Nf=2+1+1 f_K/f_pi dependency edges"
         task_id: TASK-1079
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "primary-source evidence ledger for the exact five-publication, ten-pair edge set"
           - "CONFIRMED_DEPENDENT, CONFIRMED_DISTINCT, or UNKNOWN per edge; no inferred independence or central values"
@@ -1837,10 +1855,10 @@ missions:
         label: "Resolve the Nf=2+1 f_K/f_pi dependency edges"
         task_id: TASK-1080
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "primary-source evidence ledger for the exact six-publication, fifteen-pair edge set"
           - "CONFIRMED_DEPENDENT, CONFIRMED_DISTINCT, or UNKNOWN per edge; no inferred independence or central values"
@@ -1855,6 +1873,17 @@ missions:
         expected_outputs:
           - "source-locator, rights, convention, uncertainty, and evaluated-average admissibility decision for all eleven publications"
           - "no numeric values, aggregate, loader, metric, RESULT, CLAIM, or physics conclusion"
+      - id: lattice-campaign-activation-adjudication
+        label: "Adjudicate bounded Lattice activation or stop after all source gates"
+        task_id: TASK-1101
+        mode: research
+        status: blocked
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "future metadata-only GO, HOLD, or STOP decision after TASK-1081 and dependency closeout"
+          - "no central values, covariance reconstruction, RESULT, CLAIM, or Lattice-QCD physics conclusion"
 
   - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
@@ -1862,7 +1891,7 @@ missions:
     status: calibration_v2_gateb_pass_external_freeze_blocked
     scientific_value: medium
     risk: low
-    recommendation: "Use as a quality-floor calibration lane. RESULT-0030 is AGENT_VALIDATED after exact independent-human replay, but remains calibration-only. TASK-1082 retries the external freeze only under a clean human-controlled no-exposure session; TASK-1083 independently scouts third-party labelled corpora. CLAIM-0005 remains unchanged."
+    recommendation: "Use as a quality-floor calibration lane. RESULT-0030 is AGENT_VALIDATED after exact independent-human replay, but remains calibration-only. TASK-1082 is the sole READY route and retries external freeze only under a clean human-controlled no-exposure session. TASK-1083 is REVIEW_READY LABEL_SEMANTICS_BLOCKED source memory. CLAIM-0005 remains unchanged."
     why_now:
       - "canonical MVP benchmark exists"
       - "new challenge items are easy to review"
@@ -1872,6 +1901,7 @@ missions:
       - "TASK-1051 scored the surface once and published RESULT-0030 after every frozen threshold passed"
       - "TASK-1062 reproduced 43 compared numeric fields with zero drift and upgraded RESULT-0030 to AGENT_VALIDATED without changing its calibration-only ceiling"
       - "TASK-1071 recorded EXTERNAL_EXPOSURE_BLOCKED before curation; no external benchmark, labels, metrics, or validator output were created"
+      - "TASK-1083 found candidate corpora but returned LABEL_SEMANTICS_BLOCKED before formula copying or scoring"
     forbidden:
       - "do not treat dimensional validity as physical truth"
       - "do not mix many unrelated challenge families in one PR"
@@ -1964,10 +1994,10 @@ missions:
         label: "Scout independently authored dimensional benchmark corpora"
         task_id: TASK-1083
         mode: research
-        status: ready
+        status: review_ready
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "at most one source route with independent labels, scope, provenance, rights, and coverage verdict"
           - "no formula copying, validator execution, scoring, dataset admission, or CLAIM-0005 change"

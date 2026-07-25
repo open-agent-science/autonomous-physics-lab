@@ -85,18 +85,14 @@ portfolio:
       - curator_cycle_review
       - source_readiness_pass
       - updated_campaign_profile
-  current_stage: "TASK-1055 created an eleven-publication f_K/f_pi source manifest and dependency graph, then returned HOLD_COVARIANCE_UNRESOLVED because all 49 pairwise dependency relations remain UNKNOWN. No central values, benchmark, result, or claim have been admitted."
-  recommended_parallel_agents: 3
-  coordination_notes: "TASK-1079 and TASK-1080 split the exact dependency evidence audit by Nf=2+1+1 and Nf=2+1 publication families; TASK-1081 freezes value-admissibility rules without extracting values. These write surfaces are independent. Do not infer independence from missing evidence, extract central values, build a general loader, or run anomaly metrics."
+  current_stage: "TASK-1079 and TASK-1080 are merged REVIEW_READY dependency-memory with PARTIAL_HOLD_UNKNOWN_EDGES verdicts. They resolved several shared or possible-shared lineages but left most cross-publication axes UNKNOWN, so no disjoint split, covariance policy, or numeric intake is authorized. No central values, benchmark, result, or claim have been admitted."
+  recommended_parallel_agents: 1
+  coordination_notes: "TASK-1079 and TASK-1080 are completed evidence surfaces awaiting closeout, not executor work. TASK-1081 is the only READY Lattice gate: freeze per-publication value, rights, convention, and uncertainty admissibility without copying values. TASK-1101 remains BLOCKED until all three prerequisites are merged and reviewed."
   next_validity_gate:
     type: source_readiness
-    blocker: "The pilot has a bounded source graph, but all 49 pairwise dependency edges are UNKNOWN and value-admissibility rules are not frozen."
-    target_artifact: "TASK-1079, TASK-1080, and TASK-1081"
+    blocker: "Dependency audits preserve substantial UNKNOWN lineage, and the value/uncertainty admissibility policy is not yet frozen."
+    target_artifact: "TASK-1081; TASK-1101 remains blocked"
   best_next_actions:
-    - task_id: TASK-1079
-      label: "Resolve only the Nf=2+1+1 dependency edges from primary evidence"
-    - task_id: TASK-1080
-      label: "Resolve only the Nf=2+1 dependency edges from primary evidence"
     - task_id: TASK-1081
       label: "Freeze source-locator, rights, convention, and uncertainty admissibility rules"
   required_gates:
@@ -111,16 +107,18 @@ portfolio:
     - "docs/reviews/lattice_qcd/lattice-dependency-covariance-incubator.md"
     - "docs/reviews/lattice_qcd/lattice-dependency-graph-fabricated.yaml"
     - "docs/reviews/lattice_qcd/fk-fpi-source-dependency-pilot.md"
+    - "docs/reviews/lattice_qcd/fk-fpi-nf2p1p1-dependency-edge-resolution.md"
+    - "docs/reviews/lattice_qcd/fk-fpi-nf2p1-edge-resolution.md"
     - "data/lattice_qcd/fk_fpi_source_manifest.yaml"
     - "data/lattice_qcd/fk_fpi_dependency_graph.yaml"
   open_questions:
-    - "Can primary-source evidence resolve enough of the 49 UNKNOWN edges to define conservative dependency components without false independence?"
     - "Can all eleven publications satisfy one predeclared value-admissibility policy before any central values are admitted?"
+    - "After TASK-1081, does the merged dependency and admissibility memory support a bounded pilot, or must TASK-1101 return HOLD/STOP?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-21"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_planning
     next_review_due: "2026-09-01"
     review_reason: planning_scaffold
-    source: "TASK-1055 f_K/f_pi source/dependency pilot and Scientific Director 2026-07-21 cycle"
-    notes: "The route now has a real bounded source graph, but unknown dependencies still block any numeric surface. Three disjoint evidence-policy tasks are warranted; broad ingestion, fitting, and claims remain unauthorized."
+    source: "TASK-1079/TASK-1080 dependency-edge resolutions and Scientific Director 2026-07-25 cycle"
+    notes: "The two dependency audits are durable partial-hold memory, not READY work. TASK-1081 is the sole executable gate; numeric activation adjudication remains blocked and broad ingestion, fitting, and claims remain unauthorized."

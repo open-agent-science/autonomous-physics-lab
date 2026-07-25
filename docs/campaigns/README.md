@@ -7,12 +7,12 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Flagship validation challenge:** Nuclear Mass Surface.
-- **Default near-term science-output sprint:** resolve the `f_K/f_pi` dependency
-  and value-admissibility gates, pursue clean external dimensional validation,
-  preserve the repaired CHARA publisher provenance while waiting for an
-  identity-independent replay, and preserve the archive-gated ThermoML
-  extraction path. FRB, Exoplanet, Nuclear, Atomic, and Quantum remain reveal-
-  or source-trigger-gated.
+- **Default near-term science-output sprint:** complete the `f_K/f_pi`
+  value-admissibility gate after two partial-hold dependency audits, run
+  identity-independent CHARA replay, independently replay bounded OQMD
+  negative/control memory, and execute the source-ready ThermoML fixture
+  extraction. FRB, Exoplanet, Nuclear, Atomic, and Quantum remain reveal- or
+  source-trigger-gated.
 - **Fresh-data monitoring:** Atomic-Clock Residuals and Quantum Size Effects
   (source-gated; Atomic has pinned rows and a source-limited `171Yb/87Sr`
   consistency memory card plus source-blocked McGrew and `171Yb/88Sr` routes;
@@ -51,8 +51,8 @@ campaign map or `missions/current.yaml`.
 | review the flagship validation challenge | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, explicit negative controls, and several useful negative/control results. |
 | inspect a stopped direct-measurement route | [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 produced six direct InP rows and `RESULT-0029`; Kim-2020 produced separate four-row absorption and emission surfaces, but both are underpowered and no independent source cleared the gates. |
 | work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy and Nemitz `171Yb/87Sr` rows plus a first exploratory cross-source diagnostic; Pizzocaro and McGrew are blocked, and the multi-species path is `KEEP_MONITOR_ONLY`, so the live work is trigger/blocker memory. |
-| work on reusable benchmark datasets | [Materials Property Residuals](./materials-property-residuals.md) | It has `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, a citable MD-0002 release, and a bounded 172-row OQMD source surface; proposed result PR #1634 remains under review. |
-| inspect source-pinned thermophysical evidence | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | It has AGENT_VALIDATED ThermoML `Tb` / Joback `RESULT-0026` and failed-family `RESULT-0028`; exact-80 is stopped and an at-most-74-row extraction contract waits on the exact local archive. |
+| work on reusable benchmark datasets | [Materials Property Residuals](./materials-property-residuals.md) | It has `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, a citable MD-0002 release, and AGENT_PUBLISHED `RESULT-0032`, a bounded within-OQMD negative/control result awaiting independent replay. |
+| inspect source-pinned thermophysical evidence | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | It has AGENT_VALIDATED ThermoML `Tb` / Joback `RESULT-0026` and failed-family `RESULT-0028`; exact-80 is stopped and the frozen at-most-74-row fixture is ready for value-blind extraction from the private-source archive. |
 | monitor the exoplanet benchmark surface | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It has pinned snapshots, benchmark diagnostics, target-freeze protocol, reviewer capsule, null-baseline control panel, `NO_NOTIFY` monitor check 3, and AGENT_VALIDATED `RESULT-0027`; new scoring waits for a source-version trigger. |
 | replay mature evidence | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) or [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | These are safer quality-floor tracks with deterministic replay value. |
 | test a new source-gated campaign | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | The Lattice-QCD incubator selected `f_K/f_pi` for one bounded primary-source/dependency pilot; no central values or full campaign are authorized. |
@@ -66,9 +66,9 @@ campaign map or `missions/current.yaml`.
 | [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshots, CK17-style baseline, residual/failure map, compact-radius matched-control diagnostic, null-baseline control panel, reviewer capsule, closed `EXO-0002` reopen gate, `NO_NOTIFY` monitor check 3, and AGENT_VALIDATED `RESULT-0027`. | Monitor-only until a NOTIFY class appears; no residual scoring on the unchanged snapshot. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Almeida 2023 direct InP rows, AGENT_VALIDATED `RESULT-0029`, Kim-2020 `UNCERTAINTY_BLOCKED` digitization memory, and separate four-row absorption/emission surfaces. | Monitor for a genuinely new source trigger; the current route is underpowered and has no qualifying independent source. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy and Nemitz `171Yb/87Sr` rows, real-row loader, covariance policy, Pizzocaro diagnostic blocker/contract, source-limited consistency memory, blocked McGrew/NIST route, `171Yb/88Sr` isotope-mismatch blocker, and `KEEP_MONITOR_ONLY` multi-species verdict. | Durable reopen-trigger ledger; no constants-drift or metric rerun. |
-| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, a citable Zenodo DOI, and a source-replayed 172-row OQMD surface. | Review PR #1634; after merge, independently replay the unchanged result rather than refit. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Four narrow results are AGENT_VALIDATED; CHARA `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE with repaired publisher provenance, while Gaia DR4 remains held on luminosity semantics. | Wait for an identity-independent executor, then replay without rescuing the margin. |
-| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | AGENT_VALIDATED ThermoML `Tb` `RESULT-0026` and failed-family `RESULT-0028`; exact-80 failed, and a value-blind at-most-74-row contract is frozen. | Supply the checksum-matched archive and pass article-cap/information-floor gates before extracting a complete fixture; no score yet. |
+| [Materials Property Residuals](./materials-property-residuals.md) | `MD-0001`, `MD-0002`, AGENT_VALIDATED `RESULT-0021`, a citable Zenodo DOI, and AGENT_PUBLISHED `RESULT-0032` negative/control memory on a source-replayed 172-row OQMD surface. | Independently replay the unchanged failed exact-pair gate; do not refit or pool databases. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Four narrow results are AGENT_VALIDATED; CHARA `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE with repaired publisher provenance, while Gaia DR4 remains held on luminosity semantics. | Perform identity-independent replay without rescuing the margin. |
+| [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | AGENT_VALIDATED ThermoML `Tb` `RESULT-0026` and failed-family `RESULT-0028`; exact-80 failed, and a value-blind at-most-74-row contract is frozen. | Extract through the private-source boundary and enforce article-cap/information-floor gates; no score yet. |
 
 These are the main public-facing surfaces today. They should be presented as
 disciplined research infrastructure, not as finished discoveries.
@@ -88,7 +88,7 @@ the newer campaigns can be stricter.
 
 | Campaign | Status | Safe contribution shape |
 | --- | --- | --- |
-| [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Atomic and FRB have graduated; the Lattice-QCD incubator selected `f_K/f_pi` for a bounded source/dependency pilot. | Audit primary-publication and shared-ensemble metadata; no central values or world average. |
+| [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Atomic and FRB have graduated; the Lattice-QCD incubator selected `f_K/f_pi` and now preserves two partial-hold dependency audits. | Complete the no-value admissibility policy; numeric activation adjudication remains blocked. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Stefan-Boltzmann, Stellar M-L, FIRAS/Wien, and high-mass transfer are agent-validated; CHARA has a bounded AGENT_PUBLISHED INCONCLUSIVE result with repaired publisher provenance. | Replay only with an identity-independent executor; no model-derived Gaia truth rows or universal formula claims. |

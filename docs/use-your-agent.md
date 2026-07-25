@@ -103,6 +103,46 @@ Example: `agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams`
 Never work directly on `main`, invent a canonical task id, or mix unrelated
 tasks into one branch.
 
+## External Contributors: Publish Through A Fork
+
+An authenticated GitHub account does not automatically have write access to
+the canonical APL repository. Run the advisory capability check from the task
+branch before publication:
+
+```bash
+python3 scripts/apl_pr_capability_check.py
+```
+
+The check reads `viewerPermission` for
+`open-agent-science/autonomous-physics-lab` and reports one route:
+
+- `direct`: `WRITE`, `MAINTAIN`, or `ADMIN`; the normal upstream branch path is
+  available.
+- `fork`: `READ` or `TRIAGE`; this is the expected external-contributor path,
+  not an authentication failure.
+- `unknown`: do not guess that `origin` accepts pushes; rerun the diagnostic
+  where GitHub credentials and network access are available.
+- `not_checked`: authentication or repository-permission lookup was explicitly
+  skipped.
+
+For `fork`, the human output includes commands rendered for the current OS, and
+`--json` exposes each command as an argument vector that an agent can execute
+with `shell=False`. The route creates or reuses the contributor's fork as the
+`fork` remote, pushes the task branch there, then opens a draft PR against the
+canonical repository. For example:
+
+```text
+gh repo fork open-agent-science/autonomous-physics-lab --clone=false --remote --remote-name fork
+git push --set-upstream fork agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams
+gh pr create --repo open-agent-science/autonomous-physics-lab --base main --head akutenyov:agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams --draft --title "TASK-0120: use your agent quickstart diagrams" --body-file .apl-pr-body.md
+```
+
+Prepare `.apl-pr-body.md` with `scripts/apl_task_pr_helper.py prepare-current`
+before running the final command. A contributor does not need upstream write
+permission, and agents must not recommend granting it merely to avoid the fork
+flow. Existing fork PRs still run on GitHub-hosted CI according to the
+repository workflow guard.
+
 ## What the Review Cycle Looks Like
 
 After you push your branch and open a PR, here is what happens:

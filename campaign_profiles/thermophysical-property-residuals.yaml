@@ -93,15 +93,15 @@ portfolio:
       - source_readiness_pass
       - updated_campaign_profile
   current_stage: "RESULT-0026 is AGENT_VALIDATED on the bounded 40-row Tb fixture and RESULT-0028 is AGENT_VALIDATED failed-family memory. TASK-1084 returned REVISED_CONTRACT_READY_NO_SCORE for an availability-capped, family-equal-weighted surface of at most 74 rows; the exact 80-row route remains stopped."
-  recommended_parallel_agents: 0
-  coordination_notes: "TASK-1091 may extract the frozen at-most-74-row fixture only after the exact checksum-matched local archive is supplied. It must independently reproduce the count arithmetic, enforce the five-row article cap and information floor, and stop without a partial fixture. Scoring remains a separate future task."
+  recommended_parallel_agents: 1
+  coordination_notes: "The checksum-matched archive is available through the canonical private-source workspace, so TASK-1091 is READY. It must independently reproduce the count arithmetic, enforce the five-row article cap and information floor, and stop without a partial fixture. Scoring remains separate and TASK-1103 stays blocked until the fixture passes."
   next_validity_gate:
     type: source_readiness
-    blocker: "The revised contract is ready but the exact local ThermoML archive is not available in the current checkout, and article-cap feasibility is unknown until value-blind extraction."
+    blocker: "Article-cap and information-floor feasibility remain unknown until the READY value-blind extraction runs against the checksum-matched private-source archive."
     target_artifact: "TASK-1091"
   best_next_actions:
     - task_id: TASK-1091
-      label: "After the checksum-matched archive is supplied, extract the at-most-74-row fixture or stop on the frozen information floor"
+      label: "Extract the at-most-74-row fixture or stop on the frozen article-cap and information-floor gates"
   required_gates:
     - "ThermoML archive DOI, checksum, and rights boundary must stay explicit."
     - "No raw archive bytes or substantial normalized corpus may be committed."
@@ -135,4 +135,4 @@ portfolio:
     next_review_due: "2026-09-01"
     review_reason: benchmark_monitoring
     source: "RESULT-0026, RESULT-0028, TASK-1084 revised contract, and Scientific Director 2026-07-22 cycle"
-    notes: "The 40-row benchmark and failed-family memory are durable. The revised 74-row ceiling is source-ready planning only; archive identity, article caps, rights metadata, and extraction hard stops still gate any fixture."
+    notes: "The 40-row benchmark and failed-family memory are durable. The revised 74-row ceiling is source-ready planning only; the archive is available privately, while article caps, rights metadata, and extraction hard stops still gate any fixture."

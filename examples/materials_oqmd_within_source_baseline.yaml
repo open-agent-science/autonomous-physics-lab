@@ -1,0 +1,8 @@
+experiment_path: ../experiments/EXP-0024-oqmd-within-source-cation-pair-baseline.yaml
+hypothesis_path: ../hypotheses/HYP-0024-oqmd-within-source-cation-pair-baseline.yaml
+fixture_config_path: ../data/materials/oqmd_within_source_benchmark_config.yaml
+task_id: TASK-1066
+run_id: RUN-0001
+result_id: RESULT-0032
+result_root: ../results/EXP-0024
+workflow: materials_oqmd_within_source_baseline

@@ -91,6 +91,19 @@ typical_activities:
   - title: "Targeted closeout health check"
     description: |
       Run `python3 scripts/apl_task_closeout_check.py` against one task.
+  - title: "Post-merge issue lifecycle"
+    description: |
+      Inspect the PR's GitHub closing references and the linked issue's actual
+      acceptance criteria before recommending issue closure. Never delete an
+      issue as routine cleanup. Close a bounded implementation issue only when
+      the merged change fully satisfies it. Keep partial, umbrella, tracking,
+      multi-stage, and campaign issues open and update their checklist or
+      status instead. Close duplicate or superseded issues only with an
+      explanatory comment and a link to the canonical successor. Treat
+      task-claim issues as coordination markers: close them only after the
+      canonical task is DONE, using the explicit task-claim closeout helper.
+      A matching PR title, branch, or TASK-XXXX id is not sufficient evidence
+      that an issue should close.
   - title: "Surface recurring review bottlenecks"
     description: |
       When the same helper, CI, validation, branch-shape, PR-body, or closeout
@@ -124,6 +137,7 @@ scripts_to_use:
   - scripts/apl_closeout_task.py
   - scripts/apl_closeout_pr_helper.py
   - scripts/apl_closeout_sweep.py
+  - scripts/apl_close_task_claim_issues.py
   - scripts/apl_task_closeout_check.py
   - scripts/check_public_path_leaks.py
 
@@ -144,6 +158,9 @@ restrictions:
   - "Must surface architecture-sensitive routing changes (new live campaign, mission, portfolio, or task-state surfaces) for explicit maintainer review."
   - "Must block publication of raw upstream artifacts when redistribution permission, license posture, or source provenance is missing."
   - "Must block new committed source provenance that depends on an absolute machine-local path instead of stable source identity and checksum."
+  - "Must never delete GitHub issues as routine review or closeout cleanup; preserve issue history as public provenance."
+  - "Must not close an implementation issue until a merged change fully satisfies its acceptance criteria, or close a tracking/umbrella issue merely because one linked PR merged."
+  - "Must not infer issue closure from a PR title, branch, TASK-XXXX match, or closing keyword alone; inspect the issue type, acceptance criteria, and merged scope."
   - "Must not leave repeated review-helper, CI, validation, or closeout failures only as local comments when they indicate a structural bottleneck worth proposing."
   - "Must not diagnose a GitHub token as expired or revoked solely from a sandbox auth failure, expose token values, or persist credentials to bypass sandbox isolation."
 

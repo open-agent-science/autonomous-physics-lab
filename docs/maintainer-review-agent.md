@@ -904,6 +904,35 @@ Expected behavior:
   issue bodies/titles that include `Task ID: TASK-XXXX`;
 - use `--apply` only after reviewing the printed closeable list.
 
+### GitHub issue lifecycle after merge
+
+Do not delete GitHub issues as routine review or closeout cleanup. Closing an
+issue preserves its discussion, decisions, links, and audit trail; deletion
+destroys that provenance and is reserved for exceptional moderation cases
+outside the normal review-agent workflow.
+
+Before recommending or performing issue closure, inspect the PR's GitHub
+closing references and classify each linked issue:
+
+- **bounded implementation issue**: close only after the merged change fully
+  satisfies the issue's acceptance criteria. A `Closes #...` reference is
+  appropriate only in this case;
+- **partial implementation or follow-up issue**: keep it open, update its
+  checklist or status, and link the merged PR as progress rather than as
+  completion;
+- **umbrella, tracking, multi-stage, or campaign issue**: keep it open until
+  every declared child or exit condition is complete. One merged child PR is
+  not a close signal;
+- **duplicate or superseded issue**: close with a short explanatory comment and
+  a link to the canonical successor so future agents can follow the decision;
+- **task-claim coordination issue**: use the task-claim closeout helper above
+  and close only after the canonical task YAML is `DONE`.
+
+A matching PR title, branch, `TASK-XXXX` identifier, or closing keyword is not
+enough by itself. If the linked issue type or acceptance state is ambiguous,
+leave it open and report the maintainer decision needed. General issues must
+not be auto-closed by the task-claim helper.
+
 For a quick local closeout snapshot, run:
 
 ```bash

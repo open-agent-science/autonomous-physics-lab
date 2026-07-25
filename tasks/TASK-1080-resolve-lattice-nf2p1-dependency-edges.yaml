@@ -1,7 +1,7 @@
 id: TASK-1080
 title: "Resolve bounded N_f=2+1 f_K/f_pi dependency edges"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task changes the real Lattice-QCD dependency graph; closeout must verify every upgraded edge against primary evidence and preserve unknown dependence conservatively."
 difficulty: high

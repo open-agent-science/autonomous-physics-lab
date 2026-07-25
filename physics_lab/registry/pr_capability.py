@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import os
+import re
 import shutil
 from typing import Literal, Mapping
 
@@ -14,6 +15,9 @@ from physics_lab.registry.subprocess_env import env_with_overrides as env_with_o
 
 TOKEN_ENV_NAMES = ("GH_TOKEN", "GITHUB_TOKEN")
 SANDBOX_ENV_NAMES = ("CODEX_SANDBOX",)
+CANONICAL_GITHUB_REPOSITORY = "open-agent-science/autonomous-physics-lab"
+DIRECT_WRITE_PERMISSIONS = frozenset({"ADMIN", "MAINTAIN", "WRITE"})
+FORK_ROUTE_PERMISSIONS = frozenset({"TRIAGE", "READ"})
 GhAuthState = Literal[
     "authenticated",
     "not_checked",
@@ -22,6 +26,7 @@ GhAuthState = Literal[
     "token_env_unverified",
     "unauthenticated_or_invalid",
 ]
+PublicationRoute = Literal["direct", "fork", "unknown", "not_checked"]
 PROXY_ENV_NAMES = (
     "HTTP_PROXY",
     "HTTPS_PROXY",
@@ -74,13 +79,19 @@ def _candidate_paths_from_env(
 
 @dataclass(frozen=True)
 class PrCapabilityReport:
-    """Result of checking whether this environment can open a PR directly."""
+    """Result of checking which PR publication route this environment can use."""
 
     errors: tuple[str, ...]
     warnings: tuple[str, ...]
     gh_path: str | None
     git_path: str | None
     gh_auth_state: GhAuthState
+    repository: str
+    repository_permission: str | None
+    authenticated_login: str | None
+    publication_route: PublicationRoute
+    branch: str | None
+    fork_commands: tuple[tuple[str, ...], ...]
     token_env_names: tuple[str, ...]
     sandbox_detected: bool
     sandbox_env_names: tuple[str, ...]
@@ -99,9 +110,12 @@ def check_pr_capability(
     candidate_paths: tuple[str, ...] = DEFAULT_GH_CANDIDATE_PATHS,
     discover_gh: bool = True,
     require_gh_auth: bool = True,
+    check_repository_permission: bool = True,
     agent_sandbox: bool = False,
+    repository: str = CANONICAL_GITHUB_REPOSITORY,
+    branch: str | None = None,
 ) -> PrCapabilityReport:
-    """Check whether a PR can be opened directly, without blocking local work."""
+    """Diagnose the direct or fork PR route without blocking local work."""
     env_map = os.environ if env is None else env
     tokens = tuple(name for name in TOKEN_ENV_NAMES if env_map.get(name))
     sandbox_names = active_sandbox_env_names(env_map)
@@ -130,6 +144,19 @@ def check_pr_capability(
     )
     errors: list[str] = []
     warnings: list[str] = []
+    current_branch = branch or _current_git_branch(
+        root,
+        git_path=git_path,
+        env=env_map,
+    )
+    repository_permission: str | None = None
+    authenticated_login: str | None = None
+    publication_route: PublicationRoute = (
+        "unknown"
+        if require_gh_auth and check_repository_permission
+        else "not_checked"
+    )
+    fork_commands: tuple[tuple[str, ...], ...] = ()
 
     if suspicious_proxy_names:
         warnings.append(
@@ -168,6 +195,12 @@ def check_pr_capability(
             gh_path=None,
             git_path=git_path,
             gh_auth_state=gh_auth_state,
+            repository=repository,
+            repository_permission=repository_permission,
+            authenticated_login=authenticated_login,
+            publication_route=publication_route,
+            branch=current_branch,
+            fork_commands=fork_commands,
             token_env_names=tokens,
             sandbox_detected=sandbox_detected,
             sandbox_env_names=sandbox_names,
@@ -184,6 +217,85 @@ def check_pr_capability(
         )
         if result.returncode == 0:
             gh_auth_state = "authenticated"
+            if check_repository_permission:
+                # Authentication proves identity, not upstream push access. Keep this
+                # separate permission query so external contributors are routed to a
+                # fork instead of receiving a predictable 403 from `git push origin`.
+                permission_result = run_command(
+                    [
+                        resolved_gh_path,
+                        "repo",
+                        "view",
+                        repository,
+                        "--json",
+                        "viewerPermission",
+                        "--jq",
+                        ".viewerPermission",
+                    ],
+                    cwd=root,
+                    timeout=20,
+                    env=env_map,
+                )
+                permission = permission_result.stdout.strip().upper()
+                if permission_result.returncode != 0 or not permission:
+                    publication_route = "unknown"
+                    warnings.append(
+                        "GitHub authentication succeeded, but repository permission "
+                        f"for `{repository}` could not be determined. Do not assume "
+                        "that `origin` accepts pushes; rerun this check in a network-"
+                        "enabled maintainer terminal before publication."
+                    )
+                elif permission in DIRECT_WRITE_PERMISSIONS:
+                    repository_permission = permission
+                    publication_route = "direct"
+                elif permission in FORK_ROUTE_PERMISSIONS:
+                    repository_permission = permission
+                    publication_route = "fork"
+                    login_result = run_command(
+                        [resolved_gh_path, "api", "user", "--jq", ".login"],
+                        cwd=root,
+                        timeout=20,
+                        env=env_map,
+                    )
+                    login = login_result.stdout.strip()
+                    if login_result.returncode == 0 and _is_safe_github_login(login):
+                        authenticated_login = login
+                        fork_commands = fork_publication_commands(
+                            repository=repository,
+                            login=login,
+                            branch=current_branch,
+                            gh_command=resolved_gh_path,
+                            git_command=git_path or "git",
+                        )
+                    warnings.append(
+                        f"GitHub authentication is valid, but `{repository}` grants "
+                        f"{permission} rather than upstream write access. This is an "
+                        "expected external-contributor state: publish through a "
+                        "contributor-owned fork and open a cross-repository PR. Do "
+                        "not request upstream write permission solely to contribute."
+                    )
+                    if authenticated_login is None:
+                        warnings.append(
+                            "The authenticated GitHub login could not be determined, "
+                            "so an exact cross-repository PR command was not generated."
+                        )
+                    elif current_branch is None:
+                        warnings.append(
+                            "The current Git branch could not be determined, so an "
+                            "exact fork publication command pack was not generated."
+                        )
+                    elif not fork_commands:
+                        warnings.append(
+                            "The current branch is not a safe canonical task branch, "
+                            "so an executable fork command pack was not generated."
+                        )
+                else:
+                    repository_permission = permission
+                    publication_route = "unknown"
+                    warnings.append(
+                        f"GitHub reported unsupported viewerPermission `{permission}` "
+                        f"for `{repository}`. Do not assume direct push access."
+                    )
         elif tokens:
             gh_auth_state = "token_env_unverified"
             warnings.append(
@@ -235,10 +347,108 @@ def check_pr_capability(
         gh_path=resolved_gh_path,
         git_path=git_path,
         gh_auth_state=gh_auth_state,
+        repository=repository,
+        repository_permission=repository_permission,
+        authenticated_login=authenticated_login,
+        publication_route=publication_route,
+        branch=current_branch,
+        fork_commands=fork_commands,
         token_env_names=tokens,
         sandbox_detected=sandbox_detected,
         sandbox_env_names=sandbox_names,
         suspicious_proxy_env_names=suspicious_proxy_names,
+    )
+
+
+def _current_git_branch(
+    root: Path,
+    *,
+    git_path: str | None,
+    env: Mapping[str, str],
+) -> str | None:
+    if git_path is None:
+        return None
+    result = run_command(
+        [git_path, "branch", "--show-current"],
+        cwd=root,
+        timeout=20,
+        env=env,
+    )
+    branch = result.stdout.strip()
+    return branch or None
+
+
+def _is_safe_github_login(login: str) -> bool:
+    return bool(
+        1 <= len(login) <= 39
+        and re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?", login)
+        and "--" not in login
+    )
+
+
+def _is_safe_task_branch(branch: str) -> bool:
+    return bool(
+        re.fullmatch(
+            r"agent/[a-z0-9][a-z0-9-]*/[a-z0-9][a-z0-9-]*/"
+            r"task-[0-9]{4}-[a-z0-9][a-z0-9-]*",
+            branch,
+        )
+    )
+
+
+def _task_title_from_branch(branch: str) -> str:
+    task_segment = branch.rsplit("/", maxsplit=1)[-1]
+    match = re.fullmatch(r"task-([0-9]{4})-(.+)", task_segment)
+    if match is None:
+        raise ValueError("A canonical task branch is required.")
+    return f"TASK-{match.group(1)}: {match.group(2).replace('-', ' ')}"
+
+
+def fork_publication_commands(
+    *,
+    repository: str,
+    login: str,
+    branch: str | None,
+    gh_command: str = "gh",
+    git_command: str = "git",
+    body_file: str = ".apl-pr-body.md",
+) -> tuple[tuple[str, ...], ...]:
+    """Return shell-free argv commands for an external contributor fork PR."""
+    if (
+        not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository)
+        or not _is_safe_github_login(login)
+        or branch is None
+        or not _is_safe_task_branch(branch)
+    ):
+        return ()
+    return (
+        (
+            gh_command,
+            "repo",
+            "fork",
+            repository,
+            "--clone=false",
+            "--remote",
+            "--remote-name",
+            "fork",
+        ),
+        (git_command, "push", "--set-upstream", "fork", branch),
+        (
+            gh_command,
+            "pr",
+            "create",
+            "--repo",
+            repository,
+            "--base",
+            "main",
+            "--head",
+            f"{login}:{branch}",
+            "--draft",
+            "--title",
+            _task_title_from_branch(branch),
+            "--body-file",
+            body_file,
+        ),
     )
 
 

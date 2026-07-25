@@ -1,0 +1,1090 @@
+{
+  "benchmark_id": "oqmd-within-source-cation-pair-v1",
+  "composition_leakage": [],
+  "failure_cases": [
+    {
+      "absolute_residual": 1.241277107901,
+      "cation_pair": [
+        "Sr",
+        "Ti"
+      ],
+      "entry_id": 2757,
+      "name": "Sr2Ti6O13",
+      "prediction": -2.032794482534,
+      "residual": -1.241277107901,
+      "target": -3.274071590435,
+      "used_global_fallback": true
+    },
+    {
+      "absolute_residual": 0.401906418288,
+      "cation_pair": [
+        "Ba",
+        "Fe"
+      ],
+      "entry_id": 36003,
+      "name": "Ba2Fe6O11",
+      "prediction": -2.379664907375,
+      "residual": 0.401906418288,
+      "target": -1.977758489087,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.246968025163,
+      "cation_pair": [
+        "Sr",
+        "V"
+      ],
+      "entry_id": 648541,
+      "name": "SrV4O10",
+      "prediction": -2.827317594158,
+      "residual": 0.246968025163,
+      "target": -2.580349568995,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.237256100418,
+      "cation_pair": [
+        "Fe",
+        "Li"
+      ],
+      "entry_id": 1338415,
+      "name": "Li3FeO4",
+      "prediction": -2.032794482534,
+      "residual": 0.237256100418,
+      "target": -1.795538382116,
+      "used_global_fallback": true
+    },
+    {
+      "absolute_residual": 1.283287392712,
+      "cation_pair": [
+        "Sr",
+        "Ti"
+      ],
+      "entry_id": 1345476,
+      "name": "SrTi2O5",
+      "prediction": -2.032794482534,
+      "residual": -1.283287392712,
+      "target": -3.316081875246,
+      "used_global_fallback": true
+    },
+    {
+      "absolute_residual": 0.674002008852,
+      "cation_pair": [
+        "Cs",
+        "Ti"
+      ],
+      "entry_id": 1347212,
+      "name": "Cs4TiO4",
+      "prediction": -2.835226570774,
+      "residual": 0.674002008852,
+      "target": -2.161224561922,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.34691672722,
+      "cation_pair": [
+        "Mn",
+        "Sr"
+      ],
+      "entry_id": 1347984,
+      "name": "Sr2Mn3O8",
+      "prediction": -2.636780265963,
+      "residual": 0.34691672722,
+      "target": -2.289863538744,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.142733621846,
+      "cation_pair": [
+        "Mn",
+        "Sr"
+      ],
+      "entry_id": 1348506,
+      "name": "SrMnO2",
+      "prediction": -2.636780265963,
+      "residual": 0.142733621846,
+      "target": -2.494046644117,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.045905261247,
+      "cation_pair": [
+        "K",
+        "Mn"
+      ],
+      "entry_id": 1348842,
+      "name": "K2Mn3O7",
+      "prediction": -1.811115744819,
+      "residual": -0.045905261247,
+      "target": -1.857021006066,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.183011157776,
+      "cation_pair": [
+        "Cs",
+        "Mn"
+      ],
+      "entry_id": 1369277,
+      "name": "CsMnO2",
+      "prediction": -1.681372828216,
+      "residual": -0.183011157776,
+      "target": -1.864383985992,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.1594045205,
+      "cation_pair": [
+        "Fe",
+        "Li"
+      ],
+      "entry_id": 1752950,
+      "name": "Li2FeO2",
+      "prediction": -2.032794482534,
+      "residual": 0.1594045205,
+      "target": -1.873389962034,
+      "used_global_fallback": true
+    },
+    {
+      "absolute_residual": 0.145922788906,
+      "cation_pair": [
+        "Ba",
+        "V"
+      ],
+      "entry_id": 1880486,
+      "name": "BaV2O4",
+      "prediction": -2.57560505882,
+      "residual": -0.145922788906,
+      "target": -2.721527847726,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.069167341022,
+      "cation_pair": [
+        "Co",
+        "K"
+      ],
+      "entry_id": 1880956,
+      "name": "K3CoO3",
+      "prediction": -1.419076889631,
+      "residual": -0.069167341022,
+      "target": -1.488244230653,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.024220614888,
+      "cation_pair": [
+        "Cs",
+        "Mn"
+      ],
+      "entry_id": 2061686,
+      "name": "Cs3Mn2O4",
+      "prediction": -1.681372828216,
+      "residual": -0.024220614888,
+      "target": -1.705593443104,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.815093995585,
+      "cation_pair": [
+        "Cu",
+        "Rb"
+      ],
+      "entry_id": 2151770,
+      "name": "Rb4Cu3O6",
+      "prediction": -2.032794482534,
+      "residual": 0.815093995585,
+      "target": -1.217700486949,
+      "used_global_fallback": true
+    },
+    {
+      "absolute_residual": 0.332361194759,
+      "cation_pair": [
+        "Cr",
+        "Rb"
+      ],
+      "entry_id": 2156236,
+      "name": "Rb6Cr2O9",
+      "prediction": -2.187864961314,
+      "residual": 0.332361194759,
+      "target": -1.855503766555,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.038762187375,
+      "cation_pair": [
+        "Co",
+        "K"
+      ],
+      "entry_id": 2172655,
+      "name": "K4Co3O6",
+      "prediction": -1.419076889631,
+      "residual": -0.038762187375,
+      "target": -1.457839077006,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.004428864298,
+      "cation_pair": [
+        "Cs",
+        "Cu"
+      ],
+      "entry_id": 2172994,
+      "name": "Cs5Cu2O4",
+      "prediction": -1.175130751742,
+      "residual": 0.004428864298,
+      "target": -1.170701887444,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.026027097414,
+      "cation_pair": [
+        "Ba",
+        "Mn"
+      ],
+      "entry_id": 2173280,
+      "name": "Ba6Mn5O15",
+      "prediction": -2.425313743326,
+      "residual": -0.026027097414,
+      "target": -2.45134084074,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.272874610901,
+      "cation_pair": [
+        "Mn",
+        "Sr"
+      ],
+      "entry_id": 2173445,
+      "name": "SrMn2O4",
+      "prediction": -2.636780265963,
+      "residual": 0.272874610901,
+      "target": -2.363905655063,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.280011906766,
+      "cation_pair": [
+        "Co",
+        "Sr"
+      ],
+      "entry_id": 2173536,
+      "name": "SrCo2O4",
+      "prediction": -2.10982660175,
+      "residual": 0.280011906766,
+      "target": -1.829814694984,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.336526760669,
+      "cation_pair": [
+        "Cr",
+        "Rb"
+      ],
+      "entry_id": 2173628,
+      "name": "Rb6Cr2O7",
+      "prediction": -2.187864961314,
+      "residual": 0.336526760669,
+      "target": -1.851338200645,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.272704195982,
+      "cation_pair": [
+        "Mn",
+        "Na"
+      ],
+      "entry_id": 2173880,
+      "name": "Na2Mn3O6",
+      "prediction": -1.715799539801,
+      "residual": -0.272704195982,
+      "target": -1.988503735783,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.061256072809,
+      "cation_pair": [
+        "Fe",
+        "K"
+      ],
+      "entry_id": 2173928,
+      "name": "K8Fe2O7",
+      "prediction": -1.500706897367,
+      "residual": -0.061256072809,
+      "target": -1.561962970175,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.060089118782,
+      "cation_pair": [
+        "Na",
+        "Ti"
+      ],
+      "entry_id": 2174149,
+      "name": "Na7Ti10O20",
+      "prediction": -2.794754197472,
+      "residual": -0.060089118782,
+      "target": -2.854843316254,
+      "used_global_fallback": false
+    },
+    {
+      "absolute_residual": 0.319758284105,
+      "cation_pair": [
+        "K",
+        "Mn"
+      ],
+      "entry_id": 2174292,
+      "name": "K7MnO6",
+      "prediction": -1.811115744819,
+      "residual": 0.319758284105,
+      "target": -1.491357460713,
+      "used_global_fallback": false
+    }
+  ],
+  "fixed_split": {
+    "controls": [
+      {
+        "control_id": "label_shuffle_seed_1054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.5927784989,
+          "max_relative_error": 0.706188697425,
+          "mean_relative_error": 0.295030463534,
+          "rmse": 0.688295280462,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.543744073061,
+          "max_relative_error": 2.157210405745,
+          "mean_relative_error": 0.300283104127,
+          "rmse": 0.681191660742,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.599322118709,
+          "max_relative_error": 0.6246642697,
+          "mean_relative_error": 0.31277483941,
+          "rmse": 0.67318297606,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "cation_pair_label_shuffle_seed_1054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.567374651217,
+          "max_relative_error": 0.669371495143,
+          "mean_relative_error": 0.287412441816,
+          "rmse": 0.666010478587,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.548914589757,
+          "max_relative_error": 2.191262608483,
+          "mean_relative_error": 0.294219805032,
+          "rmse": 0.676299437603,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.49939571046,
+          "max_relative_error": 0.936951561099,
+          "mean_relative_error": 0.266515932226,
+          "rmse": 0.599432818058,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "label_shuffle_seed_2054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.641259628909,
+          "max_relative_error": 1.650962310905,
+          "mean_relative_error": 0.347262969139,
+          "rmse": 0.76540353388,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.666545397005,
+          "max_relative_error": 1.776607539769,
+          "mean_relative_error": 0.373215335938,
+          "rmse": 0.805589004118,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.637340569393,
+          "max_relative_error": 0.635086884847,
+          "mean_relative_error": 0.339342984069,
+          "rmse": 0.697422013209,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "cation_pair_label_shuffle_seed_2054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.518404658434,
+          "max_relative_error": 0.984445207972,
+          "mean_relative_error": 0.266139943058,
+          "rmse": 0.657393682756,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.68538020731,
+          "max_relative_error": 1.813955380296,
+          "mean_relative_error": 0.374636855792,
+          "rmse": 0.817894724637,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.637419374281,
+          "max_relative_error": 1.323289293129,
+          "mean_relative_error": 0.359615762396,
+          "rmse": 0.766081943911,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "label_shuffle_seed_3054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.536164839354,
+          "max_relative_error": 0.938268377505,
+          "mean_relative_error": 0.272421376179,
+          "rmse": 0.648098382775,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.665293953291,
+          "max_relative_error": 1.442126802803,
+          "mean_relative_error": 0.359499238298,
+          "rmse": 0.787586779234,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.602789631142,
+          "max_relative_error": 0.6246642697,
+          "mean_relative_error": 0.329557768036,
+          "rmse": 0.675443400896,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "cation_pair_label_shuffle_seed_3054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.692746908612,
+          "max_relative_error": 0.918984652278,
+          "mean_relative_error": 0.355911224822,
+          "rmse": 0.806763432843,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.660535781453,
+          "max_relative_error": 1.401848928708,
+          "mean_relative_error": 0.36462065771,
+          "rmse": 0.765845141174,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.697399943775,
+          "max_relative_error": 0.922976968439,
+          "mean_relative_error": 0.388184570778,
+          "rmse": 0.818244324416,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "label_shuffle_seed_4054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.632195896001,
+          "max_relative_error": 0.777494481719,
+          "mean_relative_error": 0.310580462602,
+          "rmse": 0.754899989378,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.555913306772,
+          "max_relative_error": 1.988261056062,
+          "mean_relative_error": 0.302673028554,
+          "rmse": 0.697738851588,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.51573633469,
+          "max_relative_error": 0.663149113686,
+          "mean_relative_error": 0.277546176575,
+          "rmse": 0.621756931907,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "cation_pair_label_shuffle_seed_4054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.48671946412,
+          "max_relative_error": 0.669371495143,
+          "mean_relative_error": 0.238265947101,
+          "rmse": 0.601923572165,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.546690271386,
+          "max_relative_error": 1.86594248003,
+          "mean_relative_error": 0.29437380927,
+          "rmse": 0.690840308533,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.571067532291,
+          "max_relative_error": 0.6534339474,
+          "mean_relative_error": 0.294703426249,
+          "rmse": 0.665378554953,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "label_shuffle_seed_5054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.577985116928,
+          "max_relative_error": 0.669371495143,
+          "mean_relative_error": 0.278949024394,
+          "rmse": 0.678437634378,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.496768661259,
+          "max_relative_error": 1.35695673156,
+          "mean_relative_error": 0.261970216564,
+          "rmse": 0.661066172226,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.579292912855,
+          "max_relative_error": 0.726233322169,
+          "mean_relative_error": 0.309499579547,
+          "rmse": 0.680982014335,
+          "unseen_group_count": 2
+        }
+      },
+      {
+        "control_id": "cation_pair_label_shuffle_seed_5054",
+        "holdout": {
+          "count": 26,
+          "mae": 0.658612687618,
+          "max_relative_error": 1.015606004564,
+          "mean_relative_error": 0.324472117961,
+          "rmse": 0.775817717125,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.559105545644,
+          "max_relative_error": 1.330725235115,
+          "mean_relative_error": 0.305158464412,
+          "rmse": 0.6700070401,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.629805148477,
+          "max_relative_error": 0.735308498732,
+          "mean_relative_error": 0.318551447607,
+          "rmse": 0.773634114056,
+          "unseen_group_count": 2
+        }
+      }
+    ],
+    "distinct_train_cation_pairs": 58,
+    "distinct_train_iupac_group_pairs": 19,
+    "model_metrics": {
+      "candidate": {
+        "holdout": {
+          "count": 26,
+          "mae": 0.308533591392,
+          "max_relative_error": 0.669371495143,
+          "mean_relative_error": 0.145829312149,
+          "rmse": 0.454728159583,
+          "unseen_group_count": 5
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.083174437568,
+          "max_relative_error": 0.267916115206,
+          "mean_relative_error": 0.042844099068,
+          "rmse": 0.115900241349,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.230519423791,
+          "max_relative_error": 0.6246642697,
+          "mean_relative_error": 0.120943151552,
+          "rmse": 0.361154270128,
+          "unseen_group_count": 2
+        }
+      },
+      "global_median_null": {
+        "holdout": {
+          "count": 26,
+          "mae": 0.459529604455,
+          "max_relative_error": 0.769190230973,
+          "mean_relative_error": 0.238153454883,
+          "rmse": 0.558668204286,
+          "unseen_group_count": 0
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.505340695865,
+          "max_relative_error": 1.232159531206,
+          "mean_relative_error": 0.284211342647,
+          "rmse": 0.590248431005,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.540324691709,
+          "max_relative_error": 0.655354475338,
+          "mean_relative_error": 0.299222798453,
+          "rmse": 0.596803737763,
+          "unseen_group_count": 0
+        }
+      },
+      "iupac_group_pair_null": {
+        "holdout": {
+          "count": 26,
+          "mae": 0.154250620789,
+          "max_relative_error": 0.310482157872,
+          "mean_relative_error": 0.078640303739,
+          "rmse": 0.214827864827,
+          "unseen_group_count": 0
+        },
+        "train": {
+          "count": 120,
+          "mae": 0.16746451279,
+          "max_relative_error": 1.016762793339,
+          "mean_relative_error": 0.089487934776,
+          "rmse": 0.255987492055,
+          "unseen_group_count": 0
+        },
+        "validation": {
+          "count": 26,
+          "mae": 0.166005044968,
+          "max_relative_error": 0.279072392832,
+          "mean_relative_error": 0.09009958567,
+          "rmse": 0.199205551355,
+          "unseen_group_count": 0
+        }
+      }
+    },
+    "survival_gate": {
+      "absolute_margin_eV_per_atom": 0.02,
+      "all_comparators_pass": false,
+      "comparisons": [
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "global_median_null",
+          "comparator_mae": 0.459529604455,
+          "observed_margin": 0.150996013063,
+          "passes": true,
+          "required_margin": 0.022976480223
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "iupac_group_pair_null",
+          "comparator_mae": 0.154250620789,
+          "observed_margin": -0.154282970603,
+          "passes": false,
+          "required_margin": 0.02
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "label_shuffle_seed_1054",
+          "comparator_mae": 0.5927784989,
+          "observed_margin": 0.284244907508,
+          "passes": true,
+          "required_margin": 0.029638924945
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "cation_pair_label_shuffle_seed_1054",
+          "comparator_mae": 0.567374651217,
+          "observed_margin": 0.258841059825,
+          "passes": true,
+          "required_margin": 0.028368732561
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "label_shuffle_seed_2054",
+          "comparator_mae": 0.641259628909,
+          "observed_margin": 0.332726037517,
+          "passes": true,
+          "required_margin": 0.032062981445
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "cation_pair_label_shuffle_seed_2054",
+          "comparator_mae": 0.518404658434,
+          "observed_margin": 0.209871067042,
+          "passes": true,
+          "required_margin": 0.025920232922
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "label_shuffle_seed_3054",
+          "comparator_mae": 0.536164839354,
+          "observed_margin": 0.227631247962,
+          "passes": true,
+          "required_margin": 0.026808241968
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "cation_pair_label_shuffle_seed_3054",
+          "comparator_mae": 0.692746908612,
+          "observed_margin": 0.38421331722,
+          "passes": true,
+          "required_margin": 0.034637345431
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "label_shuffle_seed_4054",
+          "comparator_mae": 0.632195896001,
+          "observed_margin": 0.323662304609,
+          "passes": true,
+          "required_margin": 0.0316097948
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "cation_pair_label_shuffle_seed_4054",
+          "comparator_mae": 0.48671946412,
+          "observed_margin": 0.178185872728,
+          "passes": true,
+          "required_margin": 0.024335973206
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "label_shuffle_seed_5054",
+          "comparator_mae": 0.577985116928,
+          "observed_margin": 0.269451525536,
+          "passes": true,
+          "required_margin": 0.028899255846
+        },
+        {
+          "candidate_mae": 0.308533591392,
+          "comparator_id": "cation_pair_label_shuffle_seed_5054",
+          "comparator_mae": 0.658612687618,
+          "observed_margin": 0.350079096226,
+          "passes": true,
+          "required_margin": 0.032930634381
+        }
+      ],
+      "relative_margin_fraction": 0.05
+    },
+    "train_global_mean": -2.032794482534,
+    "train_global_median": -2.071194342648
+  },
+  "input_hashes": {
+    "contract": {
+      "path": "docs/reviews/materials/oqmd-within-source-baseline-control-contract.yaml",
+      "sha256": "cc1d0787c7a9510f27ad19e910f8892c84850928845bb3ac73a8aab7ec4f4efa"
+    },
+    "independent_replay": {
+      "path": "docs/reviews/materials/oqmd-bounded-snapshot-independent-source-replay.md",
+      "sha256": "9bbd04c3232a9a833d9a8213c731d1917588d8b6a83a887b6f0367fb53b2ebe0"
+    },
+    "normalized_snapshot": {
+      "path": "data/materials/oqmd_live_api_2026-07-14_normalized.json",
+      "sha256": "af8991aefda6f408a3ad33251aa5564f5fed37a7d527b696d68442971bc978a4"
+    },
+    "raw_snapshot": {
+      "path": "data/materials/snapshots/oqmd_live_api_2026-07-14_page_0000.json",
+      "sha256": "d39fc1c126434e9b178f88ee1afcaf15938993f2e6fc1528cdf5c4b0ea3bcb35"
+    },
+    "source_manifest": {
+      "path": "data/materials/oqmd_live_api_2026-07-14_manifest.yaml",
+      "sha256": "447eb1feb786b08845f147a93c3d0479fd2eeb5ee39f969cdd10469f61000e37"
+    },
+    "split": {
+      "path": "data/materials/oqmd_live_api_2026-07-14_split.yaml",
+      "sha256": "457444fe8e54a2ec54491931adf33a75cd583f236a37d4726966b4edcb6e9c34"
+    }
+  },
+  "limitations": [
+    "One bounded 172-row OQMD computed-DFT slice under OQMD delta_e semantics only.",
+    "The benchmark is within-source; OQMD values are not pooled with or treated as numerically equal to Materials Project values.",
+    "The exact cation-pair mean is a simple train-only baseline with a global-mean fallback, not a materials law or production predictor.",
+    "Seeded sensitivity reassigns whole reduced-composition identity groups and does not authorize threshold, descriptor, or model changes.",
+    "No experimental validation, material recommendation, synthesis guidance, or device-performance inference is supported."
+  ],
+  "missing_or_invalid_target_exclusions": 0,
+  "partition_counts": {
+    "holdout": 26,
+    "train": 120,
+    "validation": 26
+  },
+  "partition_group_counts": {
+    "holdout": 26,
+    "train": 120,
+    "validation": 26
+  },
+  "row_order_invariance": {
+    "canonical_holdout_mae": 0.308533591392,
+    "drift": 0.0,
+    "passes": true,
+    "reversed_holdout_mae": 0.308533591392
+  },
+  "sensitivity": {
+    "all_seeds_pass": false,
+    "method": "identity-group-preserving seeded 120/26/26 repartition",
+    "per_seed": [
+      {
+        "all_comparators_pass": false,
+        "candidate_holdout_mae": 0.302772400357,
+        "comparisons": [
+          {
+            "candidate_mae": 0.302772400357,
+            "comparator_id": "global_median_null",
+            "comparator_mae": 0.552826105952,
+            "observed_margin": 0.250053705595,
+            "passes": true,
+            "required_margin": 0.027641305298
+          },
+          {
+            "candidate_mae": 0.302772400357,
+            "comparator_id": "iupac_group_pair_null",
+            "comparator_mae": 0.238696058431,
+            "observed_margin": -0.064076341926,
+            "passes": false,
+            "required_margin": 0.02
+          },
+          {
+            "candidate_mae": 0.302772400357,
+            "comparator_id": "label_shuffle_seed_1054",
+            "comparator_mae": 0.666594522519,
+            "observed_margin": 0.363822122162,
+            "passes": true,
+            "required_margin": 0.033329726126
+          },
+          {
+            "candidate_mae": 0.302772400357,
+            "comparator_id": "cation_pair_label_shuffle_seed_1054",
+            "comparator_mae": 0.639355588403,
+            "observed_margin": 0.336583188046,
+            "passes": true,
+            "required_margin": 0.03196777942
+          }
+        ],
+        "holdout_count": 26,
+        "seed": 1054,
+        "train_count": 120,
+        "validation_count": 26
+      },
+      {
+        "all_comparators_pass": false,
+        "candidate_holdout_mae": 0.194973586591,
+        "comparisons": [
+          {
+            "candidate_mae": 0.194973586591,
+            "comparator_id": "global_median_null",
+            "comparator_mae": 0.460326841066,
+            "observed_margin": 0.265353254475,
+            "passes": true,
+            "required_margin": 0.023016342053
+          },
+          {
+            "candidate_mae": 0.194973586591,
+            "comparator_id": "iupac_group_pair_null",
+            "comparator_mae": 0.174905540705,
+            "observed_margin": -0.020068045886,
+            "passes": false,
+            "required_margin": 0.02
+          },
+          {
+            "candidate_mae": 0.194973586591,
+            "comparator_id": "label_shuffle_seed_2054",
+            "comparator_mae": 0.49249661723,
+            "observed_margin": 0.297523030639,
+            "passes": true,
+            "required_margin": 0.024624830862
+          },
+          {
+            "candidate_mae": 0.194973586591,
+            "comparator_id": "cation_pair_label_shuffle_seed_2054",
+            "comparator_mae": 0.483666079157,
+            "observed_margin": 0.288692492566,
+            "passes": true,
+            "required_margin": 0.024183303958
+          }
+        ],
+        "holdout_count": 26,
+        "seed": 2054,
+        "train_count": 120,
+        "validation_count": 26
+      },
+      {
+        "all_comparators_pass": false,
+        "candidate_holdout_mae": 0.218257495267,
+        "comparisons": [
+          {
+            "candidate_mae": 0.218257495267,
+            "comparator_id": "global_median_null",
+            "comparator_mae": 0.452167965724,
+            "observed_margin": 0.233910470457,
+            "passes": true,
+            "required_margin": 0.022608398286
+          },
+          {
+            "candidate_mae": 0.218257495267,
+            "comparator_id": "iupac_group_pair_null",
+            "comparator_mae": 0.175800179163,
+            "observed_margin": -0.042457316104,
+            "passes": false,
+            "required_margin": 0.02
+          },
+          {
+            "candidate_mae": 0.218257495267,
+            "comparator_id": "label_shuffle_seed_3054",
+            "comparator_mae": 0.474052971014,
+            "observed_margin": 0.255795475747,
+            "passes": true,
+            "required_margin": 0.023702648551
+          },
+          {
+            "candidate_mae": 0.218257495267,
+            "comparator_id": "cation_pair_label_shuffle_seed_3054",
+            "comparator_mae": 0.562382878198,
+            "observed_margin": 0.344125382931,
+            "passes": true,
+            "required_margin": 0.02811914391
+          }
+        ],
+        "holdout_count": 26,
+        "seed": 3054,
+        "train_count": 120,
+        "validation_count": 26
+      },
+      {
+        "all_comparators_pass": false,
+        "candidate_holdout_mae": 0.236706351393,
+        "comparisons": [
+          {
+            "candidate_mae": 0.236706351393,
+            "comparator_id": "global_median_null",
+            "comparator_mae": 0.524109105663,
+            "observed_margin": 0.28740275427,
+            "passes": true,
+            "required_margin": 0.026205455283
+          },
+          {
+            "candidate_mae": 0.236706351393,
+            "comparator_id": "iupac_group_pair_null",
+            "comparator_mae": 0.23965692515,
+            "observed_margin": 0.002950573757,
+            "passes": false,
+            "required_margin": 0.02
+          },
+          {
+            "candidate_mae": 0.236706351393,
+            "comparator_id": "label_shuffle_seed_4054",
+            "comparator_mae": 0.557973479388,
+            "observed_margin": 0.321267127995,
+            "passes": true,
+            "required_margin": 0.027898673969
+          },
+          {
+            "candidate_mae": 0.236706351393,
+            "comparator_id": "cation_pair_label_shuffle_seed_4054",
+            "comparator_mae": 0.591955255227,
+            "observed_margin": 0.355248903834,
+            "passes": true,
+            "required_margin": 0.029597762761
+          }
+        ],
+        "holdout_count": 26,
+        "seed": 4054,
+        "train_count": 120,
+        "validation_count": 26
+      },
+      {
+        "all_comparators_pass": false,
+        "candidate_holdout_mae": 0.297987242437,
+        "comparisons": [
+          {
+            "candidate_mae": 0.297987242437,
+            "comparator_id": "global_median_null",
+            "comparator_mae": 0.598098705391,
+            "observed_margin": 0.300111462954,
+            "passes": true,
+            "required_margin": 0.02990493527
+          },
+          {
+            "candidate_mae": 0.297987242437,
+            "comparator_id": "iupac_group_pair_null",
+            "comparator_mae": 0.250224073379,
+            "observed_margin": -0.047763169058,
+            "passes": false,
+            "required_margin": 0.02
+          },
+          {
+            "candidate_mae": 0.297987242437,
+            "comparator_id": "label_shuffle_seed_5054",
+            "comparator_mae": 0.678521099445,
+            "observed_margin": 0.380533857008,
+            "passes": true,
+            "required_margin": 0.033926054972
+          },
+          {
+            "candidate_mae": 0.297987242437,
+            "comparator_id": "cation_pair_label_shuffle_seed_5054",
+            "comparator_mae": 0.66580737486,
+            "observed_margin": 0.367820132423,
+            "passes": true,
+            "required_margin": 0.033290368743
+          }
+        ],
+        "holdout_count": 26,
+        "seed": 5054,
+        "train_count": 120,
+        "validation_count": 26
+      }
+    ],
+    "seeds": [
+      1054,
+      2054,
+      3054,
+      4054,
+      5054
+    ]
+  },
+  "source_scope": {
+    "cross_database_numeric_pooling": false,
+    "live_external_fetch": false,
+    "provenance_class": "computed_dft",
+    "snapshot_id": "oqmd-live-api-2026-07-14",
+    "source": "OQMD",
+    "target_field": "delta_e",
+    "target_units": "eV_per_atom_per_OQMD_canonical_definition",
+    "within_source_only": true
+  },
+  "task_id": "TASK-1066",
+  "verdict": "FAIL"
+}

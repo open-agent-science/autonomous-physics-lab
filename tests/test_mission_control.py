@@ -1084,6 +1084,36 @@ def test_render_human_modes_keep_support_and_maintainer_explicit(tmp_path: Path)
     assert "python3 scripts/apl_mission.py --mode maintainer" in maintainer
 
 
+def _assert_repo_root_recommendation_is_live(
+    rendered: dict[str, object],
+    repo_root: Path,
+) -> None:
+    recommended = rendered["recommended"]
+    assert isinstance(recommended, dict)
+    action_id = recommended.get("action")
+    task_id = recommended.get("task_id")
+
+    assert recommended["is_executable"] is bool(task_id)
+    assert recommended["guidance_only"] is bool(action_id and not task_id)
+
+    if task_id:
+        assert isinstance(task_id, str)
+        task_path = find_task_file(repo_root, task_id)
+        assert task_path is not None
+        task = load_task(task_path)
+        assert task["status"] == "READY"
+
+    mission_id = recommended.get("mission")
+    if mission_id:
+        # Public entrypoints apply the live READY/occupancy fallback after
+        # select_mission(); raw static selection is not their final oracle.
+        payload = load_current_missions(repo_root)
+        mission = next(
+            item for item in payload["missions"] if item["id"] == mission_id
+        )
+        assert action_id in {action["id"] for action in mission["actions"]}
+
+
 def test_apl_mission_script_json_runs_from_repo_root() -> None:
     result = subprocess.run(
         [sys.executable, "scripts/apl_mission.py", "--json"],
@@ -1093,21 +1123,9 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
     )
 
     rendered = json.loads(result.stdout)
-    payload = load_current_missions(Path(__file__).resolve().parents[1])
-    selection = select_mission(payload)
-    assert selection.mission is not None
-    assert selection.action is not None
+    repo_root = Path(__file__).resolve().parents[1]
     assert rendered["default_mode"] == "research"
-    assert rendered["recommended"]["mission"] == selection.mission["id"]
-    assert rendered["recommended"]["task_id"] == selection.action.get("task_id")
-    if rendered["recommended"]["task_id"]:
-        task_path = find_task_file(
-            Path(__file__).resolve().parents[1],
-            rendered["recommended"]["task_id"],
-        )
-        assert task_path is not None
-        task = load_task(task_path)
-        assert task["status"] == "READY"
+    _assert_repo_root_recommendation_is_live(rendered, repo_root)
     assert "live_task_candidates" in rendered
 
 
@@ -1159,17 +1177,9 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     )
 
     rendered = json.loads(result.stdout)
-    payload = load_current_missions(Path(__file__).resolve().parents[1])
-    selection = select_mission(payload)
-    assert selection.action is not None
-    expected_task_id = selection.action.get("task_id")
-
+    repo_root = Path(__file__).resolve().parents[1]
     assert rendered["selected_mode"] == "research"
-    assert rendered["recommended"]["mission"] == selection.mission["id"]
-    assert rendered["recommended"]["action"] == selection.action["id"]
-    assert rendered["recommended"]["task_id"] == expected_task_id
-    assert rendered["recommended"]["is_executable"] is bool(expected_task_id)
-    assert rendered["recommended"]["guidance_only"] is bool(not expected_task_id)
+    _assert_repo_root_recommendation_is_live(rendered, repo_root)
     assert "parallel_work_policy" in rendered
     assert any(
         "result-promotion-protocol.md" in item

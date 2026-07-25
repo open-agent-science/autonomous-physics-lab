@@ -1,0 +1,35 @@
+id: EXP-0024
+title: "Frozen Within-OQMD Cation-Pair Baseline Benchmark"
+domain: materials_science
+status: COMPLETED
+
+hypothesis_id: HYP-0024
+
+method:
+  type: baseline_benchmark
+  simulator: materials_oqmd_within_source_baseline
+  comparator: frozen_global_median_iupac_group_pair_and_shuffle_controls
+
+data:
+  dataset_path: ../data/materials/oqmd_live_api_2026-07-14_normalized.json
+  dataset_kind: bounded_oqmd_computed_dft_snapshot
+  benchmark_scope: >
+    Exactly 172 normalized OQMD rows with the frozen 120/26/26
+    reduced-composition-group split and no cross-database target pooling.
+  expected_item_count: 172
+  sample_axes:
+    - entry_id
+    - reduced_composition
+    - unordered_non_oxygen_cation_pair
+    - iupac_cation_group_pair
+    - delta_e
+  notes: >
+    The model, fallback, nulls, controls, seeds, metrics, margins, and stop
+    conditions were frozen before scoring under TASK-1054.
+
+comparison_targets:
+  - id: target_oqmd_survival_margin
+    label: "Exact cation-pair holdout MAE margin over every required comparator"
+    reference_value: 0.02
+    unit: eV_per_atom
+    notes: "The effective margin is max(0.02 eV/atom, 5% of comparator MAE); every comparator and sensitivity seed must pass."

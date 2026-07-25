@@ -79,11 +79,14 @@ It remains source-surface work only; no rows or metrics are ingested.
 
 Lattice-QCD aggregated consistency remains source-gated rather than an activated
 data-ingestion campaign. The bounded `f_K/f_pi` pilot now has an eleven-
-publication source manifest and a real dependency graph, but returned
-`HOLD_COVARIANCE_UNRESOLVED`: all 49 pairwise dependency relations remain
-`UNKNOWN`. The next test is whether primary-source evidence can resolve those
-edges conservatively and whether all eleven publications satisfy one frozen
-value-admissibility policy.
+publication source manifest and a real dependency graph. TASK-1079 and
+TASK-1080 resolved several shared or possible-shared lineages but both returned
+`PARTIAL_HOLD_UNKNOWN_EDGES`; substantial cross-publication axes remain
+`UNKNOWN`, so no disjoint split or covariance policy is authorized. The next
+scientific gate asks whether all eleven publications satisfy one frozen
+value/uncertainty admissibility policy without copying central values.
+Activation adjudication remains blocked until the prerequisite evidence
+surfaces are complete and reviewed.
 
 No real Lattice-QCD central value, uncertainty, average, ensemble file, metric,
 result, or claim has been admitted. Future ingestion must record observable
