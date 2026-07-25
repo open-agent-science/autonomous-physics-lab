@@ -129,13 +129,13 @@ portfolio:
       - scientific_director_or_maintainer_pr
       - curator_cycle_review
       - updated_campaign_profile
-  current_stage: "RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen. TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure, and TASK-1072 ratified event-trigger-only monitoring."
+  current_stage: "RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration remains failed memory; point-only predictions are frozen. TASK-1102 returned POINT_REVEAL_INTERPRETATION_READY for the four-entry PRED-0069..PRED-0072 family without reading any source or target-adjacent values. Event-trigger-only monitoring remains ratified."
   recommended_parallel_agents: 0
-  coordination_notes: "Do not launch another model/factory sprint, mutate frozen PRED payloads, score reveal early, or repeat a metadata scout without a ledger-qualified official event. Remain MONITOR_ONLY_NO_SCOUT; a qualifying signal opens only a fresh metadata-only source-manifest decision."
+  coordination_notes: "The future point-only headline contract is frozen: PRED-0069 must face all three comparators on one eligible paired set, with at least 12 targets across at least three regions before a confirmatory verdict. Do not mutate payloads, inspect targets, score early, add intervals, or repeat a scout without a ledger-qualified official event."
   next_validity_gate:
     type: external_reveal
-    blocker: "The clean scout found no post-registration official source. Reveal scoring and any success claim remain blocked until a ledger-qualified source event is separately manifested and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899."
-    target_artifact: "docs/reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md, then a future event-specific source-manifest task"
+    blocker: "No post-registration official source has qualified. Reveal scoring remains blocked until a ledger-qualified event is separately manifested and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899."
+    target_artifact: "docs/reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md, then a future event-specific source-manifest task"
   best_next_actions:
     - task_id: null
       label: "Monitor the ratified trigger ledger; do not seed an executor task without a qualifying official event"
@@ -167,15 +167,16 @@ portfolio:
     - "docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md"
     - "docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md"
     - "docs/reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md"
+    - "docs/reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md"
   open_questions:
     - "Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker memory, or remain a review note?"
     - "What admissible future source and reveal protocol can score the frozen point-only PRED entries without interval or success overclaiming?"
     - "What source-byte/cache route can support full AMDC DZ10 parity without vendoring restricted source bytes?"
   curator_review:
     status: current
-    last_reviewed: "2026-07-19"
+    last_reviewed: "2026-07-25"
     review_interval: quarterly_active
     next_review_due: "2026-09-01"
     review_reason: flagship_validation
-    source: "TASK-1072 post-registration trigger ledger"
-    notes: "The flagship remains reveal/success-claim blocked. Event-trigger-only monitoring is ratified; no executor work is justified until a qualifying official metadata signal exists."
+    source: "TASK-1072 trigger ledger, TASK-1102 point-only interpretation contract, and Scientific Director 2026-07-25 cycle"
+    notes: "The flagship remains reveal/success-claim blocked, but the point-only comparison family, information floor, multiplicity rule, and verdict mapping are now predeclared. No source-facing work is justified until a qualifying official metadata signal exists."

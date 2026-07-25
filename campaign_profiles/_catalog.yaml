@@ -577,21 +577,22 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: RESULT-0025 has exact-replayed point-estimator evidence; uncertainty calibration
-    remains failed memory; point-only predictions including PRED-0063..PRED-0068 are frozen.
-    TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure,
-    and TASK-1072 ratified event-trigger-only monitoring.
+    remains failed memory; point-only predictions are frozen. TASK-1102 returned POINT_REVEAL_INTERPRETATION_READY
+    for the four-entry PRED-0069..PRED-0072 family without reading any source or target-adjacent
+    values. Event-trigger-only monitoring remains ratified.
   agent_capacity:
     recommended_parallel_agents: 0
-    coordination_notes: Do not launch another model/factory sprint, mutate frozen PRED payloads,
-      score reveal early, or repeat a metadata scout without a ledger-qualified official event.
-      Remain MONITOR_ONLY_NO_SCOUT; a qualifying signal opens only a fresh metadata-only source-manifest
-      decision.
+    coordination_notes: 'The future point-only headline contract is frozen: PRED-0069 must
+      face all three comparators on one eligible paired set, with at least 12 targets across
+      at least three regions before a confirmatory verdict. Do not mutate payloads, inspect
+      targets, score early, add intervals, or repeat a scout without a ledger-qualified official
+      event.'
   next_validity_gate:
     type: external_reveal
-    blocker: The clean scout found no post-registration official source. Reveal scoring and
-      any success claim remain blocked until a ledger-qualified source event is separately
-      manifested and maintainer-reviewed; calibrated intervals remain blocked by TASK-0899.
-    target_artifact: docs/reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md,
+    blocker: No post-registration official source has qualified. Reveal scoring remains blocked
+      until a ledger-qualified event is separately manifested and maintainer-reviewed; calibrated
+      intervals remain blocked by TASK-0899.
+    target_artifact: docs/reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md,
       then a future event-specific source-manifest task
   best_next_actions:
   - task_id: null
@@ -643,6 +644,7 @@ campaigns:
   - docs/reviews/nuclear/nuclear-shell-axis-source-manifest-scout-task1023.md
   - docs/reviews/nuclear/nuclear-shell-axis-clean-metadata-retry-task1031.md
   - docs/reviews/nuclear/nuclear-post-registration-reveal-trigger-ledger.md
+  - docs/reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md
   open_questions:
   - Should the failed no-peek uncertainty-calibration audit become canonical negative/blocker
     memory, or remain a review note?
@@ -652,14 +654,15 @@ campaigns:
     source bytes?
   curator_review:
     status: current
-    last_reviewed: '2026-07-19'
+    last_reviewed: '2026-07-25'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: TASK-1072 post-registration trigger ledger
-    notes: The flagship remains reveal/success-claim blocked. Event-trigger-only monitoring
-      is ratified; no executor work is justified until a qualifying official metadata signal
-      exists.
+    source: TASK-1072 trigger ledger, TASK-1102 point-only interpretation contract, and Scientific
+      Director 2026-07-25 cycle
+    notes: The flagship remains reveal/success-claim blocked, but the point-only comparison
+      family, information floor, multiplicity rule, and verdict mapping are now predeclared.
+      No source-facing work is justified until a qualifying official metadata signal exists.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
@@ -950,21 +953,21 @@ campaigns:
     - curator_cycle_review
     - updated_campaign_profile
   current_stage: PRED-0001 is registered as a 479-source point-score/rank prediction and checksum-anchored
-    by GitHub Release; TASK-1024 also completed the deterministic reduced rights-bounded capsule
-    for optional maintainer-only external publication. No reveal labels have been read and
-    no FRB success or population result exists.
+    by GitHub Release. TASK-1095 froze a label-blind dual-chronology reveal contract with
+    CONTRACT_READY_DUAL_CHRONOLOGY; no reveal source, target match, label, score, success
+    verdict, or population result exists.
   agent_capacity:
-    recommended_parallel_agents: 1
-    coordination_notes: 'TASK-1024 completed the reduced rights-bounded capsule without uploading
-      it or minting a DOI. Any external publication remains a separate maintainer-only act.
-      Reveal-source work is event-triggered: do not seed a manual scout until a concrete official
-      catalog or repeater-table signal exists. No lane may inspect labels or mutate PRED-0001.'
+    recommended_parallel_agents: 0
+    coordination_notes: The reveal interpretation is frozen without label contact. TASK-1096
+      remains blocked until a concrete official source trigger can satisfy identity, rights,
+      first-public timing, checksum, alias, and no-peek gates. Do not inspect labels, mutate
+      PRED-0001, or present the current Catalog 2 route as prospective evidence.
   next_validity_gate:
     type: external_reveal
-    blocker: Reveal scoring remains blocked until a concrete post-T source passes TASK-0995
-      identity, rights, timestamp, checksum, alias, and no-peek gates and receives separate
-      maintainer approval.
-    target_artifact: future trigger-activated reveal-source decision task
+    blocker: Reveal scoring remains blocked until TASK-1096 pins one qualifying source manifest
+      and a later maintainer-reviewed task performs the single frozen score. The current Catalog
+      2 snapshot can support only blinded-retrospective evidence because it predates registration.
+    target_artifact: TASK-1096 after a concrete source trigger; TASK-1097 remains blocked
   best_next_actions:
   - task_id: null
     label: Optionally publish the completed reduced capsule through a maintainer-only external-publication
@@ -995,6 +998,7 @@ campaigns:
   - docs/reviews/frb-reveal-source-admissibility-contract.md
   - docs/reviews/frb/frb-prediction-freeze-external-anchor-record-back.md
   - docs/reviews/frb/frb-reduced-anchor-capsule-implementation.md
+  - docs/reviews/frb/frb-reveal-chronology-decision-contract-2026-07-24.md
   - data/radio_transients/frb_catalog1_pre_t_exposure_feature_surface.yaml
   - data/radio_transients/frb_pre_t_repeater_propensity_model_surface.yaml
   open_questions:
@@ -1004,15 +1008,16 @@ campaigns:
     reveal rather than an underpowered or ambiguous comparison?
   curator_review:
     status: current
-    last_reviewed: '2026-07-13'
+    last_reviewed: '2026-07-25'
     review_interval: quarterly_active
     next_review_due: '2026-09-01'
     review_reason: flagship_validation
-    source: PRED-0001 registration, TASK-0995 reveal contract, TASK-1021 rights review, and
-      Scientific Director 2026-07-13 cycle
-    notes: FRB is now a first-class prospective prediction campaign rather than a generic
-      fresh-data sublane. The reduced capsule is complete but not externally published; reveal-source
-      work remains trigger-based, while model fitting and success wording stay closed.
+    source: PRED-0001 registration, TASK-1095 reveal chronology contract, and Scientific Director
+      2026-07-25 cycle
+    notes: The one-shot interpretation is frozen under prospective and blinded-retrospective
+      chronology classes, but no source manifest or score is authorized. Reveal work remains
+      trigger-based and all success, calibration, causal, morphology, and population wording
+      stays closed.
   source_docs:
   - docs/campaigns/public-science-dashboard.md
   - docs/campaigns/fresh-physics-data-axes.md
@@ -1037,19 +1042,17 @@ campaigns:
     - scientific_director_or_maintainer_pr
     - curator_cycle_review
     - updated_campaign_profile
-  current_stage: 'RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED
+  current_stage: RESULT-0019, RESULT-0022, RESULT-0023, and RESULT-0024 are AGENT_VALIDATED
     scoped verifier/benchmark memory. RESULT-0031 is AGENT_PUBLISHED INCONCLUSIVE on the twelve-component
-    CHARA transfer: the frozen relation achieved 0.060530 dex MAE versus 0.097317 for the
-    best control, but its 0.036787 dex margin missed the predeclared 0.04 threshold by 0.003213
-    dex.'
+    CHARA transfer. TASK-1076 stopped the named HD 284163 supplement on luminosity semantics,
+    and TASK-1098 returned STOP_SOURCE_LEVEL_ONLY for the pinned Gaia DR4 draft schema.
   agent_capacity:
     recommended_parallel_agents: 1
-    coordination_notes: 'TASK-1075 remains historical REPLAY_ENVIRONMENT_BLOCKED memory: all
-      five frozen input hashes matched, but publisher identity was absent at replay time.
-      TASK-1088 restored that identity, so TASK-1089 is READY for an executor who clears the
-      identity-independence gate. TASK-1076 is REVIEW_READY LUMINOSITY_SEMANTICS_BLOCKED memory
-      for HD 284163, not executor work. Do not rescue the margin, relax the threshold, or
-      rewrite the frozen twelve-row surface.'
+    coordination_notes: TASK-1075 remains historical REPLAY_ENVIRONMENT_BLOCKED memory and
+      TASK-1088 restored publisher identity, so TASK-1089 is READY for an executor who clears
+      the identity-independence gate. HD 284163 and the current Gaia DR4 draft are terminal
+      source-semantics memory, not rescue routes. Reopen Gaia only on a named official schema
+      revision that exposes same-component bolometric luminosities.
   next_validity_gate:
     type: ratification
     blocker: RESULT-0031 records the durable original-publisher identity; the READY replay
@@ -1122,25 +1125,26 @@ campaigns:
   - docs/reviews/stellar/result0031-chara-gate-b-replay-task1075.md
   - docs/reviews/stellar/result0031-publisher-provenance-repair-task1088.md
   - docs/reviews/stellar/hd284163-chara-supplement-source-gate.md
+  - docs/reviews/stellar/gaia-dr4-component-luminosity-gate-2026-07-24.md
   - results/EXP-0023/RUN-0001/result.yaml
   - docs/reviews/stellar/gaia-dr4-freeze-readiness.md
   open_questions:
   - Can an identity-independent replay reproduce RESULT-0031 without metric or verdict drift?
   - Can a genuinely new source provide direct bolometric luminosities or complete measured
     Stefan-Boltzmann inputs for HD 284163?
-  - What future external stellar catalogue, if any, can test the high-mass transfer beyond
-    same-source DEBCat?
+  - Will a future official Gaia schema expose two same-component bolometric luminosities rather
+    than one source-level FLAME luminosity?
   curator_review:
     status: current
     last_reviewed: '2026-07-25'
     review_interval: quarterly_planning
     next_review_due: '2026-09-01'
     review_reason: benchmark_monitoring
-    source: RESULT-0031, TASK-1075/TASK-1088 replay path, TASK-1076 source gate, and Scientific
-      Director 2026-07-25 cycle
+    source: RESULT-0031, TASK-1075/TASK-1088 replay path, TASK-1076/TASK-1098 source gates,
+      and Scientific Director 2026-07-25 cycle
     notes: The frozen relation remains AGENT_PUBLISHED INCONCLUSIVE and TASK-1089 is READY
-      for an identity-independent executor. The named HD 284163 supplement is durable LUMINOSITY_SEMANTICS_BLOCKED
-      memory with zero admitted rows, not a rescue route.
+      for an identity-independent executor. HD 284163 and the pinned Gaia DR4 draft are durable
+      source-semantics stop memory with zero admitted rows, not rescue routes.
   source_docs:
   - docs/campaigns/textbook-formula-audit.md
   - docs/notes/textbook-formula-audit-candidate-list.md
@@ -1152,8 +1156,8 @@ campaigns:
   status: active_secondary
   domain: thermophysical_property_estimation
   surface_type: source_pinned_benchmark
-  lifecycle_stage: monitor_only
-  activity_status: active_monitor
+  lifecycle_stage: source_readiness
+  activity_status: active_limited
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:

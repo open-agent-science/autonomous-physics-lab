@@ -170,9 +170,11 @@ remaining blocker is an executor that passes the identity-independence check.
 
 The second independent-validation path is prospective rather than archival.
 The Gaia DR4 mass-luminosity reveal contract is specified, but no DR4 value or
-target list has been read. The official draft model defines component masses
-but not an admissible same-component bolometric-luminosity route, so the current
-readiness verdict is `HOLD_FIELDS_NOT_READY`.
+target list has been read. A value-blind review of the pinned official draft
+model returned `STOP_SOURCE_LEVEL_ONLY`: `nss_masses` defines component masses,
+while the relevant FLAME luminosity is source-level and no official
+same-component bolometric-luminosity mapping exists. Reopen only on a named
+official schema revision that changes that boundary.
 
 **Expected next outputs:** when an executor passes the repository independence
 check against the recorded publisher, test whether `RESULT-0031` reproduces

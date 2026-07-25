@@ -74,6 +74,7 @@ Reveal scoring remains blocked until a future source-grade no-peek release.
 - [Nuclear local-curvature no-leakage prototype review](../reviews/nuclear-local-curvature-no-leakage-prototype.md)
 - [Residual-free high-error cluster audit](../reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md)
 - [Nuclear residual-law factory sprint review](../reviews/nuclear-residual-factory-sprint.md)
+- [Nuclear point-only reveal interpretation](../reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md)
 - [Nuclear Mass Surface campaign page](./nuclear-mass-surface.md)
 
 ### NMD-0003 Retrospective Point-Estimator Card
@@ -307,6 +308,7 @@ is not a universal law claim.
 - [CHARA fixed-relation RESULT-0031 report](../../results/EXP-0023/RUN-0001/report.md)
 - [CHARA fixed-relation transfer review](../reviews/stellar/chara-fixed-relation-transfer-task1050.md)
 - [CHARA Gate B replay blocker](../reviews/stellar/result0031-chara-gate-b-replay-task1075.md)
+- [Gaia DR4 component-luminosity gate](../reviews/stellar/gaia-dr4-component-luminosity-gate-2026-07-24.md)
 - [Candidate slate](../notes/textbook-formula-audit-candidate-list.md)
 
 ### Materials Reusable Dataset And First Baseline
@@ -430,12 +432,12 @@ five-row article cap and information floor.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | What official post-registration event could legitimately reopen the frozen shell-axis reveal route? | `RESULT-0025` has exact replayed point-estimator improvement; intervals remain uncalibrated; point-only PRED entries are frozen; a clean scout found only pre-registration AME2020/NUBASE2020 sources with zero target exposure. | Ratify event-triggered monitoring; do not repeat no-signal scouts or inspect targets. | A trigger ledger now, then a source-manifest decision only after a qualifying official release. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | What official post-registration event could legitimately reopen the frozen point-only reveal route? | `RESULT-0025` has exact replayed point-estimator improvement; intervals remain uncalibrated; a four-entry point-only family and its minimum-information/verdict contract are frozen without target exposure. | Event-triggered monitoring only; do not repeat no-signal scouts or inspect targets. | A source-manifest decision after a qualifying official release, followed by one predeclared point-only comparison. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What material snapshot or source-version trigger would justify reopening residual scoring? | Current-snapshot residual stress is control-sensitive; `EXO-0002` did not clear the reopen gate; monitor check 3 returned `NO_NOTIFY`; `RESULT-0027` is AGENT_VALIDATED negative/control memory with fair-null transparency. | Monitor-only trigger discipline. | A source-version/coverage trigger verdict, not a residual score. |
-| FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | The Catalog-1 interval exposure pair passed checksum/schema gates, `TASK-0963` built a 479-row pre-T exposure feature surface, `TASK-0964` froze the exposure-only model surface, `PRED-0001` was registered as a 479-source point-score/rank prediction, the full anchor is sealed by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`, and `TASK-1024` completed a reduced rights-bounded capsule without external upload. | Keep any reduced-capsule publication maintainer-only; activate reveal-source work only on a concrete official release signal. | An optional citable reduced checksum anchor or a later trigger-based reveal-source decision; no current success verdict. |
+| FRB / Radio Transients | Can a time-truncated exposure surface support a sealed repeater-propensity prediction without label leakage? | `PRED-0001` is a sealed 479-source point-score/rank prediction, and a label-blind dual-chronology contract now distinguishes blinded-retrospective from genuinely prospective future evidence. | Freeze one qualifying source manifest only after a concrete official release signal; no current label access or score. | A source-timing verdict and, only after all gates pass, one predeclared reveal score; no current success verdict. |
 | [Quantum Size Effects](./quantum-size-effects.md) | What genuinely new source could reopen the stopped CdSe route? | AGENT_VALIDATED `RESULT-0029` preserves the strict ZnSe/InP miss; both four-row Kim-2020 axes are underpowered and no independent direct-row source cleared the frozen gates. | Monitor/source-trigger-only; no score, pooling, or repeated generic scout. | A trigger-specific source-readiness decision, not a metric on the current rows. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | What future source event would justify reopening the two-row `171Yb/87Sr` surface? | Beloy and Nemitz support a narrow no-tension memory card; other routes are blocked or isotope-mismatched; the multi-species route returned `KEEP_MONITOR_ONLY`. | Follow the ratified reopen-trigger ledger; no standing executor task or metric rerun. | A future trigger decision, not constants-drift metrics. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; all five frozen hashes match, publisher identity is repaired, and the named HD 284163 supplement is LUMINOSITY_SEMANTICS_BLOCKED with zero admitted rows. | Perform identity-independent replay; preserve the HD 284163 stop. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can the bounded CHARA transfer receive a valid independent replay? | `RESULT-0031` is AGENT_PUBLISHED INCONCLUSIVE; publisher identity is repaired, HD 284163 is LUMINOSITY_SEMANTICS_BLOCKED, and the pinned Gaia DR4 draft is STOP_SOURCE_LEVEL_ONLY because component masses lack same-component bolometric luminosities. | Perform identity-independent replay; preserve both source-semantics stops. | A Gate-B-validated bounded inconclusive result or a precise replay contest, not universal stellar-law wording. |
 | [Materials Property Residuals](./materials-property-residuals.md) | Can the bounded OQMD negative/control result survive identity-independent replay? | `MD-0002` is AGENT_VALIDATED and externally citable; OQMD `RESULT-0032` is AGENT_PUBLISHED INVALID because the exact-pair baseline loses to the stronger IUPAC group-pair null. | Replay the unchanged result; preserve FAIL and forbid rescue fitting or cross-database pooling. | An independently replayed bounded negative/control result, not a materials-law claim. |
 | [Thermophysical Property Residuals](./thermophysical-property-residuals.md) | Can the revised at-most-74-row contract be extracted without violating its source and information gates? | `RESULT-0026` and failed-family `RESULT-0028` are AGENT_VALIDATED; exact-80 is stopped, while a value-blind family-equal 74-row ceiling and checksum-matched private source are ready. | Enforce the five-row article cap and information floor during extraction; keep scoring separate. | One complete rights-bounded fixture or a hard extraction stop, not a partial fixture or metric. |
 | Lattice-QCD Aggregated Consistency | Can the remaining source/value gates justify one dependency-aware pilot without false independence? | Two partial-hold dependency audits make several shared lineages explicit, but substantial axes remain `UNKNOWN`. | Complete the no-value admissibility policy; activation adjudication remains blocked. | A no-value admissibility verdict, followed later by GO/HOLD/STOP adjudication; no Lattice-QCD physics claim. |
@@ -498,7 +500,11 @@ chain. The Catalog-1 interval exposure pair passed checksum/schema gates,
 `TASK-0964` froze the exposure-only model surface without label contact, and the
 maintainer approved registration of `PRED-0001` as a point-score/rank-only
 prediction. The deterministic nine-member anchor capsule is sealed by GitHub
-Release tag `pred-frb-pret-repeater-propensity-20260710`.
+Release tag `pred-frb-pret-repeater-propensity-20260710`. A later label-blind
+contract froze the minimum-information gates, comparator family, simultaneous
+decision rule, and two chronology classes. The current Catalog 2 snapshot can
+support only blinded-retrospective evidence because it predates registration;
+prospective evidence requires a source version proven first public later.
 
 Why it matters:
 
@@ -514,8 +520,11 @@ No FRB result, claim, population model, or repeater-success verdict exists yet.
 `PRED-0001` is a pre-reveal prediction registry artifact, not post-reveal
 evidence.
 
-Next visible artifacts: a reveal-source manifest and maintainer-reviewed reveal
-scoring packet if an admissible post-T source appears.
+Next visible artifacts: a source-timing manifest and maintainer-reviewed reveal
+scoring packet if an admissible source appears. No labels were read while
+freezing this contract.
+
+Evidence: [FRB reveal chronology and decision contract](../reviews/frb/frb-reveal-chronology-decision-contract-2026-07-24.md).
 
 ### Quantum And Atomic Fresh-Data Gates
 

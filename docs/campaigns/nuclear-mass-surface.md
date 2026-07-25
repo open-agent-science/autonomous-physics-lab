@@ -37,7 +37,10 @@ clean official-metadata-only source scout with zero target exposure and found
 only AME2020/NUBASE2020 records released before the 2026-05-20 registration;
 its verdict is `SOURCE_PREDATES_REGISTRATION`. The next source-safe work is an
 event-trigger ledger, not another no-signal scout, Wigner-shape search, broad
-prediction wave, or F2 loop.
+prediction wave, or F2 loop. A later no-value contract has now frozen the
+point-only reveal interpretation for `PRED-0069` through `PRED-0072`: all four
+entries must be compared on the same eligible rows, with at least 12 targets
+across at least three regions before a confirmatory headline verdict.
 
 ## Public Monitoring Snapshot
 
@@ -50,12 +53,16 @@ point-only predictions without weakening no-peek discipline?
 defines the only qualifying official metadata signals. A calendar interval is
 not a trigger; a qualifying event opens only a fresh metadata-only
 source-manifest decision, never immediate target matching or scoring.
+The [point-only interpretation contract](../reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md)
+is ready, but it did not inspect a source, target value, score, or reveal.
 
 **Shareable result:** APL has useful negative/control memory from F2,
 local-curvature, Wigner-cusp, and factory lanes, plus `RESULT-0025` as
 point-estimator evidence: GP residual modeling improves the declared point MAE
 against the current baseline and replays exactly, but does not yet support
-prediction intervals or a prediction freeze.
+prediction intervals. A point-only four-entry family is frozen for a future
+eligible reveal; that does not authorize present scoring or broad model-
+superiority wording.
 
 ### Maintainer-Approved Point-Estimator Card — RESULT-0025
 

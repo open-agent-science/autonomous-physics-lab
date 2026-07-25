@@ -79,8 +79,8 @@ portfolio:
   status: active_secondary
   domain: thermophysical_property_estimation
   surface_type: source_pinned_benchmark
-  lifecycle_stage: monitor_only
-  activity_status: active_monitor
+  lifecycle_stage: source_readiness
+  activity_status: active_limited
   curator:
     primary_pool: source_data_benchmark
     secondary_pools:

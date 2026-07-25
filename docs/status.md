@@ -35,9 +35,9 @@ Nuclear, and Atomic remain explicitly reveal- or trigger-gated.
 | --- | --- | --- |
 | [Materials Property Residuals](./campaigns/materials-property-residuals.md) | A source-pinned reusable-dataset lane with AGENT_VALIDATED `RESULT-0021`, externally published `MD-0002`, and AGENT_PUBLISHED negative/control OQMD `RESULT-0032` | Independently replay the frozen OQMD result; preserve the failed exact-pair gate without rescue fitting or cross-database pooling |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign with four AGENT_VALIDATED results plus AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031`; publisher provenance is repaired | Run READY TASK-1089 only with an identity-independent executor; keep HD 284163 separate |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, an externally anchored tier-1 point-only freeze, preserved uncertainty-calibration failures, and a clean no-value source scout | TASK-1031 found only pre-registration official sources; ratify the event-trigger ledger and do not repeat source scouts until a qualifying post-registration release signal |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge with negative/control memory, `RESULT-0025` point-estimator evidence, an externally anchored point-only freeze, and a predeclared four-entry reveal interpretation | No post-registration source has qualified; monitor the event ledger and do not score before a source manifest clears the no-peek gate |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A public-safe catalog benchmark showing residual maps, matched controls, no-go decisions, and AGENT_VALIDATED `RESULT-0027` negative/control memory on pinned snapshots | Current snapshot stays monitor-only; next work is source-version/coverage trigger monitoring, not residual rescoring |
-| FRB / Radio Transients | A time-truncated, source-pinned sealed repeater-propensity prediction pack | `PRED-0001` is registered as a 479-source point-score/rank-only prediction and externally anchored by GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`; reveal scoring remains a future maintainer-reviewed task |
+| FRB / Radio Transients | A time-truncated, source-pinned sealed repeater-propensity prediction pack | `PRED-0001` is registered and anchored; a label-blind dual-chronology contract is frozen, while source manifesting and reveal scoring remain blocked |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build source-pinned row-level datasets before running attractive benchmarks | Both four-row Kim-2020 axes are underpowered and no independent direct-row route cleared the frozen gates; monitor for a new source trigger |
 | Lattice-QCD Aggregated Consistency | A near-active test of whether dependency-aware source curation adds value beyond evaluated summaries | TASK-1079/1080 preserve partial dependency holds; TASK-1081 is the only READY gate, while numeric activation adjudication remains blocked |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy/Nemitz memory exists, Pizzocaro remains diagnostic, McGrew/NIST is blocked, and the multi-species route is `KEEP_MONITOR_ONLY`; next useful work is a durable reopen-trigger ledger |
@@ -77,6 +77,10 @@ Highlights:
   `prediction_registry/radio_transients/PRED-0001.yaml` are frozen prospective
   predictions awaiting future maintainer-reviewed reveal data. They are
   forecasts, not current scientific wins.
+- Nuclear `PRED-0069` through `PRED-0072` now have a point-only interpretation
+  contract requiring one four-way paired comparison and at least 12 eligible
+  targets across at least three regions before a confirmatory headline look.
+  No measurement source or target-adjacent value was inspected.
 - The newest Nuclear controls-first lanes are useful sandbox memory, but not
   positive candidates: pairing-asymmetry and magic-parity interaction controls
   regress the frozen baseline, while isotope-chain leave-family-out transfer is
@@ -108,7 +112,9 @@ Highlights:
   frozen input hashes but stopped before metrics because original-publisher
   metadata was missing at replay time. TASK-1088 has since restored that
   identity from merged PR #1609 without changing scientific content; Gate B
-  now waits for an identity-independent executor.
+  now waits for an identity-independent executor. Separate source gates stop
+  HD 284163 on missing component luminosities and the pinned Gaia DR4 draft on
+  source-level rather than same-component luminosity semantics.
 - Materials Property Residuals has `MD-0001`, source-pinned dataset memory, and
   AGENT_VALIDATED `MD-0002` formation-energy `RESULT-0021`. The result is a
   computed-DFT, frozen-slice benchmark artifact, not a material recommendation,
@@ -132,8 +138,10 @@ Highlights:
 - FRB / Radio Transients now has a checksum-pinned Catalog-1 interval exposure
   pair, a committed 479-row pre-T exposure feature surface, a frozen
   exposure-only model surface, and externally anchored `PRED-0001`
-  point-score/rank forecasts. It is a sealed prediction registry artifact, not
-  a replayed result, repeater-success verdict, or population claim.
+  point-score/rank forecasts. A label-blind contract now distinguishes
+  blinded-retrospective from genuinely prospective future evidence and freezes
+  the one-shot decision rule. It is still a sealed prediction registry artifact,
+  not a replayed result, repeater-success verdict, or population claim.
 - Dimensional Analysis `RESULT-0030` scored the frozen 80-item exact-v2 surface
   at 80/80 exact agreement, with 100% VALID/INVALID recall and 0%
   INCONCLUSIVE. An independent-human replay reproduced all checked fields with

@@ -1,7 +1,7 @@
 id: TASK-1102
 title: "Freeze nuclear point-only reveal interpretation before measurements"
 type: scientific_prediction_preflight
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task fixes the primary candidate, comparator hierarchy, partial-reveal information floor, and multiplicity rules before future nuclear measurements; closeout must verify zero reveal-source contact and no interval claims."
 difficulty: high

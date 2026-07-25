@@ -4,7 +4,7 @@ updated: "2026-07-25"
 curator_cycle:
   decision: updated
   updated: "2026-07-25"
-  source: "Scientific Director synchronization after RESULT-0032, Lattice dependency audits, CHARA provenance repair, Quantum terminal gates, and ThermoML private-source readiness"
+  source: "Scientific Director synchronization after RESULT-0032, Lattice dependency audits, FRB/Nuclear reveal contracts, Stellar source-semantic stops, Quantum terminal gates, and ThermoML private-source readiness"
   note: >
     The executable queue is intentionally below the preferred numeric target
     rather than padded with audit work. Lattice f_K/f_pi is the top active
@@ -21,9 +21,12 @@ curator_cycle:
     at-most-74-row contract and checksum-matched private source; READY TASK-1091
     must still pass article-cap and information-floor gates. OQMD RESULT-0032
     is canonical AGENT_PUBLISHED INVALID negative/control memory and routes only
-    to identity-independent TASK-1090 replay without rescue fitting. FRB,
-    Nuclear, Exoplanet, and Atomic stay reveal- or trigger-gated; mature
-    benchmark lanes must not be reopened for filler.
+    to identity-independent TASK-1090 replay without rescue fitting. FRB now
+    has a label-blind dual-chronology reveal contract, Nuclear has a point-only
+    reveal interpretation contract, and the current Gaia DR4 draft is stopped
+    at source-level luminosity semantics. FRB, Nuclear, Exoplanet, and Atomic
+    stay reveal- or trigger-gated; mature benchmark lanes must not be reopened
+    for filler.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -255,7 +258,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. RESULT-0025 is exact-replayed point-estimator evidence and point-only PRED entries are frozen; interval wording remains blocked. TASK-1031 found only pre-registration AME2020/NUBASE2020 sources with zero target exposure. TASK-1072 ratified the event-triggered ledger; remain monitor-only until a qualifying post-registration official release signal exists."
+    recommendation: "Flagship validation challenge. RESULT-0025 is exact-replayed point-estimator evidence and interval wording remains blocked. TASK-1102 froze the four-entry PRED-0069..PRED-0072 point-only interpretation, minimum-information gate, multiplicity rule, and verdict mapping without source or target-value access. TASK-1031 found only pre-registration sources, so remain monitor-only until a qualifying official release signal."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -282,6 +285,7 @@ missions:
       - "RESULT-0025 has a strong point-estimator gain and exact Gate B replay, but TASK-0899 found no approved no-peek uncertainty route passed; prediction freeze and interval wording remain blocked"
       - "TASK-0878 added a metadata-only canonical DZ10 reference wrapper and smoke fixture; full-table parity is now a local/source-rights gate"
       - "TASK-1031 completed a clean official-metadata retry and returned SOURCE_PREDATES_REGISTRATION without target-value or target-status exposure"
+      - "TASK-1102 returned POINT_REVEAL_INTERPRETATION_READY for one four-way point-error comparison with a 12-target, three-region information floor and no source/value access"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -606,6 +610,17 @@ missions:
         expected_outputs:
           - "qualifying and forbidden post-registration source signals plus no-peek state transitions"
           - "MONITOR_ONLY_NO_SCOUT until a concrete official event; no source browsing, target matching, or scoring"
+      - id: nuclear-point-only-reveal-interpretation
+        label: "Freeze the point-only Nuclear reveal interpretation"
+        task_id: TASK-1102
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "POINT_REVEAL_INTERPRETATION_READY with one four-entry paired comparison and frozen information floor"
+          - "no source, target-value, score, interval, RESULT, CLAIM, or broad model-superiority wording"
       - id: nuclear-post-registration-monitor
         label: "Follow the ratified event-triggered Nuclear reveal-source monitor"
         task_id: null
@@ -1355,7 +1370,7 @@ missions:
     status: post_validation_source_and_ratification
     scientific_value: medium
     risk: low
-    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. RESULT-0031 remains AGENT_PUBLISHED INCONCLUSIVE. TASK-1088 repaired publisher provenance, so TASK-1089 is READY for an identity-independent executor. TASK-1076 is REVIEW_READY LUMINOSITY_SEMANTICS_BLOCKED memory for HD 284163, not an active rescue route."
+    recommendation: "Stellar M-L RESULT-0022, FIRAS/Wien RESULT-0023, and high-mass RESULT-0024 are AGENT_VALIDATED within narrow scope. RESULT-0031 remains AGENT_PUBLISHED INCONCLUSIVE and TASK-1089 is READY for identity-independent replay. HD 284163 is LUMINOSITY_SEMANTICS_BLOCKED; TASK-1098 returned STOP_SOURCE_LEVEL_ONLY for the pinned Gaia DR4 draft because component masses lack same-component bolometric luminosities."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -1375,6 +1390,7 @@ missions:
       - "TASK-1075 confirmed all five frozen input hashes but returned REPLAY_ENVIRONMENT_BLOCKED before metrics because published_by was absent at replay time"
       - "TASK-1088 restored published_by from merged PR #1609 without changing review tier, verdict, metrics, hashes, or scientific interpretation"
       - "TASK-1076 pinned the named HD 284163 supplement but admitted zero rows because direct bolometric luminosities and complete measured Stefan-Boltzmann inputs are absent"
+      - "TASK-1098 pinned the official Gaia DR4 draft schema and stopped before values because FLAME luminosity is source-level rather than mapped to both NSS mass components"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -1608,6 +1624,17 @@ missions:
         expected_outputs:
           - "source, checksum, rights, component-identity, and luminosity-semantics verdict for one supplemental system"
           - "separate versioned-extension route or durable blocker; no edit or rescue of RESULT-0031"
+      - id: textbook-stellar-gaia-dr4-component-luminosity
+        label: "Resolve Gaia DR4 same-component luminosity semantics"
+        task_id: TASK-1098
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "STOP_SOURCE_LEVEL_ONLY under the pinned official draft schema with no value or target access"
+          - "reopen only on a named official schema revision; no inferred decomposition or stellar-law claim"
       - id: textbook-review-ready-handoff
         label: "Treat Textbook formula audit as source-gated and choose a live READY science task"
         task_id: null

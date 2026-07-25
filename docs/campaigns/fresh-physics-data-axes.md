@@ -32,7 +32,11 @@ separate Catalog-1 interval exposure pair: its checksum/schema gate passed, and
 `TASK-0964` froze the exposure-only model surface, and `TASK-0965` prepared the
 sealed-registration pack. The maintainer then approved `PRED-0001` as a
 point-score/rank-only prediction, and the capsule is externally anchored by
-GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`.
+GitHub Release tag `pred-frb-pret-repeater-propensity-20260710`. A later
+label-blind contract froze two evidence classes for eventual reveal:
+blinded-retrospective for a source first public before registration, and
+prospective only for a source version proven first public after registration.
+No reveal labels or scores were inspected.
 
 No broad fresh-data dataset has been ingested from this scaffold. No claim,
 result, or knowledge entry is promoted.
@@ -126,11 +130,13 @@ labels, register predictions, or make a population claim. `TASK-0964` then
 froze the exposure-only model surface without label contact, `TASK-0965`
 prepared the sealed-registration pack, and the maintainer approved registered
 `PRED-0001`. The deterministic nine-member capsule is anchored by GitHub
-Release tag `pred-frb-pret-repeater-propensity-20260710`. The next allowed
-scientific work is a metadata-only scout for one admissible post-T reveal
-source under the frozen contract only after a concrete official release trigger,
-followed by a separate maintainer decision. It is not a standing manual scout,
-new model fitting, label inspection, or current reveal scoring.
+Release tag `pred-frb-pret-repeater-propensity-20260710`. The future one-shot
+interpretation is now frozen under `CONTRACT_READY_DUAL_CHRONOLOGY`, including
+minimum-information gates and comparator rules. The next allowed scientific
+work is a metadata-only source manifest under the frozen contract only after a
+concrete official release trigger, followed by a separate decision. It is not
+a standing manual scout, new model fitting, label inspection, or current reveal
+scoring.
 
 ## WATCHLIST Axes
 

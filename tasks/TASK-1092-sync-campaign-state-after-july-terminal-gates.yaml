@@ -8,7 +8,7 @@ difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Merged TASK-1075, TASK-1077, TASK-1078, TASK-1084, TASK-1088, TASK-1066, TASK-1079, and TASK-1080 changed the honest next action for CHARA, Quantum, ThermoML, Materials/OQMD, and Lattice-QCD."
+  - "Merged TASK-1075, TASK-1077, TASK-1078, TASK-1084, TASK-1088, TASK-1066, TASK-1079, TASK-1080, TASK-1095, TASK-1098, and TASK-1102 changed the honest next action across the active portfolio."
   - "The Anharmonic profile and mission still describe CLAIM-0009 as DRAFT even though the canonical claim is PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED."
   - "Mission and public pages should describe current evidence and blockers without advertising completed tasks as executable work."
 
@@ -28,13 +28,19 @@ input:
     - "results/EXP-0024/RUN-0001/result.yaml"
     - "docs/reviews/lattice_qcd/fk-fpi-nf2p1p1-dependency-edge-resolution.md"
     - "docs/reviews/lattice_qcd/fk-fpi-nf2p1-edge-resolution.md"
+    - "docs/reviews/frb/frb-reveal-chronology-decision-contract-2026-07-24.md"
+    - "docs/reviews/stellar/gaia-dr4-component-luminosity-gate-2026-07-24.md"
+    - "docs/reviews/nuclear/nuclear-point-only-reveal-interpretation-contract-2026-07-24.md"
   planning_context: >
     Perform one bounded curator synchronization from merged canonical evidence.
     TASK-1088 repaired RESULT-0031 publisher provenance from merged PR #1609
     without changing scientific content. RESULT-0032 is now canonical
     AGENT_PUBLISHED INVALID negative/control memory. TASK-1079 and TASK-1080
     are merged REVIEW_READY dependency-memory with partial-hold verdicts; only
-    TASK-1081 is currently executable on the Lattice route.
+    TASK-1081 is currently executable on the Lattice route. TASK-1095 and
+    TASK-1102 froze no-value reveal interpretation for FRB and Nuclear, while
+    TASK-1098 stopped the pinned Gaia DR4 draft on source-level luminosity
+    semantics.
 
 requirements:
   - "Keep TASK-1075 as historical REPLAY_ENVIRONMENT_BLOCKED memory, record the merged TASK-1088 publisher-provenance repair, and route replay only through READY identity-independent TASK-1089; keep RESULT-0031 AGENT_PUBLISHED INCONCLUSIVE."
@@ -43,12 +49,13 @@ requirements:
   - "Correct Anharmonic state to CLAIM-0009 PARTIALLY_SUPPORTED at MAINTAINER_REVIEWED and remove the obsolete Gate C blocker and executor action."
   - "Record RESULT-0032 only as bounded within-OQMD AGENT_PUBLISHED INVALID negative/control memory; preserve FAIL, forbid rescue fitting and cross-database claims, and route only to TASK-1090 independent replay."
   - "Represent TASK-1079 and TASK-1080 as REVIEW_READY partial-hold dependency memory rather than READY work; route the next Lattice action only through READY TASK-1081 and keep TASK-1101 blocked."
+  - "Record FRB CONTRACT_READY_DUAL_CHRONOLOGY, Nuclear POINT_REVEAL_INTERPRETATION_READY, and Gaia DR4 STOP_SOURCE_LEVEL_ONLY without implying source access, scoring, success, or stellar evidence."
   - "Choose a currently READY, unclaimed scientific action for the top mission recommendation and mark completed task actions non-executable; preserve event-trigger-only Nuclear, FRB, Exoplanet, and Atomic lanes."
   - "Update only useful scientific/public state, blockers, next result paths, and safe wording. Do not place internal agent instructions on public campaign pages."
   - "Regenerate the committed campaign catalog from profiles if required, but do not commit generated docs/task-views files."
 
 accepted_outputs:
-  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through RESULT-0032 and the two Lattice dependency audits."
+  - "Synchronized campaign profiles/catalog and mission/status documents reflecting merged evidence through RESULT-0032, the two Lattice dependency audits, and the latest FRB/Nuclear/Gaia terminal gates."
   - "Focused updates to the Textbook, Quantum, ThermoML, and portfolio dashboard pages where their public state is materially stale."
   - "A validation note or PR summary confirming bounded OQMD negative/control wording, Lattice dependency-memory routing, and that no generated task views were committed."
 

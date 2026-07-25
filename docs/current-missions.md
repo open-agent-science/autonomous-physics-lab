@@ -54,8 +54,11 @@ two merged partial-hold dependency audits: several shared lineages are now
 explicit, but substantial cross-publication axes remain `UNKNOWN`. TASK-1081 is
 the sole READY Lattice gate and may freeze value-admissibility policy before any
 central values are admitted; TASK-1101 activation adjudication remains blocked.
-FRB has crossed the sealed-prediction registration and GitHub Release anchor
-gate; Nuclear, Exoplanet, and Atomic remain reveal- or trigger-gated.
+FRB has crossed the sealed-prediction registration, GitHub Release anchor, and
+label-blind dual-chronology interpretation gates. Nuclear has frozen its
+point-only reveal interpretation. Both still require qualifying source
+manifests before any label/value access or scoring; Exoplanet and Atomic remain
+trigger-gated.
 
 The current director cycle follows four informative stops. The CHARA replay
 verified all five frozen input hashes but could not start metric comparison
@@ -92,9 +95,11 @@ science paths are:
    Atomic, and Quantum lanes instead of manufacturing filler work.
 
 Nuclear Mass Surface remains the flagship ambition, but interval-bearing
-prediction remains blocked because approved no-peek uncertainty routes failed;
-its clean source scout found only pre-registration official records, so the
-next step is an event-trigger ledger rather than another periodic scout.
+prediction remains blocked because approved no-peek uncertainty routes failed.
+Its point-only four-entry comparison, information floor, and verdict mapping
+are now frozen, while the clean source scout found only pre-registration
+official records. The next source-facing step still requires a ledger-qualified
+event rather than another periodic scout.
 Exoplanet remains monitor-only on the unchanged snapshot even though
 `RESULT-0027` now exists. Quantum has a source-scoped Almeida baseline and
 AGENT_VALIDATED `RESULT-0029`; its Kim-2020 branch is now also terminal under
@@ -121,10 +126,10 @@ turning watchlist topics into formula-search work.
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
 | [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Post-validation dataset/transfer lane: `RESULT-0021` is reviewed memory, MD-0002 is externally published, and OQMD `RESULT-0032` is AGENT_PUBLISHED INVALID negative/control memory | Use TASK-1090 for identity-independent replay only; preserve FAIL and do not rescue-fit or pool databases |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with four scoped AGENT_VALIDATED results and AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031`; publisher provenance is repaired | Run READY TASK-1089 with an identity-independent executor; keep HD 284163 separate |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory, exact-replayed `RESULT-0025`, failed uncertainty calibration, an anchored point-only freeze, and a clean scout that found only pre-registration sources | Ratify the post-registration trigger ledger; no repeated scout, target matching, or scoring before a qualifying official event |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | Public verifier lane with four scoped AGENT_VALIDATED results and AGENT_PUBLISHED INCONCLUSIVE CHARA `RESULT-0031`; HD 284163 and the pinned Gaia DR4 draft are stopped on component-luminosity semantics | Run READY TASK-1089 with an identity-independent executor; reopen source routes only on new admissible semantics |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with negative/control memory, exact-replayed `RESULT-0025`, failed uncertainty calibration, and a frozen four-entry point-only reveal interpretation | Follow the ratified trigger ledger; no repeated scout, target matching, or scoring before a qualifying official event |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Public-safe benchmark surface with pinned snapshots, null-baseline controls, external-reviewer capsule, `NO_NOTIFY` monitor check, and AGENT_VALIDATED `RESULT-0027` negative/control packaging | Monitor-only until a NOTIFY-class source trigger or maintainer-approved coverage amendment appears; no residual scoring on the unchanged snapshot |
-| [FRB / Radio Transients](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) | Registered sealed-prediction chain with checksum/schema-gated Catalog-1 interval exposure pair, committed 479-row pre-T exposure feature surface, frozen exposure-only model surface, maintainer-approved `PRED-0001`, and GitHub Release anchor tag `pred-frb-pret-repeater-propensity-20260710` | Reveal-source contract discipline via TASK-0995; no label reading, success wording, population claim, or reveal scoring before a separate maintainer-reviewed reveal task |
+| [FRB / Radio Transients](./campaigns/fresh-physics-data-axes.md#frb-selection-effect-audit) | Registered 479-source `PRED-0001`, GitHub Release anchor, and label-blind dual-chronology interpretation contract | Wait for a concrete source trigger, then complete the source manifest before any label reading or scoring |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | AGENT_VALIDATED `RESULT-0029` preserves the ZnSe miss; the two four-row Kim-2020 axes are underpowered and no independent route cleared the source gates | Monitor for a genuinely new qualifying source; no score, pooled axis, or repeated generic scout |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | AGENT_VALIDATED `RESULT-0030` is exact-replayed but remains same-owner calibration memory | Retry a no-score external freeze only under clean no-exposure control; separately scout third-party labelled corpora |
 | [Lattice-QCD Aggregated Consistency](./campaigns/fresh-physics-data-axes.md#lattice-qcd) | Eleven-publication `f_K/f_pi` manifest/graph with two REVIEW_READY partial-hold dependency audits | Complete READY TASK-1081 value-admissibility policy; TASK-1101 activation adjudication remains blocked |
@@ -150,9 +155,9 @@ Near-term portfolio shape:
 | --- | --- | --- |
 | Dataset/source-readiness gate | Materials Property Residuals | MD-0002 is published (DOI `10.5281/zenodo.21207072`); OQMD `RESULT-0032` is bounded AGENT_PUBLISHED INVALID negative/control memory awaiting identity-independent replay. |
 | Source-replay / transfer gate | Textbook Formula Audit / Stellar M-L / Wien-FIRAS | CHARA `RESULT-0031` is bounded INCONCLUSIVE with repaired publisher provenance; Gate B now waits for an identity-independent executor. |
-| External-reveal / uncertainty gate | Nuclear Mass Surface | Tier-1 point-only freeze is externally anchored; a clean scout found only pre-registration sources, so event-trigger monitoring precedes any future source manifest or scoring. |
+| External-reveal / uncertainty gate | Nuclear Mass Surface | The point-only family and interpretation are frozen; a clean scout found only pre-registration sources, so event-trigger monitoring precedes any source manifest or scoring. |
 | Monitor / negative-control gate | Exoplanet Mass-Radius | `RESULT-0027` is AGENT_VALIDATED; keep source-version monitoring metadata-only and wait for a future trigger before scoring. |
-| Sealed-prediction reveal discipline | FRB / radio transients | `PRED-0001` is registered and externally anchored by GitHub Release; keep future work to TASK-0995-compliant reveal-source manifests and maintainer-reviewed reveal scoring. |
+| Sealed-prediction reveal discipline | FRB / radio transients | `PRED-0001` is registered and anchored; the chronology/decision rule is frozen, while source manifesting and one-shot scoring remain future gated steps. |
 | Transfer/source gate and negative memory | Quantum Size Effects | Preserve `RESULT-0029`; the current CdSe route is monitor-only after underpowered and no-independent-route stops. |
 | Pinned-dataset / aggregation blocked | Atomic-Clock Residuals | `KEEP_MONITOR_ONLY` and the reopen-trigger ledger are durable; wait for a qualifying event. |
 | Source-pinned thermophysical benchmark | Thermophysical Property Residuals | `RESULT-0026` and `RESULT-0028` are AGENT_VALIDATED; an at-most-74-row contract and private source are ready, while extraction and scoring remain separate. |
