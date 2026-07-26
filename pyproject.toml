@@ -29,7 +29,7 @@ dev = [
     # changed the default lint surface and made unchanged main fail with 1752
     # findings on 2026-07-23. Keep the last green version exact-pinned; upgrade
     # the lint baseline only in a dedicated, reviewable dependency PR.
-    "ruff==0.15.22",
+    "ruff==0.16.0",
 ]
 thermoml = [
     "rdkit==2026.3.4",
