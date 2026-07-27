@@ -27,8 +27,8 @@ knowledge artifact is authorized by this review.
 
 Input references:
 
-- `tasks/TASK-1100-resolve-gwtc5-o4b-selection-control.yaml`
-- `tasks/TASK-1085-gwtc5-source-version-incubator.yaml`
+- `TASK-1100`
+- `TASK-1085`
 - `docs/reviews/gravitational_waves/gwtc5-o4b-source-version-incubator.md`
 - `docs/blind-holdout-benchmark-protocol.md`
 - `docs/notes/fresh-data-source-policy.md`
