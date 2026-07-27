@@ -187,7 +187,8 @@ volume-time, or test a population model.
 - No proportional allocation, inferred livetime, or locally chosen boundary
   was substituted for missing official normalization.
 - This infrastructure verdict says nothing about compact-binary populations,
-  catalog completeness, cosmology, anomalies, or new physics.
+  catalog completeness, cosmology, anomalies, or physical-theory
+  interpretation.
 
 ## Terminal Reopen Trigger
 
