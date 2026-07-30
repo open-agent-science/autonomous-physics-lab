@@ -11,7 +11,6 @@
 - `TASK-1089` - Replay RESULT-0031 after publisher-provenance repair (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `stellar_astrophysics`)
 - `TASK-1091` - Extract the frozen ThermoML Tb feasible-expansion fixture (`scientific_source_curation`, priority `high`, difficulty `high`, domain `thermophysical_property_estimation`)
 - `TASK-1099` - Freeze the DEBCat exclusion universe for a future Gaia reveal (`scientific_benchmark_planning`, priority `high`, difficulty `medium`, domain `stellar_astrophysics`)
-- `TASK-1100` - Resolve the GWTC-5 O4b selection-function boundary once (`scientific_source_curation`, priority `medium`, difficulty `high`, domain `gravitational_wave_astrophysics`)
 
 ## IN_PROGRESS
 
@@ -27,4 +26,5 @@ None.
 - `TASK-1088` - Repair RESULT-0031 publisher provenance from the merged task PR (`scientific_validation`, priority `high`, difficulty `low`, domain `stellar_astrophysics`)
 - `TASK-1095` - Freeze the FRB reveal chronology and decision contract before labels (`scientific_prediction_preflight`, priority `high`, difficulty `high`, domain `radio_transients`)
 - `TASK-1098` - Resolve Gaia DR4 same-component luminosity semantics without values (`scientific_prediction_preflight`, priority `high`, difficulty `high`, domain `stellar_astrophysics`)
+- `TASK-1100` - Resolve the GWTC-5 O4b selection-function boundary once (`scientific_source_curation`, priority `medium`, difficulty `high`, domain `gravitational_wave_astrophysics`)
 - `TASK-1102` - Freeze nuclear point-only reveal interpretation before measurements (`scientific_prediction_preflight`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
