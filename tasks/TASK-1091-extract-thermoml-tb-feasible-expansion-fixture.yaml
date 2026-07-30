@@ -1,7 +1,7 @@
 id: TASK-1091
 title: "Extract the frozen ThermoML Tb feasible-expansion fixture"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task admits a rights-bounded external factual extract and must verify archive identity, article caps, deterministic value-blind selection, and the information-floor stop condition."
 difficulty: high
@@ -54,7 +54,7 @@ result_artifact_policy:
 
 validation:
   commands:
-    - "python3 -m pytest -n0 tests/test_thermoml_tb_feasible_expansion_contract.py tests/test_thermoml_family_transfer.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
+    - "python3 -m pytest -n0 tests/test_thermoml_tb_feasible_expansion_contract.py tests/test_thermoml_tb_feasible_expansion_fixture.py tests/test_thermoml_family_transfer.py tests/test_data_redistribution_declarations.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "git diff --check"
 

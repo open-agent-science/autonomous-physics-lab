@@ -1,0 +1,49 @@
+schema_version: '1'
+task_id: TASK-1091
+release_id: thermoml-tb-feasible-expansion-v1
+verdict: FIXTURE_EXTRACTION_PASS
+fixture:
+  path: data/thermophysical/thermoml_tb_feasible_expansion_fixture.yaml
+  sha256: 06063d2690d903821e1740af29f5e13f94563bf2aff297d7ffb9d95d42d48a74
+  size_bytes: 55241
+  row_count: 74
+  retained_existing_rows: 38
+  new_identity_rows: 36
+frozen_inputs:
+  contract_path: data/thermophysical/thermoml_tb_feasible_expansion_contract.yaml
+  contract_sha256: 3b82ea5700a21213346e7201d52bb2065d6050e5abc53a08c15b1feca2ee18bc
+  existing_fixture_path: data/thermophysical/thermoml_tb_audit_fixture.yaml
+  existing_fixture_sha256: c96b33b60fc07ef78b71a188cb931bff34d443549f0517ce198b0f5049ccdc7c
+  source_archive_filename: ThermoML.v2020-09-30.tgz
+  source_archive_size_bytes: 189433115
+  source_archive_sha256: 231161b5e443dc1ae0e5da8429d86a88474cb722016e5b790817bb31c58d7ec2
+implementation:
+  extractor_path: scripts/extract_thermoml_tb_feasible_expansion_fixture.py
+  extractor_sha256: 32386e275562a1f02192f6b61fdad8e30ce878db16fd87eaeef74158b23487ed
+checks:
+  archive_pin_match: true
+  count_contract_reproduced: true
+  conflict_rows_excluded: true
+  article_cap_pass: true
+  family_caps_pass: true
+  minimum_total_rows_pass: true
+  minimum_new_identities_pass: true
+  equal_family_information_floor_pass: true
+  selection_value_blind: true
+rights:
+  reuse_status: limited_factual_extract_with_attribution
+  covered_by_repo_license: false
+  max_public_rows_total: 80
+  max_rows_per_source_article: 5
+  source_bytes_redistribution: false
+  raw_archive_or_xml_json_committed: false
+  normalized_corpus_committed: false
+  external_dataset_release_allowed: false
+output_routing:
+  source_readiness: fixture_ready_for_separate_frozen_benchmark
+  benchmark_scoring: not_attempted
+  gate_a: not_attempted
+  gate_b: not_applicable
+  claim_impact: none
+  knowledge_impact: none
+  existing_results_changed: false
