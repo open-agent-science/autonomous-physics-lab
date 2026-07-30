@@ -1,7 +1,7 @@
 id: TASK-1100
 title: "Resolve the GWTC-5 O4b selection-function boundary once"
 type: scientific_source_curation
-status: READY
+status: REVIEW_READY
 closeout: review
 closeout_review_reason: "This task decides whether the GWTC-5 lane has an auditable O4b-only selection control; closeout must verify official source precedence, exact boundary arithmetic, normalization proof, and the one-attempt stop."
 difficulty: high
